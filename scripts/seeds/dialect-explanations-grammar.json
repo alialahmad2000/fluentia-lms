@@ -1,0 +1,1037 @@
+{
+  "generated_at": "2026-05-12T01:20:03.505Z",
+  "generated_by": "claude-code-opus-46",
+  "total_explanations": 72,
+  "explanations": [
+    {
+      "grammar_lesson_id": "be55daa7-4be4-47c3-80c0-4e7a19930dab",
+      "lesson_title": "adverbs of frequency",
+      "cefr_level": "A1",
+      "concept_title": "ظروف التكرار — always/usually/never وين تجي بالجملة؟",
+      "explanation_najdi": "تعال أقولك سالفة. الطلاب يعرفون معنى \"always\" و\"never\" — بس المشكلة في وين تحطهم بالجملة. بالعربي نحطهم في أي مكان تقريباً. بالانقلش فيه مكان محدد.\n\nالفرق ببساطة:\nالترتيب: أنا + ظرف التكرار + فعل. \"I always drink coffee.\" \"She never eats breakfast.\"\n- لو فيه فعل مساعد (am/is/are): الظرف يجي بعده. \"He is always late.\"\n- مقياس التكرار: always (100%) > usually/normally > often > sometimes > rarely/seldom > never (0%).\n\nأمثلة من بيئتنا:\n١. \"I always pray Fajr on time.\" — دائماً ← always بعد I مباشرة.\n٢. \"My father usually drinks Arabic coffee after dinner.\" — عادةً ← usually.\n٣. \"She never misses a class.\" — أبداً ← never.\n٤. \"I sometimes go to the gym after work.\" — أحياناً ← sometimes.\n٥. \"They are always talking during the lecture!\" — بعد are ← always.\n\nالتيب اللي يثبت معك: ظرف التكرار يجي قبل الفعل العادي وبعد الفعل المساعد. قبل وبعد — احفظها هذي وكفاية.",
+      "tags": [
+        "adverbs-frequency",
+        "always-never",
+        "simple-present",
+        "habits"
+      ],
+      "word_count": 156
+    },
+    {
+      "grammar_lesson_id": "279395e2-009d-40c5-91df-cd4f501c48f3",
+      "lesson_title": "can/cant",
+      "cefr_level": "A1",
+      "concept_title": "can / cannot — القدرة والإمكانية",
+      "explanation_najdi": "أول شي لازم تفهم: can من أسهل الأفعال المساعدة في الانقلش. ما تتغير مع أي ضمير — can وحدها لكل الضمائر.\n\nالفرق ببساطة:\n- القدرة: \"I can drive.\" — أقدر أسوق.\n- الإمكانية: \"You can park here.\" — مسموح/ممكن تتوقف هنا.\n- النفي: cannot أو can't. \"She can't swim.\" — ما تقدر تسبح.\n- السؤال: Can + فاعل + فعل أصلي. \"Can you help me?\"\n- مهم: ما تقول \"He cans\" أو \"She can to go.\" — can + فعل مباشرة بدون to.\n\nأمثلة من بيئتنا:\n١. \"I can speak a little English now.\" — قدرة ← can speak.\n٢. \"Can you send me the notes after class?\" — طلب مؤدب ← Can you.\n٣. \"She can't attend today, she's sick.\" — عدم قدرة ← can't attend.\n٤. \"You can't eat inside the mosque.\" — ممنوع ← can't.\n\nالتيب اللي يثبت معك: can = قدرة أو إمكانية. ما تتغير مع الضمائر. بعدها الفعل مباشرة بدون to. أبسط فعل مساعد بالانقلش.",
+      "tags": [
+        "can-cant",
+        "ability",
+        "possibility",
+        "modal"
+      ],
+      "word_count": 160
+    },
+    {
+      "grammar_lesson_id": "c23e3c76-669e-4201-bfad-88dbe5af3bf5",
+      "lesson_title": "countable/uncountable",
+      "cefr_level": "A1",
+      "concept_title": "معدود وغير معدود — هل تقدر تحط رقم عليه؟",
+      "explanation_najdi": "تعال أقولك سالفة. بالعربي ما نفكر في الأسماء هذي الطريقة — نقول \"ماء\" و\"أرز\" بدون تفكير. بالانقلش، النوع يحدد كيف تستخدم الاسم.\n\nالفرق ببساطة:\n- معدود (countable): تقدر تحط رقم عليه. \"1 book, 2 books, 3 books.\" مفرد وجمع.\n- غير معدود (uncountable): ما تقدر تعده مباشرة. \"water، rice، information، money، advice.\" ما تقول \"a water\" أو \"3 rices.\"\n- لو تبي تحدد كمية غير معدود: استخدم وحدة القياس. \"a glass of water، a bag of rice، a piece of advice.\"\n\nأمثلة من بيئتنا:\n١. \"Can I have a glass of water, please?\" — water غير معدود، نستخدم glass ← صح.\n٢. \"I bought three bottles of water from the store.\" — وحدة القياس bottle ← صح.\n٣. \"She gave me some good advice about the exam.\" — advice غير معدود ← مو \"advices.\"\n٤. \"We need two bags of rice for the kabsa.\" — rice غير معدود، نستخدم bag ← صح.\n\nالتيب اللي يثبت معك: تقدر تحط رقم عليه مباشرة؟ معدود. لا؟ غير معدود. وللغير معدود، دائماً استخدم وحدة قياس بينه وبين الرقم.",
+      "tags": [
+        "countable",
+        "uncountable",
+        "nouns",
+        "some-any"
+      ],
+      "word_count": 174
+    },
+    {
+      "grammar_lesson_id": "ea8c8bfe-4ce7-46cb-afeb-2b37d0c51746",
+      "lesson_title": "going to (future)",
+      "cefr_level": "A1",
+      "concept_title": "going to — للخطط المستقبلية المحددة مسبقاً",
+      "explanation_najdi": "أول شي لازم تفهم: \"going to\" للمستقبل اللي قررته مسبقاً. مو قرار تاخذه في اللحظة — ذاك لـ will. \"Going to\" = عندي خطة أو نية واضحة.\n\nالفرق ببساطة:\n- الصيغة: am/is/are + going to + فعل أصلي.\n- \"I am going to travel to Abha next weekend.\" — خطة مسبقة.\n- \"She is going to graduate this year.\" — مقرر.\n- النفي: am/is/are + not + going to. \"I'm not going to miss this match.\"\n- السؤال: Am/Is/Are + فاعل + going to + فعل؟\n\nطريقة الاختبار: لو الخطة موجودة قبل ما تتكلم = going to. لو القرار في نفس اللحظة = will.\n\nأمثلة من بيئتنا:\n١. \"I'm going to study medicine after high school.\" — قرار مسبق ← going to.\n٢. \"Are you going to attend the wedding on Thursday?\" — سؤال عن خطة ← going to.\n٣. \"It's going to be hot in Jeddah this summer.\" — توقع مبني على واقع ← going to.\n٤. \"We're going to open a new branch in Dammam.\" — قرار شركة ← going to.\n\nالتيب اللي يثبت معك: going to = قرار سابق أو خطة واضحة. لما تخطط لشي قبل ما تتكلم، \"going to\" هي صاحبتك.",
+      "tags": [
+        "going-to",
+        "future",
+        "plans",
+        "intentions"
+      ],
+      "word_count": 195
+    },
+    {
+      "grammar_lesson_id": "a35236a4-ee1e-4217-aa65-76faf4c99c46",
+      "lesson_title": "how much/how many",
+      "cefr_level": "A1",
+      "concept_title": "how much / how many — السؤال عن الكمية",
+      "explanation_najdi": "الفكرة بسيطة جداً. السؤالان يعنيان \"كم؟\" — بس واحد للمعدود وواحد لغير المعدود.\n\nالفرق ببساطة:\n- \"How many\" → للمعدود (اللي له جمع). \"How many books do you have?\" — الكتب تُعدّ.\n- \"How much\" → لغير المعدود. \"How much water do you drink?\" — الماء ما يُعدّ.\n- \"How much\" أيضاً للأسعار: \"How much is this?\" — بكم هذا؟\n\nطريقة الاختبار: هل الاسم اللي بعده له جمع؟ = how many. لا؟ = how much.\n\nأمثلة من بيئتنا:\n١. \"How many siblings do you have?\" — إخوان تُعدّ ← How many.\n٢. \"How much does this thobe cost?\" — سعر ← How much.\n٣. \"How many kilometers to Mecca?\" — كيلومترات تُعدّ ← How many.\n٤. \"How much sugar do you want in your tea?\" — سكر غير معدود ← How much.\n\nالتيب اللي يثبت معك: many = معدود (many books, many cars). much = غير معدود أو مبالغ (much water, much time). كلمة \"much money\" = كثير من المال — ما تعدّ المال مباشرة.",
+      "tags": [
+        "how-much",
+        "how-many",
+        "questions",
+        "quantity"
+      ],
+      "word_count": 165
+    },
+    {
+      "grammar_lesson_id": "8508eae7-120f-4408-ae5d-4f76172c9040",
+      "lesson_title": "past negative/questions",
+      "cefr_level": "A1",
+      "concept_title": "نفي وأسئلة الماضي — did تجي وين؟",
+      "explanation_najdi": "الفكرة بسيطة جداً. لما تنفي أو تسأل في الماضي، يجي \"did\" فعل مساعد — وبعده الفعل يرجع لأصله بدون أي تصريف.\n\nالفرق ببساطة:\n- نفي: did + not = didn't + فعل أصلي. \"I didn't go to the mall.\" مو \"I didn't went.\"\n- سؤال: Did + فاعل + فعل أصلي. \"Did you eat?\" مو \"Did you ate?\"\n- إذا أجبت: Yes, I did. / No, I didn't. — مو تكرر الفعل.\n\nطريقة الاختبار: شوف لو فيه \"didn't\" أو \"Did\" في الجملة — الفعل اللي يجي بعده لازم يكون بشكله الأصلي.\n\nأمثلة من بيئتنا:\n١. \"I didn't sleep well last night before the exam.\" — ما نمت — didn't sleep.\n٢. \"Did you watch the Saudi national team last Friday?\" — سؤال ← Did.\n٣. \"She didn't come to class today.\" — هي ما حضرت ← didn't come.\n٤. \"Did they open the new branch in Khobar?\" — فتحوا؟ ← Did they open.\n\nالتيب اللي يثبت معك: didn't وDid = الماضي. بعدهم الفعل يرجع لأصله فوراً — بدون ed، بدون s، بدون أي تغيير.",
+      "tags": [
+        "past-simple",
+        "negative",
+        "questions",
+        "did"
+      ],
+      "word_count": 174
+    },
+    {
+      "grammar_lesson_id": "eee808c4-4aa2-4f76-987e-de2bb0a062f9",
+      "lesson_title": "prepositions of time",
+      "cefr_level": "A1",
+      "concept_title": "حروف الجر للوقت — in/on/at وين تجي كل وحدة؟",
+      "explanation_najdi": "أول شي لازم تفهم: حروف الجر للوقت أصعب شوية من حروف المكان — بس فيها نمط واضح لو فهمته ما تغلط.\n\nالفرق ببساطة:\n- \"at\" → وقت محدد ودقيق. \"at 7 PM، at noon، at midnight، at Fajr.\"\n- \"on\" → يوم محدد أو تاريخ. \"on Monday، on my birthday، on Eid day.\"\n- \"in\" → فترة أطول. \"in the morning، in January، in 2025، in the 21st century.\"\n\nطريقة الاختبار: كلما كان الوقت أكثر تحديداً ← at. يوم بعينه ← on. فترة واسعة ← in.\n\nأمثلة من بيئتنا:\n١. \"Class starts at 8 in the morning.\" — وقت محدد ← at. فترة اليوم ← in.\n٢. \"We have no class on Thursday.\" — يوم ← on.\n٣. \"Ramadan starts in the ninth month of the Islamic calendar.\" — شهر ← in.\n٤. \"The exam is on the 15th of May.\" — تاريخ محدد ← on.\n٥. \"At night, Riyadh becomes very lively.\" — وقت محدد من اليوم ← at.\n\nالتيب اللي يثبت معك: at = ساعة. on = يوم. in = شهر/سنة/فترة. كلما كبر التوقيت، كبرت الحرف: at ← on ← in.",
+      "tags": [
+        "prepositions",
+        "time",
+        "in-on-at",
+        "basics"
+      ],
+      "word_count": 183
+    },
+    {
+      "grammar_lesson_id": "9395672e-dc1f-4d45-941d-65a852c3974d",
+      "lesson_title": "present continuous",
+      "cefr_level": "A1",
+      "concept_title": "المضارع المستمر — اللي يصير الحين هذه اللحظة",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأنهم يخلطونها مع المضارع البسيط. الفرق واضح: المضارع البسيط للعادة، والمضارع المستمر للحظة الحالية.\n\nالفرق ببساطة:\n- الصيغة: am/is/are + فعل + ing.\n- أنا: \"I am studying right now.\"\n- هو/هي: \"She is talking on the phone.\"\n- احنا/هم: \"They are waiting outside.\"\n\nمتى تستخدمها:\n- اللحظة الحالية: \"It is raining now.\"\n- شي مؤقت: \"I am working from home this week.\" — مؤقت، مو عادة.\n- مستقبل مخطط: \"We are going to Abha next Thursday.\"\n\nإضافة ing: لو الفعل ينتهي بـ e ساكنة: احذفها وأضف ing. \"make\" → \"making\". لو ينتهي بحرف ساكن واحد بعد vowel: ضاعف. \"run\" → \"running\".\n\nأمثلة من بيئتنا:\n١. \"My mother is cooking kabsa right now.\" — الحين يحصل ← is cooking.\n٢. \"I am waiting for the results.\" — أنا منتظر الحين ← am waiting.\n٣. \"We are planning a trip to AlUla.\" — مخطط مؤقت ← are planning.\n٤. \"He is studying medicine at KSAU-HS.\" — مؤقت — ما زال يدرس ← is studying.\n\nالتيب اللي يثبت معك: كلمات زي \"now، right now، at the moment، currently\" = علامة المضارع المستمر.",
+      "tags": [
+        "present-continuous",
+        "is-are-ing",
+        "right-now",
+        "actions-in-progress"
+      ],
+      "word_count": 185
+    },
+    {
+      "grammar_lesson_id": "ddf64e5e-ce1c-4126-a034-a89b635f0670",
+      "lesson_title": "simple past (irregular)",
+      "cefr_level": "A1",
+      "concept_title": "الأفعال الشاذة في الماضي — لا قاعدة، بس حفظ",
+      "explanation_najdi": "شوف، هذي الأفعال الشاذة ما عندها قاعدة. يغيرون شكلهم كلياً في الماضي ولا تقدر تتوقع الشكل. الطريقة الوحيدة: احفظها.\n\nأشهر الأفعال الشاذة اللي تحتاجها:\n- go → went | come → came | have → had | make → made | take → took\n- eat → ate | drink → drank | see → saw | know → knew | give → gave\n- get → got | say → said | buy → bought | bring → brought | think → thought\n\nمهم: في النفي والسؤال، الفعل يرجع لأصله. \"I didn't go\" مو \"I didn't went.\"\n\nأمثلة من بيئتنا:\n١. \"We went to the mall after Isha.\" — رحنا ← went.\n٢. \"I had kabsa for lunch.\" — أكلنا ← had.\n٣. \"She bought a new abaya from Balad.\" — اشترت ← bought.\n٤. \"He knew the answer immediately.\" — عرف ← knew.\n٥. \"They took the bus to Mecca.\" — ركبوا ← took.\n\nالتيب اللي يثبت معك: احفظ أول ١٠ أفعال شاذة زي ما تحفظ أرقام الهاتف — مع الوقت تصير طبيعية. ضعهم على ورقة جنب مكتبك.",
+      "tags": [
+        "past-simple",
+        "irregular-verbs",
+        "past-tense"
+      ],
+      "word_count": 180
+    },
+    {
+      "grammar_lesson_id": "91c091d2-c56d-4ceb-86c2-164a1dc9a2ae",
+      "lesson_title": "simple past (regular)",
+      "cefr_level": "A1",
+      "concept_title": "الماضي البسيط للأفعال المنتظمة — الـ ed اللي تخيّب أحياناً",
+      "explanation_najdi": "شوف، الماضي المنتظم بالانقلش بسيط — بس فيه نقاط صغيرة تورّط الناس في التهجئة والنطق.\n\nالقاعدة الأساسية: أضف -ed في آخر الفعل.\n- \"walk\" → \"walked\". \"study\" → \"studied\". \"play\" → \"played\".\n\nبس فيه تفاصيل مهمة:\n- لو الفعل ينتهي بـ e: أضف -d بس. \"live\" → \"lived\". \"like\" → \"liked\".\n- لو ينتهي بحرف ساكن + y: غيّر y إلى i وأضف -ed. \"study\" → \"studied\". \"try\" → \"tried\".\n- لو ينتهي بحرف ساكن واحد بعد vowel واحد: ضاعف الحرف الأخير. \"stop\" → \"stopped\". \"plan\" → \"planned\".\n\nوالنطق: -ed تنطق ثلاث طرق: /t/ بعد أصوات بلا ذبذبة (worked)، /d/ بعد أصوات بذبذبة (played)، /id/ بعد t أو d (wanted، needed).\n\nأمثلة من بيئتنا:\n١. \"I studied for the exam last night.\" — عشية الاختبار، ذاكرت — studied.\n٢. \"We watched the match at the diwaniyya.\" — شاهدنا الماتش — watched.\n٣. \"ريم walked to the mall because parking was full.\" — مشت ← walked.\n٤. \"I planned my trip to Abha last Eid.\" — خططت للرحلة ← planned (ضاعف n).\n\nالتيب اللي يثبت معك: كلمة yesterday في الجملة؟ = ماضٍ. منتظم؟ أضف -ed مع انتباه لاستثناءات التهجئة.",
+      "tags": [
+        "simple-past",
+        "regular-verbs",
+        "past-tense",
+        "-ed"
+      ],
+      "word_count": 188
+    },
+    {
+      "grammar_lesson_id": "78740d3d-c0b5-4449-893c-167c6799e15a",
+      "lesson_title": "some/any",
+      "cefr_level": "A1",
+      "concept_title": "some / any — متى هذي ومتى تلك؟",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأنهم يستخدمون \"some\" في كل مكان. بالنجدي كلنا نقول \"خذ\" أو \"عندي\" بدون تفكير. بالانقلش فيه قاعدة بسيطة: some للإيجاب، any للنفي والسؤال — بالعموم.\n\nالفرق ببساطة:\n- \"some\" في الجمل الإيجابية: \"I have some coffee.\" عندي قهوة.\n- \"any\" في النفي: \"I don't have any coffee.\" ما عندي قهوة.\n- \"any\" في الأسئلة: \"Do you have any questions?\" عندك أسئلة؟\n- استثناء مهم: \"some\" في الأسئلة لما تتوقع إجابة yes أو تعرض شيئاً. \"Would you like some tea?\"\n\nللمعدود وغير المعدود: some وany يصلحان للاثنين. \"some books / any milk.\"\n\nأمثلة من بيئتنا:\n١. \"I bought some dates from the Taif market.\" — جملة إيجابية ← some.\n٢. \"We don't have any milk in the fridge.\" — نفي ← any.\n٣. \"Are there any empty seats in the front row?\" — سؤال ← any.\n٤. \"Would you like some Arabic coffee?\" — عرض مؤدب، تتوقع yes ← some.\n٥. \"I didn't buy any souvenirs, I forgot.\" — نفي ← any.\n\nالتيب اللي يثبت معك: جملة إيجابية = some. نفي أو سؤال = any. وإذا كنت تعرض شيئاً بمودة = some دائماً. هذا الثلاثي يحل لك 95٪ من الحالات.",
+      "tags": [
+        "some",
+        "any",
+        "quantity",
+        "countable-uncountable"
+      ],
+      "word_count": 194
+    },
+    {
+      "grammar_lesson_id": "1a315e88-1b68-413a-8f28-515e5d4bee58",
+      "lesson_title": "want/would like",
+      "cefr_level": "A1",
+      "concept_title": "want / would like — الفرق بين المباشر والمؤدب",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأنهم يستخدمون \"want\" في كل موقف. بالنجدي كلنا نقول \"أبي\" أو \"أريد\" في كل موقف. بالانقلش فيه فرق في درجة الرسمية.\n\nالفرق ببساطة:\n- \"want\" → مباشر، غير رسمي. مناسب مع الأصحاب والعيلة. \"I want a burger.\"\n- \"would like\" → مؤدب، رسمي. في المطاعم، مع الغرباء، في الدوام. \"I would like a coffee, please.\"\n- اختصار: \"I'd like\" = I would like. أكثر شي تسمعه.\n- في السؤال: \"Would you like...?\" أكثر مؤدبية من \"Do you want...?\"\n\nطريقة الاختبار: مع رئيسك أو في مطعم راقٍ = would like. مع أصحابك = want مقبول.\n\nأمثلة من بيئتنا:\n١. \"I'd like a table for two, please.\" — في مطعم، رسمي ← would like.\n٢. \"Would you like more tea?\" — عرض مؤدب ← Would you like.\n٣. \"I want to sleep, I'm exhausted.\" — غير رسمي، مع نفسك ← want.\n٤. \"She would like to apply for this position.\" — طلب رسمي ← would like.\n\nالتيب اللي يثبت معك: المطاعم، الدوام، الغرباء = would like دائماً. الأصحاب والعيلة = want مقبول. الفرق مو في المعنى، في الأدب.",
+      "tags": [
+        "want",
+        "would-like",
+        "requests",
+        "desires",
+        "polite"
+      ],
+      "word_count": 181
+    },
+    {
+      "grammar_lesson_id": "a318bf47-9386-47d7-bf01-4b16088271d3",
+      "lesson_title": "comparatives",
+      "cefr_level": "A2",
+      "concept_title": "المقارنة — أكبر، أطول، أحسن... كيف تقولها؟",
+      "explanation_najdi": "شوف، المقارنة بالانقلش فيها قاعدتان رئيسيتان بحسب طول الصفة. مو صعبة لو فهمت الفكرة.\n\nالفرق ببساطة:\n- صفة قصيرة (مقطع واحد): أضف -er + than. \"tall → taller than.\" \"fast → faster than.\"\n- صفة طويلة (مقطعان أو أكثر): more + صفة + than. \"expensive → more expensive than.\"\n- صفات شاذة: good → better، bad → worse، far → farther.\n\nتفاصيل التهجئة:\n- تنتهي بـ e: أضف -r. \"nice → nicer.\"\n- تنتهي بحرف ساكن + vowel + ساكن: ضاعف. \"big → bigger.\"\n- تنتهي بـ y: غير إلى ier. \"happy → happier.\"\n\nأمثلة من بيئتنا:\n١. \"Jeddah is hotter than Riyadh in summer.\" — صفة قصيرة ← hotter.\n٢. \"This laptop is more expensive than mine.\" — صفة طويلة ← more expensive.\n٣. \"My Arabic is better than my English, unfortunately.\" — شاذ ← better.\n٤. \"The new highway is faster than the old road.\" — قصيرة ← faster.\n\nالتيب اللي يثبت معك: قصيرة + er. طويلة = more + صفة. وبعدهم دائماً \"than.\" ما تنسى than!",
+      "tags": [
+        "comparatives",
+        "adjectives",
+        "comparison",
+        "more-er"
+      ],
+      "word_count": 169
+    },
+    {
+      "grammar_lesson_id": "47c58d9b-a322-4bbd-97a7-7bb4bea83426",
+      "lesson_title": "first conditional",
+      "cefr_level": "A2",
+      "concept_title": "الشرط الأول — احتمال حقيقي في المستقبل",
+      "explanation_najdi": "أول شي لازم تفهم: الشرط الأول عن احتمالات حقيقية في المستقبل. مو خيال — ممكن يحصل فعلاً.\n\nالفرق ببساطة:\n- الصيغة: If + present simple، will + فعل أصلي.\n- \"If it rains tomorrow, I will stay home.\" — ممكن يمطر = احتمال حقيقي.\n- جملة الشرط (if) بالمضارع البسيط. جملة النتيجة بـ will.\n- ممكن تعكس الترتيب: \"I will stay home if it rains.\" — بدون فاصلة لو if في الآخر.\n\nطريقة الاختبار: الشرط حقيقي وممكن يحصل؟ الشرط الأول. خيالي أو مستحيل؟ الشرط الثاني (A2).\n\nأمثلة من بيئتنا:\n١. \"If I pass the exam, I will celebrate at Nojoud.\" — ممكن يحصل ← First conditional.\n٢. \"If you study hard, you will get a good grade.\" — نصيحة بشرط ← will + simple present.\n٣. \"I will visit you if I come to Jeddah.\" — خطة مشروطة ← will + if.\n٤. \"If Carrefour has a sale, I will buy the TV.\" — احتمال حقيقي ← First conditional.\n\nالتيب اللي يثبت معك: الشرط الأول = If + مضارع بسيط، will + فعل. اتذكر: جملة الشرط بدون will — فقط جملة النتيجة فيها will.",
+      "tags": [
+        "first-conditional",
+        "if",
+        "future",
+        "real-possibility"
+      ],
+      "word_count": 184
+    },
+    {
+      "grammar_lesson_id": "5f7249a7-5fac-4ec0-92ea-4556d2b5446a",
+      "lesson_title": "gerund vs infinitive basics",
+      "cefr_level": "A2",
+      "concept_title": "الجيرند والمصدر — بعد أي فعل تجي؟",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأنهم يخمّنون. \"I enjoy to swim\" أو \"I enjoy swimming\"؟ الإجابة الثانية. بس ليش؟ لأن \"enjoy\" دائماً يتبعها فعل بـ ing.\n\nالفرق ببساطة:\n- Gerund (فعل + ing): بعد أفعال زي enjoy، stop، finish، keep، mind، avoid، recommend.\n  \"I enjoy swimming. / She stopped smoking. / I finished reading.\"\n- Infinitive (to + فعل): بعد أفعال زي want، need، hope، decide، plan، would like، forget.\n  \"I want to travel. / She decided to quit. / I hope to pass.\"\n- بعض الأفعال تقبل الاثنين: like، love، hate، start، continue.\n\nطريقة الاختبار: احفظ المجموعتين. enjoy → ing دائماً. want → to دائماً. الباقي خذها جملة جملة.\n\nأمثلة من بيئتنا:\n١. \"I enjoy playing football after Isha.\" — enjoy + ing ← playing.\n٢. \"I want to visit my family in Qassim this Eid.\" — want + to ← to visit.\n٣. \"She finished studying at midnight.\" — finish + ing ← studying.\n٤. \"He decided to apply for a scholarship.\" — decide + to ← to apply.\n\nالتيب اللي يثبت معك: enjoy, stop, finish = دائماً ing. want, need, hope, decide = دائماً to. احفظ هذي القائمتين وستة حالات وكفاية للمرحلة هذي.",
+      "tags": [
+        "gerund",
+        "infinitive",
+        "verb-patterns",
+        "enjoy-want"
+      ],
+      "word_count": 196
+    },
+    {
+      "grammar_lesson_id": "84e15ea7-afcf-4a01-8e44-e0c7e29f3c23",
+      "lesson_title": "may/might",
+      "cefr_level": "A2",
+      "concept_title": "may / might — الاحتمال والتردد",
+      "explanation_najdi": "الفكرة بسيطة جداً. may وmight للاحتمال — مو يقين. بالنجدي نقول \"ممكن\" أو \"يمكن\" — هذا هو معناهم.\n\nالفرق ببساطة:\n- \"may\" → احتمال أعلى شوية. \"It may rain tomorrow.\" — ممكن يمطر.\n- \"might\" → احتمال أقل. \"I might come to the party.\" — ما عندي تأكيد.\n- بالعملي: كثير من الناس يستخدمونهم بنفس المعنى — الفرق طفيف جداً.\n- كلاهم + فعل أصلي: \"She may be late.\" \"He might not come.\"\n- ما تتغير مع الضمائر.\n\nأمثلة من بيئتنا:\n١. \"I may go to Bahrain this weekend, not sure yet.\" — احتمال ← may.\n٢. \"It might get cold tonight — take a jacket.\" — احتمال أقل ← might.\n٣. \"She may not attend the meeting tomorrow.\" — احتمال نفي ← may not.\n٤. \"The results might come out next week.\" — غير مؤكد ← might.\n\nالتيب اللي يثبت معك: may/might = ممكن = احتمال. ما تيقّن بـ will ما لم تكن متأكد. ما تيقّن بـ may/might ما لم يكن احتمالاً. والفرق بينهم صغير — استخدمهم بدون تفكير زيادة.",
+      "tags": [
+        "may",
+        "might",
+        "possibility",
+        "uncertainty"
+      ],
+      "word_count": 171
+    },
+    {
+      "grammar_lesson_id": "a13f30db-6d74-4203-9094-ef542bf37ae7",
+      "lesson_title": "must/have to",
+      "cefr_level": "A2",
+      "concept_title": "must مقابل have to — الإلزام من وين يجي؟",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأن المعنيان قريبان. بس فيه فرق واضح: من وين يجي الإلزام؟\n\nالفرق ببساطة:\n- \"must\" → الإلزام من عندك أنت أو من السلطة العليا. قرار شخصي أو قانون صارم. \"I must finish this report.\" — أنا قررت.\n- \"have to\" → الإلزام من ظرف خارجي. \"I have to wear a uniform.\" — الشركة تطلب.\n- النفي مختلف جداً: \"mustn't\" = محظور تماماً. \"don't have to\" = ما فيه إلزام، اختياري.\n\nطريقة الاختبار: الإلزام من داخلك؟ must. من ظرف خارجي؟ have to. مو مجبر؟ don't have to. محظور؟ mustn't.\n\nأمثلة من بيئتنا:\n١. \"I must call my parents today — it's been too long.\" — قرار شخصي ← must.\n٢. \"I have to submit the project by Sunday.\" — طلب الجامعة ← have to.\n٣. \"You mustn't park here — it blocks the entrance.\" — محظور ← mustn't.\n٤. \"You don't have to come tomorrow if you're tired.\" — اختياري ← don't have to.\n\nالتيب اللي يثبت معك: must من داخلك. have to من الخارج. mustn't = محظور. don't have to = اختياري. هذا الرباعي وكفاية.",
+      "tags": [
+        "must",
+        "have-to",
+        "obligation",
+        "necessity"
+      ],
+      "word_count": 180
+    },
+    {
+      "grammar_lesson_id": "c827f7ac-1a9a-44f6-8cfc-1a00268189f0",
+      "lesson_title": "past continuous",
+      "cefr_level": "A2",
+      "concept_title": "الماضي المستمر — شي كان يحصل لما شي ثاني قاطعه",
+      "explanation_najdi": "تعال أقولك سالفة. الماضي المستمر يصف فعل كان مستمراً في وقت ما بالماضي — وعادةً فعل ثاني يقاطعه.\n\nالفرق ببساطة:\n- الصيغة: was/were + فعل + ing.\n- أنا/هو/هي: was. \"I was sleeping.\" \"He was driving.\"\n- أنت/احنا/هم: were. \"You were talking.\" \"They were waiting.\"\n\nالاستخدام الرئيسي:\n- فعل كان يحصل + فعل قاطعه: \"I was watching the match when the power went out.\"\n- وصف الجو في قصة: \"It was raining and the streets were empty.\"\n\nطريقة الاختبار: لو الجملة فيها \"when\" أو \"while\" وفعل قاطع = past continuous للفعل المستمر + past simple للقاطع.\n\nأمثلة من بيئتنا:\n١. \"I was praying when my phone rang.\" — كنت أصلي لما رن الجوال ← was praying.\n٢. \"While I was driving to work, I heard the news.\" — أثناء القيادة ← was driving.\n٣. \"They were having suhoor when the Fajr azan started.\" — كانوا يتسحرون ← were having.\n٤. \"What were you doing at 10 PM last night?\" — سؤال ← were doing.\n\nالتيب اللي يثبت معك: was/were + ing = فعل كان يحصل. past simple (بدون ing) = الفعل اللي قاطعه. الثنائي هذا شغّال دائماً.",
+      "tags": [
+        "past-continuous",
+        "was-were-ing",
+        "interrupted-actions"
+      ],
+      "word_count": 187
+    },
+    {
+      "grammar_lesson_id": "2f636b72-94c2-451a-924c-9a2fbc3a9b40",
+      "lesson_title": "present perfect (ever/never)",
+      "cefr_level": "A2",
+      "concept_title": "present perfect مع ever/never — تجارب في الحياة",
+      "explanation_najdi": "أول شي لازم تفهم: \"ever\" و\"never\" مع present perfect بتسأل عن تجربة في حياتك — مو عن وقت محدد، عن أي وقت من الأوقات.\n\nالفرق ببساطة:\n- الصيغة: have/has + past participle.\n- \"ever\" في السؤال: \"Have you ever been to London?\" — أي وقت في حياتك؟\n- \"never\" للنفي: \"I have never tried sushi.\" — ما جربتها أبداً في حياتي.\n- الجواب: \"Yes, I have.\" / \"No, I have never.\" — ما تذكر الوقت.\n\nطريقة الاختبار: لو السؤال عن تجربة حياتية بدون وقت محدد = present perfect + ever/never.\n\nأمثلة من بيئتنا:\n١. \"Have you ever visited AlUla?\" — أي وقت في حياتك؟ ← Have you ever.\n٢. \"I have never eaten Thai food.\" — ما جربتها أبداً ← have never eaten.\n٣. \"Has she ever driven on the highway alone?\" — تجربة ← Has she ever.\n٤. \"I have never missed Ramadan prayers.\" — قناعة وفخر ← have never missed.\n\nالتيب اللي يثبت معك: ever = في أي وقت من حياتك (في السؤال). never = ما حصل ولا مرة (في الإجابة). ما تذكر متى — فقط هل حصل ولا لا.",
+      "tags": [
+        "present-perfect",
+        "ever",
+        "never",
+        "experience"
+      ],
+      "word_count": 182
+    },
+    {
+      "grammar_lesson_id": "1cca8153-bcc9-4ad9-858c-302f0805704d",
+      "lesson_title": "present perfect (just/already/yet)",
+      "cefr_level": "A2",
+      "concept_title": "just / already / yet — ثلاث كلمات تغير معنى الجملة",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأن الثلاث كلمات تُستخدم مع present perfect، بس كل وحدة لها مكانها واستخدامها.\n\nالفرق ببساطة:\n- \"just\" → صار الحين للتو. \"I have just arrived.\" — وصلت للتو.\n- \"already\" → صار قبل ما تتوقع. \"I have already done it.\" — خلصت قبل ما تسألني.\n- \"yet\" → في النفي والسؤال — شي ما صار بعد. \"I haven't eaten yet.\" \"Have you finished yet?\"\n\nمواضعها: just وalready بعد have/has. yet في آخر الجملة دائماً.\n\nأمثلة من بيئتنا:\n١. \"I have just woken up — give me 5 minutes.\" — للتو ← just بعد have.\n٢. \"Don't explain, I have already read the instructions.\" — قبل ما تقول ← already.\n٣. \"I haven't had lunch yet.\" — ما أكلت بعد ← yet في الآخر.\n٤. \"Has the driver arrived yet?\" — وصل؟ ← yet في الآخر.\n\nالتيب اللي يثبت معك: just = للتو. already = بكر قبلك. yet = بعد (في نفي أو سؤال، دايم في الآخر).",
+      "tags": [
+        "present-perfect",
+        "just",
+        "already",
+        "yet",
+        "recent-actions"
+      ],
+      "word_count": 161
+    },
+    {
+      "grammar_lesson_id": "deb24c94-db05-4c1a-aa74-8ef6daa3bd75",
+      "lesson_title": "should/shouldnt",
+      "cefr_level": "A2",
+      "concept_title": "should / shouldnt — النصيحة والرأي",
+      "explanation_najdi": "أول شي لازم تفهم: should مو إلزام — هو نصيحة أو رأي. أخف من must. بالعربي نقول \"المفروض\" أو \"يستحسن\" — هذا هو should بالضبط.\n\nالفرق ببساطة:\n- نصيحة: \"You should get more sleep.\" — المفروض تنام أكثر.\n- رأي أخلاقي: \"People should respect their parents.\" — واجب أخلاقي.\n- نصيحة نفي: \"You shouldn't eat too much sugar.\" — ما يستحسن.\n- السؤال: \"Should I call him now?\" — هل المناسب؟\n\nما تتغير مع الضمائر — should وحدها لكلهم: I/you/he/she/we/they should.\n\nأمثلة من بيئتنا:\n١. \"You should study before the exam, not after.\" — نصيحة واضحة ← should.\n٢. \"Drivers shouldn't use their phones while driving.\" — نصيحة نفي ← shouldn't.\n٣. \"Should I wear formal clothes to the interview?\" — رأي ← Should I.\n٤. \"You should try the machboos here, it's amazing.\" — توصية ← should.\n\nالتيب اللي يثبت معك: should = نصيحة/رأي/المفروض. must = إلزام حقيقي. الفرق في الثقل. وshould ما تتغير مع أي ضمير.",
+      "tags": [
+        "should",
+        "shouldnt",
+        "advice",
+        "moral-obligation"
+      ],
+      "word_count": 158
+    },
+    {
+      "grammar_lesson_id": "e084cd8b-576f-45d6-9c66-3819347beb7a",
+      "lesson_title": "superlatives",
+      "cefr_level": "A2",
+      "concept_title": "التفضيل — الأكبر، الأطول، الأحسن بين الكل",
+      "explanation_najdi": "تعال أقولك سالفة. التفضيل بالانقلش يشبه المقارنة، بس بدل \"أكبر من\" نقول \"الأكبر على الإطلاق\".\n\nالفرق ببساطة:\n- صفة قصيرة: the + صفة + est. \"tall → the tallest.\" \"fast → the fastest.\"\n- صفة طويلة: the most + صفة. \"expensive → the most expensive.\"\n- شاذة: good → the best، bad → the worst، far → the farthest.\n- دائماً مع \"the\" — لأنك تتكلم عن شي محدد واحد من بينهم كلهم.\n\nأمثلة من بيئتنا:\n١. \"Abha is the coolest city in Saudi in summer.\" — التفضيل ← the coolest.\n٢. \"This is the most delicious kabsa I've ever had.\" — طويلة ← the most delicious.\n٣. \"King Abdulaziz Airport is the largest airport in the world.\" — the largest.\n٤. \"That was the worst traffic I've ever seen.\" — شاذ ← the worst.\n\nالتيب اللي يثبت معك: المقارنة = -er/more + than. التفضيل = the + -est/most. والفرق: المقارنة بين اثنين، التفضيل بين ثلاثة أو أكثر.",
+      "tags": [
+        "superlatives",
+        "the-most",
+        "adjectives",
+        "extremes"
+      ],
+      "word_count": 158
+    },
+    {
+      "grammar_lesson_id": "b52bca72-f366-4661-a1ce-46ce99535be7",
+      "lesson_title": "too/enough",
+      "cefr_level": "A2",
+      "concept_title": "too / enough — زيادة أو كفاية؟",
+      "explanation_najdi": "تعال أقولك سالفة. too وenough يوصفان الدرجة — بس بطريقتين مختلفتين وبترتيب مختلف في الجملة.\n\nالفرق ببساطة:\n- \"too\" → زيادة عن اللازم، وهذا مشكلة. \"It's too hot to go outside.\" — حر زيادة ما نقدر نطلع.\n- \"enough\" → كافي أو وصل للحد المطلوب. \"I'm not tall enough for this ride.\" — ما وصلت الطول المطلوب.\n- الترتيب: \"too\" يجي قبل الصفة. \"enough\" يجي بعد الصفة.\n\nطريقة الاختبار: \"too + صفة + to + فعل\" = زيادة تمنع الفعل. \"صفة + enough + to + فعل\" = كفاية تسمح بالفعل.\n\nأمثلة من بيئتنا:\n١. \"The coffee is too hot to drink right now.\" — زيادة تمنع ← too hot.\n٢. \"I'm not experienced enough for this job.\" — ما وصل الكافي ← not experienced enough.\n٣. \"Riyadh summers are too hot to walk outside.\" — زيادة ← too hot.\n٤. \"She's old enough to drive.\" — وصلت السن ← old enough.\n\nالتيب اللي يثبت معك: too قبل الصفة = زيادة مشكلة. enough بعد الصفة = الكافي. \"too hot\" ← مشكلة. \"hot enough\" ← تمام.",
+      "tags": [
+        "too",
+        "enough",
+        "degree",
+        "adjectives-adverbs"
+      ],
+      "word_count": 175
+    },
+    {
+      "grammar_lesson_id": "a0788c15-ac00-42b3-8f63-e1449b01e2c0",
+      "lesson_title": "will vs going to",
+      "cefr_level": "A2",
+      "concept_title": "will مقابل going to — قرار لحظي أم خطة مسبقة؟",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأن المعنيان يبدوان متشابهين. بس فيه فرق واضح لو فهمته.\n\nالفرق ببساطة:\n- \"will\" → قرار تاخذه في نفس اللحظة اللي تتكلم فيها. \"I'll get the door.\" — الجرس دق الحين وقررت تروح.\n- \"will\" → توقع بدون دليل. \"I think it will rain tomorrow.\" — رأيك.\n- \"going to\" → خطة مسبقة. \"I'm going to visit my grandparents on Friday.\" — قررت قبل.\n- \"going to\" → توقع بدليل. \"Look at those clouds — it's going to rain.\" — ترى الغيوم.\n\nطريقة الاختبار: القرار اتخذ قبل ما تتكلم؟ → going to. اتخذ الحين وأنت تتكلم؟ → will.\n\nأمثلة من بيئتنا:\n١. أصحابك يطلبون منك شي: \"Sure, I'll send you the file now.\" — قرار لحظي ← will.\n٢. \"I'm going to sign up for the IELTS course next month.\" — خطة مسبقة ← going to.\n٣. \"I'll help you carry the boxes.\" — قررت الحين ← will.\n٤. \"She's going to graduate in June.\" — مقرر ومعروف ← going to.\n\nالتيب اللي يثبت معك: will = الحين قررت. going to = قررت من زمان. هذا الفرق وحده يكفي.",
+      "tags": [
+        "will",
+        "going-to",
+        "future",
+        "predictions",
+        "decisions"
+      ],
+      "word_count": 184
+    },
+    {
+      "grammar_lesson_id": "943aac27-7015-44e2-a948-8f49a3c9294e",
+      "lesson_title": "both/either/neither",
+      "cefr_level": "B1",
+      "concept_title": "both / either / neither — لما تتكلم عن شيئين",
+      "explanation_najdi": "شوف، هذي الثلاث كلمات للحديث عن شيئين تحديداً — مو أكثر مو أقل. كل وحدة لها معنى مختلف.\n\nالفرق ببساطة:\n- \"both\" = الاثنين معاً. \"Both my parents speak English.\" — أبوي وأمي كلاهم.\n- \"either\" = أي واحد من الاثنين (في السياق الإيجابي أو الاختياري). \"You can take either bus.\" — أي واحد.\n- \"neither\" = لا هذا ولا ذاك (نفي مزدوج). \"Neither of them came.\" — لا هذا جاء ولا ذاك.\n\nمع neither: الفعل مفرد. \"Neither option is good.\" — is مو are.\nEither/neither...or/nor: \"Either you study, or you fail.\" / \"Neither Ali nor Sara came.\"\n\nأمثلة من بيئتنا:\n١. \"Both Jeddah and Riyadh are major cities.\" — الاثنتان ← Both.\n٢. \"You can pay with either cash or card.\" — أي خيار ← either.\n٣. \"Neither restaurant was open during Ramadan midday.\" — لا هذا ولا ذاك ← Neither.\n٤. \"Both sisters are studying medicine.\" — الاثنتان ← Both.\n\nالتيب اللي يثبت معك: both = الاثنين. either = أي واحد. neither = لا هذا ولا ذاك. استخدمها بدل \"the two of them\" و\"none of them\" وتبدو أكثر أناقةً.",
+      "tags": [
+        "both",
+        "either",
+        "neither",
+        "two-things",
+        "correlation"
+      ],
+      "word_count": 181
+    },
+    {
+      "grammar_lesson_id": "b19e8926-f05f-420d-bd7d-709c5a09696d",
+      "lesson_title": "get used to/be used to",
+      "cefr_level": "B1",
+      "concept_title": "get used to / be used to — التكيّف مقابل الاعتياد",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأن الكلمتين متشابهتان. بس فيه فرق مهم: واحدة للعملية، وواحدة للنتيجة.\n\nالفرق ببساطة:\n- \"be used to\" → اعتدت عليه، صار طبيعياً. \"I am used to waking up early.\" — صار عادتي.\n- \"get used to\" → عملية التكيّف، الاعتياد التدريجي. \"I am getting used to the new schedule.\" — بدأت أتكيّف.\n- بعدهما دائماً: اسم أو فعل + ing. \"used to driving / used to the heat.\"\n- لا تخلط مع \"used to\" للماضي: \"I used to live in Mecca.\" — هذي للعادات الماضية.\n\nأمثلة من بيئتنا:\n١. \"After a month in the north, I got used to the cold.\" — تكيّفت تدريجياً ← got used to.\n٢. \"I am used to fasting — it doesn't bother me.\" — اعتدت ← am used to.\n٣. \"She's getting used to the long commute.\" — عملية تكيّف مستمرة ← getting used to.\n٤. \"Are you used to the spicy food here?\" — اعتدت؟ ← used to.\n\nالتيب اللي يثبت معك: be used to = اعتدت (نتيجة). get used to = تتكيّف (عملية). وبعدهم دائماً ing أو اسم — أبداً فعل مجرد.",
+      "tags": [
+        "get-used-to",
+        "be-used-to",
+        "habit",
+        "adjustment",
+        "gerund"
+      ],
+      "word_count": 185
+    },
+    {
+      "grammar_lesson_id": "7b880f9b-ecdd-4fc8-89f1-aacab8cf8576",
+      "lesson_title": "passive voice (past)",
+      "cefr_level": "B1",
+      "concept_title": "المبني للمجهول الماضي — الفعل صار بدون ما نعرف من فعله",
+      "explanation_najdi": "الفكرة بسيطة جداً. نفس فكرة المبني للمجهول الحاضر — بس بالماضي. الفعل صار وما نعرف أو ما يهمنا من فعله.\n\nالفرق ببساطة:\n- الصيغة: was/were + past participle.\n- مفرد: \"The suspect was arrested last night.\"\n- جمع: \"The buildings were damaged in the storm.\"\n- لو تبي تذكر الفاعل: \"The contract was signed by the CEO.\"\n\nمتى تستخدمه:\n- الفاعل مجهول: \"My wallet was stolen at the market.\"\n- الفاعل ثانوي: \"The mosque was built in 1980.\"\n- التقارير والأخبار: شائع جداً.\n\nأمثلة من بيئتنا:\n١. \"The King Fahd Causeway was opened in 1986.\" — الافتتاح مهم مو الشخص.\n٢. \"My car was hit while I was in the mall.\" — ضُرب والفاعل مجهول.\n٣. \"Three new schools were built in our neighborhood.\" — البناء مهم.\n٤. \"I was told the results would be out tomorrow.\" — أُخبرت = مبني للمجهول.\n\nالتيب اللي يثبت معك: was/were + past participle = مبني للمجهول ماضٍ. كل أفعال المبني للمجهول = am/is/are/was/were + past participle. الصيغة ما تتغير — بس am/is/are للحاضر، was/were للماضي.",
+      "tags": [
+        "passive-voice",
+        "past",
+        "was-were-done",
+        "focus-on-action"
+      ],
+      "word_count": 172
+    },
+    {
+      "grammar_lesson_id": "0179cf9e-17d9-4527-8f70-be91f2956974",
+      "lesson_title": "passive voice (present)",
+      "cefr_level": "B1",
+      "concept_title": "المبني للمجهول الحاضر — لما الفعل أهم من الفاعل",
+      "explanation_najdi": "شوف، المبني للمجهول يُستخدم لما الفعل نفسه أهم من اللي يسويه. بالعربي نقول \"القهوة تُقدَّم\" مو \"هم يقدّمون القهوة.\" بالانقلش نفس المنطق.\n\nالفرق ببساطة:\n- الصيغة: am/is/are + past participle.\n- مفرد: \"English is spoken in over 50 countries.\"\n- جمع: \"These cars are made in Germany.\"\n- لو تبي تذكر الفاعل: أضف by. \"The report was written by Ahmed.\"\n\nمتى تستخدمه:\n- الفاعل مجهول: \"My phone was stolen.\" — ما تعرف من سرقه.\n- الفاعل مو مهم: \"Arabic is taught in schools.\" — من يعلمه ثانوي.\n- لغة رسمية وتقارير: شائع جداً في الكتابة الأكاديمية.\n\nأمثلة من بيئتنا:\n١. \"Oil is exported from Saudi Arabia to many countries.\" — التصدير أهم من المصدِّر.\n٢. \"The new mall is being built near our house.\" — بناء، فاعله ثانوي.\n٣. \"Arabic coffee is served before meetings.\" — عادة اجتماعية.\n٤. \"My car is repaired at the workshop every year.\" — المهم هو الإصلاح.\n\nالتيب اللي يثبت معك: is/are + past participle. اسأل نفسك: من يهم أكثر — الفاعل أم الفعل؟ لو الفعل = مبني للمجهول.",
+      "tags": [
+        "passive-voice",
+        "present",
+        "is-are-done",
+        "focus-on-action"
+      ],
+      "word_count": 174
+    },
+    {
+      "grammar_lesson_id": "29b4de00-3384-46c9-877c-3430a185227a",
+      "lesson_title": "present perfect continuous",
+      "cefr_level": "B1",
+      "concept_title": "المضارع التام المستمر — صار وقت طويل وما زال يحصل",
+      "explanation_najdi": "أول شي لازم تفهم: هذا الزمن للأشياء اللي بدأت بالماضي ولا زالت مستمرة — مع تركيز على المدة.\n\nالفرق ببساطة:\n- الصيغة: have/has + been + فعل + ing.\n- \"I have been studying English for two years.\" — بدأت من سنتين ولا زلت.\n- \"She has been working at the hospital since 2020.\" — من 2020 ولا زالت.\n\nالفرق مع present perfect البسيط:\n- Present perfect: \"I have studied for 3 hours.\" — النتيجة والإنجاز.\n- Present perfect continuous: \"I have been studying for 3 hours.\" — التركيز على الاستمرار.\n\nfor (للمدة) وsince (للنقطة التي بدأ منها): \"for 3 hours، for two years.\" \"since morning، since 2021.\"\n\nأمثلة من بيئتنا:\n١. \"I have been learning to drive for six months.\" — تعلم سياقة لا زال مستمر.\n٢. \"She has been waiting for the results since last week.\" — انتظار مستمر ← since.\n٣. \"We have been renovating our house for three months.\" — تجديد مستمر ← for.\n٤. \"It has been raining since this morning.\" — مطر مستمر ← since.\n\nالتيب اللي يثبت معك: have/has been + ing + for/since = شي مستمر من نقطة في الماضي. التركيز على \"كم من الوقت لا زلت تسويه.\"",
+      "tags": [
+        "present-perfect-continuous",
+        "have-been-ing",
+        "ongoing-actions",
+        "duration"
+      ],
+      "word_count": 196
+    },
+    {
+      "grammar_lesson_id": "32bbd048-f3d1-432f-b3b0-ea60eee1eba7",
+      "lesson_title": "present perfect vs past simple",
+      "cefr_level": "B1",
+      "concept_title": "present perfect مقابل past simple — متى تفرّق بينهم؟",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأنهم يستخدمون past simple في كل مكان. الفرق واضح لو فهمت متى يكون الوقت مهماً ومتى لا.\n\nالفرق ببساطة:\n- Past simple: الوقت معروف أو ذكرته. \"I went to Mecca last year.\" — السنة الماضية.\n- Present perfect: الوقت مو مذكور أو الأثر لا يزال موجوداً. \"I have been to Mecca.\" — التجربة مهمة، مو متى.\n\nعلامات Past simple: yesterday، last week، in 2022، ago، \"when I was young.\"\nعلامات Present perfect: just، already، yet، ever، never، recently، so far، this week/month/year.\n\nطريقة الاختبار: تقدر تحط \"yesterday\" أو وقت محدد في الجملة؟ → past simple. الوقت مو مهم أو غير محدد؟ → present perfect.\n\nأمثلة من بيئتنا:\n١. \"I visited AlUla last March.\" — وقت محدد ← past simple.\n٢. \"I have visited AlUla.\" — تجربة، وقتها ثانوي ← present perfect.\n٣. \"She moved to Jeddah two years ago.\" — وقت محدد ← past simple.\n٤. \"Have you ever tried camel milk?\" — تجربة حياتية ← present perfect.\n\nالتيب اللي يثبت معك: تذكر وقت محدد = past simple. ما ذكرت وقت = present perfect. هذا الفرق وحده يحل 80% من المشكلات.",
+      "tags": [
+        "present-perfect",
+        "past-simple",
+        "comparison",
+        "time-words"
+      ],
+      "word_count": 186
+    },
+    {
+      "grammar_lesson_id": "e3e6fb5e-6257-4ef4-9c42-cc2efc167d8c",
+      "lesson_title": "relative clauses (who/which/that)",
+      "cefr_level": "B1",
+      "concept_title": "الجمل الوصفية — who/which/that وين تجي كل وحدة؟",
+      "explanation_najdi": "تعال أقولك سالفة. الجمل الوصفية تضيف معلومة عن اسم سبق ذكره. بالعربي نقول \"الشخص اللي...\" أو \"الكتاب اللي...\" — هذا هو who/which/that بالانقلش.\n\nالفرق ببساطة:\n- \"who\" → للأشخاص. \"The student who got the highest mark is my friend.\"\n- \"which\" → للأشياء والحيوانات. \"The book which I read was amazing.\"\n- \"that\" → للأشخاص والأشياء (أكثر شيوعاً في غير الرسمي). \"The car that I bought is great.\"\n\nنوعان من الجمل الوصفية:\n- تعريفية (defining): المعلومة ضرورية، ما نضع فواصل. \"The man who called you is outside.\"\n- غير تعريفية (non-defining): معلومة إضافية، نضع فواصل. \"My brother, who lives in Dammam, is a doctor.\"\n\nأمثلة من بيئتنا:\n١. \"The trainer who taught me last year was excellent.\" — شخص ← who.\n٢. \"The phone which I lost was brand new.\" — شي ← which.\n٣. \"I found the restaurant that we were looking for.\" — شي، غير رسمي ← that.\n٤. \"The student that won the competition is from our school.\" — شخص، غير رسمي ← that.\n\nالتيب اللي يثبت معك: who = شخص. which = شي/حيوان. that = للاثنين في الغير رسمي. الفواصل = إضافي. بدون فواصل = ضروري.",
+      "tags": [
+        "relative-clauses",
+        "who",
+        "which",
+        "that",
+        "defining"
+      ],
+      "word_count": 190
+    },
+    {
+      "grammar_lesson_id": "5acaf976-73ae-4db8-8b9b-d2fbba9ab523",
+      "lesson_title": "reported speech basics",
+      "cefr_level": "B1",
+      "concept_title": "الكلام المنقول — كيف تنقل ما قاله شخص ثاني؟",
+      "explanation_najdi": "أول شي لازم تفهم: الكلام المنقول يعني إنك تنقل ما قاله شخص ثاني بدون ما تكرر كلامه الحرفي. وعند النقل، الأزمنة \"تتراجع\" خطوة واحدة للوراء.\n\nالفرق ببساطة:\n- direct (مباشر): Ali said: \"I am tired.\" — كلامه بالضبط.\n- reported (منقول): Ali said that he was tired. — نقلنا + الزمن تراجع (am → was).\n\nتراجع الأزمنة:\n- is/are → was/were\n- was/were → had been\n- will → would\n- can → could\n- have done → had done\n\nsaid vs told: \"said\" بدون ضمير بعده. \"told\" + ضمير. \"He said he was late.\" / \"He told me he was late.\"\n\nأمثلة من بيئتنا:\n١. \"She said: 'I will call you.'\" → She said she would call me. — will → would.\n٢. \"He told me he was sick and couldn't come to class.\" — told + ضمير.\n٣. \"The doctor said I needed more rest.\" — need → needed.\n٤. \"She said she had already finished the project.\" — مع تراجع زمني.\n\nالتيب اللي يثبت معك: الكلام المنقول = الزمن يتراجع خطوة. said + جملة. told + ضمير + جملة. هذا الفرق ما ينكسر.",
+      "tags": [
+        "reported-speech",
+        "said-told",
+        "tense-shift",
+        "indirect-speech"
+      ],
+      "word_count": 186
+    },
+    {
+      "grammar_lesson_id": "c9da1354-fb67-42af-b281-e087565fa060",
+      "lesson_title": "second conditional",
+      "cefr_level": "B1",
+      "concept_title": "الشرط الثاني — خيال أو واقع ما تتوقعه",
+      "explanation_najdi": "تعال أقولك سالفة. الشرط الثاني للمواقف الخيالية أو الاحتمالات الضعيفة. مو مثل الشرط الأول اللي ممكن يحصل — هذا للأشياء اللي ما تتوقعها أو ما ممكنة.\n\nالفرق ببساطة:\n- الصيغة: If + past simple، would + فعل أصلي.\n- \"If I had a million riyals, I would buy a house in Jeddah.\" — خيال، ما عندي مليون.\n- لا تستخدم would في جملة الشرط (if). \"If I would have...\" ← خطأ شائع.\n- فعل الكون في جملة الشرط دائماً \"were\" مو \"was\" — حتى مع I. \"If I were you...\"\n\nطريقة الاختبار: الشرط حقيقي ممكن؟ الشرط الأول (will). خيالي أو غير متوقع؟ الشرط الثاني (would).\n\nأمثلة من بيئتنا:\n١. \"If I were a doctor, I would work in a rural area.\" — خيال/تمنٍّ ← were + would.\n٢. \"If I had more time, I would learn another language.\" — ظرف خيالي ← had + would.\n٣. \"What would you do if you lost your passport abroad?\" — سؤال افتراضي ← would.\n٤. \"If it weren't so hot, I would walk to the mosque.\" — شرط مستحيل تقريباً ← weren't.\n\nالتيب اللي يثبت معك: If + ماضٍ (past simple)، would + فعل. ولا تحط would في جملة if أبداً. وإذا فيه \"were\" بدل \"was\" — هذا صح في الشرط الثاني.",
+      "tags": [
+        "second-conditional",
+        "if",
+        "would",
+        "hypothetical",
+        "unreal"
+      ],
+      "word_count": 209
+    },
+    {
+      "grammar_lesson_id": "f14f6548-92f0-41ef-b1b0-b1be140a16cf",
+      "lesson_title": "so/such",
+      "cefr_level": "B1",
+      "concept_title": "so / such — للتأكيد والمبالغة بأسلوب صح",
+      "explanation_najdi": "الفكرة بسيطة جداً. so وsuch كلاهم للتأكيد والمبالغة — بس يختلفان في ما يجي بعدهم.\n\nالفرق ببساطة:\n- \"so\" + صفة أو ظرف. \"It's so hot today!\" / \"She speaks so fast.\"\n- \"such\" + اسم (مع أو بدون صفة). \"It's such a hot day.\" / \"She's such a good teacher.\"\n- \"such a\" قبل اسم مفرد. \"such\" بدون \"a\" قبل اسم جمع أو غير معدود.\n\nطريقة الاختبار: بعده صفة مباشرة = so. بعده اسم = such. \"so hot\" ← صفة. \"such a hot day\" ← اسم.\n\nأمثلة من بيئتنا:\n١. \"The weather in Riyadh is so dry in summer!\" — صفة ← so dry.\n٢. \"It was such a long trip to Abha.\" — اسم مفرد ← such a long trip.\n٣. \"She's such a hard worker, mashallah.\" — اسم ← such a.\n٤. \"The food was so delicious at that restaurant.\" — صفة ← so delicious.\n\nالتيب اللي يثبت معك: so + صفة/ظرف. such + اسم. شوف ما بعدها — صفة؟ so. اسم؟ such. وإذا الاسم مفرد، لا تنسى \"a\" بعد such.",
+      "tags": [
+        "so",
+        "such",
+        "emphasis",
+        "degree",
+        "adjectives"
+      ],
+      "word_count": 174
+    },
+    {
+      "grammar_lesson_id": "c36f5db0-936f-4c5f-87c3-64797960ed2a",
+      "lesson_title": "unless/as long as",
+      "cefr_level": "B1",
+      "concept_title": "unless / as long as — الشرط بطريقة مختلفة",
+      "explanation_najdi": "تعال أقولك سالفة. هاتين الكلمتين شرطيتان، بس معناهما مختلف عن \"if\" الاعتيادية.\n\nالفرق ببساطة:\n- \"unless\" = إلا إذا = if not. \"I'll go unless it rains.\" = I'll go if it doesn't rain.\n- \"as long as\" = بشرط أن / طالما. \"You can stay as long as you're quiet.\" — بشرط الهدوء.\n- unless في جملة الشرط = لا تحط \"not\" مرة ثانية. \"Unless I don't come\" ← غلط. \"Unless I come\" ← صح.\n\nطريقة الاختبار: \"إلا إذا\" = unless. \"بشرط أن/طالما\" = as long as.\n\nأمثلة من بيئتنا:\n١. \"I won't pass unless I study hard.\" = لن أنجح إلا إذا درست ← unless.\n٢. \"You can borrow my car as long as you fill the tank.\" — بشرط ← as long as.\n٣. \"I'll attend the meeting unless something comes up.\" — إلا إذا ← unless.\n٤. \"The deal is good as long as delivery is fast.\" — طالما ← as long as.\n\nالتيب اللي يثبت معك: unless = if not. as long as = بشرط. استبدلهم بالمعنى لو شككت — لو استبدال unless بـ \"if not\" نجح، فأنت صح.",
+      "tags": [
+        "unless",
+        "as-long-as",
+        "conditionals",
+        "conditions"
+      ],
+      "word_count": 184
+    },
+    {
+      "grammar_lesson_id": "3470ea46-d3ef-49bc-9a15-3a336e3813fc",
+      "lesson_title": "used to",
+      "cefr_level": "B1",
+      "concept_title": "used to — عادات الماضي اللي انتهت",
+      "explanation_najdi": "تعال أقولك سالفة. \"used to\" من أجمل الأدوات بالانقلش — تقول بكلمتين ما تقوله بالعربي بجملة كاملة. بالنجدي نقول \"كنت أروح... بس ما عدت.\"\n\nالفرق ببساطة:\n- \"used to\" → عادة قديمة لم تعد موجودة. \"I used to play football every day.\" — كنت ألعب، ما عدت.\n- لأفعال واحوال ماضية: \"She used to be very shy.\" — كانت خجولة.\n- النفي: \"I didn't use to drink coffee.\" — لاحظ \"use\" بدون d مع didn't.\n- السؤال: \"Did you use to live here?\"\n- لا تخلطها مع \"be/get used to\": \"used to + فعل\" ≠ \"used to + ing.\"\n\nأمثلة من بيئتنا:\n١. \"I used to wake up late before university.\" — كنت أستيقظ متأخر ← used to.\n٢. \"We used to have dinner together as a family every day.\" — عادة عيلية قديمة.\n٣. \"She didn't use to wear the hijab before college.\" — لم تكن ← didn't use to.\n٤. \"Riyadh used to be a much smaller city.\" — حال قديم ← used to be.\n\nالتيب اللي يثبت معك: used to + فعل أصلي = عادة أو حال ماضٍ انتهى. لو لا زال موجوداً، استخدم simple present. used to = \"كنت\" + الفعل بالعربي.",
+      "tags": [
+        "used-to",
+        "past-habits",
+        "no-longer",
+        "past-simple"
+      ],
+      "word_count": 196
+    },
+    {
+      "grammar_lesson_id": "80a7e48e-17cf-4cef-a3bd-615f36f67847",
+      "lesson_title": "advanced modal perfects",
+      "cefr_level": "B2",
+      "concept_title": "modal perfects — الاستنتاج والندم على الماضي",
+      "explanation_najdi": "تعال أقولك سالفة. هذي الأفعال المساعدة + have + past participle للحديث عن الماضي — استنتاج، احتمال، أو ندم.\n\nالفرق ببساطة:\n- \"must have\" → استنتاج قوي من الأدلة. \"He must have left early — his car isn't here.\" — متأكد تقريباً.\n- \"can't have\" → استنتاج نفي قوي. \"She can't have eaten it — she's allergic.\"\n- \"could have\" → إمكانية في الماضي لم تحدث، أو احتمال. \"You could have told me earlier!\"\n- \"should have\" → واجب كان يجب أن يحصل لكنه لم يحصل. \"I should have studied more.\" — ندم.\n- \"might have\" → احتمال ماضٍ. \"He might have forgotten.\"\n- \"would have\" → نتيجة شرط ثالث.\n\nأمثلة من بيئتنا:\n١. \"She must have worked all night — look at those results.\" — استنتاج من الأدلة.\n٢. \"I should have booked earlier — now there are no seats.\" — ندم.\n٣. \"He can't have passed — he didn't study at all.\" — استنتاج نفي.\n٤. \"I could have taken the highway — would have been faster.\" — بديل لم يتحقق.\n\nالتيب اللي يثبت معك: must have = أنا متأكد تقريباً. should have = كان المفروض. could have = كان ممكن. might have = ربما.",
+      "tags": [
+        "modal-perfects",
+        "must-have",
+        "could-have",
+        "should-have",
+        "deduction"
+      ],
+      "word_count": 197
+    },
+    {
+      "grammar_lesson_id": "ee2d4bdf-98b0-4064-8ab0-3e8c7e0565fa",
+      "lesson_title": "advanced passive (by/with)",
+      "cefr_level": "B2",
+      "concept_title": "المبني للمجهول بـ by وwith — الفاعل أم الأداة؟",
+      "explanation_najdi": "شوف، هذي النقطة الدقيقة اللي يغفل عنها كثيرون. by وwith في المبني للمجهول ليسا نفس الشي.\n\nالفرق ببساطة:\n- \"by\" → الفاعل، من فعل الشي. \"The report was written by Ahmed.\" — أحمد هو اللي كتبه.\n- \"with\" → الأداة أو الوسيلة. \"The contract was signed with a pen.\" — القلم هو الأداة.\n- \"by\" + فاعل ذكي (شخص أو مؤسسة). \"with\" + أداة أو وسيلة غير ذكية.\n\nطريقة الاختبار: هل هو فاعل يتصرف بإرادته؟ = by. هل هو أداة؟ = with.\n\nأمثلة من بيئتنا:\n١. \"The mosque was designed by a Saudi architect.\" — شخص، فاعل ← by.\n٢. \"The wall was painted with a roller.\" — أداة ← with.\n٣. \"The decision was made by the board of directors.\" — جهة ← by.\n٤. \"The wound was treated with antibiotics.\" — وسيلة ← with.\n٥. \"The email was sent by my assistant.\" — شخص ← by.\n\nالتيب اللي يثبت معك: by = من فعلها. with = كيف فُعلت. \"The letter was written by Sara with a fountain pen.\" — كلاهم في جملة واحدة.",
+      "tags": [
+        "passive",
+        "by",
+        "with",
+        "agent",
+        "instrument"
+      ],
+      "word_count": 175
+    },
+    {
+      "grammar_lesson_id": "0c1f303a-4d63-4143-a138-50d1be8f5d4f",
+      "lesson_title": "cleft sentences",
+      "cefr_level": "B2",
+      "concept_title": "cleft sentences — التركيز على جزء معين من الجملة",
+      "explanation_najdi": "تعال أقولك سالفة. Cleft sentences طريقة أنيقة للتركيز على جزء محدد من الجملة. بدلاً من قول الجملة عادية، تشق الجملة لتسلط الضوء على ما تريد.\n\nالفرق ببساطة:\n- \"It-cleft\": It is/was + المعلومة المهمة + that/who + باقي الجملة.\n  \"Mohammed broke the window.\" ← \"It was Mohammed who broke the window.\" — التركيز على محمد.\n- \"What-cleft\": What + subject + verb + is/was + المعلومة.\n  \"I need your advice.\" ← \"What I need is your advice.\" — التركيز على الحاجة.\n\nمتى تستخدمهم:\n- لتصحيح مفهوم خاطئ. \"It wasn't Ali who called, it was Omar.\"\n- لتأكيد معلومة معينة في خطاب أو كتابة أكاديمية.\n\nأمثلة من بيئتنا:\n١. \"It was the traffic that made me late, not the weather.\" — تصحيح.\n٢. \"What I love about Riyadh is the energy at night.\" — What-cleft.\n٣. \"It was in AlUla where they filmed that documentary.\" — مكان.\n٤. \"What she needs is more practice, not more theory.\" — ما تحتاجه.\n\nالتيب اللي يثبت معك: It is/was... that/who = تركيز على الفاعل أو الظرف. What... is/was = تركيز على الفعل أو الحاجة. كلا الأسلوبين يعطيان الجملة ثقلاً وأناقة.",
+      "tags": [
+        "cleft-sentences",
+        "it-is",
+        "what",
+        "emphasis",
+        "focus"
+      ],
+      "word_count": 186
+    },
+    {
+      "grammar_lesson_id": "86c79213-5784-4c53-9878-1f91b6592754",
+      "lesson_title": "future continuous",
+      "cefr_level": "B2",
+      "concept_title": "المستقبل المستمر — شي سيكون يحصل في وقت محدد مستقبلاً",
+      "explanation_najdi": "الفكرة بسيطة جداً. المستقبل المستمر يقول إن فعلاً سيكون في تقدمه في وقت محدد بالمستقبل — زي المضارع المستمر بس للمستقبل.\n\nالفرق ببساطة:\n- الصيغة: will be + فعل + ing.\n- \"At 8 PM tomorrow, I will be having dinner with my family.\" — الساعة 8 غداً، هذا ما سيحصل.\n- يُستخدم أيضاً للسؤال المؤدب عن خطط شخص ثاني بشكل غير مباشر.\n  \"Will you be using the car tonight?\" — أسلوب مؤدب مو مباشر.\n\nمتى تستخدمه:\n- فعل سيكون مستمراً في وقت محدد مستقبلي.\n- للإشارة إلى ترتيبات مستقبلية بشكل طبيعي.\n\nأمثلة من بيئتنا:\n١. \"This time next week, I will be sitting my IELTS exam.\" — هذا الوقت الأسبوع القادم.\n٢. \"She will be presenting her project when you arrive.\" — مستمر وقت وصولك.\n٣. \"Will you be attending the conference in Dubai?\" — سؤال مؤدب عن خطة.\n٤. \"By 10 PM, they will be flying over Turkey.\" — في اللحظة المحددة.\n\nالتيب اللي يثبت معك: will be + ing = فعل سيكون جارياً في لحظة مستقبلية محددة. عكس \"will + verb\" اللي يعني الفعل سيبدأ في تلك اللحظة.",
+      "tags": [
+        "future-continuous",
+        "will-be-ing",
+        "actions-in-progress-future"
+      ],
+      "word_count": 181
+    },
+    {
+      "grammar_lesson_id": "8ce700f4-afd3-408d-9bb3-d308ea741573",
+      "lesson_title": "future perfect",
+      "cefr_level": "B2",
+      "concept_title": "المستقبل التام — سيكون اكتمل قبل وقت محدد في المستقبل",
+      "explanation_najdi": "شوف، المستقبل التام يقول إن فعلاً سيكتمل قبل نقطة زمنية معينة في المستقبل. مو عن لحظة المستقبل نفسها — عن ما قبلها.\n\nالفرق ببساطة:\n- الصيغة: will have + past participle.\n- \"By Friday, I will have finished the project.\" — بحلول الجمعة، الاكتمال سيكون صار.\n- \"By the end of this year, she will have worked here for 5 years.\"\n\nكلمة \"by\" تكثر معه — \"by\" = بحلول/قبل ذلك الوقت.\n\nمقارنة:\n- Future simple: \"I will finish by Friday.\" — الانتهاء سيصير.\n- Future perfect: \"I will have finished by Friday.\" — الانتهاء سيكون قد صار بالفعل.\n\nأمثلة من بيئتنا:\n١. \"By the time you graduate, I will have been teaching for 10 years.\" — اكتمال قبل حدث.\n٢. \"By 2030, Saudi Arabia will have built the NEOM city.\" — رؤية 2030.\n٣. \"She will have submitted the report before the meeting starts.\" — اكتمال قبل حدث.\n٤. \"By next Ramadan, I will have memorized the last 10 surahs.\" — هدف مستقبلي.\n\nالتيب اللي يثبت معك: will have + past participle + by [وقت مستقبلي]. \"by\" هي الكلمة المفتاحية. لو شفت \"by\" مع مستقبل = غالباً future perfect.",
+      "tags": [
+        "future-perfect",
+        "will-have-done",
+        "completion",
+        "before-future-point"
+      ],
+      "word_count": 189
+    },
+    {
+      "grammar_lesson_id": "637eedd5-50e5-4b6a-924f-3194baea2c97",
+      "lesson_title": "have something done",
+      "cefr_level": "B2",
+      "concept_title": "have something done — ما سويته بنفسك، رتّبت إنه يصير",
+      "explanation_najdi": "تعال أقولك سالفة. \"Have something done\" من التراكيب اللي تميّزك. تقول إنك رتّبت أو طلبت من شخص آخر يسوي شيئاً عوضاً عنك.\n\nالفرق ببساطة:\n- الصيغة: have/has/had + object + past participle.\n- \"I had my car repaired.\" — ما صلحته بنفسي، أعطيته للميكانيكي.\n- \"She had her hair done before the wedding.\" — رتّبت إن أحداً يهيّئ شعرها.\n- الفرق عن المبني للمجهول: \"My car was repaired\" (مبني للمجهول) مقابل \"I had my car repaired\" (السببية — أنا رتّبت ذلك).\n\nيُستخدم أيضاً لشيء سلبي صار لك: \"I had my phone stolen.\" — إطار مبني للمجهول غير مقصود.\n\nأمثلة من بيئتنا:\n١. \"I need to have my thobe cleaned before Eid.\" — أرتّب تنظيفه.\n٢. \"She had her apartment painted before moving in.\" — رتّبت الطلاء.\n٣. \"I'm going to have my teeth whitened before the interview.\" — رتّبت تبييض.\n٤. \"He had his CV reviewed by a professional.\" — رتّب المراجعة.\n\nالتيب اللي يثبت معك: have + شي + past participle = رتّبت أنك تعمله. ما سويته أنت. هذا التركيب يقول \"أنا اللي قرر وهو اللي نفّذ.\"",
+      "tags": [
+        "have-something-done",
+        "causative",
+        "arrangement",
+        "passive-meaning"
+      ],
+      "word_count": 178
+    },
+    {
+      "grammar_lesson_id": "cbf6dc6d-5e35-413b-8d07-7af1b1f612e1",
+      "lesson_title": "inversion after negative adverbs",
+      "cefr_level": "B2",
+      "concept_title": "القلب بعد الظروف السلبية — أسلوب خطابي ورسمي",
+      "explanation_najdi": "أول شي لازم تفهم: القلب (Inversion) يعني تبديل ترتيب الفاعل والفعل المساعد. يُستخدم بعد ظروف سلبية في بداية الجملة لإضفاء تأثير درامي أو رسمي.\n\nالفرق ببساطة:\n- الجملة العادية: \"I have never seen such commitment.\"\n- مع القلب: \"Never have I seen such commitment.\" — أكثر قوة وأناقة.\n\nالظروف الشائعة مع القلب: Never، Rarely، Seldom، Not only، Hardly، No sooner، Only then.\nالصيغة: ظرف سلبي + فعل مساعد + فاعل + باقي الجملة.\n\nأمثلة من بيئتنا:\n١. \"Rarely do we see such dedication in young professionals.\" — Rarely + do.\n٢. \"Never have I tasted better kabsa than my mother's.\" — Never + have.\n٣. \"Not only did he finish early, but he also helped others.\" — Not only + did.\n٤. \"Only then did I understand the value of patience.\" — Only then + did.\n٥. \"Seldom have I been as proud as I was that day.\" — Seldom + have.\n\nالتيب اللي يثبت معك: ظرف سلبي في البداية = القلب. الترتيب: ظرف + فعل مساعد + فاعل. يُستخدم في الخطابات والكتابة الأكاديمية والأسلوب الرسمي.",
+      "tags": [
+        "inversion",
+        "negative-adverbs",
+        "never",
+        "rarely",
+        "not-only",
+        "formal"
+      ],
+      "word_count": 176
+    },
+    {
+      "grammar_lesson_id": "da99c471-d8f5-4d7a-998b-ba64d7246588",
+      "lesson_title": "mixed conditionals",
+      "cefr_level": "B2",
+      "concept_title": "الشرط المختلط — ماضٍ يؤثر في الحاضر أو العكس",
+      "explanation_najdi": "هذي اللي تخرّب على الناس لأنها تخلط زمنين. الشرط المختلط يجمع زمنين مختلفين — الماضي والحاضر.\n\nالنوعان الرئيسيان:\n- شرط ماضٍ + نتيجة حاضرة: \"If I had studied medicine, I would be a doctor now.\" — لو درست طب (ما درست، ماضٍ) ← كنت طبيباً الحين (حاضر).\n  If + past perfect ← would + verb (present result)\n\n- شرط حاضر + نتيجة ماضية: \"If he weren't so lazy, he would have finished by now.\" — لو ما كان كسولاً (صفة حاضرة) ← كان خلّص من زمان (ماضٍ).\n  If + past simple ← would have + past participle\n\nالفكرة الجوهرية: كل نصف من الجملة يمكن أن يأتي من شرط مختلف.\n\nأمثلة من بيئتنا:\n١. \"If I had chosen business, I would be running my own company now.\" — قرار ماضٍ، نتيجة حاضرة.\n٢. \"If she weren't so detail-oriented, she would have missed those errors.\" — صفة حاضرة، نتيجة ماضية.\n٣. \"If I had saved money earlier, I wouldn't be struggling now.\" — ماضٍ يؤثر في الحاضر.\n\nالتيب اللي يثبت معك: الشرط المختلط = نصفا الجملة من زمنين مختلفين. حدد أي نصف عن الماضي وأي نصف عن الحاضر، ثم اختر الصيغة المناسبة لكل نصف.",
+      "tags": [
+        "mixed-conditionals",
+        "past-present",
+        "hypothetical",
+        "complex"
+      ],
+      "word_count": 192
+    },
+    {
+      "grammar_lesson_id": "75ffd2b0-f1dc-4ec3-834d-3735a4362acc",
+      "lesson_title": "participle clauses",
+      "cefr_level": "B2",
+      "concept_title": "جمل الاسم المشتق — الاختصار الأنيق",
+      "explanation_najdi": "تعال أقولك سالفة. Participle clauses طريقة لتقليص جملتين في جملة واحدة — مو صعبة بس تحتاج تدريب.\n\nالأنواع الرئيسية:\n- Present participle (verb+ing) — فعل يحصل في نفس الوقت:\n  \"While I was driving to work, I heard the news.\" → \"Driving to work, I heard the news.\"\n- Past participle (past p.) — فعل انتهى:\n  \"Because it was painted recently, the wall looked fresh.\" → \"Painted recently, the wall looked fresh.\"\n- Perfect participle (having + past p.) — فعل انتهى قبل الفعل الرئيسي:\n  \"Having finished the report, she went home.\"\n\nشرط مهم: الفاعل في الجملتين لازم يكون نفسه. \"Walking down the street, the bag was stolen.\" ← خطأ.\n\nأمثلة من بيئتنا:\n١. \"Arriving at the airport, I realized I had forgotten my passport.\" — وصلت وأدركت.\n٢. \"Having studied all night, he was exhausted during the exam.\" — دراسة سبقت الإنهاك.\n٣. \"Designed by a Saudi architect, the building won an international award.\" — past participle.\n٤. \"Not knowing what to do, she called her father.\" — جملة نفي.\n\nالتيب اللي يثبت معك: ing للفعل المتزامن. past participle لما الفعل انتهى وأثّر. having + past p. لما انتهى قبل الرئيسي. الفاعل دائماً نفسه.",
+      "tags": [
+        "participle-clauses",
+        "reducing-relative",
+        "having-done",
+        "advanced"
+      ],
+      "word_count": 194
+    },
+    {
+      "grammar_lesson_id": "31b7c762-fc8f-43ae-a814-74e3464abd19",
+      "lesson_title": "relative clauses (advanced)",
+      "cefr_level": "B2",
+      "concept_title": "الجمل الوصفية المتقدمة — whose/where/when والغير تعريفية",
+      "explanation_najdi": "شوف، في B2 تحتاج تتقن الجمل الوصفية بشكل أعمق من B1. الفرق الرئيسي الآن في whose وwhere وwhen، وفي الجمل الغير تعريفية.\n\nالفرق ببساطة:\n- \"whose\" → للملكية. \"The student whose father is a doctor.\" — ابن الطبيب.\n- \"where\" → للأماكن. \"This is the restaurant where we had our first dinner.\"\n- \"when\" → للأوقات. \"I remember the day when we graduated.\"\n- تعريفية (defining): بدون فواصل، المعلومة ضرورية للتعريف.\n- غير تعريفية (non-defining): مع فواصل، المعلومة إضافية. \"My sister, who is a doctor, lives in Jeddah.\"\n\nفي الغير تعريفية: لا يصح استخدام \"that\" — لازم who/which/whose/where.\n\nأمثلة من بيئتنا:\n١. \"That's the teacher whose class I always enjoyed.\" — ملكية ← whose.\n٢. \"I'll always remember Mecca, where I felt closest to God.\" — مكان غير تعريفية ← where.\n٣. \"The year when I moved to Riyadh was a turning point.\" — وقت ← when.\n٤. \"My cousin, whose company just won an award, is very talented.\" — ملكية غير تعريفية.\n\nالتيب اللي يثبت معك: whose = ملكية. where = مكان. when = وقت. فواصل = غير تعريفية (إضافي). بدون فواصل = تعريفية (ضروري).",
+      "tags": [
+        "relative-clauses",
+        "advanced",
+        "whose",
+        "where",
+        "when",
+        "non-defining"
+      ],
+      "word_count": 186
+    },
+    {
+      "grammar_lesson_id": "8c308e3d-1df1-4adb-9b28-4b8acdd80920",
+      "lesson_title": "third conditional",
+      "cefr_level": "B2",
+      "concept_title": "الشرط الثالث — ماضٍ خيالي والندم",
+      "explanation_najdi": "أول شي لازم تفهم: الشرط الثالث للحديث عن ماضٍ لم يحدث — لو كان الوضع مختلفاً، شو كانت النتيجة؟ وغالباً يحمل ندماً.\n\nالفرق ببساطة:\n- الصيغة: If + past perfect، would have + past participle.\n- \"If I had studied harder, I would have passed the exam.\"\n- لو درست أكثر (ما درست) ← كنت نجحت (ما نجحت).\n- كلا الجملتين عن ماضٍ خيالي — لا شيء منهما حدث فعلاً.\n\nمقارنة مع الشروط:\n- الأول: If + present, will + verb. (حقيقي محتمل)\n- الثاني: If + past, would + verb. (خيال حاضر)\n- الثالث: If + past perfect, would have + past participle. (خيال ماضٍ)\n\nأمثلة من بيئتنا:\n١. \"If I had applied earlier, I would have gotten the scholarship.\" — فاتته.\n٢. \"If we had left on time, we wouldn't have missed the flight.\" — ندم.\n٣. \"If she had taken the medicine, she would have recovered faster.\" — لو أخذت.\n٤. \"What would you have done if you had been in my situation?\" — سؤال افتراضي.\n\nالتيب اللي يثبت معك: had + past participle في جملة if. would have + past participle في جملة النتيجة. الصيغة الوحيدة اللي تتكلم عن خيال الماضي.",
+      "tags": [
+        "third-conditional",
+        "if",
+        "would-have",
+        "past",
+        "regret",
+        "hypothetical"
+      ],
+      "word_count": 195
+    },
+    {
+      "grammar_lesson_id": "02c32af7-2410-4e7b-b834-16a9450d3d0e",
+      "lesson_title": "wish + past/past perfect",
+      "cefr_level": "B2",
+      "concept_title": "wish — التمني والندم بدون مبالغة",
+      "explanation_najdi": "تعال أقولك سالفة. wish بالانقلش من الكلمات العميقة — تعبّر عن تمنٍّ أو ندم. بس لها قواعد محددة حسب إذا كان التمني للحاضر أو الماضي.\n\nالفرق ببساطة:\n- تمنٍّ عن الحاضر (يخالف الواقع): wish + past simple. \"I wish I had a car.\" — أتمنى لو عندي سيارة (ما عندي).\n- ندم عن الماضي: wish + past perfect. \"I wish I had studied harder.\" — أتمنى لو درست أكثر (ما درست).\n- \"If only\" = wish مع تأكيد أقوى. \"If only I had listened to my parents!\"\n- لا تستخدم would مع wish في نفس الجملة — \"I wish I would have...\" ← خطأ.\n\nأمثلة من بيئتنا:\n١. \"I wish I spoke English fluently.\" — تمني حاضر، ما أتكلم بطلاقة ← wish + past.\n٢. \"I wish I hadn't wasted time in my first year at university.\" — ندم ← wish + past perfect.\n٣. \"She wishes she had applied for that scholarship.\" — فاتتها الفرصة ← had applied.\n٤. \"If only the flight to London was cheaper!\" — تمنٍّ مؤكد ← If only.\n\nالتيب اللي يثبت معك: wish + ماضٍ = تمني يخالف الحاضر. wish + past perfect = ندم على الماضي. if only = نفس الفكرة بحدة أكبر.",
+      "tags": [
+        "wish",
+        "regret",
+        "past-perfect",
+        "hypothetical",
+        "if-only"
+      ],
+      "word_count": 200
+    },
+    {
+      "grammar_lesson_id": "05bc0c6c-f22e-4ddd-ac8e-2bc8976182c2",
+      "lesson_title": "advanced discourse markers",
+      "cefr_level": "C1",
+      "concept_title": "Discourse markers المتقدمة — الصمغ اللي يربط الأفكار",
+      "explanation_najdi": "شوف، discourse markers هي الكلمات اللي تجعل الكلام متدفقاً ومنظماً. في C1 تحتاج تتجاوز \"however\" و\"but\" إلى أدوات أكثر دقة.\n\nتصنيفات متقدمة:\n- التباين: nevertheless، notwithstanding، that said، even so، be that as it may.\n- السببية: consequently، as a result، it follows that، hence، thereby.\n- الإضافة: furthermore، in addition، moreover، what is more، to compound matters.\n- التوضيح: that is to say، in other words، put differently، to be more precise.\n- الاستنتاج: all in all، on balance، in conclusion، to sum up، ultimately.\n\nفي اللغة المنطوقة مقابل المكتوبة:\n- مكتوب: consequently، notwithstanding، thus، hence.\n- منطوق: anyway، right، so، I mean، as I was saying.\n\nأمثلة من بيئتنا:\n١. \"The project was underfunded; nevertheless, the team delivered on time.\" — على الرغم.\n٢. \"The results were inconclusive; hence, further research is needed.\" — لذا.\n٣. \"She worked tirelessly — consequently, her promotion was well-deserved.\" — نتيجة.\n٤. \"He is, to be precise, the most experienced candidate we have interviewed.\" — توضيح.\n\nالتيب اللي يثبت معك: ابدأ بتقسيم discourse markers حسب وظيفتها: تباين، سبب، إضافة، توضيح، استنتاج. واحدة لكل وظيفة تكفي في البداية — ثم وسّع تدريجياً.",
+      "tags": [
+        "discourse-markers",
+        "advanced",
+        "linking",
+        "coherence",
+        "academic"
+      ],
+      "word_count": 189
+    },
+    {
+      "grammar_lesson_id": "ba6f0594-af74-454e-99b7-f84b37b76a46",
+      "lesson_title": "advanced linking devices",
+      "cefr_level": "C1",
+      "concept_title": "Advanced linking devices — أدوات ربط متقدمة تجعل كتابتك متماسكة",
+      "explanation_najdi": "شوف، في C1 لازم تتجاوز \"and، but، because\" إلى أدوات ربط أكثر دقة وأناقة.\n\nالتباين والتنازل:\n- whereas، while (للتعارض المتوازي): \"Whereas Riyadh is dry, Jeddah is humid.\"\n- albeit (على الرغم من): \"The project was completed, albeit behind schedule.\"\n- notwithstanding (بالرغم من — رسمي جداً).\n- even though، even if — تأكيد على الرغم.\n\nالإضافة والتوكيد:\n- not only... but also: \"Not only does she speak Arabic, but she also speaks Farsi.\"\n- in addition to + ing: \"In addition to studying, she volunteers.\"\n- what is more, moreover: إضافة نقطة أقوى.\n\nالسببية والنتيجة:\n- as a result، consequently، hence، thus، therefore — بدرجات رسمية متفاوتة.\n\nأمثلة من بيئتنا:\n١. \"Whereas traditional teaching focuses on grammar, the immersion method prioritizes fluency.\"\n٢. \"The results were positive, albeit limited in scope.\" — على الرغم.\n٣. \"Not only is Arabic a Semitic language, but it also has one of the richest literary traditions.\"\n٤. \"Hence, further investment in education is essential.\" — نتيجة منطقية.\n\nالتيب اللي يثبت معك: بدّل \"but\" بـ whereas. بدّل \"also\" بـ moreover أو furthermore. بدّل \"so\" بـ consequently أو hence. كل تبديل يرفع مستوى الكتابة.",
+      "tags": [
+        "linking-devices",
+        "advanced",
+        "contrast",
+        "addition",
+        "academic-writing"
+      ],
+      "word_count": 189
+    },
+    {
+      "grammar_lesson_id": "585c5275-104e-41dc-a876-2a77b63ee0ba",
+      "lesson_title": "advanced reported speech",
+      "cefr_level": "C1",
+      "concept_title": "الكلام المنقول المتقدم — تراجع الأزمنة المعقدة",
+      "explanation_najdi": "تعال أقولك سالفة. في C1 لازم تتقن نقل أزمنة معقدة وجمل مشروطة وأفعال مساعدة.\n\nتراجع متقدم:\n- will → would. \"She said she would call.\" ✓\n- can → could. \"He said he could help.\" ✓\n- may → might. \"She said it might rain.\" ✓\n- present perfect → past perfect: \"I have finished.\" → \"She said she had finished.\"\n\nالشرطيات في الكلام المنقول:\n- \"If I study, I'll pass.\" → \"He said that if he studied, he would pass.\" — الأول → الثاني.\n- \"If I had studied, I would have passed.\" → \"She said that if she had studied, she would have passed.\" — لا تغيير.\n\nأفعال الإدخال:\nبدل said استخدم: claimed، argued، insisted، admitted، warned، confirmed، denied، suggested.\n\"He admitted that he had made a mistake.\" — admitted = أكثر دقة من said.\n\nأمثلة من بيئتنا:\n١. \"I'll send the report tonight.\" → \"He promised he would send the report that night.\"\n٢. \"I've already submitted it.\" → \"She confirmed she had already submitted it.\"\n٣. \"You must attend.\" → \"The trainer insisted that we attend.\" — subjunctive.\n٤. \"If you study, you can pass.\" → \"She told me that if I studied, I could pass.\"\n\nالتيب اللي يثبت معك: تراجع الأزمنة، تنويع أفعال الإدخال، والانتباه للشرطيات — هذا الثلاثي هو سر الكلام المنقول في C1.",
+      "tags": [
+        "reported-speech",
+        "advanced",
+        "complex-structures",
+        "backshift",
+        "modal-verbs"
+      ],
+      "word_count": 220
+    },
+    {
+      "grammar_lesson_id": "0d60721a-6a37-47cb-b97e-21ccd92a62f0",
+      "lesson_title": "complex noun phrases",
+      "cefr_level": "C1",
+      "concept_title": "Complex noun phrases — التوسع في وصف الأسماء قبلاً وبعداً",
+      "explanation_najdi": "أول شي لازم تفهم: في C1 تتوسع في وصف الأسماء بطريقتين: قبل الاسم (pre-modification) وبعده (post-modification).\n\nPre-modification (قبل الاسم):\n- صفات متعددة: \"a rapidly expanding, highly competitive global market.\"\n- مركبات اسمية: \"a government-funded research project.\"\n\nPost-modification (بعد الاسم):\n- جملة وصفية: \"the proposal that was submitted last week.\"\n- عبارة اسمية: \"a study of over 500 participants.\"\n- مشتق: \"researchers investigating climate change.\"\n- ظرف: \"the meeting room on the third floor.\"\n\nمزج الاثنين: \"the recent government-funded study of renewable energy sources published in 2025.\"\n\nأمثلة من بيئتنا:\n١. \"The well-designed, student-centered curriculum achieved remarkable results.\" — pre.\n٢. \"The report published by the ministry last month highlighted key issues.\" — post.\n٣. \"An internationally acclaimed, peer-reviewed research paper.\" — pre.\n٤. \"The students hoping to study abroad need strong IELTS scores.\" — post بمشتق.\n\nالتيب اللي يثبت معك: قبل الاسم = صفات وتركيبات. بعد الاسم = جمل وصفية وظروف ومشتقات. كلاهما معاً = جملة C1 متكاملة.",
+      "tags": [
+        "complex-noun-phrases",
+        "pre-post-modification",
+        "academic",
+        "advanced"
+      ],
+      "word_count": 158
+    },
+    {
+      "grammar_lesson_id": "9e2dd537-722e-48c0-a8c1-de5bfeef7aa1",
+      "lesson_title": "ellipsis in speech",
+      "cefr_level": "C1",
+      "concept_title": "Ellipsis — حذف ما هو مفهوم من السياق",
+      "explanation_najdi": "تعال أقولك سالفة. Ellipsis يعني حذف كلمات من الجملة لأنها واضحة من السياق. بالنجدي نعمل هذا طبيعياً — \"وين رحت؟\" \"السوق.\" — لكن بالانقلش له قواعد.\n\nأنواع الحذف:\n- Nominal: \"I'll have a coffee and she'll have [a coffee] too.\" — حذف التكرار.\n- Verbal: \"Can you come?\" \"I think [I can come] so.\" / \"I hope [you can come].\"\n- Clausal: \"Did she call?\" \"She might have [called].\" — حذف الفعل الرئيسي.\n\nفي المحادثة اليومية:\n- \"Coming?\" بدل \"Are you coming?\"\n- \"Tired?\" بدل \"Are you tired?\"\n- \"Thanks for what?\" / \"Need help?\"\n\nالفرق بين الكتابة والكلام:\nفي الكتابة الرسمية، الحذف محدود. في الكلام العادي، شائع جداً ويجعل اللغة تبدو طبيعية.\n\nأمثلة من بيئتنا:\n١. \"I'll come to the meeting if I can [come].\" — حذف تكرار.\n٢. \"Did he apply for the job?\" \"He said he would [apply].\" — حذف.\n٣. \"Hungry? [Are you hungry?]\" — سؤال يومي مختصر.\n٤. \"She finished the project faster than we expected [her to finish it].\" — حذف متقدم.\n\nالتيب اللي يثبت معك: Ellipsis طبيعي في الكلام. في الكتابة الرسمية تجنّبه. تعرّف عليه لتفهم الكلام الطبيعي، وامارسه في المحادثة.",
+      "tags": [
+        "ellipsis",
+        "omission",
+        "speech",
+        "informal",
+        "natural"
+      ],
+      "word_count": 188
+    },
+    {
+      "grammar_lesson_id": "9f3df8c8-4a2b-4c0c-8a95-a23a5cfb460e",
+      "lesson_title": "emphatic structures",
+      "cefr_level": "C1",
+      "concept_title": "التراكيب التأكيدية — حين تريد أن تُسمع بوضوح",
+      "explanation_najdi": "تعال أقولك سالفة. التأكيد بالانقلش يجي بأساليب متعددة، وأسلوب C1 هو أن تختار الأنسب حسب السياق.\n\nأساليب التأكيد:\n\n١. do/does/did التأكيدي:\n- \"I do understand your concern.\" — أنا أفهم حقاً.\n- \"She does work hard.\" — هي تعمل بجد فعلاً.\n- \"He did call — I heard it.\" — هو اتصل فعلاً.\n\n٢. Cleft sentences:\n- It-cleft: \"It is persistence that makes the difference.\"\n- What-cleft: \"What impressed me most was her dedication.\"\n\n٣. Fronting للتأكيد:\n- \"This, I will not accept.\" — هذا بالذات.\n\n٤. Double negation for emphasis (رسمي/خطابي):\n- \"This is not impossible. On the contrary, it is inevitable.\"\n\n٥. Repetition وParallelism:\n- \"We will fight for it, we will work for it, we will achieve it.\"\n\nأمثلة من بيئتنا:\n١. \"I do appreciate your efforts — I really do.\" — do تأكيدي في الحاضر.\n٢. \"What matters most is not where you start, but where you end up.\" — What-cleft.\n٣. \"She did warn us about this — we just didn't listen.\" — did للتأكيد.\n٤. \"It is education that transforms nations.\" — It-cleft في خطاب.\n\nالتيب اللي يثبت معك: للتأكيد البسيط = do/does/did. للتركيز الأسلوبي = cleft sentences. للخطابات = fronting وparallelism. كل أسلوب له سياقه.",
+      "tags": [
+        "emphatic-structures",
+        "do-does-did-emphasis",
+        "cleft",
+        "stress",
+        "advanced"
+      ],
+      "word_count": 202
+    },
+    {
+      "grammar_lesson_id": "f33b1bf1-e1fe-4709-959e-13df4782337e",
+      "lesson_title": "formal vs informal register",
+      "cefr_level": "C1",
+      "concept_title": "الرسمي مقابل غير الرسمي — اختر مستوى لغتك بحسب الجمهور",
+      "explanation_najdi": "شوف، في C1 اللي يميّزك مو أنك تعرف القواعد — بل إنك تعرف متى تستخدم أي مستوى لغوي.\n\nالفروق الرئيسية:\n\nالمفردات:\n- غير رسمي: get، want، a lot of، kids، loads of.\n- رسمي: obtain، require، a significant number of، children، a considerable amount of.\n\nالتراكيب:\n- غير رسمي: short sentences، contractions (I'll، don't).\n- رسمي: complex sentences، no contractions (I will، do not).\n\nالكلمات والعبارات:\n- غير رسمي: \"to be honest، anyway، plus، so.\"\n- رسمي: \"indeed، furthermore، in addition، consequently.\"\n\nPassive vs Active:\n- الرسمي يُفضّل المبني للمجهول: \"It was decided that...\"\n- غير الرسمي يُفضّل الفاعل: \"We decided...\"\n\nأمثلة من بيئتنا:\n١. (غير رسمي): \"I wanna talk to you about something kinda important.\"\n   (رسمي): \"I would like to discuss a matter of some significance with you.\"\n٢. (غير رسمي): \"The new rules are a big deal for us.\"\n   (رسمي): \"The new regulations have significant implications for our organization.\"\n٣. (رسمي مكتوب): \"It is therefore recommended that...\" — ما تقولها في حديث عادي.\n\nالتيب اللي يثبت معك: اقرأ الموقف أولاً — من جمهورك؟ مقال أكاديمي؟ محادثة مع صاحب؟ رسالة رسمية؟ كل موقف له مستواه. القدرة على التبديل هي علامة المتحدث المتقدم.",
+      "tags": [
+        "formal-informal",
+        "register",
+        "audience",
+        "academic-vs-casual"
+      ],
+      "word_count": 193
+    },
+    {
+      "grammar_lesson_id": "122eb435-2445-4e70-bbd1-71f4433cbf74",
+      "lesson_title": "fronting",
+      "cefr_level": "C1",
+      "concept_title": "Fronting — تقديم المعلومة المهمة لأول الجملة",
+      "explanation_najdi": "أول شي لازم تفهم: Fronting يعني تحريك عنصر من آخر الجملة إلى أولها — للتركيز أو التباين أو الأسلوبية.\n\nكيف يعمل:\n- الجملة العادية: \"I have never seen such dedication.\"\n- مع Fronting: \"Such dedication I have never seen.\" — التركيز على الإخلاص.\n\nأنواع Fronting:\n- المفعول به: \"This book, I highly recommend.\" — هذا الكتاب بالذات.\n- الظرف: \"In times of crisis, leadership matters most.\" — ظرف في البداية.\n- الصفة/النعت: \"Impressive as the results were, challenges remain.\" — مع قلب.\n- قائمة: \"First came the announcement, then came the consequences.\"\n\nالفرق عن القلب (Inversion): Fronting لا يشترط القلب دائماً. القلب يُعيد ترتيب الفاعل والمساعد.\n\nأمثلة من بيئتنا:\n١. \"The importance of education, no one can deny.\" — تقديم المفعول.\n٢. \"Throughout the centuries, Arabic has remained a language of poetry.\" — ظرف.\n٣. \"These challenges, we must face head-on.\" — تأكيد.\n٤. \"Her resilience was admirable; equally admirable was her patience.\" — موازاة.\n\nالتيب اللي يثبت معك: Fronting = ما تريد التركيز عليه يجي أول. استخدمه في الخطابات والمقالات لتعطي كلامك إيقاعاً ووزناً.",
+      "tags": [
+        "fronting",
+        "topicalization",
+        "emphasis",
+        "word-order",
+        "advanced"
+      ],
+      "word_count": 175
+    },
+    {
+      "grammar_lesson_id": "614de71e-ac87-42a3-b91a-c526f5b6cb62",
+      "lesson_title": "hedging and vague language",
+      "cefr_level": "C1",
+      "concept_title": "Hedging — فن التحفظ وعدم الجزم في اللغة الأكاديمية",
+      "explanation_najdi": "تعال أقولك سالفة. Hedging يعني تُليّن كلامك وتتحفظ بدل ما تجزم بشكل قاطع. العلماء والكتّاب يستخدمونه لأنهم يعرفون أن اليقين المطلق نادر.\n\nلماذا نستخدمه:\n- لتجنب التصريح بأشياء غير مؤكدة.\n- لإظهار الأمانة الأكاديمية.\n- للتعبير عن احتمالية بدل يقين.\n\nأدواته:\n- أفعال: seem، appear، tend to، suggest، indicate. \"The data seems to suggest...\"\n- ظروف: possibly، apparently، generally، broadly. \"This is generally accepted...\"\n- أفعال مساعدة: may، might، could، would. \"This could be explained by...\"\n- أسماء: possibility، tendency، likelihood. \"There is a tendency to...\"\n- حدود: in most cases، to some extent، under certain conditions.\n\nأمثلة من بيئتنا:\n١. \"Learning a language at an early age may improve cognitive skills.\" — may = تحفظ.\n٢. \"There appears to be a correlation between reading and vocabulary growth.\" — appears.\n٣. \"This approach tends to be more effective in group settings.\" — tends to.\n٤. \"The results could indicate a shift in learning patterns.\" — could.\n\nالتيب اللي يثبت معك: Hedging مو ضعف — هو دقة وأمانة. الجزم بدون دليل = ضعف في الكتابة الأكاديمية. seem، tend، may، could = أصدقاؤك في البحث العلمي.",
+      "tags": [
+        "hedging",
+        "vague-language",
+        "academic",
+        "uncertainty",
+        "softening"
+      ],
+      "word_count": 184
+    },
+    {
+      "grammar_lesson_id": "7ed5ee81-7d3a-476e-bfca-791a3378783a",
+      "lesson_title": "nominalization",
+      "cefr_level": "C1",
+      "concept_title": "Nominalization — تحويل الأفعال إلى أسماء للكتابة الأكاديمية",
+      "explanation_najdi": "أول شي لازم تفهم: Nominalization يعني تحويل فعل أو صفة إلى اسم. هذا يجعل الكتابة أكثر رسمية وأكاديمية — وهو ما يميّز مستوى C1.\n\nكيف يعمل:\n- فعل → اسم: \"analyze\" → \"analysis\". \"develop\" → \"development\". \"examine\" → \"examination\".\n- صفة → اسم: \"significant\" → \"significance\". \"complex\" → \"complexity\".\n- جملة بفعل: \"This affects the results.\" → \"This has an effect on the results.\" — أكثر رسمية.\n\nفوائده:\n- يُقلل الاعتماد على الضمائر.\n- يُعطي الكتابة وقاراً أكاديمياً.\n- يختصر الأفكار في مصطلح واحد محدد.\n\nأمثلة من بيئتنا:\n١. \"We improved the system.\" → \"An improvement to the system was implemented.\" — أكاديمي.\n٢. \"The failure of the project...\" مو \"The project failed...\" — نومينالايزيشن أنيق.\n٣. \"Her explanation was clear.\" — explanation = تحويل explain إلى اسم.\n٤. \"The development of AI is rapid.\" — development من develop.\n\nتحذير: الإفراط في Nominalization يثقّل الجملة. استخدمه بتوازن — مو كل فعل تحوّله.\n\nالتيب اللي يثبت معك: ابحث عن الأفعال في مسودتك واستبدل بعضها بأسمائها. \"analyze\" → \"an analysis of\" يُضيف وزناً أكاديمياً.",
+      "tags": [
+        "nominalization",
+        "academic-writing",
+        "nouns-from-verbs",
+        "formal"
+      ],
+      "word_count": 172
+    },
+    {
+      "grammar_lesson_id": "a5f6824f-cac9-4de2-b274-5ca680dc6e3e",
+      "lesson_title": "rhetorical questions",
+      "cefr_level": "C1",
+      "concept_title": "الأسئلة البلاغية — أسئلة ما تريد جواباً، تريد تأثيراً",
+      "explanation_najdi": "أول شي لازم تفهم: الأسئلة البلاغية ما تنتظر جواباً. تُستخدم لتأكيد نقطة أو إثارة تفكير. بالعربي نستخدمها كثيراً — \"وهل هناك أروع من الأسرة؟\" — بس بالانقلش لها قواعد أسلوبية.\n\nكيف تعمل:\n- السؤال يحمل إجابة واضحة ضمنياً. \"Isn't it obvious?\" = من الواضح.\n- تُستخدم في الخطابات والمناقشات والكتابة الإقناعية.\n- يمكن أن تكون إيجابية أو سلبية، وإجابتها دائماً معروفة للسامع.\n\nأنواعها:\n- تقرير بصيغة سؤال: \"Does anyone really believe that?\" = لا أحد يصدق.\n- مبالغة: \"Haven't I told you a thousand times?\" = قلت أكثر من ألف مرة.\n- تعبير عاطفي: \"What more could I ask for?\"\n\nأمثلة من بيئتنا:\n١. \"Isn't Arabic one of the richest languages in the world?\" — تقرير ← يعني: بالتأكيد.\n٢. \"Do we really need to explain why education matters?\" — إجابته \"لا\" ← تقرير.\n٣. \"What is a home without a loving family?\" — ما له جواب حرفي ← تأثير عاطفي.\n٤. \"Haven't we waited long enough?\" — تعبير عن صبر نفد ← تأكيد.\n\nالتيب اللي يثبت معك: الأسئلة البلاغية تُثير مشاعر أو تؤكد رأياً — ما تتوقع جواباً. استخدمها في خطاب أو مقال وتبدو محترفاً.",
+      "tags": [
+        "rhetorical-questions",
+        "persuasion",
+        "discourse",
+        "advanced"
+      ],
+      "word_count": 186
+    },
+    {
+      "grammar_lesson_id": "2922c9d2-88b0-4713-9d39-20380f23bdee",
+      "lesson_title": "subjunctive",
+      "cefr_level": "C1",
+      "concept_title": "المضارع الافتراضي (Subjunctive) — الصيغة الرسمية للاقتراحات والمتطلبات",
+      "explanation_najdi": "تعال أقولك سالفة. Subjunctive في الانقلش الحديث محدود، بس في الأسلوب الرسمي والأكاديمي لا تزال تراه.\n\nمتى يظهر:\n- بعد أفعال الطلب والاقتراح والاشتراط: suggest، recommend، demand، insist، require، propose، request.\n  \"The committee recommended that the report be submitted by Friday.\" — be مو is.\n- الصيغة: that + subject + base verb (بدون s/es، حتى مع هو/هي).\n  \"It is essential that every student submit their work on time.\" — submit مو submits.\n- \"If I were...\" — subjunctive مع were بدل was.\n\nهيئة الماضي الافتراضي: \"If I were the president...\" — حتى مع I تقول were.\n\nأمثلة من بيئتنا:\n١. \"The professor insisted that all students be present.\" — be مو are.\n٢. \"It is vital that the data be verified before publication.\" — be.\n٣. \"The board proposed that the budget be reviewed quarterly.\" — be reviewed.\n٤. \"I suggest that she reconsider her approach.\" — reconsider مو reconsiders.\n\nالتيب اللي يثبت معك: subjunctive يظهر بعد suggest/recommend/insist/require + that + فعل أصلي بدون تصريف. في الكتابة الأكاديمية والرسمية هو علامة مستوى متقدم.",
+      "tags": [
+        "subjunctive",
+        "formal",
+        "wish-demand-suggest",
+        "academic"
+      ],
+      "word_count": 174
+    },
+    {
+      "grammar_lesson_id": "4fd72f99-b0ee-40fd-8220-2c7075c15cd5",
+      "lesson_title": "a/an/the basics",
+      "cefr_level": "Pre-A1",
+      "concept_title": "a/an/the — الكلمات الصغيرة اللي تورّط الكبار",
+      "explanation_najdi": "شوف، بالعربي عندنا \"الـ\" للتعريف، وما عندنا حاجة للتنكير — نقول الكلمة بدون \"ال\" وانتهى. بالانقلش الوضع مختلف، وهذا السبب اللي يخلي الطلاب السعوديين يغلطون كثير.\n\nالفرق ببساطة:\n- \"a\" → واحد، غير محدد، يبدأ بحرف ساكن. \"I have a car.\" — أي سيارة، مو محددة.\n- \"an\" → نفس فكرة \"a\"، بس للكلمات اللي تبدأ بصوت vowel (a/e/i/o/u). \"I ate an apple.\"\n- \"the\" → محدد. الشي اللي احنا كلنا نعرف عنه. \"The car is outside.\" — السيارة اللي نعرفها.\n\nطريقة الاختبار: لو تقدر تقول \"اللي نعرفه\" ← the. لو تقدر تقول \"أي واحد منهم\" ← a/an.\n\nأمثلة من بيئتنا:\n١. محمد يدخل الصف: \"I bought a new phone.\" — ما ذكر قبل، غير محدد ← a.\n٢. الأستاذ يسأل عنه: \"Can you show me the phone?\" — صار معروف ← the.\n٣. سارة تروح كارفور: \"I need an umbrella.\" — umbrella تبدأ بـ u (vowel) ← an.\n٤. بعد ما تشتريها: \"The umbrella is red.\" — نفس المظلة ← the.\n\nالتيب اللي يثبت معك: أول مرة تذكر الشي → a/an. ثاني مرة وكل مرة بعدها → the. زي ما تعرّف شخص: \"رفيقي محمد\" أول مرة، وبعدين \"محمد\" بس.",
+      "tags": [
+        "articles",
+        "a-an-the",
+        "basics",
+        "nouns"
+      ],
+      "word_count": 190
+    },
+    {
+      "grammar_lesson_id": "20329999-1122-482b-9529-ef0ddcf355b0",
+      "lesson_title": "adjective order basics",
+      "cefr_level": "Pre-A1",
+      "concept_title": "ترتيب الصفات — ليش \"small new phone\" تبدو غريبة؟",
+      "explanation_najdi": "هذي اللي تخرّب على الناس وهم ما يعرفون ليش. لما تقول \"I have a new small phone\" الجملة مو غلط نحوياً، بس الأذن الإنجليزية تحسها غريبة. ليش؟ لأن الانقلش عنده ترتيب معين للصفات.\n\nالفرق ببساطة:\nالترتيب الصحيح: رأي ← حجم ← عمر ← شكل ← لون ← مصدر ← مادة + الاسم.\n- رأي (nice/ugly) ← حجم (big/small) ← عمر (new/old) ← لون (red/blue) ← مصدر (Saudi/Italian).\n\nطريقة الاختبار: رأيك في الشي يجي أول. وين جاء الشي يجي آخر. الترتيب الطبيعي للغة ينجح في أغلب الحالات.\n\nأمثلة من بيئتنا:\n١. \"She has a beautiful new abaya.\" — رأي (beautiful) قبل عمر (new) ← صح.\n٢. \"I want a small black bag.\" — حجم (small) قبل لون (black) ← صح.\n٣. \"He drives a big German car.\" — حجم (big) قبل مصدر (German) ← صح.\n٤. \"I got a nice little Saudi gift for Eid.\" — رأي ← حجم ← مصدر ← صح.\n٥. \"She wore a lovely red dress for the wedding.\" — رأي ← لون ← صح.\n\nالتيب اللي يثبت معك: رأيك يجي أول، وين جاء الشي يجي آخر. الباقي في المنتصف. نطق الجملة بصوت عالٍ يكشف لك لو فيه خلل.",
+      "tags": [
+        "adjective-order",
+        "descriptions",
+        "basics"
+      ],
+      "word_count": 192
+    },
+    {
+      "grammar_lesson_id": "d3d043a8-3a16-46e8-bcf8-934ea6c6f481",
+      "lesson_title": "am/is/are",
+      "cefr_level": "Pre-A1",
+      "concept_title": "am/is/are — الفرق اللي ما يمشي غلط أبد",
+      "explanation_najdi": "تعال أقولك سالفة. أول ما يبدأ أي واحد يتعلّم انقلش، يسأل نفس السؤال: \"ليش الإنجليز عندهم ثلاث كلمات لـ'فعل الكون'؟\"\n\nعندنا بالعربي نقول \"أنا طالب\" وخلاص. بالانقلش لازم تحدد: من اللي تتكلم عنه.\n\nالفرق ببساطة:\n- \"I am\" → أنا بالذات. استخدمها بس لما تتكلم عن نفسك.\n- \"He is / She is / It is\" → هو / هي / هو (الأشياء). أي شخص واحد غيرك.\n- \"We are / You are / They are\" → احنا / أنت وأنتم / هم.\n\nطريقة الاختبار اللي ما تخيب: بدّل الضمير بالعربي — لو \"أنا\" ← am. لو \"هو/هي\" ← is. لو \"احنا/هم/أنتم\" ← are.\n\nأمثلة من بيئتنا:\n١. \"I am a student at King Saud University.\" — أنا، فالجواب am. ما تقول \"I is\" حتى لو متعب من الدراسة!\n٢. \"Carrefour is busy on Thursdays.\" — Carrefour = هو = is. الخميس كارفور يطيح!\n٣. \"My friends and I are in Riyadh.\" — أنا وأصحابي = احنا = are.\n٤. \"You are ready for the exam, I hope!\" — أنت = You = are.\n\nالتيب اللي يثبت معك: I am، هو/هي is، الباقي are. احفظها زي ما تحفظ رقم البيت — ثلاث ما تنساها.",
+      "tags": [
+        "to-be",
+        "am-is-are",
+        "basics",
+        "beginners"
+      ],
+      "word_count": 194
+    },
+    {
+      "grammar_lesson_id": "77003126-4fd3-4066-b5f4-56f4dd1015a2",
+      "lesson_title": "imperatives",
+      "cefr_level": "Pre-A1",
+      "concept_title": "الأوامر والتعليمات — أبسط ما في اللغة",
+      "explanation_najdi": "أول شي لازم تفهم: الأوامر بالانقلش هي الأبسط شي في اللغة كلها. ما تحتاج ضمير، ما تحتاج تصريف — بس الفعل بشكله الأصلي وانتهى الأمر.\n\nالفرق ببساطة:\n- أمر إيجابي: الفعل مباشرة. \"Open the window.\" \"Sit down.\" \"Read page 5.\"\n- أمر نفي: Don't + فعل. \"Don't be late.\" \"Don't forget your homework.\"\n- طلب مؤدب: أضف please في الأول أو الآخر. \"Please close the door.\" أو \"Close the door, please.\"\n\nطريقة الاختبار: لو الجملة أمر أو تعليمة، ما تحتاج تفكر في الضمير — يبدأ الفعل مباشرة بدون \"you\".\n\nأمثلة من بيئتنا:\n١. الأستاذ في الفصل: \"Turn off your phones, please.\" — أمر مؤدب.\n٢. على لافتة في المستشفى: \"Don't run in the corridors.\" — أمر نفي.\n٣. الرئيس في الدوام: \"Submit the report by Thursday.\" — تعليمة.\n٤. الأم للأطفال: \"Eat your dinner and study!\" — أمر مباشر.\n٥. في تطبيق: \"Tap here to continue.\" — تعليمة رقمية.\n\nالتيب اللي يثبت معك: الأمر = ابدأ بالفعل مباشرة. النفي = Don't + فعل. ما أبسط من هذا!",
+      "tags": [
+        "imperatives",
+        "commands",
+        "instructions",
+        "basics"
+      ],
+      "word_count": 167
+    },
+    {
+      "grammar_lesson_id": "1de0dca0-34b3-4c4a-b527-dc55cf08926f",
+      "lesson_title": "plurals",
+      "cefr_level": "Pre-A1",
+      "concept_title": "الجمع بالانقلش — مو بس تحط S وتمشي",
+      "explanation_najdi": "هذي اللي تخرّب على الناس في البداية. كلنا نعرف إنك تحط -s في آخر الكلمة عشان تجمعها. بس الانقلش، مثل العادة، فيه استثناءات.\n\nالفرق ببساطة:\n- الجمع العادي: حط -s. Book → books، car → cars، phone → phones.\n- لو الكلمة تنتهي بـ s/sh/ch/x/z: حط -es. Bus → buses، watch → watches، box → boxes.\n- لو تنتهي بحرف ساكن + y: غيّر الـ y إلى i وحط -es. City → cities، country → countries.\n- جموع شاذة: كلياً مختلفة. Man → men، child → children، tooth → teeth.\n\nطريقة الاختبار: انطق الكلمة — لو ما تقدر تلفظ الـ s بدون صوت vowel قبلها، محتاج -es. جرّب تقول \"busses\" ← ما يصير بدون E.\n\nأمثلة من بيئتنا:\n١. \"There are three malls in Riyadh.\" — mall + s، بسيطة.\n٢. \"The buses in Jeddah are new.\" — bus → buses، تنتهي بـ s.\n٣. \"The children at the park were playing.\" — child → children، جمع شاذ.\n٤. \"Saudi cities are growing fast.\" — city → cities، غيّر y إلى ies.\n\nالتيب اللي يثبت معك: احفظ الجموع الشاذة الأهم أولاً: man/men، woman/women، child/children، person/people، tooth/teeth. الباقي كلها بـ s أو es.",
+      "tags": [
+        "plurals",
+        "nouns",
+        "basics",
+        "spelling"
+      ],
+      "word_count": 192
+    },
+    {
+      "grammar_lesson_id": "7405ab5f-3afb-4b04-8035-4abb3b4554b0",
+      "lesson_title": "possessive s",
+      "cefr_level": "Pre-A1",
+      "concept_title": "الـ 's — علامة الملكية اللي تلبّس الناس",
+      "explanation_najdi": "هذي اللي تلبّس الناس لأنهم يخلطون بين 's الملكية وبين \"is\" المختصرة. بالعربي نقول \"كتاب محمد\" أو \"سيارة أبوي\". بالانقلش نعكس الترتيب ونحط 's بعد صاحب الشي.\n\nالفرق ببساطة:\n- الملكية: صاحب الشي + 's + الشي المملوك. \"Mohammed's car is red.\" — سيارة محمد.\n- لو الاسم ينتهي بـ s أصلاً: أضف apostrophe بس. \"The students' books.\"\n- لا تخلط مع: \"it's\" = it is. بس \"its\" بدون apostrophe = ملكية الشي نفسه.\n\nطريقة الاختبار: لو المعنى \"بتاع/بتاعة فلان\" → 's. لو المعنى \"هو هو\" → it's.\n\nأمثلة من بيئتنا:\n١. \"Abdullah's phone is the new iPhone.\" — هاتف عبدالله ← 's.\n٢. \"My mother's cooking is the best in Riyadh.\" — طبخة أمي ← 's.\n٣. \"The mosque's door is always open.\" — باب المسجد ← 's.\n٤. \"It's hot today in Jeddah.\" — It is ← it's، مو ملكية.\n\nالتيب اللي يثبت معك: 's بعد اسم = ملكية. it's = it is. هالفرق يوفر عليك أخطاء كثيرة جداً.",
+      "tags": [
+        "possessive-s",
+        "ownership",
+        "basics"
+      ],
+      "word_count": 161
+    },
+    {
+      "grammar_lesson_id": "ee6732f0-c24a-444b-b42f-df96da9b1de2",
+      "lesson_title": "prepositions of place",
+      "cefr_level": "Pre-A1",
+      "concept_title": "حروف الجر للمكان — in/on/under/next to",
+      "explanation_najdi": "الفكرة بسيطة جداً. هذي الكلمات تجاوب على سؤال \"وين؟\". بالنجدي عندنا \"في\"، \"على\"، \"تحت\"، \"جنب\". الانقلش نفس المفهوم بالضبط.\n\nالفرق ببساطة:\n- \"in\" → داخل شي. في الغرفة، في السيارة، في المدينة. \"in the room / in Riyadh.\"\n- \"on\" → فوق سطح. على الطاولة، على الجدار. \"on the table / on the shelf.\"\n- \"under\" → تحت. \"under the bed / under the desk.\"\n- \"next to\" → بجانب. \"next to the door / next to me.\"\n- \"between\" → بين شيئين. \"between the two buildings.\"\n\nطريقة الاختبار: تخيل المكان — الشي محاط بشي ثاني؟ in. على سطح؟ on. تحته؟ under.\n\nأمثلة من بيئتنا:\n١. \"My keys are on the kitchen counter.\" — على السطح ← on.\n٢. \"The cat is under the sofa.\" — تحت ← under.\n٣. \"We live in Al Malaz, Riyadh.\" — داخل الحي والمدينة ← in.\n٤. \"The pharmacy is next to the mosque.\" — بجانب ← next to.\n٥. \"My wallet is in my pocket.\" — داخل ← in.\n\nالتيب اللي يثبت معك: in = جوّه. on = فوق. under = تحت. تخيّل الشي بعيونك وراح تختار الصح تلقائياً.",
+      "tags": [
+        "prepositions",
+        "place",
+        "in-on-under",
+        "basics"
+      ],
+      "word_count": 186
+    },
+    {
+      "grammar_lesson_id": "98e7f011-e467-43aa-bf09-3c707fa0d0df",
+      "lesson_title": "pronouns (I/me/my)",
+      "cefr_level": "Pre-A1",
+      "concept_title": "I / me / my — كل واحدة وين مكانها؟",
+      "explanation_najdi": "الفكرة بسيطة جداً. بالعربي \"أنا\" تصلح في كل مكان تقريباً. بالانقلش، موضع الضمير في الجملة يحدد أي كلمة تستخدم.\n\nالفرق ببساطة:\n- \"I\" → الفاعل — أنا اللي أسوي الفعل. \"I study English every day.\"\n- \"me\" → المفعول به — الفعل صار عليّ. \"The teacher called me.\"\n- \"my\" → الملكية — شي يخصني. \"My book is on the desk.\"\n\nطريقة الاختبار: أنت تسوي الفعل؟ ← I. الفعل صار عليك؟ ← me. شي يخصك؟ ← my.\n\nأمثلة من بيئتنا:\n١. \"I missed the class today.\" — أنا اللي غبت ← I.\n٢. \"The trainer sent me a voice note.\" — الرسالة جاتني ← me.\n٣. \"My schedule is packed this week.\" — جدولي أنا ← my.\n٤. \"Can you help me with this exercise?\" — أنت تساعدني ← me.\n٥. \"I forgot my ID card at home.\" — I أنا الفاعل، my الملكية ← كلاهم في جملة وحدة.\n\nالتيب اللي يثبت معك: I = أنا أسوي. me = صار عليّ. my = ملكي. ترتيبهم زي الأولوية — أنا أول!",
+      "tags": [
+        "pronouns",
+        "I-me-my",
+        "subject-object",
+        "basics"
+      ],
+      "word_count": 170
+    },
+    {
+      "grammar_lesson_id": "56cf2f8c-633a-4f4c-8ede-1d40eb8eda0a",
+      "lesson_title": "simple present negative/questions",
+      "cefr_level": "Pre-A1",
+      "concept_title": "نفي المضارع البسيط والأسئلة — do/does أين تجيان؟",
+      "explanation_najdi": "تعال أقولك سالفة. أكثر غلطة يسويها الطلاب في البداية: يقولون \"I not like coffee\" بدل \"I don't like coffee\". السبب إن بالعربي ما نحتاج فعل مساعد للنفي، بس بالانقلش لازم.\n\nالفرق ببساطة:\n- نفي أنا/أنت/احنا/هم: do + not = don't. \"I don't study on Fridays.\"\n- نفي هو/هي: does + not = doesn't. \"She doesn't work here.\"\n- سؤال أنا/أنت/احنا/هم: ابدأ بـ Do. \"Do you like tea?\"\n- سؤال هو/هي: ابدأ بـ Does. \"Does he play football?\"\n- مهم جداً: لما تستخدم does، الفعل يرجع لأصله بدون s. \"She doesn't workS\" ← خطأ. \"She doesn't work\" ← صح.\n\nطريقة الاختبار: هو/هي؟ ← does/doesn't. غيرهم؟ ← do/don't.\n\nأمثلة من بيئتنا:\n١. \"I don't drink coffee after Maghrib — ما أنام.\" — أنا ← don't.\n٢. \"My sister doesn't drive yet.\" — هي ← doesn't.\n٣. \"Do you have a pen I can borrow?\" — أنت ← Do.\n٤. \"Does Riyadh get cold in winter?\" — Riyadh = it ← Does.\n\nالتيب اللي يثبت معك: I/You/We/They = do/don't. He/She/It = does/doesn't. وإذا استخدمت does، الفعل يرجع لأصله بدون s — هذي النقطة اللي تفرّق.",
+      "tags": [
+        "simple-present",
+        "negative",
+        "questions",
+        "do-does"
+      ],
+      "word_count": 182
+    },
+    {
+      "grammar_lesson_id": "92cf3884-8f6f-4dfc-a83f-7ffd141ab1b4",
+      "lesson_title": "simple present positive",
+      "cefr_level": "Pre-A1",
+      "concept_title": "المضارع البسيط — عاداتك وحقايق حياتك",
+      "explanation_najdi": "أول شي لازم تفهم: المضارع البسيط بالانقلش ما يعني \"اللحظة الحالية\". يعني عادة، روتين، أو حقيقة ثابتة. هذا الفرق هو اللي يورّط الطلاب لأن باللهجة نستخدم نفس الصيغة للعادة والحال.\n\nالفرق ببساطة:\n- للعادات والروتين: \"I drink coffee every morning.\" — عادة.\n- للحقايق الثابتة: \"Water boils at 100 degrees.\" — حقيقة ما تتغير.\n- لما تتكلم عن هو/هي: أضف -s في آخر الفعل. \"She works at a hospital.\" ← works مو work.\n- السؤال والنفي: استخدم do/does. \"Do you study? / Does he study?\"\n\nطريقة الاختبار: لو الجملة عن عادة أو حقيقة = simple present. لو عن \"الحين هذه اللحظة\" = present continuous (اللي جاي).\n\nأمثلة من بيئتنا:\n١. \"I wake up at 6 for Fajr every day.\" — روتين يومي ← simple present.\n٢. \"My father works in Aramco.\" — وظيفة ثابتة ← works مع s.\n٣. \"Riyadh gets very hot in summer.\" — حقيقة ← gets.\n٤. \"We visit my grandparents in Qassim every Eid.\" — عادة متكررة ← visit.\n\nالتيب اللي يثبت معك: كلمات زي \"always، usually، every، never، sometimes\" = علامة المضارع البسيط. شوفها في الجملة؟ استخدم simple present.",
+      "tags": [
+        "simple-present",
+        "positive",
+        "habits",
+        "facts"
+      ],
+      "word_count": 184
+    },
+    {
+      "grammar_lesson_id": "8a3e9f5f-9b9f-4df5-87af-94c7071596b7",
+      "lesson_title": "there is/there are",
+      "cefr_level": "Pre-A1",
+      "concept_title": "there is / there are — كيف تقول \"فيه\" بالانقلش",
+      "explanation_najdi": "تعال أقولك سالفة. بالنجدي نقول \"فيه مطعم هنا\" أو \"في ناس كثير\". ترجمتها للانقلش هي \"there is\" و\"there are\". بسيطة، بس فيها نقطة وحدة تورّط الناس.\n\nالفرق ببساطة:\n- \"There is\" → فيه شي واحد. \"There is a mall near my house.\"\n- \"There are\" → فيه أشياء أكثر من واحد. \"There are three malls in the city.\"\n- السؤال: \"Is there a...?\" أو \"Are there any...?\"\n- النفي: \"There isn't a...\" أو \"There aren't any...\"\n\nطريقة الاختبار: شوف الاسم اللي يجي بعد there — واحد؟ is. أكثر؟ are. بسيطة.\n\nأمثلة من بيئتنا:\n١. \"There is a new café near the university.\" — واحد ← is.\n٢. \"There are many students in the library.\" — أكثر ← are.\n٣. \"Is there a prayer room in this building?\" — سؤال عن واحد ← Is there.\n٤. \"There aren't any empty seats on the flight.\" — نفي جمع ← aren't.\n\nالتيب اللي يثبت معك: There IS one، there ARE more. is للواحد، are للجمع. قاعدة ما تتغير أبد.",
+      "tags": [
+        "there-is",
+        "there-are",
+        "existence",
+        "basics"
+      ],
+      "word_count": 166
+    },
+    {
+      "grammar_lesson_id": "e82ff626-9e18-4316-bfa0-cc8431177fad",
+      "lesson_title": "this/that/these/those",
+      "cefr_level": "Pre-A1",
+      "concept_title": "this/that/these/those — قريب أو بعيد، واحد أو أكثر؟",
+      "explanation_najdi": "الفكرة بسيطة جداً. هذي الكلمات تجاوبك على سؤالين: الشي قريب ولا بعيد؟ واحد ولا أكثر؟\n\nبالنجدي نقول \"هذا\" للقريب و\"ذاك\" للبعيد. بالانقلش نفس الفكرة، بس لازم تضيف معلومة ثانية: واحد ولا جمع؟\n\nالفرق ببساطة:\n- \"This\" → هذا/هذه — قريب، واحد. الكتاب اللي في يدك الحين.\n- \"That\" → ذاك/تلك — بعيد، واحد. الكتاب اللي عند محمد الجالس بعيد.\n- \"These\" → هذولا — قريب، أكثر من واحد. الأقلام اللي عندك على المكتب.\n- \"Those\" → أولاك — بعيد، أكثر من واحد. الأكواب اللي هناك على الرف.\n\nطريقة الاختبار: أشر بإصبعك — قريب؟ this/these. بعيد؟ that/those. بعدين: واحد؟ this أو that. أكثر؟ these أو those.\n\nأمثلة من بيئتنا:\n١. في السوق وشايف حذاء قريب منك: \"This shoe is nice!\" — قريب، واحد.\n٢. تشير للجاكيت على الرف البعيد: \"That jacket is expensive.\" — بعيد، واحد.\n٣. ثلاث كتب قدامك على الطاولة: \"These books are heavy.\" — قريب، أكثر.\n٤. تشير للطلاب في آخر القاعة: \"Those students are from Jeddah.\" — بعيد، أكثر.\n\nالتيب اللي يثبت معك: قريب = thIS وthESE (فيهم S). بعيد = thAT وthOSE. حرف S = short distance!",
+      "tags": [
+        "demonstratives",
+        "this",
+        "that",
+        "these",
+        "those",
+        "basics"
+      ],
+      "word_count": 181
+    }
+  ]
+}
