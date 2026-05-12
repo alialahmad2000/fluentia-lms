@@ -23,7 +23,6 @@ import { useQueryClient, useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { useActiveCompetition } from '@/hooks/useCompetition'
 
-const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
 import VocabGainTicker from '../curriculum/VocabGainTicker'
 
 export default function LayoutShell() {
@@ -104,11 +103,6 @@ export default function LayoutShell() {
       onKeyDown={() => tracker.touch()}
     >
       <UpdateBanner />
-
-      {/* Background */}
-      <Suspense fallback={null}>
-        <GeometricMesh />
-      </Suspense>
 
       {/* Pull-to-refresh (mobile) */}
       {(pullDistance > 0 || isRefreshing) && (
