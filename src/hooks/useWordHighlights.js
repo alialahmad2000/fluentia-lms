@@ -52,11 +52,15 @@ export function useWordHighlights({ studentId, contentId, contentType }) {
   const removeHighlight = useCallback(async (highlightId) => {
     const prev = highlights
     setHighlights(h => h.filter(x => x.id !== highlightId))
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('student_word_highlights')
       .update({ deleted_at: new Date().toISOString() })
       .eq('id', highlightId)
-    if (error) { setHighlights(prev); console.warn('[highlights] remove failed:', error.message) }
+      .select('id')
+    if (error || !data || data.length === 0) {
+      setHighlights(prev)
+      console.warn('[highlights] remove failed:', error?.message || '0 rows — RLS block?')
+    }
   }, [highlights])
 
   const updateColor = useCallback(async (highlightId, newColor) => {
