@@ -940,3 +940,12 @@ This is how future sessions know what happened.
 - Files: `src/hooks/useUserInterests.js`, `src/hooks/usePersonalizedReading.js`, `src/lib/personalization/interest-buckets.js`, `src/components/personalization/` (4 components), `src/pages/student/StudentDashboard.jsx`, `src/pages/student/StudentProfile.jsx`, `src/pages/student/curriculum/tabs/ReadingTab.jsx`
 - Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
 - Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
+
+### 2026-05-12 — Personalization Bank v1: Phase D COMPLETE (all 1,152 variants)
+- What: All 6 CEFR levels now have full 8-bucket variant coverage
+- Content: 1,152 variants (144 canonical readings × 8 buckets), QA pass rate 100%, avg vocab coverage 0.98, avg word-count ratio 0.87
+- Levels: Pre-A1 (192), A1 (192), A2 (192), B1 (192), B2 (192), C1 (192)
+- Buckets: medical, business, tech, sports, travel_food, islamic, fashion_beauty, family
+- Seed files: scripts/seeds/personalization/L0-L5-variants.json (offline review)
+- Insert scripts: fix-and-insert-{a1,a2,b1,b2,c1}.mjs + insert-preA1.mjs (all idempotent)
+- DB state: 1,152 rows in personalized_readings, 0 FK orphans, all is_published=TRUE
