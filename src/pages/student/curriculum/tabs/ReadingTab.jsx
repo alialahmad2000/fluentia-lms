@@ -804,7 +804,7 @@ function ReadingContent({ reading, studentId, unitId }) {
               contentId={reading.id}
               contentType="reading"
               studentId={studentId}
-              variant="bottom-bar"
+              variant="default"
               showTranscriptByDefault={true}
               features={{
                 karaoke: true,

@@ -158,7 +158,7 @@ function ListeningSection({ listening, studentId, unitId }) {
   }, [actionMenu, addHighlight, removeHighlight, updateColor, addNote])
 
   return (
-    <div className="space-y-5 min-h-screen pb-36">
+    <div className="space-y-5">
       {/* Title + one-play toggle */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="space-y-1 min-w-0">
@@ -200,7 +200,7 @@ function ListeningSection({ listening, studentId, unitId }) {
           contentId={listening.id}
           contentType="listening"
           studentId={studentId}
-          variant="bottom-bar"
+          variant="default"
           showTranscriptByDefault={true}
           features={{
             karaoke: !onePlayMode,

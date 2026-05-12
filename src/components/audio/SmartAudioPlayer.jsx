@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { Bookmark, AlertCircle, RefreshCw } from 'lucide-react'
+import { Bookmark, AlertCircle, RefreshCw, Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Loader2, Settings, Eye, EyeOff } from 'lucide-react'
 
 import { useAudioEngine } from './hooks/useAudioEngine'
 import { useKaraoke } from './hooks/useKaraoke'
@@ -361,17 +361,26 @@ export default function SmartAudioPlayer({
     )
   }
 
-  // ── Default variant ───────────────────────────────────────────────────────
+  // ── Default variant — Premium Inline ─────────────────────────────────────
+  const fmt = (ms) => {
+    const s = Math.floor(ms / 1000)
+    return `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`
+  }
+
+  const btnBase = 'rounded-full flex items-center justify-center transition-all bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 active:scale-95'
+  const locked = playerLocked && localFeatures.onePlayMode
+  const examActive = localFeatures.onePlayMode && !playerLocked
+  const skipDisabled = locked || examActive
+
   return (
     <div
       ref={containerRef}
-      className={`relative rounded-2xl overflow-visible ${className}`}
-      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+      className={`${className}`}
       tabIndex={0}
       onFocus={() => { document.body.dataset.audioPlayerActive = 'true' }}
       onBlur={() => { document.body.dataset.audioPlayerActive = 'false' }}
     >
-      {/* Settings menu */}
+      {/* ── Settings menu ──────────────────────────────────────────────────── */}
       <SettingsMenu
         open={showSettings}
         onClose={() => setShowSettings(false)}
@@ -379,58 +388,272 @@ export default function SmartAudioPlayer({
         onToggleFeature={toggleFeature}
       />
 
-      {/* Topbar */}
-      <div className="flex items-center justify-between px-4 pt-3 pb-1">
-        <SettingsButton onClick={() => setShowSettings(v => !v)}/>
-        <div className="flex items-center gap-2">
-          {localFeatures.speakerLabels && speakerLabel && <SpeakerBadge label={speakerLabel}/>}
-          {localFeatures.bookmarks && (
-            <button
-              onClick={() => setShowBookmarks(v => !v)}
-              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors relative"
-            >
-              <Bookmark size={16}/>
-              {bookmarks.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-sky-500 text-[9px] text-white flex items-center justify-center">
-                  {bookmarks.length}
-                </span>
-              )}
+      {/* ── Premium player card ─────────────────────────────────────────────── */}
+      <div
+        className="rounded-3xl border border-white/[0.08] p-5 md:p-6 mb-8 space-y-4"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.045), rgba(255,255,255,0.015))',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          boxShadow: '0 8px 32px -12px rgba(0,0,0,0.4)',
+        }}
+      >
+        {/* Auto-resume */}
+        {autoResume.resumePrompt && (
+          <div className="px-3 py-2 rounded-xl text-xs flex items-center justify-between gap-3 font-['Tajawal']"
+            style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.2)' }}
+          >
+            <span className="text-sky-300">هل تريد الاستمرار من حيث توقفت؟</span>
+            <div className="flex gap-2">
+              <button onClick={autoResume.acceptResume} className="text-sky-400">نعم</button>
+              <button onClick={autoResume.dismissResume} className="text-slate-500">لا</button>
+            </div>
+          </div>
+        )}
+
+        {/* Error */}
+        {engine.error && (
+          <div className="px-3 py-3 rounded-xl flex items-center justify-between gap-3"
+            style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}
+          >
+            <div className="flex items-center gap-2">
+              <AlertCircle size={16} className="text-red-400 flex-shrink-0"/>
+              <span className="text-sm text-red-300 font-['Tajawal']">تعذّر تحميل الصوت. تحقّق من اتصالك.</span>
+            </div>
+            <button onClick={engine.retry} className="flex items-center gap-1 text-xs text-sky-400 font-['Tajawal']">
+              <RefreshCw size={12}/> إعادة
             </button>
-          )}
+          </div>
+        )}
+
+        {/* ── TOP ROW: speaker + hide-transcript + settings ─────────────────── */}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 min-w-0">
+            {localFeatures.speakerLabels && speakerLabel && <SpeakerBadge label={speakerLabel}/>}
+          </div>
+          <div className="flex items-center gap-1.5">
+            {localFeatures.hideTranscript && (
+              <button
+                onClick={() => setShowTranscript(v => !v)}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors border font-['Tajawal'] ${
+                  !showTranscript
+                    ? 'bg-sky-500/15 border-sky-400/30 text-sky-300'
+                    : 'bg-white/5 border-white/8 text-slate-300 hover:bg-white/8'
+                }`}
+              >
+                {showTranscript ? <Eye size={13}/> : <EyeOff size={13}/>}
+                {showTranscript ? 'إخفاء النص' : 'إظهار النص'}
+              </button>
+            )}
+            <button
+              onClick={() => setShowSettings(v => !v)}
+              className="p-2 rounded-lg bg-white/5 border border-white/8 text-slate-300 hover:bg-white/8 transition-colors"
+              aria-label="إعدادات"
+            >
+              <Settings size={15}/>
+            </button>
+          </div>
         </div>
+
+        {/* ── PROGRESS SECTION ──────────────────────────────────────────────── */}
+        {!engine.error && (
+          <div className="space-y-3" dir="ltr">
+            {/* Bar + time */}
+            <div className="flex items-center gap-3">
+              <div className="flex-1">
+                <ProgressBar
+                  currentTime={engine.currentTime}
+                  duration={engine.duration}
+                  markerA={abLoop.markerA}
+                  markerB={abLoop.markerB}
+                  isLooping={abLoop.isLooping}
+                  bookmarks={localFeatures.bookmarks ? bookmarks : []}
+                  onSeek={skipDisabled ? undefined : engine.seek}
+                />
+              </div>
+              <span className="text-sm tabular-nums text-slate-300 font-medium whitespace-nowrap min-w-[88px] text-right font-['Inter']">
+                {fmt(engine.currentTime)} / {fmt(engine.duration)}
+              </span>
+            </div>
+
+            {/* A-B + bookmarks row */}
+            {!examActive && (
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                {localFeatures.abLoop && (
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => abLoop.setMarkerA(engine.currentTime)}
+                      className={`px-2 py-1 text-[11px] rounded font-mono transition-colors ${abLoop.markerA !== null ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white'}`}
+                    >A: {abLoop.markerA !== null ? fmt(abLoop.markerA) : '--:--'}</button>
+                    <button
+                      onClick={() => abLoop.setMarkerB(engine.currentTime)}
+                      className={`px-2 py-1 text-[11px] rounded font-mono transition-colors ${abLoop.markerB !== null ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white'}`}
+                    >B: {abLoop.markerB !== null ? fmt(abLoop.markerB) : '--:--'}</button>
+                    {abLoop.markerA !== null && abLoop.markerB !== null && (
+                      <button
+                        onClick={abLoop.toggleLoop}
+                        className={`px-2 py-1 text-[11px] rounded transition-colors ${abLoop.isLooping ? 'bg-amber-400/30 text-amber-300 border border-amber-400/40' : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white'}`}
+                      >⟳</button>
+                    )}
+                    {(abLoop.markerA !== null || abLoop.markerB !== null) && (
+                      <button onClick={abLoop.clearMarkers} className="text-[11px] text-slate-500 hover:text-slate-300 font-['Tajawal']">مسح</button>
+                    )}
+                  </div>
+                )}
+                {localFeatures.bookmarks && (
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowBookmarks(v => !v)}
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:bg-white/8 text-xs transition-colors relative"
+                    >
+                      <Bookmark size={13}/>
+                      <span className="font-['Tajawal']">إشارة{bookmarks.length > 0 ? ` (${bookmarks.length})` : ''}</span>
+                    </button>
+                    <div className="absolute bottom-full mb-2 left-0 right-0">
+                      <BookmarkDrawer
+                        open={showBookmarks}
+                        bookmarks={bookmarks}
+                        onAdd={() => addBookmark(engine.currentTime)}
+                        onRemove={removeBookmark}
+                        onJump={jumpToBookmark}
+                        onClose={() => setShowBookmarks(false)}
+                        currentTime={engine.currentTime}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── MAIN CONTROLS ─────────────────────────────────────────────────── */}
+        {!engine.error && (
+          <div className="flex items-center justify-center gap-3 md:gap-4" dir="ltr">
+            <button
+              disabled={skipDisabled}
+              onClick={() => engine.skip(-10000)}
+              className={`${btnBase} w-11 h-11 md:w-12 md:h-12 ${skipDisabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+              aria-label="رجوع 10 ثواني"
+            >
+              <SkipBack size={18}/>
+            </button>
+
+            {isMulti && segments.length > 1 && (
+              <button
+                disabled={skipDisabled}
+                onClick={() => engine.jumpToSegment(Math.max(0, engine.currentSegmentIndex - 1))}
+                className={`${btnBase} w-10 h-10 md:w-11 md:h-11 ${skipDisabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+                aria-label="المقطع السابق"
+              >
+                <SkipBack size={15}/>
+              </button>
+            )}
+
+            {/* Hero play button */}
+            <button
+              onClick={locked ? undefined : engine.toggle}
+              disabled={engine.isLoading}
+              className={`w-16 h-16 md:w-[72px] md:h-[72px] rounded-full flex items-center justify-center transition-all ${
+                locked
+                  ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                  : 'bg-gradient-to-br from-sky-400 to-sky-600 hover:from-sky-300 hover:to-sky-500 shadow-lg shadow-sky-500/30 hover:scale-[1.04] active:scale-[0.97]'
+              } disabled:opacity-50`}
+              aria-label={engine.isPlaying ? 'إيقاف مؤقت' : 'تشغيل'}
+            >
+              {engine.isLoading
+                ? <Loader2 size={26} className="animate-spin text-white"/>
+                : engine.isPlaying
+                  ? <Pause size={26} className="text-white"/>
+                  : <Play size={26} className="text-white ml-0.5"/>
+              }
+            </button>
+
+            {isMulti && segments.length > 1 && (
+              <button
+                disabled={skipDisabled}
+                onClick={() => engine.jumpToSegment(Math.min((segments?.length || 1) - 1, engine.currentSegmentIndex + 1))}
+                className={`${btnBase} w-10 h-10 md:w-11 md:h-11 ${skipDisabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+                aria-label="المقطع التالي"
+              >
+                <SkipForward size={15}/>
+              </button>
+            )}
+
+            <button
+              disabled={skipDisabled}
+              onClick={() => engine.skip(10000)}
+              className={`${btnBase} w-11 h-11 md:w-12 md:h-12 ${skipDisabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+              aria-label="تقدم 10 ثواني"
+            >
+              <SkipForward size={18}/>
+            </button>
+          </div>
+        )}
+
+        {/* ── SECONDARY ROW ─────────────────────────────────────────────────── */}
+        {!engine.error && (
+          <div className="flex items-center justify-between gap-3 flex-wrap" dir="ltr">
+            <div className="flex items-center gap-2">
+              {/* Speed */}
+              {localFeatures.speedControl && !examActive && (
+                <button
+                  onClick={() => {
+                    const idx = engine.RATES.indexOf(engine.playbackRate)
+                    engine.setRate(engine.RATES[(idx + 1) % engine.RATES.length])
+                  }}
+                  className="px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-slate-300 hover:bg-white/10 transition-colors"
+                >
+                  {engine.playbackRate}x
+                </button>
+              )}
+              {/* Volume */}
+              <button
+                onClick={toggleVolumeHandler}
+                className={`${btnBase} w-9 h-9`}
+                aria-label="صوت"
+              >
+                {engine.volume > 0 ? <Volume2 size={16}/> : <VolumeX size={16}/>}
+              </button>
+            </div>
+            <div className="flex items-center gap-2">
+              {/* Dictation */}
+              {localFeatures.dictation && !examActive && !dictation.active && (
+                <button
+                  onClick={dictation.start}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-white/8 transition-colors font-['Tajawal']"
+                >
+                  <span>📝</span> وضع الإملاء
+                </button>
+              )}
+              {/* One-play locked state */}
+              {locked && (
+                <span className="text-xs text-amber-300/70 font-['Tajawal']">انتهى التشغيل (وضع الامتحان)</span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Dictation panel */}
+        {localFeatures.dictation && (
+          <DictationPanel
+            active={dictation.active}
+            sentenceIdx={dictation.sentenceIdx}
+            totalSentences={dictation.totalSentences}
+            currentSentence={dictation.currentSentence}
+            typed={dictation.typed}
+            onTyped={dictation.setTyped}
+            lastDiff={dictation.lastDiff}
+            onSubmit={dictation.submit}
+            onNext={dictation.nextSentence}
+            onStop={dictation.stop}
+          />
+        )}
       </div>
 
-      {/* Auto-resume prompt */}
-      {autoResume.resumePrompt && (
-        <div className="mx-4 mb-2 px-3 py-2 rounded-lg text-xs flex items-center justify-between gap-3 font-['Tajawal']"
-          style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.2)' }}
-        >
-          <span className="text-sky-300">هل تريد الاستمرار من حيث توقفت؟</span>
-          <div className="flex gap-2">
-            <button onClick={autoResume.acceptResume} className="text-sky-400 hover:text-sky-300">نعم</button>
-            <button onClick={autoResume.dismissResume} className="text-slate-500 hover:text-slate-400">لا</button>
-          </div>
-        </div>
-      )}
-
-      {/* Error state */}
-      {engine.error && (
-        <div className="mx-4 mb-2 px-3 py-3 rounded-xl flex items-center justify-between gap-3"
-          style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}
-        >
-          <div className="flex items-center gap-2">
-            <AlertCircle size={16} className="text-red-400 flex-shrink-0"/>
-            <span className="text-sm text-red-300 font-['Tajawal']">تعذّر تحميل الصوت. تحقّق من اتصالك.</span>
-          </div>
-          <button onClick={engine.retry} className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 font-['Tajawal']">
-            <RefreshCw size={12}/> إعادة
-          </button>
-        </div>
-      )}
-
-      {/* Transcript / Karaoke area */}
+      {/* ── KARAOKE / PASSAGE TEXT ──────────────────────────────────────────── */}
       {showTranscript && !engine.error && (
-        <div className="px-4 pt-2 pb-1 max-h-60 overflow-y-auto">
+        <div>
           {isMulti ? (
             segments.map((seg, i) => (
               <KaraokeText
@@ -439,15 +662,24 @@ export default function SmartAudioPlayer({
                 segmentIndex={i}
                 currentWordIndex={i === engine.currentSegmentIndex ? currentWordIndex : -1}
                 karaokeEnabled={localFeatures.karaoke && karaokeEnabled}
-                onWordTap={localFeatures.wordClickToLookup && onWordTap
+                onWordTap={localFeatures.wordClickToLookup
                   ? (word, segIdx, wordIdx, startMs) => {
                       engine.seek(startMs)
                       if (!engine.isPlaying) engine.play()
-                      onWordTap(word, segIdx, wordIdx, startMs)
+                      onWordTap?.(word, segIdx, wordIdx, startMs)
                     }
                   : null}
                 onWordLongPress={localFeatures.wordClickToLookup ? (onWordLongPress ?? onWordClick) : null}
+                onWordHover={onWordHover
+                  ? (w, sIdx, wIdx, el) => {
+                      onWordHover(w, sIdx, wIdx, el, (vocab) => setHoveredVocab(vocab ? { ...vocab, anchorEl: el } : null))
+                    }
+                  : null}
+                onWordHoverEnd={() => setHoveredVocab(null)}
                 setWordRef={setWordRef}
+                highlightLookup={highlightLookup}
+                vocabSet={vocabSet}
+                large
               />
             ))
           ) : (
@@ -458,95 +690,22 @@ export default function SmartAudioPlayer({
         </div>
       )}
 
-      {/* Dictation panel */}
-      {localFeatures.dictation && (
-        <DictationPanel
-          active={dictation.active}
-          sentenceIdx={dictation.sentenceIdx}
-          totalSentences={dictation.totalSentences}
-          currentSentence={dictation.currentSentence}
-          typed={dictation.typed}
-          onTyped={dictation.setTyped}
-          lastDiff={dictation.lastDiff}
-          onSubmit={dictation.submit}
-          onNext={dictation.nextSentence}
-          onStop={dictation.stop}
+      {/* Hover tooltip */}
+      {hoveredVocab && (
+        <WordTooltip
+          word={hoveredVocab.word}
+          definition_ar={hoveredVocab.definition_ar}
+          ipa={hoveredVocab.pronunciation_ipa || hoveredVocab.ipa}
+          anchorEl={hoveredVocab.anchorEl}
         />
       )}
-
-      {/* Dictation start button */}
-      {localFeatures.dictation && !dictation.active && (
-        <div className="px-4 pb-2">
-          <button
-            onClick={dictation.start}
-            className="text-xs px-3 py-1.5 rounded-lg bg-violet-500/10 text-violet-400 hover:bg-violet-500/20 transition-colors font-['Tajawal']"
-          >
-            ابدأ الإملاء
-          </button>
-        </div>
-      )}
-
-      {/* A-B loop controls */}
-      {localFeatures.abLoop && (
-        <ABLoopControls
-          markerA={abLoop.markerA}
-          markerB={abLoop.markerB}
-          isLooping={abLoop.isLooping}
-          onSetA={() => abLoop.setMarkerA(engine.currentTime)}
-          onSetB={() => abLoop.setMarkerB(engine.currentTime)}
-          onClear={abLoop.clearMarkers}
-          onToggleLoop={abLoop.toggleLoop}
-        />
-      )}
-
-      {/* Progress bar */}
-      {!engine.error && (
-        <ProgressBar
-          currentTime={engine.currentTime}
-          duration={engine.duration}
-          markerA={abLoop.markerA}
-          markerB={abLoop.markerB}
-          isLooping={abLoop.isLooping}
-          bookmarks={localFeatures.bookmarks ? bookmarks : []}
-          onSeek={engine.seek}
-        />
-      )}
-
-      {/* Controls */}
-      {!engine.error && (
-        <PlayerControls
-          isPlaying={engine.isPlaying}
-          isLoading={engine.isLoading}
-          playbackRate={engine.playbackRate}
-          RATES={engine.RATES}
-          onToggle={engine.toggle}
-          onSkip={engine.skip}
-          onSetRate={engine.setRate}
-          onPrevSegment={() => engine.jumpToSegment(Math.max(0, engine.currentSegmentIndex - 1))}
-          onNextSegment={() => engine.jumpToSegment(Math.min((segments?.length || 1) - 1, engine.currentSegmentIndex + 1))}
-          hasSegments={isMulti && segments.length > 1}
-          karaokeEnabled={karaokeEnabled}
-          onKaraokeToggle={karaokeToggle}
-          showTranscript={showTranscript}
-          onTranscriptToggle={() => setShowTranscript(v => !v)}
-          volume={engine.volume}
-          onVolumeToggle={toggleVolumeHandler}
-          features={localFeatures}
-        />
-      )}
-
-      {/* Bookmark drawer */}
-      <div className="relative">
-        <BookmarkDrawer
-          open={showBookmarks}
-          bookmarks={bookmarks}
-          onAdd={addBookmark}
-          onRemove={removeBookmark}
-          onJump={jumpToBookmark}
-          onClose={() => setShowBookmarks(false)}
-          currentTime={engine.currentTime}
-        />
-      </div>
     </div>
   )
 }
+
+export const PLAYER_VARIANTS = Object.freeze({
+  DEFAULT: 'default',
+  COMPACT: 'compact',
+  MINIMAL: 'minimal',
+  BOTTOM_BAR: 'bottom-bar',
+})
