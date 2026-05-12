@@ -7,6 +7,7 @@ import { usePageReset } from '../../../../hooks/usePageReset'
 import GrammarPageShell from '../../../../components/grammar/GrammarPageShell'
 import GrammarHeader from '../../../../components/grammar/GrammarHeader'
 import LessonCard from '../../../../components/grammar/LessonCard'
+import DialectExplanationCard from '../../../../components/dialect/DialectExplanationCard'
 import CommonMistakesCard from '../../../../components/grammar/CommonMistakesCard'
 import ExceptionsCard from '../../../../components/grammar/ExceptionsCard'
 import ExerciseSection from '../../../../components/grammar/ExerciseSection'
@@ -109,6 +110,8 @@ function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
         attemptNumber={attemptNumber}
         bestScore={bestScore}
       />
+
+      <DialectExplanationCard grammarLessonId={topic.id} />
 
       {/* Lesson content */}
       <LessonCard sections={lessonSections} />
