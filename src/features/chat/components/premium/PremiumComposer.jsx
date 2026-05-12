@@ -238,17 +238,21 @@ export default function PremiumComposer({
             channelId={announcementChannel?.id}
           />
           <motion.button
-            {...popIn}
             onClick={() => setAnnouncementOpen(true)}
-            className="fixed bottom-24 left-4 z-30 w-12 h-12 rounded-full flex items-center justify-center shadow-xl transition-all hover:scale-110"
+            whileTap={{ scale: 0.92 }}
+            transition={{ duration: 0.08 }}
+            className="fixed bottom-24 left-4 z-30 flex items-center justify-center fab-pulse"
             style={{
-              background: 'var(--ds-accent-gold)',
-              color: 'var(--ds-bg-base)',
-              boxShadow: '0 4px 20px color-mix(in srgb, var(--ds-accent-gold) 40%, transparent)',
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #fbbf24 0%, color-mix(in srgb, #fbbf24 70%, black) 100%)',
+              border: '1px solid color-mix(in srgb, #fbbf24 50%, white)',
+              color: 'rgba(255,255,255,0.95)',
             }}
             title="إعلان جديد"
           >
-            <Megaphone size={20} />
+            <Megaphone size={22} style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }} />
           </motion.button>
         </>
       )}

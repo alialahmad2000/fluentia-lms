@@ -13,6 +13,27 @@
   border-radius: 8px;
 }
 
+/* === Announcement FAB breathing pulse === */
+@keyframes fabPulse {
+  0%, 100% {
+    box-shadow:
+      0 4px 16px -2px color-mix(in srgb, #fbbf24 40%, transparent),
+      0 12px 32px -8px rgba(0,0,0,0.5),
+      inset 0 1px 0 0 color-mix(in srgb, white 30%, transparent),
+      inset 0 -1px 0 0 color-mix(in srgb, black 20%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 4px 28px -2px color-mix(in srgb, #fbbf24 55%, transparent),
+      0 12px 32px -8px rgba(0,0,0,0.5),
+      inset 0 1px 0 0 color-mix(in srgb, white 30%, transparent),
+      inset 0 -1px 0 0 color-mix(in srgb, black 20%, transparent);
+  }
+}
+.fab-pulse {
+  animation: fabPulse 8s ease-in-out infinite;
+}
+
 /* === Page Entry — stagger children === */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(12px); }
