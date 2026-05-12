@@ -165,6 +165,18 @@
   .velvet-atmo__orb--2 { animation-duration: 200s; }
 }
 
-/* ── Optional variant tuning (reserved) ── */
+/* ── Optional variant tuning ── */
 .velvet-atmo--subtle .velvet-atmo__orb  { opacity: 0.6; }
 .velvet-atmo--intense .velvet-atmo__orb { opacity: 1.2; }
+
+/* ── Chat page: slightly more visible depth without competing with bubbles ── */
+/* body.chat-page added/removed by GroupChatPage useEffect */
+.velvet-atmo--chat .velvet-atmo__orb,
+body.chat-page .velvet-atmo__orb   { opacity: 1.5; }
+
+body.chat-page .velvet-atmo__dotgrid { opacity: 0.85; }
+
+/* Slower drift on chat page — breathes, doesn't dance */
+body.chat-page .velvet-atmo__orb--1 { animation-duration: 120s; }
+body.chat-page .velvet-atmo__orb--2 { animation-duration: 150s; }
+body.chat-page .velvet-atmo__orb--3 { animation-duration: 180s; }

@@ -45,6 +45,12 @@ export default function GroupChatPage() {
 
   const isTrainer = ['trainer', 'admin'].includes(profile?.role)
 
+  // Boost aurora visibility specifically on chat page
+  useEffect(() => {
+    document.body.classList.add('chat-page')
+    return () => document.body.classList.remove('chat-page')
+  }, [])
+
   // Collapse header on scroll-down, expand on scroll-up
   const handleStreamScroll = useCallback((scrollTop) => {
     const going = scrollTop - lastScrollY.current
