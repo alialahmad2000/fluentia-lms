@@ -106,7 +106,7 @@ export default function Insights() {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
               style={{ padding: '16px 20px', borderRadius: 16, background: 'color-mix(in srgb, var(--sunset-orange) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-orange) 25%, transparent)' }}>
               <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>التركيز المقترح</p>
-              <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif' }}>
+              <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>
                 {suggestedFocus.name} — {suggestedFocus.errors - suggestedFocus.mastered} درس لم يُتقن بعد
               </p>
             </motion.div>
