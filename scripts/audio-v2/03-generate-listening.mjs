@@ -15,10 +15,13 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
+import { createRequire } from 'module';
 import { createClient } from '@supabase/supabase-js';
 import { query, closeDb } from '../audio-generator/lib/db.mjs';
 import { synthesizeWithTimestamps } from '../audio-generator/lib/eleven.mjs';
+
+const require = createRequire(import.meta.url);
+const { concatMp3Buffers, verifyMp3Decodes } = require('./lib/concat.cjs');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -32,7 +35,6 @@ const FILTER_FLAGS = (() => {
   return a ? a.split('=')[1].split(',') : ['TRUNCATED', 'SINGLE_VOICE_WRONG', 'LABEL_IN_TEXT'];
 })();
 
-const SILENCE_MS = 300;
 const BUCKET = 'curriculum-audio';
 
 const sb = createClient(process.env.VITE_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
@@ -45,51 +47,6 @@ async function uploadWithUpsert(storagePath, buffer) {
   if (error) throw new Error(`Upload failed for ${storagePath}: ${error.message}`);
   const { data } = sb.storage.from(BUCKET).getPublicUrl(storagePath);
   return { url: data.publicUrl, path: storagePath };
-}
-
-function concatSegments(segPaths) {
-  if (segPaths.length === 1) return fs.readFileSync(segPaths[0]);
-
-  const tmpDir = os.tmpdir();
-  const ts = Date.now();
-  const silencePath = path.join(tmpDir, `sil_${ts}.mp3`);
-  const listPath   = path.join(tmpDir, `lst_${ts}.txt`);
-  const outPath    = path.join(tmpDir, `out_${ts}.mp3`);
-
-  execSync(
-    `ffmpeg -y -f lavfi -i anullsrc=r=44100:cl=stereo -t ${SILENCE_MS / 1000} -q:a 9 -acodec libmp3lame "${silencePath}"`,
-    { stdio: 'pipe' }
-  );
-
-  const lines = [];
-  for (let i = 0; i < segPaths.length; i++) {
-    lines.push(`file '${segPaths[i].replace(/\\/g, '/')}'`);
-    if (i < segPaths.length - 1) lines.push(`file '${silencePath.replace(/\\/g, '/')}'`);
-  }
-  fs.writeFileSync(listPath, lines.join('\n'));
-  execSync(`ffmpeg -y -f concat -safe 0 -i "${listPath}" -c copy "${outPath}"`, { stdio: 'pipe' });
-
-  const buf = fs.readFileSync(outPath);
-  [silencePath, listPath, outPath].forEach(f => { try { fs.unlinkSync(f); } catch {} });
-  return buf;
-}
-
-function probeAudioDurationMs(bufOrPath) {
-  let tmpPath = null;
-  const isBuffer = Buffer.isBuffer(bufOrPath);
-  if (isBuffer) {
-    tmpPath = path.join(os.tmpdir(), `probe_${Date.now()}.mp3`);
-    fs.writeFileSync(tmpPath, bufOrPath);
-  }
-  try {
-    const out = execSync(
-      `ffprobe -v error -show_entries format=duration -of csv=p=0 "${isBuffer ? tmpPath : bufOrPath}"`,
-      { stdio: 'pipe' }
-    ).toString().trim();
-    return Math.round(parseFloat(out) * 1000);
-  } catch { return 0; } finally {
-    if (tmpPath) { try { fs.unlinkSync(tmpPath); } catch {} }
-  }
 }
 
 const auditRaw = fs.readFileSync(path.join(ROOT, AUDIT_PATH), 'utf8');
@@ -126,10 +83,9 @@ for (const item of flagged) {
   const label = `[generate] L${row.level_number}/U${item.unit_number} ${item.id.slice(0, 8)}`;
   console.log(`\n${label} → ${segs.length} segs (${row.audio_type})`);
 
-  const segPaths   = [];
-  const allWordTs  = [];
-  let offsetMs     = 0;
-  let segFailed    = false;
+  const segBuffers  = [];
+  const segWordTs   = []; // raw word timestamps per segment (relative to segment start)
+  let segFailed     = false;
 
   for (let i = 0; i < segs.length; i++) {
     const seg = segs[i];
@@ -142,33 +98,27 @@ for (const item of flagged) {
       segFailed = true; break;
     }
 
-    const segPath = path.join(os.tmpdir(), `seg_${item.id.slice(0, 8)}_${i}_${Date.now()}.mp3`);
-    fs.writeFileSync(segPath, result.audio_buffer);
-    segPaths.push(segPath);
-
-    const segDurMs = probeAudioDurationMs(segPath);
-    for (const wt of result.word_timestamps) {
-      allWordTs.push({ word: wt.word, start_ms: wt.start_ms + offsetMs, end_ms: wt.end_ms + offsetMs, speaker: seg.speaker });
-    }
-    offsetMs += segDurMs + SILENCE_MS;
-    console.log(`  seg${i} "${seg.speaker}" → ${segDurMs}ms`);
+    segBuffers.push(result.audio_buffer);
+    segWordTs.push(result.word_timestamps.map(wt => ({ ...wt, speaker: seg.speaker })));
+    console.log(`  seg${i} "${seg.speaker}" → ${result.audio_buffer.length} bytes`);
   }
 
-  const cleanup = () => segPaths.forEach(p => { try { fs.unlinkSync(p); } catch {} });
+  if (segFailed || !segBuffers.length) { fail++; continue; }
 
-  if (segFailed || !segPaths.length) { cleanup(); fail++; continue; }
-
-  let combinedBuf;
+  let combinedBuf, combinedDurMs, segmentOffsets, segmentDurations;
   try {
-    combinedBuf = concatSegments(segPaths);
-    cleanup();
+    ({ buffer: combinedBuf, durationMs: combinedDurMs, segmentOffsets, segmentDurations } =
+      await concatMp3Buffers(segBuffers));
   } catch (e) {
-    cleanup();
-    console.error(`  ffmpeg FAILED: ${e.message}`);
-    failures.push({ id: item.id, reason: `ffmpeg: ${e.message}` }); fail++; continue;
+    console.error(`  concat FAILED: ${e.message}`);
+    failures.push({ id: item.id, reason: `concat: ${e.message}` }); fail++; continue;
   }
 
-  const combinedDurMs = probeAudioDurationMs(combinedBuf);
+  // Decode-verify before upload — never upload a corrupt file
+  if (!verifyMp3Decodes(combinedBuf)) {
+    console.error(`  decode-verify FAILED — skipping upload`);
+    failures.push({ id: item.id, reason: 'decode verification failed after concat' }); fail++; continue;
+  }
   const storagePath = `listening/L${row.level_number}/${item.id}/combined.mp3`;
 
   let uploaded;
@@ -179,11 +129,27 @@ for (const item of flagged) {
     failures.push({ id: item.id, reason: e.message }); fail++; continue;
   }
 
+  // Stitch word timestamps using accurate segmentOffsets from concat
+  const allWordTs = [];
+  for (let i = 0; i < segWordTs.length; i++) {
+    const offset = segmentOffsets[i] ?? 0;
+    for (const wt of segWordTs[i]) {
+      allWordTs.push({ word: wt.word, start_ms: wt.start_ms + offset, end_ms: wt.end_ms + offset, speaker: wt.speaker });
+    }
+  }
+
+  // Enrich speaker_segments with accurate start_ms / end_ms
+  const enrichedSegs = segs.map((seg, i) => ({
+    ...seg,
+    start_ms: segmentOffsets[i] ?? 0,
+    end_ms: (segmentOffsets[i] ?? 0) + (segmentDurations[i] ?? 0),
+  }));
+
   // Refresh per-segment rows in listening_audio
   await query('DELETE FROM listening_audio WHERE transcript_id=$1', [item.id]);
   for (let i = 0; i < segs.length; i++) {
     const seg = segs[i];
-    const segWts = allWordTs.filter(w => w.speaker === seg.speaker && i === segs.indexOf(seg));
+    const segWts = allWordTs.filter(w => w.speaker === seg.speaker);
     await query(`
       INSERT INTO listening_audio
         (transcript_id, segment_index, speaker_label, voice_id, audio_url, audio_path,
@@ -195,28 +161,32 @@ for (const item of flagged) {
     `, [
       item.id, i, seg.speaker, seg.voice_id,
       uploaded.url, uploaded.path,
-      0, seg.text,
+      segmentDurations[i] ?? 0, seg.text,
       JSON.stringify(segWts), seg.text.length,
     ]);
   }
 
-  // Update curriculum_listening (no audio_path column on this table)
+  // Update curriculum_listening with enriched timing data
   await query(`
     UPDATE curriculum_listening
     SET audio_url=$1,
         audio_duration_seconds=$2,
-        word_timestamps=$3,
+        audio_duration_ms=$3,
+        speaker_segments=$4,
+        word_timestamps=$5,
         audio_generated_at=now()
-    WHERE id=$4
+    WHERE id=$6
   `, [
     uploaded.url,
     Math.round(combinedDurMs / 1000),
+    combinedDurMs,
+    JSON.stringify(enrichedSegs),
     JSON.stringify(allWordTs),
     item.id,
   ]);
 
   const uniqueVoices = new Set(segs.map(s => s.voice_id)).size;
-  console.log(`${label} → ✓ ${combinedDurMs}ms, ${uniqueVoices} voices, ${allWordTs.length} wts`);
+  console.log(`${label} → ✓ ${combinedDurMs}ms, ${uniqueVoices} voices, ${allWordTs.length} wts, ${segs.length} segs with timing`);
   results.push({ id: item.id, level: item.level, unit: item.unit_number, flags: item.flags, duration_ms: combinedDurMs, unique_voices: uniqueVoices, wt_count: allWordTs.length });
   success++;
 }

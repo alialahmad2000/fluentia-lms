@@ -7,7 +7,7 @@ import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
-import { ListeningAudioPlayer } from '../../../../components/players/ListeningAudioPlayer'
+import { ListeningSection as ListeningSectionUI } from '../../../../components/players/listening/ListeningSection'
 import { VocabPopup } from '../../../../components/audio/VocabPopup'
 import { OnePlayBanner } from '../../../../components/audio/parts/OnePlayBanner'
 import { useListeningTranscriptAudio } from '../../../../hooks/useListeningTranscriptAudio'
@@ -191,7 +191,7 @@ function ListeningSection({ listening, studentId, unitId }) {
   }, [actionMenu, addHighlight, removeHighlight, updateColor, addNote])
 
   return (
-    <div className="space-y-5 pb-[100px]">
+    <div className="space-y-5">
       {/* Title + one-play toggle */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="space-y-1 min-w-0">
@@ -224,19 +224,12 @@ function ListeningSection({ listening, studentId, unitId }) {
         onDisable={() => { setOnePlayMode(false); setHasPlayed(false) }}
       />
 
-      {/* Audio player + transcript */}
-      {audioLoading ? (
-        <div className="h-48 rounded-2xl animate-pulse" style={{ background: 'var(--surface-raised)' }} />
-      ) : (
-        <ListeningAudioPlayer
-          item={{
-            ...listening,
-            audio_url: segments[0]?.audio_url || listening.audio_url,
-            word_timestamps: segments[0]?.word_timestamps,
-          }}
-          unitId={unitId}
-        />
-      )}
+      {/* Premium listening section: transcript + player */}
+      <ListeningSectionUI
+        listening={listening}
+        unitId={unitId}
+        audioLoading={audioLoading}
+      />
 
 
       {/* Exercises — PRESERVED UNCHANGED */}
