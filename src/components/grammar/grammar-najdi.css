@@ -1,0 +1,108 @@
+/* ─── Najdi Grammar Explanation Renderer ─── */
+
+.najdi-explanation {
+  font-family: 'Tajawal', 'Inter', sans-serif;
+  color: var(--text-primary);
+}
+
+.najdi-section-heading {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--accent-gold, var(--accent-sky));
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.najdi-section-heading:first-child {
+  margin-top: 0;
+}
+
+.najdi-para {
+  font-size: 0.9375rem;
+  line-height: 2;
+  margin-bottom: 0.625rem;
+  unicode-bidi: plaintext;
+}
+
+.najdi-list {
+  list-style: disc;
+  padding-right: 1.25rem;
+  margin: 0.375rem 0 0.625rem;
+}
+
+.najdi-list-item {
+  font-size: 0.9375rem;
+  line-height: 2;
+  margin-bottom: 0.1875rem;
+}
+
+/* ─── Example blockquote container ─── */
+.najdi-example-block {
+  margin: 0.75rem 0;
+  padding: 0.875rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--glass-card);
+  border: 1px solid var(--border-subtle);
+  border-right: 3px solid var(--accent-sky);
+  font-style: normal;
+}
+
+/* EN lines (odd children) — LTR */
+.najdi-example-block > p:nth-child(odd) {
+  direction: ltr;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  margin-bottom: 0.25rem;
+}
+
+/* AR lines (even children) — RTL, muted */
+.najdi-example-block > p:nth-child(even) {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+/* ─── Code ─── */
+.najdi-inline-code {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--glass-input);
+  border: 1px solid var(--border-subtle);
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  color: var(--accent-sky);
+  margin: 0 0.125rem;
+}
+
+.najdi-code-block {
+  margin: 0.5rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--glass-input);
+  border: 1px solid var(--border-subtle);
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+/* ─── Emphasis ─── */
+.najdi-bold {
+  font-weight: 700;
+  color: var(--accent-gold, var(--accent-sky));
+}
+
+/* ─── Section divider ─── */
+.najdi-divider {
+  margin: 1rem 0;
+  border: none;
+  height: 1px;
+  background: var(--border-subtle);
+}

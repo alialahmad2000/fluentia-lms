@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback } from 'react'
-import { X, Sparkles, RotateCcw } from 'lucide-react'
+import { X, Sparkles, RotateCcw, RefreshCw } from 'lucide-react'
 import DOMPurify from 'dompurify'
 import { supabase } from '../../lib/supabase'
+import { NajdiExplanationView } from './NajdiExplanationView'
 
 export default function ExplainModal({ open, onClose, payload }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [result, setResult] = useState(null)
 
-  const fetchExplanation = useCallback(async () => {
+  const fetchExplanation = useCallback(async (forceRegen = false) => {
     if (!payload) return
     setLoading(true)
     setError(null)
@@ -18,7 +19,7 @@ export default function ExplainModal({ open, onClose, payload }) {
       if (!session) throw new Error('Not authenticated')
 
       const res = await supabase.functions.invoke('explain-grammar-answer', {
-        body: payload,
+        body: { ...payload, force_regenerate: forceRegen },
         headers: { Authorization: `Bearer ${session.access_token}` },
       })
 
@@ -42,7 +43,6 @@ export default function ExplainModal({ open, onClose, payload }) {
     }
   }, [open, payload, fetchExplanation])
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return
     const handler = (e) => { if (e.key === 'Escape') onClose() }
@@ -51,6 +51,10 @@ export default function ExplainModal({ open, onClose, payload }) {
   }, [open, onClose])
 
   if (!open) return null
+
+  // Determine which format the result is in
+  const isNewFormat = result && !!result.explanation_md
+  const isOldFormat = result && !result.explanation_md && !!result.explanation_html
 
   return (
     <div
@@ -110,7 +114,6 @@ export default function ExplainModal({ open, onClose, payload }) {
               <div className="w-4 h-4 rounded-full animate-spin" style={{ border: '2px solid var(--border-default)', borderTopColor: 'var(--accent-sky)' }} />
               <span className="text-sm font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>تُحضَّر الشرح...</span>
             </div>
-            {/* Shimmer skeleton */}
             <div className="space-y-2">
               <div className="h-4 rounded" style={{ background: 'var(--skeleton-from)', width: '80%' }} />
               <div className="h-4 rounded" style={{ background: 'var(--skeleton-from)', width: '60%' }} />
@@ -124,7 +127,7 @@ export default function ExplainModal({ open, onClose, payload }) {
           <div className="rounded-xl p-4 text-center space-y-3" style={{ background: 'var(--danger-bg)', border: '1px solid var(--danger-border)' }}>
             <p className="text-sm font-['Tajawal']" style={{ color: 'var(--danger)' }}>{error}</p>
             <button
-              onClick={fetchExplanation}
+              onClick={() => fetchExplanation()}
               className="grammar-option px-4 py-2 inline-flex text-sm font-['Tajawal'] font-bold"
               style={{ color: 'var(--accent-sky)', borderColor: 'var(--info-border)' }}
             >
@@ -134,40 +137,55 @@ export default function ExplainModal({ open, onClose, payload }) {
           </div>
         )}
 
-        {/* Result */}
-        {result && !loading && (
+        {/* Result — new Markdown format */}
+        {isNewFormat && !loading && (
+          <div className="space-y-3">
+            <NajdiExplanationView markdown={result.explanation_md} />
+          </div>
+        )}
+
+        {/* Result — old HTML format (backward compat) */}
+        {isOldFormat && !loading && (
           <div className="space-y-4">
-            {/* TLDR */}
             {result.tldr_ar && (
               <div className="rounded-xl p-4" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
                 <p className="text-xs font-bold font-['Tajawal'] mb-1" style={{ color: 'var(--accent-sky)' }}>بسرعة</p>
                 <p className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--text-primary)' }}>{result.tldr_ar}</p>
               </div>
             )}
-
-            {/* Full explanation */}
-            {result.explanation_html && (
-              <div className="space-y-2">
-                <p className="text-xs font-bold font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الشرح الكامل</p>
-                <div
-                  className="grammar-explain-content text-sm font-['Tajawal'] leading-relaxed"
-                  style={{ color: 'var(--text-primary)' }}
-                  dir="rtl"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(result.explanation_html, {
-                    ALLOWED_TAGS: ['p', 'strong', 'em', 'code', 'ul', 'ol', 'li', 'br', 'span'],
-                    ALLOWED_ATTR: ['dir', 'class'],
-                  }) }}
-                />
-              </div>
-            )}
-
-            {/* If both empty, show fallback */}
-            {!result.tldr_ar && !result.explanation_html && (
-              <p className="text-sm font-['Tajawal'] text-center" style={{ color: 'var(--text-tertiary)' }}>
-                لم يتمكن المُعلم من تقديم شرح لهذا السؤال.
-              </p>
-            )}
+            <div className="space-y-2">
+              <p className="text-xs font-bold font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الشرح الكامل</p>
+              <div
+                className="grammar-explain-content text-sm font-['Tajawal'] leading-relaxed"
+                style={{ color: 'var(--text-primary)' }}
+                dir="rtl"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(result.explanation_html, {
+                  ALLOWED_TAGS: ['p', 'strong', 'em', 'code', 'ul', 'ol', 'li', 'br', 'span'],
+                  ALLOWED_ATTR: ['dir', 'class'],
+                }) }}
+              />
+            </div>
+            {/* Lazy upgrade button */}
+            <div className="flex justify-center pt-1">
+              <button
+                onClick={() => fetchExplanation(true)}
+                className="inline-flex items-center gap-2 text-xs font-['Tajawal'] px-3 py-2 rounded-lg transition-colors"
+                style={{ color: 'var(--text-tertiary)', border: '1px solid var(--border-subtle)' }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent-sky)'; e.currentTarget.style.borderColor = 'var(--info-border)' }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-tertiary)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
+              >
+                <RefreshCw size={12} />
+                أعد التحميل بتنسيق محسّن
+              </button>
+            </div>
           </div>
+        )}
+
+        {/* Empty result fallback */}
+        {result && !isNewFormat && !isOldFormat && !loading && (
+          <p className="text-sm font-['Tajawal'] text-center" style={{ color: 'var(--text-tertiary)' }}>
+            لم يتمكن المُعلم من تقديم شرح لهذا السؤال.
+          </p>
         )}
 
         {/* Footer */}
