@@ -342,20 +342,27 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     saveDraft(task.id, text)
 
     // 1. Save writing to DB first (never block on AI)
-    await saveToDb(text, true)
+    const saveError = await saveToDb(text, true)
+    if (saveError) {
+      toast({ type: 'error', title: 'فشل حفظ الكتابة — أعيدي المحاولة' })
+      setSubmitting(false)
+      return
+    }
+
     setSubmitted(true)
     toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
     try { safeCelebrate('writing_submitted') } catch {}
     awardCurriculumXP(studentId, 'writing', null, unitId)
     window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'writing' } }))
 
-    // 2. Call AI feedback (with built-in retries)
+    // 2. Release the submit button immediately — DB save is done, AI is fire-and-forget
+    setSubmitting(false)
+
+    // 3. Call AI feedback (with built-in retries) — no longer blocks the button
     const success = await fetchFeedback(text)
     if (!success) {
-      // Don't show scary error — sweeper catches it automatically
       toast({ type: 'info', title: 'جاري التصحيح في الخلفية — سيظهر تلقائياً خلال دقائق' })
     }
-    setSubmitting(false)
   }, [task.id, task.word_count_min, text, studentId, saveToDb, submitting, fetchFeedback, unitId])
 
   const taskTypeAr = {
