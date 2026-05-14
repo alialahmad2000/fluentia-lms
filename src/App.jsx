@@ -155,6 +155,7 @@ const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const EvaluationHealthPage = lazyRetry(() => import('./pages/admin/EvaluationHealthPage'))
+const StudentProgressDiagnostic = lazyRetry(() => import('./pages/admin/StudentProgressDiagnostic'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
 const AdminGroups = lazyRetry(() => import('./pages/admin/AdminGroups'))
 const AdminTrainers = lazyRetry(() => import('./pages/admin/AdminTrainers'))
@@ -815,6 +816,7 @@ export default function App() {
               <Route path="/admin/settings" element={<Page><AdminSettings /></Page>} />
               <Route path="/admin/weekly-tasks" element={<Page><AdminWeeklyTasks /></Page>} />
               <Route path="/admin/holidays" element={<Page><AdminHolidays /></Page>} />
+              <Route path="/admin/progress-diagnostic" element={<Page><StudentProgressDiagnostic /></Page>} />
               <Route path="/admin/audit-log" element={<Page><AdminAuditLog /></Page>} />
               <Route path="/admin/testimonials" element={<Page><AdminTestimonials /></Page>} />
               <Route path="/admin/today" element={<Page><AdminActionCenter /></Page>} />

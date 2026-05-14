@@ -237,20 +237,23 @@ export default function UnitContent() {
   }, [setSearchParams])
 
   // Layer 1 — universal activity completion listener
-  // Any activity dispatches 'fluentia:activity:complete' on success; we auto-return
-  // to MissionGrid after a short delay so the student sees the completion screen.
+  // Any activity dispatches 'fluentia:activity:complete' on success.
+  // Invalidates progress cache immediately, then returns to MissionGrid after 3s.
   useEffect(() => {
     let returnTimer = null
     const handleActivityComplete = () => {
-      // 2.5 s grace period so the completion screen is visible before grid returns
-      returnTimer = setTimeout(() => handleBackToGrid(), 2500)
+      const studentId = profile?.id ?? studentData?.id
+      if (studentId && unitId) {
+        queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive', studentId, unitId] })
+      }
+      returnTimer = setTimeout(() => handleBackToGrid(), 3000)
     }
     window.addEventListener('fluentia:activity:complete', handleActivityComplete)
     return () => {
       window.removeEventListener('fluentia:activity:complete', handleActivityComplete)
       if (returnTimer) clearTimeout(returnTimer)
     }
-  }, [handleBackToGrid])
+  }, [handleBackToGrid, profile?.id, studentData?.id, unitId, queryClient])
 
   // Layer 4 — height sentinel: if activity div renders <10px after 1500ms, bail out
   const activityContainerRef = useRef(null)

@@ -89,10 +89,10 @@ export default function SpeakingTab({ unitId }) {
   // Save progress after upload
   const handleUploadComplete = useCallback(async () => {
     try { safeCelebrate('speaking_uploaded') } catch {}
-    // Refresh recordings
     queryClient.invalidateQueries({ queryKey: ['speaking-recordings', unitId, studentId] })
 
-    // Update curriculum progress
+    if (!studentId || !unitId) return
+
     const progressRow = {
       student_id: studentId,
       unit_id: unitId,
@@ -101,20 +101,42 @@ export default function SpeakingTab({ unitId }) {
       completed_at: new Date().toISOString(),
     }
 
-    // Try upsert using the unique constraint (student_id, unit_id, section_type)
-    const { data: existing } = await supabase
+    const { data: existing, error: fetchErr } = await supabase
       .from('student_curriculum_progress')
       .select('id')
       .eq('student_id', studentId)
       .eq('unit_id', unitId)
       .eq('section_type', 'speaking')
+      .limit(1)
       .maybeSingle()
 
-    if (existing) {
-      await supabase.from('student_curriculum_progress').update(progressRow).eq('id', existing.id)
-    } else {
-      await supabase.from('student_curriculum_progress').insert(progressRow)
+    if (fetchErr && fetchErr.code !== 'PGRST116') {
+      console.error('[SpeakingTab] fetch progress error:', fetchErr)
     }
+
+    let writeErr
+    if (existing) {
+      const { error } = await supabase
+        .from('student_curriculum_progress')
+        .update(progressRow)
+        .eq('id', existing.id)
+        .select()
+      writeErr = error
+    } else {
+      const { error } = await supabase
+        .from('student_curriculum_progress')
+        .insert(progressRow)
+        .select()
+      writeErr = error
+    }
+
+    if (writeErr) {
+      console.error('[SpeakingTab] progress write failed:', writeErr)
+      toast({ type: 'error', title: 'تعذّر حفظ التقدم — يرجى إبلاغ المشرف' })
+      return
+    }
+
+    queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive', studentId, unitId] })
     awardCurriculumXP(studentId, 'speaking', null, unitId)
     window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'speaking' } }))
   }, [unitId, studentId, queryClient])
