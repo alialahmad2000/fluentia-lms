@@ -228,11 +228,14 @@ function ListeningSection({ listening, studentId, unitId }) {
       {audioLoading ? (
         <div className="h-48 rounded-2xl animate-pulse" style={{ background: 'var(--surface-raised)' }} />
       ) : (
-        <ListeningAudioPlayer item={{
-          ...listening,
-          audio_url: segments[0]?.audio_url || listening.audio_url,
-          word_timestamps: segments[0]?.word_timestamps,
-        }} />
+        <ListeningAudioPlayer
+          item={{
+            ...listening,
+            audio_url: segments[0]?.audio_url || listening.audio_url,
+            word_timestamps: segments[0]?.word_timestamps,
+          }}
+          unitId={unitId}
+        />
       )}
 
 

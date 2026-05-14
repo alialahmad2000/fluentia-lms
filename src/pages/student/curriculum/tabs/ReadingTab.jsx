@@ -850,6 +850,7 @@ function ReadingContent({ reading, studentId, unitId }) {
                 word_timestamps: audioData.segments[0]?.word_timestamps,
                 full_duration_ms: audioData.segments[0]?.duration_ms,
               } : null}
+              unitId={unitId}
             />
           </div>
         </div>

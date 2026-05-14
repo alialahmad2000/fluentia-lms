@@ -1,15 +1,17 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { InteractivePassage } from './InteractivePassage'
+import { StickyAudioBar } from './StickyAudioBar'
 
-// passage: { id, title_en, title_ar, content }  (content = paragraphs joined by \n\n)
-// audio:   { full_audio_url, word_timestamps, full_duration_ms } | null
-// Reading has NO hide-text toggle — the passage is always visible.
-export function ReadingPassagePlayer({ passage, audio }) {
-  const [currentTimeMs, setCurrentTimeMs] = useState(0)
+/**
+ * passage: { id, title_en, title_ar, content }
+ * audio:   { full_audio_url, word_timestamps, full_duration_ms } | null
+ * unitId:  string — required for vocab word highlighting
+ */
+export function ReadingPassagePlayer({ passage, audio, unitId }) {
   const audioRef = useRef(null)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 pb-36">
       <header dir="rtl">
         {passage.title_ar && (
           <h2 className="text-2xl font-bold text-[var(--text-primary)] font-['Tajawal']">{passage.title_ar}</h2>
@@ -17,30 +19,32 @@ export function ReadingPassagePlayer({ passage, audio }) {
         {passage.title_en && (
           <p className="text-sm text-[var(--text-secondary)] mt-1 font-['Inter']" dir="ltr">{passage.title_en}</p>
         )}
-      </header>
-
-      {audio?.full_audio_url && (
-        <div className="rounded-2xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] p-4">
-          <audio
-            ref={audioRef}
-            src={audio.full_audio_url}
-            onTimeUpdate={(e) => setCurrentTimeMs(e.currentTarget.currentTime * 1000)}
-            controls
-            className="w-full"
-            dir="ltr"
-          />
-          <p className="text-xs text-[var(--text-muted)] mt-2 text-right font-['Tajawal']" dir="rtl">
-            انقر على أي كلمة لرؤية الترجمة وسماع نطقها
+        {unitId && (
+          <p className="text-xs text-[var(--text-muted)] mt-2 font-['Tajawal']" dir="rtl">
+            الكلمات الذهبية من مفردات الوحدة — ترجمتها ظاهرة تحتها. انقر على أي كلمة لسماع نطقها.
           </p>
-        </div>
-      )}
+        )}
+      </header>
 
       <InteractivePassage
         content={passage.content}
         audioUrl={audio?.full_audio_url}
         wordTimestampsJson={audio?.word_timestamps}
-        currentTimeMs={currentTimeMs}
+        unitId={unitId}
       />
+
+      {audio?.full_audio_url && (
+        <>
+          <audio
+            ref={audioRef}
+            src={audio.full_audio_url}
+            preload="metadata"
+            playsInline
+            style={{ display: 'none' }}
+          />
+          <StickyAudioBar audioRef={audioRef} showABRepeat={false} />
+        </>
+      )}
     </div>
   )
 }

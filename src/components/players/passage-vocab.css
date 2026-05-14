@@ -1,0 +1,65 @@
+/* Vocab word: gold dashed underline + Arabic meaning shown inline below */
+.vocab-word {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f5c842;
+  font-weight: 600;
+  border-bottom: 1.5px dashed #f5c842;
+  padding-bottom: 1px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  vertical-align: bottom;
+}
+
+.vocab-word:hover,
+.vocab-word.active {
+  color: var(--text-primary);
+  background-color: rgba(245, 200, 66, 0.15);
+  border-bottom-style: solid;
+  border-radius: 4px;
+  padding: 1px 3px;
+}
+
+.vocab-word-translation {
+  display: block;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.70em;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.1;
+  margin-top: 1px;
+  direction: rtl;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.vocab-word.active .vocab-word-translation {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 480px) {
+  .vocab-word-translation {
+    font-size: 0.62em;
+  }
+}
+
+/* Regular (non-vocab) clickable words */
+.regular-word {
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0 1px;
+  transition: background-color 0.15s ease;
+}
+
+.regular-word:hover {
+  background-color: rgba(56, 189, 248, 0.12);
+}
+
+.regular-word.active {
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 3px;
+}
