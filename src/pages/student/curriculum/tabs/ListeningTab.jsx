@@ -7,7 +7,7 @@ import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
-import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
+import { ListeningAudioPlayer } from '../../../../components/players/ListeningAudioPlayer'
 import { VocabPopup } from '../../../../components/audio/VocabPopup'
 import { OnePlayBanner } from '../../../../components/audio/parts/OnePlayBanner'
 import { useListeningTranscriptAudio } from '../../../../hooks/useListeningTranscriptAudio'
@@ -224,100 +224,17 @@ function ListeningSection({ listening, studentId, unitId }) {
         onDisable={() => { setOnePlayMode(false); setHasPlayed(false) }}
       />
 
-      {/* Audio player */}
+      {/* Audio player + transcript */}
       {audioLoading ? (
         <div className="h-48 rounded-2xl animate-pulse" style={{ background: 'var(--surface-raised)' }} />
-      ) : segments.length > 0 ? (
-        <SmartAudioPlayer
-          segments={segments}
-          contentId={listening.id}
-          contentType="listening"
-          studentId={studentId}
-          variant="bottom-bar"
-          showTranscriptByDefault={false}
-          features={{
-            karaoke: !onePlayMode,
-            speedControl: !onePlayMode,
-            skipButtons: !onePlayMode,
-            sentenceNav: !onePlayMode,
-            paragraphNav: !onePlayMode,
-            sentenceMode: false,
-            abLoop: !onePlayMode,
-            bookmarks: !onePlayMode,
-            speakerLabels: true,
-            hideTranscript: true,
-            keyboardShortcuts: !onePlayMode,
-            mobileGestures: !onePlayMode,
-            dictation: !onePlayMode,
-            autoResume: !onePlayMode,
-            playbackHistory: true,
-            wordClickToLookup: !onePlayMode,
-            onePlayMode,
-          }}
-          onWordTap={handleWordTap}
-          onWordLongPress={(word, segIdx, wordIdx, pos) => handleWordLongPress(word, segIdx, wordIdx, pos)}
-          onWordHover={handleWordHover}
-          onVocabWordTap={handleVocabWordTap}
-          highlightLookup={highlightLookup}
-          vocabSet={vocabSet}
-          onSegmentComplete={handleSegmentComplete}
-          onPlaybackComplete={handlePlaybackComplete}
-        />
       ) : (
-        /* No segments in listening_audio — show legacy audio_url fallback */
-        listening.audio_url ? (
-          <AudioPlayer url={listening.audio_url} duration={listening.audio_duration_seconds} />
-        ) : (
-          <div
-            className="rounded-xl p-5 flex flex-col items-center gap-3"
-            style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-          >
-            <Headphones size={24} className="text-purple-400" />
-            <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">المقطع الصوتي غير متاح حالياً</p>
-          </div>
-        )
+        <ListeningAudioPlayer item={{
+          ...listening,
+          audio_url: segments[0]?.audio_url || listening.audio_url,
+          word_timestamps: segments[0]?.word_timestamps,
+        }} />
       )}
 
-      {/* Word action menu */}
-      {actionMenu && (
-        <WordActionMenu
-          word={actionMenu.word}
-          position={actionMenu.position}
-          existingHighlight={actionMenu.existingHighlight}
-          onAction={handleAction}
-          onClose={() => setActionMenu(null)}
-        />
-      )}
-
-      {/* VocabPopup (from "lookup" action) */}
-      {vocabPopup && (
-        <VocabPopup
-          word={vocabPopup.word}
-          readingId={listening.id}
-          isOpen={true}
-          onClose={() => setVocabPopup(null)}
-          anchorPosition={vocabPopup.position}
-        />
-      )}
-
-      {/* Vocab tap tooltip */}
-      {wordTooltip && (
-        <WordTooltip
-          word={wordTooltip.vocab.word}
-          definition_ar={wordTooltip.vocab.definition_ar}
-          ipa={wordTooltip.vocab.pronunciation_ipa}
-          audio_url={wordTooltip.vocab.audio_url}
-          example_sentence={wordTooltip.vocab.example_sentence}
-          image_url={wordTooltip.vocab.image_url}
-          inContextAudio={wordTooltip.inContextAudio || null}
-          anchorEl={wordTooltip.anchorEl}
-          onClose={() => setWordTooltip(null)}
-          onMoreInfo={() => {
-            setVocabPopup({ word: wordTooltip.vocab.word, position: wordTooltip.position })
-            setWordTooltip(null)
-          }}
-        />
-      )}
 
       {/* Exercises — PRESERVED UNCHANGED */}
       {exercises.length > 0 && (
@@ -453,6 +370,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [attemptNumber, setAttemptNumber] = useState(1)
   const [allAttempts, setAllAttempts] = useState([])
   const [retrying, setRetrying] = useState(false)
@@ -566,6 +484,17 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
     const score = isComplete ? (total > 0 ? Math.round((correct / total) * 100) : 0) : null
 
+    if (isComplete) setSubmitting(true)
+
+    const onSaveError = (err, label) => {
+      console.error(`[ListeningTab] ${label}:`, err)
+      if (isComplete) {
+        setSubmitting(false)
+        hasSaved.current = false
+        toast({ type: 'error', title: 'تعذّر حفظ إجاباتك — يرجى المحاولة مجدداً' })
+      }
+    }
+
     if (currentRowId.current) {
       // UPDATE existing row
       const { error } = await supabase
@@ -579,7 +508,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
         })
         .eq('id', currentRowId.current)
 
-      if (error) { console.error('[ListeningTab] Save failed:', error); return }
+      if (error) { onSaveError(error, 'Update failed'); return }
 
       if (isComplete) {
         // Recompute is_best across all rows for this student+listening
@@ -603,6 +532,8 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
           setBestScore(allRows[0].score)
         }
 
+        hasSaved.current = true
+        setSubmitting(false)
         setRetrying(false)
         setIsCompleted(true)
         toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
@@ -649,7 +580,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
         .select()
         .single()
 
-      if (error) { console.error('[ListeningTab] Insert failed:', error); return }
+      if (error) { onSaveError(error, 'Insert failed'); return }
 
       if (newRow) {
         currentRowId.current = newRow.id
@@ -677,6 +608,8 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
             setBestScore(score)
           }
 
+          hasSaved.current = true
+          setSubmitting(false)
           setRetrying(false)
           setIsCompleted(true)
           toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
@@ -693,7 +626,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
         }
       }
     }
-  }, [studentId, unitId, listeningId, total, buildResults, allAttempts, attemptNumber])
+  }, [studentId, unitId, listeningId, total, buildResults, allAttempts, attemptNumber, setSubmitting])
 
   // Autosave on each new answered question — always in_progress, NEVER completes.
   useEffect(() => {
@@ -705,13 +638,12 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
 
   // Explicit submit — shows confirmation dialog first
   const handleFinish = useCallback(() => {
-    if (!allAnswered || hasSaved.current) return
+    if (!allAnswered || hasSaved.current || submitting) return
     setConfirmOpen(true)
-  }, [allAnswered])
+  }, [allAnswered, submitting])
 
   const handleConfirmSubmit = useCallback(() => {
     setConfirmOpen(false)
-    hasSaved.current = true
     saveProgress(answers, true)
   }, [answers, saveProgress])
 
@@ -796,21 +728,32 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
       {/* Submit button — only shown when not completed (or when retrying) */}
       {(!isCompleted || retrying) && answered > 0 && (
         <div className="flex flex-col items-center gap-2 pt-2">
-          <button
-            type="button"
-            onClick={handleFinish}
-            disabled={!allAnswered}
-            className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{
-              background: allAnswered ? '#a855f7' : 'var(--surface-raised)',
-              color: allAnswered ? '#fff' : 'var(--text-muted)',
-              border: '1px solid ' + (allAnswered ? '#a855f7' : 'var(--border-subtle)'),
-            }}
-          >
-            {allAnswered
-              ? <><span>تسليم الإجابات ({answered}/{total})</span><XPBadgeInline amount={5} /></>
-              : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
-          </button>
+          {submitting ? (
+            <div className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm text-purple-300"
+              style={{ background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.3)' }}>
+              <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a10 10 0 100 20v-4l-3 3 3 3v-4a8 8 0 01-8-8z"/>
+              </svg>
+              جاري الحفظ...
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={handleFinish}
+              disabled={!allAnswered || submitting}
+              className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                background: allAnswered ? '#a855f7' : 'var(--surface-raised)',
+                color: allAnswered ? '#fff' : 'var(--text-muted)',
+                border: '1px solid ' + (allAnswered ? '#a855f7' : 'var(--border-subtle)'),
+              }}
+            >
+              {allAnswered
+                ? <><span>تسليم الإجابات ({answered}/{total})</span><XPBadgeInline amount={5} /></>
+                : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
+            </button>
+          )}
         </div>
       )}
 

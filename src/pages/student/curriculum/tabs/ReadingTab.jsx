@@ -8,7 +8,6 @@ import PersonalizedReadingCard from '../../../../components/personalization/Pers
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
-import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import PageHelp from '../../../../components/PageHelp'
 import { usePointerType } from '../../../../hooks/usePointerType'
@@ -17,12 +16,12 @@ import { usePageReset } from '../../../../hooks/usePageReset'
 import { useReadingPassageAudio } from '../../../../hooks/useReadingPassageAudio'
 import { useWordHighlights } from '../../../../hooks/useWordHighlights'
 import { useUnitVocabSet } from '../../../../hooks/useUnitVocabSet'
-import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
 import { VocabPopup } from '../../../../components/audio/VocabPopup'
 import { WordActionMenu } from '../../../../components/audio/parts/WordActionMenu'
 import { WordTooltip } from '../../../../components/audio/parts/WordTooltip'
 import { findWordTimestamp, resolveVoiceLabel } from '../../../../lib/findWordTimestamp'
 import { trackEvent } from '../../../../lib/trackEvent'
+import { ReadingPassagePlayer } from '../../../../components/players/ReadingPassagePlayer'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -838,84 +837,21 @@ function ReadingContent({ reading, studentId, unitId }) {
           )}
 
           {/* ── Passage text + audio ──────────────────────────────────── */}
-          {audioData ? (
-            /* bottom-bar mode: SmartAudioPlayer renders KaraokeText as primary passage */
-            <SmartAudioPlayer
-              segments={audioData.segments}
-              contentId={reading.id}
-              contentType="reading"
-              studentId={studentId}
-              variant="bottom-bar"
-              showTranscriptByDefault={true}
-              features={{
-                karaoke: true,
-                speedControl: true,
-                skipButtons: true,
-                sentenceNav: true,
-                paragraphNav: false,
-                sentenceMode: false,
-                abLoop: true,
-                bookmarks: true,
-                speakerLabels: false,
-                hideTranscript: false,
-                keyboardShortcuts: true,
-                mobileGestures: true,
-                dictation: false,
-                autoResume: true,
-                playbackHistory: true,
-                wordClickToLookup: true,
+          <div ref={passageRef}>
+            <ReadingPassagePlayer
+              passage={{
+                id: reading.id,
+                title_en: null,
+                title_ar: null,
+                content: reading.passage_content?.paragraphs?.join('\n\n') || ''
               }}
-              onWordLongPress={(word, segIdx, wordIdx, pos) => handleWordClick(word, segIdx, pos, wordIdx)}
-              onWordHover={handleWordHover}
-              onVocabWordTap={handleVocabWordTap}
-              highlightLookup={highlightLookup}
-              vocabSet={vocabSet}
-              onSegmentComplete={(i) => {
-                if (!audioPlayStartedRef.current) {
-                  audioPlayStartedRef.current = true
-                  trackEvent('reading_audio_play_start', { passage_id: reading.id })
-                }
-                trackEvent('reading_audio_segment_complete', {
-                  passage_id: reading.id,
-                  segment_index: i,
-                  total_segments: audioData.segments.length,
-                })
-              }}
-              onPlaybackComplete={() => {
-                trackEvent('reading_audio_complete', { passage_id: reading.id })
-              }}
+              audio={audioData ? {
+                full_audio_url: audioData.segments[0]?.audio_url,
+                word_timestamps: audioData.segments[0]?.word_timestamps,
+                full_duration_ms: audioData.segments[0]?.duration_ms,
+              } : null}
             />
-          ) : (
-            /* Fallback: no audio — use PassageDisplay with existing interactions */
-            <div ref={passageRef} className="relative">
-              <PassageDisplay
-                paragraphs={reading.passage_content?.paragraphs || []}
-                vocabMap={vocabMap}
-                savedWordSet={savedWordSet}
-                focusMode={focusMode}
-                focusParagraph={focusParagraph}
-                notesByParagraph={notesByParagraph}
-                studentId={studentId}
-                readingId={reading.id}
-                unitId={unitId}
-                wordAssistanceEnabled={prefs.word_assistance_enabled}
-                hoverEnabled={prefs.quick_translation_on_hover_tap}
-              />
-              {studentId && prefs.word_assistance_enabled && (prefs.quick_translation_on_hover_tap || prefs.detailed_menu_on_click_longpress) && (
-                <TextSelectionTooltip
-                  containerRef={passageRef}
-                  studentId={studentId}
-                  unitId={unitId}
-                  readingId={reading.id}
-                  onWordSaved={handleWordSaved}
-                  savedWordSet={savedWordSet}
-                  pointerType={pointerType}
-                  quickTranslationEnabled={prefs.quick_translation_on_hover_tap}
-                  detailedMenuEnabled={prefs.detailed_menu_on_click_longpress}
-                />
-              )}
-            </div>
-          )}
+          </div>
         </div>
       </div>
 
@@ -1051,46 +987,6 @@ function ReadingContent({ reading, studentId, unitId }) {
         <CriticalThinkingBox reading={reading} />
       )}
 
-      {/* Word action menu (long-press / right-click) */}
-      {actionMenu && (
-        <WordActionMenu
-          word={actionMenu.word}
-          position={actionMenu.position}
-          existingHighlight={actionMenu.existingHighlight}
-          onAction={handleAction}
-          onClose={() => setActionMenu(null)}
-        />
-      )}
-
-      {/* Vocab tap tooltip (instant on tap) */}
-      {wordTooltip && (
-        <WordTooltip
-          word={wordTooltip.vocab.word}
-          definition_ar={wordTooltip.vocab.definition_ar}
-          ipa={wordTooltip.vocab.pronunciation_ipa}
-          audio_url={wordTooltip.vocab.audio_url}
-          example_sentence={wordTooltip.vocab.example_sentence}
-          image_url={wordTooltip.vocab.image_url}
-          inContextAudio={wordTooltip.inContextAudio || null}
-          anchorEl={wordTooltip.anchorEl}
-          onClose={() => setWordTooltip(null)}
-          onMoreInfo={() => {
-            setVocabPopup({ word: wordTooltip.vocab.word, x: wordTooltip.position?.x || 200, y: wordTooltip.position?.y || 200 })
-            setWordTooltip(null)
-          }}
-        />
-      )}
-
-      {/* Vocab popup (from action menu "lookup" or tooltip "تفاصيل أكثر") */}
-      {vocabPopup && (
-        <VocabPopup
-          word={vocabPopup.word}
-          readingId={reading.id}
-          isOpen={true}
-          onClose={() => setVocabPopup(null)}
-          anchorPosition={{ x: vocabPopup.x, y: vocabPopup.y }}
-        />
-      )}
     </div>
   )
 }
