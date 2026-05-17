@@ -41,3 +41,6 @@ scripts/curriculum-generator/output/costs.json
 scripts/curriculum-generator/output/progress.json
 
 .vercel
+
+# MCP config — contains local PAT, machine-specific
+.mcp.json
