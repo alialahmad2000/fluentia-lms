@@ -192,21 +192,8 @@ function ListeningSection({ listening, studentId, unitId }) {
 
   return (
     <div className="space-y-5">
-      {/* Title + one-play toggle */}
-      <div className="flex items-start justify-between gap-3 flex-wrap">
-        <div className="space-y-1 min-w-0">
-          <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">
-            {listening.title_en || 'Listening'}
-          </h2>
-          {listening.title_ar && (
-            <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{listening.title_ar}</p>
-          )}
-          {listening.audio_type && (
-            <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20 font-['Inter']">
-              {listening.audio_type}
-            </span>
-          )}
-        </div>
+      {/* IELTS exam-mode toggle — standalone, no title (ListeningSectionUI owns the title) */}
+      <div dir="rtl" className="flex justify-end">
         <button
           onClick={() => { setOnePlayMode(v => !v); setHasPlayed(false) }}
           className={`text-xs px-3 py-1.5 rounded-full border transition-colors flex-shrink-0 font-['Tajawal'] ${
@@ -224,7 +211,7 @@ function ListeningSection({ listening, studentId, unitId }) {
         onDisable={() => { setOnePlayMode(false); setHasPlayed(false) }}
       />
 
-      {/* Premium listening section: transcript + player */}
+      {/* Premium listening section: title + transcript + player (no duplicate header) */}
       <ListeningSectionUI
         listening={listening}
         unitId={unitId}

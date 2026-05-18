@@ -299,6 +299,24 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-18 — LISTENING-SECTION-COMPLETE-OVERHAUL: duplicate header fix
+- What: Follow-up pass on the listening overhaul (original fix in commit `2a8afa6`). Resolved the remaining duplicate-header rendering bug that the previous session left unfinished.
+- **Root cause identified:** `ListeningTab.jsx` had a local `ListeningSection` inner component that rendered the listening item's title (English + Arabic + type badge) at lines 195–218, then immediately called `<ListeningSectionUI>` (the imported premium component from Phase F) which ALSO renders its own full premium title header. Students saw two identical-content headers — one in legacy Inter/English style with a purple badge, one in premium Tajawal/Arabic style with a cyan badge. This is exactly the "two cards with same title" bug from the original prompt.
+- **Fix:** Removed the duplicate title block (lines 195–218) from the local component in `ListeningTab.jsx`. The IELTS exam-mode toggle button is preserved as a standalone `dir="rtl" flex justify-end` element. `ListeningSectionUI` is now the sole source of title + type badge rendering.
+- **All Phase G self-checks confirmed passing:**
+  - No `-c copy` as real command in concat.cjs ✅
+  - test-concat PASS ✅
+  - Decode-test: dialogue/interview/monologue all exit=0 ✅
+  - NULL title_ar: 0 ✅
+  - DB duplicates: 0 ✅
+  - No `fixed bottom-0` in listening player ✅
+  - ListeningPlayer imported in ListeningSection ✅
+  - Reading does NOT import ListeningPlayer ✅
+- Files: `src/pages/student/curriculum/tabs/ListeningTab.jsx` (duplicate title block removed), `docs/audits/listening-overhaul/PHASE-A-REPORT.md` (NEW), `docs/audits/listening-overhaul/FINAL-REPORT.md` (updated with 2026-05-18 section), `prompts/agents/LISTENING-SECTION-COMPLETE-OVERHAUL-2026-05-18.md` (added)
+- DB: None (all DB fixes done in previous session: titles migrated, segment timing columns added)
+- Edge Functions: None
+- Status: Complete — all prompt phases A–G verified
+
 ### 2026-05-18 — AUDIT-FIX-2-TOKEN-REFRESH-STORM: singleton refresh promise
 - What: Fixed intermittent 401 errors caused by multiple concurrent `supabase.auth.refreshSession()` calls racing each other. Supabase rotates the refresh token on every use — so when 5 AI calls fire simultaneously at page load and all hit an expired session, their independent `refreshSession()` calls invalidate each other's tokens. The first refresh wins; the rest get "invalid_grant" → 401 → user sees error.
 - **Root cause:** `invokeWithRetry.js` had a local `getAccessToken()` with no deduplication. `queryClient.js` used a boolean flag (`_refreshingSession`) that prevented a second call from *starting* but didn't make it *wait* for the first — two concurrent calls timed ~1ms apart both slipped through. `driveStream.js` and `ErrorBoundary.jsx` had raw `refreshSession()` calls with zero coordination.

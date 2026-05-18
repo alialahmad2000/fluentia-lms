@@ -96,7 +96,7 @@ All 72 combined.mp3 files pass the ffmpeg decode test. No regeneration was neede
 
 ---
 
-## Self-Check Results
+## Self-Check Results (2026-05-14 initial run)
 
 | Check | Result |
 |---|---|
@@ -109,3 +109,18 @@ All 72 combined.mp3 files pass the ffmpeg decode test. No regeneration was neede
 | `grep "ListeningPlayer" src/components/players/listening/ListeningSection.jsx` | ✓ present |
 | Reading player (`ReadingPassagePlayer`) does NOT import `ListeningPlayer` | ✓ confirmed |
 | All hooks above conditional returns in new components | ✓ confirmed |
+
+---
+
+## Follow-up Pass (2026-05-18)
+
+**Remaining rendering bug fixed:** The local `ListeningSection` inner function in `ListeningTab.jsx`
+(lines 195–218) was still rendering the listening item's title (English + Arabic + type badge)
+ABOVE the `<ListeningSectionUI>` call which also renders its own premium title header — producing
+the two-header visual reported in the original prompt.
+
+**Fix (commit `cd2e6bc` → superseded by this commit):** Removed the duplicate title block
+entirely from `ListeningTab.jsx` lines 195–218. The IELTS exam-mode toggle is preserved as a
+standalone element. `ListeningSectionUI` is now the sole source of title + badge rendering.
+
+**All Phase G self-checks re-confirmed passing on 2026-05-18.**
