@@ -341,24 +341,25 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     setSubmitting(true)
     saveDraft(task.id, text)
 
-    // 1. Save writing to DB first (never block on AI)
-    const saveError = await saveToDb(text, true)
-    if (saveError) {
-      toast({ type: 'error', title: 'فشل حفظ الكتابة — أعيدي المحاولة' })
+    try {
+      // 1. Save writing to DB first (never block on AI)
+      const saveError = await saveToDb(text, true)
+      if (saveError) {
+        toast({ type: 'error', title: 'فشل حفظ الكتابة — أعيدي المحاولة' })
+        return
+      }
+
+      setSubmitted(true)
+      toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
+      try { safeCelebrate('writing_submitted') } catch {}
+      awardCurriculumXP(studentId, 'writing', null, unitId)
+      window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'writing' } }))
+    } finally {
+      // Release the submit button in all cases — DB save is done, AI is fire-and-forget
       setSubmitting(false)
-      return
     }
 
-    setSubmitted(true)
-    toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
-    try { safeCelebrate('writing_submitted') } catch {}
-    awardCurriculumXP(studentId, 'writing', null, unitId)
-    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'writing' } }))
-
-    // 2. Release the submit button immediately — DB save is done, AI is fire-and-forget
-    setSubmitting(false)
-
-    // 3. Call AI feedback (with built-in retries) — no longer blocks the button
+    // 2. Call AI feedback (with built-in retries) — button already released above
     const success = await fetchFeedback(text)
     if (!success) {
       toast({ type: 'info', title: 'جاري التصحيح في الخلفية — سيظهر تلقائياً خلال دقائق' })

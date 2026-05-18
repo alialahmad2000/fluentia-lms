@@ -991,6 +991,16 @@ This is how future sessions know what happened.
 - Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
 - Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
 
+### 2026-05-18 — Prompt 04: Fix Progress Tracking (WritingTab finally guard + MCP token fix)
+- What: Closed the last open gap from the 04-FIX-PROGRESS-TRACKING prompt. Prior sessions (May 14–15) had already shipped: `compute_unit_progress()` DB function, 6 auto-recompute triggers, `SpeakingTab` error-handling rewrite, `ListeningTab` submit hang fix, `UnitContent` progress cache invalidation, and the backfill script. This session verified all of that is live and closed the one remaining code risk.
+- WritingTab fix: `handleSubmit` in `src/pages/student/curriculum/tabs/WritingTab.jsx` had `setSubmitting(true)` with two manual `setSubmitting(false)` calls on success and error paths, but no `finally`. Wrapped the entire async body in `try/finally { setSubmitting(false) }` — button can no longer get permanently stuck if any unexpected throw occurs.
+- MCP fix: `.mcp.json` had a trailing `\r` (Windows carriage return) in `SUPABASE_ACCESS_TOKEN`, causing the Supabase MCP server to fail authentication on Mac. Removed the `\r`.
+- DB verification (via MCP): 6 triggers confirmed live (`recompute_unit_progress_activity_attempts`, `recompute_unit_progress_speaking_recordings`, `recompute_unit_progress_student_curriculum_progress`, `recompute_unit_progress_vocabulary_word_mastery`, `trg_block_phantom`, `speaking_recompute_best_trigger`). 94 `unit_progress` rows across 22 students. 0 orphaned completed submissions.
+- Files: `src/pages/student/curriculum/tabs/WritingTab.jsx`, `.mcp.json` (not committed — gitignored), `CLAUDE.md`
+- DB: No schema changes
+- Edge Functions: None
+- Status: Complete — build verified (5s, 0 errors), pushed to main
+
 ### 2026-05-18 — Prompt 03: Split Reading + Listening Players (discovery pass)
 - What: Ran prompt 03 (03-REBUILD-READING-AND-LISTENING-PLAYERS). All Phase B–C work was already fully implemented in a prior session. No new code required. This session performed discovery + self-checks + updated the discovery doc.
 - Reading player: `ReadingPassagePlayer.jsx` — no hide-text toggle, uses `InteractivePassage` for word-tap interaction. Already wired in `ReadingTab.jsx` (line 841).
