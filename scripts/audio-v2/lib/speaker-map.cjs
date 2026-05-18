@@ -23,6 +23,10 @@ function guessGender(name) {
   return 'male';
 }
 
+// Gender-ordered pools: same-gender voices first, then any remaining
+const FEMALE_VOICES = [VOICES.B, VOICES.D]; // Alice, Sarah
+const MALE_VOICES   = [VOICES.A, VOICES.C]; // George, Chris
+
 function assignVoices(segments) {
   const speakerVoiceMap = {};
 
@@ -39,11 +43,12 @@ function assignVoices(segments) {
     }
     const gender = guessGender(seg.speaker_name);
     const used = new Set(Object.values(speakerVoiceMap).map(v => v.voice_id));
-    const preferred = gender === 'female' ? VOICES.B : VOICES.A;
-    // Use preferred if free, otherwise pick next unused voice from pool
-    const voice_id = !used.has(preferred)
-      ? preferred
-      : (VOICE_POOL.find(v => !used.has(v)) || preferred);
+    const genderPool = gender === 'female' ? FEMALE_VOICES : MALE_VOICES;
+    // Prefer gender-matched voices, then any unused, then repeat first of gender pool
+    const voice_id =
+      genderPool.find(v => !used.has(v)) ||
+      VOICE_POOL.find(v => !used.has(v)) ||
+      genderPool[0];
     const voice_name = Object.entries(VOICES).find(([, v]) => v === voice_id)?.[0] || 'Other';
     speakerVoiceMap[seg.speaker_name] = { voice_id, voice_name, gender };
     Object.assign(seg, speakerVoiceMap[seg.speaker_name]);

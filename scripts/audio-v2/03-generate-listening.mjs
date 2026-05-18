@@ -171,15 +171,13 @@ for (const item of flagged) {
     UPDATE curriculum_listening
     SET audio_url=$1,
         audio_duration_seconds=$2,
-        audio_duration_ms=$3,
-        speaker_segments=$4,
-        word_timestamps=$5,
+        speaker_segments=$3,
+        word_timestamps=$4,
         audio_generated_at=now()
-    WHERE id=$6
+    WHERE id=$5
   `, [
     uploaded.url,
     Math.round(combinedDurMs / 1000),
-    combinedDurMs,
     JSON.stringify(enrichedSegs),
     JSON.stringify(allWordTs),
     item.id,

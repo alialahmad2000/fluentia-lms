@@ -299,6 +299,18 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-18 — 02-FIX-LISTENING-AUDIO: Female-voice fix + reading truncation regen
+- What: Fixed the 3 remaining `post-regen-failures` (SINGLE_VOICE_STILL) and regenerated 13 truncated reading passages.
+- **Root cause (3 female-female dialogues):** `assignVoices()` in `lib/speaker-map.cjs` fell back to the generic voice pool when the preferred female voice (Alice/B) was already taken, picking George (A, male) for the second female speaker. Fix: introduced ordered gender pools (`FEMALE_VOICES=[B,D]`, `MALE_VOICES=[A,C]`) so the second female speaker always gets Sarah (D/female), not George.
+- **3 dialogues fixed (L2/U5, U6, U11):** Layla+Emma and Layla+Fatima pairs now use Alice (B) + Sarah (D). Re-preprocessed, re-generated, re-uploaded. All 3 verify ✓ (2 distinct female voice IDs, word timestamps populated).
+- **13 truncated reading passages fixed (L2, L4, L5):** Regenerated full audio + per-paragraph audio via ElevenLabs. Durations now 133s–351s (vs original 63–74% truncated). All word_timestamps re-populated. `reading_passage_audio` + `curriculum_readings` updated.
+- **Schema bug fixed:** `curriculum_listening` has no `audio_duration_ms` column (only `audio_duration_seconds`). Fixed in both `scripts/audio-v2/fix-female-dialogues.mjs` and `03-generate-listening.mjs`.
+- **Residual audit flags (not bugs):** L3/U3 `LABEL_IN_TEXT` and L4/U7 `METADATA_MISMATCH` in listening-audit.json are false positives — both pass verification (correct durations, voices, timestamps). No action needed.
+- Files: `scripts/audio-v2/lib/speaker-map.cjs` (gender pool fix), `scripts/audio-v2/fix-female-dialogues.mjs` (NEW), `scripts/audio-v2/regen-reading-truncated.mjs` (NEW), `scripts/audio-v2/03-generate-listening.mjs` (schema fix), `docs/audits/audio-issues/post-regen-failures.json` (cleared), `docs/audits/audio-issues/reading-regen-results.json` (NEW)
+- DB: 3 `curriculum_listening` rows updated (audio_url, audio_duration_seconds, speaker_segments, word_timestamps). 13 `reading_passage_audio` rows upserted (full_audio_url, full_duration_ms, paragraph_audio, word_timestamps). 13 `curriculum_readings` rows updated (passage_audio_url, audio_duration_seconds).
+- Edge Functions: None
+- Status: Complete — all 16 items fixed, 0 failures. ElevenLabs used ~125K chars (1.11M remaining).
+
 <!--
 Claude Code: Add new entries at the TOP of this section.
 Always include: date, what changed, files touched, status.
