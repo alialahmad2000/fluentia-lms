@@ -1,0 +1,761 @@
+{
+  "rows_audited": 44,
+  "single_voice_collisions": [],
+  "voice_id_not_stored": [],
+  "ok": [
+    {
+      "id": "0767ef9b-5f6a-48e0-9f47-94bd590ac608",
+      "title_ar": "مقابلة مع باحثة عن ذكاء الأسراب في الطبيعة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Sarah Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "cecec33e-c5e7-4668-ae28-0dce9c20bbf3",
+      "title_ar": "مقابلة مع مؤرخ عن أسباب انهيار الحضارات",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Professor Ahmed Hassan": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "59bd4957-9360-41d6-bf59-ce1fbace462d",
+      "title_ar": "مقابلة مع فيزيائي كمي عن تشابك الجسيمات",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Sarah Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "792bede3-74c2-4756-87c4-816e46f986b8",
+      "title_ar": "مقابلة مع عالمة أعصاب عن مرونة الدماغ وتغيّره",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "1f6723b1-fa54-4ac2-837f-6b6b9f199a26",
+      "title_ar": "محادثة عن رحلة التنزه في جبال السروات",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Nora": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "c2c17796-03aa-4240-b983-dc4dd6d3c516",
+      "title_ar": "مقابلة عن الانقراض السادس وأزمة التنوع البيولوجي",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "bccfc6e1-767a-44ec-83e8-ee060bdd825d",
+      "title_ar": "نقاش عن المباني الذكية وكفاءة الطاقة",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Fatima": [
+          "EXAVITQu4vr4xnSDxMaL"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "f7bc89f9-a52b-4c2e-88da-427f94de04a4",
+      "title_ar": "محادثة عن امتحان علم النفس ودراسة الذاكرة",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Noor": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "896ab711-ea14-47bc-9e36-f4d09931ffab",
+      "title_ar": "نقاش عن الباندا والحيوانات المهددة بالانقراض",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Fatima": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Noor": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "af1a25b9-a7d7-4490-b671-a9d01f6bc4e8",
+      "title_ar": "مقابلة مع د. سارة الراشد عن حماية الشعاب المرجانية",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Interviewer": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Sarah Al-Rashid": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "420b053f-d61e-4be9-8992-76685066ce58",
+      "title_ar": "محادثة عن دور المرأة في الحضارات القديمة",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Emma": [
+          "EXAVITQu4vr4xnSDxMaL"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "d7f29e08-77fa-4adc-9c64-a6f40131eb96",
+      "title_ar": "محادثة عن عاصفة رملية قادمة وتغيير الخطط",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Noor": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "e76b49c2-1e8e-475c-a1f2-38280bcd78fe",
+      "title_ar": "مقابلة مع د. فاطمة الراشد عن تطور علم الجينات",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Interviewer": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Fatima Al-Rashid": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "981b0d0a-8a92-4612-8fa9-6323d7ebfcfd",
+      "title_ar": "محادثة عن وثائقي أزمة المياه وتأثيرها",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Nora": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "91e88604-dda7-47da-888a-f6787ba48215",
+      "title_ar": "محادثة مع د. حسن عن ثقافة القهوة حول العالم",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Maya": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Hassan": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "b4ef25db-caa8-49ca-bf7e-d88d73f21919",
+      "title_ar": "مقابلة مع د. أمينة الراشد عن تقنيات الطاقة المتجددة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Amina Al-Rashid": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "faa01054-6873-4408-a5b7-cbcfe7efe960",
+      "title_ar": "نقاش أكاديمي عن أخلاقيات التكنولوجيا الطبية",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Professor Ahmad Al-Rashid": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "5f66bedc-ed77-40dc-bb87-b60facd0c51f",
+      "title_ar": "نور تحكي قصة رحلتها إلى اليابان",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Noor": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "ab69e89c-32b6-4d98-8360-4748bc2c9f37",
+      "title_ar": "نقاش عن الخصوصية الرقمية والأمن السيبراني",
+      "audio_type": "dialogue",
+      "distinct_speakers": 3,
+      "distinct_voices": 3,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Dr. Martinez": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Fatima": [
+          "iP95p4xoKVk53GoZ742B"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "8dbff5e6-0138-499c-9b79-dca991978b24",
+      "title_ar": "مقابلة مع عالمة زلازل عن أسباب الهزات الأرضية",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "e1d19a4b-f1e7-43f3-bb5c-15249b60e99c",
+      "title_ar": "نقاش عن الموضة والأزياء التقليدية العصرية",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Maha": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "2b772e7e-3d14-4223-8053-fabecd8cf0b5",
+      "title_ar": "ليلى وموني يخططان للخروج إلى السينما",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Mona": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "34c87c04-3f94-43bb-a460-c44cc0261a07",
+      "title_ar": "مقابلة مع عالمة نفس عن سيكولوجية الخوف",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Interviewer": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Sarah Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "546730cd-2a01-4d69-96ac-673610a25524",
+      "title_ar": "مقابلة مع د. أمينة حسن عن الزراعة الحضرية",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Amina": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "62666f53-6e69-40b3-8a1e-0f058b7b7b8e",
+      "title_ar": "مقابلة مع باحث عن أسباب الهجرة البشرية",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Professor Ahmed Al-Rashid": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "7dc9e208-c878-423f-af40-e4effbe3dba6",
+      "title_ar": "نقاش عن عجائب الهندسة في الحضارات القديمة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Ahmed": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Sarah Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70",
+      "title_ar": "مقابلة مع اقتصادي عن مفارقة الموارد والوفرة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Professor Omar Al-Rashid": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "7ced0e9a-dd8b-438c-8471-e3c0722c7eed",
+      "title_ar": "مقابلة مع أستاذ هندسة عن التصميم المستوحى من الطبيعة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Professor Ahmed Rashid": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "6a6ed5af-d0b2-471f-88d6-be99fc213724",
+      "title_ar": "مقابلة مع د. سارة تشن عن تأثير الذكاء الاصطناعي",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Interviewer": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Sarah Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "fb34b3a0-ce85-4db2-b37a-9da44bf64193",
+      "title_ar": "مقابلة عن تطبيقات الواقع الافتراضي في التعليم",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Interviewer": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Amira Hassan": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "fb91912b-7b95-43c6-b948-9a8037faa736",
+      "title_ar": "مقابلة عن التكيف مع تغير المناخ في المناطق القاحلة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "a9e49ba8-49fe-424a-ac8f-ff51763e596a",
+      "title_ar": "مقابلة مع عالمة طب شرعي عن التحقيقات الجنائية",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "7dc526f8-069e-4fae-b842-9af82a585a97",
+      "title_ar": "نقاش أكاديمي عن انتشار العملات المشفرة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Mitchell": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Professor Ahmad Khalil": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "e7d1a54b-037b-42bb-9be4-9bcf5b7f6c4b",
+      "title_ar": "مقابلة مع باحثة علوم الشيخوخة عن إطالة عمر الإنسان",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Rahman": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "e5ed4f14-be00-4226-85e4-dcf99658a777",
+      "title_ar": "مقابلة مع د. أمارا حسن عن استكشاف المريخ",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Amara": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "68773ed9-055c-4909-8447-5979ebd0e103",
+      "title_ar": "محادثة عن تجربة الابتعاد عن وسائل التواصل",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Noor": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "6b6e7a26-c6c8-4b06-a176-b967d74ab76f",
+      "title_ar": "نقاش بين خبيرين عن مستقبل الطاقة النووية",
+      "audio_type": "interview",
+      "distinct_speakers": 3,
+      "distinct_voices": 3,
+      "voice_per_speaker": {
+        "Interviewer": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Sarah Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Professor Ahmed": [
+          "iP95p4xoKVk53GoZ742B"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "5846f7c9-f5c9-482e-bb09-142aeceeefb8",
+      "title_ar": "نقاش حول الفن الجداري في شوارع المدينة",
+      "audio_type": "dialogue",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Layla": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Fatima": [
+          "EXAVITQu4vr4xnSDxMaL"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "a213895f-7021-4528-b737-3b37c7d09f77",
+      "title_ar": "نقاش أكاديمي عن الدبلوماسية الرقمية في الشرق الأوسط",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Prof. Ahmed Khalil": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "f9fea551-7654-47c1-bf69-9dd399e9a275",
+      "title_ar": "مقابلة مع مهندسة معمارية عن البناء المستدام",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Sarah Al-Rashid": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Dr. Amanda Chen": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "24431382-8fea-4d31-8d3d-70e9a401057d",
+      "title_ar": "نقاش فلسفي عن الشك العلمي وأزمة الثقة",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Dr. Sarah Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ],
+        "Dr. Ahmed Kassim": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "9774fa25-d7bc-4865-9448-a097e21150df",
+      "title_ar": "مقابلة مع عالمة بحار عن أسرار خندق ماريانا",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "ccc4f118-3c1f-4497-bfed-de02a6dc81cd",
+      "title_ar": "مقابلة عن أسرار الأداء الاستثنائي والتفوق",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Host": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Chen": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    },
+    {
+      "id": "126e9fea-c180-4b69-8d3e-22601ed2fa1c",
+      "title_ar": "مقابلة عن الأمن الغذائي والأزمات العالمية",
+      "audio_type": "interview",
+      "distinct_speakers": 2,
+      "distinct_voices": 2,
+      "voice_per_speaker": {
+        "Interviewer": [
+          "JBFqnCBsd6RMkjVDRZzb"
+        ],
+        "Dr. Martinez": [
+          "Xb7hH8MSUJpSbSDYk0k2"
+        ]
+      },
+      "inconsistent_speakers": [],
+      "verdict": "OK"
+    }
+  ]
+}
