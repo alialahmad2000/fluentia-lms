@@ -307,11 +307,18 @@ export default function VocabularyTab({ unitId }) {
   }, [totalWords, saveProgress])
 
   const handleMasteryUpdate = useCallback((updated) => {
-    if (!updated) return
+    if (!updated) {
+      // Fallback: if the upsert returned null (RLS RETURNING issue), re-fetch from DB
+      queryClient.invalidateQueries({ queryKey: ['vocabulary-mastery', profile?.id, unitId] })
+      return
+    }
+    // Optimistic update — immediately reflect in UI without waiting for a re-fetch
     queryClient.setQueryData(['vocabulary-mastery', profile?.id, unitId], (prev) => ({
-      ...prev,
+      ...(prev || {}),
       [updated.vocabulary_id]: updated,
     }))
+    // Also invalidate to ensure next render picks up any trigger-computed fields
+    queryClient.invalidateQueries({ queryKey: ['vocabulary-mastery', profile?.id, unitId] })
     // If in quick practice and word is now mastered, auto-advance
     if (quickPractice && updated.mastery_level === 'mastered') {
       setTimeout(() => {

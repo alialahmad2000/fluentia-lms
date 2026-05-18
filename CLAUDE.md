@@ -299,6 +299,15 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-18 — LISTENING-VOCAB-FIX: audio playback + sticky bar + vocab completion
+- What: Three-problem fix: (1) listening audio not playing in browser, (2) player redesign as fixed bottom bar, (3) vocab green check not appearing after exercise completion.
+- **Problem 1 — Audio not playing:** `ListeningPlayer.jsx` had no `useEffect([audioUrl])`, so changing units didn't call `audio.load()` (iOS Safari doesn't auto-reload on `src` prop change). Also no `error` event handler (silent failures), no `playsInline` (iOS fullscreen issue), and `play()` rejection swallowed with empty `.catch(() => {})`. Fixed: dedicated `useEffect([audioUrl])` explicitly sets `el.src` + calls `el.load()` + resets state; `error` event shows Arabic error + retry; `play()` rejection sets visible error state; `playsInline` added.
+- **Problem 2 — Sticky bar:** Rebuilt `ListeningPlayer` as `position: fixed; bottom: 0; left: 0; right: sidebarWidth`. Added `data-sidebar-root` attribute to `<aside>` in `Sidebar.jsx` so `useSidebarWidth` hook can measure it. Mobile: `right: 0` (full width). iOS: `env(safe-area-inset-bottom)` padding. Player renders its own bottom spacer (80–160px) to prevent content being hidden behind the bar.
+- **Problem 3 — Vocab green check:** `handleMasteryUpdate` in `VocabularyTab.jsx` used only `queryClient.setQueryData` (optimistic). Added `queryClient.invalidateQueries` alongside it so a fresh DB fetch confirms mastery after exercise completion. Also handles null `updated` (RLS RETURNING edge case). `useVocabularyMastery` hook mastery SELECT now throws on error instead of silently returning empty map.
+- Files: `src/components/players/listening/ListeningPlayer.jsx` (full rewrite), `src/components/players/listening/ListeningSection.jsx` (remove sticky wrapper), `src/components/layout/Sidebar.jsx` (add `data-sidebar-root`), `src/pages/student/curriculum/tabs/VocabularyTab.jsx` (handleMasteryUpdate + invalidateQueries), `src/hooks/useVocabularyMastery.js` (error check on mastery SELECT)
+- DB: None — Edge Functions: None
+- Status: Complete — all Phase F self-checks pass, commit pushed
+
 ### 2026-05-18 — LISTENING-SECTION-COMPLETE-OVERHAUL: duplicate header fix
 - What: Follow-up pass on the listening overhaul (original fix in commit `2a8afa6`). Resolved the remaining duplicate-header rendering bug that the previous session left unfinished.
 - **Root cause identified:** `ListeningTab.jsx` had a local `ListeningSection` inner component that rendered the listening item's title (English + Arabic + type badge) at lines 195–218, then immediately called `<ListeningSectionUI>` (the imported premium component from Phase F) which ALSO renders its own full premium title header. Students saw two identical-content headers — one in legacy Inter/English style with a purple badge, one in premium Tajawal/Arabic style with a cyan badge. This is exactly the "two cards with same title" bug from the original prompt.

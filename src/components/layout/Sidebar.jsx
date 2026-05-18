@@ -36,6 +36,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
   return (
     <aside
       role="navigation"
+      data-sidebar-root
       aria-label="القائمة الرئيسية"
       className="hidden lg:flex flex-col fixed right-0 z-30 transition-all duration-300"
       style={{

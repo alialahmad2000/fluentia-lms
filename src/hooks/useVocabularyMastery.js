@@ -23,11 +23,12 @@ export function useVocabularyMastery(studentId, unitId) {
       if (!vocab?.length) return {}
 
       // Get mastery records
-      const { data: mastery } = await supabase
+      const { data: mastery, error: masteryErr } = await supabase
         .from('vocabulary_word_mastery')
         .select('*')
         .eq('student_id', studentId)
         .in('vocabulary_id', vocab.map(v => v.id))
+      if (masteryErr) throw masteryErr
 
       return (mastery || []).reduce((acc, m) => {
         acc[m.vocabulary_id] = m

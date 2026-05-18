@@ -128,19 +128,17 @@ export function ListeningSection({
         )
       )}
 
-      {/* ── ListeningPlayer — sticky at bottom of content column ── */}
-      {audioLoading ? (
-        <div
-          className="h-[140px] rounded-3xl animate-pulse"
-          style={{ background: 'var(--surface-raised)' }}
-        />
-      ) : listening.audio_url ? (
+      {/* ── ListeningPlayer — fixed bottom bar (renders its own spacer) ── */}
+      {!audioLoading && listening.audio_url && (
         <ListeningPlayer
           audioUrl={listening.audio_url}
           speakerSegments={speakerSegments}
           durationMs={durationMs}
         />
-      ) : null}
+      )}
+      {audioLoading && (
+        <div className="h-4" aria-hidden="true" />
+      )}
 
       {/* ── Exercises slot ── */}
       {children && <div className="space-y-4 mt-2">{children}</div>}
