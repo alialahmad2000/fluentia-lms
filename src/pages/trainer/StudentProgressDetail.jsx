@@ -1,4 +1,5 @@
-import { useState, useMemo, lazy, Suspense } from 'react'
+import { useState, useMemo, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useTranslation } from 'react-i18next'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
@@ -19,7 +20,7 @@ import UserAvatar from '../../components/common/UserAvatar'
 import { calculateUnitCompletion, groupProgressByUnit } from '../../utils/curriculumProgress'
 import { hasIELTSAccess } from '@/lib/packageAccess'
 
-const StudentIELTSTab = lazy(() => import('./StudentIELTSTab'))
+const StudentIELTSTab = lazyRetry(() => import('./StudentIELTSTab'))
 
 // ─── Constants & Helpers ────────────────────────────────────
 const SECTION_META = {

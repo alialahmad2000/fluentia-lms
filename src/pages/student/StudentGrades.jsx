@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Award, TrendingUp, BarChart3, Trophy, FileCheck, GraduationCap } from 'lucide-react'
@@ -11,10 +12,10 @@ import { formatDateAr } from '../../utils/dateHelpers'
 import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load sub-tab content
-const StudentAssessments = lazy(() => import('./StudentAssessments'))
-const StudentCertificate = lazy(() => import('./StudentCertificate'))
-const StudentLeaderboard = lazy(() => import('./StudentLeaderboard'))
-const StudentSuccessStories = lazy(() => import('./StudentSuccessStories'))
+const StudentAssessments = lazyRetry(() => import('./StudentAssessments'))
+const StudentCertificate = lazyRetry(() => import('./StudentCertificate'))
+const StudentLeaderboard = lazyRetry(() => import('./StudentLeaderboard'))
+const StudentSuccessStories = lazyRetry(() => import('./StudentSuccessStories'))
 
 const TABS = [
   { key: 'grades', label: 'الدرجات', icon: BarChart3 },

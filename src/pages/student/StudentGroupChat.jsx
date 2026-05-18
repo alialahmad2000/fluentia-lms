@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useMemo, lazy, Suspense } from 'react'
+import { useState, useEffect, useRef, useMemo, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -12,7 +13,7 @@ import InlineMediaPreview from '../../components/InlineMediaPreview'
 import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load messages sub-tab
-const StudentMessages = lazy(() => import('./StudentMessages'))
+const StudentMessages = lazyRetry(() => import('./StudentMessages'))
 
 const TABS = [
   { key: 'chat', label: 'محادثة المجموعة', icon: MessageSquare },

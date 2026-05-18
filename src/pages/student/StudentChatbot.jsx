@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, lazy, Suspense } from 'react'
+import { useState, useRef, useEffect, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { motion } from 'framer-motion'
 import { Bot, Send, Loader2, Sparkles, Trash2, Brain, Crosshair, AlertTriangle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -8,9 +9,9 @@ import { PACKAGES } from '../../lib/constants'
 import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load sub-tab content
-const StudentVocabulary = lazy(() => import('./StudentVocabulary'))
-const StudentExercises = lazy(() => import('./StudentExercises'))
-const StudentErrorPatterns = lazy(() => import('./StudentErrorPatterns'))
+const StudentVocabulary = lazyRetry(() => import('./StudentVocabulary'))
+const StudentExercises = lazyRetry(() => import('./StudentExercises'))
+const StudentErrorPatterns = lazyRetry(() => import('./StudentErrorPatterns'))
 
 const TABS = [
   { key: 'chat', label: 'المساعد الذكي', icon: Bot },

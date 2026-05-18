@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Settings, Save, Loader2, CreditCard, Brain, Link2, MessageCircle, Bell, Zap, DollarSign, Server, Shield, Database, AlertTriangle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
@@ -7,8 +8,8 @@ import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load sub-tab content
-const AdminAuditLog = lazy(() => import('./AdminAuditLog'))
-const AdminDataExport = lazy(() => import('./AdminDataExport'))
+const AdminAuditLog = lazyRetry(() => import('./AdminAuditLog'))
+const AdminDataExport = lazyRetry(() => import('./AdminDataExport'))
 
 import { useThemeStore } from '../../stores/themeStore'
 import { Monitor, Moon, Sparkles, Type, Accessibility as AccessibilityIcon } from 'lucide-react'

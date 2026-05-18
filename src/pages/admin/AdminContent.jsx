@@ -1,4 +1,5 @@
-import { useState, useCallback, lazy, Suspense } from 'react'
+import { useState, useCallback, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -7,9 +8,9 @@ import {
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
-const AdminHolidays = lazy(() => import('./AdminHolidays'))
-const AdminTestimonials = lazy(() => import('./AdminTestimonials'))
-const AdminRecordingsTab = lazy(() => import('./AdminRecordings'))
+const AdminHolidays = lazyRetry(() => import('./AdminHolidays'))
+const AdminTestimonials = lazyRetry(() => import('./AdminTestimonials'))
+const AdminRecordingsTab = lazyRetry(() => import('./AdminRecordings'))
 
 // ─── Constants ────────────────────────────────────────────────
 const LEVELS = [1, 2, 3, 4, 5]

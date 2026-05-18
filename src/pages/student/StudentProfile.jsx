@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import InterestsSettingsSection from '../../components/personalization/InterestsSettingsSection'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -14,10 +15,10 @@ import SubTabs from '../../components/common/SubTabs'
 import StudentAIProfile from '../../components/ai/StudentAIProfile'
 
 // Lazy-load sub-tab content
-const StudentAvatar = lazy(() => import('./StudentAvatar'))
-const StudentBilling = lazy(() => import('./StudentBilling'))
-const StudentReferral = lazy(() => import('./StudentReferral'))
-const StudentCertificate = lazy(() => import('./StudentCertificate'))
+const StudentAvatar = lazyRetry(() => import('./StudentAvatar'))
+const StudentBilling = lazyRetry(() => import('./StudentBilling'))
+const StudentReferral = lazyRetry(() => import('./StudentReferral'))
+const StudentCertificate = lazyRetry(() => import('./StudentCertificate'))
 
 const TABS = [
   { key: 'profile', label: 'الملف الشخصي', icon: User },

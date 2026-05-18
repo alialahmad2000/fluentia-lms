@@ -1,4 +1,5 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff, Mail, CheckCircle2, AlertCircle } from 'lucide-react'
@@ -12,8 +13,8 @@ import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
 import ImpersonateButton from '../../components/ImpersonateButton'
 
-const AdminGroups = lazy(() => import('./AdminGroups'))
-const AdminTrainers = lazy(() => import('./AdminTrainers'))
+const AdminGroups = lazyRetry(() => import('./AdminGroups'))
+const AdminTrainers = lazyRetry(() => import('./AdminTrainers'))
 
 const TABS = [
   { key: 'students', label: 'الطلاب', icon: Users },

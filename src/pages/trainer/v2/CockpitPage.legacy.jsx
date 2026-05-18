@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
+import lazyRetry from '../../../utils/lazyRetry'
 import { useSearchParams } from 'react-router-dom'
 import { MapPin } from 'lucide-react'
 import { useTrainerCockpit } from '@/hooks/trainer/useTrainerCockpit'
@@ -8,15 +9,15 @@ import TrainerTour from '@/components/trainer/onboarding/TrainerTour'
 import './CockpitPage.css'
 import './cockpit/cockpit.css'
 
-const MorningRitualCard = lazy(() => import('./cockpit/widgets/MorningRitualCard'))
-const AgendaStrip = lazy(() => import('./cockpit/widgets/AgendaStrip'))
-const GroupHealthOrbs = lazy(() => import('./cockpit/widgets/GroupHealthOrbs'))
-const StudentPulseMap = lazy(() => import('./cockpit/widgets/StudentPulseMap'))
-const InterventionPreview = lazy(() => import('./cockpit/widgets/InterventionPreview'))
-const GradingPreviewStrip = lazy(() => import('./cockpit/widgets/GradingPreviewStrip'))
-const NabihBriefingCard = lazy(() => import('./cockpit/widgets/NabihBriefingCard'))
-const TrainerXpTicker = lazy(() => import('./cockpit/widgets/TrainerXpTicker'))
-const CompetitionMini = lazy(() => import('./cockpit/widgets/CompetitionMini'))
+const MorningRitualCard = lazyRetry(() => import('./cockpit/widgets/MorningRitualCard'))
+const AgendaStrip = lazyRetry(() => import('./cockpit/widgets/AgendaStrip'))
+const GroupHealthOrbs = lazyRetry(() => import('./cockpit/widgets/GroupHealthOrbs'))
+const StudentPulseMap = lazyRetry(() => import('./cockpit/widgets/StudentPulseMap'))
+const InterventionPreview = lazyRetry(() => import('./cockpit/widgets/InterventionPreview'))
+const GradingPreviewStrip = lazyRetry(() => import('./cockpit/widgets/GradingPreviewStrip'))
+const NabihBriefingCard = lazyRetry(() => import('./cockpit/widgets/NabihBriefingCard'))
+const TrainerXpTicker = lazyRetry(() => import('./cockpit/widgets/TrainerXpTicker'))
+const CompetitionMini = lazyRetry(() => import('./cockpit/widgets/CompetitionMini'))
 
 function WidgetSkeleton({ height = 120 }) {
   return <div className="tr-cockpit__skel" style={{ '--skel-h': `${height}px` }} aria-hidden="true" />

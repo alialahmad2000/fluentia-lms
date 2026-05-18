@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect, useCallback, lazy, Suspense, useMemo } from 'react'
+import { useState, useRef, useEffect, useCallback, Suspense, useMemo } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import lazyRetry from '../../utils/lazyRetry'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Loader2, Swords } from 'lucide-react'
 import Sidebar from './Sidebar'
@@ -208,7 +209,7 @@ export default function LayoutShell() {
 
 // Resolve groupId for PostClassSummary
 function PostClassSummaryWrapper({ unitId, classStartedAt, pointsGiven, profileId, role, onClose }) {
-  const PostClassSummary = lazy(() => import('../trainer/PostClassSummary'))
+  const PostClassSummary = lazyRetry(() => import('../trainer/PostClassSummary'))
   const { data: groups } = useQuery({
     queryKey: ['post-summary-group', profileId, role],
     queryFn: async () => {

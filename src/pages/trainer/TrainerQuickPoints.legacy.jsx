@@ -1,4 +1,5 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Zap, Plus, Minus, Undo2, ChevronDown, Loader2, UserCheck } from 'lucide-react'
@@ -6,7 +7,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import SubTabs from '../../components/common/SubTabs'
 
-const TrainerAttendance = lazy(() => import('./TrainerAttendance'))
+const TrainerAttendance = lazyRetry(() => import('./TrainerAttendance'))
 
 const TABS = [
   { key: 'points', label: 'النقاط السريعة', icon: Zap },

@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { BarChart3, Users, Zap, Flame, Calendar, FileText, Loader2, Download, AlertTriangle, Brain } from 'lucide-react'
@@ -6,8 +7,8 @@ import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
 import SubTabs from '../../components/common/SubTabs'
 
-const AdminChurnPrediction = lazy(() => import('./AdminChurnPrediction'))
-const AdminSmartScheduling = lazy(() => import('./AdminSmartScheduling'))
+const AdminChurnPrediction = lazyRetry(() => import('./AdminChurnPrediction'))
+const AdminSmartScheduling = lazyRetry(() => import('./AdminSmartScheduling'))
 
 const TABS = [
   { key: 'reports', label: 'التقارير', icon: BarChart3 },

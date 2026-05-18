@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, lazy, Suspense, useCallback, useMemo } from 'react'
+import { useState, useRef, useEffect, Suspense, useCallback, useMemo } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import AnimatedPage from '../ui/AnimatedPage'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -30,8 +31,8 @@ import { tracker } from '../../services/activityTracker'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 
-const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
-const FloatingOrbs = lazy(() => import('../backgrounds/FloatingOrbs'))
+const GeometricMesh = lazyRetry(() => import('../backgrounds/GeometricMesh'))
+const FloatingOrbs = lazyRetry(() => import('../backgrounds/FloatingOrbs'))
 
 // Bottom tab bar items per role (mobile only — top 4 + More)
 const MOBILE_TABS = {

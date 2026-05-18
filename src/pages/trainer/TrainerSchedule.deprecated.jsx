@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, Clock, Plus, Video, Users, X, Save, Loader2, ChevronDown, StickyNote, BookOpen, Brain, Target, Trophy, Wrench } from 'lucide-react'
@@ -7,12 +8,12 @@ import { supabase } from '../../lib/supabase'
 import { getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
 import SubTabs from '../../components/common/SubTabs'
 
-const TrainerNotes = lazy(() => import('./TrainerNotes'))
-const TrainerLibrary = lazy(() => import('./TrainerLibrary'))
-const TrainerLessonPlanner = lazy(() => import('./TrainerLessonPlanner'))
-const TrainerQuizGenerator = lazy(() => import('./TrainerQuizGenerator'))
-const TrainerTeams = lazy(() => import('./TrainerTeams'))
-const TrainerChallenges = lazy(() => import('./TrainerChallenges'))
+const TrainerNotes = lazyRetry(() => import('./TrainerNotes'))
+const TrainerLibrary = lazyRetry(() => import('./TrainerLibrary'))
+const TrainerLessonPlanner = lazyRetry(() => import('./TrainerLessonPlanner'))
+const TrainerQuizGenerator = lazyRetry(() => import('./TrainerQuizGenerator'))
+const TrainerTeams = lazyRetry(() => import('./TrainerTeams'))
+const TrainerChallenges = lazyRetry(() => import('./TrainerChallenges'))
 
 const TOOL_TABS = [
   { key: 'schedule', label: 'الجدول', icon: Calendar },

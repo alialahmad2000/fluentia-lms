@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, Suspense } from 'react'
+import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, CheckCircle2, Circle, BookOpen, Headphones, SpellCheck, BrainCircuit, ChevronDown, ChevronUp, AlertCircle, Sparkles, ArrowRight, Loader2 } from 'lucide-react'
@@ -8,9 +9,9 @@ import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load sub-tab content
-const StudentVoiceJournal = lazy(() => import('./StudentVoiceJournal'))
-const StudentPronunciation = lazy(() => import('./StudentPronunciation'))
-const StudentSpelling = lazy(() => import('./StudentSpelling'))
+const StudentVoiceJournal = lazyRetry(() => import('./StudentVoiceJournal'))
+const StudentPronunciation = lazyRetry(() => import('./StudentPronunciation'))
+const StudentSpelling = lazyRetry(() => import('./StudentSpelling'))
 
 const TABS = [
   { key: 'topics', label: 'المحادثة', icon: Mic },
