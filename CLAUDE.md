@@ -1036,6 +1036,16 @@ This is how future sessions know what happened.
 - Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
 - Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
 
+### 2026-05-18 — Prompt 08: Restore Reading Section (verbatim restore from ad13345)
+- What: Ran prompt 08 (08-RESTORE-READING-SECTION). Restored `ReadingTab.jsx` from git commit `ad13345` — the last stable version students knew, immediately before prompts 03/06 replaced it with `ReadingPassagePlayer`.
+- RESTORE_TARGET: `ad13345` "feat(audio): word pronunciation in narrator's voice via audio slicing" — the commit just before the BOUNDARY `88d36ff` (prompt 03).
+- What came back: `SmartAudioPlayer` (bottom-bar mode, karaoke=true, speed, A-B loop, per-word audio via WordTooltip inContextAudio), `PassageDisplay` fallback for passages without audio, `TextSelectionTooltip`, `WordTooltip`, `WordActionMenu`, `VocabPopup`, all interaction handlers (`handleVocabWordTap`, `handleWordClick`, `handleWordHover`, `handleAction`).
+- Phase C (ReadingAudioBar, useKaraoke, useWordAudio): NOT added — SmartAudioPlayer already provides karaoke, per-word audio, and sticky bar. Adding Phase C's new components would duplicate/conflict.
+- ListeningTab and players/listening/ untouched.
+- Files: `src/pages/student/curriculum/tabs/ReadingTab.jsx`, `docs/dev-notes/reading-restore/` (ORIGINAL-SPEC.md, _drift.diff, _original-ReadingTab.jsx)
+- DB: None — Edge Functions: None
+- Status: Complete — commit `c78bdec` pushed to main.
+
 ### 2026-05-18 — Prompt 06: Restore Passage UX V2 (discovery pass — already complete)
 - What: Ran prompt 06 (06-RESTORE-PASSAGE-UX-V2). All Phase B–E work was already fully implemented in a prior session. This session ran Phase F self-checks and confirmed everything passes.
 - Per-word audio: `useWordAudio.js` uses `timeupdate` events (not `setTimeout`). Only metadata-load safety timeout exists. Shared DOM `<audio>` element preloads once; play token cancels rapid clicks; iOS Safari seek-before-ready handled via `loadedmetadata` await.
