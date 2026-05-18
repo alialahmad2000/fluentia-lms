@@ -1,6 +1,18 @@
 # Audio Issues — Master Audit Report
-Generated: 2026-05-14T00:00:00Z
+Generated: 2026-05-18 (re-run post-regen, Mac)
 Auditor: 01-AUDIT-AUDIO-CONTENT prompt (read-only, no content changes)
+Script: `scripts/audio-generator/audit-audio-content.mjs`
+
+---
+
+## Executive Summary
+
+The May 14 audio regeneration was **highly successful** — all listening truncation (44 items),
+single-voice (21 items), and most label-in-text issues are resolved.
+**70/72 listening items are now fully healthy.**
+
+Remaining work: **13 truncated reading passages** + **53 reading passages with incomplete word
+timestamps** (49–85% coverage) + 3 minor listening issues.
 
 ---
 
@@ -8,142 +20,132 @@ Auditor: 01-AUDIT-AUDIO-CONTENT prompt (read-only, no content changes)
 
 ### Listening (72 items audited — `curriculum_listening`)
 
-| Issue | Count | % |
-|---|---|---|
-| Truncated (actual < 75% expected duration) | 44 | 61% |
-| Single voice when should be multi | 21 | 29% |
-| Speaker labels in TTS text | 24 | 33% |
-| Metadata mismatch (monologue has multi-speaker) | 0 | 0% |
-| ffprobe failed | 0 | 0% |
-| **Healthy (zero flags)** | **27** | **38%** |
-| Has `word_timestamps` | **0** | **0%** |
+| Issue | Count | % | vs. May 14 |
+|---|---|---|---|
+| Truncated (actual < 75% expected duration) | **0** | **0%** | ~~44~~ → ✅ Fixed |
+| Single voice when should be multi | **0** | **0%** | ~~21~~ → ✅ Fixed |
+| Speaker labels in segment text (LABEL_IN_TEXT) | **1** | **1%** | ~~24~~ → 1 remains |
+| Metadata mismatch (lecture with multi-segments) | **1** | **1%** | — |
+| **Healthy (zero flags)** | **70** | **97%** | ~~27~~ → 70 ✅ |
+| Has `word_timestamps` | **45/72** | **63%** | ~~0~~ → 45 ✅ |
 
-> ⚠️ `curriculum_listening.word_timestamps` is NULL for every single item (72/72).
-> Per-word audio seek is therefore completely non-functional for listening tab in production,
-> despite `ListeningAudioPlayer` being wired to pass `wordTimestampsJson` to `InteractivePassage`.
+**Timestamps breakdown:**
+- L0+L1 monologues (24 items): no timestamps → **expected** (generated before timestamp feature was built)
+- L4 U9, L4 U12, L5 U9 lectures (3 items): no timestamps → **gap to fix in Prompt 02**
+- L2–L5 dialogues/interviews (45 items): timestamps present ✅ with `{word, start_ms, end_ms, speaker}` per entry
 
-**Levels affected:**
-- L1 (monologue units 1–24): All 24 healthy — no truncation, no voice issues.
-- L2 (dialogue units 1–12): All 12 truncated. No speaker/label issues.
-- L3 (interview/dialogue units 1–12): All 12 have TRUNCATED + SINGLE_VOICE_WRONG + LABEL_IN_TEXT.
-- L4 (interview/lecture units 1–12): Mix of TRUNCATED, SINGLE_VOICE_WRONG, LABEL_IN_TEXT.
-- L5 (interview units 1–12): Mostly TRUNCATED; many have SINGLE_VOICE_WRONG + LABEL_IN_TEXT.
+**Real issues remaining (2 items):**
+1. **L3 U3 interview** — LABEL_IN_TEXT: a segment's `.text` contains a "Name: " prefix (preprocessing missed it)
+2. **L4 U7 lecture** — METADATA_MISMATCH: `audio_type=lecture` but `speaker_segments.length > 1`
 
 ---
 
-### Reading (144 items audited — `curriculum_readings` + `reading_passage_audio`)
+### Reading (144 items audited — `reading_passage_audio`)
 
-| Issue | Count | % |
-|---|---|---|
-| No audio | 0 | 0% |
-| Truncated (actual < 75% expected duration) | 13 | 9% |
-| Timestamps incomplete (word coverage mismatch > 15%) | 53 | 37% |
-| Paragraph audio mismatch | 0 | 0% |
-| ffprobe failed | 0 | 0% |
-| **Healthy (zero flags)** | **91** | **63%** |
-| Has `word_timestamps` | **144** | **100%** |
+| Issue | Count | % | vs. May 14 |
+|---|---|---|---|
+| Truncated (actual < 75% expected duration) | **13** | **9%** | Same 13 items — not fixed by regen |
+| No timestamps | **0** | **0%** | — |
+| Timestamps incomplete (word coverage < 85%) | **53** | **37%** | Same 53 items |
+| Paragraph audio mismatch | **0** | **0%** | — |
+| **Healthy (zero flags)** | **91** | **63%** | ✅ |
+| Has `word_timestamps` | **144/144** | **100%** | ✅ |
 
-> ℹ️ **Timestamps incomplete** note: The 53 "incomplete" items have word_timestamps present but the
-> word count in timestamps differs from `passage_word_count` by >15%. This is likely caused by
-> markdown markup (`*word*`) being counted differently in DB vs. audio generation. These may not
-> represent real broken timestamps — further investigation in Prompt 02 recommended.
+> ⚠️ The 53 "TS incomplete" items have real gaps: word timestamp coverage ranges **49–85%**
+> (median 64%). This is NOT a markdown-markup false positive — passages genuinely missing
+> 15–51% of word timestamps. Requires re-generation with proper timestamp output.
 
-> ✅ `reading_passage_audio.word_timestamps` is present for all 144 items.
-> Per-word audio seek is fully feasible for the Reading tab.
+> ℹ️ `word_timestamps` format is a numeric-keyed object:
+> `{"0": {word, start_ms, end_ms}, "1": {...}, ...}` — NOT `{paragraphs: [{words}]}`.
 
 ---
 
-### UI Components
+### UI Components (audio-related files)
 
-| Check | Reading Tab | Listening Tab |
-|---|---|---|
-| Correct DB table | ✓ `curriculum_readings` | ✓ `curriculum_listening` |
-| Hide-text toggle | ✓ Absent (correct) | ✓ Present (correct) |
-| Per-word click | ✓ Functional | ⚠️ Wired but non-functional (no timestamps in DB) |
-| Player component | `ReadingPassagePlayer` | `ListeningAudioPlayer` |
+| File | DB source | Hide-text | Per-word click | Notes |
+|---|---|---|---|---|
+| `src/pages/student/curriculum/tabs/ReadingTab.jsx` | reading ✓ | ✗ | ✓ | uses ReadingPassagePlayer |
+| `src/pages/student/curriculum/tabs/ListeningTab.jsx` | listening ✓ | ✗ | ✗ | ⚠️ per-word click not wired |
+| `src/components/players/ListeningAudioPlayer.jsx` | — | ✓ | ✓ | component has the feature |
+| `src/components/players/ReadingPassagePlayer.jsx` | — | ✗ | ✓ | ReadingPassagePlayer |
+| `src/components/players/listening/ListeningSection.jsx` | listening | ✓ | ✓ | — |
 
-**No reading-vs-listening UX bleed detected.**  
-The `ReadingPassagePlayer` comment explicitly documents: *"Reading has NO hide-text toggle — the passage is always visible."*  
-The only per-word issue is the absent timestamps on the listening side.
+**No reading-vs-listening UX bleed detected.**
+Reading: no hide-text toggle ✓, per-word click ✓.
+Listening: `ListeningTab.jsx` does not pass `word_timestamps` for per-word seek —
+  will become live once Prompt 02 fixes the data and Prompt 03 wires the UI.
 
 ---
 
 ### Word-level Pronunciation Feasibility
 
-| Content type | Items | Has word_timestamps | Per-word audio feasible |
+| Content type | Items | Has timestamps | Per-word audio feasible |
 |---|---|---|---|
-| Reading passages | 144 | 144 (100%) | ✅ Yes |
-| Listening items | 72 | 0 (0%) | ❌ No — requires regen or Web Speech API |
+| Reading passages (fully complete) | 91 | 91 (100%) | ✅ Yes |
+| Reading passages (partial 49–85%) | 53 | 53 (partial) | ⚠️ Partial — needs regen |
+| Listening dialogues/interviews L2–L5 | 45 | 45 (100%) | ✅ Yes |
+| Listening L0+L1 monologues | 24 | 0 (0%) | ❌ No (low priority — simple audio) |
+| Listening L4/L5 lectures (gap) | 3 | 0 (0%) | ❌ No — fix in Prompt 02 |
 
 ---
 
 ## Per-item Details
 
-### Items needing audio REGENERATION (Prompt 02 input)
+### Listening — items with real flags
 
-#### Listening — 45 items flagged
+| Level | Unit | Type | Flag | Duration ratio | Notes |
+|---|---|---|---|---|---|
+| 3 | 3 | interview | LABEL_IN_TEXT | 0.946 | one segment.text has "Name: " prefix |
+| 4 | 7 | lecture | METADATA_MISMATCH | 1.254 | audio_type=lecture but speaker_segments.length > 1 |
 
-| Level | Unit | Type | Flags |
-|---|---|---|---|
-| 2 | 1–12 | dialogue | TRUNCATED |
-| 3 | 1–3, 5–10, 12 | interview | TRUNCATED, SINGLE_VOICE_WRONG, LABEL_IN_TEXT |
-| 3 | 4, 11 | dialogue | TRUNCATED, (LABEL_IN_TEXT for U11) |
-| 4 | 1, 4–6, 11 | interview | TRUNCATED |
-| 4 | 2, 3, 8, 10 | interview | TRUNCATED, SINGLE_VOICE_WRONG, LABEL_IN_TEXT |
-| 4 | 7 | lecture | LABEL_IN_TEXT only |
-| 5 | 1, 3, 11, 12 | interview | TRUNCATED |
-| 5 | 2, 4, 6, 7, 8, 10 | interview | TRUNCATED, SINGLE_VOICE_WRONG, LABEL_IN_TEXT |
-| 5 | 5 | interview | TRUNCATED, LABEL_IN_TEXT |
+### Listening — 3 lectures missing timestamps (unexpected gap)
 
-**Full list in:** `docs/audits/audio-issues/listening-audit.json` → items where `flags.length > 0`
-
-#### Reading — 13 items flagged
-
-| Level | Unit | Title | Flags |
-|---|---|---|---|
-| 2 | 5 | Voices from the Sand | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 4 | 1 | Designer Genes: The CRISPR Revolution | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 4 | 4 | Nature's Blueprint for Innovation | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 4 | 5 | The Digital Nomad Revolution | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 4 | 8 | Silent Witnesses Speak | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 4 | 11 | Living Buildings that Breathe | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 5 | 1 | The Silent Collapse of Maya Cities | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 5 | 2 | Breaking Barriers in STEM | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 5 | 5 | The Nuclear Renaissance Paradox | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 5 | 7 | Healing the Mind's Architecture | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 5 | 10 | Quantum Frontiers Unveiled | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 5 | 12 | The Water-Energy Nexus Challenge | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-| 5 | 12 | The Water-Energy Nexus Revolution | TRUNCATED, TIMESTAMPS_INCOMPLETE |
-
-**Full list in:** `docs/audits/audio-issues/reading-audit.json` → items where `flags.length > 0`
-
----
-
-### Items needing UI rebuild (Prompt 03 input)
-
-No component rebuild required for reading-vs-listening confusion — none found.
-
-**However:** The `ListeningAudioPlayer` needs the `word_timestamps` fix to be actually useful:
-- `src/components/players/ListeningAudioPlayer.jsx` — currently passes null timestamps always
-- `src/pages/student/curriculum/tabs/ListeningTab.jsx` (line ~233) — passes only `segments[0]?.word_timestamps`
-  which is null because timestamps were never generated for listening items.
-
-These will become relevant after Prompt 02 regenerates listening audio with timestamps.
-
----
-
-### Total ElevenLabs Budget Estimate for Regeneration
-
-| Category | Items | Estimated Characters |
+| Level | Unit | Type |
 |---|---|---|
-| Listening (TRUNCATED / SINGLE_VOICE / LABEL fixes) | 45 | ~140,880 |
-| Reading (TRUNCATED fixes) | 13 | ~80,706 |
-| **Total** | **58** | **~221,586** |
+| 4 | 9 | lecture |
+| 4 | 12 | lecture |
+| 5 | 9 | lecture |
 
-> Character estimate: word_count × 6 (average 5 chars/word + 1 space).
-> ElevenLabs free tier = 10,000 chars/month. Pro = 500,000/month.
-> At ~222K chars, a Pro subscription has ~56% headroom remaining for this batch.
-> **Check current remaining quota at elevenlabs.io before running Prompt 02.**
+### Reading — 13 TRUNCATED items (need full regeneration)
+
+| Level | Unit | Label | Title | Duration ratio |
+|---|---|---|---|---|
+| 2 | 5 | B | Voices from the Sand | 0.708 |
+| 4 | 1 | B | Designer Genes: The CRISPR Revolution | 0.711 |
+| 4 | 4 | A | Nature's Blueprint for Innovation | 0.681 |
+| 4 | 5 | B | The Digital Nomad Revolution | 0.740 |
+| 4 | 8 | A | Silent Witnesses Speak | 0.687 |
+| 4 | 11 | B | Living Buildings that Breathe | 0.696 |
+| 5 | 1 | B | The Silent Collapse of Maya Cities | 0.705 |
+| 5 | 2 | B | Breaking Barriers in STEM | 0.711 |
+| 5 | 5 | B | The Nuclear Renaissance Paradox | 0.627 |
+| 5 | 7 | B | Healing the Mind's Architecture | 0.671 |
+| 5 | 10 | A | Quantum Frontiers Unveiled | 0.663 |
+| 5 | 12 | A | The Water-Energy Nexus Challenge | 0.694 |
+| 5 | 12 | B | The Water-Energy Nexus Revolution | 0.688 |
+
+> Most are L4–L5 (advanced, longer passages). Worst ratio: 0.627 (L5 U5B cuts off at 63%).
+> All 13 also have TIMESTAMPS_INCOMPLETE — regen must include full timestamp output.
+
+### Reading — 53 TIMESTAMPS_INCOMPLETE items
+
+Word coverage 49–85% (median 64%). Timestamps exist but only partially. Need regeneration.
+See `reading-audit.json` for full list with UUIDs and per-item coverage.
+
+---
+
+### Total ElevenLabs Budget Estimate for Prompt 02
+
+| Category | Items | Est. Characters |
+|---|---|---|
+| Reading TRUNCATED — need full regen | 13 | ~81,000 |
+| Reading TS_INCOMPLETE — need regen | 40 | ~250,000 |
+| Listening LABEL_IN_TEXT + METADATA_MISMATCH | 2 | ~8,400 |
+| Listening lectures missing timestamps | 3 | ~9,000 |
+| **Total (non-overlapping)** | **58** | **~348,400** |
+
+> Note: 13 truncated are a subset of 53 TS_INCOMPLETE, so total unique items = 53 + 5 = 58.
+> Run `node scripts/audio-generator/check-quota.cjs` (or `check-quota.OBSOLETE.cjs`) before starting.
 
 ---
 
@@ -151,23 +153,23 @@ These will become relevant after Prompt 02 regenerates listening audio with time
 
 | File | Description |
 |---|---|
-| `docs/audits/audio-issues/listening-audit.json` | Per-item listening audit (72 rows, flags, durations) |
-| `docs/audits/audio-issues/reading-audit.json` | Per-item reading audit (144 rows, flags, timestamps) |
-| `docs/audits/audio-issues/ui-component-audit.md` | Reading vs. listening component analysis |
-| `docs/audits/audio-issues/MASTER-REPORT.md` | This file — drives Prompts 02 and 03 |
+| `docs/audits/audio-issues/listening-audit.json` | Per-item listening audit (72 rows) |
+| `docs/audits/audio-issues/reading-audit.json` | Per-item reading audit (144 rows, ts coverage) |
+| `docs/audits/audio-issues/ui-component-audit.md` | UI component analysis |
+| `docs/audits/audio-issues/MASTER-REPORT.md` | This file — input for Prompts 02 and 03 |
 
 ---
 
 ## Schema Notes (for Prompt 02)
 
-Actual table/column names differ from the audit prompt spec:
-
 | Spec name | Actual name |
 |---|---|
 | `curriculum_reading_passages` | `curriculum_readings` |
 | `content` | `passage_content` (jsonb: `{paragraphs: string[]}`) |
-| `audio_duration_ms` | `audio_duration_seconds` (listening) / `full_duration_ms` (reading) |
+| `audio_duration_ms` (listening) | `audio_duration_seconds` |
+| `audio_duration_ms` (reading) | `full_duration_ms` in `reading_passage_audio` |
 | `audio_url` (reading) | `full_audio_url` in `reading_passage_audio` |
+| `word_timestamps` format | `{"0": {word, start_ms, end_ms, speaker}, "1":...}` |
 
 ---
 

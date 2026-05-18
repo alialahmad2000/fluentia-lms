@@ -1,60 +1,117 @@
-# UI Component Audit
-Generated: 2026-05-14
+# UI Component Audit (audio-content)
+Generated: 2026-05-18T00:33:13.971Z
 
----
+## src/components/interactive-curriculum/InteractiveListeningTab.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
-## Reading Tab
+## src/components/interactive-curriculum/InteractiveReadingTab.jsx
+- DB source: curriculum_readings/reading_passage_audio
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
-- **File:** `src/pages/student/curriculum/tabs/ReadingTab.jsx`
-- **DB source:** `curriculum_readings` ✓
-- **Renders hide-text toggle:** NO ✓ (correct — passage is always visible to student)
-- **Renders per-word click:** YES ✓ (`handleWordClick`, `handleVocabWordTap` at lines 413–519)
-- **Player component:** `ReadingPassagePlayer` (`src/components/players/ReadingPassagePlayer.jsx`)
-  - Comment in source explicitly states: *"Reading has NO hide-text toggle — the passage is always visible."*
-  - Uses `InteractivePassage` with `wordTimestampsJson` prop for per-word audio seek.
-- **Notes:** Reading UX is correctly separated from listening UX. No hide-text confusion detected.
+## src/components/players/listening/ListeningSection.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: YES ✓ (expected for listening)
+- Renders per-word click: YES ✓
+- Player component: custom
 
----
+## src/components/players/ListeningAudioPlayer.jsx
+- DB source: unknown
+- Renders hide-text toggle: YES ✓ (expected for listening)
+- Renders per-word click: YES ✓
+- Player component: ListeningAudioPlayer
 
-## Listening Tab
+## src/components/players/ReadingPassagePlayer.jsx
+- DB source: unknown
+- Renders hide-text toggle: NO
+- Renders per-word click: YES ✓
+- Player component: ReadingPassagePlayer
 
-- **File:** `src/pages/student/curriculum/tabs/ListeningTab.jsx`
-- **DB source:** `curriculum_listening` ✓
-- **Renders hide-text toggle:** YES ✓ (expected — transcript hidden by default; "إظهار النص" / "إخفاء النص")
-- **Renders per-word click:** PARTIAL ⚠️
-  - `ListeningAudioPlayer` passes `word_timestamps` to `InteractivePassage` BUT:
-  - `curriculum_listening.word_timestamps` is NULL for **all 72 items** (confirmed by Phase B audit).
-  - Per-word audio seek via timestamps is therefore non-functional in production.
-- **Player component:** `ListeningAudioPlayer` (`src/components/players/ListeningAudioPlayer.jsx`)
-  - Has `transcriptHidden` state starting `true`.
-  - Renders transcript only after student reveals it.
-  - Uses native `<audio controls>` — no custom seek or segment synchronization.
-- **Notes:**
-  - The `ListeningSection` in `ListeningTab.jsx` (line ~231) passes only `segments[0]?.word_timestamps` to
-    `ListeningAudioPlayer`. Even if listening segments were stored with timestamps, only the first
-    segment's timestamps are passed — multi-speaker items will lose word sync for all but the first voice.
+## src/pages/student/curriculum/tabs/ReadingTab.jsx
+- DB source: curriculum_readings/reading_passage_audio
+- Renders hide-text toggle: NO
+- Renders per-word click: YES ✓
+- Player component: ReadingPassagePlayer
 
----
+## src/pages/student/curriculum/tabs/ListeningTab.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
-## Shared `InteractivePassage` Component
+## src/pages/student/curriculum/UnitContentOriginal.jsx
+- DB source: unknown
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
-- **File:** `src/components/players/InteractivePassage.jsx`
-- **Used by:** `ReadingPassagePlayer`, `ListeningAudioPlayer`
-- **Conclusion:** Shared component, but it is configured differently per caller:
-  - Reading → always rendered (no toggle gate), `wordTimestampsJson` populated from `reading_passage_audio`
-  - Listening → gated behind `!transcriptHidden`, `wordTimestampsJson` always null in practice
-- **No reading-vs-listening UX bleed** detected in the component tree itself.
+## src/pages/student/curriculum/UnitContent.jsx
+- DB source: unknown
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
----
+## src/pages/admin/curriculum/CurriculumMap.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
-## Summary
+## src/pages/admin/curriculum/components/ListeningEditor.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
-| Check | Reading | Listening |
-|---|---|---|
-| Correct DB table | ✓ `curriculum_readings` | ✓ `curriculum_listening` |
-| Hide-text toggle | ✓ Absent (correct) | ✓ Present (correct) |
-| Per-word click handlers | ✓ Wired + functional | ⚠️ Wired but non-functional (no timestamps in DB) |
-| Audio player | `ReadingPassagePlayer` (custom) | `ListeningAudioPlayer` (native `<audio>`) |
+## src/pages/admin/curriculum/components/UnitCard.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
 
-**No reading-vs-listening UI confusion detected.**  
-Primary listening UX issue is missing `word_timestamps` in DB, not a component architecture bug.
+## src/pages/admin/curriculum/LevelDetail.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
+
+## src/pages/admin/curriculum/UnitEditor.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
+
+## src/pages/admin/AdminContentBank.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
+
+## src/pages/admin/StudentProgressDiagnostic.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
+
+## src/pages/shared/InteractiveCurriculumPage.jsx
+- DB source: unknown
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
+
+## src/pages/dev/AudioPlayerTest.jsx
+- DB source: curriculum_listening
+- Renders hide-text toggle: NO
+- Renders per-word click: YES ✓
+- Player component: custom
+
+## src/pages/trainer/TrainerCurriculum.legacy.jsx
+- DB source: curriculum_readings/reading_passage_audio
+- Renders hide-text toggle: NO
+- Renders per-word click: NO ⚠️
+- Player component: custom
+
