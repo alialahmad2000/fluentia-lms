@@ -1106,6 +1106,16 @@ This is how future sessions know what happened.
 - Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
 - Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
 
+### 2026-05-19 — LISTENING QA Deep Audit (truncation + voice diversity + transcript naturalism)
+- What: Ran the 3-phase listening quality audit. All-clear on truncation + voice diversity; transcripts mostly healthy with 4 mid-tier review items.
+- Phase A (truncation, browser-style): 72/72 OK. Each row tested via HEAD (200 / audio/mpeg / Accept-Ranges / Content-Length), Range 0-64KB → 206, Range last-64KB → 206, full GET, then ffprobe container duration vs ffmpeg-decoded duration. All truncation_ratios ≥ 0.9999. Earlier overhaul `8159640` holds.
+- Phase B (voice diversity): 44/44 multi-speaker rows (interview + dialogue + conversation) have distinct ElevenLabs `voice_id` per speaker, consistently applied. `voice_id` is stored in `speaker_segments[i].voice_id` so no acoustic-fingerprint fallback needed.
+- Phase C (transcript naturalism, FLAG ONLY): 68 OK / 4 REVIEW / 0 REGENERATE. Heuristics: vocatives, ack chains, robotic turn-taking, AI disclaimer leaks, over-explanation, hedge stacking, title-name overuse, symmetric exchanges, absent contractions, reciprocal gratitude. No auto-rewrites — content decision deferred to Ali.
+- ElevenLabs char budget: 0 chars consumed by this audit (no regenerations triggered).
+- Files: `scripts/audits/listening-qa/` (4 cjs scripts: inventory, stream-test, voice-diversity, transcript-naturalism), `docs/audits/listening-qa/` (inventory.json, stream-test.json, voice-diversity.json, transcript-naturalism.{json,md}, FINAL-REPORT.md)
+- DB: None — Edge Functions: None
+- Status: Complete — commit `bf1697d` pushed to main.
+
 ### 2026-05-18 — PROMPT 13 L1: Reading Passage Rewrites — All 12 Units Complete
 - What: Applied and committed all 12 L1 reading passage rewrites (U01-U12) to production DB. PROMPT 13 L1 batch is fully done.
 - Background: Content for all 12 units was pre-generated in a prior session and saved to `PHASE-2-CLEANUP/l1-content/u01-u12.json`. U01 was committed but never DB-applied; U02-U12 had JSON but no commit. This session applied all 12 + finalized.
