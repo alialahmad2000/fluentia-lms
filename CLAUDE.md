@@ -1048,6 +1048,17 @@ This is how future sessions know what happened.
 - Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
 - Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
 
+### 2026-05-18 — PROMPT 13 L1: Reading Passage Rewrites — All 12 Units Complete
+- What: Applied and committed all 12 L1 reading passage rewrites (U01-U12) to production DB. PROMPT 13 L1 batch is fully done.
+- Background: Content for all 12 units was pre-generated in a prior session and saved to `PHASE-2-CLEANUP/l1-content/u01-u12.json`. U01 was committed but never DB-applied; U02-U12 had JSON but no commit. This session applied all 12 + finalized.
+- Fixed: `scripts/lib/supa.mjs` env parser now strips surrounding quotes and trailing `\n` from values (Mac compatibility with Windows-generated `.env`).
+- DB results (24/24 PASS — 100%): All passages now within A1 targets. wc 151-190 (target 120-200). FKGL 2.42-3.85 (target 2.0-4.0). ASL 9.4-11.9 (target 8-12). OOV: 0 across all 24. 144 questions updated. 0 student completions needed protection.
+- Finalize verified: 12 units, 24 passages, 144 questions, 72 total system units — all match expected counts.
+- Commits: 11 unit commits (U02-U12) + 1 finalize commit = 12 new commits pushed to main.
+- Files: `PHASE-2-CLEANUP/l1-content/u01-u12.json`, `PHASE-2-CLEANUP/13-L1-progress.log`, `PHASE-2-CLEANUP/13-L1-final-report.md`, `scripts/lib/supa.mjs`
+- DB: 24 rows in `curriculum_readings` updated, 144 rows in `curriculum_comprehension_questions` updated
+- Status: Complete — PROMPT 13 L1 fully delivered.
+
 ### 2026-05-18 — Prompt 08: Restore Reading Section (verbatim restore from ad13345)
 - What: Ran prompt 08 (08-RESTORE-READING-SECTION). Restored `ReadingTab.jsx` from git commit `ad13345` — the last stable version students knew, immediately before prompts 03/06 replaced it with `ReadingPassagePlayer`.
 - RESTORE_TARGET: `ad13345` "feat(audio): word pronunciation in narrator's voice via audio slicing" — the commit just before the BOUNDARY `88d36ff` (prompt 03).
