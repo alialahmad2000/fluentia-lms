@@ -1057,6 +1057,15 @@ This is how future sessions know what happened.
 - DB: None — Edge Functions: None
 - Status: Complete — no code changes needed.
 
+### 2026-05-18 — Prompt 07: Listening Section Overhaul (titles applied, all self-checks pass)
+- What: Completed 07-LISTENING-SECTION-OVERHAUL. Core work (concat fix, player rebuild, section rebuild) was shipped May 14. This session applied the one remaining gap: 72 Arabic titles were in a migration file but never executed against prod DB.
+- Titles applied: `scripts/_apply-listening-titles.cjs` (72 UPDATEs via service role). All 72 rows now have `title_ar`. MCP confirms: missing title_ar = 0, duplicates = 0.
+- Self-checks: (1) `c copy` in concat.cjs = comments only ✓ (2) test-concat.cjs PASS ✓ (3) no `fixed bottom-0` in player dir ✓ (4) ListeningPlayer used in ListeningSection ✓ (5) ReadingTab does NOT import ListeningPlayer ✓ (6) all hooks above return in ListeningPlayer.jsx ✓
+- Already shipped May 14 (commit `2a8afa6`): concat.cjs uses libmp3lame re-encoding + decode-verify; 72 audio files all pass decode test (0 regenerations needed); ListeningPlayer.jsx (358 lines, sticky-in-content, speaker-segment ticks, A-B loop, 5 speeds); ListeningSection.jsx (149 lines, exercise selector, transcript hide/show, sticky player); ListeningTab wired to ListeningSectionUI.
+- Files: `scripts/_apply-listening-titles.cjs` (NEW, one-time), `CLAUDE.md`
+- DB: 72 rows in `curriculum_listening` — `title_ar` + `title_en` populated
+- Status: Complete — pushed to main
+
 ### 2026-05-18 — Prompt 04: Fix Progress Tracking (WritingTab finally guard + MCP token fix)
 - What: Closed the last open gap from the 04-FIX-PROGRESS-TRACKING prompt. Prior sessions (May 14–15) had already shipped: `compute_unit_progress()` DB function, 6 auto-recompute triggers, `SpeakingTab` error-handling rewrite, `ListeningTab` submit hang fix, `UnitContent` progress cache invalidation, and the backfill script. This session verified all of that is live and closed the one remaining code risk.
 - WritingTab fix: `handleSubmit` in `src/pages/student/curriculum/tabs/WritingTab.jsx` had `setSubmitting(true)` with two manual `setSubmitting(false)` calls on success and error paths, but no `finally`. Wrapped the entire async body in `try/finally { setSubmitting(false) }` — button can no longer get permanently stuck if any unexpected throw occurs.
