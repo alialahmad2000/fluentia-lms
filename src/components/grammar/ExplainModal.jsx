@@ -141,6 +141,19 @@ export default function ExplainModal({ open, onClose, payload }) {
         {isNewFormat && !loading && (
           <div className="space-y-3">
             <NajdiExplanationView markdown={result.explanation_md} />
+            <div className="flex justify-end pt-1">
+              <button
+                onClick={() => fetchExplanation(true)}
+                className="inline-flex items-center gap-1.5 text-xs font-['Tajawal'] px-2.5 py-1.5 rounded-lg transition-colors"
+                style={{ color: 'var(--text-tertiary)', border: '1px solid var(--border-subtle)' }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent-sky)'; e.currentTarget.style.borderColor = 'var(--info-border)' }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-tertiary)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
+                title="اطلب شرحاً مختلفاً"
+              >
+                <RefreshCw size={11} />
+                تجديد الشرح
+              </button>
+            </div>
           </div>
         )}
 

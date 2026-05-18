@@ -43,7 +43,7 @@ async function callClaude(
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 1500,
       temperature: 0.3,
       system,
@@ -207,7 +207,7 @@ RULES:
       await supabase.from('ai_usage').insert({
         type: 'grammar_explain',
         student_id: user.id,
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         input_tokens: usage.input_tokens,
         output_tokens: usage.output_tokens,
         estimated_cost_sar: ((usage.input_tokens * 3 + usage.output_tokens * 15) / 1_000_000) * 3.75,

@@ -392,6 +392,30 @@ This is how future sessions know what happened.
 - Status: Frontend code complete + pushed to main + Vercel auto-deploying. DB migration needs manual run.
 - Files: src/features/chat/** (40+ files), src/lib/chatStorage.js, src/config/navigation.js, src/App.jsx, supabase/functions/process-mentions/, supabase/functions/link-preview/, public/push-sw.js, supabase/migrations/20260512200000+20260512210000
 
+### 2026-05-18 — Grammar Najdi Polish: Readable Renderer + Model Update
+- What: Fixed "dense and hard to scan" issue with the Najdi-dialect grammar explanation feature. Two-sided fix: renderer CSS improvements + edge function model update.
+- **CSS (grammar-najdi.css):**
+  - Section heading font size: `0.9375rem (15px)` → `1.0625rem (17px)` — clearer visual hierarchy
+  - Section heading top margin: `1.5rem` → `2rem` — more breathing room between sections
+  - Para bottom margin: `0.625rem` → `0.75rem`, list padding increased to `1.5rem`
+  - Blockquote direction: removed brittle `nth-child(odd/even)` direction hack (broke when example had 3 lines e.g. + ملاحظة) → replaced with `unicode-bidi: plaintext` on each `<p>`, which auto-detects direction from content (Arabic → RTL, English → LTR) for any number of lines
+  - Blockquote border: `border-right` → `border-inline-start` (RTL-semantic, right-side in dir=rtl)
+- **Edge function (explain-grammar-answer):** model updated `claude-sonnet-4-20250514` → `claude-sonnet-4-6`
+- **ExplainModal:** Added "تجديد الشرح" small button for new-format (MD) rows — previously only old HTML rows had a regenerate option
+- **Discovery docs:** `docs/dev-notes/grammar-najdi-discovery.md` updated, `docs/dev-notes/grammar-najdi-samples-before.md` created with 5 cached row samples showing old HTML format
+- **⚠️ MIGRATION NEEDED:** `explanation_md` column and `grammar_explanations_warnings` table not yet in production (migration `20260513000000` was never applied). Until applied: cache is bypassed on every request (SELECT with non-existent column fails → always hits Claude API — costs tokens). **Must run in Supabase SQL Editor:**
+  ```sql
+  ALTER TABLE public.grammar_explanation_cache ADD COLUMN IF NOT EXISTS explanation_md TEXT;
+  CREATE TABLE IF NOT EXISTS public.grammar_explanations_warnings (id BIGSERIAL PRIMARY KEY, cache_key TEXT NOT NULL, reason TEXT NOT NULL, raw_response TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT now());
+  ALTER TABLE public.grammar_explanations_warnings ENABLE ROW LEVEL SECURITY;
+  ```
+- **⚠️ DEPLOY NEEDED:** Edge function must be deployed: `supabase functions deploy explain-grammar-answer --no-verify-jwt --project-ref nmjexpuycmqcxuxljier` (requires `supabase login` with personal access token first)
+- Files: `src/components/grammar/grammar-najdi.css`, `src/components/grammar/ExplainModal.jsx`, `supabase/functions/explain-grammar-answer/index.ts`, `docs/dev-notes/grammar-najdi-discovery.md`, `docs/dev-notes/grammar-najdi-samples-before.md`
+- DB: No schema changes applied — migration file exists (`20260513000000_grammar_explanation_md.sql`), must be run manually
+- Edge Functions: `explain-grammar-answer` — model updated in code, needs redeploy
+- Status: Code complete + committed. Two manual steps remain: (1) apply migration in SQL Editor, (2) redeploy edge function.
+- Notes: The feature currently works (students see structured Markdown via NajdiExplanationView) because the SELECT failure → cache miss → fresh Claude call returns `explanation_md` in response body. Caching is just broken until migration is applied. After migration + redeploy, all new explanations will be cached; existing HTML rows can be upgraded with "تجديد الشرح" button.
+
 ### April 16, 2026 — Stop Auto-Grading Unfinished Activity Attempts (a9dfbdf)
 - What: Students reported that answering 1-2 questions in Reading/Listening/Grammar activities then navigating away caused the system to auto-grade ALL unanswered questions as wrong and mark the row `status=completed` with a low score. Root cause: the per-answer autosave `useEffect` in each activity wrote `status='completed'` + computed a score (counting unanswered as wrong) the instant `answered === total` — no explicit submit step existed.
 - **Fix (save-vs-submit separation):** In all three affected activities, autosave now ALWAYS writes `status='in_progress'` + `score=null` + `completed_at=null`. A new inline "تسليم الإجابات" submit button (disabled until all questions answered) is the ONLY path that writes `status='completed'`, computes the score, and fires `awardCurriculumXP`. Reading `MCQQuestion` and Listening `ListeningMCQ` also gained a `revealCorrect` prop — correct/wrong styling and explanation blocks only appear after submit, letting students change answers freely before submitting. Grammar keeps its per-answer feedback (intentional practice UX) but no longer auto-completes.

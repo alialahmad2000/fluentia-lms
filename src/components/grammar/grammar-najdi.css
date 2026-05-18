@@ -6,12 +6,12 @@
 }
 
 .najdi-section-heading {
-  font-size: 0.9375rem;
+  font-size: 1.0625rem; /* 17px — large enough to scan, not overwhelming in modal */
   font-weight: 700;
   color: var(--accent-gold, var(--accent-sky));
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 0.625rem;
+  line-height: 1.3;
 }
 
 .najdi-section-heading:first-child {
@@ -21,49 +21,45 @@
 .najdi-para {
   font-size: 0.9375rem;
   line-height: 2;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.75rem;
   unicode-bidi: plaintext;
 }
 
 .najdi-list {
   list-style: disc;
-  padding-right: 1.25rem;
-  margin: 0.375rem 0 0.625rem;
+  padding-right: 1.5rem;
+  margin: 0.5rem 0 0.875rem;
 }
 
 .najdi-list-item {
   font-size: 0.9375rem;
-  line-height: 2;
-  margin-bottom: 0.1875rem;
+  line-height: 1.9;
+  margin-bottom: 0.3125rem;
 }
 
 /* ─── Example blockquote container ─── */
 .najdi-example-block {
-  margin: 0.75rem 0;
-  padding: 0.875rem 1rem;
+  margin: 0.75rem 0 1rem;
+  padding: 0.875rem 1rem 0.875rem 1.25rem;
   border-radius: 0.75rem;
   background: var(--glass-card);
   border: 1px solid var(--border-subtle);
-  border-right: 3px solid var(--accent-sky);
+  /* RTL-aware accent stripe — inline-start = right side in dir=rtl */
+  border-inline-start: 3px solid var(--accent-sky);
   font-style: normal;
 }
 
-/* EN lines (odd children) — LTR */
-.najdi-example-block > p:nth-child(odd) {
-  direction: ltr;
-  text-align: left;
-  font-family: 'Inter', sans-serif;
+/* Each paragraph inside blockquote auto-detects its direction from the first
+   strong character (Arabic → rtl, Latin → ltr). This handles 2-line pairs
+   AND 3-line examples (English + Arabic + ملاحظة) correctly without brittle
+   nth-child hacks that broke for examples with a third note line. */
+.najdi-example-block > p {
+  unicode-bidi: plaintext;
   font-size: 0.9375rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.3125rem;
 }
 
-/* AR lines (even children) — RTL, muted */
-.najdi-example-block > p:nth-child(even) {
-  direction: rtl;
-  text-align: right;
-  font-family: 'Tajawal', sans-serif;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
+.najdi-example-block > p:last-child {
   margin-bottom: 0;
 }
 
