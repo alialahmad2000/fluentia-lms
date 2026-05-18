@@ -299,6 +299,15 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-18 — AUDIT-FIX-3-LAZY-RETRY: chunk-error guard + protect all 8 unit tab imports
+- What: Two-part fix for the lazy-loading chunk retry system.
+- **Issue 1 — `lazyRetry.js` caught all errors:** The original implementation caught any error from a dynamic import and triggered a page reload. This meant app-level errors (syntax errors, runtime errors in module init) would silently reload the page instead of surfacing in the ErrorBoundary for diagnosis. Fixed by adding `isChunkLoadError()` guard: only errors matching Vite's "Failed to fetch dynamically imported module", Safari's "Importing a module script failed", or Webpack's ChunkLoadError name trigger the reload. Cooldown bumped 30s → 60s to cover Vercel edge cache propagation.
+- **Issue 2 — `UnitContent.jsx` used bare `React.lazy()` for all 8 tab components:** ReadingTab, GrammarTab, VocabularyTab, ListeningTab, WritingTab, SpeakingTab, PronunciationTab, RecordingTab were all imported with `React.lazy()` (no retry). These are the most-accessed components in the app — if a student was mid-unit when a Vercel deploy landed, switching tabs would fail with an error boundary hit instead of a transparent reload. Replaced all 8 with `lazyRetry()`.
+- Files: `src/utils/lazyRetry.js`, `src/pages/student/curriculum/UnitContent.jsx`
+- DB: None
+- Edge Functions: None
+- Status: Complete — build verified (6.4s, 0 errors), commit `4ee75e0` pushed to main
+
 ### 2026-05-18 — 02-FIX-LISTENING-AUDIO: Female-voice fix + reading truncation regen
 - What: Fixed the 3 remaining `post-regen-failures` (SINGLE_VOICE_STILL) and regenerated 13 truncated reading passages.
 - **Root cause (3 female-female dialogues):** `assignVoices()` in `lib/speaker-map.cjs` fell back to the generic voice pool when the preferred female voice (Alice/B) was already taken, picking George (A, male) for the second female speaker. Fix: introduced ordered gender pools (`FEMALE_VOICES=[B,D]`, `MALE_VOICES=[A,C]`) so the second female speaker always gets Sarah (D/female), not George.
