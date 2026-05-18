@@ -70,7 +70,14 @@ const ACTIVITY_DEFINITIONS = [
     label: 'المفردات',
     weight: 18,
     existsCheck: (c) => c.vocabTotal > 0,
-    getProgress: (_sp, _c, vm) => {
+    getProgress: (sp, _c, vm) => {
+      // Explicit section-level completion wins over the word-mastery metric —
+      // matches compute_unit_progress (2026-05-19) which honors both signals.
+      const sectionDone = sp.some(
+        p => (p.section_type === 'vocabulary' || p.section_type === 'vocabulary_exercise')
+          && p.status === 'completed'
+      )
+      if (sectionDone) return 1
       if (!vm || !vm.totalWords || vm.totalWords === 0) return 0
       const weightedSum =
         (vm.newCount || 0) * MASTERY_WEIGHTS.new +

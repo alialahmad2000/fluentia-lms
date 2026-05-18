@@ -299,6 +299,19 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-19 — Section-Completion Restore: vocab cards now honor explicit section signal
+- What: Restored the ✓ "section complete" badges on the unit overview for the vocabulary card. 30 student/unit pairs (22 `vocabulary_exercise` + 8 `vocabulary`) where students had completed the vocab section but the card still showed as incomplete.
+- **Root cause:** `compute_unit_progress` PL/pgSQL function evaluated vocabulary completion ONLY from the 80% word-mastery threshold in `vocabulary_word_mastery`. It ignored explicit section-level completion signals written to `student_curriculum_progress` (`section_type IN ('vocabulary','vocabulary_exercise')` `status='completed'` `is_best=true`). All other 6 section types (reading/grammar/listening/speaking/writing/pronunciation) already reflected correctly.
+- **Fix (1 migration + 2 frontend tweaks):**
+  - `supabase/migrations/20260519000000_compute_unit_progress_vocab_section_signal.sql` — CREATE OR REPLACE `compute_unit_progress`. Vocab now counts as complete when EITHER explicit section completion exists OR 80% word-mastery threshold met. New `vocabulary_section_done` boolean exposed in `breakdown.completion`. All other section logic unchanged.
+  - `src/hooks/useUnitProgress.js` — vocab branch honors `vocabulary_section_done`
+  - `src/utils/calculateUnitProgress.js` — frontend fallback vocab def honors explicit completion via student_progress rows
+- **Backfill:** 96 (student, unit) pairs recomputed via `recompute_unit_progress_for`. All 36 vocab-completed pairs now flagged correctly (`vocabulary_section_done = true`).
+- Files: `supabase/migrations/20260519000000_compute_unit_progress_vocab_section_signal.sql` (NEW), `src/hooks/useUnitProgress.js`, `src/utils/calculateUnitProgress.js`, `docs/audits/section-completion-restore/{PHASE-A-REPORT,FINAL-REPORT}.md`
+- DB: `compute_unit_progress` function replaced (idempotent); 96 unit_progress rows refreshed. No row data mutated in submissions / xp_transactions / vocabulary_word_mastery.
+- Edge Functions: None
+- Status: Complete — pushed to main. Triggers on the 4 source tables remain enabled and now produce correct vocab completion flags.
+
 ### 2026-05-19 — PERSONALIZATION-REVERT: canonical curriculum is the single default
 - What: Permanent product decision — every student sees the same canonical curriculum by default. Personalization (reading variants by interest bucket) is demoted to inactive code; UI hidden from the default flow.
 - **Scope confirmed:** personalization wiring is fully contained — exactly 2 hooks (`usePersonalizedReading`, `useUserInterests`), 4 components in `src/components/personalization/`, and 3 mount points (StudentDashboard, StudentProfile, ReadingTab). No edge functions consult personalization. No external hook consumers.

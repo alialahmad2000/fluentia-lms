@@ -196,13 +196,15 @@ function mapDbRowToProgressShape(row) {
     const isComplete = done != null && done > 0
 
     if (section === 'vocabulary') {
-      const engaged  = completion.vocabulary_engaged || 0
-      const needed   = completion.vocabulary_needed  || 1
-      const total    = inventory.vocabulary_total    || 1
-      const pct      = Math.round((engaged / total) * 100)
-      const complete = engaged >= needed
-      tabStatus[section] = complete ? 'completed' : engaged > 0 ? 'in_progress' : 'not_started'
-      tabs[section]      = { label: section, progress: pct, weight: 18 }
+      const engaged       = completion.vocabulary_engaged      || 0
+      const needed        = completion.vocabulary_needed       || 1
+      const total         = inventory.vocabulary_total         || 1
+      const sectionDone   = completion.vocabulary_section_done === true
+      const pct           = Math.round((engaged / total) * 100)
+      // Complete when either explicit section signal OR 80% word-mastery threshold
+      const complete      = sectionDone || engaged >= needed
+      tabStatus[section]  = complete ? 'completed' : engaged > 0 ? 'in_progress' : 'not_started'
+      tabs[section]       = { label: section, progress: complete ? 100 : pct, weight: 18 }
       if (complete) completedCount++
     } else if (section === 'reading') {
       const readingDone  = completion.reading_done || 0
