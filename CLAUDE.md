@@ -305,6 +305,27 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### 2026-05-18 — 01-AUDIT-AUDIO-CONTENT (post-regen Mac re-run)
+- What: Re-ran the comprehensive audio audit after the May 14 regeneration, using a new Mac-native script instead of the old Windows-based approach.
+- **New script:** `scripts/audio-generator/audit-audio-content.mjs` — connects to Supabase via pg pool, ffprobes every audio URL (6× parallel), checks truncation, speaker_segments quality, word_timestamps completeness, and UI component wiring. Replaces the old per-file approach.
+- **Key findings (vs. May 14 original audit):**
+  - Listening truncated: ~~44~~ → **0** ✅ (regen fixed all)
+  - Listening single-voice: ~~21~~ → **0** ✅ (regen fixed all)
+  - Listening healthy: ~~27~~ → **70/72** ✅
+  - Listening word_timestamps: ~~0~~ → **45/72** ✅ (L2–L5 dialogues/interviews)
+  - Reading truncated: **13** (same — regen did not re-process reading passages)
+  - Reading TS incomplete (49–85% word coverage): **53** (real gap, not markup artifact)
+  - **2 remaining listening issues:** L3 U3 interview (LABEL_IN_TEXT), L4 U7 lecture (METADATA_MISMATCH)
+  - **3 lectures missing timestamps:** L4 U9, L4 U12, L5 U9
+- **word_timestamps format clarified:** numeric-keyed object `{"0":{word,start_ms,end_ms,speaker},"1":...}` — NOT `{paragraphs:[{words}]}`. Previous audit script had wrong parser.
+- **LABEL_IN_TEXT fix:** original script was also checking raw transcript (always has speaker labels in dialogues) — now only checks `speaker_segments[].text` (processed version sent to TTS).
+- Files: `scripts/audio-generator/audit-audio-content.mjs` (NEW), `prompts/agents/01-AUDIT-AUDIO-CONTENT.md` (moved from Downloads), `docs/audits/audio-issues/MASTER-REPORT.md`, `listening-audit.json`, `reading-audit.json`, `ui-component-audit.md`
+- DB: No changes
+- Edge Functions: None
+- Status: Complete — commit `caf0608` pushed to main
+- Notes: Prompt 02 should re-generate the 13 truncated reading passages + 53 with incomplete timestamps (58 unique items, ~348K chars estimated). Check ElevenLabs quota first.
+
+
 ### 2026-05-12 — GOD COMM Polish Pass 2 (Commits f5310cc→02f8663)
 - What: Four surgical fixes to the chat UI after the premium polish pass.
 - P10/P11 (system messages + day separators): buildItems rewritten — system messages now accumulate across day boundaries (no longer broken by isSameDay). Collapse threshold lowered from 3 → 2 (any 2+ system messages collapse). Day separators only appear before real messages; system-only days get no separator. SystemMessageCluster: 1 msg = ghost line, 2+ = collapsed "N رسائل نظام · عرض". "طي" renamed to "إخفاء".
