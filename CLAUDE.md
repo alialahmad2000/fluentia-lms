@@ -991,6 +991,17 @@ This is how future sessions know what happened.
 - Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
 - Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
 
+### 2026-05-18 — Prompt 06: Restore Passage UX V2 (discovery pass — already complete)
+- What: Ran prompt 06 (06-RESTORE-PASSAGE-UX-V2). All Phase B–E work was already fully implemented in a prior session. This session ran Phase F self-checks and confirmed everything passes.
+- Per-word audio: `useWordAudio.js` uses `timeupdate` events (not `setTimeout`). Only metadata-load safety timeout exists. Shared DOM `<audio>` element preloads once; play token cancels rapid clicks; iOS Safari seek-before-ready handled via `loadedmetadata` await.
+- Vocab highlighting: `InteractivePassage.jsx` renders `.vocab-word` spans with `.vocab-word-translation` directly beneath each unit vocabulary word. Always visible — no click needed. Gold dashed underline from `passage-vocab.css`.
+- Sticky audio bar: `StickyAudioBar.jsx` — `position: fixed; bottom: 0` glass-morphism bar with play/pause, ±10s skip, scrubber, 0.5×–2× speed chips, A-B repeat (`showABRepeat` prop), minimize chevron. Mounted in `ReadingPassagePlayer` (no AB repeat) and `ListeningAudioPlayer` (AB repeat on).
+- `unitId` wired: `ReadingTab` passes `unitId={unitId}` to `ReadingPassagePlayer` at line 853. `useUnitVocab` queries `curriculum_vocabulary.word` (correct column name).
+- Self-checks F1–F7: all pass. ESLint skipped (no config).
+- Files: `CLAUDE.md` (this entry only)
+- DB: None — Edge Functions: None
+- Status: Complete — no code changes needed.
+
 ### 2026-05-18 — Prompt 04: Fix Progress Tracking (WritingTab finally guard + MCP token fix)
 - What: Closed the last open gap from the 04-FIX-PROGRESS-TRACKING prompt. Prior sessions (May 14–15) had already shipped: `compute_unit_progress()` DB function, 6 auto-recompute triggers, `SpeakingTab` error-handling rewrite, `ListeningTab` submit hang fix, `UnitContent` progress cache invalidation, and the backfill script. This session verified all of that is live and closed the one remaining code risk.
 - WritingTab fix: `handleSubmit` in `src/pages/student/curriculum/tabs/WritingTab.jsx` had `setSubmitting(true)` with two manual `setSubmitting(false)` calls on success and error paths, but no `finally`. Wrapped the entire async body in `try/finally { setSubmitting(false) }` — button can no longer get permanently stuck if any unexpected throw occurs.
