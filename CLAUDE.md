@@ -991,6 +991,17 @@ This is how future sessions know what happened.
 - Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
 - Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
 
+### 2026-05-18 — Prompt 03: Split Reading + Listening Players (discovery pass)
+- What: Ran prompt 03 (03-REBUILD-READING-AND-LISTENING-PLAYERS). All Phase B–C work was already fully implemented in a prior session. No new code required. This session performed discovery + self-checks + updated the discovery doc.
+- Reading player: `ReadingPassagePlayer.jsx` — no hide-text toggle, uses `InteractivePassage` for word-tap interaction. Already wired in `ReadingTab.jsx` (line 841).
+- Listening player: `ListeningSection.jsx` — has `transcriptHidden` toggle, uses `InteractivePassage` when text is revealed. Used via `ListeningSectionUI` in `ListeningTab.jsx`.
+- Word interaction stack: `InteractivePassage` → `WordPopover` → `useWordTimestamps` / `useWordAudio` / `useTranslateWord` (calls `vocab-quick-meaning`) / `useSavedWords` (writes to `student_saved_words`).
+- Self-checks: all 6 applicable checks PASS. ESLint skipped (no config).
+- Files: `docs/dev-notes/player-refactor-discovery.md` (updated with status + check results), `CLAUDE.md`
+- DB: None
+- Edge Functions: None
+- Status: Complete — no code changes needed; all player components were previously committed.
+
 ### 2026-05-12 — Personalization Bank v1: Phase D COMPLETE (all 1,152 variants)
 - What: All 6 CEFR levels now have full 8-bucket variant coverage
 - Content: 1,152 variants (144 canonical readings × 8 buckets), QA pass rate 100%, avg vocab coverage 0.98, avg word-count ratio 0.87

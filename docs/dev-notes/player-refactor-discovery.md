@@ -1,4 +1,6 @@
-# Player Refactor Discovery — 2026-05-14
+# Player Refactor Discovery — 2026-05-14 (updated 2026-05-18)
+
+## Status: COMPLETE — all Phase B–C components implemented in prior session
 
 ## A.1 — Current player files
 
@@ -44,6 +46,18 @@ supabase.from('student_saved_words').insert({ student_id, word, source, ... })
 ```
 
 No standalone `useSavedWords` hook exists — build new.
+
+## Phase D — Self-Check Results (2026-05-18)
+
+| Check | Result |
+|-------|--------|
+| No ReadingTab.*transcriptHidden | ✅ PASS |
+| WordPopover + InteractivePassage in players/ | ✅ PASS |
+| useWordTimestamps + useWordAudio in players/lib/ | ✅ PASS |
+| ESLint | ⏭ SKIP — no ESLint config in project |
+| ReadingPassagePlayer has no transcriptHidden | ✅ PASS |
+| ListeningAudioPlayer has transcriptHidden | ✅ PASS |
+| InteractivePassage all hooks above returns | ✅ PASS |
 
 ## Decision log
 
