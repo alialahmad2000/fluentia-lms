@@ -1,6 +1,6 @@
 # L1 Reading Rewrites — Final Report
 
-**Date:** 2026-04-12T00:56:19.676Z
+**Date:** 2026-05-18T01:34:51.721Z
 
 **Level:** L1 (A1)
 
@@ -50,4 +50,4 @@
 - L1 passages: 24 (expected 24)
 - L1 questions: 144 (expected 144)
 - System total units: 72 (expected 72)
-- Vocabulary rows: 1954
+- Vocabulary rows: 13930
