@@ -299,6 +299,19 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-19 — PERSONALIZATION-REVERT: canonical curriculum is the single default
+- What: Permanent product decision — every student sees the same canonical curriculum by default. Personalization (reading variants by interest bucket) is demoted to inactive code; UI hidden from the default flow.
+- **Scope confirmed:** personalization wiring is fully contained — exactly 2 hooks (`usePersonalizedReading`, `useUserInterests`), 4 components in `src/components/personalization/`, and 3 mount points (StudentDashboard, StudentProfile, ReadingTab). No edge functions consult personalization. No external hook consumers.
+- **Action — 3 mount points hidden** (import + JSX commented with `PERSONALIZATION-REVERT 2026-05-19` marker):
+  - `src/pages/student/StudentDashboard.jsx:153` — `<InterestSurveyCard />` removed from dashboard
+  - `src/pages/student/StudentProfile.jsx:626` — `<InterestsSettingsSection />` removed from profile
+  - `src/pages/student/curriculum/tabs/ReadingTab.jsx:923` — `<PersonalizedReadingCard />` removed from reading tab
+- **Why this works:** Personalization was already a separate surface (a drawer card below canonical, not an in-flow substitution). Hiding the mount points eliminates the only points where personalization queries run (`usePersonalizedReading.enabled` is `interests.length > 0` but the hook has no remaining consumers). Canonical text/audio/karaoke all resolve to the same `curriculum_readings.id` on the default path.
+- **Preserved (intentionally):** DB tables (`personalized_readings` with 1,152 variants, `user_interests`), all hook files, all `src/components/personalization/` files, all student interest tags. Future opt-in surface can reuse everything.
+- **NOT TOUCHED:** No DB schema changes, no migrations, no student data writes (submissions, unit_progress, vocab_progress, xp_transactions untouched), no edge function changes, no reading/listening flow logic changes.
+- Files: `src/pages/student/StudentDashboard.jsx`, `src/pages/student/StudentProfile.jsx`, `src/pages/student/curriculum/tabs/ReadingTab.jsx`, `docs/audits/personalization-revert/PHASE-A-REPORT.md` (NEW), `docs/audits/personalization-revert/FINAL-REPORT.md` (NEW), `scripts/audits/verify-canonical-only.cjs` (NEW)
+- Status: Complete — `verify-canonical-only.cjs` reports 5/5 PASS
+
 ### 2026-05-18 — LISTENING-VOCAB-FIX: audio playback + sticky bar + vocab completion
 - What: Three-problem fix: (1) listening audio not playing in browser, (2) player redesign as fixed bottom bar, (3) vocab green check not appearing after exercise completion.
 - **Problem 1 — Audio not playing:** `ListeningPlayer.jsx` had no `useEffect([audioUrl])`, so changing units didn't call `audio.load()` (iOS Safari doesn't auto-reload on `src` prop change). Also no `error` event handler (silent failures), no `playsInline` (iOS fullscreen issue), and `play()` rejection swallowed with empty `.catch(() => {})`. Fixed: dedicated `useEffect([audioUrl])` explicitly sets `el.src` + calls `el.load()` + resets state; `error` event shows Arabic error + retry; `play()` rejection sets visible error state; `playsInline` added.
