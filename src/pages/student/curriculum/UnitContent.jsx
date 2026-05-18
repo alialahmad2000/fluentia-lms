@@ -1,6 +1,7 @@
 // Unit Page Premium V2 — cinematic learning journey
 // Safety net: UnitContentOriginal.jsx preserved until 2026-04-21
 import React, { useState, useEffect, useRef, useCallback, Suspense, useMemo } from 'react'
+import lazyRetry from '../../../utils/lazyRetry'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -20,14 +21,14 @@ import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext
 import UnitMasteryCard from '../assessment/UnitMasteryCard'
 
 // Lazy-load activity tabs — cuts initial chunk from ~455KB to ~150KB
-const ReadingTab = React.lazy(() => import('./tabs/ReadingTab'))
-const GrammarTab = React.lazy(() => import('./tabs/GrammarTab'))
-const VocabularyTab = React.lazy(() => import('./tabs/VocabularyTab'))
-const ListeningTab = React.lazy(() => import('./tabs/ListeningTab'))
-const WritingTab = React.lazy(() => import('./tabs/WritingTab'))
-const SpeakingTab = React.lazy(() => import('./tabs/SpeakingTab'))
-const PronunciationTab = React.lazy(() => import('./tabs/PronunciationTab'))
-const RecordingTab = React.lazy(() => import('../../../components/curriculum/RecordingTab'))
+const ReadingTab = lazyRetry(() => import('./tabs/ReadingTab'))
+const GrammarTab = lazyRetry(() => import('./tabs/GrammarTab'))
+const VocabularyTab = lazyRetry(() => import('./tabs/VocabularyTab'))
+const ListeningTab = lazyRetry(() => import('./tabs/ListeningTab'))
+const WritingTab = lazyRetry(() => import('./tabs/WritingTab'))
+const SpeakingTab = lazyRetry(() => import('./tabs/SpeakingTab'))
+const PronunciationTab = lazyRetry(() => import('./tabs/PronunciationTab'))
+const RecordingTab = lazyRetry(() => import('../../../components/curriculum/RecordingTab'))
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
 import {
   TrophyButton,
