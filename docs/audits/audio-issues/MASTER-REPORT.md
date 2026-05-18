@@ -11,8 +11,12 @@ The May 14 audio regeneration was **highly successful** — all listening trunca
 single-voice (21 items), and most label-in-text issues are resolved.
 **70/72 listening items are now fully healthy.**
 
-Remaining work: **13 truncated reading passages** + **53 reading passages with incomplete word
-timestamps** (49–85% coverage) + 3 minor listening issues.
+> ✅ **POST-AUDIT UPDATE (commit d718fb4, 2026-05-18):** All 13 truncated reading passages
+> were subsequently regenerated and 3 female-dialogue single-voice issues (L2 U5/U6/U11) fixed.
+> The per-audit findings below reflect state at time of measurement (caf0608).
+
+Remaining work after d718fb4: **53 reading passages with incomplete word timestamps** (49–85%
+coverage) + 3 minor listening issues.
 
 ---
 
@@ -64,16 +68,17 @@ timestamps** (49–85% coverage) + 3 minor listening issues.
 
 | File | DB source | Hide-text | Per-word click | Notes |
 |---|---|---|---|---|
-| `src/pages/student/curriculum/tabs/ReadingTab.jsx` | reading ✓ | ✗ | ✓ | uses ReadingPassagePlayer |
-| `src/pages/student/curriculum/tabs/ListeningTab.jsx` | listening ✓ | ✗ | ✗ | ⚠️ per-word click not wired |
-| `src/components/players/ListeningAudioPlayer.jsx` | — | ✓ | ✓ | component has the feature |
-| `src/components/players/ReadingPassagePlayer.jsx` | — | ✗ | ✓ | ReadingPassagePlayer |
-| `src/components/players/listening/ListeningSection.jsx` | listening | ✓ | ✓ | — |
+| `src/pages/student/curriculum/tabs/ReadingTab.jsx` | reading ✓ | NO ✓ | YES ✓ | SmartAudioPlayer, `hideTranscript:false` |
+| `src/pages/student/curriculum/tabs/ListeningTab.jsx` | listening ✓ | YES ✓ | YES ✓ | via ListeningSection → InteractivePassage |
+| `src/components/players/listening/ListeningSection.jsx` | listening | YES ✓ | YES ✓ | `wordTimestampsJson={listening.word_timestamps}` |
+| `src/components/players/ListeningAudioPlayer.jsx` | listening | YES ✓ | YES ✓ | utility component |
+| `src/components/players/ReadingPassagePlayer.jsx` | reading | NO ✓ | YES ✓ | utility component |
 
-**No reading-vs-listening UX bleed detected.**
-Reading: no hide-text toggle ✓, per-word click ✓.
-Listening: `ListeningTab.jsx` does not pass `word_timestamps` for per-word seek —
-  will become live once Prompt 02 fixes the data and Prompt 03 wires the UI.
+**No reading-vs-listening UX bleed detected. ✅**
+Reading: `hideTranscript: false` (passage always visible, correct) + per-word click ✓.
+Listening: transcript hidden by default (correct for comprehension practice) + per-word seek wired via
+`InteractivePassage wordTimestampsJson={listening.word_timestamps}` — works for 45/72 items with timestamps.
+See `ui-component-audit.md` for full deep analysis.
 
 ---
 
@@ -136,16 +141,22 @@ See `reading-audit.json` for full list with UUIDs and per-item coverage.
 
 ### Total ElevenLabs Budget Estimate for Prompt 02
 
-| Category | Items | Est. Characters |
-|---|---|---|
-| Reading TRUNCATED — need full regen | 13 | ~81,000 |
-| Reading TS_INCOMPLETE — need regen | 40 | ~250,000 |
-| Listening LABEL_IN_TEXT + METADATA_MISMATCH | 2 | ~8,400 |
-| Listening lectures missing timestamps | 3 | ~9,000 |
-| **Total (non-overlapping)** | **58** | **~348,400** |
+| Category | Items | Est. Characters | Status |
+|---|---|---|---|
+| Reading TRUNCATED — full regen | 13 | ~81,000 | ✅ Fixed by d718fb4 |
+| Reading TS_INCOMPLETE — regen for timestamps | 40 | ~250,000 | ⏳ Still needed |
+| Listening LABEL_IN_TEXT + METADATA_MISMATCH | 2 | ~8,400 | ⏳ Still needed |
+| Listening lectures missing timestamps (L4/L5) | 3 | ~9,000 | ⏳ Still needed |
+| **Total remaining** | **45** | **~267,400** | |
 
-> Note: 13 truncated are a subset of 53 TS_INCOMPLETE, so total unique items = 53 + 5 = 58.
-> Run `node scripts/audio-generator/check-quota.cjs` (or `check-quota.OBSOLETE.cjs`) before starting.
+**ElevenLabs Quota (checked 2026-05-18):**
+- Plan: `growing_business`
+- Used: 643,594 / 1,810,000 (35.6%)
+- **Remaining: 1,166,406 characters** → **64.4% headroom**
+- Resets: 2026-06-11
+- Required for remaining regen: ~267,400 → **comfortably within budget** ✅
+
+> Run `curl -s https://api.elevenlabs.io/v1/user/subscription -H "xi-api-key: $ELEVENLABS_API_KEY"` to re-check before starting Prompt 02.
 
 ---
 
