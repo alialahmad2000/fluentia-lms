@@ -1,20 +1,5 @@
 import { QueryClient } from '@tanstack/react-query'
-import { supabase } from './supabase'
-
-// Track whether we're currently refreshing to avoid duplicate refreshes
-let _refreshingSession = false
-
-async function refreshSessionOnce() {
-  if (_refreshingSession) return
-  _refreshingSession = true
-  try {
-    await supabase.auth.refreshSession()
-  } catch (e) {
-    console.warn('[QueryClient] Session refresh failed:', e)
-  } finally {
-    _refreshingSession = false
-  }
-}
+import { refreshOnce } from './authRefresh'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +20,7 @@ export const queryClient = new QueryClient({
         const isAuthError = msg.includes('JWT') || error?.status === 401 || error?.code === 'PGRST301'
         if (isAuthError) {
           if (failureCount === 0) {
-            refreshSessionOnce()
+            refreshOnce()
             return true
           }
           return false
@@ -49,7 +34,7 @@ export const queryClient = new QueryClient({
         console.error('[Mutation Error]', error)
         const msg = error?.message || ''
         if (msg.includes('JWT expired') || msg.includes('not authenticated') || error?.status === 401) {
-          refreshSessionOnce()
+          refreshOnce()
         }
       },
     },

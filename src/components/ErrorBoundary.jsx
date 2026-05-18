@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react'
 import { tracker } from '../services/activityTracker'
 import { supabase } from '../lib/supabase'
+import { refreshOnce } from '../lib/authRefresh'
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -20,8 +21,8 @@ export default class ErrorBoundary extends Component {
   }
 
   handleRetry = async () => {
-    // Refresh session before retry — in case the error was auth-related
-    try { await supabase.auth.refreshSession() } catch {}
+    // Refresh session before retry — shared singleton so concurrent retries don't storm
+    await refreshOnce().catch(() => {})
     this.setState({ hasError: false, error: null })
   }
 

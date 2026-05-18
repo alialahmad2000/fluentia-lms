@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import { getToken, refreshOnce } from './authRefresh'
 
 /**
  * Extracts a human-readable error message from supabase.functions.invoke error.
@@ -34,23 +35,6 @@ function extractErrorMessage(error) {
   return String(error)
 }
 
-/**
- * Gets a valid access token, refreshing if needed.
- * Returns null if no session available.
- */
-async function getAccessToken() {
-  try {
-    const { data } = await supabase.auth.getSession()
-    if (data?.session?.access_token) {
-      return data.session.access_token
-    }
-    // No session — try refreshing
-    const { data: refreshed } = await supabase.auth.refreshSession()
-    return refreshed?.session?.access_token || null
-  } catch {
-    return null
-  }
-}
 
 /**
  * Wraps supabase.functions.invoke with:
@@ -81,7 +65,7 @@ export async function invokeWithRetry(functionName, options = {}, config = {}) {
 
     // Auto-inject Authorization header if not manually provided
     if (!options.headers?.Authorization) {
-      const token = await getAccessToken()
+      const token = await getToken()
       if (token) {
         options = {
           ...options,
@@ -112,24 +96,17 @@ export async function invokeWithRetry(functionName, options = {}, config = {}) {
       if (res.error) {
         const errMsg = extractErrorMessage(res.error)
 
-        // On 401/Unauthorized — refresh token and retry once
+        // On 401/Unauthorized — refresh token and retry once (shared singleton)
         if (!didRetryAuth && /401|unauthorized|jwt|token/i.test(errMsg)) {
           didRetryAuth = true
-          // Force refresh the session
-          try {
-            const { data: refreshed } = await supabase.auth.refreshSession()
-            if (refreshed?.session?.access_token) {
-              options = {
-                ...options,
-                headers: {
-                  ...options.headers,
-                  Authorization: `Bearer ${refreshed.session.access_token}`,
-                },
-              }
-              continue // Retry with fresh token
+          const freshToken = await refreshOnce()
+          if (freshToken) {
+            options = {
+              ...options,
+              headers: { ...options.headers, Authorization: `Bearer ${freshToken}` },
             }
-          } catch {}
-          // If refresh failed, return the original error
+            continue
+          }
           return { data: null, error: 'جلسة غير صالحة — يرجى إعادة تسجيل الدخول' }
         }
 

@@ -1,6 +1,7 @@
 // Drive stream URL resolver — calls edge function, caches 50min per fileId
 
 import { supabase } from './supabase'
+import { refreshOnce } from './authRefresh'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 
@@ -32,9 +33,9 @@ export async function resolveStreamUrl(fileId, { forceRefresh = false } = {}) {
       const expiresAt = (session.expires_at || 0) * 1000
       if (expiresAt - Date.now() < 5 * 60 * 1000) {
         if (isDebug()) console.log('[driveStream] Session near expiry, refreshing...')
-        const { data: refreshed } = await supabase.auth.refreshSession()
-        if (refreshed?.session) {
-          session = refreshed.session
+        const freshToken = await refreshOnce()
+        if (freshToken) {
+          session = { ...session, access_token: freshToken }
           if (isDebug()) console.log('[driveStream] Session refreshed successfully')
         }
       }
