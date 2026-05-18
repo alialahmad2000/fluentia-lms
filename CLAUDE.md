@@ -299,6 +299,15 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-18 — AUDIT-FIX-2-TOKEN-REFRESH-STORM: singleton refresh promise
+- What: Fixed intermittent 401 errors caused by multiple concurrent `supabase.auth.refreshSession()` calls racing each other. Supabase rotates the refresh token on every use — so when 5 AI calls fire simultaneously at page load and all hit an expired session, their independent `refreshSession()` calls invalidate each other's tokens. The first refresh wins; the rest get "invalid_grant" → 401 → user sees error.
+- **Root cause:** `invokeWithRetry.js` had a local `getAccessToken()` with no deduplication. `queryClient.js` used a boolean flag (`_refreshingSession`) that prevented a second call from *starting* but didn't make it *wait* for the first — two concurrent calls timed ~1ms apart both slipped through. `driveStream.js` and `ErrorBoundary.jsx` had raw `refreshSession()` calls with zero coordination.
+- **Fix:** Created `src/lib/authRefresh.js` with a module-level `_inflightRefresh` Promise. `refreshOnce()` checks for an in-flight promise and returns it if present — all concurrent callers share the same Promise and get the same resolved token. When the refresh settles the singleton clears for the next call. `getToken()` reads session first (no network) and only calls `refreshOnce()` if no token found.
+- **Callers updated (4):** `invokeWithRetry.js` — removed local `getAccessToken()`, now uses `getToken()` + `refreshOnce()`; `queryClient.js` — removed boolean flag + local fn, uses `refreshOnce()`; `driveStream.js` — uses `refreshOnce()` in its near-expiry refresh path; `ErrorBoundary.jsx` — uses `refreshOnce()` on retry.
+- Files: `src/lib/authRefresh.js` (NEW), `src/lib/invokeWithRetry.js`, `src/lib/queryClient.js`, `src/lib/driveStream.js`, `src/components/ErrorBoundary.jsx`
+- DB: None — Edge Functions: None
+- Status: Complete — build verified (7.4s, 0 errors), commit `1a91c5b` pushed to main
+
 ### 2026-05-18 — AUDIT-FIX-3-LAZY-RETRY: chunk-error guard + protect all 8 unit tab imports
 - What: Two-part fix for the lazy-loading chunk retry system.
 - **Issue 1 — `lazyRetry.js` caught all errors:** The original implementation caught any error from a dynamic import and triggered a page reload. This meant app-level errors (syntax errors, runtime errors in module init) would silently reload the page instead of surfacing in the ErrorBoundary for diagnosis. Fixed by adding `isChunkLoadError()` guard: only errors matching Vite's "Failed to fetch dynamically imported module", Safari's "Importing a module script failed", or Webpack's ChunkLoadError name trigger the reload. Cooldown bumped 30s → 60s to cover Vercel edge cache propagation.
