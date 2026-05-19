@@ -3,6 +3,12 @@
  * Regenerates audio for flagged listening rows.
  * Generates per-segment audio, concatenates with ffmpeg (300ms silence), uploads as single file.
  *
+ * IMPORTANT: Speaker labels (e.g., "Dr. Ali:", "Mohammed:") MUST be stripped from
+ * segment text BEFORE the ElevenLabs API call. The speaker name is metadata that
+ * drives voice_id selection — it must never be synthesized as spoken audio.
+ * See: stripSpeakerLabel in ./lib/strip-speaker-label.cjs
+ * Regression test: scripts/audio-v2/lib/strip-speaker-label.test.cjs
+ *
  * Usage:
  *   node scripts/audio-v2/03-generate-listening.mjs \
  *     --ids-from docs/audits/audio-issues/listening-audit.json \
@@ -22,6 +28,7 @@ import { synthesizeWithTimestamps } from '../audio-generator/lib/eleven.mjs';
 
 const require = createRequire(import.meta.url);
 const { concatMp3Buffers, verifyMp3Decodes } = require('./lib/concat.cjs');
+const { stripSpeakerLabel } = require('./lib/strip-speaker-label.cjs');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -91,7 +98,13 @@ for (const item of flagged) {
     const seg = segs[i];
     if (!seg.text || !seg.voice_id) { console.warn(`  seg${i} missing text/voice_id`); continue; }
 
-    const result = await synthesizeWithTimestamps({ text: seg.text, voiceId: seg.voice_id });
+    // Strip any leading speaker label so ElevenLabs never speaks the speaker's name as audio.
+    const cleanText = stripSpeakerLabel(seg.text);
+    if (cleanText !== seg.text) {
+      console.log(`  seg${i} stripped label: "${seg.text.slice(0, 50)}..." → "${cleanText.slice(0, 50)}..."`);
+    }
+
+    const result = await synthesizeWithTimestamps({ text: cleanText, voiceId: seg.voice_id });
     if (!result) {
       console.error(`  seg${i} synthesis FAILED`);
       failures.push({ id: item.id, reason: `seg${i} synthesis failed` });
