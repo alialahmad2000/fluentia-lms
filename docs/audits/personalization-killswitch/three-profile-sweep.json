@@ -1,0 +1,168 @@
+{
+  "generated_at": "2026-05-19T11:20:33.376Z",
+  "subjects": [
+    {
+      "id": "0c8112f5-2617-4bc7-8b99-771f395db58f",
+      "email": "layan88700@gmail.com"
+    },
+    {
+      "id": "d1a3b497-c15b-42e5-83d8-864ce311fb5b",
+      "email": "nourahumayyim@gmail.com"
+    },
+    {
+      "id": "f8d2f203-975f-4b0f-a607-ad1a05694f42",
+      "email": "sarashrahili22@gmail.com"
+    }
+  ],
+  "units": [
+    "00ca3625-46ee-4e38-95da-2255f522aff8",
+    "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+    "170ce97d-b211-4b25-b19e-fe9fc22fb71b",
+    "1de8e161-81eb-416e-af87-c136d93f3930",
+    "2105dec8-575b-4a6a-8456-261b98a9d6c2"
+  ],
+  "combos": [
+    {
+      "subject": "layan88700@gmail.com",
+      "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "layan88700@gmail.com",
+      "unit_id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "layan88700@gmail.com",
+      "unit_id": "170ce97d-b211-4b25-b19e-fe9fc22fb71b",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "layan88700@gmail.com",
+      "unit_id": "1de8e161-81eb-416e-af87-c136d93f3930",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "layan88700@gmail.com",
+      "unit_id": "2105dec8-575b-4a6a-8456-261b98a9d6c2",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "nourahumayyim@gmail.com",
+      "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "nourahumayyim@gmail.com",
+      "unit_id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "nourahumayyim@gmail.com",
+      "unit_id": "170ce97d-b211-4b25-b19e-fe9fc22fb71b",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "nourahumayyim@gmail.com",
+      "unit_id": "1de8e161-81eb-416e-af87-c136d93f3930",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "nourahumayyim@gmail.com",
+      "unit_id": "2105dec8-575b-4a6a-8456-261b98a9d6c2",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "sarashrahili22@gmail.com",
+      "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "sarashrahili22@gmail.com",
+      "unit_id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "sarashrahili22@gmail.com",
+      "unit_id": "170ce97d-b211-4b25-b19e-fe9fc22fb71b",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "sarashrahili22@gmail.com",
+      "unit_id": "1de8e161-81eb-416e-af87-c136d93f3930",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    },
+    {
+      "subject": "sarashrahili22@gmail.com",
+      "unit_id": "2105dec8-575b-4a6a-8456-261b98a9d6c2",
+      "service_count": 2,
+      "student_count": 2,
+      "equal": true,
+      "error": null
+    }
+  ],
+  "flag_reads": [
+    {
+      "subject": "layan88700@gmail.com",
+      "value": false,
+      "error": null
+    },
+    {
+      "subject": "nourahumayyim@gmail.com",
+      "value": false,
+      "error": null
+    },
+    {
+      "subject": "sarashrahili22@gmail.com",
+      "value": false,
+      "error": null
+    }
+  ],
+  "verdict": {
+    "all_15_combos_equal": true,
+    "all_subjects_read_flag_as_false": true,
+    "pass": true
+  }
+}

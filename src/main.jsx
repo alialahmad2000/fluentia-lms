@@ -31,6 +31,46 @@ const persistOptions = {
 // Capture affiliate ref code from URL on app load
 captureRefFromUrl()
 
+// ─── PERSONALIZATION-KILL-SWITCH 2026-05-19 ───────────────────────────────
+// Purge any stale client-side personalization state from sessions that
+// predated the canonical-only revert. Idempotent; runs once per page load.
+// The app_config.personalization_enabled flag is the canonical source of
+// truth; this purge is belt-and-suspenders so a cached value can't override
+// the flag for a returning student.
+try {
+  const STALE_KEY_PATTERNS = [
+    /^fluentia[:_.]?variant/i,
+    /^fluentia[:_.]?personali/i,
+    /^fluentia[:_.]?interest/i,
+    /^fluentia[:_.]?selectedVariant/i,
+    /^selectedVariantId$/i,
+    /^personalizationEnabled$/i,
+  ]
+  const wipe = (storage) => {
+    if (!storage) return
+    const keysToRemove = []
+    for (let i = 0; i < storage.length; i++) {
+      const k = storage.key(i)
+      if (k && STALE_KEY_PATTERNS.some(re => re.test(k))) keysToRemove.push(k)
+    }
+    keysToRemove.forEach(k => storage.removeItem(k))
+  }
+  wipe(window.localStorage)
+  wipe(window.sessionStorage)
+} catch (e) {
+  console.warn('[personalization-purge] cleanup error', e)
+}
+
+// Discard any cached React Query results from personalization hooks so a
+// returning student doesn't briefly see a stale variant from the persisted
+// query cache before the kill-switch resolves.
+try {
+  queryClient.removeQueries({ queryKey: ['personalized-reading'] })
+  queryClient.removeQueries({ queryKey: ['user-interests'] })
+} catch {
+  // queryClient may not be fully initialized yet — non-fatal
+}
+
 
 // Mobile debug console — activate via ?debug=1 or localStorage
 if (new URLSearchParams(window.location.search).get('debug') === '1' ||

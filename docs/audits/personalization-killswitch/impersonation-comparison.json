@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-05-19T11:12:49.813Z",
+  "test_profile": {
+    "id": "0c8112f5-2617-4bc7-8b99-771f395db58f",
+    "email": "layan88700@gmail.com"
+  },
+  "control_profile": {
+    "id": "f8d2f203-975f-4b0f-a607-ad1a05694f42",
+    "email": "sarashrahili22@gmail.com"
+  },
+  "units": [
+    {
+      "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+      "service_count": 2,
+      "test_count": 2,
+      "control_count": 2,
+      "test_diffs": [],
+      "control_diffs": []
+    },
+    {
+      "unit_id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+      "service_count": 2,
+      "test_count": 2,
+      "control_count": 2,
+      "test_diffs": [],
+      "control_diffs": []
+    },
+    {
+      "unit_id": "170ce97d-b211-4b25-b19e-fe9fc22fb71b",
+      "service_count": 2,
+      "test_count": 2,
+      "control_count": 2,
+      "test_diffs": [],
+      "control_diffs": []
+    },
+    {
+      "unit_id": "1de8e161-81eb-416e-af87-c136d93f3930",
+      "service_count": 2,
+      "test_count": 2,
+      "control_count": 2,
+      "test_diffs": [],
+      "control_diffs": []
+    },
+    {
+      "unit_id": "2105dec8-575b-4a6a-8456-261b98a9d6c2",
+      "service_count": 2,
+      "test_count": 2,
+      "control_count": 2,
+      "test_diffs": [],
+      "control_diffs": []
+    }
+  ],
+  "rows_differ_test": false,
+  "rows_differ_control": false
+}

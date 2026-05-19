@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
+import { isPersonalizationEnabled } from '@/lib/featureFlags'
 
 export function useUserInterests() {
   const userId = useAuthStore(s => s.profile?.id)
@@ -8,7 +9,18 @@ export function useUserInterests() {
   return useQuery({
     queryKey: ['user-interests', userId],
     queryFn: async () => {
-      if (!userId) return null
+      // PERSONALIZATION-KILL-SWITCH 2026-05-19 — when global flag is off,
+      // return the "no interests" shape regardless of what the row says.
+      const flagOn = await isPersonalizationEnabled()
+      if (!flagOn || !userId) {
+        return {
+          user_id: userId ?? null,
+          interests: [],
+          has_completed_survey: false,
+          dismissed_at: null,
+          survey_completed_at: null,
+        }
+      }
       const { data, error } = await supabase
         .from('user_interests')
         .select('user_id, interests, has_completed_survey, dismissed_at, survey_completed_at')

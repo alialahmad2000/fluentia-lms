@@ -1,0 +1,62 @@
+{
+  "test": {
+    "id": "cad66f17-4471-4e64-acce-aa2836e1a814",
+    "email": "manar126712@gmail.com"
+  },
+  "ctl": {
+    "id": "0c8112f5-2617-4bc7-8b99-771f395db58f",
+    "email": "layan88700@gmail.com"
+  },
+  "results": [
+    {
+      "table": "curriculum_readings",
+      "service_rows": 20,
+      "test_rows": 20,
+      "control_rows": 20,
+      "test_err": null,
+      "ctl_err": null,
+      "test_equal_svc": true,
+      "ctl_equal_svc": true
+    },
+    {
+      "table": "curriculum_listening",
+      "service_rows": 20,
+      "test_rows": 20,
+      "control_rows": 20,
+      "test_err": null,
+      "ctl_err": null,
+      "test_equal_svc": true,
+      "ctl_equal_svc": true
+    },
+    {
+      "table": "curriculum_vocabulary",
+      "service_rows": 20,
+      "test_rows": 20,
+      "control_rows": 20,
+      "test_err": null,
+      "ctl_err": null,
+      "test_equal_svc": true,
+      "ctl_equal_svc": true
+    },
+    {
+      "table": "reading_passage_audio",
+      "service_rows": 20,
+      "test_rows": 20,
+      "control_rows": 20,
+      "test_err": null,
+      "ctl_err": null,
+      "test_equal_svc": true,
+      "ctl_equal_svc": true
+    },
+    {
+      "table": "curriculum_grammar",
+      "service_rows": 20,
+      "test_rows": 20,
+      "control_rows": 20,
+      "test_err": null,
+      "ctl_err": null,
+      "test_equal_svc": true,
+      "ctl_equal_svc": true
+    }
+  ]
+}
