@@ -72,6 +72,69 @@ try {
 }
 
 
+// ─── SELF-HEAL 2026-05-20 ─────────────────────────────────────────────────
+// Some student devices have a stuck service-worker cache that keeps serving
+// an old bundle long after a new deploy is live. On every app boot, compare
+// version.json (origin) to a localStorage marker. On mismatch: clear caches,
+// unregister SWs, hard reload — but ONLY once per session (sessionStorage
+// guard) so a deploy that still mismatches after reload cannot loop the
+// device. No visibilitychange listener (loop risk). Boot-only is sufficient.
+;(async function selfHealStaleClient() {
+  try {
+    const alreadyTried = sessionStorage.getItem('fluentia:self-heal-attempted')
+    const res = await fetch('/version.json?_=' + Date.now(), { cache: 'no-store' })
+    if (!res.ok) return
+    const remote = await res.json()
+    if (!remote?.version) return
+
+    const local = localStorage.getItem('fluentia:bundle-version')
+
+    if (alreadyTried === '1') {
+      // Reload already attempted this session; persistent mismatch means
+      // something is wrong upstream (CDN, SW, manual cache). Log to console
+      // and stop — we will not loop the device.
+      if (local && local !== remote.version) {
+        // eslint-disable-next-line no-console
+        console.warn('[self-heal] version mismatch persists after reload — giving up', {
+          local,
+          remote: remote.version,
+        })
+      } else if (local !== remote.version) {
+        // First boot of a healing session — record current version.
+        localStorage.setItem('fluentia:bundle-version', remote.version)
+      }
+      return
+    }
+
+    if (!local) {
+      // Fresh device — no marker yet. Just record it; no reload.
+      localStorage.setItem('fluentia:bundle-version', remote.version)
+      return
+    }
+    if (local === remote.version) {
+      // Up-to-date — done.
+      return
+    }
+
+    // Mismatch — try to self-heal exactly once.
+    sessionStorage.setItem('fluentia:self-heal-attempted', '1')
+    localStorage.setItem('fluentia:bundle-version', remote.version)
+
+    if ('caches' in window) {
+      const keys = await caches.keys()
+      await Promise.all(keys.map((k) => caches.delete(k)))
+    }
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(regs.map((r) => r.unregister()))
+    }
+    location.reload()
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn('[self-heal] failed', e?.message || e)
+  }
+})()
+
 // Mobile debug console — activate via ?debug=1 or localStorage
 if (new URLSearchParams(window.location.search).get('debug') === '1' ||
     localStorage.getItem('fluentia_debug') === '1') {

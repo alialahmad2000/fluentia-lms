@@ -9,6 +9,7 @@ import { useAuthProfile } from '../../stores/authStore'
 // Shows: when, who, where (context + row), what (error code), how (UA, bundle).
 
 const MEDIA_ERROR_LABELS = {
+  '-1': 'SILENT_FAILURE',
   0: 'play() rejected',
   1: 'MEDIA_ERR_ABORTED',
   2: 'MEDIA_ERR_NETWORK',
@@ -17,6 +18,7 @@ const MEDIA_ERROR_LABELS = {
 }
 
 const MEDIA_ERROR_ARABIC = {
+  '-1': 'صامت — play() نجح لكن لم يصدر صوت (iOS الصامت / تشغيل تلقائي محظور / سياق صوت مغلق)',
   0: 'تم رفض play() — قد يكون iOS Safari silent switch',
   1: 'إلغاء التحميل',
   2: 'فشل الشبكة',
@@ -35,6 +37,7 @@ const CONTEXT_FILTERS = ['all', 'listening', 'reading', 'vocab']
 function severityFor(errorCode) {
   if (errorCode === 4 || errorCode === 3) return 'high'
   if (errorCode === 2) return 'medium'
+  if (errorCode === -1) return 'medium' // silent failure — surfaces actionable iOS/autoplay hint
   return 'low'
 }
 
