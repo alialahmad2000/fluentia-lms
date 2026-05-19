@@ -7,7 +7,7 @@ import {
   Download, ChevronUp, ChevronDown, Search, ExternalLink,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 
 /* ─── Data hooks ──────────────────────────────────────────────── */
 function useLatestComp() {
@@ -461,7 +461,7 @@ function DangerZone({ comp }) {
 
 /* ─── Main Page ───────────────────────────────────────────────── */
 export default function CompetitionAdmin() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const { data: comp, isLoading: compLoading } = useLatestComp()
   const { data: adminData, isLoading: adminLoading } = useAdminData(comp?.id)
 

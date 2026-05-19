@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HelpCircle, X, ChevronDown } from 'lucide-react'
 import { PAGE_HELP } from '../config/pageHelpRegistry'
-import { useAuthStore } from '../stores/authStore'
+import { useAuthProfile } from '../stores/authStore'
 
 const SEEN_KEY = 'fluentia_seen_page_help'
 
@@ -22,7 +22,7 @@ export default function PageHelp({ pageKey }) {
   const [open, setOpen] = useState(false)
   const [seen, setSeen] = useState(() => !!getSeenMap()[pageKey])
   const panelRef = useRef(null)
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const role = profile?.role
 
   const entry = PAGE_HELP[pageKey]

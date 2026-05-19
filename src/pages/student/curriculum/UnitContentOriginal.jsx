@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -48,7 +49,7 @@ const LEVEL_NAMES = {
 export default function UnitContent() {
   const { unitId } = useParams()
   const navigate = useNavigate()
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const currentLevel = studentData?.academic_level ?? 0
   const isStudent = profile?.role === 'student'
   const [activeTab, setActiveTab] = useState('reading')

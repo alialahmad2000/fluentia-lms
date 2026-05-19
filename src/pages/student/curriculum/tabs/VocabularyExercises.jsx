@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, RotateCcw, Lightbulb, Shuffle, PenLine, ListChecks, Puzzle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthProfile } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { validateAnswer } from '../../../../utils/answerValidator'
@@ -29,7 +29,7 @@ const EXERCISES = [
 // Main Exercises Component
 // ═════════════════════════════════════════════════════
 export default function VocabularyExercises({ unitId, allWords }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [activeExercise, setActiveExercise] = useState(null)
   const [completedExercises, setCompletedExercises] = useState({})
   const [savedProgress, setSavedProgress] = useState(null)

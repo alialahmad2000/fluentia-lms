@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { Map, X, ArrowLeft } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile, useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000
 
 export default function JourneyMapHeroCTA() {
   // ── ALL HOOKS FIRST ──────────────────────────────────────────────
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const isImpersonating = useAuthStore(s => s.isImpersonating)
   const navigate = useNavigate()
   const [dismissed, setDismissed] = useState(false)

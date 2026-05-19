@@ -15,7 +15,7 @@ import {
   AlertTriangle,
   Star,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getConfidenceCopy, shouldShowConfidenceNote } from '../../lib/reports/confidenceCopy'
 
@@ -83,7 +83,7 @@ export default function ReportView() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
   const { id } = useParams()
   const navigate = useNavigate()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [copied, setCopied] = useState(false)
 
   const { data: report, isLoading } = useQuery({

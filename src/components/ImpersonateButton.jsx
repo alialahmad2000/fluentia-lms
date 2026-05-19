@@ -1,9 +1,10 @@
 import { Eye } from 'lucide-react'
+import { useShallow } from 'zustand/react/shallow'
 import { useAuthStore } from '../stores/authStore'
 import { queryClient } from '../lib/queryClient'
 
 export default function ImpersonateButton({ userId, role, name, variant = 'icon' }) {
-  const { startImpersonation, impersonation } = useAuthStore()
+  const { startImpersonation, impersonation } = useAuthStore(useShallow((s) => ({ startImpersonation: s.startImpersonation, impersonation: s.impersonation })))
 
   // Don't show while already impersonating
   if (impersonation) return null

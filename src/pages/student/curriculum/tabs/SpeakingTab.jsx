@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import AICoachPanel from '../../../../components/coach/AICoachPanel'
 import PracticeMode from '../../../../components/coach/PracticeMode'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -16,7 +17,7 @@ import { toast } from '../../../../components/ui/FluentiaToast'
 
 // ─── Main Component ──────────────────────────────────
 export default function SpeakingTab({ unitId }) {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const studentId = profile?.id
   const studentName = profile?.full_name || profile?.display_name
   const groupId = studentData?.group_id

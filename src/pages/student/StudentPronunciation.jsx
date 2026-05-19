@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -761,7 +762,7 @@ function BeforeAfterSection({ profileId, studentName }) {
 }
 
 export default function StudentPronunciation() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const [section, setSection] = useState('daily') // daily | more | compare
   const [mode, setMode] = useState('sentences') // sentences | words
   const [currentIndex, setCurrentIndex] = useState(0)

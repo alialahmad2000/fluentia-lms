@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Users, Plus, Shuffle, Trash2, Loader2, Zap, UserPlus, UserMinus } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 const TEAM_EMOJIS = ['🦁', '🐺', '🦅', '🐉', '🦊', '🦈', '🐻', '🦇']
 const TEAM_COLORS = ['sky', 'gold', 'rose', 'violet', 'emerald', 'orange', 'blue', 'red']
 
 export default function TrainerTeams() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const role = profile?.role
   const isAdmin = role === 'admin'

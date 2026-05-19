@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStudentData } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 export default function ClassSummaryView({ unitId }) {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const groupId = studentData?.group_id
 
   const { data: summaries = [] } = useQuery({

@@ -5,7 +5,7 @@ import {
   CalendarDays, Play, Loader2, CheckCircle2, Clock, AlertTriangle,
   Users, BarChart3, Zap, ChevronDown, RefreshCw, DollarSign,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -32,7 +32,7 @@ function formatWeekRange(sunday) {
 }
 
 export default function AdminWeeklyTasks() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [selectedGroup, setSelectedGroup] = useState('')
   const [generating, setGenerating] = useState(false)

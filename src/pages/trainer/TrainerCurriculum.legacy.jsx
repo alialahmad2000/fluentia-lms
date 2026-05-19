@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -55,7 +56,7 @@ const MASTERY_STYLES = {
 // ─── Main Component ──────────────────────────────────
 export default function TrainerCurriculum() {
   const { t } = useTranslation()
-  const { user, profile, _realProfile } = useAuthStore()
+  const { user, profile, _realProfile } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile, _realProfile: s._realProfile })))
   // Admin (or admin impersonating) should see ALL groups
   const isAdmin = _realProfile?.role === 'admin' || profile?.role === 'admin'
   const [view, setView] = useState({ level: 'groups' }) // groups | units | detail

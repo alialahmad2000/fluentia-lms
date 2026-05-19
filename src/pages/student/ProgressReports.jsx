@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FileBarChart, CalendarClock, ChevronLeft, Lock, Sparkles } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 const PERIOD_LABELS = {
@@ -56,7 +56,7 @@ function SkeletonCards() {
 
 export default function ProgressReports() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const navigate = useNavigate()
 
   const { data: reports, isLoading } = useQuery({

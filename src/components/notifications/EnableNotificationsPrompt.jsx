@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bell, X, Smartphone } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { isPushSupported, getPushPermission, subscribeUserToPush, detectDeviceLabel } from '../../utils/pushSubscribe'
 import { toast } from '../ui/FluentiaToast'
 
@@ -18,7 +18,7 @@ function isPWAInstalled() {
 }
 
 export default function EnableNotificationsPrompt() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isIOS, setIsIOS] = useState(false)

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { X, Save, Loader2, CheckCircle2 } from 'lucide-react'
 import { useQuery, useMutation } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { notifyUser } from '../../utils/notify'
 import { useTranslation } from 'react-i18next'
@@ -16,7 +16,7 @@ const TEMPLATES = {
 
 export default function QuickNotePopup({ groupId, onClose }) {
   const { t } = useTranslation()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [selectedStudent, setSelectedStudent] = useState('')
   const [noteType, setNoteType] = useState('trainer_encouragement')
   const [content, setContent] = useState('')

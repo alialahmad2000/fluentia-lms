@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AuroraBackground } from '../../../design-system/components'
@@ -13,7 +13,7 @@ export default function UnitMasteryResultPage() {
   const navigate = useNavigate()
   const { attemptId } = useParams()
   const location = useLocation()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [result, setResult] = useState(location.state?.result || null)
   const [phase, setPhase] = useState(0)
 

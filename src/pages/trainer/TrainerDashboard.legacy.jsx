@@ -6,7 +6,7 @@ import {
   Users, FileText, CheckCircle2, AlertTriangle, Zap, PenLine,
   Flame, Award, MessageSquare, UserCheck, BookOpen, Mic, RefreshCw,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { Link, useNavigate } from 'react-router-dom'
 import ErrorBoundary from '../../components/ErrorBoundary'
@@ -46,7 +46,7 @@ const anim = (i) => ({
 // MAIN DASHBOARD — single component, every query safe
 // ═════════════════════════════════════════════════════
 export default function TrainerDashboard() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const navigate = useNavigate()
   const firstName = profile?.full_name || profile?.display_name || ''
   const isAdmin = profile?.role === 'admin'

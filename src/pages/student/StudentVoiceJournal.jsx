@@ -5,7 +5,7 @@ import {
   Mic, MicOff, Play, Pause, Loader2, Zap, Calendar,
   MessageSquare, CheckCircle2, AlertCircle, BookOpen,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -28,7 +28,7 @@ const MOODS = [
 ]
 
 export default function StudentVoiceJournal() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [recording, setRecording] = useState(false)
   const [audioBlob, setAudioBlob] = useState(null)

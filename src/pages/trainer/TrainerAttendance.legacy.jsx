@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { UserCheck, UserX, Clock, CheckCircle2, XCircle, AlertCircle, Save, Loader2, BookOpen } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { XP_VALUES } from '../../lib/constants'
 
@@ -13,7 +13,7 @@ const STATUS_CONFIG = {
 }
 
 export default function TrainerAttendance() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const role = profile?.role
   const isAdmin = role === 'admin'

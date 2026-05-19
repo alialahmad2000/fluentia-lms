@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { CINEMATIC_TOKENS as V1, useCinematicMotion } from '../_premiumPrimitives'
@@ -36,7 +37,7 @@ function storageKey(unitId) {
    ═══════════════════════════════════════════════ */
 export default function UnitIntroCinematic({ unit, onDone }) {
   const { reduced } = useCinematicMotion()
-  const { profile, impersonation, _realProfile } = useAuthStore()
+  const { profile, impersonation, _realProfile } = useAuthStore(useShallow((s) => ({ profile: s.profile, impersonation: s.impersonation, _realProfile: s._realProfile })))
 
   const [visible, setVisible] = useState(false)
   const [showSkip, setShowSkip] = useState(false)

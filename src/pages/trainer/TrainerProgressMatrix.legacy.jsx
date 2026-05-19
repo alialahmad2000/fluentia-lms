@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BarChart3, ChevronDown, Users, TrendingUp, Award, AlertTriangle } from 'lucide-react'
@@ -25,7 +26,7 @@ const FILTER_OPTIONS = [
 ]
 
 export default function TrainerProgressMatrix() {
-  const { user, profile } = useAuthStore()
+  const { user, profile } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile })))
   const isAdmin = profile?.role === 'admin'
   const trainerId = user?.id
   const [selectedGroupId, setSelectedGroupId] = useState(null)

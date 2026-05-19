@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { NavLink, Outlet, Navigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useAuthStore } from '../stores/authStore'
@@ -17,7 +18,7 @@ const NAV = [
 ]
 
 export default function PartnerLayout() {
-  const { user, profile } = useAuthStore()
+  const { user, profile } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile })))
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const { data: affiliate, isPending } = useQuery({

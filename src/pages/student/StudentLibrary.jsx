@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { BookOpen, Download } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStudentData } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 function getStorageUrl(path) {
@@ -20,7 +20,7 @@ function getFileIcon(name) {
 }
 
 export default function StudentLibrary() {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const groupId = studentData?.group_id
 
   const { data: materials, isLoading } = useQuery({

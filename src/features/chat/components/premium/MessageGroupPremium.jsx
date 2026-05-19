@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { ease } from '../../lib/motion'
 import MessageBubble from '../MessageBubble'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthProfile } from '../../../../stores/authStore'
 
 export default function MessageGroupPremium({
   messages,
@@ -12,7 +12,7 @@ export default function MessageGroupPremium({
   onReply,
   onEdit,
 }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   if (!messages.length) return null
 
   const first = messages[0]

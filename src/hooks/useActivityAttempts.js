@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { useAuthStore } from '../stores/authStore'
+import { useAuthProfile } from '../stores/authStore'
 
 // Loads all attempts for one student+activity, computes derived state.
 // Re-exported so every activity page has a single source of truth.
 export function useActivityAttempts(activityId) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const studentId = profile?.id
 
   const [attempts,  setAttempts]  = useState(null)   // null = still loading

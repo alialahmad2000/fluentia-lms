@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
@@ -126,7 +127,7 @@ function useCountdown(schedule) {
 }
 
 export default function StudentDashboard() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const navigate = useNavigate()
   const firstName = firstNameFrom(profile?.full_name) || profile?.display_name || ''
 

@@ -5,7 +5,7 @@ import {
   AlertTriangle, TrendingDown, Users, RefreshCw, Loader2,
   CheckCircle2, Eye, ChevronDown, Shield, Zap, Clock,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -25,7 +25,7 @@ const STAT_COLOR_CLASSES = {
 }
 
 export default function AdminChurnPrediction() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [filter, setFilter] = useState('all')
   const [expandedId, setExpandedId] = useState(null)

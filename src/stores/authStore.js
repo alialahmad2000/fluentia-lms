@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { useShallow } from 'zustand/react/shallow'
 import { supabase } from '../lib/supabase'
 import { queryClient } from '../lib/queryClient'
 import { tracker } from '../services/activityTracker'
@@ -301,9 +302,49 @@ export const useAuthStore = create((set, get) => ({
 // Each subscribes only to its own slice — components re-render only when
 // their specific value changes, not on every store update (e.g. token refresh).
 export const useAuthUser = () => useAuthStore((s) => s.user)
+export const useAuthUserId = () => useAuthStore((s) => s.user?.id ?? null)
 export const useAuthProfile = () => useAuthStore((s) => s.profile)
+export const useAuthProfileId = () => useAuthStore((s) => s.profile?.id ?? null)
 export const useAuthStudentData = () => useAuthStore((s) => s.studentData)
 export const useAuthTrainerData = () => useAuthStore((s) => s.trainerData)
 export const useAuthLoading = () => useAuthStore((s) => s.loading)
 export const useAuthImpersonation = () => useAuthStore((s) => s.impersonation)
 export const useAuthRole = () => useAuthStore((s) => s.profile?.role)
+export const useIsAuthenticated = () => useAuthStore((s) => !!s.user)
+
+// Role checks — impersonation-aware to match the in-store helpers (s.isAdmin/etc).
+// When admin is impersonating, the helpers consider the REAL profile's role,
+// so a route-guard built on useIsAdmin keeps working through impersonation.
+export const useIsAdmin = () =>
+  useAuthStore((s) =>
+    s.impersonation
+      ? s._realProfile?.role === 'admin'
+      : s.profile?.role === 'admin'
+  )
+export const useIsTrainer = () =>
+  useAuthStore((s) => {
+    if (s.impersonation) {
+      return (
+        s._realProfile?.role === 'admin' ||
+        ['trainer', 'admin'].includes(s.profile?.role)
+      )
+    }
+    return ['trainer', 'admin'].includes(s.profile?.role)
+  })
+export const useIsStudent = () => useAuthStore((s) => s.profile?.role === 'student')
+export const useIsImpersonating = () => useAuthStore((s) => !!s.impersonation)
+
+// Action-only hook — actions are stable references, useShallow keeps the
+// returned object's identity stable across renders so consumers don't re-render
+// on every store update just to grab callbacks.
+export const useAuthActions = () =>
+  useAuthStore(
+    useShallow((s) => ({
+      signIn: s.signIn,
+      signOut: s.signOut,
+      setProfile: s.setProfile,
+      fetchProfile: s.fetchProfile,
+      startImpersonation: s.startImpersonation,
+      stopImpersonation: s.stopImpersonation,
+    }))
+  )

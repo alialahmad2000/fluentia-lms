@@ -1,11 +1,12 @@
 import { useState, Suspense } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import lazyRetry from '../../utils/lazyRetry'
 // PERSONALIZATION-REVERT 2026-05-19: hidden from default flow.
 // import InterestsSettingsSection from '../../components/personalization/InterestsSettingsSection'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon, Trash2 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStore, useAuthUser } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { tracker } from '../../services/activityTracker'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
@@ -89,7 +90,7 @@ function generateUsername(displayName) {
 }
 
 function ProfileContent() {
-  const { profile, studentData, fetchProfile, user } = useAuthStore()
+  const { profile, studentData, fetchProfile, user } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData, fetchProfile: s.fetchProfile, user: s.user })))
   const queryClient = useQueryClient()
   const [displayName, setDisplayName] = useState(profile?.display_name || '')
   const [editing, setEditing] = useState(false)
@@ -774,7 +775,7 @@ const DS_THEME_OPTIONS = [
 ]
 
 function AppearanceContent() {
-  const { user } = useAuthStore()
+  const user = useAuthUser()
   const impersonation = useAuthStore((s) => s.impersonation)
   const isImpersonating = !!impersonation
   const [currentTheme, setCurrentTheme] = useState(() =>

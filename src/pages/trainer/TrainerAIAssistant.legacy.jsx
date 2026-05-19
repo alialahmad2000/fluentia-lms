@@ -5,7 +5,7 @@ import {
   Bot, Send, Loader2, Sparkles, Trash2, CheckCircle2, AlertCircle,
   FileText, Zap, Users, ClipboardList, Bell, BarChart3,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -68,7 +68,7 @@ const ACTION_BG_CLASSES = {
 }
 
 export default function TrainerAIAssistant() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)

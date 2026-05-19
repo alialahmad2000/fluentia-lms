@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 
 const EDIT_WINDOW_MS = 15 * 60 * 1000
 
 export function useEditMessage(channelId) {
   const qc = useQueryClient()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   return useMutation({
     mutationFn: async ({ messageId, body, createdAt }) => {

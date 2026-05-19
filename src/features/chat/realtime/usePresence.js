@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 
 export function usePresence(channelId) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [onlineUserIds, setOnlineUserIds] = useState([])
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Target, CheckCircle2, XCircle, Clock } from 'lucide-react'
@@ -63,7 +64,7 @@ const getHoursUntilMidnight = () => {
 }
 
 export default function DailyChallenge() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [showResult, setShowResult] = useState(false)

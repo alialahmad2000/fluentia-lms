@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -177,7 +178,7 @@ function AchievementCard({ achievement, index, studentData }) {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function StudentSuccessStories() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
 
   // Compute achievements
   const { data: achievements, isLoading } = useQuery({

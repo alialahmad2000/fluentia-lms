@@ -6,7 +6,7 @@ import {
   Clock, Send, Save, Loader2, RefreshCw, GripVertical,
   BarChart2, AlertTriangle, Target, TrendingDown, Users, HelpCircle,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { useAIFormFiller } from '../../hooks/useAIFormFiller'
@@ -42,7 +42,7 @@ const stepVariants = {
 }
 
 export default function TrainerQuizGenerator() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const isAdmin = profile?.role === 'admin'
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -12,7 +13,7 @@ import FloatingParticles from '../../components/illustrations/FloatingParticles'
 
 export default function LoginPage() {
   const { t } = useTranslation()
-  const { user, profile, loading: authLoading } = useAuthStore()
+  const { user, profile, loading: authLoading } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile, loading: s.loading })))
   const signIn = useAuthStore((s) => s.signIn)
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
 

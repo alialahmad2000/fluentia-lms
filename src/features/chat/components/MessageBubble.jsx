@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Reply, Pin, Edit2, Trash2 } from 'lucide-react'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 import MessageBubbleText from './MessageBubbleText'
 import MessageBubbleVoice from './MessageBubbleVoice'
 import MessageBubbleImage from './MessageBubbleImage'
@@ -43,7 +43,7 @@ export default function MessageBubble({
   onReply,
   onEdit,
 }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [showReactionBar, setShowReactionBar] = useState(false)
 
   const react = useReact(channelId)

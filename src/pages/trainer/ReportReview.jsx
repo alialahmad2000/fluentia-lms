@@ -9,7 +9,7 @@ import {
   PenLine, BarChart3, RefreshCw, Link2, Check, Copy, X, Zap,
   Award, TrendingUp, Flame, Calendar
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -73,7 +73,7 @@ export default function ReportReview() {
   const { t } = useTranslation()
   const { id } = useParams()
   const navigate = useNavigate()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
 
   const [narrativeText, setNarrativeText] = useState('')

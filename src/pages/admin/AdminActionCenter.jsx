@@ -5,7 +5,7 @@ import {
   CheckCircle2, Bell, TrendingDown, Calendar, ArrowLeft,
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import UserAvatar from '../../components/common/UserAvatar'
 
@@ -17,7 +17,7 @@ const getGreetingTime = () => {
 }
 
 export default function AdminActionCenter() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const navigate = useNavigate()
   const firstName = profile?.full_name || profile?.display_name || ''
 

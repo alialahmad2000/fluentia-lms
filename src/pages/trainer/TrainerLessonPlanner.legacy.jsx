@@ -5,7 +5,7 @@ import {
   BookOpen, Loader2, Sparkles, Clock, Target, Users,
   FileText, CheckCircle2, Zap, Copy, AlertCircle,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -16,7 +16,7 @@ const SKILL_LABELS = {
 }
 
 export default function TrainerLessonPlanner() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [selectedGroup, setSelectedGroup] = useState('')
   const [topic, setTopic] = useState('')
   const [duration, setDuration] = useState(60)

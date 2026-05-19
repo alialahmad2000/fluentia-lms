@@ -5,7 +5,7 @@ import {
   Calendar, Trophy, Users, Zap, Clock, Star, Crown,
   Loader2, CheckCircle2, Target, Flame,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 const TYPE_CONFIG = {
@@ -23,7 +23,7 @@ const EVENT_COLOR_CLASSES = {
 }
 
 export default function StudentEvents() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('active')
 

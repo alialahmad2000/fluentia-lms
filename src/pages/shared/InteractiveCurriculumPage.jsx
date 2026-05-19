@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
@@ -34,7 +35,7 @@ export default function InteractiveCurriculumPage() {
   const { levelId, unitId } = useParams()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
-  const { profile, trainerData } = useAuthStore()
+  const { profile, trainerData } = useAuthStore(useShallow((s) => ({ profile: s.profile, trainerData: s.trainerData })))
   const TABS = TAB_DEFS.map(tab => ({ ...tab, label: t(tab.tKey) }))
   const role = profile?.role
   const basePath = role === 'admin' ? '/admin' : '/trainer'

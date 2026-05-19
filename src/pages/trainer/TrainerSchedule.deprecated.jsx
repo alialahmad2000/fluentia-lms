@@ -3,7 +3,7 @@ import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, Clock, Plus, Video, Users, X, Save, Loader2, ChevronDown, StickyNote, BookOpen, Brain, Target, Trophy, Wrench } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
 import SubTabs from '../../components/common/SubTabs'
@@ -55,7 +55,7 @@ export default function TrainerSchedule() {
 }
 
 function ScheduleContent() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const role = profile?.role
   const isAdmin = role === 'admin'

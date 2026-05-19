@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Users, Search, Flame, Zap, BarChart3, StickyNote } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { timeAgo } from '../../utils/dateHelpers'
 import UserAvatar from '../../components/common/UserAvatar'
@@ -18,7 +18,7 @@ function getStatus(lastActive) {
 }
 
 export default function MyStudents() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const navigate = useNavigate()
   const isAdmin = profile?.role === 'admin'
   const [searchQuery, setSearchQuery] = useState('')

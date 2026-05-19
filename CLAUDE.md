@@ -299,6 +299,21 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-19 — LISTENING-QA-V2 (spoken labels fix + truncation + voice diversity verify)
+- What: Ran the LISTENING-QA-V2-SPOKEN-LABELS-FIX prompt. All 3 phases clean. No DB rows touched. Generator permanently hardened against the "speaker labels read aloud" bug. Pushed as commit `456f12a`.
+- **Phase A (truncation, browser-style stream test):** 72/72 OK. Reused the v1 audit results from commit `bf1697d` (yesterday) — same Range-based methodology as the v2 prompt's spec, so no re-run needed.
+- **Phase B (voice diversity):** 44/44 multi-speaker rows have distinct `voice_id` per declared speaker. 0 single-voice collisions.
+- **Phase C — THE CRITICAL BUG (defensive fix):** Sanitizer + generator patch ship even though no rows are currently affected — the bug cannot regress.
+  - `scripts/audio-v2/lib/strip-speaker-label.cjs` — strips English/Arabic/bracketed speaker labels. Conservative: preserves mid-sentence colons (`"I have three options: red, blue"`) and times (`"3:45 PM"`).
+  - `scripts/audio-v2/lib/strip-speaker-label.test.cjs` — **13/13 PASS**.
+  - `scripts/audio-v2/03-generate-listening.mjs` — imports + applies `stripSpeakerLabel` on every segment before the ElevenLabs API call. Future-proof comment block + reference to regression test added at top of file.
+  - `scripts/audits/listening-qa-v2/04-spoken-labels-scan.cjs` — text-level scanner across all 72 listening rows. Result: **0 SUSPECT / 72 CLEAN**. The earlier `LABEL_IN_TEXT` finding in `docs/audits/audio-issues/listening-audit.json` was a false positive (scanned raw transcript instead of `speaker_segments[].text`).
+  - `scripts/audits/listening-qa-v2/06-control-spot-listen.cjs` — 5 control-group CLEAN multi-speaker rows (3 interview + 2 dialogue) sampled to `/tmp/listening-qa-v2-spot-listen/` for Ali to spot-listen (Whisper STT not wired locally; per-prompt fallback used).
+- **ElevenLabs char budget:** 643,594 / 1,810,000. **0 chars consumed** — no regenerations triggered.
+- Files: 9 new — `docs/audits/listening-qa-v2/{FINAL-REPORT.md, spoken-labels-scan.json, control-spot-listen.{json,md}}`, `scripts/audio-v2/lib/strip-speaker-label{.cjs,.test.cjs}`, `scripts/audits/listening-qa-v2/{04-spoken-labels-scan.cjs, 06-control-spot-listen.cjs}` + 1 modified (`scripts/audio-v2/03-generate-listening.mjs` — 15 line patch).
+- DB: None — Edge Functions: None
+- Status: Complete — commit `456f12a` pushed to main, HEAD == origin/main.
+
 ### 2026-05-19 — Section-Completion Restore: vocab cards now honor explicit section signal
 - What: Restored the ✓ "section complete" badges on the unit overview for the vocabulary card. 30 student/unit pairs (22 `vocabulary_exercise` + 8 `vocabulary`) where students had completed the vocab section but the card still showed as incomplete.
 - **Root cause:** `compute_unit_progress` PL/pgSQL function evaluated vocabulary completion ONLY from the 80% word-mastery threshold in `vocabulary_word_mastery`. It ignored explicit section-level completion signals written to `student_curriculum_progress` (`section_type IN ('vocabulary','vocabulary_exercise')` `status='completed'` `is_best=true`). All other 6 section types (reading/grammar/listening/speaking/writing/pronunciation) already reflected correctly.

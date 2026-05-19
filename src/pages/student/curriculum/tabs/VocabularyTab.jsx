@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown } from 'lucide-react'
@@ -74,7 +75,7 @@ function ProgressRing({ percent, size = 140 }) {
 
 // ─── Main Component ─────────────────────────────────
 export default function VocabularyTab({ unitId }) {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const [viewMode, setViewMode] = useState('cards')
   const [filter, setFilter] = useState('all')

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { X, Undo2, Loader2 } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import useClassMode from '../../stores/classModeStore'
 import { sounds } from '../../lib/celebrations'
@@ -21,7 +21,7 @@ const PENALTY_REASONS = [
 
 export default function QuickPointsPopup({ groupId, onClose }) {
   const { t } = useTranslation()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const addPointRecord = useClassMode(s => s.addPointRecord)
   const [lastAction, setLastAction] = useState(null)

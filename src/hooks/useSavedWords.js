@@ -1,9 +1,10 @@
 import { useState, useCallback, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../stores/authStore'
 
 export function useSavedWords() {
-  const { profile, user } = useAuthStore()
+  const { profile, user } = useAuthStore(useShallow((s) => ({ profile: s.profile, user: s.user })))
   const studentId = profile?.id ?? user?.id
   const [savedSet, setSavedSet] = useState(new Set())
 

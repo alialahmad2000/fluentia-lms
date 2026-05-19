@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useShallow } from 'zustand/react/shallow'
 import { motion } from 'framer-motion'
 import { Flame, Trophy, Zap, Star, Award, TrendingUp } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -18,7 +19,7 @@ const MOMENT_TYPES = {
 }
 
 export default function StudentWowMoments() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
 
   const { data: moments } = useQuery({
     queryKey: ['wow-moments', profile?.id],

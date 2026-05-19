@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { Heart } from 'lucide-react'
 import EncourageModal from './EncourageModal'
 import { useAuthStore } from '../../stores/authStore'
 
 export default function EncourageButton({ studentId, studentName, size = 'sm' }) {
   const [open, setOpen] = useState(false)
-  const { profile, impersonation } = useAuthStore()
+  const { profile, impersonation } = useAuthStore(useShallow((s) => ({ profile: s.profile, impersonation: s.impersonation })))
   const myId = impersonation?.userId ?? profile?.id
 
   // Don't show button to encourage yourself

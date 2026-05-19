@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useMutation } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
@@ -40,7 +41,7 @@ const FRAMES = [
 ]
 
 export default function StudentAvatar() {
-  const { profile, studentData, fetchProfile } = useAuthStore()
+  const { profile, studentData, fetchProfile } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData, fetchProfile: s.fetchProfile })))
   const xp = studentData?.xp_total || 0
 
   // Load saved customization

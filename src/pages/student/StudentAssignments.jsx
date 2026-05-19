@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -13,7 +14,7 @@ import SubmissionForm from '../../components/assignments/SubmissionForm'
 import StudentFeedbackDisplay from '../../components/StudentFeedbackDisplay'
 
 export default function StudentAssignments() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const [selectedAssignment, setSelectedAssignment] = useState(null)
   const [filter, setFilter] = useState('all') // all, pending, submitted, graded
 

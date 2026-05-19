@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthStudentData } from '../../../stores/authStore'
 import { tracker } from '../../../services/activityTracker'
 import VerbCard from './components/VerbCard'
 import VerbPractice from './components/VerbPractice'
@@ -16,7 +16,7 @@ import XPNotification from '../../../components/games/XPNotification'
 import { awardPracticeXP } from '../../../utils/xpManager'
 
 export default function IrregularVerbsPractice() {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const [mode, setMode] = useState('browse') // browse | practice
   const [practiceMode, setPracticeMode] = useState(null) // null | game id string
   const [gameWordCount, setGameWordCount] = useState(10)

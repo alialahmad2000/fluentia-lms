@@ -22,7 +22,7 @@ import {
   Send,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { toast } from '../../components/ui/FluentiaToast'
 
 const STATUS_CONFIG = {
@@ -131,7 +131,7 @@ export default function AffiliateDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [adminNotes, setAdminNotes] = useState('')
   const [notesLoaded, setNotesLoaded] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)

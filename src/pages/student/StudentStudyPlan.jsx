@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { motion } from 'framer-motion'
 import { CheckCircle2, Circle, MapPin, ChevronDown, ChevronUp, BookOpen, Clock, MessageSquare } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
@@ -31,7 +32,7 @@ const STATUS_CONFIG = {
 
 // ─── Component ──────────────────────────────────────────────
 export default function StudentStudyPlan() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const [units, setUnits] = useState([])
   const [overrides, setOverrides] = useState([])
   const [loading, setLoading] = useState(true)

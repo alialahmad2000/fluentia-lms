@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { StickyNote, Send, Trash2, Loader2, ThumbsUp, AlertTriangle, Eye } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { notifyUser } from '../../utils/notify'
 import { formatDateAr } from '../../utils/dateHelpers'
@@ -14,7 +14,7 @@ const NOTE_TYPES = [
 ]
 
 export default function TrainerQuickNotes() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const role = profile?.role
   const isAdmin = role === 'admin'

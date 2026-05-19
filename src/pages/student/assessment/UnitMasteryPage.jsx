@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AuroraBackground } from '../../../design-system/components'
@@ -168,7 +168,7 @@ function ProgressRing({ current, total }) {
 export default function UnitMasteryPage() {
   const { assessmentId } = useParams()
   const navigate = useNavigate()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [attemptId, setAttemptId] = useState(null)
   const [questions, setQuestions] = useState([])
   const [currentIdx, setCurrentIdx] = useState(0)

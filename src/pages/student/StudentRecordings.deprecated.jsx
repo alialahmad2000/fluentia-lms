@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PlayCircle, X, Clock, Eye, FileText, Video, ExternalLink, BookOpen, Archive } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStudentData } from '../../stores/authStore'
 import EmptyState from '../../components/ui/EmptyState'
 import VideoPlayer from '../../components/VideoPlayer'
 
@@ -81,7 +81,7 @@ export default function StudentRecordings() {
 
 // ─── Curriculum Recordings (grouped by unit) ─────────
 function CurriculumRecordings() {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const groupId = studentData?.group_id
 
   const { data: recordings = [], isLoading } = useQuery({

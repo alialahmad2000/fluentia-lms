@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 
 export function useSendMessage(channelId, groupId) {
   const qc = useQueryClient()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   return useMutation({
     mutationFn: async (payload) => {

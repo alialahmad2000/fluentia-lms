@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { PenLine, MessageCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
@@ -14,7 +15,7 @@ import ExerciseSection from '../../../../components/grammar/ExerciseSection'
 
 // ─── Main Component ─────────────────────────────────
 export default function GrammarTab({ unitId }) {
-  const { user, profile } = useAuthStore()
+  const { user, profile } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile })))
 
   // Register page-specific reset (UI-only, never clears answers)
   usePageReset(() => {})

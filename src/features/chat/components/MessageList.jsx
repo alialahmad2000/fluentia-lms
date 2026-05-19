@@ -6,7 +6,7 @@ import MessageBubble from './MessageBubble'
 import { useChannelMessages } from '../queries/useChannelMessages'
 import { useChannelSubscription } from '../realtime/useChannelSubscription'
 import { useMarkRead } from '../mutations/useMarkRead'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 
 function isSameGroup(a, b) {
   if (!a || !b) return false
@@ -22,7 +22,7 @@ export default function MessageList({ channelId, groupId, deepLinkMessageId, onR
   const [atBottom, setAtBottom] = useState(true)
   const prevMessagesRef = useRef([])
   const qc = useQueryClient()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useChannelMessages(channelId)
   const { markMessageRead } = useMarkRead(channelId)

@@ -4,7 +4,7 @@ import { RefreshCw } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { PLAYER_TIERS, getTierConfig } from '../../lib/playerTiers'
 import { logFallbackEvent } from '../../lib/recordingAnalytics'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthUser } from '../../stores/authStore'
 
 import PremiumVideoPlayer from './PremiumVideoPlayer'
 import DrivePreviewIframe from './tiers/DrivePreviewIframe'
@@ -32,7 +32,7 @@ export default function RecordingPlayerCascade({
   showPanel = false,
   xpAwarded = false,
 }) {
-  const { user } = useAuthStore()
+  const user = useAuthUser()
   const [currentTier, setCurrentTier] = useState(1)
   const [retryCount, setRetryCount] = useState(0)
   const [tierKey, setTierKey] = useState(0)

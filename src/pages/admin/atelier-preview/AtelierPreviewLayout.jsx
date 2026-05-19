@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { ArrowRight, Palette } from 'lucide-react';
-import { useAuthStore } from '../../../stores/authStore';
+import { useAuthProfile } from '../../../stores/authStore';
 import AtelierScope from '../../../design-system/fluentia-atelier/AtelierScope';
 
 export default function AtelierPreviewLayout({ role, title, children }) {
   // HOOKS AT TOP — RULE
-  const { profile } = useAuthStore();
+  const profile = useAuthProfile()
   const location = useLocation();
 
   // Role gate (AFTER hooks)

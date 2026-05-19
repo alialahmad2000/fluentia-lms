@@ -8,7 +8,7 @@ import VoiceRecorder from '../VoiceRecorder'
 import MentionAutocomplete from '../MentionAutocomplete'
 import { useGroupAnnouncementChannel } from '../../queries/useGroupGeneralChannel'
 import { useTypingIndicator } from '../../realtime/useTypingIndicator'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthProfile } from '../../../../stores/authStore'
 import { popIn } from '../../lib/motion'
 
 const glass = {
@@ -26,7 +26,7 @@ export default function PremiumComposer({
   replyTo,
   onClearReply,
 }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [input, setInput] = useState('')
   const [uploading, setUploading] = useState(false)
   const [voiceMode, setVoiceMode] = useState(false)

@@ -6,7 +6,7 @@ import {
   Star, AlertCircle, Printer, History, ChevronDown, ChevronUp,
   BookOpen, MessageCircle, Target, Award, ClipboardCheck, BarChart3, Download
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -246,7 +246,7 @@ function generateReportHTML(report, student, periodLabel) {
 }
 
 export default function TrainerProgressReports() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const reportRef = useRef(null)
 

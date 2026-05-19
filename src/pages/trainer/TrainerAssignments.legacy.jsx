@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Trash2, Eye, EyeOff, Clock, Users, ChevronDown, ClipboardList } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES } from '../../lib/constants'
 import { formatDateAr, deadlineText, isOverdue } from '../../utils/dateHelpers'
@@ -11,7 +11,7 @@ import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
 
 export default function TrainerAssignments() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [showForm, setShowForm] = useState(false)
   const [editingAssignment, setEditingAssignment] = useState(null)

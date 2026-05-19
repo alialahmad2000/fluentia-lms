@@ -2,7 +2,7 @@
 // Single unified stream per group. No channel sidebar. Filter lenses in header.
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 import { useGroupChannels } from '../queries/useGroupChannels'
 import { usePresence } from '../realtime/usePresence'
 import { useQuery } from '@tanstack/react-query'
@@ -19,7 +19,7 @@ export default function GroupChatPage() {
   // All hooks at top — before any conditional logic
   const { groupId, channelSlug, messageId } = useParams()
   const navigate = useNavigate()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [searchOpen, setSearchOpen] = useState(false)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
   const [activeLens, setActiveLens] = useState('all')

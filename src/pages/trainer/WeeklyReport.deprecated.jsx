@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { TrendingUp, RefreshCw, Star, AlertTriangle, BookOpen, Lightbulb, Loader2 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const CACHE_KEY = 'fluentia_weekly_report'
@@ -33,7 +33,7 @@ function getWeekRange() {
 }
 
 export default function WeeklyReport() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const isAdmin = profile?.role === 'admin'
   const [forceRefresh, setForceRefresh] = useState(0)
 

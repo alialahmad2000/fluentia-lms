@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Video, Clock, Zap, Trophy, Eye, Send, Loader2, ExternalLink, CheckCircle2, XCircle, Hash, Sparkles } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 const PLATFORM_OPTIONS = [
@@ -21,7 +21,7 @@ const STATUS_LABELS = {
 }
 
 export default function StudentCreatorChallenge() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [toast, setToast] = useState(null)
   const toastTimerRef = useRef(null)

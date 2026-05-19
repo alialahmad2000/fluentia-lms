@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
@@ -12,7 +13,7 @@ import CurriculumPageSkeleton from '../../../components/skeletons/CurriculumPage
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 
 export default function CurriculumBrowser() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const navigate = useNavigate()
   const { canSeeAllLevels, basePath } = useCurriculumPreview()
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)

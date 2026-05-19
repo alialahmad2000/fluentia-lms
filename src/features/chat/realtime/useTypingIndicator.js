@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 
 const TYPING_TTL_MS = 3000
 const TYPING_THROTTLE_MS = 2000
 
 export function useTypingIndicator(channelId) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [typers, setTypers] = useState([])
   const channelRef = useRef(null)
   const decayTimers = useRef({})

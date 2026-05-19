@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Volume2, RotateCcw, Brain, CheckCircle, ChevronLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { sm2, qualityFromButton } from '../../utils/sm2'
 import { toast } from '../../components/ui/FluentiaToast'
@@ -14,7 +14,7 @@ import { tracker } from '../../services/activityTracker'
 const toArabicNum = (n) => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
 
 export default function DailyReview() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 

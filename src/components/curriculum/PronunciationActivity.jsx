@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, Mic, Sparkles, Home } from 'lucide-react'
 import EnglishText from './EnglishText'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../../components/ui/FluentiaToast'
 import { useQueryClient } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ const QUIZ_SIZE = 5
 
 // ─── Main Component ───
 export default function PronunciationActivity({ pronunciationData, unitId, onComplete, onBack }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [phase, setPhase] = useState('intro') // intro | flashcards | quiz | complete
   const [currentCardIndex, setCurrentCardIndex] = useState(0)

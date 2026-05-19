@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Eye } from 'lucide-react';
-import { useAuthStore } from '../../stores/authStore';
+import { useAuthProfile } from '../../stores/authStore';
 import AccessibilityPanel from './AccessibilityPanel';
 
 const STORAGE_PREFIX = 'a11y-position-';
@@ -9,7 +9,7 @@ const BTN_SIZE = 40;
 export default function A11yFloatingButton() {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
-  const { profile } = useAuthStore();
+  const profile = useAuthProfile()
   const btnRef = useRef(null);
   const isDragging = useRef(false);
   const movedPx = useRef(0);

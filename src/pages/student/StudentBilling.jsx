@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useShallow } from 'zustand/react/shallow'
 import { motion } from 'framer-motion'
 import { CreditCard, ExternalLink, Clock, CheckCircle2, AlertCircle, Receipt } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -10,7 +11,7 @@ import { PACKAGES, PAYMENT_STATUS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
 
 export default function StudentBilling() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const pkg = PACKAGES[studentData?.package] || PACKAGES.asas
 
   // Payment history

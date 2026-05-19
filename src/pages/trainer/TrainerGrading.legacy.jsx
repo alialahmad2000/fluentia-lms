@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Clock, ChevronDown, X, Save, Loader2, RotateCcw, Mic, Image, FileText as FileIcon, Link2, Download } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import AISubmissionFeedback from '../../components/ai/AISubmissionFeedback'
 import { ASSIGNMENT_TYPES, GRADE_LABELS, SUBMISSION_STATUS } from '../../lib/constants'
@@ -31,7 +31,7 @@ async function getSignedUrl(bucket, path) {
 }
 
 export default function TrainerGrading() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [searchParams, setSearchParams] = useSearchParams()
   // Default filter: if arriving with ?open=<id> we show "all" so the
@@ -211,7 +211,7 @@ export default function TrainerGrading() {
 }
 
 function GradingModal({ submission, getStudentName, onClose }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [grade, setGrade] = useState(submission.grade || '')
   const [gradeNumeric, setGradeNumeric] = useState(submission.grade_numeric ?? '')

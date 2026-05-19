@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, ChevronDown, ChevronUp, Mic, Check } from 'lucide-react'
@@ -9,7 +10,7 @@ import PronunciationActivity from '../../../../components/curriculum/Pronunciati
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
 export default function PronunciationTab({ unitId, onBack }) {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const [showReference, setShowReference] = useState(false)
 

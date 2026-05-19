@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useContext } from 'react'
 import { useAuthStore } from '../../../stores/authStore'
@@ -32,7 +33,7 @@ function chunkUnits(units, size = 4) {
 export function useCurriculumData() {
   const { levelNumber } = useParams()
   const navigate = useNavigate()
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const { canSeeAllLevels, basePath } = useContext(CurriculumPreviewContext) || {}
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
   const levelNum = parseInt(levelNumber)

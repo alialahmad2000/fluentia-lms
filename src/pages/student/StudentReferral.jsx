@@ -18,7 +18,7 @@ import {
   Link2,
   Camera,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
@@ -283,7 +283,7 @@ function ReferralCard({ name, code, referralLink }) {
 // ─── Main page ─────────────────────────────────────────────────────────────────
 
 export default function StudentReferral() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [activeTab, setActiveTab] = useState('share') // 'share' | 'card' | 'leaderboard'
   const { copied: codeCopied, copy: copyCode } = useCopy()
   const { copied: linkCopied, copy: copyLink } = useCopy()

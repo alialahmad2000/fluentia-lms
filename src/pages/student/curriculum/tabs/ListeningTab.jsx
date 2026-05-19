@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircle, XCircle, RotateCcw, History } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthUser } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
@@ -34,7 +34,7 @@ const QUESTION_TYPE_COLORS = {
 
 // ─── Main Component ─────────────────────────────────
 export default function ListeningTab({ unitId }) {
-  const { user } = useAuthStore()
+  const user = useAuthUser()
 
   const { data: listenings, isLoading } = useQuery({
     queryKey: ['unit-listening', unitId],

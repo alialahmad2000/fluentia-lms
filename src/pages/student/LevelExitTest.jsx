@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -13,7 +14,7 @@ import { ACADEMIC_LEVELS } from '../../lib/constants'
 // ─── Main Component ─────────────────────────────────────────
 export default function LevelExitTest() {
   const { levelId } = useParams()
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const navigate = useNavigate()
   const [phase, setPhase] = useState('loading') // loading | blocked | ready | test | results
 

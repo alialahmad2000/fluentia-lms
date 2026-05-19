@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Swords, Trophy, Clock, Zap, Shield, Crown, X, RotateCcw, ArrowLeft, Lock, Flame, Search, BookOpen, Languages, PenTool, Headphones, Blocks, HelpCircle, Info, ChevronDown, Send, Check } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStore, useAuthUser } from '../../stores/authStore'
 import { useToast } from '../../components/Toast'
 import { playTick, playCorrect, playWrong, playWin, playLose, vibrate } from '../../lib/duelSounds'
 import DuelsBackdrop from '../../components/duels/DuelsBackdrop'
@@ -495,7 +496,7 @@ function DuelLobby({ onStart, stats, onOpenRules }) {
 function DuelLeaderboardWidget() {
   const [leaders, setLeaders] = useState([])
   const [myRank, setMyRank] = useState(null)
-  const { user, studentData } = useAuthStore()
+  const { user, studentData } = useAuthStore(useShallow((s) => ({ user: s.user, studentData: s.studentData })))
 
   useEffect(() => {
     async function load() {
@@ -1398,7 +1399,7 @@ function DuelFinish({ result, match, userId, onRematch, onNewOpponent, onExit })
 
 // ─── Main Duels Page ───────────────────────────────────
 export default function StudentDuels() {
-  const { user } = useAuthStore()
+  const user = useAuthUser()
   const { toast } = useToast()
   const [phase, setPhase] = useState('lobby')
   const [gameType, setGameType] = useState(null)

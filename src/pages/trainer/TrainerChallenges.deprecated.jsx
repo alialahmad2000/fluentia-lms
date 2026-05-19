@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Target, Plus, Trash2, Users, Zap, Clock, Loader2, CheckCircle2 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { useAIFormFiller } from '../../hooks/useAIFormFiller'
 import AIFillButton from '../../components/ai/AIFillButton'
@@ -16,7 +16,7 @@ const CHALLENGE_TYPES = [
 ]
 
 export default function TrainerChallenges() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const role = profile?.role
   const isAdmin = role === 'admin'

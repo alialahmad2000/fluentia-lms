@@ -7,7 +7,7 @@ import {
   ChevronLeft, ChevronRight,
   BookType, Sparkles, Award,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GRADE_LABELS } from '../../lib/constants'
 import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
@@ -73,7 +73,7 @@ function numericToLetter(score) {
 const GRADE_OPTIONS = ['A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'F']
 
 export default function TrainerWeeklyGrading() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
 
   const [weekOffset, setWeekOffset] = useState(0)
@@ -376,7 +376,7 @@ export default function TrainerWeeklyGrading() {
 
 // ─── Grading Modal ─────────────────────────────────────────────
 function GradingModal({ task, getStudentName, onClose }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
 
   const [grade, setGrade] = useState(task.trainer_grade || '')

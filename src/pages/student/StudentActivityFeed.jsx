@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Activity, Zap, Flame, Trophy, Award, Users, FileText, Bell } from 'lucide-react'
@@ -20,7 +21,7 @@ const ACTIVITY_ICONS = {
 }
 
 export default function StudentActivityFeed() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const groupId = studentData?.group_id
 

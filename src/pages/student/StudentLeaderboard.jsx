@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Trophy, Crown, Medal, Users, Flame, Share2, BarChart3 } from 'lucide-react'
@@ -104,7 +105,7 @@ function ShareRankButton({ rank, total }) {
 }
 
 export default function StudentLeaderboard() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const [period, setPeriod] = useState('month')
   const [tab, setTab] = useState('group')
 

@@ -5,7 +5,7 @@ import {
   Calendar, Clock, Users, Loader2, Sparkles, AlertCircle,
   CheckCircle2, RefreshCw, ChevronDown,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday']
@@ -25,7 +25,7 @@ const ICON_COLOR_CLASSES = {
 }
 
 export default function AdminSmartScheduling() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [selectedDay, setSelectedDay] = useState('sunday')
 

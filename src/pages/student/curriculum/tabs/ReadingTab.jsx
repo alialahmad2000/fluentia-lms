@@ -8,7 +8,7 @@ import { supabase } from '../../../../lib/supabase'
 // Canonical curriculum is the single default. To re-introduce as opt-in secondary
 // surface later: see docs/audits/personalization-revert/PHASE-A-REPORT.md
 // import PersonalizedReadingCard from '../../../../components/personalization/PersonalizedReadingCard'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthUser } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
@@ -73,7 +73,7 @@ function PremiumImage({ src, alt, className, aspectClass = 'aspect-[16/9]' }) {
 // ─── Main Component ─────────────────────────────────
 export default function ReadingTab({ unitId }) {
   const [activeReading, setActiveReading] = useState(0)
-  const { user } = useAuthStore()
+  const user = useAuthUser()
 
   const { data: readings, isLoading } = useQuery({
     queryKey: ['unit-readings', unitId],

@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ClipboardCheck, Clock, Trophy, ChevronRight, ChevronLeft,
   Flag, Check, X, Zap, BarChart3, Loader2, AlertTriangle
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile, useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { tracker } from '../../services/activityTracker'
 
@@ -79,7 +80,7 @@ export default function StudentQuiz() {
 // VIEW 1: Quiz List
 // ═══════════════════════════════════════════════════════════
 function QuizList({ onStart, onViewResults }) {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const groupId = studentData?.group_id
 
   // Fetch published quizzes for student's group
@@ -236,7 +237,7 @@ function QuizList({ onStart, onViewResults }) {
 // VIEW 2: Quiz Taker
 // ═══════════════════════════════════════════════════════════
 function QuizTaker({ quiz, onFinish, onBack }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
 
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -789,7 +790,7 @@ function ShortAnswerQuestion({ answer, onChange }) {
 // VIEW 3: Results
 // ═══════════════════════════════════════════════════════════
 function QuizResults({ quiz, data, onBack }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   // If data came from the list (already completed), fetch full details
   const { data: fullResults } = useQuery({

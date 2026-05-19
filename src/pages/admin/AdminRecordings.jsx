@@ -8,7 +8,7 @@ import {
   Search, XCircle, CheckCircle,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { toast } from '../../components/ui/FluentiaToast'
 import VideoPlayer from '../../components/VideoPlayer'
@@ -57,7 +57,7 @@ function getEmptyCurriculumForm() {
 }
 
 export default function AdminRecordings() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [activeTab, setActiveTab] = useState('curriculum')
 
   return (
@@ -109,7 +109,7 @@ export default function AdminRecordings() {
 // Curriculum Section — Upload + Requests + List
 // ═══════════════════════════════════════════════════════
 function CurriculumSection() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const isAdmin = profile?.role === 'admin'
   const [showForm, setShowForm] = useState(false)
@@ -961,7 +961,7 @@ function FallbackEventsSection() {
 // Archive Section — Old recordings system
 // ═══════════════════════════════════════════════════════
 function ArchiveSection() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(getEmptyForm)

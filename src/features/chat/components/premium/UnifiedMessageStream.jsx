@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { useQueryClient } from '@tanstack/react-query'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthProfile } from '../../../../stores/authStore'
 import { useUnifiedMessages } from '../../queries/useUnifiedMessages'
 import { useMarkRead } from '../../mutations/useMarkRead'
 import DaySeparator from './DaySeparator'
@@ -92,7 +92,7 @@ export default function UnifiedMessageStream({
   generalChannelId,
   onScroll,
 }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const qc = useQueryClient()
   const virtuosoRef = useRef(null)
   const [atBottom, setAtBottom] = useState(true)

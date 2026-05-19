@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Smartphone, X, Share, MoreVertical, Plus, Download } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
@@ -20,7 +21,7 @@ function isStandalone() {
 }
 
 export default function PWAInstallBanner() {
-  const { user, profile } = useAuthStore()
+  const { user, profile } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile })))
   const [showFullGuide, setShowFullGuide] = useState(false)
   const [showSmallBanner, setShowSmallBanner] = useState(false)
   const [dismissed, setDismissed] = useState(false)

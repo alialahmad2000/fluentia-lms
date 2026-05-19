@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { GlassPanel } from '../../design-system/components'
 import { Award, CheckCircle, XCircle } from 'lucide-react'
 
 export default function RecentMasteryAttemptsWidget() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   // Get trainer's group students' recent mastery attempts
   const { data: attempts = [], isLoading } = useQuery({

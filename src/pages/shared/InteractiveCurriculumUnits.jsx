@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { BookOpen, ArrowRight } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 
 const container = {
   hidden: { opacity: 0 },
@@ -19,7 +19,7 @@ export default function InteractiveCurriculumUnits() {
   const { t } = useTranslation()
   const { levelId } = useParams()
   const navigate = useNavigate()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const role = profile?.role
   const basePath = role === 'admin' ? '/admin' : '/trainer'
 

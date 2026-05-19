@@ -2,11 +2,11 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { X, Trash2 } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStudentData } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 export default function NotesPanel({ unitId, onClose }) {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const studentId = studentData?.id
   const queryClient = useQueryClient()
   const [draft, setDraft] = useState('')

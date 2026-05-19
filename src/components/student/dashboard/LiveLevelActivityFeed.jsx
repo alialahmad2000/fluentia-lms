@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Flame, Trophy, Eye, EyeOff, Settings, X } from 'lucide-react'
 import AnimatedNumber from '../../ui/AnimatedNumber'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthStudentData } from '../../../stores/authStore'
 import { useLevelActivityFeed } from '../../../hooks/dashboard/useLevelActivityFeed'
 import { useLevelTopMovers } from '../../../hooks/dashboard/useLevelTopMovers'
 import { initialsFromDisplayName } from '../../../utils/names'
@@ -341,7 +341,7 @@ function FeedItem({ item, isNew }) {
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 export default function LiveLevelActivityFeed({ studentId }) {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const academicLevel = studentData?.academic_level
 
   const {

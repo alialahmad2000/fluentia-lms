@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Volume2, ChevronLeft } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 import { toast } from '../../ui/FluentiaToast'
 import { emitXP } from '../../ui/XPFloater'
 import ReviewSessionStats from './ReviewSessionStats'
@@ -16,7 +16,7 @@ const GRADES = [
 ]
 
 export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [words, setWords] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [revealed, setRevealed] = useState(false)

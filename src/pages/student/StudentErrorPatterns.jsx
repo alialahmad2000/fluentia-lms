@@ -4,7 +4,7 @@ import {
   AlertTriangle, CheckCircle2, TrendingUp, TrendingDown,
   Loader2, Target, ArrowLeft,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { Link } from 'react-router-dom'
 
@@ -42,7 +42,7 @@ const SKILL_DOT_CLASSES = {
 }
 
 export default function StudentErrorPatterns() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   const { data: patterns, isLoading } = useQuery({
     queryKey: ['student-error-patterns'],

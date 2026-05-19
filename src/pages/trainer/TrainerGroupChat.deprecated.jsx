@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import StudentGroupChat from '../student/StudentGroupChat'
 
@@ -8,7 +8,7 @@ import StudentGroupChat from '../student/StudentGroupChat'
 // StudentGroupChat reads groupId from studentData.group_id
 // For trainers, we temporarily override this via a Zustand override
 export default function TrainerGroupChat() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const role = profile?.role
   const isAdmin = role === 'admin'
   const [selectedGroup, setSelectedGroup] = useState('')

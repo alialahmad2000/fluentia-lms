@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { StickyNote, Plus, Search, Pencil, Trash2, X, Save, Loader2 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { timeAgo } from '../../utils/dateHelpers'
 import EmptyState from '../../components/ui/EmptyState'
@@ -32,7 +32,7 @@ function groupByDate(notes) {
 }
 
 export default function MyNotes() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const isAdmin = profile?.role === 'admin'
   const [filterType, setFilterType] = useState('all')

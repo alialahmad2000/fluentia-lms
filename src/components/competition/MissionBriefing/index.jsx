@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -17,7 +18,7 @@ const TOTAL_SCREENS = 5
 export default function MissionBriefing() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { profile, impersonation } = useAuthStore()
+  const { profile, impersonation } = useAuthStore(useShallow((s) => ({ profile: s.profile, impersonation: s.impersonation })))
   const profileId = impersonation?.userId ?? profile?.id
 
   // All hooks at top

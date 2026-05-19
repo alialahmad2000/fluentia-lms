@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AuroraBackground } from '../../../design-system/components'
@@ -84,7 +84,7 @@ function LoadingReveal() {
 // ── Main Test Page ──
 export default function PlacementTestPage() {
   const navigate = useNavigate()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [sessionId, setSessionId] = useState(null)
   const [question, setQuestion] = useState(null)
   const [progress, setProgress] = useState({ current: 0, total: 14 })

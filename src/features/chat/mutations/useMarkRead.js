@@ -1,10 +1,10 @@
 import { useCallback, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 
 export function useMarkRead(channelId) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const qc = useQueryClient()
   const pendingRef = useRef(new Set())
   const flushRef = useRef(null)

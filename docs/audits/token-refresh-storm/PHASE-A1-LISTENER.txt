@@ -1,0 +1,40 @@
+=== authStore location ===
+src/stores/authStore.js
+
+=== onAuthStateChange listener ===
+src/stores/authStore.js:75:    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+src/pages/public/ResetPassword.jsx:29:      const { data: sub } = supabase.auth.onAuthStateChange((event, s) => {
+src/pages/public/ResetPassword.deprecated.jsx:22:    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+src/pages/partner/PartnerSetPassword.jsx:21:    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+
+=== invalidateQueries called near auth ===
+src/App.jsx:514:        queryClient.invalidateQueries({ refetchType: 'inactive' })
+src/features/chat/mutations/useReact.js:66:      qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/mutations/useTogglePin.js:16:      qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/mutations/useTogglePin.js:17:      qc.invalidateQueries({ queryKey: ['pinned-messages', channelId] })
+src/features/chat/mutations/useDeleteMessage.js:35:      qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/mutations/useMarkRead.js:45:      qc.invalidateQueries({ queryKey: ['channel-unread-counts'] })
+src/features/chat/mutations/useSendMessage.js:62:      qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/mutations/useEditMessage.js:24:      qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/queries/useUnifiedMessages.js:90:      }, () => qc.invalidateQueries({ queryKey: ['unified-messages', groupId] }))
+src/features/chat/queries/useUnifiedMessages.js:94:      }, () => qc.invalidateQueries({ queryKey: ['unified-messages', groupId] }))
+src/features/chat/queries/useUnifiedMessages.js:97:      }, () => qc.invalidateQueries({ queryKey: ['unified-messages', groupId] }))
+src/features/chat/realtime/useChannelSubscription.js:16:        () => qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/realtime/useChannelSubscription.js:22:          qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/realtime/useChannelSubscription.js:23:          qc.invalidateQueries({ queryKey: ['pinned-messages', channelId] })
+src/features/chat/realtime/useChannelSubscription.js:29:        () => qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
+src/features/chat/components/MessageList.jsx:60:    qc.invalidateQueries({ queryKey: ['channel-unread-counts'] })
+src/components/interactive-curriculum/InteractiveSpeakingTab.jsx:209:                    onFeedbackSaved={() => queryClient.invalidateQueries({ queryKey: ['speaking-recordings-all', unitId] })}
+src/components/interactive-curriculum/InteractiveSpeakingTab.jsx:221:                    onFeedbackSaved={() => queryClient.invalidateQueries({ queryKey: ['speaking-recordings-all', unitId] })}
+src/components/interactive-curriculum/InteractiveRecordingTab.jsx:116:      queryClient.invalidateQueries({ queryKey: ['unit-recordings'] })
+src/components/interactive-curriculum/InteractiveRecordingTab.jsx:218:      queryClient.invalidateQueries({ queryKey: ['unit-recordings'] })
+src/components/interactive-curriculum/InteractiveWritingTab.jsx:135:    queryClient.invalidateQueries({ queryKey: ['ic-writing-progress', task.id] })
+src/components/assignments/AssignmentForm.jsx:120:      queryClient.invalidateQueries({ queryKey: ['trainer-assignments'] })
+src/components/assignments/SubmissionForm.jsx:138:      queryClient.invalidateQueries({ queryKey: ['student-submissions'] })
+src/components/assignments/SubmissionForm.jsx:139:      queryClient.invalidateQueries({ queryKey: ['student-pending-assignments'] })
+src/components/recordings/UnitRecordingsSection.jsx:238:    queryClient.invalidateQueries({ queryKey: ['recording-progress'] })
+src/components/recordings/UnitRecordingsSection.jsx:242:    queryClient.invalidateQueries({ queryKey: ['recording-progress'] })
+src/components/recordings/UnitRecordingsSection.jsx:243:    queryClient.invalidateQueries({ queryKey: ['unit-recordings'] })
+src/components/curriculum/RecordingTab.jsx:130:      queryClient.invalidateQueries({ queryKey: ['unit-recordings'] })
+src/components/curriculum/RecordingTab.jsx:245:      queryClient.invalidateQueries({ queryKey: ['unit-recordings'] })
+src/components/curriculum/PronunciationActivity.jsx:179:      queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive'] })

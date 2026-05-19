@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../lib/supabase'
-import { useAuthStore } from '../stores/authStore'
+import { useAuthUser } from '../stores/authStore'
 
 export function useRecordingBookmarks(recordingId) {
-  const { user } = useAuthStore()
+  const user = useAuthUser()
   const studentId = user?.id
   const queryClient = useQueryClient()
   const qk = ['recording-bookmarks', studentId, recordingId]

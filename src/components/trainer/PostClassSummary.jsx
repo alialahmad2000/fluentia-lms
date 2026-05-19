@@ -2,14 +2,14 @@ import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import { useQuery, useMutation } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { useTranslation } from 'react-i18next'
 
 export default function PostClassSummary({ groupId, unitId, classStartedAt, pointsGiven, onClose }) {
   const { t } = useTranslation()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [trainerNote, setTrainerNote] = useState('')
   const [saving, setSaving] = useState(false)
 

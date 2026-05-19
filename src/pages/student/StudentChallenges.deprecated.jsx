@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Target, Clock, Zap, Trophy, CheckCircle2, Loader2, Users } from 'lucide-react'
@@ -22,7 +23,7 @@ const TAB_FILTERS = [
 ]
 
 export default function StudentChallenges() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('active')
   const [toast, setToast] = useState(null)

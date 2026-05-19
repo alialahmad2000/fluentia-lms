@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import AICoachPanel from '../../../../components/coach/AICoachPanel'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -33,7 +34,7 @@ function countWords(text) {
 
 // ─── Main Component ──────────────────────────────────
 export default function WritingTab({ unitId }) {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
 
   const { data: tasks, isLoading } = useQuery({
     queryKey: ['unit-writing', unitId],

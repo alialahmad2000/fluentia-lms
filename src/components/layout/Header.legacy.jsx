@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, ChevronDown, User, Sparkles, Settings, LogOut, Zap, Flame, Package, Mail, ChevronLeft, RefreshCw } from 'lucide-react'
@@ -50,7 +51,7 @@ const ROLE_CONFIG = {
 }
 
 export default function Header({ onMenuToggle }) {
-  const { user, profile, studentData, signOut } = useAuthStore()
+  const { user, profile, studentData, signOut } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile, studentData: s.studentData, signOut: s.signOut })))
   const navigate = useNavigate()
   const role = profile?.role || 'student'
   const config = ROLE_CONFIG[role] || ROLE_CONFIG.student

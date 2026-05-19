@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Calendar, Moon, Sun, Plus, Edit3, Trash2, Clock, Loader2, X,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
 const EMPTY_HOLIDAY = { name: '', start_date: '', end_date: '', reschedule_info: '' }
@@ -20,7 +20,7 @@ function isUpcoming(startDate) {
 }
 
 export default function AdminHolidays() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
 
   const [modalOpen, setModalOpen] = useState(false)

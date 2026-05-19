@@ -1,11 +1,11 @@
 import { Lock, ArrowRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStudentData } from '../../stores/authStore'
 import { PACKAGES } from '../../lib/constants'
 
 export default function LockedFeature({ requiredPackage, featureName }) {
   const navigate = useNavigate()
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const currentPkg = PACKAGES[studentData?.package] || PACKAGES.asas
   const requiredPkg = PACKAGES[requiredPackage]
 

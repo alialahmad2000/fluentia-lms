@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -181,7 +182,7 @@ function Sparkline({ values }) {
 
 // ─── Main Component ───────────────────────────────────────────
 export default function StudentAssessments() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const [expandedId, setExpandedId] = useState(null)
   const [mood, setMood] = useState(null)

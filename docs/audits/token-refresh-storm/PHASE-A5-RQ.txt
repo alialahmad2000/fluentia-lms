@@ -1,0 +1,11 @@
+=== React Query client setup ===
+src/lib/queryClient.js:4:export const queryClient = new QueryClient({
+
+=== Blanket invalidateQueries() calls (no filter args) ===
+
+=== queryClient.clear() calls ===
+src/features/chat/mutations/useMarkRead.js:19:      pendingRef.current.clear()
+src/stores/authStore.js:98:        queryClient.clear()
+src/stores/authStore.js:169:    qc.clear()
+src/components/ImpersonationBanner.jsx:17:    queryClient.clear()
+src/components/ImpersonateButton.jsx:15:    queryClient.clear()

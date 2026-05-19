@@ -1,5 +1,5 @@
 import { Pin, X } from 'lucide-react'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthProfile } from '../../../../stores/authStore'
 import { useTogglePin } from '../../mutations/useTogglePin'
 
 function timeAgoAr(iso) {
@@ -16,7 +16,7 @@ function timeAgoAr(iso) {
 }
 
 export default function PinnedCard({ message, onScrollTo }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const togglePin = useTogglePin(message?.channel_id)
   const isStaff = ['trainer', 'admin'].includes(profile?.role)
 

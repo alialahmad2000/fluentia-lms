@@ -7,7 +7,7 @@ import {
   PenLine, MessageSquare, AlertCircle, Play, Radar, TrendingUp,
   Shield, ChevronDown, ChevronUp,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
@@ -85,7 +85,7 @@ export default function StudentAdaptiveTest() {
 // TEST MENU — Choose test type + view history
 // ═══════════════════════════════════════════════════════════════
 function TestMenu({ onStart }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [showHistory, setShowHistory] = useState(false)
 
   // Fetch test history
@@ -270,7 +270,7 @@ function TestMenu({ onStart }) {
 // TEST TAKER — The actual test interface
 // ═══════════════════════════════════════════════════════════════
 function TestTaker({ testType, onFinish, onBack }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [sessionId, setSessionId] = useState(null)
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [selectedAnswer, setSelectedAnswer] = useState(null)

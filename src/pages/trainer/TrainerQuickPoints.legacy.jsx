@@ -3,7 +3,7 @@ import lazyRetry from '../../utils/lazyRetry'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Zap, Plus, Minus, Undo2, ChevronDown, Loader2, UserCheck } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import SubTabs from '../../components/common/SubTabs'
 
@@ -45,7 +45,7 @@ export default function TrainerQuickPoints() {
 }
 
 function QuickPointsContent() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const role = profile?.role
   const isAdmin = role === 'admin'

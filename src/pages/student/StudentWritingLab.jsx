@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import SubTabs from '../../components/common/SubTabs'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile, useAuthStudentData } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import SuccessConfetti from '../../components/illustrations/SuccessConfetti'
 
@@ -68,7 +68,7 @@ function scoreLabelColor(label) {
 
 export default function StudentWritingLab() {
   const [activeTab, setActiveTab] = useState('sentences')
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
 
   // Check IELTS access
   const hasIELTSAccess = useMemo(() => {
@@ -159,7 +159,7 @@ function LockedIELTSPanel() {
 // SENTENCE BUILDING PANEL
 // ═══════════════════════════════════════════════════════════
 function SentenceBuildingPanel() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [text, setText] = useState('')
   const [feedback, setFeedback] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -575,7 +575,7 @@ function SentenceFeedback({ feedback }) {
 // IELTS PANEL (Task 1 & Task 2)
 // ═══════════════════════════════════════════════════════════
 function IELTSPanel({ taskType, prompts, title, subtitle, minWords }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const [text, setText] = useState('')
   const [feedback, setFeedback] = useState(null)
   const [loading, setLoading] = useState(false)

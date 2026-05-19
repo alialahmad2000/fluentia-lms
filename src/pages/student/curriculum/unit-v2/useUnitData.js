@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthStudentData } from '../../../../stores/authStore'
 import { supabase } from '../../../../lib/supabase'
 import { useUnitProgress } from '../../../../hooks/useUnitProgress'
 import { useUnitStar } from '../../../../hooks/useUnitStar'
@@ -77,7 +77,7 @@ function deriveStarRanking(unitStarData, studentId) {
 // Main hook
 // ---------------------------------------------------------------------------
 export function useUnitData(unitId) {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const studentId = studentData?.id ?? null
   const groupId   = studentData?.group_id ?? null
 

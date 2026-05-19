@@ -5,7 +5,7 @@ import {
   Video, Plus, Eye, Zap, Trophy, CheckCircle2, XCircle, Clock, Send, Loader2,
   ExternalLink, Edit3, Trash2, Users, Star, ChevronDown, ChevronUp, Hash, Bell,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast as flToast } from '../../components/ui/FluentiaToast'
 
@@ -26,7 +26,7 @@ const PLATFORM_LABELS = {
 }
 
 export default function AdminCreatorChallenge() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [showCreate, setShowCreate] = useState(false)
   const [editingId, setEditingId] = useState(null)

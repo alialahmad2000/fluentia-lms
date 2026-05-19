@@ -1,0 +1,418 @@
+=== Total bare useAuthStore() call sites ===
+     376
+
+=== Per-file count ===
+  18 src/App.jsx
+   8 src/hooks/useSpeakingHub.js
+   5 src/components/onboarding/OnboardingModal.jsx
+   4 src/components/onboarding/ForcePasswordChange.jsx
+   4 src/components/curriculum/RecordingTab.jsx
+   4 src/components/PackageGate.jsx
+   3 src/pages/trainer/TrainerSettings.jsx
+   3 src/pages/student/curriculum/UnitContent.jsx
+   3 src/pages/student/StudentWritingLab.jsx
+   3 src/pages/student/StudentQuiz.jsx
+   3 src/pages/student/StudentProfile.jsx
+   3 src/pages/dev/AudioPlayerTest.jsx
+   3 src/pages/admin/AdminRecordings.jsx
+   3 src/hooks/trainer/useTrainerIELTSStudents.js
+   3 src/hooks/trainer/useMyGrowth.js
+   3 src/components/layout/TrainerHeader.jsx
+   3 src/components/layout/MobileDrawer.jsx
+   3 src/components/layout/LayoutShell.legacy.jsx
+   3 src/components/layout/LayoutShell.jsx
+   3 src/components/layout/Header.jsx
+   3 src/components/ielts/IELTSGuard.jsx
+   3 src/components/PartnerRoute.jsx
+   2 src/pages/trainer/v2/interventions/InterventionModal.jsx
+   2 src/pages/trainer/TrainerWeeklyGrading.legacy.jsx
+   2 src/pages/trainer/TrainerOnboarding.jsx
+   2 src/pages/trainer/TrainerGrading.legacy.jsx
+   2 src/pages/student/ielts/writing/WritingWorkspace.jsx
+   2 src/pages/student/ielts/writing/WritingLab.jsx
+   2 src/pages/student/ielts/speaking/SpeakingSession.jsx
+   2 src/pages/student/ielts/speaking/SpeakingLab.jsx
+   2 src/pages/student/ielts/reading/ReadingLab.jsx
+   2 src/pages/student/ielts/plan/IELTSPlanView.jsx
+   2 src/pages/student/ielts/mock/MockPreFlight.jsx
+   2 src/pages/student/ielts/mock/MockFlow.jsx
+   2 src/pages/student/ielts/mock/MockCenter.jsx
+   2 src/pages/student/ielts/listening/ListeningSectionModule.jsx
+   2 src/pages/student/ielts/listening/ListeningPractice.jsx
+   2 src/pages/student/ielts/listening/ListeningLab.jsx
+   2 src/pages/student/ielts/diagnostic/DiagnosticFlow.jsx
+   2 src/pages/student/ielts/StudentIELTSHub.jsx
+   2 src/pages/student/ielts-v2/_layout/IELTSV2Gate.jsx
+   2 src/pages/student/curriculum/unit-v2/hooks/useUnitSkillSnapshot.js
+   2 src/pages/student/curriculum/unit-v2/hooks/useUnitDebriefData.js
+   2 src/pages/student/curriculum/unit-v2/UnitBrief.jsx
+   2 src/pages/student/curriculum/unit-v2/LearningShadow.jsx
+   2 src/pages/student/StudentSpelling.jsx
+   2 src/pages/student/StudentDuels.jsx
+   2 src/pages/student/StudentDashboard.jsx
+   2 src/pages/student/StudentCurriculum.jsx
+   2 src/pages/student/StudentAdaptiveTest.jsx
+   2 src/pages/student/ProgressDashboard.jsx
+   2 src/pages/student/LevelJourneyMap.jsx
+   2 src/pages/public/LoginPage.jsx
+   2 src/hooks/useUserInterests.js
+   2 src/hooks/useCompetition.js
+   2 src/hooks/useActivityTracker.js
+   2 src/hooks/trainer/useNabih.js
+   2 src/hooks/trainer/useClassPrep.js
+   2 src/features/chat/queries/useGroupChannels.js
+   2 src/design-system/HeaderThemeButton.jsx
+   2 src/components/student/JourneyMapHeroCTA.jsx
+   2 src/components/recordings/UnitRecordingsSection.jsx
+   2 src/components/layout/TrainerHeaderThemeButton.jsx
+   2 src/components/layout/Sidebar.jsx
+   2 src/components/gamification/GamificationProvider.jsx
+   2 src/components/ImpersonationBanner.jsx
+   2 src/components/GlobalSearch.jsx
+   1 src/pages/trainer/v2/cockpit/widgets/NabihBriefingCard.jsx
+   1 src/pages/trainer/v2/cockpit/widgets/MorningRitualCard.jsx
+   1 src/pages/trainer/v2/cockpit/widgets/GradingPreviewStrip.jsx
+   1 src/pages/trainer/v2/cockpit/widgets/AgendaStrip.jsx
+   1 src/pages/trainer/v2/InterventionsPage.deprecated.jsx
+   1 src/pages/trainer/v2/CockpitPage.jsx
+   1 src/pages/trainer/v2/ClassDebriefPage.jsx
+   1 src/pages/trainer/WeeklyReport.deprecated.jsx
+   1 src/pages/trainer/TrainerTeams.legacy.jsx
+   1 src/pages/trainer/TrainerStudentView.legacy.jsx
+   1 src/pages/trainer/TrainerSchedule.deprecated.jsx
+   1 src/pages/trainer/TrainerQuizGenerator.legacy.jsx
+   1 src/pages/trainer/TrainerQuickPoints.legacy.jsx
+   1 src/pages/trainer/TrainerQuickNotes.legacy.jsx
+   1 src/pages/trainer/TrainerProgressReports.legacy.jsx
+   1 src/pages/trainer/TrainerProgressReports.jsx
+   1 src/pages/trainer/TrainerProgressMatrix.legacy.jsx
+   1 src/pages/trainer/TrainerNotes.deprecated.jsx
+   1 src/pages/trainer/TrainerLibrary.deprecated.jsx
+   1 src/pages/trainer/TrainerLessonPlanner.legacy.jsx
+   1 src/pages/trainer/TrainerGroupChat.deprecated.jsx
+   1 src/pages/trainer/TrainerDashboard.legacy.jsx
+   1 src/pages/trainer/TrainerCurriculum.legacy.jsx
+   1 src/pages/trainer/TrainerChallenges.deprecated.jsx
+   1 src/pages/trainer/TrainerAttendance.legacy.jsx
+   1 src/pages/trainer/TrainerAssignments.legacy.jsx
+   1 src/pages/trainer/TrainerAIAssistant.legacy.jsx
+   1 src/pages/trainer/StudentProgressDetail.jsx
+   1 src/pages/trainer/ReportReview.jsx
+   1 src/pages/trainer/RecentMasteryAttemptsWidget.jsx
+   1 src/pages/trainer/MyStudents.legacy.jsx
+   1 src/pages/trainer/MyNotes.deprecated.jsx
+   1 src/pages/student/vocabulary/VocabularyFlashcards.jsx
+   1 src/pages/student/verbs/IrregularVerbsPractice.jsx
+   1 src/pages/student/placement/PlacementTestPage.jsx
+   1 src/pages/student/placement/PlacementResultsPage.jsx
+   1 src/pages/student/ielts/writing/WritingTaskPicker.jsx
+   1 src/pages/student/ielts/writing/WritingHistory.jsx
+   1 src/pages/student/ielts/writing/WritingFeedback.jsx
+   1 src/pages/student/ielts/speaking/SpeakingHistory.jsx
+   1 src/pages/student/ielts/speaking/SpeakingFeedback.jsx
+   1 src/pages/student/ielts/reading/ReadingSkillModule.jsx
+   1 src/pages/student/ielts/reading/ReadingPassagePractice.jsx
+   1 src/pages/student/ielts/plan/IELTSPlanEdit.jsx
+   1 src/pages/student/ielts/mock/MockResult.jsx
+   1 src/pages/student/ielts/mock/MockHistory.jsx
+   1 src/pages/student/ielts/errors/ErrorBankReview.jsx
+   1 src/pages/student/ielts/errors/ErrorBankHome.jsx
+   1 src/pages/student/ielts-v2/_helpers/resolveStudentId.js
+   1 src/pages/student/ielts-v2/Mock/index.jsx
+   1 src/pages/student/ielts-v2/Journey.jsx
+   1 src/pages/student/ielts-v2/Home.jsx
+   1 src/pages/student/curriculum/unit-v2/useUnitData.js
+   1 src/pages/student/curriculum/unit-v2/hooks/useUnitBriefData.js
+   1 src/pages/student/curriculum/unit-v2/UnitIntroCinematic.jsx
+   1 src/pages/student/curriculum/tabs/WritingTab.jsx
+   1 src/pages/student/curriculum/tabs/VocabularyTab.jsx
+   1 src/pages/student/curriculum/tabs/VocabularyExercises.jsx
+   1 src/pages/student/curriculum/tabs/SpeakingTab.jsx
+   1 src/pages/student/curriculum/tabs/ReadingTab.jsx
+   1 src/pages/student/curriculum/tabs/PronunciationTab.jsx
+   1 src/pages/student/curriculum/tabs/ListeningTab.jsx
+   1 src/pages/student/curriculum/tabs/GrammarTab.jsx
+   1 src/pages/student/curriculum/_useCurriculumData.js
+   1 src/pages/student/curriculum/UnitContentOriginal.jsx
+   1 src/pages/student/curriculum/CurriculumBrowser.jsx
+   1 src/pages/student/assessment/UnitMasteryResultPage.jsx
+   1 src/pages/student/assessment/UnitMasteryPage.jsx
+   1 src/pages/student/StudentWeeklyTasks.jsx
+   1 src/pages/student/StudentWeeklyTaskDetail.jsx
+   1 src/pages/student/StudentVoiceJournal.jsx
+   1 src/pages/student/StudentVocabulary.jsx
+   1 src/pages/student/StudentSuccessStories.jsx
+   1 src/pages/student/StudentStudyPlan.jsx
+   1 src/pages/student/StudentStreakBattles.jsx
+   1 src/pages/student/StudentSpeaking.jsx
+   1 src/pages/student/StudentSchedule.deprecated.jsx
+   1 src/pages/student/StudentReferral.jsx
+   1 src/pages/student/StudentRecordings.deprecated.jsx
+   1 src/pages/student/StudentPronunciation.jsx
+   1 src/pages/student/StudentPeerRecognition.jsx
+   1 src/pages/student/StudentMessages.jsx
+   1 src/pages/student/StudentLibrary.jsx
+   1 src/pages/student/StudentLeaderboard.jsx
+   1 src/pages/student/StudentGroupChat.jsx
+   1 src/pages/student/StudentGrades.jsx
+   1 src/pages/student/StudentExercises.jsx
+   1 src/pages/student/StudentEvents.jsx
+   1 src/pages/student/StudentErrorPatterns.jsx
+   1 src/pages/student/StudentDashboard.legacy.jsx
+   1 src/pages/student/StudentCreatorChallenge.deprecated.jsx
+   1 src/pages/student/StudentConversation.deprecated.jsx
+   1 src/pages/student/StudentChatbot.jsx
+   1 src/pages/student/StudentChallenges.deprecated.jsx
+   1 src/pages/student/StudentCertificate.jsx
+   1 src/pages/student/StudentBilling.jsx
+   1 src/pages/student/StudentAvatar.jsx
+   1 src/pages/student/StudentAssignments.jsx
+   1 src/pages/student/StudentAssessments.jsx
+   1 src/pages/student/StudentActivityFeed.jsx
+   1 src/pages/student/StudentAIInsights.jsx
+   1 src/pages/student/ReportView.jsx
+   1 src/pages/student/ProgressReports.jsx
+   1 src/pages/student/LockedFeature.jsx
+   1 src/pages/student/LevelExitTest.jsx
+   1 src/pages/student/DailyReview.jsx
+   1 src/pages/student/AccountPausedPage.jsx
+   1 src/pages/shared/InteractiveCurriculumUnits.jsx
+   1 src/pages/shared/InteractiveCurriculumPage.jsx
+   1 src/pages/shared/InteractiveCurriculumLevels.jsx
+   1 src/pages/admin/atelier-preview/AtelierPreviewLayout.jsx
+   1 src/pages/admin/announcements/ComposeAnnouncement.jsx
+   1 src/pages/admin/CompetitionAdmin.jsx
+   1 src/pages/admin/AffiliatePayouts.jsx
+   1 src/pages/admin/AffiliateDetail.jsx
+   1 src/pages/admin/AdminWeeklyTasks.jsx
+   1 src/pages/admin/AdminSmartScheduling.jsx
+   1 src/pages/admin/AdminPayments.jsx
+   1 src/pages/admin/AdminHolidays.jsx
+   1 src/pages/admin/AdminDashboard.jsx
+   1 src/pages/admin/AdminCreatorChallenge.deprecated.jsx
+   1 src/pages/admin/AdminChurnPrediction.jsx
+   1 src/pages/admin/AdminActionCenter.jsx
+   1 src/layouts/TrainerLayout.jsx
+   1 src/layouts/PartnerLayout.jsx
+   1 src/hooks/useVocabularyChunks.js
+   1 src/hooks/useSavedWords.js
+   1 src/hooks/useRecordingProgress.js
+   1 src/hooks/useRecordingNotes.js
+   1 src/hooks/useRecordingBookmarks.js
+   1 src/hooks/usePageTracking.js
+   1 src/hooks/useActivityAttempts.js
+   1 src/hooks/trainer/useTrainerOnboarding.js
+   1 src/hooks/trainer/useTrainerCockpit.js
+   1 src/hooks/trainer/useStudentPulse.js
+   1 src/hooks/trainer/useInterventionPreview.js
+   1 src/hooks/trainer/useGradingQueue.js
+   1 src/hooks/trainer/useCompetitionView.js
+   1 src/hooks/trainer/useClassPrepContext.js
+   1 src/hooks/ielts/useDiagnosticStateV2.js
+   1 src/hooks/ielts/useDiagnosticResultV2.js
+   1 src/features/chat/realtime/useTypingIndicator.js
+   1 src/features/chat/realtime/usePresence.js
+   1 src/features/chat/pages/GroupChatPage.jsx
+   1 src/features/chat/pages/GroupChatLanding.jsx
+   1 src/features/chat/mutations/useSendMessage.js
+   1 src/features/chat/mutations/useReact.js
+   1 src/features/chat/mutations/useMarkRead.js
+   1 src/features/chat/mutations/useEditMessage.js
+   1 src/features/chat/components/premium/UnifiedMessageStream.jsx
+   1 src/features/chat/components/premium/PremiumComposer.jsx
+   1 src/features/chat/components/premium/PinnedCard.jsx
+   1 src/features/chat/components/premium/MessageGroupPremium.jsx
+   1 src/features/chat/components/MessageList.jsx
+   1 src/features/chat/components/MessageBubble.jsx
+   1 src/design-system/ThemeProvider.jsx
+   1 src/components/trainer/cockpit-v3/CockpitHero.jsx
+   1 src/components/trainer/QuickPointsPopup.jsx
+   1 src/components/trainer/QuickNotePopup.jsx
+   1 src/components/trainer/PostClassSummary.jsx
+   1 src/components/trainer/FloatingToolbar.jsx
+   1 src/components/trainer/AttendancePopup.jsx
+   1 src/components/student/vocabulary/ReviewOverlay.jsx
+   1 src/components/student/dashboard/LiveLevelActivityFeed.jsx
+   1 src/components/student/StudentFAB.jsx
+   1 src/components/student/SavedWordsPanel.jsx
+   1 src/components/student/NotesPanel.jsx
+   1 src/components/student/ClassSummaryView.jsx
+   1 src/components/recordings/RecordingPlayerCascade.jsx
+   1 src/components/pwa/PWAInstallBanner.jsx
+   1 src/components/notifications/EnableNotificationsPrompt.jsx
+   1 src/components/layout/TrainerSidebar.jsx
+   1 src/components/layout/TrainerMobileBar.jsx
+   1 src/components/layout/Sidebar.legacy.jsx
+   1 src/components/layout/NotificationSettings.jsx
+   1 src/components/layout/NotificationCenter.jsx
+   1 src/components/layout/MobileBar.jsx
+   1 src/components/layout/Header.legacy.jsx
+   1 src/components/interactive-curriculum/InteractiveWritingTab.jsx
+   1 src/components/interactive-curriculum/InteractiveSpeakingTab.jsx
+   1 src/components/interactive-curriculum/InteractiveRecordingTab.jsx
+   1 src/components/i18n/LanguageBootstrap.jsx
+   1 src/components/gamification/MysteryBox.jsx
+   1 src/components/gamification/DailyChallenge.deprecated.jsx
+   1 src/components/curriculum/VocabGainTicker.jsx
+   1 src/components/curriculum/PronunciationActivity.jsx
+   1 src/components/competition/VictoryModal.jsx
+   1 src/components/competition/MissionBriefing/index.jsx
+   1 src/components/competition/EncourageButton.jsx
+   1 src/components/ai/StudentWowMoments.jsx
+   1 src/components/ai/AIFloatingHelper.jsx
+   1 src/components/ai/AIContentRecommendations.jsx
+   1 src/components/PageHelp.jsx
+   1 src/components/ImpersonateButton.jsx
+   1 src/components/Accessibility/A11yFloatingButton.jsx
+
+=== Sample of destructuring patterns (first 150 lines of -A2 output) ===
+src/App.jsx:248:  const profile = useAuthStore((s) => s.profile)
+src/App.jsx:249:  const studentData = useAuthStore((s) => s.studentData)
+src/App.jsx-250-  // Non-students always pass
+src/App.jsx-251-  if (profile?.role !== 'student') return children
+--
+src/App.jsx:381:  const user = useAuthStore((s) => s.user)
+src/App.jsx:382:  const profile = useAuthStore((s) => s.profile)
+src/App.jsx:383:  const loading = useAuthStore((s) => s.loading)
+src/App.jsx:384:  const impersonation = useAuthStore((s) => s.impersonation)
+src/App.jsx:385:  const _realProfile = useAuthStore((s) => s._realProfile)
+src/App.jsx-386-
+src/App.jsx-387-  if (loading) return <LoadingSkeleton />
+--
+src/App.jsx:404:  const profile = useAuthStore((s) => s.profile)
+src/App.jsx:405:  const isImpersonating = useAuthStore((s) => s.isImpersonating)
+src/App.jsx-406-  const navigate = useNavigate()
+src/App.jsx-407-  const location = useLocation()
+--
+src/App.jsx:435:  const profile = useAuthStore((s) => s.profile)
+src/App.jsx:436:  const trainerData = useAuthStore((s) => s.trainerData)
+src/App.jsx:437:  const impersonation = useAuthStore((s) => s.impersonation)
+src/App.jsx:438:  const _realProfile = useAuthStore((s) => s._realProfile)
+src/App.jsx-439-  // Admin never needs trainer onboarding (even when impersonating as trainer)
+src/App.jsx-440-  if (_realProfile?.role === 'admin' || profile?.role === 'admin') {
+--
+src/App.jsx:452:  const user = useAuthStore((s) => s.user)
+src/App.jsx:453:  const profile = useAuthStore((s) => s.profile)
+src/App.jsx:454:  const loading = useAuthStore((s) => s.loading)
+src/App.jsx-455-
+src/App.jsx-456-  if (loading) return <LoadingSkeleton />
+--
+src/App.jsx:475:  const initialize = useAuthStore((s) => s.initialize)
+src/App.jsx:476:  const profile = useAuthStore((s) => s.profile)
+src/App.jsx-477-
+src/App.jsx-478-  useEffect(() => {
+src/features/chat/mutations/useReact.js:7:  const { profile } = useAuthStore()
+src/features/chat/mutations/useReact.js-8-
+src/features/chat/mutations/useReact.js-9-  return useMutation({
+src/features/chat/mutations/useSendMessage.js:7:  const { profile } = useAuthStore()
+src/features/chat/mutations/useSendMessage.js-8-
+src/features/chat/mutations/useSendMessage.js-9-  return useMutation({
+src/features/chat/mutations/useMarkRead.js:7:  const { profile } = useAuthStore()
+src/features/chat/mutations/useMarkRead.js-8-  const qc = useQueryClient()
+src/features/chat/mutations/useMarkRead.js-9-  const pendingRef = useRef(new Set())
+src/features/chat/realtime/usePresence.js:6:  const { profile } = useAuthStore()
+src/features/chat/realtime/usePresence.js-7-  const [onlineUserIds, setOnlineUserIds] = useState([])
+src/features/chat/realtime/usePresence.js-8-
+src/features/chat/mutations/useEditMessage.js:9:  const { profile } = useAuthStore()
+src/features/chat/mutations/useEditMessage.js-10-
+src/features/chat/mutations/useEditMessage.js-11-  return useMutation({
+src/features/chat/queries/useGroupChannels.js:6:  const { profile } = useAuthStore()
+src/features/chat/queries/useGroupChannels.js-7-
+src/features/chat/queries/useGroupChannels.js-8-  return useQuery({
+--
+src/features/chat/queries/useGroupChannels.js:26:  const { profile } = useAuthStore()
+src/features/chat/queries/useGroupChannels.js-27-
+src/features/chat/queries/useGroupChannels.js-28-  return useQuery({
+src/features/chat/realtime/useTypingIndicator.js:9:  const { profile } = useAuthStore()
+src/features/chat/realtime/useTypingIndicator.js-10-  const [typers, setTypers] = useState([])
+src/features/chat/realtime/useTypingIndicator.js-11-  const channelRef = useRef(null)
+src/features/chat/components/MessageBubble.jsx:46:  const { profile } = useAuthStore()
+src/features/chat/components/MessageBubble.jsx-47-  const [showReactionBar, setShowReactionBar] = useState(false)
+src/features/chat/components/MessageBubble.jsx-48-
+src/features/chat/components/MessageList.jsx:25:  const { profile } = useAuthStore()
+src/features/chat/components/MessageList.jsx-26-
+src/features/chat/components/MessageList.jsx-27-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useChannelMessages(channelId)
+src/features/chat/components/premium/MessageGroupPremium.jsx:15:  const { profile } = useAuthStore()
+src/features/chat/components/premium/MessageGroupPremium.jsx-16-  if (!messages.length) return null
+src/features/chat/components/premium/MessageGroupPremium.jsx-17-
+src/features/chat/pages/GroupChatPage.jsx:22:  const { profile } = useAuthStore()
+src/features/chat/pages/GroupChatPage.jsx-23-  const [searchOpen, setSearchOpen] = useState(false)
+src/features/chat/pages/GroupChatPage.jsx-24-  const [headerCollapsed, setHeaderCollapsed] = useState(false)
+src/features/chat/components/premium/UnifiedMessageStream.jsx:95:  const { profile } = useAuthStore()
+src/features/chat/components/premium/UnifiedMessageStream.jsx-96-  const qc = useQueryClient()
+src/features/chat/components/premium/UnifiedMessageStream.jsx-97-  const virtuosoRef = useRef(null)
+src/features/chat/components/premium/PremiumComposer.jsx:29:  const { profile } = useAuthStore()
+src/features/chat/components/premium/PremiumComposer.jsx-30-  const [input, setInput] = useState('')
+src/features/chat/components/premium/PremiumComposer.jsx-31-  const [uploading, setUploading] = useState(false)
+src/features/chat/components/premium/PinnedCard.jsx:19:  const { profile } = useAuthStore()
+src/features/chat/components/premium/PinnedCard.jsx-20-  const togglePin = useTogglePin(message?.channel_id)
+src/features/chat/components/premium/PinnedCard.jsx-21-  const isStaff = ['trainer', 'admin'].includes(profile?.role)
+src/features/chat/pages/GroupChatLanding.jsx:9:  const { profile, studentData } = useAuthStore()
+src/features/chat/pages/GroupChatLanding.jsx-10-
+src/features/chat/pages/GroupChatLanding.jsx-11-  useEffect(() => {
+src/components/ImpersonationBanner.jsx:7:  const impersonation = useAuthStore((s) => s.impersonation)
+src/components/ImpersonationBanner.jsx:8:  const stopImpersonation = useAuthStore((s) => s.stopImpersonation)
+src/components/ImpersonationBanner.jsx-9-
+src/components/ImpersonationBanner.jsx-10-  if (!impersonation) return null
+src/components/PartnerRoute.jsx:7:  const user = useAuthStore((s) => s.user)
+src/components/PartnerRoute.jsx:8:  const profile = useAuthStore((s) => s.profile)
+src/components/PartnerRoute.jsx:9:  const loading = useAuthStore((s) => s.loading)
+src/components/PartnerRoute.jsx-10-
+src/components/PartnerRoute.jsx-11-  const { data, isPending } = useQuery({
+src/components/PageHelp.jsx:25:  const { profile } = useAuthStore()
+src/components/PageHelp.jsx-26-  const role = profile?.role
+src/components/PageHelp.jsx-27-
+src/components/GlobalSearch.jsx:34:  const user = useAuthStore((s) => s.user)
+src/components/GlobalSearch.jsx:35:  const profile = useAuthStore((s) => s.profile)
+src/components/GlobalSearch.jsx-36-  const navigate = useNavigate()
+src/components/GlobalSearch.jsx-37-
+src/components/ImpersonateButton.jsx:6:  const { startImpersonation, impersonation } = useAuthStore()
+src/components/ImpersonateButton.jsx-7-
+src/components/ImpersonateButton.jsx-8-  // Don't show while already impersonating
+src/components/PackageGate.jsx:15:  const studentData = useAuthStore((s) => s.studentData)
+src/components/PackageGate.jsx:16:  const profile = useAuthStore((s) => s.profile)
+src/components/PackageGate.jsx-17-  // Non-students (admin/trainer) always have access
+src/components/PackageGate.jsx-18-  if (profile?.role !== 'student') return true
+--
+src/components/PackageGate.jsx:23:  const studentData = useAuthStore((s) => s.studentData)
+src/components/PackageGate.jsx:24:  const profile = useAuthStore((s) => s.profile)
+src/components/PackageGate.jsx-25-
+src/components/PackageGate.jsx-26-  // Non-students always see content
+src/components/interactive-curriculum/InteractiveSpeakingTab.jsx:21:  const user = useAuthStore((s) => s.user)
+src/components/interactive-curriculum/InteractiveSpeakingTab.jsx-22-  const queryClient = useQueryClient()
+src/components/interactive-curriculum/InteractiveSpeakingTab.jsx-23-  const [activeTopic, setActiveTopic] = useState(0)
+src/components/interactive-curriculum/InteractiveWritingTab.jsx:96:  const user = useAuthStore((s) => s.user)
+src/components/interactive-curriculum/InteractiveWritingTab.jsx-97-  const queryClient = useQueryClient()
+src/components/interactive-curriculum/InteractiveWritingTab.jsx-98-  const [expandedStudent, setExpandedStudent] = useState(highlightStudent || null)
+src/components/recordings/RecordingPlayerCascade.jsx:35:  const { user } = useAuthStore()
+src/components/recordings/RecordingPlayerCascade.jsx-36-  const [currentTier, setCurrentTier] = useState(1)
+src/components/recordings/RecordingPlayerCascade.jsx-37-  const [retryCount, setRetryCount] = useState(0)
+src/components/curriculum/RecordingTab.jsx:21:  const profile = useAuthStore((s) => s.profile)
+src/components/curriculum/RecordingTab.jsx-22-  const role = profile?.role || 'student'
+src/components/curriculum/RecordingTab.jsx-23-  const isStaff = role === 'admin' || role === 'trainer'
+--
+src/components/curriculum/RecordingTab.jsx:197:  const user = useAuthStore((s) => s.user)
+src/components/curriculum/RecordingTab.jsx-198-  const queryClient = useQueryClient()
+src/components/curriculum/RecordingTab.jsx-199-  const [url, setUrl] = useState(existing?.google_drive_url || '')
+--
+src/components/curriculum/RecordingTab.jsx:338:  const user = useAuthStore((s) => s.user)
+src/components/curriculum/RecordingTab.jsx:339:  const studentData = useAuthStore((s) => s.studentData)
+src/components/curriculum/RecordingTab.jsx-340-  const groupId = studentData?.group_id
+src/components/curriculum/RecordingTab.jsx-341-  const [requested, setRequested] = useState(false)
+src/components/interactive-curriculum/InteractiveRecordingTab.jsx:178:  const user = useAuthStore((s) => s.user)
+src/components/interactive-curriculum/InteractiveRecordingTab.jsx-179-  const queryClient = useQueryClient()
+src/components/interactive-curriculum/InteractiveRecordingTab.jsx-180-  const [url, setUrl] = useState(existing?.google_drive_url || '')
+src/components/gamification/GamificationProvider.jsx:119:  const profile = useAuthStore((s) => s.profile)
+src/components/gamification/GamificationProvider.jsx:120:  const studentData = useAuthStore((s) => s.studentData)
+src/components/gamification/GamificationProvider.jsx-121-  const [unlockedAchievement, setUnlockedAchievement] = useState(null)
+src/components/gamification/GamificationProvider.jsx-122-  const [levelUp, setLevelUp] = useState(null)
+src/components/recordings/UnitRecordingsSection.jsx:20:  const { studentData } = useAuthStore()
+src/components/recordings/UnitRecordingsSection.jsx-21-  const [activeRecording, setActiveRecording] = useState(null)
+src/components/recordings/UnitRecordingsSection.jsx-22-
+--
+src/components/recordings/UnitRecordingsSection.jsx:182:  const { user } = useAuthStore()
+src/components/recordings/UnitRecordingsSection.jsx-183-  const queryClient = useQueryClient()
+src/components/recordings/UnitRecordingsSection.jsx-184-  const playerContainerRef = useRef(null)
+src/components/layout/Header.jsx:16:  const user = useAuthStore((s) => s.user)
+src/components/layout/Header.jsx:17:  const profile = useAuthStore((s) => s.profile)
+src/components/layout/Header.jsx:18:  const signOut = useAuthStore((s) => s.signOut)

@@ -10,7 +10,7 @@ import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar,
   Legend, ResponsiveContainer, Tooltip,
 } from 'recharts'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { formatDateAr } from '../../utils/dateHelpers'
@@ -81,7 +81,7 @@ function getStudentName(s) {
 // ─── Main Component ────────────────────────────────────────
 
 export default function TrainerStudentView() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const role = profile?.role
   const isAdmin = role === 'admin'
   const [selectedGroup, setSelectedGroup] = useState('')

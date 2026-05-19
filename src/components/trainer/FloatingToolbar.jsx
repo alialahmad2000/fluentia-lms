@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLocation, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
@@ -25,7 +26,7 @@ export default function FloatingToolbar() {
     { key: 'progress', icon: '📊', label: t('trainer.toolbar.progress', 'تقدم') },
     { key: 'helpRequests', icon: '❓', label: t('nav.trainer.help') },
   ]
-  const { profile, trainerData } = useAuthStore()
+  const { profile, trainerData } = useAuthStore(useShallow((s) => ({ profile: s.profile, trainerData: s.trainerData })))
   const location = useLocation()
   const { isClassMode, startClass, endClass } = useClassMode()
   const [activePopup, setActivePopup] = useState(null)

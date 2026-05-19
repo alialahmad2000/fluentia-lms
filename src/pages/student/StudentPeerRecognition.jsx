@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Heart, Send, Loader2, Users, Star } from 'lucide-react'
@@ -7,7 +8,7 @@ import { supabase } from '../../lib/supabase'
 import { timeAgo } from '../../utils/dateHelpers'
 
 export default function StudentPeerRecognition() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const [selectedStudent, setSelectedStudent] = useState(null)
   const [message, setMessage] = useState('')

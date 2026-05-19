@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bell, BellOff, ChevronDown, ClipboardList, CalendarCheck, Trophy, MessageCircle, CreditCard, Brain, Settings, Swords } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { NOTIFICATION_TYPES } from '../../lib/constants'
 
@@ -95,7 +95,7 @@ function toArabicNum(n) {
 // ─── Main Component ────────────────────────────────────────
 export default function NotificationSettings() {
   const { t } = useTranslation()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
   const [openCategories, setOpenCategories] = useState({})
   // Local prefs state: { [notification_type]: boolean }

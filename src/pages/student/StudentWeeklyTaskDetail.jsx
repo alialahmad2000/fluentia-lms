@@ -8,7 +8,7 @@ import {
   ChevronLeft, ChevronRight, RotateCcw, Award, AlertCircle, Loader2,
   BookType, Sparkles, CalendarDays,
 } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { tracker } from '../../services/activityTracker'
@@ -31,7 +31,7 @@ const STATUS_LABELS = {
 
 export default function StudentWeeklyTaskDetail() {
   const { id } = useParams()
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const queryClient = useQueryClient()
 
   const { data: task, isLoading } = useQuery({

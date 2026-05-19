@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Share2, ExternalLink } from 'lucide-react'
@@ -60,7 +61,7 @@ function MemberAvatar({ name, size = 48 }) {
 /* ─── Main Modal ─────────────────────────────────────────────── */
 export default function VictoryModal() {
   const navigate = useNavigate()
-  const { profile, impersonation } = useAuthStore()
+  const { profile, impersonation } = useAuthStore(useShallow((s) => ({ profile: s.profile, impersonation: s.impersonation })))
   const profileId = impersonation?.userId ?? profile?.id
   const [showShareCard, setShowShareCard] = useState(false)
 

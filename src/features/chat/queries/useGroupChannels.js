@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthProfile } from '../../../stores/authStore'
 
 export function useGroupChannels(groupId) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   return useQuery({
     queryKey: ['group-channels', groupId],
@@ -23,7 +23,7 @@ export function useGroupChannels(groupId) {
 }
 
 export function useChannelUnreadCounts(groupId) {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
 
   return useQuery({
     queryKey: ['channel-unread-counts', groupId, profile?.id],

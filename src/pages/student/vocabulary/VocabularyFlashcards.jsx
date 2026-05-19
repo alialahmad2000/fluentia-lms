@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain, Flame } from 'lucide-react'
-import { useAuthStore } from '../../../stores/authStore'
+import { useAuthStudentData } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
 import VocabularyPractice from './components/VocabularyPractice'
@@ -53,7 +53,7 @@ function ListSkeleton() {
 }
 
 export default function VocabularyFlashcards() {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const [vocab, setVocab] = useState([])
   const [levels, setLevels] = useState([])
   const [loading, setLoading] = useState(true)

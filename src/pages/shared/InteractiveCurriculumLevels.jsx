@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
@@ -26,7 +27,7 @@ const item = {
 export default function InteractiveCurriculumLevels() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { profile, trainerData } = useAuthStore()
+  const { profile, trainerData } = useAuthStore(useShallow((s) => ({ profile: s.profile, trainerData: s.trainerData })))
   const role = profile?.role
   const basePath = role === 'admin' ? '/admin' : '/trainer'
 

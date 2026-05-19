@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, Suspense } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import lazyRetry from '../../utils/lazyRetry'
 import { motion } from 'framer-motion'
 import { Bot, Send, Loader2, Sparkles, Trash2, Brain, Crosshair, AlertTriangle } from 'lucide-react'
@@ -51,7 +52,7 @@ export default function StudentChatbot() {
 }
 
 function ChatContent() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)

@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import { useShallow } from 'zustand/react/shallow'
 import { useAuthStore } from '../../stores/authStore'
 
 export default function AccountPausedPage() {
   // ── ALL HOOKS FIRST ──────────────────────────────────────────────
-  const { profile, signOut } = useAuthStore()
+  const { profile, signOut } = useAuthStore(useShallow((s) => ({ profile: s.profile, signOut: s.signOut })))
   const navigate = useNavigate()
 
   const handleSignOut = async () => {

@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
+import { useShallow } from 'zustand/react/shallow'
 import { useState } from 'react'
 import { tracker } from '../../services/activityTracker'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -134,7 +135,7 @@ function SectionDivider({ label, collapsed }) {
 }
 
 export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) {
-  const { profile, studentData, signOut } = useAuthStore()
+  const { profile, studentData, signOut } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData, signOut: s.signOut })))
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
   const navigate = useNavigate()
   const role = profile?.role || 'student'

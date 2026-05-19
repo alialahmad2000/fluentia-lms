@@ -1,12 +1,13 @@
 // Phase F will flesh this out — stub routes the user to their group's general channel
 import { useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 
 export default function GroupChatLanding() {
   const navigate = useNavigate()
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
 
   useEffect(() => {
     let mounted = true

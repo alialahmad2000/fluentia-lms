@@ -15,7 +15,7 @@ import {
   LineChart, Line,
 } from 'recharts'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import UserAvatar from '../../components/common/UserAvatar'
 import { calculateUnitCompletion, groupProgressByUnit } from '../../utils/curriculumProgress'
 import { hasIELTSAccess } from '@/lib/packageAccess'
@@ -85,7 +85,7 @@ export default function StudentProgressDetail() {
   const { studentId } = useParams()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { profile: currentUser } = useAuthStore()
+  const currentUser = useAuthProfile()
   const [activeTab, setActiveTab] = useState(() => searchParams.get('tab') || 'overview')
 
   // ── Fetch student profile ────────────────────────

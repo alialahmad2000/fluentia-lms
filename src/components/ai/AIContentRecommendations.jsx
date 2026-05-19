@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { motion } from 'framer-motion'
 import { Sparkles, BookOpen, Loader2, RefreshCcw } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -8,7 +9,7 @@ import { ACADEMIC_LEVELS } from '../../lib/constants'
 const STORAGE_KEY = 'fluentia_ai_recommendations'
 
 export default function AIContentRecommendations() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const [recommendations, setRecommendations] = useState(null)
   const [loading, setLoading] = useState(false)
 

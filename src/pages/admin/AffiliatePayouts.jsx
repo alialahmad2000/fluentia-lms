@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthProfile } from '../../stores/authStore'
 import { Wallet, DollarSign, TrendingUp, Award, Loader2, CheckCircle2, XCircle, Eye } from 'lucide-react'
 
 const STATUS_TABS = [
@@ -21,7 +21,7 @@ const STATUS_CLS = {
 const STATUS_LABEL = { pending: 'قيد الإعداد', processing: 'قيد المعالجة', paid: 'مدفوعة', failed: 'فشلت' }
 
 export default function AffiliatePayouts() {
-  const { profile } = useAuthStore()
+  const profile = useAuthProfile()
   const qc = useQueryClient()
   const [tab, setTab] = useState('all')
   const [showGenerate, setShowGenerate] = useState(false)

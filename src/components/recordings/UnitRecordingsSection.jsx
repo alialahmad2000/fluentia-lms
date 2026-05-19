@@ -6,7 +6,7 @@ import { useRecordingProgress } from '../../hooks/useRecordingProgress'
 import { useRecordingChapters } from '../../hooks/useRecordingChapters'
 import { useRecordingBookmarks } from '../../hooks/useRecordingBookmarks'
 import { useSidebarWidth } from '../../hooks/useSidebarWidth'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStudentData, useAuthUser } from '../../stores/authStore'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
@@ -17,7 +17,7 @@ import RecordingPanel from './RecordingPanel'
 // ─── Main Section ────────────────────────────────────────
 export default function UnitRecordingsSection({ unitId }) {
   const { data: recordings = [], isLoading } = useUnitRecordings(unitId)
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const [activeRecording, setActiveRecording] = useState(null)
 
   if (isLoading) {
@@ -179,7 +179,7 @@ function PlayerModal({ recording, onClose }) {
   const { progress, save, forceSave } = useRecordingProgress(recording.id)
   const { chapters } = useRecordingChapters(recording.id)
   const { bookmarks, addBookmark } = useRecordingBookmarks(recording.id)
-  const { user } = useAuthStore()
+  const user = useAuthUser()
   const queryClient = useQueryClient()
   const playerContainerRef = useRef(null)
   const xpAwardedRef = useRef(false)

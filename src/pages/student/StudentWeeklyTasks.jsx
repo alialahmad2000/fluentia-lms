@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -124,7 +125,7 @@ function ProgressRing({ progress, size = 120, strokeWidth = 8 }) {
 
 // ── Component ──────────────────────────────────────────────────────
 export default function StudentWeeklyTasks() {
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const [weekOffset, setWeekOffset] = useState(0)
 
   const currentSunday = useMemo(() => getSunday(new Date()), [])

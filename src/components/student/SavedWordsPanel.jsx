@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { X, Trash2, Search, ChevronDown, ChevronUp } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStudentData } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 
 export default function SavedWordsPanel({ unitId, onClose }) {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStudentData()
   const studentId = studentData?.id
   const queryClient = useQueryClient()
   const [newWord, setNewWord] = useState('')
