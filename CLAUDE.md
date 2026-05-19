@@ -299,6 +299,19 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-19 — READING-TEXT-AUDIO-MISMATCH-URGENT: single source of truth for reading article
+- What: Fixed the urgent student-facing bug where the reading section's audio player could play Article A's audio while Article B's text was on screen (with karaoke bouncing around random words trying to follow the wrong audio).
+- **Root cause:** `src/components/audio/hooks/useAudioEngine.js` had a load-source `useEffect` with deps `[audioUrl, isMulti]` — it read from `segments[0].audio_url` but did not depend on `segments`. The hook's "segments identity changes handled separately" comment was misleading — the only other segments handler just updated a ref. So a new `segments` prop (different `audio_url`) never triggered the effect, leaving `<audio>.src` pinned to the previously loaded URL. In the canonical UI, the parent's `<motion.div key={reading.id}>` masked this by remounting the subtree on article change, but exit-animation timing under `AnimatePresence mode="wait"`, slow mobile loads, or any future refactor dropping the outer key would expose the latent bug.
+- **Fix:** Two surgical changes.
+  - `useAudioEngine.js`: introduced derived `sourceUrl = isMulti ? segments?.[0]?.audio_url ?? null : audioUrl ?? null`. Load-source effect now depends on `[sourceUrl]` and reliably reassigns `audio.src` on every source change. `sourceUrl === null` branch clears the `src` attribute so a stale URL can never persist.
+  - `ReadingTab.jsx`: added `key={reading.id}` directly on the `<SmartAudioPlayer>` JSX as belt-and-suspenders alongside the existing outer `<motion.div key>`.
+- **Verification:** `scripts/audits/reading-text-audio-mismatch/verify.cjs` — 10/10 PASS across 5 multi-article units (audio HEAD 200 + `audio/mpeg`, duration plausible vs body word count, all three of text/audio/karaoke anchored to the same `reading.id`).
+- **DB sanity (read-only):** 144 readings / 72 units, every unit has exactly 2 articles. 0 URL mismatches between `curriculum_readings.passage_audio_url` and `reading_passage_audio.full_audio_url`. 0 swapped-audio patterns. (11 rows have duration ratios 1.3–1.4× of a 2.5 wps estimate but all coincide with already-known broken `word_timestamps` counts — not a swap.)
+- **NOT TOUCHED:** No student data writes, no DB schema changes, no personalization UI re-enabled, no transcript content rewritten, listening flow untouched, no `vite build` run locally.
+- Files: `src/components/audio/hooks/useAudioEngine.js`, `src/pages/student/curriculum/tabs/ReadingTab.jsx`, `docs/audits/reading-text-audio-mismatch/{PHASE-A-REPORT,MANUAL-SPOT-CHECK,FINAL-REPORT}.md`, `scripts/audits/reading-text-audio-mismatch/{00-discover,01-cross-check-audio,02-cross-pair-check,03-get-test-unit}.mjs + verify.cjs + verify.json`, `prompts/agents/READING-TEXT-AUDIO-MISMATCH-URGENT-2026-05-18.md`
+- DB: None — Edge Functions: None
+- Status: Code complete — verifier 10/10 PASS. Manual browser spot-check pending (see `MANUAL-SPOT-CHECK.md` for the L5 U8 Swarm Intelligence flow).
+
 ### 2026-05-19 — AUDIT-FIX-2 Phase B: typed-selector codemod (audit prompt completion)
 - What: Closed Phase B of `AUDIT-FIX-2-TOKEN-REFRESH-STORM-2026-05-18`. The code-level changes were pushed inside commit `755502f` (whose message only describes the LISTENING-QA-V2 docs, not the codemod). This entry documents what's actually in that commit so the change log reflects the real work.
 - **Phase A discovery** (already in `docs/audits/token-refresh-storm/`): 376 `useAuthStore(…)` call sites across 262 files. 208 already used the selector pattern; 168 were bare `const { … } = useAuthStore()` destructurings (the storm contributor). Phase B1 (`TOKEN_REFRESHED` no-invalidate) was ALREADY shipped at `authStore.js:89-94` by a prior session. Only Phase B2 work remained.

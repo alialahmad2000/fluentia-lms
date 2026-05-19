@@ -29,6 +29,12 @@ export function useAudioEngine({
 
   const isMulti = Array.isArray(segments) && segments.length > 0
 
+  // Derived source URL — the URL the <audio> element should actually be playing.
+  // Tracked as a stable value (not the segments array's identity) so the load-source
+  // effect below re-runs whenever the underlying source changes, including a new
+  // segments[0].audio_url. This is the single source of truth for "what is loaded?".
+  const sourceUrl = isMulti ? segments?.[0]?.audio_url ?? null : audioUrl ?? null
+
   const loadSegment = useCallback((idx) => {
     const audio = audioRef.current
     if (!audio) return
@@ -102,7 +108,10 @@ export function useAudioEngine({
     }
   }, []) // eslint-disable-line
 
-  // Load source when audioUrl or first segment changes
+  // Load source whenever the resolved sourceUrl changes (audioUrl, isMulti,
+  // or segments[0].audio_url all funnel through sourceUrl). Reactive on segment
+  // swaps — previously this effect's deps were [audioUrl, isMulti] and missed
+  // segments-array updates, leaving audio.src stale on article change.
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
@@ -113,16 +122,15 @@ export function useAudioEngine({
     currentSegIdxRef.current = 0
     setCurrentSegmentIndex(0)
 
-    if (isMulti && segments.length > 0) {
+    if (sourceUrl) {
       setIsLoading(true)
-      audio.src = segments[0].audio_url
+      audio.src = sourceUrl
       audio.load()
-    } else if (audioUrl) {
-      setIsLoading(true)
-      audio.src = audioUrl
+    } else {
+      audio.removeAttribute('src')
       audio.load()
     }
-  }, [audioUrl, isMulti]) // segments identity changes handled separately
+  }, [sourceUrl])
 
   const play = useCallback(() => {
     audioRef.current?.play().catch(() => {})

@@ -843,7 +843,11 @@ function ReadingContent({ reading, studentId, unitId }) {
           {/* ── Passage text + audio ──────────────────────────────────── */}
           {audioData ? (
             /* bottom-bar mode: SmartAudioPlayer renders KaraokeText as primary passage */
+            /* key={reading.id} forces a fresh player instance on article switch — */
+            /* belt-and-suspenders alongside the outer <motion.div key> so a stale */
+            /* audio.src can never carry across the Article A → Article B boundary. */
             <SmartAudioPlayer
+              key={reading.id}
               segments={audioData.segments}
               contentId={reading.id}
               contentType="reading"

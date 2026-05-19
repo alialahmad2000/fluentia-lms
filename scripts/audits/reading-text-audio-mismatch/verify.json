@@ -1,0 +1,200 @@
+{
+  "generated_at": "2026-05-19T08:56:12.095Z",
+  "units": [
+    {
+      "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+      "articles": [
+        {
+          "reading_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+          "label": "A",
+          "title": "Nature's Hidden Networks",
+          "word_count": 866,
+          "wt_count": 866,
+          "wt_count_ok": true,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 419.9,
+          "duration_ratio": 1.21,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        },
+        {
+          "reading_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+          "label": "B",
+          "title": "Nature's Architects of Innovation",
+          "word_count": 815,
+          "wt_count": 815,
+          "wt_count_ok": true,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 416.9,
+          "duration_ratio": 1.28,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        }
+      ]
+    },
+    {
+      "unit_id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+      "articles": [
+        {
+          "reading_id": "13869905-caef-4cce-8c7b-e8881aa91955",
+          "label": "A",
+          "title": "Family Traditions Around the World",
+          "word_count": 199,
+          "wt_count": 199,
+          "wt_count_ok": true,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L0/13869905-caef-4cce-8c7b-e8881aa91955/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 90.4,
+          "duration_ratio": 1.14,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        },
+        {
+          "reading_id": "97e8ad3c-e117-4146-9408-18a8d3f3e9d3",
+          "label": "B",
+          "title": "Friends Around the World",
+          "word_count": 193,
+          "wt_count": 193,
+          "wt_count_ok": true,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L0/97e8ad3c-e117-4146-9408-18a8d3f3e9d3/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 83.4,
+          "duration_ratio": 1.08,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        }
+      ]
+    },
+    {
+      "unit_id": "170ce97d-b211-4b25-b19e-fe9fc22fb71b",
+      "articles": [
+        {
+          "reading_id": "c7d3379f-5d1b-4732-b275-c39117907861",
+          "label": "A",
+          "title": "When Civilizations Crumble",
+          "word_count": 781,
+          "wt_count": 781,
+          "wt_count_ok": true,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/c7d3379f-5d1b-4732-b275-c39117907861/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 430,
+          "duration_ratio": 1.38,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        },
+        {
+          "reading_id": "84879208-38e1-490d-822e-dec04dd2151b",
+          "label": "B",
+          "title": "The Silent Collapse of Maya Cities",
+          "word_count": 673,
+          "wt_count": 2,
+          "wt_count_ok": false,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/84879208-38e1-490d-822e-dec04dd2151b/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 345.7,
+          "duration_ratio": 1.28,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        }
+      ]
+    },
+    {
+      "unit_id": "1de8e161-81eb-416e-af87-c136d93f3930",
+      "articles": [
+        {
+          "reading_id": "fd8f24d7-02c5-4c7c-a07d-99656ff83c7f",
+          "label": "A",
+          "title": "Amazing Ocean Creatures",
+          "word_count": 151,
+          "wt_count": 244,
+          "wt_count_ok": false,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L1/fd8f24d7-02c5-4c7c-a07d-99656ff83c7f/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 102.6,
+          "duration_ratio": 1.7,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        },
+        {
+          "reading_id": "c812db3e-470a-40bd-b10e-40188e5699dc",
+          "label": "B",
+          "title": "The Deep Sea Mystery",
+          "word_count": 159,
+          "wt_count": 264,
+          "wt_count_ok": false,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L1/c812db3e-470a-40bd-b10e-40188e5699dc/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 111.6,
+          "duration_ratio": 1.75,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        }
+      ]
+    },
+    {
+      "unit_id": "2105dec8-575b-4a6a-8456-261b98a9d6c2",
+      "articles": [
+        {
+          "reading_id": "05efda2e-0f7d-47a5-b8f0-3495ad23e771",
+          "label": "A",
+          "title": "Quantum Frontiers Unveiled",
+          "word_count": 607,
+          "wt_count": 2,
+          "wt_count_ok": false,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/05efda2e-0f7d-47a5-b8f0-3495ad23e771/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 331.6,
+          "duration_ratio": 1.37,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        },
+        {
+          "reading_id": "81a9ab56-e668-49be-af70-af7af050629f",
+          "label": "B",
+          "title": "Quantum Medicine's Revolutionary Promise",
+          "word_count": 878,
+          "wt_count": 878,
+          "wt_count_ok": true,
+          "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/81a9ab56-e668-49be-af70-af7af050629f/full.mp3",
+          "audio_url_head_status": 200,
+          "audio_url_content_type": "audio/mpeg",
+          "audio_url_head_ok": true,
+          "audio_duration_sec": 453,
+          "duration_ratio": 1.29,
+          "duration_plausible": true,
+          "text_audio_karaoke_share_reading_id": true,
+          "verdict": "PASS"
+        }
+      ]
+    }
+  ]
+}
