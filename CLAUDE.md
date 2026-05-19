@@ -299,6 +299,25 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-19 — HIDE-PRONUNCIATION + RESTORE-SECTION-COMPLETION-BADGES (2 fixes in 1 commit)
+- What: Two independent UX fixes shipped in one autonomous run.
+- **Part 1 — pronunciation shelved (non-destructive):** 5 student-facing surfaces hidden with `PRONUNCIATION-HIDDEN 2026-05-19` markers:
+  - `/student/pronunciation` route (App.jsx lazy import + Route both commented)
+  - Unit overview tab (UnitContent.jsx lazy import + TABS entry + render-case all commented)
+  - Unit-v2 activity grid card (useUnitData.js ACTIVITY_MAP entry commented)
+  - Content-icon registry (_premiumPrimitives.jsx icon entry commented)
+  - معمل التحدث sub-tab (StudentSpeaking.jsx lazy import + TABS entry + render commented)
+  - **Preserved (no deletes):** `StudentPronunciation.jsx`, `tabs/PronunciationTab.jsx`, `components/curriculum/PronunciationActivity.jsx`, all `curriculum_pronunciation` rows, all `student_curriculum_progress` pronunciation rows, all audio files. Vocabulary-internal pronunciation alerts (`components/vocabulary/PronunciationAlert.jsx`) + speaking AI `pronunciation_notes` are DIFFERENT features — kept active. `docs/PRONUNCIATION-SHELVED.md` is the revival guide.
+- **Part 2 — section completion badges:** Probed Fatima (`f9ecb220-…`, recent submissions, NOT Lamia). Diagnosis: every layer was already working after the 2026-05-19 vocab fix — triggers fire correctly, `student_curriculum_progress` rows are written, `unit_progress.breakdown.completion` correctly reports `reading_done`, `writing_done`, etc. Badge logic in `useUnitProgress` + `MissionCard` was already correct. **The actual bug was DENOMINATOR: pronunciation was in inventory (counted toward denominator) but unreachable from UI.** Students could complete every visible section and the unit still showed < 100%.
+- **DB fix:** Migration `20260519120000_compute_unit_progress_exclude_pronunciation.sql` — `CREATE OR REPLACE FUNCTION compute_unit_progress()` that skips both the pronunciation inventory block AND the pronunciation completion block. Applied via Supabase Management API. Idempotent.
+- **Backfill:** `scripts/audits/section-completion/03-backfill.cjs` — recomputed via RPC and wrote new values to every `unit_progress` row. **Result: 97 rows updated, 0 inserted, 0 errors.** No student data mutated — only the derived denominator.
+- **Verification (`04-verify.mjs`):** 0/97 rows have pronunciation in inventory or completion. Fatima's 7 active units: every section completion correctly reflected (reading_done >= total, grammar_done/writing_done/listening_done/speaking_done = 1 where expected). 5 random students all show sensible percentages. 0 orphans (every student with completions has unit_progress rows).
+- **NOT TOUCHED:** No `submissions` / `vocab_progress` / `xp_transactions` row mutations. No DB row deletions. No personalization data. Listening flow untouched (shipped earlier today as `85bd29b`). Reading + vocab flows untouched.
+- Files: `src/App.jsx`, `src/pages/student/curriculum/UnitContent.jsx`, `src/pages/student/curriculum/unit-v2/useUnitData.js`, `src/pages/student/curriculum/_premiumPrimitives.jsx`, `src/pages/student/StudentSpeaking.jsx`, `supabase/migrations/20260519120000_compute_unit_progress_exclude_pronunciation.sql` (NEW, applied), `scripts/audits/section-completion/{01-probe,02-fatima-units,03-backfill,04-verify}.{mjs,cjs}` (NEW), `docs/PRONUNCIATION-SHELVED.md` (NEW), `docs/audits/section-completion/FINAL-REPORT.md` (NEW), `prompts/agents/HIDE-PRONUNCIATION-RESTORE-COMPLETION-BADGES-2026-05-19.md`
+- DB: `compute_unit_progress()` function replaced; 97 `unit_progress` rows recomputed. No schema changes. No row deletes.
+- Edge Functions: None
+- Status: All deliverables shipped. Pronunciation invisible to students. Section completion + unit percentages now reach 100% when all visible sections are done.
+
 ### 2026-05-19 — LISTENING-AUDIO-PLAYER-DRIFT-PROTECTION: 3 wins in 1 commit (audio audit + player redesign + drift gate)
 - What: Closed the listening player + drift-protection prompt. Three deliverables in one commit. No ElevenLabs spend — all 72 listening files are healthy.
 - **Phase A — diagnosis:** 72 listening rows, every one has `audio_url` + `transcript`. HEAD/Range/MIME audit returned 72/72 HEALTHY. Existing `ListeningPlayer.jsx` already complied with the iOS-Safari-safe canonical pattern (event listeners before src, reactive `[audioUrl]` deps, `playsInline`, try/catch on `play()`, error surface). The "audio doesn't play" symptom Ali saw is not reproducible from any automated probe — most plausible cause: stale PWA bundle. Bumped `public/version.json` so the `UpdateBanner` flow refreshes cached clients.

@@ -7,6 +7,8 @@ import { useUnitStar } from '../../../../hooks/useUnitStar'
 // ---------------------------------------------------------------------------
 // Activity map — mirrors the TABS order in UnitContent.jsx
 // ---------------------------------------------------------------------------
+// PRONUNCIATION-HIDDEN 2026-05-19: feature shelved due to UX issues.
+// To re-enable: uncomment the pronunciation entry below.
 const ACTIVITY_MAP = [
   { key: 'reading',      label: 'القراءة',  labelEn: 'Reading A',    icon: 'BookOpen',       color: '#22d3ee', weight: 10 },
   { key: 'grammar',      label: 'القواعد',  labelEn: 'Grammar',      icon: 'PenLine',        color: '#a78bfa', weight: 13 },
@@ -14,7 +16,7 @@ const ACTIVITY_MAP = [
   { key: 'listening',    label: 'الاستماع', labelEn: 'Listening',    icon: 'Headphones',     color: '#4ade80', weight:  8 },
   { key: 'writing',      label: 'الكتابة',  labelEn: 'Writing',      icon: 'FileEdit',       color: '#f472b6', weight: 13 },
   { key: 'speaking',     label: 'المحادثة', labelEn: 'Speaking',     icon: 'Mic',            color: '#fb923c', weight: 13 },
-  { key: 'pronunciation',label: 'النطق',    labelEn: 'Pronunciation',icon: 'Volume2',        color: '#818cf8', weight: 10 },
+  // { key: 'pronunciation',label: 'النطق',    labelEn: 'Pronunciation',icon: 'Volume2',        color: '#818cf8', weight: 10 },
   { key: 'recording',    label: 'التسجيل',  labelEn: 'Recording',    icon: 'Video',          color: '#38bdf8', weight:  0 },
 ]
 

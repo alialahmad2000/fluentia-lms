@@ -11,13 +11,15 @@ import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load sub-tab content
 const StudentVoiceJournal = lazyRetry(() => import('./StudentVoiceJournal'))
-const StudentPronunciation = lazyRetry(() => import('./StudentPronunciation'))
+// PRONUNCIATION-HIDDEN 2026-05-19: feature shelved due to UX issues.
+// const StudentPronunciation = lazyRetry(() => import('./StudentPronunciation'))
 const StudentSpelling = lazyRetry(() => import('./StudentSpelling'))
 
 const TABS = [
   { key: 'topics', label: 'المحادثة', icon: Mic },
   { key: 'journal', label: 'يوميات صوتية', icon: BookOpen },
-  { key: 'pronunciation', label: 'مدرب النطق', icon: Headphones },
+  // PRONUNCIATION-HIDDEN 2026-05-19 — sub-tab removed from معمل التحدث.
+  // { key: 'pronunciation', label: 'مدرب النطق', icon: Headphones },
   { key: 'spelling', label: 'مدرب الإملاء', icon: SpellCheck },
 ]
 
@@ -50,7 +52,8 @@ export default function StudentSpeaking() {
       <Suspense fallback={<TabFallback />}>
         {activeTab === 'topics' && <SpeakingTopics />}
         {activeTab === 'journal' && <StudentVoiceJournal />}
-        {activeTab === 'pronunciation' && <StudentPronunciation />}
+        {/* PRONUNCIATION-HIDDEN 2026-05-19 */}
+        {/* {activeTab === 'pronunciation' && <StudentPronunciation />} */}
         {activeTab === 'spelling' && <StudentSpelling />}
       </Suspense>
     </div>

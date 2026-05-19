@@ -46,7 +46,9 @@ const StudentBilling = lazyRetry(() => import('./pages/student/StudentBilling'))
 const StudentExercises = lazyRetry(() => import('./pages/student/StudentExercises'))
 const StudentErrorPatterns = lazyRetry(() => import('./pages/student/StudentErrorPatterns'))
 const StudentVoiceJournal = lazyRetry(() => import('./pages/student/StudentVoiceJournal'))
-const StudentPronunciation = lazyRetry(() => import('./pages/student/StudentPronunciation'))
+// PRONUNCIATION-HIDDEN 2026-05-19: feature shelved due to UX issues.
+// Files preserved for future revival. To re-enable: uncomment + restore the route below.
+// const StudentPronunciation = lazyRetry(() => import('./pages/student/StudentPronunciation'))
 const StudentStreakBattles = lazyRetry(() => import('./pages/student/StudentStreakBattles'))
 const StudentSuccessStories = lazyRetry(() => import('./pages/student/StudentSuccessStories'))
 const StudentEvents = lazyRetry(() => import('./pages/student/StudentEvents'))
@@ -650,7 +652,8 @@ export default function App() {
               <Route path="/student/exercises" element={<Page><StudentExercises /></Page>} />
               <Route path="/student/my-patterns" element={<Page><StudentErrorPatterns /></Page>} />
               <Route path="/student/voice-journal" element={<Page><StudentVoiceJournal /></Page>} />
-              <Route path="/student/pronunciation" element={<Page><StudentPronunciation /></Page>} />
+              {/* PRONUNCIATION-HIDDEN 2026-05-19 — route + element retired. */}
+              {/* <Route path="/student/pronunciation" element={<Page><StudentPronunciation /></Page>} /> */}
               <Route path="/student/battles" element={<Page><StudentStreakBattles /></Page>} />
               <Route path="/student/success" element={<Page><StudentSuccessStories /></Page>} />
               <Route path="/student/events" element={<Page><StudentEvents /></Page>} />

@@ -133,7 +133,8 @@ export const DEFAULT_ACTIVITY_TYPES = [
   { key: 'speaking',      icon: Mic,            label: 'محادثة' },
   { key: 'vocabulary',    icon: Languages,      label: 'مفردات' },
   { key: 'assessment',    icon: ClipboardCheck, label: 'تقييم' },
-  { key: 'pronunciation', icon: Volume2,        label: 'نطق' },
+  // PRONUNCIATION-HIDDEN 2026-05-19 — content-type icon retired from default surface.
+  // { key: 'pronunciation', icon: Volume2,        label: 'نطق' },
   // Reserved for future:
   // { key: 'anki_srs',      icon: Brain,          label: 'مراجعة ذكية' },
   // { key: 'hard_words',    icon: Target,         label: 'كلمات صعبة' },

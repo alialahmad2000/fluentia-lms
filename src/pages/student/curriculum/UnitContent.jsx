@@ -27,7 +27,9 @@ const VocabularyTab = lazyRetry(() => import('./tabs/VocabularyTab'))
 const ListeningTab = lazyRetry(() => import('./tabs/ListeningTab'))
 const WritingTab = lazyRetry(() => import('./tabs/WritingTab'))
 const SpeakingTab = lazyRetry(() => import('./tabs/SpeakingTab'))
-const PronunciationTab = lazyRetry(() => import('./tabs/PronunciationTab'))
+// PRONUNCIATION-HIDDEN 2026-05-19: feature shelved due to UX issues.
+// Tab definition, lazy import, and render case retained as comments for revival.
+// const PronunciationTab = lazyRetry(() => import('./tabs/PronunciationTab'))
 const RecordingTab = lazyRetry(() => import('../../../components/curriculum/RecordingTab'))
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
 import {
@@ -52,7 +54,8 @@ const TABS = [
   { id: 'listening', label: 'الاستماع' },
   { id: 'writing', label: 'الكتابة' },
   { id: 'speaking', label: 'المحادثة' },
-  { id: 'pronunciation', label: 'النطق' },
+  // PRONUNCIATION-HIDDEN 2026-05-19 — tab hidden from student-facing nav.
+  // { id: 'pronunciation', label: 'النطق' },
   { id: 'recording', label: 'التسجيل' },
 ]
 
@@ -280,7 +283,8 @@ export default function UnitContent() {
       case 'listening':    return <>{ribbon}<ListeningTab unitId={unitId} /></>
       case 'writing':      return <>{ribbon}<WritingTab unitId={unitId} /></>
       case 'speaking':     return <>{ribbon}<SpeakingTab unitId={unitId} /></>
-      case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} onBack={handleBackToGrid} /></>
+      // PRONUNCIATION-HIDDEN 2026-05-19 — defensive fallback (the tab is gone from nav).
+      // case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} onBack={handleBackToGrid} /></>
       case 'recording':    return <RecordingTab unitId={unitId} />
       default:             return <ActivityFallbackEmpty reason="unknown_activity" onBack={handleBackToGrid} />
     }
