@@ -1,55 +1,59 @@
 # Phase A — Deploy Verification (2026-05-19)
 
-## Vercel deploy
+## TL;DR
 
-- Latest production deploy id: `dpl_8nfeWLP5zycRRvzaHjLQzxXi1q9E`
-- Latest production URL: `https://fluentia-nuoh74l8t-alialahmad2000s-projects.vercel.app` (aliased to `app.fluentia.academy`)
-- Deploy created: `2026-05-19T19:05:22 +03` (16:05 UTC)
-- Build completed: `2026-05-19T16:06:04 UTC` (33s build)
-- Build cache: `Created build cache: 21s` + `Uploading build cache [40.70 MB]` + `Build cache uploaded: 1.652s` — Vercel reused/reuploaded build cache during this deploy
-- Local HEAD: `b8e2f44` authored `2026-05-19T19:05:15 +03` (committed 7s before the deploy started)
-- Match: nominally yes (deploy is from `b8e2f44`), but the timing is tight enough that Vercel may have built off `85bd29b` rather than `b8e2f44`
+**The new post-`85bd29b` ListeningPlayer + ListeningSection + ListeningAudioComingSoon code IS in the production bundle.** My initial scan missed the right chunk because ListeningTab is lazy-loaded and not statically referenced from `index-*.js`. After fetching `ListeningTab-CKqhUUaa.js` (46 KB) directly, every distinctive source-unique string is present.
 
-## Bundle content
+**This means Ali's reports of "audio still doesn't play" are NOT explained by a stale-bundle / undeployed-fix theory. The root cause is elsewhere.**
 
-Bundle paths discovered in deployed HTML (entry):
-- `/assets/index-C7FoDd2e.js` (430 KB)
-- `/assets/vendor-*` (8 files, total ~1MB)
+## Vercel deploys (chronological)
 
-Additional chunks discovered by chunk-graph probe: **326 chunks**, including:
-- `assets/UnitContent-CNCOWvGx.js` (127 KB) — this is where ListeningTab + ListeningSection should be bundled, since `UnitContent.jsx` uses `lazyRetry()` to load each tab
-- `assets/ListeningSectionModule-DDoRrDVF.js`
-- `assets/SmartAudioPlayer-k907iULx.js`
-- `assets/ReadingTab-C8HKvfJl.js` (77 KB — separate chunk for Reading tab)
-- No dedicated `ListeningTab-*.js` chunk in the deploy logs
+| URL | Built | ListeningTab chunk |
+|---|---|---|
+| `fluentia-nuoh74l8t-...` | `2026-05-19T16:05Z` (originally referenced in prompt) | `ListeningTab-CKqhUUaa.js` 46.10 KB |
+| `fluentia-d8cw30xj1-...` | `2026-05-19T18:16Z` (auto-deploy from version.json bump `ee31caa`) | `ListeningTab-CKqhUUaa.js` 46.10 KB |
+| `fluentia-2u3iz1c7f-...` | `2026-05-19T18:23Z` (`vercel deploy --prod --force`) | `ListeningTab-CKqhUUaa.js` 46.10 KB |
 
-### Distinctive-marker scan across ALL 326 chunks
+**Hash `CKqhUUaa` was identical across all three.** Content-hashing proves the source code produced the same chunk. The `85bd29b` fix has been live since the deploy at 16:05Z.
 
-| Marker | Source file | Prod chunk hits | Notes |
-|---|---|---|---|
-| `قيد التحضير` | `ListeningAudioComingSoon.jsx` (only place locally) | **0** | The most distinctive marker. Tree-shaking cannot eliminate JSX-referenced components, so 0 hits = component not in bundle |
-| `ListeningAudioComingSoon` (identifier) | `ListeningSection.jsx` import + JSX | **0** | Component name minified — expected to be absent post-minify, but the *string literal* `قيد التحضير` should remain |
-| `speaker_segments` (DB column) | new `useListeningTranscriptAudio` chain | **0** | Suggests new transcript hook is not in bundle |
-| `إظهار النص` / `إخفاء النص` | New ListeningPlayer (line 540) + 6 other components | hits in `SmartAudioPlayer-k907iULx.js` (3 + 5), `parts/PlayerControls.jsx`, `parts/SettingsMenu.jsx`, `parts/ListeningFocusMode.jsx`, `ListeningAudioPlayer.jsx` | Inconclusive — hits could be from old player components |
-| `playsInline` (string identifier) | New ListeningPlayer + others | hits in `SmartAudioPlayer-k907iULx.js` + `AudioPlayer-di4_KAAs.js` + `parts/WordTooltip.jsx` | Inconclusive |
+## Bundle content (after correct chunk identified)
 
-### Verdict
+Fetched `https://app.fluentia.academy/assets/ListeningTab-CKqhUUaa.js`:
 
-**TREE_SHAKE_DROPPED or STALE_BUILD_CACHE.** The distinctive string `قيد التحضير` (only in `ListeningAudioComingSoon.jsx`) is absent from all 326 chunks. The local import chain `ListeningTab → ListeningSection (aliased) → ListeningPlayer + ListeningAudioComingSoon` is statically resolvable, so Vite/Rollup should bundle these. The only plausible explanations are:
+| Distinctive marker | Source file | Prod chunk hits |
+|---|---|---|
+| `حديث فردي` | `ListeningSection.jsx:12` (only place) | **1** ✓ |
+| `داخل المشغّل` | `ListeningSection.jsx:110` (only place) | **1** ✓ |
+| `قيد التحضير` | `ListeningAudioComingSoon.jsx:17` | **1** ✓ |
+| `استمع للمقطع` | `ListeningSection.jsx:106` | **1** ✓ |
+| `speaker_segments` | DB column / `useListeningTranscriptAudio` | **1** ✓ |
+| `إظهار النص` | New ListeningPlayer transcript toggle (+ shared) | **2** ✓ |
+| `إخفاء النص` | New ListeningPlayer transcript toggle (+ shared) | **1** ✓ |
+| `playsInline` | New ListeningPlayer + WordTooltip | **2** ✓ |
 
-1. **Stale Vercel build cache** — Vercel reused cached chunk hashes from an earlier build that didn't have the new imports. The "Created build cache: 21s" log line on this deploy is consistent with cache reuse.
-2. **Tree-shake dropped them** — unlikely given JSX usage of `<ListeningAudioComingSoon>` is a runtime-conditional render, not statically false.
-3. **The deploy was built off `85bd29b` (the previous commit) rather than `b8e2f44`** — timing-wise possible; Vercel webhook may have started before `b8e2f44` reached origin.
+## My initial false-negative — what went wrong
+
+I walked the chunk graph from `index-C7FoDd2e.js`, which collected 326 chunks. But that walk doesn't reach lazily-imported tabs (the `lazyRetry()` pattern in `UnitContent.jsx` uses dynamic `import('...')` calls, and Vite's emitted chunk hashes for those targets aren't statically referenced from the entry). The build logs (which I should have read earlier) explicitly listed `ListeningTab-CZZenwxW.css` and `ListeningTab-CKqhUUaa.js` as separate chunks.
 
 ## Service worker / cache
 
-- `public/sw.js`: not present in source. Vite-PWA generates `dist/sw.js` at build time (deploy logs: `PWA v0.21.2 mode generateSW precache 29 entries (657.84 KiB)`).
-- `public/push-sw.js`: present (push notification handler, no fetch interceptor — confirmed previously in CLAUDE.md May 19 entry "verify-and-fix").
-- `version.json`: prod = `mpctr197` (16:05Z); local = `listening-drift-v1` (13:00Z). They don't match because Vercel auto-bumps or because origin/main's version.json was not updated to reflect this deploy.
-- UpdateBanner: not investigated this phase. Per CLAUDE.md, the `version-check` path exists and can trigger a banner.
+- `dist/sw.js` generated by `vite-plugin-pwa` (`PWA v0.21.2 mode generateSW precache 29 entries (657.84 KiB)`)
+- `public/push-sw.js`: push handler only, no fetch interceptor (per prior CLAUDE.md May 19 entry "verify-and-fix")
+- `version.json`: Vercel auto-generates `{version,buildTime}` on each build; my source bump (`listening-rebuild-2026-05-19T21`) was overwritten by Vercel's auto-value (`mpcyoon3`). The version-bump commit had no effect on the bundle but did force two extra deploys (proving the bundle hashes are stable).
 
-**Verdict: PWA hygiene is acceptable; the issue is at the build/bundle layer, not the SW layer.**
+## Re-verdict
+
+**DEPLOYED_CORRECTLY.** The hypothesis from the prompt ("OLD_BUNDLE_LIVE or TREE_SHAKE_DROPPED") is **disproved**. The new ListeningPlayer / ListeningSection / ListeningAudioComingSoon are live in production.
+
+The student-reported bug ("audio doesn't play") cannot be explained by the deploy layer. Causes remaining on the table:
+
+1. **Stale PWA on the student's device** — their Service Worker still serves an old `precache` entry pointing to a previous `index-*.js` hash. The new player is published, but their device hasn't picked it up.
+2. **iOS Safari silent switch / volume / autoplay-gesture** — environmental, not code.
+3. **A bug in the new player surfacing only under specific conditions** — e.g. specific `audio_type` row, specific iOS version, network conditions.
+4. **Specific bad-data rows** — one particular `listening.audio_url` is broken even though 72/72 file-level audit passed.
+
+**Note on the version-bump commit `ee31caa`:** the commit message says "bundle missing new ListeningPlayer" — that conclusion was wrong. The bundle has been correct since the original 16:05Z deploy. The commit was a no-op for the bundle but otherwise harmless. Leaving it for traceability.
 
 ## Next step
 
-Force-rebuild via a no-op bump to `public/version.json` + push. Re-scan prod bundle. If still missing → escalate with `vercel deploy --prod --force` to invalidate Vercel's remote build cache.
+Phase B (telemetry) is now the highest-leverage move. Telemetry will tell us — for any future student report — whether the failure is at the audio-load layer (MediaError code), the play() layer (user-gesture failure), or environmental (offline, silent-switch implied by no-error-but-no-play). Phase D (aggressive force-refresh) is no longer urgent because the deploy isn't stale.

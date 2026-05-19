@@ -23,6 +23,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSidebarWidth } from '../../../hooks/useSidebarWidth'
+import { logAudioFailure } from '../../../lib/audioTelemetry'
 
 const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5]
 const SPEAKER_COLORS = ['#FBBF24', '#A78BFA', '#34D399', '#F472B6', '#60A5FA']
@@ -61,6 +62,7 @@ export function ListeningPlayer({
   onTranscriptToggle,
   onTimeUpdate,
   hideTranscriptToggle = false,
+  listeningId,
 }) {
   const audioRef = useRef(null)
   const sidebarWidth = useSidebarWidth()
@@ -108,10 +110,18 @@ export function ListeningPlayer({
 
     const onError = () => {
       const codes = { 1: 'إلغاء', 2: 'شبكة', 3: 'فك تشفير', 4: 'تنسيق غير مدعوم' }
-      const msg = codes[el.error?.code] || 'خطأ غير معروف'
+      const code = el.error?.code
+      const msg = codes[code] || 'خطأ غير معروف'
       console.error('[ListeningPlayer] audio error', el.error, audioUrl)
       setLoadError(`تعذّر تحميل الصوت (${msg})`)
       setPlaying(false)
+      logAudioFailure({
+        context: 'listening',
+        rowId: listeningId,
+        audioUrl,
+        errorCode: typeof code === 'number' ? code : null,
+        errorMessage: el.error?.message,
+      })
     }
     const onLoadedMetadata = () => {
       setLoadError(null)
@@ -166,11 +176,18 @@ export function ListeningPlayer({
       el.play().catch((err) => {
         console.error('[ListeningPlayer] play() rejected:', err)
         setLoadError('تعذّر تشغيل الصوت — حاول مرة أخرى')
+        logAudioFailure({
+          context: 'listening',
+          rowId: listeningId,
+          audioUrl,
+          errorCode: 0,
+          errorMessage: err?.message || String(err),
+        })
       })
     } else {
       el.pause()
     }
-  }, [])
+  }, [audioUrl, listeningId])
 
   const seek = useCallback((sec) => {
     const el = audioRef.current

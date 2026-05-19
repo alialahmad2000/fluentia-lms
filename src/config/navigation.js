@@ -3,7 +3,7 @@ import {
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
-  MessageCircle, MessageSquare,
+  MessageCircle, MessageSquare, Volume2,
 } from 'lucide-react'
 
 
@@ -168,6 +168,7 @@ export const ADMIN_NAV = {
       id: 'system',
       label: 'النظام',
       items: [
+        { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'settings',    label: 'الإعدادات',    icon: Settings,      to: '/admin/settings' },
       ],
     },

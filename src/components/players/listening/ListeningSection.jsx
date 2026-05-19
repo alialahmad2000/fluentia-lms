@@ -130,6 +130,7 @@ export function ListeningSection({
           durationMs={durationMs}
           transcriptShown={!transcriptHidden}
           onTranscriptToggle={() => setTranscriptHidden((v) => !v)}
+          listeningId={listening.id}
         />
       )}
       {!audioLoading && !listening.audio_url && <ListeningAudioComingSoon listening={listening} />}
