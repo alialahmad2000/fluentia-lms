@@ -30,12 +30,25 @@ export function useReadingPassageAudio(passageId, passageContent) {
       const paragraphs = passageContent?.paragraphs || []
       const fullText = paragraphs.join('\n\n')
 
+      // Normalize word_timestamps shape: the column has two historical shapes,
+      //   * legacy flat array  [ {word, start_ms, end_ms}, … ]
+      //   * regen object       { all_words: [ … ], paragraphs: [ … ] }
+      // useKaraoke expects a flat array (uses .length + indexed access). Without
+      // normalization, the object form silently breaks karaoke on every reading
+      // whose audio was regenerated via the with-timestamps endpoint.
+      let normalizedWts = data.word_timestamps
+      if (normalizedWts && !Array.isArray(normalizedWts) && Array.isArray(normalizedWts.all_words)) {
+        normalizedWts = normalizedWts.all_words
+      } else if (!Array.isArray(normalizedWts)) {
+        normalizedWts = []
+      }
+
       setAudioData({
         segments: [{
           audio_url: data.full_audio_url,
           duration_ms: data.full_duration_ms || 0,
           text_content: fullText,
-          word_timestamps: data.word_timestamps || [],
+          word_timestamps: normalizedWts,
           segment_index: 0,
           speaker_label: null,
           voice_id: data.voice_id,

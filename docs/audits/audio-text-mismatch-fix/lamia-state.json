@@ -1,0 +1,122 @@
+{
+  "lamia": {
+    "id": "95124347-7ad8-46b7-b745-b6c085bf3a6f"
+  },
+  "user_interests": {
+    "user_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+    "interests": [
+      "fashion_beauty",
+      "family",
+      "travel_food"
+    ],
+    "has_completed_survey": true,
+    "dismissed_at": null,
+    "survey_completed_at": "2026-05-12T18:25:58.331+00:00",
+    "created_at": "2026-05-12T18:25:58.700538+00:00",
+    "updated_at": "2026-05-12T18:25:58.331+00:00"
+  },
+  "students_row": null,
+  "recent_activity_attempts": null,
+  "recent_progress": [
+    {
+      "id": "5fdf32b8-4de3-4d38-8a0e-4524484dc6df",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "f3a651e1-3ae8-4028-a5fa-42e44f5af75b",
+      "reading_id": "d060f681-7e1b-405f-9cde-7b59ab1a6354",
+      "section_type": "reading",
+      "status": "completed",
+      "created_at": "2026-05-19T06:34:48.293104+00:00",
+      "updated_at": "2026-05-19T06:34:48.293104+00:00"
+    },
+    {
+      "id": "5b24ff17-b578-4548-978b-09f9085270e9",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "reading_id": "33e04971-5fc5-4324-b54c-4816dc4409e6",
+      "section_type": "reading",
+      "status": "completed",
+      "created_at": "2026-05-19T06:31:06.679632+00:00",
+      "updated_at": "2026-05-19T06:31:06.679632+00:00"
+    },
+    {
+      "id": "3ddc0a7d-632b-4559-a170-cc71d5a5fced",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "reading_id": null,
+      "section_type": "vocabulary_exercise",
+      "status": "in_progress",
+      "created_at": "2026-05-18T01:01:24.544109+00:00",
+      "updated_at": "2026-05-18T01:01:24.544109+00:00"
+    },
+    {
+      "id": "cb02ea36-e284-40f4-86e8-588ef3c264b6",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "reading_id": null,
+      "section_type": "writing",
+      "status": "completed",
+      "created_at": "2026-05-18T01:00:32.918438+00:00",
+      "updated_at": "2026-05-18T01:00:32.918438+00:00"
+    },
+    {
+      "id": "f7305baa-f01e-462e-bcbe-45d6dcce9c80",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "reading_id": null,
+      "section_type": "vocabulary",
+      "status": "in_progress",
+      "created_at": "2026-05-17T21:17:10.506506+00:00",
+      "updated_at": "2026-05-17T21:17:10.506506+00:00"
+    },
+    {
+      "id": "1e8d42dc-fed3-4e0d-b099-2463e864afdb",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "reading_id": null,
+      "section_type": "grammar",
+      "status": "completed",
+      "created_at": "2026-05-17T19:22:21.825928+00:00",
+      "updated_at": "2026-05-17T19:22:21.825928+00:00"
+    },
+    {
+      "id": "89d70f88-88b4-4a87-8ec7-d7d2b2b88e89",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "reading_id": null,
+      "section_type": "listening",
+      "status": "completed",
+      "created_at": "2026-05-17T18:59:36.919488+00:00",
+      "updated_at": "2026-05-17T18:59:36.919488+00:00"
+    },
+    {
+      "id": "2d01ff2e-2973-4374-9053-7227f4e14373",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "49ed7c2c-fa1b-47b2-bb5c-34074beeafdc",
+      "reading_id": null,
+      "section_type": "writing",
+      "status": "completed",
+      "created_at": "2026-05-16T14:05:01.033936+00:00",
+      "updated_at": "2026-05-16T14:05:01.033936+00:00"
+    },
+    {
+      "id": "2d936ac6-458b-4282-9f8e-aa46647928b3",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "f3a651e1-3ae8-4028-a5fa-42e44f5af75b",
+      "reading_id": null,
+      "section_type": "speaking",
+      "status": "completed",
+      "created_at": "2026-05-14T22:16:24.386952+00:00",
+      "updated_at": "2026-05-14T22:16:24.386952+00:00"
+    },
+    {
+      "id": "870ccc90-3c97-4e9c-807a-53ceddfed583",
+      "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+      "unit_id": "f3a651e1-3ae8-4028-a5fa-42e44f5af75b",
+      "reading_id": null,
+      "section_type": "listening",
+      "status": "completed",
+      "created_at": "2026-05-14T11:12:29.750277+00:00",
+      "updated_at": "2026-05-14T11:12:29.750277+00:00"
+    }
+  ]
+}
