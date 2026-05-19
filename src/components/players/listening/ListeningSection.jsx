@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Headphones } from 'lucide-react'
 import { ListeningPlayer } from './ListeningPlayer'
+import { ListeningAudioComingSoon } from './ListeningAudioComingSoon'
+import { DriftChip } from './DriftChip'
 import { InteractivePassage } from '../InteractivePassage'
 
 const AUDIO_TYPE_LABELS = {
@@ -12,8 +14,14 @@ const AUDIO_TYPE_LABELS = {
 
 /**
  * Premium listening section layout.
- * Handles: section header, before-listen notice, transcript toggle,
- * ListeningPlayer (sticky), and exercise slot.
+ * Handles: section header, before-listen notice, transcript toggle owned by
+ * the player, ListeningPlayer (sticky), and exercise slot.
+ *
+ * LISTENING-AUDIO-PLAYER-DRIFT-PROTECTION 2026-05-19:
+ *  - Transcript HIDDEN by default — students practice listening first
+ *  - "إظهار النص" toggle is now owned by the player (Phase D requirement)
+ *  - ListeningAudioComingSoon fallback when audio_url is null — never dead-button
+ *  - DriftChip surfaces stale audio to admins/trainers during impersonation
  *
  * Props:
  *   listening        — the curriculum_listening row
@@ -29,7 +37,6 @@ export function ListeningSection({
   renderTranscript,
   children,
 }) {
-  // All hooks before any conditional return
   const [transcriptHidden, setTranscriptHidden] = useState(true)
 
   const speakerSegments = (() => {
@@ -50,7 +57,7 @@ export function ListeningSection({
       {/* ── Section header ── */}
       <div dir="rtl" className="flex items-start justify-between gap-4">
         <div className="space-y-1.5 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Headphones size={15} style={{ color: 'var(--accent-sky)', flexShrink: 0 }} />
             <span
               className="text-xs font-bold font-['Tajawal'] uppercase tracking-wide"
@@ -58,6 +65,8 @@ export function ListeningSection({
             >
               الاستماع
             </span>
+            {/* Admin-only drift chip — students never see it */}
+            <DriftChip transcript={listening.transcript} storedHash={listening.source_text_hash} />
           </div>
 
           {(listening.title_ar || listening.title_en) && (
@@ -82,63 +91,49 @@ export function ListeningSection({
             </span>
           )}
         </div>
-
-        {listening.transcript && (
-          <button
-            onClick={() => setTranscriptHidden(v => !v)}
-            className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-['Tajawal'] transition-colors"
-            style={{
-              background: transcriptHidden ? 'transparent' : 'var(--info-bg)',
-              border: `1px solid ${transcriptHidden ? 'var(--border-subtle)' : 'var(--info-border)'}`,
-              color: transcriptHidden ? 'var(--text-muted)' : 'var(--accent-sky)',
-            }}
-          >
-            {transcriptHidden ? 'إظهار النص' : 'إخفاء النص'}
-          </button>
-        )}
       </div>
 
-      {/* ── Transcript / before-listen notice ── */}
-      {listening.transcript && (
-        transcriptHidden ? (
-          <div
-            className="rounded-2xl p-6 text-center space-y-1"
-            style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-            dir="rtl"
+      {/* ── Transcript — HIDDEN by default; revealed via the player's toggle ── */}
+      {listening.transcript && transcriptHidden && (
+        <div
+          className="rounded-2xl p-6 text-center space-y-1"
+          style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+          dir="rtl"
+        >
+          <p className="text-sm font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>
+            استمع للمقطع وحاول الإجابة بدون قراءة النص.
+          </p>
+          <p
+            className="text-xs font-['Tajawal']"
+            style={{ color: 'var(--text-muted)', opacity: 0.65 }}
           >
-            <p className="text-sm font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>
-              استمع للمقطع وحاول الإجابة بدون قراءة النص.
-            </p>
-            <p
-              className="text-xs font-['Tajawal']"
-              style={{ color: 'var(--text-muted)', opacity: 0.65 }}
-            >
-              يمكنك إظهار النص في أي وقت من الزر أعلاه.
-            </p>
-          </div>
-        ) : (
-          renderTranscript ? renderTranscript() : (
-            <InteractivePassage
-              content={listening.transcript}
-              audioUrl={listening.audio_url}
-              wordTimestampsJson={listening.word_timestamps}
-              unitId={unitId}
-            />
-          )
+            يمكنك إظهار النص من زر "إظهار النص" داخل المشغّل بالأسفل.
+          </p>
+        </div>
+      )}
+      {listening.transcript && !transcriptHidden && (
+        renderTranscript ? renderTranscript() : (
+          <InteractivePassage
+            content={listening.transcript}
+            audioUrl={listening.audio_url}
+            wordTimestampsJson={listening.word_timestamps}
+            unitId={unitId}
+          />
         )
       )}
 
-      {/* ── ListeningPlayer — fixed bottom bar (renders its own spacer) ── */}
+      {/* ── Player / fallback ── */}
       {!audioLoading && listening.audio_url && (
         <ListeningPlayer
           audioUrl={listening.audio_url}
           speakerSegments={speakerSegments}
           durationMs={durationMs}
+          transcriptShown={!transcriptHidden}
+          onTranscriptToggle={() => setTranscriptHidden((v) => !v)}
         />
       )}
-      {audioLoading && (
-        <div className="h-4" aria-hidden="true" />
-      )}
+      {!audioLoading && !listening.audio_url && <ListeningAudioComingSoon listening={listening} />}
+      {audioLoading && <div className="h-4" aria-hidden="true" />}
 
       {/* ── Exercises slot ── */}
       {children && <div className="space-y-4 mt-2">{children}</div>}

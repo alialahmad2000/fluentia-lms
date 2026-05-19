@@ -29,6 +29,7 @@ import { synthesizeWithTimestamps } from '../audio-generator/lib/eleven.mjs';
 const require = createRequire(import.meta.url);
 const { concatMp3Buffers, verifyMp3Decodes } = require('./lib/concat.cjs');
 const { stripSpeakerLabel } = require('./lib/strip-speaker-label.cjs');
+const { sourceTextHash } = require('../lib/text-hash.cjs');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -179,20 +180,28 @@ for (const item of flagged) {
     ]);
   }
 
-  // Update curriculum_listening with enriched timing data
+  // Update curriculum_listening with enriched timing data + drift-protection hash.
+  // Hash is computed from item.transcript (the source-of-truth text that was just
+  // synthesized) using the canonical normalization in scripts/lib/text-hash.cjs.
+  // From this point on, audio-drift-check.cjs will catch any future transcript
+  // rewrite that doesn't re-run the generator.
+  const textHash = sourceTextHash(item.transcript);
   await query(`
     UPDATE curriculum_listening
     SET audio_url=$1,
         audio_duration_seconds=$2,
         speaker_segments=$3,
         word_timestamps=$4,
-        audio_generated_at=now()
-    WHERE id=$5
+        audio_generated_at=now(),
+        source_text_hash=$5,
+        source_text_hash_at=now()
+    WHERE id=$6
   `, [
     uploaded.url,
     Math.round(combinedDurMs / 1000),
     JSON.stringify(enrichedSegs),
     JSON.stringify(allWordTs),
+    textHash,
     item.id,
   ]);
 

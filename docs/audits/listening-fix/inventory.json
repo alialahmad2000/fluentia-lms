@@ -1,0 +1,30 @@
+{
+  "stats": {
+    "total": 72,
+    "has_audio_url": 72,
+    "missing_audio_url": 0,
+    "has_transcript": 72,
+    "missing_transcript": 0,
+    "is_published_true": 0,
+    "is_published_false": 72,
+    "columns": [
+      "id",
+      "unit_id",
+      "audio_url",
+      "audio_duration_seconds",
+      "audio_type",
+      "speaker_segments",
+      "title_ar",
+      "title_en",
+      "transcript",
+      "audio_generated_at",
+      "segments_processed_at",
+      "word_timestamps",
+      "listening_number",
+      "sort_order",
+      "is_published"
+    ]
+  },
+  "generated_at": "2026-05-19T15:28:38.137Z",
+  "note": "Full rows omitted from git artifact to keep repo lean. Regenerate via scripts/audits/listening-fix/01-inventory.cjs."
+}
