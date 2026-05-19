@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-05-19T12:00:54.799Z",
+  "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+  "article_counts": {
+    "service": 2,
+    "test": 2,
+    "control": 2
+  },
+  "per_article": [
+    {
+      "sort_order": 0,
+      "reading_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+      "title_en": "Nature's Hidden Networks",
+      "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+      "full_audio_url_from_audio_table": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+      "url_in_two_tables_matches": true,
+      "url_embeds_reading_id": true,
+      "test_vs_svc_diff_fields": [],
+      "ctl_vs_svc_diff_fields": [],
+      "test_vs_ctl_diff_fields": [],
+      "audio_diff_test_vs_svc": [],
+      "audio_diff_ctl_vs_svc": [],
+      "service_row": {
+        "id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+        "reading_label": "A",
+        "title_ar": "How collective intelligence shapes the natural world around us",
+        "title_en": "Nature's Hidden Networks",
+        "passage_word_count": 1247,
+        "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+        "audio_duration_seconds": null,
+        "sort_order": 0
+      },
+      "test_row": {
+        "id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+        "reading_label": "A",
+        "title_ar": "How collective intelligence shapes the natural world around us",
+        "title_en": "Nature's Hidden Networks",
+        "passage_word_count": 1247,
+        "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+        "audio_duration_seconds": null,
+        "sort_order": 0
+      },
+      "control_row": {
+        "id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+        "reading_label": "A",
+        "title_ar": "How collective intelligence shapes the natural world around us",
+        "title_en": "Nature's Hidden Networks",
+        "passage_word_count": 1247,
+        "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+        "audio_duration_seconds": null,
+        "sort_order": 0
+      }
+    },
+    {
+      "sort_order": 1,
+      "reading_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+      "title_en": "Nature's Architects of Innovation",
+      "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+      "full_audio_url_from_audio_table": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+      "url_in_two_tables_matches": true,
+      "url_embeds_reading_id": true,
+      "test_vs_svc_diff_fields": [],
+      "ctl_vs_svc_diff_fields": [],
+      "test_vs_ctl_diff_fields": [],
+      "audio_diff_test_vs_svc": [],
+      "audio_diff_ctl_vs_svc": [],
+      "service_row": {
+        "id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+        "reading_label": "B",
+        "title_ar": "How swarm intelligence is revolutionizing technology and urban planning",
+        "title_en": "Nature's Architects of Innovation",
+        "passage_word_count": 1203,
+        "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+        "audio_duration_seconds": null,
+        "sort_order": 1
+      },
+      "test_row": {
+        "id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+        "reading_label": "B",
+        "title_ar": "How swarm intelligence is revolutionizing technology and urban planning",
+        "title_en": "Nature's Architects of Innovation",
+        "passage_word_count": 1203,
+        "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+        "audio_duration_seconds": null,
+        "sort_order": 1
+      },
+      "control_row": {
+        "id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+        "reading_label": "B",
+        "title_ar": "How swarm intelligence is revolutionizing technology and urban planning",
+        "title_en": "Nature's Architects of Innovation",
+        "passage_word_count": 1203,
+        "passage_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+        "audio_duration_seconds": null,
+        "sort_order": 1
+      }
+    }
+  ],
+  "cross_student_diffs": [],
+  "audio_path_check": [],
+  "verdict": {
+    "test_student_rows_differ_from_service": false,
+    "control_student_rows_differ_from_service": false,
+    "test_student_rows_differ_from_control_student": false,
+    "every_audio_url_embeds_its_reading_id": true,
+    "pass": true
+  }
+}

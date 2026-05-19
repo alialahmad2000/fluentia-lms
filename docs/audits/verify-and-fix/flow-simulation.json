@@ -1,0 +1,150 @@
+{
+  "generated_at": "2026-05-19T12:02:05.195Z",
+  "flow": [
+    0,
+    1,
+    0,
+    1
+  ],
+  "test_unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+  "sim_test": {
+    "label": "test-with-interests",
+    "email": "layan88700@gmail.com",
+    "readings_count": 2,
+    "steps": [
+      {
+        "step_index": 0,
+        "activeReading": 0,
+        "currentArticle_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "currentArticle_title_en": "Nature's Hidden Networks",
+        "currentArticle_reading_label": "A",
+        "text_source_reading_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 866,
+        "expected_word_count": 866,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      },
+      {
+        "step_index": 1,
+        "activeReading": 1,
+        "currentArticle_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "currentArticle_title_en": "Nature's Architects of Innovation",
+        "currentArticle_reading_label": "B",
+        "text_source_reading_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 815,
+        "expected_word_count": 815,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      },
+      {
+        "step_index": 2,
+        "activeReading": 0,
+        "currentArticle_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "currentArticle_title_en": "Nature's Hidden Networks",
+        "currentArticle_reading_label": "A",
+        "text_source_reading_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 866,
+        "expected_word_count": 866,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      },
+      {
+        "step_index": 3,
+        "activeReading": 1,
+        "currentArticle_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "currentArticle_title_en": "Nature's Architects of Innovation",
+        "currentArticle_reading_label": "B",
+        "text_source_reading_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 815,
+        "expected_word_count": 815,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      }
+    ]
+  },
+  "sim_control": {
+    "label": "control-no-interests",
+    "email": "sarashrahili22@gmail.com",
+    "readings_count": 2,
+    "steps": [
+      {
+        "step_index": 0,
+        "activeReading": 0,
+        "currentArticle_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "currentArticle_title_en": "Nature's Hidden Networks",
+        "currentArticle_reading_label": "A",
+        "text_source_reading_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 866,
+        "expected_word_count": 866,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      },
+      {
+        "step_index": 1,
+        "activeReading": 1,
+        "currentArticle_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "currentArticle_title_en": "Nature's Architects of Innovation",
+        "currentArticle_reading_label": "B",
+        "text_source_reading_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 815,
+        "expected_word_count": 815,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      },
+      {
+        "step_index": 2,
+        "activeReading": 0,
+        "currentArticle_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "currentArticle_title_en": "Nature's Hidden Networks",
+        "currentArticle_reading_label": "A",
+        "text_source_reading_id": "db633fd4-6a47-46c9-8013-4aa32a472f03",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/db633fd4-6a47-46c9-8013-4aa32a472f03/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 866,
+        "expected_word_count": 866,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      },
+      {
+        "step_index": 3,
+        "activeReading": 1,
+        "currentArticle_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "currentArticle_title_en": "Nature's Architects of Innovation",
+        "currentArticle_reading_label": "B",
+        "text_source_reading_id": "095aecf4-ed0a-40d8-bda6-77051f8c2d86",
+        "audio_full_audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/reading/L5/095aecf4-ed0a-40d8-bda6-77051f8c2d86/full.mp3",
+        "audio_url_embeds_reading_id": true,
+        "wt_count": 815,
+        "expected_word_count": 815,
+        "wt_ratio": 1,
+        "wt_count_in_tolerance": true,
+        "text_audio_karaoke_share_reading_id": true
+      }
+    ]
+  },
+  "cross_student_diffs": [],
+  "verdict": {
+    "every_step_text_audio_karaoke_coherent": true,
+    "two_students_walk_identical_data": true,
+    "pass": true
+  }
+}
