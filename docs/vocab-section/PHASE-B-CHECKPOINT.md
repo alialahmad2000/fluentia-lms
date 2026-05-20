@@ -193,3 +193,92 @@ Output filename convention: `tmp/vocab-enrich/batch-relationships-l3-NNN.json` (
 ### Stop reason
 
 Stopped at the clean L1 → L3 boundary rather than chip away at L3 mid-batch. Context is meaningful but not exhausted; the next session starts with a perfect handoff state. Per the prompt's "context-limit exit" rule, this is a clean exit rather than a half-write.
+
+---
+
+## Track B — Word Families — checkpoint 2026-05-20
+
+Session ran VOCAB-PREMIUM-02B-FAMILIES-L1-L3. Filter scoped to `cl.level_number IN (1, 3)`. Produced 5 batches (001-005, 30 rows each = 150 rows) of L1 word_family with full morphology objects.
+
+**L1 word_family state:** 332/662 (50.2%). 330 L1 rows remaining (~11 batches).
+**L3 word_family state:** 247/1961 (untouched this session). 1,714 L3 rows remaining (~57 batches).
+**Total Track B work remaining:** ~68 batches.
+
+**Commits this session (5):**
+```
+chore(vocab-enrich): families L1 batch 001 ending id 0e5aa0c6 (+30 rows)
+chore(vocab-enrich): families L1 batch 002 ending id 2372cf01 (+30 rows)
+chore(vocab-enrich): families L1 batch 003 ending id 32b4bf94 (+30 rows)
+chore(vocab-enrich): families L1 batch 004 ending id 45c747e5 (+30 rows)
+chore(vocab-enrich): families L1 batch 005 ending id 51971043 (+30 rows)
+```
+
+Every batch reported `{"updated":30,"skipped":0,"failed":0}` — 0 validation failures across all 5 batches.
+
+### Schema deviation from prompt 02B (intentional)
+
+The prompt 02B says derivative items use `{word, part_of_speech, cefr_level, is_base, is_opposite, known_word_id}`. Production rows use `{word, pos, level, is_base, is_opposite, morphology:{...}, vocabulary_id}` — including a rich `morphology` object per derivative with `affix`, `affix_type`, `rule_ar` (Arabic morphology explanation), `base_pos`, `base_word`, and `similar_examples`.
+
+**This session matched production** because: (1) existing 1,348 populated rows have morphology, (2) the `generate-families.cjs --apply` helper preserves morphology unchanged, and (3) `src/components/vocabulary/WordFamilySection.jsx` renders the "ليش؟" (why?) affix explanations from `morphology.rule_ar`. Omitting morphology would create inconsistent data and break the UI's affix-explanation feature.
+
+The prompt's `part_of_speech` field is normalized to `pos` by the helper script. The prompt's `cefr_level` field is normalized to `level`. The prompt's `known_word_id` is auto-derived to `vocabulary_id` by the helper's word→uuid lookup. All other prompt-spec rules (exactly one `is_base`, `is_opposite` on prefix-negation, all four POS where they exist) are honored.
+
+### Pipeline (same as Track A but for families)
+
+```
+1. Fetch L1 word_family-pending batch via MCP (uses word_family_generated_at IS NULL filter):
+
+   SELECT cv.id, cv.word, cv.definition_en, cv.part_of_speech, cv.example_sentence, cu.theme_en
+   FROM curriculum_vocabulary cv
+   JOIN curriculum_readings cr ON cr.id = cv.reading_id
+   JOIN curriculum_units cu ON cu.id = cr.unit_id
+   JOIN curriculum_levels cl ON cl.id = cu.level_id
+   WHERE cl.level_number = <LEVEL>
+     AND (cv.word_family IS NULL OR cv.word_family::text IN ('{}','[]','null'))
+     AND cv.word_family_generated_at IS NULL
+   ORDER BY cv.id ASC
+   LIMIT 30;
+
+2. Generate JSON with full morphology per derivative:
+
+   [
+     { "id": "<uuid>", "word": "<the word>",
+       "word_family": [
+         {"word":"<base>","pos":"verb|noun|adjective|adverb","level":N,"is_base":true,"is_opposite":false,
+          "morphology":{"is_base":true,"note_ar":"<Arabic note about origin>"}},
+         {"word":"<derivative>","pos":"...","level":N,"is_base":false,"is_opposite":false|true,
+          "morphology":{
+            "affix":"-ness","affix_type":"suffix"|"prefix",
+            "rule_ar":"<Arabic explanation of what this affix does>",
+            "base_pos":"...","base_word":"...",
+            "similar_examples":["happy → happiness","kind → kindness","dark → darkness"]
+          }}
+       ]
+     },
+     ...
+   ]
+
+3. Write to tmp/vocab-enrich/batch-families-l<N>-<NNN>.json
+
+4. Apply via helper script (normalizes pos/level, links vocabulary_id, preserves morphology):
+
+   node scripts/generate-families.cjs --apply tmp/vocab-enrich/batch-families-l<N>-<NNN>.json
+
+5. Commit + push per batch.
+```
+
+### Next session — continue L1 then L3
+
+L1 next batch starts at the id after `51971043-6386-43ad-9f4e-522aa7fb6c75` (last id of batch 005). Use the fetch query above with `cl.level_number = 1` and limit 30.
+
+After L1 word_family completes (~11 more batches), switch to `cl.level_number = 3` for L3 (1,714 rows / ~57 batches).
+
+### Quality notes
+
+For each word, lead the family with the **simplest/oldest root form** as the base (not necessarily the unit word). E.g., for "entrance" → base is "enter" (verb root), not the noun "entrance". For "renovation" → base is "renovate" (verb root), not the noun. For "national" → base is "nation" (noun root). The unit word stays in the family as a derivative when applicable.
+
+The `morphology.note_ar` on the base form should mention the etymological origin (Latin/Greek/Old English/etc.) when known — adds learning value beyond just structure.
+
+`similar_examples` should give 3 parallel patterns showing the same affix on different bases — these power the UI's "ليش؟" expand panel and make the morphological rule tangible.
+
+Skip morphology objects that would be nonsense (e.g., "شفافة" / "transparent" for sibling/sister words from the same root that aren't true affix derivatives). The renderer handles missing affix fields gracefully.
