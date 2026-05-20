@@ -1,0 +1,122 @@
+[
+  { "id": "45cd1efd-2e23-41c0-b238-63eb0f837c46", "word": "automatic",
+    "synonyms": [{"word":"self-acting","level":3},{"word":"mechanical","level":3},{"word":"automated","level":4}],
+    "antonyms": [{"word":"manual","level":3},{"word":"hand-operated","level":3}]
+  },
+  { "id": "460e2fa1-aec8-4fe1-8d03-d9ff1b8c6aae", "word": "outdoor",
+    "synonyms": [{"word":"open-air","level":3},{"word":"outside","level":1},{"word":"alfresco","level":5}],
+    "antonyms": [{"word":"indoor","level":2},{"word":"inside","level":1}]
+  },
+  { "id": "4613c089-d5b3-46e8-9262-1eeb27ab74b8", "word": "record",
+    "synonyms": [{"word":"capture","level":3},{"word":"tape","level":2},{"word":"document","level":3}],
+    "antonyms": [{"word":"erase","level":3},{"word":"delete","level":2}]
+  },
+  { "id": "46424c58-23d6-46e0-aabe-a4afaa88b9cc", "word": "zoom",
+    "synonyms": [{"word":"magnify","level":4},{"word":"enlarge","level":3},{"word":"focus in","level":2}],
+    "antonyms": [{"word":"zoom out","level":2},{"word":"shrink","level":2}]
+  },
+  { "id": "465ffb69-2145-4651-9365-01f4219bcb40", "word": "referee",
+    "synonyms": [{"word":"umpire","level":3},{"word":"official","level":3},{"word":"judge","level":2}],
+    "antonyms": [{"word":"player","level":1},{"word":"competitor","level":3}]
+  },
+  { "id": "478d4b6e-ae3c-43af-be43-c6861bfeb9df", "word": "organic",
+    "synonyms": [{"word":"natural","level":2},{"word":"chemical-free","level":3},{"word":"pesticide-free","level":4}],
+    "antonyms": [{"word":"chemical","level":2},{"word":"synthetic","level":4},{"word":"processed","level":3}]
+  },
+  { "id": "478f3edb-8697-4946-8c5c-aeee314f1300", "word": "satellite",
+    "synonyms": [{"word":"orbiter","level":4},{"word":"space station","level":3},{"word":"probe","level":4}],
+    "antonyms": []
+  },
+  { "id": "47f18ed1-a7f8-4e36-8088-8ef1631621bc", "word": "clay",
+    "synonyms": [{"word":"earth","level":1},{"word":"mud","level":1},{"word":"ceramic","level":3}],
+    "antonyms": []
+  },
+  { "id": "482b4ea0-0cf4-4fa3-b9ab-a126f03bac59", "word": "composition",
+    "synonyms": [{"word":"arrangement","level":3},{"word":"layout","level":3},{"word":"structure","level":3}],
+    "antonyms": []
+  },
+  { "id": "48cdc7ab-0f65-4710-a7b4-8862cc2de931", "word": "emotional",
+    "synonyms": [{"word":"moving","level":2},{"word":"touching","level":3},{"word":"sentimental","level":4}],
+    "antonyms": [{"word":"unemotional","level":3},{"word":"cold","level":1},{"word":"detached","level":4}]
+  },
+  { "id": "4900baea-a48a-48df-895d-d13fbb370928", "word": "migration",
+    "synonyms": [{"word":"movement","level":2},{"word":"travel","level":1},{"word":"emigration","level":4}],
+    "antonyms": [{"word":"settlement","level":3},{"word":"staying","level":2}]
+  },
+  { "id": "492c9fde-ee88-42a2-adb0-0dd1e701ba58", "word": "architecture",
+    "synonyms": [{"word":"design","level":2},{"word":"building style","level":2},{"word":"structure","level":3}],
+    "antonyms": []
+  },
+  { "id": "4a64ae43-4131-4407-99a2-7e55de4fba45", "word": "semifinal",
+    "synonyms": [{"word":"semi","level":2},{"word":"penultimate match","level":5},{"word":"play-off","level":3}],
+    "antonyms": [{"word":"final","level":2},{"word":"first round","level":3}]
+  },
+  { "id": "4a9e3f99-aeee-4885-b873-c545e0e23b31", "word": "heritage",
+    "synonyms": [{"word":"tradition","level":3},{"word":"legacy","level":4},{"word":"inheritance","level":3}],
+    "antonyms": []
+  },
+  { "id": "4abcf82a-c74a-4aae-a36b-4d96e657445f", "word": "invade",
+    "synonyms": [{"word":"attack","level":2},{"word":"occupy","level":3},{"word":"conquer","level":3}],
+    "antonyms": [{"word":"defend","level":2},{"word":"retreat","level":3},{"word":"withdraw","level":3}]
+  },
+  { "id": "4af062a1-1c8a-4f75-b45c-ede6411c64bb", "word": "electricity",
+    "synonyms": [{"word":"power","level":1},{"word":"current","level":3},{"word":"energy","level":2}],
+    "antonyms": []
+  },
+  { "id": "4afea334-d035-49a8-89b3-46cedb5ad491", "word": "habitat",
+    "synonyms": [{"word":"home","level":1},{"word":"environment","level":2},{"word":"dwelling","level":4}],
+    "antonyms": []
+  },
+  { "id": "4bbb5aa4-3830-4d7c-b9cc-a9f657825a8f", "word": "oxygen",
+    "synonyms": [{"word":"air","level":1},{"word":"O2","level":2},{"word":"breath","level":2}],
+    "antonyms": [{"word":"carbon dioxide","level":3}]
+  },
+  { "id": "4ccdd164-088f-4328-8f7d-fb632cb239ac", "word": "gratitude",
+    "synonyms": [{"word":"thanks","level":1},{"word":"appreciation","level":3},{"word":"thankfulness","level":3}],
+    "antonyms": [{"word":"ingratitude","level":4},{"word":"resentment","level":4}]
+  },
+  { "id": "4dcf3a9a-96f8-4b95-8a23-f2444659bb27", "word": "mighty",
+    "synonyms": [{"word":"strong","level":1},{"word":"powerful","level":2},{"word":"formidable","level":5}],
+    "antonyms": [{"word":"weak","level":1},{"word":"feeble","level":4}]
+  },
+  { "id": "4de8763e-8b7a-48ef-a06f-144990353431", "word": "dress up",
+    "synonyms": [{"word":"dress nicely","level":2},{"word":"deck out","level":4},{"word":"adorn","level":4}],
+    "antonyms": [{"word":"dress down","level":3}]
+  },
+  { "id": "4ec47c57-08f3-48c2-b7b4-fbd7e8315815", "word": "aromatic",
+    "synonyms": [{"word":"fragrant","level":4},{"word":"scented","level":3},{"word":"perfumed","level":4}],
+    "antonyms": [{"word":"odorless","level":4},{"word":"smelly","level":2}]
+  },
+  { "id": "4ed053ba-3b4a-418c-927d-3f50a7220007", "word": "reply",
+    "synonyms": [{"word":"answer","level":1},{"word":"respond","level":3},{"word":"react","level":2}],
+    "antonyms": [{"word":"ignore","level":2},{"word":"disregard","level":4}]
+  },
+  { "id": "4f4a2da3-8e3d-4fd2-b123-ba59c743db68", "word": "simmer",
+    "synonyms": [{"word":"cook gently","level":2},{"word":"stew","level":3},{"word":"poach","level":4}],
+    "antonyms": [{"word":"boil","level":2}]
+  },
+  { "id": "4f9a8a34-7e30-41c2-a54d-9a413df5fc05", "word": "decipher",
+    "synonyms": [{"word":"decode","level":3},{"word":"figure out","level":2},{"word":"unravel","level":5}],
+    "antonyms": [{"word":"encode","level":4},{"word":"encrypt","level":4}]
+  },
+  { "id": "50a03ff4-40a2-4729-8a42-7181e8972ea4", "word": "compose",
+    "synonyms": [{"word":"write","level":1},{"word":"create","level":1},{"word":"score","level":3}],
+    "antonyms": []
+  },
+  { "id": "512f4760-2758-4228-aa8f-b424d207c763", "word": "spacecraft",
+    "synonyms": [{"word":"spaceship","level":2},{"word":"rocket","level":2},{"word":"vessel","level":4}],
+    "antonyms": []
+  },
+  { "id": "51782b42-24e1-49ba-9629-56aeb9d5734d", "word": "manufacture",
+    "synonyms": [{"word":"make","level":1},{"word":"produce","level":2},{"word":"fabricate","level":5}],
+    "antonyms": [{"word":"destroy","level":2},{"word":"dismantle","level":4}]
+  },
+  { "id": "51795454-6c00-4d9f-9d4f-1aa8068fee38", "word": "score",
+    "synonyms": [{"word":"goal","level":1},{"word":"point","level":1},{"word":"net","level":3}],
+    "antonyms": [{"word":"miss","level":1}]
+  },
+  { "id": "51971043-6386-43ad-9f4e-522aa7fb6c75", "word": "glacier",
+    "synonyms": [{"word":"ice mass","level":2},{"word":"ice sheet","level":3},{"word":"iceberg","level":3}],
+    "antonyms": []
+  }
+]
