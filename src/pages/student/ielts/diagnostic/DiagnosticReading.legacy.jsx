@@ -5,7 +5,7 @@ import DiagnosticTimer from '@/components/ielts/diagnostic/DiagnosticTimer'
 import DiagnosticProgress from '@/components/ielts/diagnostic/DiagnosticProgress'
 import AutoSaveIndicator from '@/components/ielts/diagnostic/AutoSaveIndicator'
 import { useAutoSaveAttempt, useAdvanceSection } from '@/hooks/ielts/useDiagnostic'
-import DiagnosticError from './DiagnosticError'
+import DiagnosticError from './DiagnosticError.legacy'
 
 function useDebouncedCallback(fn, delay) {
   const timer = useRef(null)

@@ -8,15 +8,15 @@ import {
   useDiagnosticAttempt,
   useStartDiagnostic,
 } from '@/hooks/ielts/useDiagnostic'
-import DiagnosticSkeleton from './DiagnosticSkeleton'
-import DiagnosticError from './DiagnosticError'
-import DiagnosticWelcome from './DiagnosticWelcome'
-import DiagnosticListening from './DiagnosticListening'
-import DiagnosticReading from './DiagnosticReading'
-import DiagnosticWriting from './DiagnosticWriting'
-import DiagnosticSpeaking from './DiagnosticSpeaking'
-import DiagnosticSubmitting from './DiagnosticSubmitting'
-import DiagnosticResults from './DiagnosticResults'
+import DiagnosticSkeleton from './DiagnosticSkeleton.legacy'
+import DiagnosticError from './DiagnosticError.legacy'
+import DiagnosticWelcome from './DiagnosticWelcome.legacy'
+import DiagnosticListening from './DiagnosticListening.legacy'
+import DiagnosticReading from './DiagnosticReading.legacy'
+import DiagnosticWriting from './DiagnosticWriting.legacy'
+import DiagnosticSpeaking from './DiagnosticSpeaking.legacy'
+import DiagnosticSubmitting from './DiagnosticSubmitting.legacy'
+import DiagnosticResults from './DiagnosticResults.legacy'
 
 // Access gate panel — inline to keep imports tidy
 function NoAccessPanel({ onBack }) {

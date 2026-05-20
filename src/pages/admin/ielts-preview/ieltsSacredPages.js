@@ -3,17 +3,18 @@ import {
   Map, Library, Timer, UserRound, ShieldCheck,
 } from 'lucide-react';
 
-import Home       from '@/pages/student/ielts-v2/Home';
-import Diagnostic from '@/pages/student/ielts-v2/Diagnostic';
-import Reading    from '@/pages/student/ielts-v2/Reading';
-import Listening  from '@/pages/student/ielts-v2/Listening';
-import Writing    from '@/pages/student/ielts-v2/Writing';
-import Speaking   from '@/pages/student/ielts-v2/Speaking';
-import Journey    from '@/pages/student/ielts-v2/Journey';
-import Errors     from '@/pages/student/ielts-v2/Errors';
-import Mock       from '@/pages/student/ielts-v2/Mock';
-import Trainer    from '@/pages/student/ielts-v2/Trainer';
-import Readiness  from '@/pages/student/ielts-v2/Readiness';
+// Emergency deploy-fix 2026-05-20 — ielts-v2/ directory removed in HEAD; components live in ielts-atelier/.
+import Home       from '@/pages/student/ielts-atelier/Home';
+import Diagnostic from '@/pages/student/ielts-atelier/Diagnostic';
+import Reading    from '@/pages/student/ielts-atelier/Reading';
+import Listening  from '@/pages/student/ielts-atelier/Listening';
+import Writing    from '@/pages/student/ielts-atelier/Writing';
+import Speaking   from '@/pages/student/ielts-atelier/Speaking';
+import Journey    from '@/pages/student/ielts-atelier/Journey';
+import Errors     from '@/pages/student/ielts-atelier/Errors';
+import Mock       from '@/pages/student/ielts-atelier/Mock';
+import Trainer    from '@/pages/student/ielts-atelier/Trainer';
+import Readiness  from '@/pages/student/ielts-atelier/Readiness';
 
 export const PHASES = [
   { id: '0b', label: 'Phase 0B', title: 'الأساسات',          subtitle: 'Scaffold',         color: '#38bdf8' },

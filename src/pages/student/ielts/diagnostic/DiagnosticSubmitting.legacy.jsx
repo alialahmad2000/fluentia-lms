@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCompleteDiagnostic } from '@/hooks/ielts/useDiagnostic'
-import DiagnosticError from './DiagnosticError'
+import DiagnosticError from './DiagnosticError.legacy'
 
 const STAGES = [
   { msg: 'نحلل إجاباتك في القراءة والاستماع...', duration: 4000 },

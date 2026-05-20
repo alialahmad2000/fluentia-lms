@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase'
 import DiagnosticProgress from '@/components/ielts/diagnostic/DiagnosticProgress'
 import AudioRecorder from '@/components/ielts/diagnostic/AudioRecorder'
 import { useAdvanceSection } from '@/hooks/ielts/useDiagnostic'
-import DiagnosticError from './DiagnosticError'
+import DiagnosticError from './DiagnosticError.legacy'
 
 const PARTS = ['part1', 'part2']
 

@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { hasIELTSAccess } from '@/lib/packageAccess'
-import IELTSLockedPanel from '@/pages/student/ielts/IELTSLockedPanel'
+import IELTSLockedPanel from '@/pages/student/ielts/IELTSLockedPanel.legacy'
 
 function IELTSGuardSkeleton() {
   return (
