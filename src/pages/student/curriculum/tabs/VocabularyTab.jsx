@@ -15,6 +15,8 @@ import WordExerciseModal from '../../../../components/vocabulary/WordExerciseMod
 import { useSRSCounts, useSRSDue } from '../../../../hooks/useSrs'
 import ReviewOverlay from '../../../../components/student/vocabulary/ReviewOverlay'
 import HeroSection from '../../../../components/curriculum/hero/HeroSection'
+import ChunkLane from '../../../../components/curriculum/journey/ChunkLane'
+import ChunkMiniSession from '../../../../components/curriculum/journey/ChunkMiniSession'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -105,6 +107,9 @@ export default function VocabularyTab({ unitId }) {
   const saveTimer = useRef(null)
   const progressIdRef = useRef(null)
   const libraryRef = useRef(null) // Hero "scroll to library" target (Prompt 05)
+  const exerciseCloseCallbackRef = useRef(null) // ChunkMiniSession queue hook (Prompt 06)
+  const [activeChunk, setActiveChunk] = useState(null) // Journey Lane modal (Prompt 06)
+  const [chunkRefetchKey, setChunkRefetchKey] = useState(0) // bump to force ChunkLane refetch
 
   const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(profile?.id, unitId)
 
@@ -365,6 +370,14 @@ export default function VocabularyTab({ unitId }) {
     libraryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  // Journey Lane queue handler (Prompt 06) — opens WordExerciseModal one at a time
+  const handleRequestNextWordInChunk = (wordObj, onClose) => {
+    exerciseCloseCallbackRef.current = onClose
+    setExerciseWord(wordObj)
+  }
+  // Bump key after each word so ChunkLane refetches mastery counts
+  const handleChunkUpdate = () => setChunkRefetchKey((k) => k + 1)
+
   return (
     <div className="space-y-6">
       {/* Premium sticky Hero (Prompt 05) — strictly additive */}
@@ -373,6 +386,14 @@ export default function VocabularyTab({ unitId }) {
         studentId={profile?.id}
         onOpenWord={handleHeroOpenWord}
         onScrollToLibrary={handleHeroScrollToLibrary}
+      />
+
+      {/* Journey Lane (Prompt 06) — chunks between Hero and existing library */}
+      <ChunkLane
+        key={`chunk-lane-${unitId}-${chunkRefetchKey}`}
+        unitId={unitId}
+        profileId={profile?.id}
+        onOpenChunk={(chunk) => setActiveChunk(chunk)}
       />
 
       {/* === ALL CONTENT BELOW UNCHANGED FROM PRE-PROMPT-05 === */}
@@ -623,9 +644,28 @@ export default function VocabularyTab({ unitId }) {
         mastery={exerciseWord ? getMastery(exerciseWord.id) : null}
         studentId={profile?.id}
         isOpen={!!exerciseWord}
-        onClose={() => { setExerciseWord(null); setQuickPractice(false) }}
+        onClose={() => {
+          setExerciseWord(null)
+          setQuickPractice(false)
+          // Journey Lane queue hook — advance to next word in chunk
+          const cb = exerciseCloseCallbackRef.current
+          if (cb) {
+            exerciseCloseCallbackRef.current = null
+            try { cb() } catch (e) { /* swallow */ }
+          }
+        }}
         onMasteryUpdate={handleMasteryUpdate}
       />
+
+      {/* Chunk Mini-Session modal (Prompt 06) */}
+      {activeChunk && (
+        <ChunkMiniSession
+          chunk={activeChunk}
+          onClose={() => setActiveChunk(null)}
+          onRequestNextWord={handleRequestNextWordInChunk}
+          onChunkUpdate={handleChunkUpdate}
+        />
+      )}
 
       {/* Quick practice indicator */}
       {quickPractice && exerciseWord && (
