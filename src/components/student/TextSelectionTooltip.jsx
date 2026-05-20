@@ -197,6 +197,7 @@ export default function TextSelectionTooltip({
     try {
       const { error } = await supabase.from('student_saved_words').insert({
         student_id: studentId, word: tooltip.text,
+        meaning: aiResult?.meaning_ar || null,
         context_sentence: tooltip.contextSentence,
         source_unit_id: unitId, source: 'reading_passage', source_reference: readingId,
         next_review_at: new Date().toISOString(),

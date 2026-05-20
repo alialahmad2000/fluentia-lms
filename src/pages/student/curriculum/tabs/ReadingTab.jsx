@@ -21,10 +21,7 @@ import { useReadingPassageAudio } from '../../../../hooks/useReadingPassageAudio
 import { useWordHighlights } from '../../../../hooks/useWordHighlights'
 import { useUnitVocabSet } from '../../../../hooks/useUnitVocabSet'
 import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
-import { VocabPopup } from '../../../../components/audio/VocabPopup'
-import { WordActionMenu } from '../../../../components/audio/parts/WordActionMenu'
-import { WordTooltip } from '../../../../components/audio/parts/WordTooltip'
-import { findWordTimestamp, resolveVoiceLabel } from '../../../../lib/findWordTimestamp'
+import WordLens from '../../../../components/audio/wordlens'
 import { trackEvent } from '../../../../lib/trackEvent'
 
 const QUESTION_TYPE_LABELS = {
@@ -374,9 +371,7 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [vocabQuiz, setVocabQuiz] = useState(null)
   const [quizLoading, setQuizLoading] = useState(false)
   const [quizAnswers, setQuizAnswers] = useState({})
-  const [vocabPopup, setVocabPopup] = useState(null)
-  const [actionMenu, setActionMenu] = useState(null)
-  const [wordTooltip, setWordTooltip] = useState(null) // { vocab, anchorEl, position }
+  const [wordLensState, setWordLensState] = useState({ open: false })
   const audioPlayStartedRef = useRef(false)
   const hoverCache = useRef(new Map())
 
@@ -414,71 +409,53 @@ function ReadingContent({ reading, studentId, unitId }) {
     setTooltip(result)
   }, [])
 
-  // Vocab word quick tap → instant WordTooltip with definition + audio
-  const handleVocabWordTap = useCallback(async (word, segIdx, wordIdx, anchorEl, position) => {
-    const cached = hoverCache.current.get('full:' + word)
-
-    // Find in-context audio from passage segments (segment-local wordIdx)
-    const ts = audioData?.segments ? findWordTimestamp(audioData.segments, segIdx, wordIdx) : null
-    const inContextAudio = ts ? {
-      audioUrl:   ts.audioUrl,
-      startMs:    ts.startMs,
-      endMs:      ts.endMs,
-      voiceLabel: resolveVoiceLabel(ts.voiceId, ts.speakerLabel),
-    } : null
-
-    if (cached) { setWordTooltip({ vocab: cached, inContextAudio, anchorEl, position }); return }
-    const { data } = await supabase
-      .from('curriculum_vocabulary')
-      .select('id, word, definition_ar, pronunciation_ipa, audio_url, example_sentence, image_url')
-      .ilike('word', word)
-      .eq('reading_id', reading?.id)
-      .maybeSingle()
-    const result = data || (await supabase
-      .from('curriculum_vocabulary')
-      .select('id, word, definition_ar, pronunciation_ipa, audio_url, example_sentence, image_url')
-      .ilike('word', word).limit(1).maybeSingle()).data
-    hoverCache.current.set('full:' + word, result || null)
-    if (result) {
-      setWordTooltip({ vocab: result, inContextAudio, anchorEl, position })
-      trackEvent('reading_vocab_tap', { word, passage_id: reading?.id, has_context_audio: !!inContextAudio })
+  // Extract the sentence containing the wordIdx-th word from segment text_content.
+  // Counts only letter-bearing tokens so it stays in sync with KaraokeText's index rules.
+  const extractContextSentence = useCallback((segIdx, wordIdx) => {
+    const text = audioData?.segments?.[segIdx]?.text_content || ''
+    if (!text || wordIdx == null || wordIdx < 0) return text || null
+    const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean)
+    let cumulative = 0
+    for (const s of sentences) {
+      const count = (s.match(/[A-Za-z']+/g) || []).length
+      if (wordIdx < cumulative + count) return s.trim()
+      cumulative += count
     }
-  }, [reading?.id, audioData])
+    return (sentences[sentences.length - 1] || text).trim()
+  }, [audioData])
 
-  // Long-press → action menu (replaces direct VocabPopup)
-  const handleWordClick = useCallback((word, segIdx, position, wordIdx) => {
-    const clean = (typeof word === 'string' ? word : '').replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
+  const openWordLens = useCallback((rawWord, segIdx, wordIdx, position, prefetched = null) => {
+    const clean = (typeof rawWord === 'string' ? rawWord : '').replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
     if (!clean || clean.length < 2) return
-    const pos = typeof position === 'object' ? position : { x: position, y: window.innerHeight * 0.4 }
-    const existingHighlight = wordIdx != null ? highlightLookup?.get(`${segIdx}:${wordIdx}`) : null
-    setActionMenu({ word: clean, segIdx, wordIdx, position: pos, existingHighlight })
-    trackEvent('reading_word_lookup', { passage_id: reading?.id, word: clean, found_in_vocab: !!vocabMap[clean] })
-  }, [vocabMap, reading?.id, highlightLookup])
+    const pos = position && typeof position === 'object'
+      ? position
+      : { x: typeof position === 'number' ? position : window.innerWidth / 2, y: window.innerHeight * 0.4 }
+    const wordTimestamp = audioData?.segments?.[segIdx]?.word_timestamps?.[wordIdx] || null
+    const contextSentence = extractContextSentence(segIdx, wordIdx)
+    setWordLensState({
+      open: true,
+      word: clean,
+      contextSentence,
+      position: pos,
+      wordTimestamp,
+      prefetched,
+    })
+  }, [audioData, extractContextSentence])
 
-  const handleAction = useCallback(async (action, payload) => {
-    if (!actionMenu) return
-    const { word, segIdx, wordIdx, existingHighlight } = actionMenu
-    if (action === 'lookup') {
-      setActionMenu(null)
-      setVocabPopup({ word, x: actionMenu.position.x, y: actionMenu.position.y })
-    } else if (action === 'highlight') {
-      const color = payload
-      if (existingHighlight) await updateColor(existingHighlight.id, color)
-      else await addHighlight({ segmentIndex: segIdx, wordIndexStart: wordIdx, wordIndexEnd: wordIdx, wordText: word, color })
-      setActionMenu(null)
-      trackEvent('reading_word_highlight', { word, color, passage_id: reading?.id })
-    } else if (action === 'remove-highlight') {
-      if (existingHighlight) await removeHighlight(existingHighlight.id)
-      setActionMenu(null)
-    } else if (action === 'note') {
-      const note = window.prompt('ملاحظتك على هذه الكلمة:', existingHighlight?.note || '')
-      if (note !== null) {
-        if (existingHighlight) await addNote(existingHighlight.id, note)
-        else if (note) await addHighlight({ segmentIndex: segIdx, wordIndexStart: wordIdx, wordIndexEnd: wordIdx, wordText: word, color: 'yellow', note })
-      }
-      setActionMenu(null)
-    }
-  }, [actionMenu, addHighlight, removeHighlight, updateColor, addNote, reading?.id])
+  // Vocab word tap — has the curriculum row in vocabMap already; pass it as prefetched.
+  const handleVocabWordTap = useCallback((word, segIdx, wordIdx, _anchorEl, position) => {
+    const clean = (typeof word === 'string' ? word : '').replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
+    const prefetched = clean ? (vocabMap[clean] || null) : null
+    openWordLens(word, segIdx, wordIdx, position, prefetched)
+    trackEvent('reading_vocab_tap', { word: clean, passage_id: reading?.id, has_prefetched: !!prefetched })
+  }, [vocabMap, openWordLens, reading?.id])
+
+  // Long-press on any word — open lens; lookup falls through tiers inside WordLens.
+  const handleWordClick = useCallback((word, segIdx, position, wordIdx) => {
+    openWordLens(word, segIdx, wordIdx, position, null)
+    const clean = (typeof word === 'string' ? word : '').replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
+    trackEvent('reading_word_lookup', { passage_id: reading?.id, word: clean, found_in_vocab: !!vocabMap[clean] })
+  }, [openWordLens, vocabMap, reading?.id])
 
   // Register page-specific reset actions
   usePageReset(() => {
@@ -1059,44 +1036,20 @@ function ReadingContent({ reading, studentId, unitId }) {
         <CriticalThinkingBox reading={reading} />
       )}
 
-      {/* Word action menu (long-press / right-click) */}
-      {actionMenu && (
-        <WordActionMenu
-          word={actionMenu.word}
-          position={actionMenu.position}
-          existingHighlight={actionMenu.existingHighlight}
-          onAction={handleAction}
-          onClose={() => setActionMenu(null)}
-        />
-      )}
-
-      {/* Vocab tap tooltip (instant on tap) */}
-      {wordTooltip && (
-        <WordTooltip
-          word={wordTooltip.vocab.word}
-          definition_ar={wordTooltip.vocab.definition_ar}
-          ipa={wordTooltip.vocab.pronunciation_ipa}
-          audio_url={wordTooltip.vocab.audio_url}
-          example_sentence={wordTooltip.vocab.example_sentence}
-          image_url={wordTooltip.vocab.image_url}
-          inContextAudio={wordTooltip.inContextAudio || null}
-          anchorEl={wordTooltip.anchorEl}
-          onClose={() => setWordTooltip(null)}
-          onMoreInfo={() => {
-            setVocabPopup({ word: wordTooltip.vocab.word, x: wordTooltip.position?.x || 200, y: wordTooltip.position?.y || 200 })
-            setWordTooltip(null)
-          }}
-        />
-      )}
-
-      {/* Vocab popup (from action menu "lookup" or tooltip "تفاصيل أكثر") */}
-      {vocabPopup && (
-        <VocabPopup
-          word={vocabPopup.word}
-          readingId={reading.id}
-          isOpen={true}
-          onClose={() => setVocabPopup(null)}
-          anchorPosition={{ x: vocabPopup.x, y: vocabPopup.y }}
+      {/* Unified WordLens — single surface for word tap + long-press */}
+      {wordLensState.open && (
+        <WordLens
+          open={wordLensState.open}
+          word={wordLensState.word}
+          contextSentence={wordLensState.contextSentence}
+          position={wordLensState.position}
+          readingId={reading?.id}
+          unitId={unitId}
+          studentId={studentId}
+          passageAudioUrl={audioData?.segments?.[0]?.audio_url}
+          wordTimestamp={wordLensState.wordTimestamp}
+          prefetched={wordLensState.prefetched}
+          onClose={() => setWordLensState({ open: false })}
         />
       )}
     </div>
