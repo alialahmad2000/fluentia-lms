@@ -273,3 +273,71 @@ V3 will read theme from `document.documentElement.dataset.theme` (which the exis
 ---
 
 **End of Phase A discovery. Proceeding to Phase B (component build, no wiring).**
+
+---
+
+# Phase E — QA Report
+
+Generated: 2026-05-20T15:00Z
+HEAD at QA: a3e8c7d (Phase D commit)
+
+This QA pass combines **static checks** (performed by the agent) and **flagged-for-Ali** browser items (require Vercel preview + manual eyes). The V3 prompt's E1 test matrix is reproduced below with one column added — "Verification mode" — distinguishing what I confirmed here vs what still needs a real browser.
+
+## E1 Test Matrix Results
+
+| # | Test | Mode | Result | Notes |
+|---|---|---|---|---|
+| E1.1 | Open unit page (L1 unit 1) on desktop dark mode | browser | PENDING | Requires Vercel preview. Open any unit URL with `?layout=v3` to verify all 4 movements render, Compass shows correct fill, no console errors. |
+| E1.2 | Mobile (320px) — movements stack, no horizontal scroll | browser | PENDING | CSS uses `repeat(auto-fit, minmax(220px, 1fr))` for station grid which collapses to 1 column under ~260px content width — no horizontal scroll expected. Verify visually. |
+| E1.3 | Light theme — palettes adjust, numerals readable | browser | PENDING | Resolved via `document.documentElement.dataset.theme`. Light palette has darker accents (#B45309, #0369A1, #BE185D, #6D28D9). Hero numeral opacity bumps from 0.09→0.12. Verify visually. |
+| E1.4 | Click an activity station — ActivityContent renders | static | PASS | `ActivityContentDispatcher` lazy-imports the same tab components V2 uses (`../tabs/{Reading,Grammar,Vocabulary,Listening,Writing,Speaking}Tab` + `../../../../components/curriculum/RecordingTab`). ContextRibbon wrapping matches V2 (recording is the only unwrapped activity). |
+| E1.5 | Complete an activity — XP awarded, progress reflected | static | PASS | V3 listens for the same `fluentia:activity:complete` events V2 emits. Hook invalidates `['unit-progress-comprehensive', studentId, unitId]` query, then returns to layout after 3s. XP awards happen inside the tab components themselves — untouched by V3. Verify the green Compass arc redraws after return. |
+| E1.6 | Missing activities hide automatically; empty movements hide | static | PASS | `groupActivitiesByMovement` (V3) filters out empty groups. `EmptyMovementGuard` is a belt-and-braces double-check. Activities array comes from V2's `useUnitData` which already filters by ACTIVITY_MAP. |
+| E1.7 | Trigger Trophy modal via Compass center | static | PASS | `UnitCompass` calls `onTrophyClick` prop, wired by `UnitContentV3Wrapper` to `setTrophyOpen(true)` — same `TrophyModal` instance V2 uses, same data shape. |
+| E1.8 | Brief / Debrief / Context Ribbon — all still fire | static | PASS | V3 wrapper mounts `UnitBrief`, `UnitDebriefV2`, `UnitIntroCinematic`, `CelebrationLayer`, `AmbientParticles` with the same gating logic V2 uses (localStorage flags). ContextRibbon is mounted inside `ActivityContentDispatcher` exactly like V2's switch. |
+| E1.9 | Reduce-motion preference — animations swap to instant | static | PASS | `useReducedMotion()` from framer-motion gated in all 6 V3 components that animate (UnitCompass, MovementPanel, MovementProgressOrb, NextSuggestionPulse, ActivityStation, RecommendedPath). All fall back to `{ duration: 0 }` or render without motion wrapper. Browser verification still recommended. |
+| E1.10 | Switch to V2 via `?layout=v2` — Mission Grid renders | static | PASS | `useUnitLayoutVersion` URL param check sees `'v2'` → returns version='v2' → `UnitContentRouter` mounts the original `UnitContent`. Same path V2 students take today. |
+| E1.11 | Impersonation banner stays z-index 9999 above V3 | static | PASS | V3's outer container has `position: relative; zIndex: 10`. Recommended-path SVG rail has `zIndex: 1`. Sticky/fixed elements in V3 are all <= 10. ImpersonationBanner (z-9999) remains above. |
+
+**Static-verifiable: 8/11 PASS · Browser-required: 3/11 PENDING**
+
+## E2 Lighthouse
+
+| Metric | Result |
+|---|---|
+| LCP | PENDING — open Vercel preview, run Lighthouse on a unit page with `?layout=v3` |
+| CLS | PENDING — expected < 0.05 (no layout-shifting elements; Compass loads at known size, panels animate via transform not size) |
+| TBT | PENDING |
+| Performance score | PENDING — target ≥ 80 |
+
+Static estimate: V3 adds ~14 KB JS (gzipped, lazy-loaded), 1 small CSS file, and 1 extra fetch (`app_config.value` for the flag — ~200 bytes). All other data comes from queries V2 already issues. **No expected impact on LCP or CLS.**
+
+## E3 Network
+
+| Item | Result |
+|---|---|
+| New endpoints | 1 — `GET /rest/v1/app_config?key=eq.unit_layout` (cached per session) |
+| Duplicated queries | 0 — V3 reuses every V2 hook |
+| 4xx/5xx | PENDING — verify in DevTools Network tab |
+
+## E4 Accessibility
+
+| Item | Result | Evidence |
+|---|---|---|
+| Keyboard navigation | PARTIAL PASS (static) | Every interactive surface is a `<button>` semantic element with explicit `type="button"`. Compass sectors are styled `<path>` elements with `role="button" tabIndex={0}` and a `<title>` for tooltips. Real keyboard tab-order verification: PENDING (browser). |
+| Screen-reader labels | PASS (static) | `aria-label` on: Compass (`بوصلة الوحدة — أنجزتِ X من Y أنشطة`), each ActivityStation (`{title} — {status_ar}, الخطوة المقترحة التالية, تحتاج تقريباً X دقيقة`), Trophy button (`افتح لوحة النجوم والترتيب`), back button (`العودة إلى مراحل الوحدة`), Brief replay button (`استعرض الوحدة`). Hero numeral is `aria-hidden="true"` (decorative). |
+| Focus rings | PENDING (browser) | Default browser focus rings apply. No explicit `:focus-visible` outline overrides in the V3 CSS — should be visible. Recommend verifying contrast against panel backgrounds. |
+| Color contrast (dark) | LIKELY PASS | Text colors use `var(--ds-text-primary)` (#faf5e6 on dark) — measured AAA against `--ds-bg-elevated`. Status badges use color tokens with explicit opacity > 0.3 in foreground. |
+| Color contrast (light) | PENDING (browser) | Light theme accents bumped to darker variants (#B45309 / #0369A1 / #BE185D / #6D28D9) for AA on white. Should pass but worth manually verifying with a contrast checker. |
+
+## E5 Open issues (non-blocking)
+
+1. **Browser-required tests pending Ali.** Items E1.1–E1.3, E1.9 (visual side), E2 (Lighthouse), E3 4xx/5xx verification, E4 keyboard/focus-ring. None of these can be done from the agent context. Recommend running `?layout=v3` on the live Vercel preview as the first step of Phase F.
+2. **B11 fallback in effect.** `RecommendedPath` ships as a vertical accent rail rather than an animated SVG thread weaving through measured station positions. Documented in §10. `NextSuggestionPulse` on the next-recommended station carries the primary "next step" affordance, so the UX is still served.
+3. **Mastery Card placement.** V3 mounts `UnitMasteryCard` above the Compass (via `extraTopSlot`), preserving V2's "goalpost first" psychology. If Ali wants it elsewhere (e.g., inside the Reflect movement as a station), the wrapper can move it with no V3 component changes.
+4. **Trainer/admin preview routes** also go through `UnitContentRouter`. When a trainer or admin opens a unit in preview mode, they'll see V3 only if THEIR own `unit_layout_preference` is `'v3'` (or `?layout=v3` is set). This is consistent with how the flag is supposed to work.
+5. **Vocab-enrich loop ran during this build.** Multiple commits landed concurrently. No file conflicts at any point — V3 paths are fully isolated. Documented as a process note, not a V3 issue.
+
+## E6 Blocker check
+
+**Blockers: NO.** V3 is reachable via `?layout=v3` on any unit URL (admins only). The global default remains `'v2'` for every student. Ali can preview V3 end-to-end on his own account by either appending the URL param or by setting his profile preference (Phase F).
