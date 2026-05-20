@@ -1,0 +1,122 @@
+[
+  { "id": "8e9edbca-63bb-443d-856b-b88e415f2daa", "word": "column",
+    "synonyms": [{"word":"pillar","level":3},{"word":"post","level":1},{"word":"support","level":2}],
+    "antonyms": []
+  },
+  { "id": "8f581ff6-0755-4065-b959-1dcecc5f0679", "word": "flavor",
+    "synonyms": [{"word":"taste","level":1},{"word":"savor","level":4},{"word":"essence","level":4}],
+    "antonyms": [{"word":"tastelessness","level":4}]
+  },
+  { "id": "8f65007d-f179-497f-b5a4-ed2278aecc75", "word": "probe",
+    "synonyms": [{"word":"explorer","level":2},{"word":"spacecraft","level":2},{"word":"satellite","level":3}],
+    "antonyms": []
+  },
+  { "id": "8f7118d7-d2c8-4ec3-8246-66923970976d", "word": "sketch",
+    "synonyms": [{"word":"drawing","level":1},{"word":"draft","level":3},{"word":"outline","level":3}],
+    "antonyms": [{"word":"finished work","level":2}]
+  },
+  { "id": "90a34a73-03b2-44e1-ac81-ea4d600a3c1b", "word": "coast",
+    "synonyms": [{"word":"shore","level":2},{"word":"seaside","level":2},{"word":"coastline","level":3}],
+    "antonyms": [{"word":"inland","level":3}]
+  },
+  { "id": "90b06054-d297-421e-889b-b5954fffd84c", "word": "restore",
+    "synonyms": [{"word":"repair","level":2},{"word":"renovate","level":4},{"word":"refurbish","level":5}],
+    "antonyms": [{"word":"damage","level":2},{"word":"destroy","level":2},{"word":"ruin","level":3}]
+  },
+  { "id": "90d10831-853e-4c28-a34a-b443202b8ede", "word": "decoration",
+    "synonyms": [{"word":"ornament","level":4},{"word":"adornment","level":5},{"word":"embellishment","level":5}],
+    "antonyms": []
+  },
+  { "id": "91b5c754-ca36-459c-aabf-9f65730f0b43", "word": "earth",
+    "synonyms": [{"word":"world","level":1},{"word":"planet","level":2},{"word":"globe","level":3}],
+    "antonyms": []
+  },
+  { "id": "92c2fa46-f3aa-4d00-9fee-56dae660c1a8", "word": "universe",
+    "synonyms": [{"word":"cosmos","level":5},{"word":"space","level":1},{"word":"creation","level":3}],
+    "antonyms": []
+  },
+  { "id": "9319f850-3716-4d2b-bb46-8a08b557ad40", "word": "follower",
+    "synonyms": [{"word":"fan","level":1},{"word":"subscriber","level":3},{"word":"supporter","level":3}],
+    "antonyms": [{"word":"leader","level":1},{"word":"unfollower","level":3}]
+  },
+  { "id": "934d4eaa-702a-4028-b673-10c676c740db", "word": "opponent",
+    "synonyms": [{"word":"rival","level":3},{"word":"competitor","level":3},{"word":"adversary","level":5}],
+    "antonyms": [{"word":"teammate","level":2},{"word":"ally","level":3},{"word":"partner","level":1}]
+  },
+  { "id": "937f9822-14af-483d-ba1d-1e95810375bd", "word": "vast",
+    "synonyms": [{"word":"huge","level":2},{"word":"enormous","level":4},{"word":"immense","level":5}],
+    "antonyms": [{"word":"tiny","level":1},{"word":"small","level":1},{"word":"minute","level":4}]
+  },
+  { "id": "93f26c25-2f90-4146-8aaa-f1085d2a901f", "word": "band",
+    "synonyms": [{"word":"group","level":1},{"word":"ensemble","level":5},{"word":"orchestra","level":3}],
+    "antonyms": [{"word":"soloist","level":4}]
+  },
+  { "id": "94a6beab-f07e-4c34-ac13-24e25749a56d", "word": "coach",
+    "synonyms": [{"word":"trainer","level":2},{"word":"mentor","level":4},{"word":"instructor","level":3}],
+    "antonyms": [{"word":"player","level":1},{"word":"trainee","level":3}]
+  },
+  { "id": "95b53763-34dc-404c-be47-6e8e65b79461", "word": "dolphin",
+    "synonyms": [{"word":"porpoise","level":4},{"word":"sea mammal","level":3},{"word":"cetacean","level":5}],
+    "antonyms": []
+  },
+  { "id": "96e370e2-b4ba-41f7-96da-234e3b783eb7", "word": "monetize",
+    "synonyms": [{"word":"earn from","level":2},{"word":"profit from","level":3},{"word":"capitalize","level":5}],
+    "antonyms": []
+  },
+  { "id": "97428c9e-9b9d-4d46-b6d6-448fb7550aed", "word": "tiny",
+    "synonyms": [{"word":"small","level":1},{"word":"minute","level":4},{"word":"miniscule","level":5}],
+    "antonyms": [{"word":"huge","level":2},{"word":"vast","level":3},{"word":"enormous","level":4}]
+  },
+  { "id": "97c14858-db9f-430c-93c6-bf77759c035e", "word": "determination",
+    "synonyms": [{"word":"will","level":1},{"word":"resolve","level":4},{"word":"perseverance","level":5}],
+    "antonyms": [{"word":"hesitation","level":4},{"word":"weakness","level":2}]
+  },
+  { "id": "982e19e1-50d5-411c-857c-19432d95f434", "word": "mosaic",
+    "synonyms": [{"word":"tile picture","level":2},{"word":"patchwork","level":4},{"word":"montage","level":5}],
+    "antonyms": []
+  },
+  { "id": "9975e2b1-ddf6-4e0a-8908-55d037116631", "word": "goal",
+    "synonyms": [{"word":"score","level":1},{"word":"point","level":1},{"word":"objective","level":4}],
+    "antonyms": [{"word":"miss","level":1}]
+  },
+  { "id": "9a73dacc-1615-459a-b5a6-fdbaa7e41d4e", "word": "custom",
+    "synonyms": [{"word":"tradition","level":3},{"word":"practice","level":2},{"word":"convention","level":4}],
+    "antonyms": [{"word":"innovation","level":4},{"word":"novelty","level":4}]
+  },
+  { "id": "9a750eb1-8f57-4696-b484-462263670306", "word": "masterpiece",
+    "synonyms": [{"word":"great work","level":1},{"word":"magnum opus","level":5},{"word":"chef-d'oeuvre","level":5}],
+    "antonyms": [{"word":"flop","level":3},{"word":"failure","level":2}]
+  },
+  { "id": "9aad5a7b-7a9c-4725-814d-f764b039ee49", "word": "automate",
+    "synonyms": [{"word":"mechanize","level":4},{"word":"computerize","level":3},{"word":"streamline","level":4}],
+    "antonyms": [{"word":"do manually","level":2}]
+  },
+  { "id": "9adedb06-c6ea-4692-bcb1-72338d469a07", "word": "decree",
+    "synonyms": [{"word":"order","level":1},{"word":"command","level":2},{"word":"edict","level":5}],
+    "antonyms": []
+  },
+  { "id": "9be4924d-3ff9-4742-980f-e9a26387a53f", "word": "perspective",
+    "synonyms": [{"word":"viewpoint","level":3},{"word":"angle","level":2},{"word":"view","level":1}],
+    "antonyms": []
+  },
+  { "id": "9d984435-f4f5-402e-9905-3c437dc2ac42", "word": "religious",
+    "synonyms": [{"word":"sacred","level":3},{"word":"holy","level":2},{"word":"devout","level":5}],
+    "antonyms": [{"word":"secular","level":4},{"word":"non-religious","level":3}]
+  },
+  { "id": "9df1a8c9-152d-452f-abe4-f9f588299911", "word": "ceremony",
+    "synonyms": [{"word":"ritual","level":4},{"word":"event","level":1},{"word":"observance","level":5}],
+    "antonyms": []
+  },
+  { "id": "9e1adc9f-75b6-4e23-ba28-c34f1298e726", "word": "papyrus",
+    "synonyms": [{"word":"ancient paper","level":2},{"word":"scroll material","level":3},{"word":"reed paper","level":3}],
+    "antonyms": []
+  },
+  { "id": "9ec71c4f-aa40-4f7e-809a-73d1666db756", "word": "preserve",
+    "synonyms": [{"word":"protect","level":2},{"word":"conserve","level":3},{"word":"maintain","level":3}],
+    "antonyms": [{"word":"destroy","level":2},{"word":"discard","level":3},{"word":"neglect","level":4}]
+  },
+  { "id": "9f10842a-4cf3-4461-a68d-3fb8bc1c212d", "word": "archaeology",
+    "synonyms": [{"word":"study of ruins","level":2},{"word":"ancient studies","level":2},{"word":"paleography","level":5}],
+    "antonyms": []
+  }
+]
