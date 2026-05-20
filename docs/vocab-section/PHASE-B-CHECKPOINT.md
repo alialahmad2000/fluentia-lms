@@ -130,3 +130,66 @@ For antonyms, an empty array is fine when no natural antonym exists (proper noun
 ## Pick up here
 
 Next session, the first read should be **this file** (`docs/vocab-section/PHASE-B-CHECKPOINT.md`), then fetch L1 synonyms-pending batch 003. The first row in that batch will be the next `id` after `0e5aa0c6-1170-413e-8b41-cfab5cc83d26` (the last id in batch 001's input).
+
+---
+
+## Track A — Relationships — L1 COMPLETE (2026-05-20)
+
+Session ran VOCAB-PREMIUM-02A-RELATIONSHIPS-L1-L3. Filter scoped to `cl.level_number IN (1, 3)`. Produced 14 batches (003-016, 30 rows each = 420 rows) of L1 synonyms+antonyms.
+
+**L1 final state:** 661/662 done (99.85%). The one remaining row is `id 9f481497... ("lens")` — processed by Session 19 on 2026-04-11 with empty `synonyms`/`antonyms` arrays. `relationships_generated_at` is set, so it's treated as already-checked and skipped by the idempotency filter. **L1 is functionally complete.**
+
+**Commits this session (14):**
+```
+7744e08  chore(vocab-enrich): relationships L1 batch 003 ending id 32b4bf94 (+30 rows)
+…ce2…    chore(vocab-enrich): relationships L1 batch 004 ending id 45c747e5 (+30 rows)
+…2a4…    chore(vocab-enrich): relationships L1 batch 005 ending id 51971043 (+30 rows)
+…3bf…    chore(vocab-enrich): relationships L1 batch 006 ending id 5dd9c89c (+30 rows)
+…b7a…    chore(vocab-enrich): relationships L1 batch 007 ending id 6e088b2c (+30 rows)
+…e8c…    chore(vocab-enrich): relationships L1 batch 008 ending id 7de332ab (+30 rows)
+…df1…    chore(vocab-enrich): relationships L1 batch 009 ending id 8da7c281 (+30 rows)
+…6ad…    chore(vocab-enrich): relationships L1 batch 010 ending id 9f10842a (+30 rows)
+…2c5…    chore(vocab-enrich): relationships L1 batch 011 ending id b134cef7 (+30 rows)
+…0d6…    chore(vocab-enrich): relationships L1 batch 012 ending id bd1612f1 (+30 rows)
+…b4f…    chore(vocab-enrich): relationships L1 batch 013 ending id ca491256 (+30 rows)
+…7f2…    chore(vocab-enrich): relationships L1 batch 014 ending id de16e3f1 (+30 rows)
+…d1a…    chore(vocab-enrich): relationships L1 batch 015 ending id eea24710 (+30 rows)
+…f12…    chore(vocab-enrich): relationships L1 batch 016 ending id fff7f988 (+30 rows) — L1 SYNONYMS COMPLETE
+```
+
+(short hashes shown — actual hashes visible via `git log --oneline | grep relationships`)
+
+**Verified resume status (2026-05-20, end of session):**
+
+```
+                  L1                  L3
+synonyms          661/662 ✅          285/1961
+antonyms          (in lockstep)       (in lockstep)
+```
+
+**Cumulative since prompt 02 started:** 480 L1 rows enriched across 16 batches (60 prior + 420 this session). 0 validation failures across all 16 batches. Every batch reported `{"updated":30,"skipped":0,"failed":0}`.
+
+### Next session — start L3
+
+The natural Pass 2 split point. L3 has **1,676 remaining rows** = ~56 batches at 30/batch. Realistic at single-sequential-agent: 3-5 sessions to finish L3.
+
+To begin: fetch with the same query but `cl.level_number = 3`:
+
+```sql
+SELECT cv.id, cv.word, cv.definition_en, cv.part_of_speech, cv.example_sentence, cu.theme_en
+FROM curriculum_vocabulary cv
+JOIN curriculum_readings cr ON cr.id = cv.reading_id
+JOIN curriculum_units cu ON cu.id = cr.unit_id
+JOIN curriculum_levels cl ON cl.id = cu.level_id
+WHERE cl.level_number = 3
+  AND (cv.synonyms IS NULL OR cv.synonyms::text IN ('{}','[]','null'))
+  AND cv.relationships_generated_at IS NULL
+ORDER BY cv.id ASC
+LIMIT 30;
+```
+
+Output filename convention: `tmp/vocab-enrich/batch-relationships-l3-NNN.json` (NNN = 001, 002, ...).
+
+### Stop reason
+
+Stopped at the clean L1 → L3 boundary rather than chip away at L3 mid-batch. Context is meaningful but not exhausted; the next session starts with a perfect handoff state. Per the prompt's "context-limit exit" rule, this is a clean exit rather than a half-write.
