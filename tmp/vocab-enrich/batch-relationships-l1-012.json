@@ -1,0 +1,122 @@
+[
+  { "id": "b16c69c8-f876-40b6-80fa-9ac8030658ed", "word": "toxic",
+    "synonyms": [{"word":"poisonous","level":3},{"word":"harmful","level":2},{"word":"deadly","level":3}],
+    "antonyms": [{"word":"safe","level":1},{"word":"harmless","level":3},{"word":"non-toxic","level":3}]
+  },
+  { "id": "b233e91f-02ab-4ecd-ad85-e406a94a8f37", "word": "nature",
+    "synonyms": [{"word":"outdoors","level":2},{"word":"environment","level":3},{"word":"wilderness","level":4}],
+    "antonyms": [{"word":"city","level":1},{"word":"civilization","level":4}]
+  },
+  { "id": "b2e01618-f31c-4760-bbb4-bbb67185e1f8", "word": "modern",
+    "synonyms": [{"word":"new","level":1},{"word":"current","level":3},{"word":"contemporary","level":4}],
+    "antonyms": [{"word":"old","level":1},{"word":"ancient","level":2},{"word":"outdated","level":4}]
+  },
+  { "id": "b2e37da4-50d1-452f-bf7c-817bb98ac87b", "word": "illuminate",
+    "synonyms": [{"word":"light up","level":1},{"word":"brighten","level":3},{"word":"shine","level":2}],
+    "antonyms": [{"word":"darken","level":3},{"word":"dim","level":3}]
+  },
+  { "id": "b36c6991-46a6-4455-92fb-31220aa44fde", "word": "festive",
+    "synonyms": [{"word":"celebratory","level":3},{"word":"joyful","level":3},{"word":"merry","level":4}],
+    "antonyms": [{"word":"somber","level":5},{"word":"sad","level":1}]
+  },
+  { "id": "b372d917-f960-46aa-ad74-15e111933e42", "word": "cyberbullying",
+    "synonyms": [{"word":"online harassment","level":3},{"word":"digital bullying","level":3},{"word":"trolling","level":4}],
+    "antonyms": [{"word":"kindness","level":2},{"word":"support","level":2}]
+  },
+  { "id": "b3a24e6d-f262-4623-9539-7fc615446c71", "word": "manual",
+    "synonyms": [{"word":"hand-operated","level":3},{"word":"non-automatic","level":3},{"word":"hand-made","level":2}],
+    "antonyms": [{"word":"automatic","level":3},{"word":"electric","level":2}]
+  },
+  { "id": "b4551011-6f27-42da-91b6-9ea8876acfa2", "word": "guest",
+    "synonyms": [{"word":"visitor","level":2},{"word":"caller","level":3},{"word":"company","level":2}],
+    "antonyms": [{"word":"host","level":2},{"word":"resident","level":3}]
+  },
+  { "id": "b498cc4a-c88b-414e-9d23-95cf2c609182", "word": "background",
+    "synonyms": [{"word":"backdrop","level":4},{"word":"setting","level":3},{"word":"scene","level":2}],
+    "antonyms": [{"word":"foreground","level":3},{"word":"subject","level":2}]
+  },
+  { "id": "b4a8a5e8-dd05-4b35-8e28-662749d8b02b", "word": "infinite",
+    "synonyms": [{"word":"endless","level":3},{"word":"boundless","level":5},{"word":"limitless","level":4}],
+    "antonyms": [{"word":"finite","level":4},{"word":"limited","level":3}]
+  },
+  { "id": "b4cc072e-0d81-495d-935b-d4e20e328db5", "word": "plastic",
+    "synonyms": [{"word":"polymer","level":5},{"word":"synthetic","level":4},{"word":"polythene","level":4}],
+    "antonyms": [{"word":"natural material","level":2}]
+  },
+  { "id": "b4d8aac1-3c9a-4476-93f5-f7d2f9fa93e7", "word": "filter",
+    "synonyms": [{"word":"effect","level":2},{"word":"overlay","level":4},{"word":"lens effect","level":3}],
+    "antonyms": []
+  },
+  { "id": "b5a19263-1736-4f76-a793-816f785fd41a", "word": "balcony",
+    "synonyms": [{"word":"terrace","level":3},{"word":"veranda","level":4},{"word":"deck","level":3}],
+    "antonyms": []
+  },
+  { "id": "b5c57a98-f8ca-4d84-a206-980bbbb9b002", "word": "chariot",
+    "synonyms": [{"word":"horse cart","level":2},{"word":"war wagon","level":3},{"word":"two-wheeler","level":3}],
+    "antonyms": []
+  },
+  { "id": "b69700cc-422f-4db1-b526-1012d0e29d4d", "word": "museum",
+    "synonyms": [{"word":"gallery","level":3},{"word":"exhibition hall","level":3},{"word":"repository","level":5}],
+    "antonyms": []
+  },
+  { "id": "b6aa6d10-a053-49d5-a1e7-744dfa3e7dda", "word": "irrigation",
+    "synonyms": [{"word":"watering","level":2},{"word":"sprinkling","level":3},{"word":"hydration","level":4}],
+    "antonyms": [{"word":"drought","level":3}]
+  },
+  { "id": "b7209abe-f626-411e-a74a-322084a2b232", "word": "appetizer",
+    "synonyms": [{"word":"starter","level":3},{"word":"hors d'oeuvre","level":5},{"word":"snack","level":2}],
+    "antonyms": [{"word":"dessert","level":2},{"word":"main course","level":2}]
+  },
+  { "id": "b77e380b-e9de-483d-95cd-c2acda6f2bdb", "word": "blessing",
+    "synonyms": [{"word":"gift","level":1},{"word":"grace","level":4},{"word":"benediction","level":5}],
+    "antonyms": [{"word":"curse","level":3},{"word":"misfortune","level":4}]
+  },
+  { "id": "b78311c2-21f0-439e-9a5e-17b06c35d0b8", "word": "upload",
+    "synonyms": [{"word":"post","level":1},{"word":"send","level":1},{"word":"share","level":1}],
+    "antonyms": [{"word":"download","level":2},{"word":"delete","level":2}]
+  },
+  { "id": "b82062b7-06dd-4505-afbb-6882edff9e28", "word": "retire",
+    "synonyms": [{"word":"quit","level":2},{"word":"step down","level":3},{"word":"withdraw","level":4}],
+    "antonyms": [{"word":"continue","level":2},{"word":"resume","level":4},{"word":"start","level":1}]
+  },
+  { "id": "b901c1e9-70ab-41e4-bc24-03e62ad7d6fa", "word": "ritual",
+    "synonyms": [{"word":"ceremony","level":3},{"word":"tradition","level":3},{"word":"custom","level":3}],
+    "antonyms": []
+  },
+  { "id": "b9a94852-5bfd-42c8-9cc1-16a894013e93", "word": "pottery",
+    "synonyms": [{"word":"ceramics","level":4},{"word":"earthenware","level":5},{"word":"clay work","level":2}],
+    "antonyms": []
+  },
+  { "id": "b9e112ce-ed4a-4878-8e1a-2d74a3f112f3", "word": "star",
+    "synonyms": [{"word":"sun","level":1},{"word":"celestial body","level":4},{"word":"luminary","level":5}],
+    "antonyms": []
+  },
+  { "id": "ba27e859-1468-45fa-b12f-8277a69fae60", "word": "merchant",
+    "synonyms": [{"word":"trader","level":3},{"word":"seller","level":2},{"word":"dealer","level":3}],
+    "antonyms": [{"word":"customer","level":2},{"word":"buyer","level":2}]
+  },
+  { "id": "ba763bc2-0974-4ca6-9330-f0913f47fd51", "word": "cheer",
+    "synonyms": [{"word":"shout","level":1},{"word":"applaud","level":3},{"word":"hurrah","level":3}],
+    "antonyms": [{"word":"boo","level":2},{"word":"jeer","level":4}]
+  },
+  { "id": "bc16282f-ca99-4ad7-a252-3c76a53e07ed", "word": "repost",
+    "synonyms": [{"word":"reshare","level":2},{"word":"retweet","level":2},{"word":"redistribute","level":4}],
+    "antonyms": []
+  },
+  { "id": "bcba9be5-14be-43b1-9389-c63b75d18071", "word": "footprint",
+    "synonyms": [{"word":"impact","level":3},{"word":"effect","level":2},{"word":"mark","level":1}],
+    "antonyms": []
+  },
+  { "id": "bcd08712-2520-4b1d-9c02-df5183b542f5", "word": "switch",
+    "synonyms": [{"word":"button","level":1},{"word":"lever","level":3},{"word":"toggle","level":4}],
+    "antonyms": []
+  },
+  { "id": "bce1c378-4e89-4bd1-b3fc-860603d03185", "word": "lose",
+    "synonyms": [{"word":"fail","level":1},{"word":"miss","level":1},{"word":"forfeit","level":5}],
+    "antonyms": [{"word":"win","level":1},{"word":"succeed","level":2},{"word":"triumph","level":4}]
+  },
+  { "id": "bd1612f1-4861-49d6-9a53-16a6c8322dc4", "word": "adjust",
+    "synonyms": [{"word":"change","level":1},{"word":"tweak","level":3},{"word":"modify","level":3}],
+    "antonyms": []
+  }
+]
