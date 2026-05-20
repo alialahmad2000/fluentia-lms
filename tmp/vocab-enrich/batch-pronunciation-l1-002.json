@@ -1,0 +1,116 @@
+[
+  { "id": "0e71e199-1443-4c3a-8ef7-ceacf71149ce", "word": "astronomer", "pronunciation_alert": null },
+  { "id": "0f1f9ae1-b88a-447b-8615-5a7ed3669ed9", "word": "curate",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈkjʊəreɪt/",
+      "correct_approximation_ar": "كْيُورِيت",
+      "common_mispronunciation_ar": "كُورِيت",
+      "problem_letters": [1],
+      "rule_category": "consonant_cluster",
+      "explanation_ar": "حرف u هنا يُنطَق مع صوت 'ي' خفيف قبله — وكأن الكلمة مكتوبة 'kyu'، وليس 'koo' بدون الياء. هذه قاعدة عامة في الإنجليزية: حرف u بعد بعض الحروف الساكنة (k, c, m, v, p) يأخذ صوت /ju/ — 'يو' وليس 'و' فقط. كثير من المتعلمين يقولون 'كوريت' بإسقاط الياء.",
+      "practice_tip_ar": "ابدأ النطق بصوت 'كْ' ثم اتبعه فوراً بـ 'يُو' قبل الانتقال للمقطع التالي. كرر مع: cute, music, human — كلها فيها صوت /kj/ أو /mj/ أو /hj/ بنفس النمط.",
+      "similar_words": ["cute", "music", "human", "use"]
+    }
+  },
+  { "id": "1070ed2f-bac3-49db-885e-7baa392a63ff", "word": "frame", "pronunciation_alert": null },
+  { "id": "111718cb-901e-46b6-84f7-e137ff6f2466", "word": "flash", "pronunciation_alert": null },
+  { "id": "117d7769-16bf-43ec-9108-5af1636fac99", "word": "distant", "pronunciation_alert": null },
+  { "id": "12d88fab-1412-4e12-89e4-cfcc5322f9a4", "word": "recycle", "pronunciation_alert": null },
+  { "id": "12e56919-5084-4399-9887-06878fcb5e48", "word": "shield", "pronunciation_alert": null },
+  { "id": "15368a21-5902-4de0-b8da-35b50f9d91cf", "word": "portion", "pronunciation_alert": null },
+  { "id": "15495da2-4a9f-4b68-8587-928be2ecb8b5", "word": "guitar",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ɡɪˈtɑːr/",
+      "correct_approximation_ar": "غِتَار",
+      "common_mispronunciation_ar": "غِيتَار",
+      "problem_letters": [0, 1, 2, 3],
+      "rule_category": "stress_shift",
+      "explanation_ar": "النبر في 'guitar' على المقطع الثاني TAR وليس على GUI. كثير من العرب يقولون 'GUI-tar' أو 'GI-tar' بإطالة المقطع الأول، لكن الصحيح أن يكون المقطع الأول قصيراً وخفيفاً والثاني هو المُشدَّد. اللفظ مأخوذ من الإسبانية guitarra حيث النبر دائماً على المقطع المتوسط.",
+      "practice_tip_ar": "اضغط على TAR بصوت أعلى ومد الألف فيها قليلاً. خفف المقطع الأول كأنك تبتلعه. كرر مع: hotel (ho-TEL)، police (po-LICE)، guitar (gui-TAR) — كلها بنفس نمط النبر.",
+      "similar_words": ["hotel", "police", "balloon", "machine"]
+    }
+  },
+  { "id": "179fe746-0329-4fce-ad54-9754db62d9c1", "word": "contrast", "pronunciation_alert": null },
+  { "id": "18565725-cd54-47f8-9508-d24e524bc5b8", "word": "throw",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/θroʊ/",
+      "correct_approximation_ar": "ثْرُو",
+      "common_mispronunciation_ar": "سْرُو",
+      "problem_letters": [0, 1],
+      "rule_category": "th_sound",
+      "explanation_ar": "حرفا th في 'throw' يُنطَقان كحرف 'ث' عربي صريح وليس 'س' أو 'ت'. ضع طرف لسانك بين أسنانك العلوية والسفلية واخرج هواء — هذا هو صوت /θ/. الخطأ الشائع الكبير عند المتعلمين العرب هو نطقها 'سرو' بحرف 'س' لأن لسانهم يبقى خلف الأسنان، وهذا يحوّل الكلمة إلى صوت مختلف تماماً.",
+      "practice_tip_ar": "تمرين سريع: ضع طرف لسانك على شفتك العليا، اسحبه قليلاً للخلف بين الأسنان، ثم اخرج هواءً مع 'رو'. لا تجعل لسانك يدخل خلف أسنانك. كرر مع: three, think, thanks — كلها بنفس صوت البداية.",
+      "similar_words": ["three", "think", "thanks", "through"]
+    }
+  },
+  { "id": "19741e67-bbc2-44ca-a270-82e1be2ae306", "word": "strategy", "pronunciation_alert": null },
+  { "id": "1adbdbe3-bd0a-4017-85b0-2eac41c1be6c", "word": "hashtag", "pronunciation_alert": null },
+  { "id": "1b478e27-c536-43f9-a462-011732cb2119", "word": "transmit", "pronunciation_alert": null },
+  { "id": "1b4a21fa-654f-496f-b025-4e5c3f4a717a", "word": "choir",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ˈkwaɪər/",
+      "correct_approximation_ar": "كْوايَر",
+      "common_mispronunciation_ar": "تْشُوْيِر",
+      "problem_letters": [0, 1, 2, 3],
+      "rule_category": "loan_false_friend",
+      "explanation_ar": "هذه الكلمة استثناء كبير وغريب في الإنجليزية. ch لا تُنطق 'تش' كالعادة (مثل church)، بل تُنطق 'ك' (KW مع الواو من oi)، و oi لا تُنطَق 'أو' بل 'آيَ'. الكلمة تُلفظ تماماً مثل كلمة quire القديمة. كثير جداً من المتعلمين العرب يقولون 'تشوير' أو 'كور' لأنهم يتبعون قواعد النطق العادية، لكن choir شاذة وتأتي من اليونانية عبر الفرنسية القديمة.",
+      "practice_tip_ar": "احفظ الكلمة كاستثناء مفرد. تخيل أنها مكتوبة 'kwire' وانطقها كذلك. حركة الفم: ابدأ بـ 'كْ' ثم 'وَ' ثم 'آيَ' ثم 'ر'. كرر معها ببطء عشر مرات. لا توجد كلمات أخرى تشبهها في النطق بسبب شذوذها.",
+      "similar_words": ["choral", "chorus", "character", "chord"]
+    }
+  },
+  { "id": "1b5e41a1-a4c3-4344-9dec-f876d85b4967", "word": "underwater", "pronunciation_alert": null },
+  { "id": "1bd8ca96-59bf-49b0-b0d9-c3c3a223be84", "word": "conquer",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈkɒŋkər/",
+      "correct_approximation_ar": "كُنْكَر",
+      "common_mispronunciation_ar": "كُنْكُويَر",
+      "problem_letters": [3, 4, 5],
+      "rule_category": "silent_letter",
+      "explanation_ar": "حرفا qu في وسط 'conquer' لا يُنطَقان 'كو' كما في كلمات queen أو quick، بل يُنطَقان فقط كصوت 'ك' مع إسقاط 'و' تماماً. الكلمة من مقطعين فقط (CON-quer) وليس ثلاثة. هذا شذوذ خاص بهذه الكلمة وما يشتق منها مثل conquered وconquest.",
+      "practice_tip_ar": "اقطع الكلمة لمقطعين عند النطق: CON ثم quer — والـ quer تُنطق 'كَر' فقط بدون 'و'. تخيل الكلمة مكتوبة 'conker' وانطقها كذلك. كرر مع: conquest (CON-quest)، liquor (LI-quor).",
+      "similar_words": ["conquest", "liquor", "lacquer", "etiquette"]
+    }
+  },
+  { "id": "1c85d411-70d5-4ac9-8b16-ca4f0d355c2a", "word": "circuit",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈsɜːrkɪt/",
+      "correct_approximation_ar": "سِرْكِت",
+      "common_mispronunciation_ar": "سِرْكُويِت",
+      "problem_letters": [3, 4],
+      "rule_category": "silent_letter",
+      "explanation_ar": "حرف u في 'circuit' صامت تماماً ولا يُنطَق. الكلمة من مقطعين فقط (CIR-cuit) وتُلفظ كأنها مكتوبة 'cir-kit'. كثير من المتعلمين يضيفون صوت 'و' أو 'يو' في الوسط فيقولون 'سيركويت' بثلاثة مقاطع، لكن الصحيح أن تتجاوز u تماماً.",
+      "practice_tip_ar": "تخيل الكلمة مكتوبة بدون u: 'circit' وانطقها هكذا. أنهِ الكلمة بسرعة بدون أي صوت زائد بعد الـ c الثانية. كرر مع: biscuit (BIS-kit)، guilty (GIL-ty)، guitar (gi-TAR).",
+      "similar_words": ["biscuit", "guilty", "guitar", "guard"]
+    }
+  },
+  { "id": "1cce8b0c-0400-4a16-b6b3-80e079d9eddd", "word": "parade", "pronunciation_alert": null },
+  { "id": "1d76a656-dde2-4185-8688-7b06e6df286c", "word": "decompose", "pronunciation_alert": null },
+  { "id": "1d8234f2-0f5e-4759-892c-d11e13c721b0", "word": "turbine", "pronunciation_alert": null },
+  { "id": "1e9e941a-d32e-4dbd-845d-f0c1ea06fbe0", "word": "match", "pronunciation_alert": null },
+  { "id": "1ea37df4-3cd9-45b9-8b09-4f91ccc32b38", "word": "bury",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ˈberi/",
+      "correct_approximation_ar": "بِيرِي",
+      "common_mispronunciation_ar": "بُورِي",
+      "problem_letters": [1],
+      "rule_category": "vowel_irregular",
+      "explanation_ar": "هذه الكلمة شاذة جداً: حرف u فيها لا يُنطَق 'و' أو 'أ' كالعادة، بل يُنطَق كحرف 'e' — أي 'إِ' قصيرة. الكلمة تُلفظ تماماً مثل كلمة 'berry' (التوت). كثير من المتعلمين يقولون 'بُوري' بصوت u العادي وهو خطأ كبير يجعل المعنى ضائعاً.",
+      "practice_tip_ar": "احفظها كقاعدة: bury تُنطق مثل berry بالضبط — لا فرق صوتي بينهما (تُسمَّيان homophones). تخيل أنها مكتوبة 'berry' وانطقها كذلك. كرر مع كلمتين شاذتين شبيهتين: busy (BIZ-y لا BUSY) وbusiness (BIZ-ness).",
+      "similar_words": ["busy", "business", "berry", "ferry"]
+    }
+  },
+  { "id": "206cda2c-413e-4c33-9f49-99ba89eb5d9b", "word": "tune", "pronunciation_alert": null },
+  { "id": "2112369e-169d-4a5f-8bc8-9d8600a08895", "word": "patent", "pronunciation_alert": null },
+  { "id": "21a77cf1-b61b-46f5-858a-e8f1b5f1bcd2", "word": "achieve", "pronunciation_alert": null },
+  { "id": "21f3e195-b3e1-449f-8f0d-fe044640964a", "word": "scroll", "pronunciation_alert": null },
+  { "id": "22a1c395-8b75-4fb5-88a9-7992f3a0ae8b", "word": "global warming", "pronunciation_alert": null },
+  { "id": "236cbfbe-4413-4baf-868c-8aebd90adf1c", "word": "expand", "pronunciation_alert": null },
+  { "id": "2372cf01-c76c-4130-83e5-a72ae059d66e", "word": "renewable", "pronunciation_alert": null }
+]
