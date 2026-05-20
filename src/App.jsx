@@ -81,6 +81,8 @@ const CurriculumBrowser = lazyRetry(() => import('./pages/student/curriculum/Cur
 const StylePreview = lazyRetry(() => import('./pages/student/curriculum/StylePreview'))
 const LevelUnits = lazyRetry(() => import('./pages/student/curriculum/LevelUnits'))
 const UnitContent = lazyRetry(() => import('./pages/student/curriculum/UnitContent'))
+// Unit Movements V3 — feature-flagged route handler (default v2)
+const UnitContentRouter = lazyRetry(() => import('./pages/student/curriculum/UnitContentRouter'))
 const PlacementTestPage = lazyRetry(() => import('./pages/student/placement/PlacementTestPage'))
 const PlacementResultsPage = lazyRetry(() => import('./pages/student/placement/PlacementResultsPage'))
 const StudentProgressReports = lazyRetry(() => import('./pages/student/ProgressReports'))
@@ -680,7 +682,7 @@ export default function App() {
               <Route path="/student/progress-reports/:id" element={<Page><StudentReportView /></Page>} />
               <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
-              <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContent /></Page>} />
+              <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContentRouter /></Page>} />
               <Route path="/student/curriculum-old" element={<Page><StudentCurriculum /></Page>} />
               <Route path="/student/style-preview" element={<Page><StylePreview /></Page>} />
               <Route path="/student/placement-test" element={<Suspense fallback={null}><PlacementTestPage /></Suspense>} />
@@ -778,7 +780,7 @@ export default function App() {
               <Route path="/trainer/progress-reports/:id/review" element={<Page><ReportReview /></Page>} />
               <Route path="/trainer/student-curriculum" element={<Page><TrainerCurriculumPreview><CurriculumBrowser /></TrainerCurriculumPreview></Page>} />
               <Route path="/trainer/student-curriculum/level/:levelNumber" element={<Page><TrainerCurriculumPreview><LevelUnits /></TrainerCurriculumPreview></Page>} />
-              <Route path="/trainer/student-curriculum/unit/:unitId" element={<Page><TrainerCurriculumPreview><UnitContent /></TrainerCurriculumPreview></Page>} />
+              <Route path="/trainer/student-curriculum/unit/:unitId" element={<Page><TrainerCurriculumPreview><UnitContentRouter /></TrainerCurriculumPreview></Page>} />
               <Route path="/trainer/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
@@ -854,7 +856,7 @@ export default function App() {
               <Route path="/admin/speaking-hubs/:id" element={<Page><AdminSpeakingHubDetail /></Page>} />
               <Route path="/admin/student-curriculum" element={<Page><AdminCurriculumPreview><CurriculumBrowser /></AdminCurriculumPreview></Page>} />
               <Route path="/admin/student-curriculum/level/:levelNumber" element={<Page><AdminCurriculumPreview><LevelUnits /></AdminCurriculumPreview></Page>} />
-              <Route path="/admin/student-curriculum/unit/:unitId" element={<Page><AdminCurriculumPreview><UnitContent /></AdminCurriculumPreview></Page>} />
+              <Route path="/admin/student-curriculum/unit/:unitId" element={<Page><AdminCurriculumPreview><UnitContentRouter /></AdminCurriculumPreview></Page>} />
               <Route path="/admin/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
