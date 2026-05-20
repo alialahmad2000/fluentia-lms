@@ -1,0 +1,125 @@
+/* Unit Movements V3 — scoped styles
+   Only consumed by UnitContentV3 and its children. Light + dark via the
+   design-system data-theme attribute, so no [data-theme="..."] overrides
+   needed here — components read tokens via var(--ds-*). */
+
+.unit-v3-shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 96px;
+  position: relative;
+  z-index: 10;
+  font-family: 'Tajawal', 'Readex Pro', sans-serif;
+}
+
+.unit-v3-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.unit-v3-title {
+  font-family: 'Readex Pro', 'Tajawal', 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ds-text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.unit-v3-subtitle {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px;
+  color: var(--ds-text-tertiary);
+  margin: 0;
+}
+
+.unit-v3-compass-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 32px;
+  padding: 8px 0;
+}
+
+.unit-v3-compass-overall-label {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px;
+  color: var(--ds-text-tertiary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.unit-v3-movements {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-inline-start: 18px; /* room for the recommended-path rail */
+}
+
+@media (min-width: 768px) {
+  .unit-v3-shell {
+    padding: 32px 24px 96px;
+  }
+  .unit-v3-title {
+    font-size: 32px;
+  }
+  .unit-v3-subtitle {
+    font-size: 14px;
+  }
+  .unit-v3-movements {
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .unit-v3-shell {
+    padding: 40px 32px 96px;
+  }
+}
+
+/* The hero numeral inside each movement panel — sized responsively */
+.v3-movement-panel .v3-numeral {
+  font-size: 140px;
+}
+@media (min-width: 768px) {
+  .v3-movement-panel .v3-numeral {
+    font-size: 220px;
+  }
+}
+@media (min-width: 1024px) {
+  .v3-movement-panel .v3-numeral {
+    font-size: 280px;
+  }
+}
+
+/* Back-to-grid affordance shown when an activity is active */
+.unit-v3-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ds-surface-1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: var(--ds-text-secondary);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 150ms var(--ease-out, ease-out), color 150ms var(--ease-out, ease-out);
+}
+.unit-v3-back-button:hover {
+  color: var(--ds-text-primary);
+  transform: translateY(-1px);
+}
+
+.unit-v3-active-activity {
+  padding: 16px 8px;
+}
