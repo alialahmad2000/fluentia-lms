@@ -1,0 +1,122 @@
+[
+  { "id": "23b04722-082f-45df-8ed8-4dcc7f67f902", "word": "wave",
+    "synonyms": [{"word":"ripple","level":3},{"word":"swell","level":4},{"word":"breaker","level":4}],
+    "antonyms": [{"word":"calm","level":2},{"word":"stillness","level":3}]
+  },
+  { "id": "24216001-4a81-45f7-9274-66b04572715d", "word": "gourmet",
+    "synonyms": [{"word":"fine","level":2},{"word":"high-end","level":3},{"word":"epicurean","level":5}],
+    "antonyms": [{"word":"basic","level":2},{"word":"fast-food","level":2}]
+  },
+  { "id": "24b15f3b-6fd2-41cc-890c-18475f98262c", "word": "notification",
+    "synonyms": [{"word":"alert","level":2},{"word":"message","level":1},{"word":"announcement","level":3}],
+    "antonyms": []
+  },
+  { "id": "255e9829-ff99-4745-8b4b-700ef5a421b4", "word": "boil",
+    "synonyms": [{"word":"heat","level":2},{"word":"simmer","level":3},{"word":"bubble","level":2}],
+    "antonyms": [{"word":"freeze","level":1},{"word":"cool","level":1}]
+  },
+  { "id": "25a96a79-05bd-4978-8171-168e06257b61", "word": "aesthetic",
+    "synonyms": [{"word":"beautiful","level":1},{"word":"artistic","level":3},{"word":"tasteful","level":4}],
+    "antonyms": [{"word":"ugly","level":1},{"word":"unsightly","level":4}]
+  },
+  { "id": "25dbe128-51f2-4af6-b123-e7fc627fb013", "word": "solar panel",
+    "synonyms": [{"word":"solar cell","level":3},{"word":"photovoltaic panel","level":5},{"word":"sun panel","level":2}],
+    "antonyms": []
+  },
+  { "id": "268b3e47-8182-4f53-9881-5a06f557e72b", "word": "decorate",
+    "synonyms": [{"word":"adorn","level":4},{"word":"beautify","level":3},{"word":"ornament","level":4}],
+    "antonyms": [{"word":"strip","level":3},{"word":"bare","level":2}]
+  },
+  { "id": "26985f72-ae49-4bf3-ac78-c028c0489161", "word": "warrior",
+    "synonyms": [{"word":"fighter","level":2},{"word":"soldier","level":2},{"word":"combatant","level":5}],
+    "antonyms": [{"word":"civilian","level":3},{"word":"pacifist","level":5}]
+  },
+  { "id": "27594925-d193-42a5-a394-93e9cdf6f449", "word": "engagement",
+    "synonyms": [{"word":"interaction","level":3},{"word":"involvement","level":3},{"word":"participation","level":3}],
+    "antonyms": [{"word":"disengagement","level":4},{"word":"apathy","level":5}]
+  },
+  { "id": "27a92fa6-0f2d-4f4d-977f-5b464addfa3d", "word": "fireworks",
+    "synonyms": [{"word":"pyrotechnics","level":5},{"word":"firecrackers","level":3},{"word":"sky lights","level":2}],
+    "antonyms": []
+  },
+  { "id": "281d630c-9e59-4671-a14f-6afe951c4169", "word": "anchor",
+    "synonyms": [{"word":"weight","level":1},{"word":"mooring","level":5},{"word":"hold","level":2}],
+    "antonyms": []
+  },
+  { "id": "288fce40-810d-4fec-9a3b-796d0768e53d", "word": "shell",
+    "synonyms": [{"word":"casing","level":3},{"word":"covering","level":2},{"word":"husk","level":4}],
+    "antonyms": []
+  },
+  { "id": "28ed522e-c816-4d57-9ec1-0d1512f107ad", "word": "marble",
+    "synonyms": [{"word":"stone","level":1},{"word":"limestone","level":4},{"word":"granite","level":3}],
+    "antonyms": []
+  },
+  { "id": "2a8b9d9c-b669-4726-8175-fca894a0620b", "word": "aroma",
+    "synonyms": [{"word":"smell","level":1},{"word":"scent","level":3},{"word":"fragrance","level":4}],
+    "antonyms": [{"word":"stench","level":4},{"word":"stink","level":3}]
+  },
+  { "id": "2b4319e3-bb68-4879-b5e0-d02352d53580", "word": "blurry",
+    "synonyms": [{"word":"unclear","level":2},{"word":"fuzzy","level":3},{"word":"hazy","level":4}],
+    "antonyms": [{"word":"clear","level":1},{"word":"sharp","level":2},{"word":"crisp","level":3}]
+  },
+  { "id": "2b704530-4d84-45a5-b560-76ab70d82aba", "word": "visual",
+    "synonyms": [{"word":"visible","level":3},{"word":"optical","level":4},{"word":"graphic","level":3}],
+    "antonyms": [{"word":"audio","level":2},{"word":"auditory","level":4}]
+  },
+  { "id": "2c0395d4-83ca-4132-ac6d-fb3319473d4c", "word": "collapse",
+    "synonyms": [{"word":"fall","level":1},{"word":"crumble","level":4},{"word":"disintegrate","level":5}],
+    "antonyms": [{"word":"rise","level":1},{"word":"stand","level":1},{"word":"endure","level":4}]
+  },
+  { "id": "2d1b518c-aa0d-41a2-a3e5-72a9c7180996", "word": "signal",
+    "synonyms": [{"word":"sign","level":1},{"word":"message","level":1},{"word":"transmission","level":4}],
+    "antonyms": []
+  },
+  { "id": "2d309306-745f-486f-9cd0-60d560d99a19", "word": "gravity",
+    "synonyms": [{"word":"weight","level":1},{"word":"pull","level":1},{"word":"force","level":2}],
+    "antonyms": [{"word":"weightlessness","level":4}]
+  },
+  { "id": "2d618ccc-919f-4e02-ba30-f40c94a54bc3", "word": "galaxy",
+    "synonyms": [{"word":"star system","level":3},{"word":"universe","level":3},{"word":"cosmos","level":5}],
+    "antonyms": []
+  },
+  { "id": "2dbbfa24-23c0-43d7-8e64-6bcb8b4d7e11", "word": "panorama",
+    "synonyms": [{"word":"view","level":1},{"word":"vista","level":4},{"word":"landscape","level":3}],
+    "antonyms": [{"word":"close-up","level":3}]
+  },
+  { "id": "2f0a8264-1346-40b7-9d0a-8e94faea32c4", "word": "device",
+    "synonyms": [{"word":"gadget","level":3},{"word":"tool","level":1},{"word":"instrument","level":3}],
+    "antonyms": []
+  },
+  { "id": "30465bed-268b-4a2f-86ee-964b0576c352", "word": "fossil fuel",
+    "synonyms": [{"word":"non-renewable energy","level":3},{"word":"carbon fuel","level":3},{"word":"hydrocarbon","level":5}],
+    "antonyms": [{"word":"renewable energy","level":3},{"word":"clean energy","level":2}]
+  },
+  { "id": "3053809b-3a50-480c-a4e3-e98ebd9ee504", "word": "subscribe",
+    "synonyms": [{"word":"sign up","level":2},{"word":"join","level":1},{"word":"enroll","level":3}],
+    "antonyms": [{"word":"unsubscribe","level":2},{"word":"cancel","level":2}]
+  },
+  { "id": "30570572-8745-4465-a583-3f41ee35201f", "word": "pollution",
+    "synonyms": [{"word":"contamination","level":4},{"word":"waste","level":1},{"word":"dirtying","level":2}],
+    "antonyms": [{"word":"cleanliness","level":2},{"word":"purity","level":3}]
+  },
+  { "id": "3133e052-4c02-46c7-9721-597dc4535563", "word": "asteroid",
+    "synonyms": [{"word":"space rock","level":2},{"word":"meteoroid","level":4},{"word":"planetoid","level":5}],
+    "antonyms": []
+  },
+  { "id": "31462ed4-bbd7-403b-b5c1-cb69e462c380", "word": "extinct",
+    "synonyms": [{"word":"gone","level":1},{"word":"died-out","level":3},{"word":"vanished","level":3}],
+    "antonyms": [{"word":"living","level":1},{"word":"existing","level":2},{"word":"surviving","level":3}]
+  },
+  { "id": "31789090-4764-4bd9-b832-867e6c2d27b1", "word": "invent",
+    "synonyms": [{"word":"create","level":1},{"word":"design","level":2},{"word":"devise","level":4}],
+    "antonyms": [{"word":"copy","level":1},{"word":"imitate","level":3}]
+  },
+  { "id": "31f51219-6f72-4198-a4a1-903bc3229a94", "word": "hieroglyph",
+    "synonyms": [{"word":"picture symbol","level":2},{"word":"pictograph","level":4},{"word":"glyph","level":5}],
+    "antonyms": []
+  },
+  { "id": "32b4bf94-f2e2-4a67-bb81-dcef669c9a5a", "word": "perform",
+    "synonyms": [{"word":"act","level":1},{"word":"present","level":2},{"word":"execute","level":4}],
+    "antonyms": []
+  }
+]
