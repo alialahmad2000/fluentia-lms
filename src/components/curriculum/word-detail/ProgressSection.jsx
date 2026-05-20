@@ -41,8 +41,13 @@ export default function ProgressSection({ studentId, vocabularyId, mastery }) {
   })
 
   return (
-    <section style={{ marginBottom: 20 }} dir="rtl">
+    <section
+      style={{ marginBottom: 20 }}
+      dir="rtl"
+      aria-labelledby="progress-section-heading"
+    >
       <div
+        id="progress-section-heading"
         className="flex items-center gap-1.5 font-['Tajawal'] font-bold"
         style={{
           color: 'var(--text-secondary)',
@@ -50,7 +55,7 @@ export default function ProgressSection({ studentId, vocabularyId, mastery }) {
           marginBottom: 10,
         }}
       >
-        <TrendingUp size={14} style={{ color: 'var(--text-tertiary)' }} />
+        <TrendingUp size={14} style={{ color: 'var(--text-tertiary)' }} aria-hidden="true" />
         <span>تقدّمك مع هذي الكلمة</span>
       </div>
 

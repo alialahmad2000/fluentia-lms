@@ -49,6 +49,7 @@ export default function ContinueArc({ action, onOpenWord, onScrollToLibrary }) {
     <motion.button
       type="button"
       onClick={handleClick}
+      aria-label={action.label}
       whileTap={{ scale: 0.97 }}
       whileHover={{ y: -1 }}
       transition={{ duration: 0.15 }}

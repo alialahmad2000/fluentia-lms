@@ -168,7 +168,7 @@ export default function WordDetailSheet({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             onClick={onClose}
-            className="fixed inset-0 z-[58]"
+            className="fixed inset-0 z-[58] premium-glass"
             style={{
               background: 'rgba(2,6,15,0.62)',
               backdropFilter: 'blur(6px)',

@@ -45,7 +45,9 @@ export default function SmartStatusPill({
 
   return (
     <div
-      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full font-['Tajawal'] font-bold whitespace-nowrap"
+      role="status"
+      aria-label={`حالة اليوم: ${text}`}
+      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full font-['Tajawal'] font-bold whitespace-nowrap premium-glass"
       style={{
         background: 'rgba(255,255,255,0.06)',
         border: '1px solid rgba(255,255,255,0.1)',
@@ -56,7 +58,7 @@ export default function SmartStatusPill({
       }}
       dir="rtl"
     >
-      <span style={{ color: iconColor, display: 'inline-flex' }}>{icon}</span>
+      <span aria-hidden="true" style={{ color: iconColor, display: 'inline-flex' }}>{icon}</span>
       <span>{text}</span>
     </div>
   )

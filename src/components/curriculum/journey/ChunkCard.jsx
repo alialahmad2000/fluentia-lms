@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { memo } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Lock, CheckCircle2 } from 'lucide-react'
 
 const toArabicNum = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d])
@@ -64,7 +65,8 @@ function MiniRing({ percent, size = 70, completed = false, locked = false }) {
  *   onTap: () => void
  *   onLockedTap: () => void   // shown when locked
  */
-export default function ChunkCard({ chunk, onTap, onLockedTap }) {
+function ChunkCard({ chunk, onTap, onLockedTap }) {
+  const reduceMotion = useReducedMotion()
   const { title, rangeLabel, total, mastered, masteryPct, isUnlocked, isCompleted, wasJustUnlocked } = chunk
 
   const handleClick = () => {
@@ -106,10 +108,10 @@ export default function ChunkCard({ chunk, onTap, onLockedTap }) {
     <motion.button
       type="button"
       onClick={handleClick}
-      whileHover={isUnlocked ? { y: -3, boxShadow: '0 16px 28px rgba(99,102,241,0.18)' } : {}}
-      whileTap={isUnlocked ? { scale: 0.97 } : {}}
-      animate={wasJustUnlocked ? { scale: [1, 1.05, 1] } : {}}
-      transition={wasJustUnlocked ? { duration: 1.4, ease: 'easeInOut' } : { duration: 0.2 }}
+      whileHover={!reduceMotion && isUnlocked ? { y: -3, boxShadow: '0 16px 28px rgba(99,102,241,0.18)' } : {}}
+      whileTap={!reduceMotion && isUnlocked ? { scale: 0.97 } : {}}
+      animate={!reduceMotion && wasJustUnlocked ? { scale: [1, 1.05, 1] } : {}}
+      transition={!reduceMotion && wasJustUnlocked ? { duration: 1.4, ease: 'easeInOut' } : { duration: 0.2 }}
       style={baseStyle}
       dir="rtl"
       aria-label={
@@ -210,3 +212,21 @@ export default function ChunkCard({ chunk, onTap, onLockedTap }) {
     </motion.button>
   )
 }
+
+// Memoized export — re-renders only when the relevant chunk fields change.
+// Reduces churn when the lane refetches mastery for unaffected siblings.
+// (Phase F performance work — Prompt 08)
+export default memo(ChunkCard, (prev, next) => {
+  const a = prev.chunk
+  const b = next.chunk
+  return (
+    a.number === b.number &&
+    a.masteryPct === b.masteryPct &&
+    a.isUnlocked === b.isUnlocked &&
+    a.isCompleted === b.isCompleted &&
+    a.mastered === b.mastered &&
+    a.total === b.total &&
+    prev.onTap === next.onTap &&
+    prev.onLockedTap === next.onLockedTap
+  )
+})

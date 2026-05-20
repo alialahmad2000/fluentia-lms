@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Trophy, Unlock, ArrowLeft } from 'lucide-react'
 
 const toArabicNum = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d])
@@ -21,6 +21,7 @@ export default function ChunkSessionComplete({
   onClose,
   onContinueNext,
 }) {
+  const reduceMotion = useReducedMotion()
   const crossedThreshold = chunk?.masteryPct >= 80
   const nextAvailable = !!nextChunk && nextChunk.isUnlocked && !nextChunk.isCompleted
 
@@ -32,23 +33,25 @@ export default function ChunkSessionComplete({
       className="space-y-6"
       dir="rtl"
     >
-      {/* Confetti — small premium burst */}
-      <div className="relative h-2">
-        {Array.from({ length: 14 }).map((_, i) => {
-          const left = `${(i / 14) * 100}%`
-          const colors = ['#fbbf24', '#34d399', '#38bdf8', '#a78bfa', '#f472b6']
-          return (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: [0, 1, 0], y: [-8, 14, 38] }}
-              transition={{ duration: 1.4, delay: i * 0.04, ease: 'easeOut' }}
-              className="absolute top-0 w-2 h-2 rounded-full"
-              style={{ left, background: colors[i % colors.length] }}
-            />
-          )
-        })}
-      </div>
+      {/* Confetti — small premium burst (skipped when prefers-reduced-motion) */}
+      {!reduceMotion && (
+        <div className="relative h-2" aria-hidden="true">
+          {Array.from({ length: 14 }).map((_, i) => {
+            const left = `${(i / 14) * 100}%`
+            const colors = ['#fbbf24', '#34d399', '#38bdf8', '#a78bfa', '#f472b6']
+            return (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: [0, 1, 0], y: [-8, 14, 38] }}
+                transition={{ duration: 1.4, delay: i * 0.04, ease: 'easeOut' }}
+                className="absolute top-0 w-2 h-2 rounded-full"
+                style={{ left, background: colors[i % colors.length] }}
+              />
+            )
+          })}
+        </div>
+      )}
 
       <div className="text-center">
         <div className="flex items-center justify-center mb-3">

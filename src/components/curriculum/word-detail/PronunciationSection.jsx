@@ -32,16 +32,18 @@ export default function PronunciationSection({ alert }) {
       className="space-y-3"
       style={{ marginBottom: 20 }}
       dir="rtl"
+      aria-labelledby="pronunciation-section-heading"
     >
       <div className="flex items-center justify-between">
         <div
+          id="pronunciation-section-heading"
           className="flex items-center gap-1.5 font-['Tajawal'] font-bold"
           style={{
             color: 'var(--text-secondary)',
             fontSize: 13,
           }}
         >
-          <AlertTriangle size={14} style={{ color: 'rgb(239,68,68)' }} />
+          <AlertTriangle size={14} style={{ color: 'rgb(239,68,68)' }} aria-hidden="true" />
           <span>تحذير في النطق</span>
         </div>
         {SEVERITY_LABEL_AR[severity] && (

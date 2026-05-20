@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useUnitVocabStatus } from '../../../hooks/useUnitVocabStatus'
 import ProgressOrb from './ProgressOrb'
 import SmartStatusPill from './SmartStatusPill'
@@ -27,6 +27,7 @@ export default function HeroSection({
 }) {
   const sentinelRef = useRef(null)
   const [isStuck, setIsStuck] = useState(false)
+  const reduceMotion = useReducedMotion()
 
   // IntersectionObserver: sentinel sits at the very top of the section.
   // When the sentinel scrolls out of view, the hero is "stuck" below the header.
@@ -50,10 +51,11 @@ export default function HeroSection({
       <div ref={sentinelRef} style={{ height: 1 }} aria-hidden="true" />
 
       <motion.section
-        initial={{ opacity: 0, y: 8 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="vocab-hero relative rounded-2xl overflow-hidden"
+        transition={{ duration: reduceMotion ? 0 : 0.35, ease: 'easeOut' }}
+        aria-labelledby="vocab-hero-heading"
+        className="vocab-hero relative rounded-2xl overflow-hidden premium-glass"
         style={{
           position: 'sticky',
           top: 'var(--app-header-height, 64px)',
@@ -103,6 +105,7 @@ export default function HeroSection({
               {/* Unit vocab heading — small, taquellable */}
               <div className="text-center md:text-start">
                 <h2
+                  id="vocab-hero-heading"
                   className="font-['Tajawal'] font-bold"
                   style={{
                     color: 'var(--text-primary, #faf5e6)',
