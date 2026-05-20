@@ -1,0 +1,122 @@
+[
+  { "id": "5f29bb2b-3866-40fc-85df-aeb6b1dcb335", "word": "whale",
+    "synonyms": [{"word":"sea giant","level":2},{"word":"cetacean","level":5},{"word":"leviathan","level":5}],
+    "antonyms": []
+  },
+  { "id": "5fa5d27f-ac51-4fa5-8989-0137a130f4c1", "word": "turtle",
+    "synonyms": [{"word":"tortoise","level":2},{"word":"terrapin","level":4},{"word":"sea reptile","level":3}],
+    "antonyms": []
+  },
+  { "id": "5fdba874-4deb-4ec7-9157-10126ce587a7", "word": "express",
+    "synonyms": [{"word":"show","level":1},{"word":"convey","level":4},{"word":"communicate","level":3}],
+    "antonyms": [{"word":"suppress","level":4},{"word":"hide","level":1},{"word":"conceal","level":4}]
+  },
+  { "id": "608f9dd2-f72a-430c-8e00-2e7bcc8d9a2d", "word": "fortress",
+    "synonyms": [{"word":"castle","level":2},{"word":"citadel","level":5},{"word":"stronghold","level":4}],
+    "antonyms": []
+  },
+  { "id": "614dd038-fec5-436f-ad30-05334e8fc648", "word": "staircase",
+    "synonyms": [{"word":"stairs","level":1},{"word":"stairway","level":3},{"word":"steps","level":1}],
+    "antonyms": [{"word":"elevator","level":2},{"word":"escalator","level":3}]
+  },
+  { "id": "6167c2da-a30e-451e-955f-b70a5d4aaf59", "word": "spicy",
+    "synonyms": [{"word":"hot","level":1},{"word":"piquant","level":5},{"word":"peppery","level":4}],
+    "antonyms": [{"word":"mild","level":2},{"word":"bland","level":3}]
+  },
+  { "id": "61f44dea-21d4-4119-b031-2755b1ac6a8c", "word": "sauce",
+    "synonyms": [{"word":"dressing","level":3},{"word":"gravy","level":3},{"word":"dip","level":2}],
+    "antonyms": []
+  },
+  { "id": "62046b88-cc62-4a46-a8af-8564f10e60e2", "word": "landscape",
+    "synonyms": [{"word":"scenery","level":3},{"word":"view","level":1},{"word":"vista","level":4}],
+    "antonyms": [{"word":"portrait","level":3}]
+  },
+  { "id": "62703eca-2450-4b90-bcce-1216f5f56a94", "word": "raw",
+    "synonyms": [{"word":"uncooked","level":3},{"word":"fresh","level":1},{"word":"unprocessed","level":4}],
+    "antonyms": [{"word":"cooked","level":1},{"word":"prepared","level":2}]
+  },
+  { "id": "62d656ee-c77c-49d8-ba83-fd226f937e3e", "word": "technical",
+    "synonyms": [{"word":"technological","level":3},{"word":"specialized","level":4},{"word":"mechanical","level":3}],
+    "antonyms": [{"word":"simple","level":1},{"word":"basic","level":2},{"word":"non-technical","level":3}]
+  },
+  { "id": "6318fe43-8121-4a4c-86ae-ec66707f6b2c", "word": "sculpture",
+    "synonyms": [{"word":"statue","level":2},{"word":"carving","level":3},{"word":"figurine","level":4}],
+    "antonyms": []
+  },
+  { "id": "6342b1a3-fc27-4a98-aa78-d91b8814cd91", "word": "machine",
+    "synonyms": [{"word":"device","level":2},{"word":"apparatus","level":5},{"word":"engine","level":2}],
+    "antonyms": []
+  },
+  { "id": "63889c2a-7420-4466-bc3d-9e7cf6bb21ae", "word": "empire",
+    "synonyms": [{"word":"kingdom","level":2},{"word":"realm","level":4},{"word":"domain","level":4}],
+    "antonyms": []
+  },
+  { "id": "64ded18e-18d4-4feb-90f6-434cbfe445d4", "word": "legendary",
+    "synonyms": [{"word":"famous","level":1},{"word":"mythical","level":4},{"word":"renowned","level":5}],
+    "antonyms": [{"word":"unknown","level":2},{"word":"forgotten","level":3},{"word":"obscure","level":4}]
+  },
+  { "id": "655582df-3eff-4f06-a7d2-640d3259d7bb", "word": "mummy",
+    "synonyms": [{"word":"preserved body","level":3},{"word":"embalmed body","level":5},{"word":"ancient corpse","level":4}],
+    "antonyms": []
+  },
+  { "id": "65f0db7c-8be1-4d8c-9465-84cd195f60ec", "word": "coral",
+    "synonyms": [{"word":"reef","level":3},{"word":"polyp","level":5},{"word":"sea stone","level":2}],
+    "antonyms": []
+  },
+  { "id": "673e0b83-c675-4b4a-8339-c7963f64ebfe", "word": "champion",
+    "synonyms": [{"word":"winner","level":1},{"word":"victor","level":4},{"word":"titleholder","level":4}],
+    "antonyms": [{"word":"loser","level":1},{"word":"runner-up","level":3}]
+  },
+  { "id": "6796b410-18b1-4d8e-ad25-9a60f170604e", "word": "design",
+    "synonyms": [{"word":"plan","level":1},{"word":"create","level":1},{"word":"devise","level":4}],
+    "antonyms": [{"word":"copy","level":1},{"word":"imitate","level":3}]
+  },
+  { "id": "681f497d-f28a-4fa5-8e44-aa53bc4ddc2d", "word": "prototype",
+    "synonyms": [{"word":"model","level":2},{"word":"sample","level":2},{"word":"mockup","level":4}],
+    "antonyms": [{"word":"final product","level":2}]
+  },
+  { "id": "68d6d6fe-d7de-446f-aaf3-59deb4f193fc", "word": "bake",
+    "synonyms": [{"word":"cook","level":1},{"word":"roast","level":2},{"word":"oven-cook","level":2}],
+    "antonyms": []
+  },
+  { "id": "69d71469-db64-4703-967f-0b3f0703fea2", "word": "build",
+    "synonyms": [{"word":"construct","level":3},{"word":"erect","level":4},{"word":"make","level":1}],
+    "antonyms": [{"word":"destroy","level":2},{"word":"demolish","level":4},{"word":"tear down","level":3}]
+  },
+  { "id": "6a7c3448-0af6-4453-8465-85c035f34596", "word": "feast",
+    "synonyms": [{"word":"banquet","level":4},{"word":"big meal","level":1},{"word":"celebration","level":3}],
+    "antonyms": [{"word":"fast","level":2},{"word":"snack","level":2}]
+  },
+  { "id": "6b227fee-93b4-4193-9505-dbddc50c2ca2", "word": "golden",
+    "synonyms": [{"word":"gold","level":1},{"word":"yellow","level":1},{"word":"gilded","level":5}],
+    "antonyms": []
+  },
+  { "id": "6c4c46a2-7312-44f6-be59-174d988d8150", "word": "biodegradable",
+    "synonyms": [{"word":"compostable","level":4},{"word":"decomposable","level":4},{"word":"breakdownable","level":3}],
+    "antonyms": [{"word":"non-biodegradable","level":3},{"word":"plastic","level":1}]
+  },
+  { "id": "6c8597af-c599-484d-a293-3a704642c403", "word": "space",
+    "synonyms": [{"word":"outer space","level":2},{"word":"universe","level":3},{"word":"cosmos","level":5}],
+    "antonyms": [{"word":"earth","level":1}]
+  },
+  { "id": "6cd6925a-d236-4de5-a9e9-9890e1abb64c", "word": "tomb",
+    "synonyms": [{"word":"grave","level":2},{"word":"crypt","level":4},{"word":"sepulcher","level":5}],
+    "antonyms": []
+  },
+  { "id": "6d71a09d-3515-4cb1-9e77-591f805c2f9d", "word": "statue",
+    "synonyms": [{"word":"sculpture","level":2},{"word":"figure","level":2},{"word":"monument","level":3}],
+    "antonyms": []
+  },
+  { "id": "6d9c52a1-4ab7-4d6c-8ad4-b2ef4319bf76", "word": "creature",
+    "synonyms": [{"word":"animal","level":1},{"word":"being","level":2},{"word":"organism","level":4}],
+    "antonyms": [{"word":"plant","level":1}]
+  },
+  { "id": "6dfdc55f-cb2e-4818-b6af-1ed1f2fcb767", "word": "engine",
+    "synonyms": [{"word":"motor","level":2},{"word":"machine","level":1},{"word":"powertrain","level":5}],
+    "antonyms": []
+  },
+  { "id": "6e088b2c-1ed2-4b0a-ba7c-fe2f66a3e3d6", "word": "mechanical",
+    "synonyms": [{"word":"machine-driven","level":3},{"word":"automated","level":4},{"word":"motorized","level":3}],
+    "antonyms": [{"word":"manual","level":3},{"word":"human-powered","level":2}]
+  }
+]
