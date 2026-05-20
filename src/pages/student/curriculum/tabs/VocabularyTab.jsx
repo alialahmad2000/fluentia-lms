@@ -648,6 +648,7 @@ export default function VocabularyTab({ unitId }) {
                           reviewedWords={reviewedWords}
                           markReviewed={markReviewed}
                           setExerciseWord={setExerciseWord}
+                          onTapWord={setDetailSheetWord}
                           savedWordSet={savedWordSet}
                           saveWordMutation={saveWordMutation}
                           profile={profile}
@@ -711,6 +712,23 @@ export default function VocabularyTab({ unitId }) {
         />
       )}
 
+      {/* Word Detail Sheet (Prompt 07) — opened by tapping any word card */}
+      <WordDetailSheet
+        word={detailSheetWord}
+        mastery={detailSheetWord ? getMastery(detailSheetWord.id) : null}
+        studentId={profile?.id}
+        isOpen={!!detailSheetWord}
+        onClose={() => setDetailSheetWord(null)}
+        onRequestPractice={(w) => {
+          setDetailSheetWord(null)
+          setExerciseWord(w)
+        }}
+        onOpenRelated={(vocabId) => {
+          const target = allWords.find((x) => x.id === vocabId)
+          if (target) setDetailSheetWord(target)
+        }}
+      />
+
       {/* Quick practice indicator */}
       {quickPractice && exerciseWord && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 px-4 py-2 rounded-full text-xs font-bold font-['Tajawal'] text-white/70" style={{ background: 'rgba(10,22,40,0.9)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)' }}>
@@ -729,7 +747,7 @@ export default function VocabularyTab({ unitId }) {
 }
 
 // ─── Paginated Tier (prevents 500+ DOM nodes at once) ─
-function PaginatedTier({ words, viewMode, getMastery, reviewedWords, markReviewed, setExerciseWord, savedWordSet, saveWordMutation, profile }) {
+function PaginatedTier({ words, viewMode, getMastery, reviewedWords, markReviewed, setExerciseWord, onTapWord, savedWordSet, saveWordMutation, profile }) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const visible = words.slice(0, visibleCount)
   const hasMore = visibleCount < words.length
@@ -750,7 +768,7 @@ function PaginatedTier({ words, viewMode, getMastery, reviewedWords, markReviewe
                 mastery={getMastery(v.id)}
                 reviewed={reviewedWords.has(v.id)}
                 onView={() => markReviewed(v.id)}
-                onPractice={() => setExerciseWord(v)}
+                onPractice={() => (onTapWord ? onTapWord(v) : setExerciseWord(v))}
                 isSaved={savedWordSet.has?.(v.word?.toLowerCase())}
                 onSaveWord={() => saveWordMutation.mutate(v)}
                 isStudent={profile?.role === 'student'}
@@ -773,7 +791,7 @@ function PaginatedTier({ words, viewMode, getMastery, reviewedWords, markReviewe
 
   return (
     <>
-      <WordListView vocabulary={visible} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={setExerciseWord} />
+      <WordListView vocabulary={visible} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={onTapWord || setExerciseWord} />
       {hasMore && (
         <button
           onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
