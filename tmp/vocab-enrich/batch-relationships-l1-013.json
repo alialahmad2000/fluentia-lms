@@ -1,0 +1,122 @@
+[
+  { "id": "bd4177a6-88fd-4c99-a7d6-b654e07a025c", "word": "carve",
+    "synonyms": [{"word":"sculpt","level":4},{"word":"chisel","level":4},{"word":"engrave","level":4}],
+    "antonyms": []
+  },
+  { "id": "bd561a79-3197-46cd-ab07-5f42273a7f70", "word": "scientific",
+    "synonyms": [{"word":"empirical","level":5},{"word":"systematic","level":4},{"word":"academic","level":4}],
+    "antonyms": [{"word":"unscientific","level":4},{"word":"superstitious","level":5}]
+  },
+  { "id": "bd6cc3ea-6fd1-440d-ab00-bad982069af7", "word": "exquisite",
+    "synonyms": [{"word":"beautiful","level":1},{"word":"delicate","level":4},{"word":"superb","level":5}],
+    "antonyms": [{"word":"ugly","level":1},{"word":"crude","level":4}]
+  },
+  { "id": "bf04dd10-1dee-411a-97cf-43efdb317f9e", "word": "royal",
+    "synonyms": [{"word":"regal","level":5},{"word":"kingly","level":4},{"word":"majestic","level":4}],
+    "antonyms": [{"word":"common","level":2},{"word":"ordinary","level":2}]
+  },
+  { "id": "bf4d6d7a-d24d-4683-b6dc-48d819261da8", "word": "harmony",
+    "synonyms": [{"word":"chord","level":3},{"word":"unison","level":5},{"word":"accord","level":4}],
+    "antonyms": [{"word":"discord","level":5},{"word":"dissonance","level":5}]
+  },
+  { "id": "bf84e78d-57e0-4e85-9c8a-c36f2b75eed7", "word": "illustrate",
+    "synonyms": [{"word":"draw","level":1},{"word":"depict","level":4},{"word":"sketch","level":3}],
+    "antonyms": []
+  },
+  { "id": "bf960404-ea7f-42dc-94ad-c8f9261e6e19", "word": "private",
+    "synonyms": [{"word":"personal","level":2},{"word":"secret","level":2},{"word":"confidential","level":4}],
+    "antonyms": [{"word":"public","level":1},{"word":"open","level":1},{"word":"shared","level":2}]
+  },
+  { "id": "bfd201cf-c76c-4e72-98d1-f32a8041098b", "word": "portable",
+    "synonyms": [{"word":"movable","level":3},{"word":"mobile","level":2},{"word":"handheld","level":3}],
+    "antonyms": [{"word":"stationary","level":4},{"word":"fixed","level":2},{"word":"immobile","level":4}]
+  },
+  { "id": "c0b3ce51-31f9-4334-bc25-965c254a759c", "word": "armor",
+    "synonyms": [{"word":"protection","level":2},{"word":"shielding","level":3},{"word":"mail","level":4}],
+    "antonyms": []
+  },
+  { "id": "c1e3a764-d548-4d00-9244-d8daf6d3a715", "word": "sportsmanship",
+    "synonyms": [{"word":"fairness","level":3},{"word":"fair play","level":2},{"word":"good conduct","level":3}],
+    "antonyms": [{"word":"cheating","level":2},{"word":"unsportsmanlike conduct","level":4}]
+  },
+  { "id": "c26f308f-51dc-4a3c-b147-31aee649d4b1", "word": "guide",
+    "synonyms": [{"word":"leader","level":1},{"word":"escort","level":4},{"word":"navigator","level":4}],
+    "antonyms": [{"word":"follower","level":2}]
+  },
+  { "id": "c27b4b6c-9392-4563-94ae-b4f745968c15", "word": "scientist",
+    "synonyms": [{"word":"researcher","level":3},{"word":"scholar","level":4},{"word":"investigator","level":4}],
+    "antonyms": []
+  },
+  { "id": "c2db753a-d027-413c-ad55-adb46d6bc00c", "word": "marathon",
+    "synonyms": [{"word":"long-distance race","level":2},{"word":"endurance race","level":4},{"word":"long run","level":1}],
+    "antonyms": [{"word":"sprint","level":3}]
+  },
+  { "id": "c32ca592-794c-42e8-863f-af87038fa966", "word": "monument",
+    "synonyms": [{"word":"memorial","level":4},{"word":"statue","level":2},{"word":"landmark","level":3}],
+    "antonyms": []
+  },
+  { "id": "c340224f-296c-4067-ac75-393154f56fdd", "word": "savory",
+    "synonyms": [{"word":"tasty","level":2},{"word":"salty","level":2},{"word":"piquant","level":5}],
+    "antonyms": [{"word":"sweet","level":1},{"word":"bland","level":3}]
+  },
+  { "id": "c3556f62-fce4-4d98-92f3-c51be180c2db", "word": "dynasty",
+    "synonyms": [{"word":"royal house","level":3},{"word":"ruling family","level":2},{"word":"lineage","level":5}],
+    "antonyms": []
+  },
+  { "id": "c44226c6-371c-441e-97e5-5b6eb4c5731d", "word": "natural",
+    "synonyms": [{"word":"organic","level":3},{"word":"unprocessed","level":4},{"word":"pure","level":2}],
+    "antonyms": [{"word":"artificial","level":3},{"word":"synthetic","level":4},{"word":"man-made","level":2}]
+  },
+  { "id": "c4934faa-3d65-4e88-b77c-87fec54a10e6", "word": "captain",
+    "synonyms": [{"word":"leader","level":1},{"word":"chief","level":2},{"word":"skipper","level":4}],
+    "antonyms": [{"word":"player","level":1},{"word":"subordinate","level":5}]
+  },
+  { "id": "c4de922a-b880-4b4f-91e7-1bd43e6605ee", "word": "trending",
+    "synonyms": [{"word":"popular","level":2},{"word":"viral","level":3},{"word":"in-vogue","level":5}],
+    "antonyms": [{"word":"outdated","level":4},{"word":"unpopular","level":3}]
+  },
+  { "id": "c6655d2c-016b-4bd0-a174-e69742cb43b3", "word": "defeat",
+    "synonyms": [{"word":"beat","level":1},{"word":"overcome","level":3},{"word":"vanquish","level":5}],
+    "antonyms": [{"word":"lose","level":1},{"word":"surrender","level":3}]
+  },
+  { "id": "c72d0a75-45cd-45c4-8d1a-a98d657c50a7", "word": "tradition",
+    "synonyms": [{"word":"custom","level":3},{"word":"practice","level":2},{"word":"heritage","level":3}],
+    "antonyms": [{"word":"innovation","level":4},{"word":"novelty","level":4}]
+  },
+  { "id": "c74059a8-45e8-4b4f-b3af-93e1d4b37490", "word": "worship",
+    "synonyms": [{"word":"pray to","level":2},{"word":"venerate","level":5},{"word":"adore","level":4}],
+    "antonyms": [{"word":"blaspheme","level":5}]
+  },
+  { "id": "c7a986cc-d398-4002-8e29-bfe4180a12bb", "word": "chef",
+    "synonyms": [{"word":"cook","level":1},{"word":"culinary expert","level":4},{"word":"culinarian","level":5}],
+    "antonyms": []
+  },
+  { "id": "c8403c7c-2b1f-48c7-9b53-3f408f9bb17c", "word": "account",
+    "synonyms": [{"word":"profile","level":2},{"word":"page","level":1},{"word":"login","level":2}],
+    "antonyms": []
+  },
+  { "id": "c95c4691-30e3-4095-839c-40f224d16cd9", "word": "blanch",
+    "synonyms": [{"word":"parboil","level":5},{"word":"scald","level":4},{"word":"flash boil","level":3}],
+    "antonyms": []
+  },
+  { "id": "c9bef461-0548-4203-93ed-01e0c2dec94d", "word": "planet",
+    "synonyms": [{"word":"world","level":1},{"word":"sphere","level":3},{"word":"orb","level":4}],
+    "antonyms": [{"word":"star","level":1}]
+  },
+  { "id": "c9d93783-6be2-4ef8-adef-cd2c5a5c117a", "word": "wonder",
+    "synonyms": [{"word":"marvel","level":4},{"word":"miracle","level":3},{"word":"spectacle","level":4}],
+    "antonyms": []
+  },
+  { "id": "c9dd0379-1fff-4654-b44a-d3d997675302", "word": "operate",
+    "synonyms": [{"word":"run","level":1},{"word":"use","level":1},{"word":"function","level":3}],
+    "antonyms": [{"word":"stop","level":1},{"word":"shut down","level":2}]
+  },
+  { "id": "ca3e6e7a-0d21-42e9-b1d6-26e45eb7afda", "word": "dome",
+    "synonyms": [{"word":"cupola","level":5},{"word":"roof","level":1},{"word":"vault","level":4}],
+    "antonyms": []
+  },
+  { "id": "ca491256-fa53-473f-ae40-9d48455a429b", "word": "misinformation",
+    "synonyms": [{"word":"fake news","level":2},{"word":"falsehood","level":4},{"word":"disinformation","level":4}],
+    "antonyms": [{"word":"truth","level":1},{"word":"facts","level":1}]
+  }
+]
