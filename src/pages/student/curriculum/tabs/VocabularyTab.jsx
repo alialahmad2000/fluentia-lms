@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown } from 'lucide-react'
+import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown, Flame } from 'lucide-react'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
@@ -17,6 +17,8 @@ import ReviewOverlay from '../../../../components/student/vocabulary/ReviewOverl
 import HeroSection from '../../../../components/curriculum/hero/HeroSection'
 import ChunkLane from '../../../../components/curriculum/journey/ChunkLane'
 import ChunkMiniSession from '../../../../components/curriculum/journey/ChunkMiniSession'
+import WordDetailSheet from '../../../../components/curriculum/word-detail/WordDetailSheet'
+import { getHardWords } from '../../../../services/hardWords'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -28,6 +30,7 @@ const FILTERS = [
   { key: 'new', label: 'جديدة' },
   { key: 'learning', label: 'تتعلمها' },
   { key: 'mastered', label: 'أتقنتها' },
+  { key: 'hard', label: 'صعبة', icon: Flame },
 ]
 
 const PAGE_SIZE = 40
@@ -110,6 +113,7 @@ export default function VocabularyTab({ unitId }) {
   const exerciseCloseCallbackRef = useRef(null) // ChunkMiniSession queue hook (Prompt 06)
   const [activeChunk, setActiveChunk] = useState(null) // Journey Lane modal (Prompt 06)
   const [chunkRefetchKey, setChunkRefetchKey] = useState(0) // bump to force ChunkLane refetch
+  const [detailSheetWord, setDetailSheetWord] = useState(null) // Word Detail Sheet (Prompt 07)
 
   const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(profile?.id, unitId)
 
@@ -211,14 +215,30 @@ export default function VocabularyTab({ unitId }) {
     return m.mastery_level || 'new'
   }, [getMastery])
 
+  // Hard-words set for this student (intersected with current unit) — Prompt 07 filter
+  const { data: hardWordsForStudent = [] } = useQuery({
+    queryKey: ['hard-words-list', profile?.id],
+    queryFn: () => getHardWords(profile?.id, 500),
+    enabled: !!profile?.id,
+    staleTime: 60_000,
+  })
+  const hardWordsSet = useMemo(
+    () => new Set((hardWordsForStudent || []).map((w) => w.vocabularyId)),
+    [hardWordsForStudent]
+  )
+
   const filterWord = useCallback((word) => {
-    if (filter !== 'all' && getWordMasteryLevel(word.id) !== filter) return false
+    if (filter === 'hard') {
+      if (!hardWordsSet.has(word.id)) return false
+    } else if (filter !== 'all' && getWordMasteryLevel(word.id) !== filter) {
+      return false
+    }
     if (searchQuery.trim()) {
       const q = searchQuery.trim().toLowerCase()
       return word.word?.toLowerCase().includes(q) || word.definition_ar?.includes(q) || word.definition_en?.toLowerCase().includes(q)
     }
     return true
-  }, [filter, searchQuery, getWordMasteryLevel])
+  }, [filter, searchQuery, getWordMasteryLevel, hardWordsSet])
 
   // Next un-mastered word for quick practice
   const nextUnmastered = useMemo(() => {
@@ -432,25 +452,49 @@ export default function VocabularyTab({ unitId }) {
       {/* ② FILTER BAR + SEARCH */}
       <div ref={libraryRef} className="flex items-center gap-2">
         <div className="flex items-center gap-1.5 flex-1 overflow-x-auto no-scrollbar">
-          {FILTERS.map((f, i) => (
-            <motion.button
-              key={f.key}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.05 }}
-              onClick={() => setFilter(f.key)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold font-['Tajawal'] whitespace-nowrap transition-all border ${
-                filter === f.key
-                  ? 'bg-sky-500/20 text-sky-400 border-sky-500/30'
-                  : 'bg-white/[0.03] text-white/40 border-white/[0.06] hover:text-white/60'
-              }`}
-            >
-              {f.label}
-              {f.key === 'new' && newCount > 0 && <span className="mr-1 opacity-60">{newCount}</span>}
-              {f.key === 'learning' && learningCount > 0 && <span className="mr-1 opacity-60">{learningCount}</span>}
-              {f.key === 'mastered' && masteredCount > 0 && <span className="mr-1 opacity-60">{masteredCount}</span>}
-            </motion.button>
-          ))}
+          {FILTERS.map((f, i) => {
+            const Icon = f.icon
+            // Unit-scoped hard-words count for the "صعبة" pill badge
+            const hardInUnitCount = f.key === 'hard'
+              ? allWords.filter((w) => hardWordsSet.has(w.id)).length
+              : 0
+            const isHardDisabled = f.key === 'hard' && hardInUnitCount === 0
+            const isHardActiveStyle = f.key === 'hard' && filter === 'hard'
+            return (
+              <motion.button
+                key={f.key}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                onClick={() => {
+                  if (isHardDisabled) return
+                  setFilter(f.key)
+                }}
+                disabled={isHardDisabled}
+                title={
+                  isHardDisabled
+                    ? 'ما عندك كلمات صعبة في هذي الوحدة الآن'
+                    : undefined
+                }
+                className={`inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-bold font-['Tajawal'] whitespace-nowrap transition-all border ${
+                  filter === f.key
+                    ? isHardActiveStyle
+                      ? 'bg-red-500/20 text-red-400 border-red-500/40'
+                      : 'bg-sky-500/20 text-sky-400 border-sky-500/30'
+                    : isHardDisabled
+                      ? 'bg-white/[0.02] text-white/20 border-white/[0.04] cursor-not-allowed'
+                      : 'bg-white/[0.03] text-white/40 border-white/[0.06] hover:text-white/60'
+                }`}
+              >
+                {Icon && <Icon size={12} />}
+                {f.label}
+                {f.key === 'new' && newCount > 0 && <span className="mr-1 opacity-60">{newCount}</span>}
+                {f.key === 'learning' && learningCount > 0 && <span className="mr-1 opacity-60">{learningCount}</span>}
+                {f.key === 'mastered' && masteredCount > 0 && <span className="mr-1 opacity-60">{masteredCount}</span>}
+                {f.key === 'hard' && hardInUnitCount > 0 && <span className="mr-1 opacity-70">{hardInUnitCount}</span>}
+              </motion.button>
+            )
+          })}
         </div>
 
         <div className="flex items-center gap-1.5 flex-shrink-0">
