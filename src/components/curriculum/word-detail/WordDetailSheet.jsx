@@ -1,14 +1,20 @@
-import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
+import { useEffect, useState, useCallback, useRef, useMemo, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Volume2, CheckCircle2, Dumbbell, Zap } from 'lucide-react'
 import { useBodyLock } from '../../../hooks/useBodyLock'
 import { toast } from '../../ui/FluentiaToast'
 import { addWordToImmediateReview } from '../../../services/srs'
 import DefinitionSection from './DefinitionSection'
-import PronunciationSection from './PronunciationSection'
 import RelationshipsSection from './RelationshipsSection'
-import WordFamilySection from './WordFamilySection'
 import ProgressSection from './ProgressSection'
+import { DetailSheetSectionSkeleton } from '../skeletons/VocabSkeletons'
+
+// Lazy-load the two heaviest sections (Prompt 08 Phase F).
+// PronunciationSection only renders when the word has an alert (mostly L1 only),
+// and WordFamilySection has the largest UI footprint with the morphology drawer.
+// Splitting them into separate chunks shaves bytes off the initial vocab-tab load.
+const PronunciationSection = lazy(() => import('./PronunciationSection'))
+const WordFamilySection = lazy(() => import('./WordFamilySection'))
 
 /**
  * WordDetailSheet — premium drawer (mobile) / side panel (desktop)
@@ -320,13 +326,17 @@ export default function WordDetailSheet({
               style={{ overscrollBehavior: 'contain' }}
             >
               <DefinitionSection word={word} onPlayAudio={playAudio} />
-              <PronunciationSection alert={pronAlert} />
+              <Suspense fallback={<DetailSheetSectionSkeleton linesCount={3} />}>
+                <PronunciationSection alert={pronAlert} />
+              </Suspense>
               <RelationshipsSection
                 synonyms={synonyms}
                 antonyms={antonyms}
                 onOpenRelated={onOpenRelated}
               />
-              <WordFamilySection family={family} onOpenRelated={onOpenRelated} />
+              <Suspense fallback={<DetailSheetSectionSkeleton linesCount={4} />}>
+                <WordFamilySection family={family} onOpenRelated={onOpenRelated} />
+              </Suspense>
               <ProgressSection
                 studentId={studentId}
                 vocabularyId={word.id}
