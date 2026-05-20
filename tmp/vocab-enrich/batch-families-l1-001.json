@@ -1,0 +1,213 @@
+[
+  { "id": "00099d6c-14a3-48fc-a617-2e4fa6980831", "word": "green",
+    "word_family": [
+      {"word":"green","pos":"adjective","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصفة الأصلية تعني صديقة للبيئة (في هذا السياق) أو ذات اللون الأخضر، ومنها يُشتق باقي أفراد العائلة"}},
+      {"word":"greenness","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ness","affix_type":"suffix","rule_ar":"اللاحقة -ness تُحوّل الصفة إلى اسم مجرد يدل على الحالة أو الصفة نفسها","base_pos":"adjective","base_word":"green","similar_examples":["happy → happiness","kind → kindness","dark → darkness"]}},
+      {"word":"greenery","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ery","affix_type":"suffix","rule_ar":"اللاحقة -ery تُحوّل الصفة إلى اسم جامع يدل على مجموعة من الأشياء","base_pos":"adjective","base_word":"green","similar_examples":["scene → scenery","machine → machinery","cook → cookery"]}}
+    ]
+  },
+  { "id": "00a3624e-b815-41e7-8078-e8edd5ed6e4f", "word": "king",
+    "word_family": [
+      {"word":"king","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الحاكم الذكر للبلاد، ومنه يُشتق باقي أفراد العائلة"}},
+      {"word":"kingdom","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-dom","affix_type":"suffix","rule_ar":"اللاحقة -dom تُضاف إلى الاسم لتدل على المملكة أو المجال الذي يحكمه","base_pos":"noun","base_word":"king","similar_examples":["free → freedom","wise → wisdom","star → stardom"]}},
+      {"word":"kingly","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","rule_ar":"اللاحقة -ly تُحوّل الاسم إلى صفة تعني مثل أو شبيه بـ","base_pos":"noun","base_word":"king","similar_examples":["man → manly","friend → friendly","love → lovely"]}},
+      {"word":"kingship","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ship","affix_type":"suffix","rule_ar":"اللاحقة -ship تدل على الحالة أو المنصب أو العلاقة","base_pos":"noun","base_word":"king","similar_examples":["friend → friendship","leader → leadership","member → membership"]}}
+    ]
+  },
+  { "id": "0102c21c-1b97-4cb4-be13-7764e681b20c", "word": "ingredient",
+    "word_family": [
+      {"word":"ingredient","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني المكون الذي يدخل في تحضير الطعام، من اللاتينية ingredi بمعنى يدخل"}}
+    ]
+  },
+  { "id": "011a9dba-bd46-4d70-adeb-9e7a33626c93", "word": "tripod",
+    "word_family": [
+      {"word":"tripod","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي مركب من tri (ثلاثة) و pod (قدم) — يعني الحامل ذو الأقدام الثلاثة"}}
+    ]
+  },
+  { "id": "01511dab-3390-4e4c-a13f-a8dcbdc97357", "word": "electronic",
+    "word_family": [
+      {"word":"electron","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الإلكترون، الجسيم الذري الحامل للشحنة السالبة، ومنه تُشتق العائلة"}},
+      {"word":"electronic","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ic","affix_type":"suffix","rule_ar":"اللاحقة -ic تُحوّل الاسم إلى صفة تعني متعلق بـ أو يعمل بـ","base_pos":"noun","base_word":"electron","similar_examples":["atom → atomic","music → musical","economy → economic"]}},
+      {"word":"electronics","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-s","affix_type":"suffix","rule_ar":"اللاحقة -s مع الصفة -ic تكوّن اسم العلم أو المجال الدراسي","base_pos":"adjective","base_word":"electronic","similar_examples":["physic → physics","mathematic → mathematics","economic → economics"]}},
+      {"word":"electronically","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ally","affix_type":"suffix","rule_ar":"اللاحقة -ally تُحوّل الصفة المنتهية بـ -ic إلى ظرف يصف الطريقة","base_pos":"adjective","base_word":"electronic","similar_examples":["basic → basically","logical → logically","practical → practically"]}}
+    ]
+  },
+  { "id": "02001413-4e8b-4a29-89e6-f2c41ab20c92", "word": "shutter",
+    "word_family": [
+      {"word":"shut","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يغلق، ومنه يُشتق باقي أفراد العائلة"}},
+      {"word":"shutter","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم آلة (الشيء الذي يقوم بالفعل) — هنا الجزء الذي يفتح ويغلق في الكاميرا","base_pos":"verb","base_word":"shut","similar_examples":["cover → cover","open → opener","print → printer"]}},
+      {"word":"shuttered","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","rule_ar":"اللاحقة -ed تُحوّل الاسم إلى صفة تعني مجهز بـ أو ذو","base_pos":"noun","base_word":"shutter","similar_examples":["talent → talented","gift → gifted","color → colored"]}}
+    ]
+  },
+  { "id": "021ec7b9-79ee-4a78-9a29-b0c162781265", "word": "absorb",
+    "word_family": [
+      {"word":"absorb","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يمتص أو يستوعب، ومنه تُشتق باقي العائلة"}},
+      {"word":"absorption","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-tion","affix_type":"suffix","rule_ar":"اللاحقة -tion تُحوّل الفعل إلى اسم مصدر يدل على عملية الفعل","base_pos":"verb","base_word":"absorb","similar_examples":["create → creation","describe → description","produce → production"]}},
+      {"word":"absorbent","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ent","affix_type":"suffix","rule_ar":"اللاحقة -ent تُحوّل الفعل إلى صفة تعني قادر على الفعل","base_pos":"verb","base_word":"absorb","similar_examples":["depend → dependent","persist → persistent","differ → different"]}},
+      {"word":"absorbing","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى صفة فاعلة تصف ما يقوم بالفعل","base_pos":"verb","base_word":"absorb","similar_examples":["interest → interesting","excite → exciting","amaze → amazing"]}}
+    ]
+  },
+  { "id": "03253ab7-176f-4a40-a16e-9dcc2075e4e0", "word": "entrance",
+    "word_family": [
+      {"word":"enter","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يدخل، ومنه تُشتق باقي العائلة"}},
+      {"word":"entrance","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ance","affix_type":"suffix","rule_ar":"اللاحقة -ance تُحوّل الفعل إلى اسم يدل على فعل الدخول أو مكان الدخول","base_pos":"verb","base_word":"enter","similar_examples":["accept → acceptance","perform → performance","appear → appearance"]}},
+      {"word":"entry","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-y","affix_type":"suffix","rule_ar":"اللاحقة -y تُحوّل الفعل إلى اسم يدل على الفعل نفسه أو مكانه","base_pos":"verb","base_word":"enter","similar_examples":["deliver → delivery","discover → discovery","inquire → inquiry"]}},
+      {"word":"exit","pos":"noun","level":1,"is_base":false,"is_opposite":true,"morphology":{"affix":"ex-","affix_type":"prefix","rule_ar":"البادئة ex- تعني الخروج، فهي عكس enter (الدخول)","base_pos":"verb","base_word":"enter","similar_examples":["import → export","internal → external","include → exclude"]}}
+    ]
+  },
+  { "id": "034bd781-f6b9-4203-83a5-d8d7513bfc1d", "word": "deep",
+    "word_family": [
+      {"word":"deep","pos":"adjective","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصفة الأصلية تعني عميق، ومنها تُشتق باقي العائلة"}},
+      {"word":"deeply","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","rule_ar":"اللاحقة -ly تُحوّل الصفة إلى ظرف يصف الطريقة","base_pos":"adjective","base_word":"deep","similar_examples":["quick → quickly","slow → slowly","careful → carefully"]}},
+      {"word":"depth","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-th","affix_type":"suffix","rule_ar":"اللاحقة -th تُحوّل الصفة إلى اسم مجرد يدل على القياس أو الحالة","base_pos":"adjective","base_word":"deep","similar_examples":["wide → width","long → length","strong → strength"]}},
+      {"word":"deepen","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-en","affix_type":"suffix","rule_ar":"اللاحقة -en تُحوّل الصفة إلى فعل يعني يجعل الشيء أكثر اتصافاً بهذه الصفة","base_pos":"adjective","base_word":"deep","similar_examples":["wide → widen","strong → strengthen","sharp → sharpen"]}},
+      {"word":"shallow","pos":"adjective","level":2,"is_base":false,"is_opposite":true,"morphology":{"affix":"شفافة","affix_type":"suffix","rule_ar":"كلمة منفصلة الجذر تعني عكس deep — قليل العمق","base_pos":"adjective","base_word":"deep","similar_examples":["heavy ↔ light","hot ↔ cold","fast ↔ slow"]}}
+    ]
+  },
+  { "id": "040d304d-8780-45b2-9101-358725f9cfa2", "word": "defend",
+    "word_family": [
+      {"word":"defend","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يحمي أو يدافع، ومنه تُشتق باقي العائلة"}},
+      {"word":"defense","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-se","affix_type":"suffix","rule_ar":"اللاحقة -se تُحوّل الفعل إلى اسم مصدر يدل على فعل الدفاع","base_pos":"verb","base_word":"defend","similar_examples":["expend → expense","offend → offense","respond → response"]}},
+      {"word":"defender","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل (الشخص الذي يقوم بالفعل)","base_pos":"verb","base_word":"defend","similar_examples":["teach → teacher","play → player","write → writer"]}},
+      {"word":"defensive","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ive","affix_type":"suffix","rule_ar":"اللاحقة -ive تُحوّل الفعل إلى صفة تعني له صفة الفعل","base_pos":"verb","base_word":"defend","similar_examples":["create → creative","react → reactive","attract → attractive"]}}
+    ]
+  },
+  { "id": "0485cf9c-65b3-42d5-9aa1-b83fb136b5c1", "word": "honor",
+    "word_family": [
+      {"word":"honor","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يُكرم أو الكرامة، ومنه تُشتق باقي العائلة"}},
+      {"word":"honorable","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-able","affix_type":"suffix","rule_ar":"اللاحقة -able تُحوّل الفعل/الاسم إلى صفة تعني يستحق الفعل أو ذو الصفة","base_pos":"verb","base_word":"honor","similar_examples":["respect → respectable","value → valuable","trust → trustable"]}},
+      {"word":"honorary","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ary","affix_type":"suffix","rule_ar":"اللاحقة -ary تُحوّل الاسم إلى صفة تعني متعلق بـ أو على سبيل التكريم","base_pos":"noun","base_word":"honor","similar_examples":["custom → customary","legend → legendary","caution → cautionary"]}},
+      {"word":"dishonor","pos":"verb","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"dis-","affix_type":"prefix","rule_ar":"البادئة dis- تعكس معنى الفعل، فتعني نزع الكرامة أو الإهانة","base_pos":"verb","base_word":"honor","similar_examples":["agree → disagree","like → dislike","appear → disappear"]}}
+    ]
+  },
+  { "id": "054fbb2b-2f0b-4364-8bc1-974012cba5dc", "word": "landfill",
+    "word_family": [
+      {"word":"landfill","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم المركب من land (أرض) و fill (يملأ) — يعني المكان الذي تُملأ فيه الأرض بالنفايات"}}
+    ]
+  },
+  { "id": "05647b25-33bb-4f56-a598-6d8bb71d3c11", "word": "ruins",
+    "word_family": [
+      {"word":"ruin","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يدمر أو الخراب، ومنه تُشتق باقي العائلة"}},
+      {"word":"ruins","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-s","affix_type":"suffix","rule_ar":"صيغة الجمع للاسم ruin، تدل على بقايا المباني المُدمَّرة","base_pos":"noun","base_word":"ruin","similar_examples":["ash → ashes","remain → remains","good → goods"]}},
+      {"word":"ruined","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","rule_ar":"اللاحقة -ed تُحوّل الفعل إلى صفة مفعولة","base_pos":"verb","base_word":"ruin","similar_examples":["break → broken","destroy → destroyed","damage → damaged"]}},
+      {"word":"ruinous","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ous","affix_type":"suffix","rule_ar":"اللاحقة -ous تُحوّل الاسم إلى صفة تعني مسبب للشيء","base_pos":"noun","base_word":"ruin","similar_examples":["danger → dangerous","poison → poisonous","fame → famous"]}}
+    ]
+  },
+  { "id": "061e47e8-666a-44f4-8cba-1dad98c9f520", "word": "monochrome",
+    "word_family": [
+      {"word":"monochrome","pos":"adjective","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"كلمة مركبة من اليونانية mono (واحد) و chroma (لون) — تعني أحادي اللون"}},
+      {"word":"monochromatic","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-atic","affix_type":"suffix","rule_ar":"اللاحقة -atic تُحوّل الاسم إلى صفة بمعنى متعلق بـ","base_pos":"adjective","base_word":"monochrome","similar_examples":["drama → dramatic","problem → problematic","system → systematic"]}}
+    ]
+  },
+  { "id": "06b56579-72b2-4832-a159-3129909c6ede", "word": "thrive",
+    "word_family": [
+      {"word":"thrive","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يزدهر أو ينمو، من النورس القديم þrífa"}},
+      {"word":"thriving","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى صفة فاعلة","base_pos":"verb","base_word":"thrive","similar_examples":["grow → growing","interest → interesting","exist → existing"]}}
+    ]
+  },
+  { "id": "06c37b27-b33c-43f6-a2a5-69165bba94a7", "word": "eco-friendly",
+    "word_family": [
+      {"word":"eco-friendly","pos":"adjective","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"كلمة مركبة من eco (اختصار ecology — البيئة) و friendly (صديق) — تعني صديق للبيئة"}},
+      {"word":"unfriendly","pos":"adjective","level":3,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","rule_ar":"البادئة un- تنفي معنى الصفة، فتعطي معنى غير صديق","base_pos":"adjective","base_word":"friendly","similar_examples":["happy → unhappy","kind → unkind","fair → unfair"]}}
+    ]
+  },
+  { "id": "06dacc08-90a7-4a50-8454-dde88cff8ec8", "word": "sink",
+    "word_family": [
+      {"word":"sink","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يغرق أو ينزل إلى الأسفل، ومنه تُشتق باقي العائلة"}},
+      {"word":"sunken","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-en","affix_type":"suffix","rule_ar":"صيغة اسم المفعول الشاذة من sink، تستخدم كصفة لما غرق","base_pos":"verb","base_word":"sink","similar_examples":["drink → drunken","steal → stolen","speak → spoken"]}},
+      {"word":"sinking","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى صفة فاعلة","base_pos":"verb","base_word":"sink","similar_examples":["fall → falling","rise → rising","fly → flying"]}}
+    ]
+  },
+  { "id": "0794bd2b-79f6-4706-aee9-0b11d7eb0287", "word": "painting",
+    "word_family": [
+      {"word":"paint","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يرسم أو الطلاء، ومنه تُشتق باقي العائلة"}},
+      {"word":"painter","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل (الشخص الذي يقوم بالفعل)","base_pos":"verb","base_word":"paint","similar_examples":["teach → teacher","write → writer","sing → singer"]}},
+      {"word":"painting","pos":"noun","level":1,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى اسم يدل على الشيء الناتج عن الفعل","base_pos":"verb","base_word":"paint","similar_examples":["build → building","draw → drawing","write → writing"]}}
+    ]
+  },
+  { "id": "07aa3a65-cf71-40d2-a1af-e2497055bf3d", "word": "solar",
+    "word_family": [
+      {"word":"sun","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الشمس، ومنه يُشتق باقي أفراد العائلة (مع استخدام جذر sol اللاتيني للصفة)"}},
+      {"word":"solar","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"sol-","affix_type":"prefix","rule_ar":"الكلمة مشتقة من اللاتينية sol (الشمس) — تعني متعلق بالشمس","base_pos":"noun","base_word":"sun","similar_examples":["star → stellar","sea → marine","moon → lunar"]}},
+      {"word":"sunny","pos":"adjective","level":1,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ny","affix_type":"suffix","rule_ar":"اللاحقة -ny/-y تُحوّل الاسم إلى صفة تعني مليء بـ أو ذو","base_pos":"noun","base_word":"sun","similar_examples":["cloud → cloudy","rain → rainy","wind → windy"]}},
+      {"word":"sunshine","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-shine","affix_type":"suffix","rule_ar":"كلمة مركبة من sun و shine — تعني ضوء الشمس","base_pos":"noun","base_word":"sun","similar_examples":["sun → sunlight","moon → moonlight","star → starlight"]}}
+    ]
+  },
+  { "id": "081b43d9-1d3e-48ba-8535-b3ffea1b2937", "word": "soil",
+    "word_family": [
+      {"word":"soil","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني التربة، من الفرنسية القديمة soil"}}
+    ]
+  },
+  { "id": "08416ef7-6fc8-409a-8bcb-5a7b4e31c86a", "word": "shadow",
+    "word_family": [
+      {"word":"shadow","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم/الفعل الأصلي يعني الظل، ومنه تُشتق باقي العائلة"}},
+      {"word":"shadowy","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-y","affix_type":"suffix","rule_ar":"اللاحقة -y تُحوّل الاسم إلى صفة تعني مليء بـ أو شبيه بـ","base_pos":"noun","base_word":"shadow","similar_examples":["cloud → cloudy","sun → sunny","rain → rainy"]}},
+      {"word":"overshadow","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"over-","affix_type":"prefix","rule_ar":"البادئة over- تعني فوق أو أكثر من اللازم — تعني يُلقي ظله فوق شيء آخر","base_pos":"noun","base_word":"shadow","similar_examples":["come → overcome","look → overlook","take → overtake"]}}
+    ]
+  },
+  { "id": "08876042-a1cb-49cc-a57e-ddcd568420e5", "word": "kick",
+    "word_family": [
+      {"word":"kick","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يركل، ومنه تُشتق باقي العائلة"}},
+      {"word":"kicker","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل (الشخص الذي يقوم بالفعل)","base_pos":"verb","base_word":"kick","similar_examples":["play → player","drive → driver","run → runner"]}},
+      {"word":"kicking","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى اسم مصدر يدل على فعل الركل","base_pos":"verb","base_word":"kick","similar_examples":["run → running","jump → jumping","swim → swimming"]}}
+    ]
+  },
+  { "id": "0948f349-cb2a-4573-8710-5b68ddcc9608", "word": "infuse",
+    "word_family": [
+      {"word":"infuse","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني ينقع أو يخلط النكهة، من اللاتينية infundere (يصب فيه)"}},
+      {"word":"infusion","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","rule_ar":"اللاحقة -ion تُحوّل الفعل إلى اسم مصدر يدل على عملية الفعل","base_pos":"verb","base_word":"infuse","similar_examples":["confuse → confusion","fuse → fusion","include → inclusion"]}}
+    ]
+  },
+  { "id": "096c42e8-c872-4710-8351-92a23ad45084", "word": "exposure",
+    "word_family": [
+      {"word":"expose","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يكشف أو يُعرّض، ومنه تُشتق باقي العائلة"}},
+      {"word":"exposure","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ure","affix_type":"suffix","rule_ar":"اللاحقة -ure تُحوّل الفعل إلى اسم مصدر يدل على الفعل أو نتيجته","base_pos":"verb","base_word":"expose","similar_examples":["mix → mixture","fail → failure","please → pleasure"]}},
+      {"word":"exposed","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","rule_ar":"اللاحقة -ed تُحوّل الفعل إلى صفة مفعولة","base_pos":"verb","base_word":"expose","similar_examples":["close → closed","open → opened","cook → cooked"]}}
+    ]
+  },
+  { "id": "099187f1-09ea-4fbb-bbbc-653981476998", "word": "wireless",
+    "word_family": [
+      {"word":"wire","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم/الفعل الأصلي يعني السلك، ومنه تُشتق باقي العائلة"}},
+      {"word":"wired","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","rule_ar":"اللاحقة -ed تُحوّل الاسم إلى صفة تعني مجهز بـ","base_pos":"noun","base_word":"wire","similar_examples":["color → colored","wood → wooded","talent → talented"]}},
+      {"word":"wireless","pos":"adjective","level":2,"is_base":false,"is_opposite":true,"morphology":{"affix":"-less","affix_type":"suffix","rule_ar":"اللاحقة -less تنفي وجود الشيء، فتعني خالٍ من الأسلاك","base_pos":"noun","base_word":"wire","similar_examples":["hope → hopeless","care → careless","color → colorless"]}}
+    ]
+  },
+  { "id": "0a5e16a7-527b-4d6c-8a28-989e18e2b68b", "word": "fit",
+    "word_family": [
+      {"word":"fit","pos":"adjective","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصفة الأصلية تعني لائق بدنياً، ومنها تُشتق باقي العائلة"}},
+      {"word":"fitness","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ness","affix_type":"suffix","rule_ar":"اللاحقة -ness تُحوّل الصفة إلى اسم مجرد يدل على الحالة","base_pos":"adjective","base_word":"fit","similar_examples":["happy → happiness","kind → kindness","weak → weakness"]}},
+      {"word":"unfit","pos":"adjective","level":3,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","rule_ar":"البادئة un- تنفي معنى الصفة، فتعني غير لائق","base_pos":"adjective","base_word":"fit","similar_examples":["happy → unhappy","kind → unkind","fair → unfair"]}}
+    ]
+  },
+  { "id": "0aaf4f87-c788-4104-8138-976ef038a2fd", "word": "national",
+    "word_family": [
+      {"word":"nation","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الأمة أو الدولة، ومنه تُشتق باقي العائلة"}},
+      {"word":"national","pos":"adjective","level":1,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","rule_ar":"اللاحقة -al تُحوّل الاسم إلى صفة تعني متعلق بـ","base_pos":"noun","base_word":"nation","similar_examples":["region → regional","culture → cultural","music → musical"]}},
+      {"word":"nationally","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","rule_ar":"اللاحقة -ly تُحوّل الصفة إلى ظرف يصف الطريقة","base_pos":"adjective","base_word":"national","similar_examples":["local → locally","global → globally","regional → regionally"]}},
+      {"word":"nationality","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ity","affix_type":"suffix","rule_ar":"اللاحقة -ity تُحوّل الصفة إلى اسم مجرد يدل على الحالة أو الانتماء","base_pos":"adjective","base_word":"national","similar_examples":["able → ability","real → reality","equal → equality"]}},
+      {"word":"international","pos":"adjective","level":2,"is_base":false,"is_opposite":true,"morphology":{"affix":"inter-","affix_type":"prefix","rule_ar":"البادئة inter- تعني بين، فتعني بين الأمم — عكس المحلي/الوطني","base_pos":"adjective","base_word":"national","similar_examples":["act → interact","change → interchange","net → internet"]}}
+    ]
+  },
+  { "id": "0bb50f85-c12b-4621-8498-34dd01cc3150", "word": "vintage",
+    "word_family": [
+      {"word":"vintage","pos":"adjective","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصفة/الاسم الأصلي مشتقة من vintner (تاجر الخمور) — تعني عتيق أو ذو جودة من زمن معين"}}
+    ]
+  },
+  { "id": "0cf661d8-b714-419f-978f-360b8a7b7d30", "word": "historic",
+    "word_family": [
+      {"word":"history","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني التاريخ، ومنه تُشتق باقي العائلة"}},
+      {"word":"historic","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ic","affix_type":"suffix","rule_ar":"اللاحقة -ic تُحوّل الاسم إلى صفة تعني له أهمية تاريخية","base_pos":"noun","base_word":"history","similar_examples":["atom → atomic","music → musical","economy → economic"]}},
+      {"word":"historical","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ical","affix_type":"suffix","rule_ar":"اللاحقة -ical تُحوّل الاسم إلى صفة تعني متعلق بـ — أعم من historic","base_pos":"noun","base_word":"history","similar_examples":["logic → logical","music → musical","practice → practical"]}},
+      {"word":"historically","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ically","affix_type":"suffix","rule_ar":"اللاحقة -ically تُحوّل الصفة إلى ظرف يصف الطريقة","base_pos":"adjective","base_word":"historical","similar_examples":["basic → basically","logical → logically","practical → practically"]}},
+      {"word":"historian","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ian","affix_type":"suffix","rule_ar":"اللاحقة -ian تُحوّل الاسم إلى اسم فاعل (شخص يدرس أو يعمل في المجال)","base_pos":"noun","base_word":"history","similar_examples":["library → librarian","music → musician","magic → magician"]}},
+      {"word":"prehistoric","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"pre-","affix_type":"prefix","rule_ar":"البادئة pre- تعني قبل، فتعني ما قبل التاريخ المُسجّل","base_pos":"adjective","base_word":"historic","similar_examples":["view → preview","heat → preheat","pay → prepay"]}}
+    ]
+  },
+  { "id": "0e5aa0c6-1170-413e-8b41-cfab5cc83d26", "word": "harvest",
+    "word_family": [
+      {"word":"harvest","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم/الفعل الأصلي يعني الحصاد، ومنه تُشتق باقي العائلة"}},
+      {"word":"harvester","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل أو آلة (من يقوم بالفعل)","base_pos":"verb","base_word":"harvest","similar_examples":["farm → farmer","print → printer","mix → mixer"]}},
+      {"word":"harvesting","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى اسم مصدر يدل على عملية الفعل","base_pos":"verb","base_word":"harvest","similar_examples":["plant → planting","build → building","run → running"]}}
+    ]
+  }
+]
