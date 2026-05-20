@@ -1,0 +1,122 @@
+[
+  { "id": "7e091959-ce07-49b0-a4b6-7ae37edefeb6", "word": "crop",
+    "synonyms": [{"word":"trim","level":2},{"word":"cut","level":1},{"word":"clip","level":3}],
+    "antonyms": [{"word":"extend","level":3},{"word":"expand","level":3}]
+  },
+  { "id": "7ebffcf2-83f1-47f6-bcef-0a969ca6b0f6", "word": "iconic",
+    "synonyms": [{"word":"famous","level":1},{"word":"symbolic","level":4},{"word":"emblematic","level":5}],
+    "antonyms": [{"word":"unknown","level":2},{"word":"obscure","level":4}]
+  },
+  { "id": "7eebc80d-fa87-45d7-893a-9ff38d61ec84", "word": "efficient",
+    "synonyms": [{"word":"effective","level":3},{"word":"productive","level":3},{"word":"economical","level":4}],
+    "antonyms": [{"word":"wasteful","level":3},{"word":"inefficient","level":3}]
+  },
+  { "id": "807d0075-b5e8-4814-9a3a-53529158f4a3", "word": "nutritious",
+    "synonyms": [{"word":"healthy","level":1},{"word":"wholesome","level":4},{"word":"nourishing","level":5}],
+    "antonyms": [{"word":"unhealthy","level":2},{"word":"junk","level":2}]
+  },
+  { "id": "811fdad9-e51e-44a3-b879-7c7420a6b50e", "word": "moon",
+    "synonyms": [{"word":"satellite","level":3},{"word":"luna","level":4},{"word":"crescent","level":3}],
+    "antonyms": [{"word":"sun","level":1}]
+  },
+  { "id": "81318742-3dff-49f6-8486-ca999245a68c", "word": "emission",
+    "synonyms": [{"word":"discharge","level":4},{"word":"release","level":3},{"word":"output","level":3}],
+    "antonyms": [{"word":"absorption","level":4},{"word":"intake","level":3}]
+  },
+  { "id": "81f07c86-1d28-4bb1-b742-dcc38ecfa021", "word": "roast",
+    "synonyms": [{"word":"bake","level":2},{"word":"cook","level":1},{"word":"barbecue","level":3}],
+    "antonyms": []
+  },
+  { "id": "822ec708-d1af-408d-a851-cb3c63bd7e2e", "word": "dish",
+    "synonyms": [{"word":"meal","level":1},{"word":"plate","level":1},{"word":"course","level":3}],
+    "antonyms": []
+  },
+  { "id": "826669c9-b234-42f4-9d87-89dea4a8719f", "word": "wheel",
+    "synonyms": [{"word":"tire","level":2},{"word":"disc","level":3},{"word":"roller","level":3}],
+    "antonyms": []
+  },
+  { "id": "828c1462-1f0a-40a2-8655-e02883b18176", "word": "comment",
+    "synonyms": [{"word":"remark","level":3},{"word":"reply","level":1},{"word":"feedback","level":3}],
+    "antonyms": [{"word":"silence","level":2}]
+  },
+  { "id": "835a5d4c-54f3-4fa4-892f-1ec2b0fb5fc3", "word": "weightless",
+    "synonyms": [{"word":"floating","level":2},{"word":"buoyant","level":5},{"word":"zero-gravity","level":3}],
+    "antonyms": [{"word":"heavy","level":1},{"word":"weighty","level":3}]
+  },
+  { "id": "83891e50-aea8-4b05-b412-92d3b05de375", "word": "salty",
+    "synonyms": [{"word":"briny","level":5},{"word":"saline","level":4},{"word":"savory","level":4}],
+    "antonyms": [{"word":"sweet","level":1},{"word":"fresh","level":1}]
+  },
+  { "id": "8485fe63-6d07-45b9-97a7-83461145b57f", "word": "cuisine",
+    "synonyms": [{"word":"cooking","level":2},{"word":"food","level":1},{"word":"gastronomy","level":5}],
+    "antonyms": []
+  },
+  { "id": "84b9e8c9-20cd-4d96-b03f-3a2b76194e60", "word": "moderate",
+    "synonyms": [{"word":"review","level":3},{"word":"control","level":2},{"word":"censor","level":4}],
+    "antonyms": []
+  },
+  { "id": "84cbdbfe-e0e4-4901-899a-4fe1263a25ac", "word": "breathe",
+    "synonyms": [{"word":"inhale","level":4},{"word":"respire","level":5},{"word":"take air","level":1}],
+    "antonyms": [{"word":"hold breath","level":2},{"word":"suffocate","level":4}]
+  },
+  { "id": "85a1fd29-b13e-49be-a149-eb058daf6a44", "word": "abstract",
+    "synonyms": [{"word":"non-representational","level":4},{"word":"conceptual","level":5},{"word":"theoretical","level":4}],
+    "antonyms": [{"word":"realistic","level":3},{"word":"concrete","level":3},{"word":"figurative","level":4}]
+  },
+  { "id": "863dd8ad-8fa8-4319-b5d2-4b2a51d99618", "word": "reuse",
+    "synonyms": [{"word":"recycle","level":3},{"word":"repurpose","level":3},{"word":"use again","level":1}],
+    "antonyms": [{"word":"throw away","level":2},{"word":"discard","level":3}]
+  },
+  { "id": "8685054e-2f00-42eb-ae48-5dc07ab1da8d", "word": "viral",
+    "synonyms": [{"word":"trending","level":3},{"word":"popular","level":2},{"word":"shareable","level":3}],
+    "antonyms": [{"word":"unpopular","level":3},{"word":"obscure","level":4}]
+  },
+  { "id": "86e830c2-1538-41f7-a985-150f548768a9", "word": "controversial",
+    "synonyms": [{"word":"debatable","level":4},{"word":"divisive","level":5},{"word":"disputed","level":4}],
+    "antonyms": [{"word":"agreed","level":2},{"word":"uncontroversial","level":4},{"word":"accepted","level":3}]
+  },
+  { "id": "871e84b1-e550-48e4-acb7-52c8aa23cb0a", "word": "scenic",
+    "synonyms": [{"word":"picturesque","level":5},{"word":"beautiful","level":1},{"word":"breathtaking","level":4}],
+    "antonyms": [{"word":"ugly","level":1},{"word":"unscenic","level":3}]
+  },
+  { "id": "87519d3f-44fd-4882-b90e-eee6ba9dbfe5", "word": "stir",
+    "synonyms": [{"word":"mix","level":1},{"word":"whisk","level":3},{"word":"blend","level":3}],
+    "antonyms": []
+  },
+  { "id": "87ad3116-ad3c-4821-93a3-76b92b998f4d", "word": "innovation",
+    "synonyms": [{"word":"invention","level":2},{"word":"novelty","level":4},{"word":"breakthrough","level":4}],
+    "antonyms": [{"word":"tradition","level":3},{"word":"convention","level":4}]
+  },
+  { "id": "88a5d5a2-1a5f-48b2-814c-4fcf7624cd8c", "word": "reef",
+    "synonyms": [{"word":"coral bed","level":3},{"word":"shoal","level":4},{"word":"sea ledge","level":3}],
+    "antonyms": []
+  },
+  { "id": "8b6fef3b-c717-4a67-a2d6-cf810687548a", "word": "joyful",
+    "synonyms": [{"word":"happy","level":1},{"word":"cheerful","level":3},{"word":"jubilant","level":5}],
+    "antonyms": [{"word":"sad","level":1},{"word":"miserable","level":4},{"word":"gloomy","level":4}]
+  },
+  { "id": "8b97fa4e-3723-4b1c-9cbd-fb161f0d02a0", "word": "original",
+    "synonyms": [{"word":"first","level":1},{"word":"initial","level":3},{"word":"authentic","level":4}],
+    "antonyms": [{"word":"copy","level":1},{"word":"duplicate","level":4},{"word":"replica","level":4}]
+  },
+  { "id": "8c892bd2-a00b-4318-ae5f-f867edca1150", "word": "generous",
+    "synonyms": [{"word":"giving","level":2},{"word":"kind","level":1},{"word":"munificent","level":5}],
+    "antonyms": [{"word":"stingy","level":4},{"word":"selfish","level":2},{"word":"mean","level":1}]
+  },
+  { "id": "8cdc9f59-dd51-458a-b499-441944492c89", "word": "shoot",
+    "synonyms": [{"word":"photograph","level":2},{"word":"film","level":1},{"word":"capture","level":3}],
+    "antonyms": []
+  },
+  { "id": "8cf138a7-f2a7-44a6-b9b3-003894ec51e0", "word": "screenshot",
+    "synonyms": [{"word":"screen capture","level":2},{"word":"snap","level":3},{"word":"screen grab","level":3}],
+    "antonyms": []
+  },
+  { "id": "8d5d6ef6-a9b5-45be-9940-9724b49c48ca", "word": "meme",
+    "synonyms": [{"word":"funny image","level":1},{"word":"viral image","level":3},{"word":"internet joke","level":2}],
+    "antonyms": []
+  },
+  { "id": "8da7c281-ed02-4f44-99a7-bf437f1ab85d", "word": "melody",
+    "synonyms": [{"word":"tune","level":2},{"word":"air","level":4},{"word":"theme","level":3}],
+    "antonyms": []
+  }
+]
