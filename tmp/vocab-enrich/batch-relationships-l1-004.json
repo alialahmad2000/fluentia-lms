@@ -1,0 +1,122 @@
+[
+  { "id": "32e64df3-a5a9-473b-bd91-e09ff2c93348", "word": "rhythm",
+    "synonyms": [{"word":"beat","level":1},{"word":"tempo","level":3},{"word":"cadence","level":5}],
+    "antonyms": []
+  },
+  { "id": "336e5741-a17f-410e-b756-96136647dde6", "word": "garnish",
+    "synonyms": [{"word":"decorate","level":2},{"word":"top","level":1},{"word":"embellish","level":5}],
+    "antonyms": []
+  },
+  { "id": "34431301-14e7-43d6-9ed0-7795f727762f", "word": "invention",
+    "synonyms": [{"word":"creation","level":2},{"word":"discovery","level":2},{"word":"innovation","level":4}],
+    "antonyms": [{"word":"copy","level":1},{"word":"imitation","level":3}]
+  },
+  { "id": "3452f611-d87a-418b-89a7-755a0fd4d77b", "word": "existence",
+    "synonyms": [{"word":"being","level":1},{"word":"presence","level":2},{"word":"reality","level":3}],
+    "antonyms": [{"word":"absence","level":2},{"word":"nonexistence","level":4}]
+  },
+  { "id": "3481ce2b-3b71-4d3b-9d47-5939a6a68750", "word": "mysterious",
+    "synonyms": [{"word":"strange","level":1},{"word":"puzzling","level":3},{"word":"enigmatic","level":5}],
+    "antonyms": [{"word":"clear","level":1},{"word":"obvious","level":2},{"word":"familiar","level":2}]
+  },
+  { "id": "34a46ad8-337d-41f0-8e72-3bde77189d89", "word": "pharaoh",
+    "synonyms": [{"word":"king","level":1},{"word":"ruler","level":2},{"word":"monarch","level":4}],
+    "antonyms": []
+  },
+  { "id": "34bf8cec-873a-47e6-8a77-e6e3e03e15d7", "word": "renovation",
+    "synonyms": [{"word":"repair","level":2},{"word":"restoration","level":4},{"word":"refurbishment","level":5}],
+    "antonyms": [{"word":"demolition","level":4},{"word":"destruction","level":3}]
+  },
+  { "id": "35168c94-5491-46ec-976b-908ce40f4c73", "word": "final",
+    "synonyms": [{"word":"last","level":1},{"word":"concluding","level":4},{"word":"ultimate","level":4}],
+    "antonyms": [{"word":"first","level":1},{"word":"initial","level":3},{"word":"opening","level":2}]
+  },
+  { "id": "36973543-e052-4107-aca6-a6e32bebfaac", "word": "tide",
+    "synonyms": [{"word":"current","level":3},{"word":"flow","level":2},{"word":"ebb","level":5}],
+    "antonyms": []
+  },
+  { "id": "37390a59-8cbb-493d-9c9d-96105aa85fea", "word": "athletic",
+    "synonyms": [{"word":"sporty","level":2},{"word":"fit","level":1},{"word":"muscular","level":3}],
+    "antonyms": [{"word":"unfit","level":3},{"word":"weak","level":1},{"word":"sedentary","level":5}]
+  },
+  { "id": "387bbef2-b32c-4825-b4e3-85b8598ea683", "word": "exhibition",
+    "synonyms": [{"word":"show","level":1},{"word":"display","level":2},{"word":"showcase","level":4}],
+    "antonyms": []
+  },
+  { "id": "39107dea-3715-44d8-a17e-7543226ce53e", "word": "shallow",
+    "synonyms": [{"word":"not deep","level":1},{"word":"superficial","level":4},{"word":"surface-level","level":3}],
+    "antonyms": [{"word":"deep","level":1},{"word":"profound","level":4}]
+  },
+  { "id": "393a8a11-067b-4364-800e-52bed1fa0f00", "word": "macro",
+    "synonyms": [{"word":"close-up","level":2},{"word":"detailed","level":2},{"word":"magnified","level":4}],
+    "antonyms": [{"word":"wide","level":1},{"word":"distant","level":3}]
+  },
+  { "id": "3953aa9b-fccb-4976-988e-618cbd1cf34a", "word": "shark",
+    "synonyms": [{"word":"predator fish","level":3},{"word":"sea predator","level":3},{"word":"man-eater","level":3}],
+    "antonyms": []
+  },
+  { "id": "3a677818-e3c2-4df6-ab16-55cc080614c4", "word": "ecosystem",
+    "synonyms": [{"word":"environment","level":2},{"word":"habitat","level":3},{"word":"biosphere","level":5}],
+    "antonyms": []
+  },
+  { "id": "3c748840-5075-4dce-bd7d-c41dafb251d0", "word": "sour",
+    "synonyms": [{"word":"tart","level":3},{"word":"tangy","level":4},{"word":"acidic","level":4}],
+    "antonyms": [{"word":"sweet","level":1}]
+  },
+  { "id": "3cf6d5d2-c1b4-4de5-aa00-5f9c194afa2b", "word": "constellation",
+    "synonyms": [{"word":"star group","level":2},{"word":"star pattern","level":2},{"word":"asterism","level":5}],
+    "antonyms": []
+  },
+  { "id": "3f28ab40-c6f6-49d7-bf7c-7a089fc8dfb0", "word": "herb",
+    "synonyms": [{"word":"spice","level":2},{"word":"seasoning","level":3},{"word":"plant","level":1}],
+    "antonyms": []
+  },
+  { "id": "3fde5b64-b078-47ae-85ee-abd222be6c46", "word": "solve",
+    "synonyms": [{"word":"answer","level":1},{"word":"resolve","level":3},{"word":"figure out","level":2}],
+    "antonyms": [{"word":"complicate","level":3},{"word":"confuse","level":2}]
+  },
+  { "id": "4047a7ff-ced6-461a-a388-6a12508ed07e", "word": "fountain",
+    "synonyms": [{"word":"water feature","level":3},{"word":"spring","level":2},{"word":"jet","level":3}],
+    "antonyms": []
+  },
+  { "id": "41d0b13c-e1f4-4360-9b06-9f78e44b7326", "word": "lyrics",
+    "synonyms": [{"word":"words","level":1},{"word":"verses","level":3},{"word":"libretto","level":5}],
+    "antonyms": [{"word":"music","level":1},{"word":"melody","level":3}]
+  },
+  { "id": "42e23f45-7668-4bab-b623-bbd1d61d83c0", "word": "vivid",
+    "synonyms": [{"word":"bright","level":1},{"word":"vibrant","level":4},{"word":"intense","level":3}],
+    "antonyms": [{"word":"dull","level":2},{"word":"faded","level":3},{"word":"pale","level":2}]
+  },
+  { "id": "43533b80-ddd7-41cd-8da0-d3c1da8c3be2", "word": "gastronomy",
+    "synonyms": [{"word":"culinary art","level":4},{"word":"cuisine","level":3},{"word":"cookery","level":4}],
+    "antonyms": []
+  },
+  { "id": "4354ee2f-2966-444d-ad12-0dcd7b5ddced", "word": "composer",
+    "synonyms": [{"word":"songwriter","level":2},{"word":"musician","level":2},{"word":"maestro","level":5}],
+    "antonyms": []
+  },
+  { "id": "43905255-1e3d-4bd6-a5ec-ef6768c879a4", "word": "portray",
+    "synonyms": [{"word":"show","level":1},{"word":"depict","level":4},{"word":"represent","level":3}],
+    "antonyms": []
+  },
+  { "id": "43c771a3-a0e5-4e6c-8318-e972d6105eae", "word": "freeze",
+    "synonyms": [{"word":"chill","level":2},{"word":"solidify","level":4},{"word":"ice over","level":3}],
+    "antonyms": [{"word":"melt","level":2},{"word":"thaw","level":4},{"word":"heat","level":2}]
+  },
+  { "id": "44d3b456-36b5-488a-a232-0bca877f775c", "word": "enhance",
+    "synonyms": [{"word":"improve","level":2},{"word":"boost","level":3},{"word":"augment","level":5}],
+    "antonyms": [{"word":"worsen","level":3},{"word":"reduce","level":2},{"word":"diminish","level":4}]
+  },
+  { "id": "458d9ca0-b2ef-4790-af5e-2e8cd77028df", "word": "calculate",
+    "synonyms": [{"word":"compute","level":3},{"word":"figure","level":2},{"word":"reckon","level":4}],
+    "antonyms": [{"word":"guess","level":1},{"word":"estimate","level":3}]
+  },
+  { "id": "45c49d18-536a-4a47-879b-61bd30309759", "word": "mix",
+    "synonyms": [{"word":"combine","level":2},{"word":"blend","level":3},{"word":"stir","level":2}],
+    "antonyms": [{"word":"separate","level":2},{"word":"divide","level":2}]
+  },
+  { "id": "45c747e5-7ac5-4b71-a6c5-f59a2469a9f4", "word": "siege",
+    "synonyms": [{"word":"blockade","level":4},{"word":"surrounding","level":3},{"word":"investment","level":5}],
+    "antonyms": [{"word":"liberation","level":4},{"word":"relief","level":3}]
+  }
+]
