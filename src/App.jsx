@@ -68,6 +68,7 @@ const StudentAdaptiveTest = lazyRetry(() => import('./pages/student/StudentAdapt
 const StudentAIInsights = lazyRetry(() => import('./pages/student/StudentAIInsights'))
 const DailyReview = lazyRetry(() => import('./pages/student/DailyReview'))
 const SrsHome = lazyRetry(() => import('./pages/student/SrsHome'))
+const HardWordsHome = lazyRetry(() => import('./pages/student/HardWordsHome'))
 const LevelExitTest = lazyRetry(() => import('./pages/student/LevelExitTest'))
 const LevelJourneyMap = lazyRetry(() => import('./pages/student/LevelJourneyMap'))
 const AccountPausedPage = lazyRetry(() => import('./pages/student/AccountPausedPage'))
@@ -653,6 +654,7 @@ export default function App() {
               <Route path="/student/vocabulary" element={<Page><StudentVocabulary /></Page>} />
               <Route path="/student/daily-review" element={<Page><DailyReview /></Page>} />
               <Route path="/student/srs" element={<Page><SrsHome /></Page>} />
+              <Route path="/student/hard-words" element={<Page><HardWordsHome /></Page>} />
               <Route path="/student/level-exit-test/:levelId" element={<Page><LevelExitTest /></Page>} />
               <Route path="/student/level-journey" element={<Page><LevelJourneyMap /></Page>} />
               <Route path="/student/flashcards" element={<Page><VocabularyFlashcards /></Page>} />

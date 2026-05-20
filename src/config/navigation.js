@@ -3,7 +3,7 @@ import {
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
-  MessageCircle, MessageSquare, Volume2,
+  MessageCircle, MessageSquare, Volume2, Dumbbell,
 } from 'lucide-react'
 
 
@@ -15,6 +15,7 @@ export const STUDENT_NAV = {
       items: [
         { id: 'dashboard',   label: 'الرئيسية',    icon: Home,       to: '/student' },
         { id: 'srs',         label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
+        { id: 'hard-words',  label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         { id: 'progress',    label: 'تقدّمي',       icon: BarChart3,  to: '/student/progress' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
@@ -53,6 +54,7 @@ export const STUDENT_NAV = {
       items: [
         { id: 'dashboard',    label: 'الرئيسية',    icon: Home,          to: '/student' },
         { id: 'srs',          label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
+        { id: 'hard-words',   label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },

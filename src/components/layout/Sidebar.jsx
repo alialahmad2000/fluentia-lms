@@ -1,5 +1,6 @@
 import { useCallback, memo, useMemo } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion } from 'framer-motion'
 import { ChevronLeft, Settings } from 'lucide-react'
@@ -9,6 +10,7 @@ import { getGreeting } from '@/utils/dateHelpers'
 import { hasIELTSAccess } from '@/lib/packageAccess'
 import { toast } from '@/components/ui/FluentiaToast'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
+import { getHardWordsCount } from '@/services/hardWords'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin' }
 
@@ -20,6 +22,14 @@ function Sidebar({ nav, collapsed, onToggle }) {
 
   const { data: ieltsRoster } = useIELTSRoster()
   const hasIELTSStudents = Array.isArray(ieltsRoster) && ieltsRoster.length > 0
+
+  // Conditional hard-words nav visibility — only show when student has hard words
+  const { data: hardWordsCount = 0 } = useQuery({
+    queryKey: ['hard-words', 'count', profileId],
+    queryFn: () => getHardWordsCount(profileId),
+    enabled: !!profileId && role === 'student',
+    staleTime: 60_000,
+  })
   const navigate = useNavigate()
   const location = useLocation()
   const displayName = profile?.display_name || profile?.full_name || 'مستخدم'
@@ -66,6 +76,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
       <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 space-y-5">
         {nav.sections.map((section) => {
           const visibleItems = section.items.filter(item => {
+            if (item.visibleWhen === 'hard-words-count' && hardWordsCount <= 0) return false
             if (item.requiresIELTSStudents) return hasIELTSStudents
             if (!item.requiresPackage) return true
             if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
