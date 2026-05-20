@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -33,7 +34,10 @@ const FILTERS = [
   { key: 'learning', label: 'تتعلمها' },
   { key: 'mastered', label: 'أتقنتها' },
   { key: 'hard', label: 'صعبة', icon: Flame },
+  { key: 'stalled', label: 'معلّقة' },
 ]
+
+const STALLED_THRESHOLD_DAYS = 14
 
 const PAGE_SIZE = 40
 
@@ -198,13 +202,13 @@ export default function VocabularyTab({ unitId }) {
     [hardWordsForStudent]
   )
 
-  // Vocab tap-behavior + onboarding completion (Prompt 08)
+  // Vocab tap-behavior + onboarding completion + last-visit (Prompt 08)
   const { data: vocabPrefs } = useQuery({
     queryKey: ['vocab-settings-prefs', profile?.id],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('profiles')
-        .select('vocab_tap_behavior, vocab_onboarding_completed_at')
+        .select('vocab_tap_behavior, vocab_onboarding_completed_at, last_vocab_visit_at')
         .eq('id', profile?.id)
         .maybeSingle()
       if (error) throw error
@@ -213,6 +217,24 @@ export default function VocabularyTab({ unitId }) {
     enabled: !!profile?.id,
     staleTime: 60_000,
   })
+  // Snapshot the previous last_vocab_visit_at on first mount so we can decide
+  // whether to show the return greeting BEFORE we update the column.
+  const previousVisitRef = useRef(undefined)
+  if (previousVisitRef.current === undefined && vocabPrefs?.last_vocab_visit_at !== undefined) {
+    previousVisitRef.current = vocabPrefs?.last_vocab_visit_at ?? null
+  }
+  // Update last_vocab_visit_at on first mount (after we've snapshotted it)
+  useEffect(() => {
+    if (!profile?.id) return
+    if (previousVisitRef.current === undefined) return // wait for snapshot
+    supabase
+      .from('profiles')
+      .update({ last_vocab_visit_at: new Date().toISOString() })
+      .eq('id', profile?.id)
+      .select()
+      .then(() => {}, () => {}) // best-effort, no toast on failure
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile?.id])
   const tapBehavior = vocabPrefs?.vocab_tap_behavior || 'details'
   const onboardingCompletedAt = vocabPrefs?.vocab_onboarding_completed_at
   const [tourDismissedLocally, setTourDismissedLocally] = useState(false)
@@ -243,9 +265,26 @@ export default function VocabularyTab({ unitId }) {
     }
   }, [profile?.id, queryClient])
 
+  // Stalled-learning ids (Prompt 08 smart nudge): mastery_level === 'learning'
+  // AND updated_at < 14 days ago. Derived client-side from the mastery map
+  // exposed by useVocabularyMastery — no new fetch needed.
+  const stalledWordIds = useMemo(() => {
+    if (!masteryMap) return new Set()
+    const cutoff = Date.now() - STALLED_THRESHOLD_DAYS * 24 * 60 * 60 * 1000
+    const out = new Set()
+    for (const [vocabId, m] of Object.entries(masteryMap)) {
+      if (!m || m.mastery_level !== 'learning') continue
+      const ts = m.updated_at ? new Date(m.updated_at).getTime() : 0
+      if (ts && ts < cutoff) out.add(vocabId)
+    }
+    return out
+  }, [masteryMap])
+
   const filterWord = useCallback((word) => {
     if (filter === 'hard') {
       if (!hardWordsSet.has(word.id)) return false
+    } else if (filter === 'stalled') {
+      if (!stalledWordIds.has(word.id)) return false
     } else if (filter !== 'all' && getWordMasteryLevel(word.id) !== filter) {
       return false
     }
@@ -254,7 +293,35 @@ export default function VocabularyTab({ unitId }) {
       return word.word?.toLowerCase().includes(q) || word.definition_ar?.includes(q) || word.definition_en?.toLowerCase().includes(q)
     }
     return true
-  }, [filter, searchQuery, getWordMasteryLevel, hardWordsSet])
+  }, [filter, searchQuery, getWordMasteryLevel, hardWordsSet, stalledWordIds])
+
+  // Smart-nudge banners (Prompt 08 Phase G)
+  const [dismissedReturnBanner, setDismissedReturnBanner] = useState(false)
+  const [dismissedStalledBanner, setDismissedStalledBanner] = useState(false)
+  useEffect(() => {
+    // Honor sessionStorage so the banner doesn't re-appear within the same session
+    try {
+      if (sessionStorage.getItem('vocab:dismissed:return') === '1') setDismissedReturnBanner(true)
+      if (sessionStorage.getItem('vocab:dismissed:stalled') === '1') setDismissedStalledBanner(true)
+    } catch {}
+  }, [])
+  const showReturnBanner = useMemo(() => {
+    if (dismissedReturnBanner) return false
+    const prev = previousVisitRef.current
+    if (!prev) return false
+    const days = (Date.now() - new Date(prev).getTime()) / (24 * 60 * 60 * 1000)
+    return days >= 3
+  }, [dismissedReturnBanner, vocabPrefs])
+  const stalledCount = stalledWordIds.size
+  const showStalledBanner = !dismissedStalledBanner && stalledCount > 0
+  const dismissReturn = () => {
+    setDismissedReturnBanner(true)
+    try { sessionStorage.setItem('vocab:dismissed:return', '1') } catch {}
+  }
+  const dismissStalled = () => {
+    setDismissedStalledBanner(true)
+    try { sessionStorage.setItem('vocab:dismissed:stalled', '1') } catch {}
+  }
 
   // Next un-mastered word for quick practice
   const nextUnmastered = useMemo(() => {
@@ -426,6 +493,30 @@ export default function VocabularyTab({ unitId }) {
         />
       </div>
 
+      {/* Smart-nudge banners (Prompt 08) — between Hero and Journey Lane */}
+      {(showReturnBanner || showStalledBanner) && (
+        <div className="space-y-2" dir="rtl">
+          {showReturnBanner && (
+            <NudgeBanner
+              kind="return"
+              text={`مرحب بعودتك! عندك ${unitDueWords?.length || 0} كلمة جاهزة للمراجعة 👋`}
+              actionLabel="ابدأ المراجعة"
+              actionTo="/student/srs"
+              onDismiss={dismissReturn}
+            />
+          )}
+          {showStalledBanner && (
+            <NudgeBanner
+              kind="stalled"
+              text={`${stalledCount} ${stalledCount === 1 ? 'كلمة معلّقة' : 'كلمات معلّقة'} من ١٤+ يوم — خل نراجعهم اليوم`}
+              actionLabel="اعرضهم"
+              onAction={() => setFilter('stalled')}
+              onDismiss={dismissStalled}
+            />
+          )}
+        </div>
+      )}
+
       {/* Journey Lane (Prompt 06) — chunks between Hero and existing library */}
       <div data-tour="journey">
         <ChunkLane
@@ -444,12 +535,21 @@ export default function VocabularyTab({ unitId }) {
         <div className="flex items-center gap-1.5 flex-1 overflow-x-auto no-scrollbar">
           {FILTERS.map((f, i) => {
             const Icon = f.icon
-            // Unit-scoped hard-words count for the "صعبة" pill badge
+            // Unit-scoped counts
             const hardInUnitCount = f.key === 'hard'
               ? allWords.filter((w) => hardWordsSet.has(w.id)).length
               : 0
+            const stalledInUnitCount = f.key === 'stalled' ? stalledCount : 0
             const isHardDisabled = f.key === 'hard' && hardInUnitCount === 0
+            const isStalledDisabled = f.key === 'stalled' && stalledInUnitCount === 0
+            const isDisabled = isHardDisabled || isStalledDisabled
             const isHardActiveStyle = f.key === 'hard' && filter === 'hard'
+            const isStalledActiveStyle = f.key === 'stalled' && filter === 'stalled'
+            const tooltip = isHardDisabled
+              ? 'ما عندك كلمات صعبة في هذي الوحدة الآن'
+              : isStalledDisabled
+                ? 'ما عندك كلمات معلّقة في هذي الوحدة'
+                : undefined
             return (
               <motion.button
                 key={f.key}
@@ -457,21 +557,21 @@ export default function VocabularyTab({ unitId }) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
                 onClick={() => {
-                  if (isHardDisabled) return
+                  if (isDisabled) return
                   setFilter(f.key)
                 }}
-                disabled={isHardDisabled}
-                title={
-                  isHardDisabled
-                    ? 'ما عندك كلمات صعبة في هذي الوحدة الآن'
-                    : undefined
-                }
+                disabled={isDisabled}
+                aria-pressed={filter === f.key}
+                aria-label={`فلتر: ${f.label}`}
+                title={tooltip}
                 className={`inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-bold font-['Tajawal'] whitespace-nowrap transition-all border ${
                   filter === f.key
                     ? isHardActiveStyle
                       ? 'bg-red-500/20 text-red-400 border-red-500/40'
-                      : 'bg-sky-500/20 text-sky-400 border-sky-500/30'
-                    : isHardDisabled
+                      : isStalledActiveStyle
+                        ? 'bg-amber-500/20 text-amber-400 border-amber-500/40'
+                        : 'bg-sky-500/20 text-sky-400 border-sky-500/30'
+                    : isDisabled
                       ? 'bg-white/[0.02] text-white/20 border-white/[0.04] cursor-not-allowed'
                       : 'bg-white/[0.03] text-white/40 border-white/[0.06] hover:text-white/60'
                 }`}
@@ -482,6 +582,7 @@ export default function VocabularyTab({ unitId }) {
                 {f.key === 'learning' && learningCount > 0 && <span className="mr-1 opacity-60">{learningCount}</span>}
                 {f.key === 'mastered' && masteredCount > 0 && <span className="mr-1 opacity-60">{masteredCount}</span>}
                 {f.key === 'hard' && hardInUnitCount > 0 && <span className="mr-1 opacity-70">{hardInUnitCount}</span>}
+                {f.key === 'stalled' && stalledInUnitCount > 0 && <span className="mr-1 opacity-70">{stalledInUnitCount}</span>}
               </motion.button>
             )
           })}
@@ -1173,6 +1274,79 @@ function VocabSkeleton() {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Smart-nudge banner (Prompt 08 Phase G) ────────────────
+function NudgeBanner({ kind, text, actionLabel, actionTo, onAction, onDismiss }) {
+  const accent =
+    kind === 'return'
+      ? { bg: 'rgba(56,189,248,0.10)', border: 'rgba(56,189,248,0.30)', text: 'rgb(56,189,248)' }
+      : { bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.32)', text: 'rgb(245,158,11)' }
+  return (
+    <div
+      role="status"
+      className="flex items-center justify-between gap-3 px-3.5 py-2 rounded-xl font-['Tajawal'] premium-glass"
+      style={{
+        background: accent.bg,
+        border: `1px solid ${accent.border}`,
+        color: 'var(--text-primary)',
+        fontSize: 13,
+      }}
+      dir="rtl"
+    >
+      <span style={{ flex: 1 }}>{text}</span>
+      <div className="flex items-center gap-1.5 shrink-0">
+        {actionTo ? (
+          <Link
+            to={actionTo}
+            className="font-bold"
+            style={{
+              background: 'transparent',
+              color: accent.text,
+              padding: '4px 10px',
+              borderRadius: 9999,
+              border: `1px solid ${accent.border}`,
+              fontSize: 12,
+              textDecoration: 'none',
+            }}
+          >
+            {actionLabel}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={onAction}
+            className="font-bold"
+            style={{
+              background: 'transparent',
+              color: accent.text,
+              padding: '4px 10px',
+              borderRadius: 9999,
+              border: `1px solid ${accent.border}`,
+              fontSize: 12,
+              cursor: 'pointer',
+            }}
+          >
+            {actionLabel}
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label="إخفاء"
+          className="w-7 h-7 rounded-full flex items-center justify-center"
+          style={{
+            background: 'rgba(255,255,255,0.04)',
+            color: 'var(--text-tertiary)',
+            border: '1px solid var(--border)',
+            cursor: 'pointer',
+          }}
+        >
+          ×
+        </button>
       </div>
     </div>
   )
