@@ -1,0 +1,116 @@
+[
+  { "id": "23b04722-082f-45df-8ed8-4dcc7f67f902", "word": "wave", "pronunciation_alert": null },
+  { "id": "24216001-4a81-45f7-9274-66b04572715d", "word": "gourmet",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ˈɡʊərmeɪ/",
+      "correct_approximation_ar": "غُورْمِيْ",
+      "common_mispronunciation_ar": "غُورْمِيْت",
+      "problem_letters": [6],
+      "rule_category": "loan_false_friend",
+      "explanation_ar": "حرف t في نهاية 'gourmet' صامت تماماً لأن الكلمة فرنسية الأصل ولم تخسر هذه القاعدة عند انتقالها للإنجليزية. تنتهي الكلمة بصوت 'مِيْ' وكأن t غير مكتوبة. كثير من المتعلمين العرب يقولون 'غورميت' بإظهار t، لكن الصحيح إسقاطها تماماً. نفس القاعدة تنطبق على كل الكلمات الفرنسية المنتهية بـ -et مثل ballet, valet.",
+      "practice_tip_ar": "احفظ القاعدة: في الكلمات الفرنسية الأصل المنتهية بـ -et، الحرف t صامت. كرر مع: ballet (BAL-lay)، buffet (buh-FAY)، valet (VAL-lay)، bouquet (boo-KAY). أنهِ هذه الكلمات بصوت 'إيْ' أو 'آيْ' بدون t.",
+      "similar_words": ["ballet", "buffet", "valet", "bouquet"]
+    }
+  },
+  { "id": "24b15f3b-6fd2-41cc-890c-18475f98262c", "word": "notification", "pronunciation_alert": null },
+  { "id": "255e9829-ff99-4745-8b4b-700ef5a421b4", "word": "boil", "pronunciation_alert": null },
+  { "id": "25a96a79-05bd-4978-8171-168e06257b61", "word": "aesthetic",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/esˈθetɪk/",
+      "correct_approximation_ar": "إِسْثِتِك",
+      "common_mispronunciation_ar": "آيْسْتِتِك",
+      "problem_letters": [0, 1, 2, 3, 4],
+      "rule_category": "th_sound",
+      "explanation_ar": "هذه الكلمة تجمع فخّين معاً: أولاً، حرفا ae في البداية يُنطَقان كصوت 'إِ' قصيرة فقط، وليس 'آيْ' كما يتوقع كثيرون. ثانياً، حرفا th في وسط الكلمة يُنطَقان كحرف 'ث' عربي صريح. الخطأ الشائع جداً هو نطقها 'آيستيتك' أو 'إسْتِتِك' بـ 'ت' بدلاً من 'ث'.",
+      "practice_tip_ar": "ابدأ بصوت قصير 'إِ' كأنك تقول 'إس' في كلمة 'إسلام'. ثم ضع طرف لسانك بين أسنانك للحرف ث (تذكر th = ث). كرر معها: athlete (أَثْلِيت)، theatre (ثِيَتر)، theme (ثِيم).",
+      "similar_words": ["athlete", "theatre", "theme", "ethical"]
+    }
+  },
+  { "id": "25dbe128-51f2-4af6-b123-e7fc627fb013", "word": "solar panel", "pronunciation_alert": null },
+  { "id": "268b3e47-8182-4f53-9881-5a06f557e72b", "word": "decorate", "pronunciation_alert": null },
+  { "id": "26985f72-ae49-4bf3-ac78-c028c0489161", "word": "warrior", "pronunciation_alert": null },
+  { "id": "27594925-d193-42a5-a394-93e9cdf6f449", "word": "engagement", "pronunciation_alert": null },
+  { "id": "27a92fa6-0f2d-4f4d-977f-5b464addfa3d", "word": "fireworks", "pronunciation_alert": null },
+  { "id": "281d630c-9e59-4671-a14f-6afe951c4169", "word": "anchor",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ˈæŋkər/",
+      "correct_approximation_ar": "آنْكَر",
+      "common_mispronunciation_ar": "أَنْتْشُور",
+      "problem_letters": [2, 3],
+      "rule_category": "exception",
+      "explanation_ar": "حرفا ch في 'anchor' يُنطَقان كصوت 'ك' وليس 'تش' كالعادة (مثل church أو chair). هذا شاذ غير منتظم — في معظم الكلمات الإنجليزية ch = 'تش'، لكن في كلمات اليونانية الأصل (مثل anchor وstomach وchemistry) تنطق ch = 'ك'. كثير من المتعلمين العرب يقولون 'أنتشور' بـ 'تش' وهذا خاطئ تماماً.",
+      "practice_tip_ar": "احفظ قاعدة: ch في الكلمات اليونانية الأصل = ك. أمثلة شائعة: chemistry (KEM-istry)، architect (AR-kitect)، echo (EK-oh)، Christmas (KRIS-mas)، stomach (STUM-ak). كلها بنفس القاعدة.",
+      "similar_words": ["chemistry", "architect", "echo", "stomach"]
+    }
+  },
+  { "id": "288fce40-810d-4fec-9a3b-796d0768e53d", "word": "shell", "pronunciation_alert": null },
+  { "id": "28ed522e-c816-4d57-9ec1-0d1512f107ad", "word": "marble", "pronunciation_alert": null },
+  { "id": "2a8b9d9c-b669-4726-8175-fca894a0620b", "word": "aroma", "pronunciation_alert": null },
+  { "id": "2b4319e3-bb68-4879-b5e0-d02352d53580", "word": "blurry", "pronunciation_alert": null },
+  { "id": "2b704530-4d84-45a5-b560-76ab70d82aba", "word": "visual",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈvɪʒuəl/",
+      "correct_approximation_ar": "ڤِيجُوَل",
+      "common_mispronunciation_ar": "ڤِيزُوَل",
+      "problem_letters": [3],
+      "rule_category": "exception",
+      "explanation_ar": "حرف s في 'visual' لا يُنطَق 'س' ولا 'ز' عادية، بل يُنطَق صوت /ʒ/ — وهو صوت 'ج' المصرية أو الفرنسية (مثل في garage). كثير من المتعلمين يقولون 'فيزوال' بصوت 'ز' عادية، لكن الصحيح صوت أكثر اهتزازاً ولزوجة. هذه قاعدة: حرف s بين متحرك و'u' كثيراً ما يأخذ صوت /ʒ/.",
+      "practice_tip_ar": "ابدأ بنطق 'ز' عادية ثم قرّب طرف لسانك من سقف فمك واسحب نفساً. هذا الصوت موجود في measure, pleasure, treasure, vision — كلها بنفس صوت /ʒ/. كرر هذه الكلمات معاً لتدريب الفم.",
+      "similar_words": ["measure", "pleasure", "treasure", "vision"]
+    }
+  },
+  { "id": "2c0395d4-83ca-4132-ac6d-fb3319473d4c", "word": "collapse", "pronunciation_alert": null },
+  { "id": "2d1b518c-aa0d-41a2-a3e5-72a9c7180996", "word": "signal", "pronunciation_alert": null },
+  { "id": "2d309306-745f-486f-9cd0-60d560d99a19", "word": "gravity", "pronunciation_alert": null },
+  { "id": "2d618ccc-919f-4e02-ba30-f40c94a54bc3", "word": "galaxy", "pronunciation_alert": null },
+  { "id": "2dbbfa24-23c0-43d7-8e64-6bcb8b4d7e11", "word": "panorama", "pronunciation_alert": null },
+  { "id": "2f0a8264-1346-40b7-9d0a-8e94faea32c4", "word": "device", "pronunciation_alert": null },
+  { "id": "30465bed-268b-4a2f-86ee-964b0576c352", "word": "fossil fuel", "pronunciation_alert": null },
+  { "id": "3053809b-3a50-480c-a4e3-e98ebd9ee504", "word": "subscribe", "pronunciation_alert": null },
+  { "id": "30570572-8745-4465-a583-3f41ee35201f", "word": "pollution", "pronunciation_alert": null },
+  { "id": "3133e052-4c02-46c7-9721-597dc4535563", "word": "asteroid", "pronunciation_alert": null },
+  { "id": "31462ed4-bbd7-403b-b5c1-cb69e462c380", "word": "extinct",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ɪkˈstɪŋkt/",
+      "correct_approximation_ar": "إِكْسْتِنْكْت",
+      "common_mispronunciation_ar": "إِكْسْتِنْكِتْ",
+      "problem_letters": [4, 5, 6],
+      "rule_category": "consonant_cluster",
+      "explanation_ar": "نهاية الكلمة 'nct' تجمع ثلاث حروف ساكنة تنطق بسرعة وبدون فواصل: ن-ك-ت. كثير من المتعلمين العرب يضيفون كسرة أو فتحة بين الحروف فيقولون 'إكستِنْكِت' بمقطع زائد، لكن الصحيح أن تنطق هذه الحروف الثلاثة دفعة واحدة في نهاية الكلمة بدون أي حركة بينها.",
+      "practice_tip_ar": "تدرب على نهاية الكلمة وحدها: قل 'inkt' كصوت واحد متصل بدون كسرات. ثم اضف بداية الكلمة. تعامل مع الحروف الثلاثة الأخيرة كأنها صوت مركّب واحد. كرر معها: instinct, distinct, succinct — كلها بنفس النمط الصعب.",
+      "similar_words": ["instinct", "distinct", "succinct", "defunct"]
+    }
+  },
+  { "id": "31789090-4764-4bd9-b832-867e6c2d27b1", "word": "invent", "pronunciation_alert": null },
+  { "id": "31f51219-6f72-4198-a4a1-903bc3229a94", "word": "hieroglyph",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈhaɪərəɡlɪf/",
+      "correct_approximation_ar": "هَايْرُغْلِف",
+      "common_mispronunciation_ar": "هِيرُوغْلِيف",
+      "problem_letters": [0, 1, 2, 3],
+      "rule_category": "vowel_irregular",
+      "explanation_ar": "حرفا ie في بداية 'hieroglyph' يُنطَقان كصوت /aɪ/ — 'آيْ' وليس 'إي' كما يميل العرب لقوله. هذا غير منتظم وعكس القاعدة العامة (مثل believe = bi-LEEV حيث ie تنطق 'إي'). الكلمة كاملة تُلفظ HIGH-ruh-glif مع نبر على المقطع الأول.",
+      "practice_tip_ar": "ابدأ بصوت 'هَايْ' كأنك تقول كلمة 'hi' في تحية. ثم اتبعها بـ 'رُ' خفيفة جداً ثم 'غْلِف'. لا تجعل المقطع الأول 'هي' بصوت ee. كرر مع: hierarchy (HIGH-rar-key)، Vienna (vee-EN-ah لكن استثناء عكسي).",
+      "similar_words": ["hierarchy", "hieroglyphic", "hyena"]
+    }
+  },
+  { "id": "32b4bf94-f2e2-4a67-bb81-dcef669c9a5a", "word": "perform",
+    "pronunciation_alert": {
+      "severity": "low",
+      "ipa": "/pərˈfɔːrm/",
+      "correct_approximation_ar": "بَرْفُورْم",
+      "common_mispronunciation_ar": "بِيْرْفُورْم",
+      "problem_letters": [0, 1],
+      "rule_category": "stress_shift",
+      "explanation_ar": "النبر في 'perform' على المقطع الثاني FORM وليس على PER. المقطع الأول 'per' يُنطَق سريعاً وضعيفاً تقريباً كأنه schwa (بَرْ بدون مد)، والثاني هو القوي. كثير من العرب يقولون 'PER-form' بنبر متساوٍ على المقطعين أو بنبر على الأول، لكن الصحيح أن يبقى الأول خفيفاً.",
+      "practice_tip_ar": "اضغط على FORM بصوت أعلى ومد الـ o فيه. اسحب الـ per بسرعة. كرر مع كلمات بنفس النمط: persist (per-SIST)، perceive (per-CEIVE)، performance (per-FORM-ance) — كلها بنبر على المقطع الثاني.",
+      "similar_words": ["persist", "perceive", "performance", "permit"]
+    }
+  }
+]
