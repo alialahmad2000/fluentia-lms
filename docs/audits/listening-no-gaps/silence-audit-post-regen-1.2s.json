@@ -1,12 +1,12 @@
 {
   "summary": {
-    "generated_at": "2026-05-20T01:23:58.116Z",
+    "generated_at": "2026-05-20T01:22:05.082Z",
     "total": 72,
-    "clean": 62,
-    "has_gaps": 10,
+    "clean": 72,
+    "has_gaps": 0,
     "audit_errors": 0,
     "threshold_db": -50,
-    "min_duration_s": 0.8,
+    "min_duration_s": 1.2,
     "tail_ignore_s": 1.5
   },
   "rows": [
@@ -325,51 +325,9 @@
       "audio_type": "dialogue",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/ab69e89c-32b6-4d98-8360-4748bc2c9f37/combined.mp3",
       "container_duration_s": 195.842902,
-      "silence_regions": [
-        {
-          "start_s": 38.18805,
-          "end_s": 39.031565,
-          "duration_s": 0.843515
-        },
-        {
-          "start_s": 113.804807,
-          "end_s": 114.692041,
-          "duration_s": 0.887234
-        },
-        {
-          "start_s": 117.94932,
-          "end_s": 118.752449,
-          "duration_s": 0.803129
-        },
-        {
-          "start_s": 167.663946,
-          "end_s": 168.508889,
-          "duration_s": 0.844943
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 38.18805,
-          "end_s": 39.031565,
-          "duration_s": 0.843515
-        },
-        {
-          "start_s": 113.804807,
-          "end_s": 114.692041,
-          "duration_s": 0.887234
-        },
-        {
-          "start_s": 117.94932,
-          "end_s": 118.752449,
-          "duration_s": 0.803129
-        },
-        {
-          "start_s": 167.663946,
-          "end_s": 168.508889,
-          "duration_s": 0.844943
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "8dbff5e6-0138-499c-9b79-dca991978b24",
@@ -510,51 +468,9 @@
       "audio_type": "interview",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/62666f53-6e69-40b3-8a1e-0f058b7b7b8e/combined.mp3",
       "container_duration_s": 248.026848,
-      "silence_regions": [
-        {
-          "start_s": 27.597302,
-          "end_s": 28.446508,
-          "duration_s": 0.849206
-        },
-        {
-          "start_s": 98.245011,
-          "end_s": 99.066848,
-          "duration_s": 0.821837
-        },
-        {
-          "start_s": 138.350952,
-          "end_s": 139.198526,
-          "duration_s": 0.847574
-        },
-        {
-          "start_s": 143.277483,
-          "end_s": 144.171224,
-          "duration_s": 0.893741
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 27.597302,
-          "end_s": 28.446508,
-          "duration_s": 0.849206
-        },
-        {
-          "start_s": 98.245011,
-          "end_s": 99.066848,
-          "duration_s": 0.821837
-        },
-        {
-          "start_s": 138.350952,
-          "end_s": 139.198526,
-          "duration_s": 0.847574
-        },
-        {
-          "start_s": 143.277483,
-          "end_s": 144.171224,
-          "duration_s": 0.893741
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "686b95e9-f474-45d5-887f-fdf700e325b1",
@@ -596,51 +512,9 @@
       "audio_type": "interview",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70/combined.mp3",
       "container_duration_s": 320.148027,
-      "silence_regions": [
-        {
-          "start_s": 103.636349,
-          "end_s": 104.475873,
-          "duration_s": 0.839524
-        },
-        {
-          "start_s": 212.921814,
-          "end_s": 213.784739,
-          "duration_s": 0.862925
-        },
-        {
-          "start_s": 222.770249,
-          "end_s": 223.590113,
-          "duration_s": 0.819864
-        },
-        {
-          "start_s": 259.345465,
-          "end_s": 260.191814,
-          "duration_s": 0.846349
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 103.636349,
-          "end_s": 104.475873,
-          "duration_s": 0.839524
-        },
-        {
-          "start_s": 212.921814,
-          "end_s": 213.784739,
-          "duration_s": 0.862925
-        },
-        {
-          "start_s": 222.770249,
-          "end_s": 223.590113,
-          "duration_s": 0.819864
-        },
-        {
-          "start_s": 259.345465,
-          "end_s": 260.191814,
-          "duration_s": 0.846349
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "7ced0e9a-dd8b-438c-8471-e3c0722c7eed",
@@ -649,21 +523,9 @@
       "audio_type": "interview",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/7ced0e9a-dd8b-438c-8471-e3c0722c7eed/combined.mp3",
       "container_duration_s": 269.638821,
-      "silence_regions": [
-        {
-          "start_s": 78.409206,
-          "end_s": 79.231973,
-          "duration_s": 0.822766
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 78.409206,
-          "end_s": 79.231973,
-          "duration_s": 0.822766
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "d6efcb31-a953-416a-bc5f-525bedee2b89",
@@ -727,41 +589,9 @@
       "audio_type": "lecture",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/bac2518b-9623-438c-b6df-49937387a3d2/s0_dr.-martinez.mp3",
       "container_duration_s": 268.515556,
-      "silence_regions": [
-        {
-          "start_s": 21.415692,
-          "end_s": 22.330317,
-          "duration_s": 0.914626
-        },
-        {
-          "start_s": 142.400295,
-          "end_s": 143.223764,
-          "duration_s": 0.823469
-        },
-        {
-          "start_s": 185.469365,
-          "end_s": 186.337846,
-          "duration_s": 0.868481
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 21.415692,
-          "end_s": 22.330317,
-          "duration_s": 0.914626
-        },
-        {
-          "start_s": 142.400295,
-          "end_s": 143.223764,
-          "duration_s": 0.823469
-        },
-        {
-          "start_s": 185.469365,
-          "end_s": 186.337846,
-          "duration_s": 0.868481
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "51fad1dc-0624-4cc7-8048-9dea0f26a171",
@@ -770,21 +600,9 @@
       "audio_type": "lecture",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/51fad1dc-0624-4cc7-8048-9dea0f26a171/s0_dr.-martinez.mp3",
       "container_duration_s": 295.543583,
-      "silence_regions": [
-        {
-          "start_s": 24.792925,
-          "end_s": 25.63619,
-          "duration_s": 0.843265
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 24.792925,
-          "end_s": 25.63619,
-          "duration_s": 0.843265
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "a9e49ba8-49fe-424a-ac8f-ff51763e596a",
@@ -804,31 +622,9 @@
       "audio_type": "lecture",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/d3ea9b38-695d-4a70-8ef3-7816ec04d239/s0_dr.-mitchell.mp3",
       "container_duration_s": 272.230748,
-      "silence_regions": [
-        {
-          "start_s": 43.193673,
-          "end_s": 44.029161,
-          "duration_s": 0.835488
-        },
-        {
-          "start_s": 185.374649,
-          "end_s": 186.208299,
-          "duration_s": 0.833651
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 43.193673,
-          "end_s": 44.029161,
-          "duration_s": 0.835488
-        },
-        {
-          "start_s": 185.374649,
-          "end_s": 186.208299,
-          "duration_s": 0.833651
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "f7989a07-3a74-4bf6-8d4f-91cc5729d927",
@@ -892,71 +688,9 @@
       "audio_type": "interview",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/6b6e7a26-c6c8-4b06-a176-b967d74ab76f/combined.mp3",
       "container_duration_s": 339.943039,
-      "silence_regions": [
-        {
-          "start_s": 62.072268,
-          "end_s": 62.904739,
-          "duration_s": 0.832472
-        },
-        {
-          "start_s": 78.82229,
-          "end_s": 79.657007,
-          "duration_s": 0.834717
-        },
-        {
-          "start_s": 83.58415,
-          "end_s": 84.419161,
-          "duration_s": 0.835011
-        },
-        {
-          "start_s": 213.2578,
-          "end_s": 214.091293,
-          "duration_s": 0.833492
-        },
-        {
-          "start_s": 285.508866,
-          "end_s": 286.421293,
-          "duration_s": 0.912426
-        },
-        {
-          "start_s": 332.187619,
-          "end_s": 332.994966,
-          "duration_s": 0.807347
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 62.072268,
-          "end_s": 62.904739,
-          "duration_s": 0.832472
-        },
-        {
-          "start_s": 78.82229,
-          "end_s": 79.657007,
-          "duration_s": 0.834717
-        },
-        {
-          "start_s": 83.58415,
-          "end_s": 84.419161,
-          "duration_s": 0.835011
-        },
-        {
-          "start_s": 213.2578,
-          "end_s": 214.091293,
-          "duration_s": 0.833492
-        },
-        {
-          "start_s": 285.508866,
-          "end_s": 286.421293,
-          "duration_s": 0.912426
-        },
-        {
-          "start_s": 332.187619,
-          "end_s": 332.994966,
-          "duration_s": 0.807347
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "5846f7c9-f5c9-482e-bb09-142aeceeefb8",
@@ -998,31 +732,9 @@
       "audio_type": "interview",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/f9fea551-7654-47c1-bf69-9dd399e9a275/combined.mp3",
       "container_duration_s": 261.035828,
-      "silence_regions": [
-        {
-          "start_s": 131.235624,
-          "end_s": 132.052245,
-          "duration_s": 0.816621
-        },
-        {
-          "start_s": 218.67517,
-          "end_s": 219.532948,
-          "duration_s": 0.857778
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 131.235624,
-          "end_s": 132.052245,
-          "duration_s": 0.816621
-        },
-        {
-          "start_s": 218.67517,
-          "end_s": 219.532948,
-          "duration_s": 0.857778
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "24431382-8fea-4d31-8d3d-70e9a401057d",
@@ -1031,21 +743,9 @@
       "audio_type": "interview",
       "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/24431382-8fea-4d31-8d3d-70e9a401057d/combined.mp3",
       "container_duration_s": 322.435193,
-      "silence_regions": [
-        {
-          "start_s": 26.100136,
-          "end_s": 26.936236,
-          "duration_s": 0.8361
-        }
-      ],
-      "significant_silence_regions": [
-        {
-          "start_s": 26.100136,
-          "end_s": 26.936236,
-          "duration_s": 0.8361
-        }
-      ],
-      "verdict": "HAS_GAPS"
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
     },
     {
       "id": "9774fa25-d7bc-4865-9448-a097e21150df",

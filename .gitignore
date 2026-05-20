@@ -9,6 +9,8 @@ dist/
 .env.local
 .env.*.local
 .env.backend
+.env.bak-*
+.env.bak.*
 
 # Supabase local
 .supabase/

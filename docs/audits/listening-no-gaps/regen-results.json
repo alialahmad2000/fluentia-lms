@@ -1,0 +1,356 @@
+{
+  "generated_at": "2026-05-20T01:18:12.842Z",
+  "total_targets": 21,
+  "success": 11,
+  "fail": 10,
+  "results": [
+    {
+      "id": "f9fea551-7654-47c1-bf69-9dd399e9a275",
+      "title_ar": "مقابلة مع مهندسة معمارية عن البناء المستدام",
+      "ok": false,
+      "reason": "post-concat: 2 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 57.380023,
+          "end_s": 58.259501,
+          "duration_s": 0.879478
+        },
+        {
+          "start_s": 218.696463,
+          "end_s": 219.521179,
+          "duration_s": 0.824717
+        }
+      ]
+    },
+    {
+      "id": "1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70",
+      "title_ar": "مقابلة مع اقتصادي عن مفارقة الموارد والوفرة",
+      "ok": false,
+      "reason": "post-concat: 2 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 217.149206,
+          "end_s": 218.03542,
+          "duration_s": 0.886213
+        },
+        {
+          "start_s": 247.054921,
+          "end_s": 248.152494,
+          "duration_s": 1.097574
+        }
+      ]
+    },
+    {
+      "id": "5f66bedc-ed77-40dc-bb87-b60facd0c51f",
+      "title_ar": "نور تحكي قصة رحلتها إلى اليابان",
+      "ok": true,
+      "duration_ms": 116145,
+      "segs": 14,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/5f66bedc-ed77-40dc-bb87-b60facd0c51f/combined.mp3"
+    },
+    {
+      "id": "bac2518b-9623-438c-b6df-49937387a3d2",
+      "title_ar": "محاضرة عن اكتشاف الكواكب خارج المجموعة الشمسية",
+      "ok": false,
+      "reason": "post-concat: 3 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 60.186939,
+          "end_s": 60.994694,
+          "duration_s": 0.807755
+        },
+        {
+          "start_s": 121.095896,
+          "end_s": 121.948503,
+          "duration_s": 0.852608
+        },
+        {
+          "start_s": 214.872018,
+          "end_s": 215.695147,
+          "duration_s": 0.823129
+        }
+      ]
+    },
+    {
+      "id": "b4ef25db-caa8-49ca-bf7e-d88d73f21919",
+      "title_ar": "مقابلة مع د. أمينة الراشد عن تقنيات الطاقة المتجددة",
+      "ok": true,
+      "duration_ms": 203870,
+      "segs": 14,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/b4ef25db-caa8-49ca-bf7e-d88d73f21919/combined.mp3"
+    },
+    {
+      "id": "faa01054-6873-4408-a5b7-cbcfe7efe960",
+      "title_ar": "نقاش أكاديمي عن أخلاقيات التكنولوجيا الطبية",
+      "ok": true,
+      "duration_ms": 258433,
+      "segs": 16,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/faa01054-6873-4408-a5b7-cbcfe7efe960/combined.mp3"
+    },
+    {
+      "id": "62666f53-6e69-40b3-8a1e-0f058b7b7b8e",
+      "title_ar": "مقابلة مع باحث عن أسباب الهجرة البشرية",
+      "ok": false,
+      "reason": "post-concat: 2 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 38.981769,
+          "end_s": 39.876508,
+          "duration_s": 0.894739
+        },
+        {
+          "start_s": 139.431882,
+          "end_s": 140.291497,
+          "duration_s": 0.859615
+        }
+      ]
+    },
+    {
+      "id": "c2c17796-03aa-4240-b983-dc4dd6d3c516",
+      "title_ar": "مقابلة عن الانقراض السادس وأزمة التنوع البيولوجي",
+      "ok": true,
+      "duration_ms": 334402,
+      "segs": 20,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/c2c17796-03aa-4240-b983-dc4dd6d3c516/combined.mp3"
+    },
+    {
+      "id": "cecec33e-c5e7-4668-ae28-0dce9c20bbf3",
+      "title_ar": "مقابلة مع مؤرخ عن أسباب انهيار الحضارات",
+      "ok": true,
+      "duration_ms": 294746,
+      "segs": 18,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/cecec33e-c5e7-4668-ae28-0dce9c20bbf3/combined.mp3"
+    },
+    {
+      "id": "51fad1dc-0624-4cc7-8048-9dea0f26a171",
+      "title_ar": "محاضرة عن طبيعة العبقرية الإبداعية وأسرارها",
+      "ok": false,
+      "reason": "post-concat: 6 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 60.162268,
+          "end_s": 61.091746,
+          "duration_s": 0.929478
+        },
+        {
+          "start_s": 78.744082,
+          "end_s": 79.544558,
+          "duration_s": 0.800476
+        },
+        {
+          "start_s": 165.811361,
+          "end_s": 166.61288,
+          "duration_s": 0.801519
+        },
+        {
+          "start_s": 175.543583,
+          "end_s": 176.421043,
+          "duration_s": 0.87746
+        },
+        {
+          "start_s": 186.262132,
+          "end_s": 187.067438,
+          "duration_s": 0.805306
+        },
+        {
+          "start_s": 260.787302,
+          "end_s": 261.635147,
+          "duration_s": 0.847846
+        }
+      ]
+    },
+    {
+      "id": "a213895f-7021-4528-b737-3b37c7d09f77",
+      "title_ar": "نقاش أكاديمي عن الدبلوماسية الرقمية في الشرق الأوسط",
+      "ok": true,
+      "duration_ms": 311468,
+      "segs": 16,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/a213895f-7021-4528-b737-3b37c7d09f77/combined.mp3"
+    },
+    {
+      "id": "ccc4f118-3c1f-4497-bfed-de02a6dc81cd",
+      "title_ar": "مقابلة عن أسرار الأداء الاستثنائي والتفوق",
+      "ok": true,
+      "duration_ms": 320727,
+      "segs": 19,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/ccc4f118-3c1f-4497-bfed-de02a6dc81cd/combined.mp3"
+    },
+    {
+      "id": "f7bc89f9-a52b-4c2e-88da-427f94de04a4",
+      "title_ar": "محادثة عن امتحان علم النفس ودراسة الذاكرة",
+      "ok": true,
+      "duration_ms": 119814,
+      "segs": 14,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/f7bc89f9-a52b-4c2e-88da-427f94de04a4/combined.mp3"
+    },
+    {
+      "id": "981b0d0a-8a92-4612-8fa9-6323d7ebfcfd",
+      "title_ar": "محادثة عن وثائقي أزمة المياه وتأثيرها",
+      "ok": true,
+      "duration_ms": 124833,
+      "segs": 12,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/981b0d0a-8a92-4612-8fa9-6323d7ebfcfd/combined.mp3"
+    },
+    {
+      "id": "e76b49c2-1e8e-475c-a1f2-38280bcd78fe",
+      "title_ar": "مقابلة مع د. فاطمة الراشد عن تطور علم الجينات",
+      "ok": true,
+      "duration_ms": 187159,
+      "segs": 10,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/e76b49c2-1e8e-475c-a1f2-38280bcd78fe/combined.mp3"
+    },
+    {
+      "id": "7ced0e9a-dd8b-438c-8471-e3c0722c7eed",
+      "title_ar": "مقابلة مع أستاذ هندسة عن التصميم المستوحى من الطبيعة",
+      "ok": false,
+      "reason": "post-concat: 4 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 78.052676,
+          "end_s": 78.887234,
+          "duration_s": 0.834558
+        },
+        {
+          "start_s": 89.096689,
+          "end_s": 89.976009,
+          "duration_s": 0.87932
+        },
+        {
+          "start_s": 125.30966,
+          "end_s": 126.186916,
+          "duration_s": 0.877256
+        },
+        {
+          "start_s": 154.430726,
+          "end_s": 155.407211,
+          "duration_s": 0.976485
+        }
+      ]
+    },
+    {
+      "id": "ab69e89c-32b6-4d98-8360-4748bc2c9f37",
+      "title_ar": "نقاش عن الخصوصية الرقمية والأمن السيبراني",
+      "ok": false,
+      "reason": "post-concat: 3 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 108.461088,
+          "end_s": 109.287075,
+          "duration_s": 0.825986
+        },
+        {
+          "start_s": 113.197846,
+          "end_s": 114.129751,
+          "duration_s": 0.931905
+        },
+        {
+          "start_s": 117.352404,
+          "end_s": 118.163107,
+          "duration_s": 0.810703
+        }
+      ]
+    },
+    {
+      "id": "24431382-8fea-4d31-8d3d-70e9a401057d",
+      "title_ar": "نقاش فلسفي عن الشك العلمي وأزمة الثقة",
+      "ok": false,
+      "reason": "post-concat: 1 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 61.19161,
+          "end_s": 62.006984,
+          "duration_s": 0.815374
+        }
+      ]
+    },
+    {
+      "id": "6b6e7a26-c6c8-4b06-a176-b967d74ab76f",
+      "title_ar": "نقاش بين خبيرين عن مستقبل الطاقة النووية",
+      "ok": false,
+      "reason": "post-concat: 11 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 18.083333,
+          "end_s": 18.955125,
+          "duration_s": 0.871791
+        },
+        {
+          "start_s": 62.046984,
+          "end_s": 62.947732,
+          "duration_s": 0.900748
+        },
+        {
+          "start_s": 79.126122,
+          "end_s": 79.995329,
+          "duration_s": 0.869206
+        },
+        {
+          "start_s": 83.633515,
+          "end_s": 84.442313,
+          "duration_s": 0.808798
+        },
+        {
+          "start_s": 125.210249,
+          "end_s": 126.02449,
+          "duration_s": 0.81424
+        },
+        {
+          "start_s": 169.548186,
+          "end_s": 170.473469,
+          "duration_s": 0.925283
+        },
+        {
+          "start_s": 174.846054,
+          "end_s": 175.682426,
+          "duration_s": 0.836372
+        },
+        {
+          "start_s": 209.64458,
+          "end_s": 210.508435,
+          "duration_s": 0.863855
+        },
+        {
+          "start_s": 280.525669,
+          "end_s": 281.32771,
+          "duration_s": 0.802041
+        },
+        {
+          "start_s": 289.861587,
+          "end_s": 290.716168,
+          "duration_s": 0.85458
+        },
+        {
+          "start_s": 329.217279,
+          "end_s": 330.109048,
+          "duration_s": 0.891769
+        }
+      ]
+    },
+    {
+      "id": "546730cd-2a01-4d69-96ac-673610a25524",
+      "title_ar": "مقابلة مع د. أمينة حسن عن الزراعة الحضرية",
+      "ok": true,
+      "duration_ms": 188684,
+      "segs": 14,
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/546730cd-2a01-4d69-96ac-673610a25524/combined.mp3"
+    },
+    {
+      "id": "d3ea9b38-695d-4a70-8ef3-7816ec04d239",
+      "title_ar": "محاضرة عن لغز حضارة وادي السند المفقودة",
+      "ok": false,
+      "reason": "post-concat: 2 internal silence(s) > 0.8s",
+      "significant": [
+        {
+          "start_s": 125.30449,
+          "end_s": 126.11737,
+          "duration_s": 0.81288
+        },
+        {
+          "start_s": 184.54068,
+          "end_s": 185.371156,
+          "duration_s": 0.830476
+        }
+      ]
+    }
+  ]
+}
