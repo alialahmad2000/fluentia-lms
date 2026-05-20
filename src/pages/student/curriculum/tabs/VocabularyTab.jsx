@@ -20,6 +20,7 @@ import ChunkMiniSession from '../../../../components/curriculum/journey/ChunkMin
 import WordDetailSheet from '../../../../components/curriculum/word-detail/WordDetailSheet'
 import { getHardWords } from '../../../../services/hardWords'
 import VocabSettingsGear from '../../../../components/curriculum/settings/VocabSettingsGear'
+import VocabOnboardingTour from '../../../../components/curriculum/onboarding/VocabOnboardingTour'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -197,13 +198,13 @@ export default function VocabularyTab({ unitId }) {
     [hardWordsForStudent]
   )
 
-  // Vocab tap-behavior preference (Prompt 08) — set via VocabSettingsGear
+  // Vocab tap-behavior + onboarding completion (Prompt 08)
   const { data: vocabPrefs } = useQuery({
     queryKey: ['vocab-settings-prefs', profile?.id],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('profiles')
-        .select('vocab_tap_behavior')
+        .select('vocab_tap_behavior, vocab_onboarding_completed_at')
         .eq('id', profile?.id)
         .maybeSingle()
       if (error) throw error
@@ -213,6 +214,34 @@ export default function VocabularyTab({ unitId }) {
     staleTime: 60_000,
   })
   const tapBehavior = vocabPrefs?.vocab_tap_behavior || 'details'
+  const onboardingCompletedAt = vocabPrefs?.vocab_onboarding_completed_at
+  const [tourDismissedLocally, setTourDismissedLocally] = useState(false)
+  const shouldShowTour =
+    !!profile?.id &&
+    !onboardingCompletedAt &&
+    !tourDismissedLocally &&
+    allWords.length > 0  // Don't show on a still-loading or empty unit
+
+  const markTourComplete = useCallback(async () => {
+    setTourDismissedLocally(true)
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ vocab_onboarding_completed_at: new Date().toISOString() })
+        .eq('id', profile?.id)
+        .select()
+        .maybeSingle()
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.warn('[vocab-tab] onboarding completion write failed:', error.message)
+      } else {
+        queryClient.invalidateQueries({ queryKey: ['vocab-settings-prefs', profile?.id] })
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('[vocab-tab] onboarding completion threw:', e?.message || e)
+    }
+  }, [profile?.id, queryClient])
 
   const filterWord = useCallback((word) => {
     if (filter === 'hard') {
@@ -388,26 +417,30 @@ export default function VocabularyTab({ unitId }) {
   return (
     <div className="space-y-6">
       {/* Premium sticky Hero (Prompt 05) — strictly additive */}
-      <HeroSection
-        unitId={unitId}
-        studentId={profile?.id}
-        onOpenWord={handleHeroOpenWord}
-        onScrollToLibrary={handleHeroScrollToLibrary}
-      />
+      <div data-tour="hero">
+        <HeroSection
+          unitId={unitId}
+          studentId={profile?.id}
+          onOpenWord={handleHeroOpenWord}
+          onScrollToLibrary={handleHeroScrollToLibrary}
+        />
+      </div>
 
       {/* Journey Lane (Prompt 06) — chunks between Hero and existing library */}
-      <ChunkLane
-        key={`chunk-lane-${unitId}-${chunkRefetchKey}`}
-        unitId={unitId}
-        profileId={profile?.id}
-        onOpenChunk={(chunk) => setActiveChunk(chunk)}
-      />
+      <div data-tour="journey">
+        <ChunkLane
+          key={`chunk-lane-${unitId}-${chunkRefetchKey}`}
+          unitId={unitId}
+          profileId={profile?.id}
+          onOpenChunk={(chunk) => setActiveChunk(chunk)}
+        />
+      </div>
 
       {/* Legacy "① HERO HEADER" block removed in Prompt 07 — its data now
           lives in <HeroSection> above. */}
 
       {/* ② FILTER BAR + SEARCH */}
-      <div ref={libraryRef} className="flex items-center gap-2">
+      <div ref={libraryRef} data-tour="library" className="flex items-center gap-2">
         <div className="flex items-center gap-1.5 flex-1 overflow-x-auto no-scrollbar">
           {FILTERS.map((f, i) => {
             const Icon = f.icon
@@ -692,6 +725,11 @@ export default function VocabularyTab({ unitId }) {
 
       {/* Vocab Settings Gear (Prompt 08) — floating bottom-end button */}
       <VocabSettingsGear studentId={profile?.id} />
+
+      {/* Onboarding Tour (Prompt 08) — first-ever visit only */}
+      {shouldShowTour && (
+        <VocabOnboardingTour onComplete={markTourComplete} />
+      )}
 
       {/* Quick practice indicator */}
       {quickPractice && exerciseWord && (
