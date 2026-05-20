@@ -1,0 +1,122 @@
+[
+  { "id": "ef590479-57a7-46a4-a9ad-8fc61f672af8", "word": "privacy",
+    "synonyms": [{"word":"secrecy","level":3},{"word":"confidentiality","level":4},{"word":"seclusion","level":5}],
+    "antonyms": [{"word":"publicity","level":3},{"word":"exposure","level":3}]
+  },
+  { "id": "ef731749-4a42-40d7-98ce-878a814c230a", "word": "photograph",
+    "synonyms": [{"word":"photo","level":1},{"word":"picture","level":1},{"word":"snapshot","level":3}],
+    "antonyms": []
+  },
+  { "id": "efb9ca3c-d2e6-4773-a103-c1a839337224", "word": "grill",
+    "synonyms": [{"word":"barbecue","level":3},{"word":"broil","level":4},{"word":"char","level":4}],
+    "antonyms": []
+  },
+  { "id": "efe8a749-5dc3-45ca-a1c7-58dd7ac863a1", "word": "island",
+    "synonyms": [{"word":"isle","level":4},{"word":"atoll","level":5},{"word":"key","level":3}],
+    "antonyms": [{"word":"mainland","level":3}]
+  },
+  { "id": "f027733f-9997-4ec5-9ecd-9936b1fb9ce0", "word": "inventor",
+    "synonyms": [{"word":"creator","level":2},{"word":"designer","level":2},{"word":"innovator","level":4}],
+    "antonyms": []
+  },
+  { "id": "f181fa55-2eb6-4a09-a00c-750f47955653", "word": "verification",
+    "synonyms": [{"word":"confirmation","level":4},{"word":"authentication","level":5},{"word":"validation","level":4}],
+    "antonyms": [{"word":"denial","level":3}]
+  },
+  { "id": "f1dfb845-1d17-46e2-aa90-6e4cabb68fb2", "word": "telescope",
+    "synonyms": [{"word":"scope","level":3},{"word":"spyglass","level":4},{"word":"observatory tool","level":3}],
+    "antonyms": [{"word":"microscope","level":3}]
+  },
+  { "id": "f2005972-13f8-42ba-a2d5-380cb1f6e2d1", "word": "compost",
+    "synonyms": [{"word":"organic fertilizer","level":3},{"word":"humus","level":5},{"word":"mulch","level":4}],
+    "antonyms": []
+  },
+  { "id": "f271d4b8-ba63-41e5-857b-bec429477893", "word": "environment",
+    "synonyms": [{"word":"nature","level":1},{"word":"surroundings","level":3},{"word":"ecosystem","level":4}],
+    "antonyms": []
+  },
+  { "id": "f3f705bb-a32a-4a5a-9c20-4beff3a28f07", "word": "predator",
+    "synonyms": [{"word":"hunter","level":2},{"word":"carnivore","level":4},{"word":"meat-eater","level":2}],
+    "antonyms": [{"word":"prey","level":3},{"word":"victim","level":3}]
+  },
+  { "id": "f4111792-5b28-4732-af0e-86dd5e94afb1", "word": "castle",
+    "synonyms": [{"word":"fortress","level":4},{"word":"palace","level":2},{"word":"stronghold","level":4}],
+    "antonyms": []
+  },
+  { "id": "f4a0a99b-6fd5-4cbe-981a-94923b049ccc", "word": "energy",
+    "synonyms": [{"word":"power","level":1},{"word":"electricity","level":2},{"word":"force","level":2}],
+    "antonyms": []
+  },
+  { "id": "f50f290f-f143-41d1-907f-3e1d2f3d81cd", "word": "angle",
+    "synonyms": [{"word":"viewpoint","level":3},{"word":"perspective","level":4},{"word":"slant","level":4}],
+    "antonyms": []
+  },
+  { "id": "f547a958-9a13-4222-92c7-a810fb9ea62c", "word": "celebration",
+    "synonyms": [{"word":"party","level":1},{"word":"festivity","level":4},{"word":"jubilee","level":5}],
+    "antonyms": [{"word":"mourning","level":4},{"word":"sorrow","level":3}]
+  },
+  { "id": "f56340e2-533b-412f-9a9e-aa4865c4087e", "word": "float",
+    "synonyms": [{"word":"drift","level":3},{"word":"bob","level":4},{"word":"hover","level":4}],
+    "antonyms": [{"word":"sink","level":2}]
+  },
+  { "id": "f62a43c4-e5bf-4234-a604-be0660224293", "word": "overexpose",
+    "synonyms": [{"word":"overlight","level":3},{"word":"flood","level":2},{"word":"wash out","level":3}],
+    "antonyms": [{"word":"underexpose","level":3}]
+  },
+  { "id": "f68739af-df6b-4fa1-87ff-16d92837ed2d", "word": "rule",
+    "synonyms": [{"word":"govern","level":3},{"word":"reign","level":4},{"word":"command","level":3}],
+    "antonyms": [{"word":"serve","level":2},{"word":"obey","level":3}]
+  },
+  { "id": "f6882fdf-6618-4171-a7d3-6f70e3626a9f", "word": "unity",
+    "synonyms": [{"word":"oneness","level":3},{"word":"togetherness","level":2},{"word":"solidarity","level":5}],
+    "antonyms": [{"word":"division","level":3},{"word":"disunity","level":4}]
+  },
+  { "id": "f6c8388f-f46e-4f98-85f9-1487e2a75403", "word": "conservation",
+    "synonyms": [{"word":"protection","level":2},{"word":"preservation","level":4},{"word":"safeguarding","level":5}],
+    "antonyms": [{"word":"destruction","level":3},{"word":"waste","level":1}]
+  },
+  { "id": "f876c272-bf9b-430f-83a5-492299766058", "word": "greenhouse",
+    "synonyms": [{"word":"hothouse","level":4},{"word":"conservatory","level":5},{"word":"glasshouse","level":3}],
+    "antonyms": []
+  },
+  { "id": "f97045ef-f146-44bf-9003-aad58bebe685", "word": "mission",
+    "synonyms": [{"word":"task","level":1},{"word":"assignment","level":3},{"word":"expedition","level":5}],
+    "antonyms": []
+  },
+  { "id": "fa24f323-edb3-485b-ac50-dc9c7c73eeb2", "word": "anonymous",
+    "synonyms": [{"word":"nameless","level":3},{"word":"unidentified","level":4},{"word":"unnamed","level":3}],
+    "antonyms": [{"word":"named","level":1},{"word":"identified","level":3}]
+  },
+  { "id": "fae3f66f-5271-4f03-a7c7-b9ffc09d8638", "word": "concert",
+    "synonyms": [{"word":"performance","level":3},{"word":"show","level":1},{"word":"gig","level":3}],
+    "antonyms": []
+  },
+  { "id": "fb55de90-82b5-4439-847b-f03edeef9669", "word": "influential",
+    "synonyms": [{"word":"powerful","level":2},{"word":"impactful","level":4},{"word":"authoritative","level":5}],
+    "antonyms": [{"word":"unimportant","level":3},{"word":"powerless","level":3}]
+  },
+  { "id": "fb8c1ddb-5016-4a3a-abf4-5cb98cec01f0", "word": "genius",
+    "synonyms": [{"word":"brilliant person","level":2},{"word":"mastermind","level":4},{"word":"prodigy","level":5}],
+    "antonyms": [{"word":"fool","level":2},{"word":"dunce","level":4}]
+  },
+  { "id": "fbef3d45-13ba-484c-8d0a-d9e7ce551a74", "word": "oven",
+    "synonyms": [{"word":"stove","level":2},{"word":"cooker","level":2},{"word":"kiln","level":5}],
+    "antonyms": [{"word":"freezer","level":2}]
+  },
+  { "id": "fc362bb5-88a3-444f-9bb1-586baa206783", "word": "replace",
+    "synonyms": [{"word":"swap","level":2},{"word":"substitute","level":4},{"word":"change","level":1}],
+    "antonyms": [{"word":"keep","level":1},{"word":"retain","level":4}]
+  },
+  { "id": "fe2047ae-12cb-4798-9f29-2ca949cb3465", "word": "stunning",
+    "synonyms": [{"word":"beautiful","level":1},{"word":"breathtaking","level":4},{"word":"sublime","level":5}],
+    "antonyms": [{"word":"ugly","level":1},{"word":"plain","level":2},{"word":"unremarkable","level":4}]
+  },
+  { "id": "ff2c2397-5aaa-47c6-802f-724f461f83a9", "word": "deforestation",
+    "synonyms": [{"word":"tree-cutting","level":2},{"word":"clearing","level":3},{"word":"logging","level":4}],
+    "antonyms": [{"word":"reforestation","level":4},{"word":"afforestation","level":5}]
+  },
+  { "id": "fff7f988-c5ff-4121-b76e-d0dbb5741f61", "word": "algorithm",
+    "synonyms": [{"word":"formula","level":3},{"word":"procedure","level":4},{"word":"system","level":2}],
+    "antonyms": []
+  }
+]
