@@ -1,0 +1,122 @@
+[
+  { "id": "ca743807-9544-47e5-b1d0-364a62afd202", "word": "extinction",
+    "synonyms": [{"word":"dying-out","level":3},{"word":"disappearance","level":3},{"word":"annihilation","level":5}],
+    "antonyms": [{"word":"survival","level":3},{"word":"preservation","level":4}]
+  },
+  { "id": "cc27a15f-ccab-4262-8fe4-23b4a252bebb", "word": "interactive",
+    "synonyms": [{"word":"two-way","level":2},{"word":"responsive","level":3},{"word":"engaging","level":3}],
+    "antonyms": [{"word":"static","level":4},{"word":"passive","level":4},{"word":"one-way","level":2}]
+  },
+  { "id": "ccaa9ae7-095b-4c52-aea8-6b1ae42b45e0", "word": "dough",
+    "synonyms": [{"word":"pastry","level":3},{"word":"batter","level":3},{"word":"mixture","level":2}],
+    "antonyms": []
+  },
+  { "id": "cd6d6a5c-d4c3-42ce-a225-f840454d5c5c", "word": "public",
+    "synonyms": [{"word":"open","level":1},{"word":"shared","level":2},{"word":"general","level":3}],
+    "antonyms": [{"word":"private","level":2},{"word":"personal","level":2},{"word":"secret","level":2}]
+  },
+  { "id": "cd788add-6c85-4ee7-b8a8-03fc27d36481", "word": "weapon",
+    "synonyms": [{"word":"arms","level":3},{"word":"armament","level":5},{"word":"firearm","level":4}],
+    "antonyms": [{"word":"shield","level":3}]
+  },
+  { "id": "cdc8ce1c-559e-4a09-a292-5119e16ff6d5", "word": "profile",
+    "synonyms": [{"word":"account","level":2},{"word":"page","level":1},{"word":"bio","level":2}],
+    "antonyms": []
+  },
+  { "id": "ce3c5a62-13f3-49ae-9ecf-b684614f78da", "word": "rehearse",
+    "synonyms": [{"word":"practice","level":2},{"word":"prepare","level":2},{"word":"drill","level":3}],
+    "antonyms": []
+  },
+  { "id": "ceea6bca-ef79-477f-a3f2-edea6890e6b1", "word": "overcome",
+    "synonyms": [{"word":"defeat","level":2},{"word":"conquer","level":3},{"word":"surmount","level":5}],
+    "antonyms": [{"word":"surrender","level":3},{"word":"give up","level":2},{"word":"succumb","level":5}]
+  },
+  { "id": "d05bf2a4-2d7e-4d77-87d7-69cef2d9d35f", "word": "offset",
+    "synonyms": [{"word":"counter","level":3},{"word":"balance","level":2},{"word":"neutralize","level":4}],
+    "antonyms": []
+  },
+  { "id": "d0ee5034-eded-4f70-8682-70d79a38f268", "word": "orbit",
+    "synonyms": [{"word":"circle","level":1},{"word":"revolve","level":4},{"word":"rotate around","level":3}],
+    "antonyms": []
+  },
+  { "id": "d19646c4-3103-48dc-85a9-fd48ecf7549e", "word": "singer",
+    "synonyms": [{"word":"vocalist","level":4},{"word":"performer","level":3},{"word":"crooner","level":5}],
+    "antonyms": []
+  },
+  { "id": "d2c1a3d6-e851-4e82-a07e-2fbe7c606eca", "word": "marinate",
+    "synonyms": [{"word":"soak","level":2},{"word":"infuse","level":4},{"word":"steep","level":4}],
+    "antonyms": []
+  },
+  { "id": "d2c83915-c5d3-450e-9f2e-16b2f434166a", "word": "prosperous",
+    "synonyms": [{"word":"successful","level":3},{"word":"wealthy","level":3},{"word":"flourishing","level":4}],
+    "antonyms": [{"word":"poor","level":1},{"word":"struggling","level":3},{"word":"impoverished","level":5}]
+  },
+  { "id": "d3a6e6df-861f-4ecc-9a73-bd8ff7a5b074", "word": "rocket",
+    "synonyms": [{"word":"missile","level":4},{"word":"spacecraft","level":2},{"word":"projectile","level":5}],
+    "antonyms": []
+  },
+  { "id": "d3d2de48-5e6a-48dd-bcb0-c6198ba84e55", "word": "fry",
+    "synonyms": [{"word":"sauté","level":4},{"word":"pan-cook","level":2},{"word":"sizzle","level":3}],
+    "antonyms": []
+  },
+  { "id": "d4227478-fba6-4c22-aada-90f776bb5ff7", "word": "gallery",
+    "synonyms": [{"word":"museum","level":2},{"word":"exhibition hall","level":3},{"word":"showroom","level":3}],
+    "antonyms": []
+  },
+  { "id": "d47d7322-565c-47e8-aa2d-ee0741dc427a", "word": "dive",
+    "synonyms": [{"word":"plunge","level":4},{"word":"jump in","level":1},{"word":"submerge","level":4}],
+    "antonyms": [{"word":"surface","level":3},{"word":"rise","level":1}]
+  },
+  { "id": "d4ab626b-b615-4588-b38b-c01335aef31b", "word": "medal",
+    "synonyms": [{"word":"award","level":3},{"word":"prize","level":2},{"word":"decoration","level":3}],
+    "antonyms": []
+  },
+  { "id": "d55d9648-7b83-4823-ac3f-dd2cc0ee2523", "word": "sensor",
+    "synonyms": [{"word":"detector","level":4},{"word":"probe","level":3},{"word":"receptor","level":5}],
+    "antonyms": []
+  },
+  { "id": "d5c7b453-1626-4edb-95f2-d72ab6fefb6c", "word": "texture",
+    "synonyms": [{"word":"feel","level":1},{"word":"consistency","level":4},{"word":"composition","level":4}],
+    "antonyms": []
+  },
+  { "id": "d7bb98c7-06a3-44b3-85e4-344c66bcf17f", "word": "cathedral",
+    "synonyms": [{"word":"church","level":1},{"word":"basilica","level":5},{"word":"minster","level":5}],
+    "antonyms": []
+  },
+  { "id": "d86c7b30-50af-421f-b057-cda2823ddc13", "word": "inscription",
+    "synonyms": [{"word":"engraving","level":4},{"word":"carving","level":3},{"word":"writing","level":1}],
+    "antonyms": []
+  },
+  { "id": "d8b92779-90fb-49d0-9b2b-8835b842d646", "word": "lively",
+    "synonyms": [{"word":"energetic","level":3},{"word":"vibrant","level":4},{"word":"animated","level":4}],
+    "antonyms": [{"word":"dull","level":2},{"word":"lifeless","level":3},{"word":"sluggish","level":4}]
+  },
+  { "id": "d97c04c4-124e-41a5-9ebd-5d2e2bea5a9a", "word": "comet",
+    "synonyms": [{"word":"shooting star","level":2},{"word":"meteor","level":3},{"word":"celestial body","level":4}],
+    "antonyms": []
+  },
+  { "id": "d9d22415-3e84-44fb-b80f-d5c54a387bac", "word": "marine",
+    "synonyms": [{"word":"ocean-related","level":2},{"word":"sea","level":1},{"word":"aquatic","level":4}],
+    "antonyms": [{"word":"terrestrial","level":5},{"word":"land","level":1}]
+  },
+  { "id": "d9e8c03e-b780-49b0-86b3-d0dfcd7e971e", "word": "tournament",
+    "synonyms": [{"word":"competition","level":2},{"word":"championship","level":3},{"word":"contest","level":3}],
+    "antonyms": []
+  },
+  { "id": "dc6cd77b-4403-4560-a7d3-66052ad8e7e9", "word": "wire",
+    "synonyms": [{"word":"cable","level":2},{"word":"cord","level":3},{"word":"lead","level":3}],
+    "antonyms": []
+  },
+  { "id": "dd17edc2-6645-4b3c-9fd9-1ab029400d43", "word": "breakthrough",
+    "synonyms": [{"word":"discovery","level":2},{"word":"advance","level":3},{"word":"milestone","level":4}],
+    "antonyms": [{"word":"setback","level":4},{"word":"failure","level":2}]
+  },
+  { "id": "dd5fb78c-5d40-45e6-aa0b-849f6442611b", "word": "tower",
+    "synonyms": [{"word":"high-rise","level":3},{"word":"skyscraper","level":3},{"word":"spire","level":5}],
+    "antonyms": []
+  },
+  { "id": "de16e3f1-da60-44d3-86f4-7a07a2bf755f", "word": "costume",
+    "synonyms": [{"word":"outfit","level":2},{"word":"attire","level":4},{"word":"garb","level":5}],
+    "antonyms": []
+  }
+]
