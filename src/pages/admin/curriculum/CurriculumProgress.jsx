@@ -32,7 +32,7 @@ const LEVEL_COLORS = ['#38bdf8', '#4ade80', '#fbbf24', '#f472b6', '#a78bfa', '#f
 
 const GAME_TYPE_LABELS = {
   match: 'مطابقة', speed: 'اسمع واكتب', scramble: 'رتّب الحروف', fill: 'أكمل الجملة',
-  anki: 'أنكي', quiz: 'اختبار',
+  anki: 'بطاقات سريعة', quiz: 'اختبار',
 }
 const CONTEXT_LABELS = { vocabulary: 'مفردات', irregular_verbs: 'أفعال شاذة' }
 const MASTERY_STYLES = {

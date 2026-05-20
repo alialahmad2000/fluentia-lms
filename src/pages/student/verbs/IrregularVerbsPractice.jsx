@@ -288,7 +288,7 @@ export default function IrregularVerbsPractice() {
 // ─── Games config + renderer ──────────────────────────
 const VERB_GAMES = [
   { id: 'quiz', name: 'اختبار', desc: 'أكمل الفراغ بالتصريف الصحيح' },
-  { id: 'anki', name: 'أنكي', desc: 'بطاقات ذكية — اقلب وقيّم نفسك' },
+  { id: 'anki', name: 'بطاقات سريعة', desc: 'بطاقات ذكية — اقلب وقيّم نفسك' },
   { id: 'match', name: 'وصّل', desc: 'وصّل الفعل بتصريفه الماضي' },
   { id: 'speed', name: 'اسمع واكتب', desc: 'اسمع المعنى واكتب التصريف' },
   { id: 'scramble', name: 'رتّب الحروف', desc: 'رتّب حروف التصريف الثالث' },

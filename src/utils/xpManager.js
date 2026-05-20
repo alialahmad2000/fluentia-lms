@@ -3,12 +3,12 @@ import { emitXP } from '../components/ui/XPFloater'
 import { safeCelebrate } from '../lib/celebrations'
 
 const DESCRIPTIONS = {
-  vocab_anki: 'تدريب المفردات — أنكي',
+  vocab_anki: 'تدريب المفردات — بطاقات سريعة',
   vocab_match: 'لعبة وصّل المفردات',
   vocab_speed: 'لعبة اسمع واكتب المفردات',
   vocab_scramble: 'لعبة رتّب حروف المفردات',
   vocab_fill: 'لعبة أكمل جملة المفردات',
-  verbs_anki: 'تدريب الأفعال الشاذة — أنكي',
+  verbs_anki: 'تدريب الأفعال الشاذة — بطاقات سريعة',
   verbs_quiz: 'اختبار الأفعال الشاذة',
   verbs_match: 'لعبة وصّل الأفعال الشاذة',
   verbs_speed: 'لعبة اسمع واكتب الأفعال',
