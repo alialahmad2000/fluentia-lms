@@ -436,3 +436,103 @@ export async function getDashboardCounts(profileId: string, dailyNewLimit: numbe
   ])
   return { dueCount, newAvailable, streak }
 }
+
+// ──────────────────────────────────────────────────────────────────
+// Per-word helpers (Prompt 07 Word Detail Sheet)
+// ──────────────────────────────────────────────────────────────────
+
+export interface WordSrsStats {
+  due: Date | null
+  lapses: number
+  difficulty: number
+  state: 'new' | 'learning' | 'review' | 'relearning'
+  reps: number
+}
+
+/**
+ * Read this student's SRS state for one word.
+ * Returns null if no SRS row exists yet (word has never been touched
+ * through the SRS flow).
+ */
+export async function getWordSrsStats(
+  profileId: string,
+  vocabularyId: string
+): Promise<WordSrsStats | null> {
+  const { data, error } = await supabase
+    .from('curriculum_vocabulary_srs')
+    .select('due, lapses, difficulty, state, reps')
+    .eq('student_id', profileId)
+    .eq('vocabulary_id', vocabularyId)
+    .maybeSingle()
+  if (error) throw error
+  if (!data) return null
+  return {
+    due: data.due ? new Date(data.due) : null,
+    lapses: data.lapses ?? 0,
+    difficulty: Number(data.difficulty) || 0,
+    state: (data.state ?? 'new') as WordSrsStats['state'],
+    reps: data.reps ?? 0,
+  }
+}
+
+/**
+ * Make a word reviewable right now. Upserts the SRS row with due=NOW().
+ * - If a row exists: UPDATE due=NOW().
+ * - If no row exists: INSERT with FSRS defaults (createEmptyCard from
+ *   ts-fsrs but we keep it inline here to avoid importing ts-fsrs into
+ *   the calling component).
+ *
+ * Used by Word Detail Sheet's "أضفها للمراجعة الفورية" CTA.
+ */
+export async function addWordToImmediateReview(
+  profileId: string,
+  vocabularyId: string
+): Promise<SrsRow> {
+  const nowIso = new Date().toISOString()
+
+  // First check if a row exists
+  const { data: existing, error: readErr } = await supabase
+    .from('curriculum_vocabulary_srs')
+    .select('id')
+    .eq('student_id', profileId)
+    .eq('vocabulary_id', vocabularyId)
+    .maybeSingle()
+  if (readErr) throw readErr
+
+  if (existing) {
+    const { data: updated, error: upErr } = await supabase
+      .from('curriculum_vocabulary_srs')
+      .update({ due: nowIso })
+      .eq('student_id', profileId)
+      .eq('vocabulary_id', vocabularyId)
+      .select()
+      .maybeSingle()
+    if (upErr) throw upErr
+    if (!updated) throw new Error('SRS update returned no row (RLS?)')
+    return updated as SrsRow
+  }
+
+  // Otherwise insert a fresh card with state='new' due NOW
+  const empty = createEmptyCard(new Date())
+  const insertRow = {
+    student_id: profileId,
+    vocabulary_id: vocabularyId,
+    state: 'new' as const,
+    due: nowIso,
+    last_review: null,
+    stability: empty.stability,
+    difficulty: empty.difficulty,
+    reps: empty.reps,
+    lapses: empty.lapses,
+    elapsed_days: empty.elapsed_days,
+    scheduled_days: empty.scheduled_days,
+  }
+  const { data: inserted, error: insErr } = await supabase
+    .from('curriculum_vocabulary_srs')
+    .insert(insertRow)
+    .select()
+    .maybeSingle()
+  if (insErr) throw insErr
+  if (!inserted) throw new Error('SRS insert returned no row (RLS?)')
+  return inserted as SrsRow
+}
