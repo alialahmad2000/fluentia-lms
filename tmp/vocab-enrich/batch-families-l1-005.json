@@ -1,0 +1,206 @@
+[
+  { "id": "45cd1efd-2e23-41c0-b238-63eb0f837c46", "word": "automatic",
+    "word_family": [
+      {"word":"automatic","pos":"adjective","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصفة الأصلية من اليونانية automatos — تعني يعمل تلقائياً"}},
+      {"word":"automatically","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ally","affix_type":"suffix","rule_ar":"اللاحقة -ally تُحوّل الصفة المنتهية بـ -ic إلى ظرف","base_pos":"adjective","base_word":"automatic","similar_examples":["basic → basically","logical → logically","practical → practically"]}},
+      {"word":"automate","pos":"verb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ate","affix_type":"suffix","rule_ar":"اللاحقة -ate تكوّن فعلاً يعني يجعل الشيء تلقائياً","base_pos":"adjective","base_word":"automatic","similar_examples":["active → activate","real → realize","modern → modernize"]}},
+      {"word":"automation","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","rule_ar":"اللاحقة -ation تُحوّل الفعل إلى اسم مصدر","base_pos":"verb","base_word":"automate","similar_examples":["create → creation","educate → education","inform → information"]}},
+      {"word":"manual","pos":"adjective","level":3,"is_base":false,"is_opposite":true,"morphology":{"affix":"شفافة","affix_type":"suffix","rule_ar":"كلمة منفصلة الجذر تعني عكس automatic — يُفعَّل باليد","base_pos":"adjective","base_word":"automatic","similar_examples":["automatic ↔ manual","powered ↔ unpowered","digital ↔ analog"]}}
+    ]
+  },
+  { "id": "460e2fa1-aec8-4fe1-8d03-d9ff1b8c6aae", "word": "outdoor",
+    "word_family": [
+      {"word":"door","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الباب، ومنه تُشتق العائلة بإضافة البادئة out-"}},
+      {"word":"outdoor","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"out-","affix_type":"prefix","rule_ar":"البادئة out- تعني خارج، فتعني خارج الباب أو في الهواء الطلق","base_pos":"noun","base_word":"door","similar_examples":["side → outside","look → outlook","line → outline"]}},
+      {"word":"outdoors","pos":"adverb","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-s","affix_type":"suffix","rule_ar":"اللاحقة -s تكوّن الصيغة الظرفية","base_pos":"adjective","base_word":"outdoor","similar_examples":["beside → besides","toward → towards","backward → backwards"]}},
+      {"word":"indoor","pos":"adjective","level":2,"is_base":false,"is_opposite":true,"morphology":{"affix":"in-","affix_type":"prefix","rule_ar":"البادئة in- تعني داخل، فتعني داخل الباب — عكس outdoor","base_pos":"noun","base_word":"door","similar_examples":["side → inside","come → income","door → indoor"]}}
+    ]
+  },
+  { "id": "4613c089-d5b3-46e8-9262-1eeb27ab74b8", "word": "record",
+    "word_family": [
+      {"word":"record","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يُسجِّل، من اللاتينية recordari (يتذكر)"}},
+      {"word":"recording","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى اسم","base_pos":"verb","base_word":"record","similar_examples":["build → building","train → training","write → writing"]}},
+      {"word":"recorder","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم آلة","base_pos":"verb","base_word":"record","similar_examples":["cook → cooker","print → printer","mix → mixer"]}}
+    ]
+  },
+  { "id": "46424c58-23d6-46e0-aabe-a4afaa88b9cc", "word": "zoom",
+    "word_family": [
+      {"word":"zoom","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يقترب أو يكبر الصورة، صوتيات من القرن العشرين"}}
+    ]
+  },
+  { "id": "465ffb69-2145-4651-9365-01f4219bcb40", "word": "referee",
+    "word_family": [
+      {"word":"refer","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يحيل أو يشير، من اللاتينية referre"}},
+      {"word":"referee","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ee","affix_type":"suffix","rule_ar":"اللاحقة -ee تكوّن اسم الشخص الذي يقوم بالفعل (يحيل الأمور للقرار)","base_pos":"verb","base_word":"refer","similar_examples":["employ → employee","train → trainee","interview → interviewee"]}},
+      {"word":"reference","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ence","affix_type":"suffix","rule_ar":"اللاحقة -ence تُحوّل الفعل إلى اسم","base_pos":"verb","base_word":"refer","similar_examples":["differ → difference","prefer → preference","conference → conference"]}}
+    ]
+  },
+  { "id": "478d4b6e-ae3c-43af-be43-c6861bfeb9df", "word": "organic",
+    "word_family": [
+      {"word":"organ","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني العضو أو الآلة، من اليونانية organon"}},
+      {"word":"organic","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ic","affix_type":"suffix","rule_ar":"اللاحقة -ic تُحوّل الاسم إلى صفة تعني طبيعي/حيوي","base_pos":"noun","base_word":"organ","similar_examples":["atom → atomic","music → musical","drama → dramatic"]}},
+      {"word":"organism","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ism","affix_type":"suffix","rule_ar":"اللاحقة -ism تُحوّل الاسم إلى اسم يدل على كائن حي","base_pos":"noun","base_word":"organ","similar_examples":["mechan → mechanism","social → socialism","journal → journalism"]}},
+      {"word":"inorganic","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"in-","affix_type":"prefix","rule_ar":"البادئة in- تنفي معنى الصفة","base_pos":"adjective","base_word":"organic","similar_examples":["correct → incorrect","direct → indirect","visible → invisible"]}}
+    ]
+  },
+  { "id": "478f3edb-8697-4946-8c5c-aeee314f1300", "word": "satellite",
+    "word_family": [
+      {"word":"satellite","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني التابع أو القمر الصناعي، من اللاتينية satelles"}}
+    ]
+  },
+  { "id": "47f18ed1-a7f8-4e36-8088-8ef1631621bc", "word": "clay",
+    "word_family": [
+      {"word":"clay","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الطين، ومنه تُشتق العائلة"}}
+    ]
+  },
+  { "id": "482b4ea0-0cf4-4fa3-b9ab-a126f03bac59", "word": "composition",
+    "word_family": [
+      {"word":"compose","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يُؤلِّف أو يجمع، من اللاتينية componere"}},
+      {"word":"composition","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ition","affix_type":"suffix","rule_ar":"اللاحقة -ition تُحوّل الفعل إلى اسم مصدر","base_pos":"verb","base_word":"compose","similar_examples":["oppose → opposition","propose → proposition","decompose → decomposition"]}},
+      {"word":"composer","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل","base_pos":"verb","base_word":"compose","similar_examples":["write → writer","sing → singer","play → player"]}}
+    ]
+  },
+  { "id": "48cdc7ab-0f65-4710-a7b4-8862cc2de931", "word": "emotional",
+    "word_family": [
+      {"word":"emotion","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الشعور أو العاطفة، من اللاتينية emovere"}},
+      {"word":"emotional","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","rule_ar":"اللاحقة -al تُحوّل الاسم إلى صفة","base_pos":"noun","base_word":"emotion","similar_examples":["nation → national","culture → cultural","music → musical"]}},
+      {"word":"emotionally","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","rule_ar":"اللاحقة -ly تُحوّل الصفة إلى ظرف","base_pos":"adjective","base_word":"emotional","similar_examples":["national → nationally","cultural → culturally","global → globally"]}},
+      {"word":"unemotional","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","rule_ar":"البادئة un- تنفي معنى الصفة","base_pos":"adjective","base_word":"emotional","similar_examples":["happy → unhappy","kind → unkind","fair → unfair"]}}
+    ]
+  },
+  { "id": "4900baea-a48a-48df-895d-d13fbb370928", "word": "migration",
+    "word_family": [
+      {"word":"migrate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يهاجر، من اللاتينية migrare"}},
+      {"word":"migration","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","rule_ar":"اللاحقة -ation تُحوّل الفعل إلى اسم مصدر","base_pos":"verb","base_word":"migrate","similar_examples":["create → creation","educate → education","operate → operation"]}},
+      {"word":"migrant","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ant","affix_type":"suffix","rule_ar":"اللاحقة -ant تُحوّل الفعل إلى اسم فاعل","base_pos":"verb","base_word":"migrate","similar_examples":["assist → assistant","apply → applicant","occupy → occupant"]}},
+      {"word":"immigrant","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"im-","affix_type":"prefix","rule_ar":"البادئة im- تعني داخل، فتعني المهاجر القادم إلى البلد","base_pos":"verb","base_word":"migrate","similar_examples":["import → import","invade → invade","invite → invite"]}}
+    ]
+  },
+  { "id": "492c9fde-ee88-42a2-adb0-0dd1e701ba58", "word": "architecture",
+    "word_family": [
+      {"word":"architect","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني المهندس المعماري، من اليونانية arkhitekton"}},
+      {"word":"architecture","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ure","affix_type":"suffix","rule_ar":"اللاحقة -ure تُحوّل الاسم إلى اسم يدل على المهنة أو المجال","base_pos":"noun","base_word":"architect","similar_examples":["culture → culture","picture → picture","capture → capture"]}},
+      {"word":"architectural","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","rule_ar":"اللاحقة -al تُحوّل الاسم إلى صفة","base_pos":"noun","base_word":"architecture","similar_examples":["culture → cultural","nature → natural","music → musical"]}}
+    ]
+  },
+  { "id": "4a64ae43-4131-4407-99a2-7e55de4fba45", "word": "semifinal",
+    "word_family": [
+      {"word":"final","pos":"adjective","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الكلمة الجذرية تعني نهائي، من اللاتينية finis"}},
+      {"word":"semifinal","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"semi-","affix_type":"prefix","rule_ar":"البادئة semi- تعني نصف، فتعني نصف النهائي","base_pos":"adjective","base_word":"final","similar_examples":["circle → semicircle","colon → semicolon","conscious → semiconscious"]}}
+    ]
+  },
+  { "id": "4a9e3f99-aeee-4885-b873-c545e0e23b31", "word": "heritage",
+    "word_family": [
+      {"word":"heritage","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني التراث، من الفرنسية القديمة heritage"}},
+      {"word":"heir","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"شفافة","affix_type":"suffix","rule_ar":"الكلمة الجذرية الأقصر من نفس الجذر اللاتيني heres — تعني الوريث","base_pos":"noun","base_word":"heritage","similar_examples":["heritage → heir","heritage → heredity","heritage → inherit"]}},
+      {"word":"inherit","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"in-","affix_type":"prefix","rule_ar":"البادئة in- مع جذر heir — تعني يرث","base_pos":"noun","base_word":"heir","similar_examples":["heritage → inherit","habit → inhabit","clude → include"]}}
+    ]
+  },
+  { "id": "4abcf82a-c74a-4aae-a36b-4d96e657445f", "word": "invade",
+    "word_family": [
+      {"word":"invade","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يغزو، من اللاتينية invadere"}},
+      {"word":"invasion","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-sion","affix_type":"suffix","rule_ar":"اللاحقة -sion تُحوّل الفعل إلى اسم مصدر","base_pos":"verb","base_word":"invade","similar_examples":["divide → division","decide → decision","extend → extension"]}},
+      {"word":"invader","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل","base_pos":"verb","base_word":"invade","similar_examples":["lead → leader","drive → driver","fight → fighter"]}},
+      {"word":"invasive","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ive","affix_type":"suffix","rule_ar":"اللاحقة -ive تُحوّل الفعل إلى صفة","base_pos":"verb","base_word":"invade","similar_examples":["create → creative","react → reactive","produce → productive"]}}
+    ]
+  },
+  { "id": "4af062a1-1c8a-4f75-b45c-ede6411c64bb", "word": "electricity",
+    "word_family": [
+      {"word":"electric","pos":"adjective","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصفة الأصلية تعني كهربائي، من اليونانية elektron"}},
+      {"word":"electricity","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ity","affix_type":"suffix","rule_ar":"اللاحقة -ity تُحوّل الصفة إلى اسم مجرد","base_pos":"adjective","base_word":"electric","similar_examples":["able → ability","real → reality","equal → equality"]}},
+      {"word":"electrical","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","rule_ar":"اللاحقة -al تكوّن صفة أعم من electric","base_pos":"adjective","base_word":"electric","similar_examples":["music → musical","practice → practical","logic → logical"]}},
+      {"word":"electrician","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ian","affix_type":"suffix","rule_ar":"اللاحقة -ian تدل على الشخص المتخصص","base_pos":"adjective","base_word":"electric","similar_examples":["music → musician","magic → magician","politic → politician"]}}
+    ]
+  },
+  { "id": "4afea334-d035-49a8-89b3-46cedb5ad491", "word": "habitat",
+    "word_family": [
+      {"word":"habitat","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني البيئة الطبيعية، من اللاتينية habitare (يسكن)"}},
+      {"word":"inhabit","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"in-","affix_type":"prefix","rule_ar":"البادئة in- مع الجذر — تعني يسكن في","base_pos":"noun","base_word":"habitat","similar_examples":["habit → inhabit","clude → include","vade → invade"]}},
+      {"word":"inhabitant","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ant","affix_type":"suffix","rule_ar":"اللاحقة -ant تُحوّل الفعل إلى اسم فاعل","base_pos":"verb","base_word":"inhabit","similar_examples":["assist → assistant","apply → applicant","occupy → occupant"]}}
+    ]
+  },
+  { "id": "4bbb5aa4-3830-4d7c-b9cc-a9f657825a8f", "word": "oxygen",
+    "word_family": [
+      {"word":"oxygen","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الأكسجين، من اليونانية oxys (حاد) و -gen (يولِّد)"}},
+      {"word":"oxygenate","pos":"verb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ate","affix_type":"suffix","rule_ar":"اللاحقة -ate تكوّن فعلاً — تعني يُشبع بالأكسجين","base_pos":"noun","base_word":"oxygen","similar_examples":["active → activate","relate → relate","operate → operate"]}}
+    ]
+  },
+  { "id": "4ccdd164-088f-4328-8f7d-fb632cb239ac", "word": "gratitude",
+    "word_family": [
+      {"word":"grateful","pos":"adjective","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصفة الأصلية تعني شاكر، من اللاتينية gratus"}},
+      {"word":"gratitude","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-itude","affix_type":"suffix","rule_ar":"اللاحقة -itude تُحوّل الصفة إلى اسم مجرد","base_pos":"adjective","base_word":"grateful","similar_examples":["solid → solitude","apt → aptitude","sure → certitude"]}},
+      {"word":"gratefully","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","rule_ar":"اللاحقة -ly تُحوّل الصفة إلى ظرف","base_pos":"adjective","base_word":"grateful","similar_examples":["help → helpfully","care → carefully","thought → thoughtfully"]}},
+      {"word":"ungrateful","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","rule_ar":"البادئة un- تنفي معنى الصفة","base_pos":"adjective","base_word":"grateful","similar_examples":["happy → unhappy","kind → unkind","fair → unfair"]}}
+    ]
+  },
+  { "id": "4dcf3a9a-96f8-4b95-8a23-f2444659bb27", "word": "mighty",
+    "word_family": [
+      {"word":"might","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني القوة، ومنه تُشتق العائلة"}},
+      {"word":"mighty","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-y","affix_type":"suffix","rule_ar":"اللاحقة -y تُحوّل الاسم إلى صفة","base_pos":"noun","base_word":"might","similar_examples":["sun → sunny","wind → windy","rain → rainy"]}}
+    ]
+  },
+  { "id": "4de8763e-8b7a-48ef-a06f-144990353431", "word": "dress up",
+    "word_family": [
+      {"word":"dress","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يلبس، ومنه تُشتق العائلة"}},
+      {"word":"dress up","pos":"verb","level":1,"is_base":false,"is_opposite":false,"morphology":{"affix":"up","affix_type":"suffix","rule_ar":"الحرف up مع الفعل يُكوِّن فعلاً مركباً — يعني يلبس ملابس فاخرة","base_pos":"verb","base_word":"dress","similar_examples":["stand → stand up","get → get up","wake → wake up"]}},
+      {"word":"dress down","pos":"verb","level":3,"is_base":false,"is_opposite":true,"morphology":{"affix":"down","affix_type":"suffix","rule_ar":"الحرف down مع الفعل يكوّن فعلاً مركباً — عكس dress up","base_pos":"verb","base_word":"dress","similar_examples":["dress up ↔ dress down","step up ↔ step down","look up ↔ look down"]}}
+    ]
+  },
+  { "id": "4ec47c57-08f3-48c2-b7b4-fbd7e8315815", "word": "aromatic",
+    "word_family": [
+      {"word":"aroma","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الرائحة الزكية، من اليونانية aroma"}},
+      {"word":"aromatic","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-tic","affix_type":"suffix","rule_ar":"اللاحقة -tic تُحوّل الاسم إلى صفة","base_pos":"noun","base_word":"aroma","similar_examples":["drama → dramatic","system → systematic","problem → problematic"]}},
+      {"word":"aromatherapy","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-therapy","affix_type":"suffix","rule_ar":"كلمة مركبة من aroma و therapy — تعني العلاج بالروائح","base_pos":"noun","base_word":"aroma","similar_examples":["psycho + therapy","hydro + therapy","chemo + therapy"]}}
+    ]
+  },
+  { "id": "4ed053ba-3b4a-418c-927d-3f50a7220007", "word": "reply",
+    "word_family": [
+      {"word":"reply","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يُرد، من اللاتينية replicare"}}
+    ]
+  },
+  { "id": "4f4a2da3-8e3d-4fd2-b123-ba59c743db68", "word": "simmer",
+    "word_family": [
+      {"word":"simmer","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يطبخ على نار هادئة، ومنه تُشتق العائلة"}},
+      {"word":"simmering","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى صفة فاعلة","base_pos":"verb","base_word":"simmer","similar_examples":["boil → boiling","melt → melting","freeze → freezing"]}}
+    ]
+  },
+  { "id": "4f9a8a34-7e30-41c2-a54d-9a413df5fc05", "word": "decipher",
+    "word_family": [
+      {"word":"cipher","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الشفرة، من العربية صفر"}},
+      {"word":"decipher","pos":"verb","level":2,"is_base":false,"is_opposite":true,"morphology":{"affix":"de-","affix_type":"prefix","rule_ar":"البادئة de- تعكس معنى — تعني فك الشفرة","base_pos":"noun","base_word":"cipher","similar_examples":["code → decode","crypt → decrypt","construct → deconstruct"]}}
+    ]
+  },
+  { "id": "50a03ff4-40a2-4729-8a42-7181e8972ea4", "word": "compose",
+    "word_family": [
+      {"word":"compose","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يُؤلِّف، من اللاتينية componere"}},
+      {"word":"composer","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل","base_pos":"verb","base_word":"compose","similar_examples":["write → writer","sing → singer","play → player"]}},
+      {"word":"composition","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ition","affix_type":"suffix","rule_ar":"اللاحقة -ition تُحوّل الفعل إلى اسم مصدر","base_pos":"verb","base_word":"compose","similar_examples":["oppose → opposition","propose → proposition","decompose → decomposition"]}}
+    ]
+  },
+  { "id": "512f4760-2758-4228-aa8f-b424d207c763", "word": "spacecraft",
+    "word_family": [
+      {"word":"space","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني الفضاء، ومنه تُشتق العائلة"}},
+      {"word":"spacecraft","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-craft","affix_type":"suffix","rule_ar":"كلمة مركبة من space و craft (مركبة) — تعني المركبة الفضائية","base_pos":"noun","base_word":"space","similar_examples":["air → aircraft","water → watercraft","hover → hovercraft"]}},
+      {"word":"spaceship","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ship","affix_type":"suffix","rule_ar":"كلمة مركبة من space و ship — تعني سفينة فضاء","base_pos":"noun","base_word":"space","similar_examples":["air → airship","battle → battleship","friend → friendship"]}}
+    ]
+  },
+  { "id": "51782b42-24e1-49ba-9629-56aeb9d5734d", "word": "manufacture",
+    "word_family": [
+      {"word":"manufacture","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل الأصلي يعني يُصنِّع، من اللاتينية manu (يد) و facere (يصنع)"}},
+      {"word":"manufacturer","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل","base_pos":"verb","base_word":"manufacture","similar_examples":["produce → producer","design → designer","build → builder"]}},
+      {"word":"manufacturing","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","rule_ar":"اللاحقة -ing تُحوّل الفعل إلى اسم","base_pos":"verb","base_word":"manufacture","similar_examples":["build → building","print → printing","produce → producing"]}}
+    ]
+  },
+  { "id": "51795454-6c00-4d9f-9d4f-1aa8068fee38", "word": "score",
+    "word_family": [
+      {"word":"score","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الفعل/الاسم الأصلي يعني يحرز نقطة، ومنه تُشتق العائلة"}},
+      {"word":"scorer","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","rule_ar":"اللاحقة -er تُحوّل الفعل إلى اسم فاعل","base_pos":"verb","base_word":"score","similar_examples":["play → player","sing → singer","win → winner"]}}
+    ]
+  },
+  { "id": "51971043-6386-43ad-9f4e-522aa7fb6c75", "word": "glacier",
+    "word_family": [
+      {"word":"glacier","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الاسم الأصلي يعني النهر الجليدي، من الفرنسية glacier"}},
+      {"word":"glacial","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","rule_ar":"اللاحقة -al تُحوّل الاسم إلى صفة","base_pos":"noun","base_word":"glacier","similar_examples":["nature → natural","culture → cultural","music → musical"]}}
+    ]
+  }
+]
