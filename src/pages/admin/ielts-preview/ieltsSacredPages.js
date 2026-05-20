@@ -3,7 +3,7 @@ import {
   Map, Library, Timer, UserRound, ShieldCheck,
 } from 'lucide-react';
 
-// Emergency deploy-fix 2026-05-20 — ielts-v2/ directory removed in HEAD; components live in ielts-atelier/.
+// Renamed 2026-05-20: components live under ielts-atelier/ in HEAD.
 import Home       from '@/pages/student/ielts-atelier/Home';
 import Diagnostic from '@/pages/student/ielts-atelier/Diagnostic';
 import Reading    from '@/pages/student/ielts-atelier/Reading';

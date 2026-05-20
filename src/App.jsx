@@ -87,6 +87,10 @@ const PlacementTestPage = lazyRetry(() => import('./pages/student/placement/Plac
 const PlacementResultsPage = lazyRetry(() => import('./pages/student/placement/PlacementResultsPage'))
 const StudentProgressReports = lazyRetry(() => import('./pages/student/ProgressReports'))
 const StudentReportView = lazyRetry(() => import('./pages/student/ReportView'))
+// V1 IELTS page imports — preserved from 8acc522 emergency deploy-fix (2026-05-20).
+// All V1 routes are now <Navigate> redirects to the Atelier (no V1 component is rendered),
+// but the lazyRetry consts stay so the .legacy chunks remain reachable for any direct deep-link traffic
+// and so the file structure is documented at the import site. Tree-shaken if unreferenced.
 const StudentIELTSHub = lazyRetry(() => import('./pages/student/ielts/StudentIELTSHub.legacy'))
 const IELTSComingSoon = lazyRetry(() => import('./pages/student/ielts/IELTSComingSoon.legacy'))
 const DiagnosticFlow = lazyRetry(() => import('./pages/student/ielts/diagnostic/DiagnosticFlow.legacy'))
@@ -117,26 +121,24 @@ const ErrorBankHome = lazyRetry(() => import('./pages/student/ielts/errors/Error
 const ErrorBankReview = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankReview.legacy'))
 const IELTSGuard = lazyRetry(() => import('./components/ielts/IELTSGuard'))
 
-// IELTS Masterclass V2: ielts-v2/ directory was removed; components live in ielts-atelier/ in HEAD.
-// Emergency deploy-fix 2026-05-20 — redirect imports to surviving paths so build resolves.
-const IELTSV2Gate           = lazyRetry(() => import('./pages/student/ielts-atelier/_layout/IELTSV2Gate'))
+// IELTS Atelier — production release 2026-05-20 (feature flag removed; routes mounted at /student/ielts-atelier).
 const IELTSMasterclassLayout = lazyRetry(() => import('./pages/student/ielts-atelier/_layout/IELTSMasterclassLayout'))
-const IELTSV2Home           = lazyRetry(() => import('./pages/student/ielts-atelier/Home'))
-const IELTSV2Diagnostic        = lazyRetry(() => import('./pages/student/ielts-atelier/Diagnostic'))
-const IELTSV2DiagnosticResults = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticResults'))
-const IELTSV2Reading           = lazyRetry(() => import('./pages/student/ielts-atelier/Reading'))
-const IELTSV2Listening      = lazyRetry(() => import('./pages/student/ielts-atelier/Listening'))
-const IELTSV2Writing        = lazyRetry(() => import('./pages/student/ielts-atelier/Writing'))
-const IELTSV2Speaking       = lazyRetry(() => import('./pages/student/ielts-atelier/Speaking'))
-const IELTSV2Journey        = lazyRetry(() => import('./pages/student/ielts-atelier/Journey'))
-const IELTSV2ErrorsHub      = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/index'))
-const IELTSV2ErrorsReview   = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/ReviewSession'))
-const IELTSV2ErrorsInsights = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/Insights'))
-const IELTSV2MockHub        = lazyRetry(() => import('./pages/student/ielts-atelier/Mock/index'))
-const IELTSV2MockSession    = lazyRetry(() => import('./pages/student/ielts-atelier/Mock/MockSession'))
-const IELTSV2MockResults    = lazyRetry(() => import('./pages/student/ielts-atelier/Mock/MockResults'))
-const IELTSV2Trainer        = lazyRetry(() => import('./pages/student/ielts-atelier/Trainer'))
-const IELTSV2Readiness      = lazyRetry(() => import('./pages/student/ielts-atelier/Readiness'))
+const IELTSAtelierHome           = lazyRetry(() => import('./pages/student/ielts-atelier/Home'))
+const IELTSAtelierDiagnostic        = lazyRetry(() => import('./pages/student/ielts-atelier/Diagnostic'))
+const IELTSAtelierDiagnosticResults = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticResults'))
+const IELTSAtelierReading           = lazyRetry(() => import('./pages/student/ielts-atelier/Reading'))
+const IELTSAtelierListening      = lazyRetry(() => import('./pages/student/ielts-atelier/Listening'))
+const IELTSAtelierWriting        = lazyRetry(() => import('./pages/student/ielts-atelier/Writing'))
+const IELTSAtelierSpeaking       = lazyRetry(() => import('./pages/student/ielts-atelier/Speaking'))
+const IELTSAtelierJourney        = lazyRetry(() => import('./pages/student/ielts-atelier/Journey'))
+const IELTSAtelierErrorsHub      = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/index'))
+const IELTSAtelierErrorsReview   = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/ReviewSession'))
+const IELTSAtelierErrorsInsights = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/Insights'))
+const IELTSAtelierMockHub        = lazyRetry(() => import('./pages/student/ielts-atelier/Mock/index'))
+const IELTSAtelierMockSession    = lazyRetry(() => import('./pages/student/ielts-atelier/Mock/MockSession'))
+const IELTSAtelierMockResults    = lazyRetry(() => import('./pages/student/ielts-atelier/Mock/MockResults'))
+const IELTSAtelierTrainer        = lazyRetry(() => import('./pages/student/ielts-atelier/Trainer'))
+const IELTSAtelierReadiness      = lazyRetry(() => import('./pages/student/ielts-atelier/Readiness'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView.legacy'))
@@ -196,7 +198,7 @@ const UnitMasteryResultPage = lazyRetry(() => import('./pages/student/assessment
 const UnitMasteryManagerPage = lazyRetry(() => import('./pages/admin/UnitMasteryManagerPage'))
 
 const AdminCurriculumPreview = lazyRetry(() => import('./pages/admin/AdminCurriculumPreview'))
-const IELTSPreview = lazyRetry(() => import('./pages/admin/IELTSPreview'))
+const IELTSAtelierPreview = lazyRetry(() => import('./pages/admin/IELTSAtelierPreview'))
 const TrainerCurriculumPreview = lazyRetry(() => import('./pages/trainer/TrainerCurriculumPreview'))
 const InteractiveCurriculumLevels = lazyRetry(() => import('./pages/shared/InteractiveCurriculumLevels'))
 const InteractiveCurriculumUnits = lazyRetry(() => import('./pages/shared/InteractiveCurriculumUnits'))
@@ -689,61 +691,65 @@ export default function App() {
               <Route path="/student/placement-test/results/:sessionId" element={<Suspense fallback={null}><PlacementResultsPage /></Suspense>} />
               <Route path="/student/unit-mastery/:assessmentId" element={<Suspense fallback={null}><UnitMasteryPage /></Suspense>} />
               <Route path="/student/unit-mastery-result/:attemptId" element={<Suspense fallback={null}><UnitMasteryResultPage /></Suspense>} />
-              {/* IELTS routes — all gated by IELTSGuard (single package-access check) */}
-              <Route path="/student/ielts" element={<Suspense fallback={<PageSkeleton />}><IELTSGuard /></Suspense>}>
-                <Route index element={<Page><StudentIELTSHub /></Page>} />
-                <Route path="diagnostic" element={<Page><DiagnosticFlow /></Page>} />
-                <Route path="reading" element={<Page><ReadingLab /></Page>} />
-                <Route path="reading/skill/:questionType" element={<Page><ReadingSkillModule /></Page>} />
-                <Route path="reading/passage/:passageId" element={<Page><ReadingPassagePractice /></Page>} />
-                <Route path="listening" element={<Page><ListeningLab /></Page>} />
-                <Route path="listening/section/:sectionNumber" element={<Page><ListeningSectionModule /></Page>} />
-                <Route path="listening/section/:sectionNumber/practice/:sectionId" element={<Page><ListeningPractice /></Page>} />
-                <Route path="writing" element={<Page><WritingLab /></Page>} />
-                <Route path="writing/history" element={<Page><WritingHistory /></Page>} />
-                <Route path="writing/feedback/:submissionId" element={<Page><WritingFeedback /></Page>} />
-                <Route path="writing/:category" element={<Page><WritingTaskPicker /></Page>} />
-                <Route path="writing/:category/task/:taskId" element={<Page><WritingWorkspace /></Page>} />
-                <Route path="speaking" element={<Page><SpeakingLab /></Page>} />
-                <Route path="speaking/history" element={<Page><SpeakingHistory /></Page>} />
-                <Route path="speaking/feedback/:sessionId" element={<Page><SpeakingFeedback /></Page>} />
-                <Route path="speaking/part/:partNum" element={<Page><SpeakingPartPicker /></Page>} />
-                <Route path="speaking/session/:questionId" element={<Page><SpeakingSession /></Page>} />
-                <Route path="mock" element={<Page><MockCenter /></Page>} />
-                <Route path="mock/history" element={<Page><MockHistory /></Page>} />
-                <Route path="mock/brief/:mockId" element={<Page><MockPreFlight /></Page>} />
-                <Route path="mock/attempt/:attemptId" element={<Page><MockFlow /></Page>} />
-                <Route path="mock/result/:resultId" element={<Page><MockResult /></Page>} />
-                <Route path="plan" element={<Page><IELTSPlanView /></Page>} />
-                <Route path="plan/edit" element={<Page><IELTSPlanEdit /></Page>} />
-                <Route path="errors" element={<Page><ErrorBankHome /></Page>} />
-                <Route path="errors/review" element={<Page><ErrorBankReview /></Page>} />
-                <Route path=":section" element={<Page><IELTSComingSoon /></Page>} />
-              </Route>
+              {/* V1 IELTS retired 2026-05-20 — every path redirects to the IELTS Atelier.
+                  Original V1 page components live as .legacy.jsx archives under src/pages/student/ielts/.
+                  Deep V1 sub-routes (per-skill, per-passage, per-task, per-attempt) fan in to the
+                  closest Atelier surface; the Atelier collapses those sub-routes into the parent skill page. */}
+              <Route path="/student/ielts" element={<Navigate to="/student/ielts-atelier" replace />} />
+              <Route path="/student/ielts/diagnostic" element={<Navigate to="/student/ielts-atelier/diagnostic" replace />} />
+              <Route path="/student/ielts/reading" element={<Navigate to="/student/ielts-atelier/reading" replace />} />
+              <Route path="/student/ielts/reading/skill/:questionType" element={<Navigate to="/student/ielts-atelier/reading" replace />} />
+              <Route path="/student/ielts/reading/passage/:passageId" element={<Navigate to="/student/ielts-atelier/reading" replace />} />
+              <Route path="/student/ielts/listening" element={<Navigate to="/student/ielts-atelier/listening" replace />} />
+              <Route path="/student/ielts/listening/section/:sectionNumber" element={<Navigate to="/student/ielts-atelier/listening" replace />} />
+              <Route path="/student/ielts/listening/section/:sectionNumber/practice/:sectionId" element={<Navigate to="/student/ielts-atelier/listening" replace />} />
+              <Route path="/student/ielts/writing" element={<Navigate to="/student/ielts-atelier/writing" replace />} />
+              <Route path="/student/ielts/writing/history" element={<Navigate to="/student/ielts-atelier/writing" replace />} />
+              <Route path="/student/ielts/writing/feedback/:submissionId" element={<Navigate to="/student/ielts-atelier/writing" replace />} />
+              <Route path="/student/ielts/writing/:category" element={<Navigate to="/student/ielts-atelier/writing" replace />} />
+              <Route path="/student/ielts/writing/:category/task/:taskId" element={<Navigate to="/student/ielts-atelier/writing" replace />} />
+              <Route path="/student/ielts/speaking" element={<Navigate to="/student/ielts-atelier/speaking" replace />} />
+              <Route path="/student/ielts/speaking/history" element={<Navigate to="/student/ielts-atelier/speaking" replace />} />
+              <Route path="/student/ielts/speaking/feedback/:sessionId" element={<Navigate to="/student/ielts-atelier/speaking" replace />} />
+              <Route path="/student/ielts/speaking/part/:partNum" element={<Navigate to="/student/ielts-atelier/speaking" replace />} />
+              <Route path="/student/ielts/speaking/session/:questionId" element={<Navigate to="/student/ielts-atelier/speaking" replace />} />
+              <Route path="/student/ielts/mock" element={<Navigate to="/student/ielts-atelier/mock" replace />} />
+              <Route path="/student/ielts/mock/history" element={<Navigate to="/student/ielts-atelier/mock" replace />} />
+              <Route path="/student/ielts/mock/brief/:mockId" element={<Navigate to="/student/ielts-atelier/mock" replace />} />
+              <Route path="/student/ielts/mock/attempt/:attemptId" element={<Navigate to="/student/ielts-atelier/mock" replace />} />
+              <Route path="/student/ielts/mock/result/:resultId" element={<Navigate to="/student/ielts-atelier/mock" replace />} />
+              <Route path="/student/ielts/plan" element={<Navigate to="/student/ielts-atelier/journey" replace />} />
+              <Route path="/student/ielts/plan/edit" element={<Navigate to="/student/ielts-atelier/journey" replace />} />
+              <Route path="/student/ielts/errors" element={<Navigate to="/student/ielts-atelier/errors" replace />} />
+              <Route path="/student/ielts/errors/review" element={<Navigate to="/student/ielts-atelier/errors/review" replace />} />
+              <Route path="/student/ielts/:section" element={<Navigate to="/student/ielts-atelier" replace />} />
 
-              {/* IELTS Masterclass V2 — feature-flagged scaffold (Phase 0B) */}
-              <Route path="/student/ielts-v2" element={<Suspense fallback={<PageSkeleton />}><IELTSV2Gate /></Suspense>}>
-                <Route element={<Suspense fallback={<PageSkeleton />}><IELTSGuard /></Suspense>}>
-                  <Route element={<IELTSMasterclassLayout />}>
-                    <Route index element={<IELTSV2Home />} />
-                    <Route path="diagnostic" element={<IELTSV2Diagnostic />} />
-                    <Route path="diagnostic/results" element={<IELTSV2DiagnosticResults />} />
-                    <Route path="reading"    element={<IELTSV2Reading />} />
-                    <Route path="listening"  element={<IELTSV2Listening />} />
-                    <Route path="writing"    element={<IELTSV2Writing />} />
-                    <Route path="speaking"   element={<IELTSV2Speaking />} />
-                    <Route path="journey"    element={<IELTSV2Journey />} />
-                    <Route path="errors"          element={<IELTSV2ErrorsHub />} />
-                    <Route path="errors/review"  element={<IELTSV2ErrorsReview />} />
-                    <Route path="errors/insights" element={<IELTSV2ErrorsInsights />} />
-                    <Route path="mock"                    element={<IELTSV2MockHub />} />
-                    <Route path="mock/:attemptId"         element={<IELTSV2MockSession />} />
-                    <Route path="mock/:attemptId/results" element={<IELTSV2MockResults />} />
-                    <Route path="trainer"    element={<IELTSV2Trainer />} />
-                    <Route path="readiness"  element={<IELTSV2Readiness />} />
-                  </Route>
+              {/* IELTS Atelier — production release 2026-05-20.
+                  Package gating handled by IELTSGuard via hasIELTSAccess (ielts + tamayuz + custom_access). */}
+              <Route path="/student/ielts-atelier" element={<Suspense fallback={<PageSkeleton />}><IELTSGuard /></Suspense>}>
+                <Route element={<IELTSMasterclassLayout />}>
+                  <Route index element={<IELTSAtelierHome />} />
+                  <Route path="diagnostic" element={<IELTSAtelierDiagnostic />} />
+                  <Route path="diagnostic/results" element={<IELTSAtelierDiagnosticResults />} />
+                  <Route path="reading"    element={<IELTSAtelierReading />} />
+                  <Route path="listening"  element={<IELTSAtelierListening />} />
+                  <Route path="writing"    element={<IELTSAtelierWriting />} />
+                  <Route path="speaking"   element={<IELTSAtelierSpeaking />} />
+                  <Route path="journey"    element={<IELTSAtelierJourney />} />
+                  <Route path="errors"          element={<IELTSAtelierErrorsHub />} />
+                  <Route path="errors/review"  element={<IELTSAtelierErrorsReview />} />
+                  <Route path="errors/insights" element={<IELTSAtelierErrorsInsights />} />
+                  <Route path="mock"                    element={<IELTSAtelierMockHub />} />
+                  <Route path="mock/:attemptId"         element={<IELTSAtelierMockSession />} />
+                  <Route path="mock/:attemptId/results" element={<IELTSAtelierMockResults />} />
+                  <Route path="trainer"    element={<IELTSAtelierTrainer />} />
+                  <Route path="readiness"  element={<IELTSAtelierReadiness />} />
                 </Route>
               </Route>
+
+              {/* Legacy V3 path redirects — safe to remove after 90 days (2026-08-18). */}
+              <Route path="/student/ielts-v2" element={<Navigate to="/student/ielts-atelier" replace />} />
+              <Route path="/student/ielts-v2/*" element={<Navigate to="/student/ielts-atelier" replace />} />
             </Route>
             </Route>
           </Route>
@@ -850,7 +856,8 @@ export default function App() {
               <Route path="/admin/affiliates/payouts" element={<Page><AffiliatePayouts /></Page>} />
               <Route path="/admin/affiliates/materials" element={<Page><AffiliateMaterialsAdmin /></Page>} />
               <Route path="/admin/affiliates/:id" element={<Page><AffiliateDetail /></Page>} />
-              <Route path="/admin/ielts-v2-preview" element={<Page><IELTSPreview /></Page>} />
+              <Route path="/admin/ielts-atelier-preview" element={<Page><IELTSAtelierPreview /></Page>} />
+              <Route path="/admin/ielts-v2-preview" element={<Navigate to="/admin/ielts-atelier-preview" replace />} />
               <Route path="/admin/speaking-hubs" element={<Page><AdminSpeakingHubs /></Page>} />
               <Route path="/admin/speaking-hubs/new" element={<Page><AdminSpeakingHubNew /></Page>} />
               <Route path="/admin/speaking-hubs/:id" element={<Page><AdminSpeakingHubDetail /></Page>} />
