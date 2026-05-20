@@ -1,0 +1,122 @@
+[
+  { "id": "5223a129-270a-4a1a-863d-4143c5dcded1", "word": "treasure",
+    "synonyms": [{"word":"riches","level":3},{"word":"wealth","level":2},{"word":"fortune","level":3}],
+    "antonyms": [{"word":"trash","level":2},{"word":"worthless thing","level":3}]
+  },
+  { "id": "5309047f-b21d-4b92-af1c-fa7d982b7137", "word": "visible",
+    "synonyms": [{"word":"seeable","level":2},{"word":"clear","level":1},{"word":"observable","level":4}],
+    "antonyms": [{"word":"invisible","level":2},{"word":"hidden","level":2},{"word":"unseen","level":3}]
+  },
+  { "id": "530d5fe0-1ad4-4017-b984-f6e3dfd4d0e9", "word": "addictive",
+    "synonyms": [{"word":"habit-forming","level":3},{"word":"compulsive","level":4},{"word":"hooking","level":3}],
+    "antonyms": [{"word":"boring","level":1}]
+  },
+  { "id": "54acff52-52b1-46e1-8def-ecd6656bab0c", "word": "event",
+    "synonyms": [{"word":"happening","level":2},{"word":"occasion","level":3},{"word":"occurrence","level":4}],
+    "antonyms": []
+  },
+  { "id": "54ca78b8-f86e-4e91-9b21-ac0a31cded8b", "word": "endangered",
+    "synonyms": [{"word":"at-risk","level":3},{"word":"threatened","level":3},{"word":"vulnerable","level":4}],
+    "antonyms": [{"word":"safe","level":1},{"word":"thriving","level":4}]
+  },
+  { "id": "550f6d68-216a-46a6-95e7-8297d04a02b7", "word": "current",
+    "synonyms": [{"word":"flow","level":2},{"word":"stream","level":2},{"word":"tide","level":3}],
+    "antonyms": []
+  },
+  { "id": "55769c91-b4cb-4e72-9178-695284362a27", "word": "candid",
+    "synonyms": [{"word":"natural","level":2},{"word":"unposed","level":4},{"word":"spontaneous","level":4}],
+    "antonyms": [{"word":"posed","level":3},{"word":"staged","level":3}]
+  },
+  { "id": "56b568cb-75dd-4af4-a67e-3989e46362d6", "word": "species",
+    "synonyms": [{"word":"kind","level":1},{"word":"type","level":1},{"word":"breed","level":3}],
+    "antonyms": []
+  },
+  { "id": "5790c567-0fde-49a8-8f42-91bec0395ee2", "word": "biodiversity",
+    "synonyms": [{"word":"variety of life","level":2},{"word":"natural variety","level":2},{"word":"biological diversity","level":4}],
+    "antonyms": [{"word":"monoculture","level":5}]
+  },
+  { "id": "57a8d198-dd48-4812-a7eb-2c57d8c06a70", "word": "drum",
+    "synonyms": [{"word":"percussion","level":4},{"word":"tabla","level":3},{"word":"timpani","level":5}],
+    "antonyms": []
+  },
+  { "id": "58527144-6205-44d1-ab41-2efbf997bcf5", "word": "revolution",
+    "synonyms": [{"word":"transformation","level":4},{"word":"upheaval","level":5},{"word":"change","level":1}],
+    "antonyms": [{"word":"stability","level":3},{"word":"status quo","level":4}]
+  },
+  { "id": "58604f22-0954-4a66-80e8-d2be038be115", "word": "ozone",
+    "synonyms": [{"word":"O3","level":3},{"word":"atmospheric gas","level":3},{"word":"protective layer","level":3}],
+    "antonyms": []
+  },
+  { "id": "587a6652-8e29-418f-816c-d9432b341767", "word": "carbon",
+    "synonyms": [{"word":"C","level":2},{"word":"coal element","level":3},{"word":"organic element","level":4}],
+    "antonyms": []
+  },
+  { "id": "5888c88a-8db2-42fe-a5d6-7b474f06d6f5", "word": "drought",
+    "synonyms": [{"word":"dry spell","level":3},{"word":"water shortage","level":3},{"word":"aridity","level":5}],
+    "antonyms": [{"word":"flood","level":2},{"word":"rainfall","level":3}]
+  },
+  { "id": "588e8adb-3431-41c5-8e20-63f953ea72f8", "word": "seahorse",
+    "synonyms": [{"word":"sea creature","level":2},{"word":"marine animal","level":3},{"word":"sea pony","level":2}],
+    "antonyms": []
+  },
+  { "id": "58af420b-ea4d-4e07-b81c-e5de4a3e718b", "word": "laboratory",
+    "synonyms": [{"word":"lab","level":2},{"word":"workshop","level":3},{"word":"research center","level":3}],
+    "antonyms": []
+  },
+  { "id": "58e9e657-3ed5-43f2-88d1-fec2c39f0536", "word": "majestic",
+    "synonyms": [{"word":"grand","level":3},{"word":"magnificent","level":4},{"word":"regal","level":5}],
+    "antonyms": [{"word":"ordinary","level":2},{"word":"humble","level":3},{"word":"plain","level":2}]
+  },
+  { "id": "596a4b98-c765-4608-a14f-9b71a6a25b6b", "word": "climate",
+    "synonyms": [{"word":"weather pattern","level":2},{"word":"atmosphere","level":3},{"word":"environment","level":2}],
+    "antonyms": []
+  },
+  { "id": "59b2628c-316a-4e0a-a0c1-2fba75a9a786", "word": "discovery",
+    "synonyms": [{"word":"finding","level":2},{"word":"detection","level":4},{"word":"revelation","level":5}],
+    "antonyms": [{"word":"loss","level":1}]
+  },
+  { "id": "5a9c2338-9b93-46e7-8616-dee25b971346", "word": "race",
+    "synonyms": [{"word":"contest","level":3},{"word":"sprint","level":3},{"word":"dash","level":3}],
+    "antonyms": []
+  },
+  { "id": "5b52ee99-3ca1-4281-b801-91b8e9cab377", "word": "exchange",
+    "synonyms": [{"word":"swap","level":2},{"word":"trade","level":2},{"word":"interchange","level":5}],
+    "antonyms": [{"word":"keep","level":1},{"word":"retain","level":4}]
+  },
+  { "id": "5b71a621-e64b-42d9-bfe4-c299554323c6", "word": "advocate",
+    "synonyms": [{"word":"support","level":2},{"word":"promote","level":3},{"word":"champion","level":4}],
+    "antonyms": [{"word":"oppose","level":3},{"word":"reject","level":2}]
+  },
+  { "id": "5b83168b-a85f-4c1b-a6df-bbe5b6168e88", "word": "battery",
+    "synonyms": [{"word":"power cell","level":3},{"word":"power source","level":2},{"word":"cell","level":2}],
+    "antonyms": []
+  },
+  { "id": "5bb74e3c-0233-4b9c-87b8-b88564047dff", "word": "silhouette",
+    "synonyms": [{"word":"outline","level":3},{"word":"shadow","level":2},{"word":"profile","level":3}],
+    "antonyms": []
+  },
+  { "id": "5c840390-4115-4c6c-a54e-5d7e8bc0752e", "word": "memorable",
+    "synonyms": [{"word":"unforgettable","level":3},{"word":"notable","level":4},{"word":"remarkable","level":4}],
+    "antonyms": [{"word":"forgettable","level":3},{"word":"ordinary","level":2}]
+  },
+  { "id": "5cb09f94-4a52-4e2a-833a-a2ccb64d299c", "word": "ecological",
+    "synonyms": [{"word":"environmental","level":3},{"word":"green","level":1},{"word":"natural","level":2}],
+    "antonyms": [{"word":"unecological","level":4}]
+  },
+  { "id": "5d1ddefb-138a-47e3-a731-2e6b4245575b", "word": "broadcast",
+    "synonyms": [{"word":"air","level":2},{"word":"transmit","level":3},{"word":"televise","level":4}],
+    "antonyms": [{"word":"receive","level":2}]
+  },
+  { "id": "5dac7ded-e43a-478a-81ce-a20792f02204", "word": "instrument",
+    "synonyms": [{"word":"tool","level":1},{"word":"device","level":2},{"word":"apparatus","level":5}],
+    "antonyms": []
+  },
+  { "id": "5db79422-c308-47ad-9b18-1cf3ce5918ab", "word": "seaweed",
+    "synonyms": [{"word":"sea plant","level":2},{"word":"algae","level":4},{"word":"kelp","level":4}],
+    "antonyms": []
+  },
+  { "id": "5dd9c89c-b620-4568-8f94-0182a194b5a4", "word": "archaeological",
+    "synonyms": [{"word":"historical","level":3},{"word":"ancient","level":2},{"word":"prehistoric","level":4}],
+    "antonyms": [{"word":"modern","level":2}]
+  }
+]
