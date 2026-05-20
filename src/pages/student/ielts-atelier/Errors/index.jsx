@@ -83,7 +83,7 @@ export default function ErrorsHub() {
   const dueCount = stats.due || 0
 
   function handleReviewSingle(item) {
-    navigate(`/student/ielts-v2/errors/review?id=${item.id}`)
+    navigate(`/student/ielts-atelier/errors/review?id=${item.id}`)
   }
 
   return (
@@ -109,7 +109,7 @@ export default function ErrorsHub() {
         <motion.button
           initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
           whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-          onClick={() => navigate('/student/ielts-v2/errors/review')}
+          onClick={() => navigate('/student/ielts-atelier/errors/review')}
           style={{ padding: '18px 24px', borderRadius: 18, border: '1px solid color-mix(in srgb, var(--sunset-orange) 40%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 16%, var(--sunset-base-mid))', color: 'var(--ds-text)', fontSize: 16, fontWeight: 900, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <span>مراجعة اليوم ({dueCount} درس)</span>
           <ChevronRight size={20} />
@@ -118,7 +118,7 @@ export default function ErrorsHub() {
 
       {/* Insights tab link */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} style={{ display: 'flex', gap: 8 }}>
-        <button onClick={() => navigate('/student/ielts-v2/errors/insights')}
+        <button onClick={() => navigate('/student/ielts-atelier/errors/insights')}
           style={{ padding: '8px 18px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           📊 إحصائيات الأداء
         </button>

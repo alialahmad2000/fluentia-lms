@@ -193,7 +193,7 @@ export default function ReviewSession() {
         <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
           {doneCount > 0 ? 'كل مراجعة تقربك خطوة من هدفك.' : 'أكملي جلسة ممارسة وتعالي مرة أخرى.'}
         </p>
-        <button onClick={() => navigate('/student/ielts-v2/errors')}
+        <button onClick={() => navigate('/student/ielts-atelier/errors')}
           style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 35%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           عودة لبنك الدروس
         </button>
@@ -205,7 +205,7 @@ export default function ReviewSession() {
     <div dir="rtl" style={{ maxWidth: 600, margin: '0 auto', paddingBottom: 80 }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0 20px', borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', marginBottom: 24 }}>
-        <button onClick={() => navigate('/student/ielts-v2/errors')}
+        <button onClick={() => navigate('/student/ielts-atelier/errors')}
           style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           <ChevronLeft size={13} /> البنك
         </button>

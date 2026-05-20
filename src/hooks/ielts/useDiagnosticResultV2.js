@@ -16,7 +16,7 @@ export function useDiagnosticResultV2() {
   const profileId = profile?.id
 
   return useQuery({
-    queryKey: ['ielts-v2-diagnostic-result', profileId],
+    queryKey: ['ielts-atelier-diagnostic-result', profileId],
     enabled: !!profileId,
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,

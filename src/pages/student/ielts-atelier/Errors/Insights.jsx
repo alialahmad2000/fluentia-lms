@@ -85,7 +85,7 @@ export default function Insights() {
     <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 24 }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0 0' }}>
-        <button onClick={() => navigate('/student/ielts-v2/errors')}
+        <button onClick={() => navigate('/student/ielts-atelier/errors')}
           style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           <ChevronLeft size={13} /> البنك
         </button>

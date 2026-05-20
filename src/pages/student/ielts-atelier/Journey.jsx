@@ -156,7 +156,7 @@ function WeekDetailPanel({ week, phase, isCurrent }) {
 
       {isCurrent && (
         <Link
-          to="/student/ielts-v2"
+          to="/student/ielts-atelier"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -441,7 +441,7 @@ export default function Journey() {
       {/* ========== FOOTER NAV ========== */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: 48 }}>
         <Link
-          to="/student/ielts-v2"
+          to="/student/ielts-atelier"
           style={{
             display: 'inline-flex',
             alignItems: 'center',

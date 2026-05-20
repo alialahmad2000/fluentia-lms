@@ -61,7 +61,7 @@ export default function MockSession() {
     const pending = skills.find(s => !answers[s]?.done)
     if (!pending) {
       // All done → go to results
-      navigate(`/student/ielts-v2/mock/${attemptId}/results`, { replace: true })
+      navigate(`/student/ielts-atelier/mock/${attemptId}/results`, { replace: true })
       return
     }
     setCurrentSkill(pending)
@@ -89,7 +89,7 @@ export default function MockSession() {
         )
         setCurrentSkill(nextSkill)
       } else {
-        navigate(`/student/ielts-v2/mock/${attemptId}/results`, { replace: true })
+        navigate(`/student/ielts-atelier/mock/${attemptId}/results`, { replace: true })
       }
     } finally {
       setTransitioning(false)

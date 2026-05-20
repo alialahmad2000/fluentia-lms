@@ -64,7 +64,7 @@ export default function MockHub() {
     setCreating(true)
     try {
       const id = await createMut.mutateAsync({ studentId, mode, singleSkill })
-      navigate(`/student/ielts-v2/mock/${id}`)
+      navigate(`/student/ielts-atelier/mock/${id}`)
     } catch (e) {
       console.error('[MockHub] create attempt failed:', e)
     } finally {
@@ -182,7 +182,7 @@ export default function MockHub() {
               const avg = bands.length ? Math.round((bands.reduce((x,y) => x+y) / bands.length) * 2) / 2 : null
               return (
                 <button key={a.id}
-                  onClick={() => navigate(`/student/ielts-v2/mock/${a.id}/results`)}
+                  onClick={() => navigate(`/student/ielts-atelier/mock/${a.id}/results`)}
                   style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                   <div style={{ textAlign: 'right' }}>
                     <p style={{ margin: '0 0 2px', fontSize: 13, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>

@@ -44,7 +44,7 @@ function EmptyState() {
           ابدأي التشخيص لتحصلي على خارطتك الكاملة.
         </p>
         <Link
-          to="/student/ielts-v2/diagnostic"
+          to="/student/ielts-atelier/diagnostic"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -262,7 +262,7 @@ export default function DiagnosticResults() {
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}
       >
         <button
-          onClick={() => navigate('/student/ielts-v2/journey')}
+          onClick={() => navigate('/student/ielts-atelier/journey')}
           style={{
             width: '100%',
             maxWidth: 480,
@@ -281,7 +281,7 @@ export default function DiagnosticResults() {
         </button>
 
         <Link
-          to="/student/ielts-v2"
+          to="/student/ielts-atelier"
           style={{
             fontSize: 13,
             color: 'var(--ds-text-muted)',

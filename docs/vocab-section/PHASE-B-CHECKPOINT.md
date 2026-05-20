@@ -282,3 +282,74 @@ The `morphology.note_ar` on the base form should mention the etymological origin
 `similar_examples` should give 3 parallel patterns showing the same affix on different bases — these power the UI's "ليش؟" expand panel and make the morphological rule tangible.
 
 Skip morphology objects that would be nonsense (e.g., "شفافة" / "transparent" for sibling/sister words from the same root that aren't true affix derivatives). The renderer handles missing affix fields gracefully.
+
+---
+
+## Track C — Pronunciation Alerts — checkpoint 2026-05-20
+
+Session ran VOCAB-PREMIUM-02C-PRONUNCIATION-L1-L3. Filter scoped to L1 + L3 with `pronunciation_generated_at IS NULL` (because the `pronunciation_checked_at` migration is blocked — see "Migration deferred" below). Produced 4 batches of L1 pronunciation alerts.
+
+**L1 pronunciation state:** 302/662 checked (45.6%), 59 alerts written (8.9% of total, 19.5% of checked). 360 L1 rows remaining (~12 batches).
+**L3 pronunciation state:** 285/1961 checked (14.5%), 59 alerts written — untouched this session (1,676 rows / ~56 batches).
+**Total Track C remaining:** ~68 batches.
+
+**Commits this session (4):**
+```
+chore(vocab-enrich): pronunciation L1 batch 001 ending id 0e5aa0c6 (alerts: 9/30)
+chore(vocab-enrich): pronunciation L1 batch 002 ending id 2372cf01 (alerts: 7/30)
+chore(vocab-enrich): pronunciation L1 batch 003 ending id 32b4bf94 (alerts: 7/30)
+chore(vocab-enrich): pronunciation L1 batch 004 ending id 45c747e5 (alerts: 6/30)
+```
+
+**Session totals:** 120 L1 rows checked, **29 alerts written (24.2% rate)** — within the 20-35% target band. 0 validation failures, 0 skipped, 0 failed across all 4 batches.
+
+### Migration deferred
+
+The `pronunciation_checked_at` column SQL was committed to disk last session at `supabase/migrations/20260520120000_add_pronunciation_checked_at.sql`. **Cannot be applied this session** because Supabase MCP is in read-only mode — `apply_migration` errors with "Cannot apply migration in read-only mode."
+
+**Workaround used:** existing helper script (`scripts/generate-pronunciation.cjs`) writes `pronunciation_generated_at = NOW()` on every checked row regardless of whether an alert was written. This timestamp serves as the idempotency marker (same functional outcome as the prompt's `pronunciation_checked_at` would have). Filter is `WHERE pronunciation_generated_at IS NULL`.
+
+**Action needed before Phase C finalization:** Apply the migration in Supabase Dashboard SQL Editor (the SQL is in `supabase/migrations/20260520120000_add_pronunciation_checked_at.sql` and is idempotent — uses `ADD COLUMN IF NOT EXISTS` and a partial index, with a backfill from `pronunciation_generated_at`). After applying, future Phase C work can use either column equivalently.
+
+### Schema deviation from prompt 02C (intentional)
+
+The prompt 02C uses field names `correct_ar`, `wrong_ar`. Production existing rows + the `generate-pronunciation.cjs --apply` helper use `correct_approximation_ar` and `common_mispronunciation_ar`. This session matched production. The helper script reads these specific keys via `validateAlert()`.
+
+The prompt's 7-category `rule_category` enum (`silent_letter | th_sound | vowel_irregular | stress_shift | consonant_cluster | loan_false_friend | exception`) was followed. Session 19's earlier alerts used much more granular categories (e.g., `silent_gh`, `silent_c`, `consonant_cluster_ngth`, `cient_sound`) — those are legacy, the new categories are canonical.
+
+### Rule_category distribution (this session's 29 alerts)
+
+Approximate breakdown:
+- `th_sound`: 4 (thrive, throw, athletic, rhythm)
+- `silent_letter`: 5 (honor, conquer, circuit, herb, exhibition)
+- `vowel_irregular`: 4 (shutter, ruins, bury, hieroglyph)
+- `stress_shift`: 3 (historic, guitar, perform)
+- `consonant_cluster`: 2 (painting, extinct)
+- `loan_false_friend`: 3 (choir, gourmet, pharaoh)
+- `exception`: 8 (absorb, exposure, national, anchor, visual, vivid, aesthetic, curate)
+
+### Severity distribution (this session)
+
+- `high`: ~12 (the heavy lifters — silent letters, choir, gourmet, aesthetic, rhythm, herb, etc.)
+- `medium`: ~16 (stress shifts, vowel irregulars, mild traps)
+- `low`: ~1 (perform — mild stress)
+
+### Pipeline notes
+
+Standard fetch/generate/apply loop, but **each batch took ~5x longer than synonyms/families** because each alert requires 50-100 words of original Arabic prose explaining the specific trap for that specific word. Templates were avoided — each `explanation_ar` and `practice_tip_ar` is custom-written. The `similar_words` array gives 3-4 parallel-pattern words from the existing curriculum to anchor the rule.
+
+### Quality calibration heuristics used
+
+1. **Bias toward NULL.** When in doubt → no alert. False alerts erode trust more than missing ones.
+2. **High = unintelligible** (knight without silent K → "kah-nite" sounds like a different word).
+3. **Medium = recognizable but accented** (stress shift on guitar, /ʒ/ → /z/ in exposure).
+4. **Low = subtle** (per-FORM vs PER-form).
+5. **TH sound = always high** unless the word is very common and the student likely has heard it correctly elsewhere.
+6. **Silent letters = always high** because Arabic speakers default to pronouncing every visible letter.
+7. **Single-syllable common words like "deep", "wave", "kick"** → almost always SKIP. They're heard and used so often that students get them right.
+
+### Next session — continue L1 then L3
+
+L1 next batch starts at the id after `45c747e5-7ac5-4b71-a6c5-f59a2469a9f4` (last id of batch 004). Use the same fetch query.
+
+After L1 pronunciation completes (~12 more batches), switch to `cl.level_number = 3` for L3 (1,676 rows / ~56 batches).

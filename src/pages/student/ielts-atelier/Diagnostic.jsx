@@ -327,7 +327,7 @@ export default function Diagnostic() {
                 آخر نتيجة: Band {Number(latestOverallBand).toFixed(1)}
               </span>
               <Link
-                to="/student/ielts-v2/diagnostic/results"
+                to="/student/ielts-atelier/diagnostic/results"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',

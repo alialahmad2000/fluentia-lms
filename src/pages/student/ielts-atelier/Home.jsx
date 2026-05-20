@@ -302,7 +302,7 @@ export default function Home() {
               ? <>
                   {`آخر تحديث: نتيجة ${latestResult?.result_type === 'diagnostic' ? 'تشخيصي' : 'اختبار'}`}
                   {' · '}
-                  <Link to="/student/ielts-v2/diagnostic/results" style={{ color: 'var(--sunset-orange, #fbbf24)', textDecoration: 'none', fontWeight: 700 }}>شاهد نتيجتك الأخيرة</Link>
+                  <Link to="/student/ielts-atelier/diagnostic/results" style={{ color: 'var(--sunset-orange, #fbbf24)', textDecoration: 'none', fontWeight: 700 }}>شاهد نتيجتك الأخيرة</Link>
                 </>
               : 'ستظهر درجاتك هنا بعد أول تشخيص.'}
           </p>
@@ -310,7 +310,7 @@ export default function Home() {
 
         {!hasAnyResults ? (
           <Link
-            to="/student/ielts-v2/diagnostic"
+            to="/student/ielts-atelier/diagnostic"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -397,7 +397,7 @@ export default function Home() {
             {phase.description}
           </p>
           <Link
-            to="/student/ielts-v2/journey"
+            to="/student/ielts-atelier/journey"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -453,7 +453,7 @@ export default function Home() {
             </div>
           </div>
           <Link
-            to="/student/ielts-v2/trainer"
+            to="/student/ielts-atelier/trainer"
             style={{
               display: 'inline-flex',
               alignItems: 'center',

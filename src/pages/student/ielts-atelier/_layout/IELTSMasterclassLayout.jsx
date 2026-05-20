@@ -5,17 +5,17 @@ import TrainerPresence from '@/design-system/components/masterclass/TrainerPrese
 import IELTSSunsetBackground from '@/design-system/masterclass/IELTSSunsetBackground'
 
 const PAGE_TITLES = {
-  '/student/ielts-v2': 'الرحلة',
-  '/student/ielts-v2/diagnostic': 'الاختبار التشخيصي',
-  '/student/ielts-v2/reading': 'القراءة — The Study',
-  '/student/ielts-v2/listening': 'الاستماع — The Theater',
-  '/student/ielts-v2/writing': 'الكتابة — The Workshop',
-  '/student/ielts-v2/speaking': 'المحادثة — The Interview Room',
-  '/student/ielts-v2/journey': 'الرحلة الكاملة',
-  '/student/ielts-v2/errors': 'بنك الدروس',
-  '/student/ielts-v2/mock': 'الاختبار التجريبي',
-  '/student/ielts-v2/trainer': 'مدربك',
-  '/student/ielts-v2/readiness': 'أسبوع الجاهزية',
+  '/student/ielts-atelier': 'الرحلة',
+  '/student/ielts-atelier/diagnostic': 'الاختبار التشخيصي',
+  '/student/ielts-atelier/reading': 'القراءة — The Study',
+  '/student/ielts-atelier/listening': 'الاستماع — The Theater',
+  '/student/ielts-atelier/writing': 'الكتابة — The Workshop',
+  '/student/ielts-atelier/speaking': 'المحادثة — The Interview Room',
+  '/student/ielts-atelier/journey': 'الرحلة الكاملة',
+  '/student/ielts-atelier/errors': 'بنك الدروس',
+  '/student/ielts-atelier/mock': 'الاختبار التجريبي',
+  '/student/ielts-atelier/trainer': 'مدربك',
+  '/student/ielts-atelier/readiness': 'أسبوع الجاهزية',
 }
 
 const LoadingFallback = () => (
@@ -29,7 +29,7 @@ export default function IELTSMasterclassLayout() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const title = PAGE_TITLES[pathname] || 'Fluentia IELTS'
-  const isHome = pathname === '/student/ielts-v2' || pathname === '/student/ielts-v2/'
+  const isHome = pathname === '/student/ielts-atelier' || pathname === '/student/ielts-atelier/'
 
   return (
     <div
@@ -96,7 +96,7 @@ export default function IELTSMasterclassLayout() {
             <Compass size={18} style={{ color: 'var(--sunset-orange, #fbbf24)', flexShrink: 0 }} aria-hidden="true" />
             {!isHome && (
               <Link
-                to="/student/ielts-v2"
+                to="/student/ielts-atelier"
                 style={{ fontSize: 13, color: 'var(--ds-text-tertiary)', textDecoration: 'none', whiteSpace: 'nowrap' }}
               >
                 IELTS Masterclass

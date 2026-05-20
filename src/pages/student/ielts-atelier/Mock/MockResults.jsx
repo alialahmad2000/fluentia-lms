@@ -135,11 +135,11 @@ export default function MockResults() {
 
       {/* Actions */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} style={{ display: 'flex', gap: 12 }}>
-        <button onClick={() => navigate('/student/ielts-v2/mock')}
+        <button onClick={() => navigate('/student/ielts-atelier/mock')}
           style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 55%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           محاكاة جديدة
         </button>
-        <button onClick={() => navigate('/student/ielts-v2/errors')}
+        <button onClick={() => navigate('/student/ielts-atelier/errors')}
           style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-amber) 30%, transparent)', background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           بنك الأخطاء
         </button>

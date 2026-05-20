@@ -20,13 +20,13 @@ const COLOR_MAP = {
 
 // V1 lab routes → V2 routes
 const V2_ROUTE_MAP = {
-  reading:  '/student/ielts-v2/reading',
-  listening: '/student/ielts-v2/listening',
-  writing:  '/student/ielts-v2/writing',
-  speaking: '/student/ielts-v2/speaking',
-  mock:     '/student/ielts-v2/mock',
-  errors:   '/student/ielts-v2/errors',
-  diagnostic: '/student/ielts-v2/diagnostic',
+  reading:  '/student/ielts-atelier/reading',
+  listening: '/student/ielts-atelier/listening',
+  writing:  '/student/ielts-atelier/writing',
+  speaking: '/student/ielts-atelier/speaking',
+  mock:     '/student/ielts-atelier/mock',
+  errors:   '/student/ielts-atelier/errors',
+  diagnostic: '/student/ielts-atelier/diagnostic',
 };
 
 const DAY_KEYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -38,7 +38,7 @@ const STARTER_DAY = [
     title: 'ابدأ الاختبار التشخيصي',
     subtitle: 'لنعرف من أين نبدأ',
     duration: '~60 دقيقة',
-    path: '/student/ielts-v2/diagnostic',
+    path: '/student/ielts-atelier/diagnostic',
     skillColor: '#a78bfa',
   },
 ];
@@ -75,7 +75,7 @@ function pickDailyItems(plan) {
     title: a.description_ar || `تمرين ${a.task_type}`,
     subtitle: '',
     duration: a.duration_min ? `~${a.duration_min} دقيقة` : '',
-    path: V2_ROUTE_MAP[a.task_type] || `/student/ielts-v2/${a.task_type}`,
+    path: V2_ROUTE_MAP[a.task_type] || `/student/ielts-atelier/${a.task_type}`,
     skillColor: COLOR_MAP[a.task_type] || '#fbbf24',
   }));
 }

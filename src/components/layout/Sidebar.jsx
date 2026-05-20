@@ -68,10 +68,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
           const visibleItems = section.items.filter(item => {
             if (item.requiresIELTSStudents) return hasIELTSStudents
             if (!item.requiresPackage) return true
-            if (item.requiresPackage === 'ielts') {
-              return studentData?.package === 'ielts' ||
-                (Array.isArray(studentData?.custom_access) && studentData?.custom_access.includes('ielts'))
-            }
+            if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
             return true
           })
           if (visibleItems.length === 0) return null
