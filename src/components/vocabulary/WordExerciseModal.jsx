@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { emitXP } from '../ui/XPFloater'
+import { applyRating, RATING } from '../../services/srs'
 import WordDetailModal from './WordDetailModal'
 
 function shuffle(arr) {
@@ -49,6 +50,15 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
   const handleExerciseComplete = async (exerciseKey, passed) => {
     if (!passed) return
 
+    // Route through FSRS: pass = Good. Creates the SRS row on first contact, otherwise advances state.
+    // Fail path lives in incrementAttempts (rating = Again).
+    try {
+      await applyRating(word.id, RATING.GOOD, studentId)
+    } catch (rerr) {
+      console.warn('[WordExercise] applyRating(Good) failed:', rerr?.message)
+      // Don't abort the mastery flow — the per-exercise mastery row below is the source of truth for UI.
+    }
+
     const fieldMap = {
       meaning: { passed: 'meaning_exercise_passed', attempts: 'meaning_exercise_attempts', at: 'meaning_exercise_passed_at' },
       sentence: { passed: 'sentence_exercise_passed', attempts: 'sentence_exercise_attempts', at: 'sentence_exercise_passed_at' },
@@ -89,7 +99,9 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         try { safeCelebrate('correct_answer') } catch {}
       }
 
-      // Bonus XP if all 3 mastered
+      // Bonus XP if all 3 mastered.
+      // SRS entry creation no longer needed here — applyRating(Good) above already created/advanced
+      // the FSRS row on first exercise pass, with scheduling that respects difficulty + stability.
       if (updated?.mastery_level === 'mastered' && mastery?.mastery_level !== 'mastered') {
         await supabase.from('xp_transactions').insert({
           student_id: studentId,
@@ -100,19 +112,6 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         try { emitXP(5, `أتقنت "${word.word}"`) } catch {}
         try { safeCelebrate('word_mastered') } catch {}
         toast({ type: 'success', title: `+5 XP — أتقنت "${word.word}"!` })
-
-        // Create SRS entry for spaced repetition review
-        const tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        await supabase.from('curriculum_vocabulary_srs').upsert({
-          student_id: studentId,
-          vocabulary_id: word.id,
-          ease_factor: 2.5,
-          interval_days: 1,
-          repetitions: 1,
-          next_review_at: tomorrow.toISOString(),
-          last_quality: 5,
-        }, { onConflict: 'student_id,vocabulary_id', ignoreDuplicates: true }).catch(() => {})
       }
     } catch (err) {
       console.error('[WordExercise] Save failed:', err)
@@ -141,6 +140,13 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
           last_practiced_at: new Date().toISOString(),
         }, { onConflict: 'student_id,vocabulary_id' })
     } catch {}
+
+    // Route wrong-answer through FSRS: rating = Again. Creates SRS row on first contact, or relearns.
+    try {
+      await applyRating(word.id, RATING.AGAIN, studentId)
+    } catch (rerr) {
+      console.warn('[WordExercise] applyRating(Again) failed:', rerr?.message)
+    }
   }
 
   return (

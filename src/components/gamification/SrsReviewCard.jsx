@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Brain, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { supabase } from '../../lib/supabase'
+import { getDueCount } from '../../services/srs'
 
 const toArabicNum = (n) => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
 
@@ -14,18 +14,10 @@ const fadeUp = {
 export default function SrsReviewCard({ studentId }) {
   const { data: dueCount = 0 } = useQuery({
     queryKey: ['srs-due-count', studentId],
-    queryFn: async () => {
-      const { count, error } = await supabase
-        .from('curriculum_vocabulary_srs')
-        .select('id', { count: 'exact', head: true })
-        .eq('student_id', studentId)
-        .lte('next_review_at', new Date().toISOString())
-
-      if (error) return 0
-      return count || 0
-    },
+    queryFn: () => getDueCount(studentId),
     enabled: !!studentId,
     refetchOnWindowFocus: true,
+    staleTime: 0,
   })
 
   return (

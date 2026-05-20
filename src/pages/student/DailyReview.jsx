@@ -1,15 +1,28 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Volume2, RotateCcw, Brain, CheckCircle, ChevronLeft } from 'lucide-react'
+import { Volume2, RotateCcw, Brain, CheckCircle, ChevronLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
-import { sm2, qualityFromButton } from '../../utils/sm2'
+import { applyRating, getDueCards, previewAllRatings, RATING } from '../../services/srs'
 import { toast } from '../../components/ui/FluentiaToast'
 import { emitXP } from '../../components/ui/XPFloater'
 import { safeCelebrate } from '../../lib/celebrations'
 import { tracker } from '../../services/activityTracker'
+
+// Days between two Dates, rounded to 1 decimal for short intervals (<1d shows as hours).
+function daysUntilLabel(due, now = new Date()) {
+  if (!due) return '—'
+  const ms = new Date(due).getTime() - now.getTime()
+  if (ms <= 0) return 'الآن'
+  const mins = Math.round(ms / 60000)
+  if (mins < 60) return `${mins}د`
+  const hrs = Math.round(ms / (60 * 60 * 1000))
+  if (hrs < 24) return `${hrs}س`
+  const days = Math.round(ms / (24 * 60 * 60 * 1000))
+  return `${days} يوم`
+}
 
 const toArabicNum = (n) => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
 
@@ -25,28 +38,12 @@ export default function DailyReview() {
   const [sessionResults, setSessionResults] = useState([])
   const [saving, setSaving] = useState(false)
 
-  // Fetch due cards
+  // Fetch due cards via FSRS service (filters state ∈ {review, learning, relearning} AND due ≤ now)
   const { data: dueCards, isLoading } = useQuery({
     queryKey: ['srs-due-cards', profile?.id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('curriculum_vocabulary_srs')
-        .select(`
-          id, ease_factor, interval_days, repetitions, next_review_at, last_quality,
-          curriculum_vocabulary (
-            id, word, definition_en, definition_ar,
-            example_sentence, audio_url, image_url, part_of_speech
-          )
-        `)
-        .eq('student_id', profile.id)
-        .lte('next_review_at', new Date().toISOString())
-        .order('next_review_at', { ascending: true })
-        .limit(20)
-
-      if (error) throw error
-      return data || []
-    },
+    queryFn: () => getDueCards(profile.id, 20),
     enabled: !!profile?.id,
+    staleTime: 0,
   })
 
   const currentCard = dueCards?.[currentIndex]
@@ -59,26 +56,27 @@ export default function DailyReview() {
     try { new Audio(url).play() } catch {}
   }, [])
 
-  // Handle review answer
+  // Handle review answer — routes through FSRS service (applyRating writes srs row + log).
+  // 3-button UX preserved: again → 1 (Again), good → 3 (Good), easy → 4 (Easy).
+  const buttonToRating = {
+    again: RATING.AGAIN,
+    good: RATING.GOOD,
+    easy: RATING.EASY,
+  }
+
   const handleReview = async (buttonValue) => {
     if (!currentCard || saving) return
     setSaving(true)
 
-    const quality = qualityFromButton(buttonValue)
-    const updated = sm2(currentCard, quality)
+    const rating = buttonToRating[buttonValue]
+    if (!rating) {
+      toast({ type: 'error', title: 'تقييم غير معروف' })
+      setSaving(false)
+      return
+    }
 
     try {
-      const { data, error } = await supabase
-        .from('curriculum_vocabulary_srs')
-        .update(updated)
-        .eq('id', currentCard.id)
-        .select()
-
-      if (error || !data?.length) {
-        toast({ type: 'error', title: 'فشل حفظ المراجعة' })
-        setSaving(false)
-        return
-      }
+      await applyRating(currentCard.vocabulary_id, rating, profile.id)
 
       // Award XP — anti-farming: check if already awarded today for this card
       const today = new Date().toISOString().split('T')[0]
@@ -119,10 +117,22 @@ export default function DailyReview() {
       }, 400)
     } catch (err) {
       console.error('[DailyReview] Error:', err)
-      toast({ type: 'error', title: 'حدث خطأ' })
+      toast({ type: 'error', title: err.message || 'فشل حفظ المراجعة' })
       setSaving(false)
     }
   }
+
+  // FSRS-predicted interval previews for the 3 visible buttons.
+  // Computed pure (no DB) via previewAllRatings — cheap, recomputed per card.
+  const previews = useMemo(() => {
+    if (!currentCard) return null
+    const all = previewAllRatings(currentCard)
+    return {
+      again: daysUntilLabel(all.again.card.due),
+      good: daysUntilLabel(all.good.card.due),
+      easy: daysUntilLabel(all.easy.card.due),
+    }
+  }, [currentCard])
 
   // Track activity
   useEffect(() => {
@@ -368,7 +378,7 @@ export default function DailyReview() {
           >
             <RotateCcw size={20} className="text-rose-400" />
             <span className="text-sm font-semibold text-rose-400">ما تذكرتها</span>
-            <span className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>١ يوم</span>
+            <span className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>{previews?.again ?? '—'}</span>
           </button>
 
           <button
@@ -379,9 +389,7 @@ export default function DailyReview() {
           >
             <Brain size={20} className="text-sky-400" />
             <span className="text-sm font-semibold text-sky-400">تذكرتها</span>
-            <span className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>
-              {toArabicNum(Math.round((currentCard?.interval_days || 1) * (currentCard?.ease_factor || 2.5)))} يوم
-            </span>
+            <span className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>{previews?.good ?? '—'}</span>
           </button>
 
           <button
@@ -392,9 +400,7 @@ export default function DailyReview() {
           >
             <CheckCircle size={20} className="text-emerald-400" />
             <span className="text-sm font-semibold text-emerald-400">سهلة</span>
-            <span className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>
-              {toArabicNum(Math.round((currentCard?.interval_days || 1) * (currentCard?.ease_factor || 2.5) * 1.3))} يوم
-            </span>
+            <span className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>{previews?.easy ?? '—'}</span>
           </button>
         </motion.div>
       )}
