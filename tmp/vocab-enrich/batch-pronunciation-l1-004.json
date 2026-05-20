@@ -1,0 +1,104 @@
+[
+  { "id": "32e64df3-a5a9-473b-bd91-e09ff2c93348", "word": "rhythm",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ˈrɪðəm/",
+      "correct_approximation_ar": "رِذِم",
+      "common_mispronunciation_ar": "رِيْثُم",
+      "problem_letters": [0, 1, 2, 3, 4, 5],
+      "rule_category": "vowel_irregular",
+      "explanation_ar": "هذه الكلمة من أصعب كلمات الإنجليزية نطقاً. أولاً، حرف h بعد r صامت تماماً — يبدأ النطق بـ 'ر' مباشرة. ثانياً، حرفا th يُنطَقان كصوت 'ذ' المهموس (وليس 'ث' ولا 'ت') — مثل صوت th في كلمة 'this'. ثالثاً، حرف y لا يُنطَق كحرف متحرك بل يأخذ صوت schwa خفيف جداً تقريباً يختفي.",
+      "practice_tip_ar": "تخيل الكلمة مكتوبة 'ridhm' وانطقها هكذا: 'رِ' ثم 'ذِ' (ضع لسانك بين أسنانك مع اهتزاز) ثم 'م'. لا تفصل المقاطع. كرر مع: this (ذِس)، that (ذَات)، breathe (بْرِيذ) — كلها بنفس صوت th الذي في rhythm.",
+      "similar_words": ["this", "that", "breathe", "smooth"]
+    }
+  },
+  { "id": "336e5741-a17f-410e-b756-96136647dde6", "word": "garnish", "pronunciation_alert": null },
+  { "id": "34431301-14e7-43d6-9ed0-7795f727762f", "word": "invention", "pronunciation_alert": null },
+  { "id": "3452f611-d87a-418b-89a7-755a0fd4d77b", "word": "existence", "pronunciation_alert": null },
+  { "id": "3481ce2b-3b71-4d3b-9d47-5939a6a68750", "word": "mysterious", "pronunciation_alert": null },
+  { "id": "34a46ad8-337d-41f0-8e72-3bde77189d89", "word": "pharaoh",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈferoʊ/",
+      "correct_approximation_ar": "فِيْرُو",
+      "common_mispronunciation_ar": "فَرَاوُو",
+      "problem_letters": [0, 1, 4, 5, 6],
+      "rule_category": "loan_false_friend",
+      "explanation_ar": "هذه الكلمة الغريبة لها صعوبتان: أولاً، حرفا ph في البداية يُنطَقان 'ف' (هذا قياسي للكلمات اليونانية الأصل مثل phone, photo). ثانياً، نهاية الكلمة -aoh تُنطَق صوتاً واحداً 'و' فقط — الحرف h صامت وحرف a يُدمج مع o. الكلمة من مقطعين فقط (FER-oh) وليس ثلاثة، رغم وجود أربعة حروف متحركة.",
+      "practice_tip_ar": "تخيل الكلمة مكتوبة 'fairo' وانطقها هكذا: 'فِيْ' ثم 'رُو'. لا تنطق كل حرف على حدة. الكلمة في النطق الإنجليزي تختلف تماماً عن النطق العربي المشابه 'فرعون'. كرر مع: phantom (FAN-tom)، philosophy (fi-LOS-o-fy).",
+      "similar_words": ["phantom", "philosophy", "phone", "photograph"]
+    }
+  },
+  { "id": "34bf8cec-873a-47e6-8a77-e6e3e03e15d7", "word": "renovation", "pronunciation_alert": null },
+  { "id": "35168c94-5491-46ec-976b-908ce40f4c73", "word": "final", "pronunciation_alert": null },
+  { "id": "36973543-e052-4107-aca6-a6e32bebfaac", "word": "tide", "pronunciation_alert": null },
+  { "id": "37390a59-8cbb-493d-9c9d-96105aa85fea", "word": "athletic",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/æθˈletɪk/",
+      "correct_approximation_ar": "أَثْلِتِك",
+      "common_mispronunciation_ar": "آَتْلِتِك",
+      "problem_letters": [1, 2],
+      "rule_category": "th_sound",
+      "explanation_ar": "حرفا th في 'athletic' يُنطَقان كحرف 'ث' عربي وليس 'ت'. كثير من المتعلمين العرب يقولون 'أتلِتِك' بحرف 'ت' لأن th بعد حرف ساكن أصعب نطقاً. أيضاً النبر على المقطع الثاني LET وليس على ATH كما في كلمة الأصل 'athlete' (ATH-lete).",
+      "practice_tip_ar": "بعد نطق 'أَ' السريعة، ضع طرف لسانك بين أسنانك ثم اخرج 'ث' قبل الانتقال إلى 'لِتِك'. كرر معها: athlete (ATH-lete)، method (METH-od)، author (AU-thor) — كلها بنفس صوت th = ث.",
+      "similar_words": ["athlete", "method", "author", "ethnic"]
+    }
+  },
+  { "id": "387bbef2-b32c-4825-b4e3-85b8598ea683", "word": "exhibition",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ˌeksɪˈbɪʃən/",
+      "correct_approximation_ar": "إِكْسِبِشِن",
+      "common_mispronunciation_ar": "إِكْسْهِيْبِيْشَن",
+      "problem_letters": [2, 3],
+      "rule_category": "silent_letter",
+      "explanation_ar": "حرف h في وسط 'exhibition' صامت تماماً ولا يُنطَق، رغم أنه في الفعل الأصل 'exhibit' يُنطَق! هذه شذوذ خاص: في exhibit (eg-ZI-bit) الـ h واضحة، لكن في exhibition تختفي تماماً. كأن الكلمة مكتوبة 'exibition'. كثير جداً من المتعلمين العرب يحاولون نطق h فيقولون 'إكسهيبيشن' وهذا خطأ.",
+      "practice_tip_ar": "تخيل الكلمة بدون h: 'exibition'. أنهِ المقطع 'إكس' بسرعة ثم انتقل مباشرة إلى 'بِشن'. تذكر التناقض: exhibit (مع h) ↔ exhibition (بدون h). نفس النمط الشاذ موجود في heir/heiress.",
+      "similar_words": ["heir", "honest", "hour", "honor"]
+    }
+  },
+  { "id": "39107dea-3715-44d8-a17e-7543226ce53e", "word": "shallow", "pronunciation_alert": null },
+  { "id": "393a8a11-067b-4364-800e-52bed1fa0f00", "word": "macro", "pronunciation_alert": null },
+  { "id": "3953aa9b-fccb-4976-988e-618cbd1cf34a", "word": "shark", "pronunciation_alert": null },
+  { "id": "3a677818-e3c2-4df6-ab16-55cc080614c4", "word": "ecosystem", "pronunciation_alert": null },
+  { "id": "3c748840-5075-4dce-bd7d-c41dafb251d0", "word": "sour", "pronunciation_alert": null },
+  { "id": "3cf6d5d2-c1b4-4de5-aa00-5f9c194afa2b", "word": "constellation", "pronunciation_alert": null },
+  { "id": "3f28ab40-c6f6-49d7-bf7c-7a089fc8dfb0", "word": "herb",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ɜːrb/ (US) أو /hɜːrb/ (UK)",
+      "correct_approximation_ar": "إِرْب (أمريكي)",
+      "common_mispronunciation_ar": "هِيْرْب",
+      "problem_letters": [0],
+      "rule_category": "silent_letter",
+      "explanation_ar": "في النطق الأمريكي (الأكثر شيوعاً في تعليم اللغة)، حرف h في بداية 'herb' صامت تماماً — الكلمة تبدأ بصوت متحرك مباشرة وكأنها مكتوبة 'erb'. في النطق البريطاني h تُنطَق ولكن النمط الأمريكي هو السائد عالمياً. اختر النطق الأمريكي للوضوح. هذه الكلمة من نفس مجموعة honor و hour و honest حيث h البادئة صامتة.",
+      "practice_tip_ar": "افتح فمك مباشرة على صوت 'إِ' بدون إخراج هواء من الحلق. لا تبدأ الكلمة بنفَس. تذكر الرباعي: honor, hour, honest, herb — كلها بـ h صامتة. كرر معها لتعزيز القاعدة.",
+      "similar_words": ["honor", "hour", "honest", "heir"]
+    }
+  },
+  { "id": "3fde5b64-b078-47ae-85ee-abd222be6c46", "word": "solve", "pronunciation_alert": null },
+  { "id": "4047a7ff-ced6-461a-a388-6a12508ed07e", "word": "fountain", "pronunciation_alert": null },
+  { "id": "41d0b13c-e1f4-4360-9b06-9f78e44b7326", "word": "lyrics", "pronunciation_alert": null },
+  { "id": "42e23f45-7668-4bab-b623-bbd1d61d83c0", "word": "vivid",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈvɪvɪd/",
+      "correct_approximation_ar": "ڤِيڤِد",
+      "common_mispronunciation_ar": "فِيْفِيد",
+      "problem_letters": [0, 2],
+      "rule_category": "exception",
+      "explanation_ar": "حرف v في الإنجليزية ليس له مقابل دقيق في العربية الفصحى. الصوت الصحيح أقرب للصوت العامي المصري 'ڤ' أو 'في' (تحريك الشفة السفلى لتلامس الأسنان العلوية مع اهتزاز). كثير من العرب يستبدلون v بـ 'ف' عادية لأنها أقرب صوت، لكن المتحدث الأصلي يسمع فرقاً واضحاً. في 'vivid' يتكرر الصوت مرتين، فالتدريب عليها مهم.",
+      "practice_tip_ar": "تدريب: عضّ شفتك السفلى برفق بأسنانك العلوية، ثم اخرج صوتاً مع اهتزاز الحبل الصوتي. الفرق عن 'ف': في 'ف' الشفتان منفصلتان، أما في 'v' أسنانك تلمس شفتك. كرر مع: very (ڤِيري)، voice (ڤُويس)، love (لاڤ)، have (هاڤ).",
+      "similar_words": ["very", "voice", "love", "have"]
+    }
+  },
+  { "id": "43533b80-ddd7-41cd-8da0-d3c1da8c3be2", "word": "gastronomy", "pronunciation_alert": null },
+  { "id": "4354ee2f-2966-444d-ad12-0dcd7b5ddced", "word": "composer", "pronunciation_alert": null },
+  { "id": "43905255-1e3d-4bd6-a5ec-ef6768c879a4", "word": "portray", "pronunciation_alert": null },
+  { "id": "43c771a3-a0e5-4e6c-8318-e972d6105eae", "word": "freeze", "pronunciation_alert": null },
+  { "id": "44d3b456-36b5-488a-a232-0bca877f775c", "word": "enhance", "pronunciation_alert": null },
+  { "id": "458d9ca0-b2ef-4790-af5e-2e8cd77028df", "word": "calculate", "pronunciation_alert": null },
+  { "id": "45c49d18-536a-4a47-879b-61bd30309759", "word": "mix", "pronunciation_alert": null },
+  { "id": "45c747e5-7ac5-4b71-a6c5-f59a2469a9f4", "word": "siege", "pronunciation_alert": null }
+]
