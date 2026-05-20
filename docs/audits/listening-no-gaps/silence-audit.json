@@ -1,0 +1,1288 @@
+{
+  "summary": {
+    "generated_at": "2026-05-19T23:42:03.899Z",
+    "total": 72,
+    "clean": 51,
+    "has_gaps": 21,
+    "audit_errors": 0,
+    "threshold_db": -50,
+    "min_duration_s": 0.8,
+    "tail_ignore_s": 1.5
+  },
+  "rows": [
+    {
+      "id": "0767ef9b-5f6a-48e0-9f47-94bd590ac608",
+      "title_ar": "مقابلة مع باحثة عن ذكاء الأسراب في الطبيعة",
+      "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/0767ef9b-5f6a-48e0-9f47-94bd590ac608/combined.mp3",
+      "container_duration_s": 328.269206,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "3d0d8da5-d4a7-458f-8e7a-0f42bd998e14",
+      "title_ar": "فاطمة تتحدث عن عائلتها وأصدقائها",
+      "unit_id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/3d0d8da5-d4a7-458f-8e7a-0f42bd998e14/s0_fatima.mp3",
+      "container_duration_s": 71.5639,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "cecec33e-c5e7-4668-ae28-0dce9c20bbf3",
+      "title_ar": "مقابلة مع مؤرخ عن أسباب انهيار الحضارات",
+      "unit_id": "170ce97d-b211-4b25-b19e-fe9fc22fb71b",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/cecec33e-c5e7-4668-ae28-0dce9c20bbf3/combined.mp3",
+      "container_duration_s": 293.880454,
+      "silence_regions": [
+        {
+          "start_s": 45.564989,
+          "end_s": 46.399887,
+          "duration_s": 0.834898
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 45.564989,
+          "end_s": 46.399887,
+          "duration_s": 0.834898
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "44b25ac5-ed1e-4b8d-84d9-ec23614417b6",
+      "title_ar": "ليلى تصف غوصها في الشعاب المرجانية بالبحر الأحمر",
+      "unit_id": "1de8e161-81eb-416e-af87-c136d93f3930",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/44b25ac5-ed1e-4b8d-84d9-ec23614417b6/s0_layla.mp3",
+      "container_duration_s": 93.947937,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "59bd4957-9360-41d6-bf59-ce1fbace462d",
+      "title_ar": "مقابلة مع فيزيائي كمي عن تشابك الجسيمات",
+      "unit_id": "2105dec8-575b-4a6a-8456-261b98a9d6c2",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/59bd4957-9360-41d6-bf59-ce1fbace462d/combined.mp3",
+      "container_duration_s": 315.480816,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "792bede3-74c2-4756-87c4-816e46f986b8",
+      "title_ar": "مقابلة مع عالمة أعصاب عن مرونة الدماغ وتغيّره",
+      "unit_id": "23f63e6e-487f-4588-86de-8a123c5226e9",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/792bede3-74c2-4756-87c4-816e46f986b8/combined.mp3",
+      "container_duration_s": 311.060317,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "f5bb9e50-eb78-4224-8ce7-908e235d9135",
+      "title_ar": "ليلى تجرب طهي أطباق من إيطاليا والمكسيك والهند",
+      "unit_id": "290f3fbe-d9ec-41cb-93d3-aa2401ee6c7c",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/f5bb9e50-eb78-4224-8ce7-908e235d9135/s0_layla.mp3",
+      "container_duration_s": 96.548571,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "312e8743-4c60-4aee-a80a-70f5f5bb684c",
+      "title_ar": "سارة تستعرض مهناً متنوعة للمرأة اليوم",
+      "unit_id": "2f3df52f-08c0-4fd0-9488-487ddd956140",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/312e8743-4c60-4aee-a80a-70f5f5bb684c/s0_sarah.mp3",
+      "container_duration_s": 71.74966,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "1f6723b1-fa54-4ac2-837f-6b6b9f199a26",
+      "title_ar": "محادثة عن رحلة التنزه في جبال السروات",
+      "unit_id": "301187bb-9088-4bfa-b3e2-5dabd93bb0b4",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/1f6723b1-fa54-4ac2-837f-6b6b9f199a26/combined.mp3",
+      "container_duration_s": 117.379773,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "c2c17796-03aa-4240-b983-dc4dd6d3c516",
+      "title_ar": "مقابلة عن الانقراض السادس وأزمة التنوع البيولوجي",
+      "unit_id": "30a2b8b2-b368-4e16-869d-b3a137071340",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/c2c17796-03aa-4240-b983-dc4dd6d3c516/combined.mp3",
+      "container_duration_s": 336.227846,
+      "silence_regions": [
+        {
+          "start_s": 7.290703,
+          "end_s": 8.122018,
+          "duration_s": 0.831315
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 7.290703,
+          "end_s": 8.122018,
+          "duration_s": 0.831315
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "8715d6fd-abf9-4256-a39f-dbb965016844",
+      "title_ar": "سارة تستعرض حضارة مصر القديمة ووادي النيل",
+      "unit_id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/8715d6fd-abf9-4256-a39f-dbb965016844/s0_sarah.mp3",
+      "container_duration_s": 101.471202,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "576d5bd6-a651-4341-8922-c5a875299ff4",
+      "title_ar": "ليلى تحكي كيف اكتشفت موهبتها في التصوير",
+      "unit_id": "357a1833-dd03-4232-8218-19d5d297edd8",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/576d5bd6-a651-4341-8922-c5a875299ff4/s0_layla.mp3",
+      "container_duration_s": 98.777687,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "2992edc4-d68d-4f16-99d1-ab7b7a2683c3",
+      "title_ar": "ناديا ترحّال: تجربة مهرجان أزهار الكرز في اليابان",
+      "unit_id": "49ed7c2c-fa1b-47b2-bb5c-34074beeafdc",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+      "container_duration_s": 99.752925,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "bccfc6e1-767a-44ec-83e8-ee060bdd825d",
+      "title_ar": "نقاش عن المباني الذكية وكفاءة الطاقة",
+      "unit_id": "5366f092-2222-42fa-8128-c7e4d81a762e",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/bccfc6e1-767a-44ec-83e8-ee060bdd825d/combined.mp3",
+      "container_duration_s": 114.034104,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "f7bc89f9-a52b-4c2e-88da-427f94de04a4",
+      "title_ar": "محادثة عن امتحان علم النفس ودراسة الذاكرة",
+      "unit_id": "542c8884-0fd4-4a0c-abad-d5f0913ab8b4",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/f7bc89f9-a52b-4c2e-88da-427f94de04a4/combined.mp3",
+      "container_duration_s": 122.668118,
+      "silence_regions": [
+        {
+          "start_s": 23.817551,
+          "end_s": 24.697483,
+          "duration_s": 0.879932
+        },
+        {
+          "start_s": 47.365964,
+          "end_s": 48.171156,
+          "duration_s": 0.805193
+        },
+        {
+          "start_s": 62.002857,
+          "end_s": 62.811633,
+          "duration_s": 0.808776
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 23.817551,
+          "end_s": 24.697483,
+          "duration_s": 0.879932
+        },
+        {
+          "start_s": 47.365964,
+          "end_s": 48.171156,
+          "duration_s": 0.805193
+        },
+        {
+          "start_s": 62.002857,
+          "end_s": 62.811633,
+          "duration_s": 0.808776
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "896ab711-ea14-47bc-9e36-f4d09931ffab",
+      "title_ar": "نقاش عن الباندا والحيوانات المهددة بالانقراض",
+      "unit_id": "54c9c8f5-2e61-40be-be31-825a0cfc40f6",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/896ab711-ea14-47bc-9e36-f4d09931ffab/combined.mp3",
+      "container_duration_s": 120.218413,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "5f6d033e-abb0-429f-bc76-9dd344218b53",
+      "title_ar": "فاطمة وأختها في المول: تجربة تسوق ممتعة",
+      "unit_id": "5515ee31-f957-4daa-bdde-4cffda7704c7",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/5f6d033e-abb0-429f-bc76-9dd344218b53/s0_fatima.mp3",
+      "container_duration_s": 68.498866,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "c5d12ff8-7c29-46b3-8c79-2086d530224a",
+      "title_ar": "ليلى تشرح ثلاثة اختراعات غيّرت مجرى التاريخ",
+      "unit_id": "55a4d6c2-9130-40db-983d-ed412ba446a7",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/c5d12ff8-7c29-46b3-8c79-2086d530224a/s0_layla.mp3",
+      "container_duration_s": 104.071837,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "af1a25b9-a7d7-4490-b671-a9d01f6bc4e8",
+      "title_ar": "مقابلة مع د. سارة الراشد عن حماية الشعاب المرجانية",
+      "unit_id": "55d40057-1d91-4eb0-8d78-b3f47a8d0a24",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/af1a25b9-a7d7-4490-b671-a9d01f6bc4e8/combined.mp3",
+      "container_duration_s": 202.361905,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "420b053f-d61e-4be9-8992-76685066ce58",
+      "title_ar": "محادثة عن دور المرأة في الحضارات القديمة",
+      "unit_id": "59de8aaa-16be-4f95-86f6-105c2310ab18",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/420b053f-d61e-4be9-8992-76685066ce58/combined.mp3",
+      "container_duration_s": 128.223356,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "d7f29e08-77fa-4adc-9c64-a6f40131eb96",
+      "title_ar": "محادثة عن عاصفة رملية قادمة وتغيير الخطط",
+      "unit_id": "6527e32e-b7f3-4196-9bae-a034712c9fa6",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/d7f29e08-77fa-4adc-9c64-a6f40131eb96/combined.mp3",
+      "container_duration_s": 122.82195,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "e76b49c2-1e8e-475c-a1f2-38280bcd78fe",
+      "title_ar": "مقابلة مع د. فاطمة الراشد عن تطور علم الجينات",
+      "unit_id": "67005d93-4749-4e75-944a-54f88fdf6d5e",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/e76b49c2-1e8e-475c-a1f2-38280bcd78fe/combined.mp3",
+      "container_duration_s": 187.594014,
+      "silence_regions": [
+        {
+          "start_s": 6.235782,
+          "end_s": 7.04966,
+          "duration_s": 0.813878
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 6.235782,
+          "end_s": 7.04966,
+          "duration_s": 0.813878
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "981b0d0a-8a92-4612-8fa9-6323d7ebfcfd",
+      "title_ar": "محادثة عن وثائقي أزمة المياه وتأثيرها",
+      "unit_id": "6d85610d-0017-4f28-978e-f1281edc75e6",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/981b0d0a-8a92-4612-8fa9-6323d7ebfcfd/combined.mp3",
+      "container_duration_s": 125.605442,
+      "silence_regions": [
+        {
+          "start_s": 55.30161,
+          "end_s": 56.187324,
+          "duration_s": 0.885714
+        },
+        {
+          "start_s": 100.368889,
+          "end_s": 101.198526,
+          "duration_s": 0.829637
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 55.30161,
+          "end_s": 56.187324,
+          "duration_s": 0.885714
+        },
+        {
+          "start_s": 100.368889,
+          "end_s": 101.198526,
+          "duration_s": 0.829637
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "91e88604-dda7-47da-888a-f6787ba48215",
+      "title_ar": "محادثة مع د. حسن عن ثقافة القهوة حول العالم",
+      "unit_id": "738ff234-070d-4ace-9901-434e43521bdb",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/91e88604-dda7-47da-888a-f6787ba48215/combined.mp3",
+      "container_duration_s": 227.128889,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "faf4d5ac-3f42-4d02-b038-22bdd4c45893",
+      "title_ar": "ليلى تحكي رحلتها نحو الحياة المستدامة",
+      "unit_id": "73c7463e-df09-452a-b369-41334805d8a6",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/faf4d5ac-3f42-4d02-b038-22bdd4c45893/s0_layla.mp3",
+      "container_duration_s": 100.449524,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "b4ef25db-caa8-49ca-bf7e-d88d73f21919",
+      "title_ar": "مقابلة مع د. أمينة الراشد عن تقنيات الطاقة المتجددة",
+      "unit_id": "79f8500f-f110-4b61-9099-15348ce19d79",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/b4ef25db-caa8-49ca-bf7e-d88d73f21919/combined.mp3",
+      "container_duration_s": 201.444717,
+      "silence_regions": [
+        {
+          "start_s": 14.98873,
+          "end_s": 15.826395,
+          "duration_s": 0.837664
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 14.98873,
+          "end_s": 15.826395,
+          "duration_s": 0.837664
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "faa01054-6873-4408-a5b7-cbcfe7efe960",
+      "title_ar": "نقاش أكاديمي عن أخلاقيات التكنولوجيا الطبية",
+      "unit_id": "7fd7a0b6-cbbc-4b38-9cfc-2495554d0f4d",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/faa01054-6873-4408-a5b7-cbcfe7efe960/combined.mp3",
+      "container_duration_s": 259.555556,
+      "silence_regions": [
+        {
+          "start_s": 54.706395,
+          "end_s": 55.731179,
+          "duration_s": 1.024785
+        },
+        {
+          "start_s": 179.664989,
+          "end_s": 180.537415,
+          "duration_s": 0.872426
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 54.706395,
+          "end_s": 55.731179,
+          "duration_s": 1.024785
+        },
+        {
+          "start_s": 179.664989,
+          "end_s": 180.537415,
+          "duration_s": 0.872426
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "5f66bedc-ed77-40dc-bb87-b60facd0c51f",
+      "title_ar": "نور تحكي قصة رحلتها إلى اليابان",
+      "unit_id": "82167f9b-2eff-4a0b-aa9f-ca7f4cec885a",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/5f66bedc-ed77-40dc-bb87-b60facd0c51f/combined.mp3",
+      "container_duration_s": 117.815147,
+      "silence_regions": [
+        {
+          "start_s": 99.534104,
+          "end_s": 100.340113,
+          "duration_s": 0.806009
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 99.534104,
+          "end_s": 100.340113,
+          "duration_s": 0.806009
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "ab69e89c-32b6-4d98-8360-4748bc2c9f37",
+      "title_ar": "نقاش عن الخصوصية الرقمية والأمن السيبراني",
+      "unit_id": "8272e688-818a-4f86-93d5-9a39e84ee3b3",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/ab69e89c-32b6-4d98-8360-4748bc2c9f37/combined.mp3",
+      "container_duration_s": 195.842902,
+      "silence_regions": [
+        {
+          "start_s": 38.18805,
+          "end_s": 39.031565,
+          "duration_s": 0.843515
+        },
+        {
+          "start_s": 113.804807,
+          "end_s": 114.692041,
+          "duration_s": 0.887234
+        },
+        {
+          "start_s": 117.94932,
+          "end_s": 118.752449,
+          "duration_s": 0.803129
+        },
+        {
+          "start_s": 167.663946,
+          "end_s": 168.508889,
+          "duration_s": 0.844943
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 38.18805,
+          "end_s": 39.031565,
+          "duration_s": 0.843515
+        },
+        {
+          "start_s": 113.804807,
+          "end_s": 114.692041,
+          "duration_s": 0.887234
+        },
+        {
+          "start_s": 117.94932,
+          "end_s": 118.752449,
+          "duration_s": 0.803129
+        },
+        {
+          "start_s": 167.663946,
+          "end_s": 168.508889,
+          "duration_s": 0.844943
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "8dbff5e6-0138-499c-9b79-dca991978b24",
+      "title_ar": "مقابلة مع عالمة زلازل عن أسباب الهزات الأرضية",
+      "unit_id": "85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/8dbff5e6-0138-499c-9b79-dca991978b24/combined.mp3",
+      "container_duration_s": 178.192834,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "9e723be0-9f55-42e5-8f40-20f753d5a2a3",
+      "title_ar": "ليلى تشارك هواياتها وأنشطة وقت الفراغ",
+      "unit_id": "89f2e975-060e-4f83-a4bf-b2c86ec56631",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9e723be0-9f55-42e5-8f40-20f753d5a2a3/s0_layla.mp3",
+      "container_duration_s": 69.102585,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "e1d19a4b-f1e7-43f3-bb5c-15249b60e99c",
+      "title_ar": "نقاش عن الموضة والأزياء التقليدية العصرية",
+      "unit_id": "8a656780-a4f2-4cf1-b44d-f74b9f65a05f",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/e1d19a4b-f1e7-43f3-bb5c-15249b60e99c/combined.mp3",
+      "container_duration_s": 121.007891,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "2b772e7e-3d14-4223-8053-fabecd8cf0b5",
+      "title_ar": "ليلى وموني يخططان للخروج إلى السينما",
+      "unit_id": "8b9c8041-693a-42bb-8bbd-f2b79a3851bd",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/2b772e7e-3d14-4223-8053-fabecd8cf0b5/combined.mp3",
+      "container_duration_s": 119.426032,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "ba1043c7-32c8-43d8-a7ab-11845f537bdd",
+      "title_ar": "نور تصف يومها الكامل على وسائل التواصل",
+      "unit_id": "8bf43cee-3a7d-4d85-b33f-362c3dcc5f33",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/ba1043c7-32c8-43d8-a7ab-11845f537bdd/s0_noor.mp3",
+      "container_duration_s": 97.05941,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "8571667a-93dc-4035-bf9f-3cda3b63d82a",
+      "title_ar": "نورة تتحدث عن هاتفها وجهاز الكمبيوتر",
+      "unit_id": "8fa91a36-703f-46ae-a893-e5162de9bf2d",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/8571667a-93dc-4035-bf9f-3cda3b63d82a/s0_nora.mp3",
+      "container_duration_s": 70.077823,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "d074e527-fb88-48bc-b232-13a5f1cf4750",
+      "title_ar": "ليلى تشارك شغفها بالموسيقى والفنون",
+      "unit_id": "95530744-5815-4ca5-bb10-756b25cc66d6",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/d074e527-fb88-48bc-b232-13a5f1cf4750/s0_layla.mp3",
+      "container_duration_s": 96.641451,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "674ff56a-0738-4683-aa7a-60b30f22e921",
+      "title_ar": "محاضرة عن علم نفس الحشود وسلوك المجموعات",
+      "unit_id": "96004ccc-14a6-4838-9188-08c6445d14c7",
+      "audio_type": "lecture",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/674ff56a-0738-4683-aa7a-60b30f22e921/combined.mp3",
+      "container_duration_s": 298.849524,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "34c87c04-3f94-43bb-a460-c44cc0261a07",
+      "title_ar": "مقابلة مع عالمة نفس عن سيكولوجية الخوف",
+      "unit_id": "97b187e9-39e6-4263-8ed8-72a63e69273c",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/34c87c04-3f94-43bb-a460-c44cc0261a07/combined.mp3",
+      "container_duration_s": 201.459229,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "9c961ae7-16d0-424e-abfa-93f0c82f3d7c",
+      "title_ar": "يوم نور: روتين الصباح والأنشطة اليومية",
+      "unit_id": "97ccbf07-a070-4e7f-b27e-4d4a29bcf8d2",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9c961ae7-16d0-424e-abfa-93f0c82f3d7c/s0_noor.mp3",
+      "container_duration_s": 70.727982,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "546730cd-2a01-4d69-96ac-673610a25524",
+      "title_ar": "مقابلة مع د. أمينة حسن عن الزراعة الحضرية",
+      "unit_id": "99996ac0-6cd8-457d-89ac-e2995c7351e4",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/546730cd-2a01-4d69-96ac-673610a25524/combined.mp3",
+      "container_duration_s": 187.898776,
+      "silence_regions": [
+        {
+          "start_s": 9.629048,
+          "end_s": 10.441701,
+          "duration_s": 0.812653
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 9.629048,
+          "end_s": 10.441701,
+          "duration_s": 0.812653
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "89982954-2326-40a8-9227-62a9dd8af906",
+      "title_ar": "سارة تحكي عن أجمل المدن التي زارتها",
+      "unit_id": "9a560631-9d0b-4b5a-a3d5-567c1779ab6e",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/89982954-2326-40a8-9227-62a9dd8af906/s0_sarah.mp3",
+      "container_duration_s": 101.982041,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "62666f53-6e69-40b3-8a1e-0f058b7b7b8e",
+      "title_ar": "مقابلة مع باحث عن أسباب الهجرة البشرية",
+      "unit_id": "9b30bc71-91a8-4316-9166-4319b0589d46",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/62666f53-6e69-40b3-8a1e-0f058b7b7b8e/combined.mp3",
+      "container_duration_s": 248.026848,
+      "silence_regions": [
+        {
+          "start_s": 27.597302,
+          "end_s": 28.446508,
+          "duration_s": 0.849206
+        },
+        {
+          "start_s": 98.245011,
+          "end_s": 99.066848,
+          "duration_s": 0.821837
+        },
+        {
+          "start_s": 138.350952,
+          "end_s": 139.198526,
+          "duration_s": 0.847574
+        },
+        {
+          "start_s": 143.277483,
+          "end_s": 144.171224,
+          "duration_s": 0.893741
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 27.597302,
+          "end_s": 28.446508,
+          "duration_s": 0.849206
+        },
+        {
+          "start_s": 98.245011,
+          "end_s": 99.066848,
+          "duration_s": 0.821837
+        },
+        {
+          "start_s": 138.350952,
+          "end_s": 139.198526,
+          "duration_s": 0.847574
+        },
+        {
+          "start_s": 143.277483,
+          "end_s": 144.171224,
+          "duration_s": 0.893741
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "686b95e9-f474-45d5-887f-fdf700e325b1",
+      "title_ar": "فاطمة تشارك وصفاتها وحبها للطبخ",
+      "unit_id": "a067dbbb-ea5b-4902-938f-ee23952c1c25",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/686b95e9-f474-45d5-887f-fdf700e325b1/s0_fatima.mp3",
+      "container_duration_s": 74.536054,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "7dc9e208-c878-423f-af40-e4effbe3dba6",
+      "title_ar": "نقاش عن عجائب الهندسة في الحضارات القديمة",
+      "unit_id": "a12ff640-eb7e-4c48-8cf7-69f0f2cef190",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/7dc9e208-c878-423f-af40-e4effbe3dba6/combined.mp3",
+      "container_duration_s": 204.663583,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "9f0afbc9-7636-410b-9107-3c6a43d2925c",
+      "title_ar": "الحيوانات حولنا: الأليفة والبرية",
+      "unit_id": "a1c18caa-29d6-4ae7-9ed4-9ca2702f6af4",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9f0afbc9-7636-410b-9107-3c6a43d2925c/s0_narrator.mp3",
+      "container_duration_s": 74.814694,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70",
+      "title_ar": "مقابلة مع اقتصادي عن مفارقة الموارد والوفرة",
+      "unit_id": "a393f989-100c-45d2-8f75-f3b10d6c2214",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70/combined.mp3",
+      "container_duration_s": 320.148027,
+      "silence_regions": [
+        {
+          "start_s": 103.636349,
+          "end_s": 104.475873,
+          "duration_s": 0.839524
+        },
+        {
+          "start_s": 212.921814,
+          "end_s": 213.784739,
+          "duration_s": 0.862925
+        },
+        {
+          "start_s": 222.770249,
+          "end_s": 223.590113,
+          "duration_s": 0.819864
+        },
+        {
+          "start_s": 259.345465,
+          "end_s": 260.191814,
+          "duration_s": 0.846349
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 103.636349,
+          "end_s": 104.475873,
+          "duration_s": 0.839524
+        },
+        {
+          "start_s": 212.921814,
+          "end_s": 213.784739,
+          "duration_s": 0.862925
+        },
+        {
+          "start_s": 222.770249,
+          "end_s": 223.590113,
+          "duration_s": 0.819864
+        },
+        {
+          "start_s": 259.345465,
+          "end_s": 260.191814,
+          "duration_s": 0.846349
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "7ced0e9a-dd8b-438c-8471-e3c0722c7eed",
+      "title_ar": "مقابلة مع أستاذ هندسة عن التصميم المستوحى من الطبيعة",
+      "unit_id": "a4d1b754-1a0d-42a5-9ef4-caceaa51ac7d",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/7ced0e9a-dd8b-438c-8471-e3c0722c7eed/combined.mp3",
+      "container_duration_s": 269.638821,
+      "silence_regions": [
+        {
+          "start_s": 78.409206,
+          "end_s": 79.231973,
+          "duration_s": 0.822766
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 78.409206,
+          "end_s": 79.231973,
+          "duration_s": 0.822766
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "d6efcb31-a953-416a-bc5f-525bedee2b89",
+      "title_ar": "نورة تستعد لرحلتها الأولى إلى لندن",
+      "unit_id": "a543f5ca-e28d-4c52-90d1-f2027af29da2",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/d6efcb31-a953-416a-bc5f-525bedee2b89/s0_nora.mp3",
+      "container_duration_s": 82.291519,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "6a6ed5af-d0b2-471f-88d6-be99fc213724",
+      "title_ar": "مقابلة مع د. سارة تشن عن تأثير الذكاء الاصطناعي",
+      "unit_id": "a5b583a4-5d9e-41b7-b95f-c07e0c44f64b",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/6a6ed5af-d0b2-471f-88d6-be99fc213724/combined.mp3",
+      "container_duration_s": 191.840363,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "fb34b3a0-ce85-4db2-b37a-9da44bf64193",
+      "title_ar": "مقابلة عن تطبيقات الواقع الافتراضي في التعليم",
+      "unit_id": "aa6e8325-b825-4c0a-8218-b8a5341fc604",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/fb34b3a0-ce85-4db2-b37a-9da44bf64193/combined.mp3",
+      "container_duration_s": 190.264308,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "fb91912b-7b95-43c6-b948-9a8037faa736",
+      "title_ar": "مقابلة عن التكيف مع تغير المناخ في المناطق القاحلة",
+      "unit_id": "aa881235-3e7b-47d0-b117-eacb0ecf4514",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/fb91912b-7b95-43c6-b948-9a8037faa736/combined.mp3",
+      "container_duration_s": 324.408889,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "209f6e28-6ec7-43e6-b16c-87c7eb6e878d",
+      "title_ar": "نورة تصف حياتها وحيّها في الرياض",
+      "unit_id": "ab2d705a-addc-4aed-9ca2-dc88bce8f448",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/209f6e28-6ec7-43e6-b16c-87c7eb6e878d/s0_nora.mp3",
+      "container_duration_s": 75.000454,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "bac2518b-9623-438c-b6df-49937387a3d2",
+      "title_ar": "محاضرة عن اكتشاف الكواكب خارج المجموعة الشمسية",
+      "unit_id": "aceffcb9-98fa-4dd0-9195-f3cd9c59efbc",
+      "audio_type": "lecture",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/bac2518b-9623-438c-b6df-49937387a3d2/s0_dr.-martinez.mp3",
+      "container_duration_s": 268.515556,
+      "silence_regions": [
+        {
+          "start_s": 21.415692,
+          "end_s": 22.330317,
+          "duration_s": 0.914626
+        },
+        {
+          "start_s": 142.400295,
+          "end_s": 143.223764,
+          "duration_s": 0.823469
+        },
+        {
+          "start_s": 185.469365,
+          "end_s": 186.337846,
+          "duration_s": 0.868481
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 21.415692,
+          "end_s": 22.330317,
+          "duration_s": 0.914626
+        },
+        {
+          "start_s": 142.400295,
+          "end_s": 143.223764,
+          "duration_s": 0.823469
+        },
+        {
+          "start_s": 185.469365,
+          "end_s": 186.337846,
+          "duration_s": 0.868481
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "51fad1dc-0624-4cc7-8048-9dea0f26a171",
+      "title_ar": "محاضرة عن طبيعة العبقرية الإبداعية وأسرارها",
+      "unit_id": "b24ae7ba-d335-47ef-a4ac-6dbdf930fdb7",
+      "audio_type": "lecture",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/51fad1dc-0624-4cc7-8048-9dea0f26a171/s0_dr.-martinez.mp3",
+      "container_duration_s": 295.543583,
+      "silence_regions": [
+        {
+          "start_s": 24.792925,
+          "end_s": 25.63619,
+          "duration_s": 0.843265
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 24.792925,
+          "end_s": 25.63619,
+          "duration_s": 0.843265
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "a9e49ba8-49fe-424a-ac8f-ff51763e596a",
+      "title_ar": "مقابلة مع عالمة طب شرعي عن التحقيقات الجنائية",
+      "unit_id": "b7a132ed-18d7-479b-93ca-e47eefd81b18",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/a9e49ba8-49fe-424a-ac8f-ff51763e596a/combined.mp3",
+      "container_duration_s": 277.513288,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "d3ea9b38-695d-4a70-8ef3-7816ec04d239",
+      "title_ar": "محاضرة عن لغز حضارة وادي السند المفقودة",
+      "unit_id": "b96b7780-37b9-4769-b2c6-65c518515689",
+      "audio_type": "lecture",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/d3ea9b38-695d-4a70-8ef3-7816ec04d239/s0_dr.-mitchell.mp3",
+      "container_duration_s": 272.230748,
+      "silence_regions": [
+        {
+          "start_s": 43.193673,
+          "end_s": 44.029161,
+          "duration_s": 0.835488
+        },
+        {
+          "start_s": 185.374649,
+          "end_s": 186.208299,
+          "duration_s": 0.833651
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 43.193673,
+          "end_s": 44.029161,
+          "duration_s": 0.835488
+        },
+        {
+          "start_s": 185.374649,
+          "end_s": 186.208299,
+          "duration_s": 0.833651
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "f7989a07-3a74-4bf6-8d4f-91cc5729d927",
+      "title_ar": "ليلى تتحدث عن جسم الإنسان وصحتها",
+      "unit_id": "bae5cc8f-ae31-4688-93fb-e2cd73406804",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/f7989a07-3a74-4bf6-8d4f-91cc5729d927/s0_layla.mp3",
+      "container_duration_s": 73.375057,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "7dc526f8-069e-4fae-b842-9af82a585a97",
+      "title_ar": "نقاش أكاديمي عن انتشار العملات المشفرة",
+      "unit_id": "bdb9ff2e-ece0-41d2-be44-227a3c3b3786",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/7dc526f8-069e-4fae-b842-9af82a585a97/combined.mp3",
+      "container_duration_s": 263.366531,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "e7d1a54b-037b-42bb-9be4-9bcf5b7f6c4b",
+      "title_ar": "مقابلة مع باحثة علوم الشيخوخة عن إطالة عمر الإنسان",
+      "unit_id": "be81143a-e416-4298-91d0-f5f9b4f9786e",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/e7d1a54b-037b-42bb-9be4-9bcf5b7f6c4b/combined.mp3",
+      "container_duration_s": 258.226213,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "e5ed4f14-be00-4226-85e4-dcf99658a777",
+      "title_ar": "مقابلة مع د. أمارا حسن عن استكشاف المريخ",
+      "unit_id": "c14c9ffc-13b9-4c4f-9e67-b178f4d85bf6",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/e5ed4f14-be00-4226-85e4-dcf99658a777/combined.mp3",
+      "container_duration_s": 187.663673,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "68773ed9-055c-4909-8447-5979ebd0e103",
+      "title_ar": "محادثة عن تجربة الابتعاد عن وسائل التواصل",
+      "unit_id": "d079ba8b-e738-49fe-8c2b-f3b82a4cdf68",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/68773ed9-055c-4909-8447-5979ebd0e103/combined.mp3",
+      "container_duration_s": 122.284989,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "6b6e7a26-c6c8-4b06-a176-b967d74ab76f",
+      "title_ar": "نقاش بين خبيرين عن مستقبل الطاقة النووية",
+      "unit_id": "d485be14-8f3f-45d2-ba5b-b8853cd3c713",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/6b6e7a26-c6c8-4b06-a176-b967d74ab76f/combined.mp3",
+      "container_duration_s": 339.943039,
+      "silence_regions": [
+        {
+          "start_s": 62.072268,
+          "end_s": 62.904739,
+          "duration_s": 0.832472
+        },
+        {
+          "start_s": 78.82229,
+          "end_s": 79.657007,
+          "duration_s": 0.834717
+        },
+        {
+          "start_s": 83.58415,
+          "end_s": 84.419161,
+          "duration_s": 0.835011
+        },
+        {
+          "start_s": 213.2578,
+          "end_s": 214.091293,
+          "duration_s": 0.833492
+        },
+        {
+          "start_s": 285.508866,
+          "end_s": 286.421293,
+          "duration_s": 0.912426
+        },
+        {
+          "start_s": 332.187619,
+          "end_s": 332.994966,
+          "duration_s": 0.807347
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 62.072268,
+          "end_s": 62.904739,
+          "duration_s": 0.832472
+        },
+        {
+          "start_s": 78.82229,
+          "end_s": 79.657007,
+          "duration_s": 0.834717
+        },
+        {
+          "start_s": 83.58415,
+          "end_s": 84.419161,
+          "duration_s": 0.835011
+        },
+        {
+          "start_s": 213.2578,
+          "end_s": 214.091293,
+          "duration_s": 0.833492
+        },
+        {
+          "start_s": 285.508866,
+          "end_s": 286.421293,
+          "duration_s": 0.912426
+        },
+        {
+          "start_s": 332.187619,
+          "end_s": 332.994966,
+          "duration_s": 0.807347
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "5846f7c9-f5c9-482e-bb09-142aeceeefb8",
+      "title_ar": "نقاش حول الفن الجداري في شوارع المدينة",
+      "unit_id": "daf340b3-7268-44b3-ad0d-4a62ab8d0d21",
+      "audio_type": "dialogue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/5846f7c9-f5c9-482e-bb09-142aeceeefb8/combined.mp3",
+      "container_duration_s": 118.170975,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "a213895f-7021-4528-b737-3b37c7d09f77",
+      "title_ar": "نقاش أكاديمي عن الدبلوماسية الرقمية في الشرق الأوسط",
+      "unit_id": "defcf06f-c19d-4a17-8f3b-28600a184e5d",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/a213895f-7021-4528-b737-3b37c7d09f77/combined.mp3",
+      "container_duration_s": 311.933968,
+      "silence_regions": [
+        {
+          "start_s": 77.737211,
+          "end_s": 78.620748,
+          "duration_s": 0.883537
+        },
+        {
+          "start_s": 251.731837,
+          "end_s": 252.829546,
+          "duration_s": 1.09771
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 77.737211,
+          "end_s": 78.620748,
+          "duration_s": 0.883537
+        },
+        {
+          "start_s": 251.731837,
+          "end_s": 252.829546,
+          "duration_s": 1.09771
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "06e6cf1a-b85d-45e8-907f-d36d40f85696",
+      "title_ar": "سارة تتحدث عن استكشاف الفضاء وإنجازاته التاريخية",
+      "unit_id": "dfefdb76-330a-4ac3-9102-95e1b792a5a6",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/06e6cf1a-b85d-45e8-907f-d36d40f85696/s0_sarah.mp3",
+      "container_duration_s": 111.641542,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "f9fea551-7654-47c1-bf69-9dd399e9a275",
+      "title_ar": "مقابلة مع مهندسة معمارية عن البناء المستدام",
+      "unit_id": "e56f8f63-8f89-4269-b620-b7e2e54f8a8d",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/f9fea551-7654-47c1-bf69-9dd399e9a275/combined.mp3",
+      "container_duration_s": 261.035828,
+      "silence_regions": [
+        {
+          "start_s": 131.235624,
+          "end_s": 132.052245,
+          "duration_s": 0.816621
+        },
+        {
+          "start_s": 218.67517,
+          "end_s": 219.532948,
+          "duration_s": 0.857778
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 131.235624,
+          "end_s": 132.052245,
+          "duration_s": 0.816621
+        },
+        {
+          "start_s": 218.67517,
+          "end_s": 219.532948,
+          "duration_s": 0.857778
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "24431382-8fea-4d31-8d3d-70e9a401057d",
+      "title_ar": "نقاش فلسفي عن الشك العلمي وأزمة الثقة",
+      "unit_id": "e707f4f6-1c58-484f-8f94-b1cfe543920e",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/24431382-8fea-4d31-8d3d-70e9a401057d/combined.mp3",
+      "container_duration_s": 322.435193,
+      "silence_regions": [
+        {
+          "start_s": 26.100136,
+          "end_s": 26.936236,
+          "duration_s": 0.8361
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 26.100136,
+          "end_s": 26.936236,
+          "duration_s": 0.8361
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "9774fa25-d7bc-4865-9448-a097e21150df",
+      "title_ar": "مقابلة مع عالمة بحار عن أسرار خندق ماريانا",
+      "unit_id": "f072a40a-6063-493d-bc9d-4aebe4c472fc",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/9774fa25-d7bc-4865-9448-a097e21150df/combined.mp3",
+      "container_duration_s": 280.398367,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "ccc4f118-3c1f-4497-bfed-de02a6dc81cd",
+      "title_ar": "مقابلة عن أسرار الأداء الاستثنائي والتفوق",
+      "unit_id": "f14cdead-a656-4d15-9fee-838abb26822b",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/ccc4f118-3c1f-4497-bfed-de02a6dc81cd/combined.mp3",
+      "container_duration_s": 322.377143,
+      "silence_regions": [
+        {
+          "start_s": 1.96254,
+          "end_s": 2.916236,
+          "duration_s": 0.953696
+        }
+      ],
+      "significant_silence_regions": [
+        {
+          "start_s": 1.96254,
+          "end_s": 2.916236,
+          "duration_s": 0.953696
+        }
+      ],
+      "verdict": "HAS_GAPS"
+    },
+    {
+      "id": "126e9fea-c180-4b69-8d3e-22601ed2fa1c",
+      "title_ar": "مقابلة عن الأمن الغذائي والأزمات العالمية",
+      "unit_id": "f37d15fc-9fed-4c19-a62a-341de2541645",
+      "audio_type": "interview",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/126e9fea-c180-4b69-8d3e-22601ed2fa1c/combined.mp3",
+      "container_duration_s": 273.176961,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "8d93c32b-4b25-4270-917f-e6c78c52cbfd",
+      "title_ar": "نجمة التنس سارة الراشد: قصة ملهمة",
+      "unit_id": "f3a651e1-3ae8-4028-a5fa-42e44f5af75b",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/8d93c32b-4b25-4270-917f-e6c78c52cbfd/s0_narrator.mp3",
+      "container_duration_s": 93.947937,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    },
+    {
+      "id": "81208d88-54bb-48af-8579-37884bb84d61",
+      "title_ar": "ليلى تصف طقس الرياض عبر الفصول الأربعة",
+      "unit_id": "ffa3641f-b0c8-412b-a5ab-dc60603018ea",
+      "audio_type": "monologue",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/81208d88-54bb-48af-8579-37884bb84d61/s0_layla.mp3",
+      "container_duration_s": 66.130431,
+      "silence_regions": [],
+      "significant_silence_regions": [],
+      "verdict": "CLEAN"
+    }
+  ]
+}
