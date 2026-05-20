@@ -44,40 +44,9 @@ const cardVariant = {
   show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
 }
 
-// ─── Progress Ring SVG ────────────────────────────────
-function ProgressRing({ percent, size = 140 }) {
-  const stroke = 8
-  const radius = (size - stroke) / 2
-  const circumference = 2 * Math.PI * radius
-  const [offset, setOffset] = useState(circumference)
-
-  useEffect(() => {
-    const timer = requestAnimationFrame(() => {
-      setOffset(circumference - (percent / 100) * circumference)
-    })
-    return () => cancelAnimationFrame(timer)
-  }, [percent, circumference])
-
-  return (
-    <svg width={size} height={size} className="transform -rotate-90">
-      <defs>
-        <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#38bdf8" />
-          <stop offset="100%" stopColor="#818cf8" />
-        </linearGradient>
-      </defs>
-      <circle cx={size / 2} cy={size / 2} r={radius} stroke="rgba(255,255,255,0.05)" strokeWidth={stroke} fill="none" />
-      <circle
-        cx={size / 2} cy={size / 2} r={radius}
-        stroke="url(#ring-gradient)" strokeWidth={stroke} fill="none"
-        strokeLinecap="round"
-        strokeDasharray={circumference}
-        strokeDashoffset={offset}
-        style={{ transition: 'stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1)' }}
-      />
-    </svg>
-  )
-}
+// Note: the legacy ProgressRing helper used by the old "① HERO HEADER"
+// block was removed in Prompt 07. ProgressOrb in components/curriculum/hero/
+// now owns this visualization.
 
 // ─── Main Component ─────────────────────────────────
 export default function VocabularyTab({ unitId }) {
@@ -416,38 +385,8 @@ export default function VocabularyTab({ unitId }) {
         onOpenChunk={(chunk) => setActiveChunk(chunk)}
       />
 
-      {/* === ALL CONTENT BELOW UNCHANGED FROM PRE-PROMPT-05 === */}
-      {/* ① HERO HEADER */}
-      <div className="relative rounded-2xl overflow-hidden p-6" style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.05) 0%, rgba(129,140,248,0.05) 100%)', border: '1px solid rgba(255,255,255,0.04)' }}>
-        {/* Subtle glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full" style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)' }} />
-
-        <div className="relative flex flex-col items-center gap-5">
-          {/* Progress Ring */}
-          <div className="relative">
-            <ProgressRing percent={masteryPercent} size={140} />
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-3xl font-black text-white font-['Inter']">{masteryPercent}%</span>
-              <span className="text-[10px] text-white/40 font-['Tajawal'] -mt-0.5">إتقان</span>
-            </div>
-          </div>
-
-          {/* Title */}
-          <div className="text-center">
-            <h3 className="text-base font-bold text-white font-['Tajawal']">مفردات الوحدة</h3>
-            <p className="text-xs text-white/40 font-['Tajawal'] mt-0.5">
-              {masteredCount > 0 ? `أتقنت ${masteredCount} من ${totalWords} كلمة` : `${totalWords} كلمة للتعلم`}
-            </p>
-          </div>
-
-          {/* Stats Row */}
-          <div className="flex items-center gap-3 w-full max-w-xs">
-            <StatCard icon="○" count={newCount} label="جديدة" color="rgba(148,163,184,0.6)" bg="rgba(255,255,255,0.03)" />
-            <StatCard icon="◐" count={learningCount} label="تتعلمها" color="#f59e0b" bg="rgba(245,158,11,0.06)" />
-            <StatCard icon="●" count={masteredCount} label="أتقنتها" color="#22c55e" bg="rgba(34,197,94,0.06)" />
-          </div>
-        </div>
-      </div>
+      {/* Legacy "① HERO HEADER" block removed in Prompt 07 — its data now
+          lives in <HeroSection> above. */}
 
       {/* ② FILTER BAR + SEARCH */}
       <div ref={libraryRef} className="flex items-center gap-2">
@@ -805,16 +744,9 @@ function PaginatedTier({ words, viewMode, getMastery, reviewedWords, markReviewe
   )
 }
 
-// ─── Stat Card ────────────────────────────────────────
-function StatCard({ icon, count, label, color, bg }) {
-  return (
-    <div className="flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl" style={{ background: bg, border: '1px solid rgba(255,255,255,0.04)' }}>
-      <span className="text-sm" style={{ color }}>{icon}</span>
-      <span className="text-lg font-black text-white font-['Inter']">{count}</span>
-      <span className="text-[10px] text-white/40 font-['Tajawal']">{label}</span>
-    </div>
-  )
-}
+// Note: the legacy StatCard helper used by the old "① HERO HEADER"
+// block was removed in Prompt 07. The new HeroSection renders
+// equivalent stats inline.
 
 // ─── Word Card (Premium) ──────────────────────────────
 function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSaveWord, isStudent }) {
