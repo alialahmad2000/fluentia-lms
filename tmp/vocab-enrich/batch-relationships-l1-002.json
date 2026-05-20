@@ -1,0 +1,122 @@
+[
+  { "id": "0e71e199-1443-4c3a-8ef7-ceacf71149ce", "word": "astronomer",
+    "synonyms": [{"word":"stargazer","level":4},{"word":"star scientist","level":3},{"word":"cosmologist","level":5}],
+    "antonyms": []
+  },
+  { "id": "0f1f9ae1-b88a-447b-8615-5a7ed3669ed9", "word": "curate",
+    "synonyms": [{"word":"choose","level":1},{"word":"select","level":2},{"word":"organize","level":2}],
+    "antonyms": [{"word":"discard","level":3}]
+  },
+  { "id": "1070ed2f-bac3-49db-885e-7baa392a63ff", "word": "frame",
+    "synonyms": [{"word":"border","level":2},{"word":"edge","level":2},{"word":"boundary","level":3}],
+    "antonyms": []
+  },
+  { "id": "111718cb-901e-46b6-84f7-e137ff6f2466", "word": "flash",
+    "synonyms": [{"word":"spark","level":3},{"word":"burst of light","level":3},{"word":"gleam","level":4}],
+    "antonyms": [{"word":"darkness","level":2}]
+  },
+  { "id": "117d7769-16bf-43ec-9108-5af1636fac99", "word": "distant",
+    "synonyms": [{"word":"far","level":1},{"word":"faraway","level":2},{"word":"remote","level":3}],
+    "antonyms": [{"word":"near","level":1},{"word":"close","level":1}]
+  },
+  { "id": "12d88fab-1412-4e12-89e4-cfcc5322f9a4", "word": "recycle",
+    "synonyms": [{"word":"reuse","level":3},{"word":"repurpose","level":3},{"word":"reprocess","level":4}],
+    "antonyms": [{"word":"throw away","level":2},{"word":"discard","level":3}]
+  },
+  { "id": "12e56919-5084-4399-9887-06878fcb5e48", "word": "shield",
+    "synonyms": [{"word":"armor","level":3},{"word":"defense","level":3},{"word":"protector","level":3}],
+    "antonyms": [{"word":"weapon","level":2}]
+  },
+  { "id": "15368a21-5902-4de0-b8da-35b50f9d91cf", "word": "portion",
+    "synonyms": [{"word":"share","level":2},{"word":"serving","level":2},{"word":"helping","level":2}],
+    "antonyms": [{"word":"whole","level":1}]
+  },
+  { "id": "15495da2-4a9f-4b68-8587-928be2ecb8b5", "word": "guitar",
+    "synonyms": [{"word":"stringed instrument","level":3},{"word":"six-string","level":3},{"word":"acoustic","level":4}],
+    "antonyms": []
+  },
+  { "id": "179fe746-0329-4fce-ad54-9754db62d9c1", "word": "contrast",
+    "synonyms": [{"word":"difference","level":1},{"word":"opposition","level":3},{"word":"distinction","level":4}],
+    "antonyms": [{"word":"similarity","level":2},{"word":"sameness","level":3}]
+  },
+  { "id": "18565725-cd54-47f8-9508-d24e524bc5b8", "word": "throw",
+    "synonyms": [{"word":"toss","level":2},{"word":"hurl","level":4},{"word":"fling","level":4}],
+    "antonyms": [{"word":"catch","level":1},{"word":"grab","level":2}]
+  },
+  { "id": "19741e67-bbc2-44ca-a270-82e1be2ae306", "word": "strategy",
+    "synonyms": [{"word":"plan","level":1},{"word":"tactic","level":3},{"word":"approach","level":3}],
+    "antonyms": []
+  },
+  { "id": "1adbdbe3-bd0a-4017-85b0-2eac41c1be6c", "word": "hashtag",
+    "synonyms": [{"word":"tag","level":2},{"word":"label","level":2},{"word":"keyword","level":3}],
+    "antonyms": []
+  },
+  { "id": "1b478e27-c536-43f9-a462-011732cb2119", "word": "transmit",
+    "synonyms": [{"word":"send","level":1},{"word":"broadcast","level":3},{"word":"relay","level":4}],
+    "antonyms": [{"word":"receive","level":2}]
+  },
+  { "id": "1b4a21fa-654f-496f-b025-4e5c3f4a717a", "word": "choir",
+    "synonyms": [{"word":"chorus","level":3},{"word":"singing group","level":3},{"word":"ensemble","level":5}],
+    "antonyms": []
+  },
+  { "id": "1b5e41a1-a4c3-4344-9dec-f876d85b4967", "word": "underwater",
+    "synonyms": [{"word":"sunken","level":3},{"word":"submerged","level":4},{"word":"submarine","level":3}],
+    "antonyms": [{"word":"above-water","level":2},{"word":"surface","level":3}]
+  },
+  { "id": "1bd8ca96-59bf-49b0-b0d9-c3c3a223be84", "word": "conquer",
+    "synonyms": [{"word":"defeat","level":2},{"word":"overcome","level":3},{"word":"vanquish","level":5}],
+    "antonyms": [{"word":"lose","level":1},{"word":"surrender","level":3}]
+  },
+  { "id": "1c85d411-70d5-4ac9-8b16-ca4f0d355c2a", "word": "circuit",
+    "synonyms": [{"word":"loop","level":2},{"word":"pathway","level":3},{"word":"network","level":3}],
+    "antonyms": []
+  },
+  { "id": "1cce8b0c-0400-4a16-b6b3-80e079d9eddd", "word": "parade",
+    "synonyms": [{"word":"march","level":2},{"word":"procession","level":4},{"word":"pageant","level":5}],
+    "antonyms": []
+  },
+  { "id": "1d76a656-dde2-4185-8688-7b06e6df286c", "word": "decompose",
+    "synonyms": [{"word":"break down","level":3},{"word":"rot","level":3},{"word":"decay","level":4}],
+    "antonyms": [{"word":"preserve","level":3}]
+  },
+  { "id": "1d8234f2-0f5e-4759-892c-d11e13c721b0", "word": "turbine",
+    "synonyms": [{"word":"engine","level":2},{"word":"motor","level":2},{"word":"generator","level":3}],
+    "antonyms": []
+  },
+  { "id": "1e9e941a-d32e-4dbd-845d-f0c1ea06fbe0", "word": "match",
+    "synonyms": [{"word":"game","level":1},{"word":"competition","level":2},{"word":"contest","level":3}],
+    "antonyms": []
+  },
+  { "id": "1ea37df4-3cd9-45b9-8b09-4f91ccc32b38", "word": "bury",
+    "synonyms": [{"word":"cover","level":2},{"word":"entomb","level":5},{"word":"inter","level":5}],
+    "antonyms": [{"word":"dig up","level":2},{"word":"unearth","level":4},{"word":"exhume","level":5}]
+  },
+  { "id": "206cda2c-413e-4c33-9f49-99ba89eb5d9b", "word": "tune",
+    "synonyms": [{"word":"song","level":1},{"word":"melody","level":3},{"word":"air","level":4}],
+    "antonyms": []
+  },
+  { "id": "2112369e-169d-4a5f-8bc8-9d8600a08895", "word": "patent",
+    "synonyms": [{"word":"copyright","level":3},{"word":"license","level":3},{"word":"trademark","level":3}],
+    "antonyms": []
+  },
+  { "id": "21a77cf1-b61b-46f5-858a-e8f1b5f1bcd2", "word": "achieve",
+    "synonyms": [{"word":"succeed","level":2},{"word":"accomplish","level":3},{"word":"attain","level":4}],
+    "antonyms": [{"word":"fail","level":1},{"word":"miss","level":1}]
+  },
+  { "id": "21f3e195-b3e1-449f-8f0d-fe044640964a", "word": "scroll",
+    "synonyms": [{"word":"roll","level":1},{"word":"manuscript","level":4},{"word":"parchment","level":5}],
+    "antonyms": []
+  },
+  { "id": "22a1c395-8b75-4fb5-88a9-7992f3a0ae8b", "word": "global warming",
+    "synonyms": [{"word":"climate change","level":3},{"word":"greenhouse effect","level":4},{"word":"planetary warming","level":4}],
+    "antonyms": [{"word":"global cooling","level":3}]
+  },
+  { "id": "236cbfbe-4413-4baf-868c-8aebd90adf1c", "word": "expand",
+    "synonyms": [{"word":"grow","level":1},{"word":"enlarge","level":3},{"word":"extend","level":3}],
+    "antonyms": [{"word":"shrink","level":2},{"word":"contract","level":3},{"word":"reduce","level":2}]
+  },
+  { "id": "2372cf01-c76c-4130-83e5-a72ae059d66e", "word": "renewable",
+    "synonyms": [{"word":"sustainable","level":3},{"word":"green","level":1},{"word":"inexhaustible","level":5}],
+    "antonyms": [{"word":"non-renewable","level":3},{"word":"finite","level":4}]
+  }
+]
