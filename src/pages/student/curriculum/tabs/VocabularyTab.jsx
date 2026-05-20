@@ -19,6 +19,7 @@ import ChunkLane from '../../../../components/curriculum/journey/ChunkLane'
 import ChunkMiniSession from '../../../../components/curriculum/journey/ChunkMiniSession'
 import WordDetailSheet from '../../../../components/curriculum/word-detail/WordDetailSheet'
 import { getHardWords } from '../../../../services/hardWords'
+import VocabSettingsGear from '../../../../components/curriculum/settings/VocabSettingsGear'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -195,6 +196,23 @@ export default function VocabularyTab({ unitId }) {
     () => new Set((hardWordsForStudent || []).map((w) => w.vocabularyId)),
     [hardWordsForStudent]
   )
+
+  // Vocab tap-behavior preference (Prompt 08) — set via VocabSettingsGear
+  const { data: vocabPrefs } = useQuery({
+    queryKey: ['vocab-settings-prefs', profile?.id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('vocab_tap_behavior')
+        .eq('id', profile?.id)
+        .maybeSingle()
+      if (error) throw error
+      return data ?? {}
+    },
+    enabled: !!profile?.id,
+    staleTime: 60_000,
+  })
+  const tapBehavior = vocabPrefs?.vocab_tap_behavior || 'details'
 
   const filterWord = useCallback((word) => {
     if (filter === 'hard') {
@@ -587,7 +605,11 @@ export default function VocabularyTab({ unitId }) {
                           reviewedWords={reviewedWords}
                           markReviewed={markReviewed}
                           setExerciseWord={setExerciseWord}
-                          onTapWord={setDetailSheetWord}
+                          onTapWord={(w) =>
+                            tapBehavior === 'practice'
+                              ? setExerciseWord(w)
+                              : setDetailSheetWord(w)
+                          }
                           savedWordSet={savedWordSet}
                           saveWordMutation={saveWordMutation}
                           profile={profile}
@@ -667,6 +689,9 @@ export default function VocabularyTab({ unitId }) {
           if (target) setDetailSheetWord(target)
         }}
       />
+
+      {/* Vocab Settings Gear (Prompt 08) — floating bottom-end button */}
+      <VocabSettingsGear studentId={profile?.id} />
 
       {/* Quick practice indicator */}
       {quickPractice && exerciseWord && (
