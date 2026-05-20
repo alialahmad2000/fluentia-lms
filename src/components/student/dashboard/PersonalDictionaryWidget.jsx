@@ -5,7 +5,7 @@ import AnimatedNumber from '../../ui/AnimatedNumber'
 import { Link } from 'react-router-dom'
 import { useDictionaryStats } from '../../../hooks/dashboard/useDictionaryStats'
 import { usePersonalDictionary } from '../../../hooks/dashboard/usePersonalDictionary'
-import { useSRSCounts, useSRSDue } from '../../../hooks/useSRS'
+import { useSRSCounts, useSRSDue } from '../../../hooks/useSrs'
 import ReviewOverlay from '../vocabulary/ReviewOverlay'
 
 const MASTERY_CONFIG = {

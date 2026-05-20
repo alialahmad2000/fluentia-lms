@@ -12,7 +12,7 @@ import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import VocabularyExercises from './VocabularyExercises'
 import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
 import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
-import { useSRSCounts, useSRSDue } from '../../../../hooks/useSRS'
+import { useSRSCounts, useSRSDue } from '../../../../hooks/useSrs'
 import ReviewOverlay from '../../../../components/student/vocabulary/ReviewOverlay'
 
 const POS_AR = {
