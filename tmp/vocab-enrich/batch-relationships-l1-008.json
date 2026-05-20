@@ -1,0 +1,122 @@
+[
+  { "id": "6e574ca5-dfdf-4029-84d8-030699b47d5e", "word": "landmark",
+    "synonyms": [{"word":"monument","level":3},{"word":"point of interest","level":3},{"word":"sight","level":2}],
+    "antonyms": []
+  },
+  { "id": "6ffed069-08d1-4fd4-9635-df8418b8738a", "word": "wildlife",
+    "synonyms": [{"word":"wild animals","level":1},{"word":"fauna","level":5},{"word":"creatures","level":2}],
+    "antonyms": [{"word":"livestock","level":4},{"word":"pets","level":1}]
+  },
+  { "id": "71028607-b434-4402-a7bf-79130b9c8b02", "word": "palace",
+    "synonyms": [{"word":"royal home","level":2},{"word":"mansion","level":3},{"word":"chateau","level":5}],
+    "antonyms": [{"word":"hut","level":3},{"word":"shack","level":4}]
+  },
+  { "id": "7119e70f-663e-42f9-9e6b-9998943ee9dc", "word": "holiday",
+    "synonyms": [{"word":"day off","level":1},{"word":"vacation","level":2},{"word":"break","level":1}],
+    "antonyms": [{"word":"workday","level":2}]
+  },
+  { "id": "7128a841-25f0-433f-bddc-961cc3e8e2f8", "word": "rotate",
+    "synonyms": [{"word":"spin","level":2},{"word":"turn","level":1},{"word":"revolve","level":4}],
+    "antonyms": [{"word":"stop","level":1},{"word":"stay still","level":1}]
+  },
+  { "id": "71330e49-1cc5-4bb1-b6b7-6b068638b47d", "word": "audience",
+    "synonyms": [{"word":"viewers","level":2},{"word":"crowd","level":2},{"word":"spectators","level":4}],
+    "antonyms": [{"word":"performer","level":3},{"word":"speaker","level":2}]
+  },
+  { "id": "71e7526b-5a28-44db-8ea2-26bd5fb54719", "word": "meteor",
+    "synonyms": [{"word":"shooting star","level":2},{"word":"falling star","level":2},{"word":"meteoroid","level":4}],
+    "antonyms": []
+  },
+  { "id": "72334186-4f49-43ce-8d30-b7cc5c251728", "word": "march",
+    "synonyms": [{"word":"walk","level":1},{"word":"parade","level":3},{"word":"file","level":3}],
+    "antonyms": [{"word":"stop","level":1},{"word":"halt","level":3}]
+  },
+  { "id": "72475a96-d4c7-4759-aebe-f89a1c7f0393", "word": "plant",
+    "synonyms": [{"word":"sow","level":3},{"word":"grow","level":1},{"word":"cultivate","level":4}],
+    "antonyms": [{"word":"uproot","level":4},{"word":"harvest","level":3}]
+  },
+  { "id": "729d12ba-5a37-4543-985b-f5176dc66f98", "word": "flow",
+    "synonyms": [{"word":"run","level":1},{"word":"stream","level":2},{"word":"course","level":3}],
+    "antonyms": [{"word":"stop","level":1},{"word":"block","level":2}]
+  },
+  { "id": "73cdfec8-5a89-4bed-9e5f-def5ae414b7e", "word": "talent",
+    "synonyms": [{"word":"skill","level":2},{"word":"gift","level":1},{"word":"aptitude","level":5}],
+    "antonyms": [{"word":"inability","level":3}]
+  },
+  { "id": "7446bec3-56c2-4b33-b17c-bb74af5ab748", "word": "conserve",
+    "synonyms": [{"word":"save","level":1},{"word":"preserve","level":3},{"word":"protect","level":2}],
+    "antonyms": [{"word":"waste","level":1},{"word":"squander","level":5}]
+  },
+  { "id": "74843314-31f9-4b87-8339-02ed2e52c760", "word": "queen",
+    "synonyms": [{"word":"ruler","level":2},{"word":"monarch","level":4},{"word":"empress","level":4}],
+    "antonyms": [{"word":"king","level":1},{"word":"subject","level":3}]
+  },
+  { "id": "75043b6f-9f21-4a88-a5c5-4ae641a717f6", "word": "pyramid",
+    "synonyms": [{"word":"triangular structure","level":3},{"word":"tomb","level":3},{"word":"monument","level":3}],
+    "antonyms": []
+  },
+  { "id": "75de968a-347b-4aa4-a74c-63e67509ae83", "word": "classical",
+    "synonyms": [{"word":"traditional","level":3},{"word":"formal","level":3},{"word":"orchestral","level":4}],
+    "antonyms": [{"word":"modern","level":2},{"word":"contemporary","level":4},{"word":"pop","level":1}]
+  },
+  { "id": "75e708ed-6c42-4176-9eb1-57226887e831", "word": "sacred",
+    "synonyms": [{"word":"holy","level":2},{"word":"divine","level":4},{"word":"blessed","level":3}],
+    "antonyms": [{"word":"profane","level":5},{"word":"ordinary","level":2},{"word":"secular","level":4}]
+  },
+  { "id": "763a2b05-4c35-441b-9838-16209e0941f9", "word": "image",
+    "synonyms": [{"word":"picture","level":1},{"word":"photo","level":1},{"word":"depiction","level":5}],
+    "antonyms": []
+  },
+  { "id": "7773898d-4e43-472a-944d-7b7ed26fb0ca", "word": "portrait",
+    "synonyms": [{"word":"picture","level":1},{"word":"likeness","level":4},{"word":"headshot","level":3}],
+    "antonyms": [{"word":"landscape","level":3}]
+  },
+  { "id": "77c3a954-8f10-4ab0-a05f-851d70230da1", "word": "piano",
+    "synonyms": [{"word":"keyboard","level":2},{"word":"grand piano","level":3},{"word":"pianoforte","level":5}],
+    "antonyms": []
+  },
+  { "id": "77ffdeba-51ca-472b-a511-64df948e1d61", "word": "excavate",
+    "synonyms": [{"word":"dig","level":1},{"word":"unearth","level":4},{"word":"uncover","level":3}],
+    "antonyms": [{"word":"bury","level":2},{"word":"cover","level":2}]
+  },
+  { "id": "7864293e-8ca5-4174-b8f9-0740a4a12358", "word": "harmful",
+    "synonyms": [{"word":"damaging","level":3},{"word":"dangerous","level":2},{"word":"detrimental","level":5}],
+    "antonyms": [{"word":"harmless","level":3},{"word":"safe","level":1},{"word":"beneficial","level":4}]
+  },
+  { "id": "78bf59ce-00f6-4701-ba0b-19ee5ab6abe6", "word": "resolution",
+    "synonyms": [{"word":"clarity","level":3},{"word":"sharpness","level":3},{"word":"detail","level":2}],
+    "antonyms": [{"word":"blurriness","level":3}]
+  },
+  { "id": "791ea580-3274-452a-8747-d6083a6c1046", "word": "authentic",
+    "synonyms": [{"word":"real","level":1},{"word":"genuine","level":4},{"word":"original","level":3}],
+    "antonyms": [{"word":"fake","level":1},{"word":"counterfeit","level":5},{"word":"imitation","level":3}]
+  },
+  { "id": "7bade716-3bf5-4d0c-9e60-87d9da9dcdd4", "word": "influencer",
+    "synonyms": [{"word":"content creator","level":3},{"word":"social media star","level":2},{"word":"trendsetter","level":4}],
+    "antonyms": []
+  },
+  { "id": "7bbac442-5a6f-44a6-80e4-772016e20005", "word": "dedication",
+    "synonyms": [{"word":"commitment","level":4},{"word":"devotion","level":4},{"word":"focus","level":2}],
+    "antonyms": [{"word":"laziness","level":2},{"word":"apathy","level":5}]
+  },
+  { "id": "7c53808e-e13b-470a-bb6a-13202945aa3e", "word": "athlete",
+    "synonyms": [{"word":"sportsperson","level":2},{"word":"player","level":1},{"word":"competitor","level":3}],
+    "antonyms": []
+  },
+  { "id": "7c88a0a6-c099-43db-9bfb-dc0ad1f2fefb", "word": "construct",
+    "synonyms": [{"word":"build","level":1},{"word":"erect","level":4},{"word":"assemble","level":3}],
+    "antonyms": [{"word":"destroy","level":2},{"word":"demolish","level":4},{"word":"dismantle","level":4}]
+  },
+  { "id": "7ce88d3f-0318-4698-b3fc-a65ba3e44e81", "word": "pollute",
+    "synonyms": [{"word":"contaminate","level":4},{"word":"dirty","level":1},{"word":"poison","level":2}],
+    "antonyms": [{"word":"clean","level":1},{"word":"purify","level":4}]
+  },
+  { "id": "7d6c873e-0b28-4c67-8a60-1d4e29bcb0de", "word": "edit",
+    "synonyms": [{"word":"modify","level":3},{"word":"adjust","level":3},{"word":"revise","level":4}],
+    "antonyms": []
+  },
+  { "id": "7de332ab-234a-4afd-a650-524aaa557280", "word": "artist",
+    "synonyms": [{"word":"painter","level":2},{"word":"creator","level":2},{"word":"craftsperson","level":3}],
+    "antonyms": []
+  }
+]
