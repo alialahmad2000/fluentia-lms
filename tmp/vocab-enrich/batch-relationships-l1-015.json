@@ -1,0 +1,122 @@
+[
+  { "id": "de17c184-8910-40d2-a211-93b9b3459397", "word": "block",
+    "synonyms": [{"word":"ban","level":2},{"word":"prevent","level":3},{"word":"obstruct","level":4}],
+    "antonyms": [{"word":"allow","level":2},{"word":"unblock","level":2},{"word":"permit","level":3}]
+  },
+  { "id": "df4748c1-1910-4ad3-98b8-244d54973524", "word": "massive",
+    "synonyms": [{"word":"huge","level":2},{"word":"enormous","level":4},{"word":"colossal","level":5}],
+    "antonyms": [{"word":"tiny","level":1},{"word":"small","level":1}]
+  },
+  { "id": "df66308d-dfda-4f53-a316-a4225502010a", "word": "anthem",
+    "synonyms": [{"word":"national song","level":2},{"word":"hymn","level":4},{"word":"theme song","level":3}],
+    "antonyms": []
+  },
+  { "id": "e0bbce1d-1299-4822-8598-6a6fa482476d", "word": "endurance",
+    "synonyms": [{"word":"stamina","level":4},{"word":"perseverance","level":5},{"word":"tolerance","level":4}],
+    "antonyms": [{"word":"weakness","level":2},{"word":"exhaustion","level":4}]
+  },
+  { "id": "e134f4d4-bad0-43f3-bb35-7af99e1a4b8e", "word": "atmosphere",
+    "synonyms": [{"word":"air","level":1},{"word":"sky","level":1},{"word":"stratosphere","level":5}],
+    "antonyms": []
+  },
+  { "id": "e32054e1-14bb-4e4d-acd0-2a54b88ebac5", "word": "troll",
+    "synonyms": [{"word":"flamer","level":4},{"word":"online bully","level":2},{"word":"provocateur","level":5}],
+    "antonyms": []
+  },
+  { "id": "e36f2e73-74e5-4309-bb2d-aed02901a16e", "word": "sprint",
+    "synonyms": [{"word":"dash","level":3},{"word":"race","level":1},{"word":"bolt","level":4}],
+    "antonyms": [{"word":"jog","level":3},{"word":"walk","level":1}]
+  },
+  { "id": "e3f8b401-baf7-42f2-b260-03d74676d9d1", "word": "transform",
+    "synonyms": [{"word":"change","level":1},{"word":"convert","level":3},{"word":"metamorphose","level":5}],
+    "antonyms": [{"word":"preserve","level":3},{"word":"keep","level":1}]
+  },
+  { "id": "e477836c-63c0-4782-8785-5684982c5384", "word": "stream",
+    "synonyms": [{"word":"broadcast","level":3},{"word":"live","level":1},{"word":"webcast","level":4}],
+    "antonyms": []
+  },
+  { "id": "e47be428-6bff-42d8-8a0e-0b9032a53105", "word": "ferment",
+    "synonyms": [{"word":"brew","level":3},{"word":"culture","level":2},{"word":"ripen","level":4}],
+    "antonyms": []
+  },
+  { "id": "e64da809-6be8-4b7d-8f5b-73c894bd664c", "word": "bitter",
+    "synonyms": [{"word":"sharp","level":2},{"word":"acrid","level":5},{"word":"pungent","level":5}],
+    "antonyms": [{"word":"sweet","level":1},{"word":"mild","level":2}]
+  },
+  { "id": "e68134f6-a7d1-4e0b-a295-6b6c782acea9", "word": "legend",
+    "synonyms": [{"word":"icon","level":3},{"word":"hero","level":2},{"word":"luminary","level":5}],
+    "antonyms": [{"word":"unknown","level":2}]
+  },
+  { "id": "e6ee2d09-52a5-4eec-a14c-2f5f72f14c03", "word": "ocean",
+    "synonyms": [{"word":"sea","level":1},{"word":"deep","level":1},{"word":"main","level":4}],
+    "antonyms": [{"word":"land","level":1}]
+  },
+  { "id": "e77b0d4c-502e-4014-912f-e5bfb8cb5d1a", "word": "waste",
+    "synonyms": [{"word":"garbage","level":2},{"word":"trash","level":2},{"word":"refuse","level":4}],
+    "antonyms": [{"word":"recycling","level":2},{"word":"resources","level":3}]
+  },
+  { "id": "e7abff42-b176-424d-9e0b-d4ec8aef97b1", "word": "culture",
+    "synonyms": [{"word":"society","level":3},{"word":"civilization","level":4},{"word":"heritage","level":3}],
+    "antonyms": []
+  },
+  { "id": "e819b23a-df5b-458b-aca7-1a61cc84930d", "word": "creativity",
+    "synonyms": [{"word":"imagination","level":3},{"word":"originality","level":4},{"word":"inventiveness","level":5}],
+    "antonyms": [{"word":"dullness","level":3}]
+  },
+  { "id": "e9356509-d53d-4dbc-a49a-f457aa36609d", "word": "pillar",
+    "synonyms": [{"word":"column","level":3},{"word":"post","level":1},{"word":"support","level":2}],
+    "antonyms": []
+  },
+  { "id": "e96d956b-58a4-40cc-bd6c-f3a8347a20c6", "word": "courtyard",
+    "synonyms": [{"word":"patio","level":3},{"word":"plaza","level":4},{"word":"yard","level":1}],
+    "antonyms": []
+  },
+  { "id": "e97b9433-b81d-4352-81ab-ef5315700c20", "word": "catch",
+    "synonyms": [{"word":"grab","level":2},{"word":"seize","level":4},{"word":"snatch","level":4}],
+    "antonyms": [{"word":"throw","level":1},{"word":"drop","level":1},{"word":"release","level":3}]
+  },
+  { "id": "e9935fa1-ce25-43de-a068-afca88020017", "word": "chop",
+    "synonyms": [{"word":"cut","level":1},{"word":"dice","level":3},{"word":"mince","level":4}],
+    "antonyms": []
+  },
+  { "id": "e994502c-8a63-4990-8f3d-ead7b3ca204d", "word": "follow",
+    "synonyms": [{"word":"subscribe","level":3},{"word":"track","level":2},{"word":"add","level":1}],
+    "antonyms": [{"word":"unfollow","level":2},{"word":"ignore","level":2}]
+  },
+  { "id": "ea18060b-e0d7-4b9b-a859-4c1a702512d8", "word": "voice",
+    "synonyms": [{"word":"sound","level":1},{"word":"tone","level":3},{"word":"vocalization","level":5}],
+    "antonyms": [{"word":"silence","level":2}]
+  },
+  { "id": "ebdb048f-da2c-45cf-bb22-673913c38904", "word": "scribe",
+    "synonyms": [{"word":"writer","level":1},{"word":"copyist","level":4},{"word":"clerk","level":4}],
+    "antonyms": []
+  },
+  { "id": "ec094469-0810-4a7d-9452-7637c8a6af3f", "word": "mask",
+    "synonyms": [{"word":"cover","level":2},{"word":"disguise","level":4},{"word":"veil","level":4}],
+    "antonyms": [{"word":"face","level":1},{"word":"reveal","level":3}]
+  },
+  { "id": "ece446b4-dfd9-4a1c-852b-58063978cc9a", "word": "civilization",
+    "synonyms": [{"word":"society","level":3},{"word":"culture","level":2},{"word":"community","level":3}],
+    "antonyms": [{"word":"barbarism","level":5}]
+  },
+  { "id": "ecfcdcb5-ac5b-4fed-a13f-9c1a0639cf17", "word": "crater",
+    "synonyms": [{"word":"hole","level":1},{"word":"pit","level":3},{"word":"depression","level":4}],
+    "antonyms": [{"word":"mound","level":3},{"word":"hill","level":1}]
+  },
+  { "id": "ed4dbbd7-697f-4dfd-a605-e761a38833ee", "word": "unfollow",
+    "synonyms": [{"word":"unsubscribe","level":2},{"word":"remove","level":2},{"word":"drop","level":1}],
+    "antonyms": [{"word":"follow","level":1},{"word":"subscribe","level":3}]
+  },
+  { "id": "edee9605-7771-400c-89bd-810d2ad940cd", "word": "tool",
+    "synonyms": [{"word":"instrument","level":3},{"word":"device","level":2},{"word":"implement","level":4}],
+    "antonyms": []
+  },
+  { "id": "ee5458d4-fdc6-4a8e-91e5-c1ca4134eb2a", "word": "wealthy",
+    "synonyms": [{"word":"rich","level":1},{"word":"affluent","level":5},{"word":"prosperous","level":4}],
+    "antonyms": [{"word":"poor","level":1},{"word":"impoverished","level":5}]
+  },
+  { "id": "eea24710-c83b-4738-8aa2-fa02918675b7", "word": "festival",
+    "synonyms": [{"word":"celebration","level":3},{"word":"holiday","level":1},{"word":"gala","level":5}],
+    "antonyms": []
+  }
+]
