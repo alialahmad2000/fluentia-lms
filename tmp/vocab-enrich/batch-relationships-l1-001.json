@@ -1,0 +1,122 @@
+[
+  { "id": "00099d6c-14a3-48fc-a617-2e4fa6980831", "word": "green",
+    "synonyms": [{"word":"eco-friendly","level":2},{"word":"sustainable","level":3},{"word":"environmental","level":3}],
+    "antonyms": [{"word":"polluting","level":3},{"word":"wasteful","level":3}]
+  },
+  { "id": "00a3624e-b815-41e7-8078-e8edd5ed6e4f", "word": "king",
+    "synonyms": [{"word":"ruler","level":2},{"word":"monarch","level":4},{"word":"sovereign","level":5}],
+    "antonyms": []
+  },
+  { "id": "0102c21c-1b97-4cb4-be13-7764e681b20c", "word": "ingredient",
+    "synonyms": [{"word":"element","level":2},{"word":"component","level":3},{"word":"constituent","level":5}],
+    "antonyms": []
+  },
+  { "id": "011a9dba-bd46-4d70-adeb-9e7a33626c93", "word": "tripod",
+    "synonyms": [{"word":"stand","level":1},{"word":"support","level":2},{"word":"mount","level":3}],
+    "antonyms": []
+  },
+  { "id": "01511dab-3390-4e4c-a13f-a8dcbdc97357", "word": "electronic",
+    "synonyms": [{"word":"digital","level":2},{"word":"electrical","level":2},{"word":"computerized","level":3}],
+    "antonyms": [{"word":"manual","level":3},{"word":"mechanical","level":3}]
+  },
+  { "id": "02001413-4e8b-4a29-89e6-f2c41ab20c92", "word": "shutter",
+    "synonyms": [{"word":"aperture","level":4},{"word":"gate","level":1},{"word":"diaphragm","level":5}],
+    "antonyms": []
+  },
+  { "id": "021ec7b9-79ee-4a78-9a29-b0c162781265", "word": "absorb",
+    "synonyms": [{"word":"soak up","level":2},{"word":"take in","level":2},{"word":"assimilate","level":5}],
+    "antonyms": [{"word":"release","level":3},{"word":"emit","level":4}]
+  },
+  { "id": "03253ab7-176f-4a40-a16e-9dcc2075e4e0", "word": "entrance",
+    "synonyms": [{"word":"doorway","level":2},{"word":"entry","level":3},{"word":"gateway","level":3}],
+    "antonyms": [{"word":"exit","level":1}]
+  },
+  { "id": "034bd781-f6b9-4203-83a5-d8d7513bfc1d", "word": "deep",
+    "synonyms": [{"word":"bottomless","level":3},{"word":"vast","level":3},{"word":"profound","level":4}],
+    "antonyms": [{"word":"shallow","level":2}]
+  },
+  { "id": "040d304d-8780-45b2-9101-358725f9cfa2", "word": "defend",
+    "synonyms": [{"word":"protect","level":2},{"word":"guard","level":2},{"word":"shield","level":3}],
+    "antonyms": [{"word":"attack","level":2},{"word":"assault","level":4}]
+  },
+  { "id": "0485cf9c-65b3-42d5-9aa1-b83fb136b5c1", "word": "honor",
+    "synonyms": [{"word":"respect","level":2},{"word":"praise","level":3},{"word":"revere","level":5}],
+    "antonyms": [{"word":"disrespect","level":3},{"word":"dishonor","level":4}]
+  },
+  { "id": "054fbb2b-2f0b-4364-8bc1-974012cba5dc", "word": "landfill",
+    "synonyms": [{"word":"dump","level":2},{"word":"waste site","level":3},{"word":"garbage dump","level":3}],
+    "antonyms": []
+  },
+  { "id": "05647b25-33bb-4f56-a598-6d8bb71d3c11", "word": "ruins",
+    "synonyms": [{"word":"remains","level":3},{"word":"wreckage","level":4},{"word":"remnants","level":5}],
+    "antonyms": []
+  },
+  { "id": "061e47e8-666a-44f4-8cba-1dad98c9f520", "word": "monochrome",
+    "synonyms": [{"word":"black-and-white","level":2},{"word":"single-color","level":2},{"word":"grayscale","level":3}],
+    "antonyms": [{"word":"colorful","level":2},{"word":"multicolored","level":3}]
+  },
+  { "id": "06b56579-72b2-4832-a159-3129909c6ede", "word": "thrive",
+    "synonyms": [{"word":"succeed","level":2},{"word":"prosper","level":3},{"word":"flourish","level":4}],
+    "antonyms": [{"word":"fail","level":1},{"word":"decline","level":3},{"word":"wither","level":5}]
+  },
+  { "id": "06c37b27-b33c-43f6-a2a5-69165bba94a7", "word": "eco-friendly",
+    "synonyms": [{"word":"green","level":1},{"word":"environmental","level":3},{"word":"sustainable","level":3}],
+    "antonyms": [{"word":"harmful","level":2},{"word":"polluting","level":3}]
+  },
+  { "id": "06dacc08-90a7-4a50-8454-dde88cff8ec8", "word": "sink",
+    "synonyms": [{"word":"drown","level":2},{"word":"descend","level":3},{"word":"submerge","level":4}],
+    "antonyms": [{"word":"float","level":1},{"word":"rise","level":1},{"word":"surface","level":3}]
+  },
+  { "id": "0794bd2b-79f6-4706-aee9-0b11d7eb0287", "word": "painting",
+    "synonyms": [{"word":"picture","level":1},{"word":"artwork","level":2},{"word":"canvas","level":3}],
+    "antonyms": []
+  },
+  { "id": "07aa3a65-cf71-40d2-a1af-e2497055bf3d", "word": "solar",
+    "synonyms": [{"word":"sun-powered","level":2},{"word":"sunlight","level":2},{"word":"photovoltaic","level":5}],
+    "antonyms": [{"word":"lunar","level":3}]
+  },
+  { "id": "081b43d9-1d3e-48ba-8535-b3ffea1b2937", "word": "soil",
+    "synonyms": [{"word":"earth","level":1},{"word":"ground","level":1},{"word":"dirt","level":2}],
+    "antonyms": []
+  },
+  { "id": "08416ef7-6fc8-409a-8bcb-5a7b4e31c86a", "word": "shadow",
+    "synonyms": [{"word":"shade","level":2},{"word":"darkness","level":2},{"word":"silhouette","level":3}],
+    "antonyms": [{"word":"light","level":1},{"word":"highlight","level":3}]
+  },
+  { "id": "08876042-a1cb-49cc-a57e-ddcd568420e5", "word": "kick",
+    "synonyms": [{"word":"strike","level":3},{"word":"boot","level":3},{"word":"punt","level":4}],
+    "antonyms": []
+  },
+  { "id": "0948f349-cb2a-4573-8710-5b68ddcc9608", "word": "infuse",
+    "synonyms": [{"word":"soak","level":2},{"word":"brew","level":3},{"word":"steep","level":4}],
+    "antonyms": []
+  },
+  { "id": "096c42e8-c872-4710-8351-92a23ad45084", "word": "exposure",
+    "synonyms": [{"word":"brightness","level":2},{"word":"lighting","level":2},{"word":"illumination","level":4}],
+    "antonyms": []
+  },
+  { "id": "099187f1-09ea-4fbb-bbbc-653981476998", "word": "wireless",
+    "synonyms": [{"word":"Wi-Fi","level":2},{"word":"cordless","level":3},{"word":"mobile","level":2}],
+    "antonyms": [{"word":"wired","level":2},{"word":"corded","level":3}]
+  },
+  { "id": "0a5e16a7-527b-4d6c-8a28-989e18e2b68b", "word": "fit",
+    "synonyms": [{"word":"healthy","level":1},{"word":"strong","level":1},{"word":"athletic","level":3}],
+    "antonyms": [{"word":"weak","level":1},{"word":"unfit","level":3},{"word":"out-of-shape","level":3}]
+  },
+  { "id": "0aaf4f87-c788-4104-8138-976ef038a2fd", "word": "national",
+    "synonyms": [{"word":"countrywide","level":3},{"word":"nationwide","level":3},{"word":"federal","level":4}],
+    "antonyms": [{"word":"local","level":1},{"word":"international","level":2},{"word":"regional","level":3}]
+  },
+  { "id": "0bb50f85-c12b-4621-8498-34dd01cc3150", "word": "vintage",
+    "synonyms": [{"word":"classic","level":2},{"word":"retro","level":3},{"word":"antique","level":3}],
+    "antonyms": [{"word":"new","level":1},{"word":"modern","level":2},{"word":"contemporary","level":4}]
+  },
+  { "id": "0cf661d8-b714-419f-978f-360b8a7b7d30", "word": "historic",
+    "synonyms": [{"word":"important","level":1},{"word":"significant","level":3},{"word":"momentous","level":5}],
+    "antonyms": [{"word":"insignificant","level":4},{"word":"unremarkable","level":4}]
+  },
+  { "id": "0e5aa0c6-1170-413e-8b41-cfab5cc83d26", "word": "harvest",
+    "synonyms": [{"word":"crop","level":2},{"word":"yield","level":3},{"word":"reaping","level":4}],
+    "antonyms": [{"word":"planting","level":2},{"word":"sowing","level":4}]
+  }
+]
