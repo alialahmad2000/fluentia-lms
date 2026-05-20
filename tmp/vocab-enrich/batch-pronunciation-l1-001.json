@@ -1,0 +1,140 @@
+[
+  { "id": "00099d6c-14a3-48fc-a617-2e4fa6980831", "word": "green", "pronunciation_alert": null },
+  { "id": "00a3624e-b815-41e7-8078-e8edd5ed6e4f", "word": "king", "pronunciation_alert": null },
+  { "id": "0102c21c-1b97-4cb4-be13-7764e681b20c", "word": "ingredient", "pronunciation_alert": null },
+  { "id": "011a9dba-bd46-4d70-adeb-9e7a33626c93", "word": "tripod", "pronunciation_alert": null },
+  { "id": "01511dab-3390-4e4c-a13f-a8dcbdc97357", "word": "electronic", "pronunciation_alert": null },
+  { "id": "02001413-4e8b-4a29-89e6-f2c41ab20c92", "word": "shutter",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈʃʌtər/",
+      "correct_approximation_ar": "شَتَر",
+      "common_mispronunciation_ar": "شُوتَر",
+      "problem_letters": [1, 2],
+      "rule_category": "vowel_irregular",
+      "explanation_ar": "حرف u هنا لا يُنطَق كحرف 'و' الطويل، بل كحرف فتحة قصيرة وحادة قريبة من 'أَ' أو 'إِ'. كثير من المتعلمين العرب يقولون 'شُوتَر' وكأن u طويل، لكن الصحيح صوت قصير جداً مثل صوت 'a' في كلمة 'cat' لكن أقل انفتاحاً.",
+      "practice_tip_ar": "حاول أن تنطقها كأنك تقول 'شَ' بسرعة شديدة ثم 'تَر'. لا تطل الحرف الأول. كرر معها: cut, but, fun — كلها بنفس الصوت القصير.",
+      "similar_words": ["cut", "but", "fun", "stuck"]
+    }
+  },
+  { "id": "021ec7b9-79ee-4a78-9a29-b0c162781265", "word": "absorb",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/əbˈzɔːrb/",
+      "correct_approximation_ar": "أَبْزُوْرْب",
+      "common_mispronunciation_ar": "أَبْسُوْرْب",
+      "problem_letters": [2],
+      "rule_category": "exception",
+      "explanation_ar": "حرف s في هذه الكلمة يُنطَق كحرف 'ز' وليس 'س'، رغم أنه يبدو حرف 'سين' بصرياً. هذه قاعدة شائعة في الإنجليزية: عندما يأتي s بين حرفين متحركين أو بعد بادئة، كثيراً ما ينطق 'ز'. مثل observe و resort.",
+      "practice_tip_ar": "تذكر: في 'absorb' الحرف s يلتقي بالأذن كأنه 'ز' وليس 'س'. جرب أن تقولها مع كلمة observe — كلاهما له نفس الصوت في s.",
+      "similar_words": ["observe", "resort", "deserve", "reserve"]
+    }
+  },
+  { "id": "03253ab7-176f-4a40-a16e-9dcc2075e4e0", "word": "entrance", "pronunciation_alert": null },
+  { "id": "034bd781-f6b9-4203-83a5-d8d7513bfc1d", "word": "deep", "pronunciation_alert": null },
+  { "id": "040d304d-8780-45b2-9101-358725f9cfa2", "word": "defend", "pronunciation_alert": null },
+  { "id": "0485cf9c-65b3-42d5-9aa1-b83fb136b5c1", "word": "honor",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ˈɒnər/",
+      "correct_approximation_ar": "آنَر",
+      "common_mispronunciation_ar": "هُونَر",
+      "problem_letters": [0],
+      "rule_category": "silent_letter",
+      "explanation_ar": "حرف h في بداية الكلمة صامت تماماً — لا تنطقه. الكلمة تبدأ بصوت متحرك مباشرة كأنها مكتوبة 'onor'. هذه استثناء غير منتظم؛ معظم كلمات h في الإنجليزية تُنطَق، لكن في 'honor' و'hour' و'honest' الحرف h مهمل تماماً.",
+      "practice_tip_ar": "لا تخرج هواءً من حلقك في البداية. ابدأ الكلمة بفتح الفم مباشرة على صوت 'آ'. تخيل أن h ليست موجودة أصلاً. تذكر الثلاثي: honor, hour, honest — كلها بنفس القاعدة.",
+      "similar_words": ["hour", "honest", "heir", "herb"]
+    }
+  },
+  { "id": "054fbb2b-2f0b-4364-8bc1-974012cba5dc", "word": "landfill", "pronunciation_alert": null },
+  { "id": "05647b25-33bb-4f56-a598-6d8bb71d3c11", "word": "ruins",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈruːɪnz/",
+      "correct_approximation_ar": "رُو-إِنز",
+      "common_mispronunciation_ar": "رُونز",
+      "problem_letters": [2, 3],
+      "rule_category": "vowel_irregular",
+      "explanation_ar": "هذه الكلمة من مقطعين وليس مقطعاً واحداً. الحرفان ui يُنطَقان كصوتين متتاليين: 'رُو' ثم 'إِ' بسرعة. كثير من المتعلمين يدمجون الصوتين ويقولون 'رُونز' بمقطع واحد، لكن الصحيح أن تسمع 'rooh-ins' بفاصل خفيف بين المقطعين.",
+      "practice_tip_ar": "قسّم الكلمة لمقطعين عند النطق: قل 'ru' ثم انتظر جزءاً من الثانية ثم 'ins'. ru-ins. كرر معها fluid (flu-id) وSuit (su-it ليس suit بمقطع واحد).",
+      "similar_words": ["fluid", "ruined", "intuition", "altruism"]
+    }
+  },
+  { "id": "061e47e8-666a-44f4-8cba-1dad98c9f520", "word": "monochrome", "pronunciation_alert": null },
+  { "id": "06b56579-72b2-4832-a159-3129909c6ede", "word": "thrive",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/θraɪv/",
+      "correct_approximation_ar": "ثْرايف",
+      "common_mispronunciation_ar": "سْرايف",
+      "problem_letters": [0, 1],
+      "rule_category": "th_sound",
+      "explanation_ar": "حرفا th في بداية الكلمة يُنطَقان كحرف 'ث' في العربية وليس 'س' أو 'ت'. ضع طرف لسانك بين أسنانك واخرج هواء — هذا هو صوت th الصحيح. الخطأ الشائع جداً عند العرب أن يُنطق 'سرايف' (مع س) أو 'ترايف' (مع ت)، وكلاهما يجعل الكلمة غير مفهومة.",
+      "practice_tip_ar": "ضع طرف لسانك خفيفاً بين أسنانك العلوية والسفلية ثم اسحب هواءً مع كلمة. لا تجعل لسانك خلف الأسنان (هذا يعطي س). كرر مع think, thank, three — كلها بنفس الصوت.",
+      "similar_words": ["think", "thank", "three", "throw"]
+    }
+  },
+  { "id": "06c37b27-b33c-43f6-a2a5-69165bba94a7", "word": "eco-friendly", "pronunciation_alert": null },
+  { "id": "06dacc08-90a7-4a50-8454-dde88cff8ec8", "word": "sink", "pronunciation_alert": null },
+  { "id": "0794bd2b-79f6-4706-aee9-0b11d7eb0287", "word": "painting",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈpeɪntɪŋ/",
+      "correct_approximation_ar": "بِيْنْتِنْ",
+      "common_mispronunciation_ar": "بِيْنْتِنْغ",
+      "problem_letters": [5, 6],
+      "rule_category": "consonant_cluster",
+      "explanation_ar": "حرفا ng في نهاية الكلمة يُنطَقان كصوت 'نون' أنفي خالص، بدون 'غ' أو 'ج' بعدها. الخطأ الشائع جداً عند العرب أن يُسمع حرف 'غ' خفيف بعد النون، لكن الصحيح أن يبقى صوت 'ن' وحده مع إخراجه من الأنف. اللسان يلامس سقف الفم في الخلف ولا يتحرك بعد ذلك.",
+      "practice_tip_ar": "أنهِ الكلمة فوراً بعد صوت 'ن' بدون أي إضافة. لا تقل 'painting-غ' بل 'painting' وتوقف. جرب أن تضع يدك على أنفك وقت النطق — يجب أن تشعر بالاهتزاز في الأنف وليس في الحلق.",
+      "similar_words": ["singing", "running", "morning", "evening"]
+    }
+  },
+  { "id": "07aa3a65-cf71-40d2-a1af-e2497055bf3d", "word": "solar", "pronunciation_alert": null },
+  { "id": "081b43d9-1d3e-48ba-8535-b3ffea1b2937", "word": "soil", "pronunciation_alert": null },
+  { "id": "08416ef7-6fc8-409a-8bcb-5a7b4e31c86a", "word": "shadow", "pronunciation_alert": null },
+  { "id": "08876042-a1cb-49cc-a57e-ddcd568420e5", "word": "kick", "pronunciation_alert": null },
+  { "id": "0948f349-cb2a-4573-8710-5b68ddcc9608", "word": "infuse", "pronunciation_alert": null },
+  { "id": "096c42e8-c872-4710-8351-92a23ad45084", "word": "exposure",
+    "pronunciation_alert": {
+      "severity": "high",
+      "ipa": "/ɪkˈspoʊʒər/",
+      "correct_approximation_ar": "إِكْسْبُوْجَر",
+      "common_mispronunciation_ar": "إِكْسْبُوزَر",
+      "problem_letters": [6],
+      "rule_category": "exception",
+      "explanation_ar": "حرف s في كلمة exposure لا يُنطَق 'س' ولا 'ز'، بل يُنطَق صوتاً خاصاً ليس في العربية مكتوب صوتياً /ʒ/ — أقرب ما يكون لصوت 'ج' المصرية أو الفرنسية (مثل garage الفرنسية). كثير من المتعلمين يقولون 'إكسبوزر' بـ'ز' عادية، لكن الصحيح صوت أعمق وأكثر اهتزازاً.",
+      "practice_tip_ar": "ابدأ بنطق 'ز' عادية ثم قرّب لسانك من سقف فمك قليلاً مع زفير هواء أقوى. تخيل صوت 'كلمة measure' — هذا نفس الصوت بالضبط. كرر معها: measure, pleasure, treasure — كلها فيها الصوت /ʒ/ نفسه.",
+      "similar_words": ["measure", "pleasure", "treasure", "vision"]
+    }
+  },
+  { "id": "099187f1-09ea-4fbb-bbbc-653981476998", "word": "wireless", "pronunciation_alert": null },
+  { "id": "0a5e16a7-527b-4d6c-8a28-989e18e2b68b", "word": "fit", "pronunciation_alert": null },
+  { "id": "0aaf4f87-c788-4104-8138-976ef038a2fd", "word": "national",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/ˈnæʃnəl/",
+      "correct_approximation_ar": "نَاشْنَل",
+      "common_mispronunciation_ar": "نَاشُونَال",
+      "problem_letters": [3, 4, 5],
+      "rule_category": "vowel_irregular",
+      "explanation_ar": "حرفا tion في وسط الكلمة يُنطَقان 'شْنَ' بسرعة بدون فواصل، لا 'شُونال' كما يميل العرب لقوله. الـ o بين tio بالكاد تُسمع — هي صوت 'schwa' خفيف جداً تقريباً يختفي. النبر على المقطع الأول NA-tional، والمقطعان الباقيان يُلفظان بسرعة وانخفاض.",
+      "practice_tip_ar": "اضغط على المقطع الأول NA بقوة، ثم اسحب باقي الكلمة بسرعة بدون تقطيع. تخيل أن الكلمة من مقطعين فقط: NA-shnəl. كرر مع: rational, traditional, optional — كلها بنفس النمط.",
+      "similar_words": ["rational", "traditional", "optional", "occasional"]
+    }
+  },
+  { "id": "0bb50f85-c12b-4621-8498-34dd01cc3150", "word": "vintage", "pronunciation_alert": null },
+  { "id": "0cf661d8-b714-419f-978f-360b8a7b7d30", "word": "historic",
+    "pronunciation_alert": {
+      "severity": "medium",
+      "ipa": "/hɪˈstɒrɪk/",
+      "correct_approximation_ar": "هِسْتُورِك",
+      "common_mispronunciation_ar": "هِيْسْتُورِك",
+      "problem_letters": [0, 1, 2, 3],
+      "rule_category": "stress_shift",
+      "explanation_ar": "النبر في هذه الكلمة على المقطع الثاني STOR وليس على HI كما في كلمة 'history' الأصل. كثير من العرب يقولون 'HIS-toric' بنبر على HI لأنهم يعرفون 'HIS-tory' الأم، لكن عندما تتحول إلى صفة بإضافة -ic ينتقل النبر إلى المقطع الذي قبل -ic مباشرة.",
+      "practice_tip_ar": "اضغط على STOR بقوة عند النطق. هذه قاعدة عامة في الإنجليزية: كل صفة تنتهي بـ -ic ينتقل النبر إلى المقطع الذي قبلها. تذكرها مع: photo → phoTOgraphic، economy → ecoNOMic.",
+      "similar_words": ["photographic", "economic", "scientific", "automatic"]
+    }
+  },
+  { "id": "0e5aa0c6-1170-413e-8b41-cfab5cc83d26", "word": "harvest", "pronunciation_alert": null }
+]
