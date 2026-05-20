@@ -14,6 +14,7 @@ import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
 import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
 import { useSRSCounts, useSRSDue } from '../../../../hooks/useSrs'
 import ReviewOverlay from '../../../../components/student/vocabulary/ReviewOverlay'
+import HeroSection from '../../../../components/curriculum/hero/HeroSection'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -103,6 +104,7 @@ export default function VocabularyTab({ unitId }) {
   const timerRef = useRef(null)
   const saveTimer = useRef(null)
   const progressIdRef = useRef(null)
+  const libraryRef = useRef(null) // Hero "scroll to library" target (Prompt 05)
 
   const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(profile?.id, unitId)
 
@@ -354,8 +356,26 @@ export default function VocabularyTab({ unitId }) {
     return <FlashcardPractice words={allWords} onBack={() => setPracticeMode(false)} onComplete={handlePracticeComplete} />
   }
 
+  // Hero handlers — prepended HeroSection delegates to these
+  const handleHeroOpenWord = (vocabularyId) => {
+    const w = allWords.find((x) => x.id === vocabularyId)
+    if (w) setExerciseWord(w)
+  }
+  const handleHeroScrollToLibrary = () => {
+    libraryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <div className="space-y-6">
+      {/* Premium sticky Hero (Prompt 05) — strictly additive */}
+      <HeroSection
+        unitId={unitId}
+        studentId={profile?.id}
+        onOpenWord={handleHeroOpenWord}
+        onScrollToLibrary={handleHeroScrollToLibrary}
+      />
+
+      {/* === ALL CONTENT BELOW UNCHANGED FROM PRE-PROMPT-05 === */}
       {/* ① HERO HEADER */}
       <div className="relative rounded-2xl overflow-hidden p-6" style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.05) 0%, rgba(129,140,248,0.05) 100%)', border: '1px solid rgba(255,255,255,0.04)' }}>
         {/* Subtle glow */}
@@ -389,7 +409,7 @@ export default function VocabularyTab({ unitId }) {
       </div>
 
       {/* ② FILTER BAR + SEARCH */}
-      <div className="flex items-center gap-2">
+      <div ref={libraryRef} className="flex items-center gap-2">
         <div className="flex items-center gap-1.5 flex-1 overflow-x-auto no-scrollbar">
           {FILTERS.map((f, i) => (
             <motion.button
