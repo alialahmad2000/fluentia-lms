@@ -1,0 +1,122 @@
+[
+  { "id": "9f57c978-8512-478e-8aef-f9382d5d9190", "word": "penalty",
+    "synonyms": [{"word":"punishment","level":2},{"word":"fine","level":3},{"word":"sanction","level":5}],
+    "antonyms": [{"word":"reward","level":2}]
+  },
+  { "id": "9fc73b0e-1d2a-43c3-a817-77ef0898dc52", "word": "vulnerable",
+    "synonyms": [{"word":"at-risk","level":3},{"word":"weak","level":1},{"word":"exposed","level":3}],
+    "antonyms": [{"word":"safe","level":1},{"word":"protected","level":2},{"word":"invulnerable","level":5}]
+  },
+  { "id": "9ff4bc96-f5d5-4daf-8f2f-02b1db07d652", "word": "attach",
+    "synonyms": [{"word":"connect","level":2},{"word":"join","level":1},{"word":"affix","level":5}],
+    "antonyms": [{"word":"detach","level":3},{"word":"remove","level":2}]
+  },
+  { "id": "9fff9cf9-223a-40e6-a03a-77c0544d299a", "word": "lunar",
+    "synonyms": [{"word":"moon-related","level":2},{"word":"selenic","level":5},{"word":"crescent","level":3}],
+    "antonyms": [{"word":"solar","level":2}]
+  },
+  { "id": "a1437bc7-787d-4a35-81bc-45a955742ec4", "word": "stadium",
+    "synonyms": [{"word":"arena","level":4},{"word":"sports venue","level":3},{"word":"ground","level":2}],
+    "antonyms": []
+  },
+  { "id": "a28da072-0388-4cb2-a9e2-bab4a6d7b7a3", "word": "flag",
+    "synonyms": [{"word":"banner","level":3},{"word":"standard","level":3},{"word":"colors","level":2}],
+    "antonyms": []
+  },
+  { "id": "a488babe-ff23-4e50-b845-491f60c87f6e", "word": "aperture",
+    "synonyms": [{"word":"opening","level":2},{"word":"f-stop","level":4},{"word":"diaphragm","level":5}],
+    "antonyms": []
+  },
+  { "id": "a49a48f1-7a2f-4cc6-82df-144981f60e04", "word": "tag",
+    "synonyms": [{"word":"mention","level":3},{"word":"link","level":2},{"word":"label","level":2}],
+    "antonyms": [{"word":"untag","level":2}]
+  },
+  { "id": "a4b6f6d2-e709-455b-bc89-0dda7fd7493f", "word": "astronaut",
+    "synonyms": [{"word":"spaceman","level":2},{"word":"cosmonaut","level":4},{"word":"space traveler","level":3}],
+    "antonyms": []
+  },
+  { "id": "a4dbb210-db6d-4d85-86dc-f25666be36dc", "word": "annual",
+    "synonyms": [{"word":"yearly","level":2},{"word":"once-a-year","level":2},{"word":"perennial","level":5}],
+    "antonyms": [{"word":"monthly","level":2},{"word":"daily","level":1}]
+  },
+  { "id": "a664a5d4-e9b0-4127-a135-283cee8b8614", "word": "trophy",
+    "synonyms": [{"word":"prize","level":2},{"word":"cup","level":1},{"word":"award","level":3}],
+    "antonyms": []
+  },
+  { "id": "a7365831-60e5-4a14-be6d-38049462c0d0", "word": "timelapse",
+    "synonyms": [{"word":"fast video","level":1},{"word":"speed-up","level":2},{"word":"accelerated film","level":4}],
+    "antonyms": [{"word":"slow motion","level":3}]
+  },
+  { "id": "a8071856-b33a-45f5-a34c-0adf4c148a7c", "word": "lantern",
+    "synonyms": [{"word":"lamp","level":1},{"word":"light","level":1},{"word":"torch","level":3}],
+    "antonyms": []
+  },
+  { "id": "a841a340-fbcd-42ae-9fd0-44ea056c81bb", "word": "arch",
+    "synonyms": [{"word":"curve","level":2},{"word":"archway","level":3},{"word":"vault","level":4}],
+    "antonyms": []
+  },
+  { "id": "a9a6d650-5e68-4063-9294-54fa440241ce", "word": "sand",
+    "synonyms": [{"word":"grain","level":2},{"word":"dust","level":2},{"word":"silt","level":4}],
+    "antonyms": []
+  },
+  { "id": "aa87d7b2-cc13-4f4e-b6b7-a5725b9f017f", "word": "pray",
+    "synonyms": [{"word":"worship","level":3},{"word":"supplicate","level":5},{"word":"appeal","level":4}],
+    "antonyms": [{"word":"curse","level":3}]
+  },
+  { "id": "ac0f7228-3ef8-4ba1-ab20-e7c03c0b8011", "word": "sharp",
+    "synonyms": [{"word":"clear","level":1},{"word":"crisp","level":3},{"word":"focused","level":3}],
+    "antonyms": [{"word":"blurry","level":3},{"word":"dull","level":2},{"word":"fuzzy","level":3}]
+  },
+  { "id": "ac67b667-12e8-400d-8ab0-9f6318d2b8a9", "word": "platform",
+    "synonyms": [{"word":"website","level":2},{"word":"app","level":1},{"word":"service","level":2}],
+    "antonyms": []
+  },
+  { "id": "ac8ce0aa-a9d5-4152-9793-db8022543014", "word": "seasonal",
+    "synonyms": [{"word":"timely","level":3},{"word":"periodic","level":4},{"word":"cyclical","level":5}],
+    "antonyms": [{"word":"year-round","level":2},{"word":"perennial","level":5}]
+  },
+  { "id": "ae3bf864-ab2e-4439-a1ed-e6867425c506", "word": "surround",
+    "synonyms": [{"word":"encircle","level":4},{"word":"enclose","level":3},{"word":"ring","level":2}],
+    "antonyms": [{"word":"abandon","level":3}]
+  },
+  { "id": "aeaaef96-7ed8-49f5-9234-babe3c03bc28", "word": "competitive",
+    "synonyms": [{"word":"ambitious","level":3},{"word":"rivalrous","level":5},{"word":"cutthroat","level":5}],
+    "antonyms": [{"word":"cooperative","level":4},{"word":"friendly","level":1}]
+  },
+  { "id": "aee42b52-ad37-47ac-9231-f5c1dd3b5f39", "word": "win",
+    "synonyms": [{"word":"triumph","level":4},{"word":"succeed","level":2},{"word":"prevail","level":5}],
+    "antonyms": [{"word":"lose","level":1},{"word":"fail","level":1}]
+  },
+  { "id": "af1a3952-47ba-4f58-8baa-6de2eeb257c6", "word": "applaud",
+    "synonyms": [{"word":"clap","level":1},{"word":"cheer","level":2},{"word":"acclaim","level":5}],
+    "antonyms": [{"word":"boo","level":2},{"word":"criticize","level":3}]
+  },
+  { "id": "af350803-cee3-436a-ae92-15f50197ca85", "word": "fan",
+    "synonyms": [{"word":"supporter","level":3},{"word":"admirer","level":4},{"word":"enthusiast","level":4}],
+    "antonyms": [{"word":"critic","level":3},{"word":"hater","level":3}]
+  },
+  { "id": "af787267-9122-4621-a764-62fcded9958c", "word": "temple",
+    "synonyms": [{"word":"shrine","level":4},{"word":"sanctuary","level":4},{"word":"holy place","level":2}],
+    "antonyms": []
+  },
+  { "id": "afcbf852-caa0-436a-8490-1fc5d0a4f040", "word": "stage",
+    "synonyms": [{"word":"platform","level":2},{"word":"podium","level":4},{"word":"dais","level":5}],
+    "antonyms": [{"word":"audience","level":2}]
+  },
+  { "id": "b0c82f4c-c8d6-4b37-a29e-76f74104bc14", "word": "throne",
+    "synonyms": [{"word":"royal seat","level":2},{"word":"chair of state","level":3},{"word":"seat of power","level":3}],
+    "antonyms": []
+  },
+  { "id": "b0f497a1-754b-4dc3-98b0-3d44a8fe9e98", "word": "observe",
+    "synonyms": [{"word":"watch","level":1},{"word":"study","level":1},{"word":"scrutinize","level":5}],
+    "antonyms": [{"word":"ignore","level":2},{"word":"overlook","level":3}]
+  },
+  { "id": "b12a7b4f-14c2-4ad3-9c5a-b1b771f58cc0", "word": "quiet",
+    "synonyms": [{"word":"silent","level":2},{"word":"hushed","level":4},{"word":"calm","level":2}],
+    "antonyms": [{"word":"loud","level":1},{"word":"noisy","level":2},{"word":"boisterous","level":5}]
+  },
+  { "id": "b134cef7-c9f7-4f73-8fc0-aa644f1d9e79", "word": "content",
+    "synonyms": [{"word":"material","level":2},{"word":"posts","level":1},{"word":"media","level":3}],
+    "antonyms": []
+  }
+]
