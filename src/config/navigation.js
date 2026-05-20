@@ -1,5 +1,5 @@
 import {
-  Home, BookOpen, PenLine, Mic, Users, Trophy,
+  Home, BookOpen, BookOpenCheck, PenLine, Mic, Users, Trophy,
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
@@ -14,6 +14,7 @@ export const STUDENT_NAV = {
       label: 'التعلّم',
       items: [
         { id: 'dashboard',   label: 'الرئيسية',    icon: Home,       to: '/student' },
+        { id: 'srs',         label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         { id: 'progress',    label: 'تقدّمي',       icon: BarChart3,  to: '/student/progress' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
@@ -51,6 +52,7 @@ export const STUDENT_NAV = {
       label: 'التعلّم',
       items: [
         { id: 'dashboard',    label: 'الرئيسية',    icon: Home,          to: '/student' },
+        { id: 'srs',          label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
