@@ -1,18 +1,35 @@
 import React, { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Trophy } from 'lucide-react'
+import { Trophy, Lock, Sparkles } from 'lucide-react'
 import { V3_MOTION, resolvePalette } from '../_v3Tokens'
+
+// V3.1: gold ring inside the compass dedicated to the exam gate.
+const EXAM_RING_GOLD_DARK  = '#F5C842'
+const EXAM_RING_GOLD_LIGHT = '#D4A017'
+
+function examRingColor(theme) {
+  return theme === 'light' ? EXAM_RING_GOLD_LIGHT : EXAM_RING_GOLD_DARK
+}
+
+function examTooltip(gateState) {
+  if (gateState === 'passed') return 'الاختبار — مُجتاز'
+  if (gateState === 'ready') return 'الاختبار — جاهز'
+  if (gateState === 'absent') return 'لا يوجد اختبار لهذه الوحدة'
+  return 'الاختبار — مقفل'
+}
 
 // 4-sector circular meter. Each sector is one movement, colored with the
 // movement's accent, and fills from 0 to fillRatio * 100% with a 1.2s draw.
+// V3.1 adds an inner concentric exam-state ring.
 // Center shows the overall %, plus a clickable Trophy icon.
-export default function UnitCompass({ compassData, onTrophyClick, onSectorClick, theme = 'dark' }) {
+export default function UnitCompass({ compassData, examGate, onTrophyClick, onSectorClick, theme = 'dark' }) {
   const reduce = useReducedMotion()
   const size = 196
   const center = size / 2
   const outerR = (size / 2) - 14
   const trackStroke = 10
   const fillStroke = 12
+  const innerR = Math.round(outerR * 0.62) // exam ring sits inside the outer ring
 
   const sectors = compassData?.sectors || []
   const overallPct = Math.round((compassData?.overallRatio || 0) * 100)
@@ -108,6 +125,17 @@ export default function UnitCompass({ compassData, onTrophyClick, onSectorClick,
             </path>
           </g>
         ))}
+
+        {/* V3.1 inner exam ring — gray (locked) / pulsing gold (ready) / solid gold (passed) */}
+        {examGate && examGate.gateState !== 'absent' && examGate.gateState !== 'loading' && (
+          <ExamInnerRing
+            center={center}
+            radius={innerR}
+            gateState={examGate.gateState}
+            theme={theme}
+            reduce={reduce}
+          />
+        )}
       </svg>
 
       {/* Center — overall % + Trophy button */}
@@ -135,12 +163,16 @@ export default function UnitCompass({ compassData, onTrophyClick, onSectorClick,
         >
           {overallPct}<span style={{ fontSize: '16px', fontWeight: 500, color: 'var(--ds-text-tertiary)' }}>%</span>
         </div>
+        {/* V3.1: exam-state pip under the percentage */}
+        {examGate && examGate.gateState !== 'absent' && examGate.gateState !== 'loading' && (
+          <ExamCenterPip gateState={examGate.gateState} theme={theme} />
+        )}
         <button
           type="button"
           onClick={onTrophyClick}
           aria-label="افتح لوحة النجوم والترتيب"
           style={{
-            marginTop: '6px',
+            marginTop: '4px',
             background: 'transparent',
             border: 'none',
             cursor: 'pointer',
@@ -160,5 +192,121 @@ export default function UnitCompass({ compassData, onTrophyClick, onSectorClick,
         </button>
       </div>
     </div>
+  )
+}
+
+// ─── V3.1 inner exam ring ──────────────────────────────────────────────────
+
+function ExamInnerRing({ center, radius, gateState, theme, reduce }) {
+  const gold = examRingColor(theme)
+  const tooltip = examTooltip(gateState)
+
+  if (gateState === 'locked') {
+    return (
+      <g>
+        <circle
+          cx={center}
+          cy={center}
+          r={radius}
+          fill="none"
+          stroke="var(--ds-border-strong)"
+          strokeWidth="3"
+          opacity={0.6}
+          strokeDasharray="3 6"
+        >
+          <title>{tooltip}</title>
+        </circle>
+      </g>
+    )
+  }
+  if (gateState === 'passed') {
+    return (
+      <g>
+        <circle
+          cx={center}
+          cy={center}
+          r={radius}
+          fill="none"
+          stroke={gold}
+          strokeWidth="3.5"
+          style={{ filter: `drop-shadow(0 0 6px ${gold}88)` }}
+        >
+          <title>{tooltip}</title>
+        </circle>
+      </g>
+    )
+  }
+  // ready — pulsing
+  if (reduce) {
+    return (
+      <g>
+        <circle
+          cx={center}
+          cy={center}
+          r={radius}
+          fill="none"
+          stroke={gold}
+          strokeWidth="3.5"
+          style={{ filter: `drop-shadow(0 0 6px ${gold}88)` }}
+        >
+          <title>{tooltip}</title>
+        </circle>
+      </g>
+    )
+  }
+  return (
+    <g>
+      <motion.circle
+        cx={center}
+        cy={center}
+        r={radius}
+        fill="none"
+        stroke={gold}
+        strokeWidth="3"
+        initial={{ opacity: 0.5 }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 2.4, ease: 'easeInOut', repeat: Infinity }}
+        style={{ filter: `drop-shadow(0 0 6px ${gold}88)` }}
+      >
+        <title>{tooltip}</title>
+      </motion.circle>
+    </g>
+  )
+}
+
+function ExamCenterPip({ gateState, theme }) {
+  const gold = examRingColor(theme)
+  let icon, label, color
+  if (gateState === 'locked') {
+    icon = <Lock size={11} strokeWidth={2.4} />
+    label = 'مقفل'
+    color = 'var(--ds-text-tertiary)'
+  } else if (gateState === 'passed') {
+    icon = <Trophy size={11} strokeWidth={2.4} />
+    label = 'مُجتاز'
+    color = gold
+  } else { // ready
+    icon = <Sparkles size={11} strokeWidth={2.4} />
+    label = 'جاهز'
+    color = gold
+  }
+  return (
+    <span
+      style={{
+        marginTop: '4px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '3px',
+        fontFamily: "'Tajawal', sans-serif",
+        fontSize: '10px',
+        fontWeight: 600,
+        color,
+        letterSpacing: '0.03em',
+      }}
+      aria-label={`الاختبار — ${label}`}
+    >
+      {icon}
+      {label}
+    </span>
   )
 }

@@ -111,6 +111,7 @@ export default function UnitContentV3({
       <div className="unit-v3-compass-row">
         <UnitCompass
           compassData={compassData}
+          examGate={examGate}
           onTrophyClick={onTrophyClick}
           onSectorClick={handleSectorClick}
           theme={theme}
