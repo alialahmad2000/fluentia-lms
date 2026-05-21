@@ -1,21 +1,33 @@
 import React, { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { V3_MOTION, V3_TYPOGRAPHY, resolvePalette } from '../_v3Tokens'
+import { ACTIVITY_VARIANT } from '../_v3Mappings'
 import MovementHeroNumeral from './MovementHeroNumeral'
 import MovementProgressOrb from './MovementProgressOrb'
 import ActivityStation from './ActivityStation'
+import RecordingStation from './RecordingStation'
+import { useRecordingDataEnrichment } from '../hooks/useRecordingDataEnrichment'
 
 // Full-width cinematic panel containing one movement + its activity stations.
+// V3.1: activities whose ACTIVITY_VARIANT === 'media' (currently only
+// 'recording') are rendered via RecordingStation with enrichment data from
+// the class_recordings + recording_progress tables.
 export default function MovementPanel({
   movement,
   activities,
   recommendedNextKey,
   onActivitySelect,
+  unitId,                    // V3.1: passed by UnitContentV3 for enrichment
+  studentId,                 // V3.1: passed by UnitContentV3 for enrichment
   theme = 'dark',
   index = 0,
 }) {
   const reduce = useReducedMotion()
   const palette = useMemo(() => resolvePalette(movement, theme), [movement, theme])
+
+  // Only enrich if this movement actually contains a media activity
+  const hasMedia = useMemo(() => activities.some(a => ACTIVITY_VARIANT[a.key] === 'media'), [activities])
+  const recordingEnrichment = useRecordingDataEnrichment(hasMedia ? unitId : null, hasMedia ? studentId : null)
 
   const total = activities.length
   const completed = activities.filter(a => a.status === 'completed').length
@@ -110,23 +122,39 @@ export default function MovementPanel({
           gap: '14px',
         }}
       >
-        {activities.map((activity, i) => (
-          <motion.div
-            key={activity.key}
-            initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={reduce ? V3_MOTION.reducedMotionFallback : { ...V3_MOTION.panelFadeIn, delay: 0.15 + i * 0.05 }}
-            data-activity-key={activity.key}
-          >
-            <ActivityStation
-              activity={activity}
-              movement={movement}
-              isRecommendedNext={activity.key === recommendedNextKey}
-              onSelect={onActivitySelect}
-              theme={theme}
-            />
-          </motion.div>
-        ))}
+        {activities.map((activity, i) => {
+          const variant = ACTIVITY_VARIANT[activity.key]
+          const isRecommended = activity.key === recommendedNextKey
+          return (
+            <motion.div
+              key={activity.key}
+              initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={reduce ? V3_MOTION.reducedMotionFallback : { ...V3_MOTION.panelFadeIn, delay: 0.15 + i * 0.05 }}
+              data-activity-key={activity.key}
+              style={variant === 'media' ? { gridColumn: '1 / -1' } : undefined}
+            >
+              {variant === 'media' ? (
+                <RecordingStation
+                  activity={activity}
+                  movement={movement}
+                  recordingData={recordingEnrichment.primary}
+                  isRecommendedNext={isRecommended}
+                  onSelect={onActivitySelect}
+                  theme={theme}
+                />
+              ) : (
+                <ActivityStation
+                  activity={activity}
+                  movement={movement}
+                  isRecommendedNext={isRecommended}
+                  onSelect={onActivitySelect}
+                  theme={theme}
+                />
+              )}
+            </motion.div>
+          )
+        })}
       </div>
     </motion.section>
   )

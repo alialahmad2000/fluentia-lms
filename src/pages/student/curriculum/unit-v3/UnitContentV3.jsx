@@ -145,6 +145,8 @@ export default function UnitContentV3({
                   activities={group.activities}
                   recommendedNextKey={recommendedNextKey}
                   onActivitySelect={onActivitySelect}
+                  unitId={unitData?.id}
+                  studentId={studentId}
                   theme={theme}
                   index={index}
                 />
