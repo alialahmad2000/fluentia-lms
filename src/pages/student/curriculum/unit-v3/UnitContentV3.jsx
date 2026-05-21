@@ -3,11 +3,13 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import UnitCompass from './components/UnitCompass'
 import MovementPanel from './components/MovementPanel'
+import ExamGatePanel from './components/ExamGatePanel'
 import EmptyMovementGuard from './components/EmptyMovementGuard'
 import RecommendedPath from './components/RecommendedPath'
 import { useMovementGrouping } from './hooks/useMovementGrouping'
 import { useRecommendedNextActivity } from './hooks/useRecommendedNextActivity'
 import { useCompassData } from './hooks/useCompassData'
+import { useExamGate } from './hooks/useExamGate'
 import { V3_MOTION } from './_v3Tokens'
 import './styles/unitMovementsV3.css'
 
@@ -29,6 +31,7 @@ import './styles/unitMovementsV3.css'
 export default function UnitContentV3({
   unitData,
   activities,
+  studentId,                    // V3.1: needed by useExamGate
   onActivitySelect,
   onTrophyClick,
   activeActivity,
@@ -42,7 +45,8 @@ export default function UnitContentV3({
   const reduce = useReducedMotion()
   const groupedMovements = useMovementGrouping(activities)
   const compassData = useCompassData(groupedMovements)
-  const recommendedNextKey = useRecommendedNextActivity(groupedMovements)
+  const examGate = useExamGate(unitData?.id, studentId)
+  const recommendedNextKey = useRecommendedNextActivity(groupedMovements, examGate)
 
   const handleSectorClick = useCallback((movementId) => {
     if (typeof document === 'undefined') return
@@ -125,18 +129,27 @@ export default function UnitContentV3({
           theme={theme}
         />
         {groupedMovements.map((group, index) => (
-          <EmptyMovementGuard key={group.movement.id} activities={group.activities}>
-            <div id={`v3-movement-${group.movement.id}`}>
-              <MovementPanel
+          <div key={group.movement.id} id={`v3-movement-${group.movement.id}`}>
+            {group.movement.isExamGate ? (
+              <ExamGatePanel
                 movement={group.movement}
-                activities={group.activities}
-                recommendedNextKey={recommendedNextKey}
-                onActivitySelect={onActivitySelect}
+                examGate={examGate}
                 theme={theme}
                 index={index}
               />
-            </div>
-          </EmptyMovementGuard>
+            ) : (
+              <EmptyMovementGuard activities={group.activities}>
+                <MovementPanel
+                  movement={group.movement}
+                  activities={group.activities}
+                  recommendedNextKey={recommendedNextKey}
+                  onActivitySelect={onActivitySelect}
+                  theme={theme}
+                  index={index}
+                />
+              </EmptyMovementGuard>
+            )}
+          </div>
         ))}
       </div>
 
