@@ -115,6 +115,7 @@ export default function ActivityStation({
         type="button"
         onClick={() => onSelect && onSelect(activity.key)}
         aria-label={ariaLabel}
+        data-v3-station-id={activity.key}
         {...hoverable}
         style={{
           position: 'relative',
