@@ -409,6 +409,7 @@ function UnitContentV3Wrapper() {
         <UnitContentV3
           unitData={unit}
           activities={activities}
+          studentId={studentData?.id}
           activeActivity={activeActivity}
           ActivityContent={activityBody}
           onActivitySelect={handleActivitySelect}
@@ -417,7 +418,6 @@ function UnitContentV3Wrapper() {
           levelLabelAr={levelName}
           extraTopSlot={(
             <>
-              {masteryCardSlot}
               {classSummarySlot}
             </>
           )}
