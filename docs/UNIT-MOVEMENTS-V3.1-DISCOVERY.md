@@ -140,3 +140,111 @@ V3.1 new components (`ExamGatePanel`, `RecordingStation`, the rewritten `Recomme
 5 sibling sessions logged at startup. PID 20266 was at 99% CPU during discovery (active autonomous work). Checksum integrity confirms no V3 files changed during my discovery — siblings are working in other paths (vocab-enrich, IELTS, etc.) and stayed isolated.
 
 The COEXIST safeguards (small commits, pull-rebase, post-commit verify, protective tags) are engaged for all subsequent phases.
+
+---
+
+# Phase H — QA + Final Summary (COEXIST run)
+
+Generated: 2026-05-21
+
+## H1 Test Matrix (static + flagged-for-Ali)
+
+| # | Test | Mode | Result | Notes |
+|---|---|---|---|---|
+| H1.1 | Unit with < 70% activity completion → LOCKED panel | static | PASS | ExamGatePanel's LockedView reads `examGate.progress.{current_pct, required_pct}` and shows the progress bar + 'أكملي 70٪…' headline. Threshold comes from per-assessment `unlock_threshold_percent` via useUnitMasteryState. |
+| H1.2 | Unit with ≥ 70% → READY panel + gold button | static | PASS | ReadyView with breathing gold ring, Sparkles icon, 'ابدئي اختبار الوحدة' oversized button. Question count + time + attempt-number hint underneath. |
+| H1.3 | Exam passed → trophy seal + 'وحدة مُتقَنة' | static | PASS | PassedView with rotated trophy seal top-end, score badge ({bestScore}٪) + secondary line ('انتظري قليلًا' / 'إعادة الاختبار متاحة') as appropriate. |
+| H1.4 | Click READY button → exam loads | static | PASS | onLaunch navigates to `/student/unit-mastery/{assessment.id}`. Route already wired in App.jsx (line 696). Existing V2 UnitMasteryPage renders unchanged. |
+| H1.5 | Compass inner ring matches gate state | static | PASS | ExamInnerRing renders gray-dashed (locked) / pulsing gold (ready) / solid gold (passed). Center pip Lock/Sparkles/Trophy + Arabic label below the percentage. |
+| H1.6 | Recording station thumbnail or placeholder | static | PASS | RecordingStation renders 16:9 thumbnail from class_recordings.thumbnail_url, or velvet placeholder + Play icon if NULL. Duration badge (mm:ss), part tag ('الجزء A'/'B'), watch-progress bar (partial state). |
+| H1.7 | Recommended Path threads visibly through stations | static | PASS | RecommendedPath uses `[data-v3-station-id]` selectors to find 7 candidate stations (recording, reading, vocabulary, grammar, listening, writing, speaking) + assessment buttons. Catmull-Rom spline + animated dot. |
+| H1.8 | Reduce-motion preference honored | static | PASS | 9 components import `useReducedMotion`. All breathing/pulsing animations swap to static end-state. RecommendedPath: foreground path renders fully drawn, dot is static (no breathing). Compass ExamInnerRing: ready state renders solid gold (no opacity pulse). |
+| H1.9 | Mobile 320px width — movements stack, button full-width | static | PASS | ExamGatePanel button: `width: min(320px, calc(100% - 32px))` — caps at 320 desktop, fills minus 32px on narrow viewports. Movement panel: grid `repeat(auto-fit, minmax(220px, 1fr))` already wraps cleanly. |
+| H1.10 | Light theme — velvet adjusts to aubergine | static | PASS | `paletteLight` for `the_test` movement uses `rgba(74, 47, 79, 0.92)` → `rgba(46, 29, 50, 0.96)` (deep aubergine), `accent: #D4A017`. ExamInnerRing uses gold/aubergine variants per theme. Score badge uses palette.accent. |
+| H1.11 | Progress numbers refresh on activity completion (no hard reload) | static | PASS | useUnitMasteryState uses TanStack Query with `refetchInterval: 30000` on the can-start RPC + `refetchInterval: 60000` on attempts. Plus the wrapper's `fluentia:activity:complete` listener invalidates 'unit-progress-comprehensive' which the gate hook indirectly reads. |
+
+**Static-verifiable: 11/11 PASS.** Browser-required verification on Vercel preview (visual polish, palette contrast, keyboard tab order) is still recommended before the global flag flip.
+
+## H2 Lighthouse
+
+Cannot run from agent context. V3.1 expected impact vs V3 baseline:
+- **New chunks:** ExamGatePanel (~5 KB gz), RecordingStation (~3.5 KB gz), useExamGate (~0.5 KB gz), useRecordingDataEnrichment (~0.8 KB gz). All lazy-loaded through the existing UnitContentRouter route lazyRetry.
+- **Additional fetches on V3 unit page load:**
+  - 1 GET on `unit_mastery_assessments` (cached 5 min via TanStack Query)
+  - 1 GET on `unit_mastery_attempts` (per studentId/assessmentId — refetched 60s)
+  - 1 RPC `fn_can_start_unit_assessment` (refetched 30s)
+  - If movement I contains recording: 1 GET on `class_recordings` (cached 5 min) + 1 GET on `recording_progress` (cached 30s)
+- **Animation cost:** Breathing box-shadow on ExamGatePanel ready/locked states (CPU-cheap, one element each). Pulsing Compass inner ring (one circle, SVG). Animated path dot in RecommendedPath (one circle, SVG). All disabled on reduce-motion.
+- **Expected delta vs V3:** Performance score within ~2 points, LCP unchanged (no new render-blocking chunks), CLS unchanged (no layout-shifters added).
+
+Verify via DevTools Lighthouse on `https://fluentia-lms.vercel.app/student/curriculum/unit/<id>?layout=v3` once Vercel finishes deploying.
+
+## H3 Phase G status
+
+**SKIPPED.** Rationale: the prompt's G3 condition requires a Lighthouse perf comparison before shipping, which I cannot run from agent context. Rather than ship motion that might cost paint without measurement, Phase G is deferred. Ali can request it as a separate follow-up if the V3.1 page reads too static — the spec (per-movement motion personality) is already documented in the V3.1 prompt for future reference.
+
+## H4 COEXIST safeguard report
+
+- **Sibling sessions during this run:** 5 (started 2026-05-20, still active throughout V3.1)
+- **Files I wrote that were cleaned by a sibling session:** 0
+- **Files auto-restored from commit (Safeguard 3):** 0
+- **Rebase conflicts encountered:** 0 — Phase A,B (after first attempt error), C, D, E, F all rebased cleanly because V3 paths stayed isolated from sibling work
+- **Pull-rebase failures (acceptable, non-conflict):** 2 — both were "index has uncommitted changes" because my staged file conflicted with `git pull --rebase`'s expectation. Resolved by committing first, then pushing (push handled fast-forward cleanly each time).
+- **Protective tags created:** `v3.1-phase-c-checkpoint`, `v3.1-phase-e-checkpoint`, `v3.1-phase-f-checkpoint` — all pushed to origin
+- **Checksum integrity (Phase A):** PASS — no V3 files drifted during read-only discovery
+- **Total commits this run:** 11 (Phase A docs + 10 feat commits across B/C/D/E/F)
+
+## H5 Final Summary
+
+```
+═══════════════════════════════════════════════════════════════
+UNIT MOVEMENTS V3.1 COEXIST — RUN COMPLETE
+═══════════════════════════════════════════════════════════════
+
+Coexist mode: ran alongside 5 sibling claude sessions
+Sibling-induced incidents: 0
+Files auto-restored from commits: none
+Rebase conflicts encountered: 0
+
+What shipped:
+  ✅ Phase A — Discovery (checksum-protected) → docs/UNIT-MOVEMENTS-V3.1-DISCOVERY.md
+  ✅ Phase B — Movements remapped: I.الفصل · II.الإتقان · III.التعبير · IV.الاختبار
+  ✅ Phase C — ExamGatePanel with locked/ready/passed states + useExamGate
+                hook (adapter over useUnitMasteryState — no redundant gate logic)
+                tagged: v3.1-phase-c-checkpoint
+  ✅ Phase D — Compass inner ring + center pip for exam gate state
+  ✅ Phase E — RecordingStation media variant with thumbnail/duration/watch
+                state + useRecordingDataEnrichment hook (no DB migration —
+                recording_progress already exists)
+                tagged: v3.1-phase-e-checkpoint
+  ✅ Phase F — Real RecommendedPath SVG (Catmull-Rom + animated dot)
+                tagged: v3.1-phase-f-checkpoint
+  ⏭ Phase G — Ambient motion SKIPPED (cannot measure Lighthouse delta from
+                agent context)
+  ✅ Phase H — Quality gates: 11/11 static PASS, 0 blockers
+
+Total commits: 11 (small + atomic — coexist-safe granularity)
+Protective tags created: v3.1-phase-c-checkpoint, v3.1-phase-e-checkpoint,
+                          v3.1-phase-f-checkpoint
+
+Current state for users:
+  Mission Grid (V2) — every student, every unit page, exactly as yesterday.
+  V3.1 visible only to Ali (preference='v3') and via ?layout=v3.
+
+Recovery commands if anything looks wrong on Ali's preview:
+  git reset --hard v3.1-phase-f-checkpoint   # back to before any Phase G work (n/a here)
+  git reset --hard v3.1-phase-e-checkpoint   # back to before Phase F (RecommendedPath)
+  git reset --hard v3.1-phase-c-checkpoint   # back to before Phase D/E/F (exam gate only)
+
+Soft rollback (flag flip):
+  UPDATE app_config SET value='"v2"'::jsonb WHERE key='unit_layout';
+
+Recommended next: Ali opens any unit URL with ?layout=v3 on his admin account
+and inspects:
+  - Movement IV exam gate (locked / ready / passed) — the page's destination
+  - Compass inner ring matches gate state
+  - Recording station thumbnail + 'تابعي من mm:ss' if partial watch progress
+  - Recommended-path glowing dot tracking the next-recommended station
+
+═══════════════════════════════════════════════════════════════
+```
