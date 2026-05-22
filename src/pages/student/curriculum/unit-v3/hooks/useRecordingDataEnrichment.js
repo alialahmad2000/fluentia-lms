@@ -11,7 +11,7 @@
 //   3. Any (the first published recording)
 
 import { useQuery } from '@tanstack/react-query'
-import { supabase } from '../../../../lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 export function useRecordingDataEnrichment(unitId, studentId) {
   const { data: recordings = [], isLoading: recordingsLoading } = useQuery({
