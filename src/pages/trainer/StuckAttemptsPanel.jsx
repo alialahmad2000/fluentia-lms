@@ -54,25 +54,45 @@ export default function StuckAttemptsPanel({ examCode }) {
       // Skip test accounts so admin sees real students only.
       const nonTest = (data || []).filter((r) => !r.student?.is_test_account)
 
-      // Decorate each row with its answer count.
+      // Decorate each row with its answer count + the latest few audit events
+      // (so we can spot stuck-mid-submit clients: submit_kickoff with no submit reply).
       const ids = nonTest.map((r) => r.id)
       let answerCounts = {}
+      let auditByAttempt = {}
       if (ids.length > 0) {
-        const { data: ansRows, error: ansErr } = await supabase
-          .from('mock_exam_answers')
-          .select('attempt_id, selected_index, text_answer')
-          .in('attempt_id', ids)
-        if (ansErr) throw ansErr
-        for (const r of ansRows || []) {
+        const [ansResp, audResp] = await Promise.all([
+          supabase.from('mock_exam_answers').select('attempt_id, selected_index, text_answer').in('attempt_id', ids),
+          supabase.from('mock_exam_audit_log').select('attempt_id, event, details, created_at').in('attempt_id', ids).order('created_at', { ascending: false }),
+        ])
+        if (ansResp.error) throw ansResp.error
+        if (audResp.error) throw audResp.error
+        for (const r of ansResp.data || []) {
           answerCounts[r.attempt_id] = (answerCounts[r.attempt_id] || 0) + 1
+        }
+        for (const r of audResp.data || []) {
+          if (!auditByAttempt[r.attempt_id]) auditByAttempt[r.attempt_id] = []
+          if (auditByAttempt[r.attempt_id].length < 10) auditByAttempt[r.attempt_id].push(r)
         }
       }
 
-      return nonTest.map((r) => ({
-        ...r,
-        answers_saved: answerCounts[r.id] || 0,
-        min_writing_words: exam.min_writing_words ?? 50,
-      }))
+      return nonTest.map((r) => {
+        const audit = auditByAttempt[r.id] || []
+        // Stuck-mid-submit detection: kickoff present, no complete or submit reply after it
+        const kickoff = audit.find((e) => e.event === 'submit_kickoff')
+        const complete = audit.find((e) =>
+          (e.event === 'submit_complete' || e.event === 'submit' || e.event === 'auto_submit')
+          && (!kickoff || new Date(e.created_at) >= new Date(kickoff.created_at))
+        )
+        const saveFailures = audit.filter((e) => e.event === 'save_failed').length
+        return {
+          ...r,
+          answers_saved: answerCounts[r.id] || 0,
+          min_writing_words: exam.min_writing_words ?? 50,
+          audit_recent: audit,
+          stuck_mid_submit: Boolean(kickoff && !complete),
+          save_failures_count: saveFailures,
+        }
+      })
     },
   })
 
@@ -224,6 +244,9 @@ function StuckRow({ row, busy, error, onRecover }) {
             فشل الاسترداد: {error}
           </div>
         )}
+        {(row.stuck_mid_submit || row.save_failures_count > 0 || row.audit_recent?.length > 0) && (
+          <DiagnosticStrip row={row} />
+        )}
       </div>
       <button
         type="button"
@@ -246,6 +269,52 @@ function StuckRow({ row, busy, error, onRecover }) {
         }
         {busy ? 'جاري الاسترداد…' : (row.is_submitted ? 'إعادة التقييم' : 'استرداد التسليم')}
       </button>
+    </div>
+  )
+}
+
+function DiagnosticStrip({ row }) {
+  // Show the 5 most recent telemetry events for this attempt so admin can spot
+  // the "submit_kickoff at HH:MM, no submit reply" pattern instantly.
+  const events = (row.audit_recent || []).slice(0, 5)
+  return (
+    <div
+      className="mt-2 text-[10px] flex flex-wrap items-center gap-1.5"
+      style={{ color: 'var(--ds-text-tertiary)' }}
+    >
+      {row.stuck_mid_submit && (
+        <span
+          className="px-1.5 py-0.5 rounded font-semibold"
+          style={{ background: 'rgba(239,68,68,0.18)', color: '#fca5a5', border: '1px solid rgba(239,68,68,0.4)' }}
+          title="submit_kickoff في سجل التدقيق بدون رد submit — العميل علق بعد الضغط على «تسليم»."
+        >
+          عميل علق على «تسليم»
+        </span>
+      )}
+      {row.save_failures_count > 0 && (
+        <span
+          className="px-1.5 py-0.5 rounded"
+          style={{ background: 'rgba(245,158,11,0.16)', color: '#fcd34d', border: '1px solid rgba(245,158,11,0.35)' }}
+          title="حالات فشل الحفظ التلقائي خلال هذه الجلسة — مؤشّر على اتصال متقطّع."
+        >
+          فشل الحفظ: {row.save_failures_count}
+        </span>
+      )}
+      {events.map((e, i) => (
+        <span
+          key={i}
+          className="px-1.5 py-0.5 rounded"
+          style={{
+            background: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.08)',
+          }}
+          title={JSON.stringify(e.details || {})}
+        >
+          {e.event}
+          {' @ '}
+          {new Date(e.created_at).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+        </span>
+      ))}
     </div>
   )
 }
@@ -274,6 +343,9 @@ function classify(attempts) {
 
     if (!r.is_submitted) {
       if (expired) { out.STUCK_EXPIRED.push(r); continue }
+      // submit_kickoff with no matching complete = client hung mid-submit.
+      // This is the killer signal — promote to STUCK regardless of minutes-in.
+      if (r.stuck_mid_submit) { out.STUCK_NEEDS_SUBMIT.push(r); continue }
       if (minutesIn > 30 && (r.answers_saved >= 30 || writingOK)) {
         out.STUCK_NEEDS_SUBMIT.push(r); continue
       }

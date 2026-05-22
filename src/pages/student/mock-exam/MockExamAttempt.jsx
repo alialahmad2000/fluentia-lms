@@ -14,16 +14,20 @@ const SECTION_LABEL_AR = {
   writing: 'الكتابة',
 }
 
-// Network ceiling for the final submit RPC. If the wire stalls beyond this,
-// abort cleanly and surface a retryable error rather than hang on "...جاري الإرسال" forever.
+// Network ceilings for RPC calls. If the wire stalls beyond these, abort cleanly
+// and surface a retryable error rather than hang silently. Background saves get
+// a tighter budget than the final submit so silent data loss surfaces quickly.
 const SUBMIT_TIMEOUT_MS = 25_000
 const SUBMIT_TIMEOUT_TAG = 'submit_timeout_25s'
+const SAVE_TIMEOUT_MS = 10_000
+const SAVE_TIMEOUT_TAG = 'save_timeout_10s'
 const WHATSAPP_INSTRUCTOR_URL = 'https://wa.me/966558669974'
 
 /**
  * Race a thenable against a timeout. If the timeout fires, reject with a tagged Error.
- * The underlying RPC fetch will continue in the background — the server-side write
- * remains idempotent thanks to mock_exam_submit's design — but the UI gets unstuck.
+ * The underlying RPC fetch will continue in the background — the server-side writes
+ * remain idempotent thanks to the mock_exam_*_save_* RPCs' upsert design — but the
+ * UI gets unstuck.
  */
 function withTimeout(thenable, ms, tag) {
   let timer = null
@@ -34,6 +38,23 @@ function withTimeout(thenable, ms, tag) {
     Promise.resolve(thenable).finally(() => { if (timer) clearTimeout(timer) }),
     timeout,
   ])
+}
+
+// Fire-and-forget telemetry — logs to mock_exam_audit_log via the new RPC.
+// Never blocks UI; swallows all errors so a broken telemetry RPC can't break submit.
+function logClientEvent(attemptId, event, details = {}) {
+  if (!attemptId) return
+  try {
+    supabase.rpc('mock_exam_log_client_event', {
+      p_attempt_id: attemptId,
+      p_event: event,
+      p_details: details,
+    }).then(() => {}, (err) => {
+      console.error('[mock-exam] telemetry failed (non-blocking):', event, err)
+    })
+  } catch (e) {
+    console.error('[mock-exam] telemetry threw (non-blocking):', event, e)
+  }
 }
 
 /**
@@ -64,6 +85,13 @@ export default function MockExamAttempt() {
   const [autoRetryUsed, setAutoRetryUsed] = useState(false)
   const [submitModalOpen, setSubmitModalOpen] = useState(false)
   const [loadError, setLoadError] = useState(null)
+  // Save heartbeat: surface silent autosave failures to the student. `lastSaveAt`
+  // shows the timestamp of the most recent successful save_answer/save_writing
+  // call. `saveFailures` is a monotonic counter that only goes up while there is
+  // a pending error; it resets to 0 when a save succeeds. The chip stays red
+  // until the next successful save lands.
+  const [lastSaveAt, setLastSaveAt] = useState(null)
+  const [saveFailures, setSaveFailures] = useState(0)
   const submittedRef = useRef(false)
 
   // Resolve exam code from student level
@@ -179,24 +207,74 @@ export default function MockExamAttempt() {
 
   // Note: supabase.rpc() returns a PostgrestBuilder (thenable, not a real Promise).
   // .catch() does NOT exist on it — wrap in try/catch and destructure { error } instead.
+  //
+  // Save resilience contract (incident fix round 2):
+  //   - Every save is wrapped in withTimeout(10s). Beyond that the wire is treated as hung.
+  //   - On any save failure we log `save_failed` to the audit log so admins can see
+  //     silent failures in real time (StuckAttemptsPanel surfaces them).
+  //   - The save-heartbeat state (lastSaveAt / saveFailures) drives a visible chip
+  //     in the header so the student can see whether their work is reaching the DB.
+  //   - RPCs are idempotent (save_answer uses ON CONFLICT upsert; save_writing
+  //     overwrites in place), so a retry — manual or via the next debounce — is safe.
+  const recordSaveSuccess = useCallback(() => {
+    setLastSaveAt(Date.now())
+    setSaveFailures(0)
+  }, [])
+
+  const recordSaveFailure = useCallback((rpc, qid, err) => {
+    setSaveFailures((n) => n + 1)
+    const msg = String(err?.message || err || 'unknown')
+    console.error(`[mock-exam] ${rpc} failed:`, msg)
+    if (examData?.attempt_id) {
+      logClientEvent(examData.attempt_id, 'save_failed', {
+        rpc, question_id: qid || null, error: msg, ts: new Date().toISOString(),
+      })
+    }
+  }, [examData?.attempt_id])
+
+  async function runSaveAnswer(attempt_id, qid, selected_index, text_answer) {
+    try {
+      const promise = supabase.rpc('mock_exam_save_answer', {
+        p_attempt_id: attempt_id,
+        p_question_id: qid,
+        p_selected_index: selected_index ?? null,
+        p_text_answer: text_answer ?? null,
+      })
+      const { error } = await withTimeout(promise, SAVE_TIMEOUT_MS, SAVE_TIMEOUT_TAG)
+      if (error) { recordSaveFailure('save_answer', qid, error); return false }
+      recordSaveSuccess()
+      return true
+    } catch (e) {
+      recordSaveFailure('save_answer', qid, e)
+      return false
+    }
+  }
+
+  async function runSaveWriting(attempt_id, text) {
+    try {
+      const promise = supabase.rpc('mock_exam_save_writing', {
+        p_attempt_id: attempt_id,
+        p_writing_text: text,
+      })
+      const { error } = await withTimeout(promise, SAVE_TIMEOUT_MS, SAVE_TIMEOUT_TAG)
+      if (error) { recordSaveFailure('save_writing', null, error); return false }
+      recordSaveSuccess()
+      return true
+    } catch (e) {
+      recordSaveFailure('save_writing', null, e)
+      return false
+    }
+  }
+
   const flushAllSaves = useCallback(async () => {
+    if (examData?.attempt_id) logClientEvent(examData.attempt_id, 'flush_started', {})
     const ids = Object.keys(saveTimers.current)
     for (const qid of ids) {
       const t = saveTimers.current[qid]
       if (t) {
         clearTimeout(t.timeout)
         const { selected_index, text_answer, attempt_id } = t.payload
-        try {
-          const { error } = await supabase.rpc('mock_exam_save_answer', {
-            p_attempt_id: attempt_id,
-            p_question_id: qid,
-            p_selected_index: selected_index ?? null,
-            p_text_answer: text_answer ?? null,
-          })
-          if (error) console.error('[mock-exam] flush save_answer error:', error.message)
-        } catch (e) {
-          console.error('[mock-exam] flush save_answer threw:', e)
-        }
+        await runSaveAnswer(attempt_id, qid, selected_index, text_answer)
       }
       delete saveTimers.current[qid]
     }
@@ -204,17 +282,11 @@ export default function MockExamAttempt() {
       clearTimeout(writingTimer.current)
       writingTimer.current = null
       if (examData?.attempt_id) {
-        try {
-          const { error } = await supabase.rpc('mock_exam_save_writing', {
-            p_attempt_id: examData.attempt_id,
-            p_writing_text: pendingWritingText.current,
-          })
-          if (error) console.error('[mock-exam] flush save_writing error:', error.message)
-        } catch (e) {
-          console.error('[mock-exam] flush save_writing threw:', e)
-        }
+        await runSaveWriting(examData.attempt_id, pendingWritingText.current)
       }
     }
+    if (examData?.attempt_id) logClientEvent(examData.attempt_id, 'flush_complete', {})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [examData?.attempt_id])
 
   function scheduleAnswerSave(qid, selected_index, text_answer) {
@@ -224,17 +296,7 @@ export default function MockExamAttempt() {
     saveTimers.current[qid] = {
       payload: { selected_index, text_answer, attempt_id },
       timeout: setTimeout(async () => {
-        try {
-          const { error } = await supabase.rpc('mock_exam_save_answer', {
-            p_attempt_id: attempt_id,
-            p_question_id: qid,
-            p_selected_index: selected_index ?? null,
-            p_text_answer: text_answer ?? null,
-          })
-          if (error) console.error('[mock-exam] save_answer error:', error.message)
-        } catch (e) {
-          console.error('[mock-exam] save_answer threw:', e)
-        }
+        await runSaveAnswer(attempt_id, qid, selected_index, text_answer)
         delete saveTimers.current[qid]
       }, 800),
     }
@@ -246,15 +308,7 @@ export default function MockExamAttempt() {
     if (writingTimer.current) clearTimeout(writingTimer.current)
     const attempt_id = examData.attempt_id
     writingTimer.current = setTimeout(async () => {
-      try {
-        const { error } = await supabase.rpc('mock_exam_save_writing', {
-          p_attempt_id: attempt_id,
-          p_writing_text: text,
-        })
-        if (error) console.error('[mock-exam] save_writing error:', error.message)
-      } catch (e) {
-        console.error('[mock-exam] save_writing threw:', e)
-      }
+      await runSaveWriting(attempt_id, text)
       writingTimer.current = null
     }, 1500)
   }
@@ -302,8 +356,24 @@ export default function MockExamAttempt() {
     setSubmitting(true)
     setSubmitError(null)
     setSubmitErrorIsTimeout(false)
+
+    // DevTools timing for the next student who hits this. Cheap, removes itself on tab close.
+    // Group label encodes the attempt_id so multiple tabs / reloads can be distinguished.
+    const tLabel = `mock-exam-submit:${examData?.attempt_id?.slice(0, 8) || 'unknown'}`
+    console.time(tLabel)
+    console.time(`${tLabel}:flush`)
+
+    // Server-side audit: emit `submit_kickoff`. If this is the LAST audit row before
+    // a missing `submit` row, we know the client hung between kickoff and the RPC reply.
+    const kickoffAt = Date.now()
+    logClientEvent(examData?.attempt_id, 'submit_kickoff', {
+      auto, ts: new Date(kickoffAt).toISOString(),
+    })
+
     try {
       await flushAllSaves()
+      console.timeEnd(`${tLabel}:flush`)
+      console.time(`${tLabel}:rpc`)
 
       const submitPromise = supabase.rpc('mock_exam_submit', {
         p_attempt_id: examData.attempt_id,
@@ -311,8 +381,14 @@ export default function MockExamAttempt() {
       })
 
       const result = await withTimeout(submitPromise, SUBMIT_TIMEOUT_MS, SUBMIT_TIMEOUT_TAG)
+      console.timeEnd(`${tLabel}:rpc`)
       const { error } = result || {}
       if (error) throw error
+
+      logClientEvent(examData.attempt_id, 'submit_complete', {
+        duration_ms: Date.now() - kickoffAt,
+        ts: new Date().toISOString(),
+      })
 
       // Fire-and-forget: trigger AI writing grading in the background.
       // Student must NOT wait for this. If it fails (network, edge fn down,
@@ -329,13 +405,18 @@ export default function MockExamAttempt() {
         }
       })()
 
+      console.timeEnd(tLabel)
       navigate(`/student/mock-exam/result?attempt_id=${examData.attempt_id}`, { replace: true })
     } catch (e) {
       console.error('submit failed', e)
+      try { console.timeEnd(tLabel) } catch { /* timer may have already ended */ }
       submittedRef.current = false
       const msg = String(e?.message || e || 'تعذّر الاتصال')
       const isTimeout = msg === SUBMIT_TIMEOUT_TAG
       setSubmitErrorIsTimeout(isTimeout)
+      logClientEvent(examData?.attempt_id, 'submit_failed', {
+        error: msg, is_timeout: isTimeout, duration_ms: Date.now() - kickoffAt,
+      })
       setSubmitError(
         isTimeout
           ? 'تأخّر الإرسال أكثر من المعتاد. إجاباتك محفوظة في النظام — اضغطي «إعادة المحاولة» أو تواصلي مع المدرب.'
@@ -480,26 +561,29 @@ export default function MockExamAttempt() {
               السؤال {currentIndex + 1} من {totalQ}
             </span>
           </div>
-          <div
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full font-mono tabular-nums text-sm"
-            style={{
-              background: criticalTime
-                ? 'rgba(239,68,68,0.18)'
-                : lowTime
-                ? 'rgba(245,158,11,0.18)'
-                : 'rgba(255,255,255,0.06)',
-              color: criticalTime ? '#fca5a5' : lowTime ? '#fcd34d' : 'var(--ds-text-primary)',
-              border: criticalTime
-                ? '1px solid rgba(239,68,68,0.4)'
-                : lowTime
-                ? '1px solid rgba(245,158,11,0.4)'
-                : '1px solid rgba(255,255,255,0.10)',
-              transform: criticalTime ? 'scale(1.05)' : 'scale(1)',
-              transition: 'transform 200ms ease-out',
-            }}
-          >
-            <Clock size={14} />
-            <span>{String(mm).padStart(2, '0')}:{String(ss).padStart(2, '0')}</span>
+          <div className="flex items-center gap-2">
+            <SaveHeartbeat lastSaveAt={lastSaveAt} saveFailures={saveFailures} />
+            <div
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full font-mono tabular-nums text-sm"
+              style={{
+                background: criticalTime
+                  ? 'rgba(239,68,68,0.18)'
+                  : lowTime
+                  ? 'rgba(245,158,11,0.18)'
+                  : 'rgba(255,255,255,0.06)',
+                color: criticalTime ? '#fca5a5' : lowTime ? '#fcd34d' : 'var(--ds-text-primary)',
+                border: criticalTime
+                  ? '1px solid rgba(239,68,68,0.4)'
+                  : lowTime
+                  ? '1px solid rgba(245,158,11,0.4)'
+                  : '1px solid rgba(255,255,255,0.10)',
+                transform: criticalTime ? 'scale(1.05)' : 'scale(1)',
+                transition: 'transform 200ms ease-out',
+              }}
+            >
+              <Clock size={14} />
+              <span>{String(mm).padStart(2, '0')}:{String(ss).padStart(2, '0')}</span>
+            </div>
           </div>
         </div>
 
@@ -867,6 +951,61 @@ function QuestionRenderer({ q, answer, writingText, writingMin, writingWordCount
         ) : null}
       </div>
     </div>
+  )
+}
+
+/**
+ * SaveHeartbeat — small chip surfacing autosave health.
+ *  - Green check + "تم الحفظ" when last save succeeded within the last 5s
+ *  - Neutral "تم الحفظ قبل Ns" up to 60s
+ *  - Amber dot + "تحقّقي من الاتصال" when failures > 0
+ *  - Hidden entirely before the first save attempt
+ */
+function SaveHeartbeat({ lastSaveAt, saveFailures }) {
+  // Re-render every 5s so the relative timestamp stays accurate.
+  const [, setTick] = useState(0)
+  useEffect(() => {
+    if (!lastSaveAt && !saveFailures) return
+    const id = setInterval(() => setTick((t) => t + 1), 5_000)
+    return () => clearInterval(id)
+  }, [lastSaveAt, saveFailures])
+
+  if (!lastSaveAt && saveFailures === 0) return null
+
+  const hasFailure = saveFailures > 0
+  const secsAgo = lastSaveAt ? Math.floor((Date.now() - lastSaveAt) / 1000) : null
+  const recent = secsAgo !== null && secsAgo <= 5
+
+  let bg, color, border, label
+  if (hasFailure) {
+    bg = 'rgba(245,158,11,0.16)'
+    color = '#fcd34d'
+    border = '1px solid rgba(245,158,11,0.4)'
+    label = `تحقّقي من الاتصال (${saveFailures})`
+  } else if (recent) {
+    bg = 'rgba(34,197,94,0.16)'
+    color = '#86efac'
+    border = '1px solid rgba(34,197,94,0.35)'
+    label = 'تم الحفظ ✓'
+  } else {
+    bg = 'rgba(255,255,255,0.05)'
+    color = 'var(--ds-text-tertiary)'
+    border = '1px solid rgba(255,255,255,0.10)'
+    label = secsAgo !== null
+      ? (secsAgo < 60 ? `تم الحفظ قبل ${secsAgo} ث` : `تم الحفظ قبل ${Math.floor(secsAgo / 60)} د`)
+      : 'في الانتظار…'
+  }
+
+  return (
+    <span
+      className="text-[11px] px-2 py-1 rounded-full whitespace-nowrap"
+      style={{ background: bg, color, border }}
+      title={hasFailure
+        ? 'تعذّر الاتصال ببعض الإجابات. الإجابات تُحفظ تلقائياً عند استعادة الاتصال — أو اضغطي السؤال مرة ثانية لإعادة الحفظ.'
+        : (secsAgo !== null ? `آخر حفظ ناجح قبل ${secsAgo} ثانية` : null)}
+    >
+      {label}
+    </span>
   )
 }
 
