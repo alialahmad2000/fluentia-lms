@@ -497,6 +497,20 @@ function ReadingContent({ reading, studentId, unitId }) {
     })
   }, [reading?.id]) // eslint-disable-line
 
+  // MEGA-FIX V2 Phase C — pre-warm per-word audio cache so the first
+  // tap on a word is instant (no DB roundtrip).
+  useEffect(() => {
+    if (!reading?.passage_content) return
+    let aborted = false
+    const paragraphs = reading.passage_content?.paragraphs || []
+    const passageText = paragraphs.join('\n\n')
+    import('@/lib/audio/pronounceWord').then(({ prewarmPassageWords }) => {
+      if (aborted) return
+      prewarmPassageWords(passageText)
+    }).catch(() => {})
+    return () => { aborted = true }
+  }, [reading?.id, reading?.passage_content])
+
   const handleWordSaved = useCallback((word) => {
     if (word.startsWith('__remove__')) {
       const removed = word.replace('__remove__', '').toLowerCase()
