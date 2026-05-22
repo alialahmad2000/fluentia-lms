@@ -3,7 +3,7 @@ import {
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
-  MessageCircle, MessageSquare, Volume2, Dumbbell,
+  MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck,
 } from 'lucide-react'
 
 
@@ -24,6 +24,13 @@ export const STUDENT_NAV = {
         { id: 'how-to-earn', label: 'كيف تكسب XP 🎯', icon: Target,   to: '/student/how-to-earn' },
         { id: 'level-journey', label: 'خريطة رحلتكِ',  icon: Map,      to: '/student/level-journey' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
+      ],
+    },
+    {
+      id: 'exams',
+      label: 'الاختبارات',
+      items: [
+        { id: 'mock-exam', label: 'الاختبار التجريبي', icon: FileCheck, to: '/student/mock-exam', requiresMockExamAccess: true },
       ],
     },
     {
@@ -118,6 +125,7 @@ export const TRAINER_NAV = {
         { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: FileText, to: '/trainer/interactive-curriculum' },
         { id: 'progress',    label: 'تقدم الطلاب',  icon: TrendingUp,    to: '/trainer/progress-matrix' },
         { id: 'reports',     label: 'تقارير الطلاب', icon: CalendarClock, to: '/trainer/reports' },
+        { id: 'mock-exam',   label: 'نتائج الاختبار التجريبي', icon: FileCheck, to: '/trainer/mock-exam-results' },
         { id: 'ai',          label: 'المساعد الذكي', icon: Bot,           to: '/trainer/ai-assistant' },
       ],
     },
@@ -139,6 +147,7 @@ export const ADMIN_NAV = {
       items: [
         { id: 'dashboard',   label: 'الرئيسية',     icon: Home,          to: '/admin' },
         { id: 'reports',     label: 'التقارير',     icon: BarChart3,     to: '/admin/reports' },
+        { id: 'mock-exam',   label: 'نتائج الاختبار التجريبي', icon: FileCheck, to: '/admin/mock-exam-results' },
       ],
     },
     {

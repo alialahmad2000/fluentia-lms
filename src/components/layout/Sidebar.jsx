@@ -11,6 +11,7 @@ import { hasIELTSAccess } from '@/lib/packageAccess'
 import { toast } from '@/components/ui/FluentiaToast'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { getHardWordsCount } from '@/services/hardWords'
+import { supabase } from '@/lib/supabase'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin' }
 
@@ -22,6 +23,36 @@ function Sidebar({ nav, collapsed, onToggle }) {
 
   const { data: ieltsRoster } = useIELTSRoster()
   const hasIELTSStudents = Array.isArray(ieltsRoster) && ieltsRoster.length > 0
+
+  // Visibility-aware mock-exam access. Sidebar entry shows when:
+  //   - an active mock_exam matches the student's academic_level AND
+  //   - visibility is 'live' OR (visibility is 'preview' AND profile.is_test_account or role is staff)
+  const isTestAccount = profile?.is_test_account === true
+  const isStaff = role === 'admin' || role === 'trainer'
+  const { data: mockExamRows = [] } = useQuery({
+    queryKey: ['mock-exam-visibility'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('mock_exams')
+        .select('id, code, visibility, level:curriculum_levels(level_number)')
+        .eq('is_active', true)
+      if (error) return []
+      return data || []
+    },
+    staleTime: 60_000,
+    enabled: !!profileId,
+  })
+  const studentLevelNumber = studentData?.academic_level ?? null
+  const canSeeMockExam = (mockExamRows || []).some((e) => {
+    if (e.visibility === 'live') {
+      return isStaff || (studentLevelNumber && e.level?.level_number === studentLevelNumber)
+    }
+    if (e.visibility === 'preview') {
+      if (isStaff) return true
+      if (isTestAccount && studentLevelNumber && e.level?.level_number === studentLevelNumber) return true
+    }
+    return false
+  })
 
   // Conditional hard-words nav visibility — only show when student has hard words
   const { data: hardWordsCount = 0 } = useQuery({
@@ -78,6 +109,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
           const visibleItems = section.items.filter(item => {
             if (item.visibleWhen === 'hard-words-count' && hardWordsCount <= 0) return false
             if (item.requiresIELTSStudents) return hasIELTSStudents
+            if (item.requiresMockExamAccess) return canSeeMockExam
             if (!item.requiresPackage) return true
             if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
             return true

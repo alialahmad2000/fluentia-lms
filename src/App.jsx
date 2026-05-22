@@ -222,6 +222,13 @@ const AtelierTrainerPreview = lazyRetry(() => import('./pages/admin/atelier-prev
 const AtelierAdminPreview   = lazyRetry(() => import('./pages/admin/atelier-preview/AtelierAdminPreview'))
 const AudioPlayerTest = lazyRetry(() => import('./pages/dev/AudioPlayerTest'))
 
+// Mock exam (cumulative midterm for A1 + B1)
+const MockExamGate = lazyRetry(() => import('./pages/student/mock-exam/MockExamGate'))
+const MockExamHub = lazyRetry(() => import('./pages/student/mock-exam/MockExamHub'))
+const MockExamAttempt = lazyRetry(() => import('./pages/student/mock-exam/MockExamAttempt'))
+const MockExamResult = lazyRetry(() => import('./pages/student/mock-exam/MockExamResult'))
+const MockExamResults = lazyRetry(() => import('./pages/trainer/MockExamResults'))
+
 const PartnerLayout = lazyRetry(() => import('./layouts/PartnerLayout'))
 const PartnerRoute = lazyRetry(() => import('./components/PartnerRoute'))
 const PartnerDashboard = lazyRetry(() => import('./pages/partner/PartnerDashboard'))
@@ -690,6 +697,12 @@ export default function App() {
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
               <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContentRouter /></Page>} />
               <Route path="/student/curriculum-old" element={<Page><StudentCurriculum /></Page>} />
+              {/* Mock exam (cumulative midterm — preview-gated server-side) */}
+              <Route path="/student/mock-exam" element={<Page><MockExamGate /></Page>}>
+                <Route index element={<MockExamHub />} />
+                <Route path="attempt" element={<MockExamAttempt />} />
+                <Route path="result" element={<MockExamResult />} />
+              </Route>
               <Route path="/student/style-preview" element={<Page><StylePreview /></Page>} />
               <Route path="/student/placement-test" element={<Suspense fallback={null}><PlacementTestPage /></Suspense>} />
               <Route path="/student/placement-test/results/:sessionId" element={<Suspense fallback={null}><PlacementResultsPage /></Suspense>} />
@@ -770,6 +783,7 @@ export default function App() {
               {/* ── V2: real pages (existing components, swapped in T3/T6/T7) ── */}
               <Route path="/trainer" element={<Page><CockpitPage /></Page>} />
               <Route path="/trainer/grading" element={<Page><GradingStationPage /></Page>} />
+              <Route path="/trainer/mock-exam-results" element={<Page><MockExamResults /></Page>} />
               <Route path="/trainer/debrief/:summaryId" element={<Page><ClassDebriefPage /></Page>} />
               <Route path="/trainer/students" element={<Page><TrainerStudentView /></Page>} />
               <Route path="/trainer/curriculum" element={<Navigate to="/trainer/interactive-curriculum" replace />} />
@@ -827,6 +841,7 @@ export default function App() {
               <Route path="/admin/trainers" element={<Page><AdminTrainers /></Page>} />
               <Route path="/admin/packages" element={<Page><AdminPayments /></Page>} />
               <Route path="/admin/reports" element={<Page><AdminReports /></Page>} />
+              <Route path="/admin/mock-exam-results" element={<Page><MockExamResults /></Page>} />
               <Route path="/admin/churn" element={<Page><AdminChurnPrediction /></Page>} />
               <Route path="/admin/scheduling" element={<Page><AdminSmartScheduling /></Page>} />
               <Route path="/admin/content" element={<Page><AdminContent /></Page>} />
