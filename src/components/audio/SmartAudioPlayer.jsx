@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { Bookmark, AlertCircle, RefreshCw, Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Loader2, Settings, Eye, EyeOff } from 'lucide-react'
 
 import { useAudioEngine } from './hooks/useAudioEngine'
+import { arabicErrorMessage } from '../../lib/audio/audioEventLog'
 import { useKaraoke } from './hooks/useKaraoke'
 import { useABLoop } from './hooks/useABLoop'
 import { useBookmarks } from './hooks/useBookmarks'
@@ -91,6 +92,8 @@ export default function SmartAudioPlayer({
   const engine = useAudioEngine({
     audioUrl,
     segments,
+    studentId,
+    playerId: `${contentType || 'player'}:${contentId || 'anon'}`,
     onSegmentComplete,
     onPlaybackComplete: () => {
       setHasPlayedComplete(true)
@@ -234,7 +237,9 @@ export default function SmartAudioPlayer({
         style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
       >
         {engine.error && (
-          <div className="px-3 py-2 text-xs text-red-400 font-['Tajawal']">تعذّر تحميل الصوت</div>
+          <div className="px-3 py-2 text-xs text-red-400 font-['Tajawal']">
+            {arabicErrorMessage(engine.errorReason) || 'تعذّر تحميل الصوت'}
+          </div>
         )}
         {!engine.error && (
           <>
@@ -281,7 +286,9 @@ export default function SmartAudioPlayer({
           <div className="mx-2 mb-3 px-3 py-3 rounded-xl flex items-center justify-between gap-3"
             style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}
           >
-            <span className="text-sm text-red-300 font-['Tajawal']">تعذّر تحميل الصوت. تحقّق من اتصالك.</span>
+            <span className="text-sm text-red-300 font-['Tajawal']">
+              {arabicErrorMessage(engine.errorReason) || 'تعذّر تحميل الصوت. تحقّق من اتصالك.'}
+            </span>
             <button onClick={engine.retry} className="text-xs text-sky-400 font-['Tajawal']">إعادة</button>
           </div>
         )}
@@ -482,7 +489,9 @@ export default function SmartAudioPlayer({
           >
             <div className="flex items-center gap-2">
               <AlertCircle size={16} className="text-red-400 flex-shrink-0"/>
-              <span className="text-sm text-red-300 font-['Tajawal']">تعذّر تحميل الصوت. تحقّق من اتصالك.</span>
+              <span className="text-sm text-red-300 font-['Tajawal']">
+                {arabicErrorMessage(engine.errorReason) || 'تعذّر تحميل الصوت. تحقّق من اتصالك.'}
+              </span>
             </div>
             <button onClick={engine.retry} className="flex items-center gap-1 text-xs text-sky-400 font-['Tajawal']">
               <RefreshCw size={12}/> إعادة
