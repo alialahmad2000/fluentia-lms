@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
@@ -7,6 +7,7 @@ import { useWordLensAudio } from './useWordLensAudio'
 import { positionLens } from './positionLens'
 import { QuickRead } from './QuickRead'
 import { DeepMenu } from './DeepMenu'
+import { toast } from '../../ui/FluentiaToast'
 
 const POPUP_WIDTH = 360
 const DEFAULT_POPUP_HEIGHT = 280
@@ -46,6 +47,37 @@ export default function WordLens({
     passageAudioUrl,
     vocabAudioUrl: data.data?.audio_url || null,
   })
+
+  // MEGA-FIX V2 Phase E — Save with destination-naming toast on success +
+  // explicit error toast on RLS / network failure. The mutation already
+  // does .select() so empty rowset / RLS errors become real exceptions.
+  const handleSave = useCallback(async () => {
+    try {
+      await data.save()
+      toast({
+        type: 'success',
+        title: 'تمت إضافة الكلمة',
+        description: 'افتحي قسم "كلماتي المحفوظة" لمراجعتها',
+      })
+    } catch (e) {
+      toast({
+        type: 'error',
+        title: 'ما قدرنا نحفظ الكلمة',
+        description: 'جربي مرة ثانية. لو ظلّت ما تشتغل، تواصلي مع المدرب.',
+      })
+      console.error('[WordLens] save failed:', e?.message)
+    }
+  }, [data])
+
+  const handleUnsave = useCallback(async () => {
+    try {
+      await data.unsave()
+      toast({ type: 'info', title: 'أزلنا الكلمة من قاموسك' })
+    } catch (e) {
+      toast({ type: 'error', title: 'ما قدرنا نحذف الكلمة' })
+      console.error('[WordLens] unsave failed:', e?.message)
+    }
+  }, [data])
 
   // Reset to quick view + clear drag whenever the word changes
   useEffect(() => {
@@ -194,8 +226,8 @@ export default function WordLens({
                     onPlayAudio={() => audio.play()}
                     isPlayingAudio={audio.isPlaying}
                     audioTier={audio.tier}
-                    onSave={data.save}
-                    onUnsave={data.unsave}
+                    onSave={handleSave}
+                    onUnsave={handleUnsave}
                     isSaved={data.data.isSaved}
                     isSaving={data.isSaving || data.isUnsaving}
                     onExpand={() => setView('deep')}

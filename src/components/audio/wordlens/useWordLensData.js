@@ -107,10 +107,15 @@ export function useWordLensData({ word, readingId, unitId, studentId, contextSen
         curriculum_vocabulary_id: lookup.data?.curriculum_vocabulary_id || null,
         next_review_at: new Date().toISOString(),
       }
-      const { error } = await supabase
+      // MEGA-FIX V2 Phase E: .select() after upsert so RLS failures surface
+      // instead of silently dropping ("save click did nothing").
+      const { data, error } = await supabase
         .from('student_saved_words')
         .upsert(payload, { onConflict: 'student_id,word' })
+        .select()
       if (error) throw error
+      if (!data || data.length === 0) throw new Error('save_returned_no_rows')
+      return data[0]
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
