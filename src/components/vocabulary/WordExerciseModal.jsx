@@ -68,6 +68,20 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
     if (!fields) return
 
     const prevAttempts = mastery?.[fields.attempts] || 0
+
+    // MEGA-FIX V2 Phase F (V1): compute mastery_level explicitly. The DB has
+    // no trigger for this column, so without this code mastery_level stays
+    // NULL forever and downstream auto-advance + 'mastered' badge never fire.
+    // Snapshot the post-update state by OR-ing this pass with the existing
+    // booleans, then count how many of the 3 exercises are passed.
+    const passedAfter = {
+      meaning: exerciseKey === 'meaning' ? true : !!mastery?.meaning_exercise_passed,
+      sentence: exerciseKey === 'sentence' ? true : !!mastery?.sentence_exercise_passed,
+      listening: exerciseKey === 'listening' ? true : !!mastery?.listening_exercise_passed,
+    }
+    const passedCountAfter = [passedAfter.meaning, passedAfter.sentence, passedAfter.listening].filter(Boolean).length
+    const nextMasteryLevel = passedCountAfter >= 3 ? 'mastered' : passedCountAfter >= 1 ? 'learning' : 'new'
+
     const updates = {
       student_id: studentId,
       vocabulary_id: word.id,
@@ -75,6 +89,7 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
       [fields.attempts]: prevAttempts + 1,
       [fields.at]: new Date().toISOString(),
       last_practiced_at: new Date().toISOString(),
+      mastery_level: nextMasteryLevel,
     }
 
     try {

@@ -974,8 +974,13 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
       <div className="p-3 space-y-2">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-bold text-white font-['Inter'] leading-tight" dir="ltr">{word.word}</p>
-            <p className="text-[11px] text-white/40 font-['Tajawal'] mt-0.5 line-clamp-1">
+            <div className="flex items-baseline gap-2" dir="ltr">
+              <p className="text-sm font-bold text-white font-['Inter'] leading-tight">{word.word}</p>
+              {word.pronunciation_ipa && (
+                <p className="text-[10px] text-white/35 font-['Inter'] leading-tight tracking-tight">{word.pronunciation_ipa}</p>
+              )}
+            </div>
+            <p className="text-[11px] text-white/55 font-['Tajawal'] mt-0.5 line-clamp-1">
               {POS_AR[word.part_of_speech] || word.part_of_speech} · {word.definition_ar}
             </p>
             {word.tier && word.tier !== 'core' && (
@@ -1101,9 +1106,12 @@ function WordListItem({ word, mastery, reviewed, onView, onPractice, playAudio }
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2" dir="ltr">
             <span className="text-sm font-semibold text-white font-['Inter']">{word.word}</span>
+            {word.pronunciation_ipa && (
+              <span className="text-[10px] text-white/35 font-['Inter'] tracking-tight">{word.pronunciation_ipa}</span>
+            )}
             <span className="text-[10px] text-white/25 font-['Inter']">{word.part_of_speech}</span>
           </div>
-          <p className="text-[11px] text-white/35 font-['Tajawal'] line-clamp-1">{word.definition_ar}</p>
+          <p className="text-[11px] text-white/55 font-['Tajawal'] line-clamp-1">{word.definition_ar}</p>
         </div>
       </div>
 
