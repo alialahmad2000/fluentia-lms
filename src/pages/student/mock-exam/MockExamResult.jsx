@@ -31,7 +31,14 @@ export default function MockExamResult() {
     },
     enabled: !!attemptId,
     // Poll every 30s if pending so the student sees the reveal without manual refresh.
-    refetchInterval: (q) => q.state.data?.pending_review ? 30_000 : false,
+    refetchInterval: (q) => {
+      const d = q.state.data
+      if (!d) return false
+      // Poll while result is gated OR while AI writing grade is still pending.
+      if (d.pending_review) return 30_000
+      if (d.ai_writing_status === 'pending') return 5_000
+      return false
+    },
   })
 
   // Score count-up — only run when revealed (we have score_total)
@@ -455,6 +462,12 @@ function WritingQuestionFeedback({ q, result }) {
   const minWords = Number(result.min_writing_words || 0)
   const score = Number(result.score_writing ?? 0)
   const manual = result.manual_writing_score !== null && result.manual_writing_score !== undefined
+  const aiStatus = result.ai_writing_status
+  const aiScore = result.ai_writing_score
+  const aiJustification = result.ai_writing_justification_ar
+  const aiStrengths = Array.isArray(result.ai_writing_strengths_ar) ? result.ai_writing_strengths_ar : []
+  const aiImprovements = Array.isArray(result.ai_writing_improvements_ar) ? result.ai_writing_improvements_ar : []
+  const hasAiFeedback = aiStatus && aiStatus !== 'pending' && aiStatus !== 'failed'
   return (
     <div className="space-y-3">
       <div
@@ -497,6 +510,81 @@ function WritingQuestionFeedback({ q, result }) {
           </span>
         )}
       </div>
+
+      {aiStatus === 'pending' && (
+        <div
+          className="p-3 rounded-lg text-sm flex items-center gap-2"
+          style={{
+            background: 'rgba(245,158,11,0.08)',
+            border: '1px solid rgba(245,158,11,0.25)',
+            color: 'var(--ds-text-secondary)',
+          }}
+        >
+          <span>⏳</span>
+          <span>تقييم كتابتك قيد المعالجة بالذكاء الاصطناعي…</span>
+        </div>
+      )}
+
+      {hasAiFeedback && (
+        <div
+          className="p-4 rounded-lg space-y-3"
+          style={{
+            background: aiStatus === 'fallback'
+              ? 'rgba(245,158,11,0.06)'
+              : 'rgba(139,92,246,0.06)',
+            border: aiStatus === 'fallback'
+              ? '1px solid rgba(245,158,11,0.30)'
+              : '1px solid rgba(139,92,246,0.30)',
+          }}
+        >
+          <div className="flex items-center justify-between gap-2 text-xs font-semibold">
+            <span style={{ color: aiStatus === 'fallback' ? '#fcd34d' : '#c4b5fd' }}>
+              {aiStatus === 'graded'   && '✦ تقييم بالذكاء الاصطناعي'}
+              {aiStatus === 'fallback' && '⚠ تقييم أساسي — قيد مراجعة المدرب'}
+              {aiStatus === 'manual'   && 'تقييم يدوي من المدرب'}
+            </span>
+            {Number.isFinite(Number(aiScore)) && (
+              <span className="font-mono tabular-nums" style={{ color: 'var(--ds-text-secondary)' }}>
+                درجة AI: <strong>{Number(aiScore).toFixed(Number(aiScore) % 1 ? 1 : 0)}/10</strong>
+              </span>
+            )}
+          </div>
+          {aiJustification && (
+            <div>
+              <div className="text-xs mb-1" style={{ color: 'var(--ds-text-tertiary)' }}>التبرير:</div>
+              <div className="text-sm leading-relaxed" dir="rtl" style={{ color: 'var(--ds-text-primary)' }}>
+                {aiJustification}
+              </div>
+            </div>
+          )}
+          {aiStrengths.length > 0 && (
+            <div>
+              <div className="text-xs mb-1" style={{ color: 'var(--ds-text-tertiary)' }}>نقاط القوة:</div>
+              <ul className="text-sm space-y-1" dir="rtl" style={{ color: 'var(--ds-text-secondary)' }}>
+                {aiStrengths.map((s, i) => (
+                  <li key={i} className="flex gap-1.5 items-start">
+                    <span style={{ color: '#86efac' }}>✓</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {aiImprovements.length > 0 && (
+            <div>
+              <div className="text-xs mb-1" style={{ color: 'var(--ds-text-tertiary)' }}>للتحسين:</div>
+              <ul className="text-sm space-y-1" dir="rtl" style={{ color: 'var(--ds-text-secondary)' }}>
+                {aiImprovements.map((s, i) => (
+                  <li key={i} className="flex gap-1.5 items-start">
+                    <span style={{ color: '#fcd34d' }}>→</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -271,6 +271,24 @@ export default function MockExamAttempt() {
         p_auto: auto,
       })
       if (error) throw error
+
+      // Fire-and-forget: trigger AI writing grading in the background.
+      // Student must NOT wait for this. If it fails (network, edge fn down,
+      // tab closed), the trainer can re-trigger from the dashboard.
+      // Note: supabase.functions.invoke() returns a Promise — wrap try/catch
+      // around the promise resolution to swallow any rejection.
+      ;(async () => {
+        try {
+          const { error: invokeErr } = await supabase.functions.invoke(
+            'mock-exam-grade-writing',
+            { body: { attempt_id: examData.attempt_id } }
+          )
+          if (invokeErr) console.error('[mock-exam] grade-writing kickoff failed (non-blocking):', invokeErr)
+        } catch (e) {
+          console.error('[mock-exam] grade-writing kickoff threw (non-blocking):', e)
+        }
+      })()
+
       navigate(`/student/mock-exam/result?attempt_id=${examData.attempt_id}`, { replace: true })
     } catch (e) {
       console.error('submit failed', e)

@@ -2,6 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   ChevronDown, ChevronUp, Users, Trophy, Eye, EyeOff, Check, X, Save, Loader2,
+  RefreshCw, Sparkles, AlertTriangle,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
@@ -341,6 +342,12 @@ function AttemptDetail({ attemptId, onMutated }) {
         </div>
       </div>
 
+      {/* AI writing feedback panel */}
+      <AiWritingPanel
+        result={result}
+        onMutated={async () => { await refetch(); qc.invalidateQueries({ queryKey: ['mock-exam-attempts'] }); onMutated?.() }}
+      />
+
       {/* Writing block — most important */}
       {writingQ && (
         <WritingPanel
@@ -473,6 +480,132 @@ function WritingPanel({ q, result, onSaved }) {
       {err && (
         <div className="text-xs" style={{ color: '#fca5a5' }}>{err}</div>
       )}
+    </div>
+  )
+}
+
+function AiWritingPanel({ result, onMutated }) {
+  const [retrying, setRetrying] = useState(false)
+  const [err, setErr] = useState(null)
+  const status = result.ai_writing_status
+  const score = result.ai_writing_score
+  const just = result.ai_writing_justification_ar
+  const strengths = Array.isArray(result.ai_writing_strengths_ar) ? result.ai_writing_strengths_ar : []
+  const imps = Array.isArray(result.ai_writing_improvements_ar) ? result.ai_writing_improvements_ar : []
+
+  async function retry() {
+    if (retrying) return
+    setRetrying(true); setErr(null)
+    try {
+      // 1) reset status to 'pending' via RPC (RLS-safe trainer/admin path)
+      const { error: rErr } = await supabase.rpc('mock_exam_reset_ai_status', {
+        p_attempt_id: result.attempt_id,
+      })
+      if (rErr) throw rErr
+      // 2) invoke the edge function (fire-and-wait so we can refresh after)
+      const { data, error: iErr } = await supabase.functions.invoke('mock-exam-grade-writing', {
+        body: { attempt_id: result.attempt_id },
+      })
+      if (iErr) throw iErr
+      await onMutated?.()
+      if (data?.score !== undefined) {
+        // Surface a small toast via alert (consistent with rest of trainer page)
+        window.alert(`تم إعادة التقييم. الدرجة الجديدة: ${data.score}/10 (${data.layer || data.status})`)
+      }
+    } catch (e) {
+      setErr(e?.message || String(e))
+    } finally {
+      setRetrying(false)
+    }
+  }
+
+  const statusBadge = (() => {
+    if (status === 'graded')   return { label: '✓ تم التقييم بنجاح', bg: 'rgba(34,197,94,0.14)', color: '#86efac', border: 'rgba(34,197,94,0.35)' }
+    if (status === 'fallback') return { label: '⚠ احتياطي — يحتاج مراجعتك', bg: 'rgba(245,158,11,0.14)', color: '#fcd34d', border: 'rgba(245,158,11,0.35)' }
+    if (status === 'pending')  return { label: '⏳ قيد المعالجة', bg: 'rgba(56,189,248,0.14)', color: '#7dd3fc', border: 'rgba(56,189,248,0.35)' }
+    if (status === 'manual')   return { label: 'تم التعديل يدوياً', bg: 'rgba(139,92,246,0.14)', color: '#c4b5fd', border: 'rgba(139,92,246,0.35)' }
+    if (status === 'failed')   return { label: '✗ فشل', bg: 'rgba(239,68,68,0.10)', color: '#fca5a5', border: 'rgba(239,68,68,0.30)' }
+    return { label: status || '—', bg: 'rgba(255,255,255,0.04)', color: 'var(--ds-text-secondary)', border: 'rgba(255,255,255,0.10)' }
+  })()
+
+  return (
+    <div
+      className="rounded-xl p-4 space-y-3"
+      style={{
+        background: 'rgba(139,92,246,0.04)',
+        border: '1px solid rgba(139,92,246,0.20)',
+      }}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="text-sm font-semibold flex items-center gap-2" style={{ color: 'var(--ds-text-primary)' }}>
+          <Sparkles size={14} style={{ color: '#c4b5fd' }} />
+          تقييم الذكاء الاصطناعي للكتابة
+        </div>
+        <span
+          className="text-xs px-2 py-0.5 rounded-full"
+          style={{ background: statusBadge.bg, color: statusBadge.color, border: `1px solid ${statusBadge.border}` }}
+        >
+          {statusBadge.label}
+        </span>
+      </div>
+
+      {(score !== null && score !== undefined) && (
+        <div className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
+          <span>درجة AI: <strong className="font-mono tabular-nums">{Number(score).toFixed(Number(score) % 1 ? 1 : 0)}/10</strong></span>
+          {result.manual_writing_score !== null && result.manual_writing_score !== undefined && (
+            <span> · الدرجة النهائية: <strong className="font-mono tabular-nums">{Number(result.manual_writing_score).toFixed(Number(result.manual_writing_score) % 1 ? 1 : 0)}/10</strong> <span style={{ color: 'var(--ds-text-tertiary)' }}>(يدوي)</span></span>
+          )}
+        </div>
+      )}
+
+      {just && (
+        <div>
+          <div className="text-xs mb-1" style={{ color: 'var(--ds-text-tertiary)' }}>التبرير:</div>
+          <p className="text-sm leading-relaxed" dir="rtl" style={{ color: 'var(--ds-text-primary)' }}>{just}</p>
+        </div>
+      )}
+
+      {strengths.length > 0 && (
+        <div>
+          <div className="text-xs mb-1" style={{ color: 'var(--ds-text-tertiary)' }}>نقاط القوة:</div>
+          <ul className="text-sm space-y-0.5" dir="rtl" style={{ color: 'var(--ds-text-secondary)' }}>
+            {strengths.map((s, i) => <li key={i}>✓ {s}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {imps.length > 0 && (
+        <div>
+          <div className="text-xs mb-1" style={{ color: 'var(--ds-text-tertiary)' }}>للتحسين:</div>
+          <ul className="text-sm space-y-0.5" dir="rtl" style={{ color: 'var(--ds-text-secondary)' }}>
+            {imps.map((s, i) => <li key={i}>→ {s}</li>)}
+          </ul>
+        </div>
+      )}
+
+      <div className="flex items-center gap-2 pt-1">
+        <button
+          type="button"
+          onClick={retry}
+          disabled={retrying || status === 'pending'}
+          className="text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5"
+          style={{
+            background: 'rgba(139,92,246,0.12)',
+            color: '#c4b5fd',
+            border: '1px solid rgba(139,92,246,0.30)',
+            opacity: retrying || status === 'pending' ? 0.5 : 1,
+          }}
+        >
+          {retrying ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
+          {retrying ? '...جاري إعادة التقييم' : 'إعادة التقييم بالذكاء الاصطناعي'}
+        </button>
+        {err && (
+          <span className="text-xs flex items-center gap-1" style={{ color: '#fca5a5' }}>
+            <AlertTriangle size={12} />
+            {err}
+          </span>
+        )}
+      </div>
     </div>
   )
 }
