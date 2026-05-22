@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Clock, ChevronRight, ChevronLeft, Send, AlertTriangle, Check, X } from 'lucide-react'
+import { Clock, ChevronRight, ChevronLeft, Send, AlertTriangle } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
+import { countWords } from '@/lib/mockExam'
+import SubmitConfirmModal from './SubmitConfirmModal'
 
 const SECTION_LABEL_AR = {
   reading: 'القراءة',
@@ -36,7 +38,7 @@ export default function MockExamAttempt() {
   const [timeLeft, setTimeLeft] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
-  const [showConfirm, setShowConfirm] = useState(false)
+  const [submitModalOpen, setSubmitModalOpen] = useState(false)
   const [loadError, setLoadError] = useState(null)
   const submittedRef = useRef(false)
 
@@ -117,6 +119,32 @@ export default function MockExamAttempt() {
     return () => clearInterval(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft])
+
+  // -----------------------------------------------------------------
+  // Resume-to-last-viewed-question on refresh.
+  // localStorage is UX-only (answers stay DB-authoritative).
+  // -----------------------------------------------------------------
+  useEffect(() => {
+    if (!examData?.attempt_id || !examData?.questions?.length) return
+    try {
+      const saved = localStorage.getItem(`mock-exam-pos-${examData.attempt_id}`)
+      if (saved !== null) {
+        const idx = parseInt(saved, 10)
+        if (Number.isFinite(idx) && idx >= 0 && idx < examData.questions.length) {
+          setCurrentIndex(idx)
+        }
+      }
+    } catch { /* private browsing or storage disabled — fall back to Q1 silently */ }
+    // intentionally only restore once when examData arrives
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [examData?.attempt_id])
+
+  useEffect(() => {
+    if (!examData?.attempt_id) return
+    try {
+      localStorage.setItem(`mock-exam-pos-${examData.attempt_id}`, String(currentIndex))
+    } catch { /* noop */ }
+  }, [currentIndex, examData?.attempt_id])
 
   // -----------------------------------------------------------------
   // Debounced answer save — manual implementation w/ refs to avoid deps churn
@@ -296,9 +324,7 @@ export default function MockExamAttempt() {
   const sectionLabel = SECTION_LABEL_AR[q?.section] || q?.section
   const isWriting = q?.section === 'writing'
   const writingMin = examData.exam?.min_writing_words || 50
-  const writingWordCount = writingText.trim().length === 0
-    ? 0
-    : writingText.trim().split(/\s+/).length
+  const writingWordCount = countWords(writingText)
   const isLast = currentIndex === totalQ - 1
 
   // Number of answered questions for the chip strip
@@ -309,6 +335,41 @@ export default function MockExamAttempt() {
     if (qq.question_type === 'fill_blank') return !!(a.text_answer && a.text_answer.trim())
     return Number.isInteger(a.selected_index)
   }
+  // Writing in-progress = words > 0 but under min. Distinct from "not started".
+  const isWritingInProgress = (qq) =>
+    qq.question_type === 'writing_prompt' && writingWordCount > 0 && writingWordCount < writingMin
+
+  // Submit modal: detect issues and route the student
+  const writingIdxInList = questions.findIndex((qq) => qq.question_type === 'writing_prompt')
+  const unansweredList = questions
+    .map((qq, idx) => ({ qq, idx }))
+    .filter(({ qq }) => qq.question_type !== 'writing_prompt' && !isAnswered(qq))
+  const computedIssues = []
+  if (unansweredList.length > 0) {
+    computedIssues.push({
+      type: 'unanswered',
+      severity: 'warn',
+      title: `${unansweredList.length} سؤال بدون إجابة`,
+      detail: 'الأسئلة غير المجاوَبة ستحتسب صفراً.',
+      jumpToIndex: unansweredList[0].idx,
+      jumpLabel: 'الذهاب إلى أول سؤال غير مجاوَب',
+    })
+  }
+  if (writingIdxInList >= 0 && writingWordCount < writingMin) {
+    computedIssues.push({
+      type: 'writing_short',
+      severity: writingWordCount === 0 ? 'critical' : 'warn',
+      title: writingWordCount === 0
+        ? 'لم تكتبي شيئاً في قسم الكتابة'
+        : `نص الكتابة قصير: ${writingWordCount}/${writingMin} كلمة`,
+      detail: writingWordCount === 0
+        ? 'ستحصلين على ٠ من ١٠ في الكتابة لو سلّمتِ الآن.'
+        : `الحد الأدنى ${writingMin} كلمة. ستحصلين على ٠ من ١٠ لو سلّمتِ الآن.`,
+      jumpToIndex: writingIdxInList,
+      jumpLabel: 'الذهاب إلى سؤال الكتابة',
+    })
+  }
+  const answeredCount = questions.filter((qq) => isAnswered(qq)).length
 
   // Visual cues for timer
   const lowTime = timeLeft !== null && timeLeft <= 300
@@ -370,29 +431,35 @@ export default function MockExamAttempt() {
           <div className="flex items-center gap-1.5 min-w-max">
             {questions.map((qq, i) => {
               const ans = isAnswered(qq)
+              const inProgress = isWritingInProgress(qq)
+              const isCurrent = i === currentIndex
+              // Visual states: answered (green), in-progress writing (amber), current (gold ring), unanswered (neutral)
+              let background = 'rgba(255,255,255,0.03)'
+              let color = 'var(--ds-text-secondary)'
+              let border = '1px solid rgba(255,255,255,0.10)'
+              if (ans) {
+                background = 'rgba(34,197,94,0.18)'
+                color = '#86efac'
+              } else if (inProgress) {
+                background = 'rgba(245,158,11,0.14)'
+                color = '#fcd34d'
+                border = '1px dashed rgba(245,158,11,0.55)'
+              }
+              if (isCurrent) {
+                border = '1px solid var(--ds-accent-primary, #e9b949)'
+                if (!ans && !inProgress) {
+                  background = 'rgba(233,185,73,0.14)'
+                  color = 'var(--ds-accent-primary, #e9b949)'
+                }
+              }
               return (
                 <button
                   key={qq.id}
                   type="button"
                   onClick={() => setCurrentIndex(i)}
                   className="text-xs rounded-md transition-colors"
-                  style={{
-                    minWidth: 32,
-                    height: 28,
-                    border: i === currentIndex
-                      ? '1px solid var(--ds-accent-primary, #e9b949)'
-                      : '1px solid rgba(255,255,255,0.10)',
-                    background: ans
-                      ? 'rgba(34,197,94,0.18)'
-                      : i === currentIndex
-                      ? 'rgba(233,185,73,0.14)'
-                      : 'rgba(255,255,255,0.03)',
-                    color: ans
-                      ? '#86efac'
-                      : i === currentIndex
-                      ? 'var(--ds-accent-primary, #e9b949)'
-                      : 'var(--ds-text-secondary)',
-                  }}
+                  style={{ minWidth: 32, height: 28, background, color, border }}
+                  title={inProgress ? `الكتابة جارية (${writingWordCount}/${writingMin})` : undefined}
                 >
                   {i + 1}
                 </button>
@@ -416,20 +483,21 @@ export default function MockExamAttempt() {
         />
       </main>
 
-      {/* Bottom bar */}
+      {/* Sticky bottom action bar — always visible, submit always clickable. */}
       <footer
         className="sticky bottom-0 z-30"
         style={{
-          background: 'rgba(10,13,20,0.94)',
-          borderTop: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.06))',
+          background: 'var(--ds-background, #0a0d14)',
+          borderTop: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.10))',
         }}
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+          {/* LEFT: Previous */}
           <button
             type="button"
             onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
             disabled={currentIndex === 0 || submitting}
-            className="px-4 py-2 rounded-lg text-sm flex items-center gap-2 disabled:opacity-30"
+            className="px-4 py-2 rounded-lg text-sm flex items-center gap-2 disabled:opacity-30 order-1"
             style={{
               background: 'rgba(255,255,255,0.04)',
               color: 'var(--ds-text-secondary)',
@@ -440,45 +508,65 @@ export default function MockExamAttempt() {
             السابق
           </button>
 
-          {!isLast ? (
+          {/* CENTER: progress indicator */}
+          <div
+            className="text-xs sm:text-sm flex items-center gap-3 order-3 sm:order-2 basis-full sm:basis-auto sm:flex-1 sm:justify-center"
+            style={{ color: 'var(--ds-text-secondary)' }}
+          >
+            <span>
+              <span className="tabular-nums font-semibold" style={{ color: 'var(--ds-text-primary)' }}>
+                {answeredCount}
+              </span>
+              {' / '}
+              <span className="tabular-nums">{totalQ}</span>
+              {' مجاوَب'}
+            </span>
+            {writingMin > 0 && (
+              <span style={{
+                color: writingWordCount >= writingMin
+                  ? '#86efac'
+                  : (writingWordCount > 0 ? '#fcd34d' : 'var(--ds-text-tertiary)'),
+              }}>
+                · الكتابة: <span className="tabular-nums">{writingWordCount}</span>/{writingMin}
+              </span>
+            )}
+          </div>
+
+          {/* RIGHT: Next (only on non-final) + Submit always present */}
+          <div className="flex items-center gap-2 order-2 sm:order-3">
+            {!isLast && (
+              <button
+                type="button"
+                onClick={() => setCurrentIndex((i) => Math.min(totalQ - 1, i + 1))}
+                disabled={submitting}
+                className="px-4 py-2 rounded-lg text-sm flex items-center gap-2"
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'var(--ds-text-secondary)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                }}
+              >
+                التالي
+                <ChevronLeft size={16} />
+              </button>
+            )}
+            {/* CRITICAL: submit button is always rendered + always clickable.
+                All gating happens inside SubmitConfirmModal. */}
             <button
               type="button"
-              onClick={() => setCurrentIndex((i) => Math.min(totalQ - 1, i + 1))}
-              disabled={submitting}
+              onClick={() => setSubmitModalOpen(true)}
               className="px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2"
               style={{
-                background: 'var(--ds-accent-primary, #e9b949)',
+                background: 'var(--ds-accent-success, #22c55e)',
                 color: '#0a0d14',
+                opacity: submitting ? 0.7 : 1,
+                cursor: submitting ? 'wait' : 'pointer',
               }}
             >
-              التالي
-              <ChevronLeft size={16} />
+              {submitting ? <Clock size={16} className="animate-spin" /> : <Send size={16} />}
+              {submitting ? '...جاري الإرسال' : 'تسليم الاختبار'}
             </button>
-          ) : (
-            (() => {
-              const submitDisabled = submitting || writingWordCount < writingMin
-              return (
-                <button
-                  type="button"
-                  onClick={() => setShowConfirm(true)}
-                  disabled={submitDisabled}
-                  title={submitDisabled && !submitting
-                    ? `اكتبي على الأقل ${writingMin} كلمة لتفعيل التسليم`
-                    : undefined}
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2"
-                  style={{
-                    background: 'var(--ds-accent-success, #22c55e)',
-                    color: '#0a0d14',
-                    opacity: submitDisabled ? 0.45 : 1,
-                    cursor: submitDisabled ? 'not-allowed' : 'pointer',
-                  }}
-                >
-                  {submitting ? <Clock size={16} className="animate-spin" /> : <Send size={16} />}
-                  {submitting ? '...جاري الإرسال' : 'تسليم الاختبار'}
-                </button>
-              )
-            })()
-          )}
+          </div>
         </div>
         {submitError && (
           <div
@@ -491,67 +579,18 @@ export default function MockExamAttempt() {
         )}
       </footer>
 
-      {/* Submit confirmation dialog */}
-      {showConfirm && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(0,0,0,0.65)' }}
-          onClick={() => !submitting && setShowConfirm(false)}
-        >
-          <div
-            className="max-w-md w-full p-6 rounded-2xl space-y-4"
-            style={{
-              background: 'var(--ds-bg-elevated, #11131c)',
-              border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.10))',
-            }}
-            onClick={(e) => e.stopPropagation()}
-            dir="rtl"
-          >
-            <h3 className="text-lg font-bold" style={{ color: 'var(--ds-text-primary)' }}>
-              متأكدة من تسليم اختبارك؟
-            </h3>
-            <p className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
-              هذا اختبار بمحاولة واحدة فقط. بعد التسليم لن تتمكني من تعديل إجاباتك.
-            </p>
-            <div className="flex items-center gap-2 justify-end">
-              <button
-                type="button"
-                onClick={() => setShowConfirm(false)}
-                disabled={submitting}
-                className="px-4 py-2 rounded-lg text-sm"
-                style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  color: 'var(--ds-text-secondary)',
-                  border: '1px solid rgba(255,255,255,0.10)',
-                }}
-              >
-                <span className="flex items-center gap-1.5">
-                  <X size={14} />
-                  ارجعي للمراجعة
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={async () => {
-                  setShowConfirm(false)
-                  await handleSubmit(false)
-                }}
-                disabled={submitting}
-                className="px-5 py-2.5 rounded-lg text-sm font-semibold"
-                style={{
-                  background: 'var(--ds-accent-success, #22c55e)',
-                  color: '#0a0d14',
-                }}
-              >
-                <span className="flex items-center gap-1.5">
-                  <Check size={14} />
-                  نعم، سلّمي
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <SubmitConfirmModal
+        open={submitModalOpen}
+        onClose={() => setSubmitModalOpen(false)}
+        onConfirm={async () => { await handleSubmit(false) }}
+        onJumpTo={(idx) => {
+          if (Number.isFinite(idx)) setCurrentIndex(idx)
+          setSubmitModalOpen(false)
+        }}
+        issues={computedIssues}
+        submitting={submitting}
+        submitError={submitError}
+      />
     </div>
   )
 }
