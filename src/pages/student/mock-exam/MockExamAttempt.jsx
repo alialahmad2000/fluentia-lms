@@ -125,20 +125,26 @@ export default function MockExamAttempt() {
   const writingTimer = useRef(null)
   const pendingWritingText = useRef('')
 
+  // Note: supabase.rpc() returns a PostgrestBuilder (thenable, not a real Promise).
+  // .catch() does NOT exist on it — wrap in try/catch and destructure { error } instead.
   const flushAllSaves = useCallback(async () => {
-    // Flush any pending answer saves
     const ids = Object.keys(saveTimers.current)
     for (const qid of ids) {
       const t = saveTimers.current[qid]
       if (t) {
         clearTimeout(t.timeout)
         const { selected_index, text_answer, attempt_id } = t.payload
-        await supabase.rpc('mock_exam_save_answer', {
-          p_attempt_id: attempt_id,
-          p_question_id: qid,
-          p_selected_index: selected_index ?? null,
-          p_text_answer: text_answer ?? null,
-        }).catch(() => {})
+        try {
+          const { error } = await supabase.rpc('mock_exam_save_answer', {
+            p_attempt_id: attempt_id,
+            p_question_id: qid,
+            p_selected_index: selected_index ?? null,
+            p_text_answer: text_answer ?? null,
+          })
+          if (error) console.error('[mock-exam] flush save_answer error:', error.message)
+        } catch (e) {
+          console.error('[mock-exam] flush save_answer threw:', e)
+        }
       }
       delete saveTimers.current[qid]
     }
@@ -146,10 +152,15 @@ export default function MockExamAttempt() {
       clearTimeout(writingTimer.current)
       writingTimer.current = null
       if (examData?.attempt_id) {
-        await supabase.rpc('mock_exam_save_writing', {
-          p_attempt_id: examData.attempt_id,
-          p_writing_text: pendingWritingText.current,
-        }).catch(() => {})
+        try {
+          const { error } = await supabase.rpc('mock_exam_save_writing', {
+            p_attempt_id: examData.attempt_id,
+            p_writing_text: pendingWritingText.current,
+          })
+          if (error) console.error('[mock-exam] flush save_writing error:', error.message)
+        } catch (e) {
+          console.error('[mock-exam] flush save_writing threw:', e)
+        }
       }
     }
   }, [examData?.attempt_id])
@@ -160,13 +171,18 @@ export default function MockExamAttempt() {
     const attempt_id = examData.attempt_id
     saveTimers.current[qid] = {
       payload: { selected_index, text_answer, attempt_id },
-      timeout: setTimeout(() => {
-        supabase.rpc('mock_exam_save_answer', {
-          p_attempt_id: attempt_id,
-          p_question_id: qid,
-          p_selected_index: selected_index ?? null,
-          p_text_answer: text_answer ?? null,
-        }).catch((e) => console.warn('save_answer failed', e))
+      timeout: setTimeout(async () => {
+        try {
+          const { error } = await supabase.rpc('mock_exam_save_answer', {
+            p_attempt_id: attempt_id,
+            p_question_id: qid,
+            p_selected_index: selected_index ?? null,
+            p_text_answer: text_answer ?? null,
+          })
+          if (error) console.error('[mock-exam] save_answer error:', error.message)
+        } catch (e) {
+          console.error('[mock-exam] save_answer threw:', e)
+        }
         delete saveTimers.current[qid]
       }, 800),
     }
@@ -177,11 +193,16 @@ export default function MockExamAttempt() {
     pendingWritingText.current = text
     if (writingTimer.current) clearTimeout(writingTimer.current)
     const attempt_id = examData.attempt_id
-    writingTimer.current = setTimeout(() => {
-      supabase.rpc('mock_exam_save_writing', {
-        p_attempt_id: attempt_id,
-        p_writing_text: text,
-      }).catch((e) => console.warn('save_writing failed', e))
+    writingTimer.current = setTimeout(async () => {
+      try {
+        const { error } = await supabase.rpc('mock_exam_save_writing', {
+          p_attempt_id: attempt_id,
+          p_writing_text: text,
+        })
+        if (error) console.error('[mock-exam] save_writing error:', error.message)
+      } catch (e) {
+        console.error('[mock-exam] save_writing threw:', e)
+      }
       writingTimer.current = null
     }, 1500)
   }
@@ -434,19 +455,29 @@ export default function MockExamAttempt() {
               <ChevronLeft size={16} />
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={() => setShowConfirm(true)}
-              disabled={submitting}
-              className="px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2"
-              style={{
-                background: 'var(--ds-accent-success, #22c55e)',
-                color: '#0a0d14',
-              }}
-            >
-              {submitting ? <Clock size={16} className="animate-spin" /> : <Send size={16} />}
-              {submitting ? '...جاري الإرسال' : 'تسليم الاختبار'}
-            </button>
+            (() => {
+              const submitDisabled = submitting || writingWordCount < writingMin
+              return (
+                <button
+                  type="button"
+                  onClick={() => setShowConfirm(true)}
+                  disabled={submitDisabled}
+                  title={submitDisabled && !submitting
+                    ? `اكتبي على الأقل ${writingMin} كلمة لتفعيل التسليم`
+                    : undefined}
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2"
+                  style={{
+                    background: 'var(--ds-accent-success, #22c55e)',
+                    color: '#0a0d14',
+                    opacity: submitDisabled ? 0.45 : 1,
+                    cursor: submitDisabled ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {submitting ? <Clock size={16} className="animate-spin" /> : <Send size={16} />}
+                  {submitting ? '...جاري الإرسال' : 'تسليم الاختبار'}
+                </button>
+              )
+            })()
           )}
         </div>
         {submitError && (
@@ -525,12 +556,38 @@ export default function MockExamAttempt() {
   )
 }
 
+function getInstructionAr(question) {
+  const { question_type, section } = question
+  if (question_type === 'mcq') {
+    if (section === 'spelling')    return 'اختاري الإملاء الصحيح للكلمة'
+    if (section === 'vocabulary')  return 'اختاري الإجابة الصحيحة'
+    if (section === 'reading')     return 'اختاري الإجابة الصحيحة بناءً على القطعة'
+    return 'اختاري الإجابة الصحيحة'
+  }
+  if (question_type === 'fill_blank') {
+    if (section === 'spelling') return 'اكتبي الكلمة الصحيحة (انتبهي للإملاء)'
+    return 'املئي الفراغ بالكلمة المناسبة'
+  }
+  if (question_type === 'error_detection') {
+    return 'في الجملة التالية أربعة أجزاء مرقّمة. اختاري الجزء الذي يحتوي على خطأ.'
+  }
+  if (question_type === 'true_false') {
+    if (section === 'reading') return 'اقرئي العبارة واختاري True أو False بناءً على القطعة'
+    return 'اقرئي العبارة واختاري True أو False'
+  }
+  if (question_type === 'true_false_ng') {
+    return 'بناءً على القطعة، اختاري True (صحيح) أو False (خاطئ) أو Not Given (غير مذكور)'
+  }
+  return null
+}
+
 function QuestionRenderer({ q, answer, writingText, writingMin, writingWordCount,
                             onSelectOption, onFillBlank, onWritingChange }) {
   if (!q) return null
 
   // Reading: show passage on top
   const hasPassage = q.section === 'reading' && q.passage_text
+  const instructionAr = getInstructionAr(q)
 
   return (
     <div className="space-y-5">
@@ -567,6 +624,15 @@ function QuestionRenderer({ q, answer, writingText, writingMin, writingWordCount
           border: '1px solid rgba(255,255,255,0.08)',
         }}
       >
+        {instructionAr && (
+          <div
+            className="text-sm mb-3"
+            dir="rtl"
+            style={{ color: 'var(--ds-text-secondary)' }}
+          >
+            {instructionAr}
+          </div>
+        )}
         <div
           className="text-base sm:text-lg leading-relaxed mb-4"
           dir={q.question_type === 'fill_blank' ? 'auto' : (/[؀-ۿ]/.test(q.stem) ? 'rtl' : 'ltr')}
@@ -600,7 +666,9 @@ function QuestionRenderer({ q, answer, writingText, writingMin, writingWordCount
                       color: selected ? '#0a0d14' : 'var(--ds-text-tertiary)',
                     }}
                   >
-                    {['A','B','C','D'][i] || (i + 1)}
+                    {q.question_type === 'error_detection'
+                      ? String(i + 1)
+                      : (['A','B','C','D'][i] || String(i + 1))}
                   </span>
                   <span className="text-sm" dir={/[؀-ۿ]/.test(opt) ? 'rtl' : 'ltr'}>{opt}</span>
                 </button>
