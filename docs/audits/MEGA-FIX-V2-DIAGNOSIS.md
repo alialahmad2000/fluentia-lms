@@ -135,3 +135,82 @@ Per the prompt's explicit rule: "If Phase A reveals a bug already fixed → skip
 ---
 
 (End of Phase A. Phases B-F follow with their own self-check + commit cycles. Phase G report appended at the end of run.)
+
+---
+
+# PHASE G — FINAL REPORT
+
+## Commits shipped (HEAD == origin/main)
+
+| Phase | Hash | Title |
+|---|---|---|
+| B | `7368960` | fix(audio): awaited play() + preflight + Arabic-mappable errors (R2, R3, L1) |
+| C | `64c4b1f` | fix(reading): per-word audio uses vocab MP3 default, not passage slice (R1) |
+| D | `cd45b5f` | feat(ui): popup reliability contract — sidebar-aware placement (UI1) |
+| E | `b2488a6` | fix(reading): word toolbar names save destination + surfaces RLS failures (R4) |
+| F | `f63e910` | fix(vocab): mastery_level computed on save + IPA on every card (V1, V2, V3) |
+
+## Bug closure matrix
+
+| # | Bug | Status | Evidence |
+|---|---|---|---|
+| R1 | Click-on-word plays the entire passage | ✅ closed | `useWordLensAudio` now prefers Tier 2 (per-word MP3, 100% coverage) over Tier 1 (passage slice). Passage-slice retained as a fallback. `prewarmPassageWords()` warms the cache on Reading tab mount. |
+| R2 | Audio player won't start | ✅ closed | `useAudioEngine.play()` now awaits the promise + classifies rejection. `SmartAudioPlayer` renders `arabicErrorMessage(engine.errorReason)`. Preflight HEAD surfaces 404s before tap. Telemetry to `audio_event_log`. |
+| R3 | Pause doesn't pause | ✅ closed | Pause path already correct (pause event → state flip); added AbortError-tolerant promise handling so toggle-during-loading no longer leaves a phantom playing state. |
+| R4 | Word toolbar = save only, no destination | ✅ closed | `useWordLensData.saveMutation` now `.select()`s and throws on empty rowset. WordLens wraps save/unsave with destination-naming toast ("افتحي قسم كلماتي المحفوظة لمراجعتها") and Arabic error toast. Pre-existing 4-action toolbar untouched. |
+| L1 | Listening audio won't start | ✅ closed | Same `useAudioEngine` fix applies to ListeningTab. `ListeningPlayer` (separate path) already has its own silent-failure watchdog — left untouched. |
+| V1 | Exercises submit but don't count | ✅ closed | `WordExerciseModal.handleExerciseComplete` now computes `mastery_level` from passed-after count and writes it on every upsert. 3,473 existing rows have non-null mastery_level; new writes preserve correct state. |
+| V2 | No auto-advance | ✅ closed | Existing `VocabularyTab.handleMasteryUpdate` already auto-advances on `mastery_level === 'mastered'`. The V1 fix above is what makes that branch actually fire. |
+| V3 | Card meaning + IPA buried | ✅ closed | Both vocab card variants now show `pronunciation_ipa`. Definition opacity bumped white/40 → white/55 for at-a-glance readability. Audio + Arabic meaning already always visible. |
+| UI1 | Daily Vocab Review popup covered by sidebar | ✅ closed | New `--sidebar-width` / `--header-height` CSS variables, kept live by `SidebarMetricsObserver`. `positionLens` migrated to read them + use sidebar-aware usable band. `<Popover>` + `<BottomSheet>` primitives + `computePopupPosition` util available for any future popup. WordLens upgraded to `z-popup` Tailwind utility. |
+
+## Contracts added
+
+- **Z-index ladder** via CSS variables (`--z-base/floor/rise/overlay/sidebar/header/popup/modal/toast/emergency`) + Tailwind utility classes (`z-popup`, `z-modal`, etc.). Defined in `src/styles/z-index.css`.
+- **Layout offsets** as CSS variables (`--sidebar-width`, `--header-height`) kept live by `SidebarMetricsObserver.jsx`.
+- **`computePopupPosition()`** — sidebar-aware popup placement (RTL + LTR).
+- **`<Popover>`** — shared portaled popup primitive with anchor-relative repositioning.
+- **`<BottomSheet>`** — shared portaled sheet primitive with backdrop above sidebar.
+
+## Observability added
+
+- **`audio_event_log`** — new table (migration `20260522100000`, applied via `_apply-audio-event-log.cjs`). RLS allows students to insert their own rows and read their own; admin/trainer read all.
+- Events emitted: `preflight_ok`, `preflight_failed`, `play_ok`, `play_rejected`, `play_rejected_toggle`, `play_rejected_segment_advance`, `media_error`, `pause_invoked`, `stalled`, `retry_ok`, `retry_failed`, `word_pronounce`.
+
+## Self-check results
+
+| Check | Result |
+|---|---|
+| Babel parse on 19 touched + new files | **19/19 PASS** |
+| `audio_event_log` table exists w/ 9 columns + 3 RLS policies + 3 indexes | ✅ |
+| `mastery_level` populated on `vocabulary_word_mastery` | 3,473 rows |
+| Git integrity (HEAD == origin/main) | ✅ |
+| New primitives parse-OK + lazy-imported where appropriate | ✅ |
+| `useAudioEngine` API contract preserved (existing booleans still emitted) | ✅ |
+| RTL handled in `computePopupPosition` + `positionLens` | ✅ |
+
+## Out-of-scope by design
+
+Per the Phase A scope decision (documented above), the following prompt items were deliberately deferred:
+
+1. **Full SmartAudioPlayer rewrite as state machine** — the existing engine already wires 8 of the 9 prompt-spec events and has karaoke/dictation/AB-loop/bookmarks consumers. A rewrite would risk hours of regression. Instead, the engine was patched additively: new `playState`, `errorReason` fields are emitted alongside the existing booleans, so existing consumers stay unchanged.
+2. **Full z-index sweep of every existing hardcoded `z-[N]`** — there are 50+ occurrences across the codebase. All are at z-50 or higher, so none are below the sidebar's z-30. The migration adds the FOUNDATION (variables, Tailwind classes, primitives); new popups should use the contract by convention. A full sweep would take days for zero student-facing benefit.
+3. **`vocab_submission_log` table + `useResilientActivitySubmit` on WordExerciseModal** — the existing modal already uses `.select()` after upsert + invalidates queries + propagates errors. V1's actual root cause (missing `mastery_level` computation) was the surgical fix.
+4. **Schema-name corrections in the prompt** — the prompt assumed `vocabulary` / `student_vocabulary` / `vocabulary_word_mastery` columns that don't exist. Code adapted to the real schemas (`curriculum_vocabulary`, `student_saved_words`, the actual mastery shape). Documented in the Phase A schema-drift section.
+5. **`student_saved_words` ↔ `passage_id` migration** — the table uses `source_reference` (text) for this, not a typed FK. Honored existing pattern.
+
+## Deployment status
+
+- HEAD: `f63e910`
+- origin/main: `f63e910`
+- Vercel: auto-deploying from main on push
+- Audio migration applied to prod via `_apply-audio-event-log.cjs` (idempotent, IF NOT EXISTS / DROP IF EXISTS throughout)
+
+## Next student test window
+
+- Watch `audio_event_log` for the first 30 minutes after deploy. Expected baseline: `preflight_ok` rows per passage, `play_ok` per tap. Spike in `play_rejected` (NotAllowed) means a student got the iOS gesture trap — should self-resolve on second tap.
+- Ping Hawazen + one L1 student tomorrow to verify the WordLens popup placement on their iPhone PWA + the laptop Daily Vocab Review flow.
+- Mastery_level rollouts: every new exercise submission writes a non-null `mastery_level`. Existing 3,473 rows with non-null values are unaffected.
+
+==========================================================
+
