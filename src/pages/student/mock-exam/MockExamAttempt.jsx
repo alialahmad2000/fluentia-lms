@@ -14,6 +14,28 @@ const SECTION_LABEL_AR = {
   writing: 'الكتابة',
 }
 
+// Network ceiling for the final submit RPC. If the wire stalls beyond this,
+// abort cleanly and surface a retryable error rather than hang on "...جاري الإرسال" forever.
+const SUBMIT_TIMEOUT_MS = 25_000
+const SUBMIT_TIMEOUT_TAG = 'submit_timeout_25s'
+const WHATSAPP_INSTRUCTOR_URL = 'https://wa.me/966558669974'
+
+/**
+ * Race a thenable against a timeout. If the timeout fires, reject with a tagged Error.
+ * The underlying RPC fetch will continue in the background — the server-side write
+ * remains idempotent thanks to mock_exam_submit's design — but the UI gets unstuck.
+ */
+function withTimeout(thenable, ms, tag) {
+  let timer = null
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(tag)), ms)
+  })
+  return Promise.race([
+    Promise.resolve(thenable).finally(() => { if (timer) clearTimeout(timer) }),
+    timeout,
+  ])
+}
+
 /**
  * MockExamAttempt — the bulletproof exam page.
  *
@@ -38,6 +60,8 @@ export default function MockExamAttempt() {
   const [timeLeft, setTimeLeft] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
+  const [submitErrorIsTimeout, setSubmitErrorIsTimeout] = useState(false)
+  const [autoRetryUsed, setAutoRetryUsed] = useState(false)
   const [submitModalOpen, setSubmitModalOpen] = useState(false)
   const [loadError, setLoadError] = useState(null)
   const submittedRef = useRef(false)
@@ -257,26 +281,42 @@ export default function MockExamAttempt() {
   }
 
   // -----------------------------------------------------------------
-  // Submit
+  // Submit (with 25s network timeout + auto-retry once after a stall).
+  //
+  // Resilience contract:
+  //   1. `flushAllSaves()` itself is best-effort and bounded by individual save
+  //      timeouts inside the per-save calls (still console-logged on failure).
+  //   2. `mock_exam_submit` RPC is wrapped in a 25s timeout. The submit RPC is
+  //      idempotent on the server, so a retry after a stall is safe — the
+  //      DB-side submit is a no-op when already submitted.
+  //   3. On timeout the user-facing error is gentle ("تأخّر الإرسال أكثر من
+  //      المعتاد") and we expose a manual retry + WhatsApp escape hatch. A
+  //      single silent auto-retry fires 2s later (see useEffect below) so the
+  //      common-case "flaky network" recovers without user action.
+  //   4. The grade-writing edge function call is wrapped in an unawaited IIFE
+  //      so it can never block navigation. Always was — preserved here.
   // -----------------------------------------------------------------
   const handleSubmit = useCallback(async (auto = false) => {
     if (submittedRef.current || submitting) return
     submittedRef.current = true
     setSubmitting(true)
     setSubmitError(null)
+    setSubmitErrorIsTimeout(false)
     try {
       await flushAllSaves()
-      const { data, error } = await supabase.rpc('mock_exam_submit', {
+
+      const submitPromise = supabase.rpc('mock_exam_submit', {
         p_attempt_id: examData.attempt_id,
         p_auto: auto,
       })
+
+      const result = await withTimeout(submitPromise, SUBMIT_TIMEOUT_MS, SUBMIT_TIMEOUT_TAG)
+      const { error } = result || {}
       if (error) throw error
 
       // Fire-and-forget: trigger AI writing grading in the background.
       // Student must NOT wait for this. If it fails (network, edge fn down,
       // tab closed), the trainer can re-trigger from the dashboard.
-      // Note: supabase.functions.invoke() returns a Promise — wrap try/catch
-      // around the promise resolution to swallow any rejection.
       ;(async () => {
         try {
           const { error: invokeErr } = await supabase.functions.invoke(
@@ -293,13 +333,32 @@ export default function MockExamAttempt() {
     } catch (e) {
       console.error('submit failed', e)
       submittedRef.current = false
+      const msg = String(e?.message || e || 'تعذّر الاتصال')
+      const isTimeout = msg === SUBMIT_TIMEOUT_TAG
+      setSubmitErrorIsTimeout(isTimeout)
       setSubmitError(
-        `فشل الإرسال: ${e?.message || 'تعذّر الاتصال'}. اضغطي مرة ثانية، أو تواصلي مع المدرب على WhatsApp +966558669974`
+        isTimeout
+          ? 'تأخّر الإرسال أكثر من المعتاد. إجاباتك محفوظة في النظام — اضغطي «إعادة المحاولة» أو تواصلي مع المدرب.'
+          : `فشل الإرسال: ${msg}. إجاباتك محفوظة — اضغطي مرة ثانية. لو تكرّرت المشكلة، تواصلي مع المدرب.`
       )
       setSubmitting(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [examData?.attempt_id, flushAllSaves, navigate, submitting])
+
+  // Auto-retry once after a stuck-submit timeout. Resets when the modal closes
+  // or a fresh user-driven submit attempt begins.
+  useEffect(() => {
+    if (!submitErrorIsTimeout) return
+    if (autoRetryUsed) return
+    if (submitting) return
+    setAutoRetryUsed(true)
+    const t = setTimeout(() => {
+      // Reuse the user-driven submit path; idempotent on the server.
+      handleSubmit(false)
+    }, 2000)
+    return () => clearTimeout(t)
+  }, [submitErrorIsTimeout, autoRetryUsed, submitting, handleSubmit])
 
   // Flush any pending saves before unload (best effort — keeps DB fresh on accidental close)
   useEffect(() => {
@@ -588,19 +647,46 @@ export default function MockExamAttempt() {
         </div>
         {submitError && (
           <div
-            className="max-w-5xl mx-auto px-4 sm:px-6 pb-3 text-xs flex items-start gap-2"
+            className="max-w-5xl mx-auto px-4 sm:px-6 pb-3 text-xs flex flex-col sm:flex-row sm:items-start gap-2"
             style={{ color: '#fca5a5' }}
           >
-            <AlertTriangle size={14} className="mt-0.5" />
-            <span>{submitError}</span>
+            <div className="flex items-start gap-2 flex-1">
+              <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+              <span>{submitError}</span>
+            </div>
+            <a
+              href={WHATSAPP_INSTRUCTOR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs px-3 py-1.5 rounded-md self-start whitespace-nowrap"
+              style={{
+                background: 'rgba(34,197,94,0.12)',
+                color: '#86efac',
+                border: '1px solid rgba(34,197,94,0.35)',
+              }}
+            >
+              تواصل مع المدرب
+            </a>
           </div>
         )}
       </footer>
 
       <SubmitConfirmModal
         open={submitModalOpen}
-        onClose={() => setSubmitModalOpen(false)}
-        onConfirm={async () => { await handleSubmit(false) }}
+        onClose={() => {
+          setSubmitModalOpen(false)
+          // Reset retry budget for the next manual open
+          setAutoRetryUsed(false)
+          if (!submitting) {
+            setSubmitError(null)
+            setSubmitErrorIsTimeout(false)
+          }
+        }}
+        onConfirm={async () => {
+          // Fresh manual submit → reset auto-retry budget
+          setAutoRetryUsed(false)
+          await handleSubmit(false)
+        }}
         onJumpTo={(idx) => {
           if (Number.isFinite(idx)) setCurrentIndex(idx)
           setSubmitModalOpen(false)
@@ -608,6 +694,7 @@ export default function MockExamAttempt() {
         issues={computedIssues}
         submitting={submitting}
         submitError={submitError}
+        whatsappInstructorUrl={WHATSAPP_INSTRUCTOR_URL}
       />
     </div>
   )

@@ -1,4 +1,4 @@
-import { AlertTriangle, AlertCircle, ArrowLeft, Check, Clock, Send, X } from 'lucide-react'
+import { AlertTriangle, AlertCircle, ArrowLeft, Check, Clock, MessageCircle, RotateCw, Send, X } from 'lucide-react'
 
 /**
  * SubmitConfirmModal
@@ -10,16 +10,18 @@ import { AlertTriangle, AlertCircle, ArrowLeft, Check, Clock, Send, X } from 'lu
  * students out punishes learning.
  *
  * Props:
- *   open         boolean
- *   onClose()    close the modal (back to exam)
- *   onConfirm()  actually submits via RPC
- *   onJumpTo(i)  jump to question index i (and close the modal)
- *   issues       computed array; each: { type, severity, title, detail, jumpToIndex?, jumpLabel? }
- *   submitting   boolean — show spinner in confirm button + disable both buttons
- *   submitError  string|null — inline error if last submit attempt failed
+ *   open                   boolean
+ *   onClose()              close the modal (back to exam)
+ *   onConfirm()            actually submits via RPC (also serves as the retry handler)
+ *   onJumpTo(i)            jump to question index i (and close the modal)
+ *   issues                 computed array; each: { type, severity, title, detail, jumpToIndex?, jumpLabel? }
+ *   submitting             boolean — show spinner in confirm button + disable both buttons
+ *   submitError            string|null — inline error if last submit attempt failed
+ *   whatsappInstructorUrl  string — direct link surfaced on submit error
  */
 export default function SubmitConfirmModal({
   open, onClose, onConfirm, onJumpTo, issues = [], submitting, submitError,
+  whatsappInstructorUrl = 'https://wa.me/966558669974',
 }) {
   if (!open) return null
 
@@ -103,7 +105,9 @@ export default function SubmitConfirmModal({
                 {submitting
                   ? <Clock size={14} className="animate-spin" />
                   : <Send size={14} />}
-                {submitting ? '...جاري التسليم' : 'تسليم على أي حال'}
+                {submitting
+                  ? 'جاري التسليم — إجاباتكِ محفوظة، لا تغلقي الصفحة...'
+                  : 'تسليم على أي حال'}
               </button>
             </div>
           </>
@@ -153,7 +157,9 @@ export default function SubmitConfirmModal({
                 {submitting
                   ? <Clock size={14} className="animate-spin" />
                   : <Check size={14} />}
-                {submitting ? '...جاري التسليم' : 'نعم، أرسلي الاختبار'}
+                {submitting
+                  ? 'جاري التسليم — إجاباتكِ محفوظة، لا تغلقي الصفحة...'
+                  : 'نعم، أرسلي الاختبار'}
               </button>
             </div>
           </>
@@ -161,15 +167,49 @@ export default function SubmitConfirmModal({
 
         {submitError && (
           <div
-            className="p-3 rounded-lg text-xs flex items-start gap-2"
+            className="p-3 rounded-lg text-xs space-y-3"
             style={{
               background: 'rgba(239,68,68,0.10)',
               border: '1px solid rgba(239,68,68,0.30)',
               color: '#fca5a5',
             }}
           >
-            <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-            <span>{submitError}</span>
+            <div className="flex items-start gap-2">
+              <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+              <span className="leading-relaxed">{submitError}</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={onConfirm}
+                disabled={submitting}
+                className="text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5"
+                style={{
+                  background: 'rgba(34,197,94,0.18)',
+                  color: '#86efac',
+                  border: '1px solid rgba(34,197,94,0.40)',
+                  opacity: submitting ? 0.5 : 1,
+                  cursor: submitting ? 'wait' : 'pointer',
+                }}
+              >
+                <RotateCw size={12} className={submitting ? 'animate-spin' : ''} />
+                إعادة المحاولة
+              </button>
+              <a
+                href={whatsappInstructorUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5"
+                style={{
+                  background: 'rgba(56,189,248,0.12)',
+                  color: 'var(--ds-accent-info, #38bdf8)',
+                  border: '1px solid rgba(56,189,248,0.30)',
+                }}
+              >
+                <MessageCircle size={12} />
+                تواصل مع المدرب على واتساب
+              </a>
+            </div>
           </div>
         )}
       </div>

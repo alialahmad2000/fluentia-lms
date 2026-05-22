@@ -5,6 +5,7 @@ import {
   RefreshCw, Sparkles, AlertTriangle,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import StuckAttemptsPanel from './StuckAttemptsPanel'
 
 const EXAM_OPTIONS = [
   { code: 'midterm-mock-a1', label: 'A1 — مستوى ١' },
@@ -104,6 +105,9 @@ export default function MockExamResults() {
           عرض كل المحاولات. الكشف للطلاب يتم من هنا (لا يرون نتائجهم حتى تكشفها).
         </p>
       </header>
+
+      {/* Stuck-attempts intervention panel (auto-refreshes every 60s) */}
+      <StuckAttemptsPanel examCode={examCode} />
 
       {/* Exam tabs */}
       <div className="flex items-center gap-2">
