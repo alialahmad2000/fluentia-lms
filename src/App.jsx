@@ -26,6 +26,9 @@ import { hasPackageAccess } from './components/PackageGate'
 import ThemeProvider from './design-system/ThemeProvider'
 import { AuroraBackground } from './design-system/components'
 
+// ─── MEGA-FIX V2 Phase D — Popup contract foundation ─────────
+import SidebarMetricsObserver from './lib/ui/SidebarMetricsObserver'
+
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -559,6 +562,7 @@ export default function App() {
       <BrowserRouter>
         <ToastProvider>
         <ThemeProvider />
+        <SidebarMetricsObserver />
         <AuroraBackground />
         <OfflineBanner />
         <ImpersonationBanner />

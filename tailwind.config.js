@@ -131,6 +131,22 @@ export default {
         '18': '4.5rem',
         '22': '5.5rem',
       },
+      // MEGA-FIX V2 Phase D — z-index ladder via CSS variables.
+      // After this, `z-popup`, `z-modal`, `z-toast`, etc. are available
+      // as Tailwind utility classes that resolve at runtime via CSS vars.
+      // Pair with src/styles/z-index.css for the variable declarations.
+      zIndex: {
+        'base':      'var(--z-base, 1)',
+        'floor':     'var(--z-floor, 10)',
+        'rise':      'var(--z-rise, 20)',
+        'overlay':   'var(--z-overlay, 30)',
+        'sidebar':   'var(--z-sidebar, 40)',
+        'header':    'var(--z-header, 50)',
+        'popup':     'var(--z-popup, 60)',
+        'modal':     'var(--z-modal, 70)',
+        'toast':     'var(--z-toast, 80)',
+        'emergency': 'var(--z-emergency, 90)',
+      },
       borderRadius: {
         'xs': 'var(--radius-xs)',
         'sm': 'var(--radius-sm)',

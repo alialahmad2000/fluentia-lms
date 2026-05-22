@@ -67,6 +67,7 @@ function Header({ showMenuButton, onMenuClick }) {
   return (
     <header
       role="banner"
+      data-app-header
       className="h-16 flex items-center justify-between px-5 lg:px-8 sticky z-20 transition-all duration-[240ms]"
       style={{
         top: 'var(--impersonation-banner-height, 0px)',

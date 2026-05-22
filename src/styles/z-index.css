@@ -1,0 +1,38 @@
+/* MEGA-FIX V2 Phase D — Z-index ladder + layout-offset CSS variables.
+ *
+ * After this file lands, the goal is: NO hardcoded numeric z-index in any
+ * NEW popup / sheet / dropdown component. Use the var-backed Tailwind
+ * classes (`z-popup`, `z-modal`, `z-toast`, etc.) or `var(--z-*)` directly.
+ *
+ * --sidebar-width / --header-height are LIVE-UPDATED by ResizeObserver in
+ * src/lib/ui/SidebarMetricsObserver.jsx (mounted in App). Until that
+ * observer mounts, the fallback values below apply.
+ */
+
+:root {
+  /* Stacking ladder */
+  --z-base:       1;
+  --z-floor:      10;
+  --z-rise:       20;
+  --z-overlay:    30;
+  --z-sidebar:    40;
+  --z-header:     50;
+  --z-popup:      60;
+  --z-modal:      70;
+  --z-toast:      80;
+  --z-emergency:  90;
+
+  /* Layout offsets — fallbacks. SidebarMetricsObserver overrides them. */
+  --sidebar-width:           264px;
+  --sidebar-width-collapsed: 76px;
+  --header-height:           64px;
+}
+
+/* Mobile + tablet (<1024px): sidebar is off-canvas, occupies 0 of the
+ * usable area. SidebarMetricsObserver also writes 0 in this range, but
+ * the CSS keeps it correct before the JS runs. */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+}

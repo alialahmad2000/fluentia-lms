@@ -5,6 +5,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import App from './App'
 import './index.css'
+import './styles/z-index.css'
 import './design-system/trainer-themes.css'
 import './design-system/trainer/trainer-primitives.css'
 import { queryClient } from './lib/queryClient'

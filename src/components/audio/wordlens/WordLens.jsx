@@ -142,7 +142,7 @@ export default function WordLens({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: isMobileSheet ? 1 : 0.95, y: isMobileSheet ? 40 : 0 }}
           transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="z-[60] rounded-2xl backdrop-blur-xl overflow-hidden"
+          className="z-popup rounded-2xl backdrop-blur-xl overflow-hidden"
           style={{
             ...positionStyle,
             background: 'var(--ds-card, rgba(10,18,32,0.97))',
