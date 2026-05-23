@@ -46,3 +46,9 @@ scripts/curriculum-generator/output/progress.json
 
 # MCP config — contains local PAT, machine-specific
 .mcp.json
+
+# Audio-fix diagnostic scratch (raw audio + per-file probe outputs)
+tmp/audio-diagnose/*.mp3
+tmp/audio-diagnose/*.decode-errors.txt
+tmp/audio-diagnose/*.probe.json
+tmp/audio-reencode-cache/

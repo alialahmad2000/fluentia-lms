@@ -1,0 +1,74 @@
+[
+  {
+    "id": "2992edc4-d68d-4f16-99d1-ab7b7a2683c3",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/2992edc4-d68d-4f16-99d1-ab7b7a2683c3.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "size": 1597066,
+    "dbDuration": 105,
+    "audioType": "monologue"
+  },
+  {
+    "id": "06e6cf1a-b85d-45e8-907f-d36d40f85696",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/06e6cf1a-b85d-45e8-907f-d36d40f85696.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/06e6cf1a-b85d-45e8-907f-d36d40f85696/s0_sarah.mp3",
+    "size": 1787237,
+    "dbDuration": 105,
+    "audioType": "monologue"
+  },
+  {
+    "id": "c2c17796-03aa-4240-b983-dc4dd6d3c516",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/c2c17796-03aa-4240-b983-dc4dd6d3c516.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/c2c17796-03aa-4240-b983-dc4dd6d3c516/combined.mp3",
+    "size": 5351593,
+    "dbDuration": 334,
+    "audioType": "interview"
+  },
+  {
+    "id": "5f6d033e-abb0-429f-bc76-9dd344218b53",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/5f6d033e-abb0-429f-bc76-9dd344218b53.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/5f6d033e-abb0-429f-bc76-9dd344218b53/s0_fatima.mp3",
+    "size": 1097186,
+    "dbDuration": 75,
+    "audioType": "monologue"
+  },
+  {
+    "id": "81208d88-54bb-48af-8579-37884bb84d61",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/81208d88-54bb-48af-8579-37884bb84d61.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/81208d88-54bb-48af-8579-37884bb84d61/s0_layla.mp3",
+    "size": 1059152,
+    "dbDuration": 75,
+    "audioType": "monologue"
+  },
+  {
+    "id": "6b6e7a26-c6c8-4b06-a176-b967d74ab76f",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/6b6e7a26-c6c8-4b06-a176-b967d74ab76f.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/6b6e7a26-c6c8-4b06-a176-b967d74ab76f/combined.mp3",
+    "size": 5370807,
+    "dbDuration": 340,
+    "audioType": "interview"
+  },
+  {
+    "id": "420b053f-d61e-4be9-8992-76685066ce58",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/420b053f-d61e-4be9-8992-76685066ce58.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/420b053f-d61e-4be9-8992-76685066ce58/combined.mp3",
+    "size": 2052641,
+    "dbDuration": 128,
+    "audioType": "dialogue"
+  },
+  {
+    "id": "9f0afbc9-7636-410b-9107-3c6a43d2925c",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/9f0afbc9-7636-410b-9107-3c6a43d2925c.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9f0afbc9-7636-410b-9107-3c6a43d2925c/s0_narrator.mp3",
+    "size": 1197915,
+    "dbDuration": 75,
+    "audioType": "monologue"
+  },
+  {
+    "id": "6a6ed5af-d0b2-471f-88d6-be99fc213724",
+    "path": "/Users/dr.ali/projects/fluentia-lms/tmp/audio-diagnose/6a6ed5af-d0b2-471f-88d6-be99fc213724.mp3",
+    "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/6a6ed5af-d0b2-471f-88d6-be99fc213724/combined.mp3",
+    "size": 3025470,
+    "dbDuration": 192,
+    "audioType": "interview"
+  }
+]
