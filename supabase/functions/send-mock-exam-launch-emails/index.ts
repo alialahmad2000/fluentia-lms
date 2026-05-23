@@ -22,6 +22,19 @@ serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
 
+  // Second-chance variant — flagged via ?second_chance=true OR { second_chance: true } body
+  const url = new URL(req.url);
+  const qsSecondChance = url.searchParams.get("second_chance") === "true";
+  let bodySecondChance = false;
+  try {
+    const bodyText = await req.clone().text();
+    if (bodyText) {
+      const j = JSON.parse(bodyText);
+      if (j && j.second_chance === true) bodySecondChance = true;
+    }
+  } catch { /* no body / not JSON — fine */ }
+  const isSecondChance = qsSecondChance || bodySecondChance;
+
   try {
     const resendKey = Deno.env.get("RESEND_API_KEY");
     if (!resendKey) throw new Error("RESEND_API_KEY missing");
@@ -76,7 +89,7 @@ serve(async (req: Request) => {
       }
 
       try {
-        const { subject, html, text } = buildEmail(s.full_name || "", level);
+        const { subject, html, text } = buildEmail(s.full_name || "", level, isSecondChance);
 
         const resp = await fetch(RESEND_API, {
           method: "POST",
@@ -157,10 +170,101 @@ function json(body: unknown, status = 200) {
   });
 }
 
-function buildEmail(fullName: string, level: number) {
+function buildEmail(fullName: string, level: number, isSecondChance: boolean = false) {
   const levelCode = level === 1 ? "A1" : "B1";
   const duration = level === 1 ? "٧٥ دقيقة" : "٩٠ دقيقة";
   const minWords = level === 1 ? "٥٠ كلمة" : "٨٠ كلمة";
+
+  if (isSecondChance) {
+    const subject = `🔄 فرصة جديدة للاختبار التجريبي — حتى الأحد ١٠م (${levelCode})`;
+    const text = `السلام عليكم ${fullName}،
+
+بسبب مشكلات تقنية واجهتها بعض الطالبات خلال الاختبار التجريبي السابق (انقطاعات شبكة لم يكن النظام يحذّر منها)، قررت إعادة فتح الاختبار من جديد للجميع بمحاولة فريش.
+
+الموعد الجديد:
+🕙 من الآن إلى ١٠م الأحد ٢٤ مايو ٢٠٢٦ (نافذة موسّعة)
+
+ما الذي تغيّر:
+• محاولاتكِ السابقة تم أرشفتها وستحصلين على بداية جديدة
+• النظام الآن يحفظ كل إجابة تلقائياً ويسلّمها حتى لو انقطع الإنترنت
+• تنبيه واضح يظهر فوراً لو لم يصل الحفظ للنظام
+• حتى لو لم تضغطي «تسليم»، النظام يسلّم اختباركِ تلقائياً عند انتهاء الوقت
+
+للبدء:
+١. ادخلي على ${APP_URL}
+٢. اضغطي "الاختبار التجريبي" من القائمة الجانبية
+٣. اضغطي "ابدئي الاختبار"
+
+تذكير:
+• المدة: ${duration} من لحظة البدء
+• محاولة واحدة جديدة فقط
+• الكتابة لا تقل عن ${minWords}
+
+للدعم الفني: WhatsApp +966558669974
+
+اعتذر عن أي إزعاج، ووفّقكِ الله 🌟
+
+د. علي الأحمد
+أكاديمية طلاقة`;
+
+    const html = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><meta charset="UTF-8"><title>${subject}</title></head>
+<body style="margin:0;padding:0;background:#0a0a0f;font-family:-apple-system,'Segoe UI','Tahoma',sans-serif;direction:rtl;text-align:right;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#0a0a0f;padding:32px 16px;">
+<tr><td align="center">
+<table cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;background:#13131a;border-radius:16px;border:1px solid #2a2a35;overflow:hidden;">
+<tr><td style="padding:32px 32px 16px;border-bottom:1px solid #2a2a35;">
+<h1 style="margin:0;color:#d4af37;font-size:24px;font-weight:700;">طلاقة | Fluentia Academy</h1>
+</td></tr>
+<tr><td style="padding:32px;">
+<p style="margin:0 0 16px;color:#e5e5ec;font-size:16px;line-height:1.8;">السلام عليكم ${fullName}،</p>
+<p style="margin:0 0 16px;color:#e5e5ec;font-size:16px;line-height:1.8;">
+بسبب مشكلات تقنية واجهتها بعض الطالبات خلال الاختبار السابق (انقطاعات شبكة لم يكن النظام يحذّر منها)،
+قررت <strong style="color:#d4af37;">إعادة فتح الاختبار من جديد</strong> للجميع بمحاولة فريش.
+</p>
+<div style="background:#1a1a23;border-right:4px solid #d4af37;padding:16px 20px;border-radius:8px;margin:24px 0;">
+<p style="margin:0;color:#e5e5ec;font-size:18px;font-weight:600;line-height:1.6;">
+🕙 الموعد الجديد: من الآن<br>إلى ١٠م الأحد ٢٤ مايو ٢٠٢٦<br>
+<span style="font-size:14px;color:#a5a5b5;font-weight:normal;">(نافذة موسّعة)</span>
+</p>
+</div>
+<p style="margin:0 0 8px;color:#d4af37;font-size:18px;font-weight:600;">ما الذي تحسّن:</p>
+<ul style="margin:0 0 24px;padding-right:24px;color:#e5e5ec;font-size:15px;line-height:2;">
+<li>محاولاتكِ السابقة تم أرشفتها، وستحصلين على <strong>بداية جديدة</strong></li>
+<li>النظام الآن يحفظ كل إجابة تلقائياً ويسلّمها <strong>حتى لو انقطع الإنترنت</strong></li>
+<li>تنبيه واضح يظهر فوراً لو لم يصل الحفظ للنظام</li>
+<li>حتى لو لم تضغطي «تسليم»، النظام يسلّم اختباركِ تلقائياً عند انتهاء الوقت</li>
+</ul>
+<p style="margin:0 0 8px;color:#d4af37;font-size:18px;font-weight:600;">تذكير سريع:</p>
+<ul style="margin:0 0 24px;padding-right:24px;color:#e5e5ec;font-size:15px;line-height:2;">
+<li>المدة: <strong>${duration}</strong> من لحظة البدء</li>
+<li><strong>محاولة واحدة جديدة فقط</strong></li>
+<li>الكتابة لا تقل عن <strong>${minWords}</strong></li>
+</ul>
+<div style="text-align:center;margin:32px 0;">
+<a href="${APP_URL}/student/mock-exam"
+style="display:inline-block;background:#d4af37;color:#0a0a0f;font-weight:700;font-size:16px;padding:14px 32px;border-radius:8px;text-decoration:none;">
+ابدئي الاختبار الجديد
+</a>
+</div>
+<p style="margin:24px 0 8px;color:#a5a5b5;font-size:14px;">
+للدعم الفني: WhatsApp <a href="https://wa.me/966558669974" style="color:#d4af37;text-decoration:none;">+966 55 866 9974</a>
+</p>
+<p style="margin:16px 0 0;color:#d4af37;font-size:16px;font-weight:600;">اعتذر عن أي إزعاج، ووفّقكِ الله 🌟</p>
+<p style="margin:24px 0 0;color:#a5a5b5;font-size:14px;line-height:1.6;">
+د. علي الأحمد<br><span style="color:#7a7a8a;">أكاديمية طلاقة</span>
+</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>`;
+
+    return { subject, html, text };
+  }
+
   const subject = `📝 الاختبار التجريبي للوحدات ١-٤ متاح من ١٠م الليلة (${levelCode})`;
 
   const text = `السلام عليكم ${fullName}،
