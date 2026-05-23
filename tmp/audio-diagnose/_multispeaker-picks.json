@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ab69e89c-32b6-4d98-8360-4748bc2c9f37",
+    "unit_id": "8272e688-818a-4f86-93d5-9a39e84ee3b3",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/ab69e89c-32b6-4d98-8360-4748bc2c9f37/combined.mp3",
+    "audio_type": "dialogue",
+    "audio_duration_seconds": 196,
+    "title_ar": "نقاش عن الخصوصية الرقمية والأمن السيبراني",
+    "created_at": "2026-03-18T05:50:11.359378+00:00"
+  },
+  {
+    "id": "62666f53-6e69-40b3-8a1e-0f058b7b7b8e",
+    "unit_id": "9b30bc71-91a8-4316-9166-4319b0589d46",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/62666f53-6e69-40b3-8a1e-0f058b7b7b8e/combined.mp3",
+    "audio_type": "interview",
+    "audio_duration_seconds": 248,
+    "title_ar": "مقابلة مع باحث عن أسباب الهجرة البشرية",
+    "created_at": "2026-03-18T06:42:37.171382+00:00"
+  },
+  {
+    "id": "7dc9e208-c878-423f-af40-e4effbe3dba6",
+    "unit_id": "a12ff640-eb7e-4c48-8cf7-69f0f2cef190",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/7dc9e208-c878-423f-af40-e4effbe3dba6/combined.mp3",
+    "audio_type": "interview",
+    "audio_duration_seconds": 205,
+    "title_ar": "نقاش عن عجائب الهندسة في الحضارات القديمة",
+    "created_at": "2026-03-18T05:35:11.991082+00:00"
+  }
+]
