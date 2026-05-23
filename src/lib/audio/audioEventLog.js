@@ -45,17 +45,35 @@ export function logAudioEvent({
   scheduleFlush()
 }
 
+// Detect iOS (covers iPhone / iPad / iPod). Used to keep the iOS-only
+// "silent switch" hint scoped to actual iOS UAs — non-iOS browsers blocking
+// autoplay should not see that copy.
+function isIOSUserAgent() {
+  if (typeof navigator === 'undefined') return false
+  return /iPad|iPhone|iPod/.test(navigator.userAgent || '')
+}
+
 // Classify a play() rejection into one of:
-//  - 'NotAllowed'      → user-gesture not granted (most common iOS Safari case)
-//  - 'NotSupported'    → codec / src URL not playable
-//  - 'AbortError'      → pause() raced ahead of play() resolving — benign
-//  - 'NetworkError'    → connectivity / 404
-//  - 'Unknown'         → anything else
+//  - 'ios_silent_or_autoplay'  → NotAllowedError on iOS (silent switch OR autoplay policy)
+//  - 'autoplay_blocked'        → NotAllowedError on non-iOS (Chrome/Firefox/Edge autoplay policy)
+//  - 'NotSupported'            → codec / src URL not playable
+//  - 'AbortError'              → pause() raced ahead of play() resolving — benign
+//  - 'NetworkError'            → connectivity / 404
+//  - 'Unknown'                 → anything else
+//
+// LISTENING-AUDIO-FIX-VERIFIED 2026-05-23:
+//   Prior code returned 'NotAllowed' uniformly for any NotAllowedError. The
+//   admin telemetry panel then labeled ALL of them as "iOS Safari silent
+//   switch", which mis-tagged desktop Safari / Chrome sessions that were
+//   really just hitting their own autoplay policy. Splitting by UA lets us
+//   triage and show the right Arabic hint per platform.
 export function classifyPlayError(err) {
   if (!err) return 'Unknown'
   const name = err.name || ''
   const msg = (err.message || '').toLowerCase()
-  if (name === 'NotAllowedError') return 'NotAllowed'
+  if (name === 'NotAllowedError') {
+    return isIOSUserAgent() ? 'ios_silent_or_autoplay' : 'autoplay_blocked'
+  }
   if (name === 'NotSupportedError') return 'NotSupported'
   if (name === 'AbortError') return 'AbortError'
   if (msg.includes('network') || msg.includes('failed to fetch')) return 'NetworkError'
@@ -70,8 +88,14 @@ export function arabicErrorMessage(reason) {
     case 'NetworkError':
     case 'network':
       return 'ما قدرنا نوصل للملف — جربي مرة ثانية'
+    // Legacy reason emitted before the iOS/non-iOS split. Older rows in
+    // audio_event_log still carry this — keep the iOS-leaning copy so the
+    // historical telemetry view stays sensible.
     case 'NotAllowed':
+    case 'ios_silent_or_autoplay':
       return 'اضغطي مرة ثانية لتشغيل الصوت'
+    case 'autoplay_blocked':
+      return 'اضغطي مرة ثانية — المتصفح يحجب التشغيل التلقائي'
     case 'NotSupported':
       return 'هذا المتصفح ما يدعم هذا النوع من الملفات — جربي Safari أو Chrome'
     case 'AbortError':

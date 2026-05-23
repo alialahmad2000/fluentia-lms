@@ -19,11 +19,26 @@ const MEDIA_ERROR_LABELS = {
 
 const MEDIA_ERROR_ARABIC = {
   '-1': 'صامت — play() نجح لكن لم يصدر صوت (iOS الصامت / تشغيل تلقائي محظور / سياق صوت مغلق)',
-  0: 'تم رفض play() — قد يكون iOS Safari silent switch',
+  // code=0 covers both iOS silent-switch AND non-iOS autoplay policy. The
+  // exact reason is now stored in audio_event_log.reason — see REASON_ARABIC
+  // below for the per-platform breakdown.
+  0: 'تم رفض play() — تشغيل تلقائي محظور (راجعي reason للتفاصيل)',
   1: 'إلغاء التحميل',
   2: 'فشل الشبكة',
   3: 'فشل فك التشفير',
   4: 'تنسيق غير مدعوم',
+}
+
+// Maps the classified reason emitted by audioEventLog.classifyPlayError() to
+// admin-facing Arabic copy. Reason values come from src/lib/audio/audioEventLog.js.
+const REASON_ARABIC = {
+  ios_silent_or_autoplay: 'iOS: silent switch أو تشغيل تلقائي محظور',
+  autoplay_blocked: 'تشغيل تلقائي محظور (Chrome / Firefox / Edge)',
+  NotAllowed: 'تشغيل تلقائي محظور (قبل split UA — قد يكون أي متصفح)',
+  NotSupported: 'تنسيق غير مدعوم',
+  NetworkError: 'فشل الشبكة',
+  AbortError: 'تم الإلغاء (طبيعي)',
+  audio_unavailable: 'الملف غير متاح',
 }
 
 const RANGE_OPTIONS = [
