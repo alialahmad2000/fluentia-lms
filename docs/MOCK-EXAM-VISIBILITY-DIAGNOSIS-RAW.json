@@ -1,0 +1,415 @@
+{
+  "generated_at": "2026-05-23T17:23:15.695Z",
+  "checks": {
+    "A1": {
+      "archive_row_count": 7,
+      "affected_student_count": 6,
+      "students": [
+        {
+          "id": "a82486b6-9472-4aba-b902-a0ec354ca170",
+          "full_name": "حساب تجريبي A1",
+          "email": "mock-test-a1@fluentia.academy",
+          "role": "student",
+          "is_test_account": true,
+          "academic_level": 1,
+          "group_id": "bbbbbbbb-2222-2222-2222-bbbbbbbbbbbb",
+          "status": "active",
+          "archived_count": 1,
+          "archive_reasons": [
+            "test_smoke_2026-05-23"
+          ],
+          "latest_archived_at": "2026-05-23T01:01:58.939177+00:00"
+        },
+        {
+          "id": "e5528ced-b3e2-45bb-8c89-9368dc9b5b96",
+          "full_name": "د. علي الأحمد",
+          "email": "admin@fluentia.academy",
+          "role": "admin",
+          "is_test_account": false,
+          "academic_level": null,
+          "group_id": null,
+          "status": null,
+          "archived_count": 2,
+          "archive_reasons": [
+            "second_chance_2026-05-23"
+          ],
+          "latest_archived_at": "2026-05-23T00:57:45.02504+00:00"
+        },
+        {
+          "id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+          "full_name": "لمياء سعود الحربي",
+          "email": "almooshhh11@gmail.com",
+          "role": "student",
+          "is_test_account": false,
+          "academic_level": 1,
+          "group_id": "bbbbbbbb-2222-2222-2222-bbbbbbbbbbbb",
+          "status": "active",
+          "archived_count": 1,
+          "archive_reasons": [
+            "second_chance_2026-05-23"
+          ],
+          "latest_archived_at": "2026-05-23T00:57:45.02504+00:00"
+        },
+        {
+          "id": "cad66f17-4471-4e64-acce-aa2836e1a814",
+          "full_name": "منار العتيبي",
+          "email": "manar126712@gmail.com",
+          "role": "student",
+          "is_test_account": false,
+          "academic_level": 1,
+          "group_id": "bbbbbbbb-2222-2222-2222-bbbbbbbbbbbb",
+          "status": "active",
+          "archived_count": 1,
+          "archive_reasons": [
+            "second_chance_2026-05-23"
+          ],
+          "latest_archived_at": "2026-05-23T00:57:45.02504+00:00"
+        },
+        {
+          "id": "0aba3164-2cd9-4e47-a47b-c3c3b7e8a56e",
+          "full_name": "نادية القحطاني",
+          "email": "nadiah.alkhayar@gmail.com",
+          "role": "student",
+          "is_test_account": false,
+          "academic_level": 3,
+          "group_id": "aaaaaaaa-4444-4444-4444-aaaaaaaaaaaa",
+          "status": "active",
+          "archived_count": 1,
+          "archive_reasons": [
+            "second_chance_2026-05-23"
+          ],
+          "latest_archived_at": "2026-05-23T00:57:45.02504+00:00"
+        },
+        {
+          "id": "050ebad7-0c3b-4eaa-9bd1-9eaeca44adb6",
+          "full_name": "هوازن العتيبي",
+          "email": "Hawazin324@gmail.com",
+          "role": "student",
+          "is_test_account": false,
+          "academic_level": 3,
+          "group_id": "aaaaaaaa-4444-4444-4444-aaaaaaaaaaaa",
+          "status": "active",
+          "archived_count": 1,
+          "archive_reasons": [
+            "second_chance_2026-05-23"
+          ],
+          "latest_archived_at": "2026-05-23T00:57:45.02504+00:00"
+        }
+      ]
+    },
+    "A2": {
+      "active_summary": [
+        {
+          "student_id": "a82486b6-9472-4aba-b902-a0ec354ca170",
+          "active_count": 0,
+          "active_ids": [],
+          "submitted_count": 0
+        },
+        {
+          "student_id": "e5528ced-b3e2-45bb-8c89-9368dc9b5b96",
+          "active_count": 0,
+          "active_ids": [],
+          "submitted_count": 0
+        },
+        {
+          "student_id": "95124347-7ad8-46b7-b745-b6c085bf3a6f",
+          "active_count": 0,
+          "active_ids": [],
+          "submitted_count": 0
+        },
+        {
+          "student_id": "cad66f17-4471-4e64-acce-aa2836e1a814",
+          "active_count": 0,
+          "active_ids": [],
+          "submitted_count": 0
+        },
+        {
+          "student_id": "0aba3164-2cd9-4e47-a47b-c3c3b7e8a56e",
+          "active_count": 1,
+          "active_ids": [
+            "e66e8ccb-8b07-4866-80eb-da57c48fb8d7"
+          ],
+          "submitted_count": 1
+        },
+        {
+          "student_id": "050ebad7-0c3b-4eaa-9bd1-9eaeca44adb6",
+          "active_count": 0,
+          "active_ids": [],
+          "submitted_count": 0
+        }
+      ],
+      "students_with_active": 1
+    },
+    "A3": {
+      "migrations_defining_rpc": [
+        "20260522020001_mock_exam_rpcs.sql"
+      ]
+    },
+    "A5": {
+      "rows": [
+        {
+          "student": "حساب تجريبي A1",
+          "email": "mock-test-a1@fluentia.academy",
+          "student_level": 1,
+          "student_is_test": true,
+          "exam_code": "midterm-mock-a1",
+          "exam_level": 1,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "حساب تجريبي A1",
+          "email": "mock-test-a1@fluentia.academy",
+          "student_level": 1,
+          "student_is_test": true,
+          "exam_code": "midterm-mock-b1",
+          "exam_level": 3,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MISMATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "د. علي الأحمد",
+          "email": "admin@fluentia.academy",
+          "student_level": null,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-a1",
+          "exam_level": 1,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MISMATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "د. علي الأحمد",
+          "email": "admin@fluentia.academy",
+          "student_level": null,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-b1",
+          "exam_level": 3,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MISMATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "لمياء سعود الحربي",
+          "email": "almooshhh11@gmail.com",
+          "student_level": 1,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-a1",
+          "exam_level": 1,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "لمياء سعود الحربي",
+          "email": "almooshhh11@gmail.com",
+          "student_level": 1,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-b1",
+          "exam_level": 3,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MISMATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "منار العتيبي",
+          "email": "manar126712@gmail.com",
+          "student_level": 1,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-a1",
+          "exam_level": 1,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "منار العتيبي",
+          "email": "manar126712@gmail.com",
+          "student_level": 1,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-b1",
+          "exam_level": 3,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MISMATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "نادية القحطاني",
+          "email": "nadiah.alkhayar@gmail.com",
+          "student_level": 3,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-a1",
+          "exam_level": 1,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MISMATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "نادية القحطاني",
+          "email": "nadiah.alkhayar@gmail.com",
+          "student_level": 3,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-b1",
+          "exam_level": 3,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MATCH",
+          "attempt_count": 1
+        },
+        {
+          "student": "هوازن العتيبي",
+          "email": "Hawazin324@gmail.com",
+          "student_level": 3,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-a1",
+          "exam_level": 1,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MISMATCH",
+          "attempt_count": 0
+        },
+        {
+          "student": "هوازن العتيبي",
+          "email": "Hawazin324@gmail.com",
+          "student_level": 3,
+          "student_is_test": false,
+          "exam_code": "midterm-mock-b1",
+          "exam_level": 3,
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_check": "MATCH",
+          "attempt_count": 0
+        }
+      ],
+      "exams": [
+        {
+          "id": "4a6b42fe-d573-4487-8c36-eb159593744d",
+          "code": "midterm-mock-a1",
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_id": "2755b494-c7ff-4bdc-96ac-7ab735dc038c",
+          "level_number": 1
+        },
+        {
+          "id": "9aecd023-b768-4e59-b6ec-5bf70a93ab6f",
+          "code": "midterm-mock-b1",
+          "visibility": "live",
+          "is_active": true,
+          "open_at": "2026-05-22T19:00:00+00:00",
+          "close_at": "2026-05-24T19:00:00+00:00",
+          "level_id": "f7e8dbfb-ec8e-4491-a62d-f54fd4c41aab",
+          "level_number": 3
+        }
+      ]
+    },
+    "A8": {
+      "src/components/layout/Sidebar.jsx": {
+        "line_count": 244,
+        "interesting": [
+          "L27: // Visibility-aware mock-exam access. Sidebar entry shows when:",
+          "L28: //   - an active mock_exam matches the student's academic_level AND",
+          "L29: //   - visibility is 'live' OR (visibility is 'preview' AND profile.is_test_account or role is staff)",
+          "L33: queryKey: ['mock-exam-visibility'],",
+          "L36: .from('mock_exams')",
+          "L37: .select('id, code, visibility, level:curriculum_levels(level_number)')",
+          "L42: staleTime: 60_000,",
+          "L45: const studentLevelNumber = studentData?.academic_level ?? null",
+          "L46: const canSeeMockExam = (mockExamRows || []).some((e) => {",
+          "L47: if (e.visibility === 'live') {",
+          "L48: return isStaff || (studentLevelNumber && e.level?.level_number === studentLevelNumber)",
+          "L50: if (e.visibility === 'preview') {",
+          "L52: if (isTestAccount && studentLevelNumber && e.level?.level_number === studentLevelNumber) return true",
+          "L57: // Conditional hard-words nav visibility — only show when student has hard words",
+          "L62: staleTime: 60_000,",
+          "L112: if (item.requiresMockExamAccess) return canSeeMockExam"
+        ]
+      },
+      "src/pages/student/mock-exam/MockExamGate.jsx": {
+        "line_count": 62,
+        "interesting": [
+          "L9: * Wraps /student/mock-exam routes. Reads the student's academic_level,",
+          "L19: const academicLevel = studentData?.academic_level",
+          "L24: queryKey: ['mock-exam-eligibility', academicLevel],",
+          "L28: .from('mock_exams')",
+          "L29: .select('id, code, title_ar, visibility, level_id, level:curriculum_levels(level_number)')",
+          "L33: // Visibility gate",
+          "L34: if (e.visibility === 'live') return true",
+          "L35: if (e.visibility === 'preview' && (isTestAccount || isStaff)) return true",
+          "L40: const match = filtered.find((e) => e.level?.level_number === academicLevel)",
+          "L43: staleTime: 30_000,"
+        ]
+      },
+      "src/pages/student/mock-exam/MockExamHub.jsx": {
+        "line_count": 299,
+        "interesting": [
+          "L30: queryKey: ['mock-exam-row', examInfo?.id],",
+          "L33: .from('mock_exams')",
+          "L41: staleTime: 30_000,",
+          "L45: queryKey: ['mock-exam-attempt', examInfo?.id, studentId],",
+          "L57: staleTime: 10_000,",
+          "L81: navigate('/student/mock-exam/attempt', { state: { attemptId: data.attempt_id } })",
+          "L172: onClick={() => navigate(`/student/mock-exam/result?attempt_id=${existingAttempt.id}`)}"
+        ]
+      },
+      "src/pages/student/mock-exam/MockExamAttempt.jsx": {
+        "line_count": 1256,
+        "interesting": [
+          "L53: console.error('[mock-exam] telemetry failed (non-blocking):', event, err)",
+          "L56: console.error('[mock-exam] telemetry threw (non-blocking):', event, e)",
+          "L105: if (studentData.academic_level === 1) return 'midterm-mock-a1'",
+          "L106: if (studentData.academic_level === 3) return 'midterm-mock-b1'",
+          "L148: if (a?.id) navigate(`/student/mock-exam/result?attempt_id=${a.id}`, { replace: true })",
+          "L149: else navigate('/student/mock-exam', { replace: true })",
+          "L153: navigate('/student/mock-exam', { replace: true })",
+          "L191: console.error('[mock-exam] startup save-health probe FAILED:', e)",
+          "L229: const saved = localStorage.getItem(`mock-exam-pos-${examData.attempt_id}`)",
+          "L244: localStorage.setItem(`mock-exam-pos-${examData.attempt_id}`, String(currentIndex))",
+          "L276: console.error(`[mock-exam] ${rpc} failed:`, msg, 'consecutive_fails=', consecutiveFailsRef.current)",
+          "L417: const tLabel = `mock-exam-submit:${examData?.attempt_id?.slice(0, 8) || 'unknown'}`",
+          "L486: console.error('[mock-exam] pre-submit reconciliation failed (non-blocking):', reconErr)",
+          "L512: 'mock-exam-grade-writing',",
+          "L515: if (invokeErr) console.error('[mock-exam] grade-writing kickoff failed (non-blocking):', invokeErr)",
+          "L517: console.error('[mock-exam] grade-writing kickoff threw (non-blocking):', e)",
+          "L522: navigate(`/student/mock-exam/result?attempt_id=${examData.attempt_id}`, { replace: true })"
+        ]
+      }
+    }
+  }
+}

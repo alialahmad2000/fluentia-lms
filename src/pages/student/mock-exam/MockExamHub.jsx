@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Lock, ShieldCheck, AlertCircle, ChevronRight, Clock } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
@@ -16,6 +16,7 @@ import { GlassPanel, PrimaryButton, AuroraBackground } from '@/design-system/com
  */
 export default function MockExamHub() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const { examInfo } = useOutletContext() || {}
   const profile = useAuthStore((s) => s.profile)
   const studentId = profile?.id
@@ -24,6 +25,17 @@ export default function MockExamHub() {
   useEffect(() => {
     const t = setInterval(() => setNow(new Date()), 1000)
     return () => clearInterval(t)
+  }, [])
+
+  // VISIBILITY-FIX (2026-05-23): on every hub mount, force the per-student
+  // attempt + exam-row queries to refetch. Cached "submitted" or stale
+  // attempt rows (e.g. after a server-side archive+reset) caused students
+  // to be stuck on the wrong screen during the second-chance window.
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['mock-exam-row'] })
+    queryClient.invalidateQueries({ queryKey: ['mock-exam-attempt'] })
+    // intentionally one-shot per hub mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { data: examFull } = useQuery({
@@ -54,7 +66,8 @@ export default function MockExamHub() {
       return data
     },
     enabled: !!examInfo?.id && !!studentId,
-    staleTime: 10_000,
+    staleTime: 0,                  // VISIBILITY-FIX (2026-05-23): always read live
+    refetchOnMount: 'always',      // ditto — never serve stale attempt rows on entry
   })
 
   const [starting, setStarting] = useState(false)

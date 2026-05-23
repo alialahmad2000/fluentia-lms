@@ -1,5 +1,6 @@
+import { useEffect } from 'react'
 import { Outlet, Navigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 
@@ -13,12 +14,25 @@ import { supabase } from '@/lib/supabase'
  * If no exam matches the student's level → redirects to dashboard.
  */
 export default function MockExamGate() {
+  const queryClient = useQueryClient()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
   const role = profile?.role
   const academicLevel = studentData?.academic_level
   const isTestAccount = profile?.is_test_account === true
   const isStaff = role === 'admin' || role === 'trainer'
+
+  // VISIBILITY-FIX (2026-05-23): force-refresh mock-exam state on every entry.
+  // Prevents stale PWA caches from showing "submitted" / "no exam" after a
+  // server-side archive+reset or a visibility flip.
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['mock-exam-eligibility'] })
+    queryClient.invalidateQueries({ queryKey: ['mock-exam-row'] })
+    queryClient.invalidateQueries({ queryKey: ['mock-exam-attempt'] })
+    queryClient.invalidateQueries({ queryKey: ['mock-exam-visibility'] })
+    // intentionally one-shot per gate mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const { data: examInfo, isLoading } = useQuery({
     queryKey: ['mock-exam-eligibility', academicLevel],
@@ -42,6 +56,7 @@ export default function MockExamGate() {
     },
     staleTime: 30_000,
     enabled: !!profile?.id,
+    refetchOnMount: 'always', // VISIBILITY-FIX (2026-05-23): never trust cached eligibility on entry
   })
 
   if (isLoading) {

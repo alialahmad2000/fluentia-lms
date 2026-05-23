@@ -40,6 +40,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
       return data || []
     },
     staleTime: 60_000,
+    refetchOnMount: 'always',   // VISIBILITY-FIX (2026-05-23): never trust cached visibility on initial PWA mount
     enabled: !!profileId,
   })
   const studentLevelNumber = studentData?.academic_level ?? null
