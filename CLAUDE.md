@@ -299,6 +299,30 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-23 — MOCK-EXAM-SCORING-DIAGNOSIS: no bug found, 1 stranded attempt re-graded
+- What: Ali's admin dashboard showed his own A1 attempt at **15/100** with `ai_writing_status='pending'` hours later, suspected scoring bug. Ran the 6-phase forensic diagnosis prompt on his attempt row by row. **Conclusion: there is NO scoring bug.** Every layer is healthy. The 15/100 was the honest sum of his garbage test inputs (5 from 2 lucky reading guesses + 10 legacy writing default). The `pending` status was because his attempt was submitted at 04:27 KSA on 2026-05-22, BEFORE the FIX-3 commit at 14:11 KSA the same day that wired the frontend's `supabase.functions.invoke('mock-exam-grade-writing')` call. His attempt was stranded with the pre-FIX-3 writing default of 10/10.
+- **Phase A forensics (all 4 submitted attempts inspected row-by-row):**
+  - **Ali's A1 (the screenshot case, attempt `f907b031-…`):** Saved 34 answers but the `selected_index` pattern is `=3 (option D)` on basically every MCQ + `kllkl`/`klkkl`/`kkk`/`lkl`/`lklk` strings on every fill_blank. He typed `"off fff ggg hhh"` × 13 = 52 gibberish words for writing. He was stress-testing. 2 reading guesses landed by accident (Q1, Q9) at 2.5 pts each = 5/25 reading. Everything else = 0. Pre-FIX-3 RPC defaulted writing=10/10 because word_count>=min. Total 5 + 10 = 15/100. **Math is exact, scoring is right.**
+  - **Ali's B1 (`df61b88f-…`):** Submitted at 15:14 KSA on 2026-05-22 (post-FIX-3). 38/39 answered, 7 correct, AI graded the gibberish at 0/10 (Claude path, not fallback). Final 17.50/100. Healthy.
+  - **لمياء + منار (both A1):** 0 answers saved each (the network-path failure already diagnosed + fixed in INCIDENT-FIX-2). Honest 0/100.
+- **Phase A.3 hand-verified 12 seeded `correct_index` values** across all 5 sections (reading, vocab, spelling, grammar with both MCQ and error_detection types). **12 / 12 PASS.** No seed bugs. The seed authors did the work correctly — "She ___ from Saudi Arabia" → "is" (idx=1), "He eats ___ apple" → "an" (idx=1, vowel-sound rule), "My sister [like] to watch" → error at idx=1 (subject-verb agreement), etc.
+- **Phase A.4 section-sum cross-check:** Every attempt's `SUM(points_awarded) GROUP BY section` exactly equals `score_<section>`. The UPDATE…JOIN scoring in `mock_exam_submit` works correctly. The SELECT…SUM aggregation works correctly. **No RPC bug.**
+- **Phase A.5:** `mock_exam_ai_writing_log` returned 0 rows for Ali's A1 attempt — confirming the AI grader was never invoked for that attempt. The frontend code that triggers the invoke shipped 10 hours after his submit.
+- **Phase B verdict (only 1 of 6 hypotheses TRUE):** #4 "scoring is correct, exam is just hard" — TRUE for Ali (he tested with garbage). #5 "AI invocation skipped entirely" — TRUE for his A1 attempt only (stranded pre-FIX-3). All other hypotheses (UI bug, RPC bug, seed bug, edge function failure) — REJECTED by evidence.
+- **Phase C — NO code change.** No migration, no RPC modification, no seed correction. The fix is one POST to the existing edge function. The `mock_exam_apply_ai_writing_score` RPC (deployed in FIX-3) already recomputes `score_total` from existing section scores when the edge function lands the AI grade.
+- **Phase D — re-invoked the AI grader for `f907b031-…`:** HTTP 200, layer='primary' (Claude actually evaluated the gibberish text), `ai_writing_score=0`, status='graded'. `mock_exam_apply_ai_writing_score` overwrote `score_writing` 10→0 and recomputed `score_total` 15→**5**. ai_writing_status now 'graded'. The 3 other submitted attempts didn't need anything — Ali's B1 already graded, لمياء/منار are 0/100 with no saved data to re-score.
+- **Final rollup** (4 submitted attempts, post-fix):
+  - لمياء A1: 0/100 (unchanged)
+  - منار A1: 0/100 (unchanged)
+  - Ali B1: 17.50/100 (unchanged)
+  - **Ali A1: 15/100 → 5/100** (writing 10→0, total 15→5, ai_writing 'pending'→'graded')
+- **Sacred constraints honored:** No edits to ANY mock_exam RPC. No schema changes. No seed mutations. No `vite build`. visibility='live' preserved. No row mutations on هوازن's in-progress attempt. Resilience patches from `6172384`/`0dd1390` preserved.
+- Files (new): `docs/MOCK-EXAM-SCORING-DIAGNOSIS.md` (full forensic dump + before/after rollup), `prompts/agents/MOCK-EXAM-SCORING-DIAGNOSIS.md` (the prompt itself, for audit trail).
+- Files (modified): `CLAUDE.md`.
+- DB: 0 schema changes. 1 row mutated (`mock_exam_attempts.f907b031-…`: score_writing, score_total, ai_writing_*). 1 audit row (the `mock_exam_ai_writing_log` insert from the edge function).
+- Edge Functions: 0 deploys; 1 invocation of `mock-exam-grade-writing` for the stranded attempt.
+- Status: Complete. **Bottom line for Ali:** open `/admin/mock-exam-results`, your A1 attempt now reads `5/100` (the honest score given your gibberish test inputs). No real student is impacted. The system is healthy.
+
 ### 2026-05-23 — MOCK-EXAM-INCIDENT-FIX-2: second-incident recovery + save-path resilience + deeper telemetry
 - What: A second student reported the same stuck-submit pattern after commit `6172384` shipped. The deploy is live (verified via `vercel ls`) but only protects students who load the page AFTER the deploy — students already mid-exam are running the stale bundle without the 25s timeout. Ran phases A-G again with a wider investigation.
 - **Phase A re-run:** Same 5 attempts as last pass. Real-student state: هوازن (B1, 38/39 answered, 0 writing chars, 56 min left — healthy in progress, biggest answer-saver on the exam tonight, last save at 02:09:59 KSA), لمياء (A1, **0 saved answers across 80 min**, exam expired 16 min ago — STUCK_EXPIRED candidate), منار (A1, already auto-submitted at 01:26 with score 0/100 — closed, nothing to recover since `mock_exam_answers` count is 0). **هوازن's 38 saved answers single-handedly disproves the "save_answer is universally broken" hypothesis** — the bug is intermittent and client/network specific, NOT global.
