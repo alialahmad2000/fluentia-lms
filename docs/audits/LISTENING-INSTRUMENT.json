@@ -1,0 +1,182 @@
+[
+  {
+    "at": 1779490191091,
+    "audioReqCount": 24861,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490193093,
+    "audioReqCount": 26394,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490195095,
+    "audioReqCount": 27679,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490197096,
+    "audioReqCount": 29114,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490199097,
+    "audioReqCount": 30213,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490201099,
+    "audioReqCount": 31586,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490203100,
+    "audioReqCount": 33024,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490205101,
+    "audioReqCount": 34448,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490207102,
+    "audioReqCount": 35874,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  },
+  {
+    "at": 1779490209103,
+    "audioReqCount": 37298,
+    "creates": 1,
+    "loads": 1,
+    "srcSets": 1,
+    "lastSrc": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "lastSrcAt": 1779490159078,
+    "audioCount": 1,
+    "audioReadyStates": [
+      {
+        "readyState": 0,
+        "networkState": 2,
+        "currentTime": 0,
+        "paused": false
+      }
+    ]
+  }
+]

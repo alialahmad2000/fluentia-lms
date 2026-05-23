@@ -1,0 +1,707 @@
+{
+  "summary": {
+    "curriculum_listening_rows": 72,
+    "listening_audio_rows": 711,
+    "unique_urls": 72,
+    "cache_control_distribution": {
+      "no-cache": 72
+    }
+  },
+  "samples": [
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/44b25ac5-ed1e-4b8d-84d9-ec23614417b6/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1504279",
+      "cacheControl": "no-cache",
+      "etag": "\"d610c3d5be17e2ea87818c81fee62d16\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/9774fa25-d7bc-4865-9448-a097e21150df/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4417861",
+      "cacheControl": "no-cache",
+      "etag": "\"1393acaa952e16aceb9405bb44c5c839\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/f9fea551-7654-47c1-bf69-9dd399e9a275/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4108153",
+      "cacheControl": "no-cache",
+      "etag": "\"604a0f12422af4dc011ab3f512be2199\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5066239",
+      "cacheControl": "no-cache",
+      "etag": "\"4deae6c846b2db30537f34dcfc769bed\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/68773ed9-055c-4909-8447-5979ebd0e103/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1900617",
+      "cacheControl": "no-cache",
+      "etag": "\"31bf6ab641c9a5d747174c05655673bb\"",
+      "cfCache": "MISS"
+    }
+  ],
+  "all": [
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/44b25ac5-ed1e-4b8d-84d9-ec23614417b6/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1504279",
+      "cacheControl": "no-cache",
+      "etag": "\"d610c3d5be17e2ea87818c81fee62d16\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/9774fa25-d7bc-4865-9448-a097e21150df/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4417861",
+      "cacheControl": "no-cache",
+      "etag": "\"1393acaa952e16aceb9405bb44c5c839\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/f9fea551-7654-47c1-bf69-9dd399e9a275/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4108153",
+      "cacheControl": "no-cache",
+      "etag": "\"604a0f12422af4dc011ab3f512be2199\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5066239",
+      "cacheControl": "no-cache",
+      "etag": "\"4deae6c846b2db30537f34dcfc769bed\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/68773ed9-055c-4909-8447-5979ebd0e103/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1900617",
+      "cacheControl": "no-cache",
+      "etag": "\"31bf6ab641c9a5d747174c05655673bb\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/d7f29e08-77fa-4adc-9c64-a6f40131eb96/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1913059",
+      "cacheControl": "no-cache",
+      "etag": "\"dc1fed421433431aed863f59bd961377\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/5f66bedc-ed77-40dc-bb87-b60facd0c51f/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1859544",
+      "cacheControl": "no-cache",
+      "etag": "\"194678b32d5549446c74e3c8d735dd46\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/bccfc6e1-767a-44ec-83e8-ee060bdd825d/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1825689",
+      "cacheControl": "no-cache",
+      "etag": "\"cfb1b385ebec89b16a0f2c30151cbf4c\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/d074e527-fb88-48bc-b232-13a5f1cf4750/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1547328",
+      "cacheControl": "no-cache",
+      "etag": "\"4df94998a43260ce5ce2e92b03c1d8f6\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/686b95e9-f474-45d5-887f-fdf700e325b1/s0_fatima.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1193735",
+      "cacheControl": "no-cache",
+      "etag": "\"ad720403dd5939ce807fb5bf45b8c07b\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/e1d19a4b-f1e7-43f3-bb5c-15249b60e99c/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1884221",
+      "cacheControl": "no-cache",
+      "etag": "\"8d3707867aec267cc33e14db6bd884f4\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/bac2518b-9623-438c-b6df-49937387a3d2/s0_dr.-martinez.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4297500",
+      "cacheControl": "no-cache",
+      "etag": "\"01640c57ca80a317b2eede74e2b0d093\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9c961ae7-16d0-424e-abfa-93f0c82f3d7c/s0_noor.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1132713",
+      "cacheControl": "no-cache",
+      "etag": "\"dfc107f9329c4e31d35ccdc83770e3c6\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/f7989a07-3a74-4bf6-8d4f-91cc5729d927/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1174927",
+      "cacheControl": "no-cache",
+      "etag": "\"ac0761000250ebced97e180842fb8bc9\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/5f6d033e-abb0-429f-bc76-9dd344218b53/s0_fatima.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1097186",
+      "cacheControl": "no-cache",
+      "etag": "\"b54bdbc185eea920aa5d971b98b9d513\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/b4ef25db-caa8-49ca-bf7e-d88d73f21919/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3263051",
+      "cacheControl": "no-cache",
+      "etag": "\"7e58883aaaf7697ac68cb6fa5eb89c55\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/ba1043c7-32c8-43d8-a7ab-11845f537bdd/s0_noor.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1554016",
+      "cacheControl": "no-cache",
+      "etag": "\"8a029cfbc362dbf2af92b6993be5195a\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/faa01054-6873-4408-a5b7-cbcfe7efe960/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4136168",
+      "cacheControl": "no-cache",
+      "etag": "\"d226a7ccab40f55ccb7fa75aed6afd0f\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/faf4d5ac-3f42-4d02-b038-22bdd4c45893/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1608351",
+      "cacheControl": "no-cache",
+      "etag": "\"014ce8f15d0bd19c13e39d6cda19ee44\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9f0afbc9-7636-410b-9107-3c6a43d2925c/s0_narrator.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1197915",
+      "cacheControl": "no-cache",
+      "etag": "\"1c08c896df9d0e9f1364814386925ac6\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/af1a25b9-a7d7-4490-b671-a9d01f6bc4e8/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3189826",
+      "cacheControl": "no-cache",
+      "etag": "\"86a168ed72fcdaff2cbca1cb2cb37363\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/f5bb9e50-eb78-4224-8ce7-908e235d9135/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1545657",
+      "cacheControl": "no-cache",
+      "etag": "\"e5d971e2dab7360ad591a27b957cbc22\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/81208d88-54bb-48af-8579-37884bb84d61/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1059152",
+      "cacheControl": "no-cache",
+      "etag": "\"201f05cc0dfca7b2ae14e60e1e1c8201\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/62666f53-6e69-40b3-8a1e-0f058b7b7b8e/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3908172",
+      "cacheControl": "no-cache",
+      "etag": "\"38563c6ca65efd59d7243f58fd4d331e\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/d6efcb31-a953-416a-bc5f-525bedee2b89/s0_nora.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1317869",
+      "cacheControl": "no-cache",
+      "etag": "\"49c85a8a49cca9c3db5864227608f2cf\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/7dc526f8-069e-4fae-b842-9af82a585a97/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4137186",
+      "cacheControl": "no-cache",
+      "etag": "\"06dda34b1f218fbcb03c7270d4fb340a\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/8dbff5e6-0138-499c-9b79-dca991978b24/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "2799131",
+      "cacheControl": "no-cache",
+      "etag": "\"3b98850e35469e0db9090aafdf5c9f4e\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1597066",
+      "cacheControl": "no-cache",
+      "etag": "\"c44723fd064be9c71a9302fcea06f4be\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/420b053f-d61e-4be9-8992-76685066ce58/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "2052641",
+      "cacheControl": "no-cache",
+      "etag": "\"6192cd75eb7ea53dde757140218244fc\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/896ab711-ea14-47bc-9e36-f4d09931ffab/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1875764",
+      "cacheControl": "no-cache",
+      "etag": "\"c16a06b2c2ebeeaa676116789b57fbfd\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/06e6cf1a-b85d-45e8-907f-d36d40f85696/s0_sarah.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1787237",
+      "cacheControl": "no-cache",
+      "etag": "\"c91dbec6c68d05074e97cda492b8ea0a\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/cecec33e-c5e7-4668-ae28-0dce9c20bbf3/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4717131",
+      "cacheControl": "no-cache",
+      "etag": "\"ab30ccb2fa7dd0a2cc30e5b162a0181e\"",
+      "cfCache": "EXPIRED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/c5d12ff8-7c29-46b3-8c79-2086d530224a/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1666029",
+      "cacheControl": "no-cache",
+      "etag": "\"f9e92e4b3246f2969fd8b322e40bf3ed\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/c2c17796-03aa-4240-b983-dc4dd6d3c516/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5351593",
+      "cacheControl": "no-cache",
+      "etag": "\"299938c3dae36ec580c62140ac78e3ff-2\"",
+      "cfCache": "EXPIRED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/7dc9e208-c878-423f-af40-e4effbe3dba6/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3214360",
+      "cacheControl": "no-cache",
+      "etag": "\"70aaa7e9d3ecc85e6d3337d4c792e193\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/0767ef9b-5f6a-48e0-9f47-94bd590ac608/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5175813",
+      "cacheControl": "no-cache",
+      "etag": "\"611fdb5713b5b5149fb9bae7dee175c7\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/674ff56a-0738-4683-aa7a-60b30f22e921/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4778668",
+      "cacheControl": "no-cache",
+      "etag": "\"a79916a690730e1ca1c1890fbb2a3e19\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/8715d6fd-abf9-4256-a39f-dbb965016844/s0_sarah.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1624651",
+      "cacheControl": "no-cache",
+      "etag": "\"bd2b6458de70b8243e8ccd8033075a16\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/2b772e7e-3d14-4223-8053-fabecd8cf0b5/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1862803",
+      "cacheControl": "no-cache",
+      "etag": "\"02d32574ae69c55228b92002540ed34d\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/a213895f-7021-4528-b737-3b37c7d09f77/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4984625",
+      "cacheControl": "no-cache",
+      "etag": "\"9db4334ab88baad8c5b86243b1638b76\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/312e8743-4c60-4aee-a80a-70f5f5bb684c/s0_sarah.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1149013",
+      "cacheControl": "no-cache",
+      "etag": "\"9d87fd860211bd1f6a0ecbe5dc33f148\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/6a6ed5af-d0b2-471f-88d6-be99fc213724/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3025470",
+      "cacheControl": "no-cache",
+      "etag": "\"f50ce3d4b84478a1696a0b38deebb8b8\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/91e88604-dda7-47da-888a-f6787ba48215/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3577887",
+      "cacheControl": "no-cache",
+      "etag": "\"3726fbfd3ece91dd85b3f71f6c7d3bc9\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/8d93c32b-4b25-4270-917f-e6c78c52cbfd/s0_narrator.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1504279",
+      "cacheControl": "no-cache",
+      "etag": "\"b3ebd9d7f52c7053172803ef5a7667a5\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/f7bc89f9-a52b-4c2e-88da-427f94de04a4/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1918058",
+      "cacheControl": "no-cache",
+      "etag": "\"0f673be4b91d3a8636408ac944d259c9\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/ccc4f118-3c1f-4497-bfed-de02a6dc81cd/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5132582",
+      "cacheControl": "no-cache",
+      "etag": "\"a55d11e2af900e70fe49293f90ca31e4\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/51fad1dc-0624-4cc7-8048-9dea0f26a171/s0_dr.-martinez.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4729670",
+      "cacheControl": "no-cache",
+      "etag": "\"7313c39e32a475f154bf54f699099d78\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/a9e49ba8-49fe-424a-ac8f-ff51763e596a/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4371885",
+      "cacheControl": "no-cache",
+      "etag": "\"41e053d73dbe51f7b34d1510f60f0a0b\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/34c87c04-3f94-43bb-a460-c44cc0261a07/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3171534",
+      "cacheControl": "no-cache",
+      "etag": "\"1a14d6dfcd6c07a07fa4257b39a23a9a\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/e5ed4f14-be00-4226-85e4-dcf99658a777/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "2958596",
+      "cacheControl": "no-cache",
+      "etag": "\"fa7d6b289ca3a6c424e236bda8b9ea01\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/7ced0e9a-dd8b-438c-8471-e3c0722c7eed/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4262409",
+      "cacheControl": "no-cache",
+      "etag": "\"524f21f0faef1259a9f9142d39ba0e08\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/e76b49c2-1e8e-475c-a1f2-38280bcd78fe/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "2995557",
+      "cacheControl": "no-cache",
+      "etag": "\"910abea8a009e1a8ab0aa7a132fb1b4d\"",
+      "cfCache": "EXPIRED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/fb34b3a0-ce85-4db2-b37a-9da44bf64193/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "2992229",
+      "cacheControl": "no-cache",
+      "etag": "\"9c153404e72074e82ef7316378f3e503\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/126e9fea-c180-4b69-8d3e-22601ed2fa1c/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4302504",
+      "cacheControl": "no-cache",
+      "etag": "\"4a6f8b24211661a2c48f6dafc63c1266\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/981b0d0a-8a92-4612-8fa9-6323d7ebfcfd/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1998306",
+      "cacheControl": "no-cache",
+      "etag": "\"48efb30e37fa6a63c371ac6fd974af65\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/3d0d8da5-d4a7-458f-8e7a-0f42bd998e14/s0_fatima.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1146088",
+      "cacheControl": "no-cache",
+      "etag": "\"a11a137dcef926727816a6335e46a7a4\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/59bd4957-9360-41d6-bf59-ce1fbace462d/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4979180",
+      "cacheControl": "no-cache",
+      "etag": "\"ca58fbfaac3b74fc631128e96edd9ee1\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/209f6e28-6ec7-43e6-b16c-87c7eb6e878d/s0_nora.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1201258",
+      "cacheControl": "no-cache",
+      "etag": "\"93e63ba9693f224030e4b4a46fbee868\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/24431382-8fea-4d31-8d3d-70e9a401057d/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5082612",
+      "cacheControl": "no-cache",
+      "etag": "\"42e33cea74150a1d6fe99af5731bc82a\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/89982954-2326-40a8-9227-62a9dd8af906/s0_sarah.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1632592",
+      "cacheControl": "no-cache",
+      "etag": "\"a7a5b12fe2f851825edccc8bd14f2ff3\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/6b6e7a26-c6c8-4b06-a176-b967d74ab76f/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5370807",
+      "cacheControl": "no-cache",
+      "etag": "\"e6f1d4ef77c384565e20b536a12cf75f-2\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9e723be0-9f55-42e5-8f40-20f753d5a2a3/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1106799",
+      "cacheControl": "no-cache",
+      "etag": "\"ada9bed57fd9e79596273696ea1477fd\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/8571667a-93dc-4035-bf9f-3cda3b63d82a/s0_nora.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1122264",
+      "cacheControl": "no-cache",
+      "etag": "\"1acdc0d4a4dba6f954bdb4f314106bde\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/5846f7c9-f5c9-482e-bb09-142aeceeefb8/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1891727",
+      "cacheControl": "no-cache",
+      "etag": "\"edf55ccf196c05a4d0b37ddec188b954\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/fb91912b-7b95-43c6-b948-9a8037faa736/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "5113956",
+      "cacheControl": "no-cache",
+      "etag": "\"fe3b795abcc129d915d1f7ad7eaf8e27\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/1f6723b1-fa54-4ac2-837f-6b6b9f199a26/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1826125",
+      "cacheControl": "no-cache",
+      "etag": "\"80fffa393dc2107b6214a5cdf2517958\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/d3ea9b38-695d-4a70-8ef3-7816ec04d239/s0_dr.-mitchell.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4356850",
+      "cacheControl": "no-cache",
+      "etag": "\"68841a1337da2f6d3aca29c7559a4c83\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/546730cd-2a01-4d69-96ac-673610a25524/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3020217",
+      "cacheControl": "no-cache",
+      "etag": "\"78daee5857373997c8a8a64058bdb305\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/ab69e89c-32b6-4d98-8360-4748bc2c9f37/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "3077589",
+      "cacheControl": "no-cache",
+      "etag": "\"56735a075f32e8f9ea10f31d136c342e\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/792bede3-74c2-4756-87c4-816e46f986b8/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4908545",
+      "cacheControl": "no-cache",
+      "etag": "\"35c16e4daaec363732c9982a2529e227\"",
+      "cfCache": "REVALIDATED"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/e7d1a54b-037b-42bb-9be4-9bcf5b7f6c4b/combined.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "4055268",
+      "cacheControl": "no-cache",
+      "etag": "\"b6324d37d01e308c64b7fe41561b1aa9\"",
+      "cfCache": "MISS"
+    },
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/576d5bd6-a651-4341-8922-c5a875299ff4/s0_layla.mp3",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "contentLength": "1581601",
+      "cacheControl": "no-cache",
+      "etag": "\"02e133a9e03dcc59d732d936345c0d00\"",
+      "cfCache": "REVALIDATED"
+    }
+  ]
+}
