@@ -1,0 +1,283 @@
+[
+  {
+    "id": "44b25ac5-ed1e-4b8d-84d9-ec23614417b6",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/44b25ac5-ed1e-4b8d-84d9-ec23614417b6/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3598,
+      "total": 3598
+    }
+  },
+  {
+    "id": "ba1043c7-32c8-43d8-a7ab-11845f537bdd",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/ba1043c7-32c8-43d8-a7ab-11845f537bdd/s0_noor.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3717,
+      "total": 3717
+    }
+  },
+  {
+    "id": "d074e527-fb88-48bc-b232-13a5f1cf4750",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/d074e527-fb88-48bc-b232-13a5f1cf4750/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3701,
+      "total": 3701
+    }
+  },
+  {
+    "id": "bac2518b-9623-438c-b6df-49937387a3d2",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/bac2518b-9623-438c-b6df-49937387a3d2/s0_dr.-martinez.mp3",
+    "audio_type": "lecture",
+    "midstream": false,
+    "audit": {
+      "1": 10281,
+      "total": 10281
+    }
+  },
+  {
+    "id": "686b95e9-f474-45d5-887f-fdf700e325b1",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/686b95e9-f474-45d5-887f-fdf700e325b1/s0_fatima.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2855,
+      "total": 2855
+    }
+  },
+  {
+    "id": "9c961ae7-16d0-424e-abfa-93f0c82f3d7c",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9c961ae7-16d0-424e-abfa-93f0c82f3d7c/s0_noor.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2709,
+      "total": 2709
+    }
+  },
+  {
+    "id": "f7989a07-3a74-4bf6-8d4f-91cc5729d927",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/f7989a07-3a74-4bf6-8d4f-91cc5729d927/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2810,
+      "total": 2810
+    }
+  },
+  {
+    "id": "9f0afbc9-7636-410b-9107-3c6a43d2925c",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9f0afbc9-7636-410b-9107-3c6a43d2925c/s0_narrator.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2865,
+      "total": 2865
+    }
+  },
+  {
+    "id": "5f6d033e-abb0-429f-bc76-9dd344218b53",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/5f6d033e-abb0-429f-bc76-9dd344218b53/s0_fatima.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2624,
+      "total": 2624
+    }
+  },
+  {
+    "id": "81208d88-54bb-48af-8579-37884bb84d61",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/81208d88-54bb-48af-8579-37884bb84d61/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2533,
+      "total": 2533
+    }
+  },
+  {
+    "id": "f5bb9e50-eb78-4224-8ce7-908e235d9135",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/f5bb9e50-eb78-4224-8ce7-908e235d9135/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3697,
+      "total": 3697
+    }
+  },
+  {
+    "id": "faf4d5ac-3f42-4d02-b038-22bdd4c45893",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/faf4d5ac-3f42-4d02-b038-22bdd4c45893/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3847,
+      "total": 3847
+    }
+  },
+  {
+    "id": "3d0d8da5-d4a7-458f-8e7a-0f42bd998e14",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/3d0d8da5-d4a7-458f-8e7a-0f42bd998e14/s0_fatima.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2741,
+      "total": 2741
+    }
+  },
+  {
+    "id": "d6efcb31-a953-416a-bc5f-525bedee2b89",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/d6efcb31-a953-416a-bc5f-525bedee2b89/s0_nora.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3152,
+      "total": 3152
+    }
+  },
+  {
+    "id": "2992edc4-d68d-4f16-99d1-ab7b7a2683c3",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/2992edc4-d68d-4f16-99d1-ab7b7a2683c3/s0_nadia.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3820,
+      "total": 3820
+    }
+  },
+  {
+    "id": "06e6cf1a-b85d-45e8-907f-d36d40f85696",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/06e6cf1a-b85d-45e8-907f-d36d40f85696/s0_sarah.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 4275,
+      "total": 4275
+    }
+  },
+  {
+    "id": "c5d12ff8-7c29-46b3-8c79-2086d530224a",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/c5d12ff8-7c29-46b3-8c79-2086d530224a/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3985,
+      "total": 3985
+    }
+  },
+  {
+    "id": "51fad1dc-0624-4cc7-8048-9dea0f26a171",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/51fad1dc-0624-4cc7-8048-9dea0f26a171/s0_dr.-martinez.mp3",
+    "audio_type": "lecture",
+    "midstream": false,
+    "audit": {
+      "1": 11315,
+      "total": 11315
+    }
+  },
+  {
+    "id": "8715d6fd-abf9-4256-a39f-dbb965016844",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/8715d6fd-abf9-4256-a39f-dbb965016844/s0_sarah.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3886,
+      "total": 3886
+    }
+  },
+  {
+    "id": "674ff56a-0738-4683-aa7a-60b30f22e921",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/674ff56a-0738-4683-aa7a-60b30f22e921/combined.mp3",
+    "audio_type": "lecture",
+    "midstream": true,
+    "audit": {
+      "1": 11429,
+      "2": 13,
+      "total": 11442
+    }
+  },
+  {
+    "id": "312e8743-4c60-4aee-a80a-70f5f5bb684c",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/312e8743-4c60-4aee-a80a-70f5f5bb684c/s0_sarah.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2748,
+      "total": 2748
+    }
+  },
+  {
+    "id": "8d93c32b-4b25-4270-917f-e6c78c52cbfd",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/8d93c32b-4b25-4270-917f-e6c78c52cbfd/s0_narrator.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3598,
+      "total": 3598
+    }
+  },
+  {
+    "id": "209f6e28-6ec7-43e6-b16c-87c7eb6e878d",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/209f6e28-6ec7-43e6-b16c-87c7eb6e878d/s0_nora.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2873,
+      "total": 2873
+    }
+  },
+  {
+    "id": "9e723be0-9f55-42e5-8f40-20f753d5a2a3",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/9e723be0-9f55-42e5-8f40-20f753d5a2a3/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2647,
+      "total": 2647
+    }
+  },
+  {
+    "id": "8571667a-93dc-4035-bf9f-3cda3b63d82a",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L0/8571667a-93dc-4035-bf9f-3cda3b63d82a/s0_nora.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 2684,
+      "total": 2684
+    }
+  },
+  {
+    "id": "89982954-2326-40a8-9227-62a9dd8af906",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/89982954-2326-40a8-9227-62a9dd8af906/s0_sarah.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3905,
+      "total": 3905
+    }
+  },
+  {
+    "id": "576d5bd6-a651-4341-8922-c5a875299ff4",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/576d5bd6-a651-4341-8922-c5a875299ff4/s0_layla.mp3",
+    "audio_type": "monologue",
+    "midstream": false,
+    "audit": {
+      "1": 3783,
+      "total": 3783
+    }
+  },
+  {
+    "id": "d3ea9b38-695d-4a70-8ef3-7816ec04d239",
+    "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/d3ea9b38-695d-4a70-8ef3-7816ec04d239/s0_dr.-mitchell.mp3",
+    "audio_type": "lecture",
+    "midstream": false,
+    "audit": {
+      "1": 10423,
+      "total": 10423
+    }
+  }
+]

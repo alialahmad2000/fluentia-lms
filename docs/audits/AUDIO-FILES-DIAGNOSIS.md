@@ -1,97 +1,119 @@
 # Phase 0 — Audio Files Diagnosis
 
 **Date:** 2026-05-23
-**Sample:** 12 files (9 Phase 0 + 3 multi-speaker follow-up)
-**Tools:** ffmpeg 8.1.1, ffprobe 8.1.1
-**Scripts:** `scripts/audio-fix/{00-sample-and-download,01-probe-and-decode,03-multispeaker-discovery,04-probe-multispeaker}.cjs`
-**Raw outputs:** `tmp/audio-diagnose/<id>.mp3.{probe.json,decode-errors.txt}`
-**Manifests:** `tmp/audio-diagnose/_{sample,probe-summary,multispeaker-picks,multispeaker-probe}.json`
+**Latest revision:** correction after deeper per-frame audit
 
 ---
 
-## Verdict: REJECTED
+## Verdict: CONFIRMED — file pathology in 31/72 listening files
 
-The file-corruption hypothesis is **NOT supported by evidence**. Do not batch re-encode.
-
----
-
-## Evidence summary
-
-### Coverage
-- **9/72** initial sample (8 random + known-suspected fixture `2992edc4-d68d-4f16-99d1-ab7b7a2683c3`)
-- **3/72** follow-up sample of multi-speaker files (`ab69e89c` dialogue, `62666f53` interview, `7dc9e208` interview) — picked after Ali noted the original pilot was on a single-speaker file and might not exercise the failure mode
-
-### Per-file probe results (12/12 files)
-
-| Group | Files probed | Decode-clean | Xing/Info present | TOC flag set | Notes |
-|---|---|---|---|---|---|
-| Single-speaker (Phase 0) | 9 | 9/9 | 9/9 | 9/9 | mono 44100Hz CBR/VBR 128kbps |
-| Multi-speaker (Phase 0 follow-up) | 3 | 3/3 | 3/3 | 3/3 | mono 44100Hz, same encoder profile |
-| **Total** | **12** | **12/12 ✓** | **12/12 ✓** | **12/12 ✓** | |
-
-### Speaker-type distribution across all 72 production files
-
-`curriculum_listening.audio_type`:
-- monologue: 24 (single-speaker)
-- lecture: 4 (single-speaker)
-- dialogue: 14 (multi-speaker)
-- interview: 30 (multi-speaker)
-- **Multi-speaker total: 44/72 (61%)**
-
-Cross-checked via `listening_audio.speaker_label` distinct count: 27 single / 43 two-speaker / 2 three-speaker. Matches within ±1.
-
-### Multi-speaker vs single-speaker pathology profile
-
-| Property | Single-speaker (n=9) | Multi-speaker (n=3) | Verdict |
-|---|---|---|---|
-| Codec | mp3 | mp3 | Same |
-| Sample rate | 44100 Hz | 44100 Hz | Same |
-| Channels | mono | mono | Same |
-| Bitrate | 128081 (CBR) | 125644–126056 (VBR) | Comparable |
-| Xing/Info header | offset 21 | offset 21 | Same |
-| LAME-extension bytes | "Lavf" or "Lavc62.28.101 libmp3lame" | "Lavf" | Same placeholder pattern |
-| Encoder tag | Lavf60.16.100 / Lavf62.12.101 | Lavf62.12.101 | Same family |
-| Decode errors | 0/9 | 0/3 | **Both clean** |
-
-**Conclusion: multi-speaker files are NOT more pathological than single-speaker files.** The pilot exercised the same encoder profile that all 72 files share.
-
-### Original observation is no longer reproducing
-
-Ali opened the production `s0_nadia.mp3` URL in a fresh browser tab today (2026-05-23) — the same test that originally produced the play-a-few-seconds-stop pattern. **It played end-to-end without stopping. Seek worked cleanly.** The pilot re-encoded copy played the same way. No regression visible against either URL today.
-
-### `audio_event_log` does not pinpoint a specific failed listening file
-
-100 events in the table, **0 with `player_id` matching `listening:*`** or `audio_url` matching `/listening/`. The "telemetry shows 3 distinct failure modes" claim in the parent prompt referenced events I cannot find in the current log. So we have no production-grade evidence pinpointing which file Ali originally saw misbehave.
-
-### Pilot result for `2992edc4-...`
-
-Re-encoded the fixture via libmp3lame at 128 kbps / 44.1 kHz / mono. Uploaded to `listening/_pilot_reencoded_2992edc4-...mp3`. **Both pilot AND original played cleanly end-to-end in Ali's fresh-tab test.** The re-encode did not change observable behavior because the original was already working today.
+> ⚠️ **Correction notice (2026-05-23, second pass):** an earlier revision of this
+> file concluded REJECTED based on `ffprobe -show_format` + `ffmpeg -f null -`.
+> Both tools tolerate per-frame metadata changes. A deeper audit using
+> `ffprobe -show_frames` (per-frame inspection) found a real pathology that
+> the surface-level probe missed. The REJECTED commit (`9c7287d`) has been
+> superseded by this revision.
 
 ---
 
-## What this means for L1
+## The real pathology: midstream channel-count change
 
-**File-level pathology is rejected.** The root cause sits downstream of file encoding. Candidates ranked by my read of the evidence:
+`audio_telemetry` row #1 (production failure, Chrome 148 on Windows, L2 listening row `896ab711-ea14-47bc-9e36-f4d09931ffab`):
 
-1. **iOS 26.4 Safari quirk** — Playwright WebKit (and possibly real iOS) hits a probe-storm + readyState=0 pattern from time to time. Was not file-deterministic.
-2. **Supabase Range-request handling** — the `cf-cache-status: REVALIDATED` vs `MISS` differential may produce inconsistent latency that triggers Safari retry loops.
-3. **`ListeningPlayer.jsx` state machine** — the production Listening tab uses ListeningPlayer (NOT useAudioEngine / SmartAudioPlayer). MEGA-FIX V2's patches landed on the wrong file. Resilience there is still warranted (Phase 5 in the parent prompt).
+```
+error_code: 3  (MEDIA_ERR_DECODE)
+error_message: "PipelineStatus::PIPELINE_ERROR_DECODE: Unsupported midstream
+                configuration change! Sample Rate: 44100 vs 44100, Channels: 2 vs 1"
+```
 
-**Real-iPhone Safari Remote Debugging on the live LMS is the next ground truth.** If a failure reproduces there, we'll capture the URL + iOS version + Network tab response (especially `cf-cache-status` and Content-Range), and we'll know which root cause to address.
+This message is Chromium's decoder refusing an MP3 in which channel count changes
+mid-file. Per-frame audit of the failed fixture:
 
----
+- Total frames: **4,604**
+- 1-channel (mono) frames: **4,448 (96.6%)**
+- 2-channel (stereo) frames: **156 (3.4%)** — interleaved across the timeline
 
-## Files preserved for future investigation
+The mono and stereo frames are NOT contiguous (e.g. "first half mono, second
+half stereo"). They're scattered. Each transition between channel counts is a
+decoder boundary. iOS Safari and Chromium both reject these boundaries.
 
-- `scripts/audio-fix/00..04*.cjs` — all probe scripts, idempotent
-- `tmp/audio-diagnose/*.mp3` and `*.probe.json` — local only (gitignored), retained for one diagnostic cycle
-- `tmp/audio-diagnose/_*.json` manifests — committed; tell anyone re-running which files were sampled
+## Reproduction-shape match
 
----
+Ali's original observation: "Audio plays a few seconds, stops. Click anywhere
+on the timeline → plays a few seconds → stops again."
 
-## What was NOT done (and why)
+This is the exact behavior expected from midstream channel-count changes:
+the decoder plays the run of frames in one config, hits the first boundary
+to a different channel count, errors out and stops. The user seeks → browser
+loads frames around the new position → plays until the next boundary → stops
+again. Repeat.
 
-- ❌ Batch re-encode of remaining 71 files — no confirmed pathology to fix
-- ❌ Phase 3.1 Playwright 5/5 — no confirmed pathology means Playwright would pass trivially and prove nothing
-- ❌ Phase 4 reading audio re-encode — same family, same lack of evidence
-- ❌ Phase 5 ListeningPlayer refactor — separate concern; can be reopened if iPhone test reproduces a failure
+## Per-file scan results (full 72 production files)
+
+| Group | n | midstream change | clean | broken rate |
+|---|---|---|---|---|
+| Single-speaker (monologue + lecture) | 28 | **1** | 27 | 3.6% |
+| Multi-speaker (dialogue + interview) | 44 | **30** | 14 | 68.2% |
+| **TOTAL** | **72** | **31** | **41** | **43.1%** |
+
+### The one single-speaker "broken" file
+`674ff56a-0738-4683-aa7a-60b30f22e921` (lecture, L4 U?): 11,429 mono frames + 13
+stereo frames. The 13 stereo frames are likely a concat-stitch artifact at a
+segment boundary. Pathological but tiny.
+
+### Multi-speaker pattern
+Every broken multi-speaker file shows the same pattern: ~95-98% of frames are
+mono, ~2-5% are stereo, scattered. The stereo frames likely come from the
+original ElevenLabs segments that were stereo by default, while other segments
+were rendered as mono. The TTS concat pipeline did not normalize channel count
+before muxing them together.
+
+## Why the surface probe missed this
+
+- `ffprobe -show_format` reports a single channel count from the FIRST frame.
+- `ffmpeg -i ... -f null -` resamples internally and accepts midstream changes.
+- The Xing/Info header is correct and present. The MP3 IS technically valid.
+- Browsers are stricter than ffmpeg. Chromium and Safari both reject midstream
+  config changes — the decode pipeline can't recover.
+
+The discriminating tool is `ffprobe -show_frames` with `-show_entries
+frame=channels` and unique-count aggregation. That's what `scripts/audio-fix/
+07-midstream-channel-audit.cjs` and `08-single-speaker-frame-audit.cjs` do.
+
+## Why `s0_nadia.mp3` played cleanly today
+
+The fixture I used in the first pilot (`2992edc4-...s0_nadia.mp3`) is a
+SINGLE-SPEAKER monologue. Single-speaker files have only one speaker's
+encoder output; they don't need concat normalization; they're uniform-mono
+throughout. My audit confirms: 0/28 single-speaker files have midstream
+issues (other than the one lecture). So my pilot was on a clean file and was
+never going to reproduce Ali's bug. The seek-stop pattern Ali observed must
+have been on one of the 30 broken multi-speaker files; without specific URL
+provenance, we can't pinpoint which one without retesting.
+
+## What still passes the previous probes
+
+The 41 clean files (27 single-speaker + 14 multi-speaker) still pass every
+test I ran. Their channel count is uniform end-to-end. They are NOT in need
+of re-encoding for THIS reason. Whether to re-encode them for normalization
+hygiene is a separate decision.
+
+## Next: Phase 1 pilot, then targeted batch
+
+1. Re-encode the `896ab711-...` fixture (the file telemetry caught Chromium
+   refusing) with `-ac 1` to force uniform mono. Upload to temporary path.
+2. Surface URL to Ali. Wait for fresh-tab test.
+3. If pilot plays cleanly + Chromium does NOT log MEDIA_ERR_DECODE on it →
+   batch the remaining 30 broken files.
+4. Skip the 41 clean files (no pathology to fix).
+
+## Files / artifacts
+
+- `scripts/audio-fix/07-midstream-channel-audit.cjs` — per-frame audit of all
+  44 multi-speaker files
+- `scripts/audio-fix/08-single-speaker-frame-audit.cjs` — same for the 28
+  single-speaker files
+- `tmp/audio-diagnose/_midstream-audit.json` — multi-speaker results
+- `tmp/audio-diagnose/_single-speaker-frame-audit.json` — single-speaker results
+- `tmp/audio-diagnose/*.mp3` — local-only originals retained for the
+  diagnostic cycle (gitignored)
