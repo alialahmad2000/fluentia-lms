@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Clock, ChevronRight, ChevronLeft, Send, AlertTriangle } from 'lucide-react'
+import { Clock, ChevronRight, ChevronLeft, Send, AlertTriangle, RefreshCw, MessageCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import { countWords } from '@/lib/mockExam'
@@ -92,6 +92,11 @@ export default function MockExamAttempt() {
   // until the next successful save lands.
   const [lastSaveAt, setLastSaveAt] = useState(null)
   const [saveFailures, setSaveFailures] = useState(0)
+  // SAVE-CHAIN-FIX (2026-05-23): blocking modal after 3 consecutive save failures.
+  // Defense-in-depth — if heartbeat + telemetry don't catch the silent-loss class,
+  // the student is hard-stopped before they can "answer" more questions into a void.
+  const [blockingNetworkModal, setBlockingNetworkModal] = useState(false)
+  const consecutiveFailsRef = useRef(0)
   const submittedRef = useRef(false)
 
   // Resolve exam code from student level
@@ -157,6 +162,48 @@ export default function MockExamAttempt() {
   }, [examCode, profile?.id, navigate])
 
   // -----------------------------------------------------------------
+  // SAVE-CHAIN-FIX (2026-05-23): startup save-health probe.
+  //
+  // After the attempt loads, immediately do a single round-trip that probes
+  // the save chain end-to-end: SELECT … mock_exam_answers WHERE attempt_id=…
+  // (idempotent, RLS-safe, takes <50ms on a healthy connection). If it
+  // throws or times out at 5s, surface the blocking modal BEFORE the student
+  // wastes 30 minutes "answering" into a black hole.
+  // -----------------------------------------------------------------
+  useEffect(() => {
+    if (!examData?.attempt_id) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        await withTimeout(
+          supabase
+            .from('mock_exam_answers')
+            .select('attempt_id', { head: true, count: 'exact' })
+            .eq('attempt_id', examData.attempt_id),
+          5_000,
+          'save_health_probe_timeout',
+        )
+        if (cancelled) return
+        // Successful probe — mark health as fresh so the heartbeat shows green.
+        setLastSaveAt(Date.now())
+      } catch (e) {
+        if (cancelled) return
+        console.error('[mock-exam] startup save-health probe FAILED:', e)
+        // Surface the blocking modal BEFORE any answers are clicked.
+        consecutiveFailsRef.current = 3
+        setSaveFailures((n) => n + 1)
+        setBlockingNetworkModal(true)
+        logClientEvent(examData.attempt_id, 'save_failed', {
+          rpc: 'startup_health_probe',
+          error: String(e?.message || e),
+          ts: new Date().toISOString(),
+        })
+      }
+    })()
+    return () => { cancelled = true }
+  }, [examData?.attempt_id])
+
+  // -----------------------------------------------------------------
   // Tick the timer
   // -----------------------------------------------------------------
   useEffect(() => {
@@ -219,16 +266,24 @@ export default function MockExamAttempt() {
   const recordSaveSuccess = useCallback(() => {
     setLastSaveAt(Date.now())
     setSaveFailures(0)
+    consecutiveFailsRef.current = 0
   }, [])
 
   const recordSaveFailure = useCallback((rpc, qid, err) => {
     setSaveFailures((n) => n + 1)
+    consecutiveFailsRef.current = consecutiveFailsRef.current + 1
     const msg = String(err?.message || err || 'unknown')
-    console.error(`[mock-exam] ${rpc} failed:`, msg)
+    console.error(`[mock-exam] ${rpc} failed:`, msg, 'consecutive_fails=', consecutiveFailsRef.current)
     if (examData?.attempt_id) {
       logClientEvent(examData.attempt_id, 'save_failed', {
         rpc, question_id: qid || null, error: msg, ts: new Date().toISOString(),
+        consecutive_fails: consecutiveFailsRef.current,
       })
+    }
+    // SAVE-CHAIN-FIX: hard-stop after 3 consecutive failures so the student
+    // can't keep "answering" into a black hole.
+    if (consecutiveFailsRef.current >= 3) {
+      setBlockingNetworkModal(true)
     }
   }, [examData?.attempt_id])
 
@@ -373,6 +428,64 @@ export default function MockExamAttempt() {
     try {
       await flushAllSaves()
       console.timeEnd(`${tLabel}:flush`)
+
+      // SAVE-CHAIN-FIX (2026-05-23): pre-submit reconciliation.
+      // Compare local React state vs server-side mock_exam_answers. If the
+      // server is missing anything we have locally (silent save loss during
+      // the exam), re-save every locally-known answer before the final submit.
+      // The save_answer RPC is idempotent (ON CONFLICT upsert) so re-saving
+      // already-present rows is harmless. This is the LOSSLESS guarantee at
+      // the right layer — even if the heartbeat + telemetry didn't catch
+      // silent drops earlier, the submit moment reconciles client and server.
+      console.time(`${tLabel}:reconcile`)
+      try {
+        const { data: serverRows, error: reconErr } = await withTimeout(
+          supabase
+            .from('mock_exam_answers')
+            .select('question_id, selected_index, text_answer')
+            .eq('attempt_id', examData.attempt_id),
+          SAVE_TIMEOUT_MS,
+          SAVE_TIMEOUT_TAG,
+        )
+        if (reconErr) throw reconErr
+        const serverByQid = {}
+        for (const r of serverRows || []) serverByQid[r.question_id] = r
+
+        const localPairs = Object.entries(answers || {}).filter(([, v]) => {
+          if (!v) return false
+          const hasIdx = Number.isInteger(v.selected_index)
+          const hasText = v.text_answer != null && String(v.text_answer).trim().length > 0
+          return hasIdx || hasText
+        })
+
+        const missing = []
+        for (const [qid, v] of localPairs) {
+          const s = serverByQid[qid]
+          const sameIdx = (s?.selected_index ?? null) === (v.selected_index ?? null)
+          const sameText = (s?.text_answer ?? null) === (v.text_answer ?? null)
+          if (!s || !sameIdx || !sameText) missing.push({ qid, v })
+        }
+
+        if (missing.length > 0) {
+          logClientEvent(examData.attempt_id, 'save_failed', {
+            rpc: 'pre_submit_reconcile',
+            error: 'local_ahead_of_server',
+            local_count: localPairs.length,
+            server_count: Object.keys(serverByQid).length,
+            missing_count: missing.length,
+          })
+          // Re-save serially so order is deterministic; bounded to <=35 calls × <=10s each
+          for (const { qid, v } of missing) {
+            await runSaveAnswer(examData.attempt_id, qid, v.selected_index, v.text_answer)
+          }
+        }
+      } catch (reconErr) {
+        // Reconciliation is best-effort. If it itself fails (network/timeout),
+        // continue with submit — the cron auto-submit will still close the attempt
+        // and we don't want to block submit on a defense-in-depth probe.
+        console.error('[mock-exam] pre-submit reconciliation failed (non-blocking):', reconErr)
+      }
+      console.timeEnd(`${tLabel}:reconcile`)
       console.time(`${tLabel}:rpc`)
 
       const submitPromise = supabase.rpc('mock_exam_submit', {
@@ -780,6 +893,120 @@ export default function MockExamAttempt() {
         submitError={submitError}
         whatsappInstructorUrl={WHATSAPP_INSTRUCTOR_URL}
       />
+
+      <BlockingNetworkModal
+        open={blockingNetworkModal}
+        attemptId={examData?.attempt_id}
+        whatsappUrl={WHATSAPP_INSTRUCTOR_URL}
+        onRetry={async () => {
+          // Re-run the probe. If it passes, dismiss; otherwise leave the modal up.
+          try {
+            await withTimeout(
+              supabase
+                .from('mock_exam_answers')
+                .select('attempt_id', { head: true, count: 'exact' })
+                .eq('attempt_id', examData?.attempt_id),
+              5_000,
+              'save_health_retry_timeout',
+            )
+            // Probe succeeded → reset state, dismiss modal
+            consecutiveFailsRef.current = 0
+            setSaveFailures(0)
+            setLastSaveAt(Date.now())
+            setBlockingNetworkModal(false)
+            if (examData?.attempt_id) {
+              logClientEvent(examData.attempt_id, 'retry_attempt', {
+                source: 'blocking_modal_retry',
+                outcome: 'success',
+                ts: new Date().toISOString(),
+              })
+            }
+          } catch (e) {
+            // Still failing — keep blocked. Log the retry attempt.
+            if (examData?.attempt_id) {
+              logClientEvent(examData.attempt_id, 'retry_attempt', {
+                source: 'blocking_modal_retry',
+                outcome: 'still_failing',
+                error: String(e?.message || e),
+              })
+            }
+          }
+        }}
+      />
+    </div>
+  )
+}
+
+/**
+ * BlockingNetworkModal — hard stop when the save chain has been broken for
+ * 3+ consecutive attempts (or when the startup probe fails). Prevents the
+ * "phantom answering" failure mode where students keep clicking through
+ * questions whose state is only in local React, never reaching the DB.
+ */
+function BlockingNetworkModal({ open, attemptId, whatsappUrl, onRetry }) {
+  if (!open) return null
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.78)' }}
+      dir="rtl"
+    >
+      <div
+        className="max-w-md w-full p-6 rounded-2xl space-y-4"
+        style={{
+          background: 'var(--ds-bg-elevated, #11131c)',
+          border: '2px solid rgba(239,68,68,0.40)',
+          boxShadow: '0 12px 40px rgba(239,68,68,0.18)',
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <AlertTriangle size={22} style={{ color: '#fca5a5' }} />
+          <h2 className="text-lg font-bold" style={{ color: '#fca5a5' }}>
+            ⚠ مشكلة في الاتصال
+          </h2>
+        </div>
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--ds-text-secondary)' }}>
+          إجاباتك الأخيرة <strong>لم تصل إلى النظام</strong>. لا تتابعي الاختبار حتى يُستعاد الاتصال،
+          وإلّا سيتم فقد إجاباتك.
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--ds-text-secondary)' }}>
+          تأكدي من اتصال الإنترنت (واي فاي قوي إن أمكن)، ثم اضغطي «إعادة المحاولة».
+          إذا استمرّت المشكلة، تواصلي معي على واتساب فوراً حتى أحتفظ لكِ بفرصتك.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={onRetry}
+            className="px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5"
+            style={{
+              background: 'var(--ds-accent-success, #22c55e)',
+              color: '#0a0d14',
+            }}
+          >
+            <RefreshCw size={14} />
+            إعادة المحاولة
+          </button>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-lg text-sm flex items-center gap-1.5"
+            style={{
+              background: 'rgba(56,189,248,0.16)',
+              color: 'var(--ds-accent-info, #38bdf8)',
+              border: '1px solid rgba(56,189,248,0.40)',
+            }}
+          >
+            <MessageCircle size={14} />
+            تواصل مع المدرب على واتساب
+          </a>
+        </div>
+        {attemptId && (
+          <p className="text-[10px]" style={{ color: 'var(--ds-text-tertiary)' }}>
+            رقم المحاولة: <span className="font-mono">{attemptId.slice(0, 8)}…</span>
+          </p>
+        )}
+      </div>
     </div>
   )
 }

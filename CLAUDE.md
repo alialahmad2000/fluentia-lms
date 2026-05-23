@@ -299,6 +299,34 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-23 — MOCK-EXAM-SAVE-CHAIN-FIX: pre-submit reconciliation + blocking modal + startup probe
+- What: Ali asked to diagnose why students with empty `mock_exam_answers` keep ending up at 0/100. Hypothesis: `mock_exam_save_answer` silently fails on certain devices, UI shows answers selected (local React) but server has zero rows. Verdict after Phase A: the save chain is mechanically healthy — what's missing is **end-to-end guarantees that survive silent client failures**.
+- **Phase A — diagnosis (all read-only):**
+  - `mock_exam_answers` is **completely empty** (0 rows) — the second-chance archive CASCADE-deleted everything, and نادية v2 hasn't generated saves yet.
+  - All 5 mock_exam RPCs are **SECURITY DEFINER + granted to authenticated**. RLS is NOT the bug.
+  - Frontend `MockExamAttempt.jsx` already has the full FIX-2 contract: `runSaveAnswer` with `withTimeout(10s)`, `recordSaveFailure` → `logClientEvent('save_failed', …)`, `SaveHeartbeat` mounted in header. The defense is deployed.
+  - **0 `save_failed` audit events in last 12h** across any student. Either nobody is actively clicking, or the telemetry RPC itself is failing for stale-tab students (because `mock_exam_log_client_event` requires the attempt to exist — wiped attempts → both save AND telemetry fail in tandem).
+  - Active: نادية v2 (`e66e8ccb-…`, started 04:21 KSA, 26 min in, 0 saves). Archive: 7 rows including منار + لمياء from yesterday with 0 answers each (pre-FIX-2 stale-tab victims).
+  - Healthy students: Ali (×2), هوازن (real 66.50/100), نادية v1 (29 saves before archive). The mechanism works for them.
+- **Phase B verdict:** The save chain is correct. Past victims (منار, لمياء) ran pre-FIX-2 JS that lacked timeouts + heartbeat + telemetry. FIX-2 added all three but only protects NEW page loads. The right shipping fix is **defense-in-depth**: even if heartbeat + telemetry silently fail, the next layer catches it.
+- **Phase C — three new defenses shipped in `src/pages/student/mock-exam/MockExamAttempt.jsx`:**
+  1. **Startup save-health probe** (new `useEffect` keyed on `examData?.attempt_id`): after attempt loads, immediately do a single round-trip SELECT against `mock_exam_answers` with 5s timeout. If it fails → consecutiveFailsRef=3 + `setBlockingNetworkModal(true)` + log `save_failed{rpc:'startup_health_probe'}`. Catches "session expired" / "network broken" BEFORE the student wastes 30 minutes answering into a void.
+  2. **Blocking modal after 3 consecutive save failures** (`consecutiveFailsRef` + `BlockingNetworkModal` component): `recordSaveSuccess`/`recordSaveFailure` now maintain a synchronous ref counter alongside the React `saveFailures` state. On failure, ref increments + if ≥ 3 → modal opens. Modal hard-stops the student with Arabic warning + "إعادة المحاولة" button that re-runs the health probe + WhatsApp escape link. On retry-success it resets the counter and dismisses. Logs `retry_attempt{source:'blocking_modal_retry', outcome:'success'|'still_failing'}`.
+  3. **Pre-submit reconciliation** (inside `handleSubmit`, new block between `flushAllSaves` and the submit RPC, wrapped in `console.time(':reconcile')`): SELECT every row from `mock_exam_answers` for this attempt, compare with local React `answers` state, find any `(qid, selected_index, text_answer)` triple that's locally present but server-missing or server-mismatched, and re-save serially via `runSaveAnswer` (idempotent upsert). If reconciliation itself fails → console.error + continue (best-effort, never blocks submit). When local≠server, logs `save_failed{rpc:'pre_submit_reconcile', local_count, server_count, missing_count}` so admins can SEE silent-loss class events in the audit log.
+- **Sacred constraints honored:** No edits to ANY of the 9 existing mock_exam RPCs. No DB schema changes. No migrations. No archive/reset of نادية v2 (she's still mid-exam — destructive). `visibility='live'` preserved. Cron jobs preserved (still firing every minute per `cron.job_run_details`).
+- **Phase D — restore affected students:** Phase A's identification query returned 0 active submitted attempts with ≤5 real answers. The historical victims (منار + لمياء) are already archived from the second-chance migration; they get a fresh attempt automatically when they next call `mock_exam_start`. No action needed.
+- **Why the new defenses make silent loss impossible** (any single layer catches the class):
+  - Layer 1 — `withTimeout(10s)` on every RPC → no infinite hang
+  - Layer 2 — `recordSaveFailure` → `save_failed` audit log row (visible in StuckAttemptsPanel)
+  - Layer 3 — `SaveHeartbeat` chip → student sees red "تحقّقي من الاتصال" in real time
+  - Layer 4 — **BlockingNetworkModal** after 3 fails → student is hard-stopped from "phantom answering"
+  - Layer 5 — **Startup save-health probe** → catches broken state BEFORE first answer
+  - Layer 6 — **Pre-submit reconciliation** → re-saves any silent drops at the submit moment, regardless of what happened during the exam
+- Files (new): `docs/MOCK-EXAM-SAVE-CHAIN-DIAGNOSIS.md`, `prompts/agents/MOCK-EXAM-SAVE-CHAIN-FIX.md`. Files (modified): `src/pages/student/mock-exam/MockExamAttempt.jsx`, `CLAUDE.md`.
+- DB: 0 schema changes, 0 row mutations.
+- Edge Functions: 0 changes.
+- Status: Complete. Pushed. Vercel auto-deploys. The next student who loads the page gets all 6 layers of defense.
+
 ### 2026-05-23 — MOCK-EXAM-SECOND-CHANCE: extended window + lossless server-side auto-submit + archive + re-notify
 - What: After the two incidents (لمياء + منار with silent network loss, plus Ali's gibberish test), Ali decided to (a) extend the exam window to **Sun 24 May 22:00 KSA** (from Sat 22:00), (b) wipe all prior attempts and give every participant a fresh start, (c) make the system lossless via a server-side pg_cron worker that auto-submits any expired in-progress attempt, (d) re-notify every L1+L3 student via email + in-app.
 - **Migration `20260523040000_mock_exam_second_chance_lossless.sql` (applied):**
