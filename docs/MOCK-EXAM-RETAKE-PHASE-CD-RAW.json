@@ -1,0 +1,16 @@
+{
+  "verify": [
+    {
+      "student_id": "0aba3164-2cd9-4e47-a47b-c3c3b7e8a56e",
+      "name": "نادية القحطاني",
+      "email": "nadiah.alkhayar@gmail.com",
+      "level": 3,
+      "matching_exam_code": "midterm-mock-b1",
+      "active_attempts": 0,
+      "ok": true
+    }
+  ],
+  "reason": "retake_after_save_chain_fix_2026-05-23",
+  "kind": "mock-exam-retake-2026-05-23",
+  "generated_at": "2026-05-23T17:43:57.336Z"
+}

@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-05-23T17:42:23.622Z",
+  "A1": {
+    "rows": [
+      {
+        "attempt_id": "e66e8ccb-8b07-4866-80eb-da57c48fb8d7",
+        "student_id": "0aba3164-2cd9-4e47-a47b-c3c3b7e8a56e",
+        "student_name": "نادية القحطاني",
+        "email": "nadiah.alkhayar@gmail.com",
+        "role": "student",
+        "is_test_account": false,
+        "exam_code": "midterm-mock-b1",
+        "started_ksa": "2026-05-23T01:21:51.972117+00:00",
+        "submitted_ksa": "2026-05-23T02:52:00.099333+00:00",
+        "is_auto_submitted": false,
+        "score_total": 0,
+        "writing_word_count": null,
+        "writing_chars": 0,
+        "answers_total": 0,
+        "answers_with_data": 0,
+        "bucket": "NEEDS_RETAKE"
+      },
+      {
+        "attempt_id": "5187d53b-f613-4e0d-ac8f-dd504bc56f07",
+        "student_id": "1148c3bd-efe2-425e-a420-3421e831e830",
+        "student_name": "علي سعيد القحطاني",
+        "email": "alialq146@gmail.com",
+        "role": "student",
+        "is_test_account": false,
+        "exam_code": "midterm-mock-a1",
+        "started_ksa": "2026-05-23T14:43:10.045266+00:00",
+        "submitted_ksa": "2026-05-23T15:12:24.366992+00:00",
+        "is_auto_submitted": false,
+        "score_total": 71,
+        "writing_word_count": 58,
+        "writing_chars": 264,
+        "answers_total": 33,
+        "answers_with_data": 33,
+        "bucket": "REAL_RESULT"
+      },
+      {
+        "attempt_id": "901020c4-e94a-480a-afd0-2233ff32d8cc",
+        "student_id": "f9ecb220-107e-436e-a4b7-80fd9df0cba4",
+        "student_name": "فاطمة خواجي",
+        "email": "fa.khawaji@gmail.com",
+        "role": "student",
+        "is_test_account": false,
+        "exam_code": "midterm-mock-a1",
+        "started_ksa": "2026-05-23T08:21:20.09589+00:00",
+        "submitted_ksa": "2026-05-23T09:05:42.667944+00:00",
+        "is_auto_submitted": false,
+        "score_total": 88,
+        "writing_word_count": 80,
+        "writing_chars": 367,
+        "answers_total": 34,
+        "answers_with_data": 34,
+        "bucket": "REAL_RESULT"
+      }
+    ],
+    "needs_retake_count": 1,
+    "cron_empty_count": 0,
+    "real_result_count": 2
+  },
+  "A2": {
+    "rows": [
+      {
+        "proname": "mock_exam_admin_force_submit",
+        "is_security_definer": true,
+        "search_path": [
+          "search_path=public"
+        ]
+      },
+      {
+        "proname": "mock_exam_save_answer",
+        "is_security_definer": true,
+        "search_path": [
+          "search_path=public"
+        ]
+      },
+      {
+        "proname": "mock_exam_save_writing",
+        "is_security_definer": true,
+        "search_path": [
+          "search_path=public"
+        ]
+      },
+      {
+        "proname": "mock_exam_start",
+        "is_security_definer": true,
+        "search_path": [
+          "search_path=public"
+        ]
+      },
+      {
+        "proname": "mock_exam_submit",
+        "is_security_definer": true,
+        "search_path": [
+          "search_path=public"
+        ]
+      }
+    ],
+    "all_security_definer": true,
+    "source": "management_api"
+  },
+  "A3": {
+    "pass": true,
+    "attempt_id_tested": "fda64542-cfca-4e51-9ca9-0796806d89f2",
+    "question_id_tested": "27c1d0d6-e36d-4975-8bf9-9fdb8f9be004"
+  }
+}
