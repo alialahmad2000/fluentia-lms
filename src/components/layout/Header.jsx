@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, Search, User, LogOut, Settings, ChevronLeft } from 'lucide-react'
+import { Menu, Search, User, LogOut, Settings, ChevronLeft, RefreshCw } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
+import { refreshAppSession } from '@/lib/refreshAppSession'
 import NotificationCenter from './NotificationCenter'
 import HeaderThemeButton from '@/design-system/HeaderThemeButton'
 import UserAvatar from '@/components/common/UserAvatar'
@@ -184,6 +185,29 @@ function Header({ showMenuButton, onMenuClick }) {
                   >
                     <Settings size={15} strokeWidth={1.5} />
                     الإعدادات
+                  </button>
+                </div>
+
+                <div style={{ height: 1, background: 'var(--ds-border-subtle, var(--border-subtle))' }} />
+
+                {/* Refresh session (clears stale client-side state) */}
+                <div className="p-2">
+                  <button
+                    onClick={async () => {
+                      const confirmed = window.confirm(
+                        'سيتم مسح البيانات المؤقتة وإعادة تسجيل الدخول. هل تريدين المتابعة؟'
+                      )
+                      if (!confirmed) return
+                      setProfileOpen(false)
+                      await refreshAppSession({ redirectTo: '/login' })
+                    }}
+                    className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-colors duration-150 cursor-pointer font-['Tajawal']"
+                    style={{ color: 'var(--ds-text-secondary, var(--text-secondary))' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ds-surface-1, var(--surface-raised))' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = '' }}
+                  >
+                    <RefreshCw size={15} strokeWidth={1.5} />
+                    🔄 تجديد الجلسة (إصلاح مشاكل العرض)
                   </button>
                 </div>
 

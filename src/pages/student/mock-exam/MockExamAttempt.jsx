@@ -4,6 +4,7 @@ import { Clock, ChevronRight, ChevronLeft, Send, AlertTriangle, RefreshCw, Messa
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import { countWords } from '@/lib/mockExam'
+import { refreshAppSession } from '@/lib/refreshAppSession'
 import SubmitConfirmModal from './SubmitConfirmModal'
 
 const SECTION_LABEL_AR = {
@@ -1000,6 +1001,32 @@ function BlockingNetworkModal({ open, attemptId, whatsappUrl, onRetry }) {
             <MessageCircle size={14} />
             تواصل مع المدرب على واتساب
           </a>
+        </div>
+        <p className="text-xs leading-relaxed" style={{ color: 'var(--ds-text-tertiary)' }}>
+          إذا تكرّر التحذير، اضغطي هذا الزرّ لمسح البيانات المؤقتة وإعادة الدخول.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={async () => {
+              const confirmed = window.confirm(
+                'سيتم تجديد جلستكِ كاملاً (تسجيل خروج + مسح البيانات المؤقتة). ' +
+                'إجاباتكِ المحفوظة في النظام آمنة، لكن أي إجابة لم تصل للنظام بعد ستفقد. ' +
+                'هل تريدين المتابعة؟'
+              )
+              if (!confirmed) return
+              await refreshAppSession({ redirectTo: '/login' })
+            }}
+            className="px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5"
+            style={{
+              background: 'rgba(251,191,36,0.16)',
+              color: '#fbbf24',
+              border: '1px solid rgba(251,191,36,0.40)',
+            }}
+          >
+            <RefreshCw size={14} />
+            🔄 تجديد الجلسة (إصلاح المشكلة)
+          </button>
         </div>
         {attemptId && (
           <p className="text-[10px]" style={{ color: 'var(--ds-text-tertiary)' }}>

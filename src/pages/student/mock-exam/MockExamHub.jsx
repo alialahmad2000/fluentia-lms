@@ -5,6 +5,7 @@ import { Lock, ShieldCheck, AlertCircle, ChevronRight, Clock } from 'lucide-reac
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import { GlassPanel, PrimaryButton, AuroraBackground } from '@/design-system/components'
+import { refreshAppSession } from '@/lib/refreshAppSession'
 
 /**
  * MockExamHub — the intro / lock / already-submitted screen.
@@ -190,6 +191,36 @@ export default function MockExamHub() {
               </PrimaryButton>
             </GlassPanel>
           )}
+
+          <div className="page-recovery-footer" style={{ marginTop: 32, textAlign: 'center', opacity: 0.7 }}>
+            <p style={{ fontSize: 13, color: 'var(--ds-text-tertiary, var(--text-muted, #64748b))' }}>
+              لا ترين الاختبار رغم تحديث الصفحة؟
+            </p>
+            <button
+              type="button"
+              onClick={async () => {
+                const confirmed = window.confirm(
+                  'سيتم تجديد جلستكِ كاملاً (تسجيل خروج + مسح البيانات المؤقتة). ' +
+                  'سيُطلب منكِ تسجيل الدخول من جديد. هل تريدين المتابعة؟'
+                )
+                if (!confirmed) return
+                await refreshAppSession({ redirectTo: '/login' })
+              }}
+              style={{
+                fontSize: 13,
+                color: 'var(--ds-accent-primary, #e9b949)',
+                textDecoration: 'underline',
+                cursor: 'pointer',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                marginTop: 4,
+                fontFamily: "'Tajawal', sans-serif",
+              }}
+            >
+              اضغطي هنا لتجديد الجلسة وإصلاح المشكلة
+            </button>
+          </div>
         </div>
       </div>
     </>
