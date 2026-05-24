@@ -209,11 +209,14 @@ From CLAUDE.md change log (last 30 days):
 
 ---
 
-## 9. Schema appendix (filled after live introspection)
+## 9. Schema appendix
 
-Status: **PENDING** — Supabase branch `retention-build` (id `dxpkissdfuioibefozvc`) is in `CREATING_PROJECT`. Will be appended in a follow-up commit once introspection completes against:
-- `information_schema.tables` (public schema)
-- `information_schema.columns` for: `profiles`, `students`, `xp_transactions`, `activity_feed`, `weekly_tasks`, `weekly_task_sets`, `assignments`, `submissions`, `writing_submissions`, `speaking_submissions`, `student_saved_words`, `notifications`, `unit_progress`, `student_curriculum_progress`, `class_schedule` (verify exact name + columns for Module 5), `curriculum_units`
-- `pg_policies` (existing RLS)
-- `pg_proc WHERE prosecdef = true` (existing SECURITY DEFINER functions — to avoid colliding names and to confirm `check_streaks`, `award_curriculum_xp` exist)
-- `cron.job` (existing pg_cron schedules — to confirm what is/isn't running for streaks)
+Live introspection complete. See [`schema-appendix.md`](./schema-appendix.md).
+
+Highlights:
+- 236 tables in `public` schema, 0 `retention_*` collisions
+- 22 active students (CLAUDE.md said 14 — confirmed stale)
+- `cron-streak-check` exists but has NO pg_cron schedule (Module 4 root cause confirmed)
+- `classes` is the actual table (not `class_schedule` as prompt assumed) — Module 5 plan updated
+- `xp_reason` is a strict enum; `'challenge'` + `'daily_challenge'` are the right values for retention XP
+- All proposed `retention_*` table/function names are collision-free
