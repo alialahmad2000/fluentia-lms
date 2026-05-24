@@ -4,6 +4,16 @@ Per-block notes. 3–5 sentences max each. Newest first.
 
 ---
 
+## Block 5 — Module 1: Daily Practice Partner (2026-05-24)
+
+- Migration `20260524060000_retention_module_1_dialogues.sql`: 4 new tables (retention_personas, retention_scenarios, retention_dialogue_turns, retention_feedback_templates) + expanded retention_dialogue_attempts (scenario_id, branch_path, vocab metrics, transcript jsonb).
+- Content seed `scripts/retention/seed-dialogues.cjs`: 8 personas (Sarah/Khalid/Dr Lopez/Amira/Omar/Lina/Noor/Fahad), 12 scenarios (6 L1 + 6 L3 covering coffee orders, gym intro, restaurant, doctor, taxi, hotel check-in, university inquiry, return-item, etc.), 56 linear turns total, 5 global feedback templates. Target was 200 scenarios — deferred to follow-up content session (logged in blockers.md B2).
+- Pure-JS scoring engine `src/lib/retention/dialogueEval.js` — exported `evaluateTurn`, `evaluateAttempt`, `pickFeedbackTemplate`, `fillTemplate`. Used both client-side (instant per-turn feedback) and mirrored in the edge fn (final scoring).
+- Edge function `supabase/functions/retention-dialogue-progress-eval/index.ts` — auth-gated, NO Claude call, computes per-turn rule-based scores, picks feedback template by most-specific match, awards 3-25 XP based on completion + vocab coverage, calls `log_activity` to extend streak coverage (fails soft if signature differs), logs errors to `system_errors`.
+- UI: `DailyPartnerLanding` (today's scenario + 5-item history), `DailyPartnerPlay` (turn-by-turn play loop with MediaRecorder → whisper-transcribe → eval; browser SpeechSynthesis fallback for AI audio since ElevenLabs is deferred), `DailyPartnerResult` (animated trophy + vocab% + XP + filled feedback template).
+- 3 routes added in App.jsx, dashboard card mounted in RetentionDashboardSection gated on `daily_partner` flag.
+- All audio gen deferred — players gracefully fall back to browser TTS. Functional end-to-end without spending a single ElevenLabs character.
+
 ## Block 4 — Module 5: Pre/Post-class Briefs (2026-05-24)
 
 - Migration `20260524050000_retention_module_5_briefs.sql`: `retention_lesson_briefs` table + expanded `retention_lesson_brief_deliveries` (added brief_id/class_id/scheduled_for/delivered_at/self_check_*). `retention_deliver_briefs(text)` SECURITY DEFINER RPC — for `'pre'` finds classes 12-13h ahead, for `'post'` finds classes 1.5-2.5h past; per-student loop checks `retention_is_module_enabled(student_id, 'lesson_briefs')` before inserting delivery + notification. Two pg_cron jobs every 15min, both DISABLED.

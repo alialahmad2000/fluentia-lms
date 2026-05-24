@@ -7,7 +7,7 @@
 // null cleanly).
 
 import { useNavigate } from 'react-router-dom'
-import { Pencil } from 'lucide-react'
+import { Pencil, MessageCircle } from 'lucide-react'
 import RetentionStreakCalendar from './RetentionStreakCalendar.jsx'
 import WeeklyChallengeCard from './WeeklyChallengeCard.jsx'
 import StreakAtRiskBanner from './StreakAtRiskBanner.jsx'
@@ -16,19 +16,23 @@ import RetentionCard from '../../design-system/retention/RetentionCard.jsx'
 import { useRetentionModuleEnabled } from '../../lib/retention/useRetentionModule.js'
 import { RETENTION_MODULES } from '../../lib/retention/constants.js'
 import { useActiveHomeworkSet } from '../../lib/retention/useHomework.js'
+import { useTodayScenario } from '../../lib/retention/useDialogue.js'
 
 export default function RetentionDashboardSection() {
   const navigate = useNavigate()
   const streak = useRetentionModuleEnabled(RETENTION_MODULES.STREAK_ACTIVATION)
   const homework = useRetentionModuleEnabled(RETENTION_MODULES.SMART_HOMEWORK)
   const briefs = useRetentionModuleEnabled(RETENTION_MODULES.LESSON_BRIEFS)
+  const dailyPartner = useRetentionModuleEnabled(RETENTION_MODULES.DAILY_PARTNER)
   const activeHomework = useActiveHomeworkSet()
+  const todayScenario = useTodayScenario()
 
   const showStreakBlock = streak.enabled
   const showHomeworkBlock = homework.enabled
   const showBriefsBlock = briefs.enabled
+  const showDailyPartnerBlock = dailyPartner.enabled
 
-  if (!showStreakBlock && !showHomeworkBlock && !showBriefsBlock) return null
+  if (!showStreakBlock && !showHomeworkBlock && !showBriefsBlock && !showDailyPartnerBlock) return null
 
   return (
     <section className="mb-8 space-y-5" dir="rtl">
@@ -59,6 +63,26 @@ export default function RetentionDashboardSection() {
         )}
 
         {showBriefsBlock && <PendingBriefsCard />}
+
+        {showDailyPartnerBlock && (
+          <RetentionCard
+            moduleKey="daily_partner"
+            title="رفيقك اليومي"
+            subtitle={
+              todayScenario.data
+                ? `محادثة اليوم: ${todayScenario.data.title_ar}`
+                : 'محادثة ٥ دقائق بصوتكِ'
+            }
+            icon={<MessageCircle size={20} />}
+            badge="جديد"
+            onClick={() => navigate('/student/retention/daily-partner')}
+            variant="featured"
+          >
+            <div className="mt-2 text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>
+              ابدئي ←
+            </div>
+          </RetentionCard>
+        )}
       </div>
     </section>
   )

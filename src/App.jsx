@@ -55,6 +55,10 @@ const HomeworkPlay = lazyRetry(() => import('./pages/student/retention/HomeworkP
 const HomeworkResult = lazyRetry(() => import('./pages/student/retention/HomeworkResult'))
 // Retention system (Module 5 — Lesson Briefs)
 const BriefView = lazyRetry(() => import('./pages/student/retention/BriefView'))
+// Retention system (Module 1 — Daily Practice Partner)
+const DailyPartnerLanding = lazyRetry(() => import('./pages/student/retention/DailyPartnerLanding'))
+const DailyPartnerPlay = lazyRetry(() => import('./pages/student/retention/DailyPartnerPlay'))
+const DailyPartnerResult = lazyRetry(() => import('./pages/student/retention/DailyPartnerResult'))
 // PRONUNCIATION-HIDDEN 2026-05-19: feature shelved due to UX issues.
 // Files preserved for future revival. To re-enable: uncomment + restore the route below.
 // const StudentPronunciation = lazyRetry(() => import('./pages/student/StudentPronunciation'))
@@ -685,6 +689,10 @@ export default function App() {
               <Route path="/student/retention/homework/result/:setId" element={<Page><HomeworkResult /></Page>} />
               {/* Retention — Module 5 (Lesson Briefs) */}
               <Route path="/student/retention/brief/:deliveryId" element={<Page><BriefView /></Page>} />
+              {/* Retention — Module 1 (Daily Practice Partner) */}
+              <Route path="/student/retention/daily-partner" element={<Page><DailyPartnerLanding /></Page>} />
+              <Route path="/student/retention/daily-partner/play/:attemptId" element={<Page><DailyPartnerPlay /></Page>} />
+              <Route path="/student/retention/daily-partner/result/:attemptId" element={<Page><DailyPartnerResult /></Page>} />
               {/* PRONUNCIATION-HIDDEN 2026-05-19 — route + element retired. */}
               {/* <Route path="/student/pronunciation" element={<Page><StudentPronunciation /></Page>} /> */}
               <Route path="/student/battles" element={<Page><StudentStreakBattles /></Page>} />

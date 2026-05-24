@@ -16,4 +16,18 @@ Format: stop, write two options, move on. Ali resolves.
 
 **Module 2 ships functional with the starter 69:** Students at L1 see 43 exercises, L3 see 26. The selection algorithm picks 5 at a time, excludes attempted-in-last-30-days, so each homework set is fresh until the bank is exhausted (~9 L1 sets, ~5 L3 sets before exhaustion). Acceptable for the first 2-4 weeks of soft-launch; bank expansion needed before wide rollout.
 
+## B2 — Module 1 scenario corpus + audio (200-target deferred, audio deferred)
+
+**Status:** 12 hand-authored linear scenarios shipped (6 L1 + 6 L3) with 56 turns total. Target was 200 scenarios with branching. 8 personas + 5 feedback templates also shipped.
+
+**Two options for scenario expansion:**
+1. **Future content session — extend templates in `scripts/retention/seed-dialogues.cjs`** (same pattern as Module 2). Each scenario takes ~5 min to author at the quality shipped. ~30 hours total to reach 200. Recommended.
+2. **Reduce target to 50** (which is more realistic for a single trainer's content output) — students rotate through them weekly, covering ~2 months before any scenario repeats.
+
+**Audio:** All 56 turns ship without ElevenLabs audio. Browser `SpeechSynthesis` is the runtime fallback (functional on all target browsers). ElevenLabs generation deferred for two reasons:
+- Maintain ~88K char buffer for Module 5 review briefs + future Module 3 reports
+- Browser TTS is honestly fine for L1/L3 — students hear English at a natural pace; the persona voice is less critical than the dialogue flow
+
+**Branching:** Schema supports `parent_turn_id` + `branch_label` but all current turns are linear. To add branching, set `parent_turn_id` to a non-NULL value when seeding sibling turns, and update the eval edge fn to pick the next turn based on response shape match. Deferred.
+
 
