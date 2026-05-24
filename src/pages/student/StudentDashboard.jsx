@@ -34,7 +34,10 @@ import CompetitionKickoffModal from '../../components/competition/CompetitionKic
 import CompetitionBanner from '../../components/competition/CompetitionBanner'
 import JourneyMapHeroCTA from '../../components/student/JourneyMapHeroCTA'
 import PWAInstallBanner from '../../components/pwa/PWAInstallBanner'
-import RetentionDashboardSection from '../../components/retention/RetentionDashboardSection'
+// SHIP-AUTONOMOUS: per user revert on main (2026-05-24), RetentionDashboardSection is
+// NOT auto-mounted on the student dashboard. The component still exists and is wired
+// to /admin/retention's per-student toggles; if Ali wants retention surfaces on the
+// dashboard he re-adds the import + mount manually after launch validation.
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
@@ -179,9 +182,6 @@ export default function StudentDashboard() {
         <StreakWidget profileId={profile?.id} />
         <TeamCard groupId={studentData?.group_id} />
       </div>
-
-      {/* 5.5 Retention — gated on per-student per-module enable; renders null when off */}
-      <RetentionDashboardSection />
 
       {/* 6. Next Class */}
       <NextClassWidget group={group} schedule={schedule} />
