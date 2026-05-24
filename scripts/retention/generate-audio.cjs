@@ -32,14 +32,15 @@ const TARGETS = [
 const NARRATOR_VOICE = 'EXAVITQu4vr4xnSDxMaL' // Sarah / Alice
 
 let totalCharsConsumed = 0
-const HARD_CAP_CHARS = 250000 // safety buffer well under 1M remaining
+const HARD_CAP_CHARS = parseInt(process.env.HARD_CAP_CHARS || '750000', 10) // FINISH-100: Growing Business plan, ~1M remaining
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
 
 function httpRequest(opts, body) {
   return new Promise((resolve, reject) => {
     const timeout = opts.timeout || 45000
-    const req = https.request({ ...opts, timeout }, (res) => {
+    // FINISH-100 fix: force IPv4 (NAT64 IPv6 path is broken on this network)
+    const req = https.request({ ...opts, timeout, family: 4 }, (res) => {
       const chunks = []
       res.on('data', (c) => chunks.push(c))
       res.on('end', () => {
@@ -56,12 +57,22 @@ function httpRequest(opts, body) {
 
 async function mgmtQuery(ref, sql) {
   const data = JSON.stringify({ query: sql })
-  const res = await httpRequest({
-    hostname: 'api.supabase.com', path: `/v1/projects/${ref}/database/query`, method: 'POST',
-    headers: { 'Authorization': `Bearer ${MGMT_TOKEN}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) },
-  }, data)
-  if (res.statusCode >= 400) throw new Error(`mgmt ${res.statusCode}: ${res.body.toString().slice(0,200)}`)
-  return JSON.parse(res.body.toString())
+  // FINISH-100: handle 429 rate limit with exponential backoff
+  const BACKOFFS_429 = [2000, 5000, 10000, 20000, 40000]
+  for (let attempt = 0; attempt <= BACKOFFS_429.length; attempt++) {
+    const res = await httpRequest({
+      hostname: 'api.supabase.com', path: `/v1/projects/${ref}/database/query`, method: 'POST',
+      headers: { 'Authorization': `Bearer ${MGMT_TOKEN}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) },
+    }, data)
+    if (res.statusCode === 429 && attempt < BACKOFFS_429.length) {
+      const wait = BACKOFFS_429[attempt]
+      console.error(`  mgmt 429 — backoff ${wait}ms (attempt ${attempt+1})`)
+      await sleep(wait)
+      continue
+    }
+    if (res.statusCode >= 400) throw new Error(`mgmt ${res.statusCode}: ${res.body.toString().slice(0,200)}`)
+    return JSON.parse(res.body.toString())
+  }
 }
 
 async function elevenLabsGen(text, voiceId) {
@@ -184,7 +195,7 @@ async function generateForTarget(target) {
      JOIN retention_personas p ON p.id = s.persona_id
      WHERE t.ai_audio_path IS NULL
      ORDER BY s.target_level, t.scenario_id, t.turn_number
-     LIMIT 700`
+     LIMIT 2000`
   )
   console.log(`  ${turns.length} turns to generate`)
 
@@ -240,9 +251,9 @@ async function generateForTarget(target) {
     console.error('Missing env: ELEVENLABS_API_KEY, SUPABASE_ACCESS_TOKEN, PROD_SR, BRANCH_SR')
     process.exit(1)
   }
-  // Run prod FIRST (per FINISH-OVERNIGHT priority — prod is what students see)
-  // then branch (for parity)
+  // FINISH-100: prod only (audio is what students hear; branch parity isn't worth the cost)
+  // To also run branch, set RUN_BRANCH=1
   await generateForTarget(TARGETS[1]) // prod
-  await generateForTarget(TARGETS[0]) // branch
+  if (process.env.RUN_BRANCH === '1') await generateForTarget(TARGETS[0])
   console.log(`\n=== TOTAL ELEVENLABS CHARS CONSUMED: ${totalCharsConsumed} ===`)
 })().catch(e => { console.error('FATAL:', e); process.exit(1) })
