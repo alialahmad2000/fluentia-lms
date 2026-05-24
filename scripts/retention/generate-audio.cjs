@@ -195,7 +195,7 @@ async function generateForTarget(target) {
      JOIN retention_personas p ON p.id = s.persona_id
      WHERE t.ai_audio_path IS NULL
      ORDER BY s.target_level, t.scenario_id, t.turn_number
-     LIMIT 700`
+     LIMIT 2000`
   )
   console.log(`  ${turns.length} turns to generate`)
 

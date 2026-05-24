@@ -12,7 +12,7 @@ function call(token, ref, query) {
     const req = https.request({
       hostname: 'api.supabase.com',
       path: `/v1/projects/${ref}/database/query`,
-      method: 'POST',
+      method: 'POST', family: 4,
       headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) },
     }, (res) => {
       let body = ''; res.on('data', (c) => body += c)
