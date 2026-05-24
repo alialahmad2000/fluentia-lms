@@ -4,6 +4,9 @@ let audioCtx = null
 
 function getCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+  // Safari often constructs the context in `suspended` state even inside a
+  // click; resume() inside the same gesture chain is the documented fix.
+  if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {})
   return audioCtx
 }
 

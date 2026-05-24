@@ -1,0 +1,57 @@
+{
+  "label": "pilotA-original",
+  "browser": "firefox",
+  "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/896ab711-ea14-47bc-9e36-f4d09931ffab/combined.mp3",
+  "metadata_ok": false,
+  "final_time": 0,
+  "duration": null,
+  "monotonic_secs": 0,
+  "monotonic_pct": 0,
+  "play_rejection": {
+    "name": "NotSupportedError",
+    "msg": "The media resource indicated by the src attribute or assigned media provider object was not suitable."
+  },
+  "had_media_error": true,
+  "error_codes_seen": [
+    4
+  ],
+  "seek_results": [
+    {
+      "pct": 0.25,
+      "ok": false,
+      "err": "no_metadata"
+    },
+    {
+      "pct": 0.5,
+      "ok": false,
+      "err": "no_metadata"
+    },
+    {
+      "pct": 0.75,
+      "ok": false,
+      "err": "no_metadata"
+    },
+    {
+      "pct": 0.1,
+      "ok": false,
+      "err": "no_metadata"
+    }
+  ],
+  "seek_failures": 4,
+  "range_request_count": 1,
+  "probe_storm": false,
+  "console_errors": [],
+  "request_failures": [
+    {
+      "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/896ab711-ea14-47bc-9e36-f4d09931ffab/combined.mp3",
+      "failure": {
+        "errorText": "NS_BINDING_ABORTED"
+      }
+    }
+  ],
+  "event_summary": {
+    "loadstart": 1,
+    "error": 1
+  },
+  "pass": false
+}

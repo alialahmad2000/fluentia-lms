@@ -1,0 +1,73 @@
+{
+  "label": "pilotA-reencoded",
+  "browser": "chromium",
+  "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/_pilot_reencoded_896ab711-ea14-47bc-9e36-f4d09931ffab.mp3",
+  "metadata_ok": true,
+  "final_time": 60.142437,
+  "duration": 120.218413,
+  "monotonic_secs": 59,
+  "monotonic_pct": 1,
+  "play_rejection": null,
+  "had_media_error": false,
+  "error_codes_seen": [],
+  "seek_results": [
+    {
+      "pct": 0.25,
+      "ok": true,
+      "seekedTo": 30.05460325,
+      "startCurrentTime": 30.054603,
+      "endCurrentTime": 33.503073,
+      "advanced": 3.4484700000000004,
+      "paused": false,
+      "errorCode": null
+    },
+    {
+      "pct": 0.5,
+      "ok": true,
+      "seekedTo": 60.1092065,
+      "startCurrentTime": 60.109206,
+      "endCurrentTime": 63.562288,
+      "advanced": 3.453082000000002,
+      "paused": false,
+      "errorCode": null
+    },
+    {
+      "pct": 0.75,
+      "ok": true,
+      "seekedTo": 90.16380975,
+      "startCurrentTime": 90.163809,
+      "endCurrentTime": 93.622776,
+      "advanced": 3.4589670000000012,
+      "paused": false,
+      "errorCode": null
+    },
+    {
+      "pct": 0.1,
+      "ok": true,
+      "seekedTo": 12.0218413,
+      "startCurrentTime": 12.021841,
+      "endCurrentTime": 15.464708,
+      "advanced": 3.4428669999999997,
+      "paused": false,
+      "errorCode": null
+    }
+  ],
+  "seek_failures": 0,
+  "range_request_count": 1,
+  "probe_storm": false,
+  "console_errors": [],
+  "request_failures": [],
+  "event_summary": {
+    "loadstart": 1,
+    "loadedmetadata": 1,
+    "canplay": 5,
+    "canplaythrough": 5,
+    "play": 1,
+    "playing": 5,
+    "suspend": 1,
+    "seeking": 4,
+    "waiting": 4,
+    "seeked": 4
+  },
+  "pass": true
+}

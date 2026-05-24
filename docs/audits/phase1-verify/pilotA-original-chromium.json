@@ -1,0 +1,61 @@
+{
+  "label": "pilotA-original",
+  "browser": "chromium",
+  "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/896ab711-ea14-47bc-9e36-f4d09931ffab/combined.mp3",
+  "metadata_ok": false,
+  "final_time": 0,
+  "duration": null,
+  "monotonic_secs": 0,
+  "monotonic_pct": 0,
+  "play_rejection": {
+    "name": "NotSupportedError",
+    "msg": "The element has no supported sources."
+  },
+  "had_media_error": true,
+  "error_codes_seen": [
+    4
+  ],
+  "seek_results": [
+    {
+      "pct": 0.25,
+      "ok": false,
+      "err": "no_metadata"
+    },
+    {
+      "pct": 0.5,
+      "ok": false,
+      "err": "no_metadata"
+    },
+    {
+      "pct": 0.75,
+      "ok": false,
+      "err": "no_metadata"
+    },
+    {
+      "pct": 0.1,
+      "ok": false,
+      "err": "no_metadata"
+    }
+  ],
+  "seek_failures": 4,
+  "range_request_count": 1,
+  "probe_storm": false,
+  "console_errors": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 400 ()",
+      "location": {
+        "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/896ab711-ea14-47bc-9e36-f4d09931ffab/combined.mp3",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "request_failures": [],
+  "event_summary": {
+    "loadstart": 1,
+    "error": 1
+  },
+  "pass": false
+}

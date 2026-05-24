@@ -84,6 +84,11 @@ function getAudioContext() {
       audioContext = new (window.AudioContext || window.webkitAudioContext)()
     } catch {}
   }
+  // Resume if the engine started the context suspended (Safari often does even
+  // when constructed inside a click — autoplay policy + user-activation timing).
+  if (audioContext && audioContext.state === 'suspended') {
+    audioContext.resume().catch(() => {})
+  }
   return audioContext
 }
 

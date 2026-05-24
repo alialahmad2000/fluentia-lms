@@ -1,0 +1,260 @@
+{
+  "audit_date": "2026-05-23",
+  "source": "tmp/audio-diagnose/_midstream-audit.json (44 multi-speaker files, 28 single-speaker already audited clean in _single-speaker-frame-audit.json)",
+  "broken_count": 30,
+  "clean_count": 14,
+  "pilots": {
+    "pilot_a": {
+      "id": "896ab711-ea14-47bc-9e36-f4d09931ffab",
+      "reason": "production telemetry-flagged file (Chromium error: Unsupported midstream configuration change Channels: 2 vs 1)",
+      "reencoded_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/_pilot_reencoded_896ab711-ea14-47bc-9e36-f4d09931ffab.mp3"
+    },
+    "pilot_b": {
+      "id": "7dc526f8-069e-4fae-b842-9af82a585a97",
+      "reason": "highest stereo-frame ratio in broken set (247/10083 = 2.4%) \u2014 worst-case midstream change",
+      "reencoded_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/_pilot_reencoded_7dc526f8-069e-4fae-b842-9af82a585a97.mp3"
+    }
+  },
+  "broken_files": [
+    {
+      "id": "7dc526f8-069e-4fae-b842-9af82a585a97",
+      "audio_type": "interview",
+      "unit_id": "bdb9ff2e-ece0-41d2-be44-227a3c3b3786",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/7dc526f8-069e-4fae-b842-9af82a585a97/combined.mp3",
+      "stereo_frame_count": 247,
+      "total_frames": 10083
+    },
+    {
+      "id": "0767ef9b-5f6a-48e0-9f47-94bd590ac608",
+      "audio_type": "interview",
+      "unit_id": "00ca3625-46ee-4e38-95da-2255f522aff8",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/0767ef9b-5f6a-48e0-9f47-94bd590ac608/combined.mp3",
+      "stereo_frame_count": 247,
+      "total_frames": 12568
+    },
+    {
+      "id": "e7d1a54b-037b-42bb-9be4-9bcf5b7f6c4b",
+      "audio_type": "interview",
+      "unit_id": "be81143a-e416-4298-91d0-f5f9b4f9786e",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/e7d1a54b-037b-42bb-9be4-9bcf5b7f6c4b/combined.mp3",
+      "stereo_frame_count": 247,
+      "total_frames": 9887
+    },
+    {
+      "id": "24431382-8fea-4d31-8d3d-70e9a401057d",
+      "audio_type": "interview",
+      "unit_id": "e707f4f6-1c58-484f-8f94-b1cfe543920e",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/24431382-8fea-4d31-8d3d-70e9a401057d/combined.mp3",
+      "stereo_frame_count": 247,
+      "total_frames": 12345
+    },
+    {
+      "id": "fb91912b-7b95-43c6-b948-9a8037faa736",
+      "audio_type": "interview",
+      "unit_id": "aa881235-3e7b-47d0-b117-eacb0ecf4514",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/fb91912b-7b95-43c6-b948-9a8037faa736/combined.mp3",
+      "stereo_frame_count": 247,
+      "total_frames": 12420
+    },
+    {
+      "id": "9774fa25-d7bc-4865-9448-a097e21150df",
+      "audio_type": "interview",
+      "unit_id": "f072a40a-6063-493d-bc9d-4aebe4c472fc",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/9774fa25-d7bc-4865-9448-a097e21150df/combined.mp3",
+      "stereo_frame_count": 221,
+      "total_frames": 10735
+    },
+    {
+      "id": "f9fea551-7654-47c1-bf69-9dd399e9a275",
+      "audio_type": "interview",
+      "unit_id": "e56f8f63-8f89-4269-b620-b7e2e54f8a8d",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/f9fea551-7654-47c1-bf69-9dd399e9a275/combined.mp3",
+      "stereo_frame_count": 221,
+      "total_frames": 9994
+    },
+    {
+      "id": "a9e49ba8-49fe-424a-ac8f-ff51763e596a",
+      "audio_type": "interview",
+      "unit_id": "b7a132ed-18d7-479b-93ca-e47eefd81b18",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/a9e49ba8-49fe-424a-ac8f-ff51763e596a/combined.mp3",
+      "stereo_frame_count": 221,
+      "total_frames": 10625
+    },
+    {
+      "id": "126e9fea-c180-4b69-8d3e-22601ed2fa1c",
+      "audio_type": "interview",
+      "unit_id": "f37d15fc-9fed-4c19-a62a-341de2541645",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/126e9fea-c180-4b69-8d3e-22601ed2fa1c/combined.mp3",
+      "stereo_frame_count": 221,
+      "total_frames": 10459
+    },
+    {
+      "id": "59bd4957-9360-41d6-bf59-ce1fbace462d",
+      "audio_type": "interview",
+      "unit_id": "2105dec8-575b-4a6a-8456-261b98a9d6c2",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/59bd4957-9360-41d6-bf59-ce1fbace462d/combined.mp3",
+      "stereo_frame_count": 221,
+      "total_frames": 12078
+    },
+    {
+      "id": "6b6e7a26-c6c8-4b06-a176-b967d74ab76f",
+      "audio_type": "interview",
+      "unit_id": "d485be14-8f3f-45d2-ba5b-b8853cd3c713",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/6b6e7a26-c6c8-4b06-a176-b967d74ab76f/combined.mp3",
+      "stereo_frame_count": 221,
+      "total_frames": 13015
+    },
+    {
+      "id": "792bede3-74c2-4756-87c4-816e46f986b8",
+      "audio_type": "interview",
+      "unit_id": "23f63e6e-487f-4588-86de-8a123c5226e9",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/792bede3-74c2-4756-87c4-816e46f986b8/combined.mp3",
+      "stereo_frame_count": 221,
+      "total_frames": 11909
+    },
+    {
+      "id": "62666f53-6e69-40b3-8a1e-0f058b7b7b8e",
+      "audio_type": "interview",
+      "unit_id": "9b30bc71-91a8-4316-9166-4319b0589d46",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/62666f53-6e69-40b3-8a1e-0f058b7b7b8e/combined.mp3",
+      "stereo_frame_count": 195,
+      "total_frames": 9496
+    },
+    {
+      "id": "7dc9e208-c878-423f-af40-e4effbe3dba6",
+      "audio_type": "interview",
+      "unit_id": "a12ff640-eb7e-4c48-8cf7-69f0f2cef190",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/7dc9e208-c878-423f-af40-e4effbe3dba6/combined.mp3",
+      "stereo_frame_count": 195,
+      "total_frames": 7836
+    },
+    {
+      "id": "68773ed9-055c-4909-8447-5979ebd0e103",
+      "audio_type": "dialogue",
+      "unit_id": "d079ba8b-e738-49fe-8c2b-f3b82a4cdf68",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/68773ed9-055c-4909-8447-5979ebd0e103/combined.mp3",
+      "stereo_frame_count": 182,
+      "total_frames": 4683
+    },
+    {
+      "id": "1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70",
+      "audio_type": "interview",
+      "unit_id": "a393f989-100c-45d2-8f75-f3b10d6c2214",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L5/1aa1b9f9-44a6-4cb4-93e6-3c8e54b96f70/combined.mp3",
+      "stereo_frame_count": 182,
+      "total_frames": 12257
+    },
+    {
+      "id": "91e88604-dda7-47da-888a-f6787ba48215",
+      "audio_type": "dialogue",
+      "unit_id": "738ff234-070d-4ace-9901-434e43521bdb",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/91e88604-dda7-47da-888a-f6787ba48215/combined.mp3",
+      "stereo_frame_count": 182,
+      "total_frames": 8696
+    },
+    {
+      "id": "ab69e89c-32b6-4d98-8360-4748bc2c9f37",
+      "audio_type": "dialogue",
+      "unit_id": "8272e688-818a-4f86-93d5-9a39e84ee3b3",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/ab69e89c-32b6-4d98-8360-4748bc2c9f37/combined.mp3",
+      "stereo_frame_count": 182,
+      "total_frames": 7499
+    },
+    {
+      "id": "d7f29e08-77fa-4adc-9c64-a6f40131eb96",
+      "audio_type": "dialogue",
+      "unit_id": "6527e32e-b7f3-4196-9bae-a034712c9fa6",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/d7f29e08-77fa-4adc-9c64-a6f40131eb96/combined.mp3",
+      "stereo_frame_count": 169,
+      "total_frames": 4703
+    },
+    {
+      "id": "e1d19a4b-f1e7-43f3-bb5c-15249b60e99c",
+      "audio_type": "dialogue",
+      "unit_id": "8a656780-a4f2-4cf1-b44d-f74b9f65a05f",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/e1d19a4b-f1e7-43f3-bb5c-15249b60e99c/combined.mp3",
+      "stereo_frame_count": 169,
+      "total_frames": 4634
+    },
+    {
+      "id": "8dbff5e6-0138-499c-9b79-dca991978b24",
+      "audio_type": "interview",
+      "unit_id": "85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/8dbff5e6-0138-499c-9b79-dca991978b24/combined.mp3",
+      "stereo_frame_count": 169,
+      "total_frames": 6823
+    },
+    {
+      "id": "fb34b3a0-ce85-4db2-b37a-9da44bf64193",
+      "audio_type": "interview",
+      "unit_id": "aa6e8325-b825-4c0a-8218-b8a5341fc604",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/fb34b3a0-ce85-4db2-b37a-9da44bf64193/combined.mp3",
+      "stereo_frame_count": 169,
+      "total_frames": 7285
+    },
+    {
+      "id": "34c87c04-3f94-43bb-a460-c44cc0261a07",
+      "audio_type": "interview",
+      "unit_id": "97b187e9-39e6-4263-8ed8-72a63e69273c",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/34c87c04-3f94-43bb-a460-c44cc0261a07/combined.mp3",
+      "stereo_frame_count": 169,
+      "total_frames": 7714
+    },
+    {
+      "id": "7ced0e9a-dd8b-438c-8471-e3c0722c7eed",
+      "audio_type": "interview",
+      "unit_id": "a4d1b754-1a0d-42a5-9ef4-caceaa51ac7d",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L4/7ced0e9a-dd8b-438c-8471-e3c0722c7eed/combined.mp3",
+      "stereo_frame_count": 169,
+      "total_frames": 10324
+    },
+    {
+      "id": "1f6723b1-fa54-4ac2-837f-6b6b9f199a26",
+      "audio_type": "dialogue",
+      "unit_id": "301187bb-9088-4bfa-b3e2-5dabd93bb0b4",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/1f6723b1-fa54-4ac2-837f-6b6b9f199a26/combined.mp3",
+      "stereo_frame_count": 169,
+      "total_frames": 4495
+    },
+    {
+      "id": "896ab711-ea14-47bc-9e36-f4d09931ffab",
+      "audio_type": "dialogue",
+      "unit_id": "54c9c8f5-2e61-40be-be31-825a0cfc40f6",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/896ab711-ea14-47bc-9e36-f4d09931ffab/combined.mp3",
+      "stereo_frame_count": 156,
+      "total_frames": 4604
+    },
+    {
+      "id": "af1a25b9-a7d7-4490-b671-a9d01f6bc4e8",
+      "audio_type": "interview",
+      "unit_id": "55d40057-1d91-4eb0-8d78-b3f47a8d0a24",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/af1a25b9-a7d7-4490-b671-a9d01f6bc4e8/combined.mp3",
+      "stereo_frame_count": 156,
+      "total_frames": 7748
+    },
+    {
+      "id": "2b772e7e-3d14-4223-8053-fabecd8cf0b5",
+      "audio_type": "dialogue",
+      "unit_id": "8b9c8041-693a-42bb-8bbd-f2b79a3851bd",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L2/2b772e7e-3d14-4223-8053-fabecd8cf0b5/combined.mp3",
+      "stereo_frame_count": 156,
+      "total_frames": 4573
+    },
+    {
+      "id": "6a6ed5af-d0b2-471f-88d6-be99fc213724",
+      "audio_type": "interview",
+      "unit_id": "a5b583a4-5d9e-41b7-b95f-c07e0c44f64b",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/6a6ed5af-d0b2-471f-88d6-be99fc213724/combined.mp3",
+      "stereo_frame_count": 143,
+      "total_frames": 7345
+    },
+    {
+      "id": "e5ed4f14-be00-4226-85e4-dcf99658a777",
+      "audio_type": "interview",
+      "unit_id": "c14c9ffc-13b9-4c4f-9e67-b178f4d85bf6",
+      "audio_url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L3/e5ed4f14-be00-4226-85e4-dcf99658a777/combined.mp3",
+      "stereo_frame_count": 143,
+      "total_frames": 7185
+    }
+  ]
+}
