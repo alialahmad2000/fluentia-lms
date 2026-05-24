@@ -4,6 +4,16 @@ Per-block notes. 3–5 sentences max each. Newest first.
 
 ---
 
+## Block 3 — Module 2: Smart Homework (2026-05-24)
+
+- Migration `20260524040000_retention_module_2_homework.sql` shipped: full schemas for `retention_exercises`, `retention_homework_sets`, `retention_student_mistake_tags`; expanded `retention_homework_attempts` from Block 2 stub with `exercise_id`/`student_answer`/`is_correct`/`time_seconds` columns + FK. Tagger RPC `retention_tag_recent_mistakes(integer)` runs over `submissions` / `writing_history` / `weekly_tasks` (the actual canonical text sources — NOT `writing_submissions` which doesn't exist) with rule-based regex for 7 mistake patterns. Orchestrator `retention_daily_run()` updated to call the tagger as step 0.
+- 69 starter exercises seeded (43 L1 + 26 L3) covering all 6 exercise types × 4 skills via `scripts/retention/seed-exercises.cjs` (idempotent against `(level, skill, type, prompt_en)`). Full 3,500-target deferred to a future content pass — logged in `blockers.md` B1 with two concrete options.
+- Selection algorithm `selectHomework.js` — rule-based, pure function: mistake-tag matching → difficulty band → round-robin type diversity → 5 exercises per set ordered easiest-first.
+- Hooks: `useExerciseBank`, `useRecentlyAttempted`, `useActiveHomeworkSet`, `useHomeworkHistory`, `useCreateHomeworkSet` (mutation that runs selection + inserts a set).
+- UI: `HomeworkLanding` (active set or "create new" CTA + history list), `HomeworkPlay` (one exercise at a time, MCQ as buttons or fill-blank textarea, instant feedback with Arabic explanation, auto-resume on reload), `HomeworkResult` (score ring + XP awarded + CTAs). All gated via `RetentionDisabledState` when module is off.
+- Routes wired in `App.jsx` (3 routes), dashboard card mounted in `RetentionDashboardSection.jsx` gated on `smart_homework` flag.
+- Module-2 pre-launch checklist filled. Discovered + corrected during build: tagger initially targeted `writing_submissions` / `speaking_submissions` (mega-prompt's assumption) — actual tables are `submissions.content_text` / `submissions.content_voice_transcript` / `writing_history.original_text` / `weekly_tasks.response_text` (decision recorded in checklist).
+
 ## Block 2 — Module 4: Streak Activation (2026-05-24)
 
 - Phase A diagnosis confirmed three independent breaks: no pg_cron schedule, `check_streaks()` only handles break/freeze with no increment, `unified_activity_log` source has narrow coverage. Captured in `streak-diagnosis.md` with verbatim function bodies + per-student stored-vs-computed evidence.

@@ -6,29 +6,56 @@
 // Imported lazily; safe to render even when ALL modules are disabled (renders
 // null cleanly).
 
+import { useNavigate } from 'react-router-dom'
+import { Pencil } from 'lucide-react'
 import RetentionStreakCalendar from './RetentionStreakCalendar.jsx'
 import WeeklyChallengeCard from './WeeklyChallengeCard.jsx'
 import StreakAtRiskBanner from './StreakAtRiskBanner.jsx'
+import RetentionCard from '../../design-system/retention/RetentionCard.jsx'
 import { useRetentionModuleEnabled } from '../../lib/retention/useRetentionModule.js'
 import { RETENTION_MODULES } from '../../lib/retention/constants.js'
+import { useActiveHomeworkSet } from '../../lib/retention/useHomework.js'
 
 export default function RetentionDashboardSection() {
+  const navigate = useNavigate()
   const streak = useRetentionModuleEnabled(RETENTION_MODULES.STREAK_ACTIVATION)
-  // Future module gates will hook in here (daily_partner, smart_homework,
-  // weekly_reports, lesson_briefs) as their dashboard cards land in
-  // Blocks 3–6.
+  const homework = useRetentionModuleEnabled(RETENTION_MODULES.SMART_HOMEWORK)
+  const activeHomework = useActiveHomeworkSet()
+  // Future module gates will hook in here (daily_partner, weekly_reports,
+  // lesson_briefs) as their dashboard cards land in Blocks 4-6.
 
-  // Module 4 (streak activation) UI block
   const showStreakBlock = streak.enabled
+  const showHomeworkBlock = homework.enabled
 
-  if (!showStreakBlock) return null
+  if (!showStreakBlock && !showHomeworkBlock) return null
 
   return (
-    <section className="mb-8" dir="rtl">
-      <StreakAtRiskBanner />
+    <section className="mb-8 space-y-5" dir="rtl">
+      {showStreakBlock && <StreakAtRiskBanner />}
+
       <div className="grid gap-6 md:grid-cols-2">
-        <RetentionStreakCalendar />
-        <WeeklyChallengeCard />
+        {showStreakBlock && <RetentionStreakCalendar />}
+        {showStreakBlock && <WeeklyChallengeCard />}
+
+        {showHomeworkBlock && (
+          <RetentionCard
+            moduleKey="smart_homework"
+            title={activeHomework.data ? 'تابعي تمارينكِ' : 'تمارين اليوم'}
+            subtitle={
+              activeHomework.data
+                ? `${activeHomework.data.completed_count}/${activeHomework.data.total_count} تمارين متبقية`
+                : 'مجموعة ٥ تمارين مخصصة لكِ — أقل من ١٠ دقائق'
+            }
+            icon={<Pencil size={20} />}
+            badge={activeHomework.data ? null : 'جديد'}
+            onClick={() => navigate('/student/retention/homework')}
+            variant={activeHomework.data ? 'featured' : 'default'}
+          >
+            <div className="mt-2 text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>
+              {activeHomework.data ? 'متابعة ←' : 'ابدئي ←'}
+            </div>
+          </RetentionCard>
+        )}
       </div>
     </section>
   )
