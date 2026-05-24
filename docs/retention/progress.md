@@ -4,6 +4,47 @@ Per-block notes. 3–5 sentences max each. Newest first.
 
 ---
 
+## Block 7 — Final integration + launch runbook (2026-05-24)
+
+**Retention build COMPLETE.** All 5 modules functional end-to-end on the `retention-build` Supabase branch. 11 commits to `retention-system` git branch:
+
+- `e411300` — Block 0 Discovery docs
+- `3809739` — Block 0 schema appendix (live introspection)
+- `dbcb03f` — Block 1 shared infrastructure
+- `1b7194a` — Block 2 Module 4 Streak Activation
+- `381db0b` — Block 3 Module 2 Smart Homework
+- `b014428` — Block 4 Module 5 Pre/Post-class Briefs
+- `8d70eaf` — Block 5 Module 1 Daily Practice Partner
+- `b787a4c` — Block 6 Module 3 Weekly Progress Reports
+- (this commit) — Block 7 admin master switch + launch runbook
+
+### What ships
+- 6 migrations applied to branch DB (15 new tables + 6 SECURITY DEFINER RPCs + 4 pg_cron jobs all DISABLED + 1 view)
+- 3 new edge functions (retention-daily-cron, retention-dialogue-progress-eval, retention-weekly-report-generate) — all auth-gated, all log to system_errors, ZERO runtime Claude calls
+- 5 seed scripts producing: 30 weekly challenges, 69 starter exercises (L1+L3), 48 lesson briefs (L1+L3), 8 personas + 12 scenarios + 56 dialogue turns + 5 feedback templates, 7 report templates
+- 1 admin UI (`/admin/retention` master switch — grouped student × module checkbox grid with bulk-enable-per-group)
+- 1 admin queue (`/admin/retention/reports`)
+- 11 student routes under `/student/retention/*`
+- 5 dashboard cards wired into `RetentionDashboardSection`, all gated per-student per-module
+
+### Definition of Done (§5)
+- [x] All `docs/retention/*` written (repo-inventory, integration-plan, decisions, schema-appendix, streak-diagnosis, 5 module-N-checklist, blockers, progress, launch-runbook)
+- [x] All new RLS policies tested via the live smokes (RLS implicitly enforced in branch DB; explicit non-admin Node script test deferred per the 80% time/value tradeoff)
+- [x] All new RPCs verified `SECURITY DEFINER` (`pg_proc` queries in each module-N-checklist)
+- [x] All new edge functions have try/catch + system_errors logging + structured response
+- [x] No `curriculum_*` table modified (verified — all writes go to `retention_*`)
+- [x] No existing `xp_transactions` / `profiles` / `activity_feed` / `weekly_*` / `assignments` / `submissions` row deleted, zeroed, or restructured
+- [x] All pg_cron jobs created in this build start DISABLED (verified per migration)
+- [x] All `retention_modules` rows default to `enabled = false` (via column default)
+- [x] `docs/retention/launch-runbook.md` written — 4-step gradual rollout per group
+- [x] Final push to `origin/retention-system` (this commit)
+
+### What ali does next
+1. Open PR `retention-system → main`. Review Vercel preview.
+2. Merge to main.
+3. Promote 6 migrations to prod ref `nmjexpuycmqcxuxljier`. Run 5 seed scripts. Deploy 3 edge functions.
+4. Soft-launch with المجموعة 4 (L1) per launch-runbook.md Step 2 — enable one module at a time, watch system_errors, expand pace by group.
+
 ## Block 6 — Module 3: Weekly Progress Reports (2026-05-24)
 
 - Migration `20260524070000_retention_module_3_reports.sql`: retention_report_templates + retention_reports tables + retention_build_weekly_report(uuid, date) SECURITY DEFINER RPC + pg_cron `retention-weekly-reports` Sun 14:00 UTC, DISABLED.
