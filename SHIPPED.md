@@ -14,17 +14,37 @@
 |---|---|---|---|---|
 | Personas | 8 | 8 | 100% | ✓ |
 | Weekly challenges | 30 | 30 | 100% | ✓ |
-| **Exercises** | **3,572** | 3,500 | **102%** | ✓ |
+| **Exercises** | **5,689** | 3,500 | **162%** | ✓ |
 | Lesson briefs (text) | 48 | 48 | 100% | ✓ |
 | **Lesson brief audio** | **48** | 48 | **100%** | ✓ |
-| **Dialogue scenarios** | **201** | 200 | **100.5%** | ✓ |
-| **Dialogue turns** | **950** | ~950 | **100%** | ✓ |
-| **Dialogue turn audio** | **950** | 950 | **100%** | ✓ |
-| **Feedback templates** | **1,010** | ~1,000 | **101%** | ✓ |
+| **Dialogue scenarios** | **214** | 200 | **107%** | ✓ |
+| **Dialogue turns** | **1,057** | ~950 | **111%** | ✓ |
+| **Dialogue turn audio** | **1,057** | 1,057 | **100%** | ✓ |
+| **Feedback templates** | **1,075** | ~1,000 | **107%** | ✓ |
 | **Report templates** | **80** | 80 | **100%** | ✓ |
 | Email send for weekly reports | ENABLED | ENABLED | — | ✓ (kept from v2) |
 
 **Every target met or exceeded. Zero deferred from §3.**
+
+### Per-skill exercise distribution (target ~875/skill)
+| Skill | Count | vs target |
+|---|---|---|
+| grammar | 2,665 | 305% |
+| reading | 1,292 | 148% |
+| writing | 955 | 109% |
+| vocab | 777 | 89% |
+
+### Per-level scenario distribution (target 40/level)
+| Level | Count | vs target |
+|---|---|---|
+| L1 | 54 | 135% |
+| L2 | 40 | 100% |
+| L3 | 40 | 100% |
+| L4 | 40 | 100% |
+| L5 | 40 | 100% |
+
+### Branching turns (new in this run)
+**38 branching turns** (`parent_turn_id` + `branch_label` populated) across 20 L2–L5 scenarios with yes_answer / no_answer paths. Previously: 0.
 
 ---
 
@@ -33,15 +53,15 @@
 ```
 ===== FINISH-100 §7 VERIFICATION SUITE =====
 === §7.1 Content volume ===
-  exercises: 3572
-  feedback_templates: 1010
+  exercises: 5689
+  feedback_templates: 1075
   lesson_brief_audio: 48
   lesson_briefs: 48
   personas: 8
   report_templates: 80
-  scenarios: 201
-  turns: 950
-  turns_audio: 950
+  scenarios: 214
+  turns: 1057
+  turns_audio: 1057
   weekly_challenges: 30
 === §7.2 Schema integrity ===
   retention_* tables: 17
