@@ -5,7 +5,9 @@
 
 const https = require('https')
 
-function call(token, ref, query) {
+const BACKOFFS_RETRY = [2000, 5000, 10000, 20000, 40000]
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
+async function callOnce(token, ref, query) {
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({ query })
     const req = https.request({
@@ -15,13 +17,20 @@ function call(token, ref, query) {
       headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) },
     }, (res) => {
       let body = ''; res.on('data', (c) => body += c)
-      res.on('end', () => {
-        if (res.statusCode >= 400) return reject(new Error(`HTTP ${res.statusCode}: ${body.slice(0,400)}`))
-        try { resolve(JSON.parse(body)) } catch { resolve(body) }
-      })
+      res.on('end', () => resolve({ statusCode: res.statusCode, body }))
     })
     req.on('error', reject); req.write(data); req.end()
   })
+}
+async function call(token, ref, query) {
+  for (let attempt = 0; attempt <= BACKOFFS_RETRY.length; attempt++) {
+    const res = await callOnce(token, ref, query)
+    if (res.statusCode === 429 && attempt < BACKOFFS_RETRY.length) {
+      await sleep(BACKOFFS_RETRY[attempt]); continue
+    }
+    if (res.statusCode >= 400) throw new Error(`HTTP ${res.statusCode}: ${res.body.slice(0,300)}`)
+    try { return JSON.parse(res.body) } catch { return res.body }
+  }
 }
 const esc = (s) => s == null ? 'NULL' : `$${'s'}$${String(s).replace(/\$s\$/g,'$_s_$')}$${'s'}$`
 const arrText = (a) => !a||a.length===0 ? "'{}'::text[]" : `ARRAY[${a.map((x)=>esc(x)).join(',')}]::text[]`
