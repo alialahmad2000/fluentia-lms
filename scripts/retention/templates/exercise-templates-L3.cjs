@@ -1,0 +1,121 @@
+// L3 (intermediate / B1) exercise template bank.
+
+module.exports = [
+  // ─────────────────────────────────────────────────────────────────────
+  // GRAMMAR — present perfect, conditionals, modals
+  // ─────────────────────────────────────────────────────────────────────
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['present_perfect'], difficulty: 2,
+    prompt_en: 'I ___ in this city for ten years. (live)', correct: 'have lived',
+    explanation_ar: 'مع for + مدة زمنية في المضارع، نستخدم Present Perfect: have/has + V3. مع I → have lived.' },
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['present_perfect', 'past_simple'], difficulty: 3,
+    prompt_en: 'She ___ to Italy three times. (be)', correct: 'has been',
+    explanation_ar: 'تجارب الحياة (life experience) تستخدم Present Perfect: has been.' },
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['present_perfect', 'since_for'], difficulty: 3,
+    prompt_en: "We have known each other ___ 2015.", correct: 'since',
+    explanation_ar: 'مع نقطة بداية محددة (سنة، تاريخ) نستخدم since. مع المدة (years, months) نستخدم for.' },
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['present_perfect', 'since_for'], difficulty: 3,
+    prompt_en: 'They have been married ___ five years.', correct: 'for',
+    explanation_ar: 'five years هي مدة → نستخدم for. مع سنة محددة (2019) سنستخدم since.' },
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['conditional_first'], difficulty: 3,
+    prompt_en: 'If it ___ tomorrow, we will stay home. (rain)', correct: 'rains',
+    explanation_ar: 'First Conditional: If + Present Simple, will + V1. لاحظي rains مع it.' },
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['conditional_second'], difficulty: 4,
+    prompt_en: 'If I ___ rich, I would travel the world. (be)', correct: 'were',
+    explanation_ar: 'Second Conditional (افتراضي): If + Past Simple (were مع كل الضمائر)، would + V1.' },
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['modal_verbs', 'advice'], difficulty: 2,
+    prompt_en: "You look pale. You ___ see a doctor. (should/must)", correct: 'should',
+    explanation_ar: 'should للنصيحة (لطيف). must للضرورة القوية. هنا نصيحة → should.' },
+  { skill: 'grammar', type: 'fill_blank', topic_tags: ['modal_verbs', 'possibility'], difficulty: 3,
+    prompt_en: 'It ___ rain later. The sky is dark.', correct: 'might',
+    explanation_ar: 'might تعني احتمال. سماء غائمة → might rain (ممكن تمطر).' },
+
+  // GRAMMAR — mcq (intermediate)
+  { skill: 'grammar', type: 'mcq', topic_tags: ['comparative_superlative'], difficulty: 2,
+    prompt_en: 'My new phone is ____ than my old one.', correct: 'faster',
+    distractors: ['fast', 'fastest', 'more fast'],
+    explanation_ar: 'مع than للمقارنة بين اثنين، نستخدم صيغة المقارنة (comparative): fast → faster.' },
+  { skill: 'grammar', type: 'mcq', topic_tags: ['comparative_superlative'], difficulty: 3,
+    prompt_en: 'This is the ____ restaurant in the city.', correct: 'best',
+    distractors: ['better', 'good', 'goodest'],
+    explanation_ar: 'مع the + in/of (المفاضلة) نستخدم Superlative. good شاذة: best.' },
+  { skill: 'grammar', type: 'mcq', topic_tags: ['relative_clauses'], difficulty: 3,
+    prompt_en: 'The book ____ I bought yesterday is very interesting.', correct: 'that',
+    distractors: ['who', 'where', 'when'],
+    explanation_ar: 'that للأشياء، who للأشخاص، where للمكان، when للزمان.' },
+  { skill: 'grammar', type: 'mcq', topic_tags: ['relative_clauses'], difficulty: 3,
+    prompt_en: 'My friend, ____ works in Dubai, is visiting next week.', correct: 'who',
+    distractors: ['that', 'which', 'whose'],
+    explanation_ar: 'مع جملة وصفية للأشخاص بعد فاصلة نستخدم who.' },
+  { skill: 'grammar', type: 'mcq', topic_tags: ['passive_voice'], difficulty: 3,
+    prompt_en: 'This building ____ in 1995.', correct: 'was built',
+    distractors: ['built', 'is built', 'has built'],
+    explanation_ar: 'Passive Voice في الماضي: was/were + V3. مع المفرد was built.' },
+
+  // GRAMMAR — sentence_correction
+  { skill: 'grammar', type: 'sentence_correction', topic_tags: ['present_perfect'], difficulty: 3,
+    prompt_en: "I have went to Paris last year.",
+    correct: 'I went to Paris last year.',
+    explanation_ar: 'مع last year (وقت محدد في الماضي) نستخدم Past Simple وليس Present Perfect. went هو الماضي البسيط.' },
+  { skill: 'grammar', type: 'sentence_correction', topic_tags: ['conditional_first'], difficulty: 3,
+    prompt_en: "If you will study hard, you will pass.",
+    correct: 'If you study hard, you will pass.',
+    explanation_ar: 'بعد If لا نستخدم will (في النصف الأول)؛ نستخدم Present Simple فقط: If you study.' },
+  { skill: 'grammar', type: 'sentence_correction', topic_tags: ['preposition_for_since'], difficulty: 2,
+    prompt_en: "I have lived here since five years.",
+    correct: 'I have lived here for five years.',
+    explanation_ar: 'مع المدة (years, months, days) نستخدم for وليس since.' },
+
+  // ─────────────────────────────────────────────────────────────────────
+  // VOCAB — intermediate (collocations, phrasal verbs, more nuanced)
+  // ─────────────────────────────────────────────────────────────────────
+  { skill: 'vocab', type: 'vocab_match', topic_tags: ['phrasal_verbs'], difficulty: 3,
+    prompt_en: 'What does "give up" mean?', correct: 'يتوقف عن المحاولة / يستسلم',
+    distractors: ['يبدأ شيئاً جديداً', 'يعطي هدية', 'يجمع المال'],
+    explanation_ar: 'give up = يستسلم. "Don\'t give up!" = لا تستسلم. عكسها keep going.' },
+  { skill: 'vocab', type: 'vocab_match', topic_tags: ['phrasal_verbs'], difficulty: 3,
+    prompt_en: 'What does "look after" mean?', correct: 'يعتني بـ',
+    distractors: ['يبحث عن', 'يتذكر', 'ينظر فوق'],
+    explanation_ar: 'look after = يعتني بـ (شخص أو حيوان). "She looks after her grandmother."' },
+  { skill: 'vocab', type: 'vocab_match', topic_tags: ['phrasal_verbs'], difficulty: 3,
+    prompt_en: 'What does "find out" mean?', correct: 'يكتشف / يعرف',
+    distractors: ['يبحث في الخارج', 'يجد ضائعاً', 'ينهي'],
+    explanation_ar: 'find out = يكتشف معلومة جديدة. "I found out he is married."' },
+  { skill: 'vocab', type: 'mcq', topic_tags: ['collocations'], difficulty: 3,
+    prompt_en: "Choose the correct collocation: ____ a decision.", correct: 'make',
+    distractors: ['do', 'have', 'take'],
+    explanation_ar: 'make a decision (يتخذ قراراً) — collocation ثابت. do homework / take a photo / have lunch.' },
+  { skill: 'vocab', type: 'mcq', topic_tags: ['collocations'], difficulty: 3,
+    prompt_en: "Choose the correct collocation: ____ attention.", correct: 'pay',
+    distractors: ['give', 'make', 'do'],
+    explanation_ar: 'pay attention = ينتبه. "Please pay attention to the teacher."' },
+  { skill: 'vocab', type: 'mcq', topic_tags: ['synonyms'], difficulty: 3,
+    prompt_en: 'Which word means the same as "important"?', correct: 'significant',
+    distractors: ['simple', 'small', 'sudden'],
+    explanation_ar: 'significant = مهم (مرادف لـ important). كلاهما يعني ذو أهمية.' },
+
+  // ─────────────────────────────────────────────────────────────────────
+  // READING — B1 short passages
+  // ─────────────────────────────────────────────────────────────────────
+  { skill: 'reading', type: 'mcq', topic_tags: ['inference', 'comprehension'], difficulty: 3,
+    prompt_en: 'Read: "Layla had planned to visit her aunt this weekend, but her car broke down on Friday. She decided to take the bus instead." — Why did Layla take the bus?',
+    correct: 'Her car broke down.',
+    distractors: ['She prefers buses.', 'Her aunt cancelled.', 'She wanted to save money.'],
+    explanation_ar: 'النص يقول broke down ثم decided to take the bus → السبب واضح.' },
+  { skill: 'reading', type: 'mcq', topic_tags: ['inference', 'opinion'], difficulty: 3,
+    prompt_en: 'Read: "Online learning has many advantages. You can study at your own pace, save time on commuting, and access materials anywhere. However, it requires self-discipline." — What does the writer think about online learning?',
+    correct: 'It is good but needs self-discipline.',
+    distractors: ['It is the best option.', 'It is worse than classroom.', 'It is only for adults.'],
+    explanation_ar: 'الكاتب ذكر many advantages لكن قال however it requires self-discipline → رأي متوازن.' },
+
+  // ─────────────────────────────────────────────────────────────────────
+  // WRITING — B1 longer prompts
+  // ─────────────────────────────────────────────────────────────────────
+  { skill: 'writing', type: 'mini_write', topic_tags: ['opinion'], difficulty: 3,
+    prompt_en: 'Write 4-5 sentences sharing your opinion about social media. Use because, however, also.',
+    correct: 'I think social media has both good and bad sides. It helps people stay connected. However, it can waste time. Also, it can affect mental health. We need to use it carefully.',
+    explanation_ar: 'لإبداء الرأي: I think / In my opinion. لربط الأفكار: because (سبب)، however (لكن)، also (أيضاً). أعطي مثالين على الأقل.' },
+  { skill: 'writing', type: 'mini_write', topic_tags: ['narrative', 'past_simple'], difficulty: 3,
+    prompt_en: 'Write 4 sentences about a memorable trip you took. Use past tense.',
+    correct: 'Last year, I went to [place]. I stayed there for [duration]. The most memorable moment was [event]. I will never forget it.',
+    explanation_ar: 'استخدمي Past Simple: went / stayed / was. اربطي الجمل بـ Last year، Then، Finally.' },
+]

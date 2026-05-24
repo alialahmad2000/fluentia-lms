@@ -34,6 +34,10 @@ import CompetitionKickoffModal from '../../components/competition/CompetitionKic
 import CompetitionBanner from '../../components/competition/CompetitionBanner'
 import JourneyMapHeroCTA from '../../components/student/JourneyMapHeroCTA'
 import PWAInstallBanner from '../../components/pwa/PWAInstallBanner'
+// SHIP-AUTONOMOUS: per user revert on main (2026-05-24), RetentionDashboardSection is
+// NOT auto-mounted on the student dashboard. The component still exists and is wired
+// to /admin/retention's per-student toggles; if Ali wants retention surfaces on the
+// dashboard he re-adds the import + mount manually after launch validation.
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
