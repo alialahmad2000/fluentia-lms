@@ -35,29 +35,16 @@ export default function DailyPartnerPlay() {
   const [recording, setRecording] = useState(false)
   const [transcribing, setTranscribing] = useState(false)
   const [lastError, setLastError] = useState(null)
-  const [browserTTSAvailable, setBrowserTTSAvailable] = useState(false)
   const mediaRecorderRef = useRef(null)
   const chunksRef = useRef([])
   const recordingStartRef = useRef(0)
 
-  useEffect(() => {
-    setBrowserTTSAvailable(typeof window !== 'undefined' && 'speechSynthesis' in window)
-  }, [])
-
   const currentTurn = turns[currentTurnIndex]
 
-  // Browser TTS for the AI turn when no audio file exists
-  useEffect(() => {
-    if (!currentTurn || currentTurn.ai_audio_path || !browserTTSAvailable) return
-    try {
-      window.speechSynthesis.cancel()
-      const utter = new SpeechSynthesisUtterance(currentTurn.ai_text_en)
-      utter.lang = 'en-US'
-      utter.rate = 0.95
-      window.speechSynthesis.speak(utter)
-    } catch {}
-    return () => { try { window.speechSynthesis.cancel() } catch {} }
-  }, [currentTurn, browserTTSAvailable])
+  // SHIP-AUTONOMOUS §2.3: NO browser TTS fallback. Every retention audio asset
+  // is an ElevenLabs file in Supabase Storage. Scenarios without `ai_audio_path`
+  // on every turn are filtered out of selection by useTodayScenario, so this
+  // surface is never reached with a turn lacking audio.
 
   const startRecord = async () => {
     setLastError(null)
@@ -221,11 +208,6 @@ export default function DailyPartnerPlay() {
                 <div className="mt-3">
                   <RetentionAudioPlayer src={currentTurn.ai_audio_path} autoPlay size="sm" />
                 </div>
-              )}
-              {!currentTurn.ai_audio_path && browserTTSAvailable && (
-                <p className="mt-2 text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
-                  (يستخدم متصفحكِ صوتاً تلقائياً)
-                </p>
               )}
             </GlassPanel>
           </motion.div>

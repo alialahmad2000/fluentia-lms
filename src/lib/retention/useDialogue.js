@@ -23,12 +23,18 @@ export function useTodayScenario() {
       const exclude = new Set((recent || []).map((r) => r.scenario_id).filter(Boolean))
       const { data, error } = await supabase
         .from('retention_scenarios')
-        .select(`*, persona:retention_personas(id, slug, name_ar, name_en, voice_id, personality_description, avatar_url)`)
+        .select(`*, persona:retention_personas(id, slug, name_ar, name_en, voice_id, personality_description, avatar_url),
+                 turns:retention_dialogue_turns(id, ai_audio_path)`)
         .eq('target_level', levelStr)
         .eq('active', true)
       if (error) throw error
-      const pool = (data || []).filter((s) => !exclude.has(s.id))
-      if (pool.length === 0 && data && data.length > 0) return data[0] // recycle if all done
+      // SHIP-AUTONOMOUS §2.3: only consider scenarios where EVERY turn has audio.
+      // Scenarios without complete audio coverage are hidden — never degraded with TTS.
+      const audioComplete = (data || []).filter((s) =>
+        Array.isArray(s.turns) && s.turns.length > 0 && s.turns.every((t) => Boolean(t.ai_audio_path))
+      )
+      const pool = audioComplete.filter((s) => !exclude.has(s.id))
+      if (pool.length === 0 && audioComplete.length > 0) return audioComplete[0] // recycle within audio-complete pool
       // Pick deterministic-but-rotating: by day-of-year mod length
       const day = Math.floor(Date.now() / (24 * 60 * 60 * 1000))
       return pool[day % pool.length] || null

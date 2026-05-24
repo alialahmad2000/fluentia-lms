@@ -25,7 +25,8 @@ export function usePendingBriefs() {
         .is('opened_at', null)
         .order('delivered_at', { ascending: false })
       if (error) throw error
-      return data || []
+      // SHIP-AUTONOMOUS §2.3: only surface deliveries whose brief has audio.
+      return (data || []).filter((d) => Boolean(d.brief?.audio_path))
     },
     enabled: Boolean(userId),
     staleTime: 60_000,
