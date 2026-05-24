@@ -11,6 +11,7 @@ import { Pencil } from 'lucide-react'
 import RetentionStreakCalendar from './RetentionStreakCalendar.jsx'
 import WeeklyChallengeCard from './WeeklyChallengeCard.jsx'
 import StreakAtRiskBanner from './StreakAtRiskBanner.jsx'
+import PendingBriefsCard from './PendingBriefsCard.jsx'
 import RetentionCard from '../../design-system/retention/RetentionCard.jsx'
 import { useRetentionModuleEnabled } from '../../lib/retention/useRetentionModule.js'
 import { RETENTION_MODULES } from '../../lib/retention/constants.js'
@@ -20,14 +21,14 @@ export default function RetentionDashboardSection() {
   const navigate = useNavigate()
   const streak = useRetentionModuleEnabled(RETENTION_MODULES.STREAK_ACTIVATION)
   const homework = useRetentionModuleEnabled(RETENTION_MODULES.SMART_HOMEWORK)
+  const briefs = useRetentionModuleEnabled(RETENTION_MODULES.LESSON_BRIEFS)
   const activeHomework = useActiveHomeworkSet()
-  // Future module gates will hook in here (daily_partner, weekly_reports,
-  // lesson_briefs) as their dashboard cards land in Blocks 4-6.
 
   const showStreakBlock = streak.enabled
   const showHomeworkBlock = homework.enabled
+  const showBriefsBlock = briefs.enabled
 
-  if (!showStreakBlock && !showHomeworkBlock) return null
+  if (!showStreakBlock && !showHomeworkBlock && !showBriefsBlock) return null
 
   return (
     <section className="mb-8 space-y-5" dir="rtl">
@@ -56,6 +57,8 @@ export default function RetentionDashboardSection() {
             </div>
           </RetentionCard>
         )}
+
+        {showBriefsBlock && <PendingBriefsCard />}
       </div>
     </section>
   )

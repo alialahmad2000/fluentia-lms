@@ -53,6 +53,8 @@ const StudentVoiceJournal = lazyRetry(() => import('./pages/student/StudentVoice
 const HomeworkLanding = lazyRetry(() => import('./pages/student/retention/HomeworkLanding'))
 const HomeworkPlay = lazyRetry(() => import('./pages/student/retention/HomeworkPlay'))
 const HomeworkResult = lazyRetry(() => import('./pages/student/retention/HomeworkResult'))
+// Retention system (Module 5 — Lesson Briefs)
+const BriefView = lazyRetry(() => import('./pages/student/retention/BriefView'))
 // PRONUNCIATION-HIDDEN 2026-05-19: feature shelved due to UX issues.
 // Files preserved for future revival. To re-enable: uncomment + restore the route below.
 // const StudentPronunciation = lazyRetry(() => import('./pages/student/StudentPronunciation'))
@@ -681,6 +683,8 @@ export default function App() {
               <Route path="/student/retention/homework" element={<Page><HomeworkLanding /></Page>} />
               <Route path="/student/retention/homework/play/:setId" element={<Page><HomeworkPlay /></Page>} />
               <Route path="/student/retention/homework/result/:setId" element={<Page><HomeworkResult /></Page>} />
+              {/* Retention — Module 5 (Lesson Briefs) */}
+              <Route path="/student/retention/brief/:deliveryId" element={<Page><BriefView /></Page>} />
               {/* PRONUNCIATION-HIDDEN 2026-05-19 — route + element retired. */}
               {/* <Route path="/student/pronunciation" element={<Page><StudentPronunciation /></Page>} /> */}
               <Route path="/student/battles" element={<Page><StudentStreakBattles /></Page>} />

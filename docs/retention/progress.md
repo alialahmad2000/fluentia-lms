@@ -4,6 +4,13 @@ Per-block notes. 3–5 sentences max each. Newest first.
 
 ---
 
+## Block 4 — Module 5: Pre/Post-class Briefs (2026-05-24)
+
+- Migration `20260524050000_retention_module_5_briefs.sql`: `retention_lesson_briefs` table + expanded `retention_lesson_brief_deliveries` (added brief_id/class_id/scheduled_for/delivered_at/self_check_*). `retention_deliver_briefs(text)` SECURITY DEFINER RPC — for `'pre'` finds classes 12-13h ahead, for `'post'` finds classes 1.5-2.5h past; per-student loop checks `retention_is_module_enabled(student_id, 'lesson_briefs')` before inserting delivery + notification. Two pg_cron jobs every 15min, both DISABLED.
+- Brief generator `scripts/retention/seed-lesson-briefs.cjs` reads `curriculum_units` + `curriculum_vocabulary` (via reading_id join) + `curriculum_grammar` (correct column `topic_name_ar`, NOT `title_ar` as I first wrote). 48 briefs seeded (12 L1 units + 12 L3 units × 2 brief types = prep + review). Each prep has title + 3 vocab chips + grammar concept + warmup question; each review adds self-check MCQ + mini-task. Audio path deferred (text-only briefs render gracefully via RetentionAudioPlayer's null-src handling).
+- UI: `BriefView` page (RTL, audio player when ready, vocab chips, self-check MCQ persists answer, mini-task card); `PendingBriefsCard` dashboard widget (renders newest unopened delivery, null when none). Route `/student/retention/brief/:deliveryId` added in App.jsx. Dashboard wired in RetentionDashboardSection gated on `lesson_briefs` module.
+- Module-5 pre-launch checklist filled. Discovered + corrected during build: vocab table uses `reading_id` not `unit_id` (join needed); grammar uses `topic_name_ar` not `title_ar`.
+
 ## Block 3 — Module 2: Smart Homework (2026-05-24)
 
 - Migration `20260524040000_retention_module_2_homework.sql` shipped: full schemas for `retention_exercises`, `retention_homework_sets`, `retention_student_mistake_tags`; expanded `retention_homework_attempts` from Block 2 stub with `exercise_id`/`student_answer`/`is_correct`/`time_seconds` columns + FK. Tagger RPC `retention_tag_recent_mistakes(integer)` runs over `submissions` / `writing_history` / `weekly_tasks` (the actual canonical text sources — NOT `writing_submissions` which doesn't exist) with rule-based regex for 7 mistake patterns. Orchestrator `retention_daily_run()` updated to call the tagger as step 0.
