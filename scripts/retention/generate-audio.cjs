@@ -32,14 +32,15 @@ const TARGETS = [
 const NARRATOR_VOICE = 'EXAVITQu4vr4xnSDxMaL' // Sarah / Alice
 
 let totalCharsConsumed = 0
-const HARD_CAP_CHARS = 250000 // safety buffer well under 1M remaining
+const HARD_CAP_CHARS = parseInt(process.env.HARD_CAP_CHARS || '750000', 10) // FINISH-100: Growing Business plan, ~1M remaining
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
 
 function httpRequest(opts, body) {
   return new Promise((resolve, reject) => {
     const timeout = opts.timeout || 45000
-    const req = https.request({ ...opts, timeout }, (res) => {
+    // FINISH-100 fix: force IPv4 (NAT64 IPv6 path is broken on this network)
+    const req = https.request({ ...opts, timeout, family: 4 }, (res) => {
       const chunks = []
       res.on('data', (c) => chunks.push(c))
       res.on('end', () => {
@@ -240,9 +241,9 @@ async function generateForTarget(target) {
     console.error('Missing env: ELEVENLABS_API_KEY, SUPABASE_ACCESS_TOKEN, PROD_SR, BRANCH_SR')
     process.exit(1)
   }
-  // Run prod FIRST (per FINISH-OVERNIGHT priority — prod is what students see)
-  // then branch (for parity)
+  // FINISH-100: prod only (audio is what students hear; branch parity isn't worth the cost)
+  // To also run branch, set RUN_BRANCH=1
   await generateForTarget(TARGETS[1]) // prod
-  await generateForTarget(TARGETS[0]) // branch
+  if (process.env.RUN_BRANCH === '1') await generateForTarget(TARGETS[0])
   console.log(`\n=== TOTAL ELEVENLABS CHARS CONSUMED: ${totalCharsConsumed} ===`)
 })().catch(e => { console.error('FATAL:', e); process.exit(1) })
