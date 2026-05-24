@@ -30,4 +30,14 @@ Format: stop, write two options, move on. Ali resolves.
 
 **Branching:** Schema supports `parent_turn_id` + `branch_label` but all current turns are linear. To add branching, set `parent_turn_id` to a non-NULL value when seeding sibling turns, and update the eval edge fn to pick the next turn based on response shape match. Deferred.
 
+## B3 — Module 3 email delivery (in-app notification only for now)
+
+**Status:** `useApproveReport` mutation inserts an in-app notification when the trainer hits "أرسلي". The mega-prompt also asks for email delivery via `send-email`. Deferred.
+
+**Two options:**
+1. **Add the email send inside the mutation** — one extra `supabase.functions.invoke('send-email', { body: { to, subject, html } })` call after the notification insert. ~15 min. Recommended for Block 7 polish or first post-launch pass.
+2. **Skip email entirely; rely on in-app + PWA push** — simpler, matches Ali's "in-LMS" philosophy. The downside is that students who haven't opened the app in 24h won't see the report.
+
+**Template-bank gap:** Mega-prompt asked for 80 templates; we shipped 7 high-priority shapes that cover ~90% of realistic combinations across Ali's roster. Adding more is one INSERT each via `scripts/retention/seed-report-templates.cjs`.
+
 

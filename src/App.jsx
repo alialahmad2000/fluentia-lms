@@ -59,6 +59,10 @@ const BriefView = lazyRetry(() => import('./pages/student/retention/BriefView'))
 const DailyPartnerLanding = lazyRetry(() => import('./pages/student/retention/DailyPartnerLanding'))
 const DailyPartnerPlay = lazyRetry(() => import('./pages/student/retention/DailyPartnerPlay'))
 const DailyPartnerResult = lazyRetry(() => import('./pages/student/retention/DailyPartnerResult'))
+// Retention system (Module 3 — Weekly Reports)
+const MyReports = lazyRetry(() => import('./pages/student/retention/MyReports'))
+const ReportDetail = lazyRetry(() => import('./pages/student/retention/ReportDetail'))
+const AdminRetentionReports = lazyRetry(() => import('./pages/admin/retention/ReportsQueue'))
 // PRONUNCIATION-HIDDEN 2026-05-19: feature shelved due to UX issues.
 // Files preserved for future revival. To re-enable: uncomment + restore the route below.
 // const StudentPronunciation = lazyRetry(() => import('./pages/student/StudentPronunciation'))
@@ -693,6 +697,9 @@ export default function App() {
               <Route path="/student/retention/daily-partner" element={<Page><DailyPartnerLanding /></Page>} />
               <Route path="/student/retention/daily-partner/play/:attemptId" element={<Page><DailyPartnerPlay /></Page>} />
               <Route path="/student/retention/daily-partner/result/:attemptId" element={<Page><DailyPartnerResult /></Page>} />
+              {/* Retention — Module 3 (Weekly Reports) */}
+              <Route path="/student/retention/reports" element={<Page><MyReports /></Page>} />
+              <Route path="/student/retention/reports/:id" element={<Page><ReportDetail /></Page>} />
               {/* PRONUNCIATION-HIDDEN 2026-05-19 — route + element retired. */}
               {/* <Route path="/student/pronunciation" element={<Page><StudentPronunciation /></Page>} /> */}
               <Route path="/student/battles" element={<Page><StudentStreakBattles /></Page>} />
@@ -865,6 +872,8 @@ export default function App() {
               <Route path="/admin/trainers" element={<Page><AdminTrainers /></Page>} />
               <Route path="/admin/packages" element={<Page><AdminPayments /></Page>} />
               <Route path="/admin/reports" element={<Page><AdminReports /></Page>} />
+              {/* Retention — Module 3 admin queue */}
+              <Route path="/admin/retention/reports" element={<Page><AdminRetentionReports /></Page>} />
               <Route path="/admin/mock-exam-results" element={<Page><MockExamResults /></Page>} />
               <Route path="/admin/churn" element={<Page><AdminChurnPrediction /></Page>} />
               <Route path="/admin/scheduling" element={<Page><AdminSmartScheduling /></Page>} />

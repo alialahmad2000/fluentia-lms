@@ -4,6 +4,14 @@ Per-block notes. 3–5 sentences max each. Newest first.
 
 ---
 
+## Block 6 — Module 3: Weekly Progress Reports (2026-05-24)
+
+- Migration `20260524070000_retention_module_3_reports.sql`: retention_report_templates + retention_reports tables + retention_build_weekly_report(uuid, date) SECURITY DEFINER RPC + pg_cron `retention-weekly-reports` Sun 14:00 UTC, DISABLED.
+- 7 templates seeded (covering xp_trend × streak_trend × attendance combinations). Most-specific match wins via `v_shape @> shape_key` JSONB containment + key-count tiebreak + priority. Caught + fixed a containment-direction bug during smoke (originally `shape_key @> v_shape` — wrong direction).
+- Edge function `retention-weekly-report-generate`: service-role OR admin auth; defaults to all active students with `weekly_reports` flag; per-student loop calls the RPC; logs to system_errors.
+- UI: `MyReports` (student list, only sent reports visible via RLS), `ReportDetail` (6-metric grid + slot-filled body), `RetentionReportsQueue` (admin/trainer review queue with inline edit + Send button that inserts notification). 3 routes in App.jsx.
+- Live smoke: bulk-built 22 reports for all active students; shape distribution matched expected (11 down/broken, 10 flat/broken, 1 down/building); each report got the correct template (e.g., هوازن now correctly gets "لنرجع للإيقاع" not "أسبوع استثنائي").
+
 ## Block 5 — Module 1: Daily Practice Partner (2026-05-24)
 
 - Migration `20260524060000_retention_module_1_dialogues.sql`: 4 new tables (retention_personas, retention_scenarios, retention_dialogue_turns, retention_feedback_templates) + expanded retention_dialogue_attempts (scenario_id, branch_path, vocab metrics, transcript jsonb).
