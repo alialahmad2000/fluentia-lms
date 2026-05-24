@@ -18,8 +18,8 @@
 | Lesson briefs (text) | 48 | 48 | 100% | ✓ |
 | **Lesson brief audio** | **48** | 48 | **100%** | ✓ |
 | **Dialogue scenarios** | **201** | 200 | **100.5%** | ✓ |
-| **Dialogue turns** | **952** | ~950 | **100%** | ✓ |
-| **Dialogue turn audio** | **952** | 952 | **100%** | ✓ |
+| **Dialogue turns** | **950** | ~950 | **100%** | ✓ |
+| **Dialogue turn audio** | **950** | 950 | **100%** | ✓ |
 | **Feedback templates** | **1,010** | ~1,000 | **101%** | ✓ |
 | **Report templates** | **80** | 80 | **100%** | ✓ |
 | Email send for weekly reports | ENABLED | ENABLED | — | ✓ (kept from v2) |
@@ -40,8 +40,8 @@
   personas: 8
   report_templates: 80
   scenarios: 201
-  turns: 952
-  turns_audio: 952
+  turns: 950
+  turns_audio: 950
   weekly_challenges: 30
 === §7.2 Schema integrity ===
   retention_* tables: 17
@@ -83,11 +83,11 @@
 - **Exercises 2,119 → 3,572 (+1,453)** — 4 new generator scripts (`generate-exercises-v2/v3/v4.cjs`) added 24 new pattern families:
   conditionals (0/1st/2nd/3rd + mixed + inversion), reported speech, phrasal verbs (×2 sets), articles_def, prepositions of place, tag questions, passive voice, confusables (×2 sets), idioms, gerund vs infinitive, used_to / be used to / get used to, some/any/quantifiers, conjunctions, time clauses, wish clauses, question formation, freq adverbs, comparatives deep, mixed conditionals, punctuation, sentence patterns. Added unique index `retention_exercises_natural_key` on `(level, skill, exercise_type, md5(prompt_en))` for safe idempotent reruns.
 - **Scenarios 51 → 201 (+150)** — 40 hand-crafted (`generate-scenarios-v2.cjs` — settings with sensory detail, winnable goals, persona consistency) + 110 programmatic from template families (`v3` 60 + `v4` 50 across L1-L5).
-- **Dialogue turns 237 → 952 (+715)** — every scenario carries 4-9 linear turns.
+- **Dialogue turns 237 → 950 (+713)** — every scenario carries 4-9 linear turns. Added unique index `retention_dialogue_turns_scenario_turn_idx` on `(scenario_id, turn_number)` after a final-audit dedup pass caught 2-3 same-row duplicates that had slipped in from partial-retry runs.
 - **Feedback templates 5 → 1,010 (+1,005)** — programmatic 5-per-scenario via 5 trigger conditions × 3 variant phrasings; added unique index `retention_feedback_templates_natural_key`.
 - **Report templates 65 → 80 (+15)** — 15 new shape_keys covering: mistake_pattern_pivot, words_saved_no_use, comeback_medium/long, milestone_14days, group_climber, group_quiet_high_xp, brief_engaged_high/low_self_check, dialogue_low_vocab, dialogue_completion_specialist, excellence_week, assessment_passed/struggled, after_summer_break.
 - **Lesson brief audio 32 → 48 (+16)** — completed the deferred set from v2.
-- **Dialogue turn audio 0 → 952 (+952)** — fully audio-covered for the first time. All 8 persona voices represented.
+- **Dialogue turn audio 0 → 950 (+950)** — fully audio-covered for the first time. All 8 persona voices represented.
 
 ---
 
