@@ -57,12 +57,22 @@ function httpRequest(opts, body) {
 
 async function mgmtQuery(ref, sql) {
   const data = JSON.stringify({ query: sql })
-  const res = await httpRequest({
-    hostname: 'api.supabase.com', path: `/v1/projects/${ref}/database/query`, method: 'POST',
-    headers: { 'Authorization': `Bearer ${MGMT_TOKEN}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) },
-  }, data)
-  if (res.statusCode >= 400) throw new Error(`mgmt ${res.statusCode}: ${res.body.toString().slice(0,200)}`)
-  return JSON.parse(res.body.toString())
+  // FINISH-100: handle 429 rate limit with exponential backoff
+  const BACKOFFS_429 = [2000, 5000, 10000, 20000, 40000]
+  for (let attempt = 0; attempt <= BACKOFFS_429.length; attempt++) {
+    const res = await httpRequest({
+      hostname: 'api.supabase.com', path: `/v1/projects/${ref}/database/query`, method: 'POST',
+      headers: { 'Authorization': `Bearer ${MGMT_TOKEN}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) },
+    }, data)
+    if (res.statusCode === 429 && attempt < BACKOFFS_429.length) {
+      const wait = BACKOFFS_429[attempt]
+      console.error(`  mgmt 429 — backoff ${wait}ms (attempt ${attempt+1})`)
+      await sleep(wait)
+      continue
+    }
+    if (res.statusCode >= 400) throw new Error(`mgmt ${res.statusCode}: ${res.body.toString().slice(0,200)}`)
+    return JSON.parse(res.body.toString())
+  }
 }
 
 async function elevenLabsGen(text, voiceId) {
