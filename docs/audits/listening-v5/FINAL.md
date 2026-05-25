@@ -30,3 +30,12 @@ On iOS Safari the listening player uses `preload="metadata"`, so `audio.readySta
 
 ## Bottom line
 This is the first pass that (a) ruled out the file/storage layer **empirically with an iOS user-agent**, (b) confirmed the exact rendered surface, and (c) named a specific iOS-only mechanism that explains why desktop passed every prior test. The fix removes that exact anti-pattern. It is on a **preview branch awaiting your iPhone confirmation** — not auto-shipped to prod with a false "verified", which is the pattern that failed four times.
+
+---
+
+## SHIPPED TO PROD (2026-05-25, on Ali's "execute everything and ship it")
+- Merged `listening-forensic-v5` → `main` (`202366e`), pushed, Vercel deployed.
+- **Verified live on prod, two ways:**
+  1. Prod serves `/assets/ListeningTab-DaIv2D8o.js` — byte-identical content-hash to the local fixed build (content-addressed = exact fixed code).
+  2. `canplay` deferral count in the live chunk = **0** (old build contained the deferral listener; fix removed it).
+- **Still the only remaining unknown:** whether real iOS Safari now plays audible sound. The deployed code calls `play()` synchronously in the tap (the canonical iOS fix) — but only your iPhone can confirm the audio is audible. If it still doesn't play after a hard-refresh, capture a Safari Web Inspector Console+Network trace; that's the final diagnostic step.
