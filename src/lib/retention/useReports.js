@@ -1,11 +1,11 @@
 // Module 3 hooks
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId } from '../../stores/authStore'
+import { useAuthProfileId } from '../../stores/authStore'
 
 // Student: my reports (only sent ones, RLS-enforced)
 export function useMyReports() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   return useQuery({
     queryKey: ['retention-my-reports', userId],
     queryFn: async () => {

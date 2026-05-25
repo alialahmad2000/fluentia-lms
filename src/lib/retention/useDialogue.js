@@ -1,11 +1,11 @@
 // Module 1 hooks.
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId } from '../../stores/authStore'
+import { useAuthProfileId } from '../../stores/authStore'
 import { useStudentLevel } from './useStudentLevel.js'
 
 export function useTodayScenario() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   const { data: studentLevel } = useStudentLevel()
   const levelStr = studentLevel?.academic_level ? `L${studentLevel.academic_level}` : null
 
@@ -89,7 +89,7 @@ export function useScenarioWithTurns(scenarioId) {
 }
 
 export function useDialogueAttemptHistory({ limit = 5 } = {}) {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   return useQuery({
     queryKey: ['retention-dialogue-history', userId, limit],
     queryFn: async () => {

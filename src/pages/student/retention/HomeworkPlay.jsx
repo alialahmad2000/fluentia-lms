@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, XCircle, ChevronLeft, ArrowLeft } from 'lucide-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
-import { useAuthUserId } from '../../../stores/authStore'
+import { useAuthProfileId } from '../../../stores/authStore'
 import AuroraBackground from '../../../design-system/components/AuroraBackground'
 import GlassPanel from '../../../design-system/components/GlassPanel'
 import { awardPracticeXP } from '../../../utils/xpManager'
@@ -15,7 +15,7 @@ import { awardPracticeXP } from '../../../utils/xpManager'
 export default function HomeworkPlay() {
   const { setId } = useParams()
   const navigate = useNavigate()
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   const qc = useQueryClient()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answer, setAnswer] = useState('')

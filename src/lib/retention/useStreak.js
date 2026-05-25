@@ -16,10 +16,10 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId } from '../../stores/authStore'
+import { useAuthProfileId } from '../../stores/authStore'
 
 export function useStreakSnapshot() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-streak-snapshot', userId],
@@ -47,7 +47,7 @@ export function useStreakSnapshot() {
 }
 
 export function useStreakHeatMap({ days = 30 } = {}) {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-streak-heatmap', userId, days],
@@ -89,7 +89,7 @@ export function useStreakHeatMap({ days = 30 } = {}) {
 }
 
 export function useCurrentWeeklyChallenge() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-current-challenge', userId],

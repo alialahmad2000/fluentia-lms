@@ -9,10 +9,10 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId, useIsStudent } from '../../stores/authStore'
+import { useAuthProfileId, useIsStudent } from '../../stores/authStore'
 
 export function useRetentionModuleEnabled(moduleKey) {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   const isStudent = useIsStudent()
 
   const query = useQuery({
@@ -28,7 +28,14 @@ export function useRetentionModuleEnabled(moduleKey) {
         .eq('module_key', moduleKey)
         .maybeSingle()
       if (error) throw error
-      return Boolean(data?.enabled)
+      const result = Boolean(data?.enabled)
+      // Debug sink that survives the production console-drop (esbuild drops console.*).
+      // Inspect in DevTools by typing: window.__retention
+      if (typeof window !== 'undefined') {
+        window.__retention = window.__retention || { moduleChecks: [], sectionRenders: [] }
+        window.__retention.moduleChecks.push({ moduleKey, profileId: userId, isStudent, enabled: result, at: new Date().toISOString() })
+      }
+      return result
     },
     enabled: Boolean(userId && moduleKey),
     staleTime: 60_000,
