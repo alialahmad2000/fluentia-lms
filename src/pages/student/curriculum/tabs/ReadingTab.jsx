@@ -22,6 +22,11 @@ import { useWordHighlights } from '../../../../hooks/useWordHighlights'
 import { useUnitVocabSet } from '../../../../hooks/useUnitVocabSet'
 import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
 import WordLens from '../../../../components/audio/wordlens'
+import ArticleMasthead from '../../../../components/curriculum/reading/ArticleMasthead'
+import ArticleBody from '../../../../components/curriculum/reading/ArticleBody'
+import WordPopup from '../../../../components/curriculum/reading/WordPopup'
+import ReadingTools from '../../../../components/curriculum/reading/ReadingTools'
+import { useArticleVocabIndex } from '../../../../hooks/useArticleVocabIndex'
 import { trackEvent } from '../../../../lib/trackEvent'
 
 const QUESTION_TYPE_LABELS = {
@@ -375,6 +380,13 @@ function ReadingContent({ reading, studentId, unitId }) {
   const audioPlayStartedRef = useRef(false)
   const hoverCache = useRef(new Map())
 
+  // Editorial rebuild: default reading surface + secondary tools drawer.
+  const [toolsOpen, setToolsOpen] = useState(false)
+  const [audioMode, setAudioMode] = useState(false)   // karaoke/full-audio (demoted to drawer)
+  const [arabicMode, setArabicMode] = useState(false) // whole-article Arabic (no source data — honest notice)
+  const [wordPopup, setWordPopup] = useState(null)     // { word, rect, vocabRow }
+  const { data: articleVocabIndex } = useArticleVocabIndex(reading?.id, reading?.passage_content?.paragraphs)
+
   // Audio data for SmartAudioPlayer
   const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
 
@@ -686,11 +698,20 @@ function ReadingContent({ reading, studentId, unitId }) {
         <div className="p-6 md:p-8 space-y-6">
           {/* Title Block + Toolbar */}
           <div className="space-y-3">
-            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight font-['Inter']" dir="ltr">
-              {reading.title_en}
-            </h2>
-            {reading.title_ar && (
-              <p className="text-base md:text-lg text-slate-400 font-medium font-['Tajawal']">{reading.title_ar}</p>
+            <ArticleMasthead
+              reading={reading}
+              vocabCount={articleVocabIndex?.size || vocabulary?.length || 0}
+              readingTime={readingTime}
+              onOpenTools={() => setToolsOpen(true)}
+            />
+            {arabicMode && (
+              <div
+                className="rounded-xl px-4 py-3 text-[13px] font-['Tajawal']"
+                dir="rtl"
+                style={{ background: 'rgba(233,185,73,0.08)', border: '1px solid rgba(233,185,73,0.25)', color: 'var(--ds-text-secondary, #94a3b8)' }}
+              >
+                الترجمة العربية الكاملة غير متوفّرة لهذا المقال — اضغطي على أي كلمة لرؤية ترجمتها ونطقها.
+              </div>
             )}
             <div className="flex items-center gap-3 flex-wrap">
               {readingTime && (
@@ -832,7 +853,16 @@ function ReadingContent({ reading, studentId, unitId }) {
           )}
 
           {/* ── Passage text + audio ──────────────────────────────────── */}
-          {audioData ? (
+          {/* Editorial rebuild: ArticleBody is the default reading surface (every
+              word tappable → WordPopup). The karaoke/full-audio player is demoted
+              to the ⚙️ tools drawer and only mounts when the student turns it on. */}
+          {!audioMode ? (
+            <ArticleBody
+              paragraphs={reading.passage_content?.paragraphs || []}
+              vocabIndex={articleVocabIndex}
+              onWordTap={(word, rect, vocabRow) => setWordPopup({ word, rect, vocabRow })}
+            />
+          ) : audioData ? (
             /* bottom-bar mode: SmartAudioPlayer renders KaraokeText as primary passage */
             /* key={reading.id} forces a fresh player instance on article switch — */
             /* belt-and-suspenders alongside the outer <motion.div key> so a stale */
@@ -916,6 +946,26 @@ function ReadingContent({ reading, studentId, unitId }) {
           )}
         </div>
       </div>
+
+      {/* Editorial rebuild: secondary tools drawer + anchored word popup */}
+      <ReadingTools
+        open={toolsOpen}
+        onClose={() => setToolsOpen(false)}
+        audioActive={audioMode}
+        onToggleAudio={() => setAudioMode((v) => !v)}
+        arabicActive={arabicMode}
+        onToggleArabic={() => setArabicMode((v) => !v)}
+      />
+      {wordPopup && (
+        <WordPopup
+          word={wordPopup.word}
+          vocabRow={wordPopup.vocabRow}
+          anchorRect={wordPopup.rect}
+          studentId={studentId}
+          unitId={unitId}
+          onClose={() => setWordPopup(null)}
+        />
+      )}
 
       {/* PERSONALIZATION-REVERT 2026-05-19: hidden from default flow.
           Canonical curriculum is the single default for every student. */}
