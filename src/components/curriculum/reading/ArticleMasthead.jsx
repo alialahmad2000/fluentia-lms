@@ -67,7 +67,7 @@ export default function ArticleMasthead({
         dir="ltr"
         className="mt-4"
         style={{
-          fontFamily: "'Playfair Display', serif",
+          fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
           fontStyle: 'italic',
           fontWeight: 700,
           fontSize: 'clamp(32px, 7vw, 44px)',

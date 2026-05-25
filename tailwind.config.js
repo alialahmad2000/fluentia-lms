@@ -119,6 +119,7 @@ export default {
         mono: ['JetBrains Mono', 'SF Mono', 'Menlo', 'monospace'],
         tajawal: ['Tajawal', 'sans-serif'],
         playfair: ['Playfair Display', 'serif'],
+        cormorant: ['"Cormorant Garamond"', 'Playfair Display', 'Georgia', 'serif'],
         inter: ['Inter', 'sans-serif'],
         'ibm-plex': ['IBM Plex Sans', 'sans-serif'],
       },

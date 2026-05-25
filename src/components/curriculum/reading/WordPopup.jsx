@@ -129,7 +129,7 @@ export default function WordPopup({ word, vocabRow, anchorRect, studentId, unitI
           <div className="min-w-0">
             <div
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
                 fontStyle: 'italic',
                 fontSize: 26,
                 lineHeight: 1.1,

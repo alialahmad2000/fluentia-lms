@@ -25,7 +25,7 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
           margin: 0 0 1.6em 0;
         }
         .article-body p.aw-first::first-letter {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Cormorant Garamond', 'Playfair Display', serif;
           font-size: 56px; line-height: 1; float: left;
           padding: 4px 8px 0 0; color: var(--ds-accent-primary, #e9b949);
         }

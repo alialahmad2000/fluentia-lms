@@ -22,7 +22,7 @@ const INK_2 = 'var(--ds-text-secondary, #94a3b8)'
 const INK_3 = 'var(--ds-text-tertiary, #64748b)'
 
 /* ---- fonts (already loaded; use via inline fontFamily) ---- */
-const F_DISPLAY = "'Playfair Display', serif"
+const F_DISPLAY = "'Cormorant Garamond', 'Playfair Display', serif"
 const F_MONO = "'Space Grotesk', monospace"
 const F_BODY = "'Readex Pro', sans-serif"
 const F_AR = "'Tajawal', sans-serif"

@@ -56,7 +56,7 @@ export default function ReadingTools({ open, onClose, audioActive, onToggleAudio
             }}
           >
             <div className="flex items-center justify-between mb-1">
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic', fontSize: 20, color: 'var(--ds-text-primary, #f8fafc)' }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', 'Playfair Display', serif", fontStyle: 'italic', fontSize: 20, color: 'var(--ds-text-primary, #f8fafc)' }}>
                 أدوات القراءة
               </h3>
               <button type="button" onClick={onClose} aria-label="إغلاق" className="w-8 h-8 rounded-full flex items-center justify-center" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
