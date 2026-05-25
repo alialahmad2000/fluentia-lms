@@ -1,0 +1,89 @@
+[
+  {
+    "device": "ios_safari_iphone13",
+    "steps": [
+      {
+        "step": "login",
+        "url": "https://app.fluentia.academy/student"
+      },
+      {
+        "step": "unit-loaded",
+        "url": "https://app.fluentia.academy/student/curriculum/unit/49ed7c2c-fa1b-47b2-bb5c-34074beeafdc"
+      },
+      {
+        "step": "tab-click-fail",
+        "err": "locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=/الاستماع|استماع|Listening/i').first"
+      },
+      {
+        "step": "before-click"
+      },
+      {
+        "step": "play-btn-visible",
+        "visible": false
+      },
+      {
+        "step": "after-click-immediate"
+      },
+      {
+        "step": "after-click-3.5s"
+      }
+    ],
+    "console": [
+      "error: Viewport argument key \"interactive-widget\" not recognized and ignored.",
+      "info: Successfully preconnected to https://nmjexpuycmqcxuxljier.supabase.co/",
+      "info: Successfully preconnected to https://fonts.googleapis.com/",
+      "info: Successfully preconnected to https://fonts.gstatic.com/",
+      "error: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+      "error: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/user_sessions?id=eq.44a3ba5f-84bb-4d2b-a732-eaed47f79306 due to access control checks.",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/peer_recognitions?select=*&to_student=eq.a82486b6-9472-4aba-b902-a0ec354ca170 due to access control checks.",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/students?select=longest_streak&id=eq.a82486b6-9472-4aba-b902-a0ec354ca170 due to access control checks.",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/class_notes?select=*&author_id=eq.a82486b6-9472-4aba-b902-a0ec354ca170&is_trainer_summary=eq.false due to access control checks.",
+      "error: Viewport argument key \"interactive-widget\" not recognized and ignored.",
+      "info: Successfully preconnected to https://nmjexpuycmqcxuxljier.supabase.co/",
+      "info: Successfully preconnected to https://fonts.googleapis.com/",
+      "info: Successfully preconnected to https://fonts.gstatic.com/",
+      "error: Failed to load resource: the server responded with a status of 400 (Bad Request)"
+    ],
+    "fatal": "Cannot read properties of undefined (reading 'exists')"
+  },
+  {
+    "device": "desktop_chrome",
+    "steps": [
+      {
+        "step": "login",
+        "url": "https://app.fluentia.academy/student"
+      },
+      {
+        "step": "unit-loaded",
+        "url": "https://app.fluentia.academy/student/curriculum/unit/49ed7c2c-fa1b-47b2-bb5c-34074beeafdc"
+      },
+      {
+        "step": "tab-click-fail",
+        "err": "locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=/الاستماع|استماع|Listening/i').first"
+      },
+      {
+        "step": "before-click"
+      },
+      {
+        "step": "play-btn-visible",
+        "visible": false
+      },
+      {
+        "step": "after-click-immediate"
+      },
+      {
+        "step": "after-click-3.5s"
+      }
+    ],
+    "console": [
+      "error: Failed to load resource: the server responded with a status of 400 ()",
+      "error: Failed to load resource: the server responded with a status of 400 ()",
+      "error: Failed to load resource: the server responded with a status of 400 ()",
+      "error: Access to resource at 'https://nmjexpuycmqcxuxljier.supabase.co/rest/v1/user_sessions?id=eq.f784605a-19c6-472b-8885-216bd962c734' from origin 'https://app.fluentia.academy' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The value of the 'Acce",
+      "error: Failed to load resource: net::ERR_FAILED",
+      "error: Failed to load resource: the server responded with a status of 400 ()"
+    ],
+    "fatal": "Cannot read properties of undefined (reading 'exists')"
+  }
+]
