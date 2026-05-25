@@ -1,0 +1,329 @@
+src/pages/student/StudentSpeaking.jsx:106:        <ScoreGauge label="ثراء المفردات" value={result.vocabulary_richness ?? 0} color="#a78bfa" />
+src/pages/student/StudentExercises.jsx:118:    skill: 'vocabulary',
+src/pages/student/StudentExercises.jsx:137:    skill: 'vocabulary',
+src/pages/student/StudentExercises.jsx:156:    skill: 'vocabulary',
+src/pages/student/StudentExercises.jsx:175:    skill: 'vocabulary',
+src/pages/student/StudentExercises.jsx:194:    skill: 'vocabulary',
+src/pages/student/StudentExercises.jsx:213:  vocabulary: 'المفردات',
+src/pages/student/StudentExercises.jsx:222:  vocabulary: 'emerald',
+src/pages/student/ProgressReports.jsx:158:          value={report.data?.vocabulary?.mastered?.toLocaleString('ar-EG') ?? '—'}
+src/pages/student/StudentAssessments.jsx:13:const SKILLS = ['grammar', 'vocabulary', 'speaking', 'listening', 'reading', 'writing']
+src/pages/student/StudentAssessments.jsx:16:  vocabulary: 'مفردات',
+src/pages/student/StudentAssessments.jsx:269:        scores: { grammar: confScore, vocabulary: 0, speaking: 0, listening: 0, reading: 0, writing: 0 },
+src/pages/student/StudentAssessments.jsx:286:    if (!latestSnapshot) return { grammar: 0, vocabulary: 0, speaking: 0, listening: 0, reading: 0, writing: 0 }
+src/pages/student/StudentAssessments.jsx:289:      vocabulary: latestSnapshot.vocabulary || 0,
+src/pages/student/StudentCurriculum.jsx:374:              const vocabulary = unit.vocabulary_themes || []
+src/pages/student/StudentCurriculum.jsx:551:                              {vocabulary.length > 0 && (
+src/pages/student/StudentCurriculum.jsx:558:                                    {vocabulary.map((theme, i) => (
+src/pages/student/StudentConversation.deprecated.jsx:160:      const systemPrompt = `${scenario.prompt}\n\nThe student is at ${levelDesc} level. Adjust your vocabulary accordingly. Always respond in English only. Keep responses under 3 sentences. After every 4-5 exchanges, give a brief progress note in Arabic (1 sentence) about how they're doing.`
+src/pages/student/ReportView.jsx:29:  vocabulary: 'المفردات',
+src/pages/student/ReportView.jsx:154:  const vocab = report.vocabulary_stats || {}
+src/pages/student/ProgressDashboard.jsx:30:  vocabulary: 'المفردات',
+src/pages/student/ProgressDashboard.jsx:36:const SKILL_KEYS = ['reading', 'grammar', 'vocabulary', 'listening', 'writing', 'speaking']
+src/pages/student/ProgressDashboard.jsx:77:        .select('unit_id, status, completion_percentage, reading_a_completed, reading_b_completed, vocabulary_completed, grammar_completed, writing_completed, listening_completed, speaking_completed')
+src/pages/student/ProgressDashboard.jsx:104:      vocabulary: currProgress.filter(p => p.vocabulary_completed).length,
+src/pages/student/ProgressDashboard.jsx:231:        .select('student_id, reading_a_completed, reading_b_completed, vocabulary_completed, grammar_completed, writing_completed, listening_completed, speaking_completed')
+src/pages/student/StudentVocabulary.jsx:79:  // Fetch vocabulary
+src/pages/student/StudentVocabulary.jsx:81:    queryKey: ['student-vocabulary'],
+src/pages/student/StudentVocabulary.jsx:84:        .from('vocabulary_bank')
+src/pages/student/StudentVocabulary.jsx:132:      const { error } = await supabase.from('vocabulary_bank').insert({
+src/pages/student/StudentVocabulary.jsx:143:      queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+src/pages/student/StudentVocabulary.jsx:151:      const { error } = await supabase.from('vocabulary_bank').insert({
+src/pages/student/StudentVocabulary.jsx:159:      queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+src/pages/student/StudentVocabulary.jsx:183:              .from('vocabulary_bank')
+src/pages/student/StudentVocabulary.jsx:193:                .from('vocabulary_bank')
+src/pages/student/StudentVocabulary.jsx:200:              queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+src/pages/student/StudentVocabulary.jsx:238:            .from('vocabulary_bank')
+src/pages/student/StudentVocabulary.jsx:245:          queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+src/pages/student/StudentVocabulary.jsx:275:      .from('vocabulary_bank')
+src/pages/student/StudentVocabulary.jsx:290:      queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+src/pages/student/StudentVocabulary.jsx:296:    await supabase.from('vocabulary_bank').delete().eq('id', id)
+src/pages/student/StudentVocabulary.jsx:297:    queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+src/pages/student/StudentAIInsights.jsx:15:const SKILLS = ['grammar', 'vocabulary', 'speaking', 'listening', 'reading', 'writing']
+src/pages/student/StudentAIInsights.jsx:18:  vocabulary: 'المفردات',
+src/pages/student/StudentAIInsights.jsx:26:  vocabulary: { text: 'text-cyan-400', bg: 'bg-cyan-500/10', bar: 'bg-cyan-500' },
+src/pages/student/StudentErrorPatterns.jsx:13:  vocabulary: 'المفردات',
+src/pages/student/StudentErrorPatterns.jsx:22:  vocabulary: 'emerald',
+src/pages/student/StudentQuiz.jsx:21:  vocabulary: '#06b6d4',
+src/pages/student/StudentAdaptiveTest.jsx:18:  vocabulary: { label: 'المفردات', icon: BookOpen, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+src/pages/student/StudentAdaptiveTest.jsx:662:  const radarSkills = ['grammar', 'vocabulary', 'reading', 'listening']
+src/pages/student/StudentWritingLab.jsx:479:              {feedback.vocabulary_level && (
+src/pages/student/StudentWritingLab.jsx:480:                <span className="text-[10px] text-muted">مستوى المفردات: {feedback.vocabulary_level}</span>
+src/pages/student/StudentWritingLab.jsx:536:      {feedback.vocabulary_suggestions?.length > 0 && (
+src/pages/student/StudentWritingLab.jsx:542:            {feedback.vocabulary_suggestions.map((v, i) => (
+src/pages/student/StudentWritingLab.jsx:819:  vocabulary:   { label: 'مفردات', color: 'text-sky-400', bg: 'bg-sky-500/10 border-sky-500/20' },
+src/pages/student/StudentWritingLab.jsx:1156:      {feedback.vocabulary_suggestions?.length > 0 && (
+src/pages/student/StudentWritingLab.jsx:1162:            {feedback.vocabulary_suggestions.map((v, i) => (
+src/pages/student/StudentSuccessStories.jsx:242:        supabase.from('vocabulary_bank').select('id', { count: 'exact', head: true })
+src/pages/student/SrsHome.jsx:108:      .from('curriculum_vocabulary_srs')
+src/pages/student/SrsHome.jsx:111:        curriculum_vocabulary!inner (
+src/pages/student/StudentGroupChat.jsx:31:  { id: 'vocabulary', label: 'مفردات', icon: BookA },
+src/pages/student/StudentDashboard.legacy.jsx:49:  vocabulary: '📝', grammar: '📖', reading: '📚', listening: '🎧',
+src/pages/student/StudentPronunciation.jsx:78:    { word: 'vocabulary', phonetic: '/voʊˈkæbjəlɛri/', tip: 'voh-KAB-yuh-leh-ree' },
+src/pages/student/StudentPronunciation.jsx:183:    'Her vocabulary has improved through reading literature.',
+src/pages/student/DailyReview.jsx:79:      await applyRating(currentCard.vocabulary_id, rating, profile.id)
+src/pages/student/DailyReview.jsx:88:        .like('description', `%مراجعة SRS: ${currentCard.curriculum_vocabulary.word}%`)
+src/pages/student/DailyReview.jsx:97:          description: `مراجعة SRS: ${currentCard.curriculum_vocabulary.word}`,
+src/pages/student/DailyReview.jsx:103:      setSessionResults(prev => [...prev, { word: currentCard.curriculum_vocabulary.word, quality: buttonValue }])
+src/pages/student/DailyReview.jsx:249:  const vocab = currentCard?.curriculum_vocabulary
+src/pages/student/curriculum/UnitContentOriginal.jsx:32:  { id: 'vocabulary', label: 'المفردات', shortLabel: 'كلمات', icon: Languages },
+src/pages/student/curriculum/UnitContentOriginal.jsx:197:      case 'vocabulary': return <VocabularyTab unitId={unitId} />
+src/pages/student/StudentWeeklyTaskDetail.jsx:22:  vocabulary:      { icon: BookType,   label: 'مفردات',     gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/[0.08]', border: 'border-indigo-500/15', text: 'text-indigo-400' },
+src/pages/student/StudentWeeklyTaskDetail.jsx:267:        {task.type === 'vocabulary' && (
+src/pages/student/StudentWeeklyTaskDetail.jsx:1065:  if (feedbackData.vocabulary_score != null) scoreEntries.push({ label: 'المفردات', value: feedbackData.vocabulary_score })
+src/pages/student/StudentChatbot.jsx:19:  { key: 'vocabulary', label: 'بنك المفردات', icon: Brain },
+src/pages/student/StudentChatbot.jsx:46:        {activeTab === 'vocabulary' && <StudentVocabulary />}
+src/pages/student/curriculum/_premiumPrimitives.jsx:134:  { key: 'vocabulary',    icon: Languages,      label: 'مفردات' },
+src/pages/student/StudentWeeklyTasks.jsx:22:  vocabulary:      { icon: BookType,   label: 'مفردات',      labelEn: 'Vocabulary',  gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/[0.08]', border: 'border-indigo-500/15', text: 'text-indigo-400', ring: 'ring-indigo-500/20', dot: 'bg-indigo-400' },
+src/pages/student/StudentWeeklyTasks.jsx:187:  const typeOrder = ['speaking', 'reading', 'writing', 'listening', 'irregular_verbs', 'vocabulary']
+src/pages/student/curriculum/tabs/SpeakingTab.jsx:606:            ...(aiEval.vocabulary_score != null && { vocabulary: aiEval.vocabulary_score }),
+src/pages/student/curriculum/tabs/SpeakingTab.jsx:637:    vocabulary_score: 'المفردات',
+src/pages/student/curriculum/tabs/VocabularyExercises.jsx:48:        .eq('section_type', 'vocabulary_exercise')
+src/pages/student/curriculum/tabs/VocabularyExercises.jsx:84:      section_type: 'vocabulary_exercise',
+src/pages/student/curriculum/tabs/VocabularyExercises.jsx:107:      const xp = await awardCurriculumXP(profile.id, 'vocabulary_exercise', row.score, unitId)
+src/pages/student/curriculum/UnitContent.jsx:53:  { id: 'vocabulary', label: 'المفردات' },
+src/pages/student/curriculum/UnitContent.jsx:282:      case 'vocabulary':   return <>{ribbon}<VocabularyTab unitId={unitId} /></>
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:15:import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:17:import ReviewOverlay from '../../../../components/student/vocabulary/ReviewOverlay'
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:121:        curriculum_vocabulary_id: word.id || null,
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:134:          p_skill_impact: { vocabulary: 1 },
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:149:    queryKey: ['unit-vocabulary', unitId],
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:161:          .from('curriculum_vocabulary')
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:165:        result.push({ reading: r, vocabulary: vocab || [] })
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:172:  const allWords = data?.flatMap(d => d.vocabulary) || []
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:179:    return srsDueWords.filter(w => w.curriculum_vocabulary_id && vocabIds.has(w.curriculum_vocabulary_id))
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:201:    () => new Set((hardWordsForStudent || []).map((w) => w.vocabularyId)),
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:351:        .eq('section_type', 'vocabulary')
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:372:      student_id: profile.id, unit_id: unitId, section_type: 'vocabulary',
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:384:        awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:385:        window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'vocabulary' } }))
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:394:          awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:395:          window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'vocabulary' } }))
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:423:      queryClient.invalidateQueries({ queryKey: ['vocabulary-mastery', profile?.id, unitId] })
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:427:    queryClient.setQueryData(['vocabulary-mastery', profile?.id, unitId], (prev) => ({
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:429:      [updated.vocabulary_id]: updated,
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:432:    queryClient.invalidateQueries({ queryKey: ['vocabulary-mastery', profile?.id, unitId] })
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:436:        const nextWord = allWords.find(w => w.id !== updated.vocabulary_id && getWordMasteryLevel(w.id) !== 'mastered')
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:468:  const handleHeroOpenWord = (vocabularyId) => {
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:469:    const w = allWords.find((x) => x.id === vocabularyId)
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:656:      {allWords.length > 0 && data.every(({ vocabulary }) => vocabulary.filter(filterWord).length === 0) && (
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:663:      {data.map(({ reading, vocabulary }) => {
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:664:        const filtered = vocabulary.filter(filterWord)
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:897:      <WordListView vocabulary={visible} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={onTapWord || setExerciseWord} />
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:1065:function WordListView({ vocabulary, getMastery, reviewedWords, onView, onPractice }) {
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:1077:      {vocabulary.map(v => {
+src/pages/student/curriculum/unit-v3/ActivityContentDispatcher.jsx:38:  vocabulary: 'المفردات',
+src/pages/student/curriculum/unit-v3/ActivityContentDispatcher.jsx:49:    case 'vocabulary': return <VocabularyTab unitId={unitId} />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:30:  vocabulary: 'مفردات',
+src/pages/student/curriculum/tabs/ReadingTab.jsx:37:  vocabulary: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+src/pages/student/curriculum/tabs/ReadingTab.jsx:327:  const { data: vocabulary } = useQuery({
+src/pages/student/curriculum/tabs/ReadingTab.jsx:331:        .from('curriculum_vocabulary')
+src/pages/student/curriculum/tabs/ReadingTab.jsx:355:    vocabulary?.forEach(v => { map[v.word.toLowerCase()] = v })
+src/pages/student/curriculum/tabs/ReadingTab.jsx:357:  }, [vocabulary])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:390:  // Fallback: also include words from the already-loaded vocabulary query
+src/pages/student/curriculum/tabs/ReadingTab.jsx:393:    ;(vocabulary || []).forEach(v => set.add(v.word.toLowerCase()))
+src/pages/student/curriculum/tabs/ReadingTab.jsx:395:  }, [unitVocabSet, vocabulary])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:402:      .from('curriculum_vocabulary')
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1026:      {vocabulary?.length > 0 && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1027:        <VocabularyBox vocabulary={vocabulary} />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1531:function VocabularyBox({ vocabulary }) {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1551:            مفردات القراءة ({vocabulary.length})
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1571:                {vocabulary.map(v => (
+src/pages/student/curriculum/tabs/ListeningTab.jsx:24:  vocabulary: 'مفردات',
+src/pages/student/curriculum/tabs/ListeningTab.jsx:31:  vocabulary: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+src/pages/student/curriculum/tabs/ListeningTab.jsx:104:      .from('curriculum_vocabulary')
+src/pages/student/curriculum/tabs/ListeningTab.jsx:139:      .from('curriculum_vocabulary')
+src/pages/student/curriculum/unit-v2/TrophyModal.jsx:48:  { key: 'vocabulary', label: 'المفردات',  icon: BookOpen, max: 15 },
+src/pages/student/curriculum/tabs/WritingTab.jsx:490:      {/* Target vocabulary + grammar hints */}
+src/pages/student/curriculum/tabs/WritingTab.jsx:682:            ...(aiFeedback.vocabulary_score != null && { vocabulary: aiFeedback.vocabulary_score }),
+src/pages/student/curriculum/tabs/WritingTab.jsx:820:  const vocabItems = task.vocabulary_to_use || []
+src/pages/student/curriculum/unit-v2/components/debrief/DebriefRadar.jsx:6:  { key: 'vocabulary_score',   label: 'المفردات' },
+src/pages/student/mock-exam/MockExamResult.jsx:13:  { key: 'score_vocabulary', label: 'المفردات', section: 'vocabulary', max: 20 },
+src/pages/student/dashboard/widgets/WeeklyTasksWidget.jsx:7:  vocabulary: '📝', grammar: '📖', reading: '📚', listening: '🎧',
+src/pages/student/mock-exam/MockExamAttempt.jsx:12:  vocabulary: 'المفردات',
+src/pages/student/mock-exam/MockExamAttempt.jsx:1045:    if (section === 'vocabulary')  return 'اختاري الإجابة الصحيحة'
+src/pages/student/mock-exam/MockExamAttempt.jsx:1121:          style={{ color: 'var(--ds-text-primary)', fontFamily: q.section === 'reading' || q.section === 'grammar' || q.section === 'vocabulary' || q.section === 'spelling' || q.section === 'writing' ? 'inherit' : undefined }}
+src/pages/student/assessment/UnitMasteryResultPage.jsx:10:const SKILL_LABELS = { vocabulary: 'مفردات', grammar: 'قواعد', reading: 'قراءة', listening: 'استماع' }
+src/pages/student/vocabulary/VocabularyFlashcards.jsx:15:import ChunkSelector from '../../../components/vocabulary/ChunkSelector'
+src/pages/student/vocabulary/VocabularyFlashcards.jsx:16:import VocabularyQuiz from '../../../components/vocabulary/VocabularyQuiz'
+src/pages/student/vocabulary/VocabularyFlashcards.jsx:75:  // Fetch levels + vocabulary
+src/pages/student/vocabulary/VocabularyFlashcards.jsx:104:      // Fetch all vocabulary with reading → unit join
+src/pages/student/vocabulary/VocabularyFlashcards.jsx:106:        .from('curriculum_vocabulary')
+src/pages/student/vocabulary/VocabularyFlashcards.jsx:140:  // Filter vocabulary
+src/pages/student/vocabulary/VocabularyFlashcards.jsx:463:              context: 'vocabulary',
+src/pages/student/vocabulary/components/VocabularyPractice.jsx:4:import WordDetailModal from '../../../../components/vocabulary/WordDetailModal'
+src/pages/student/ielts/writing/WritingFeedback.legacy.jsx:149:  const vocabSuggestions = Array.isArray(fb.vocabulary_suggestions) ? fb.vocabulary_suggestions : []
+src/pages/student/placement/PlacementResultsPage.jsx:21:  vocabulary: 'مفردات',
+src/pages/admin/AdminCurriculum.jsx:101:        vocabulary_themes: formData.vocabulary_themes,
+src/pages/admin/AdminCurriculum.jsx:377:                          {unit.vocabulary_themes?.length > 0 && (
+src/pages/admin/AdminCurriculum.jsx:384:                                {unit.vocabulary_themes.map((theme, idx) => (
+src/pages/admin/AdminCurriculum.jsx:491:    (unit?.vocabulary_themes || []).join('\n')
+src/pages/admin/AdminCurriculum.jsx:523:      vocabulary_themes: parseLines(vocabText),
+src/pages/admin/AdminTestBank.jsx:14:const SKILLS = ['grammar', 'vocabulary', 'reading', 'listening']
+src/pages/admin/AdminTestBank.jsx:17:  vocabulary: 'مفردات',
+src/pages/admin/AdminTestBank.jsx:23:  vocabulary: Languages,
+src/pages/admin/AdminTestBank.jsx:29:  vocabulary: { bg: 'bg-violet-500/15', text: 'text-violet-400', border: 'border-violet-500/30', accent: 'var(--accent-violet)' },
+src/pages/admin/AdminContent.jsx:17:const SKILLS = ['grammar', 'vocabulary', 'reading', 'writing', 'speaking', 'listening']
+src/pages/admin/AdminContent.jsx:20:  vocabulary: 'المفردات',
+src/pages/admin/PlacementQueuePage.jsx:8:const SKILL_LABELS = { grammar: 'قواعد', vocabulary: 'مفردات', reading: 'قراءة', context: 'سياق' }
+src/pages/admin/AdminContentBank.jsx:507:              {Array.isArray(item.vocabulary_hints) && item.vocabulary_hints.length > 0 && (
+src/pages/admin/AdminContentBank.jsx:511:                    {item.vocabulary_hints.map((v, i) => (
+src/pages/admin/StudentProgressDiagnostic.jsx:10:  reading: 'القراءة', grammar: 'القواعد', vocabulary: 'المفردات',
+src/pages/admin/StudentProgressDiagnostic.jsx:88:        supabase.from('curriculum_vocabulary').select('id').in('reading_id', []),
+src/pages/admin/StudentProgressDiagnostic.jsx:97:        ? await supabase.from('curriculum_vocabulary').select('id').in('reading_id', readingIds)
+src/pages/admin/StudentProgressDiagnostic.jsx:114:          .from('vocabulary_word_mastery')
+src/pages/admin/StudentProgressDiagnostic.jsx:117:          .in('vocabulary_id', vocabIds)
+src/pages/admin/StudentProgressDiagnostic.jsx:182:      addActivity('vocabulary', 'المفردات', vocabIds.length > 0, () => {
+src/pages/admin/AdminAnalytics.jsx:67:  { key: 'vocabulary', label: 'مفردات' },
+src/pages/admin/AdminAnalytics.jsx:76:  vocabulary: ['flashcards_started', 'flashcards_completed', 'flashcard_flipped'],
+src/pages/admin/curriculum/components/RubricSliders.jsx:1:export default function RubricSliders({ value = {}, onChange, labels = ['content', 'grammar', 'vocabulary', 'organization'] }) {
+src/pages/admin/curriculum/components/RubricSliders.jsx:2:  const rubric = { content: 25, grammar: 25, vocabulary: 25, organization: 25, ...value }
+src/pages/admin/curriculum/components/RubricSliders.jsx:8:    vocabulary: 'المفردات',
+src/pages/admin/curriculum/UnitEditor.jsx:94:  const { data: vocabulary = [] } = useQuery({
+src/pages/admin/curriculum/UnitEditor.jsx:95:    queryKey: ['unit-vocabulary', unitId],
+src/pages/admin/curriculum/UnitEditor.jsx:99:      const { data, error } = await supabase.from('curriculum_vocabulary').select('*').in('reading_id', readingIds).order('sort_order')
+src/pages/admin/curriculum/UnitEditor.jsx:111:      const { data, error } = await supabase.from('curriculum_vocabulary_exercises').select('*').in('reading_id', readingIds).order('sort_order')
+src/pages/admin/curriculum/UnitEditor.jsx:253:    queryClient.invalidateQueries({ queryKey: ['unit-vocabulary', unitId] })
+src/pages/admin/curriculum/UnitEditor.jsx:291:  const vocabA = readingA ? vocabulary.filter(v => v.reading_id === readingA.id) : []
+src/pages/admin/curriculum/UnitEditor.jsx:292:  const vocabB = readingB ? vocabulary.filter(v => v.reading_id === readingB.id) : []
+src/pages/admin/curriculum/UnitEditor.jsx:434:            vocabulary={vocabA}
+src/pages/admin/curriculum/UnitEditor.jsx:445:            vocabulary={vocabB}
+src/pages/admin/curriculum/CurriculumProgress.jsx:23:  { id: 'vocabulary', label: 'المفردات', icon: Languages },
+src/pages/admin/curriculum/CurriculumProgress.jsx:37:const CONTEXT_LABELS = { vocabulary: 'مفردات', irregular_verbs: 'أفعال شاذة' }
+src/pages/admin/curriculum/CurriculumProgress.jsx:996:      {sectionType === 'vocabulary' && <VocabDetail answers={answers} />}
+src/pages/admin/curriculum/components/VideoEditor.jsx:28:        after_watch: data.after_watch || [], vocabulary_review: data.vocabulary_review || [],
+src/pages/admin/curriculum/components/VideoEditor.jsx:74:      <JSONArrayEditor label="مراجعة المفردات" value={data.vocabulary_review || []} onChange={v => update('vocabulary_review', v)} />
+src/pages/admin/curriculum/components/VocabularyManager.jsx:3:export default function VocabularyManager({ vocabulary = [], onChange }) {
+src/pages/admin/curriculum/components/VocabularyManager.jsx:12:    onChange([...vocabulary, {
+src/pages/admin/curriculum/components/VocabularyManager.jsx:18:  const remove = (i) => onChange(vocabulary.filter((_, idx) => idx !== i))
+src/pages/admin/curriculum/components/VocabularyManager.jsx:21:    const next = [...vocabulary]
+src/pages/admin/curriculum/components/VocabularyManager.jsx:36:          {vocabulary.length} كلمة
+src/pages/admin/curriculum/components/VocabularyManager.jsx:40:      {vocabulary.map((v, i) => (
+src/pages/admin/curriculum/components/WritingEditor.jsx:35:        vocabulary_to_use: data.vocabulary_to_use || [],
+src/pages/admin/curriculum/components/WritingEditor.jsx:38:        rubric: data.rubric || { content: 25, grammar: 25, vocabulary: 25, organization: 25 },
+src/pages/admin/curriculum/components/ReadingEditor.jsx:28:export default function ReadingEditor({ unitId, label = 'A', reading, comprehension = [], vocabulary = [], vocabExercises = [], onRefresh }) {
+src/pages/admin/curriculum/components/ReadingEditor.jsx:31:  const [vocab, setVocab] = useState(vocabulary)
+src/pages/admin/curriculum/components/ReadingEditor.jsx:99:        // Save vocabulary
+src/pages/admin/curriculum/components/ReadingEditor.jsx:100:        await supabase.from('curriculum_vocabulary').delete().eq('reading_id', readingId)
+src/pages/admin/curriculum/components/ReadingEditor.jsx:107:          const { error } = await supabase.from('curriculum_vocabulary').insert(vRows)
+src/pages/admin/curriculum/components/ReadingEditor.jsx:112:        await supabase.from('curriculum_vocabulary_exercises').delete().eq('reading_id', readingId)
+src/pages/admin/curriculum/components/ReadingEditor.jsx:119:          const { error } = await supabase.from('curriculum_vocabulary_exercises').insert(eRows)
+src/pages/admin/curriculum/components/ReadingEditor.jsx:172:        <VocabularyManager vocabulary={vocab} onChange={setVocab} />
+src/pages/shared/InteractiveCurriculumPage.jsx:25:  { id: 'vocabulary', tKey: 'trainer.curriculum.tabs.vocabulary', icon: Languages },
+src/pages/shared/InteractiveCurriculumPage.jsx:131:      case 'vocabulary':
+src/pages/public/PlacementTest.jsx:22:  vocabulary: '\u0627\u0644\u0645\u0641\u0631\u062f\u0627\u062a',
+src/pages/public/PlacementTest.jsx:31:  vocabulary: 'var(--accent-sky)',
+src/pages/public/PlacementTest.jsx:193:        skills: ['grammar', 'vocabulary', 'reading'],
+src/pages/public/PlacementTest.jsx:362:    const skillColors = { grammar: '#8b5cf6', vocabulary: '#38bdf8', reading: '#34d399' }
+src/pages/public/PlacementTest.jsx:363:    const skillLabelsAr = { grammar: 'القواعد', vocabulary: 'المفردات', reading: 'القراءة' }
+src/pages/public/PlacementTest.jsx:364:    const skills = ['grammar', 'vocabulary', 'reading']
+src/pages/public/PlacementTest.jsx:432:      `القرامر: ${skillScores.grammar ?? 0}% | المفردات: ${skillScores.vocabulary ?? 0}% | القراءة: ${skillScores.reading ?? 0}%`,
+src/pages/public/PlacementTest.jsx:464:      `القرامر: ${skillScores.grammar ?? 0}% | المفردات: ${skillScores.vocabulary ?? 0}% | القراءة: ${skillScores.reading ?? 0}%`,
+src/pages/public/ParentDashboard.jsx:12:  vocabulary: 'المفردات',
+src/pages/dev/AudioPlayerTest.jsx:68:    supabase.from('curriculum_vocabulary').select('id,word,audio_url').not('audio_url', 'is', null).limit(1).single()
+src/pages/public/SharedReport.jsx:19:  vocabulary: 'المفردات',
+src/pages/public/SharedReport.jsx:140:  const vocab = r.vocabulary_stats || {}
+src/pages/trainer/TrainerProgressMatrix.legacy.jsx:15:  vocabulary: 'المفردات',
+src/pages/trainer/TrainerWeeklyGrading.legacy.jsx:59:  vocabulary:      { icon: BookType,   label: 'مفردات',     gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/[0.08]', text: 'text-indigo-400' },
+src/pages/trainer/StudentProgressDetail.jsx:30:  vocabulary: { label: 'المفردات', icon: Sparkles, color: 'var(--accent-emerald)' },
+src/pages/trainer/StudentProgressDetail.jsx:43:  vocabulary: 'مفردات', grammar: 'قواعد', verbs: 'أفعال', spelling: 'إملاء', general: 'عام',
+src/pages/trainer/StudentProgressDetail.jsx:667:              { key: 'vocabulary', label: 'المفردات' },
+src/pages/trainer/StudentProgressDetail.jsx:956:    if (type === 'vocabulary') {
+src/pages/trainer/ReportReview.jsx:17:  vocabulary: 'المفردات',
+src/pages/trainer/ReportReview.jsx:26:  vocabulary: BookOpen,
+src/pages/trainer/ReportReview.jsx:35:  vocabulary: 'var(--accent-sky)',
+src/pages/trainer/TrainerCurriculum.legacy.jsx:36:  { id: 'vocabulary', labelKey: 'trainer.curriculum.tabs.vocabulary', icon: Languages },
+src/pages/trainer/TrainerCurriculum.legacy.jsx:48:const CONTEXT_LABELS = { vocabulary: 'مفردات', irregular_verbs: 'أفعال شاذة' }
+src/pages/trainer/TrainerCurriculum.legacy.jsx:647:    case 'vocabulary': return <InteractiveVocabularyTab unitId={unitId} students={students} />
+src/pages/trainer/TrainerDashboard.legacy.jsx:245:    vocabulary: { label: 'مفردات', bg: 'rgba(168,85,247,0.15)', color: 'rgb(168,85,247)' },
+src/pages/trainer/MockExamResults.jsx:18:  { key: 'score_vocabulary', label: 'المفردات', section: 'vocabulary', max: 20 },
+src/pages/trainer/TrainerQuizGenerator.legacy.jsx:17:  { value: 'vocabulary', label: 'المفردات' },
+src/pages/trainer/TrainerLessonPlanner.legacy.jsx:12:const SKILL_OPTIONS = ['grammar', 'vocabulary', 'speaking', 'listening', 'reading', 'writing']
+src/pages/trainer/TrainerLessonPlanner.legacy.jsx:14:  grammar: 'القرامر', vocabulary: 'المفردات', speaking: 'المحادثة',
+src/pages/trainer/TrainerStudentView.legacy.jsx:52:  vocabulary: { label: 'مفردات', icon: Brain, color: 'text-sky-400' },
+src/pages/trainer/TrainerStudentView.legacy.jsx:59:  vocabulary: 'المفردات',
+src/pages/trainer/TrainerStudentView.legacy.jsx:251:        .select('grammar, vocabulary, speaking, listening, reading, writing, snapshot_date')
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:8:  // Fetch vocabulary for this unit (two-step: readings → vocabulary via reading_id)
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:9:  const { data: vocabulary, isLoading: vocabLoading } = useQuery({
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:10:    queryKey: ['unit-vocabulary-ic', unitId],
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:19:      // Step 2: Get vocabulary for each reading
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:22:        .from('curriculum_vocabulary')
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:34:  // Fetch student progress for vocabulary
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:36:    queryKey: ['ic-vocabulary-progress', unitId, students.map(s => s.user_id).sort().join()],
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:44:        .eq('section_type', 'vocabulary')
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:52:  // Fetch student progress for vocabulary exercises
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:62:        .eq('section_type', 'vocabulary_exercise')
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:93:  if (!vocabulary?.length) {
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:116:        <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">المفردات ({vocabulary.length} كلمة)</h3>
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:120:        {vocabulary.map(v => (
+src/components/interactive-curriculum/InteractiveVocabularyTab.jsx:152:              const totalWords = vocabulary.length
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:11:  vocabulary: 'مفردات',
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:18:  vocabulary: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:95:  const { data: vocabulary } = useQuery({
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:99:        .from('curriculum_vocabulary')
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:148:    vocabulary?.forEach(v => { map[v.word.toLowerCase()] = v })
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:150:  }, [vocabulary])
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:229:      {vocabulary?.length > 0 && <VocabularyBox vocabulary={vocabulary} />}
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:440:function VocabularyBox({ vocabulary }) {
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:455:          <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">مفردات القراءة ({vocabulary.length})</span>
+src/components/interactive-curriculum/InteractiveReadingTab.jsx:464:                {vocabulary.map(v => (
+src/components/interactive-curriculum/InteractiveListeningTab.jsx:11:  vocabulary: 'مفردات',
+src/components/interactive-curriculum/InteractiveListeningTab.jsx:18:  vocabulary: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+src/components/interactive-curriculum/InteractiveWritingTab.jsx:284:    { key: 'vocabulary_score', label: 'المفردات' },
+src/components/interactive-curriculum/InteractiveSpeakingTab.jsx:381:                { key: 'vocabulary_score', label: 'المفردات' },
+src/components/hard-words/ListeningDrill.jsx:30:      (d) => d.vocabularyId !== current.vocabularyId && d.audioUrl // distractors need audio for fairness
+src/components/hard-words/ListeningDrill.jsx:45:  }, [current?.vocabularyId])
+src/components/hard-words/ListeningDrill.jsx:78:      const isCorrect = option.vocabularyId === current.vocabularyId
+src/components/hard-words/ListeningDrill.jsx:80:      setSelected(option.vocabularyId)
+src/components/hard-words/ListeningDrill.jsx:86:          vocabularyId: current.vocabularyId,
+src/components/hard-words/ListeningDrill.jsx:149:          key={current.vocabularyId}
+src/components/hard-words/ListeningDrill.jsx:203:              const isSelected = selected === opt.vocabularyId
+src/components/hard-words/ListeningDrill.jsx:204:              const isCorrectOpt = opt.vocabularyId === current.vocabularyId
+src/components/hard-words/ListeningDrill.jsx:209:                  key={opt.vocabularyId}
+src/components/hard-words/TypingRecallDrill.jsx:55:          vocabularyId: current.vocabularyId,
+src/components/hard-words/TypingRecallDrill.jsx:136:          key={current.vocabularyId}
+src/components/hard-words/MatchingDrill.jsx:62:      const isCorrect = enWord.vocabularyId === arWord.vocabularyId
+src/components/hard-words/MatchingDrill.jsx:65:      setFlashing({ enId: enWord.vocabularyId, arId: arWord.vocabularyId, isCorrect })
+src/components/hard-words/MatchingDrill.jsx:69:        setPairs((p) => ({ ...p, [enWord.vocabularyId]: 'correct' }))
+src/components/hard-words/MatchingDrill.jsx:75:          vocabularyId: enWord.vocabularyId,
+src/components/hard-words/MatchingDrill.jsx:103:      if (pairs[word.vocabularyId] === 'correct') return // already paired
+src/components/hard-words/MatchingDrill.jsx:107:        const arWord = primaries.find((w) => w.vocabularyId === selectedAr)
+src/components/hard-words/MatchingDrill.jsx:113:      setSelectedEn(word.vocabularyId)
+src/components/hard-words/MatchingDrill.jsx:120:      if (pairs[word.vocabularyId] === 'correct') return
+src/components/hard-words/MatchingDrill.jsx:122:        const enWord = primaries.find((w) => w.vocabularyId === selectedEn)
+src/components/hard-words/MatchingDrill.jsx:128:      setSelectedAr(word.vocabularyId)
+src/components/hard-words/MatchingDrill.jsx:182:              key={`en-${w.vocabularyId}`}
+src/components/hard-words/MatchingDrill.jsx:183:              state={cardClass(w.vocabularyId, 'en')}
+src/components/hard-words/MatchingDrill.jsx:219:              key={`ar-${w.vocabularyId}`}
+src/components/hard-words/MatchingDrill.jsx:220:              state={cardClass(w.vocabularyId, 'ar')}
+src/components/hard-words/ContextFillDrill.jsx:29:    const pool = distractorPool.filter((d) => d.vocabularyId !== current.vocabularyId)
+src/components/hard-words/ContextFillDrill.jsx:44:  }, [current?.vocabularyId])
+src/components/hard-words/ContextFillDrill.jsx:67:      const isCorrect = option.vocabularyId === current.vocabularyId
+src/components/hard-words/ContextFillDrill.jsx:69:      setSelected(option.vocabularyId)
+src/components/hard-words/ContextFillDrill.jsx:75:          vocabularyId: current.vocabularyId,
+src/components/hard-words/ContextFillDrill.jsx:148:          key={current.vocabularyId}
+src/components/hard-words/ContextFillDrill.jsx:188:              const isSelected = selected === opt.vocabularyId
+src/components/hard-words/ContextFillDrill.jsx:189:              const isCorrectOpt = opt.vocabularyId === current.vocabularyId
+src/components/hard-words/ContextFillDrill.jsx:195:                  key={opt.vocabularyId}
+src/components/curriculum/journey/ChunkLane.jsx:4:import { CHUNK_SIZE_OPTIONS } from '../../../utils/vocabularyChunks'
+src/components/curriculum/settings/VocabSettingsGear.jsx:9:import { CHUNK_SIZE_OPTIONS } from '../../../utils/vocabularyChunks'
+src/components/curriculum/word-detail/ProgressSection.jsx:37:    queryKey: ['word-srs-stats', studentId, vocabularyId],
+src/components/curriculum/word-detail/ProgressSection.jsx:39:    queryFn: () => getWordSrsStats(studentId, vocabularyId),
+src/components/curriculum/word-detail/WordDetailSheet.jsx:24: * curriculum_vocabulary row + the existing mastery map. Only the SRS
+src/components/curriculum/onboarding/VocabOnboardingTour.jsx:29: * 3-step spotlight onboarding tour for the unit vocabulary tab.
+src/components/srs/SrsReviewSession.jsx:56:  const vocab = currentCard?.curriculum_vocabulary ?? null
+src/components/srs/SrsReviewSession.jsx:98:        await applyRating(currentCard.vocabulary_id, rating, profile.id)
+src/components/trainer/UnitProgressPopup.jsx:76:    vocabulary: { icon: '📚', label: t('trainer.curriculum.tabs.vocabulary') },
+src/components/trainer/ClassPrepCard.jsx:195:                  • {t('trainer.curriculum.tabs.vocabulary')}: {unitContent.vocabCount} {t('trainer.debrief.word_count_label')}
+src/components/trainer/student360/CurriculumProgressCard.jsx:32:    vocabulary: t('trainer.curriculum.tabs.vocabulary'),
+src/components/trainer/student360/CurriculumProgressCard.jsx:33:    vocabulary_exercise: t('trainer.student360.vocab_exercise', 'تمرين مفردات'),
+src/components/vocabulary/WordDetailModal.jsx:12: * Responsive tabbed modal for vocabulary word details.
+src/components/vocabulary/WordExerciseModal.jsx:87:      vocabulary_id: word.id,
+src/components/vocabulary/WordExerciseModal.jsx:97:        .from('vocabulary_word_mastery')
+src/components/vocabulary/WordExerciseModal.jsx:98:        .upsert(updates, { onConflict: 'student_id,vocabulary_id' })
+src/components/vocabulary/WordExerciseModal.jsx:150:        .from('vocabulary_word_mastery')
+src/components/vocabulary/WordExerciseModal.jsx:153:          vocabulary_id: word.id,
+src/components/vocabulary/WordExerciseModal.jsx:156:        }, { onConflict: 'student_id,vocabulary_id' })
+src/components/vocabulary/VocabularyQuiz.jsx:10: * Full-screen vocabulary quiz modal.
+src/components/vocabulary/ChunkSelector.jsx:6:import { CHUNK_SIZE_OPTIONS } from '../../utils/vocabularyChunks'
+src/components/vocabulary/ChunkSelector.jsx:15: * Entry screen for vocabulary practice — shows a grid of chunk cards with
