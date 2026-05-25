@@ -129,8 +129,12 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         toast({ type: 'success', title: `+5 XP — أتقنت "${word.word}"!` })
       }
     } catch (err) {
-      console.error('[WordExercise] Save failed:', err)
-      toast({ type: 'error', title: 'تعذر حفظ التقدم' })
+      // Surface the real DB error (code + message) instead of swallowing it.
+      // A silent generic toast hid the trg_recompute_unit_progress() "no field
+      // unit_id" throw for 11 days. If the save ever fails again, make it loud.
+      const detail = err?.code ? `${err.code}: ${err.message}` : (err?.message || String(err))
+      console.error('[WordExercise] Save failed:', detail, err)
+      toast({ type: 'error', title: 'تعذر حفظ التقدم', description: detail?.slice(0, 160) })
     }
 
     setActiveExercise(null)

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Mic, ChevronLeft, Clock, MessageCircle } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
-import { useAuthUserId } from '../../../stores/authStore'
+import { useAuthProfileId } from '../../../stores/authStore'
 import { useTodayScenario, useDialogueAttemptHistory } from '../../../lib/retention/useDialogue'
 import { useRetentionModuleEnabled } from '../../../lib/retention/useRetentionModule'
 import { RETENTION_MODULES } from '../../../lib/retention/constants'
@@ -14,7 +14,7 @@ import RetentionDisabledState from '../../../design-system/retention/RetentionDi
 
 export default function DailyPartnerLanding() {
   const navigate = useNavigate()
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   const moduleEnabled = useRetentionModuleEnabled(RETENTION_MODULES.DAILY_PARTNER)
   const today = useTodayScenario()
   const history = useDialogueAttemptHistory({ limit: 5 })

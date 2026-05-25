@@ -3,13 +3,13 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId } from '../../stores/authStore'
+import { useAuthProfileId } from '../../stores/authStore'
 import { useStudentLevel } from './useStudentLevel.js'
 import { useStudentMistakeTags } from './useStudentMistakeTags.js'
 import { selectHomework } from './selectHomework.js'
 
 export function useExerciseBank() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   const { data: studentLevel } = useStudentLevel()
   const levelStr = studentLevel?.level_number ? `L${studentLevel.level_number}` : null
 
@@ -32,7 +32,7 @@ export function useExerciseBank() {
 }
 
 export function useRecentlyAttempted({ days = 30 } = {}) {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-recent-attempts', userId, days],
@@ -57,7 +57,7 @@ export function useRecentlyAttempted({ days = 30 } = {}) {
 }
 
 export function useActiveHomeworkSet() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-active-homework', userId],
@@ -84,7 +84,7 @@ export function useActiveHomeworkSet() {
 }
 
 export function useHomeworkHistory({ limit = 10 } = {}) {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-homework-history', userId, limit],
@@ -107,7 +107,7 @@ export function useHomeworkHistory({ limit = 10 } = {}) {
 
 // Mutation: create a new homework set on demand.
 export function useCreateHomeworkSet() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
   const { data: studentLevel } = useStudentLevel()
   const { data: mistakeTags } = useStudentMistakeTags({ limit: 5 })
   const { data: bank } = useExerciseBank()

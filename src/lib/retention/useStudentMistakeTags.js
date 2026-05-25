@@ -8,7 +8,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId } from '../../stores/authStore'
+import { useAuthProfileId } from '../../stores/authStore'
 
 // Centralised tag vocabulary — these are the categories the rule-based tagger
 // emits AND the categories Module 2 exercises are filtered against. Keep in
@@ -40,7 +40,7 @@ const DEFAULT_LIMIT = 5
 const LOOKBACK_DAYS = 14
 
 export function useStudentMistakeTags({ limit = DEFAULT_LIMIT, lookbackDays = LOOKBACK_DAYS } = {}) {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-student-mistake-tags', userId, limit, lookbackDays],

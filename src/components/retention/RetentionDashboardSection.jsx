@@ -32,6 +32,15 @@ export default function RetentionDashboardSection() {
   const showBriefsBlock = briefs.enabled
   const showDailyPartnerBlock = dailyPartner.enabled
 
+  // Debug sink that survives the production console-drop. Inspect via: window.__retention
+  if (typeof window !== 'undefined') {
+    window.__retention = window.__retention || { moduleChecks: [], sectionRenders: [] }
+    window.__retention.sectionRenders.push({
+      streak: showStreakBlock, homework: showHomeworkBlock, briefs: showBriefsBlock,
+      dailyPartner: showDailyPartnerBlock, loading: streak.isLoading, at: new Date().toISOString(),
+    })
+  }
+
   if (!showStreakBlock && !showHomeworkBlock && !showBriefsBlock && !showDailyPartnerBlock) return null
 
   return (

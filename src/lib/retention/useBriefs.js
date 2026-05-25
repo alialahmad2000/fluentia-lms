@@ -2,10 +2,10 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId } from '../../stores/authStore'
+import { useAuthProfileId } from '../../stores/authStore'
 
 export function usePendingBriefs() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-pending-briefs', userId],

@@ -8,10 +8,10 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../supabase'
-import { useAuthUserId } from '../../stores/authStore'
+import { useAuthProfileId } from '../../stores/authStore'
 
 export function useStudentLevel() {
-  const userId = useAuthUserId()
+  const userId = useAuthProfileId()
 
   return useQuery({
     queryKey: ['retention-student-level', userId],

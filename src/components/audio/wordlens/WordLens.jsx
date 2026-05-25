@@ -43,9 +43,10 @@ export default function WordLens({
 
   const audio = useWordLensAudio({
     word: word || '',
-    wordTimestamp,
-    passageAudioUrl,
     vocabAudioUrl: data.data?.audio_url || null,
+    // Layer 1b (background-generated MP3) slots in here once vocab_word_audio
+    // is populated; useWordLensData exposes it as `word_audio_url` when present.
+    wordAudioUrl: data.data?.word_audio_url || null,
   })
 
   // MEGA-FIX V2 Phase E — Save with destination-naming toast on success +

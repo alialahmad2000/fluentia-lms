@@ -94,13 +94,23 @@ export function ListeningPlayer({
   const sidebarWidth = useSidebarWidth()
 
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isBuffering, setIsBuffering] = useState(false)
   const [currentMs, setCurrentMs] = useState(0)
   const [actualDurationMs, setActualDurationMs] = useState(durationMs || 0)
   const [speed, setSpeed] = useState(1)
   const [loadError, setLoadError] = useState(null)
   const [silentFailure, setSilentFailure] = useState(false)
 
-  // Audio source loading — re-runs when audioUrl changes
+  // Keep the latest onTimeUpdate in a ref so the load effect does NOT depend on
+  // it. If onTimeUpdate were in the effect deps and a parent passed an unstable
+  // callback, every parent re-render would re-run the effect → audio.load() →
+  // which ABORTS any in-flight play() (the dominant "press play, nothing
+  // happens" cause on iOS Safari). Keying the effect on [audioUrl, listeningId]
+  // only makes the audio element stable across re-renders.
+  const onTimeUpdateRef = useRef(onTimeUpdate)
+  onTimeUpdateRef.current = onTimeUpdate
+
+  // Audio source loading — re-runs ONLY when the source row changes
   useEffect(() => {
     const audio = audioRef.current
     if (!audio || !audioUrl) return
@@ -108,18 +118,32 @@ export function ListeningPlayer({
     setLoadError(null)
     setSilentFailure(false)
     setIsPlaying(false)
+    setIsBuffering(false)
     setCurrentMs(0)
 
     const onError = () => {
       const code = audio.error?.code
+      // code 1 = MEDIA_ERR_ABORTED — benign (load() interrupted a previous
+      // load/play). Log it for telemetry but never show the scary red card,
+      // otherwise a normal source-swap looks like a failure to the student.
+      if (code === 1) {
+        logAudioFailure({
+          context: 'listening',
+          rowId: listeningId,
+          audioUrl,
+          errorCode: 1,
+          errorMessage: audio.error?.message || 'aborted',
+        })
+        return
+      }
       const map = {
-        1: 'تم إلغاء التحميل',
         2: 'خطأ في الشبكة',
         3: 'خطأ في فك الترميز',
         4: 'الملف غير مدعوم',
       }
       setLoadError(map[code] || 'تعذّر تحميل الصوت')
       setIsPlaying(false)
+      setIsBuffering(false)
       logAudioFailure({
         context: 'listening',
         rowId: listeningId,
@@ -137,18 +161,27 @@ export function ListeningPlayer({
     const onTime = () => {
       const ms = Math.round(audio.currentTime * 1000)
       setCurrentMs(ms)
-      onTimeUpdate?.(ms)
+      setIsBuffering(false)
+      onTimeUpdateRef.current?.(ms)
+    }
+    const onWaiting = () => setIsBuffering(true)
+    const onPlaying = () => {
+      setIsBuffering(false)
+      setSilentFailure(false)
     }
     const onPlay = () => setIsPlaying(true)
     const onPause = () => setIsPlaying(false)
     const onEnded = () => {
       setIsPlaying(false)
+      setIsBuffering(false)
       setCurrentMs(0)
     }
 
     audio.addEventListener('error', onError)
     audio.addEventListener('loadedmetadata', onLoadedMetadata)
     audio.addEventListener('timeupdate', onTime)
+    audio.addEventListener('waiting', onWaiting)
+    audio.addEventListener('playing', onPlaying)
     audio.addEventListener('play', onPlay)
     audio.addEventListener('pause', onPause)
     audio.addEventListener('ended', onEnded)
@@ -160,6 +193,8 @@ export function ListeningPlayer({
       audio.removeEventListener('error', onError)
       audio.removeEventListener('loadedmetadata', onLoadedMetadata)
       audio.removeEventListener('timeupdate', onTime)
+      audio.removeEventListener('waiting', onWaiting)
+      audio.removeEventListener('playing', onPlaying)
       audio.removeEventListener('play', onPlay)
       audio.removeEventListener('pause', onPause)
       audio.removeEventListener('ended', onEnded)
@@ -168,15 +203,79 @@ export function ListeningPlayer({
         silentCheckRef.current = null
       }
     }
-  }, [audioUrl, listeningId, onTimeUpdate])
+  }, [audioUrl, listeningId])
 
   // Apply playback rate
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = speed
   }, [speed])
 
+  // Begin playback + arm the silent-failure watchdog. Separated so the
+  // canplay-gated path and the ready path share one implementation.
+  const startPlayback = useCallback(
+    async (audio) => {
+      try {
+        const startedAt = audio.currentTime
+        await audio.play()
+        // Watchdog: only flag a *silent* failure when the element genuinely has
+        // enough data to be playing (readyState >= HAVE_FUTURE_DATA) yet the
+        // clock hasn't advanced and it isn't actively buffering. This avoids the
+        // false positives seen on slow-starting tracks (Windows Chrome) where
+        // the old 2s/any-readyState check fired even though audio was fine.
+        if (silentCheckRef.current) clearTimeout(silentCheckRef.current)
+        silentCheckRef.current = setTimeout(() => {
+          const a = audioRef.current
+          if (!a) return
+          const advanced = a.currentTime - startedAt
+          const enoughData = a.readyState >= 3 /* HAVE_FUTURE_DATA */
+          if (advanced < 0.1 && !a.paused && enoughData) {
+            setSilentFailure(true)
+            setIsPlaying(false)
+            try {
+              a.pause()
+            } catch {}
+            logAudioFailure({
+              context: 'listening',
+              rowId: listeningId,
+              audioUrl,
+              errorCode: -1,
+              errorMessage: 'silent_failure: play() resolved but currentTime did not advance',
+              extra: { paused: a.paused, readyState: a.readyState, currentTime: a.currentTime },
+            })
+          }
+        }, 3500)
+      } catch (err) {
+        // AbortError = play() interrupted by a load()/pause() (benign, retryable).
+        // NotAllowedError = autoplay/user-gesture policy (retryable on next tap).
+        // Neither should surface the scary error card.
+        const name = err?.name
+        if (name === 'AbortError' || name === 'NotAllowedError') {
+          setIsPlaying(false)
+          logAudioFailure({
+            context: 'listening',
+            rowId: listeningId,
+            audioUrl,
+            errorCode: 0,
+            errorMessage: `${name}: ${err?.message || ''}`.slice(0, 200),
+          })
+          return
+        }
+        setLoadError('فشل التشغيل — حاول النقر مرة أخرى')
+        setIsPlaying(false)
+        logAudioFailure({
+          context: 'listening',
+          rowId: listeningId,
+          audioUrl,
+          errorCode: 0,
+          errorMessage: err?.message || String(err),
+        })
+      }
+    },
+    [audioUrl, listeningId],
+  )
+
   // play() must be called from the click handler (iOS Safari user-gesture rule)
-  const togglePlay = useCallback(async () => {
+  const togglePlay = useCallback(() => {
     const audio = audioRef.current
     if (!audio) return
     setSilentFailure(false)
@@ -186,47 +285,24 @@ export function ListeningPlayer({
       return
     }
 
-    try {
-      const startedAt = audio.currentTime
-      await audio.play()
-      // Watchdog — see "silent-failure detection" header comment
-      if (silentCheckRef.current) clearTimeout(silentCheckRef.current)
-      silentCheckRef.current = setTimeout(() => {
-        const a = audioRef.current
-        if (!a) return
-        const advanced = a.currentTime - startedAt
-        if (advanced < 0.1 && !a.paused) {
-          setSilentFailure(true)
-          setIsPlaying(false)
-          try {
-            a.pause()
-          } catch {}
-          logAudioFailure({
-            context: 'listening',
-            rowId: listeningId,
-            audioUrl,
-            errorCode: -1,
-            errorMessage: 'silent_failure: play() resolved but currentTime did not advance',
-            extra: {
-              paused: a.paused,
-              readyState: a.readyState,
-              currentTime: a.currentTime,
-            },
-          })
-        }
-      }, 2000)
-    } catch (err) {
-      setLoadError('فشل التشغيل — حاول النقر مرة أخرى')
-      setIsPlaying(false)
-      logAudioFailure({
-        context: 'listening',
-        rowId: listeningId,
-        audioUrl,
-        errorCode: 0,
-        errorMessage: err?.message || String(err),
-      })
+    // iOS Safari rejects play() (and can throw SRC_NOT_SUPPORTED) when the
+    // element hasn't buffered enough yet. If we don't have at least current
+    // frame data, show a buffering state and let 'canplay' kick playback —
+    // do NOT call play() on an unready element.
+    if (audio.readyState < 2 /* HAVE_CURRENT_DATA */) {
+      setIsBuffering(true)
+      const onCanPlay = () => {
+        audio.removeEventListener('canplay', onCanPlay)
+        // still the same element + user hasn't started/paused in the meantime
+        if (audioRef.current === audio && audio.paused) startPlayback(audio)
+      }
+      audio.addEventListener('canplay', onCanPlay)
+      try { audio.load() } catch {} // nudge the loader in case it stalled
+      return
     }
-  }, [audioUrl, listeningId])
+
+    startPlayback(audio)
+  }, [startPlayback])
 
   const seekTo = useCallback(
     (ms) => {
@@ -358,9 +434,16 @@ export function ListeningPlayer({
                   transition-transform
                   flex items-center justify-center
                 "
-                aria-label={isPlaying ? 'إيقاف' : 'تشغيل'}
+                aria-label={isBuffering ? 'جارٍ التحميل' : isPlaying ? 'إيقاف' : 'تشغيل'}
+                aria-busy={isBuffering}
               >
-                {isPlaying ? '❚❚' : <span className="ms-0.5">▶</span>}
+                {isBuffering && !isPlaying ? (
+                  <span className="block w-4 h-4 rounded-full border-2 border-slate-950/30 border-t-slate-950 animate-spin" aria-hidden="true" />
+                ) : isPlaying ? (
+                  '❚❚'
+                ) : (
+                  <span className="ms-0.5">▶</span>
+                )}
               </button>
               <button
                 type="button"
