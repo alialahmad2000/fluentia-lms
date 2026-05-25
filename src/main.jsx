@@ -11,6 +11,7 @@ import './design-system/trainer/trainer-primitives.css'
 import { queryClient } from './lib/queryClient'
 import { AccessibilityProvider } from './contexts/AccessibilityContext'
 import { captureRefFromUrl } from './utils/affiliateTracking'
+import { captureError } from './lib/errorTracker'
 
 const persister = createSyncStoragePersister({
   storage: typeof window !== 'undefined' ? window.localStorage : undefined,
@@ -149,6 +150,11 @@ if (new URLSearchParams(window.location.search).get('debug') === '1' ||
 // ─── Global error recovery — catch unhandled errors that React can't ───
 window.addEventListener('unhandledrejection', (event) => {
   console.error('[Unhandled Rejection]', event.reason)
+  captureError({
+    kind: 'unhandled_rejection',
+    message: String(event.reason?.message || event.reason || 'unknown'),
+    stack: event.reason?.stack,
+  })
   event.preventDefault()
 })
 
@@ -163,7 +169,14 @@ window.addEventListener('error', (event) => {
       sessionStorage.setItem('chunk_reload_at', Date.now().toString())
       window.location.reload()
     }
+    return
   }
+  captureError({
+    kind: 'error',
+    message: event.message || String(event.error || 'unknown'),
+    stack: event.error?.stack,
+    url: event.filename,
+  })
 })
 
 const rootElement = document.getElementById('root')
