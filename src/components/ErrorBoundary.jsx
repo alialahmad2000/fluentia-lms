@@ -3,6 +3,7 @@ import { AlertTriangle, RefreshCw, Home } from 'lucide-react'
 import { tracker } from '../services/activityTracker'
 import { supabase } from '../lib/supabase'
 import { refreshOnce } from '../lib/authRefresh'
+import { captureError } from '../lib/errorTracker'
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -18,6 +19,12 @@ export default class ErrorBoundary extends Component {
     console.error('[ErrorBoundary]', error, errorInfo)
     this.setState({ errorInfo })
     tracker.track('error_displayed', { error_type: 'boundary', page: window.location.pathname, message: error?.message })
+    captureError({
+      kind: 'react_boundary',
+      message: error?.message || 'react boundary',
+      stack: error?.stack,
+      context: { component_stack: errorInfo?.componentStack?.slice(0, 2000) },
+    })
   }
 
   handleRetry = async () => {

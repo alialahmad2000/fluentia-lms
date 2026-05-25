@@ -189,6 +189,7 @@ const AdminTrainers = lazyRetry(() => import('./pages/admin/AdminTrainers'))
 const AdminPayments = lazyRetry(() => import('./pages/admin/AdminPayments'))
 const AdminReports = lazyRetry(() => import('./pages/admin/AdminReports'))
 const AdminSettings = lazyRetry(() => import('./pages/admin/AdminSettings'))
+const SystemDiagnostics = lazyRetry(() => import('./pages/admin/SystemDiagnostics'))
 const AdminChurnPrediction = lazyRetry(() => import('./pages/admin/AdminChurnPrediction'))
 const AdminSmartScheduling = lazyRetry(() => import('./pages/admin/AdminSmartScheduling'))
 const AdminContent = lazyRetry(() => import('./pages/admin/AdminContent'))
@@ -881,6 +882,7 @@ export default function App() {
               <Route path="/admin/scheduling" element={<Page><AdminSmartScheduling /></Page>} />
               <Route path="/admin/content" element={<Page><AdminContent /></Page>} />
               <Route path="/admin/settings" element={<Page><AdminSettings /></Page>} />
+              <Route path="/admin/system" element={<Page><SystemDiagnostics /></Page>} />
               <Route path="/admin/weekly-tasks" element={<Page><AdminWeeklyTasks /></Page>} />
               <Route path="/admin/holidays" element={<Page><AdminHolidays /></Page>} />
               <Route path="/admin/progress-diagnostic" element={<Page><StudentProgressDiagnostic /></Page>} />

@@ -10,6 +10,7 @@ import MobileDrawer from './MobileDrawer'
 import ErrorBoundary from '../ErrorBoundary'
 import PWAInstallGate from '../pwa/PWAInstallGate'
 import UpdateBanner from '../UpdateBanner'
+import NetworkStatusIndicator from '../NetworkStatusIndicator'
 import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
 import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
@@ -23,10 +24,15 @@ import { tracker } from '@/services/activityTracker'
 import { useQueryClient, useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { useActiveCompetition } from '@/hooks/useCompetition'
+import { useAdminBroadcastListener } from '@/hooks/useAdminBroadcastListener'
 
 import VocabGainTicker from '../curriculum/VocabGainTicker'
 
 export default function LayoutShell() {
+  // Layer 7 (auto-recovery): every authed client listens for an admin
+  // force-refresh broadcast (exam-guarded inside the hook).
+  useAdminBroadcastListener()
+
   const [mobileOpen, setMobileOpen] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(() => {
@@ -104,6 +110,7 @@ export default function LayoutShell() {
       onKeyDown={() => tracker.touch()}
     >
       <UpdateBanner />
+      <NetworkStatusIndicator />
 
       {/* Pull-to-refresh (mobile) */}
       {(pullDistance > 0 || isRefreshing) && (
