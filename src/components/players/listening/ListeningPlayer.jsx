@@ -285,22 +285,15 @@ export function ListeningPlayer({
       return
     }
 
-    // iOS Safari rejects play() (and can throw SRC_NOT_SUPPORTED) when the
-    // element hasn't buffered enough yet. If we don't have at least current
-    // frame data, show a buffering state and let 'canplay' kick playback —
-    // do NOT call play() on an unready element.
-    if (audio.readyState < 2 /* HAVE_CURRENT_DATA */) {
-      setIsBuffering(true)
-      const onCanPlay = () => {
-        audio.removeEventListener('canplay', onCanPlay)
-        // still the same element + user hasn't started/paused in the meantime
-        if (audioRef.current === audio && audio.paused) startPlayback(audio)
-      }
-      audio.addEventListener('canplay', onCanPlay)
-      try { audio.load() } catch {} // nudge the loader in case it stalled
-      return
-    }
-
+    // iOS Safari requires play() to be invoked SYNCHRONOUSLY inside the user-gesture
+    // handler. The previous code deferred play() to an async 'canplay' listener when
+    // readyState < 2 — but with preload="metadata" readyState is ALWAYS < 2 on the
+    // first iOS tap, so play() ran outside the gesture and iOS rejected it
+    // (NotAllowedError, swallowed) → "press play, nothing happens".
+    // Fix: call play() now. The tap authorizes both the fetch and playback; play()
+    // itself kicks buffering. startPlayback is async but invokes audio.play()
+    // synchronously (no await before it), so the gesture context is preserved.
+    if (audio.readyState < 2 /* HAVE_CURRENT_DATA */) setIsBuffering(true)
     startPlayback(audio)
   }, [startPlayback])
 
