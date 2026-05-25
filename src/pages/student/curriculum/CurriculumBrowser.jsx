@@ -17,16 +17,19 @@ export default function CurriculumBrowser() {
   const navigate = useNavigate()
   const { canSeeAllLevels, basePath } = useCurriculumPreview()
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
+  // Teacher-preview accounts browse the full grid (don't auto-jump to one level).
+  const canAccessLower = studentData?.can_access_lower_levels === true
   const [autoNavDone, setAutoNavDone] = useState(false)
   const m = useCinematicMotion()
 
-  // Auto-navigate students to their current level (skip in preview mode)
+  // Auto-navigate students to their current level (skip in preview mode + for
+  // teacher-preview accounts, who need the grid to reach lower levels).
   useEffect(() => {
-    if (!canSeeAllLevels && profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
+    if (!canSeeAllLevels && !canAccessLower && profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
       setAutoNavDone(true)
       navigate(`${basePath}/level/${currentLevel}`, { replace: true })
     }
-  }, [profile?.role, currentLevel, autoNavDone, navigate, canSeeAllLevels, basePath])
+  }, [profile?.role, currentLevel, canAccessLower, autoNavDone, navigate, canSeeAllLevels, basePath])
 
   // Fetch all active levels
   const { data: levels, isLoading: loadingLevels, error: levelsError, refetch } = useQuery({
