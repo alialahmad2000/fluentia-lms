@@ -37,12 +37,16 @@ export function useCurriculumData() {
   const { canSeeAllLevels, basePath } = useContext(CurriculumPreviewContext) || {}
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
   const levelNum = parseInt(levelNumber)
+  // Teacher-preview accounts may enter levels BELOW their academic_level.
+  const canAccessLower = studentData?.can_access_lower_levels === true
 
   useEffect(() => {
-    if (!canSeeAllLevels && !isNaN(levelNum) && levelNum !== currentLevel) {
+    const isCurrent = levelNum === currentLevel
+    const isAllowedLower = canAccessLower && levelNum < currentLevel
+    if (!canSeeAllLevels && !isNaN(levelNum) && !isCurrent && !isAllowedLower) {
       navigate(basePath || '/student/curriculum', { replace: true })
     }
-  }, [levelNum, currentLevel, navigate, canSeeAllLevels, basePath])
+  }, [levelNum, currentLevel, canAccessLower, navigate, canSeeAllLevels, basePath])
 
   const { data: level, isLoading: loadingLevel } = useQuery({
     queryKey: ['curriculum-level', levelNum],
