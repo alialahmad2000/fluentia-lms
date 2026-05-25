@@ -1,38 +1,36 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { playAudioSlice } from '../../../lib/playAudioSlice'
 
-// Tier-fallback single-word audio.
+// Tier-fallback single-word audio (hybrid, NO passage slicing).
 //
-// MEGA-FIX V2 (R1): Tier 2 (per-word MP3) is now the DEFAULT path. The
-// passage-slice (Tier 1) is reliable only when `word_timestamps` are
-// perfectly aligned with the passage MP3, otherwise the setTimeout-based
-// stop can miss and the rest of the passage plays through. Since
-// curriculum_vocabulary.audio_url has 100% coverage (13,930/13,930 rows),
-// Tier 2 is strictly safer.
+// MEGA-FIX (reading premium, 2026-05-25): the passage-slice tier was REMOVED.
+// Slicing a single word out of the whole-passage MP3 via word_timestamps always
+// carried co-articulated neighbour phonemes (the last consonant of the word
+// bleeds into the next), and the setTimeout-based stop overran on slow networks
+// playing the rest of the passage. "Click a word → hear it cleanly" is the #1
+// student request, so a clean robotic Web Speech rendering beats a dirty slice.
 //
 // Order:
-//   Tier 2 — curriculum_vocabulary.audio_url (pre-cached MP3 per word)  ← DEFAULT
-//   Tier 1 — slice the passage MP3 between [start_ms, end_ms]            ← fallback only
-//   Tier 3 — Web Speech API SpeechSynthesisUtterance                     ← last resort
+//   Layer 1  — curriculum_vocabulary.audio_url (curated per-word MP3)   ← best
+//   Layer 1b — vocab_word_audio.audio_url (background-generated MP3)    ← optional, table-ready
+//   Layer 2  — Web Speech API SpeechSynthesisUtterance (clean, free)    ← fallback
+//
+// `wordAudioUrl` (Layer 1b) is optional and currently passed as null until the
+// vocab_word_audio table is populated by the background worker — the hook is
+// forward-compatible so wiring it later needs no further change here.
 //
 // Caller must invoke `play()` from inside a user-gesture handler.
 
-export function useWordLensAudio({ word, wordTimestamp, passageAudioUrl, vocabAudioUrl }) {
+export function useWordLensAudio({ word, vocabAudioUrl, wordAudioUrl = null }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [tier, setTier] = useState(null)
-  const sliceRef = useRef(null)
-  const vocabAudioRef = useRef(null)
+  const audioRef = useRef(null)
   const cancelledRef = useRef(false)
 
   const stop = useCallback(() => {
     cancelledRef.current = true
-    if (sliceRef.current) {
-      try { sliceRef.current.cancel() } catch {}
-      sliceRef.current = null
-    }
-    if (vocabAudioRef.current) {
-      try { vocabAudioRef.current.pause() } catch {}
-      vocabAudioRef.current = null
+    if (audioRef.current) {
+      try { audioRef.current.pause() } catch {}
+      audioRef.current = null
     }
     try {
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -55,7 +53,8 @@ export function useWordLensAudio({ word, wordTimestamp, passageAudioUrl, vocabAu
     stop()
     cancelledRef.current = false
 
-    const tryTier3 = () => {
+    // Layer 2 — Web Speech (clean, instant, free). Last resort.
+    const tryWebSpeech = () => {
       try {
         if (typeof window === 'undefined' || !('speechSynthesis' in window) || !word) {
           setIsPlaying(false)
@@ -64,85 +63,66 @@ export function useWordLensAudio({ word, wordTimestamp, passageAudioUrl, vocabAu
         const u = new SpeechSynthesisUtterance(word)
         u.lang = 'en-US'
         u.rate = 0.9
+        // Prefer a natural en-US voice (Google/Microsoft) over a slow-cold-start
+        // platform default when available.
+        try {
+          const voices = window.speechSynthesis.getVoices() || []
+          const preferred =
+            voices.find((v) => /en-US/i.test(v.lang) && /Google|Microsoft|Natural/i.test(v.name)) ||
+            voices.find((v) => /en-US/i.test(v.lang))
+          if (preferred) u.voice = preferred
+        } catch {}
         u.onend = () => { if (!cancelledRef.current) setIsPlaying(false) }
         u.onerror = () => { if (!cancelledRef.current) setIsPlaying(false) }
         window.speechSynthesis.cancel()
         window.speechSynthesis.speak(u)
-        setTier(3)
+        setTier('web_speech')
         setIsPlaying(true)
       } catch {
         setIsPlaying(false)
       }
     }
 
-    // Default to vocab MP3 (Tier 2). If that's missing, fall through to
-    // passage-slice (Tier 1) as a fallback before Web Speech (Tier 3).
-    const trySlice = () => {
-      if (
-        wordTimestamp &&
-        passageAudioUrl &&
-        Number.isFinite(wordTimestamp.start_ms) &&
-        Number.isFinite(wordTimestamp.end_ms)
-      ) {
-        sliceRef.current = playAudioSlice({
-          audioUrl: passageAudioUrl,
-          startMs: wordTimestamp.start_ms,
-          endMs: wordTimestamp.end_ms,
-          paddingMs: 60,
-          onPlayStart: () => {
-            if (cancelledRef.current) return
-            setTier(1)
-            setIsPlaying(true)
-          },
-          onPlayEnd: () => { if (!cancelledRef.current) setIsPlaying(false) },
-          onError: () => { if (!cancelledRef.current) tryTier3() },
-        })
-        return
-      }
-      tryTier3()
-    }
-
-    if (vocabAudioUrl) {
-      // Tier 2 path — but route any tier-2 failure through trySlice (legacy fallback).
+    // Play a clean per-word MP3; on any failure, fall through to `onFail`.
+    const tryMp3 = (url, tierLabel, onFail) => {
+      if (!url) { onFail(); return }
       try {
         const el = new Audio()
         el.crossOrigin = 'anonymous'
         el.playsInline = true
         el.preload = 'auto'
-        el.src = vocabAudioUrl
-        vocabAudioRef.current = el
+        el.src = url
+        audioRef.current = el
 
-        const handleEnded = () => { if (!cancelledRef.current) setIsPlaying(false) }
-        const handleError = () => {
+        el.addEventListener('ended', () => { if (!cancelledRef.current) setIsPlaying(false) }, { once: true })
+        el.addEventListener('error', () => {
           if (cancelledRef.current) return
-          vocabAudioRef.current = null
-          trySlice()
-        }
-        el.addEventListener('ended', handleEnded, { once: true })
-        el.addEventListener('error', handleError, { once: true })
+          audioRef.current = null
+          onFail()
+        }, { once: true })
 
         const p = el.play()
         if (p && typeof p.then === 'function') {
           p.then(() => {
             if (cancelledRef.current) return
-            setTier(2)
+            setTier(tierLabel)
             setIsPlaying(true)
-          }).catch(() => {
-            if (!cancelledRef.current) trySlice()
-          })
+          }).catch(() => { if (!cancelledRef.current) { audioRef.current = null; onFail() } })
         } else {
-          setTier(2)
+          setTier(tierLabel)
           setIsPlaying(true)
         }
       } catch {
-        trySlice()
+        audioRef.current = null
+        onFail()
       }
-      return
     }
 
-    // No vocab audio at all — try slice, then Web Speech.
-    trySlice()
-  }, [word, wordTimestamp, passageAudioUrl, vocabAudioUrl, stop])
+    // Layer 1 → Layer 1b → Layer 2
+    tryMp3(vocabAudioUrl, 'curriculum', () =>
+      tryMp3(wordAudioUrl, 'word_audio', tryWebSpeech),
+    )
+  }, [word, vocabAudioUrl, wordAudioUrl, stop])
 
   return { play, stop, isPlaying, tier }
 }

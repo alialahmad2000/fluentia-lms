@@ -1,0 +1,131 @@
+src/pages/student/curriculum/UnitContentOriginal.jsx:55:  const [activeTab, setActiveTab] = useState('reading')
+src/pages/student/curriculum/UnitContentOriginal.jsx:195:      case 'reading': return <ReadingTab unitId={unitId} />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:75:  const { data: readings, isLoading } = useQuery({
+src/pages/student/curriculum/tabs/ReadingTab.jsx:76:    queryKey: ['unit-readings', unitId],
+src/pages/student/curriculum/tabs/ReadingTab.jsx:80:        .from('curriculum_readings')
+src/pages/student/curriculum/tabs/ReadingTab.jsx:92:  if (!readings?.length) {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:101:  const reading = readings[activeReading]
+src/pages/student/curriculum/tabs/ReadingTab.jsx:106:      {readings.length > 1 && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:108:          {readings.map((r, i) => (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:118:              القراءة {r.reading_label || String.fromCharCode(65 + i)}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:126:          key={reading.id}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:133:          <ReadingContent reading={reading} studentId={user?.id} unitId={unitId} />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:137:      <PageHelp pageKey="curriculum.reading.passage" />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:145:function ReadingContent({ reading, studentId, unitId }) {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:164:  // Load existing progress — multi-row query (no longer maybeSingle after dropping scp_unique_reading)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:166:    if (!studentId || !reading?.id) { setProgressLoading(false); return }
+src/pages/student/curriculum/tabs/ReadingTab.jsx:173:        .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:200:  }, [studentId, reading?.id])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:212:    if (!studentId || !reading?.id) return
+src/pages/student/curriculum/tabs/ReadingTab.jsx:237:          .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:245:          reading_id: reading.id,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:246:          section_type: 'reading',
+src/pages/student/curriculum/tabs/ReadingTab.jsx:266:  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:270:    if (!studentId || !reading?.id || !currentRowId.current) return
+src/pages/student/curriculum/tabs/ReadingTab.jsx:284:      console.error('[ReadingTab] Submit failed for reading_id:', reading.id, error)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:294:      .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:303:        .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:314:      .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:323:    awardCurriculumXP(studentId, 'reading', score, unitId)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:324:    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'reading', score } }))
+src/pages/student/curriculum/tabs/ReadingTab.jsx:325:  }, [studentId, reading?.id, unitId])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:328:    queryKey: ['reading-vocab', reading.id],
+src/pages/student/curriculum/tabs/ReadingTab.jsx:333:        .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:337:    enabled: !!reading?.id,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:341:    queryKey: ['reading-questions', reading.id],
+src/pages/student/curriculum/tabs/ReadingTab.jsx:346:        .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:350:    enabled: !!reading?.id,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:359:  const readingTime = estimateReadingTime(reading.passage_word_count)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:379:  const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:384:    contentId: reading?.id,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:385:    contentType: 'reading',
+src/pages/student/curriculum/tabs/ReadingTab.jsx:388:  // Vocab set (from unit via readings join)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:389:  const { vocabSet: unitVocabSet } = useUnitVocabSet(reading?.unit_id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:450:    trackEvent('reading_vocab_tap', { word: clean, passage_id: reading?.id, has_prefetched: !!prefetched })
+src/pages/student/curriculum/tabs/ReadingTab.jsx:451:  }, [vocabMap, openWordLens, reading?.id])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:457:    trackEvent('reading_word_lookup', { passage_id: reading?.id, word: clean, found_in_vocab: !!vocabMap[clean] })
+src/pages/student/curriculum/tabs/ReadingTab.jsx:458:  }, [openWordLens, vocabMap, reading?.id])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:492:    if (!reading?.id) return
+src/pages/student/curriculum/tabs/ReadingTab.jsx:493:    trackEvent('reading_passage_open', {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:494:      passage_id: reading.id,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:498:  }, [reading?.id]) // eslint-disable-line
+src/pages/student/curriculum/tabs/ReadingTab.jsx:503:    if (!reading?.passage_content) return
+src/pages/student/curriculum/tabs/ReadingTab.jsx:505:    const paragraphs = reading.passage_content?.paragraphs || []
+src/pages/student/curriculum/tabs/ReadingTab.jsx:512:  }, [reading?.id, reading?.passage_content])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:534:      const passageText = (reading.passage_content?.paragraphs || []).join('\n\n')
+src/pages/student/curriculum/tabs/ReadingTab.jsx:538:        body: JSON.stringify({ passage_id: reading.id, passage_text: passageText }),
+src/pages/student/curriculum/tabs/ReadingTab.jsx:547:  }, [reading, summaryAr, summaryLoading])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:606:  // Fetch reading notes per paragraph
+src/pages/student/curriculum/tabs/ReadingTab.jsx:607:  const { data: readingNotes = [] } = useQuery({
+src/pages/student/curriculum/tabs/ReadingTab.jsx:608:    queryKey: ['reading-notes', studentId, reading.id],
+src/pages/student/curriculum/tabs/ReadingTab.jsx:611:        .from('reading_notes')
+src/pages/student/curriculum/tabs/ReadingTab.jsx:614:        .eq('reading_id', reading.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:618:    enabled: !!studentId && !!reading?.id,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:623:    readingNotes.forEach(n => { map[n.paragraph_index] = n })
+src/pages/student/curriculum/tabs/ReadingTab.jsx:625:  }, [readingNotes])
+src/pages/student/curriculum/tabs/ReadingTab.jsx:666:        {reading.reading_label && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:669:              Passage {reading.reading_label}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:675:        {reading.before_read_image_url && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:678:              src={reading.before_read_image_url}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:679:              alt={reading.title_en}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:690:              {reading.title_en}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:692:            {reading.title_ar && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:693:              <p className="text-base md:text-lg text-slate-400 font-medium font-['Tajawal']">{reading.title_ar}</p>
+src/pages/student/curriculum/tabs/ReadingTab.jsx:696:              {readingTime && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:699:                  {readingTime} min read
+src/pages/student/curriculum/tabs/ReadingTab.jsx:702:              {reading.passage_word_count > 0 && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:704:                  {reading.passage_word_count} words
+src/pages/student/curriculum/tabs/ReadingTab.jsx:813:          {reading.before_read_exercise_a && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:814:            <BeforeReadSection content={reading.before_read_exercise_a} />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:818:          {reading.passage_image_urls?.length > 0 && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:820:              {reading.passage_image_urls.map((url, idx) => (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:825:                      alt={`${reading.title_en} — illustration ${idx + 1}`}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:837:            /* key={reading.id} forces a fresh player instance on article switch — */
+src/pages/student/curriculum/tabs/ReadingTab.jsx:841:              key={reading.id}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:843:              contentId={reading.id}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:844:              contentType="reading"
+src/pages/student/curriculum/tabs/ReadingTab.jsx:874:                  trackEvent('reading_audio_play_start', { passage_id: reading.id })
+src/pages/student/curriculum/tabs/ReadingTab.jsx:876:                trackEvent('reading_audio_segment_complete', {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:877:                  passage_id: reading.id,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:883:                trackEvent('reading_audio_complete', { passage_id: reading.id })
+src/pages/student/curriculum/tabs/ReadingTab.jsx:890:                paragraphs={reading.passage_content?.paragraphs || []}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:897:                readingId={reading.id}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:907:                  readingId={reading.id}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:922:      {/* <PersonalizedReadingCard canonicalReadingId={reading.id} /> */}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1009:      {reading.infographic_image_url && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1013:              src={reading.infographic_image_url}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1014:              alt={`Infographic: ${reading.title_en}`}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1031:      {reading.reading_skill_name_en && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1032:        <ReadingSkillBox reading={reading} />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1049:      {reading.critical_thinking_prompt_en && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1050:        <CriticalThinkingBox reading={reading} />
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1060:          readingId={reading?.id}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1194:function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId, wordAssistanceEnabled = true, hoverEnabled = true }) {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1267:    if (!studentId || !readingId || !noteText.trim()) return
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1270:      await supabase.from('reading_notes').update({ note_text: noteText.trim(), updated_at: new Date().toISOString() }).eq('id', existing.id)
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1272:      await supabase.from('reading_notes').insert({
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1274:        reading_id: readingId,
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1280:    queryClient.invalidateQueries({ queryKey: ['reading-notes', studentId, readingId] })
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1879:function ReadingSkillBox({ reading }) {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1885:          مهارة القراءة: <span className="font-['Inter']">{reading.reading_skill_name_en}</span>
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1886:          {reading.reading_skill_name_ar && ` — ${reading.reading_skill_name_ar}`}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1889:      {reading.reading_skill_explanation && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1891:          {reading.reading_skill_explanation}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1899:function CriticalThinkingBox({ reading }) {
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1913:        {reading.critical_thinking_prompt_en}
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1915:      {reading.critical_thinking_prompt_ar && (
+src/pages/student/curriculum/tabs/ReadingTab.jsx:1917:          {reading.critical_thinking_prompt_ar}
+src/pages/student/curriculum/UnitContent.jsx:280:      case 'reading':      return <>{ribbon}<ReadingTab unitId={unitId} /></>
+src/pages/student/curriculum/unit-v3/ActivityContentDispatcher.jsx:47:    case 'reading':    return <ReadingTab unitId={unitId} />
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:152:      const { data: readings } = await supabase
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:153:        .from('curriculum_readings')
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:154:        .select('id, reading_label')
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:157:      if (!readings?.length) return []
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:159:      for (const r of readings) {
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:163:          .eq('reading_id', r.id)
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:165:        result.push({ reading: r, vocabulary: vocab || [] })
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:663:      {data.map(({ reading, vocabulary }) => {
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:677:          <div key={reading.id} className="space-y-3">
+src/pages/student/curriculum/tabs/VocabularyTab.jsx:684:                    مفردات القراءة {reading.reading_label}
+src/pages/student/curriculum/unit-v2/components/brief/BriefGainsGrid.jsx:63:  const { vocabCount, readingsCount, listeningCount, totalXp, totalMinutes, readingWords } = stats
+src/pages/student/curriculum/unit-v2/components/brief/BriefGainsGrid.jsx:75:      sub: readingWords > 0 ? `${readingWords.toLocaleString('ar')} كلمة إجمالاً` : null,
