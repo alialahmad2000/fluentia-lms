@@ -10,6 +10,7 @@ import { RETENTION_MODULES, MODULE_LABELS_AR } from '../../../lib/retention/cons
 import { useRetentionModuleStatus } from '../../../lib/retention/useRetentionModule'
 import AuroraBackground from '../../../design-system/components/AuroraBackground'
 import GlassPanel from '../../../design-system/components/GlassPanel'
+import DailyLettersPanel from './DailyLettersPanel'
 
 const MODULE_KEYS = [
   RETENTION_MODULES.STREAK_ACTIVATION,
@@ -107,6 +108,8 @@ export default function RetentionMasterSwitch() {
             <RefreshCw size={14} /> تحديث
           </button>
         </div>
+
+        <DailyLettersPanel />
 
         {[...byGroup.entries()].map(([groupKey, students]) => (
           <GlassPanel key={groupKey} padding="md">

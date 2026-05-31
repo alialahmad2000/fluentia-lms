@@ -299,6 +299,16 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-05-31 — DASHBOARD-V2 TRAINER LETTER (gender-aware): net-new daily Arabic letter system
+- What: Built the morning "trainer letter" for the `?design=v2` dashboard. Mixed-gender platform (~23 female + 2 male), and Arabic grammar is gendered, so each letter is routed to one of two gendered SYSTEM_PROMPTs per student. Signature is dynamic from `students.assigned_trainer_id → profiles`, falling back to "د. محمد". (07 v1 never existed in this repo → built net-new; `assembleStudentDay` mirrors the production `useStudentDashboard` hook since its spec was deferred to the missing original 07.)
+- **DB** (migration `20260531120000_gender_trainer_and_daily_letters.sql`, idempotent): added `students.gender` (CHECK male|female, default female) + `students.assigned_trainer_id` (uuid → profiles); backfilled علي سعيد القحطاني (`1148c3bd…831e830`) + عبدالرحمن الشمري (`730b4e93…bbebcd1`) to `male`; created `daily_letters` (carries gender + trainer_id snapshot) + `daily_letters_runs` (with `generated_male`/`generated_female`) + RLS. Applied live via Management API. NOTE: `students` has NO `name_ar` — name comes from `profiles.display_name||full_name`.
+- **Edge Function**: `generate-daily-letters` (index.ts + gender.ts) — gender-routed prompts, trainer-name resolution, Claude Haiku 4.5 (`CLAUDE_API_KEY`), gendered template fallback, idempotent upsert on (student_id, letter_date), cost cap (MAX_STUDENTS=80, max_tokens=400), run telemetry. Auth: service-role (note: project uses the new `sb_secret_*` key as the runtime SERVICE_ROLE_KEY) or admin JWT. Deployed `--no-verify-jwt`.
+- **Cron** (`20260531130000_daily_letters_cron.sql`): `0 2 * * *` (05:00 Riyadh) registered but **DISABLED** (`active=false` via `cron.alter_job`) — Ali enables when ready.
+- **Frontend**: `src/hooks/useDailyLetter.js`, `src/components/dashboard/DailyLetterCard.jsx` (Amiri salutation / Readex Pro body / rotated Amiri-italic signature; gender-aware neutral optimistic placeholder; `LetterActionFooter` with gendered button labels), mounted at top of `CinematicDashboard` (v2). `students` select('*') in authStore means `studentData.gender` is auto-available. Admin: `DailyLettersPanel.jsx` (male/female split + force-run) mounted on `/admin/retention`.
+- **Verify**: First manual run generated 25 letters (2 male / 23 female, all via Claude, 0 errors, ~$0.06). Automated cross-gender scan over all 25 → **0 leakage**. `vite build` clean. Full checklist in `docs/audits/dashboard-v2-letter/PHASE-C.md`.
+- **Production-safe**: letter renders ONLY on `?design=v2`; default `/student` (OriginalDashboard) untouched. Cron disabled. Trainer assignment left NULL (separate admin-UI prompt).
+- Status: Complete. On branch `dashboard-v2-letter`.
+
 ### 2026-05-23 — MOCK-EXAM-RETAKE: archive نادية's silent-fail attempt + verify save-chain end-to-end
 - What: After the visibility-fix shipped, Ali impersonated a student and confirmed that the student behind the silent-save bug (0 real answers, score 0) was stuck on the 0/100 result screen. Ran the 4-phase retake prompt.
 - **Phase A.1 — classification of every submitted real-student attempt (3 rows):**

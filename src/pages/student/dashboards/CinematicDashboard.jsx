@@ -12,6 +12,7 @@ import {
   Users,
   Quote,
 } from 'lucide-react'
+import DailyLetterCard from '../../../components/dashboard/DailyLetterCard'
 
 /* ------------------------------------------------------------------ *
  * Fluentia LMS — Student Dashboard, VARIANT "CINEMATIC"
@@ -459,6 +460,11 @@ export default function CinematicDashboard({ data, isLoading, error, profile }) 
       {Ambient}
 
       <div style={shell.inner}>
+        {/* ============================================================ *
+         * 0. THE MORNING LETTER (gender-aware, per-trainer signature)
+         * ============================================================ */}
+        <DailyLetterCard data={d} profile={profile} isMobile={isMobile} />
+
         {/* ============================================================ *
          * 1. HERO
          * ============================================================ */}
