@@ -34,9 +34,17 @@ BEGIN
     SELECT 1 FROM information_schema.columns
     WHERE table_schema='public' AND table_name='students' AND column_name='assigned_trainer_id'
   ) THEN
-    ALTER TABLE students ADD COLUMN assigned_trainer_id uuid REFERENCES profiles(id) ON DELETE SET NULL;
+    -- ⚠️ INTENTIONALLY NO FOREIGN KEY to profiles.
+    -- students already has students_id_fkey (students.id → profiles.id). A SECOND
+    -- students→profiles FK makes PostgREST embeds ambiguous (PGRST201) and breaks
+    -- EVERY bare `profiles(...)` embed app-wide — including the admin students list,
+    -- which renders zero students. The trainer is resolved in code (the edge
+    -- function joins via a profiles map, not a PostgREST embed), so no FK is needed.
+    -- (Original 07 spec had `REFERENCES profiles(id)`; removed after it took down the
+    --  admin students page on 2026-06-01 — see 20260601120000_hotfix_drop_students_trainer_fk.sql.)
+    ALTER TABLE students ADD COLUMN assigned_trainer_id uuid;
     COMMENT ON COLUMN students.assigned_trainer_id IS
-      'Trainer who signs daily letters and is primary point of contact. NULL falls back to founder voice (د. محمد).';
+      'Trainer who signs daily letters (resolved in code). No FK on purpose — a 2nd students→profiles FK breaks PostgREST profiles embeds (PGRST201). NULL → founder voice (د. محمد).';
   END IF;
 END $$;
 

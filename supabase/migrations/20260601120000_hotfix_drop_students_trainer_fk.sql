@@ -1,0 +1,23 @@
+-- ============================================================================
+-- HOTFIX 2026-06-01 — admin students page showed ZERO students (EMERGENCY)
+--
+-- ROOT CAUSE: migration 20260531120000 added students.assigned_trainer_id with
+-- `REFERENCES profiles(id)`. That created a SECOND students→profiles foreign key
+-- (alongside the pre-existing students_id_fkey: students.id → profiles.id).
+-- PostgREST then could not resolve the bare `profiles(...)` embed used by the
+-- admin students query (AdminStudents.jsx) and returned:
+--   PGRST201 "Could not embed because more than one relationship was found
+--             for 'students' and 'profiles'"
+-- → the query errored → the admin students list rendered empty (0 students),
+-- even though all 25 students were present and intact.
+--
+-- FIX: drop the offending FK constraint. The assigned_trainer_id COLUMN stays
+-- (the daily-letter feature still uses it; the trainer name is resolved in code
+-- via a profiles map, NOT a PostgREST embed). With only students_id_fkey left,
+-- every bare `profiles(...)` embed app-wide resolves again — no frontend deploy
+-- required. Verified live: the exact admin query returns 200 / 25 rows.
+--
+-- Idempotent. Applied to production via the Management API on 2026-06-01.
+-- ============================================================================
+
+ALTER TABLE students DROP CONSTRAINT IF EXISTS students_assigned_trainer_id_fkey;
