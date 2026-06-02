@@ -7,6 +7,11 @@ import { memo, useMemo } from 'react'
 // 1px gold dotted underline — no badges, no color, no icons.
 const TOKEN_RE = /([\p{L}\p{M}'-]+)|([^\p{L}\p{M}'-]+)/gu
 
+// Normalize a tapped token to its glossary key: lowercase + strip leading/trailing
+// non-letters (quotes, hyphens, stray punctuation) while keeping internal ' and -.
+// MUST stay identical to the seed pipeline + useArticleVocabIndex so lookups hit.
+const normWord = (w) => (w || '').toLowerCase().replace(/^[^\p{L}]+/u, '').replace(/[^\p{L}]+$/u, '')
+
 function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
   const paras = Array.isArray(paragraphs) ? paragraphs : []
 
@@ -52,7 +57,7 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
 
   const handleTap = (e, word) => {
     const rect = e.currentTarget.getBoundingClientRect()
-    onWordTap(word, rect, vocabMap.get(word.toLowerCase()) || null)
+    onWordTap(word, rect, vocabMap.get(normWord(word)) || null)
   }
 
   return (
@@ -91,7 +96,9 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
         while ((m = TOKEN_RE.exec(clean)) !== null) {
           if (m[1]) {
             const word = m[1]
-            const isVocab = vocabMap.has(word.toLowerCase())
+            // Underline ONLY curriculum vocabulary words. Glossary-fallback rows
+            // (is_vocab !== true) are tappable for a meaning but not underlined.
+            const isVocab = vocabMap.get(normWord(word))?.is_vocab === true
             segments.push(
               <button
                 key={key++}

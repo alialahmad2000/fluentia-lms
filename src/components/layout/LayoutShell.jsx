@@ -12,6 +12,7 @@ import PWAInstallGate from '../pwa/PWAInstallGate'
 import UpdateBanner from '../UpdateBanner'
 import NetworkStatusIndicator from '../NetworkStatusIndicator'
 import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
+import BugReportButton from '../bug-report/BugReportButton'
 import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
 import TimerBadge from '../trainer/TimerBadge'
@@ -204,6 +205,7 @@ export default function LayoutShell() {
       </AnimatePresence>
 
       <A11yFloatingButton />
+      <BugReportButton />
 
       {/* Mobile bottom bar */}
       {!isClassMode && <MobileBar nav={nav} onMoreClick={openDrawer} role={role} />}
