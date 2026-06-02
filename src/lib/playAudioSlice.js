@@ -25,7 +25,8 @@ export function playAudioSlice({ audioUrl, startMs, endMs, paddingMs = 60, onPla
 
   const audio = new Audio()
   audio.preload = 'auto'
-  audio.crossOrigin = 'anonymous'   // CORS-safe for Supabase storage URLs
+  // no crossOrigin — plain element playback (currentTime-sliced, no Web Audio decode);
+  // crossOrigin forces strict CORS media mode that iOS Safari can silently abort (prompt 10)
   audio.playsInline = true          // iOS Safari required
 
   let cleaned   = false

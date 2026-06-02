@@ -79,7 +79,9 @@ export default function AudioPlayer({ src, duration: knownDuration, compact = fa
       className={`flex items-center gap-3 ${compact ? 'px-3 py-2' : 'px-4 py-3'} rounded-xl`}
       style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
     >
-      <audio ref={audioRef} src={src} preload="metadata" crossOrigin="anonymous" playsInline />
+      {/* no crossOrigin — plain playback of public Supabase media; crossOrigin forces
+          strict CORS media mode that iOS Safari can silently abort (WebKit fix, prompt 10) */}
+      <audio ref={audioRef} src={src} preload="metadata" playsInline />
 
       {/* Play/Pause */}
       <button

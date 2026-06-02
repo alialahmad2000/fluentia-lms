@@ -90,7 +90,9 @@ export function useAudioEngine({
     const audio = new Audio()
     audio.preload = 'metadata'
     audio.playsInline = true
-    audio.crossOrigin = 'anonymous'
+    // no crossOrigin — plain playback of public Supabase media; no Web Audio API
+    // consumes this element, so crossOrigin only forces strict CORS media mode that
+    // iOS Safari can silently abort (Chrome is lenient) (WebKit fix, prompt 10)
     audioRef.current = audio
 
     const onLoadStart = () => {

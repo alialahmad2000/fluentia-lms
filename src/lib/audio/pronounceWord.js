@@ -88,7 +88,8 @@ async function playUrl(url, word, studentId, source) {
   try {
     const audio = new Audio()
     audio.preload = 'auto'
-    audio.crossOrigin = 'anonymous'
+    // no crossOrigin — plain playback of public Supabase media; it forces strict
+    // CORS media mode that iOS Safari can silently abort (WebKit fix, prompt 10)
     audio.playsInline = true
     audio.src = url
     liveAudio = audio
