@@ -1,0 +1,123 @@
+{
+  "url": "https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/curriculum-audio/listening/L1/44b25ac5-ed1e-4b8d-84d9-ec23614417b6/s0_layla.mp3",
+  "out": [
+    {
+      "engineName": "WebKit",
+      "variant": "with-crossOrigin",
+      "final": {
+        "readyState": 4,
+        "currentTime": 2.6300117636457987,
+        "paused": false,
+        "events": [
+          "loadstart",
+          "loadedmetadata",
+          "loadeddata",
+          "canplay",
+          "canplaythrough",
+          "suspend",
+          "playing"
+        ],
+        "playError": null,
+        "error": null
+      },
+      "net": [
+        {
+          "status": 206,
+          "aco": "*",
+          "cr": "bytes 0-1/1504279"
+        },
+        {
+          "status": 206,
+          "aco": "*",
+          "cr": "bytes 0-1504278/1504279"
+        }
+      ]
+    },
+    {
+      "engineName": "WebKit",
+      "variant": "without-crossOrigin",
+      "final": {
+        "readyState": 4,
+        "currentTime": 2.6287939033395125,
+        "paused": false,
+        "events": [
+          "loadstart",
+          "loadedmetadata",
+          "loadeddata",
+          "canplay",
+          "canplaythrough",
+          "suspend",
+          "playing"
+        ],
+        "playError": null,
+        "error": null
+      },
+      "net": [
+        {
+          "status": 206,
+          "aco": "*",
+          "cr": "bytes 0-1/1504279"
+        },
+        {
+          "status": 206,
+          "aco": "*",
+          "cr": "bytes 0-1504278/1504279"
+        }
+      ]
+    },
+    {
+      "engineName": "Chromium",
+      "variant": "with-crossOrigin",
+      "final": {
+        "readyState": 4,
+        "currentTime": 2.736432,
+        "paused": false,
+        "events": [
+          "loadstart",
+          "loadedmetadata",
+          "loadeddata",
+          "canplay",
+          "canplaythrough",
+          "playing",
+          "suspend"
+        ],
+        "playError": null,
+        "error": null
+      },
+      "net": [
+        {
+          "status": 206,
+          "aco": "*",
+          "cr": "bytes 0-1504278/1504279"
+        }
+      ]
+    },
+    {
+      "engineName": "Chromium",
+      "variant": "without-crossOrigin",
+      "final": {
+        "readyState": 4,
+        "currentTime": 2.730906,
+        "paused": false,
+        "events": [
+          "loadstart",
+          "loadedmetadata",
+          "loadeddata",
+          "canplay",
+          "playing",
+          "canplaythrough",
+          "suspend"
+        ],
+        "playError": null,
+        "error": null
+      },
+      "net": [
+        {
+          "status": 206,
+          "aco": "*",
+          "cr": "bytes 0-1504278/1504279"
+        }
+      ]
+    }
+  ]
+}

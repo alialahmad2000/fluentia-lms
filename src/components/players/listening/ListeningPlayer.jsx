@@ -186,8 +186,16 @@ export function ListeningPlayer({
     audio.addEventListener('pause', onPause)
     audio.addEventListener('ended', onEnded)
 
+    // iOS Safari fix (prompt 10): set src but do NOT eagerly call audio.load() here.
+    // Real-device audio_telemetry shows MEDIA_ERR_SRC_NOT_SUPPORTED (code 4) +
+    // NotSupportedError on iPhone/iPad/Safari for files that play fine in headless
+    // WebKit + Chrome (e.g. s0_layla.mp3). Eager load() OUTSIDE a user gesture — with
+    // preload="metadata", and across the several keyed ListeningPlayers a unit mounts —
+    // pushes iOS into a spurious source-error state before the first tap, so play()
+    // then rejects ("nothing happens"). Setting src lets preload="metadata" fetch the
+    // header for the scrubber; the gesture-driven play() performs the full load inside
+    // the user-gesture context, which iOS honors. (Chrome/WebKit-headless unaffected.)
     audio.src = audioUrl
-    audio.load()
 
     return () => {
       audio.removeEventListener('error', onError)

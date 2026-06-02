@@ -27,7 +27,8 @@ export function useWordAudio(audioUrl) {
       el.dataset.fluentiaWordAudio = audioUrl
       el.src = audioUrl
       el.preload = 'auto'
-      el.crossOrigin = 'anonymous'
+      // no crossOrigin — plain playback of public Supabase media; it forces strict
+      // CORS media mode that iOS Safari can silently abort (WebKit fix, prompt 10)
       el.playsInline = true
       el.style.display = 'none'
       document.body.appendChild(el)

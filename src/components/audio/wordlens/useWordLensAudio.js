@@ -88,7 +88,8 @@ export function useWordLensAudio({ word, vocabAudioUrl, wordAudioUrl = null }) {
       if (!url) { onFail(); return }
       try {
         const el = new Audio()
-        el.crossOrigin = 'anonymous'
+        // no crossOrigin — plain playback of public Supabase media; it forces strict
+        // CORS media mode that iOS Safari can silently abort (WebKit fix, prompt 10)
         el.playsInline = true
         el.preload = 'auto'
         el.src = url
