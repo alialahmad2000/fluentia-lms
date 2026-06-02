@@ -29,6 +29,15 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useSidebarWidth } from '../../../hooks/useSidebarWidth'
 import { logAudioFailure } from '../../../lib/audioTelemetry'
+import { AudioDebugOverlay } from './AudioDebugOverlay'
+
+// Flag gate (prompt 15): the debug overlay renders ONLY when the URL has
+// ?debug=audio. Read straight off window.location so this low-level player stays
+// decoupled from the router; the flag never changes within a session. Students
+// never pass ?debug=audio, so they never see the overlay.
+const AUDIO_DEBUG =
+  typeof window !== 'undefined' &&
+  new URLSearchParams(window.location.search).get('debug') === 'audio'
 
 const SPEEDS = [0.75, 1, 1.25, 1.5]
 
@@ -352,6 +361,16 @@ export function ListeningPlayer({
 
   return (
     <>
+      {/* Flag-gated audio debug overlay — observes this player's real <audio>.
+          Renders ONLY with ?debug=audio in the URL; invisible to students. */}
+      {AUDIO_DEBUG && (
+        <AudioDebugOverlay
+          audioRef={audioRef}
+          audioUrl={audioUrl}
+          wordPronInfo="Tier 1 MP3 via <audio>, Tier 2 Web Speech (speechSynthesis) — Tier 2 bypasses Safari tab-mute"
+        />
+      )}
+
       {/* Spacer so page content isn't hidden behind the fixed bar */}
       <div className="h-32" aria-hidden="true" />
 
