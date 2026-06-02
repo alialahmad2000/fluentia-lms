@@ -385,7 +385,7 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [audioMode, setAudioMode] = useState(false)   // karaoke/full-audio (demoted to drawer)
   const [arabicMode, setArabicMode] = useState(false) // whole-article Arabic (no source data — honest notice)
   const [wordPopup, setWordPopup] = useState(null)     // { word, rect, vocabRow }
-  const { data: articleVocabIndex } = useArticleVocabIndex(reading?.id, reading?.passage_content?.paragraphs)
+  const { data: articleVocabIndex = new Map() } = useArticleVocabIndex(reading?.id, reading?.passage_content?.paragraphs)
 
   // Audio data for SmartAudioPlayer
   const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
