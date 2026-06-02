@@ -10,7 +10,11 @@ import { supabase } from '@/lib/supabase'
 export function useArticleVocabIndex(articleId, paragraphs) {
   const bodyText = Array.isArray(paragraphs) ? paragraphs.join(' ') : (paragraphs || '')
   return useQuery({
-    queryKey: ['article-vocab-index', articleId],
+    // 'no-persist' opts this query out of the localStorage persister (main.jsx):
+    // its value is a Map, which JSON-serializes to a lossy `{}` and rehydrates as a
+    // plain object with no `.has`/`.get`. Keeping it memory-only means a real Map is
+    // always (re)built from the network, never a broken rehydrated shape.
+    queryKey: ['article-vocab-index', 'no-persist', articleId],
     enabled: !!articleId && bodyText.length > 0,
     staleTime: 5 * 60_000,
     queryFn: async () => {
