@@ -103,6 +103,22 @@ async function concatMp3Buffers(buffers) {
       throw new Error(`Concat output failed decode verification: ${e.message}`);
     }
 
+    // 4b. CHANNEL-UNIFORMITY assertion (Safari fix). ffmpeg's decode-verify above
+    // TOLERATES an mp3 whose frames switch between mono and stereo (one block per
+    // concatenated segment); Chrome reconfigures mid-stream but WebKit/Safari locks
+    // the layout from frame 1 and goes SILENT on the differing frames. Assert a
+    // single channel config across every frame so a mixed-mode file can never ship.
+    const frameCh = execSync(
+      `ffprobe -v error -select_streams a -show_entries frame=channels -of csv=p=0 "${outPath}"`,
+    ).toString();
+    const distinctCh = [...new Set(frameCh.split('\n').map((s) => s.trim()).filter(Boolean))];
+    if (distinctCh.length !== 1) {
+      throw new Error(
+        `Concat output has mixed channel modes [${distinctCh}] — Safari will play it silently. ` +
+          `Every frame must be ${TARGET_CH}-channel.`,
+      );
+    }
+
     const result = fs.readFileSync(outPath);
     const totalDur = parseFloat(
       execSync(`ffprobe -v error -show_entries format=duration -of csv=p=0 "${outPath}"`).toString().trim()
