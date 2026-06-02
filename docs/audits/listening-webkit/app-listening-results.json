@@ -1,0 +1,45 @@
+[
+  {
+    "name": "webkit_iphone13",
+    "step": {
+      "login": "ok",
+      "nav": "ok",
+      "tab": "ok",
+      "play": "pending"
+    },
+    "audioState": [],
+    "audioNet": [],
+    "console": [
+      "info: Successfully preconnected to https://fonts.googleapis.com/",
+      "info: Successfully preconnected to https://fonts.gstatic.com/",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/analytics_events due to access control checks.",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/user_sessions?id=eq.83d520b4-350f-4700-9b2d-e5edf108a006 due to access control checks.",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/weekly_task_sets?select=id%2Ctotal_tasks%2Ccompleted_tasks%2Ccompletion_percentage%2Cstatus&student_id=eq.a82486b6-9472-4aba-b902-a0ec354ca170&week",
+      "pageerror: /nmjexpuycmqcxuxljier.supabase.co/rest/v1/assignments?select=*&group_id=eq.bbbbbbbb-2222-2222-2222-bbbbbbbbbbbb&is_visible=eq.true&deleted_at=is.null&deadline=gte.2026-06-02T05%3A26%3A52.60",
+      "error: Viewport argument key \"interactive-widget\" not recognized and ignored.",
+      "info: Successfully preconnected to https://nmjexpuycmqcxuxljier.supabase.co/",
+      "info: Successfully preconnected to https://fonts.googleapis.com/",
+      "info: Successfully preconnected to https://fonts.gstatic.com/",
+      "error: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+      "STEP_ERROR: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-label=\"تشغيل\"], button[aria-label=\"جارٍ التحميل\"]').first()\u001b[22m\n"
+    ]
+  },
+  {
+    "name": "chromium_desktop",
+    "step": {
+      "login": "ok",
+      "nav": "ok",
+      "tab": "ok",
+      "play": "pending"
+    },
+    "audioState": [],
+    "audioNet": [],
+    "console": [
+      "error: Failed to load resource: the server responded with a status of 400 ()",
+      "error: Access to resource at 'https://nmjexpuycmqcxuxljier.supabase.co/rest/v1/user_sessions?id=eq.36763d18-1583-4091-bf79-5f2edd4b3232' from origin 'https://app.fluentia.academy' has been blocked by ",
+      "error: Failed to load resource: net::ERR_FAILED",
+      "error: Failed to load resource: the server responded with a status of 400 ()",
+      "STEP_ERROR: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-label=\"تشغيل\"], button[aria-label=\"جارٍ التحميل\"]').first()\u001b[22m\n"
+    ]
+  }
+]
