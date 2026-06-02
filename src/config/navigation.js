@@ -3,7 +3,7 @@ import {
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
-  MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity,
+  MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
 } from 'lucide-react'
 
 
@@ -17,13 +17,13 @@ export const STUDENT_NAV = {
         { id: 'srs',         label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
         { id: 'hard-words',  label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
-        { id: 'progress',    label: 'تقدّمي',       icon: BarChart3,  to: '/student/progress' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
+        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
         { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,    to: '/student/ielts-atelier', requiresPackage: 'ielts' },
-        { id: 'reports',     label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
-        { id: 'how-to-earn', label: 'كيف تكسب XP 🎯', icon: Target,   to: '/student/how-to-earn' },
-        { id: 'level-journey', label: 'خريطة رحلتكِ',  icon: Map,      to: '/student/level-journey' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
+        // SIDEBAR-HIDDEN 2026-06-02 (prompt 09): removed from sidebar nav only — routes still
+        // registered in App.jsx (direct-URL reachable) and items kept in drawerSections below:
+        //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP), level-journey(خريطة رحلتكِ)
       ],
     },
     {
@@ -38,10 +38,10 @@ export const STUDENT_NAV = {
       label: 'المجتمع',
       items: [
         { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-        { id: 'competition',       label: 'المسابقة ⚔️',       icon: Swords,   to: '/student/competition' },
-        { id: 'competition-rules', label: 'قواعد المسابقة 📜',  icon: BookOpen, to: '/student/competition/rules' },
         { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
         { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
+        // SIDEBAR-HIDDEN 2026-06-02 (prompt 09): removed from sidebar nav only — routes still
+        // registered + kept in drawerSections below: competition(المسابقة), competition-rules(قواعد المسابقة)
       ],
     },
     {
@@ -65,6 +65,7 @@ export const STUDENT_NAV = {
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
+        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
         { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,       to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn',  label: 'كيف تكسب XP 🎯', icon: Target,    to: '/student/how-to-earn' },
@@ -96,7 +97,10 @@ export const STUDENT_NAV = {
     { id: 'dashboard',   label: 'الرئيسية',  icon: Home,       to: '/student' },
     { id: 'curriculum',  label: 'المنهج',     icon: BookOpen,   to: '/student/curriculum' },
     { id: 'flashcards',  label: 'المفردات',   icon: FileText,   to: '/student/flashcards' },
-    { id: 'progress',    label: 'تقدّمي',     icon: BarChart3,  to: '/student/progress' },
+    // 2026-06-02 (prompt 09): 'progress' was hidden from the sidebar, so it's replaced here by the
+    // new Spelling Lab to keep the 5-slot bar consistent on mobile (primary device). 'progress'
+    // stays reachable via the "More" drawer + direct URL.
+    { id: 'spelling-lab', label: 'الإملاء',   icon: PencilLine, to: '/student/spelling-lab' },
     { id: 'more',        label: 'المزيد',     icon: 'more',     to: null },
   ],
 }

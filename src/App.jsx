@@ -49,6 +49,7 @@ const StudentBilling = lazyRetry(() => import('./pages/student/StudentBilling'))
 const StudentExercises = lazyRetry(() => import('./pages/student/StudentExercises'))
 const StudentErrorPatterns = lazyRetry(() => import('./pages/student/StudentErrorPatterns'))
 const StudentVoiceJournal = lazyRetry(() => import('./pages/student/StudentVoiceJournal'))
+const SpellingLab = lazyRetry(() => import('./pages/student/SpellingLab'))
 // Retention system (Module 2 — Smart Homework)
 const HomeworkLanding = lazyRetry(() => import('./pages/student/retention/HomeworkLanding'))
 const HomeworkPlay = lazyRetry(() => import('./pages/student/retention/HomeworkPlay'))
@@ -718,6 +719,7 @@ export default function App() {
               <Route path="/student/weekly-tasks" element={<Page><StudentWeeklyTasks /></Page>} />
               <Route path="/student/weekly-tasks/:id" element={<Page><StudentWeeklyTaskDetail /></Page>} />
               <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
+              <Route path="/student/spelling-lab" element={<Page><SpellingLab /></Page>} />
               <Route path="/student/verbs" element={<Page><IrregularVerbsPractice /></Page>} />
               <Route path="/student/writing-lab" element={<Page><ComingSoon featureName="معمل الكتابة" /></Page>} />
               <Route path="/student/group-activity" element={<Page><PackageRoute requiredPackage="talaqa" featureName="نشاط المجموعة"><StudentGroupActivity /></PackageRoute></Page>} />
