@@ -312,6 +312,13 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — DASHBOARD LIVING BACKGROUND ("Aurora Veil"): full-bleed animated multi-hue backdrop
+- Owner: the dashboard background still read as ~one flat colour. Two root causes found: (1) the ambient blooms were confined to the centred 1200px content column (so most of the screen was plain obsidian), and (2) the night theme's `--ds-accent-secondary` is a muted grey, so the "violet" bloom barely registered.
+- Fix: replaced the column-confined `.pd-atmo` with a FULL-BLEED `.av` "Aurora Veil" **portaled to `<body>`** (mounts/unmounts with the dashboard, sits above the global velvet base at z0, below content): 4 drifting jewel-tone light fields on `mix-blend-mode: screen` using their OWN vivid palette (gold/violet/teal/rose — NOT the muted `--ds` tokens) + a slowly rotating multi-hue **conic halo** (continuous hue-shift via transform only) + 14 floating sparks + a focusing vignette. Theme-adaptive palettes for night / aurora-cinematic / minimal (minimal uses `multiply`).
+- Perf: only transform/opacity animate; `.av.is-paused` freezes on hidden tab (visibilitychange); `prefers-reduced-motion` freezes everything; phones drop the halo + sparks + 4th blob and ease the blur. `AmbientField` (in `_premiumShell.jsx`) now `createPortal`s the veil.
+- Verify: `npm run build` ✓ green; headless (Playwright, mock-test-a1) screenshot confirms a vivid, full-screen living backdrop — gold bloom crowning the hero, cooler teal/violet tones below — no longer flat.
+- Files: `src/pages/student/dashboards/{premiumDashboard.css,_premiumShell.jsx}`, `CLAUDE.md`. Status: Complete — committed + pushed + merged to `main` → production.
+
 ### 2026-06-03 — STUDENT DASHBOARD REINVENTION ("Command Deck") + PREMIUM SIDEBAR RAIL + dead-feature removal
 - Owner wanted the student dashboard to feel like a *different platform* ("is it the same platform?!") — a true structural reinvention, not the prior re-skin — plus a redesigned sidebar, and several deprecated surfaces removed. Full authority granted; shipped straight to production.
 - **Removed (owner-confirmed deprecated; recorded in memory `project-fluentia-removed-features`):** the Quick-Access band (4 tiles: weekly-tasks / assignments / adaptive-test / ai-insights) AND the Weekly-Tasks band. Tell-tale: none of those four appear in the live student sidebar `sections`. Their page-level queries (weekly_task_sets, weekly_tasks, pending-assignments) were deleted from the dashboard too.

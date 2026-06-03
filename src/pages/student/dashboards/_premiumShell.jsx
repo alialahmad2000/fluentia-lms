@@ -1,38 +1,80 @@
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import './premiumDashboard.css'
 
 /* ------------------------------------------------------------------ *
  * Fluentia LMS — Premium Dashboard, shared presentational primitives.
  *
- * Pure view helpers — no data, no fetching. They give the production
- * dashboard one consistent, refined visual language built on the
- * design-system `--ds-*` tokens (so night / aurora / minimal all just
- * work). Spacing, depth and motion are intentional and restrained;
- * the accent is used as a precious material, not a coat of paint.
+ * Pure view helpers — no data. They give the production dashboard one
+ * consistent, refined visual language built on the design-system
+ * `--ds-*` tokens. The accent is used as a precious material, not paint.
  * ------------------------------------------------------------------ */
 
 export const APPLE_EASE = [0.16, 1, 0.3, 1]
 
-/* Page-scoped ambient field — a dual-temperature wash that lives BEHIND
- * the whole dashboard. A warm primary bloom crowns the hero; cool
- * secondary/teal blooms drift through the lower page. This is the layer
- * that makes the background feel composed rather than flat. All motion
- * + perf trimming lives in premiumDashboard.css. */
+/* Deterministic spark field (no Math.random → stable across renders). */
+const SPARK_COLORS = ['--av-c1', '--av-c2', '--av-c3', '--av-c4']
+const SPARKS = Array.from({ length: 14 }, (_, i) => {
+  const c = `var(${SPARK_COLORS[i % SPARK_COLORS.length]})`
+  return {
+    left: `${(7 + i * 6.3) % 95}%`,
+    bottom: `${5 + (i * 13) % 68}%`,
+    size: i % 3 === 0 ? 4 : 3,
+    color: c,
+    animationDuration: `${9 + (i % 6) * 1.4}s`,
+    animationDelay: `-${(i * 1.1).toFixed(1)}s`,
+  }
+})
+
+/* AmbientField — a FULL-BLEED living "Aurora Veil" portaled to <body> so
+ * it fills the whole screen (not just the centred content column). Drifting
+ * jewel-tone light fields + a slowly rotating multi-hue halo + floating
+ * sparks. Mounts/unmounts with the dashboard; pauses on hidden tab; all
+ * motion + perf trimming lives in premiumDashboard.css. */
 export function AmbientField() {
-  return (
-    <div className="pd-atmo" aria-hidden="true">
-      <div className="pd-atmo__beam" />
-      <div className="pd-atmo__bloom pd-atmo__bloom--gold" />
-      <div className="pd-atmo__bloom pd-atmo__bloom--violet" />
-      <div className="pd-atmo__bloom pd-atmo__bloom--teal" />
-      <div className="pd-atmo__horizon" />
-    </div>
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    const onVis = () => setPaused(document.hidden)
+    document.addEventListener('visibilitychange', onVis)
+    return () => document.removeEventListener('visibilitychange', onVis)
+  }, [])
+
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
+    <div className={`av${paused ? ' is-paused' : ''}`} aria-hidden="true">
+      <div className="av__base" />
+      <div className="av__halo" />
+      <div className="av__blob av__blob--1" />
+      <div className="av__blob av__blob--2" />
+      <div className="av__blob av__blob--3" />
+      <div className="av__blob av__blob--4" />
+      {SPARKS.map((s, i) => (
+        <span
+          key={i}
+          className="av__spark"
+          style={{
+            left: s.left,
+            bottom: s.bottom,
+            width: s.size,
+            height: s.size,
+            background: s.color,
+            boxShadow: `0 0 8px 1px ${s.color}`,
+            animationDuration: s.animationDuration,
+            animationDelay: s.animationDelay,
+          }}
+        />
+      ))}
+      <div className="av__vig" />
+    </div>,
+    document.body
   )
 }
 
 /* An editorial section eyebrow: a small gradient spark, an uppercase
- * tracked label, a hairline rule that runs to the edge, and an optional
- * hint. RTL-safe — the spark sits at the inline-start edge. */
+ * tracked label, a hairline rule that runs to the edge, optional hint. */
 export function SectionLabel({ children, hint }) {
   return (
     <div className="flex items-center gap-3" style={{ marginBottom: 'var(--space-4)' }}>
@@ -73,8 +115,7 @@ export function SectionLabel({ children, hint }) {
   )
 }
 
-/* A staggered section wrapper: fades + lifts its block into view once, so
- * the page assembles itself calmly as the student scrolls. */
+/* A staggered section wrapper: fades + lifts its block into view once. */
 export function Band({ children, delay = 0, className = '', style }) {
   const reduced = useReducedMotion()
   return (
