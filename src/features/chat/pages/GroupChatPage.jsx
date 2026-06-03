@@ -26,6 +26,22 @@ export default function GroupChatPage() {
   const [replyTo, setReplyTo] = useState(null)
   const [editing, setEditing] = useState(null)
   const lastScrollY = useRef(0)
+  const auroraRef = useRef(null)
+
+  // Gently pulse the aurora on each message send (Telegram "the room breathed")
+  useEffect(() => {
+    const el = auroraRef.current
+    if (!el) return
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+    let t
+    const onSend = () => {
+      el.setAttribute('data-pulsing', 'true')
+      clearTimeout(t)
+      t = setTimeout(() => el.removeAttribute('data-pulsing'), 1100)
+    }
+    window.addEventListener('fluentia:chat-send', onSend)
+    return () => { window.removeEventListener('fluentia:chat-send', onSend); clearTimeout(t) }
+  }, [])
 
   const startReply = useCallback((m) => { setEditing(null); setReplyTo(m) }, [])
   const startEdit = useCallback((m) => { setReplyTo(null); setEditing(m) }, [])
@@ -70,8 +86,11 @@ export default function GroupChatPage() {
 
   return (
     <div className="chat-shell">
-      {/* Immersive aurora backdrop */}
-      <div className="chat-aurora" aria-hidden="true"><i /></div>
+      {/* Immersive multi-hue aurora backdrop (pulses on send) */}
+      <div className="chat-aurora" aria-hidden="true" ref={auroraRef}>
+        <i className="ca-blob ca-sky" /><i className="ca-blob ca-violet" /><i className="ca-blob ca-emerald" />
+        <i className="ca-blob ca-rose" /><i className="ca-blob ca-amber" />
+      </div>
       <div className="chat-aurora-scrim" aria-hidden="true" />
 
       {/* Search overlay (fixed full-screen sheet) */}

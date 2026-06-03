@@ -21,6 +21,7 @@ export function useSendMessage(channelId, groupId) {
       return data
     },
     onMutate: async (payload) => {
+      if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('fluentia:chat-send'))
       await qc.cancelQueries({ queryKey: key })
       const previous = qc.getQueryData(key)
 

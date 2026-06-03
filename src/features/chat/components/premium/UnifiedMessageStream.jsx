@@ -117,6 +117,7 @@ export default function UnifiedMessageStream({
   const [atBottom, setAtBottom] = useState(true)
   const [newCount, setNewCount] = useState(0)
   const prevLenRef = useRef(0)
+  const mountedAtRef = useRef(Date.now()) // only messages arriving AFTER this animate (no scroll strobe)
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useUnifiedMessages(groupId, lens)
@@ -230,6 +231,7 @@ export default function UnifiedMessageStream({
               groupId={groupId}
               onReply={onReply}
               onEdit={onEdit}
+              animateIn={new Date(item.messages[item.messages.length - 1].created_at).getTime() > mountedAtRef.current}
             />
           )
         }}
