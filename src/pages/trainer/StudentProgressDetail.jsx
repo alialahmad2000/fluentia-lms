@@ -500,6 +500,14 @@ export default function StudentProgressDetail() {
       {/* ── Quick Actions ─────────────────────────── */}
       {currentUser?.role === 'trainer' || currentUser?.role === 'admin' ? (
         <div className="flex gap-2 flex-wrap">
+          <button
+            onClick={() => navigate(`/${currentUser?.role === 'admin' ? 'admin' : 'trainer'}/student/${studentId}/report`)}
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all hover:translate-y-[-1px] min-h-[36px]"
+            style={{ background: 'var(--accent-sky)', color: '#0a1225', border: '1px solid var(--accent-sky)' }}
+          >
+            <ClipboardList size={14} />
+            تقرير النشاط التفصيلي
+          </button>
           {[
             { to: `/trainer/points?student=${studentId}`, label: 'أضف نقاط', icon: Zap },
             { to: `/trainer/student-notes?student=${studentId}`, label: 'أرسل ملاحظة', icon: MessageSquare },
