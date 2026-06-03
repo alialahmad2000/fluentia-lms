@@ -8,14 +8,14 @@ import WordRevealCard from './WordRevealCard'
 // ── Spelling Lab session (Surface 4 of the Constellation identity) ───────────
 // One drill of up to 10 words. Two modes:
 //   listen_type  — audio plays (audio_url or Web Speech fallback) → type it
-//   see_retype   — word shown 2s in serif → fades → type from memory
+//   see_retype   — study card (word + meaning/type/example/relations) → tap to
+//                  spell it from memory
 // Server is the source of truth for correctness + Anki-lite mastery via the
 // spelling_lab_record_attempt RPC. Calm UI — no confetti, no exclamation marks.
 // Restyled into the indigo/gold "constellation" palette; gold = mastery only.
 
 const SESSION_SIZE = 10
 const FEEDBACK_REVEAL_MS = 2200   // wrong answer: dwell long enough to read the reveal card before retype
-const SEE_REVEAL_MS = 2000
 
 // Web Speech fallback for words with no recorded audio_url.
 function speak(word) {
@@ -188,8 +188,11 @@ export default function SpellingSession({ mode, onExit }) {
     return () => { alive = false }
   }, [mode])
 
-  // Set up each new word: see_retype reveals 2s then opens input; listen_type
-  // opens input immediately and (best-effort) auto-plays. Re-runs per word.
+  // Set up each new word: see_retype shows a STUDY card (the word + its meaning,
+  // type, example, and relations) and waits for the student to tap "اكتبها الآن"
+  // — no auto-fade, so there's time to actually learn the word before spelling
+  // it from memory. listen_type opens input immediately and (best-effort)
+  // auto-plays. Re-runs per word.
   useEffect(() => {
     if (!words || words.length === 0) return undefined
     setAnswer('')
@@ -199,7 +202,8 @@ export default function SpellingSession({ mode, onExit }) {
 
     if (mode === 'see_retype') {
       setPhase('prompt')
-      timerRef.current = setTimeout(() => setPhase('input'), SEE_REVEAL_MS)
+      // intentionally NO auto-advance — the study card stays until the student
+      // chooses to spell, so the meaning/example/relations are readable.
     } else {
       setPhase('input')
       // best-effort autoplay; the replay button covers iOS gesture restrictions
@@ -326,17 +330,30 @@ export default function SpellingSession({ mode, onExit }) {
           </motion.button>
         )}
 
-        {/* see_retype: reveal the word, then it fades */}
+        {/* see_retype: STUDY the word + its meaning / type / example / relations,
+            then tap to spell it from memory. The details live here (not just on
+            the feedback screen) because in this mode the word is shown on purpose
+            — so the student can be curious about the word while learning it. */}
         <AnimatePresence mode="wait">
           {mode === 'see_retype' && phase === 'prompt' && (
             <motion.div
-              key={`word-${currentIdx}`}
-              initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
+              key={`study-${currentIdx}`}
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="vc-word max-w-full text-center break-words leading-tight"
-              style={{ fontStyle: 'italic', fontSize: 'clamp(2.25rem, 12vw, 3.5rem)', color: 'var(--vc-text)' }}
+              className="w-full flex flex-col items-center"
+              dir="rtl"
             >
-              {current.word_en}
+              <p className="text-[13px] text-center" style={{ color: 'var(--vc-text-dim)' }}>
+                ادرسي الكلمة وتفاصيلها، ثم اكتبيها من الذاكرة
+              </p>
+              <WordRevealCard word={current} onPlayAudio={playRevealWord} />
+              <button
+                type="button"
+                onClick={() => { if (timerRef.current) clearTimeout(timerRef.current); setPhase('input') }}
+                className="vc-btn vc-btn-primary mt-6 w-full max-w-md"
+              >
+                اكتبها الآن <ArrowLeft size={16} />
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
