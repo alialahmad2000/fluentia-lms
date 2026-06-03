@@ -58,6 +58,29 @@ function stopAll() {
   liveUtterance = null
 }
 
+// iOS Safari silently ignores speechSynthesis.speak() until it's been "unlocked"
+// by a speak() that ran inside a real user gesture. The word-tap auto-play runs in
+// a useEffect (just outside the gesture), so on iOS the FIRST Web-Speech word can
+// be silent (logged 'ok' but never heard). Unlock once on the first real user
+// interaction anywhere; afterwards every speak() is honored. (WORD-AUDIO-SAFARI-FIX)
+let speechUnlocked = false
+function unlockSpeech() {
+  if (speechUnlocked || typeof window === 'undefined' || !('speechSynthesis' in window)) return
+  speechUnlocked = true
+  try {
+    const u = new SpeechSynthesisUtterance(' ')
+    u.volume = 0
+    window.speechSynthesis.speak(u)
+    window.speechSynthesis.cancel()
+  } catch {}
+}
+if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+  const opt = { once: true, capture: true }
+  window.addEventListener('pointerdown', unlockSpeech, opt)
+  window.addEventListener('touchstart', unlockSpeech, opt)
+  window.addEventListener('keydown', unlockSpeech, opt)
+}
+
 // Evict the oldest primed blob once we're over the cap (FIFO).
 function evictIfNeeded() {
   while (wordBlobCache.size > MAX_PRIMED_BLOBS) {
@@ -112,12 +135,16 @@ export async function pronounceWord(rawWord, { studentId = null } = {}) {
     return playUrl(wordBlobCache.get(word), word, studentId, 'primed')
   }
 
-  // ── Tier 1 (in-memory URL cache): play directly, prime bytes in bg ─────
+  // ── Tier 1 (URL cache): prime the BYTES, then play the blob ────────────
+  // Playing the remote URL via <audio> fails on Safari/iOS with NotSupportedError
+  // (telemetry: 53 failures, 100% iOS/Mac-Safari) — while the blob path ("primed")
+  // NEVER failed. So always play from an in-memory blob. The fetch is tiny
+  // (~5-20 KB, SW-bypassed) and well within iOS's post-gesture activation window,
+  // so playback still fires for the tap. (WORD-AUDIO-SAFARI-FIX 2026-06)
   if (wordAudioCache.has(word)) {
     const url = wordAudioCache.get(word)
-    // Warm the bytes so the NEXT tap on this word is instant too.
-    primeBytes(word, url)
-    return playUrl(url, word, studentId, 'cache')
+    const blobUrl = await primeBytes(word, url)
+    return playUrl(blobUrl || url, word, studentId, blobUrl ? 'primed' : 'cache')
   }
 
   // ── Tier 1 (DB): curriculum_vocabulary.audio_url ──────────────────
@@ -132,8 +159,9 @@ export async function pronounceWord(rawWord, { studentId = null } = {}) {
 
     if (data?.audio_url) {
       wordAudioCache.set(word, data.audio_url)
-      primeBytes(word, data.audio_url)
-      return playUrl(data.audio_url, word, studentId, 'vocabulary')
+      // Play from a blob (Safari-reliable), not the remote URL — see above.
+      const blobUrl = await primeBytes(word, data.audio_url)
+      return playUrl(blobUrl || data.audio_url, word, studentId, blobUrl ? 'primed' : 'vocabulary')
     }
   } catch {
     // Network blip → fall through to Web Speech.
@@ -203,25 +231,34 @@ async function playUrl(url, word, studentId, source) {
 
 function speakBrowser(word, studentId) {
   try {
-    window.speechSynthesis.cancel()
+    const synth = window.speechSynthesis
+    unlockSpeech() // ensure iOS is unlocked even if this is the first speak()
+    synth.cancel()
     const u = new SpeechSynthesisUtterance(word)
     u.lang = 'en-US'
     u.rate = 0.9
     u.pitch = 1
     u.volume = 1
 
-    const voices = window.speechSynthesis.getVoices()
-    const preferred = voices.find((v) =>
-      /en-(US|GB)/i.test(v.lang) &&
-      /(samantha|google|microsoft|alex|daniel|karen)/i.test(v.name)
-    )
-    if (preferred) u.voice = preferred
+    // getVoices() is often [] until the async 'voiceschanged' fires (esp. iOS).
+    // Pick a good English voice if present; otherwise the platform default still
+    // speaks. Never block on voices — speak immediately to stay within the gesture.
+    const voices = synth.getVoices()
+    if (voices && voices.length) {
+      const preferred =
+        voices.find((v) => /en-(US|GB)/i.test(v.lang) && /(samantha|google|microsoft|alex|daniel|karen)/i.test(v.name)) ||
+        voices.find((v) => /^en[-_]/i.test(v.lang)) ||
+        voices.find((v) => /^en/i.test(v.lang))
+      if (preferred) u.voice = preferred
+    }
 
     liveUtterance = u
     u.onend = () => { if (liveUtterance === u) liveUtterance = null }
     u.onerror = () => { if (liveUtterance === u) liveUtterance = null }
 
-    window.speechSynthesis.speak(u)
+    synth.speak(u)
+    // iOS/Chrome sometimes leave the utterance queue 'paused' — kick it.
+    try { if (synth.paused) synth.resume() } catch {}
     logAudioEvent({
       studentId,
       playerId: `word:${word}`,
