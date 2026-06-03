@@ -1,12 +1,12 @@
 import { useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
+import { useQuery } from '@tanstack/react-query'
 import { BookOpen, Volume2, ChevronLeft } from 'lucide-react'
 import AnimatedNumber from '../../ui/AnimatedNumber'
 import { Link } from 'react-router-dom'
 import { useDictionaryStats } from '../../../hooks/dashboard/useDictionaryStats'
 import { usePersonalDictionary } from '../../../hooks/dashboard/usePersonalDictionary'
-import { useSRSCounts, useSRSDue } from '../../../hooks/useSrs'
-import ReviewOverlay from '../vocabulary/ReviewOverlay'
+import { getCounts } from '../../../services/vocab'
 
 const MASTERY_CONFIG = {
   new: { label: 'جديد', bg: 'rgba(56,189,248,0.12)', border: 'rgba(56,189,248,0.25)', color: 'var(--accent-sky)' },
@@ -169,19 +169,25 @@ function EmptyState() {
 export default function PersonalDictionaryWidget({ studentId }) {
   const { data: stats, isLoading: statsLoading } = useDictionaryStats(studentId)
   const { data: words, isLoading: wordsLoading } = usePersonalDictionary(studentId, { limit: 6 })
-  const { data: srsCounts } = useSRSCounts(studentId)
-  const { data: dueWords, refetch: refetchDue } = useSRSDue(studentId, { enabled: (srsCounts?.due_today ?? 0) > 0 })
-  const [reviewOpen, setReviewOpen] = useState(false)
 
-  const audioRef = useRef(null)
+  // Unified store counts (sky-in-the-sky + due today) — replaces migration-128
+  // srs_get_counts. getCounts → { total, mastered, learning, newCards, due }.
+  const { data: vocabCounts } = useQuery({
+    queryKey: ['vocab-cards-counts', studentId],
+    queryFn: () => getCounts(studentId),
+    enabled: !!studentId,
+    staleTime: 30_000,
+    refetchInterval: 60_000,
+    refetchIntervalInBackground: false,
+  })
+  const dueToday = vocabCounts?.due ?? 0
+  const wordsInSky = vocabCounts?.total ?? 0
+
   const [audioState, setAudioState] = useState({ playingId: null, loadingId: null, playing: false })
+  const audioRef = useRef(null)
 
   const isLoading = statsLoading || wordsLoading
   const totalWords = stats?.total_words ?? 0
-
-  const openReview = useCallback(() => {
-    refetchDue().then(() => setReviewOpen(true))
-  }, [refetchDue])
 
   const handlePlayAudio = useCallback((word) => {
     if (!word.audio_url) return
@@ -249,9 +255,9 @@ export default function PersonalDictionaryWidget({ studentId }) {
           </h2>
         </div>
         <Link
-          to="/student/my-dictionary"
+          to="/student/srs"
           className="flex items-center gap-1 text-xs font-medium transition-opacity hover:opacity-80"
-          style={{ color: 'var(--accent-sky)' }}
+          style={{ color: '#818cf8' }}
         >
           عرض الكل
           <ChevronLeft size={14} />
@@ -267,16 +273,28 @@ export default function PersonalDictionaryWidget({ studentId }) {
       {/* Content */}
       {!isLoading && totalWords > 0 && (
         <>
-          {/* SRS Review pill */}
-          {(srsCounts?.due_today ?? 0) > 0 ? (
-            <button
-              onClick={openReview}
+          {/* Sky summary — words in your sky / due today (vocab_cards) */}
+          <div
+            className="flex items-center justify-center gap-2 mb-3 text-[11px] font-['Tajawal']"
+            style={{ color: 'var(--text-tertiary)' }}
+          >
+            <span style={{ color: '#818cf8' }}>{wordsInSky} كلمة في سمائك</span>
+            <span style={{ opacity: 0.4 }}>•</span>
+            <span style={{ color: dueToday > 0 ? '#fbbf24' : 'var(--text-tertiary)' }}>
+              {dueToday} للمراجعة اليوم
+            </span>
+          </div>
+
+          {/* Review CTA → unified review (/student/srs) */}
+          {dueToday > 0 ? (
+            <Link
+              to="/student/srs"
               className="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 mb-4 text-sm font-bold font-['Tajawal'] transition-all hover:scale-[1.01] active:scale-[0.99]"
-              style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.2)', color: 'var(--accent-sky)' }}
+              style={{ background: 'rgba(129,140,248,0.1)', border: '1px solid rgba(129,140,248,0.3)', color: '#818cf8' }}
             >
-              🧠 <span>{srsCounts.due_today} كلمة للمراجعة اليوم</span>
-            </button>
-          ) : srsCounts && totalWords > 0 && (
+              🧠 <span>{dueToday} كلمة للمراجعة اليوم</span>
+            </Link>
+          ) : (
             <div className="text-center text-xs text-white/25 font-['Tajawal'] mb-3">
               كل شي تحت السيطرة ✨ ولا كلمة تنتظر مراجعتك
             </div>
@@ -317,12 +335,6 @@ export default function PersonalDictionaryWidget({ studentId }) {
           </div>
         </>
       )}
-
-      <ReviewOverlay
-        isOpen={reviewOpen}
-        onClose={() => setReviewOpen(false)}
-        words={dueWords ?? []}
-      />
     </motion.div>
   )
 }

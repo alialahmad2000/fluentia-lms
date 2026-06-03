@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { X, Volume2, Bookmark, ExternalLink } from 'lucide-react'
+import { X, Volume2, Bookmark, Check } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { useAuthProfileId } from '../../stores/authStore'
+import { addCard } from '../../services/vocab'
 import SmartAudioPlayer from './SmartAudioPlayer'
 
 // ── Vocab lookup ──────────────────────────────────────────────────────────────
@@ -122,6 +124,33 @@ function DesktopPopover({ vocab, word, loading, onClose, anchorPosition }) {
 
 // ── Shared content ────────────────────────────────────────────────────────────
 function VocabContent({ vocab, word, loading, onClose }) {
+  const profileId = useAuthProfileId()
+  const [saved, setSaved] = useState(false)
+  const [saving, setSaving] = useState(false)
+
+  const handleSave = useCallback(async () => {
+    if (saved || saving || !profileId) return
+    setSaving(true)
+    try {
+      // Unified vocab store — the single save path (idempotent, reviewable).
+      await addCard(profileId, {
+        word: vocab?.word || word,
+        curriculumVocabularyId: vocab?.id || null,
+        meaningAr: vocab?.definition_ar || null,
+        contextSentence: vocab?.example_sentence || null,
+        source: 'reading',
+      })
+      setSaved(true)
+      try {
+        window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word: vocab?.word || word } }))
+      } catch { /* no-op */ }
+    } catch {
+      /* best-effort — keep button in "save" state for retry */
+    } finally {
+      setSaving(false)
+    }
+  }, [saved, saving, profileId, vocab, word])
+
   return (
     <div className="p-5 space-y-4" dir="rtl">
       {/* Header */}
@@ -210,11 +239,17 @@ function VocabContent({ vocab, word, loading, onClose }) {
           {/* Actions */}
           <div className="flex items-center gap-2 pt-1">
             <button
-              onClick={() => console.log('Save to flashcards not implemented yet', vocab.word)}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs rounded-xl bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 transition-colors font-['Tajawal']"
+              onClick={handleSave}
+              disabled={saving || saved}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs rounded-xl transition-colors font-['Tajawal'] disabled:opacity-60"
+              style={
+                saved
+                  ? { background: 'rgba(34,197,94,0.12)', color: '#22c55e' }
+                  : { background: 'rgba(56,189,248,0.1)', color: '#38bdf8' }
+              }
             >
-              <Bookmark size={13} />
-              احفظ في مفرداتي
+              {saved ? <Check size={13} /> : <Bookmark size={13} />}
+              {saved ? 'محفوظة في مفرداتي' : 'احفظ في مفرداتي'}
             </button>
           </div>
         </>

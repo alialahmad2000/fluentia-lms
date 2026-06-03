@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, X, ChevronLeft } from 'lucide-react'
-import { recordDrillAttempt } from '../../services/hardWords'
+import { recordDrill } from '../../services/vocab'
 
 /**
  * Typing Recall — Arabic meaning shown, student types the English word.
@@ -45,22 +45,16 @@ export default function TypingRecallDrill({ batch, studentId, onComplete }) {
       const distance = levenshtein(guess, target)
       const isCorrect = distance <= 1
       const typo = isCorrect && distance === 1
-      const responseMs = Date.now() - cardStartRef.current
       setSubmitted(true)
       setResult({ isCorrect, distance, typo })
 
       try {
-        const r = await recordDrillAttempt({
-          studentId,
-          vocabularyId: current.vocabularyId,
-          drillMode: 'typing_recall',
-          isCorrect,
-          responseMs,
-        })
+        const card = await recordDrill(current.id, 'typing_recall', isCorrect)
+        const promoted = card?.mastery_level === 'mastered'
         setSessionStats((s) => ({
           correct: s.correct + (isCorrect ? 1 : 0),
           wrong: s.wrong + (isCorrect ? 0 : 1),
-          promoted: s.promoted + (r.promoted ? 1 : 0),
+          promoted: s.promoted + (promoted ? 1 : 0),
         }))
       } catch (err) {
         // eslint-disable-next-line no-console
@@ -107,7 +101,7 @@ export default function TypingRecallDrill({ batch, studentId, onComplete }) {
   if (!primaries.length) {
     return (
       <div className="text-center py-12">
-        <p className="text-base font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-base" style={{ color: 'var(--vc-text-soft)' }}>
           لا توجد كلمات لهذا التدريب.
         </p>
       </div>
@@ -117,13 +111,13 @@ export default function TypingRecallDrill({ batch, studentId, onComplete }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
+        <div className="text-sm font-bold tabular-nums" style={{ color: 'var(--vc-text-soft)' }}>
           {index + 1} / {primaries.length}
         </div>
-        <div className="h-2 flex-1 mx-4 rounded-full overflow-hidden" style={{ background: 'var(--surface)' }}>
+        <div className="h-2 flex-1 mx-4 rounded-full overflow-hidden" style={{ background: 'var(--vc-surface-2)' }}>
           <motion.div
             className="h-full"
-            style={{ background: 'linear-gradient(90deg, var(--accent-sky), var(--accent-emerald))' }}
+            style={{ background: 'linear-gradient(90deg, var(--vc-indigo), var(--vc-violet))' }}
             initial={{ width: 0 }}
             animate={{ width: `${((index + 1) / primaries.length) * 100}%` }}
             transition={{ duration: 0.3 }}
@@ -133,39 +127,25 @@ export default function TypingRecallDrill({ batch, studentId, onComplete }) {
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={current.vocabularyId}
+          key={current.id}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.25 }}
         >
           {/* Meaning card */}
-          <div
-            className="p-6 md:p-8 rounded-2xl mb-5 text-center"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(168,85,247,0.08), rgba(56,189,248,0.06))',
-              border: '1px solid var(--border)',
-            }}
-          >
-            <span
-              className="block text-xs font-bold font-['Tajawal'] mb-3"
-              style={{ color: 'var(--text-tertiary)' }}
-            >
-              اكتب الكلمة بالإنجليزي:
+          <div className="vc-card p-6 md:p-8 mb-5 text-center">
+            <span className="block text-xs font-bold mb-3" style={{ color: 'var(--vc-text-dim)' }}>
+              اكتبي الكلمة بالإنجليزي
             </span>
-            <p
-              className="text-2xl md:text-3xl font-bold font-['Tajawal']"
-              dir="rtl"
-              style={{ color: 'var(--text-primary)' }}
-            >
+            <p className="text-2xl md:text-3xl font-bold" dir="rtl" style={{ color: 'var(--vc-text)' }}>
               {current.meaningAr || '—'}
             </p>
             {current.exampleSentence && (
               <p
                 className="text-xs mt-3"
                 dir="ltr"
-                style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}
+                style={{ color: 'var(--vc-text-dim)', fontStyle: 'italic' }}
               >
                 {(() => {
                   const re = new RegExp(`\\b${escapeRegex(current.word)}\\b`, 'gi')
@@ -186,19 +166,19 @@ export default function TypingRecallDrill({ batch, studentId, onComplete }) {
                 disabled={submitted}
                 dir="ltr"
                 placeholder="type the word…"
-                className="w-full px-5 py-4 rounded-xl text-lg font-semibold outline-none"
+                className="vc-word w-full px-5 py-4 rounded-2xl text-lg font-semibold outline-none"
                 style={{
                   background: submitted
                     ? result?.isCorrect
                       ? 'rgba(34,197,94,0.10)'
                       : 'rgba(239,68,68,0.10)'
-                    : 'var(--surface)',
+                    : 'var(--vc-surface)',
                   border: submitted
                     ? result?.isCorrect
                       ? '1.5px solid rgba(34,197,94,0.5)'
                       : '1.5px solid rgba(239,68,68,0.5)'
-                    : '1px solid var(--border)',
-                  color: 'var(--text-primary)',
+                    : '1px solid var(--vc-border)',
+                  color: 'var(--vc-text)',
                 }}
               />
               {submitted && (
@@ -217,7 +197,7 @@ export default function TypingRecallDrill({ batch, studentId, onComplete }) {
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-xl p-3 text-sm font-['Tajawal']"
+                className="rounded-2xl p-3 text-sm"
                 style={{
                   background: result?.isCorrect
                     ? 'rgba(34,197,94,0.08)'
@@ -249,23 +229,19 @@ export default function TypingRecallDrill({ batch, studentId, onComplete }) {
               <button
                 type="submit"
                 disabled={!input.trim()}
-                className="w-full py-3 rounded-xl font-bold font-['Tajawal']"
+                className="vc-btn vc-btn-primary w-full"
                 style={{
-                  background: input.trim() ? 'var(--accent-gold)' : 'var(--surface)',
-                  color: input.trim() ? '#0a1225' : 'var(--text-tertiary)',
-                  opacity: input.trim() ? 1 : 0.6,
+                  opacity: input.trim() ? 1 : 0.5,
                   cursor: input.trim() ? 'pointer' : 'not-allowed',
-                  transition: 'all 0.2s ease',
                 }}
               >
-                تحقق
+                تحقّقي
               </button>
             ) : (
               <button
                 type="button"
                 onClick={handleNextNow}
-                className="w-full py-3 rounded-xl font-bold font-['Tajawal'] inline-flex items-center justify-center gap-2"
-                style={{ background: 'var(--surface)', color: 'var(--text-primary)', border: '1px solid var(--border)' }}
+                className="vc-btn vc-btn-ghost w-full"
               >
                 {isLast ? 'إنهاء التدريب' : 'التالي'}
                 <ChevronLeft size={16} />

@@ -3,27 +3,28 @@ import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
-  Dumbbell,
   Shuffle,
   BookOpen,
   Headphones,
   Keyboard,
   CheckCircle,
   ArrowLeft,
-  TrendingUp,
+  BarChart3,
 } from 'lucide-react'
 import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { getHardWords, getHardWordsCount } from '../../services/vocab'
+import { useVocabStats } from '../../hooks/useVocabStats'
+import VocabShell from '../../components/vocab-cosmos/VocabShell'
+import VocabHeader from '../../components/vocab-cosmos/VocabHeader'
+import { toArabicNum } from '../../lib/vocabFormat'
+import DrillSessionContainer from '../../components/hard-words/DrillSessionContainer'
 import {
-  getHardWordsStats,
-  getRecentDrillActivity,
   DRILL_MODES,
   DRILL_MODE_AR,
   DRILL_MODE_DESCRIPTION_AR,
-} from '../../services/hardWords'
-import DrillSessionContainer from '../../components/hard-words/DrillSessionContainer'
-
-const toArabicNum = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d])
+  deriveAvailableModes,
+} from '../../components/hard-words/hardWordsBatch'
 
 const MODE_ICON = {
   matching: Shuffle,
@@ -33,10 +34,10 @@ const MODE_ICON = {
 }
 
 const MODE_REQUIREMENT_AR = {
-  matching: 'تحتاج على الأقل ٦ كلمات صعبة لهذا التدريب',
-  context_fill: 'تحتاج كلمات صعبة لها أمثلة في الجمل',
-  listening: 'تحتاج كلمات صعبة لها صوت',
-  typing_recall: 'تحتاج على الأقل كلمة صعبة واحدة',
+  matching: 'تحتاجين ٦ كلمات صعبة على الأقل لهذا التدريب',
+  context_fill: 'تحتاجين كلمات صعبة لها أمثلة في الجمل',
+  listening: 'تحتاجين كلمات صعبة لها صوت',
+  typing_recall: 'تحتاجين كلمة صعبة واحدة على الأقل',
 }
 
 const DAY_INITIALS_AR = ['أ', 'إ', 'ث', 'ر', 'خ', 'ج', 'س'] // Sun..Sat
@@ -48,15 +49,25 @@ export default function HardWordsHome() {
   const [activeMode, setActiveMode] = useState(null)
   const [autoplay, setAutoplay] = useState(true)
 
-  // Stats: total + breakdown + available modes
-  const { data: stats, isLoading: statsLoading } = useQuery({
-    queryKey: ['hard-words', 'stats', profileId],
-    queryFn: () => getHardWordsStats(profileId),
+  const vocabStats = useVocabStats()
+
+  // Hero count — cheap, from the unified store (vocab_cards).
+  const { data: hardCount = 0, isLoading: countLoading } = useQuery({
+    queryKey: ['hard-words', 'count', profileId],
+    queryFn: () => getHardWordsCount(profileId),
     enabled: !!profileId,
     staleTime: 30_000,
   })
 
-  // 7-day activity bars
+  // The hard cards themselves — drives the mode cards + the drill batches.
+  const { data: hardCards = [] } = useQuery({
+    queryKey: ['hard-words', 'cards', profileId],
+    queryFn: () => getHardWords(profileId, 200),
+    enabled: !!profileId,
+    staleTime: 30_000,
+  })
+
+  // 7-day drill activity (still reads hard_words_drill_log, now keyed by student_id).
   const { data: activity } = useQuery({
     queryKey: ['hard-words', 'activity', profileId],
     queryFn: () => getRecentDrillActivity(profileId, 7),
@@ -64,7 +75,7 @@ export default function HardWordsHome() {
     staleTime: 60_000,
   })
 
-  // Pull autoplay pref to feed into the listening drill
+  // Autoplay pref for the listening drill.
   useQuery({
     queryKey: ['hard-words', 'prefs', profileId],
     queryFn: async () => {
@@ -81,11 +92,22 @@ export default function HardWordsHome() {
     staleTime: 5 * 60_000,
   })
 
-  const total = stats?.totalHard ?? 0
-  const byCause = stats?.byCause ?? { highLapses: 0, highDifficulty: 0, recentAgainPattern: 0 }
-  const availableModes = useMemo(
-    () => new Set(stats?.availableModes ?? []),
-    [stats]
+  const total = hardCount
+  const availableModes = useMemo(() => new Set(deriveAvailableModes(hardCards)), [hardCards])
+
+  // Cause chips, derived from the hard cards (harmonized indigo, red/amber heat kept).
+  const causes = useMemo(() => {
+    const list = hardCards || []
+    return {
+      highLapses: list.filter((c) => (c.lapses ?? 0) >= 2).length,
+      highDifficulty: list.filter((c) => (c.difficulty ?? 0) >= 7).length,
+      lowStreak: list.filter((c) => (c.hw_correct_streak ?? 0) === 0).length,
+    }
+  }, [hardCards])
+
+  const drillCount7d = useMemo(
+    () => (activity || []).reduce((sum, d) => sum + (d.count || 0), 0),
+    [activity]
   )
 
   const maxBar = useMemo(() => {
@@ -94,248 +116,176 @@ export default function HardWordsHome() {
   }, [activity])
 
   // ── Empty state ─────────────────────────────────────────────
-  if (!statsLoading && total === 0) {
+  if (!countLoading && total === 0) {
     return (
-      <div
-        className="min-h-screen pb-20"
-        style={{ background: 'var(--bg-base, transparent)' }}
-        dir="rtl"
-      >
-        <div className="max-w-3xl mx-auto px-4 md:px-8 pt-8 md:pt-12">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16"
+      <VocabShell>
+        <VocabHeader
+          title="تدريب الكلمات الصعبة"
+          subtitle="الكلمات اللي تواجهين معها صعوبة في المراجعة"
+          stats={vocabStats?.data}
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="vc-card p-8 text-center mt-2"
+        >
+          <div
+            className="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-5"
+            style={{
+              background: 'rgba(52,211,153,0.14)',
+              color: 'rgb(52,211,153)',
+              boxShadow: '0 12px 30px -10px rgba(52,211,153,0.4)',
+            }}
           >
-            <div
-              className="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(34,197,94,0.18), rgba(34,197,94,0.04))',
-                color: 'rgb(34,197,94)',
-                boxShadow: '0 12px 30px rgba(34,197,94,0.18)',
-              }}
-            >
-              <CheckCircle size={36} />
-            </div>
-            <h1
-              className="text-2xl md:text-3xl font-bold font-['Tajawal'] mb-3"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              ما عندك كلمات صعبة الآن! 🎉
-            </h1>
-            <p
-              className="text-base font-['Tajawal'] mb-8"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              استمر بالمراجعة اليومية وراح نبيّن لك الصعب أول ما يظهر.
-            </p>
-            <Link
-              to="/student/srs"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold font-['Tajawal']"
-              style={{
-                background: 'var(--accent-gold, #fbbf24)',
-                color: '#0a1225',
-              }}
-            >
-              العودة لمراجعة المفردات
-              <ArrowLeft size={16} />
-            </Link>
-          </motion.div>
-        </div>
-      </div>
+            <CheckCircle size={30} />
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold" style={{ color: 'var(--vc-text)' }}>
+            ما عندك كلمات صعبة الآن ✦
+          </h2>
+          <p className="mt-2.5 text-sm" style={{ color: 'var(--vc-text-dim)' }}>
+            استمري بالمراجعة اليومية، وراح نبيّن لك الصعب أول ما يظهر.
+          </p>
+          <Link to="/student/srs" className="vc-btn vc-btn-primary mt-6 inline-flex">
+            العودة لمراجعة المفردات
+            <ArrowLeft size={16} />
+          </Link>
+        </motion.div>
+      </VocabShell>
     )
   }
 
   // ── Main dashboard ─────────────────────────────────────────
   return (
-    <div
-      className="min-h-screen pb-20"
-      style={{ background: 'var(--bg-base, transparent)' }}
-      dir="rtl"
-    >
-      <div className="max-w-3xl mx-auto px-4 md:px-8 pt-6 md:pt-10 space-y-8">
-        {/* Hero */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(239,68,68,0.18), rgba(245,158,11,0.08))',
-                color: 'rgb(239,68,68)',
-              }}
-            >
-              <Dumbbell size={22} />
-            </div>
-            <div>
-              <h1
-                className="text-2xl md:text-3xl font-bold font-['Tajawal']"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                تدريب الكلمات الصعبة
-              </h1>
-              <p
-                className="text-sm font-['Tajawal']"
-                style={{ color: 'var(--text-tertiary)' }}
-              >
-                الكلمات اللي تواجه معاها صعوبة في المراجعة اليومية
-              </p>
-            </div>
-          </div>
+    <VocabShell>
+      <VocabHeader
+        title="تدريب الكلمات الصعبة"
+        subtitle="الكلمات اللي تواجهين معها صعوبة في المراجعة"
+        stats={vocabStats?.data}
+      />
 
-          {/* Big count */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
-            className="p-6 md:p-8 rounded-3xl"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(239,68,68,0.10), rgba(168,85,247,0.06))',
-              border: '1px solid var(--border)',
-            }}
+      {/* Hero: count + cause chips */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="vc-card p-6 sm:p-8"
+      >
+        <div className="flex items-end gap-4">
+          <div
+            className="text-5xl sm:text-6xl font-extrabold leading-none tabular-nums"
+            style={{ color: 'var(--vc-text)' }}
           >
-            <div className="flex items-end justify-between">
-              <div>
-                <div
-                  className="text-5xl md:text-6xl font-extrabold leading-none"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  {toArabicNum(total)}
-                </div>
-                <p
-                  className="text-sm font-['Tajawal'] mt-2"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  كلمة تحتاج تدريب
-                </p>
-              </div>
-            </div>
-
-            {/* Breakdown chips */}
-            <div className="flex flex-wrap gap-2 mt-6">
-              <CauseChip
-                label="سقطت فيها كثيراً"
-                value={byCause.highLapses}
-                color="rgba(239,68,68,0.9)"
-                bg="rgba(239,68,68,0.10)"
-                border="rgba(239,68,68,0.25)"
-              />
-              <CauseChip
-                label="صعبة المستوى"
-                value={byCause.highDifficulty}
-                color="rgba(168,85,247,0.95)"
-                bg="rgba(168,85,247,0.10)"
-                border="rgba(168,85,247,0.25)"
-              />
-              <CauseChip
-                label="أخطأت فيها مؤخراً"
-                value={byCause.recentAgainPattern}
-                color="rgba(245,158,11,0.95)"
-                bg="rgba(245,158,11,0.10)"
-                border="rgba(245,158,11,0.25)"
-              />
-            </div>
-          </motion.div>
+            {toArabicNum(total)}
+          </div>
+          <p className="pb-1.5 text-sm" style={{ color: 'var(--vc-text-soft)' }}>
+            كلمة تحتاج تدريب
+          </p>
         </div>
 
-        {/* Mode cards */}
-        <div className="space-y-3">
-          <h2
-            className="text-sm font-bold font-['Tajawal']"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            اختر نوع التدريب:
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {DRILL_MODES.map((mode) => (
-              <ModeCard
-                key={mode}
-                mode={mode}
-                available={availableModes.has(mode)}
-                requirement={MODE_REQUIREMENT_AR[mode]}
-                onStart={() => setActiveMode(mode)}
-              />
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2 mt-6">
+          <CauseChip label="سقطتِ فيها كثيراً" value={causes.highLapses} tone="red" />
+          <CauseChip label="صعبة المستوى" value={causes.highDifficulty} tone="amber" />
+          <CauseChip label="تحتاج تثبيت" value={causes.lowStreak} tone="indigo" />
         </div>
+      </motion.div>
 
-        {/* Recent activity */}
-        <div
-          className="p-5 rounded-2xl"
-          style={{
-            background: 'var(--surface)',
-            border: '1px solid var(--border)',
-          }}
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <TrendingUp size={16} style={{ color: 'var(--text-tertiary)' }} />
-            <h3
-              className="text-sm font-bold font-['Tajawal']"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              تدربت على {toArabicNum(stats?.recentDrillsLast7Days ?? 0)} كلمة هذا الأسبوع
-            </h3>
-          </div>
-          <div className="flex items-end gap-2 h-24" dir="ltr">
-            {(activity || Array.from({ length: 7 })).map((day, i) => {
-              const count = day?.count ?? 0
-              const height = `${Math.max(8, (count / maxBar) * 100)}%`
-              const dayDate = day?.date ? new Date(day.date) : null
-              const dayLabel = dayDate ? DAY_INITIALS_AR[dayDate.getDay()] : ''
-              return (
-                <div
-                  key={i}
-                  className="flex-1 flex flex-col items-center gap-1.5"
-                >
-                  <div
-                    className="w-full rounded-md transition-all"
-                    style={{
-                      height,
-                      minHeight: 8,
-                      background:
-                        count > 0
-                          ? 'linear-gradient(180deg, var(--accent-sky), rgba(56,189,248,0.5))'
-                          : 'var(--surface-raised)',
-                    }}
-                    title={`${count} تدريب`}
-                  />
-                  <span
-                    className="text-[10px] font-['Tajawal']"
-                    style={{ color: 'var(--text-tertiary)' }}
-                  >
-                    {dayLabel}
-                  </span>
-                </div>
-              )
-            })}
-          </div>
+      {/* Mode cards */}
+      <div className="mt-6">
+        <h2 className="text-sm font-bold mb-3" style={{ color: 'var(--vc-text-soft)' }}>
+          اختاري نوع التدريب
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {DRILL_MODES.map((mode) => (
+            <ModeCard
+              key={mode}
+              mode={mode}
+              available={availableModes.has(mode)}
+              requirement={MODE_REQUIREMENT_AR[mode]}
+              onStart={() => setActiveMode(mode)}
+            />
+          ))}
         </div>
       </div>
+
+      {/* 7-day activity chart */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="vc-card p-5 mt-6"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h3
+            className="text-sm font-bold flex items-center gap-1.5"
+            style={{ color: 'var(--vc-text-soft)' }}
+          >
+            <BarChart3 size={14} />
+            تدربتِ على {toArabicNum(drillCount7d)} كلمة هذا الأسبوع
+          </h3>
+          <span className="text-xs" style={{ color: 'var(--vc-text-dim)' }}>
+            آخر ٧ أيام
+          </span>
+        </div>
+        <div className="flex items-end gap-2 h-24" dir="ltr">
+          {(activity || Array.from({ length: 7 })).map((day, i) => {
+            const count = day?.count ?? 0
+            const heightPct = (count / maxBar) * 100
+            const dayDate = day?.date ? new Date(day.date) : null
+            const dayLabel = dayDate ? DAY_INITIALS_AR[dayDate.getDay()] : ''
+            const isToday = i === (activity?.length ?? 7) - 1
+            return (
+              <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1.5">
+                <div
+                  className="w-full rounded-md transition-all"
+                  style={{
+                    height: `${Math.max(4, heightPct)}%`,
+                    background: isToday ? 'var(--vc-indigo)' : 'var(--vc-surface-2)',
+                    boxShadow: isToday && count > 0 ? 'var(--vc-glow-indigo)' : 'none',
+                    opacity: count === 0 ? 0.4 : 1,
+                  }}
+                  title={`${count} تدريب`}
+                />
+                <span className="text-xs" style={{ color: 'var(--vc-text-dim)' }}>
+                  {dayLabel}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      </motion.div>
 
       {/* Drill modal */}
       {activeMode && (
         <DrillSessionContainer
           mode={activeMode}
+          cards={hardCards}
           autoplay={autoplay}
           onClose={() => setActiveMode(null)}
         />
       )}
-    </div>
+    </VocabShell>
   )
 }
 
-function CauseChip({ label, value, color, bg, border }) {
+// Red/amber heat for "difficulty" kept, harmonized with indigo.
+const CHIP_TONES = {
+  red: { bg: 'rgba(239,68,68,0.10)', border: 'rgba(239,68,68,0.28)', fg: 'rgb(248,113,113)' },
+  amber: { bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.28)', fg: 'rgb(251,191,36)' },
+  indigo: { bg: 'var(--vc-surface-2)', border: 'var(--vc-border)', fg: 'var(--vc-indigo-bright)' },
+}
+
+function CauseChip({ label, value, tone = 'indigo' }) {
   if (!value) return null
+  const t = CHIP_TONES[tone] || CHIP_TONES.indigo
   return (
     <span
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold font-['Tajawal']"
-      style={{ background: bg, color, border: `1px solid ${border}` }}
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+      style={{ background: t.bg, color: t.fg, border: `1px solid ${t.border}` }}
     >
       <span>{label}</span>
-      <span style={{ color, opacity: 0.85 }}>·</span>
-      <span>{toArabicNum(value)}</span>
+      <span className="tabular-nums" style={{ opacity: 0.85 }}>
+        {toArabicNum(value)}
+      </span>
     </span>
   )
 }
@@ -343,67 +293,75 @@ function CauseChip({ label, value, color, bg, border }) {
 function ModeCard({ mode, available, requirement, onStart }) {
   const Icon = MODE_ICON[mode]
   return (
-    <motion.div
-      whileHover={available ? { y: -2 } : {}}
-      className="p-4 rounded-2xl"
-      style={{
-        background: available ? 'var(--surface)' : 'var(--surface)',
-        border: '1px solid var(--border)',
-        opacity: available ? 1 : 0.55,
-      }}
+    <div
+      className={`vc-card ${available ? 'vc-card-hover' : ''} p-4`}
+      style={{ opacity: available ? 1 : 0.55 }}
     >
       <div className="flex items-start gap-3">
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
           style={{
-            background: available
-              ? 'linear-gradient(135deg, rgba(56,189,248,0.18), rgba(56,189,248,0.04))'
-              : 'var(--surface-raised)',
-            color: available ? 'rgb(56,189,248)' : 'var(--text-tertiary)',
+            background: available ? 'var(--vc-surface-2)' : 'var(--vc-surface)',
+            color: available ? 'var(--vc-indigo-bright)' : 'var(--vc-text-dim)',
           }}
         >
           <Icon size={18} />
         </div>
         <div className="flex-1 min-w-0">
-          <h3
-            className="text-base font-bold font-['Tajawal']"
-            style={{ color: 'var(--text-primary)' }}
-          >
+          <h3 className="text-base font-bold" style={{ color: 'var(--vc-text)' }}>
             {DRILL_MODE_AR[mode]}
           </h3>
-          <p
-            className="text-xs mt-1 font-['Tajawal']"
-            style={{ color: 'var(--text-tertiary)' }}
-          >
+          <p className="text-xs mt-1" style={{ color: 'var(--vc-text-dim)' }}>
             {available ? DRILL_MODE_DESCRIPTION_AR[mode] : requirement}
           </p>
         </div>
       </div>
-      {available && (
-        <button
-          type="button"
-          onClick={onStart}
-          className="w-full mt-4 py-2.5 rounded-xl font-bold font-['Tajawal']"
-          style={{
-            background: 'var(--accent-gold, #fbbf24)',
-            color: '#0a1225',
-          }}
-        >
-          ابدأ
+      {available ? (
+        <button type="button" onClick={onStart} className="vc-btn vc-btn-primary w-full mt-4">
+          ابدئي
         </button>
-      )}
-      {!available && (
+      ) : (
         <div
-          className="w-full mt-4 py-2.5 rounded-xl font-bold font-['Tajawal'] text-center"
+          className="w-full mt-4 py-2.5 rounded-2xl font-bold text-center text-sm"
           style={{
-            background: 'var(--surface-raised)',
-            color: 'var(--text-tertiary)',
+            background: 'var(--vc-surface)',
+            color: 'var(--vc-text-dim)',
+            border: '1px solid var(--vc-border)',
             cursor: 'not-allowed',
           }}
         >
           غير متاح حالياً
         </div>
       )}
-    </motion.div>
+    </div>
   )
+}
+
+/**
+ * 7-day drill activity buckets from hard_words_drill_log (nullable vocabulary_id +
+ * vocab_card_id), filtered by student_id. Returns oldest → newest.
+ */
+async function getRecentDrillActivity(studentId, days = 7) {
+  const since = new Date()
+  since.setDate(since.getDate() - (days - 1))
+  since.setHours(0, 0, 0, 0)
+
+  const { data, error } = await supabase
+    .from('hard_words_drill_log')
+    .select('attempted_at')
+    .eq('student_id', studentId)
+    .gte('attempted_at', since.toISOString())
+  if (error) throw error
+
+  const buckets = new Map()
+  for (let i = 0; i < days; i++) {
+    const d = new Date(since)
+    d.setDate(d.getDate() + i)
+    buckets.set(d.toISOString().slice(0, 10), 0)
+  }
+  for (const row of data || []) {
+    const day = new Date(row.attempted_at).toISOString().slice(0, 10)
+    if (buckets.has(day)) buckets.set(day, (buckets.get(day) || 0) + 1)
+  }
+  return Array.from(buckets.entries()).map(([date, count]) => ({ date, count }))
 }

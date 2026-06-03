@@ -24,9 +24,9 @@ export default function HardWordsSessionComplete({ result, onBack, onRestart }) 
   const { total = 0, correct = 0, wrong = 0, promoted = 0, elapsedMs = 0 } = result || {}
   const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0
   const subline = useMemo(() => {
-    if (accuracy >= 90) return 'ممتاز جداً 🌟'
-    if (accuracy >= 75) return 'جيد جداً 👏'
-    return 'كل تدريب يقربك أكثر — استمر'
+    if (accuracy >= 90) return 'أداء رائع — استمري على هذا'
+    if (accuracy >= 75) return 'جيد جداً — كل تدريب يثبّت أكثر'
+    return 'كل تدريب يقرّبك أكثر — استمري'
   }, [accuracy])
 
   return (
@@ -56,13 +56,10 @@ export default function HardWordsSessionComplete({ result, onBack, onRestart }) 
 
       {/* Hero */}
       <div className="text-center">
-        <h2
-          className="text-2xl md:text-3xl font-bold font-['Tajawal']"
-          style={{ color: 'var(--text-primary)' }}
-        >
-          خلصت التدريب!
+        <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--vc-text)' }}>
+          خلّصتِ التدريب ✦
         </h2>
-        <p className="text-sm mt-2 font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-sm mt-2" style={{ color: 'var(--vc-text-soft)' }}>
           {subline}
         </p>
       </div>
@@ -98,12 +95,12 @@ export default function HardWordsSessionComplete({ result, onBack, onRestart }) 
           >
             <Sparkles size={18} />
           </div>
-          <div className="font-['Tajawal']">
-            <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
-              {toArabicNum(promoted)} كلمة ترقّت من مجموعة الصعبة
+          <div>
+            <p className="text-sm font-bold" style={{ color: 'var(--vc-text)' }}>
+              {toArabicNum(promoted)} كلمة تخرّجت من مجموعة الصعبة
             </p>
-            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-              راح ترجع للمراجعة العادية. أحسنت!
+            <p className="text-xs" style={{ color: 'var(--vc-text-dim)' }}>
+              راح ترجع للمراجعة العادية — أحسنتِ
             </p>
           </div>
         </motion.div>
@@ -111,49 +108,25 @@ export default function HardWordsSessionComplete({ result, onBack, onRestart }) 
 
       {/* Wrong count footnote (low-key) */}
       {wrong > 0 && (
-        <p
-          className="text-xs text-center font-['Tajawal']"
-          style={{ color: 'var(--text-tertiary)' }}
-        >
+        <p className="text-xs text-center" style={{ color: 'var(--vc-text-dim)' }}>
           {toArabicNum(wrong)} أخطاء — كلها فرصة للتقدم
         </p>
       )}
 
-      {/* Buttons */}
+      {/* Buttons — indigo CTA; gold is reserved for the graduation highlight above */}
       <div className="flex flex-col md:flex-row gap-3 pt-2">
-        <button
-          type="button"
-          onClick={onBack}
-          className="flex-1 py-3 rounded-xl font-bold font-['Tajawal'] inline-flex items-center justify-center gap-2"
-          style={{
-            background: 'var(--accent-gold, #fbbf24)',
-            color: '#0a1225',
-          }}
-        >
+        <button type="button" onClick={onBack} className="vc-btn vc-btn-primary flex-1">
           العودة
           <ArrowLeft size={16} />
         </button>
-        <button
-          type="button"
-          onClick={onRestart}
-          className="flex-1 py-3 rounded-xl font-bold font-['Tajawal'] inline-flex items-center justify-center gap-2"
-          style={{
-            background: 'var(--surface)',
-            color: 'var(--text-primary)',
-            border: '1px solid var(--border)',
-          }}
-        >
+        <button type="button" onClick={onRestart} className="vc-btn vc-btn-ghost flex-1">
           <RotateCcw size={14} />
           تدريب آخر
         </button>
         <Link
           to="/student/srs"
-          className="flex-1 py-3 rounded-xl font-bold font-['Tajawal'] text-center"
-          style={{
-            background: 'var(--surface)',
-            color: 'var(--text-secondary)',
-            border: '1px solid var(--border)',
-          }}
+          className="vc-btn vc-btn-ghost flex-1"
+          style={{ textDecoration: 'none' }}
         >
           مراجعة المفردات اليومية
         </Link>
@@ -166,24 +139,24 @@ function StatTile({ label, value, accent = 'default' }) {
   const isGold = accent === 'gold'
   return (
     <div
-      className="p-4 rounded-xl text-center"
-      style={{
-        background: isGold
-          ? 'linear-gradient(135deg, rgba(251,191,36,0.12), rgba(251,191,36,0.04))'
-          : 'var(--surface)',
-        border: `1px solid ${isGold ? 'rgba(251,191,36,0.3)' : 'var(--border)'}`,
-      }}
+      className="vc-card p-4 text-center"
+      style={
+        isGold
+          ? {
+              background:
+                'linear-gradient(135deg, rgba(251,191,36,0.12), rgba(251,191,36,0.04))',
+              border: '1px solid rgba(251,191,36,0.3)',
+            }
+          : undefined
+      }
     >
       <div
-        className="text-xl md:text-2xl font-bold"
-        style={{ color: isGold ? 'rgb(251,191,36)' : 'var(--text-primary)' }}
+        className="text-xl md:text-2xl font-bold tabular-nums"
+        style={{ color: isGold ? 'var(--vc-gold-soft)' : 'var(--vc-text)' }}
       >
         {value}
       </div>
-      <div
-        className="text-xs mt-1 font-['Tajawal']"
-        style={{ color: 'var(--text-tertiary)' }}
-      >
+      <div className="text-xs mt-1" style={{ color: 'var(--vc-text-dim)' }}>
         {label}
       </div>
     </div>

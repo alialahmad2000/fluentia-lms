@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, Suspense } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import lazyRetry from '../../utils/lazyRetry'
 import { motion } from 'framer-motion'
-import { Bot, Send, Loader2, Sparkles, Trash2, Brain, Crosshair, AlertTriangle } from 'lucide-react'
+import { Bot, Send, Loader2, Sparkles, Trash2, Crosshair, AlertTriangle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { tracker } from '../../services/activityTracker'
@@ -10,13 +10,11 @@ import { PACKAGES } from '../../lib/constants'
 import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load sub-tab content
-const StudentVocabulary = lazyRetry(() => import('./StudentVocabulary'))
 const StudentExercises = lazyRetry(() => import('./StudentExercises'))
 const StudentErrorPatterns = lazyRetry(() => import('./StudentErrorPatterns'))
 
 const TABS = [
   { key: 'chat', label: 'المساعد الذكي', icon: Bot },
-  { key: 'vocabulary', label: 'بنك المفردات', icon: Brain },
   { key: 'exercises', label: 'تمارين مخصصة', icon: Crosshair },
   { key: 'patterns', label: 'أنماط الأخطاء', icon: AlertTriangle },
 ]
@@ -43,7 +41,6 @@ export default function StudentChatbot() {
 
       <Suspense fallback={<TabFallback />}>
         {activeTab === 'chat' && <ChatContent />}
-        {activeTab === 'vocabulary' && <StudentVocabulary />}
         {activeTab === 'exercises' && <StudentExercises />}
         {activeTab === 'patterns' && <StudentErrorPatterns />}
       </Suspense>

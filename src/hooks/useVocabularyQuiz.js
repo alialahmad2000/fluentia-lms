@@ -1,6 +1,42 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { generateQuestions, calculateQuizXP } from '../utils/vocabularyChunks'
+import { addCard, applyRating, RATING } from '../services/vocab'
+
+/**
+ * Re-enqueue each missed quiz word for review in the unified store.
+ * Best-effort — wrapped per-word so it never blocks the quiz UI.
+ */
+async function feedWrongWordsToReview(studentId, wrongWordIds) {
+  if (!studentId || !wrongWordIds?.length) return
+  // Resolve word text + Arabic meaning for the missed vocab IDs.
+  let rows = []
+  try {
+    const { data, error } = await supabase
+      .from('curriculum_vocabulary')
+      .select('id, word, definition_ar')
+      .in('id', wrongWordIds)
+    if (!error && data) rows = data
+  } catch {
+    /* ignore — fall back to id-only addCard below if lookup fails */
+  }
+  const byId = new Map(rows.map((r) => [r.id, r]))
+  for (const id of wrongWordIds) {
+    const r = byId.get(id)
+    if (!r?.word) continue
+    try {
+      const card = await addCard(studentId, {
+        word: r.word,
+        curriculumVocabularyId: id,
+        meaningAr: r.definition_ar || null,
+        source: 'quiz',
+      })
+      if (card?.id) await applyRating(card.id, RATING.AGAIN, studentId)
+    } catch {
+      /* best-effort per word — never block the quiz */
+    }
+  }
+}
 
 /**
  * State machine for a single vocabulary quiz session.
@@ -159,6 +195,13 @@ export async function saveQuizAttempt({
     } catch (e) {
       console.error('XP insert threw:', e)
     }
+  }
+
+  // Feed every missed word back into the unified review queue (best-effort).
+  try {
+    await feedWrongWordsToReview(studentId, wrongWordIds)
+  } catch (e) {
+    console.warn('feedWrongWordsToReview failed:', e?.message)
   }
 
   return result
