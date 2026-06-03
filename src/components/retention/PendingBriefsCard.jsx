@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import { Clock, BookOpen } from 'lucide-react'
 import { usePendingBriefs } from '../../lib/retention/useBriefs'
 import RetentionCard from '../../design-system/retention/RetentionCard'
+import { useG } from '../../i18n/gender'
 
 export default function PendingBriefsCard() {
   const navigate = useNavigate()
+  const g = useG()
   const { data, isLoading } = usePendingBriefs()
 
   if (isLoading || !data || data.length === 0) return null
@@ -18,7 +20,7 @@ export default function PendingBriefsCard() {
   return (
     <RetentionCard
       moduleKey="lesson_briefs"
-      title={isPrep ? 'تحضيركِ للكلاس القادم' : 'مراجعة كلاسكِ'}
+      title={isPrep ? g('تحضيرك للكلاس القادم', 'تحضيركِ للكلاس القادم') : g('مراجعة كلاسك', 'مراجعة كلاسكِ')}
       subtitle={next.brief.title_ar}
       icon={isPrep ? <Clock size={20} /> : <BookOpen size={20} />}
       badge={isPrep ? '٦٠ ثانية' : '٩٠ ثانية'}
@@ -26,7 +28,7 @@ export default function PendingBriefsCard() {
       onClick={() => navigate(`/student/retention/brief/${next.id}`)}
     >
       <div className="mt-2 text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>
-        افتحي الآن ←
+        {g('افتح الآن ←', 'افتحي الآن ←')}
       </div>
     </RetentionCard>
   )

@@ -7,10 +7,12 @@ import { supabase } from '../../../lib/supabase'
 import { fillTemplate } from '../../../lib/retention/dialogueEval'
 import AuroraBackground from '../../../design-system/components/AuroraBackground'
 import GlassPanel from '../../../design-system/components/GlassPanel'
+import { useG } from '../../../i18n/gender'
 
 export default function DailyPartnerResult() {
   const { attemptId } = useParams()
   const navigate = useNavigate()
+  const g = useG()
 
   const q = useQuery({
     queryKey: ['retention-dialogue-result', attemptId],
@@ -37,7 +39,7 @@ export default function DailyPartnerResult() {
         vocab_hits: a.vocab_hit_count ?? 0,
         vocab_total: Math.max(a.vocab_hit_count ?? 0, Math.round(((a.vocab_hit_count ?? 0) / Math.max(0.01, (a.vocab_hit_pct ?? 1) / 100)))),
       })
-    : 'محادثة جيدة! استمري على هذا.'
+    : g('محادثة جيدة! استمر على هذا.', 'محادثة جيدة! استمري على هذا.')
 
   const minutes = Math.max(1, Math.round((a.total_speaking_seconds || 0) / 60))
 

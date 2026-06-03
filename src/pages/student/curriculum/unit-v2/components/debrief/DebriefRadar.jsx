@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useG } from '@/i18n/gender'
 
 const SKILLS = [
   { key: 'reading_score',      label: 'القراءة' },
@@ -36,6 +37,7 @@ function GridPolygon({ r, opacity = 0.12 }) {
 }
 
 export default function DebriefRadar({ data }) {
+  const g = useG()
   const { snapshot, current } = data
   const prefersReduced = typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -55,7 +57,7 @@ export default function DebriefRadar({ data }) {
   return (
     <div dir="rtl" style={{ display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center' }}>
       <h2 style={{ margin: 0, fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, textAlign: 'center' }}>
-        مهاراتكِ قبل وبعد
+        {g('مهاراتك قبل وبعد', 'مهاراتكِ قبل وبعد')}
       </h2>
 
       <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} overflow="visible">
@@ -125,7 +127,7 @@ export default function DebriefRadar({ data }) {
             fontSize: '13px', color: 'rgba(248,250,252,0.85)', textAlign: 'center',
           }}
         >
-          تحسّنتِ في: <strong style={{ color: '#fbbf24' }}>{improvements.join('، ')}</strong>
+          {g('تحسّنت في: ', 'تحسّنتِ في: ')}<strong style={{ color: '#fbbf24' }}>{improvements.join('، ')}</strong>
         </motion.div>
       )}
     </div>

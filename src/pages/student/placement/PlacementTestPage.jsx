@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthProfile } from '../../../stores/authStore'
+import { useG } from '../../../i18n/gender'
 import { supabase } from '../../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AuroraBackground } from '../../../design-system/components'
@@ -34,6 +35,7 @@ function ProgressRing({ current, total }) {
 // ── Cooldown Screen ──
 function CooldownScreen({ retryAfterDays }) {
   const navigate = useNavigate()
+  const g = useG()
   return (
     <div className="fixed inset-0 flex items-center justify-center" style={{ background: 'var(--ds-bg-base, #060e1c)' }}>
       <AuroraBackground />
@@ -43,7 +45,7 @@ function CooldownScreen({ retryAfterDays }) {
           لم يحن موعد إعادة الاختبار بعد
         </h2>
         <p className="text-lg mb-8" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-          يمكنكِ إعادة الاختبار بعد <span className="font-bold" style={{ color: 'var(--ds-accent-primary, #38bdf8)' }}>{retryAfterDays}</span> يوم
+          {g('يمكنك', 'يمكنكِ')} إعادة الاختبار بعد <span className="font-bold" style={{ color: 'var(--ds-accent-primary, #38bdf8)' }}>{retryAfterDays}</span> يوم
         </p>
         <button
           onClick={() => navigate('/student')}
@@ -85,6 +87,7 @@ function LoadingReveal() {
 export default function PlacementTestPage() {
   const navigate = useNavigate()
   const profile = useAuthProfile()
+  const g = useG()
   const [sessionId, setSessionId] = useState(null)
   const [question, setQuestion] = useState(null)
   const [progress, setProgress] = useState({ current: 0, total: 14 })
@@ -198,10 +201,10 @@ export default function PlacementTestPage() {
               initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
             >
               <p className="text-lg font-semibold mb-2" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-                هل تريدين مغادرة الاختبار؟
+                {g('هل تريد مغادرة الاختبار؟', 'هل تريدين مغادرة الاختبار؟')}
               </p>
               <p className="text-sm mb-6" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-                يمكنكِ العودة وإكمال الاختبار لاحقاً
+                {g('يمكنك العودة وإكمال الاختبار لاحقاً', 'يمكنكِ العودة وإكمال الاختبار لاحقاً')}
               </p>
               <div className="flex gap-3 justify-center">
                 <button
@@ -336,7 +339,7 @@ export default function PlacementTestPage() {
 
             {/* Helper microcopy */}
             <p className="text-center mt-5 text-sm" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
-              اختاري أفضل إجابة
+              {g('اختر أفضل إجابة', 'اختاري أفضل إجابة')}
             </p>
           </motion.div>
         </AnimatePresence>

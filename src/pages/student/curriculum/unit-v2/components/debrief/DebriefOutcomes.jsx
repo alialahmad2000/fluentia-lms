@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
-
-const FALLBACK = 'أتممتِ كل أنشطة الوحدة — مهارات جديدة محفوظة في قاموسكِ ورصيدكِ.'
+import { useG } from '@/i18n/gender'
 
 export default function DebriefOutcomes({ data }) {
+  const g = useG()
+  const FALLBACK = g('أتممت كل أنشطة الوحدة — مهارات جديدة محفوظة في قاموسك ورصيدك.', 'أتممتِ كل أنشطة الوحدة — مهارات جديدة محفوظة في قاموسكِ ورصيدكِ.')
   const outcomes = data?.unit?.outcomes || []
 
   return (
@@ -12,7 +13,7 @@ export default function DebriefOutcomes({ data }) {
         animate={{ opacity: 1 }}
         style={{ margin: 0, fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, textAlign: 'center', color: 'rgba(248,250,252,0.95)' }}
       >
-        أنتِ الآن قادرة على...
+        {g('أنت الآن قادر على...', 'أنتِ الآن قادرة على...')}
       </motion.h2>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

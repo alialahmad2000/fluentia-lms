@@ -28,6 +28,14 @@ const SKILL_ORDER = ['reading', 'grammar', 'vocabulary', 'listening', 'speaking'
 
 const DAY_LABELS = ['أحد','إثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت']
 
+/* ── design-system glass frame (matches GlassPanel) ── */
+const DS_CARD_FRAME = {
+  background: 'var(--ds-surface-1)',
+  border: '1px solid var(--ds-border-subtle)',
+  borderRadius: 'var(--radius-lg)',
+  boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+}
+
 /* ── skeleton loader ── */
 function SkeletonRow({ width = '100%', height = 12 }) {
   return (
@@ -47,7 +55,7 @@ function SkeletonRow({ width = '100%', height = 12 }) {
 
 function LoadingSkeleton() {
   return (
-    <div className="fl-card-static p-5 space-y-5">
+    <div className="fl-card-static p-5 space-y-5" style={DS_CARD_FRAME}>
       <div className="flex items-center justify-between">
         <SkeletonRow width="140px" height={20} />
         <SkeletonRow width="180px" height={24} />
@@ -118,9 +126,9 @@ function ComparisonBadge({ comparisonPct, xpPrevWeek }) {
     <span
       className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full"
       style={{
-        background: 'rgba(255, 255, 255, 0.06)',
-        color: 'var(--text-tertiary)',
-        border: '1px solid var(--border-default)',
+        background: 'var(--ds-surface-2)',
+        color: 'var(--ds-text-tertiary)',
+        border: '1px solid var(--ds-border-subtle)',
       }}
     >
       <Minus size={14} />
@@ -138,7 +146,7 @@ function SkillBar({ label, color, glow, count, maxCount, index }) {
     <div className="flex items-center gap-3">
       <span
         className="text-xs font-medium shrink-0 w-[52px] text-left"
-        style={{ color: isEmpty ? 'var(--text-tertiary)' : 'var(--text-secondary)' }}
+        style={{ color: isEmpty ? 'var(--ds-text-tertiary)' : 'var(--ds-text-secondary)' }}
       >
         {label}
       </span>
@@ -164,7 +172,7 @@ function SkillBar({ label, color, glow, count, maxCount, index }) {
 
       <span
         className="text-xs font-semibold shrink-0 w-[24px] text-right tabular-nums"
-        style={{ color: isEmpty ? 'var(--text-tertiary)' : color }}
+        style={{ color: isEmpty ? 'var(--ds-text-tertiary)' : color }}
       >
         {count}
       </span>
@@ -186,14 +194,14 @@ function UnitsCompletedLine({ units }) {
         className="shrink-0 mt-0.5"
         style={{ color: 'var(--accent-emerald)' }}
       />
-      <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+      <p className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
         {visible.map((u) => u.theme_ar).join('، ')}
         {remaining > 0 && (
           <span
             className="inline-flex items-center justify-center text-[10px] font-bold mr-1.5 px-1.5 py-0.5 rounded-full"
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              color: 'var(--text-tertiary)',
+              background: 'var(--ds-surface-2)',
+              color: 'var(--ds-text-tertiary)',
             }}
           >
             +{remaining}
@@ -212,8 +220,8 @@ function ActiveDaysDots({ activeDaysCount, activeDaysMask }) {
 
   return (
     <div className="space-y-1.5">
-      <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-        أيام نشطة: <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>{activeDaysCount}</span> من ٧
+      <span className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
+        أيام نشطة: <span className="font-semibold" style={{ color: 'var(--ds-text-primary)' }}>{activeDaysCount}</span> من ٧
       </span>
       <div className="flex gap-2" dir="rtl">
         {mask.map((filled, i) => (
@@ -223,12 +231,12 @@ function ActiveDaysDots({ activeDaysCount, activeDaysMask }) {
               style={{
                 width: 10,
                 height: 10,
-                background: filled ? 'var(--accent-violet)' : 'rgba(255, 255, 255, 0.08)',
+                background: filled ? 'var(--accent-violet)' : 'var(--ds-surface-3)',
                 boxShadow: filled ? '0 0 6px var(--accent-violet-glow)' : 'none',
                 transition: 'background 0.3s, box-shadow 0.3s',
               }}
             />
-            <span className="text-[9px]" style={{ color: 'var(--text-tertiary)' }}>
+            <span className="text-[9px]" style={{ color: 'var(--ds-text-tertiary)' }}>
               {DAY_LABELS[i]}
             </span>
           </div>
@@ -247,8 +255,8 @@ function NavBtn({ onClick, disabled, ariaLabel, children }) {
       aria-label={ariaLabel}
       className="p-1.5 rounded-lg transition-colors"
       style={{
-        background: disabled ? 'transparent' : 'rgba(255,255,255,0.06)',
-        color: disabled ? 'var(--text-tertiary)' : 'var(--text-secondary)',
+        background: disabled ? 'transparent' : 'var(--ds-surface-2)',
+        color: disabled ? 'var(--ds-text-tertiary)' : 'var(--ds-text-secondary)',
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.3 : 1,
       }}
@@ -294,6 +302,7 @@ export default function WeeklyProgressWidget({ studentId }) {
   return (
     <motion.div
       className="fl-card-static p-5 space-y-5"
+      style={DS_CARD_FRAME}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
@@ -311,7 +320,7 @@ export default function WeeklyProgressWidget({ studentId }) {
 
           <h3
             className="flex items-center gap-2 text-sm font-bold"
-            style={{ color: 'var(--text-primary)' }}
+            style={{ color: 'var(--ds-text-primary)' }}
           >
             <BarChart3 size={18} style={{ color: 'var(--accent-violet)' }} />
             {weekLabel}
@@ -350,8 +359,8 @@ export default function WeeklyProgressWidget({ studentId }) {
       {/* ── empty week ── */}
       {isEmpty ? (
         <div className="flex flex-col items-center justify-center text-center py-8 gap-3">
-          <BarChart3 size={36} style={{ color: 'var(--text-tertiary)' }} />
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <BarChart3 size={36} style={{ color: 'var(--ds-text-tertiary)' }} />
+          <p className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
             {isCurrentWeek ? 'ابدأ أسبوعك بنشاط! كل نشاط يقربك من هدفك' : 'لم يكن هناك نشاط في هذا الأسبوع'}
           </p>
         </div>
@@ -359,11 +368,11 @@ export default function WeeklyProgressWidget({ studentId }) {
         <>
           {/* ── main XP bar ── */}
           <div className="space-y-2">
-            <div className="flex items-baseline gap-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
-              <AnimatedNumber value={xp_week} className="font-bold text-lg" style={{ color: 'var(--text-primary)' }} />
+            <div className="flex items-baseline gap-1 text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
+              <AnimatedNumber value={xp_week} className="font-bold text-lg" style={{ color: 'var(--ds-text-primary)' }} />
               <span>/</span>
               <span>{weekly_goal_xp} XP</span>
-              <span className="mr-1.5 text-xs" style={{ color: 'var(--text-tertiary)' }}>
+              <span className="mr-1.5 text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
                 (<AnimatedNumber value={weekly_goal_pct} className="font-semibold" />%)
               </span>
             </div>

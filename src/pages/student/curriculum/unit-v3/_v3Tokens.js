@@ -109,6 +109,9 @@ export const V3_EXAM_GATE = {
   // comes from unit_mastery_assessments.unlock_threshold_percent via
   // useUnitMasteryState. This constant is a fallback for display only.
   unlockThresholdDefault: 0.70,
+  // Strings below are the FEMALE-toned defaults (the academy is mostly women).
+  // For gender-aware copy at render time, use getV3ExamGateText(g) instead — it
+  // returns the same shape with the gendered fields resolved via g(male, female).
   lockedMessageAr: 'أكملي 70٪ من أنشطة الوحدة ليُفتح الاختبار',
   readyMessageAr: 'الاختبار جاهز — ابدئي حين تشائين',
   readyButtonAr: 'ابدئي اختبار الوحدة',
@@ -118,6 +121,21 @@ export const V3_EXAM_GATE = {
   passedCoolingMessageAr: 'نجحتِ — يمكنكِ المراجعة قريبًا',
   retakeAvailableMessageAr: 'إعادة الاختبار متاحة',
   noAssessmentMessageAr: 'لا يوجد اختبار لهذه الوحدة بعد',
+}
+
+// Gender-aware exam-gate copy. Pass a g(male, female) picker (from useG).
+// Only the fields with an explicit feminine marker differ by gender; the rest
+// are returned verbatim from V3_EXAM_GATE.
+export function getV3ExamGateText(g) {
+  return {
+    ...V3_EXAM_GATE,
+    lockedMessageAr: g('أكمل 70٪ من أنشطة الوحدة ليُفتح الاختبار', 'أكملي 70٪ من أنشطة الوحدة ليُفتح الاختبار'),
+    readyMessageAr: g('الاختبار جاهز — ابدأ حين تشاء', 'الاختبار جاهز — ابدئي حين تشائين'),
+    readyButtonAr: g('ابدأ اختبار الوحدة', 'ابدئي اختبار الوحدة'),
+    cooldownMessageAr: g('انتظر دقائق قليلة قبل المحاولة التالية', 'انتظري دقائق قليلة قبل المحاولة التالية'),
+    lockedOutMessageAr: g('بلغت الحد الأقصى للمحاولات — حاول بعد قليل', 'بلغتِ الحد الأقصى للمحاولات — حاولي بعد قليل'),
+    passedCoolingMessageAr: g('نجحت — يمكنك المراجعة قريبًا', 'نجحتِ — يمكنكِ المراجعة قريبًا'),
+  }
 }
 
 export const V3_MOTION = {
@@ -136,4 +154,18 @@ export const V3_TYPOGRAPHY = {
 
 export function resolvePalette(movement, theme) {
   return theme === 'light' ? movement.paletteLight : movement.paletteDark
+}
+
+// Gender-aware movement subtitle. The subtitleAr stored on V3_MOVEMENTS is the
+// FEMALE form; for movements whose subtitle carries a feminine marker, this
+// returns the form matching the student via g(male, female). Pass useG()'s g.
+const V3_MOVEMENT_SUBTITLE_MALE = {
+  master:   'أتقن الأنماط',
+  express:  'عبّر عن نفسك',
+  the_test: 'أثبت ما تعلّمت',
+}
+export function getMovementSubtitle(movement, g) {
+  if (!movement) return ''
+  const male = V3_MOVEMENT_SUBTITLE_MALE[movement.id]
+  return male ? g(male, movement.subtitleAr) : movement.subtitleAr
 }

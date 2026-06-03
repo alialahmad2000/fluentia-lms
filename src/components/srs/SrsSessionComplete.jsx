@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Flame, Sparkles, Trophy, Clock } from 'lucide-react'
+import { useG } from '../../i18n/gender'
 
 const toArabicNum = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d])
 
@@ -17,6 +18,7 @@ export default function SrsSessionComplete({
   onClose,
   onExtra,
 }) {
+  const g = useG()
   const accuracyPct = totalReviewed > 0 ? Math.round((correctCount / totalReviewed) * 100) : 0
   const minutes = Math.floor(elapsedSec / 60)
   const seconds = elapsedSec % 60
@@ -78,7 +80,7 @@ export default function SrsSessionComplete({
         className="text-sm font-['Tajawal'] mb-8 z-10"
         style={{ color: 'var(--text-tertiary)' }}
       >
-        راجعتِ {toArabicNum(totalReviewed)} كلمة بدقة {toArabicNum(accuracyPct)}٪
+        {g('راجعت', 'راجعتِ')} {toArabicNum(totalReviewed)} كلمة بدقة {toArabicNum(accuracyPct)}٪
       </motion.p>
 
       {/* Stats grid */}

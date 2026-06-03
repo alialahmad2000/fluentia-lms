@@ -12,6 +12,7 @@ import { evaluateTurn } from '../../../lib/retention/dialogueEval'
 import AuroraBackground from '../../../design-system/components/AuroraBackground'
 import GlassPanel from '../../../design-system/components/GlassPanel'
 import RetentionAudioPlayer from '../../../design-system/retention/RetentionAudioPlayer'
+import { useG } from '../../../i18n/gender'
 
 const getMimeType = () => {
   if (typeof MediaRecorder === 'undefined') return 'audio/mp4'
@@ -25,6 +26,7 @@ export default function DailyPartnerPlay() {
   const [searchParams] = useSearchParams()
   const scenarioId = searchParams.get('scenario')
   const navigate = useNavigate()
+  const g = useG()
 
   const swt = useScenarioWithTurns(scenarioId)
   const scenario = swt.data?.scenario
@@ -65,7 +67,7 @@ export default function DailyPartnerPlay() {
       recordingStartRef.current = Date.now()
       setRecording(true)
     } catch (e) {
-      setLastError('تعذّر الوصول للمايكروفون — تأكدي من السماح للموقع')
+      setLastError(g('تعذّر الوصول للمايكروفون — تأكد من السماح للموقع', 'تعذّر الوصول للمايكروفون — تأكدي من السماح للموقع'))
     }
   }
 
@@ -98,7 +100,7 @@ export default function DailyPartnerPlay() {
       })
       const text = (result?.text || result?.transcript || '').trim()
       if (!text) {
-        setLastError('تعذّر تحويل صوتكِ لنص — حاولي تتكلمين بوضوح أكثر')
+        setLastError(g('تعذّر تحويل صوتك لنص — حاول تتكلم بوضوح أكثر', 'تعذّر تحويل صوتكِ لنص — حاولي تتكلمين بوضوح أكثر'))
         setTranscribing(false)
         return
       }
@@ -126,7 +128,7 @@ export default function DailyPartnerPlay() {
       }
     } catch (e) {
       setTranscribing(false)
-      setLastError(e?.message || 'فشل تحويل الصوت — حاولي مرة ثانية')
+      setLastError(e?.message || g('فشل تحويل الصوت — حاول مرة ثانية', 'فشل تحويل الصوت — حاولي مرة ثانية'))
     }
   }
 
@@ -158,7 +160,7 @@ export default function DailyPartnerPlay() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => {
-              if (window.confirm('متأكدة من الخروج؟ سيتم فقد التقدّم الحالي.')) navigate('/student/retention/daily-partner')
+              if (window.confirm(g('متأكد من الخروج؟ سيتم فقد التقدّم الحالي.', 'متأكدة من الخروج؟ سيتم فقد التقدّم الحالي.'))) navigate('/student/retention/daily-partner')
             }}
             className="flex items-center gap-1 text-sm"
             style={{ color: 'var(--ds-text-secondary)' }}
@@ -216,7 +218,7 @@ export default function DailyPartnerPlay() {
         {/* Student transcript so far */}
         {transcript.length > 0 && (
           <details className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
-            <summary className="cursor-pointer">عرض ما قلتيه ({transcript.length})</summary>
+            <summary className="cursor-pointer">{g('عرض ما قلته', 'عرض ما قلتيه')} ({transcript.length})</summary>
             <ul className="mt-2 space-y-1">
               {transcript.map((t, i) => (
                 <li key={i} dir="ltr" style={{ textAlign: 'left' }}>
@@ -254,7 +256,7 @@ export default function DailyPartnerPlay() {
             </motion.button>
           )}
           <p className="mt-3 text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
-            {recording ? 'اضغطي للإيقاف عند الانتهاء' : transcribing ? '' : 'اضغطي وتكلمي'}
+            {recording ? g('اضغط للإيقاف عند الانتهاء', 'اضغطي للإيقاف عند الانتهاء') : transcribing ? '' : g('اضغط وتكلم', 'اضغطي وتكلمي')}
           </p>
           {lastError && (
             <p className="mt-2 text-sm" style={{ color: 'var(--ds-accent-danger)' }}>{lastError}</p>

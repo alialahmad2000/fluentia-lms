@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { Flame } from 'lucide-react'
 import { useStreakSnapshot, useStreakHeatMap } from '../../lib/retention/useStreak.js'
 import RetentionCard from '../../design-system/retention/RetentionCard.jsx'
+import { useG } from '../../i18n/gender.js'
 
 const WEEKDAY_LABELS_AR = ['أحد', 'إثن', 'ثلا', 'أرب', 'خمي', 'جمع', 'سبت']
 
@@ -17,6 +18,7 @@ function colorForActivity(count) {
 }
 
 export default function RetentionStreakCalendar() {
+  const g = useG()
   const snap = useStreakSnapshot()
   const heat = useStreakHeatMap({ days: 30 })
 
@@ -32,9 +34,9 @@ export default function RetentionStreakCalendar() {
       title={current >= 3 ? `سلسلتك ${current} يوم 🔥` : 'سلسلتك اليومية'}
       subtitle={
         current === 0
-          ? 'ابدئي اليوم — أي نشاط بسيط يعدّ'
+          ? g('ابدأ اليوم — أي نشاط بسيط يعدّ', 'ابدئي اليوم — أي نشاط بسيط يعدّ')
           : current === 1
-          ? 'يوم واحد — بداية جيدة، خلّيها سلسلة'
+          ? g('يوم واحد — بداية جيدة، خلّها سلسلة', 'يوم واحد — بداية جيدة، خلّيها سلسلة')
           : `آخر ${days.length} يوم نشاطك`
       }
       icon={<Flame size={20} />}

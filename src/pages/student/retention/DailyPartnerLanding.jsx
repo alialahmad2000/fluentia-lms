@@ -11,9 +11,11 @@ import AuroraBackground from '../../../design-system/components/AuroraBackground
 import GlassPanel from '../../../design-system/components/GlassPanel'
 import RetentionCard from '../../../design-system/retention/RetentionCard'
 import RetentionDisabledState from '../../../design-system/retention/RetentionDisabledState'
+import { useG } from '../../../i18n/gender'
 
 export default function DailyPartnerLanding() {
   const navigate = useNavigate()
+  const g = useG()
   const userId = useAuthProfileId()
   const moduleEnabled = useRetentionModuleEnabled(RETENTION_MODULES.DAILY_PARTNER)
   const today = useTodayScenario()
@@ -49,7 +51,7 @@ export default function DailyPartnerLanding() {
           </div>
           <h1 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--ds-text-primary)' }}>الرفيق اليومي</h1>
           <p className="mt-2 text-sm md:text-base" style={{ color: 'var(--ds-text-secondary)' }}>
-            ٥ دقائق محادثة بصوتكِ كل يوم — موقف واقعي، وبتقدري تكلمين بثقة أكثر.
+            {g('٥ دقائق محادثة بصوتك كل يوم — موقف واقعي، وبتقدر تتكلم بثقة أكثر.', '٥ دقائق محادثة بصوتكِ كل يوم — موقف واقعي، وبتقدري تكلمين بثقة أكثر.')}
           </p>
         </header>
 
@@ -58,7 +60,7 @@ export default function DailyPartnerLanding() {
         ) : !today.data ? (
           <GlassPanel padding="lg">
             <p className="text-center" style={{ color: 'var(--ds-text-secondary)' }}>
-              لا توجد سيناريوهات متاحة لمستواكِ الحالي بعد.
+              {g('لا توجد سيناريوهات متاحة لمستواك الحالي بعد.', 'لا توجد سيناريوهات متاحة لمستواكِ الحالي بعد.')}
             </p>
           </GlassPanel>
         ) : (
@@ -81,7 +83,7 @@ export default function DailyPartnerLanding() {
                 }}
               >
                 <Mic size={18} />
-                ابدئي المحادثة
+                {g('ابدأ المحادثة', 'ابدئي المحادثة')}
               </motion.button>
             }
           >
@@ -114,7 +116,7 @@ export default function DailyPartnerLanding() {
             <GlassPanel padding="md"><div className="h-12 animate-pulse" /></GlassPanel>
           ) : !history.data || history.data.length === 0 ? (
             <GlassPanel padding="md">
-              <p className="text-sm text-center" style={{ color: 'var(--ds-text-tertiary)' }}>لم تبدئي أي محادثة بعد — ابدئي بأول واحدة ↑</p>
+              <p className="text-sm text-center" style={{ color: 'var(--ds-text-tertiary)' }}>{g('لم تبدأ أي محادثة بعد — ابدأ بأول واحدة ↑', 'لم تبدئي أي محادثة بعد — ابدئي بأول واحدة ↑')}</p>
             </GlassPanel>
           ) : (
             <ul className="space-y-2">

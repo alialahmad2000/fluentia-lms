@@ -17,9 +17,11 @@ import { useRetentionModuleEnabled } from '../../lib/retention/useRetentionModul
 import { RETENTION_MODULES } from '../../lib/retention/constants.js'
 import { useActiveHomeworkSet } from '../../lib/retention/useHomework.js'
 import { useTodayScenario } from '../../lib/retention/useDialogue.js'
+import { useG } from '../../i18n/gender.js'
 
 export default function RetentionDashboardSection() {
   const navigate = useNavigate()
+  const g = useG()
   const streak = useRetentionModuleEnabled(RETENTION_MODULES.STREAK_ACTIVATION)
   const homework = useRetentionModuleEnabled(RETENTION_MODULES.SMART_HOMEWORK)
   const briefs = useRetentionModuleEnabled(RETENTION_MODULES.LESSON_BRIEFS)
@@ -54,11 +56,11 @@ export default function RetentionDashboardSection() {
         {showHomeworkBlock && (
           <RetentionCard
             moduleKey="smart_homework"
-            title={activeHomework.data ? 'تابعي تمارينكِ' : 'تمارين اليوم'}
+            title={activeHomework.data ? g('تابع تمارينك', 'تابعي تمارينكِ') : 'تمارين اليوم'}
             subtitle={
               activeHomework.data
                 ? `${activeHomework.data.completed_count}/${activeHomework.data.total_count} تمارين متبقية`
-                : 'مجموعة ٥ تمارين مخصصة لكِ — أقل من ١٠ دقائق'
+                : g('مجموعة ٥ تمارين مخصصة لك — أقل من ١٠ دقائق', 'مجموعة ٥ تمارين مخصصة لكِ — أقل من ١٠ دقائق')
             }
             icon={<Pencil size={20} />}
             badge={activeHomework.data ? null : 'جديد'}
@@ -66,7 +68,7 @@ export default function RetentionDashboardSection() {
             variant={activeHomework.data ? 'featured' : 'default'}
           >
             <div className="mt-2 text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>
-              {activeHomework.data ? 'متابعة ←' : 'ابدئي ←'}
+              {activeHomework.data ? 'متابعة ←' : g('ابدأ ←', 'ابدئي ←')}
             </div>
           </RetentionCard>
         )}
@@ -80,7 +82,7 @@ export default function RetentionDashboardSection() {
             subtitle={
               todayScenario.data
                 ? `محادثة اليوم: ${todayScenario.data.title_ar}`
-                : 'محادثة ٥ دقائق بصوتكِ'
+                : g('محادثة ٥ دقائق بصوتك', 'محادثة ٥ دقائق بصوتكِ')
             }
             icon={<MessageCircle size={20} />}
             badge="جديد"
@@ -88,7 +90,7 @@ export default function RetentionDashboardSection() {
             variant="featured"
           >
             <div className="mt-2 text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>
-              ابدئي ←
+              {g('ابدأ ←', 'ابدئي ←')}
             </div>
           </RetentionCard>
         )}

@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { validateAnswer } from '../../../utils/answerValidator'
+import { useG } from '@/i18n/gender'
 
 export default function TransformQuestion({ item, answer, onAnswer, exerciseType }) {
+  const g = useG()
   const [input, setInput] = useState('')
   const acceptedAnswers = item.accepted_answers || [item.correct_answer]
   const placeholder = exerciseType === 'make_question'
@@ -44,7 +46,7 @@ export default function TransformQuestion({ item, answer, onAnswer, exerciseType
       )}
 
       {answer && answer.correct && (
-        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>تحويل صحيح! ممتازة 🌟</p>
+        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>{g('تحويل صحيح! ممتاز 🌟', 'تحويل صحيح! ممتازة 🌟')}</p>
       )}
 
       {answer && !answer.correct && (

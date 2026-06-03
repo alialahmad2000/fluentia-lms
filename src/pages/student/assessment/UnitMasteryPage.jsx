@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuthProfile } from '../../../stores/authStore'
+import { useG } from '../../../i18n/gender'
 import { supabase } from '../../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AuroraBackground } from '../../../design-system/components'
@@ -169,6 +170,7 @@ export default function UnitMasteryPage() {
   const { assessmentId } = useParams()
   const navigate = useNavigate()
   const profile = useAuthProfile()
+  const g = useG()
   const [attemptId, setAttemptId] = useState(null)
   const [questions, setQuestions] = useState([])
   const [currentIdx, setCurrentIdx] = useState(0)
@@ -289,9 +291,9 @@ export default function UnitMasteryPage() {
         <AuroraBackground />
         <div className="relative z-10 text-center px-6 max-w-md">
           <p className="text-lg font-medium mb-4" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-            {error.details?.reason === 'activities_incomplete' && 'أكملي أنشطة الوحدة أولاً'}
-            {error.details?.reason === 'cooldown' && 'انتظري قبل إعادة المحاولة'}
-            {error.details?.reason === 'already_passed' && 'سبق واجتزتِ هذا الاختبار'}
+            {error.details?.reason === 'activities_incomplete' && g('أكمل أنشطة الوحدة أولاً', 'أكملي أنشطة الوحدة أولاً')}
+            {error.details?.reason === 'cooldown' && g('انتظر قبل إعادة المحاولة', 'انتظري قبل إعادة المحاولة')}
+            {error.details?.reason === 'already_passed' && g('سبق واجتزت هذا الاختبار', 'سبق واجتزتِ هذا الاختبار')}
             {error.error === 'no_questions' && 'هذا الاختبار غير متوفر حالياً'}
             {!error.details && error.error !== 'no_questions' && (error.message || error.error)}
           </p>
@@ -320,7 +322,7 @@ export default function UnitMasteryPage() {
               style={{ background: 'var(--ds-surface-2, rgba(15,23,42,0.95))', border: '1px solid var(--ds-border-subtle)' }}
               initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}>
               <p className="text-lg font-semibold mb-2" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>مغادرة الاختبار؟</p>
-              <p className="text-sm mb-6" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>ستفقدين تقدمكِ الحالي</p>
+              <p className="text-sm mb-6" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>{g('ستفقد تقدمك الحالي', 'ستفقدين تقدمكِ الحالي')}</p>
               <div className="flex gap-3 justify-center">
                 <button onClick={() => setShowExitConfirm(false)} className="px-5 py-2.5 rounded-xl"
                   style={{ background: 'var(--ds-surface-1)', color: 'var(--ds-text-secondary)' }}>إكمال</button>

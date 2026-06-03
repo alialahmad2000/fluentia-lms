@@ -6,10 +6,12 @@ import { Trophy, ChevronLeft, RotateCcw } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import AuroraBackground from '../../../design-system/components/AuroraBackground'
 import GlassPanel from '../../../design-system/components/GlassPanel'
+import { useG } from '../../../i18n/gender'
 
 export default function HomeworkResult() {
   const { setId } = useParams()
   const navigate = useNavigate()
+  const g = useG()
 
   const summary = useQuery({
     queryKey: ['retention-homework-result', setId],
@@ -62,10 +64,10 @@ export default function HomeworkResult() {
           </motion.div>
 
           <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: 'var(--ds-text-primary)' }}>
-            {pct >= 90 ? 'ممتاز!' : pct >= 70 ? 'أحسنتِ!' : 'تمارين قيّمة'}
+            {pct >= 90 ? 'ممتاز!' : pct >= 70 ? g('أحسنت!', 'أحسنتِ!') : 'تمارين قيّمة'}
           </h2>
           <p className="text-base mb-6" style={{ color: 'var(--ds-text-secondary)' }}>
-            أكملتِ {correct} من {total} تمارين في {minutes} دقيقة
+            {g('أكملت', 'أكملتِ')} {correct} من {total} تمارين في {minutes} دقيقة
           </p>
 
           {/* Score ring */}

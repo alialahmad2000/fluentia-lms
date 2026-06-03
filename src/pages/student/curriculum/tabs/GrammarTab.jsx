@@ -5,6 +5,7 @@ import { PenLine, MessageCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { usePageReset } from '../../../../hooks/usePageReset'
+import { useG } from '@/i18n/gender'
 import GrammarPageShell from '../../../../components/grammar/GrammarPageShell'
 import GrammarHeader from '../../../../components/grammar/GrammarHeader'
 import LessonCard from '../../../../components/grammar/LessonCard'
@@ -66,6 +67,7 @@ export default function GrammarTab({ unitId }) {
 
 // ─── Grammar Topic — thin composer ──────────────────
 function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
+  const g = useG()
   const [bestScore, setBestScore] = useState(null)
   const [attemptNumber, setAttemptNumber] = useState(1)
   const exerciseMounted = useRef(false)
@@ -147,7 +149,7 @@ function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
             لا توجد تمارين لهذا الدرس بعد
           </p>
           <p className="text-xs font-['Tajawal']" style={{ color: 'var(--accent-sky)' }}>
-            تواصلي مع المدرب لإضافتها
+            {g('تواصل مع المدرب لإضافتها', 'تواصلي مع المدرب لإضافتها')}
           </p>
         </div>
       )}

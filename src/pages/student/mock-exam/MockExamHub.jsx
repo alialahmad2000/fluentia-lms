@@ -6,6 +6,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import { GlassPanel, PrimaryButton, AuroraBackground } from '@/design-system/components'
 import { refreshAppSession } from '@/lib/refreshAppSession'
+import { useG, pickGender } from '@/i18n/gender'
 
 /**
  * MockExamHub — the intro / lock / already-submitted screen.
@@ -18,6 +19,7 @@ import { refreshAppSession } from '@/lib/refreshAppSession'
 export default function MockExamHub() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const g = useG()
   const { examInfo } = useOutletContext() || {}
   const profile = useAuthStore((s) => s.profile)
   const studentId = profile?.id
@@ -179,14 +181,14 @@ export default function MockExamHub() {
                 </h2>
                 <p style={{ color: 'var(--ds-text-secondary)' }}>
                   درجتك: <strong>{existingAttempt.score_total}</strong> / 100
-                  {existingAttempt.passed ? ' — نجحتِ' : ''}
+                  {existingAttempt.passed ? g(' — نجحت', ' — نجحتِ') : ''}
                 </p>
               </div>
               <PrimaryButton
                 onClick={() => navigate(`/student/mock-exam/result?attempt_id=${existingAttempt.id}`)}
                 className="w-full"
               >
-                اطلعي على نتيجتك التفصيلية
+                {g('اطلع على نتيجتك التفصيلية', 'اطلعي على نتيجتك التفصيلية')}
                 <ChevronRight size={18} />
               </PrimaryButton>
             </GlassPanel>
@@ -194,14 +196,16 @@ export default function MockExamHub() {
 
           <div className="page-recovery-footer" style={{ marginTop: 32, textAlign: 'center', opacity: 0.7 }}>
             <p style={{ fontSize: 13, color: 'var(--ds-text-tertiary, var(--text-muted, #64748b))' }}>
-              لا ترين الاختبار رغم تحديث الصفحة؟
+              {g('لا ترى الاختبار رغم تحديث الصفحة؟', 'لا ترين الاختبار رغم تحديث الصفحة؟')}
             </p>
             <button
               type="button"
               onClick={async () => {
                 const confirmed = window.confirm(
-                  'سيتم تجديد جلستكِ كاملاً (تسجيل خروج + مسح البيانات المؤقتة). ' +
-                  'سيُطلب منكِ تسجيل الدخول من جديد. هل تريدين المتابعة؟'
+                  g(
+                    'سيتم تجديد جلستك كاملاً (تسجيل خروج + مسح البيانات المؤقتة). سيُطلب منك تسجيل الدخول من جديد. هل تريد المتابعة؟',
+                    'سيتم تجديد جلستكِ كاملاً (تسجيل خروج + مسح البيانات المؤقتة). سيُطلب منكِ تسجيل الدخول من جديد. هل تريدين المتابعة؟'
+                  )
                 )
                 if (!confirmed) return
                 await refreshAppSession({ redirectTo: '/login' })
@@ -218,7 +222,7 @@ export default function MockExamHub() {
                 fontFamily: "'Tajawal', sans-serif",
               }}
             >
-              اضغطي هنا لتجديد الجلسة وإصلاح المشكلة
+              {g('اضغط هنا لتجديد الجلسة وإصلاح المشكلة', 'اضغطي هنا لتجديد الجلسة وإصلاح المشكلة')}
             </button>
           </div>
         </div>
@@ -265,24 +269,25 @@ function LockedCard({ openAt, now }) {
 }
 
 function IntroCard({ exam, isResume, onStart, starting, error }) {
+  const g = useG()
   return (
     <GlassPanel className="p-6 sm:p-8 space-y-5">
       <div className="space-y-1">
         <h2 className="text-lg font-bold" style={{ color: 'var(--ds-text-primary)' }}>
-          {isResume ? 'استكملي اختبارك من حيث توقفتِ' : 'تعليمات قبل البدء'}
+          {isResume ? g('استكمل اختبارك من حيث توقفت', 'استكملي اختبارك من حيث توقفتِ') : 'تعليمات قبل البدء'}
         </h2>
       </div>
       <ul className="space-y-3 text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
         <Bullet>الاختبار من ١٠٠ درجة. النجاح من ٦٠.</Bullet>
         <Bullet>
-          مدته <strong>{exam.duration_minutes}</strong> دقيقة من لحظة الضغط على «ابدئي».
+          مدته <strong>{exam.duration_minutes}</strong> دقيقة من لحظة الضغط على «{g('ابدأ', 'ابدئي')}».
         </Bullet>
-        <Bullet>محاولة واحدة فقط — تأكدي من اتصالك بالإنترنت قبل البدء.</Bullet>
-        <Bullet>تُحفظ إجاباتك تلقائياً. لو الصفحة أعادت تحميل، تستكملين من نفس النقطة.</Bullet>
+        <Bullet>{g('محاولة واحدة فقط — تأكد من اتصالك بالإنترنت قبل البدء.', 'محاولة واحدة فقط — تأكدي من اتصالك بالإنترنت قبل البدء.')}</Bullet>
+        <Bullet>{g('تُحفظ إجاباتك تلقائياً. لو الصفحة أعادت تحميل، تستكمل من نفس النقطة.', 'تُحفظ إجاباتك تلقائياً. لو الصفحة أعادت تحميل، تستكملين من نفس النقطة.')}</Bullet>
         <Bullet>
           الكتابة: لا تقل عن <strong>{exam.min_writing_words}</strong> كلمة.
         </Bullet>
-        <Bullet>ركّزي. خذي نفس. وفّقك الله.</Bullet>
+        <Bullet>{g('ركّز. خذ نفس. وفّقك الله.', 'ركّزي. خذي نفس. وفّقك الله.')}</Bullet>
       </ul>
       {error && (
         <div
@@ -305,7 +310,7 @@ function IntroCard({ exam, isResume, onStart, starting, error }) {
           </span>
         ) : (
           <span className="flex items-center justify-center gap-2">
-            {isResume ? 'استكملي اختبارك' : 'ابدئي الاختبار الآن'}
+            {isResume ? g('استكمل اختبارك', 'استكملي اختبارك') : g('ابدأ الاختبار الآن', 'ابدئي الاختبار الآن')}
             <ChevronRight size={18} />
           </span>
         )}
@@ -335,8 +340,8 @@ function friendlyRpcError(msg) {
   if (msg.includes('exam_in_preview_mode')) return 'الاختبار حالياً في وضع المعاينة. هذا الاختبار غير متاح لك بعد.'
   if (msg.includes('exam_not_open_yet')) return 'الاختبار لم يفتح بعد. أعيدي تحميل الصفحة لاحقاً.'
   if (msg.includes('exam_closed')) return 'انتهت نافذة الاختبار التجريبي.'
-  if (msg.includes('already_submitted')) return 'لقد سلّمتِ اختبارك مسبقاً.'
+  if (msg.includes('already_submitted')) return pickGender('لقد سلّمت اختبارك مسبقاً.', 'لقد سلّمتِ اختبارك مسبقاً.')
   if (msg.includes('student_level_mismatch')) return 'هذا الاختبار غير متاح لمستواك.'
   if (msg.includes('exam_not_found_or_inactive')) return 'الاختبار غير متاح حالياً.'
-  return 'تعذّر بدء الاختبار. حاولي مرة أخرى أو تواصلي مع المدرب.'
+  return pickGender('تعذّر بدء الاختبار. حاول مرة أخرى أو تواصل مع المدرب.', 'تعذّر بدء الاختبار. حاولي مرة أخرى أو تواصلي مع المدرب.')
 }

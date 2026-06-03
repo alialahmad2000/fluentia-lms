@@ -11,10 +11,12 @@ import { useAuthProfileId } from '../../../stores/authStore'
 import AuroraBackground from '../../../design-system/components/AuroraBackground'
 import GlassPanel from '../../../design-system/components/GlassPanel'
 import { awardPracticeXP } from '../../../utils/xpManager'
+import { useG, pickGender } from '../../../i18n/gender'
 
 export default function HomeworkPlay() {
   const { setId } = useParams()
   const navigate = useNavigate()
+  const g = useG()
   const userId = useAuthProfileId()
   const qc = useQueryClient()
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -158,7 +160,7 @@ export default function HomeworkPlay() {
   if (setQuery.error) {
     return (
       <div className="p-8 text-center" dir="rtl" style={{ color: 'var(--ds-accent-danger)' }}>
-        تعذّر تحميل المجموعة — حاولي مرة ثانية
+        {g('تعذّر تحميل المجموعة — حاول مرة ثانية', 'تعذّر تحميل المجموعة — حاولي مرة ثانية')}
       </div>
     )
   }
@@ -277,7 +279,7 @@ export default function HomeworkPlay() {
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               disabled={submittedAnswer != null}
-              placeholder={currentExercise.exercise_type === 'mini_write' ? 'اكتبي إجابتك هنا…' : 'إجابتك…'}
+              placeholder={currentExercise.exercise_type === 'mini_write' ? g('اكتب إجابتك هنا…', 'اكتبي إجابتك هنا…') : 'إجابتك…'}
               dir="ltr"
               rows={currentExercise.exercise_type === 'mini_write' ? 4 : 2}
               className="w-full p-4 text-base"
@@ -374,7 +376,7 @@ function typeLabel(t) {
     mcq: 'اختر الإجابة',
     sentence_correction: 'صحّح الجملة',
     vocab_match: 'وصّل المعنى',
-    mini_write: 'اكتبي جملاً',
+    mini_write: pickGender('اكتب جملاً', 'اكتبي جملاً'),
   }[t] || t
 }
 

@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { V3_MOTION } from '../_v3Tokens'
+import { useG } from '@/i18n/gender'
 
 // Small circular arc — fillRatio rendered as a stroke-dashoffset on a 64px ring.
 // Sits in the movement panel header to summarize per-movement progress.
 export default function MovementProgressOrb({ fillRatio, accent, completed, total }) {
+  const g = useG()
   const reduce = useReducedMotion()
   const size = 64
   const stroke = 5
@@ -14,7 +16,7 @@ export default function MovementProgressOrb({ fillRatio, accent, completed, tota
   const dashOffset = useMemo(() => circ * (1 - Math.max(0, Math.min(1, fillRatio))), [circ, fillRatio])
 
   const label = total > 0
-    ? `أنجزتِ ${completed} من ${total} في هذه المرحلة`
+    ? `${g('أنجزت', 'أنجزتِ')} ${completed} من ${total} في هذه المرحلة`
     : 'لا أنشطة في هذه المرحلة'
 
   return (

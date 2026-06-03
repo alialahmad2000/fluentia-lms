@@ -180,3 +180,33 @@
   .pd-atmo__bloom { filter: blur(26px); animation-duration: 150s; }
   .pd-atmo__beam { filter: none; }
 }
+
+/* ── Bento "command deck" grid ─────────────────────────────────────── */
+.pd-bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.pd-cell { min-width: 0; }
+.pd-cell > * { width: 100%; }
+
+@media (min-width: 1024px) {
+  .pd-bento { grid-template-columns: repeat(12, 1fr); }
+  .pd-cell--7 { grid-column: span 7; }
+  .pd-cell--6 { grid-column: span 6; }
+  .pd-cell--5 { grid-column: span 5; }
+  .pd-cell--4 { grid-column: span 4; }
+}
+
+/* ── Unified premium tile chrome (applied to widgets reused in the deck) ──
+   Many legacy widgets bring slightly different card chrome. This optional
+   wrapper gives a tile a consistent glass frame when a widget is frameless. */
+.pd-tile {
+  background: var(--ds-surface-1);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ds-shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  height: 100%;
+}

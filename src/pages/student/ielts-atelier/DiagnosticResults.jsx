@@ -6,6 +6,7 @@ import { BookOpen, Headphones, PenLine, Mic } from 'lucide-react'
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useDiagnosticResultV2 } from '@/hooks/ielts/useDiagnosticResultV2'
+import { useG } from '@/i18n/gender'
 
 const SKILL_CONFIG = [
   { key: 'listening', label: 'الاستماع', icon: Headphones },
@@ -20,6 +21,7 @@ const NARRATIVE_LINES = [
 ]
 
 function EmptyState() {
+  const g = useG()
   return (
     <div
       dir="rtl"
@@ -38,10 +40,10 @@ function EmptyState() {
         backdropFilter: 'blur(var(--ds-blur-sm, 8px))',
       }}>
         <p style={{ fontSize: 18, fontWeight: 800, color: 'var(--ds-text)', margin: '0 0 10px', fontFamily: "'Tajawal', sans-serif" }}>
-          لم تُكملي اختبار تشخيصي بعد.
+          {g('لم تُكمل اختبار تشخيصي بعد.', 'لم تُكملي اختبار تشخيصي بعد.')}
         </p>
         <p style={{ fontSize: 14, color: 'var(--ds-text-muted)', margin: '0 0 24px', fontFamily: "'Tajawal', sans-serif' " }}>
-          ابدأي التشخيص لتحصلي على خارطتك الكاملة.
+          {g('ابدأ التشخيص لتحصل على خارطتك الكاملة.', 'ابدأي التشخيص لتحصلي على خارطتك الكاملة.')}
         </p>
         <Link
           to="/student/ielts-atelier/diagnostic"
@@ -59,7 +61,7 @@ function EmptyState() {
             fontFamily: "'Tajawal', sans-serif",
           }}
         >
-          ابدأي الآن
+          {g('ابدأ الآن', 'ابدأي الآن')}
         </Link>
       </div>
     </div>
@@ -69,6 +71,7 @@ function EmptyState() {
 export default function DiagnosticResults() {
   // ========== ALL HOOKS TOP ==========
   const navigate = useNavigate()
+  const g = useG()
   const { data: result, isLoading } = useDiagnosticResultV2()
   const [revealed, setRevealed] = useState(false)
 
@@ -277,7 +280,7 @@ export default function DiagnosticResults() {
             cursor: 'pointer',
           }}
         >
-          ابدأي رحلتك
+          {g('ابدأ رحلتك', 'ابدأي رحلتك')}
         </button>
 
         <Link

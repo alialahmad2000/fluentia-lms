@@ -112,11 +112,21 @@ export default function MysteryBox() {
     if (remaining <= 0 || remaining > 5) return null
 
     return (
-      <div className="fl-card-static p-7 border-violet-500/10">
+      <div
+        className="fl-card-static p-7"
+        style={{
+          width: '100%',
+          height: '100%',
+          background: 'var(--ds-surface-1)',
+          border: '1px solid color-mix(in srgb, var(--ds-accent-gold, var(--ds-accent-primary)) 30%, transparent)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+        }}
+      >
         <div className="flex items-center gap-4">
           <div className="w-11 h-11 rounded-xl bg-violet-500/10 flex items-center justify-center text-xl">🎁</div>
           <div className="flex-1">
-            <p className="text-sm text-muted">صندوق الغموض</p>
+            <p className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>صندوق الغموض</p>
             <p className="text-sm text-violet-400">{remaining} واجبات متبقية للصندوق التالي</p>
           </div>
           {/* Progress dots */}
@@ -140,24 +150,36 @@ export default function MysteryBox() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fl-card p-7 border-gold-500/20 cursor-pointer hover:border-gold-500/40 hover:translate-y-[-2px] transition-all duration-200"
+        className="fl-card p-7 cursor-pointer hover:translate-y-[-2px] transition-all duration-200"
+        style={{
+          width: '100%',
+          height: '100%',
+          background: 'var(--ds-surface-1)',
+          border: '1px solid var(--ds-border-subtle)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+        }}
         onClick={() => !isOpening && openBox.mutate()}
       >
         <div className="flex items-center gap-5">
           <motion.div
             animate={{ rotate: [0, -5, 5, -5, 0], scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-            className="w-14 h-14 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-3xl"
+            className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl"
+            style={{
+              background: 'color-mix(in srgb, var(--ds-accent-gold, var(--ds-accent-primary)) 10%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--ds-accent-gold, var(--ds-accent-primary)) 20%, transparent)',
+            }}
           >
             {isOpening ? '✨' : '🎁'}
           </motion.div>
           <div className="flex-1">
-            <p className="text-lg font-semibold text-[var(--text-primary)]">صندوق الغموض!</p>
-            <p className="text-sm text-gold-400">
+            <p className="text-lg font-semibold" style={{ color: 'var(--ds-text-primary)' }}>صندوق الغموض!</p>
+            <p className="text-sm" style={{ color: 'var(--ds-accent-gold, var(--ds-accent-primary))' }}>
               {boxAvailable.available} صندوق متاح — اضغط لفتحه
             </p>
           </div>
-          <Gift size={20} className="text-gold-400" />
+          <Gift size={20} style={{ color: 'var(--ds-accent-gold, var(--ds-accent-primary))' }} />
         </div>
 
         {isOpening && (

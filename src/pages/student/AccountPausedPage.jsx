@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useAuthStore } from '../../stores/authStore'
+import { useG } from '@/i18n/gender'
 
 export default function AccountPausedPage() {
   // ── ALL HOOKS FIRST ──────────────────────────────────────────────
   const { profile, signOut } = useAuthStore(useShallow((s) => ({ profile: s.profile, signOut: s.signOut })))
+  const g = useG()
   const navigate = useNavigate()
 
   const handleSignOut = async () => {
@@ -64,15 +66,15 @@ export default function AccountPausedPage() {
           lineHeight: 1.9,
           color: 'rgba(148,163,184,0.9)',
         }}>
-          عزيزتي{profile?.full_name ? ` ${profile.full_name}` : ''},
+          {g('عزيزي', 'عزيزتي')}{profile?.full_name ? ` ${profile.full_name}` : ''},
           <br />
           حسابك في أكاديمية طلاقة متوقف حالياً.
           <br />
-          بياناتك محفوظة بالكامل لو قررتِ العودة في أي وقت.
+          بياناتك محفوظة بالكامل لو {g('قررت', 'قررتِ')} العودة في أي وقت.
           <br /><br />
-          لو فيه أي استفسار أو حابة تستأنفي رحلتك معنا،
+          لو فيه أي استفسار أو {g('حاب تستأنف', 'حابة تستأنفي')} رحلتك معنا،
           <br />
-          تواصلي معنا:
+          {g('تواصل', 'تواصلي')} معنا:
           <br /><br />
           <span style={{ color: 'rgba(248,250,252,0.7)' }}>📱 واتساب: </span>
           <span style={{ color: 'rgba(248,250,252,0.9)', fontWeight: 700 }}>+966 55 866 9974</span>
@@ -107,7 +109,7 @@ export default function AccountPausedPage() {
             fontFamily: "'Tajawal', sans-serif",
           }}
         >
-          تواصلي معنا على واتساب
+          {g('تواصل', 'تواصلي')} معنا على واتساب
         </a>
 
         {/* Sign out */}

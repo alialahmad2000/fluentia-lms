@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, AlertCircle, Clock } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
+import { useG } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -74,6 +75,7 @@ export default function WritingTab({ unitId }) {
 
 // ─── Writing Task ────────────────────────────────────
 function WritingTask({ task, number, total, studentId, unitId, studentName, groupId, studentLevel }) {
+  const g = useG()
   const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -346,7 +348,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       // 1. Save writing to DB first (never block on AI)
       const saveError = await saveToDb(text, true)
       if (saveError) {
-        toast({ type: 'error', title: 'فشل حفظ الكتابة — أعيدي المحاولة' })
+        toast({ type: 'error', title: g('فشل حفظ الكتابة — أعِد المحاولة', 'فشل حفظ الكتابة — أعيدي المحاولة') })
         return
       }
 

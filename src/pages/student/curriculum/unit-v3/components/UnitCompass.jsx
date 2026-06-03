@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Trophy, Lock, Sparkles } from 'lucide-react'
 import { V3_MOTION, resolvePalette } from '../_v3Tokens'
+import { useG } from '@/i18n/gender'
 
 // V3.1: gold ring inside the compass dedicated to the exam gate.
 const EXAM_RING_GOLD_DARK  = '#F5C842'
@@ -23,6 +24,7 @@ function examTooltip(gateState) {
 // V3.1 adds an inner concentric exam-state ring.
 // Center shows the overall %, plus a clickable Trophy icon.
 export default function UnitCompass({ compassData, examGate, onTrophyClick, onSectorClick, theme = 'dark' }) {
+  const g = useG()
   const reduce = useReducedMotion()
   const size = 196
   const center = size / 2
@@ -34,7 +36,7 @@ export default function UnitCompass({ compassData, examGate, onTrophyClick, onSe
   const sectors = compassData?.sectors || []
   const overallPct = Math.round((compassData?.overallRatio || 0) * 100)
   const overallLabel = compassData?.totalAll > 0
-    ? `بوصلة الوحدة — أنجزتِ ${compassData.completedAll} من ${compassData.totalAll} أنشطة`
+    ? `بوصلة الوحدة — ${g('أنجزت', 'أنجزتِ')} ${compassData.completedAll} من ${compassData.totalAll} أنشطة`
     : 'بوصلة الوحدة'
 
   // Each sector is 90° (4 movements), starting at -90° (top). RTL reading is

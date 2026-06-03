@@ -7,9 +7,11 @@ import { RETENTION_MODULES } from '../../../lib/retention/constants'
 import AuroraBackground from '../../../design-system/components/AuroraBackground'
 import GlassPanel from '../../../design-system/components/GlassPanel'
 import RetentionDisabledState from '../../../design-system/retention/RetentionDisabledState'
+import { useG } from '../../../i18n/gender'
 
 export default function MyReports() {
   const navigate = useNavigate()
+  const g = useG()
   const moduleEnabled = useRetentionModuleEnabled(RETENTION_MODULES.WEEKLY_REPORTS)
   const { data, isLoading } = useMyReports()
 
@@ -25,7 +27,7 @@ export default function MyReports() {
         </button>
         <h1 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--ds-text-primary)' }}>تقاريرك الأسبوعية</h1>
         <p style={{ color: 'var(--ds-text-secondary)' }}>
-          كل أسبوع نرسل لكِ تقرير شخصي يلخّص تقدّمكِ ويحتفي بإنجازاتكِ.
+          {g('كل أسبوع نرسل لك تقرير شخصي يلخّص تقدّمك ويحتفي بإنجازاتك.', 'كل أسبوع نرسل لكِ تقرير شخصي يلخّص تقدّمكِ ويحتفي بإنجازاتكِ.')}
         </p>
 
         {isLoading ? (
@@ -33,7 +35,7 @@ export default function MyReports() {
         ) : !data || data.length === 0 ? (
           <GlassPanel padding="lg" className="text-center">
             <Mail size={32} style={{ color: 'var(--ds-text-tertiary)' }} className="mx-auto mb-3" />
-            <p style={{ color: 'var(--ds-text-secondary)' }}>لم يصلكِ أي تقرير بعد. التقرير القادم يوم الأحد.</p>
+            <p style={{ color: 'var(--ds-text-secondary)' }}>{g('لم يصلك أي تقرير بعد. التقرير القادم يوم الأحد.', 'لم يصلكِ أي تقرير بعد. التقرير القادم يوم الأحد.')}</p>
           </GlassPanel>
         ) : (
           <ul className="space-y-3">
@@ -50,7 +52,7 @@ export default function MyReports() {
                         أسبوع {r.week_start} · XP: {r.metrics?.xp_this_week ?? 0}
                       </div>
                     </div>
-                    <span className="text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>افتحي ←</span>
+                    <span className="text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>{g('افتح ←', 'افتحي ←')}</span>
                   </div>
                 </button>
               </GlassPanel>

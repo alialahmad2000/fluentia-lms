@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { useG } from '@/i18n/gender'
 
 export default function DebriefNext({ data, onClose }) {
+  const g = useG()
   const navigate = useNavigate()
   const { stats, nextUnit } = data
 
@@ -74,7 +76,7 @@ export default function DebriefNext({ data, onClose }) {
             fontSize: '15px', color: 'rgba(248,250,252,0.8)', textAlign: 'center',
           }}
         >
-          🎉 أتممتِ جميع وحدات هذا المستوى!
+          🎉 {g('أتممت جميع وحدات هذا المستوى!', 'أتممتِ جميع وحدات هذا المستوى!')}
         </motion.div>
       )}
 
@@ -96,7 +98,7 @@ export default function DebriefNext({ data, onClose }) {
               boxShadow: '0 4px 20px rgba(251,191,36,0.35)',
             }}
           >
-            ابدئي الوحدة التالية ←
+            {g('ابدأ الوحدة التالية ←', 'ابدئي الوحدة التالية ←')}
           </button>
         )}
 
@@ -110,7 +112,7 @@ export default function DebriefNext({ data, onClose }) {
             cursor: 'pointer', fontFamily: "'Tajawal', sans-serif",
           }}
         >
-          📋 مشاركة إنجازكِ
+          📋 {g('مشاركة إنجازك', 'مشاركة إنجازكِ')}
         </button>
 
         <button

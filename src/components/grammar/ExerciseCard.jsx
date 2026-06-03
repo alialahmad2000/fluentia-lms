@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Sparkles } from 'lucide-react'
+import { useG } from '@/i18n/gender'
 import ExplainModal from './ExplainModal'
 import MCQQuestion from './exercise-types/MCQQuestion'
 import FillBlankQuestion from './exercise-types/FillBlankQuestion'
@@ -16,22 +17,25 @@ const TYPE_LABELS = {
   make_question: 'كوّن سؤالاً',
 }
 
-const FALLBACK_INSTRUCTIONS = {
-  fill_blank: 'املئي الفراغ بالكلمة المناسبة',
-  choose: 'اختاري الإجابة الصحيحة',
-  error_correction: 'صحّحي الخطأ في الجملة',
-  reorder: 'رتّبي الكلمات لتكوين جملة صحيحة',
-  transform: 'حوّلي الجملة حسب المطلوب',
-  make_question: 'كوّني سؤالاً من الجملة',
+function getFallbackInstructions(g) {
+  return {
+    fill_blank: g('املأ الفراغ بالكلمة المناسبة', 'املئي الفراغ بالكلمة المناسبة'),
+    choose: g('اختر الإجابة الصحيحة', 'اختاري الإجابة الصحيحة'),
+    error_correction: g('صحّح الخطأ في الجملة', 'صحّحي الخطأ في الجملة'),
+    reorder: g('رتّب الكلمات لتكوين جملة صحيحة', 'رتّبي الكلمات لتكوين جملة صحيحة'),
+    transform: g('حوّل الجملة حسب المطلوب', 'حوّلي الجملة حسب المطلوب'),
+    make_question: g('كوّن سؤالاً من الجملة', 'كوّني سؤالاً من الجملة'),
+  }
 }
 
 export default function ExerciseCard({ exercise, index, total, answer, onAnswer, grammarTopic, studentLevel, ruleSnippet }) {
+  const g = useG()
   const [explainOpen, setExplainOpen] = useState(false)
   const item = exercise.items?.[0]
   if (!item) return null
 
   const typeLabel = TYPE_LABELS[exercise.exercise_type] || exercise.exercise_type
-  const instruction = item.instruction_ar || FALLBACK_INSTRUCTIONS[exercise.exercise_type] || 'أجيبي عن السؤال'
+  const instruction = item.instruction_ar || getFallbackInstructions(g)[exercise.exercise_type] || g('أجِب عن السؤال', 'أجيبي عن السؤال')
   const num = String(index + 1).padStart(2, '0')
 
   // Build payload for AI explanation
