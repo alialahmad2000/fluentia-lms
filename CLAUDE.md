@@ -312,6 +312,9 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — AURORA VEIL presence bump (owner: "a bit more present")
+- Same editorial palette, raised the felt intensity: blob opacities 0.30/0.24/0.20/0.16 → 0.42/0.34/0.29/0.24, halo 0.13 → 0.18, vignette eased (0.5→0.42, 42%→46% clear) so the warm glow reaches further. File: `src/pages/student/dashboards/premiumDashboard.css`. Build green; screenshot-verified; merged to main → production.
+
 ### 2026-06-03 — AURORA VEIL palette retune: "professional, not gamer"
 - Owner feedback: the living background was alive but the colour mix read as gaming/RGB (bright violet + neon teal + hot pink on a screen glow). Wanted the same life, sophisticated.
 - Fix (palette only, same motion): swapped to a restrained, harmonious, low-saturation editorial set — warm gold `#c9a24c` + bronze `#a4744a` + a deep slate-indigo whisper `#46527a` + muted plum (luxury/MasterClass tones, no neon). Lowered blob opacities (0.30/0.24/0.20/0.16) and slowed the drift; the rotating conic halo is now a **tonal warm sweep** (gold→bronze) instead of a rainbow wheel, at lower opacity; sparks are warm gold/bronze "dust", not coloured confetti. Refined the aurora-cinematic + minimal palettes the same way.
