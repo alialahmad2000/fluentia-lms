@@ -9,7 +9,8 @@ import { useSendMessage } from '../../mutations/useSendMessage'
 import { useEditMessage } from '../../mutations/useEditMessage'
 import { uploadChatFile, uploadChatImage } from '../../../../lib/chatStorage'
 import VoiceRecorder from '../VoiceRecorder'
-import MentionAutocomplete from '../MentionAutocomplete'
+import MentionPicker from './MentionPicker'
+import { senderColor } from '../../lib/senderColors'
 import { useGroupAnnouncementChannel } from '../../queries/useGroupGeneralChannel'
 import { useTypingIndicator } from '../../realtime/useTypingIndicator'
 import { useAuthProfile } from '../../../../stores/authStore'
@@ -64,7 +65,7 @@ export default function PremiumComposer({
     const ta = textareaRef.current
     if (!ta) return
     const before = ta.value.slice(0, ta.selectionStart)
-    const match = before.match(/@(\w*)$/)
+    const match = before.match(/@([\p{L}\p{M}]*)$/u)   // Arabic-aware @ trigger
     setMentionQuery(match ? { query: match[1], start: match.index } : null)
   }
 
@@ -88,7 +89,9 @@ export default function PremiumComposer({
     if (!ta || !mentionQuery) return
     const before = input.slice(0, mentionQuery.start)
     const after = input.slice(ta.selectionStart)
-    const name = member.full_name || member.display_name || ''
+    // NBSP-join the name so a multi-word mention chips as ONE unit; trailing space ends it
+    const name = [member.first_name_ar, member.last_name_ar].filter(Boolean).join(' ')
+      || member.full_name || member.display_name || ''
     setInput(`${before}@${name} ${after}`)
     setMentionQuery(null)
     setMentions((prev) => prev.find((m) => m.id === member.id) ? prev : [...prev, { id: member.id }])
@@ -191,8 +194,8 @@ export default function PremiumComposer({
       {/* Reply strip */}
       {!editing && replyTo && (
         <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ borderColor: 'var(--ds-border-subtle)' }}>
-          <div className="flex-1 min-w-0" style={{ borderInlineStart: '2.5px solid var(--ds-accent-primary)', paddingInlineStart: 8 }}>
-            <p className="text-[11px] truncate" style={{ color: 'var(--ds-accent-primary)', fontFamily: 'Tajawal' }}>
+          <div className="flex-1 min-w-0" style={{ borderInlineStart: `2.5px solid ${senderColor(replyTo.sender_id).base}`, paddingInlineStart: 8 }}>
+            <p className="text-[11px] truncate" style={{ color: senderColor(replyTo.sender_id).base, fontFamily: 'Tajawal' }}>
               رد على {replyTo.sender?.display_name || replyTo.sender?.full_name || ''}
             </p>
             <p className="text-xs truncate" style={{ color: 'var(--ds-text-muted)', fontFamily: 'Tajawal' }}>
@@ -203,10 +206,10 @@ export default function PremiumComposer({
         </div>
       )}
 
-      {/* Mention autocomplete */}
+      {/* Mention picker */}
       <div className="relative">
         {mentionQuery !== null && (
-          <MentionAutocomplete groupId={groupId} filter={mentionQuery.query} onSelect={handleMentionSelect} onDismiss={() => setMentionQuery(null)} />
+          <MentionPicker groupId={groupId} filter={mentionQuery.query} onSelect={handleMentionSelect} onDismiss={() => setMentionQuery(null)} />
         )}
       </div>
 
@@ -262,8 +265,8 @@ export default function PremiumComposer({
                   onBlur={() => setFocused(false)}
                   placeholder="اكتب رسالة… اكتب @ لذكر شخص"
                   rows={1}
-                  className="flex-1 resize-none bg-transparent outline-none text-sm"
-                  style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-primary)', lineHeight: 1.7, direction: 'auto', minHeight: 28, maxHeight: 160 }}
+                  className="flex-1 resize-none bg-transparent outline-none"
+                  style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 16, color: 'var(--ds-text-primary)', lineHeight: 1.6, direction: 'auto', minHeight: 28, maxHeight: 160 }}
                 />
               </div>
 
