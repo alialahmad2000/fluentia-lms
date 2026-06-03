@@ -14,7 +14,7 @@ import './premiumDashboard.css'
 export const APPLE_EASE = [0.16, 1, 0.3, 1]
 
 /* Deterministic spark field (no Math.random → stable across renders). */
-const SPARK_COLORS = ['--av-c1', '--av-c2', '--av-c3', '--av-c4']
+const SPARK_COLORS = ['--av-c1', '--av-c3', '--av-c1', '--av-c1']
 const SPARKS = Array.from({ length: 14 }, (_, i) => {
   const c = `var(${SPARK_COLORS[i % SPARK_COLORS.length]})`
   return {
