@@ -135,8 +135,11 @@ export default function SpellingSession({ mode, onExit }) {
   // The RPC returns the spelling essentials (word_en, audio_url, meaning_ar,
   // example_en, …) but NOT the richer teaching fields. Those live on
   // curriculum_vocabulary, reachable via spelling_lab_words.source_vocab_id.
-  // We surface part_of_speech / definition_en / pronunciation_ipa with one
-  // supplementary read and merge them in by word id — no RPC change needed.
+  // We surface part_of_speech / definition_en / pronunciation_ipa AND the
+  // curiosity-sparking relations (synonyms / antonyms / word_family /
+  // pronunciation_alert) with one supplementary read and merge them in by word
+  // id — no RPC change needed. Each rich field is best-effort and null-safe;
+  // the reveal card collapses whatever isn't present for a given word.
   useEffect(() => {
     let alive = true
     ;(async () => {
@@ -154,7 +157,7 @@ export default function SpellingSession({ mode, onExit }) {
         try {
           const { data: rich } = await supabase
             .from('spelling_lab_words')
-            .select('id, curriculum_vocabulary(part_of_speech, definition_en, pronunciation_ipa)')
+            .select('id, curriculum_vocabulary(part_of_speech, definition_en, pronunciation_ipa, synonyms, antonyms, word_family, pronunciation_alert)')
             .in('id', ids)
           if (rich) {
             const byId = new Map(rich.map((r) => [r.id, r.curriculum_vocabulary]))
@@ -167,6 +170,11 @@ export default function SpellingSession({ mode, onExit }) {
                     definition_en: v.definition_en ?? null,
                     // RPC's own ipa is always null for these rows; prefer vocab IPA.
                     pronunciation_ipa: w.ipa ?? v.pronunciation_ipa ?? null,
+                    // curiosity layer — present for a meaningful slice of words
+                    synonyms: v.synonyms ?? null,
+                    antonyms: v.antonyms ?? null,
+                    word_family: v.word_family ?? null,
+                    pronunciation_alert: v.pronunciation_alert ?? null,
                   }
                 : { ...w, pronunciation_ipa: w.ipa ?? null }
             })
