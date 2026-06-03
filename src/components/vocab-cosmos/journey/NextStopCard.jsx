@@ -23,7 +23,7 @@ export default function NextStopCard({ current, region, dueCount = 0, onStart })
       className="vc-card relative overflow-hidden"
       style={{ padding: 22 }}
     >
-      <div className="vc-nebula vc-nebula-a" aria-hidden="true" />
+      <div className="vc-nebula vc-nebula-a" aria-hidden="true" style={{ position: 'absolute' }} />
       <div className="relative" style={{ zIndex: 1 }}>
         <div className="flex items-center gap-2 mb-1">
           <Sparkles size={15} style={{ color: 'var(--vc-gold, #e9b949)' }} />
