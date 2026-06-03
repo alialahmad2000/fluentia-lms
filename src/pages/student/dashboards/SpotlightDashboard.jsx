@@ -15,6 +15,7 @@ import {
   GraduationCap,
   CalendarClock,
   Radio,
+  Zap,
 } from 'lucide-react'
 
 import { useAuthStore } from '../../../stores/authStore'
@@ -128,6 +129,31 @@ function LevelEmblem({ level, progress, reduced }) {
   )
 }
 
+/* ── compact real-stat chip for the hero (XP / streak) ── */
+function HeroStat({ icon, value, suffix }) {
+  return (
+    <span
+      className="inline-flex items-center gap-2"
+      style={{
+        padding: '8px 14px',
+        borderRadius: 'var(--radius-full)',
+        background: 'var(--ds-surface-2)',
+        border: '1px solid var(--ds-border-subtle)',
+      }}
+    >
+      {icon}
+      <span className="font-data font-bold" style={{ fontSize: 15, color: 'var(--ds-text-primary)', lineHeight: 1 }}>
+        {typeof value === 'number' ? value.toLocaleString('en-US') : value}
+        {suffix ? (
+          <span style={{ fontSize: 11, marginInlineStart: 3, color: 'var(--ds-text-tertiary)', fontWeight: 600 }}>
+            {suffix}
+          </span>
+        ) : null}
+      </span>
+    </span>
+  )
+}
+
 /* ── reusable collapsible accordion section (own hooks → rules-of-hooks safe) ── */
 function Section({ title, icon: Icon, defaultOpen = false, children }) {
   const reduced = useReducedMotion()
@@ -219,6 +245,7 @@ export default function SpotlightDashboard() {
   /* ── DERIVED VALUES ── */
   const firstName = firstNameFrom(profile?.full_name) || profile?.display_name || ''
   const xp = studentData?.xp_total || 0
+  const streak = studentData?.current_streak || 0
   const currentLevel = getLevel(xp)
   const nextLevel = getNextLevel(xp)
   const xpRange = nextLevel ? nextLevel.xp - currentLevel.xp : 0
@@ -343,6 +370,32 @@ export default function SpotlightDashboard() {
                 </span>
               </motion.p>
 
+              {/* real momentum stats — streak + XP, at a glance */}
+              <motion.div
+                {...rise}
+                transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE, delay: 0.16 }}
+                className="flex flex-wrap gap-2.5"
+                style={{ marginTop: 'var(--space-4)' }}
+              >
+                <HeroStat
+                  icon={
+                    <Flame
+                      size={15}
+                      strokeWidth={2}
+                      className={streak >= 3 ? 'fire-pulse' : ''}
+                      style={{ color: 'var(--ds-accent-gold, var(--ds-accent-warning))' }}
+                    />
+                  }
+                  value={streak}
+                  suffix="يوم"
+                />
+                <HeroStat
+                  icon={<Zap size={15} strokeWidth={2} style={{ color: 'var(--ds-accent-primary)' }} />}
+                  value={xp}
+                  suffix="XP"
+                />
+              </motion.div>
+
               {/* prominent gold CTA + next-level helper */}
               <motion.div
                 {...rise}
@@ -412,8 +465,8 @@ export default function SpotlightDashboard() {
             >
               مسار اليوم
             </h2>
-            <span aria-hidden="true" style={{ fontSize: 12, letterSpacing: '0.12em', color: 'var(--ds-text-tertiary)' }}>
-              ● ● ○ ○ ○
+            <span style={{ fontSize: 12, color: 'var(--ds-text-tertiary)', fontWeight: 500 }}>
+              اختر وجهتك
             </span>
           </div>
 

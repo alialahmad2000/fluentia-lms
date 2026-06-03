@@ -312,6 +312,9 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — SPOTLIGHT polish pass (now the default)
+- Surfaced the two most motivating REAL numbers in the Spotlight hero — current streak (Flame, `fire-pulse` at ≥3) + total XP (Zap) — as compact chips (were buried in a collapsed section). Replaced the fake "●●○○○" chip-rail dots with an honest "اختر وجهتك" prompt. The feed has no reliable "next lesson" target, so the hero CTA stays the real "متابعة التعلّم → /student/curriculum". File: `src/pages/student/dashboards/SpotlightDashboard.jsx`. Build green; screenshot-verified; cherry-picked to main → production.
+
 ### 2026-06-03 — DASHBOARD DEFAULT → "Today Spotlight" (التركيز)
 - Owner chose the focus-first structure. `StudentDashboard.jsx` default (no `?design`) now renders `SpotlightDashboard` for ALL students. The previous "Command Deck" bento stays reachable via `?design=deck|premium`; `journey`/`observatory` unchanged. Switcher chips updated (التركيز=default, اللوحة=old deck; the `spotlight` alias still maps to default). Verified headless: `/student` renders the Spotlight hero, no crash. Cherry-picked to main (2 files, no conflicts) → production.
 
