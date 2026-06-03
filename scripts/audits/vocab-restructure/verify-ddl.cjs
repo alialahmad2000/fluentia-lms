@@ -1,0 +1,11 @@
+const { query } = require('./_db.cjs')
+;(async () => {
+  const cols = await query("SELECT count(*)::int n FROM information_schema.columns WHERE table_schema='public' AND table_name='vocab_cards';")
+  console.log('vocab_cards columns:', cols[0].n)
+  const idx = await query("SELECT indexname FROM pg_indexes WHERE schemaname='public' AND tablename='vocab_cards' ORDER BY 1;")
+  console.log('indexes:', idx.map(r => r.indexname).join(', '))
+  const pol = await query("SELECT polname FROM pg_policy WHERE polrelid='public.vocab_cards'::regclass ORDER BY 1;")
+  console.log('policies:', pol.map(r => r.polname).join(', '))
+  const norm = await query("SELECT public.vocab_norm('  Celebrations! ') AS a, public.vocab_norm('world''s') AS b, public.vocab_norm('-hour') AS c;")
+  console.log('vocab_norm tests:', JSON.stringify(norm[0]))
+})().catch(e => { console.error('ERR', e.message); process.exit(1) })
