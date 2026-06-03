@@ -1,7 +1,8 @@
-// GOD COMM — Premium Redesign (Phase 1.7)
-// Single unified stream per group. No channel sidebar. Filter lenses in header.
+// المحادثة — Immersive Aurora chat (unified stream per group).
+// Rendered as a fixed app-panel (.chat-shell) anchored to the layout CSS vars
+// so it can never overlap the header / sidebar / mobile-nav on any device.
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useAuthProfile } from '../../../stores/authStore'
 import { useGroupChannels } from '../queries/useGroupChannels'
 import { usePresence } from '../realtime/usePresence'
@@ -9,21 +10,25 @@ import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
 import StreamHeader from '../components/premium/StreamHeader'
 import ChatSearchPanel from '../components/ChatSearchPanel'
-
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
 import FilterLensBar from '../components/premium/FilterLensBar'
 import PinnedStrip from '../components/premium/PinnedStrip'
 import PremiumComposer from '../components/premium/PremiumComposer'
+import '../premium.css'
 
 export default function GroupChatPage() {
   // All hooks at top — before any conditional logic
-  const { groupId, channelSlug, messageId } = useParams()
-  const navigate = useNavigate()
+  const { groupId, messageId } = useParams()
   const profile = useAuthProfile()
   const [searchOpen, setSearchOpen] = useState(false)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
   const [activeLens, setActiveLens] = useState('all')
+  const [replyTo, setReplyTo] = useState(null)
+  const [editing, setEditing] = useState(null)
   const lastScrollY = useRef(0)
+
+  const startReply = useCallback((m) => { setEditing(null); setReplyTo(m) }, [])
+  const startEdit = useCallback((m) => { setReplyTo(null); setEditing(m) }, [])
 
   // Channel list needed to resolve general channel id (used by composer)
   const { data: channels = [] } = useGroupChannels(groupId)
@@ -38,14 +43,12 @@ export default function GroupChatPage() {
     },
   })
 
-  // Presence scoped to group (uses group:<id> key — no channel dependency)
-  // usePresence adapted: pass a group-level channel key
   const generalChannel = channels.find((c) => c.slug === 'general')
   const { onlineUserIds } = usePresence(generalChannel?.id)
 
   const isTrainer = ['trainer', 'admin'].includes(profile?.role)
 
-  // Boost aurora visibility specifically on chat page
+  // Aurora boost hook (optional global styling)
   useEffect(() => {
     document.body.classList.add('chat-page')
     return () => document.body.classList.remove('chat-page')
@@ -59,58 +62,75 @@ export default function GroupChatPage() {
     else if (going < -8) setHeaderCollapsed(false)
   }, [])
 
+  const scrollToMessage = useCallback((id) => {
+    const el = document.getElementById(`msg-${id}`)
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    if (el) { el.classList.add('chat-highlight'); setTimeout(() => el.classList.remove('chat-highlight'), 2400) }
+  }, [])
+
   return (
-    <div
-      className="flex flex-col bg-[var(--ds-bg-base)]"
-      style={{ height: '100dvh', maxHeight: '100dvh', direction: 'rtl', overflow: 'hidden' }}
-    >
-      {/* Search overlay */}
+    <div className="chat-shell">
+      {/* Immersive aurora backdrop */}
+      <div className="chat-aurora" aria-hidden="true"><i /></div>
+      <div className="chat-aurora-scrim" aria-hidden="true" />
+
+      {/* Search overlay (fixed full-screen sheet) */}
       {searchOpen && (
         <ChatSearchPanel groupId={groupId} onClose={() => setSearchOpen(false)} />
       )}
 
-      {/* Sticky header */}
-      <StreamHeader
-        groupName={group?.name}
-        groupLevel={group?.level}
-        groupId={groupId}
-        onlineUserIds={onlineUserIds}
-        onSearchOpen={() => setSearchOpen(true)}
-        isTrainer={isTrainer}
-        collapsed={headerCollapsed}
-      />
+      {/* Header */}
+      <div className="chat-row">
+        <StreamHeader
+          groupName={group?.name}
+          groupLevel={group?.level}
+          groupId={groupId}
+          onlineUserIds={onlineUserIds}
+          onSearchOpen={() => setSearchOpen(true)}
+          isTrainer={isTrainer}
+          collapsed={headerCollapsed}
+        />
+      </div>
 
-      {/* Pinned strip */}
-      <PinnedStrip groupId={groupId} onScrollToMessage={(id) => {
-        const el = document.getElementById(`msg-${id}`)
-        el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        if (el) { el.classList.add('chat-highlight'); setTimeout(() => el.classList.remove('chat-highlight'), 2400) }
-      }} />
+      {/* Pinned strip (renders nothing when empty) */}
+      <div className="chat-row">
+        <PinnedStrip groupId={groupId} onScrollToMessage={scrollToMessage} />
+      </div>
 
       {/* Filter lenses */}
-      <FilterLensBar
-        groupId={groupId}
-        activeLens={activeLens}
-        onLensChange={setActiveLens}
-      />
+      <div className="chat-row">
+        <FilterLensBar
+          groupId={groupId}
+          activeLens={activeLens}
+          onLensChange={setActiveLens}
+        />
+      </div>
 
-      {/* Unified message stream (R2) */}
-      <div className="flex-1 min-h-0 relative">
+      {/* Unified message stream */}
+      <div className="chat-stream">
         <UnifiedMessageStream
           groupId={groupId}
           lens={activeLens}
           deepLinkMessageId={messageId}
           onScroll={handleStreamScroll}
           generalChannelId={generalChannel?.id}
+          onReply={startReply}
+          onEdit={startEdit}
         />
       </div>
 
-      {/* Premium composer */}
-      <PremiumComposer
-        groupId={groupId}
-        generalChannelId={generalChannel?.id}
-        isTrainer={isTrainer}
-      />
+      {/* Composer */}
+      <div className="chat-row">
+        <PremiumComposer
+          groupId={groupId}
+          generalChannelId={generalChannel?.id}
+          isTrainer={isTrainer}
+          replyTo={replyTo}
+          onClearReply={() => setReplyTo(null)}
+          editing={editing}
+          onClearEdit={() => setEditing(null)}
+        />
+      </div>
     </div>
   )
 }

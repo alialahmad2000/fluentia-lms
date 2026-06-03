@@ -1,8 +1,12 @@
-// Premium composer — no channel selector, sends to group's general channel
-import { useState, useRef } from 'react'
-import { Send, Paperclip, Image, Mic, Megaphone, X } from 'lucide-react'
+// Premium composer — sends to the group's general channel. No floating FAB:
+// the announcement action lives inline (trainer/admin), so nothing is anchored
+// to the viewport and nothing can overlap the sidebar or mobile nav.
+import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
+import { Send, Paperclip, Image, Mic, Megaphone, X, Pencil } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSendMessage } from '../../mutations/useSendMessage'
+import { useEditMessage } from '../../mutations/useEditMessage'
 import { uploadChatFile, uploadChatImage } from '../../../../lib/chatStorage'
 import VoiceRecorder from '../VoiceRecorder'
 import MentionAutocomplete from '../MentionAutocomplete'
@@ -12,11 +16,11 @@ import { useAuthProfile } from '../../../../stores/authStore'
 import { popIn } from '../../lib/motion'
 
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-elevated) 85%, transparent)',
-  backdropFilter: 'blur(24px) saturate(140%)',
-  WebkitBackdropFilter: 'blur(24px) saturate(140%)',
-  borderTop: '1px solid var(--ds-border-subtle)',
-  boxShadow: 'inset 0 1px 0 0 color-mix(in srgb, white 5%, transparent)',
+  background: 'color-mix(in srgb, var(--ds-bg-elevated) 72%, transparent)',
+  backdropFilter: 'blur(28px) saturate(150%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(150%)',
+  borderTop: '1px solid color-mix(in srgb, var(--ds-accent-gold) 10%, var(--ds-border-subtle))',
+  boxShadow: '0 -10px 30px -18px rgba(0,0,0,0.5), inset 0 1px 0 0 color-mix(in srgb, white 6%, transparent)',
 }
 
 export default function PremiumComposer({
@@ -25,6 +29,8 @@ export default function PremiumComposer({
   isTrainer,
   replyTo,
   onClearReply,
+  editing,
+  onClearEdit,
 }) {
   const profile = useAuthProfile()
   const [input, setInput] = useState('')
@@ -33,14 +39,26 @@ export default function PremiumComposer({
   const [mentions, setMentions] = useState([])
   const [mentionQuery, setMentionQuery] = useState(null)
   const [announcementOpen, setAnnouncementOpen] = useState(false)
+  const [focused, setFocused] = useState(false)
   const textareaRef = useRef(null)
   const fileRef = useRef(null)
   const imageRef = useRef(null)
+  const editingIdRef = useRef(null)
 
-  // All hooks at top
   const sendMessage = useSendMessage(generalChannelId, groupId)
+  const editMessage = useEditMessage(generalChannelId)
   const { broadcastTyping, typingText } = useTypingIndicator(generalChannelId)
   const { data: announcementChannel } = useGroupAnnouncementChannel(groupId)
+
+  // Prefill once when entering edit mode
+  useEffect(() => {
+    if (editing && editing.id !== editingIdRef.current) {
+      editingIdRef.current = editing.id
+      setInput(editing.body || editing.content || '')
+      setTimeout(() => { textareaRef.current?.focus(); autoResize() }, 0)
+    }
+    if (!editing) editingIdRef.current = null
+  }, [editing])
 
   function detectMentionContext() {
     const ta = textareaRef.current
@@ -60,8 +78,9 @@ export default function PremiumComposer({
   function autoResize() {
     const ta = textareaRef.current
     if (!ta) return
+    const max = Math.min(160, Math.round((window.innerHeight || 700) * 0.32))
     ta.style.height = 'auto'
-    ta.style.height = `${Math.min(ta.scrollHeight, 144)}px`
+    ta.style.height = `${Math.min(ta.scrollHeight, max)}px`
   }
 
   function handleMentionSelect(member) {
@@ -76,11 +95,26 @@ export default function PremiumComposer({
     setTimeout(() => { ta.focus(); const p = before.length + name.length + 2; ta.setSelectionRange(p, p) }, 0)
   }
 
+  function resetComposer() {
+    setInput(''); setMentions([]); setMentionQuery(null)
+    if (textareaRef.current) textareaRef.current.style.height = 'auto'
+  }
+
   async function handleSend() {
     const text = input.trim()
     if (!text || !generalChannelId) return
-    setInput(''); setMentions([]); setMentionQuery(null)
-    if (textareaRef.current) textareaRef.current.style.height = 'auto'
+
+    if (editing) {
+      const target = editing
+      resetComposer()
+      onClearEdit?.()
+      try {
+        await editMessage.mutateAsync({ messageId: target.id, body: text, createdAt: target.created_at })
+      } catch (err) { console.error(err) }
+      return
+    }
+
+    resetComposer()
     await sendMessage.mutateAsync({
       type: 'text', body: text, content: text,
       reply_to: replyTo?.id ?? null,
@@ -91,6 +125,7 @@ export default function PremiumComposer({
 
   function handleKeyDown(e) {
     if (mentionQuery !== null) return
+    if (e.key === 'Escape' && editing) { resetComposer(); onClearEdit?.(); return }
     if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
       e.preventDefault(); handleSend()
     }
@@ -116,31 +151,55 @@ export default function PremiumComposer({
     } catch (err) { console.error(err) } finally { setUploading(false); e.target.value = '' }
   }
 
-  const canSend = !!input.trim() && !!generalChannelId && !sendMessage.isPending && !uploading
-  // Channel still resolving — show a slim loading bar so the composer space is claimed
+  const canSend = !!input.trim() && !!generalChannelId && !sendMessage.isPending && !editMessage.isPending && !uploading
   const isLoading = !generalChannelId
 
   return (
-    <div style={{ ...glass, direction: 'rtl', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
-      {/* Typing indicator */}
-      {typingText && (
-        <p className="px-5 pt-1.5 text-xs italic" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-muted)' }}>
-          {typingText}
-        </p>
+    <div style={{ ...glass, direction: 'rtl' }}>
+      {/* Typing bubble */}
+      <AnimatePresence>
+        {typingText && (
+          <motion.div
+            initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }}
+            className="flex items-center gap-2 px-5 pt-2"
+          >
+            <span className="flex items-center gap-0.5">
+              {[0, 1, 2].map((i) => (
+                <span key={i} className="chat-typing-dot w-1.5 h-1.5 rounded-full"
+                  style={{ background: 'var(--ds-accent-primary)', animationDelay: `${i * 0.15}s` }} />
+              ))}
+            </span>
+            <span className="text-xs" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-muted)' }}>{typingText}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Edit banner */}
+      {editing && (
+        <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ borderColor: 'var(--ds-border-subtle)' }}>
+          <Pencil size={14} style={{ color: 'var(--ds-accent-gold)' }} />
+          <div className="flex-1 min-w-0">
+            <p className="text-[11px]" style={{ color: 'var(--ds-accent-gold)', fontFamily: 'Tajawal' }}>تعديل الرسالة</p>
+            <p className="text-xs truncate" style={{ color: 'var(--ds-text-muted)', fontFamily: 'Tajawal' }}>
+              {editing.body || editing.content}
+            </p>
+          </div>
+          <button onClick={() => { resetComposer(); onClearEdit?.() }} className="p-1" style={{ color: 'var(--ds-text-muted)' }} aria-label="إلغاء التعديل"><X size={14} /></button>
+        </div>
       )}
 
       {/* Reply strip */}
-      {replyTo && (
-        <div className="flex items-center gap-2 px-4 py-2 border-b border-[var(--ds-border-subtle)]">
-          <div className="flex-1 min-w-0 border-r-2 pr-2" style={{ borderColor: 'var(--ds-accent-primary)', paddingInlineStart: 8 }}>
+      {!editing && replyTo && (
+        <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ borderColor: 'var(--ds-border-subtle)' }}>
+          <div className="flex-1 min-w-0" style={{ borderInlineStart: '2.5px solid var(--ds-accent-primary)', paddingInlineStart: 8 }}>
             <p className="text-[11px] truncate" style={{ color: 'var(--ds-accent-primary)', fontFamily: 'Tajawal' }}>
-              {replyTo.sender?.display_name || replyTo.sender?.full_name}
+              رد على {replyTo.sender?.display_name || replyTo.sender?.full_name || ''}
             </p>
             <p className="text-xs truncate" style={{ color: 'var(--ds-text-muted)', fontFamily: 'Tajawal' }}>
               {replyTo.body || replyTo.content || '🎙️'}
             </p>
           </div>
-          <button onClick={onClearReply} className="p-1" style={{ color: 'var(--ds-text-muted)' }}><X size={14} /></button>
+          <button onClick={onClearReply} className="p-1" style={{ color: 'var(--ds-text-muted)' }} aria-label="إلغاء الرد"><X size={14} /></button>
         </div>
       )}
 
@@ -151,167 +210,132 @@ export default function PremiumComposer({
         )}
       </div>
 
-      {/* Loading state — channel id not yet resolved */}
+      {/* Loading — channel not resolved yet */}
       {isLoading && (
-        <div
-          className="flex items-center justify-center px-4 py-3"
-          style={{ minHeight: 56 }}
-        >
-          <div
-            className="w-6 h-6 rounded-full border-2 border-t-transparent animate-spin"
-            style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-primary) 40%, transparent)', borderTopColor: 'transparent' }}
-          />
+        <div className="flex items-center justify-center px-4 py-3" style={{ minHeight: 56 }}>
+          <div className="w-6 h-6 rounded-full border-2 border-t-transparent animate-spin"
+            style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-primary) 40%, transparent)', borderTopColor: 'transparent' }} />
         </div>
       )}
 
-      {/* Composer row */}
-      {!isLoading && <div className="flex items-end gap-2 px-3 py-2.5">
-        <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
-        <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
+      {!isLoading && (
+        <div className="flex items-end gap-1.5 px-3 py-2.5">
+          <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
+          <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
 
-        {voiceMode ? (
-          <VoiceRecorder channelId={generalChannelId} groupId={groupId} onDone={() => setVoiceMode(false)} />
-        ) : (
-          <>
-            {/* Action icon buttons — 40px circular hit areas */}
-            <div className="flex gap-0.5 pb-0.5">
-              {[
-                { ref: imageRef, icon: <Image size={20} />, label: 'صورة' },
-                { ref: fileRef,  icon: <Paperclip size={20} />, label: 'ملف' },
-              ].map(({ ref, icon, label }) => (
-                <button
-                  key={label}
-                  onClick={() => ref.current?.click()}
-                  disabled={uploading}
-                  title={label}
-                  className="rounded-full transition-all"
+          {voiceMode ? (
+            <VoiceRecorder channelId={generalChannelId} groupId={groupId} onDone={() => setVoiceMode(false)} />
+          ) : (
+            <>
+              {/* Attachments + announcement */}
+              <div className="flex gap-0.5 pb-0.5">
+                <ActionIcon label="صورة" onClick={() => imageRef.current?.click()} disabled={uploading}><Image size={20} /></ActionIcon>
+                <ActionIcon label="ملف" onClick={() => fileRef.current?.click()} disabled={uploading}><Paperclip size={20} /></ActionIcon>
+                {isTrainer && (
+                  <ActionIcon label="إعلان للجميع" gold onClick={() => setAnnouncementOpen(true)}>
+                    <Megaphone size={20} />
+                  </ActionIcon>
+                )}
+              </div>
+
+              {/* Textarea */}
+              <div
+                className="flex-1 flex items-end gap-2 px-4 py-2"
+                style={{
+                  background: 'var(--ds-surface-1)',
+                  border: focused
+                    ? '1.5px solid color-mix(in srgb, var(--ds-accent-gold) 45%, transparent)'
+                    : '1.5px solid var(--ds-border-subtle)',
+                  borderRadius: 22,
+                  boxShadow: focused ? '0 0 0 3px color-mix(in srgb, var(--ds-accent-gold) 14%, transparent)' : 'none',
+                  transition: 'border-color 0.15s, box-shadow 0.15s',
+                }}
+              >
+                <textarea
+                  ref={textareaRef}
+                  value={input}
+                  onChange={handleInput}
+                  onKeyDown={handleKeyDown}
+                  onSelect={detectMentionContext}
+                  onClick={detectMentionContext}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  placeholder="اكتب رسالة… اكتب @ لذكر شخص"
+                  rows={1}
+                  className="flex-1 resize-none bg-transparent outline-none text-sm"
+                  style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-primary)', lineHeight: 1.7, direction: 'auto', minHeight: 28, maxHeight: 160 }}
+                />
+              </div>
+
+              {/* Send (gold) or Mic */}
+              {input.trim() ? (
+                <motion.button
+                  {...popIn}
+                  onClick={handleSend}
+                  disabled={!canSend}
+                  whileTap={{ scale: 0.9 }}
+                  className="shrink-0 rounded-full flex items-center justify-center pb-0.5"
                   style={{
-                    width: 40, height: 40,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'var(--ds-text-secondary)',
-                    border: '1px solid transparent',
+                    width: 42, height: 42,
+                    background: canSend
+                      ? 'linear-gradient(135deg, var(--ds-accent-gold) 0%, color-mix(in srgb, var(--ds-accent-gold) 68%, #7a4f00) 100%)'
+                      : 'var(--ds-surface-1)',
+                    color: canSend ? '#1a1205' : 'var(--ds-text-muted)',
+                    opacity: canSend ? 1 : 0.45,
+                    border: canSend ? '1px solid color-mix(in srgb, var(--ds-accent-gold) 55%, white)' : '1px solid transparent',
+                    boxShadow: canSend ? '0 6px 16px -5px color-mix(in srgb, var(--ds-accent-gold) 55%, transparent)' : 'none',
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--ds-surface-1)'
-                    e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'
-                    e.currentTarget.style.color = 'var(--ds-text-primary)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent'
-                    e.currentTarget.style.borderColor = 'transparent'
-                    e.currentTarget.style.color = 'var(--ds-text-secondary)'
-                  }}
+                  aria-label={editing ? 'حفظ التعديل' : 'إرسال'}
                 >
-                  {icon}
-                </button>
-              ))}
-            </div>
+                  <Send size={18} />
+                </motion.button>
+              ) : (
+                <motion.button
+                  onClick={() => setVoiceMode(true)}
+                  whileHover={{ scale: 1.06 }}
+                  whileTap={{ scale: 0.94 }}
+                  className="shrink-0 rounded-full flex items-center justify-center"
+                  style={{ width: 42, height: 42, color: 'var(--ds-text-secondary)' }}
+                  aria-label="تسجيل صوتي"
+                >
+                  <Mic size={20} />
+                </motion.button>
+              )}
+            </>
+          )}
+        </div>
+      )}
 
-            {/* Textarea — rounded glass panel, 20px radius, focus ring */}
-            <div
-              className="flex-1 flex items-end gap-2 px-4 py-2"
-              style={{
-                background: 'var(--ds-surface-1)',
-                border: '1.5px solid var(--ds-border-subtle)',
-                borderRadius: 20,
-                transition: 'border-color 0.15s, box-shadow 0.15s',
-              }}
-              onFocusCapture={(e) => {
-                e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--ds-accent-primary) 40%, transparent)'
-                e.currentTarget.style.boxShadow = '0 0 0 2px color-mix(in srgb, var(--ds-accent-primary) 12%, transparent)'
-              }}
-              onBlurCapture={(e) => {
-                e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}
-            >
-              <textarea
-                ref={textareaRef}
-                value={input}
-                onChange={handleInput}
-                onKeyDown={handleKeyDown}
-                onSelect={detectMentionContext}
-                onClick={detectMentionContext}
-                placeholder="اكتب رسالة... اكتب @ لذكر شخص"
-                rows={1}
-                className="flex-1 resize-none bg-transparent outline-none text-sm"
-                style={{
-                  fontFamily: 'Tajawal, sans-serif',
-                  color: 'var(--ds-text-primary)',
-                  lineHeight: 1.7,
-                  direction: 'auto',
-                  minHeight: 28,
-                  maxHeight: 144,
-                }}
-              />
-            </div>
-
-            {/* Send (gold circle) / Mic button */}
-            {input.trim() ? (
-              <motion.button
-                {...popIn}
-                onClick={handleSend}
-                disabled={!canSend}
-                whileTap={{ scale: 0.90 }}
-                className="shrink-0 rounded-full flex items-center justify-center pb-0.5"
-                style={{
-                  width: 40, height: 40,
-                  background: canSend
-                    ? 'linear-gradient(135deg, var(--ds-accent-primary) 0%, color-mix(in srgb, var(--ds-accent-primary) 70%, black) 100%)'
-                    : 'var(--ds-surface-1)',
-                  color: canSend ? 'white' : 'var(--ds-text-muted)',
-                  opacity: canSend ? 1 : 0.4,
-                  boxShadow: canSend ? '0 4px 12px -4px color-mix(in srgb, var(--ds-accent-primary) 45%, transparent)' : 'none',
-                }}
-              >
-                <Send size={17} />
-              </motion.button>
-            ) : (
-              <motion.button
-                onClick={() => setVoiceMode(true)}
-                whileHover={{ scale: 1.05 }}
-                className="shrink-0 rounded-full flex items-center justify-center"
-                style={{
-                  width: 40, height: 40,
-                  color: 'var(--ds-text-secondary)',
-                }}
-              >
-                <Mic size={20} />
-              </motion.button>
-            )}
-          </>
-        )}
-      </div>}
-
-      {/* Announcement FAB (trainer/admin only) */}
+      {/* Announcement sheet (trainer/admin) */}
       {isTrainer && (
-        <>
-          <AnnouncementSheet
-            open={announcementOpen}
-            onClose={() => setAnnouncementOpen(false)}
-            groupId={groupId}
-            channelId={announcementChannel?.id}
-          />
-          <motion.button
-            onClick={() => setAnnouncementOpen(true)}
-            whileTap={{ scale: 0.92 }}
-            transition={{ duration: 0.08 }}
-            className="fixed bottom-24 left-4 z-30 flex items-center justify-center fab-pulse"
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, #fbbf24 0%, color-mix(in srgb, #fbbf24 70%, black) 100%)',
-              border: '1px solid color-mix(in srgb, #fbbf24 50%, white)',
-              color: 'rgba(255,255,255,0.95)',
-            }}
-            title="إعلان جديد"
-          >
-            <Megaphone size={22} style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }} />
-          </motion.button>
-        </>
+        <AnnouncementSheet
+          open={announcementOpen}
+          onClose={() => setAnnouncementOpen(false)}
+          groupId={groupId}
+          channelId={announcementChannel?.id}
+        />
       )}
     </div>
+  )
+}
+
+function ActionIcon({ children, label, onClick, disabled, gold }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      title={label}
+      aria-label={label}
+      className="rounded-full transition-all flex items-center justify-center"
+      style={{ width: 40, height: 40, color: gold ? 'var(--ds-accent-gold)' : 'var(--ds-text-secondary)', border: '1px solid transparent' }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = gold ? 'color-mix(in srgb, var(--ds-accent-gold) 12%, transparent)' : 'var(--ds-surface-1)'
+        e.currentTarget.style.borderColor = gold ? 'color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)' : 'var(--ds-border-subtle)'
+      }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent' }}
+    >
+      {children}
+    </button>
   )
 }
 
@@ -319,6 +343,13 @@ function AnnouncementSheet({ open, onClose, groupId, channelId }) {
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
   const sendMessage = useSendMessage(channelId, groupId)
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open, onClose])
 
   async function handlePost() {
     if (!text.trim() || !channelId) return
@@ -330,62 +361,51 @@ function AnnouncementSheet({ open, onClose, groupId, channelId }) {
     } catch (err) { console.error(err) } finally { setSending(false) }
   }
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/50" onClick={onClose} />
+            className="fixed inset-0 bg-black/55" style={{ zIndex: 70 }} onClick={onClose} />
           <motion.div
             initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-50 rounded-t-3xl p-5"
+            className="fixed inset-x-0 bottom-0 rounded-t-3xl p-5"
             style={{
-              background: 'color-mix(in srgb, var(--ds-bg-elevated) 95%, transparent)',
+              zIndex: 71,
+              background: 'color-mix(in srgb, var(--ds-bg-elevated) 96%, transparent)',
               backdropFilter: 'blur(24px)',
-              borderTop: '1px solid color-mix(in srgb, var(--ds-accent-gold) 20%, transparent)',
+              borderTop: '1px solid color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)',
               direction: 'rtl',
+              paddingBottom: 'calc(20px + env(safe-area-inset-bottom, 0px))',
             }}
           >
             <div className="flex items-center gap-2 mb-4">
               <Megaphone size={18} style={{ color: 'var(--ds-accent-gold)' }} />
-              <h3 className="font-bold flex-1 text-right" style={{ fontFamily: 'Tajawal', fontSize: 16, color: 'var(--ds-text-primary)' }}>
-                إعلان جديد
-              </h3>
-              <button onClick={onClose} style={{ color: 'var(--ds-text-muted)' }}><X size={18} /></button>
+              <h3 className="font-bold flex-1 text-right" style={{ fontFamily: 'Tajawal', fontSize: 16, color: 'var(--ds-text-primary)' }}>إعلان جديد</h3>
+              <button onClick={onClose} style={{ color: 'var(--ds-text-muted)' }} aria-label="إغلاق"><X size={18} /></button>
             </div>
-
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="اكتب إعلانك هنا..."
+              placeholder="اكتب إعلانك هنا…"
               rows={4}
+              autoFocus
               className="w-full resize-none rounded-2xl px-4 py-3 text-sm outline-none"
-              style={{
-                fontFamily: 'Tajawal, sans-serif',
-                background: 'var(--ds-surface-1)',
-                border: '1px solid var(--ds-border-subtle)',
-                color: 'var(--ds-text-primary)',
-                lineHeight: 1.7,
-                direction: 'auto',
-              }}
+              style={{ fontFamily: 'Tajawal, sans-serif', background: 'var(--ds-surface-1)', border: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-primary)', lineHeight: 1.7, direction: 'auto' }}
             />
-
             <button
               onClick={handlePost}
               disabled={!text.trim() || sending || !channelId}
               className="mt-3 w-full py-3 rounded-2xl font-bold text-sm transition-all disabled:opacity-40"
-              style={{
-                background: 'var(--ds-accent-gold)',
-                color: 'var(--ds-bg-base)',
-                fontFamily: 'Tajawal, sans-serif',
-              }}
+              style={{ background: 'var(--ds-accent-gold)', color: '#1a1205', fontFamily: 'Tajawal, sans-serif' }}
             >
-              {sending ? 'جاري الإرسال...' : 'نشر للجميع'}
+              {sending ? 'جاري الإرسال…' : 'نشر للجميع'}
             </button>
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }
