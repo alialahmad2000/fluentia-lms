@@ -292,6 +292,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
   const [groupId, setGroupId] = useState(student.group_id || '')
   const [academicLevel, setAcademicLevel] = useState(student.academic_level || 1)
   const [pkg, setPkg] = useState(student.package || 'asas')
+  const [gender, setGender] = useState(student.gender || 'female')
   const [status, setStatus] = useState(student.status || 'active')
   const [customPrice, setCustomPrice] = useState(student.custom_price || '')
   const [paymentDay, setPaymentDay] = useState(student.payment_day || '')
@@ -414,6 +415,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
         academic_level: parseInt(academicLevel),
         package: pkg,
         status,
+        gender,
         custom_price: customPrice ? parseInt(customPrice) : null,
         payment_day: paymentDay ? parseInt(paymentDay) : null,
         custom_access: customAccess.length > 0 ? customAccess : null,
@@ -566,6 +568,14 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
                 <option value="withdrawn">منسحب</option>
               </select>
             </div>
+            <div>
+              {/* Grammatical gender — drives the Arabic male/female tone the student sees */}
+              <label className="input-label">الجنس (نبرة الخطاب)</label>
+              <select value={gender} onChange={(e) => setGender(e.target.value)} className="input-field">
+                <option value="female">أنثى</option>
+                <option value="male">ذكر</option>
+              </select>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-6">
             <div>
@@ -643,6 +653,7 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
   const [groupId, setGroupId] = useState(groups?.[0]?.id || '')
   const [academicLevel, setAcademicLevel] = useState(1)
   const [pkg, setPkg] = useState('asas')
+  const [gender, setGender] = useState('female')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [createdStudent, setCreatedStudent] = useState(null)
@@ -715,6 +726,7 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
         group_id: groupId || null,
         academic_level: parseInt(academicLevel),
         package: pkg,
+        gender,
         status: 'active',
         temp_password: tempPassword,
         enrollment_date: new Date().toISOString(),
@@ -850,6 +862,14 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
                 {Object.entries(PACKAGES).map(([k, v]) => (
                   <option key={k} value={k}>{v.name_ar} — {v.price} ريال</option>
                 ))}
+              </select>
+            </div>
+            <div>
+              {/* Grammatical gender — drives the Arabic male/female tone the student sees */}
+              <label className="input-label">الجنس (نبرة الخطاب)</label>
+              <select value={gender} onChange={(e) => setGender(e.target.value)} className="input-field">
+                <option value="female">أنثى</option>
+                <option value="male">ذكر</option>
               </select>
             </div>
             <div className="fl-card-static p-3">

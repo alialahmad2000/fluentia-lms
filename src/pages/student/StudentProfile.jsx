@@ -15,6 +15,7 @@ import NotificationSettings from '../../components/layout/NotificationSettings'
 import ImmersionToggle from '../../components/ImmersionToggle'
 import SubTabs from '../../components/common/SubTabs'
 import StudentAIProfile from '../../components/ai/StudentAIProfile'
+import { useG } from '@/i18n/gender'
 
 // Lazy-load sub-tab content
 const StudentAvatar = lazyRetry(() => import('./StudentAvatar'))
@@ -775,6 +776,7 @@ const DS_THEME_OPTIONS = [
 ]
 
 function AppearanceContent() {
+  const g = useG()
   const user = useAuthUser()
   const impersonation = useAuthStore((s) => s.impersonation)
   const isImpersonating = !!impersonation
@@ -802,7 +804,7 @@ function AppearanceContent() {
     <div className="space-y-6">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>مظهر المنصة</h2>
-        <p className="text-sm text-muted mt-1">اختاري الثيم اللي يريحك — يُحفظ ويتبعك على كل أجهزتك</p>
+        <p className="text-sm text-muted mt-1">{g('اختر', 'اختاري')} الثيم اللي يريحك — يُحفظ ويتبعك على كل أجهزتك</p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

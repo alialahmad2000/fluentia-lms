@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react'
 import { validateAnswer } from '../../../utils/answerValidator'
-
-const CORRECT_MSGS = ['ممتازة! إجابة صحيحة 🎯', 'أحسنتِ! بالضبط ✨', 'صحيح! رائع 💫', 'إجابة موفقة! 🌟']
+import { useG } from '@/i18n/gender'
 
 export default function FillBlankQuestion({ item, answer, onAnswer }) {
+  const g = useG()
+  const CORRECT_MSGS = [g('ممتاز! إجابة صحيحة 🎯', 'ممتازة! إجابة صحيحة 🎯'), g('أحسنت! بالضبط ✨', 'أحسنتِ! بالضبط ✨'), 'صحيح! رائع 💫', 'إجابة موفقة! 🌟']
   const [input, setInput] = useState('')
   const inputRef = useRef(null)
   const acceptedAnswers = item.accepted_answers || [item.correct_answer]
@@ -48,7 +49,7 @@ export default function FillBlankQuestion({ item, answer, onAnswer }) {
       </div>
       {!answer && (
         <p id="fill-blank-hint" className="text-[11px] font-['Tajawal']" dir="rtl" style={{ color: 'var(--text-tertiary)' }}>
-          اكتبي الكلمة الناقصة فقط — لا تعيدي كتابة الجملة كاملة
+          {g('اكتب الكلمة الناقصة فقط — لا تعِد كتابة الجملة كاملة', 'اكتبي الكلمة الناقصة فقط — لا تعيدي كتابة الجملة كاملة')}
         </p>
       )}
 

@@ -16,9 +16,11 @@ import {
   useCreateHomeworkSet,
 } from '../../../lib/retention/useHomework'
 import { useStudentMistakeTags } from '../../../lib/retention/useStudentMistakeTags'
+import { useG } from '../../../i18n/gender'
 
 export default function HomeworkLanding() {
   const navigate = useNavigate()
+  const g = useG()
   const moduleEnabled = useRetentionModuleEnabled(RETENTION_MODULES.SMART_HOMEWORK)
   const active = useActiveHomeworkSet()
   const history = useHomeworkHistory({ limit: 8 })
@@ -66,7 +68,7 @@ export default function HomeworkLanding() {
             الواجبات الذكية
           </h1>
           <p className="mt-2 text-sm md:text-base" style={{ color: 'var(--ds-text-secondary)' }}>
-            تمارين مخصصة لكِ بناءً على أخطائكِ الفعلية. كل مجموعة ٥ تمارين، تقدر تخلصينها في أقل من ١٠ دقائق.
+            {g('تمارين مخصصة لك بناءً على أخطائك الفعلية. كل مجموعة ٥ تمارين، تقدر تخلصها في أقل من ١٠ دقائق.', 'تمارين مخصصة لكِ بناءً على أخطائكِ الفعلية. كل مجموعة ٥ تمارين، تقدر تخلصينها في أقل من ١٠ دقائق.')}
           </p>
         </header>
 
@@ -81,7 +83,7 @@ export default function HomeworkLanding() {
           >
             <div className="mt-2 flex items-center justify-between">
               <span className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
-                ابدئي من حيث وقفتِ
+                {g('ابدأ من حيث وقفت', 'ابدئي من حيث وقفتِ')}
               </span>
               <span className="text-sm font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>
                 متابعة ←
@@ -94,7 +96,7 @@ export default function HomeworkLanding() {
             title="مجموعة جديدة"
             subtitle={
               tags.data && tags.data.length > 0
-                ? `سنركّز على آخر أخطائكِ: ${tags.data.slice(0, 2).map((t) => translateTag(t.tag)).join('، ')}`
+                ? `${g('سنركّز على آخر أخطائك', 'سنركّز على آخر أخطائكِ')}: ${tags.data.slice(0, 2).map((t) => translateTag(t.tag)).join('، ')}`
                 : 'سنبدأ بمزيج متوازن من القواعد والمفردات'
             }
             icon={<Sparkles size={20} />}
@@ -112,7 +114,7 @@ export default function HomeworkLanding() {
                 }}
               >
                 <Plus size={18} />
-                {create.isPending ? 'جاري إعداد المجموعة…' : 'ابدئي تمارين اليوم'}
+                {create.isPending ? 'جاري إعداد المجموعة…' : g('ابدأ تمارين اليوم', 'ابدئي تمارين اليوم')}
               </motion.button>
             }
           >
@@ -125,7 +127,7 @@ export default function HomeworkLanding() {
                   borderRadius: 'var(--radius-md)',
                 }}
               >
-                {create.error.message || 'تعذّر إنشاء المجموعة — حاولي مرة ثانية'}
+                {create.error.message || g('تعذّر إنشاء المجموعة — حاول مرة ثانية', 'تعذّر إنشاء المجموعة — حاولي مرة ثانية')}
               </div>
             )}
           </RetentionCard>
@@ -143,7 +145,7 @@ export default function HomeworkLanding() {
           ) : !history.data || history.data.length === 0 ? (
             <GlassPanel padding="md">
               <p className="text-sm text-center" style={{ color: 'var(--ds-text-tertiary)' }}>
-                لا توجد مجموعات سابقة بعد — ابدئي بأول واحدة فوق ↑
+                {g('لا توجد مجموعات سابقة بعد — ابدأ بأول واحدة فوق ↑', 'لا توجد مجموعات سابقة بعد — ابدئي بأول واحدة فوق ↑')}
               </p>
             </GlassPanel>
           ) : (

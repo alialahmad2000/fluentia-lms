@@ -6,8 +6,10 @@ import { motion } from 'framer-motion'
 import { Trophy, Target, CheckCircle2 } from 'lucide-react'
 import { useCurrentWeeklyChallenge } from '../../lib/retention/useStreak.js'
 import RetentionCard from '../../design-system/retention/RetentionCard.jsx'
+import { useG } from '../../i18n/gender.js'
 
 export default function WeeklyChallengeCard() {
+  const g = useG()
   const { data, isLoading } = useCurrentWeeklyChallenge()
 
   if (!data && !isLoading) return null
@@ -82,7 +84,7 @@ export default function WeeklyChallengeCard() {
             className="mt-2 text-xs"
             style={{ color: 'var(--ds-accent-success)' }}
           >
-            أتممتيه — أحسنتِ! 🎯
+            {g('أتممته — أحسنت! 🎯', 'أتممتيه — أحسنتِ! 🎯')}
           </div>
         )}
       </div>

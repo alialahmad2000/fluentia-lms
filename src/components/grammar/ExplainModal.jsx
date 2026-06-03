@@ -2,9 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import { X, Sparkles, RotateCcw, RefreshCw } from 'lucide-react'
 import DOMPurify from 'dompurify'
 import { supabase } from '../../lib/supabase'
+import { useG } from '@/i18n/gender'
 import { NajdiExplanationView } from './NajdiExplanationView'
 
 export default function ExplainModal({ open, onClose, payload }) {
+  const g = useG()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [result, setResult] = useState(null)
@@ -29,11 +31,11 @@ export default function ExplainModal({ open, onClose, payload }) {
 
       setResult(data)
     } catch (e) {
-      setError(e.message?.includes('Edge Function') ? 'تعذّر الاتصال بالخدمة، حاولي مرة أخرى' : (e.message || 'حدث خطأ'))
+      setError(e.message?.includes('Edge Function') ? g('تعذّر الاتصال بالخدمة، حاول مرة أخرى', 'تعذّر الاتصال بالخدمة، حاولي مرة أخرى') : (e.message || 'حدث خطأ'))
     } finally {
       setLoading(false)
     }
-  }, [payload])
+  }, [payload, g])
 
   useEffect(() => {
     if (open && payload) {

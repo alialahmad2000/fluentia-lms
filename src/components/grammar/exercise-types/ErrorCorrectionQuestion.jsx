@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { validateAnswer } from '../../../utils/answerValidator'
+import { useG } from '@/i18n/gender'
 
 export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
+  const g = useG()
   const [input, setInput] = useState('')
   const acceptedAnswers = item.accepted_answers || [item.correct_answer]
 
@@ -44,7 +46,7 @@ export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
       </div>
 
       {answer && answer.correct && (
-        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>تصحيح ممتاز! أحسنتِ 🔥</p>
+        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>{g('تصحيح ممتاز! أحسنت 🔥', 'تصحيح ممتاز! أحسنتِ 🔥')}</p>
       )}
 
       {answer && !answer.correct && (

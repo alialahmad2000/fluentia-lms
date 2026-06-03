@@ -5,9 +5,11 @@ import { supabase } from '../../../lib/supabase'
 import { PremiumCard } from '../../../design-system/components'
 import { motion } from 'framer-motion'
 import { Compass, X, RotateCcw } from 'lucide-react'
+import { useG } from '../../../i18n/gender'
 
 export default function PlacementTestCard({ studentId }) {
   const navigate = useNavigate()
+  const g = useG()
   const [dismissed, setDismissed] = useState(false)
 
   // Check localStorage dismiss
@@ -69,10 +71,10 @@ export default function PlacementTestCard({ studentId }) {
           </button>
         </div>
         <h3 className="text-base font-bold mb-1" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-          اكتشفي مستواكِ الحقيقي
+          {g('اكتشف مستواك الحقيقي', 'اكتشفي مستواكِ الحقيقي')}
         </h3>
         <p className="text-sm mb-4" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-          اختبار تكيّفي سريع يحدد مستواكِ بدقة في ١٥ سؤال
+          {g('اختبار تكيّفي سريع يحدد مستواك بدقة في ١٥ سؤال', 'اختبار تكيّفي سريع يحدد مستواكِ بدقة في ١٥ سؤال')}
         </p>
         <button
           onClick={() => navigate('/student/placement-test')}
@@ -82,7 +84,7 @@ export default function PlacementTestCard({ studentId }) {
             color: '#060e1c',
           }}
         >
-          ابدئي الاختبار
+          {g('ابدأ الاختبار', 'ابدئي الاختبار')}
         </button>
       </>
     )
@@ -139,12 +141,12 @@ export default function PlacementTestCard({ studentId }) {
               }}
             >
               <RotateCcw size={15} />
-              أعيدي الاختبار
+              {g('أعِد الاختبار', 'أعيدي الاختبار')}
             </button>
           </>
         ) : (
           <p className="text-sm" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
-            أعيدي الاختبار بعد {daysUntilRetake} يوم
+            {g('أعِد الاختبار بعد', 'أعيدي الاختبار بعد')} {daysUntilRetake} يوم
           </p>
         )}
       </>

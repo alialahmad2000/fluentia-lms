@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
 import { getRemainingSeconds, SKILL_LIMITS } from '../useMockSession'
+import { useG } from '@/i18n/gender'
 
 const LIMIT = SKILL_LIMITS.listening
 
@@ -43,6 +44,7 @@ function QuestionItem({ q, answer, onChange }) {
 }
 
 export default function MockListening({ attemptId, answers, content, startedAt, onComplete }) {
+  const g = useG()
   const [sections, setSections] = useState([])
   const [sectionIdx, setSectionIdx] = useState(0)
   const [userAnswers, setUserAnswers] = useState(answers.answers || {})
@@ -154,7 +156,7 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: isPlaying ? '#f87171' : 'var(--ds-text-muted)', animation: isPlaying ? 'pulse 1s infinite' : 'none' }} />
               <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}`}</style>
               <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                {isPlaying ? 'يُشغَّل الآن — أجيبي على الأسئلة' : 'انتهى التشغيل'}
+                {isPlaying ? g('يُشغَّل الآن — أجِب على الأسئلة', 'يُشغَّل الآن — أجيبي على الأسئلة') : 'انتهى التشغيل'}
               </span>
             </div>
           )}

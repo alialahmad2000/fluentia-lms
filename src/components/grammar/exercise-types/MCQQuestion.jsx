@@ -1,12 +1,13 @@
 import { CheckCircle, XCircle } from 'lucide-react'
 import { validateAnswer } from '../../../utils/answerValidator'
-
-const CORRECT_MSGS = ['أحسنتِ! إجابة صحيحة 🎯', 'ممتازة! ✨', 'صحيح! رائع 💫', 'بالضبط! 🌟', 'إجابة موفقة! 🔥']
-const WRONG_MSGS = ['لا بأس — راجعي القاعدة 📖', 'حاولي تذكّر القاعدة 💡', 'قريب! راجعي الشرح 🔍']
+import { useG } from '@/i18n/gender'
 
 function randomMsg(arr) { return arr[Math.floor(Math.random() * arr.length)] }
 
 export default function MCQQuestion({ item, answer, onAnswer }) {
+  const g = useG()
+  const CORRECT_MSGS = [g('أحسنت! إجابة صحيحة 🎯', 'أحسنتِ! إجابة صحيحة 🎯'), g('ممتاز! ✨', 'ممتازة! ✨'), 'صحيح! رائع 💫', 'بالضبط! 🌟', 'إجابة موفقة! 🔥']
+  const WRONG_MSGS = [g('لا بأس — راجع القاعدة 📖', 'لا بأس — راجعي القاعدة 📖'), g('حاول تذكّر القاعدة 💡', 'حاولي تذكّر القاعدة 💡'), g('قريب! راجع الشرح 🔍', 'قريب! راجعي الشرح 🔍')]
   const acceptedAnswers = item.accepted_answers || [item.correct_answer]
 
   const handleSelect = (opt) => {

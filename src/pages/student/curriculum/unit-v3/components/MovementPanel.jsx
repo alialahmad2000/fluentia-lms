@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { V3_MOTION, V3_TYPOGRAPHY, resolvePalette } from '../_v3Tokens'
+import { V3_MOTION, V3_TYPOGRAPHY, resolvePalette, getMovementSubtitle } from '../_v3Tokens'
+import { useG } from '@/i18n/gender'
 import { ACTIVITY_VARIANT } from '../_v3Mappings'
 import MovementHeroNumeral from './MovementHeroNumeral'
 import MovementProgressOrb from './MovementProgressOrb'
@@ -22,6 +23,7 @@ export default function MovementPanel({
   theme = 'dark',
   index = 0,
 }) {
+  const g = useG()
   const reduce = useReducedMotion()
   const palette = useMemo(() => resolvePalette(movement, theme), [movement, theme])
 
@@ -104,7 +106,7 @@ export default function MovementPanel({
               lineHeight: 1.45,
             }}
           >
-            {movement.subtitleAr}
+            {getMovementSubtitle(movement, g)}
           </p>
         </div>
         <MovementProgressOrb

@@ -7,6 +7,7 @@ import { useStudentId } from '../_helpers/resolveStudentId'
 import { useDueErrors, useMarkReviewed, useAddNote, SKILL_LABELS } from './useErrorBank'
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
+import { useG } from '@/i18n/gender'
 
 function useErrorById(errorId) {
   return useQuery({
@@ -131,6 +132,7 @@ function ReviewCard({ item, onAction, onNote, totalRemaining }) {
 
 export default function ReviewSession() {
   const navigate      = useNavigate()
+  const g             = useG()
   const [params]      = useSearchParams()
   const studentId     = useStudentId()
   const singleId      = params.get('id')
@@ -191,7 +193,7 @@ export default function ReviewSession() {
           {doneCount > 0 ? `أحسنت! راجعت ${doneCount} درس` : 'لا توجد دروس للمراجعة اليوم'}
         </h2>
         <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          {doneCount > 0 ? 'كل مراجعة تقربك خطوة من هدفك.' : 'أكملي جلسة ممارسة وتعالي مرة أخرى.'}
+          {doneCount > 0 ? 'كل مراجعة تقربك خطوة من هدفك.' : g('أكمل جلسة ممارسة وتعال مرة أخرى.', 'أكملي جلسة ممارسة وتعالي مرة أخرى.')}
         </p>
         <button onClick={() => navigate('/student/ielts-atelier/errors')}
           style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 35%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>

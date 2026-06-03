@@ -6,6 +6,7 @@ import { ChevronLeft } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { useStudentId } from '../_helpers/resolveStudentId'
 import { useErrorStats, useErrorList, useImprovementTips, SKILL_LABELS } from './useErrorBank'
+import { useG } from '@/i18n/gender'
 
 const SKILL_COLORS = {
   reading:   'var(--sunset-orange)',
@@ -36,6 +37,7 @@ function SkillBar({ skill, total, mastered }) {
 
 export default function Insights() {
   const navigate  = useNavigate()
+  const g         = useG()
   const studentId = useStudentId()
 
   // ── 1. useState ────────────────────────────────────────────────────────────
@@ -96,7 +98,7 @@ export default function Insights() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           style={{ padding: '48px 24px', textAlign: 'center', borderRadius: 20, background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)' }}>
           <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7 }}>
-            لا توجد بيانات بعد. أكملي جلسات ممارسة لتظهر إحصائياتك هنا.
+            {g('لا توجد بيانات بعد. أكمل جلسات ممارسة لتظهر إحصائياتك هنا.', 'لا توجد بيانات بعد. أكملي جلسات ممارسة لتظهر إحصائياتك هنا.')}
           </p>
         </motion.div>
       ) : (

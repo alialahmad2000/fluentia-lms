@@ -1,4 +1,5 @@
 import { AlertTriangle, AlertCircle, ArrowLeft, Check, Clock, MessageCircle, RotateCw, Send, X } from 'lucide-react'
+import { useG } from '@/i18n/gender'
 
 /**
  * SubmitConfirmModal
@@ -23,6 +24,7 @@ export default function SubmitConfirmModal({
   open, onClose, onConfirm, onJumpTo, issues = [], submitting, submitError,
   whatsappInstructorUrl = 'https://wa.me/966558669974',
 }) {
+  const g = useG()
   if (!open) return null
 
   const hasIssues = issues.length > 0
@@ -71,7 +73,7 @@ export default function SubmitConfirmModal({
                 color: 'var(--ds-text-secondary)',
               }}
             >
-              إذا أردتِ التسليم رغم هذه الملاحظات، اضغطي «تسليم على أي حال».
+              {g('إذا أردت التسليم رغم هذه الملاحظات، اضغط «تسليم على أي حال».', 'إذا أردتِ التسليم رغم هذه الملاحظات، اضغطي «تسليم على أي حال».')}
               التسليم نهائي ولا يمكن التراجع — محاولة واحدة فقط.
             </p>
             <div className="flex items-center justify-end gap-2 pt-1">
@@ -106,7 +108,7 @@ export default function SubmitConfirmModal({
                   ? <Clock size={14} className="animate-spin" />
                   : <Send size={14} />}
                 {submitting
-                  ? 'جاري التسليم — إجاباتكِ محفوظة، لا تغلقي الصفحة...'
+                  ? g('جاري التسليم — إجاباتك محفوظة، لا تغلق الصفحة...', 'جاري التسليم — إجاباتكِ محفوظة، لا تغلقي الصفحة...')
                   : 'تسليم على أي حال'}
               </button>
             </div>
@@ -114,7 +116,7 @@ export default function SubmitConfirmModal({
         ) : (
           <>
             <p className="text-sm leading-relaxed" style={{ color: 'var(--ds-text-secondary)' }}>
-              أجبتِ على جميع الأسئلة وكتبتِ ما يكفي ✓
+              {g('أجبت على جميع الأسئلة وكتبت ما يكفي ✓', 'أجبتِ على جميع الأسئلة وكتبتِ ما يكفي ✓')}
             </p>
             <p
               className="text-xs leading-relaxed p-3 rounded-lg"
@@ -124,7 +126,7 @@ export default function SubmitConfirmModal({
                 color: 'var(--ds-text-secondary)',
               }}
             >
-              تأكدي قبل التسليم — التسليم نهائي ومحاولة واحدة فقط.
+              {g('تأكد قبل التسليم — التسليم نهائي ومحاولة واحدة فقط.', 'تأكدي قبل التسليم — التسليم نهائي ومحاولة واحدة فقط.')}
             </p>
             <div className="flex items-center justify-end gap-2 pt-1">
               <button
@@ -158,8 +160,8 @@ export default function SubmitConfirmModal({
                   ? <Clock size={14} className="animate-spin" />
                   : <Check size={14} />}
                 {submitting
-                  ? 'جاري التسليم — إجاباتكِ محفوظة، لا تغلقي الصفحة...'
-                  : 'نعم، أرسلي الاختبار'}
+                  ? g('جاري التسليم — إجاباتك محفوظة، لا تغلق الصفحة...', 'جاري التسليم — إجاباتكِ محفوظة، لا تغلقي الصفحة...')
+                  : g('نعم، أرسل الاختبار', 'نعم، أرسلي الاختبار')}
               </button>
             </div>
           </>

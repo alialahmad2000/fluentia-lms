@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
+import { useG } from '@/i18n/gender'
 
 export default function BriefPromise({ outcomes }) {
+  const g = useG()
   if (!outcomes?.length) return null
 
   return (
@@ -20,7 +22,7 @@ export default function BriefPromise({ outcomes }) {
         marginBottom: '16px',
         fontFamily: "'Tajawal', sans-serif",
       }}>
-        بعد هذه الوحدة، ستكونين قادرة على:
+        {g('بعد هذه الوحدة، ستكون قادراً على:', 'بعد هذه الوحدة، ستكونين قادرة على:')}
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

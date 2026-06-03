@@ -9,6 +9,7 @@ import { useStudentId } from './_helpers/resolveStudentId'
 import { useListeningSection, useSubmitListeningSession, useRecentListeningSessions } from '@/hooks/ielts/useListeningLab'
 import { gradeQuestions } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
+import { useG } from '@/i18n/gender'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -557,6 +558,7 @@ function QuestionItem({ q, answer, onChange }) {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function Listening() {
+  const g = useG()
   const studentId = useStudentId()
   const isWide = useIsWide()
 
@@ -1022,7 +1024,7 @@ export default function Listening() {
                     }}
                   >
                     <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>
-                      {totalQ - answeredCount} سؤال بلا إجابة — هل تريدين الإرسال الآن؟
+                      {totalQ - answeredCount} سؤال بلا إجابة — {g('هل تريد الإرسال الآن؟', 'هل تريدين الإرسال الآن؟')}
                     </p>
                     <div style={{ display: 'flex', gap: 8 }}>
                       <button

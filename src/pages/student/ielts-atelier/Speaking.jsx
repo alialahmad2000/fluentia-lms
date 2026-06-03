@@ -10,6 +10,7 @@ import { invokeWithRetry } from '@/lib/invokeWithRetry'
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
+import { useG } from '@/i18n/gender'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -283,6 +284,7 @@ function CriterionCard({ label, score }) {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function Speaking() {
+  const g = useG()
   const studentId = useStudentId()
   const isWide = useIsWide()
   const qc = useQueryClient()
@@ -594,7 +596,7 @@ export default function Speaking() {
 
         {/* Part selector */}
         <motion.section initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <p style={{ margin: '0 0 10px', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>اختاري الجزء</p>
+          <p style={{ margin: '0 0 10px', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>{g('اختر الجزء', 'اختاري الجزء')}</p>
           <div style={{ display: 'flex', gap: 8 }}>
             {[1, 2, 3].map(p => {
               const m = PART_META[p]
@@ -756,12 +758,14 @@ export default function Speaking() {
                 />
                 {recState === 'idle' && !inPrep && (
                   <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                    {recordings[currentQIdx] ? 'سجّلت بالفعل — اضغطي للتسجيل مجدداً' : 'اضغطي للتسجيل'}
+                    {recordings[currentQIdx]
+                      ? g('سجّلت بالفعل — اضغط للتسجيل مجدداً', 'سجّلت بالفعل — اضغطي للتسجيل مجدداً')
+                      : g('اضغط للتسجيل', 'اضغطي للتسجيل')}
                   </p>
                 )}
                 {inPrep && (
                   <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                    أكملي التحضير أو اضغطي "تخطي"
+                    {g('أكمل التحضير أو اضغط "تخطي"', 'أكملي التحضير أو اضغطي "تخطي"')}
                   </p>
                 )}
               </>

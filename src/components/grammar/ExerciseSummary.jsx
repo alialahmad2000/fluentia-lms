@@ -1,13 +1,14 @@
 import { RotateCcw, Trophy, Star, TrendingUp, Zap } from 'lucide-react'
-
-const SCORE_TIERS = [
-  { min: 90, emoji: '🏆', label: 'أداء ممتاز!', color: 'var(--accent-gold)', bg: 'linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(234,179,8,0.06) 100%)' },
-  { min: 70, emoji: '🌟', label: 'عمل رائع!', color: 'var(--success)', bg: 'linear-gradient(135deg, rgba(74,222,128,0.12) 0%, rgba(34,197,94,0.06) 100%)' },
-  { min: 50, emoji: '💪', label: 'جيد — واصلي!', color: 'var(--accent-sky)', bg: 'linear-gradient(135deg, rgba(56,189,248,0.12) 0%, rgba(14,165,233,0.06) 100%)' },
-  { min: 0, emoji: '🌱', label: 'حاولي مرة أخرى', color: 'var(--text-secondary)', bg: 'linear-gradient(135deg, rgba(148,163,184,0.1) 0%, rgba(100,116,139,0.05) 100%)' },
-]
+import { useG } from '@/i18n/gender'
 
 export default function ExerciseSummary({ correctCount, total, score, bestScore, attemptNumber, onRetry }) {
+  const g = useG()
+  const SCORE_TIERS = [
+    { min: 90, emoji: '🏆', label: 'أداء ممتاز!', color: 'var(--accent-gold)', bg: 'linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(234,179,8,0.06) 100%)' },
+    { min: 70, emoji: '🌟', label: 'عمل رائع!', color: 'var(--success)', bg: 'linear-gradient(135deg, rgba(74,222,128,0.12) 0%, rgba(34,197,94,0.06) 100%)' },
+    { min: 50, emoji: '💪', label: g('جيد — واصِل!', 'جيد — واصلي!'), color: 'var(--accent-sky)', bg: 'linear-gradient(135deg, rgba(56,189,248,0.12) 0%, rgba(14,165,233,0.06) 100%)' },
+    { min: 0, emoji: '🌱', label: g('حاول مرة أخرى', 'حاولي مرة أخرى'), color: 'var(--text-secondary)', bg: 'linear-gradient(135deg, rgba(148,163,184,0.1) 0%, rgba(100,116,139,0.05) 100%)' },
+  ]
   const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0
   const circumference = 2 * Math.PI * 40
   const offset = circumference - (pct / 100) * circumference
@@ -79,7 +80,7 @@ export default function ExerciseSummary({ correctCount, total, score, bestScore,
             <div className="flex items-center gap-1.5 mt-1">
               <TrendingUp size={14} style={{ color: 'var(--accent-sky)' }} />
               <span className="text-xs font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
-                كل محاولة تجعلك أقوى — جربي مرة أخرى!
+                {g('كل محاولة تجعلك أقوى — جرّب مرة أخرى!', 'كل محاولة تجعلك أقوى — جربي مرة أخرى!')}
               </span>
             </div>
           )}
@@ -87,7 +88,7 @@ export default function ExerciseSummary({ correctCount, total, score, bestScore,
             <div className="flex items-center gap-1.5 mt-1">
               <Zap size={14} style={{ color: 'var(--accent-gold)' }} />
               <span className="text-xs font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
-                أنتِ متفوقة — انتقلي للدرس التالي!
+                {g('أنت متفوّق — انتقل للدرس التالي!', 'أنتِ متفوقة — انتقلي للدرس التالي!')}
               </span>
             </div>
           )}

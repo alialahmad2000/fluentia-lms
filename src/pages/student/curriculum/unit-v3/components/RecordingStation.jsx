@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { Play, Video, Check, Clock } from 'lucide-react'
 import { ACTIVITY_SHORT_DESCRIPTIONS_AR } from '../_v3Mappings'
 import { resolvePalette } from '../_v3Tokens'
+import { useG } from '@/i18n/gender'
 import NextSuggestionPulse from './NextSuggestionPulse'
 
 // V3.1 — RecordingStation
@@ -37,6 +38,7 @@ export default function RecordingStation({
   theme = 'dark',
 }) {
   // ─── ALL HOOKS AT TOP ───
+  const g = useG()
   const reduce = useReducedMotion()
   const palette = useMemo(() => resolvePalette(movement, theme), [movement, theme])
 
@@ -55,7 +57,7 @@ export default function RecordingStation({
 
   const short = ACTIVITY_SHORT_DESCRIPTIONS_AR[activity.key] || ''
   const ariaLabel = `${activity.label}${partTag ? ' — ' + partTag : ''} — ${
-    watchState === 'watched' ? 'شوهدت' : watchState === 'partial' ? `تابعي من ${resumeLabel}` : 'لم تُشاهد'
+    watchState === 'watched' ? 'شوهدت' : watchState === 'partial' ? `${g('تابع من', 'تابعي من')} ${resumeLabel}` : 'لم تُشاهد'
   }${durationLabel ? `، المدة ${durationLabel}` : ''}`
 
   const hoverable = reduce
@@ -224,7 +226,7 @@ export default function RecordingStation({
             >
               {activity.label}
             </h3>
-            <WatchStatusBadge watchState={watchState} resumeLabel={resumeLabel} />
+            <WatchStatusBadge watchState={watchState} resumeLabel={resumeLabel} g={g} />
           </div>
 
           {/* Short description / recording title */}
@@ -246,7 +248,7 @@ export default function RecordingStation({
   )
 }
 
-function WatchStatusBadge({ watchState, resumeLabel }) {
+function WatchStatusBadge({ watchState, resumeLabel, g }) {
   if (watchState === 'watched') {
     return (
       <span
@@ -287,7 +289,7 @@ function WatchStatusBadge({ watchState, resumeLabel }) {
         }}
       >
         <Clock size={11} strokeWidth={2.4} />
-        {resumeLabel ? `تابعي من ${resumeLabel}` : 'تابعي'}
+        {resumeLabel ? `${g('تابع من', 'تابعي من')} ${resumeLabel}` : g('تابع', 'تابعي')}
       </span>
     )
   }

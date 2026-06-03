@@ -14,10 +14,12 @@ import AuroraBackground from '../../../design-system/components/AuroraBackground
 import GlassPanel from '../../../design-system/components/GlassPanel'
 import RetentionAudioPlayer from '../../../design-system/retention/RetentionAudioPlayer'
 import RetentionDisabledState from '../../../design-system/retention/RetentionDisabledState'
+import { useG } from '../../../i18n/gender'
 
 export default function BriefView() {
   const { deliveryId } = useParams()
   const navigate = useNavigate()
+  const g = useG()
   const moduleEnabled = useRetentionModuleEnabled(RETENTION_MODULES.LESSON_BRIEFS)
   const { data, isLoading } = useBriefDelivery(deliveryId)
   const markOpened = useMarkBriefOpened()
@@ -182,7 +184,7 @@ export default function BriefView() {
                 }}
               >
                 <CheckCircle2 size={16} />
-                {wasCorrect ? 'إجابة صحيحة — أحسنتِ!' : 'الإجابة الصحيحة موضّحة أعلاه — راجعيها'}
+                {wasCorrect ? g('إجابة صحيحة — أحسنت!', 'إجابة صحيحة — أحسنتِ!') : g('الإجابة الصحيحة موضّحة أعلاه — راجعها', 'الإجابة الصحيحة موضّحة أعلاه — راجعيها')}
               </div>
             )}
           </GlassPanel>
@@ -198,7 +200,7 @@ export default function BriefView() {
               {brief.mini_task_ar}
             </p>
             <p className="text-xs mt-3" style={{ color: 'var(--ds-text-tertiary)' }}>
-              اكتبيها على ورقة أو في مذكّرتكِ — لا تحتاج تسليم.
+              {g('اكتبها على ورقة أو في مذكّرتك — لا تحتاج تسليم.', 'اكتبيها على ورقة أو في مذكّرتكِ — لا تحتاج تسليم.')}
             </p>
           </GlassPanel>
         )}

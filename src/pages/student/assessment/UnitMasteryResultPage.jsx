@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { useAuthProfile } from '../../../stores/authStore'
+import { useG } from '../../../i18n/gender'
 import { supabase } from '../../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AuroraBackground } from '../../../design-system/components'
@@ -14,6 +15,7 @@ export default function UnitMasteryResultPage() {
   const { attemptId } = useParams()
   const location = useLocation()
   const profile = useAuthProfile()
+  const g = useG()
   const [result, setResult] = useState(location.state?.result || null)
   const [phase, setPhase] = useState(0)
 
@@ -73,7 +75,7 @@ export default function UnitMasteryResultPage() {
             <motion.p key="analyzing" className="text-xl"
               style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              جاري تحليل إجاباتكِ...
+              {g('جاري تحليل إجاباتك...', 'جاري تحليل إجاباتكِ...')}
             </motion.p>
           )}
         </AnimatePresence>
@@ -95,7 +97,7 @@ export default function UnitMasteryResultPage() {
                   <Award size={48} style={{ color: '#fbbf24' }} />
                 </div>
                 <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-                  أتقنتِ الوحدة!
+                  {g('أتقنت الوحدة!', 'أتقنتِ الوحدة!')}
                 </h1>
               </>
             ) : (
@@ -116,7 +118,7 @@ export default function UnitMasteryResultPage() {
             )}
 
             <p className="text-lg mb-2" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-              نسبتكِ: <span className="font-bold" style={{ color: 'var(--ds-accent-primary, #38bdf8)' }}>{Math.round(result.percentage)}%</span>
+              {g('نسبتك:', 'نسبتكِ:')} <span className="font-bold" style={{ color: 'var(--ds-accent-primary, #38bdf8)' }}>{Math.round(result.percentage)}%</span>
             </p>
             <p className="text-sm" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
               {result.score} / {result.total_possible} نقطة
@@ -132,7 +134,7 @@ export default function UnitMasteryResultPage() {
 
             {!result.passed && (
               <p className="text-sm mt-4" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
-                اختبار الإتقان يحتاج 70% — راجعي الوحدة ثم عودي بعد ساعة
+                {g('اختبار الإتقان يحتاج 70% — راجع الوحدة ثم عُد بعد ساعة', 'اختبار الإتقان يحتاج 70% — راجعي الوحدة ثم عودي بعد ساعة')}
               </p>
             )}
           </motion.div>
@@ -166,7 +168,7 @@ export default function UnitMasteryResultPage() {
                 className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold"
                 style={{ background: 'var(--ds-accent-primary, #38bdf8)', color: '#060e1c' }}>
                 <ArrowRight size={18} />
-                انطلقي للوحدة التالية
+                {g('انطلق للوحدة التالية', 'انطلقي للوحدة التالية')}
               </button>
             ) : (
               <button

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { CheckCircle2, Lock, Circle, Map } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
+import { useG } from '@/i18n/gender'
 
 function useJourneyData() {
   const profile = useAuthStore(s => s.profile)
@@ -144,6 +145,7 @@ function UnitNode({ unit, status, index, isLeft, onClick, pulse }) {
 
 export default function LevelJourneyMap() {
   const navigate = useNavigate()
+  const g = useG()
   const { data, isLoading } = useJourneyData()
 
   if (isLoading) return (
@@ -183,7 +185,7 @@ export default function LevelJourneyMap() {
             <Map size={28} color="#fbbf24" style={{ display: 'inline-block' }} />
           </div>
           <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '3px', color: 'rgba(251,191,36,0.6)', textTransform: 'uppercase', marginBottom: '8px' }}>
-            خريطة رحلتكِ
+            خريطة {g('رحلتك', 'رحلتكِ')}
           </div>
           <h1 style={{ margin: 0, fontSize: 'clamp(22px, 5vw, 34px)', fontWeight: 900, color: 'rgba(248,250,252,0.95)' }}>
             المستوى {level.level_number} — {level.cefr}
@@ -226,10 +228,10 @@ export default function LevelJourneyMap() {
           >
             <div style={{ fontSize: '24px', marginBottom: '6px' }}>🌟</div>
             <p style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: 'rgba(248,250,252,0.9)' }}>
-              ابدأي رحلتك من هنا
+              {g('ابدأ', 'ابدأي')} رحلتك من هنا
             </p>
             <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'rgba(251,191,36,0.7)' }}>
-              اضغطي على الوحدة الأولى لتبدأي
+              {g('اضغط', 'اضغطي')} على الوحدة الأولى {g('لتبدأ', 'لتبدأي')}
             </p>
           </motion.div>
         )}

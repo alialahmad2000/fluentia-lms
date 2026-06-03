@@ -8,6 +8,7 @@ import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from '../_helpers/resolveStudentId'
 import { useMockHistory, useCreateAttempt } from './useMockSession'
 import { useAuthStore } from '@/stores/authStore'
+import { useG } from '@/i18n/gender'
 
 const NARRATIVE_LINES = [
   'محاكاة الاختبار.',
@@ -50,6 +51,7 @@ function ModeCard({ icon, title, subtitle, timeLabel, onClick, disabled }) {
 
 export default function MockHub() {
   const navigate = useNavigate()
+  const g = useG()
   const studentId = useStudentId()
   const profile = useAuthStore((s) => s.profile)
   const [narrativeDone, setNarrativeDone] = useState(false)
@@ -106,7 +108,7 @@ export default function MockHub() {
 
       {/* Mode cards */}
       <motion.section initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-        <p style={{ margin: '0 0 14px', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>اختاري نوع المحاكاة</p>
+        <p style={{ margin: '0 0 14px', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>{g('اختر نوع المحاكاة', 'اختاري نوع المحاكاة')}</p>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
           <ModeCard
             icon="🎯"
@@ -119,7 +121,7 @@ export default function MockHub() {
           <ModeCard
             icon="⚡"
             title="محاكاة جزء واحد"
-            subtitle="اختاري مهارة واحدة في ظروف الاختبار الحقيقي."
+            subtitle={g('اختر مهارة واحدة في ظروف الاختبار الحقيقي.', 'اختاري مهارة واحدة في ظروف الاختبار الحقيقي.')}
             timeLabel="٣٠–٦٠ دقيقة"
             onClick={() => setShowSkillModal(true)}
             disabled={creating}
@@ -141,7 +143,7 @@ export default function MockHub() {
               style={{ background: 'var(--ds-bg-elevated, #0b0f18)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)', borderRadius: 20, padding: '28px 24px', maxWidth: 400, width: '100%' }}
               dir="rtl"
             >
-              <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>اختاري المهارة</h3>
+              <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>{g('اختر المهارة', 'اختاري المهارة')}</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[
                   { key: 'listening', label: 'الاستماع', time: '٣٠ دقيقة' },

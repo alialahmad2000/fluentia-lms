@@ -5,6 +5,7 @@
 // (or anonymous rows when no studentId is available).
 
 import { supabase } from '../supabase'
+import { pickGender } from '@/i18n/gender'
 
 let queue = []
 let flushTimer = null
@@ -84,25 +85,37 @@ export function classifyPlayError(err) {
 export function arabicErrorMessage(reason) {
   switch (reason) {
     case 'audio_unavailable':
-      return 'المقطع الصوتي غير متاح حالياً — تواصلي مع المدرب'
+      return pickGender(
+        'المقطع الصوتي غير متاح حالياً — تواصل مع المدرب',
+        'المقطع الصوتي غير متاح حالياً — تواصلي مع المدرب'
+      )
     case 'NetworkError':
     case 'network':
-      return 'ما قدرنا نوصل للملف — جربي مرة ثانية'
+      return pickGender(
+        'ما قدرنا نوصل للملف — جرّب مرة ثانية',
+        'ما قدرنا نوصل للملف — جربي مرة ثانية'
+      )
     // Legacy reason emitted before the iOS/non-iOS split. Older rows in
     // audio_event_log still carry this — keep the iOS-leaning copy so the
     // historical telemetry view stays sensible.
     case 'NotAllowed':
     case 'ios_silent_or_autoplay':
-      return 'اضغطي مرة ثانية لتشغيل الصوت'
+      return pickGender('اضغط مرة ثانية لتشغيل الصوت', 'اضغطي مرة ثانية لتشغيل الصوت')
     case 'autoplay_blocked':
-      return 'اضغطي مرة ثانية — المتصفح يحجب التشغيل التلقائي'
+      return pickGender(
+        'اضغط مرة ثانية — المتصفح يحجب التشغيل التلقائي',
+        'اضغطي مرة ثانية — المتصفح يحجب التشغيل التلقائي'
+      )
     case 'NotSupported':
-      return 'هذا المتصفح ما يدعم هذا النوع من الملفات — جربي Safari أو Chrome'
+      return pickGender(
+        'هذا المتصفح ما يدعم هذا النوع من الملفات — جرّب Safari أو Chrome',
+        'هذا المتصفح ما يدعم هذا النوع من الملفات — جربي Safari أو Chrome'
+      )
     case 'AbortError':
       // Benign — don't surface to the user.
       return null
     default:
-      return 'حصل خطأ بالتشغيل — حاولي مرة ثانية'
+      return pickGender('حصل خطأ بالتشغيل — حاول مرة ثانية', 'حصل خطأ بالتشغيل — حاولي مرة ثانية')
   }
 }
 

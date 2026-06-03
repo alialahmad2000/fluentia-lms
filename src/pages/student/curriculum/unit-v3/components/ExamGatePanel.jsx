@@ -2,7 +2,8 @@ import React, { useMemo, useCallback } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { Lock, Sparkles, Trophy, Hourglass, Ban, RefreshCw } from 'lucide-react'
-import { V3_MOTION, V3_TYPOGRAPHY, V3_EXAM_GATE, resolvePalette } from '../_v3Tokens'
+import { V3_MOTION, V3_TYPOGRAPHY, V3_EXAM_GATE, getV3ExamGateText, getMovementSubtitle, resolvePalette } from '../_v3Tokens'
+import { useG } from '@/i18n/gender'
 import MovementHeroNumeral from './MovementHeroNumeral'
 
 // V3.1 — The Test (Movement IV) panel. Three visual states:
@@ -32,9 +33,11 @@ export default function ExamGatePanel({
   index = 0,
 }) {
   // ─── ALL HOOKS AT TOP ───
+  const g = useG()
   const reduce = useReducedMotion()
   const navigate = useNavigate()
   const palette = useMemo(() => resolvePalette(movement, theme), [movement, theme])
+  const gateText = useMemo(() => getV3ExamGateText(g), [g])
 
   const handleLaunch = useCallback(() => {
     if (!examGate?.assessment?.id) return
@@ -79,29 +82,29 @@ export default function ExamGatePanel({
       >
         <MovementHeroNumeral roman={movement.roman} accent={palette.accent} theme={theme} />
         <div style={centerColumnStyle}>
-          <PanelHeader movement={movement} palette={palette} />
+          <PanelHeader movement={movement} palette={palette} g={g} />
           <Hourglass size={42} color={palette.accentLocked} strokeWidth={1.6} />
-          <p style={subtitleTextStyle}>{V3_EXAM_GATE.noAssessmentMessageAr}</p>
+          <p style={subtitleTextStyle}>{gateText.noAssessmentMessageAr}</p>
         </div>
       </motion.section>
     )
   }
 
   if (examGate.gateState === 'passed') {
-    return <PassedView movement={movement} palette={palette} examGate={examGate} entry={entry} theme={theme} onLaunch={handleLaunch} />
+    return <PassedView movement={movement} palette={palette} examGate={examGate} entry={entry} theme={theme} onLaunch={handleLaunch} g={g} gateText={gateText} />
   }
 
   if (examGate.gateState === 'ready') {
-    return <ReadyView movement={movement} palette={palette} examGate={examGate} entry={entry} theme={theme} reduce={reduce} onLaunch={handleLaunch} />
+    return <ReadyView movement={movement} palette={palette} examGate={examGate} entry={entry} theme={theme} reduce={reduce} onLaunch={handleLaunch} g={g} gateText={gateText} />
   }
 
   // gateState === 'locked' (umbrella for locked / cooldown / locked_out)
-  return <LockedView movement={movement} palette={palette} examGate={examGate} entry={entry} theme={theme} reduce={reduce} />
+  return <LockedView movement={movement} palette={palette} examGate={examGate} entry={entry} theme={theme} reduce={reduce} g={g} gateText={gateText} />
 }
 
 // ─── Sub-views ────────────────────────────────────────────────────────────
 
-function PanelHeader({ movement, palette }) {
+function PanelHeader({ movement, palette, g }) {
   return (
     <header style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', marginBottom: '16px' }}>
       <span
@@ -138,29 +141,29 @@ function PanelHeader({ movement, palette }) {
           lineHeight: 1.45,
         }}
       >
-        {movement.subtitleAr}
+        {getMovementSubtitle(movement, g)}
       </p>
     </header>
   )
 }
 
-function LockedView({ movement, palette, examGate, entry, theme, reduce }) {
+function LockedView({ movement, palette, examGate, entry, theme, reduce, g, gateText }) {
   const subState = examGate.subState
   const currentPct = examGate.progress?.current_pct ?? 0
   const requiredPct = examGate.progress?.required_pct ?? 70
   const ratio = Math.max(0, Math.min(1, currentPct / Math.max(1, requiredPct)))
 
-  let line1 = V3_EXAM_GATE.lockedMessageAr
-  let line2 = `أنجزتِ ${Math.round(currentPct)}٪ — يلزم ${requiredPct}٪`
+  let line1 = gateText.lockedMessageAr
+  let line2 = `${g('أنجزت', 'أنجزتِ')} ${Math.round(currentPct)}٪ — يلزم ${requiredPct}٪`
   let Icon = Lock
 
   if (subState === 'cooldown' && examGate.cooldownEndsAt) {
-    line1 = V3_EXAM_GATE.cooldownMessageAr
+    line1 = gateText.cooldownMessageAr
     line2 = `الباقي تقريبًا ${formatHMS(examGate.cooldownEndsAt)}`
     Icon = Hourglass
   } else if (subState === 'locked_out' && examGate.lockoutEndsAt) {
-    line1 = V3_EXAM_GATE.lockedOutMessageAr
-    line2 = `حاولي بعد ${formatHMS(examGate.lockoutEndsAt)}`
+    line1 = gateText.lockedOutMessageAr
+    line2 = `${g('حاول بعد', 'حاولي بعد')} ${formatHMS(examGate.lockoutEndsAt)}`
     Icon = Ban
   }
 
@@ -185,7 +188,7 @@ function LockedView({ movement, palette, examGate, entry, theme, reduce }) {
     >
       <MovementHeroNumeral roman={movement.roman} accent={palette.accent} theme={theme} />
       <div style={centerColumnStyle}>
-        <PanelHeader movement={movement} palette={palette} />
+        <PanelHeader movement={movement} palette={palette} g={g} />
         <Icon size={48} color={palette.accentLocked} strokeWidth={1.6} aria-hidden="true" />
         <p style={lockedHeadlineStyle}>{line1}</p>
 
@@ -209,7 +212,7 @@ function LockedView({ movement, palette, examGate, entry, theme, reduce }) {
   )
 }
 
-function ReadyView({ movement, palette, examGate, entry, theme, reduce, onLaunch }) {
+function ReadyView({ movement, palette, examGate, entry, theme, reduce, onLaunch, g, gateText }) {
   const ringPulse = reduce
     ? {}
     : {
@@ -242,33 +245,33 @@ function ReadyView({ movement, palette, examGate, entry, theme, reduce, onLaunch
     >
       <MovementHeroNumeral roman={movement.roman} accent={palette.accent} theme={theme} />
       <div style={centerColumnStyle}>
-        <PanelHeader movement={movement} palette={palette} />
+        <PanelHeader movement={movement} palette={palette} g={g} />
         <Sparkles size={52} color={palette.accent} strokeWidth={1.8} aria-hidden="true" />
-        <p style={readyHeadlineStyle}>{V3_EXAM_GATE.readyMessageAr}</p>
+        <p style={readyHeadlineStyle}>{gateText.readyMessageAr}</p>
         {subline && <p style={subtitleTextStyle}>{subline}</p>}
         <button
           type="button"
           onClick={onLaunch}
           data-v3-station-id="assessment"
-          aria-label="ابدئي اختبار الوحدة"
+          aria-label={g('ابدأ اختبار الوحدة', 'ابدئي اختبار الوحدة')}
           style={readyButtonStyle(palette)}
           onMouseEnter={(e) => { if (!reduce) { e.currentTarget.style.transform = 'translateY(-2px)' } }}
           onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)' }}
         >
-          {V3_EXAM_GATE.readyButtonAr}
+          {gateText.readyButtonAr}
         </button>
       </div>
     </motion.section>
   )
 }
 
-function PassedView({ movement, palette, examGate, entry, theme, onLaunch }) {
+function PassedView({ movement, palette, examGate, entry, theme, onLaunch, g, gateText }) {
   const sub = examGate.subState
   const bestScore = examGate.bestScore != null ? Math.round(examGate.bestScore) : null
 
   let secondaryLine = ''
-  if (sub === 'passed_cooling') secondaryLine = V3_EXAM_GATE.passedCoolingMessageAr
-  else if (sub === 'retake_available') secondaryLine = V3_EXAM_GATE.retakeAvailableMessageAr
+  if (sub === 'passed_cooling') secondaryLine = gateText.passedCoolingMessageAr
+  else if (sub === 'retake_available') secondaryLine = gateText.retakeAvailableMessageAr
   // 'complete' → no secondary line (final state)
 
   return (
@@ -319,7 +322,7 @@ function PassedView({ movement, palette, examGate, entry, theme, onLaunch }) {
       </div>
 
       <div style={{ ...centerColumnStyle, alignItems: 'flex-start', textAlign: 'start' }}>
-        <PanelHeader movement={movement} palette={palette} />
+        <PanelHeader movement={movement} palette={palette} g={g} />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginTop: '8px' }}>
           {bestScore != null && (

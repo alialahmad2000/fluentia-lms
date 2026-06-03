@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { safeCelebrate } from '@/lib/celebrations'
+import { useG } from '@/i18n/gender'
 
 export default function DebriefCelebration({ data }) {
+  const g = useG()
   const { unit, level } = data
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function DebriefCelebration({ data }) {
           textTransform: 'uppercase',
         }}
       >
-        أنجزتِ الوحدة ✦ {level?.cefr}
+        {g('أنجزت الوحدة ✦', 'أنجزتِ الوحدة ✦')} {level?.cefr}
       </motion.div>
 
       {/* Unit number */}
@@ -64,7 +66,7 @@ export default function DebriefCelebration({ data }) {
         transition={{ delay: 0.8 }}
         style={{ margin: 0, color: 'rgba(248,250,252,0.6)', fontSize: '16px' }}
       >
-        استحقّيتِ هذه اللحظة 🌟
+        {g('استحققت هذه اللحظة 🌟', 'استحقّيتِ هذه اللحظة 🌟')}
       </motion.p>
     </div>
   )

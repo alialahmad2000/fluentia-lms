@@ -6,8 +6,9 @@ import {
   Mic, Volume2, ClipboardCheck, Video,
 } from 'lucide-react'
 import { CINEMATIC_TOKENS as V1, useCinematicMotion } from '../_premiumPrimitives'
+import { useG } from '@/i18n/gender'
 import {
-  ACTIVITY_XP, ACTIVITY_MINUTES, ACTIVITY_WHY_GENERIC, SUGGESTED_ORDER,
+  ACTIVITY_XP, ACTIVITY_MINUTES, getActivityWhyGeneric, SUGGESTED_ORDER,
 } from './missions/missionConstants'
 
 const ICON_MAP = {
@@ -55,6 +56,7 @@ function MiniProgress({ value }) {
 }
 
 export default function MissionCard({ activity, index, onSelect, unit, completedSet }) {
+  const g = useG()
   const { reduced } = useCinematicMotion()
   const [hovered, setHovered] = useState(false)
 
@@ -67,8 +69,8 @@ export default function MissionCard({ activity, index, onSelect, unit, completed
   const minutes = ACTIVITY_MINUTES[activity.key] ?? activity.estimatedMinutes ?? 15
 
   const whyText = useMemo(() => {
-    return unit?.activity_ribbons?.[activity.key] || ACTIVITY_WHY_GENERIC[activity.key] || ''
-  }, [unit, activity.key])
+    return unit?.activity_ribbons?.[activity.key] || getActivityWhyGeneric(g)[activity.key] || ''
+  }, [unit, activity.key, g])
 
   const isSuggestedNext = useMemo(() => {
     if (isCompleted || isLocked) return false
@@ -145,7 +147,7 @@ export default function MissionCard({ activity, index, onSelect, unit, completed
             padding: '3px 10px', borderRadius: '100px',
             fontFamily: 'Tajawal, sans-serif',
           }}>
-            ابدئي من هنا ←
+            {g('ابدأ من هنا ←', 'ابدئي من هنا ←')}
           </div>
         )}
 

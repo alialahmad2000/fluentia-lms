@@ -6,6 +6,7 @@ import { Headphones, Clock, VolumeX, Heart, ArrowLeft } from 'lucide-react'
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
 import TrainerPresence from '@/design-system/components/masterclass/TrainerPresence'
 import { useDiagnosticStateV2 } from '@/hooks/ielts/useDiagnosticStateV2'
+import { useG } from '@/i18n/gender'
 
 const CHECKLIST_ITEMS = [
   { id: 'headphones', icon: Headphones, label: 'السماعات موصولة وواضحة' },
@@ -22,7 +23,20 @@ const NARRATIVE_LINES = [
 
 export default function Diagnostic() {
   const navigate = useNavigate()
+  const g = useG()
   const { loading, state, latestOverallBand } = useDiagnosticStateV2()
+
+  // Gender-aware copies of the module-level constants (resolved at render).
+  const checklistItems = CHECKLIST_ITEMS.map((item) =>
+    item.id === 'ready'
+      ? { ...item, label: g('أنا مرتاح، تنفّست، ومستعد', 'أنا مرتاحة، تنفّست، ومستعدة') }
+      : item
+  )
+  const narrativeLines = [
+    NARRATIVE_LINES[0],
+    NARRATIVE_LINES[1],
+    g('تنفّس. ابدأ.', 'تنفّسي. ابدأي.'),
+  ]
 
   const [checked, setChecked] = useState({
     headphones: false,
@@ -61,7 +75,7 @@ export default function Diagnostic() {
         style={{ paddingTop: 32 }}
       >
         <NarrativeReveal
-          lines={NARRATIVE_LINES}
+          lines={narrativeLines}
           delayBetweenLines={700}
           pauseAfterLast={800}
         />
@@ -105,9 +119,9 @@ export default function Diagnostic() {
           }}>
             سنقضي الساعة القادمة معاً. أربعة فصول: استماع، قراءة، كتابة، محادثة.
             <br />
-            لا تقلقي من الأخطاء — هي ما سيرسم لنا الطريق.
+            {g('لا تقلق من الأخطاء — هي ما سيرسم لنا الطريق.', 'لا تقلقي من الأخطاء — هي ما سيرسم لنا الطريق.')}
             <br />
-            بعد الانتهاء، ستحصلين على خارطتك الكاملة.
+            {g('بعد الانتهاء، ستحصل على خارطتك الكاملة.', 'بعد الانتهاء، ستحصلين على خارطتك الكاملة.')}
           </p>
         </div>
       </motion.section>
@@ -129,12 +143,12 @@ export default function Diagnostic() {
             قبل أن نبدأ
           </h2>
           <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0 }}>
-            تأكدي من هذه النقاط الأربع.
+            {g('تأكد من هذه النقاط الأربع.', 'تأكدي من هذه النقاط الأربع.')}
           </p>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {CHECKLIST_ITEMS.map(({ id, icon: Icon, label }) => {
+          {checklistItems.map(({ id, icon: Icon, label }) => {
             const isChecked = checked[id]
             return (
               <motion.button
@@ -259,7 +273,7 @@ export default function Diagnostic() {
             backdropFilter: 'blur(var(--ds-blur-sm, 8px))',
           }}
         >
-          أنا جاهزة، لنبدأ
+          {g('أنا جاهز، لنبدأ', 'أنا جاهزة، لنبدأ')}
         </motion.button>
 
         <p style={{
@@ -268,7 +282,7 @@ export default function Diagnostic() {
           textAlign: 'center',
           margin: 0,
         }}>
-          ستنتقلين للاختبار الفعلي — نحن نعمل على تحسين هذه المرحلة
+          {g('ستنتقل للاختبار الفعلي — نحن نعمل على تحسين هذه المرحلة', 'ستنتقلين للاختبار الفعلي — نحن نعمل على تحسين هذه المرحلة')}
         </p>
       </motion.section>
 
@@ -289,7 +303,7 @@ export default function Diagnostic() {
               textAlign: 'center',
             }}>
               <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: '0 0 12px', fontFamily: "'Tajawal', sans-serif" }}>
-                لديكِ اختبار لم يكتمل — يمكنكِ إتمامه.
+                {g('لديك اختبار لم يكتمل — يمكنك إتمامه.', 'لديكِ اختبار لم يكتمل — يمكنكِ إتمامه.')}
               </p>
               <button
                 onClick={() => navigate('/student/ielts/diagnostic')}
@@ -305,7 +319,7 @@ export default function Diagnostic() {
                   cursor: 'pointer',
                 }}
               >
-                تابعي من حيث توقفتِ
+                {g('تابع من حيث توقفت', 'تابعي من حيث توقفتِ')}
               </button>
             </div>
           )}
@@ -338,7 +352,7 @@ export default function Diagnostic() {
                   textDecoration: 'none',
                 }}
               >
-                شاهدي نتيجتكِ
+                {g('شاهد نتيجتك', 'شاهدي نتيجتكِ')}
                 <ArrowLeft size={13} />
               </Link>
             </div>

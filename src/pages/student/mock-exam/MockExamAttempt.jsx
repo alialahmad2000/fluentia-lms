@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase'
 import { countWords } from '@/lib/mockExam'
 import { refreshAppSession } from '@/lib/refreshAppSession'
 import SubmitConfirmModal from './SubmitConfirmModal'
+import { useG, pickGender } from '@/i18n/gender'
 
 const SECTION_LABEL_AR = {
   reading: 'القراءة',
@@ -72,6 +73,7 @@ function logClientEvent(attemptId, event, details = {}) {
 export default function MockExamAttempt() {
   const navigate = useNavigate()
   const location = useLocation()
+  const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
 
@@ -533,8 +535,11 @@ export default function MockExamAttempt() {
       })
       setSubmitError(
         isTimeout
-          ? 'تأخّر الإرسال أكثر من المعتاد. إجاباتك محفوظة في النظام — اضغطي «إعادة المحاولة» أو تواصلي مع المدرب.'
-          : `فشل الإرسال: ${msg}. إجاباتك محفوظة — اضغطي مرة ثانية. لو تكرّرت المشكلة، تواصلي مع المدرب.`
+          ? g(
+              'تأخّر الإرسال أكثر من المعتاد. إجاباتك محفوظة في النظام — اضغط «إعادة المحاولة» أو تواصل مع المدرب.',
+              'تأخّر الإرسال أكثر من المعتاد. إجاباتك محفوظة في النظام — اضغطي «إعادة المحاولة» أو تواصلي مع المدرب.'
+            )
+          : `فشل الإرسال: ${msg}. ${g('إجاباتك محفوظة — اضغط مرة ثانية. لو تكرّرت المشكلة، تواصل مع المدرب.', 'إجاباتك محفوظة — اضغطي مرة ثانية. لو تكرّرت المشكلة، تواصلي مع المدرب.')}`
       )
       setSubmitting(false)
     }
@@ -632,11 +637,11 @@ export default function MockExamAttempt() {
       type: 'writing_short',
       severity: writingWordCount === 0 ? 'critical' : 'warn',
       title: writingWordCount === 0
-        ? 'لم تكتبي شيئاً في قسم الكتابة'
+        ? g('لم تكتب شيئاً في قسم الكتابة', 'لم تكتبي شيئاً في قسم الكتابة')
         : `نص الكتابة قصير: ${writingWordCount}/${writingMin} كلمة`,
       detail: writingWordCount === 0
-        ? 'ستحصلين على ٠ من ١٠ في الكتابة لو سلّمتِ الآن.'
-        : `الحد الأدنى ${writingMin} كلمة. ستحصلين على ٠ من ١٠ لو سلّمتِ الآن.`,
+        ? g('ستحصل على ٠ من ١٠ في الكتابة لو سلّمت الآن.', 'ستحصلين على ٠ من ١٠ في الكتابة لو سلّمتِ الآن.')
+        : `الحد الأدنى ${writingMin} كلمة. ${g('ستحصل على ٠ من ١٠ لو سلّمت الآن.', 'ستحصلين على ٠ من ١٠ لو سلّمتِ الآن.')}`,
       jumpToIndex: writingIdxInList,
       jumpLabel: 'الذهاب إلى سؤال الكتابة',
     })
@@ -945,6 +950,7 @@ export default function MockExamAttempt() {
  * questions whose state is only in local React, never reaching the DB.
  */
 function BlockingNetworkModal({ open, attemptId, whatsappUrl, onRetry }) {
+  const g = useG()
   if (!open) return null
   return (
     <div
@@ -967,12 +973,10 @@ function BlockingNetworkModal({ open, attemptId, whatsappUrl, onRetry }) {
           </h2>
         </div>
         <p className="text-sm leading-relaxed" style={{ color: 'var(--ds-text-secondary)' }}>
-          إجاباتك الأخيرة <strong>لم تصل إلى النظام</strong>. لا تتابعي الاختبار حتى يُستعاد الاتصال،
-          وإلّا سيتم فقد إجاباتك.
+          إجاباتك الأخيرة <strong>لم تصل إلى النظام</strong>. {g('لا تتابع الاختبار حتى يُستعاد الاتصال، وإلّا سيتم فقد إجاباتك.', 'لا تتابعي الاختبار حتى يُستعاد الاتصال، وإلّا سيتم فقد إجاباتك.')}
         </p>
         <p className="text-sm leading-relaxed" style={{ color: 'var(--ds-text-secondary)' }}>
-          تأكدي من اتصال الإنترنت (واي فاي قوي إن أمكن)، ثم اضغطي «إعادة المحاولة».
-          إذا استمرّت المشكلة، تواصلي معي على واتساب فوراً حتى أحتفظ لكِ بفرصتك.
+          {g('تأكد من اتصال الإنترنت (واي فاي قوي إن أمكن)، ثم اضغط «إعادة المحاولة». إذا استمرّت المشكلة، تواصل معي على واتساب فوراً حتى أحتفظ لك بفرصتك.', 'تأكدي من اتصال الإنترنت (واي فاي قوي إن أمكن)، ثم اضغطي «إعادة المحاولة». إذا استمرّت المشكلة، تواصلي معي على واتساب فوراً حتى أحتفظ لكِ بفرصتك.')}
         </p>
         <div className="flex flex-wrap gap-2">
           <button
@@ -1003,16 +1007,17 @@ function BlockingNetworkModal({ open, attemptId, whatsappUrl, onRetry }) {
           </a>
         </div>
         <p className="text-xs leading-relaxed" style={{ color: 'var(--ds-text-tertiary)' }}>
-          إذا تكرّر التحذير، اضغطي هذا الزرّ لمسح البيانات المؤقتة وإعادة الدخول.
+          {g('إذا تكرّر التحذير، اضغط هذا الزرّ لمسح البيانات المؤقتة وإعادة الدخول.', 'إذا تكرّر التحذير، اضغطي هذا الزرّ لمسح البيانات المؤقتة وإعادة الدخول.')}
         </p>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={async () => {
               const confirmed = window.confirm(
-                'سيتم تجديد جلستكِ كاملاً (تسجيل خروج + مسح البيانات المؤقتة). ' +
-                'إجاباتكِ المحفوظة في النظام آمنة، لكن أي إجابة لم تصل للنظام بعد ستفقد. ' +
-                'هل تريدين المتابعة؟'
+                g(
+                  'سيتم تجديد جلستك كاملاً (تسجيل خروج + مسح البيانات المؤقتة). إجاباتك المحفوظة في النظام آمنة، لكن أي إجابة لم تصل للنظام بعد ستفقد. هل تريد المتابعة؟',
+                  'سيتم تجديد جلستكِ كاملاً (تسجيل خروج + مسح البيانات المؤقتة). إجاباتكِ المحفوظة في النظام آمنة، لكن أي إجابة لم تصل للنظام بعد ستفقد. هل تريدين المتابعة؟'
+                )
               )
               if (!confirmed) return
               await refreshAppSession({ redirectTo: '/login' })
@@ -1041,30 +1046,31 @@ function BlockingNetworkModal({ open, attemptId, whatsappUrl, onRetry }) {
 function getInstructionAr(question) {
   const { question_type, section } = question
   if (question_type === 'mcq') {
-    if (section === 'spelling')    return 'اختاري الإملاء الصحيح للكلمة'
-    if (section === 'vocabulary')  return 'اختاري الإجابة الصحيحة'
-    if (section === 'reading')     return 'اختاري الإجابة الصحيحة بناءً على القطعة'
-    return 'اختاري الإجابة الصحيحة'
+    if (section === 'spelling')    return pickGender('اختر الإملاء الصحيح للكلمة', 'اختاري الإملاء الصحيح للكلمة')
+    if (section === 'vocabulary')  return pickGender('اختر الإجابة الصحيحة', 'اختاري الإجابة الصحيحة')
+    if (section === 'reading')     return pickGender('اختر الإجابة الصحيحة بناءً على القطعة', 'اختاري الإجابة الصحيحة بناءً على القطعة')
+    return pickGender('اختر الإجابة الصحيحة', 'اختاري الإجابة الصحيحة')
   }
   if (question_type === 'fill_blank') {
-    if (section === 'spelling') return 'اكتبي الكلمة الصحيحة (انتبهي للإملاء)'
-    return 'املئي الفراغ بالكلمة المناسبة'
+    if (section === 'spelling') return pickGender('اكتب الكلمة الصحيحة (انتبه للإملاء)', 'اكتبي الكلمة الصحيحة (انتبهي للإملاء)')
+    return pickGender('املأ الفراغ بالكلمة المناسبة', 'املئي الفراغ بالكلمة المناسبة')
   }
   if (question_type === 'error_detection') {
-    return 'في الجملة التالية أربعة أجزاء مرقّمة. اختاري الجزء الذي يحتوي على خطأ.'
+    return pickGender('في الجملة التالية أربعة أجزاء مرقّمة. اختر الجزء الذي يحتوي على خطأ.', 'في الجملة التالية أربعة أجزاء مرقّمة. اختاري الجزء الذي يحتوي على خطأ.')
   }
   if (question_type === 'true_false') {
-    if (section === 'reading') return 'اقرئي العبارة واختاري True أو False بناءً على القطعة'
-    return 'اقرئي العبارة واختاري True أو False'
+    if (section === 'reading') return pickGender('اقرأ العبارة واختر True أو False بناءً على القطعة', 'اقرئي العبارة واختاري True أو False بناءً على القطعة')
+    return pickGender('اقرأ العبارة واختر True أو False', 'اقرئي العبارة واختاري True أو False')
   }
   if (question_type === 'true_false_ng') {
-    return 'بناءً على القطعة، اختاري True (صحيح) أو False (خاطئ) أو Not Given (غير مذكور)'
+    return pickGender('بناءً على القطعة، اختر True (صحيح) أو False (خاطئ) أو Not Given (غير مذكور)', 'بناءً على القطعة، اختاري True (صحيح) أو False (خاطئ) أو Not Given (غير مذكور)')
   }
   return null
 }
 
 function QuestionRenderer({ q, answer, writingText, writingMin, writingWordCount,
                             onSelectOption, onFillBlank, onWritingChange }) {
+  const g = useG()
   if (!q) return null
 
   // Reading: show passage on top
@@ -1162,7 +1168,7 @@ function QuestionRenderer({ q, answer, writingText, writingMin, writingWordCount
             type="text"
             value={answer?.text_answer || ''}
             onChange={(e) => onFillBlank(q.id, e.target.value)}
-            placeholder="اكتبي إجابتك هنا"
+            placeholder={g('اكتب إجابتك هنا', 'اكتبي إجابتك هنا')}
             dir="auto"
             className="w-full px-4 py-3 rounded-lg outline-none text-base"
             style={{
@@ -1216,6 +1222,7 @@ function QuestionRenderer({ q, answer, writingText, writingMin, writingWordCount
  *  - Hidden entirely before the first save attempt
  */
 function SaveHeartbeat({ lastSaveAt, saveFailures }) {
+  const g = useG()
   // Re-render every 5s so the relative timestamp stays accurate.
   const [, setTick] = useState(0)
   useEffect(() => {
@@ -1235,7 +1242,7 @@ function SaveHeartbeat({ lastSaveAt, saveFailures }) {
     bg = 'rgba(245,158,11,0.16)'
     color = '#fcd34d'
     border = '1px solid rgba(245,158,11,0.4)'
-    label = `تحقّقي من الاتصال (${saveFailures})`
+    label = `${g('تحقّق من الاتصال', 'تحقّقي من الاتصال')} (${saveFailures})`
   } else if (recent) {
     bg = 'rgba(34,197,94,0.16)'
     color = '#86efac'
@@ -1255,7 +1262,7 @@ function SaveHeartbeat({ lastSaveAt, saveFailures }) {
       className="text-[11px] px-2 py-1 rounded-full whitespace-nowrap"
       style={{ background: bg, color, border }}
       title={hasFailure
-        ? 'تعذّر الاتصال ببعض الإجابات. الإجابات تُحفظ تلقائياً عند استعادة الاتصال — أو اضغطي السؤال مرة ثانية لإعادة الحفظ.'
+        ? g('تعذّر الاتصال ببعض الإجابات. الإجابات تُحفظ تلقائياً عند استعادة الاتصال — أو اضغط السؤال مرة ثانية لإعادة الحفظ.', 'تعذّر الاتصال ببعض الإجابات. الإجابات تُحفظ تلقائياً عند استعادة الاتصال — أو اضغطي السؤال مرة ثانية لإعادة الحفظ.')
         : (secsAgo !== null ? `آخر حفظ ناجح قبل ${secsAgo} ثانية` : null)}
     >
       {label}

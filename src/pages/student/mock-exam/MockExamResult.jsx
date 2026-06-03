@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { AuroraBackground, GlassPanel, PrimaryButton } from '@/design-system/components'
+import { useG } from '@/i18n/gender'
 
 const SECTIONS = [
   { key: 'score_grammar',    label: 'القواعد',  section: 'grammar',    max: 30 },
@@ -19,6 +20,7 @@ export default function MockExamResult() {
   const [params] = useSearchParams()
   const attemptId = params.get('attempt_id')
   const navigate = useNavigate()
+  const g = useG()
 
   const { data: result, isLoading } = useQuery({
     queryKey: ['mock-exam-result-rpc', attemptId],
@@ -110,7 +112,7 @@ export default function MockExamResult() {
                 <span>وقت التسليم: {fmtRelativeAr(result.submitted_at)}</span>
               </div>
               <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
-                نقدّر صبركِ — وفّقكِ الله في الاختبار الفعلي.
+                {g('نقدّر صبرك — وفّقك الله في الاختبار الفعلي.', 'نقدّر صبركِ — وفّقكِ الله في الاختبار الفعلي.')}
               </p>
               <PrimaryButton onClick={() => navigate('/student/curriculum')} className="w-full">
                 <BookOpen size={18} />
@@ -183,7 +185,7 @@ export default function MockExamResult() {
               }}
             >
               {passed ? <Trophy size={16} /> : <Frown size={16} />}
-              <strong>{passed ? 'نجحتِ ✓' : 'للأسف لم تتجاوزي حد النجاح'}</strong>
+              <strong>{passed ? g('نجحت ✓', 'نجحتِ ✓') : g('للأسف لم تتجاوز حد النجاح', 'للأسف لم تتجاوزي حد النجاح')}</strong>
               <span style={{ color: 'var(--ds-text-tertiary)' }}>
                 · حد النجاح {result.pass_threshold || 60}
               </span>
@@ -245,7 +247,7 @@ export default function MockExamResult() {
               color: 'var(--ds-text-secondary)',
             }}
           >
-            هذا اختبار <strong>تجريبي</strong> للتعوّد على شكل الاختبار. الاختبار الفعلي بعدين — راجعي نقاط ضعفك واستعدّي.
+            هذا اختبار <strong>تجريبي</strong> للتعوّد على شكل الاختبار. الاختبار الفعلي بعدين — {g('راجع نقاط ضعفك واستعدّ.', 'راجعي نقاط ضعفك واستعدّي.')}
           </div>
 
           {/* CTA */}
@@ -458,6 +460,7 @@ function QuestionFeedbackRow({ q }) {
 }
 
 function WritingQuestionFeedback({ q, result }) {
+  const g = useG()
   const wordCount = Number(result.writing_word_count || 0)
   const minWords = Number(result.min_writing_words || 0)
   const score = Number(result.score_writing ?? 0)
@@ -491,10 +494,10 @@ function WritingQuestionFeedback({ q, result }) {
           maxHeight: 320, overflowY: 'auto',
         }}
       >
-        {result.writing_response || '— لم تكتبي شيئاً —'}
+        {result.writing_response || g('— لم تكتب شيئاً —', '— لم تكتبي شيئاً —')}
       </div>
       <div className="flex flex-wrap items-center gap-3 text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
-        <span>كتبتِ <strong>{wordCount}</strong> كلمة (الحد الأدنى {minWords})</span>
+        <span>{g('كتبت', 'كتبتِ')} <strong>{wordCount}</strong> كلمة (الحد الأدنى {minWords})</span>
         <span style={{ color: 'var(--ds-text-tertiary)' }}>·</span>
         <span>الدرجة: <strong>{score.toFixed(score % 1 ? 1 : 0)}</strong> / 10</span>
         {manual && (

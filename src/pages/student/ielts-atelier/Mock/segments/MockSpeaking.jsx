@@ -5,6 +5,7 @@ import { Mic, Square, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { invokeWithRetry } from '@/lib/invokeWithRetry'
 import { getRemainingSeconds, SKILL_LIMITS } from '../useMockSession'
+import { useG } from '@/i18n/gender'
 
 const LIMIT  = SKILL_LIMITS.speaking
 const BUCKET = 'ielts-speaking-submissions'
@@ -46,6 +47,7 @@ const PART_META = {
 }
 
 export default function MockSpeaking({ attemptId, answers, content, startedAt, onComplete }) {
+  const g = useG()
   const [rows, setRows] = useState({ part1: null, part2: null, part3: null })
   const [partIdx, setPartIdx] = useState(0)  // 0=part1, 1=part2, 2=part3
   const [qIdx, setQIdx] = useState(0)
@@ -295,7 +297,11 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <p style={{ margin: 0, fontSize: 15, fontWeight: 700, color: '#4ade80', fontFamily: "'Tajawal', sans-serif" }}>✓ تم التسجيل</p>
             <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", textAlign: 'center' }}>
-              {qIdx < questions.length - 1 ? 'انتقلي للسؤال التالي' : partIdx < 2 ? 'انتقلي للجزء التالي' : 'أرسلي للتقييم'}
+              {qIdx < questions.length - 1
+                ? g('انتقل للسؤال التالي', 'انتقلي للسؤال التالي')
+                : partIdx < 2
+                  ? g('انتقل للجزء التالي', 'انتقلي للجزء التالي')
+                  : g('أرسل للتقييم', 'أرسلي للتقييم')}
             </p>
             <button onClick={handleNextQuestion} style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
               {qIdx < questions.length - 1 ? 'السؤال التالي ›' : partIdx < 2 ? 'الجزء التالي ›' : 'إرسال للتقييم'}

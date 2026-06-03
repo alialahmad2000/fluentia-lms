@@ -9,6 +9,7 @@ import { useStudentId } from './_helpers/resolveStudentId'
 import { useSubmitReadingSession, useRecentReadingSessions } from '@/hooks/ielts/useReadingLab'
 import { gradeQuestions } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
+import { useG } from '@/i18n/gender'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -359,6 +360,7 @@ function StatCard({ label, value, accent }) {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function Reading() {
+  const g = useG()
   const studentId = useStudentId()
   const submitSession = useSubmitReadingSession()
   const recentQ = useRecentReadingSessions(studentId, 10)
@@ -842,7 +844,7 @@ export default function Reading() {
             }}
           >
             <RotateCcw size={13} />
-            حاولي مرة أخرى
+            {g('حاول مرة أخرى', 'حاولي مرة أخرى')}
           </button>
         </motion.div>
 

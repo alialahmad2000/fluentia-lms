@@ -4,6 +4,7 @@ import { GlassPanel } from '../../../design-system/components'
 import { motion } from 'framer-motion'
 import { Lock, Hourglass, Award, Sparkles, Ban, CheckCircle2, RefreshCw } from 'lucide-react'
 import { useUnitMasteryState } from './useUnitMasteryState'
+import { useG } from '../../../i18n/gender'
 
 // Live countdown to a future ISO timestamp
 function Countdown({ endsAt, label }) {
@@ -40,6 +41,7 @@ function Countdown({ endsAt, label }) {
 
 export default function UnitMasteryCard({ unitId, studentId }) {
   const navigate = useNavigate()
+  const g = useG()
   const { assessment, state, loading } = useUnitMasteryState(unitId, studentId)
 
   if (loading || !assessment || !state || state.type === 'loading') return null
@@ -54,7 +56,7 @@ export default function UnitMasteryCard({ unitId, studentId }) {
         <div className="flex items-center gap-3 mb-3">
           <Lock size={20} style={{ color: 'var(--ds-text-tertiary, #64748b)' }} />
           <p className="text-sm font-['Tajawal']" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-            أكملي {requiredPct}% من أنشطة الوحدة لفتح اختبار الإتقان
+            {g('أكمل', 'أكملي')} {requiredPct}% من أنشطة الوحدة لفتح اختبار الإتقان
           </p>
         </div>
         <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--ds-surface-1, rgba(255,255,255,0.04))' }}>
@@ -102,7 +104,7 @@ export default function UnitMasteryCard({ unitId, studentId }) {
               className="px-4 py-2 rounded-xl font-semibold text-sm font-['Tajawal'] flex-shrink-0"
               style={{ background: 'var(--ds-accent-primary, #38bdf8)', color: '#060e1c' }}
             >
-              {attemptNumber > 1 ? `المحاولة ${attemptNumber}` : 'ابدئي الاختبار'}
+              {attemptNumber > 1 ? `المحاولة ${attemptNumber}` : g('ابدأ الاختبار', 'ابدئي الاختبار')}
             </button>
           </div>
         </GlassPanel>
@@ -119,7 +121,7 @@ export default function UnitMasteryCard({ unitId, studentId }) {
           <Hourglass size={22} style={{ color: 'var(--ds-color-amber, #f59e0b)', flexShrink: 0 }} />
           <div>
             <p className="font-medium font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-              حاولي مرة أخرى بعد قليل
+              {g('حاول مرة أخرى بعد قليل', 'حاولي مرة أخرى بعد قليل')}
             </p>
             <p className="text-sm font-['Tajawal']" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
               <Countdown endsAt={cooldownEndsAt} label="المتبقي:" />
@@ -139,13 +141,13 @@ export default function UnitMasteryCard({ unitId, studentId }) {
           <Ban size={20} style={{ color: 'var(--ds-color-red, #f87171)', flexShrink: 0, marginTop: 2 }} />
           <div>
             <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-              استنفدتِ محاولاتكِ الـ{maxAttempts}
+              {g('استنفدت محاولاتك الـ', 'استنفدتِ محاولاتكِ الـ')}{maxAttempts}
             </p>
             <p className="text-sm font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
               <Countdown endsAt={lockoutEndsAt} label="يُفتح الاختبار بعد:" />
             </p>
             <p className="text-xs font-['Tajawal'] mt-1.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
-              راجعي أنشطة الوحدة في هذه الأثناء
+              {g('راجع أنشطة الوحدة في هذه الأثناء', 'راجعي أنشطة الوحدة في هذه الأثناء')}
             </p>
           </div>
         </div>
@@ -162,10 +164,10 @@ export default function UnitMasteryCard({ unitId, studentId }) {
           <CheckCircle2 size={22} style={{ color: 'var(--ds-color-green, #4ade80)', flexShrink: 0 }} />
           <div>
             <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-              نجحتِ — درجتكِ {score}%
+              {g('نجحت — درجتك', 'نجحتِ — درجتكِ')} {score}%
             </p>
             <p className="text-sm font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-              يمكنكِ تحسينها بمحاولة واحدة بعد {daysLeft} {daysLeft === 1 ? 'يوم' : 'أيام'}
+              {g('يمكنك تحسينها بمحاولة واحدة بعد', 'يمكنكِ تحسينها بمحاولة واحدة بعد')} {daysLeft} {daysLeft === 1 ? 'يوم' : 'أيام'}
             </p>
           </div>
         </div>
@@ -187,7 +189,7 @@ export default function UnitMasteryCard({ unitId, studentId }) {
               <RefreshCw size={20} style={{ color: 'var(--ds-color-green, #4ade80)', flexShrink: 0 }} />
               <div>
                 <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-                  متاحة محاولة لتحسين درجتكِ ({bestScore}%)
+                  {g('متاحة محاولة لتحسين درجتك', 'متاحة محاولة لتحسين درجتكِ')} ({bestScore}%)
                 </p>
                 <p className="text-xs font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
                   أعلى درجة تُحفظ تلقائيًا
@@ -203,7 +205,7 @@ export default function UnitMasteryCard({ unitId, studentId }) {
                 border: '1px solid rgba(74,222,128,0.3)',
               }}
             >
-              أعيدي الاختبار
+              {g('أعِد الاختبار', 'أعيدي الاختبار')}
             </button>
           </div>
         </GlassPanel>

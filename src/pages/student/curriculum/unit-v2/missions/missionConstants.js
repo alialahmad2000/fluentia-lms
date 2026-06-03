@@ -34,17 +34,21 @@ export const ACTIVITY_MINUTES = {
   recording:    10,
 };
 
-// Generic "why" fallbacks — used only when unit's activity_ribbons missing
-export const ACTIVITY_WHY_GENERIC = {
-  reading:      'أول لقاء مع المفردات في سياقها الطبيعي',
-  vocabulary:   'تثبيت الكلمات بطريقة ذكية (SRS)',
-  grammar:      'القاعدة التي تُتقنها تطلق لسانكِ',
-  writing:      'تحويل المعرفة إلى إنتاج',
-  speaking:     'ثقتكِ تُبنى بالممارسة الحقيقية',
-  listening:    'أذنكِ تتعوّد على الإيقاع الطبيعي',
-  pronunciation:'النطق الصحيح = فهمٌ صحيح',
-  recording:    'سجّلي صوتكِ وتابعي تقدّمكِ',
-};
+// Generic "why" fallbacks — used only when unit's activity_ribbons missing.
+// Gender-aware: pass a g(male, female) picker (from useG) at the call site.
+// Only the entries that carry an explicit feminine marker differ by gender.
+export function getActivityWhyGeneric(g) {
+  return {
+    reading:      'أول لقاء مع المفردات في سياقها الطبيعي',
+    vocabulary:   'تثبيت الكلمات بطريقة ذكية (SRS)',
+    grammar:      g('القاعدة التي تُتقنها تطلق لسانك', 'القاعدة التي تُتقنها تطلق لسانكِ'),
+    writing:      'تحويل المعرفة إلى إنتاج',
+    speaking:     g('ثقتك تُبنى بالممارسة الحقيقية', 'ثقتكِ تُبنى بالممارسة الحقيقية'),
+    listening:    g('أذنك تتعوّد على الإيقاع الطبيعي', 'أذنكِ تتعوّد على الإيقاع الطبيعي'),
+    pronunciation:'النطق الصحيح = فهمٌ صحيح',
+    recording:    g('سجّل صوتك وتابع تقدّمك', 'سجّلي صوتكِ وتابعي تقدّمكِ'),
+  };
+}
 
 // Suggested-next order (what pulses when its turn comes)
 export const SUGGESTED_ORDER = [

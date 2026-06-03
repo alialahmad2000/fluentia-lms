@@ -9,6 +9,7 @@ import { supabase } from '../../../../lib/supabase'
 // surface later: see docs/audits/personalization-revert/PHASE-A-REPORT.md
 // import PersonalizedReadingCard from '../../../../components/personalization/PersonalizedReadingCard'
 import { useAuthUser } from '../../../../stores/authStore'
+import { useG } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
@@ -148,6 +149,7 @@ export default function ReadingTab({ unitId }) {
 // Uses INSERT-per-attempt model (same as Grammar) to prevent autosave from
 // overwriting a previous completed row's score/status during a retry.
 function ReadingContent({ reading, studentId, unitId }) {
+  const g = useG()
   const [savedProgress, setSavedProgress] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -719,7 +721,7 @@ function ReadingContent({ reading, studentId, unitId }) {
                 dir="rtl"
                 style={{ background: 'rgba(233,185,73,0.08)', border: '1px solid rgba(233,185,73,0.25)', color: 'var(--ds-text-secondary, #94a3b8)' }}
               >
-                الترجمة العربية الكاملة غير متوفّرة لهذا المقال — اضغطي على أي كلمة لرؤية ترجمتها ونطقها.
+                {g('الترجمة العربية الكاملة غير متوفّرة لهذا المقال — اضغط على أي كلمة لرؤية ترجمتها ونطقها.', 'الترجمة العربية الكاملة غير متوفّرة لهذا المقال — اضغطي على أي كلمة لرؤية ترجمتها ونطقها.')}
               </div>
             )}
             <div className="flex items-center gap-3 flex-wrap">

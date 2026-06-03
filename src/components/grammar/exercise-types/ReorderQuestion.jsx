@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { validateAnswer } from '../../../utils/answerValidator'
+import { useG } from '@/i18n/gender'
 
 export default function ReorderQuestion({ item, answer, onAnswer }) {
+  const g = useG()
   const [selected, setSelected] = useState([])
   const [available, setAvailable] = useState(item.options || [])
 
@@ -79,7 +81,7 @@ export default function ReorderQuestion({ item, answer, onAnswer }) {
       )}
 
       {answer && answer.correct && (
-        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>ترتيب صحيح! ممتازة 🎯</p>
+        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>{g('ترتيب صحيح! ممتاز 🎯', 'ترتيب صحيح! ممتازة 🎯')}</p>
       )}
 
       {answer && !answer.correct && (

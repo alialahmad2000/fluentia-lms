@@ -5,25 +5,26 @@ import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { awardCurriculumXP } from '../../utils/curriculumXP'
+import { useG } from '@/i18n/gender'
 import ExerciseCard from './ExerciseCard'
 import ExerciseSummary from './ExerciseSummary'
 import AttemptsHistory from './AttemptsHistory'
 
-// Exciting completion messages based on score
-const COMPLETION_MESSAGES = [
-  { min: 90, messages: ['ممتازة! أداء رائع 🌟', 'مبدعة! نتيجة مذهلة 🏆', 'واو! إنجاز استثنائي 🚀'] },
-  { min: 70, messages: ['أحسنتِ! عمل جيد جداً 💪', 'رائع! تقدم ملحوظ ✨', 'ممتاز! استمري 🔥'] },
-  { min: 50, messages: ['جيد! واصلي المحاولة 💫', 'لا بأس! أنتِ تتحسنين 🌱', 'حاولي مرة أخرى للأفضل 🎯'] },
-  { min: 0, messages: ['لا تقلقي! التعلم يحتاج تكرار 📚', 'حاولي مرة أخرى — ستتحسنين! 💪', 'كل محاولة تقربك من الهدف 🌟'] },
-]
-
-function getCompletionMessage(score) {
+// Exciting completion messages based on score. Gender-aware via the passed g().
+function getCompletionMessage(score, g) {
+  const COMPLETION_MESSAGES = [
+    { min: 90, messages: [g('ممتاز! أداء رائع 🌟', 'ممتازة! أداء رائع 🌟'), g('مبدع! نتيجة مذهلة 🏆', 'مبدعة! نتيجة مذهلة 🏆'), 'واو! إنجاز استثنائي 🚀'] },
+    { min: 70, messages: [g('أحسنت! عمل جيد جداً 💪', 'أحسنتِ! عمل جيد جداً 💪'), 'رائع! تقدم ملحوظ ✨', g('ممتاز! استمر 🔥', 'ممتاز! استمري 🔥')] },
+    { min: 50, messages: [g('جيد! واصِل المحاولة 💫', 'جيد! واصلي المحاولة 💫'), g('لا بأس! أنت تتحسّن 🌱', 'لا بأس! أنتِ تتحسنين 🌱'), g('حاول مرة أخرى للأفضل 🎯', 'حاولي مرة أخرى للأفضل 🎯')] },
+    { min: 0, messages: [g('لا تقلق! التعلم يحتاج تكرار 📚', 'لا تقلقي! التعلم يحتاج تكرار 📚'), g('حاول مرة أخرى — ستتحسّن! 💪', 'حاولي مرة أخرى — ستتحسنين! 💪'), 'كل محاولة تقربك من الهدف 🌟'] },
+  ]
   const tier = COMPLETION_MESSAGES.find(t => score >= t.min)
   const msgs = tier?.messages || COMPLETION_MESSAGES[3].messages
   return msgs[Math.floor(Math.random() * msgs.length)]
 }
 
 export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet }) {
+  const g = useG()
   const sectionRef = useRef(null)
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
@@ -222,7 +223,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           setRetrying(false)
           setIsCompleted(true)
           setShowSummary(true)
-          toast({ type: 'success', title: getCompletionMessage(score) })
+          toast({ type: 'success', title: getCompletionMessage(score, g) })
           try { safeCelebrate('grammar_complete') } catch {}
           awardCurriculumXP(studentId, 'grammar', score, unitId)
 
@@ -295,7 +296,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
 
             setIsCompleted(true)
             setShowSummary(true)
-            toast({ type: 'success', title: getCompletionMessage(score) })
+            toast({ type: 'success', title: getCompletionMessage(score, g) })
             try { safeCelebrate('grammar_complete') } catch {}
             awardCurriculumXP(studentId, 'grammar', score, unitId)
 
@@ -319,12 +320,12 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         return
       }
       // Show error only after retry fails
-      toast({ type: 'error', title: 'تعذّر حفظ تقدمك — حاولي مرة أخرى' })
+      toast({ type: 'error', title: g('تعذّر حفظ تقدمك — حاول مرة أخرى', 'تعذّر حفظ تقدمك — حاولي مرة أخرى') })
       if (isComplete) hasSaved.current = false // allow re-attempt
     } finally {
       setIsSaving(false)
     }
-  }, [studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber])
+  }, [studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber, g])
 
   // Auto-save after each answer — NEVER auto-completes.
   // Students must click "إنهاء وحفظ المحاولة" (handleFinish) to submit.

@@ -6,6 +6,7 @@ import { BookOpen, ChevronRight } from 'lucide-react'
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
 import { useStudentId } from '../_helpers/resolveStudentId'
 import { useErrorStats, useErrorList, useDueErrors, useImprovementTips, SKILL_LABELS } from './useErrorBank'
+import { useG } from '@/i18n/gender'
 
 const NARRATIVE_LINES = ['بنك الدروس.', 'كل خطأ — درس.', 'كل مراجعة — خطوة.']
 
@@ -68,6 +69,7 @@ function ErrorCard({ item, onReview }) {
 
 export default function ErrorsHub() {
   const navigate    = useNavigate()
+  const g           = useG()
   const studentId   = useStudentId()
   const [narrativeDone, setNarrativeDone] = useState(false)
   const [skillFilter, setSkillFilter]     = useState(null)
@@ -159,7 +161,7 @@ export default function ErrorsHub() {
           <div style={{ padding: '48px 24px', textAlign: 'center', borderRadius: 20, background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)' }}>
             <BookOpen size={36} color="var(--ds-text-muted)" style={{ marginBottom: 14 }} />
             <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7 }}>
-              لا توجد دروس بعد. أكملي جلسة قراءة أو استماع لتبدأ!
+              {g('لا توجد دروس بعد. أكمل جلسة قراءة أو استماع لتبدأ!', 'لا توجد دروس بعد. أكملي جلسة قراءة أو استماع لتبدأ!')}
             </p>
           </div>
         ) : (

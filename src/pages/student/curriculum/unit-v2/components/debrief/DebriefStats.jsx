@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { motion, useMotionValue, animate } from 'framer-motion'
+import { useG } from '@/i18n/gender'
 
 function AnimatedCounter({ from = 0, to, duration = 1.2, suffix = '' }) {
   const val = useMotionValue(from)
@@ -51,9 +52,10 @@ function StatCard({ emoji, value, label, delay, color = '#fbbf24' }) {
 }
 
 export default function DebriefStats({ data }) {
+  const g = useG()
   const { stats, streak } = data
   const cards = [
-    { emoji: '📚', value: stats.vocabGained, label: 'كلمة جديدة في قاموسكِ', color: '#4ade80', delay: 0 },
+    { emoji: '📚', value: stats.vocabGained, label: g('كلمة جديدة في قاموسك', 'كلمة جديدة في قاموسكِ'), color: '#4ade80', delay: 0 },
     { emoji: '⚡', value: stats.unitXp, label: 'XP مكتسبة', color: '#fbbf24', delay: 0.15 },
     { emoji: '⏱️', value: stats.minutes, label: 'دقيقة تركيز', color: '#38bdf8', delay: 0.3 },
     streak > 0 && { emoji: '🔥', value: streak, label: `سلسلة ${streak} أيام`, color: '#fb923c', delay: 0.45 },
@@ -66,7 +68,7 @@ export default function DebriefStats({ data }) {
         animate={{ opacity: 1 }}
         style={{ margin: 0, fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, textAlign: 'center', color: 'rgba(248,250,252,0.95)' }}
       >
-        ما حقّقتِه في هذه الوحدة
+        {g('ما حقّقته في هذه الوحدة', 'ما حقّقتِه في هذه الوحدة')}
       </motion.h2>
       <div style={{
         display: 'grid',

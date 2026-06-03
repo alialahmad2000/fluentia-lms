@@ -10,6 +10,7 @@ import { invokeWithRetry } from '@/lib/invokeWithRetry'
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
+import { useG } from '@/i18n/gender'
 
 // Semantic feedback colors (consistent with Reading/Listening labs)
 const SUCCESS = '#4ade80'
@@ -354,6 +355,7 @@ function EvalSpinner({ attempt }) {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function Writing() {
+  const g = useG()
   const studentId = useStudentId()
   const isWide = useIsWide()
   const qc = useQueryClient()
@@ -621,7 +623,7 @@ export default function Writing() {
         {/* Mode selector */}
         <motion.section initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
           <p style={{ margin: '0 0 10px', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>
-            اختاري الوضع
+            {g('اختر الوضع', 'اختاري الوضع')}
           </p>
           <div style={{ display: 'flex', gap: 8 }}>
             {['task1', 'task2', 'full'].map(m => (
@@ -812,7 +814,7 @@ export default function Writing() {
                 <motion.div key="confirm" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
                   style={{ padding: '14px 16px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-amber) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 28%, transparent)', display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>
-                    كتبت {totalWords} كلمة من أصل {minWords} المطلوبة. هل تريدين الإرسال الآن؟
+                    كتبت {totalWords} كلمة من أصل {minWords} المطلوبة. {g('هل تريد الإرسال الآن؟', 'هل تريدين الإرسال الآن؟')}
                   </p>
                   <div style={{ display: 'flex', gap: 8 }}>
                     <button onClick={() => setConfirmSubmit(false)}
