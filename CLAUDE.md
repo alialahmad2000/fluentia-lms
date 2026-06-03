@@ -312,6 +312,14 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — DASHBOARD: 3 selectable creative STRUCTURES (Journey / Spotlight / Observatory)
+- Owner wanted to choose between bolder structures (not restyles) before committing. Built 3 distinct, self-contained dashboard variants — all on REAL data + the living Aurora Veil background, RTL/mobile-first, live routes only — wired into the `?design=` switch in `src/pages/student/StudentDashboard.jsx` (default unchanged = Command Deck). 3 parallel agents built them; I integrated + verified.
+  - `?design=journey` — the dashboard becomes a learning PATH (glowing spine + alternating station nodes; "أنت هنا · تابع" current node; SRS/streak/team/daily woven beside it).
+  - `?design=spotlight` — focus-first: ONE cinematic "مهمة اليوم → تابع رحلتك" hero + quick-action chip rail + collapsible accordions.
+  - `?design=observatory` — centered command center: big level-ring + avatar with 4 stat satellites (corners on desktop, 2×2 grid on mobile, no overlap at 360px) + widget grid.
+- Shipping discipline: other sessions had stacked in-flight work (chat DM + `dm_threads` migration) on the shared branch, so I did NOT merge the branch into main — **cherry-picked only my 4 dashboard files** onto main (no conflicts). Once the owner picks one, set it as the `default` in the switch.
+- Verify: `npm run build` green; headless screenshots (mock-test-a1) of all 3 on desktop + mobile, no crashes. Files: `src/pages/student/dashboards/{JourneyDashboard,SpotlightDashboard,ObservatoryDashboard}.jsx`, `src/pages/student/StudentDashboard.jsx`, `CLAUDE.md`. Status: on main → production (preview via `?design=...`).
+
 ### 2026-06-03 — VOCAB "PATH OF LIGHT": structural reinvention of المفردات (a journey, not pages)
 - Owner feedback after the Constellation reskin: "you changed the design but almost the structure itself as it was before — we want a creative way, a completely new structure as if it was something totally new." Offered 3 new STRUCTURES (the metaphor becomes the navigation); owner chose **Path of Light** — one journey you walk, region→region, constellation→constellation, with always ONE clear next stop and the old 4 "modes" blended into each stop as ingredients (discover new → recall folded-in due reviews → repair hard words → constellation lights up). Built in an isolated worktree `/Users/dr.ali/projects/fluentia-lms-journey` (branch `vocab-journey`) on top of the now-live unified `vocab_cards` engine; never touched the parallel session's tree.
 - **DB (additive, applied live via Management API):** `20260603170000_vocab_journey.sql` — two SECURITY-DEFINER RPCs over `vocab_cards`:
