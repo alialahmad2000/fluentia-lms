@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Gift, Zap, Star, X } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { useG } from '../../i18n/gender'
 
 // Reward pool
 const REWARDS = [
@@ -29,6 +30,7 @@ function getRandomReward() {
 }
 
 export default function MysteryBox() {
+  const g = useG()
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
   const [showReward, setShowReward] = useState(null)
@@ -176,7 +178,7 @@ export default function MysteryBox() {
           <div className="flex-1">
             <p className="text-lg font-semibold" style={{ color: 'var(--ds-text-primary)' }}>صندوق الغموض!</p>
             <p className="text-sm" style={{ color: 'var(--ds-accent-gold, var(--ds-accent-primary))' }}>
-              {boxAvailable.available} صندوق متاح — اضغط لفتحه
+              {boxAvailable.available} صندوق متاح — {g('اضغط', 'اضغطي')} لفتحه
             </p>
           </div>
           <Gift size={20} style={{ color: 'var(--ds-accent-gold, var(--ds-accent-primary))' }} />

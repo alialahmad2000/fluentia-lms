@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Brain, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { getDueCount } from '../../services/srs'
+import { useG } from '../../i18n/gender'
 
 const toArabicNum = (n) => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
 
@@ -12,6 +13,7 @@ const fadeUp = {
 }
 
 export default function SrsReviewCard({ studentId }) {
+  const g = useG()
   const { data: dueCount = 0 } = useQuery({
     queryKey: ['srs-due-count', studentId],
     queryFn: () => getDueCount(studentId),
@@ -49,13 +51,13 @@ export default function SrsReviewCard({ studentId }) {
             <p className="text-[13px] mt-0.5" style={{ color: 'var(--ds-text-tertiary)' }}>
               {dueCount > 0
                 ? `${toArabicNum(dueCount)} كلمة جاهزة — تقريباً ${toArabicNum(Math.max(1, Math.ceil(dueCount * 0.3)))} دقائق`
-                : 'ما في مراجعة اليوم — ارجع بكرة!'
+                : g('ما في مراجعة اليوم — ارجع بكرة!', 'ما في مراجعة اليوم — ارجعي بكرة!')
               }
             </p>
           </div>
           {dueCount > 0 && (
             <div className="flex items-center gap-1.5 px-4 py-2 rounded-xl shrink-0" style={{ background: 'color-mix(in srgb, var(--ds-accent-secondary) 18%, transparent)' }}>
-              <span className="text-sm font-semibold" style={{ color: 'var(--ds-accent-secondary)' }}>ابدأ</span>
+              <span className="text-sm font-semibold" style={{ color: 'var(--ds-accent-secondary)' }}>{g('ابدأ', 'ابدئي')}</span>
               <ArrowLeft size={14} style={{ color: 'var(--ds-accent-secondary)' }} />
             </div>
           )}

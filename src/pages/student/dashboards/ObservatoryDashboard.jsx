@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Zap, Flame, TrendingUp, RefreshCw, Sparkles, Play } from 'lucide-react'
 
 import { useAuthStore } from '../../../stores/authStore'
+import { useG } from '../../../i18n/gender'
 import StudentDashboardSkeleton from '../../../components/skeletons/StudentDashboardSkeleton'
 import UserAvatar from '../../../components/common/UserAvatar'
 import AnimatedNumber from '../../../components/ui/AnimatedNumber'
@@ -132,6 +133,7 @@ function Satellite({ pos, icon, value, suffix, label, accent }) {
 
 export default function ObservatoryDashboard() {
   /* ── ALL HOOKS AT TOP (React #310 safe) ── */
+  const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
   const reduced = useReducedMotion()
@@ -258,7 +260,7 @@ export default function ObservatoryDashboard() {
                 </span>
                 <span className="obs-sat__body">
                   <span className="obs-sat__value obs-sat__value--cta">مراجعة اليوم</span>
-                  <span className="obs-sat__label truncate">ابدئي جلسة سريعة</span>
+                  <span className="obs-sat__label truncate">{g('ابدأ جلسة سريعة', 'ابدئي جلسة سريعة')}</span>
                 </span>
               </Link>
             </div>
@@ -277,7 +279,7 @@ export default function ObservatoryDashboard() {
                 نقطة للوصول إلى <span className="obs-hint__lvl">{nextLevel.title_ar}</span>
               </>
             ) : (
-              'بلغتِ أعلى مستوى — استمرّي في التألّق ✦'
+              g('بلغتَ أعلى مستوى — استمرّ في التألّق ✦', 'بلغتِ أعلى مستوى — استمرّي في التألّق ✦')
             )}
           </motion.p>
 

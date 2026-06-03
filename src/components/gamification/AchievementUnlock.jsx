@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Award, X, Zap } from 'lucide-react'
+import { useG } from '../../i18n/gender'
 
 export default function AchievementUnlock({ achievement, onClose }) {
+  const g = useG()
   // Auto-close after 5 seconds
   useEffect(() => {
     if (!achievement) return
@@ -134,7 +136,7 @@ export default function AchievementUnlock({ achievement, onClose }) {
                 onClose()
               }}
             >
-              شارك إنجازك
+              {g('شارك إنجازك', 'شاركي إنجازك')}
             </motion.button>
           </div>
         </motion.div>

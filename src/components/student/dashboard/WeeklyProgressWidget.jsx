@@ -13,6 +13,7 @@ import AnimatedNumber from '../../ui/AnimatedNumber'
 import { useWeekSummary } from '../../../hooks/dashboard/useWeekSummary'
 import { useHistoryBounds } from '../../../hooks/dashboard/useHistoryBounds'
 import { riyadhToday, riyadhWeekStart, addDays, formatArabicWeekLabel } from '../../../utils/riyadhTime'
+import { useG } from '../../../i18n/gender'
 
 /* ── skill type config ── */
 const SKILL_MAP = {
@@ -268,6 +269,7 @@ function NavBtn({ onClick, disabled, ariaLabel, children }) {
 
 /* ── main widget ── */
 export default function WeeklyProgressWidget({ studentId }) {
+  const g = useG()
   const [weekStart, setWeekStart] = useState(null)
   const { data, isLoading } = useWeekSummary(studentId, weekStart)
   const { data: bounds } = useHistoryBounds(studentId)
@@ -361,7 +363,7 @@ export default function WeeklyProgressWidget({ studentId }) {
         <div className="flex flex-col items-center justify-center text-center py-8 gap-3">
           <BarChart3 size={36} style={{ color: 'var(--ds-text-tertiary)' }} />
           <p className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
-            {isCurrentWeek ? 'ابدأ أسبوعك بنشاط! كل نشاط يقربك من هدفك' : 'لم يكن هناك نشاط في هذا الأسبوع'}
+            {isCurrentWeek ? g('ابدأ أسبوعك بنشاط! كل نشاط يقربك من هدفك', 'ابدئي أسبوعك بنشاط! كل نشاط يقربك من هدفك') : 'لم يكن هناك نشاط في هذا الأسبوع'}
           </p>
         </div>
       ) : (

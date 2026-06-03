@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
+import { useG } from '../../i18n/gender'
 
 /* ------------------------------------------------------------------ */
 /*  Milestones                                                         */
@@ -76,6 +77,7 @@ const shimmerKeyframes = `
 /*  StreakWidget                                                        */
 /* ------------------------------------------------------------------ */
 export default function StreakWidget({ profileId }) {
+  const g = useG()
   const isMounted = useRef(true)
 
   useEffect(() => {
@@ -160,7 +162,7 @@ export default function StreakWidget({ profileId }) {
               color: 'var(--ds-accent-gold, var(--ds-accent-warning))',
             }}
           >
-            ابدأ سلسلتك اليوم 🔥
+            {g('ابدأ سلسلتك اليوم 🔥', 'ابدئي سلسلتك اليوم 🔥')}
           </span>
         </div>
       ) : (

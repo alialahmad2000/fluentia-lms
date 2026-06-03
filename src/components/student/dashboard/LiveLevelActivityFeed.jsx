@@ -7,6 +7,7 @@ import { useAuthStudentData } from '../../../stores/authStore'
 import { useLevelActivityFeed } from '../../../hooks/dashboard/useLevelActivityFeed'
 import { useLevelTopMovers } from '../../../hooks/dashboard/useLevelTopMovers'
 import { initialsFromDisplayName } from '../../../utils/names'
+import { useG } from '../../../i18n/gender'
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -343,6 +344,7 @@ function FeedItem({ item, isNew }) {
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 export default function LiveLevelActivityFeed({ studentId }) {
+  const g = useG()
   const studentData = useAuthStudentData()
   const academicLevel = studentData?.academic_level
 
@@ -410,16 +412,19 @@ export default function LiveLevelActivityFeed({ studentId }) {
   function getMotivationalText() {
     if (!currentMovers || currentMovers.length === 0) return null
     if (callerEntry && callerRank && callerRank <= 3) {
-      return '👑 أنت من نجوم الأسبوع!'
+      return g('👑 أنت من نجوم الأسبوع!', '👑 أنتِ من نجوم الأسبوع!')
     }
     if (callerEntry && callerEntry.xp_in_period > 0) {
-      return `أنت في المرتبة ${callerRank} بـ ${callerEntry.xp_in_period} XP — يلا اطلع! 💪`
+      return g(
+        `أنت في المرتبة ${callerRank} بـ ${callerEntry.xp_in_period} XP — يلا اطلع! 💪`,
+        `أنتِ في المرتبة ${callerRank} بـ ${callerEntry.xp_in_period} XP — يلا اطلعي! 💪`
+      )
     }
     if (callerEntry && callerEntry.xp_in_period === 0) {
-      return 'ابدأ نشاط واحد وادخل قائمة الأكثر نشاطاً 💪'
+      return g('ابدأ نشاط واحد وادخل قائمة الأكثر نشاطاً 💪', 'ابدئي نشاط واحد وادخلي قائمة الأكثر نشاطاً 💪')
     }
     // caller not found in data at all
-    return 'ابدأ نشاط واحد وادخل قائمة الأكثر نشاطاً 💪'
+    return g('ابدأ نشاط واحد وادخل قائمة الأكثر نشاطاً 💪', 'ابدئي نشاط واحد وادخلي قائمة الأكثر نشاطاً 💪')
   }
 
   const hasMovers = topThree.length > 0
