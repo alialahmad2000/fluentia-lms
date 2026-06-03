@@ -46,10 +46,32 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         importScripts: ['/push-sw.js'],
         maximumFileSizeToCacheInBytes: 1.5 * 1024 * 1024,
+        // Take over from any older (broken) SW as fast as possible so the audio
+        // fix below reaches existing clients on their next visit, and drop stale
+        // precaches.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         // Only precache essential files — not every JS chunk
         globPatterns: ['**/*.{css,html,ico,png,svg,woff2}', 'push-sw.js'],
         globIgnores: ['**/eruda*', '**/debug*'],
         runtimeCaching: [
+          // ── MEDIA (audio/video) is intentionally NOT cached here. THE listening fix. ──
+          // Safari/iOS play media via HTTP Range requests. The supabase-storage rule
+          // below USED to be CacheFirst on ALL storage (incl. the listening .mp3s); a
+          // CacheFirst SW serves a cached non-range body that Safari/WebKit REFUSES →
+          // the <audio> stalls at readyState 0 and "press play does nothing / no sound".
+          // Chrome tolerates it, Safari does not — which is why this survived every
+          // prior fix and broke only on the students' iPhones / Mac Safari. Proven by a
+          // serviceWorkers:'block' WebKit test: same build, blocked SW loads+plays
+          // (duration 100s, currentTime advances), allowed SW stalls at 0.
+          // FIX: the storage rule below now matches ONLY images, so media URLs match NO
+          // route → the SW never touches them → the browser does native range requests
+          // straight against the Supabase CDN (proper 206). NOTE a NetworkOnly RegExp
+          // does NOT work here: workbox ignores END-anchored RegExp routes for
+          // cross-origin requests (so /\.mp3$/ never matched the Supabase URL), and even
+          // when matched the SW still proxies the stream — leaving media UNROUTED is the
+          // proven native-passthrough behaviour.
           // Cache JS chunks — NetworkFirst ensures fresh code after deployments.
           // Was StaleWhileRevalidate which served stale/broken JS immediately,
           // causing "stuck loading" and blank pages after new deployments.
@@ -83,8 +105,11 @@ export default defineConfig(({ mode }) => ({
             urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/v1\/.*/i,
             handler: 'NetworkOnly',
           },
+          // Supabase storage — cache IMAGES ONLY. Audio/video are deliberately excluded
+          // (their extensions are not in this pattern) so they match NO route and bypass
+          // the SW entirely → native HTTP Range requests work on Safari/iOS. THE fix.
           {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/storage\/.*/i,
+            urlPattern: /^https:\/\/.*\.supabase\.co\/storage\/.*\.(png|jpe?g|webp|gif|svg|avif|ico)(\?.*)?$/i,
             handler: 'CacheFirst',
             options: {
               cacheName: 'supabase-storage-cache',

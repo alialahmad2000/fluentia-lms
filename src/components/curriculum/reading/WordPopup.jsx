@@ -10,12 +10,16 @@ const MARGIN = 16
 // Reading editorial rebuild — the dominant interaction. Anchored editorial card
 // (not a center modal). Reuses the megafix pronounceWord lib (clean MP3 → Web
 // Speech). vocabRow comes from useArticleVocabIndex; null = word not in dictionary.
-export default function WordPopup({ word, vocabRow, anchorRect, studentId, unitId, onClose }) {
+export default function WordPopup({ word, vocabRow, anchorRect, studentId, unitId, onClose, fetchFallback }) {
   const ref = useRef(null)
   const [pos, setPos] = useState(null)
   const [audioState, setAudioState] = useState('idle') // idle | loading | curriculum | web_speech | failed
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
+  // Optional runtime translation fallback (used by the listening transcript) for
+  // words the offline vocab/glossary index doesn't cover. Reading never passes it,
+  // so the reading experience is unchanged (offline-only).
+  const [fallback, setFallback] = useState({ ar: null, loading: false })
 
   const play = useCallback(async () => {
     setAudioState('loading')
@@ -31,6 +35,22 @@ export default function WordPopup({ word, vocabRow, anchorRect, studentId, unitI
 
   // Auto-play once on open (student-requested feel).
   useEffect(() => { play() }, [play])
+
+  // Runtime translation fallback — ONLY when there is no offline meaning AND a
+  // fetcher was provided (listening transcript). Shows a brief loading state
+  // instead of an abrupt "no translation" flash.
+  useEffect(() => {
+    if (vocabRow?.definition_ar || typeof fetchFallback !== 'function') {
+      setFallback({ ar: null, loading: false })
+      return
+    }
+    let alive = true
+    setFallback({ ar: null, loading: true })
+    Promise.resolve(fetchFallback(word))
+      .then((ar) => { if (alive) setFallback({ ar: ar || null, loading: false }) })
+      .catch(() => { if (alive) setFallback({ ar: null, loading: false }) })
+    return () => { alive = false }
+  }, [word, vocabRow, fetchFallback])
 
   // Anchor: below the word if room, else above; clamp horizontally to viewport.
   useLayoutEffect(() => {
@@ -72,7 +92,7 @@ export default function WordPopup({ word, vocabRow, anchorRect, studentId, unitI
         .insert({
           student_id: studentId,
           word,
-          meaning: vocabRow?.definition_ar || null,
+          meaning: vocabRow?.definition_ar || fallback.ar || null,
           source_unit_id: unitId || null,
           curriculum_vocabulary_id: vocabRow?.id || null,
           source: 'reading',
@@ -167,9 +187,14 @@ export default function WordPopup({ word, vocabRow, anchorRect, studentId, unitI
           <div style={{ fontFamily: "'Space Grotesk', monospace", fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: 'var(--ds-accent-primary, #e9b949)', opacity: 0.8 }}>
             المعنى
           </div>
-          <div className="mt-1.5" style={{ fontFamily: "'Tajawal', sans-serif", fontSize: 17, color: vocabRow?.definition_ar ? 'var(--ds-text-primary, #f8fafc)' : 'var(--ds-text-tertiary, #64748b)' }}>
-            {vocabRow?.definition_ar || 'لا توجد ترجمة لهذه الكلمة في القاموس'}
-          </div>
+          {(() => {
+            const meaningAr = vocabRow?.definition_ar || fallback.ar
+            return (
+              <div className="mt-1.5" style={{ fontFamily: "'Tajawal', sans-serif", fontSize: 17, color: meaningAr ? 'var(--ds-text-primary, #f8fafc)' : 'var(--ds-text-tertiary, #64748b)' }}>
+                {meaningAr || (fallback.loading ? 'جارٍ الترجمة…' : 'لا توجد ترجمة لهذه الكلمة في القاموس')}
+              </div>
+            )
+          })()}
         </div>
 
         {/* Example (vocab only) */}
