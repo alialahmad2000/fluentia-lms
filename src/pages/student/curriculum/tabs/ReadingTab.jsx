@@ -9,7 +9,7 @@ import { supabase } from '../../../../lib/supabase'
 // surface later: see docs/audits/personalization-revert/PHASE-A-REPORT.md
 // import PersonalizedReadingCard from '../../../../components/personalization/PersonalizedReadingCard'
 import { useAuthUser } from '../../../../stores/authStore'
-import { useG } from '@/i18n/gender'
+import { useG, genderizeText } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
@@ -1975,7 +1975,7 @@ function CriticalThinkingBox({ reading }) {
       </p>
       {reading.critical_thinking_prompt_ar && (
         <p className="text-sm text-slate-400 font-['Tajawal']" dir="rtl">
-          {reading.critical_thinking_prompt_ar}
+          {genderizeText(reading.critical_thinking_prompt_ar)}
         </p>
       )}
     </div>

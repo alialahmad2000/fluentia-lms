@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
+import { genderizeText } from '@/i18n/gender'
 import { useShallow } from 'zustand/react/shallow'
 import AICoachPanel from '../../../../components/coach/AICoachPanel'
 import PracticeMode from '../../../../components/coach/PracticeMode'
@@ -268,7 +269,7 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
             {/* Arabic prompt */}
             {topic.prompt_ar && (
               <p className="text-sm text-[var(--text-muted)] font-['Tajawal'] mt-1.5 leading-relaxed">
-                {topic.prompt_ar}
+                {genderizeText(topic.prompt_ar)}
               </p>
             )}
           </div>
