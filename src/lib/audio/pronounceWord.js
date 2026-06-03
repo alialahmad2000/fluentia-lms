@@ -11,15 +11,36 @@
 //
 //   import { pronounceWord, prewarmPassageWords } from '@/lib/audio/pronounceWord'
 //   pronounceWord(rawWord, { studentId: profile?.id })
+//
+// INSTANT-TAP (2026-06): prewarm now also primes the *bytes*. The Supabase
+// Storage MP3s are served `cache-control: no-cache`, so warming the browser
+// HTTP cache is NOT enough — the browser would still revalidate (a network
+// round-trip) on first `.play()`. Instead we fetch the clip once and hold it
+// as an in-memory `blob:` Object URL. On tap we play the blob, which starts
+// from memory with zero network, so audio fires inside the user's gesture.
+// Capped + throttled so a 300-word passage never holds hundreds of decoded
+// elements on a phone (each clip is ~5-22 KB → the cap stays well under ~3 MB).
 
 import { supabase } from '../supabase'
 import { logAudioEvent, classifyPlayError } from './audioEventLog'
 
 // Module-singleton state — guarantees concurrent taps cancel cleanly.
-const wordAudioCache = new Map() // word(lowercase) → audio_url
+const wordAudioCache = new Map()  // word(normalized) → audio_url (string)
+const wordBlobCache = new Map()   // word(normalized) → blob: Object URL (primed bytes)
+const inFlightBytes = new Map()   // word(normalized) → Promise<blobUrl|null> (dedupe concurrent warms)
 let liveAudio = null              // currently-playing HTMLAudioElement
 let liveUtterance = null          // currently-speaking SpeechSynthesisUtterance
 
+// Mobile-safe ceiling on how many decoded clips we hold at once. ~20 KB each →
+// 140 clips ≈ <3 MB. When exceeded we evict the oldest blob (Map preserves
+// insertion order). The URL string cache is cheap and stays uncapped.
+const MAX_PRIMED_BLOBS = 140
+// How many byte-warms run concurrently — keeps the radio/CPU calm on a phone.
+const WARM_CONCURRENCY = 4
+
+// IMPORTANT: this MUST match the normalization the tap path uses so a warmed
+// word is always found on tap. Lowercase, trim, strip anything that isn't a
+// letter / apostrophe / hyphen.
 function normalize(raw) {
   if (typeof raw !== 'string') return ''
   return raw.toLowerCase().trim().replace(/[^a-z'-]/g, '')
@@ -37,6 +58,46 @@ function stopAll() {
   liveUtterance = null
 }
 
+// Evict the oldest primed blob once we're over the cap (FIFO).
+function evictIfNeeded() {
+  while (wordBlobCache.size > MAX_PRIMED_BLOBS) {
+    const oldestKey = wordBlobCache.keys().next().value
+    const url = wordBlobCache.get(oldestKey)
+    wordBlobCache.delete(oldestKey)
+    try { URL.revokeObjectURL(url) } catch {}
+  }
+}
+
+// Fetch the MP3 bytes once and store a blob: URL keyed by the normalized word.
+// Returns the blob URL (or null on failure). Deduped so concurrent warms of the
+// same word share one request.
+function primeBytes(word, url) {
+  if (!url || wordBlobCache.has(word)) return Promise.resolve(wordBlobCache.get(word) || null)
+  if (inFlightBytes.has(word)) return inFlightBytes.get(word)
+  if (typeof fetch !== 'function') return Promise.resolve(null)
+
+  const p = (async () => {
+    try {
+      // Plain GET, no special mode — these are public, CORS-open media. Keeping
+      // it simple avoids the strict CORS media path iOS Safari can abort.
+      const res = await fetch(url)
+      if (!res.ok) return null
+      const blob = await res.blob()
+      const blobUrl = URL.createObjectURL(blob)
+      wordBlobCache.set(word, blobUrl)
+      evictIfNeeded()
+      return blobUrl
+    } catch {
+      return null  // best-effort priming
+    } finally {
+      inFlightBytes.delete(word)
+    }
+  })()
+
+  inFlightBytes.set(word, p)
+  return p
+}
+
 export async function pronounceWord(rawWord, { studentId = null } = {}) {
   const word = normalize(rawWord)
   if (!word || word.length < 1) {
@@ -46,9 +107,17 @@ export async function pronounceWord(rawWord, { studentId = null } = {}) {
   // Cancel any in-flight word audio so the second tap wins.
   stopAll()
 
-  // ── Tier 1: in-memory cache ────────────────────────────────────────
+  // ── Tier 1 (fastest): primed in-memory bytes → instant, no network ─────
+  if (wordBlobCache.has(word)) {
+    return playUrl(wordBlobCache.get(word), word, studentId, 'primed')
+  }
+
+  // ── Tier 1 (in-memory URL cache): play directly, prime bytes in bg ─────
   if (wordAudioCache.has(word)) {
-    return playUrl(wordAudioCache.get(word), word, studentId, 'cache')
+    const url = wordAudioCache.get(word)
+    // Warm the bytes so the NEXT tap on this word is instant too.
+    primeBytes(word, url)
+    return playUrl(url, word, studentId, 'cache')
   }
 
   // ── Tier 1 (DB): curriculum_vocabulary.audio_url ──────────────────
@@ -63,6 +132,7 @@ export async function pronounceWord(rawWord, { studentId = null } = {}) {
 
     if (data?.audio_url) {
       wordAudioCache.set(word, data.audio_url)
+      primeBytes(word, data.audio_url)
       return playUrl(data.audio_url, word, studentId, 'vocabulary')
     }
   } catch {
@@ -94,6 +164,9 @@ async function playUrl(url, word, studentId, source) {
     audio.src = url
     liveAudio = audio
 
+    // iOS Safari autoplay: `.play()` MUST be reached synchronously within the
+    // tap gesture. The blob/URL is already resolved before this call, so no
+    // network await sits between the tap and play() — playback starts at once.
     const p = audio.play()
     if (p !== undefined) await p
 
@@ -169,29 +242,107 @@ function speakBrowser(word, studentId) {
   }
 }
 
+// Throttled byte-warm of a list of [word, url] pairs (WARM_CONCURRENCY at a
+// time). Best-effort; never throws.
+async function warmBytesThrottled(pairs) {
+  let i = 0
+  async function worker() {
+    while (i < pairs.length) {
+      const idx = i++
+      const [word, url] = pairs[idx]
+      if (!wordBlobCache.has(word)) {
+        // eslint-disable-next-line no-await-in-loop
+        await primeBytes(word, url)
+      }
+    }
+  }
+  const workers = Array.from({ length: Math.min(WARM_CONCURRENCY, pairs.length) }, worker)
+  await Promise.all(workers)
+}
+
 // Pre-warm the cache for a passage so the first tap is instant.
-// Pass the passage's full text; the helper extracts unique English words.
-export async function prewarmPassageWords(passageText) {
+// Pass the passage's full text; the helper extracts unique English words,
+// resolves their audio URLs, and (for a prioritized, capped subset) eagerly
+// fetches the MP3 bytes into in-memory blob URLs so tapping plays from memory.
+//
+// Optional opts:
+//   priorityWords — array of raw words (e.g. the passage's highlighted /
+//     vocabulary words) to byte-warm FIRST. These are the words students are
+//     most likely to tap, so they should be instant even under the cap.
+export async function prewarmPassageWords(passageText, opts = {}) {
   if (typeof passageText !== 'string' || passageText.length === 0) return
-  const words = [...new Set(passageText.toLowerCase().match(/[a-z'-]+/g) || [])]
+  // Normalize identically to the tap path so warmed keys always match on tap.
+  const rawTokens = passageText.toLowerCase().match(/[a-z'-]+/g) || []
+  const words = [...new Set(rawTokens.map(normalize).filter((w) => w.length > 1))]
   if (words.length === 0) return
 
-  // Filter to ones not yet cached.
-  const missing = words.filter((w) => !wordAudioCache.has(w))
-  if (missing.length === 0) return
+  // Prioritized order: requested priority words first (deduped), then the rest.
+  const priority = [...new Set((opts.priorityWords || []).map(normalize).filter((w) => w.length > 1))]
+  const prioritySet = new Set(priority)
+  const ordered = [...priority.filter((w) => words.includes(w)), ...words.filter((w) => !prioritySet.has(w))]
 
-  try {
-    const { data } = await supabase
-      .from('curriculum_vocabulary')
-      .select('word, audio_url')
-      .in('word', missing)
-      .not('audio_url', 'is', null)
-    ;(data || []).forEach(({ word, audio_url }) => {
-      wordAudioCache.set(word.toLowerCase(), audio_url)
-    })
-  } catch {
-    // Cache pre-warm is best-effort.
+  // Resolve URLs for words we don't already have cached.
+  const missing = ordered.filter((w) => !wordAudioCache.has(w))
+  if (missing.length > 0) {
+    try {
+      const { data } = await supabase
+        .from('curriculum_vocabulary')
+        .select('word, audio_url')
+        .in('word', missing)
+        .not('audio_url', 'is', null)
+      ;(data || []).forEach(({ word, audio_url }) => {
+        wordAudioCache.set(normalize(word), audio_url)
+      })
+    } catch {
+      // Cache pre-warm is best-effort.
+    }
   }
+
+  // Build the prioritized list of [word, url] pairs that have a known URL,
+  // capped to the blob ceiling so we never over-fetch on a phone.
+  const pairs = []
+  for (const w of ordered) {
+    if (pairs.length >= MAX_PRIMED_BLOBS) break
+    const url = wordAudioCache.get(w)
+    if (url && !wordBlobCache.has(w)) pairs.push([w, url])
+  }
+
+  // Eagerly fetch the bytes (throttled) so the first tap plays from memory.
+  if (pairs.length > 0) {
+    warmBytesThrottled(pairs).catch(() => {})
+  }
+}
+
+// Warm an explicit set of raw words on demand (e.g. lazily as they scroll into
+// view). Resolves missing URLs then primes bytes, respecting the cap/throttle.
+export async function prewarmWords(rawWords) {
+  if (!Array.isArray(rawWords) || rawWords.length === 0) return
+  const words = [...new Set(rawWords.map(normalize).filter((w) => w.length > 1))]
+  if (words.length === 0) return
+
+  const missing = words.filter((w) => !wordAudioCache.has(w))
+  if (missing.length > 0) {
+    try {
+      const { data } = await supabase
+        .from('curriculum_vocabulary')
+        .select('word, audio_url')
+        .in('word', missing)
+        .not('audio_url', 'is', null)
+      ;(data || []).forEach(({ word, audio_url }) => {
+        wordAudioCache.set(normalize(word), audio_url)
+      })
+    } catch {
+      // best-effort
+    }
+  }
+
+  const pairs = []
+  for (const w of words) {
+    if (wordBlobCache.size + pairs.length >= MAX_PRIMED_BLOBS) break
+    const url = wordAudioCache.get(w)
+    if (url && !wordBlobCache.has(w)) pairs.push([w, url])
+  }
+  if (pairs.length > 0) await warmBytesThrottled(pairs)
 }
 
 export function stopPronunciation() {

@@ -509,19 +509,28 @@ function ReadingContent({ reading, studentId, unitId }) {
     })
   }, [reading?.id]) // eslint-disable-line
 
-  // MEGA-FIX V2 Phase C — pre-warm per-word audio cache so the first
-  // tap on a word is instant (no DB roundtrip).
+  // MEGA-FIX V2 Phase C + INSTANT-TAP (2026-06) — pre-warm per-word audio so
+  // the first tap on a word plays from memory (no network round-trip). We
+  // resolve the URLs AND eagerly fetch the MP3 bytes into in-memory blob URLs.
+  // Vocabulary / highlighted words are byte-warmed first since they're the
+  // words students are most likely to tap.
   useEffect(() => {
     if (!reading?.passage_content) return
     let aborted = false
     const paragraphs = reading.passage_content?.paragraphs || []
     const passageText = paragraphs.join('\n\n')
+    // Priority = the highlighted vocab words (Set of lowercased words) + the
+    // article vocab index keys — most-tapped words get instant bytes first.
+    const priorityWords = [
+      ...vocabSet,
+      ...(articleVocabIndex instanceof Map ? articleVocabIndex.keys() : []),
+    ]
     import('@/lib/audio/pronounceWord').then(({ prewarmPassageWords }) => {
       if (aborted) return
-      prewarmPassageWords(passageText)
+      prewarmPassageWords(passageText, { priorityWords })
     }).catch(() => {})
     return () => { aborted = true }
-  }, [reading?.id, reading?.passage_content])
+  }, [reading?.id, reading?.passage_content, vocabSet, articleVocabIndex])
 
   const handleWordSaved = useCallback((word) => {
     if (word.startsWith('__remove__')) {

@@ -100,6 +100,14 @@ export function ListeningPlayer({
   // Hooks first — no early returns above any of them
   const audioRef = useRef(null)
   const silentCheckRef = useRef(null)
+  // Re-entrancy guard for play(): true from the moment a tap calls play() until
+  // that play() promise settles. A second tap (or a double-fired click on Mac
+  // Safari) must NOT hit the pause() branch while the first play() is still
+  // pending — calling pause() on a pending play() rejects it with AbortError,
+  // which the player swallows ⇒ "press play, nothing happens, no sound". The
+  // real-device telemetry showed bursts of AbortError on every press; this guard
+  // is what stops the self-interrupting loop. (LISTENING-ABORT-FIX 2026-06-03)
+  const isStartingRef = useRef(false)
   const sidebarWidth = useSidebarWidth()
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -129,6 +137,9 @@ export function ListeningPlayer({
     setIsPlaying(false)
     setIsBuffering(false)
     setCurrentMs(0)
+    // Source row changed — any pending play() guard is stale; clear it so the
+    // play button can never get permanently stuck after a source swap.
+    isStartingRef.current = false
 
     const onError = () => {
       const code = audio.error?.code
@@ -231,36 +242,65 @@ export function ListeningPlayer({
   // canplay-gated path and the ready path share one implementation.
   const startPlayback = useCallback(
     async (audio) => {
+      // Re-entrancy guard: if a play() is already pending, do nothing. Prevents a
+      // second tap / double-fired click from interrupting the in-flight play()
+      // (which would reject it with AbortError → silent no-sound).
+      if (isStartingRef.current) return
+      isStartingRef.current = true
       try {
-        const startedAt = audio.currentTime
-        await audio.play()
-        // Watchdog: only flag a *silent* failure when the element genuinely has
-        // enough data to be playing (readyState >= HAVE_FUTURE_DATA) yet the
-        // clock hasn't advanced and it isn't actively buffering. This avoids the
-        // false positives seen on slow-starting tracks (Windows Chrome) where
-        // the old 2s/any-readyState check fired even though audio was fine.
+        // play() with ONE automatic AbortError retry. On Mac/iOS Safari, tapping
+        // play() while the preload="metadata" fetch (kicked off when src was set)
+        // is still mid-flight makes Safari abort that load and reject this play()
+        // with AbortError — the dominant single-tap "press play, nothing happens"
+        // cause in the real-device telemetry. By the next tick the colliding load
+        // has settled, so a single re-play() succeeds. The retry stays inside the
+        // same play flow (no awaited fetch before it) so the user-gesture chain is
+        // preserved enough for Safari to honor it. (LISTENING-ABORT-FIX 2026-06-03)
+        try {
+          await audio.play()
+        } catch (firstErr) {
+          if (firstErr?.name !== 'AbortError') throw firstErr
+          // Brief pause lets the colliding preload settle, then retry once.
+          await new Promise((r) => setTimeout(r, 120))
+          const a = audioRef.current
+          if (!a) throw firstErr
+          await a.play()
+        }
+        // play() resolved — playback is authorized and (re)started. Sample the
+        // baseline NOW (after resolve), not before play(), so resuming from a
+        // non-zero position can't make a genuinely-advancing clock look frozen.
+        const baseline = audio.currentTime
+        // Watchdog: confirm the clock is TRULY stuck before surfacing anything.
+        // It must (a) still be unpaused, (b) have enough data, and (c) NOT have
+        // advanced — re-checked twice ~1s apart to rule out a momentary stall.
+        // It NEVER calls pause(): pausing here used to kill perfectly good audio
+        // and abort concurrent play() calls (the silent_failure telemetry showed
+        // currentTime had actually advanced to 1–3.5s on every "failure").
         if (silentCheckRef.current) clearTimeout(silentCheckRef.current)
         silentCheckRef.current = setTimeout(() => {
           const a = audioRef.current
-          if (!a) return
-          const advanced = a.currentTime - startedAt
-          const enoughData = a.readyState >= 3 /* HAVE_FUTURE_DATA */
-          if (advanced < 0.1 && !a.paused && enoughData) {
+          if (!a || a.paused) return
+          const firstAdvance = a.currentTime - baseline
+          if (firstAdvance >= 0.1 || a.readyState < 3 /* HAVE_FUTURE_DATA */) return
+          // Looked frozen — re-sample once more before deciding (avoid false positive
+          // on a brief stall). Do NOT pause; let playback keep trying on its own.
+          const stuckAt = a.currentTime
+          silentCheckRef.current = setTimeout(() => {
+            const a2 = audioRef.current
+            if (!a2 || a2.paused) return
+            const stillStuck = a2.currentTime - stuckAt < 0.05 && a2.readyState >= 3
+            if (!stillStuck) return
             setSilentFailure(true)
-            setIsPlaying(false)
-            try {
-              a.pause()
-            } catch {}
             logAudioFailure({
               context: 'listening',
               rowId: listeningId,
               audioUrl,
               errorCode: -1,
               errorMessage: 'silent_failure: play() resolved but currentTime did not advance',
-              extra: { paused: a.paused, readyState: a.readyState, currentTime: a.currentTime },
+              extra: { paused: a2.paused, readyState: a2.readyState, currentTime: a2.currentTime },
             })
-          }
-        }, 3500)
+          }, 1200)
+        }, 2500)
       } catch (err) {
         // AbortError = play() interrupted by a load()/pause() (benign, retryable).
         // NotAllowedError = autoplay/user-gesture policy (retryable on next tap).
@@ -268,6 +308,7 @@ export function ListeningPlayer({
         const name = err?.name
         if (name === 'AbortError' || name === 'NotAllowedError') {
           setIsPlaying(false)
+          setIsBuffering(false)
           logAudioFailure({
             context: 'listening',
             rowId: listeningId,
@@ -279,6 +320,7 @@ export function ListeningPlayer({
         }
         setLoadError('فشل التشغيل — حاول النقر مرة أخرى')
         setIsPlaying(false)
+        setIsBuffering(false)
         logAudioFailure({
           context: 'listening',
           rowId: listeningId,
@@ -286,6 +328,8 @@ export function ListeningPlayer({
           errorCode: 0,
           errorMessage: err?.message || String(err),
         })
+      } finally {
+        isStartingRef.current = false
       }
     },
     [audioUrl, listeningId],
@@ -295,6 +339,10 @@ export function ListeningPlayer({
   const togglePlay = useCallback(() => {
     const audio = audioRef.current
     if (!audio) return
+    // A play() is still pending (Safari is starting it). Ignore this tap rather
+    // than pausing — pausing a pending play() aborts it (AbortError → no sound).
+    // The user can tap again once playback has actually started.
+    if (isStartingRef.current) return
     setSilentFailure(false)
 
     if (!audio.paused) {

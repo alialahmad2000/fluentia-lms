@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, Check, X, ArrowRight, RotateCcw } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
+import { pronounceWord } from '../../../lib/audio/pronounceWord'
+import WordRevealCard from './WordRevealCard'
 
 // ── Spelling Lab session (prompt 09, Surface 3) ─────────────────────────────
 // One drill of up to 10 words. Two modes:
@@ -12,7 +14,7 @@ import { supabase } from '../../../lib/supabase'
 
 const GOLD = 'var(--ds-accent-primary, #e9b949)'
 const SESSION_SIZE = 10
-const FEEDBACK_MS = 1300
+const FEEDBACK_REVEAL_MS = 2200   // wrong answer: dwell long enough to read the reveal card before retype
 const SEE_REVEAL_MS = 2000
 
 // Web Speech fallback for words with no recorded audio_url.
@@ -113,7 +115,28 @@ export default function SpellingSession({ mode, onExit }) {
     }
   }, [current])
 
+  // Audio for the reveal card (feedback screen). Reuses the recorded audio
+  // element when present; otherwise the shared pronounceWord pipeline (which
+  // resolves curriculum audio and falls back to Web Speech on its own).
+  const playRevealWord = useCallback(() => {
+    if (!current) return
+    if (current.audio_url && audioRef.current) {
+      try {
+        audioRef.current.currentTime = 0
+        const p = audioRef.current.play()
+        if (p) p.catch(() => pronounceWord(current.word_en))
+      } catch { pronounceWord(current.word_en) }
+    } else {
+      pronounceWord(current.word_en)
+    }
+  }, [current])
+
   // Load the session once on mount.
+  // The RPC returns the spelling essentials (word_en, audio_url, meaning_ar,
+  // example_en, …) but NOT the richer teaching fields. Those live on
+  // curriculum_vocabulary, reachable via spelling_lab_words.source_vocab_id.
+  // We surface part_of_speech / definition_en / pronunciation_ipa with one
+  // supplementary read and merge them in by word id — no RPC change needed.
   useEffect(() => {
     let alive = true
     ;(async () => {
@@ -123,8 +146,39 @@ export default function SpellingSession({ mode, onExit }) {
       if (!alive) return
       if (error) { setLoadError(error.message || 'تعذّر تحميل الجلسة'); setWords([]); return }
       const list = data || []
-      setWords(list)
-      setMarks(new Array(list.length).fill('pending'))
+
+      // Best-effort enrichment — the spelling drill must never block on it.
+      let enriched = list
+      const ids = list.map((w) => w.id).filter(Boolean)
+      if (ids.length > 0) {
+        try {
+          const { data: rich } = await supabase
+            .from('spelling_lab_words')
+            .select('id, curriculum_vocabulary(part_of_speech, definition_en, pronunciation_ipa)')
+            .in('id', ids)
+          if (rich) {
+            const byId = new Map(rich.map((r) => [r.id, r.curriculum_vocabulary]))
+            enriched = list.map((w) => {
+              const v = byId.get(w.id)
+              return v
+                ? {
+                    ...w,
+                    part_of_speech: v.part_of_speech ?? null,
+                    definition_en: v.definition_en ?? null,
+                    // RPC's own ipa is always null for these rows; prefer vocab IPA.
+                    pronunciation_ipa: w.ipa ?? v.pronunciation_ipa ?? null,
+                  }
+                : { ...w, pronunciation_ipa: w.ipa ?? null }
+            })
+          }
+        } catch {
+          // Enrichment is non-essential — fall back to the bare session.
+          enriched = list.map((w) => ({ ...w, pronunciation_ipa: w.ipa ?? null }))
+        }
+      }
+      if (!alive) return
+      setWords(enriched)
+      setMarks(new Array(enriched.length).fill('pending'))
     })()
     return () => { alive = false }
   }, [mode])
@@ -185,12 +239,16 @@ export default function SpellingSession({ mode, onExit }) {
     } catch { setSaveError(true) }
 
     if (correct) {
-      timerRef.current = setTimeout(advance, FEEDBACK_MS)
+      // Stay on the feedback screen so the student can read the enriched word
+      // card; an explicit "التالي" button (not a timer) drives the advance, so
+      // there's time to actually learn the meaning / example / pronunciation.
+      // (No auto-advance here — see the feedback render block.)
     } else {
-      // require one correct retype before advancing
-      timerRef.current = setTimeout(() => { setAnswer(''); setPhase('retry') }, FEEDBACK_MS)
+      // require one correct retype before advancing — give a touch more time so
+      // the reveal card is readable before the input reopens
+      timerRef.current = setTimeout(() => { setAnswer(''); setPhase('retry') }, FEEDBACK_REVEAL_MS)
     }
-  }, [current, answer, currentIdx, mode, advance])
+  }, [current, answer, currentIdx, mode])
 
   const submitRetry = useCallback(() => {
     if (!current) return
@@ -310,14 +368,23 @@ export default function SpellingSession({ mode, onExit }) {
             >
               تحقّق <ArrowRight size={16} />
             </button>
+
+            {/* keep the teaching card visible while the student retypes the
+                missed word — it can't spoil the challenge (they've already seen
+                the answer) and it reinforces the meaning during the retype. */}
+            {phase === 'retry' && (
+              <WordRevealCard word={current} onPlayAudio={playRevealWord} />
+            )}
           </div>
         )}
 
-        {/* feedback phase */}
+        {/* feedback phase — verdict icon, then the enriched word card, then
+            (for a correct answer) an explicit "next" button so the student
+            controls when to leave the teaching card. */}
         {phase === 'feedback' && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center" dir="rtl"
+            className="flex flex-col items-center w-full" dir="rtl"
           >
             {wasCorrect ? (
               <span className="w-16 h-16 rounded-full flex items-center justify-center"
@@ -334,6 +401,20 @@ export default function SpellingSession({ mode, onExit }) {
                   الصحيح: <strong dir="ltr" style={{ fontFamily: "'Readex Pro', sans-serif", color: 'var(--ds-text-primary, #f8fafc)' }}>{current.word_en}</strong>
                 </p>
               </>
+            )}
+
+            {/* the teaching moment — safe to reveal now, the answer is in */}
+            <WordRevealCard word={current} onPlayAudio={playRevealWord} />
+
+            {wasCorrect && (
+              <motion.button
+                type="button" onClick={advance}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
+                className="mt-6 w-full max-w-md h-12 rounded-xl text-[15px] font-medium flex items-center justify-center gap-2"
+                style={{ background: GOLD, color: 'var(--ds-primary-ink, #0a0a0f)', fontFamily: "'Tajawal', sans-serif" }}
+              >
+                التالي <ArrowRight size={16} />
+              </motion.button>
             )}
           </motion.div>
         )}
