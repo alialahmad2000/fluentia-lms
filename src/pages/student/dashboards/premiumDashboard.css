@@ -18,17 +18,18 @@
   pointer-events: none;
   overflow: hidden;
   contain: strict;
-  /* Default / night palette — vivid jewel tones (the night --ds tokens
-     are intentionally muted, so the veil carries its own richer colours). */
-  --av-c1: #f0b73a;   /* gold   */
-  --av-c2: #7b5cff;   /* violet */
-  --av-c3: #24d3c2;   /* teal   */
-  --av-c4: #ff5fa2;   /* rose   */
+  /* Default / night palette — RESTRAINED editorial tones: warm gold +
+     bronze + a deep slate-indigo whisper for depth (no neon, no rainbow —
+     "expensive light", not gamer RGB). Harmonious + low-saturation. */
+  --av-c1: #c9a24c;   /* refined gold     */
+  --av-c2: #46527a;   /* deep slate-indigo (cool depth) */
+  --av-c3: #a4744a;   /* warm bronze      */
+  --av-c4: #6e5a72;   /* muted plum       */
   --av-blend: screen;
 }
-[data-theme="aurora-cinematic"] .av { --av-c1: #38bdf8; --av-c2: #a78bfa; --av-c3: #22d3ee; --av-c4: #f472b6; }
+[data-theme="aurora-cinematic"] .av { --av-c1: #4a9fd0; --av-c2: #6a6fae; --av-c3: #c4a256; --av-c4: #3f8f93; }
 [data-theme="minimal"] .av {
-  --av-c1: #0ea5e9; --av-c2: #7c3aed; --av-c3: #0d9488; --av-c4: #db2777;
+  --av-c1: #3b82c4; --av-c2: #6b6fae; --av-c3: #b08a4a; --av-c4: #7a6f86;
   --av-blend: multiply;
 }
 
@@ -50,22 +51,22 @@
 .av__blob--1 {
   width: 62vmax; height: 62vmax; top: -24vmax; inset-inline-end: -14vmax;
   background: radial-gradient(circle, var(--av-c1) 0%, transparent 62%);
-  opacity: 0.34; animation: av-d1 36s ease-in-out infinite;
+  opacity: 0.30; animation: av-d1 44s ease-in-out infinite;
 }
 .av__blob--2 {
   width: 66vmax; height: 66vmax; top: 6vmax; inset-inline-start: -24vmax;
   background: radial-gradient(circle, var(--av-c2) 0%, transparent 62%);
-  opacity: 0.32; animation: av-d2 48s ease-in-out infinite; animation-delay: -12s;
+  opacity: 0.24; animation: av-d2 58s ease-in-out infinite; animation-delay: -12s;
 }
 .av__blob--3 {
   width: 54vmax; height: 54vmax; bottom: -20vmax; inset-inline-end: 4vmax;
   background: radial-gradient(circle, var(--av-c3) 0%, transparent 62%);
-  opacity: 0.26; animation: av-d3 58s ease-in-out infinite; animation-delay: -26s;
+  opacity: 0.20; animation: av-d3 70s ease-in-out infinite; animation-delay: -26s;
 }
 .av__blob--4 {
   width: 48vmax; height: 48vmax; bottom: 2vmax; inset-inline-start: 8vmax;
   background: radial-gradient(circle, var(--av-c4) 0%, transparent 64%);
-  opacity: 0.22; animation: av-d4 66s ease-in-out infinite; animation-delay: -38s;
+  opacity: 0.16; animation: av-d4 80s ease-in-out infinite; animation-delay: -38s;
 }
 
 /* the living core: a slowly rotating multi-hue conic halo (continuous
@@ -75,17 +76,17 @@
   width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
   background: conic-gradient(from 0deg,
     transparent 0deg,
-    color-mix(in srgb, var(--av-c2) 62%, transparent) 55deg,
-    transparent 120deg,
-    color-mix(in srgb, var(--av-c1) 58%, transparent) 190deg,
-    transparent 250deg,
-    color-mix(in srgb, var(--av-c3) 55%, transparent) 315deg,
+    color-mix(in srgb, var(--av-c1) 48%, transparent) 60deg,
+    transparent 140deg,
+    color-mix(in srgb, var(--av-c3) 42%, transparent) 220deg,
+    transparent 300deg,
+    color-mix(in srgb, var(--av-c1) 34%, transparent) 345deg,
     transparent 360deg);
-  filter: blur(72px);
+  filter: blur(80px);
   mix-blend-mode: var(--av-blend);
-  opacity: 0.20;
+  opacity: 0.13;
   will-change: transform;
-  animation: av-spin 120s linear infinite;
+  animation: av-spin 150s linear infinite;
 }
 
 /* floating sparks (rendered in JSX with per-item inline left/delay/dur/colour) */

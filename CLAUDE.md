@@ -312,6 +312,11 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — AURORA VEIL palette retune: "professional, not gamer"
+- Owner feedback: the living background was alive but the colour mix read as gaming/RGB (bright violet + neon teal + hot pink on a screen glow). Wanted the same life, sophisticated.
+- Fix (palette only, same motion): swapped to a restrained, harmonious, low-saturation editorial set — warm gold `#c9a24c` + bronze `#a4744a` + a deep slate-indigo whisper `#46527a` + muted plum (luxury/MasterClass tones, no neon). Lowered blob opacities (0.30/0.24/0.20/0.16) and slowed the drift; the rotating conic halo is now a **tonal warm sweep** (gold→bronze) instead of a rainbow wheel, at lower opacity; sparks are warm gold/bronze "dust", not coloured confetti. Refined the aurora-cinematic + minimal palettes the same way.
+- Files: `src/pages/student/dashboards/{premiumDashboard.css,_premiumShell.jsx}`, `CLAUDE.md`. Build green; headless screenshot confirms warm "expensive light" glow crowning the hero fading into deep obsidian — alive but editorial. Status: committed + pushed + merged to main → production.
+
 ### 2026-06-03 — DASHBOARD LIVING BACKGROUND ("Aurora Veil"): full-bleed animated multi-hue backdrop
 - Owner: the dashboard background still read as ~one flat colour. Two root causes found: (1) the ambient blooms were confined to the centred 1200px content column (so most of the screen was plain obsidian), and (2) the night theme's `--ds-accent-secondary` is a muted grey, so the "violet" bloom barely registered.
 - Fix: replaced the column-confined `.pd-atmo` with a FULL-BLEED `.av` "Aurora Veil" **portaled to `<body>`** (mounts/unmounts with the dashboard, sits above the global velvet base at z0, below content): 4 drifting jewel-tone light fields on `mix-blend-mode: screen` using their OWN vivid palette (gold/violet/teal/rose — NOT the muted `--ds` tokens) + a slowly rotating multi-hue **conic halo** (continuous hue-shift via transform only) + 14 floating sparks + a focusing vignette. Theme-adaptive palettes for night / aurora-cinematic / minimal (minimal uses `multiply`).
