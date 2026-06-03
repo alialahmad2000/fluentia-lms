@@ -489,3 +489,55 @@ export async function getHardWordsCount(profileId: string): Promise<number> {
   if (error) throw error
   return count ?? 0
 }
+
+// ── Write convergence: exercises + drills feed the unified store ──
+
+/** Record an exercise pass (meaning|sentence|listening) into vocab_cards. */
+export async function recordExercise(
+  curriculumVocabularyId: string,
+  exercise: 'meaning' | 'sentence' | 'listening',
+  opts?: { word?: string | null; meaningAr?: string | null }
+): Promise<VocabCard> {
+  const { data, error } = await supabase.rpc('vocab_record_exercise', {
+    p_curriculum_vocabulary_id: curriculumVocabularyId,
+    p_exercise: exercise,
+    p_word: opts?.word ?? null,
+    p_meaning_ar: opts?.meaningAr ?? null,
+  })
+  if (error) throw error
+  return data as VocabCard
+}
+
+/** Record a hard-words drill attempt (updates streak/difficulty + logs). */
+export async function recordDrill(
+  cardId: string,
+  drillMode: string,
+  isCorrect: boolean
+): Promise<VocabCard> {
+  const { data, error } = await supabase.rpc('vocab_record_drill', {
+    p_card_id: cardId,
+    p_drill_mode: drillMode,
+    p_is_correct: isCorrect,
+  })
+  if (error) throw error
+  return data as VocabCard
+}
+
+/** Cards reviewed in the last N days (for "extra practice"). */
+export async function getRecentlyReviewed(
+  profileId: string,
+  days = 14,
+  limit = 20
+): Promise<VocabCardWithContent[]> {
+  const since = new Date()
+  since.setDate(since.getDate() - days)
+  const { data, error } = await supabase
+    .from('vocab_cards')
+    .select(`*, ${VOCAB_CONTENT_SELECT}`)
+    .eq('student_id', profileId)
+    .gte('last_review', since.toISOString())
+    .order('last_review', { ascending: false })
+    .limit(limit)
+  if (error) throw error
+  return (data || []) as VocabCardWithContent[]
+}
