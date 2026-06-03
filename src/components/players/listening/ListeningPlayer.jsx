@@ -248,24 +248,17 @@ export function ListeningPlayer({
       if (isStartingRef.current) return
       isStartingRef.current = true
       try {
-        // play() with ONE automatic AbortError retry. On Mac/iOS Safari, tapping
-        // play() while the preload="metadata" fetch (kicked off when src was set)
-        // is still mid-flight makes Safari abort that load and reject this play()
-        // with AbortError — the dominant single-tap "press play, nothing happens"
-        // cause in the real-device telemetry. By the next tick the colliding load
-        // has settled, so a single re-play() succeeds. The retry stays inside the
-        // same play flow (no awaited fetch before it) so the user-gesture chain is
-        // preserved enough for Safari to honor it. (LISTENING-ABORT-FIX 2026-06-03)
-        try {
-          await audio.play()
-        } catch (firstErr) {
-          if (firstErr?.name !== 'AbortError') throw firstErr
-          // Brief pause lets the colliding preload settle, then retry once.
-          await new Promise((r) => setTimeout(r, 120))
-          const a = audioRef.current
-          if (!a) throw firstErr
-          await a.play()
-        }
+        // Call play() exactly once, synchronously within the user gesture (no
+        // awaits/timers before it) — iOS Safari only honors gesture-initiated
+        // playback. The earlier timer-based AbortError retry is GONE: a setTimeout
+        // play() runs OUTSIDE the gesture, so iOS rejects it (NotAllowedError) →
+        // silent. The real root cause of "no sound on Safari/iPhone" was the
+        // service worker caching media with CacheFirst and breaking Range requests
+        // (now fixed in vite.config.js → NetworkOnly for media), so the audio loads
+        // normally and the cold-tap AbortError collision no longer occurs. If
+        // play() is ever rejected the catch below resets cleanly and the next tap
+        // (a fresh gesture, metadata already loaded) succeeds. (LISTENING-SW-FIX 2026-06-03)
+        await audio.play()
         // play() resolved — playback is authorized and (re)started. Sample the
         // baseline NOW (after resolve), not before play(), so resuming from a
         // non-zero position can't make a genuinely-advancing clock look frozen.
@@ -569,8 +562,16 @@ export function ListeningPlayer({
             />
           )}
 
-          {/* The audio element — src is set by the effect, never inline */}
-          <audio ref={audioRef} preload="metadata" playsInline style={{ display: 'none' }} />
+          {/* The audio element — src is set by the effect, never inline.
+              Visually-hidden (NOT display:none): iOS Safari is finicky about
+              playing media elements removed from the layout tree. */}
+          <audio
+            ref={audioRef}
+            preload="metadata"
+            playsInline
+            aria-hidden="true"
+            style={{ position: 'absolute', width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
+          />
         </div>
       </div>
     </>

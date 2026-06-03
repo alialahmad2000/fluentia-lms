@@ -8,6 +8,7 @@ import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { ListeningSection as ListeningSectionUI } from '../../../../components/players/listening/ListeningSection'
+import { TranscriptReader } from '../../../../components/players/listening/TranscriptReader'
 import { VocabPopup } from '../../../../components/audio/VocabPopup'
 import { OnePlayBanner } from '../../../../components/audio/parts/OnePlayBanner'
 import { useListeningTranscriptAudio } from '../../../../hooks/useListeningTranscriptAudio'
@@ -67,6 +68,14 @@ export default function ListeningTab({ unitId }) {
       {listenings.map((listening) => (
         <ListeningSection key={listening.id} listening={listening} studentId={user?.id} unitId={unitId} />
       ))}
+      {/* Generous bottom runway so the last question + the "تسليم الإجابات" submit
+          button always clear the fixed bottom player bar — the student can scroll
+          everything well above the sticky bar (laptop and phone), with room to spare. */}
+      <div
+        aria-hidden="true"
+        className="h-[60vh] min-h-[20rem]"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      />
     </div>
   )
 }
@@ -211,11 +220,21 @@ function ListeningSection({ listening, studentId, unitId }) {
         onDisable={() => { setOnePlayMode(false); setHasPlayed(false) }}
       />
 
-      {/* Premium listening section: title + transcript + player (no duplicate header) */}
+      {/* Premium listening section: title + transcript + player (no duplicate header).
+          renderTranscript swaps the default passage for the premium reading-grade
+          transcript: every word tappable → instant pronunciation + Arabic meaning. */}
       <ListeningSectionUI
         listening={listening}
         unitId={unitId}
         audioLoading={audioLoading}
+        renderTranscript={() => (
+          <TranscriptReader
+            transcript={listening.transcript}
+            listeningId={listening.id}
+            studentId={studentId}
+            unitId={unitId}
+          />
+        )}
       />
 
 
