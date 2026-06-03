@@ -51,22 +51,22 @@
 .av__blob--1 {
   width: 62vmax; height: 62vmax; top: -24vmax; inset-inline-end: -14vmax;
   background: radial-gradient(circle, var(--av-c1) 0%, transparent 62%);
-  opacity: 0.30; animation: av-d1 44s ease-in-out infinite;
+  opacity: 0.42; animation: av-d1 44s ease-in-out infinite;
 }
 .av__blob--2 {
   width: 66vmax; height: 66vmax; top: 6vmax; inset-inline-start: -24vmax;
   background: radial-gradient(circle, var(--av-c2) 0%, transparent 62%);
-  opacity: 0.24; animation: av-d2 58s ease-in-out infinite; animation-delay: -12s;
+  opacity: 0.34; animation: av-d2 58s ease-in-out infinite; animation-delay: -12s;
 }
 .av__blob--3 {
   width: 54vmax; height: 54vmax; bottom: -20vmax; inset-inline-end: 4vmax;
   background: radial-gradient(circle, var(--av-c3) 0%, transparent 62%);
-  opacity: 0.20; animation: av-d3 70s ease-in-out infinite; animation-delay: -26s;
+  opacity: 0.29; animation: av-d3 70s ease-in-out infinite; animation-delay: -26s;
 }
 .av__blob--4 {
   width: 48vmax; height: 48vmax; bottom: 2vmax; inset-inline-start: 8vmax;
   background: radial-gradient(circle, var(--av-c4) 0%, transparent 64%);
-  opacity: 0.16; animation: av-d4 80s ease-in-out infinite; animation-delay: -38s;
+  opacity: 0.24; animation: av-d4 80s ease-in-out infinite; animation-delay: -38s;
 }
 
 /* the living core: a slowly rotating multi-hue conic halo (continuous
@@ -84,7 +84,7 @@
     transparent 360deg);
   filter: blur(80px);
   mix-blend-mode: var(--av-blend);
-  opacity: 0.13;
+  opacity: 0.18;
   will-change: transform;
   animation: av-spin 150s linear infinite;
 }
@@ -103,7 +103,7 @@
 /* edge vignette to focus the centre */
 .av__vig {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 38%, transparent 42%, rgba(0, 0, 0, 0.5) 100%);
+  background: radial-gradient(ellipse at 50% 38%, transparent 46%, rgba(0, 0, 0, 0.42) 100%);
 }
 
 @keyframes av-d1 {
