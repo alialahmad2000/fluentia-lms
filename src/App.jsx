@@ -41,7 +41,8 @@ const StudentPeerRecognition = lazyRetry(() => import('./pages/student/StudentPe
 const StudentActivityFeed = lazyRetry(() => import('./pages/student/StudentActivityFeed'))
 const StudentGroupChat = lazyRetry(() => import('./pages/student/StudentGroupChat'))
 const StudentMessages = lazyRetry(() => import('./pages/student/StudentMessages'))
-const GroupChatLanding = lazyRetry(() => import('./features/chat/pages/GroupChatLanding'))
+const ChatHome = lazyRetry(() => import('./features/chat/pages/ChatHome'))
+const DMChatPage = lazyRetry(() => import('./features/chat/pages/DMChatPage'))
 const GroupChatPage = lazyRetry(() => import('./features/chat/pages/GroupChatPage'))
 const StudentChatbot = lazyRetry(() => import('./pages/student/StudentChatbot'))
 const StudentVocabulary = lazyRetry(() => import('./pages/student/StudentVocabulary'))
@@ -655,7 +656,8 @@ export default function App() {
           <Route element={<ProtectedRoute allowedRoles={['student','trainer','admin']} />}>
             <Route element={<StudentStatusGuard />}>
               <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
-                <Route path="/chat" element={<Page><GroupChatLanding /></Page>} />
+                <Route path="/chat" element={<Page><ChatHome /></Page>} />
+                <Route path="/chat/dm/:threadId" element={<Page><DMChatPage /></Page>} />
                 <Route path="/chat/:groupId" element={<Page><GroupChatPage /></Page>} />
                 <Route path="/chat/:groupId/:channelSlug" element={<Page><GroupChatPage /></Page>} />
                 <Route path="/chat/:groupId/:channelSlug/m/:messageId" element={<Page><GroupChatPage /></Page>} />

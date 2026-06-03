@@ -1,7 +1,17 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, MoreVertical } from 'lucide-react'
+import { Search, MoreVertical, ChevronRight } from 'lucide-react'
 import { fadeRise } from '../../lib/motion'
 import ActiveUsersDots from './ActiveUsersDots'
+
+function BackBtn({ onBack }) {
+  return (
+    <button onClick={onBack} aria-label="رجوع"
+      className="rounded-full flex items-center justify-center shrink-0 transition-colors hover:bg-[var(--ds-surface-1)]"
+      style={{ width: 36, height: 36, color: 'var(--ds-text-secondary)' }}>
+      <ChevronRight size={22} />
+    </button>
+  )
+}
 
 const glass = {
   background: 'color-mix(in srgb, var(--ds-bg-elevated) 62%, transparent)',
@@ -27,6 +37,7 @@ export default function StreamHeader({
   groupId,
   onlineUserIds = [],
   onSearchOpen,
+  onBack,
   isTrainer = false,
   collapsed = false,
 }) {
@@ -47,6 +58,7 @@ export default function StreamHeader({
             className="flex items-center justify-between py-2"
           >
             <div className="flex items-center gap-2">
+              {onBack && <BackBtn onBack={onBack} />}
               <GroupAvatar initial={initial} size={28} grad={grad} glow={glow} />
               <span
                 className="font-bold text-[var(--ds-text-primary)]"
@@ -67,6 +79,7 @@ export default function StreamHeader({
             className="flex items-start justify-between py-3"
           >
             <div className="flex items-center gap-3">
+              {onBack && <BackBtn onBack={onBack} />}
               <GroupAvatar initial={initial} size={40} grad={grad} glow={glow} />
               <div>
                 <p
@@ -77,7 +90,7 @@ export default function StreamHeader({
                 </p>
                 <div className="flex items-center gap-2 mt-0.5">
                   {onlineUserIds.length > 0 ? (
-                    <OnlineChip count={onlineUserIds.length} />
+                    <ActiveUsersDots userIds={onlineUserIds} />
                   ) : (
                     <span className="text-[12px]" style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-muted)' }}>
                       محادثة المجموعة

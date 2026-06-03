@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthProfile } from '../../../../stores/authStore'
 import { useUnifiedMessages } from '../../queries/useUnifiedMessages'
+import { useDMMessages, useDMMarkRead } from '../../queries/useDM'
 import { useMarkRead } from '../../mutations/useMarkRead'
 import DaySeparator from './DaySeparator'
 import MessageGroupPremium from './MessageGroupPremium'
@@ -108,10 +109,12 @@ export default function UnifiedMessageStream({
   lens = 'all',
   deepLinkMessageId,
   generalChannelId,
+  dmThreadId,            // when set → DM mode (data from group_messages via dm_thread_id)
   onScroll,
   onReply,
   onEdit,
 }) {
+  const isDM = !!dmThreadId
   const profile = useAuthProfile()
   const virtuosoRef = useRef(null)
   const [atBottom, setAtBottom] = useState(true)
@@ -119,10 +122,13 @@ export default function UnifiedMessageStream({
   const prevLenRef = useRef(0)
   const mountedAtRef = useRef(Date.now()) // only messages arriving AFTER this animate (no scroll strobe)
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useUnifiedMessages(groupId, lens)
+  // Both hooks run unconditionally (hooks rule); each is disabled when not its mode.
+  const groupQuery = useUnifiedMessages(isDM ? undefined : groupId, lens)
+  const dmQuery = useDMMessages(isDM ? dmThreadId : undefined)
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = isDM ? dmQuery : groupQuery
 
-  const { markMessageRead } = useMarkRead(generalChannelId)
+  const { markMessageRead } = useMarkRead(isDM ? undefined : generalChannelId)
+  const markDMRead = useDMMarkRead(isDM ? dmThreadId : undefined)
 
   // Capture the read cursor ONCE per visit → stable "new messages" divider.
   const { data: unreadAfter } = useQuery({
@@ -147,8 +153,8 @@ export default function UnifiedMessageStream({
     [data]
   )
   const items = useMemo(
-    () => (lens === 'all' ? buildItems(messages, { unreadAfter, myId: profile?.id }) : buildItems(messages)),
-    [messages, unreadAfter, profile?.id, lens]
+    () => (!isDM && lens === 'all' ? buildItems(messages, { unreadAfter, myId: profile?.id }) : buildItems(messages)),
+    [messages, unreadAfter, profile?.id, lens, isDM]
   )
 
   // Track new-message count while scrolled up
@@ -162,11 +168,12 @@ export default function UnifiedMessageStream({
   // Mark newest read when viewing the bottom of the stream
   useEffect(() => {
     if (!atBottom || !messages.length) return
+    if (isDM) { markDMRead(); return }
     const newest = messages[messages.length - 1]
     if (newest && newest.sender_id !== profile?.id && !String(newest.id).startsWith('optimistic')) {
       markMessageRead(newest.id)
     }
-  }, [atBottom, messages.length, profile?.id, markMessageRead])
+  }, [atBottom, messages.length, profile?.id, markMessageRead, isDM, markDMRead])
 
   // Deep-link scroll
   useEffect(() => {

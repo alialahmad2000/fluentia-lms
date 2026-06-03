@@ -35,18 +35,15 @@ function isSubsequence(q, text) {
 // Rank a member against the normalised query. Lower score = stronger match.
 // surname-start (0) > name-start (1) > word-start (2) > substring (3) > subsequence (4).
 // Returns null when there is no match at all.
+function memberName(member) {
+  return (member?.full_name || member?.display_name || '').trim()
+}
 function rankMember(member, q) {
-  const full = normalize(
-    `${member.first_name_ar ?? ''} ${member.last_name_ar ?? ''}`,
-  )
-  const first = normalize(member.first_name_ar)
-  const last = normalize(member.last_name_ar)
+  const full = normalize(memberName(member))
   const words = full.split(/\s+/).filter(Boolean)
-
   if (!q) return 2 // no filter → neutral, keep input order (trainer pin still applies)
-
-  if (last && last.startsWith(q)) return 0
-  if (first && first.startsWith(q)) return 1
+  if (words.length && words[words.length - 1].startsWith(q)) return 0 // surname start
+  if (words.length && words[0].startsWith(q)) return 1                // first-name start
   if (words.some((w) => w.startsWith(q))) return 2
   if (full.includes(q)) return 3
   if (isSubsequence(q, full)) return 4
@@ -118,14 +115,14 @@ export default function MentionPicker({ groupId, filter, onSelect, onDismiss }) 
         supabase
           .from('students')
           .select(
-            'id, profiles:profiles!inner(id, first_name_ar, last_name_ar, avatar_url)',
+            'id, profiles:profiles!inner(id, full_name, display_name, avatar_url)',
           )
           .eq('group_id', groupId)
           .eq('status', 'active'),
         supabase
           .from('groups')
           .select(
-            'trainer_id, trainer:profiles!trainer_id(id, first_name_ar, last_name_ar, avatar_url)',
+            'trainer_id, trainer:profiles!trainer_id(id, full_name, display_name, avatar_url)',
           )
           .eq('id', groupId)
           .maybeSingle(),
@@ -162,13 +159,7 @@ export default function MentionPicker({ groupId, filter, onSelect, onDismiss }) 
         const bt = b.member.role === 'trainer' ? 0 : 1
         if (at !== bt) return at - bt
         if (a.rank !== b.rank) return a.rank - b.rank
-        const an = normalize(
-          `${a.member.first_name_ar ?? ''} ${a.member.last_name_ar ?? ''}`,
-        )
-        const bn = normalize(
-          `${b.member.first_name_ar ?? ''} ${b.member.last_name_ar ?? ''}`,
-        )
-        return an.localeCompare(bn, 'ar')
+        return normalize(memberName(a.member)).localeCompare(normalize(memberName(b.member)), 'ar')
       })
       .map((x) => x.member)
   }, [members, filter])
@@ -256,7 +247,7 @@ export default function MentionPicker({ groupId, filter, onSelect, onDismiss }) 
       {!loading &&
         filtered.map((member, idx) => {
           const color = senderColor(member.id)
-          const name = `${member.first_name_ar ?? ''} ${member.last_name_ar ?? ''}`.trim()
+          const name = memberName(member)
           const isTrainer = member.role === 'trainer'
           const isActive = idx === activeIdx
 

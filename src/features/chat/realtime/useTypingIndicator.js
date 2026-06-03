@@ -23,7 +23,7 @@ export function useTypingIndicator(channelId) {
 
       setTypers((prev) => {
         const without = prev.filter((t) => t.userId !== payload.userId)
-        return [...without, { userId: payload.userId, name: payload.name }]
+        return [...without, { userId: payload.userId, name: payload.name, avatar: payload.avatar }]
       })
 
       if (decayTimers.current[payload.userId]) {
@@ -52,7 +52,7 @@ export function useTypingIndicator(channelId) {
     channelRef.current.send({
       type: 'broadcast',
       event: 'typing',
-      payload: { userId: profile.id, name: profile.first_name_ar },
+      payload: { userId: profile.id, name: profile.display_name || profile.full_name || 'شخص', avatar: profile.avatar_url || null },
     })
   }, [profile])
 
@@ -64,5 +64,5 @@ export function useTypingIndicator(channelId) {
         ? `${typers[0].name} و ${typers[1].name} يكتبون...`
         : `${typers.length} أشخاص يكتبون...`
 
-  return { broadcastTyping, typingText }
+  return { broadcastTyping, typingText, typers }
 }

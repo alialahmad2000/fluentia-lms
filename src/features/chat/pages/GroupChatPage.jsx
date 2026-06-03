@@ -2,7 +2,7 @@
 // Rendered as a fixed app-panel (.chat-shell) anchored to the layout CSS vars
 // so it can never overlap the header / sidebar / mobile-nav on any device.
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useAuthProfile } from '../../../stores/authStore'
 import { useGroupChannels } from '../queries/useGroupChannels'
 import { usePresence } from '../realtime/usePresence'
@@ -19,6 +19,7 @@ import '../premium.css'
 export default function GroupChatPage() {
   // All hooks at top — before any conditional logic
   const { groupId, messageId } = useParams()
+  const navigate = useNavigate()
   const profile = useAuthProfile()
   const [searchOpen, setSearchOpen] = useState(false)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
@@ -106,6 +107,7 @@ export default function GroupChatPage() {
           groupId={groupId}
           onlineUserIds={onlineUserIds}
           onSearchOpen={() => setSearchOpen(true)}
+          onBack={() => navigate('/chat')}
           isTrainer={isTrainer}
           collapsed={headerCollapsed}
         />

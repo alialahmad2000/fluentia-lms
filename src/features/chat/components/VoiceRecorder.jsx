@@ -51,7 +51,7 @@ function formatSec(s) {
   return `${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`
 }
 
-export default function VoiceRecorder({ channelId, groupId, onDone }) {
+export default function VoiceRecorder({ channelId, groupId, dmThreadId, onDone }) {
   const [phase, setPhase] = useState('idle') // idle | recording | preview | uploading
   const [elapsed, setElapsed] = useState(0)
   const [locked, setLocked] = useState(false)
@@ -68,7 +68,7 @@ export default function VoiceRecorder({ channelId, groupId, onDone }) {
   const startTimeRef = useRef(0)
   const audioCtxRef = useRef(null)
 
-  const upload = useUploadVoice(channelId, groupId)
+  const upload = useUploadVoice(channelId, groupId, dmThreadId)
 
   const startRecording = useCallback(async () => {
     try {

@@ -6,10 +6,12 @@ import { createPortal } from 'react-dom'
 import { Send, Paperclip, Image, Mic, Megaphone, X, Pencil } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSendMessage } from '../../mutations/useSendMessage'
+import { useSendDM } from '../../queries/useDM'
 import { useEditMessage } from '../../mutations/useEditMessage'
 import { uploadChatFile, uploadChatImage } from '../../../../lib/chatStorage'
 import VoiceRecorder from '../VoiceRecorder'
 import MentionPicker from './MentionPicker'
+import SenderAvatar from './SenderAvatar'
 import { senderColor } from '../../lib/senderColors'
 import { useGroupAnnouncementChannel } from '../../queries/useGroupGeneralChannel'
 import { useTypingIndicator } from '../../realtime/useTypingIndicator'
@@ -32,7 +34,9 @@ export default function PremiumComposer({
   onClearReply,
   editing,
   onClearEdit,
+  dmThreadId,
 }) {
+  const isDM = !!dmThreadId
   const profile = useAuthProfile()
   const [input, setInput] = useState('')
   const [uploading, setUploading] = useState(false)
@@ -46,10 +50,12 @@ export default function PremiumComposer({
   const imageRef = useRef(null)
   const editingIdRef = useRef(null)
 
-  const sendMessage = useSendMessage(generalChannelId, groupId)
+  const groupSend = useSendMessage(generalChannelId, groupId)
+  const dmSend = useSendDM(isDM ? dmThreadId : undefined)
+  const sendMessage = isDM ? dmSend : groupSend
   const editMessage = useEditMessage(generalChannelId)
-  const { broadcastTyping, typingText } = useTypingIndicator(generalChannelId)
-  const { data: announcementChannel } = useGroupAnnouncementChannel(groupId)
+  const { broadcastTyping, typers } = useTypingIndicator(isDM ? `dm:${dmThreadId}` : generalChannelId)
+  const { data: announcementChannel } = useGroupAnnouncementChannel(isDM ? undefined : groupId)
 
   // Prefill once when entering edit mode
   useEffect(() => {
@@ -63,7 +69,7 @@ export default function PremiumComposer({
 
   function detectMentionContext() {
     const ta = textareaRef.current
-    if (!ta) return
+    if (!ta || isDM) return            // DMs are 1:1 — no @mentions
     const before = ta.value.slice(0, ta.selectionStart)
     const match = before.match(/@([\p{L}\p{M}]*)$/u)   // Arabic-aware @ trigger
     setMentionQuery(match ? { query: match[1], start: match.index } : null)
@@ -90,8 +96,7 @@ export default function PremiumComposer({
     const before = input.slice(0, mentionQuery.start)
     const after = input.slice(ta.selectionStart)
     // NBSP-join the name so a multi-word mention chips as ONE unit; trailing space ends it
-    const name = [member.first_name_ar, member.last_name_ar].filter(Boolean).join(' ')
-      || member.full_name || member.display_name || ''
+    const name = (member.full_name || member.display_name || '').trim().replace(/\s+/g, String.fromCharCode(160))
     setInput(`${before}@${name} ${after}`)
     setMentionQuery(null)
     setMentions((prev) => prev.find((m) => m.id === member.id) ? prev : [...prev, { id: member.id }])
@@ -105,7 +110,7 @@ export default function PremiumComposer({
 
   async function handleSend() {
     const text = input.trim()
-    if (!text || !generalChannelId) return
+    if (!text || (isDM ? !dmThreadId : !generalChannelId)) return
 
     if (editing) {
       const target = editing
@@ -138,7 +143,7 @@ export default function PremiumComposer({
     const file = e.target.files?.[0]; if (!file) return
     setUploading(true)
     try {
-      const path = await uploadChatImage(file, groupId)
+      const path = await uploadChatImage(file, isDM ? `dm/${dmThreadId}` : groupId)
       const img = new window.Image(); img.src = URL.createObjectURL(file)
       await new Promise((res) => { img.onload = res })
       await sendMessage.mutateAsync({ type: 'image', image_url: path, image_width: img.naturalWidth, image_height: img.naturalHeight })
@@ -149,30 +154,32 @@ export default function PremiumComposer({
     const file = e.target.files?.[0]; if (!file) return
     setUploading(true)
     try {
-      const path = await uploadChatFile(file, groupId)
+      const path = await uploadChatFile(file, isDM ? `dm/${dmThreadId}` : groupId)
       await sendMessage.mutateAsync({ type: 'file', file_url: path, file_name: file.name, file_size: file.size, file_mime: file.type })
     } catch (err) { console.error(err) } finally { setUploading(false); e.target.value = '' }
   }
 
-  const canSend = !!input.trim() && !!generalChannelId && !sendMessage.isPending && !editMessage.isPending && !uploading
-  const isLoading = !generalChannelId
+  const canSend = !!input.trim() && (isDM ? !!dmThreadId : !!generalChannelId) && !sendMessage.isPending && !editMessage.isPending && !uploading
+  const isLoading = isDM ? !dmThreadId : !generalChannelId
 
   return (
     <div style={{ ...glass, direction: 'rtl' }}>
-      {/* Typing bubble */}
+      {/* Typing bubble — typer's avatar + animated colored dots */}
       <AnimatePresence>
-        {typingText && (
+        {typers && typers.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }}
-            className="flex items-center gap-2 px-5 pt-2"
+            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }}
+            className="flex items-center gap-2 px-4 pt-2.5" style={{ direction: 'rtl' }}
           >
-            <span className="flex items-center gap-0.5">
+            <SenderAvatar sender={{ full_name: typers[0].name, avatar_url: typers[0].avatar }} senderId={typers[0].userId} size={26} />
+            <div className="flex items-center gap-1 px-3 py-2"
+              style={{ background: 'color-mix(in srgb, var(--ds-bg-elevated) 76%, transparent)', border: '1px solid var(--ds-border-subtle)', borderRadius: '14px 14px 14px 5px' }}>
               {[0, 1, 2].map((i) => (
                 <span key={i} className="chat-typing-dot w-1.5 h-1.5 rounded-full"
-                  style={{ background: 'var(--ds-accent-primary)', animationDelay: `${i * 0.15}s` }} />
+                  style={{ background: senderColor(typers[0].userId).base, animationDelay: `${i * 0.15}s` }} />
               ))}
-            </span>
-            <span className="text-xs" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-muted)' }}>{typingText}</span>
+            </div>
+            {typers.length > 1 && <span className="text-[11px]" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-muted)' }}>+{typers.length - 1}</span>}
           </motion.div>
         )}
       </AnimatePresence>
@@ -227,14 +234,14 @@ export default function PremiumComposer({
           <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
 
           {voiceMode ? (
-            <VoiceRecorder channelId={generalChannelId} groupId={groupId} onDone={() => setVoiceMode(false)} />
+            <VoiceRecorder channelId={generalChannelId} groupId={groupId} dmThreadId={dmThreadId} onDone={() => setVoiceMode(false)} />
           ) : (
             <>
               {/* Attachments + announcement */}
               <div className="flex gap-0.5 pb-0.5">
                 <ActionIcon label="صورة" onClick={() => imageRef.current?.click()} disabled={uploading}><Image size={20} /></ActionIcon>
                 <ActionIcon label="ملف" onClick={() => fileRef.current?.click()} disabled={uploading}><Paperclip size={20} /></ActionIcon>
-                {isTrainer && (
+                {isTrainer && !isDM && (
                   <ActionIcon label="إعلان للجميع" gold onClick={() => setAnnouncementOpen(true)}>
                     <Megaphone size={20} />
                   </ActionIcon>
@@ -309,8 +316,8 @@ export default function PremiumComposer({
         </div>
       )}
 
-      {/* Announcement sheet (trainer/admin) */}
-      {isTrainer && (
+      {/* Announcement sheet (trainer/admin, groups only) */}
+      {isTrainer && !isDM && (
         <AnnouncementSheet
           open={announcementOpen}
           onClose={() => setAnnouncementOpen(false)}
