@@ -10,16 +10,18 @@ import { Palette, X } from 'lucide-react'
  * ------------------------------------------------------------------ */
 
 const OPTIONS = [
-  { key: 'default', label: 'الأساسي' },
+  { key: 'default', label: 'التركيز' }, // the default is now Today Spotlight
   { key: 'journey', label: 'المسار' },
-  { key: 'spotlight', label: 'التركيز' },
   { key: 'observatory', label: 'المرصد' },
+  { key: 'deck', label: 'اللوحة' }, // the previous Command Deck bento
 ]
 
 export default function DashboardDesignSwitcher() {
   const [params, setParams] = useSearchParams()
   const [open, setOpen] = useState(true)
-  const current = params.get('design') || 'default'
+  const raw = params.get('design')
+  // default (no param) and the explicit 'spotlight' alias both mean the default.
+  const current = !raw || raw === 'spotlight' ? 'default' : raw
 
   const choose = (key) => {
     const next = new URLSearchParams(params)

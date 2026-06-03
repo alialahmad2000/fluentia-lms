@@ -11,15 +11,14 @@ import SpotlightDashboard from './dashboards/SpotlightDashboard'
 import ObservatoryDashboard from './dashboards/ObservatoryDashboard'
 import DashboardDesignSwitcher from './dashboards/DashboardDesignSwitcher'
 
-// Thin switch. Production students (no ?design) see the default dashboard
-// (currently the "Command Deck" PremiumDashboard) — full real data wiring
-// through a premium presentation layer.
+// Thin switch. Production students (no ?design) see the DEFAULT dashboard,
+// now the "Today Spotlight" (التركيز) — chosen by the owner 2026-06-03.
 //
-// CREATIVE-STRUCTURE PREVIEWS (each a different page *structure*, real data):
-//   ?design=journey      → Journey Map  (the dashboard is a learning path)
-//   ?design=spotlight    → Today Spotlight (one focus mission + collapsibles)
-//   ?design=observatory  → Observatory  (centered level-ring command center)
-// Once one is chosen, set it as the `default` below to ship it to everyone.
+// STRUCTURE VARIANTS (each a different page *structure*, all on real data):
+//   (no param) / ?design=spotlight → Today Spotlight  (DEFAULT — focus-first)
+//   ?design=journey               → Journey Map  (the dashboard is a path)
+//   ?design=observatory           → Observatory  (centered command center)
+//   ?design=deck | premium        → the previous "Command Deck" bento
 //
 // Escape hatches for evaluation / rollback (all reachable, nothing lost):
 //   ?design=original | classic  → the previous plain dashboard (1:1 rollback)
@@ -57,14 +56,16 @@ export default function StudentDashboard() {
     case 'journey':
       variantEl = <JourneyDashboard />
       break
-    case 'spotlight':
-      variantEl = <SpotlightDashboard />
-      break
     case 'observatory':
       variantEl = <ObservatoryDashboard />
       break
-    default:
+    case 'deck':
+    case 'premium':
       variantEl = <PremiumDashboard />
+      break
+    case 'spotlight':
+    default:
+      variantEl = <SpotlightDashboard />
   }
 
   return (

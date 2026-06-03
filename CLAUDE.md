@@ -312,6 +312,9 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — DASHBOARD DEFAULT → "Today Spotlight" (التركيز)
+- Owner chose the focus-first structure. `StudentDashboard.jsx` default (no `?design`) now renders `SpotlightDashboard` for ALL students. The previous "Command Deck" bento stays reachable via `?design=deck|premium`; `journey`/`observatory` unchanged. Switcher chips updated (التركيز=default, اللوحة=old deck; the `spotlight` alias still maps to default). Verified headless: `/student` renders the Spotlight hero, no crash. Cherry-picked to main (2 files, no conflicts) → production.
+
 ### 2026-06-03 — DASHBOARD: on-screen design switcher (no URL editing)
 - Owner wanted to flip between the 4 dashboard structures from the UI, not by editing `?design=`. Added `src/pages/student/dashboards/DashboardDesignSwitcher.jsx` — a floating, collapsible glass pill (Palette icon + chips الأساسي/المسار/التركيز/المرصد) that sets the `?design=` param via `setSearchParams`. Wired into `StudentDashboard.jsx` and gated to **staff/owner only**: shows when impersonating (real role via `_realProfile`), when the real account is admin/trainer, or on a `is_test_account` login — NEVER for real students. Cherry-picked onto main (2 files, no conflicts). Verified: chips render + tapping switches the live view and URL.
 
