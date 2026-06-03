@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, Loader2, Check, Plus, X } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
 import { pronounceWord } from '@/lib/audio/pronounceWord'
+import { addCard } from '@/services/vocab'
 
 const POPUP_W = 320
 const MARGIN = 16
@@ -84,21 +84,26 @@ export default function WordPopup({ word, vocabRow, anchorRect, studentId, unitI
   }, [onClose])
 
   const handleSave = async () => {
-    if (saved || saving) return
+    if (saved || saving || !studentId) return
     setSaving(true)
     try {
-      const { error } = await supabase
-        .from('student_saved_words')
-        .insert({
-          student_id: studentId,
-          word,
-          meaning: vocabRow?.definition_ar || fallback.ar || null,
-          source_unit_id: unitId || null,
-          curriculum_vocabulary_id: vocabRow?.id || null,
-          source: 'reading',
-        })
-        .select()
-      if (!error) setSaved(true)
+      // Unified vocab store — the single save path. Idempotently creates (or
+      // enriches) a reviewable vocab_cards row so reading-saved words become
+      // reviewable in the standalone vocabulary experience.
+      await addCard(studentId, {
+        word,
+        curriculumVocabularyId: vocabRow?.id || null,
+        meaningAr: vocabRow?.definition_ar || fallback.ar || null,
+        contextSentence: vocabRow?.example_sentence || null,
+        source: 'reading',
+      })
+      setSaved(true)
+      try {
+        window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word } }))
+      } catch { /* no-op */ }
+    } catch {
+      // Keep the popup quiet on failure (no toast surface here) — button stays
+      // in its "save" state so the student can retry.
     } finally {
       setSaving(false)
     }

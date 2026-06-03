@@ -342,7 +342,7 @@ function FillBlankExercise({ words, onComplete, onBack }) {
                 className="w-full px-3 py-2 rounded-lg text-sm font-['Inter'] bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-sky-500/50 outline-none transition-colors"
               />
               {!submitted && i === 0 && (
-                <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
+                <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
                   اكتب الكلمة الناقصة فقط — لا تعيد كتابة الجملة كاملة
                 </p>
               )}
@@ -372,6 +372,7 @@ function ChooseExercise({ words, allWords, onComplete, onBack }) {
   const [score, setScore] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [finished, setFinished] = useState(false)
+  const [finalScore, setFinalScore] = useState(0)
 
   const current = items[currentIdx]
   const options = useMemo(() => {
@@ -394,9 +395,12 @@ function ChooseExercise({ words, allWords, onComplete, onBack }) {
         setCurrentIdx(i => i + 1)
         setSelectedAnswer(null)
       } else {
+        // `score` state hasn't flushed the final answer yet — compute it here
+        // so the finished screen and onComplete report the same value.
+        const computed = score + (opt.correct ? 1 : 0)
+        setFinalScore(computed)
         setFinished(true)
-        const finalScore = score + (opt.correct ? 1 : 0)
-        setTimeout(() => onComplete({ score: finalScore, maxScore: items.length }), 800)
+        setTimeout(() => onComplete({ score: computed, maxScore: items.length }), 800)
       }
     }, 1000)
   }
@@ -406,7 +410,7 @@ function ChooseExercise({ words, allWords, onComplete, onBack }) {
       <div className="text-center py-8 space-y-3">
         <p className="text-3xl">🌟</p>
         <p className="text-lg font-bold font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>
-          حصلت على {score + (selectedAnswer && items[currentIdx] && options.find(o => o.id === selectedAnswer)?.correct ? 0 : 0)}/{items.length}
+          حصلت على {finalScore}/{items.length}
         </p>
       </div>
     )
@@ -665,7 +669,7 @@ function SubmitButton({ onClick, label = 'تحقق من الإجابات', small
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={onClick}
-        className={`${small ? 'px-4 py-2 text-xs' : 'px-6 py-3 text-sm'} rounded-xl font-bold font-['Tajawal'] text-white bg-sky-500 hover:bg-sky-600 transition-colors min-h-[44px]`}
+        className={`${small ? 'px-4 py-2 text-xs' : 'px-6 py-3 text-sm'} rounded-xl font-bold font-['Tajawal'] text-sky-300 bg-sky-500/10 border border-sky-500/25 hover:bg-sky-500/15 transition-colors min-h-[44px]`}
       >
         {label}
       </motion.button>

@@ -1,4 +1,4 @@
-import { useCallback, memo } from 'react'
+import { useCallback, memo, useMemo } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
@@ -10,6 +10,8 @@ import { hasIELTSAccess } from '@/lib/packageAccess'
 import { toast } from '@/components/ui/FluentiaToast'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { getHardWordsCount } from '@/services/hardWords'
+import { getDueCount } from '@/services/vocab'
+import { toArabicNum } from '@/lib/vocabFormat'
 import { supabase } from '@/lib/supabase'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin' }
@@ -59,6 +61,19 @@ function Sidebar({ nav, collapsed, onToggle }) {
     enabled: !!profileId && role === 'student',
     staleTime: 60_000,
   })
+
+  // "X words due" daily-return badge — same unified count the review surface shows.
+  const { data: vocabDueCount = 0 } = useQuery({
+    queryKey: ['vocab-due-badge', profileId],
+    queryFn: () => getDueCount(profileId),
+    enabled: !!profileId && role === 'student',
+    staleTime: 30_000,
+    refetchOnWindowFocus: true,
+  })
+  const badgeCounts = useMemo(
+    () => ({ 'srs-due': vocabDueCount, 'hard-words-count': hardWordsCount }),
+    [vocabDueCount, hardWordsCount]
+  )
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -243,10 +258,30 @@ function Sidebar({ nav, collapsed, onToggle }) {
                         />
                       </span>
                       {!collapsed && (
-                        <span className={`text-[14px] truncate font-['Tajawal'] ${active ? 'font-bold' : 'font-medium'}`}>
+                        <span className={`text-[14px] truncate font-['Tajawal'] flex-1 min-w-0 ${active ? 'font-bold' : 'font-medium'}`}>
                           {item.label}
                         </span>
                       )}
+
+                      {/* daily-return badge (e.g. "X words due") — same unified count the review surface shows */}
+                      {item.showBadge && badgeCounts[item.badgeSource] > 0 &&
+                        (collapsed ? (
+                          <span
+                            className="absolute top-2 right-2 w-2 h-2 rounded-full"
+                            style={{ background: '#818cf8', boxShadow: '0 0 6px rgba(129,140,248,0.7)' }}
+                          />
+                        ) : (
+                          <span
+                            className="shrink-0 min-w-[20px] h-5 px-1.5 rounded-full text-[11px] font-bold flex items-center justify-center tabular-nums"
+                            style={{
+                              background: 'rgba(129,140,248,0.16)',
+                              color: '#a5b4fc',
+                              border: '1px solid rgba(129,140,248,0.32)',
+                            }}
+                          >
+                            {badgeCounts[item.badgeSource] > 99 ? '٩٩+' : toArabicNum(badgeCounts[item.badgeSource])}
+                          </span>
+                        ))}
                     </NavLink>
                   )
                 })}

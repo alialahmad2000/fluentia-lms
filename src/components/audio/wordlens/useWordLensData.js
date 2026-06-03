@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
+import { addCard } from '../../../services/vocab'
 
 // Tier-fallback lookup.
 //
@@ -79,11 +80,12 @@ export function useWordLensData({ word, readingId, unitId, studentId, contextSen
     queryKey: ['wordlens-saved', studentId, lowerWord],
     queryFn: async () => {
       if (!studentId || !lowerWord) return null
+      // Unified store: a word is "saved" once it has a vocab_cards row.
       const { data, error } = await supabase
-        .from('student_saved_words')
+        .from('vocab_cards')
         .select('id')
         .eq('student_id', studentId)
-        .eq('word', lowerWord)
+        .eq('word_normalized', lowerWord)
         .maybeSingle()
       if (error) return null
       return data?.id || null
@@ -95,27 +97,16 @@ export function useWordLensData({ word, readingId, unitId, studentId, contextSen
   const saveMutation = useMutation({
     mutationFn: async () => {
       if (!studentId || !lowerWord) throw new Error('missing studentId/word')
-      const meaning = lookup.data?.meaning_ar || null
-      const payload = {
-        student_id: studentId,
+      // Unified vocab store — the single save path. Idempotent + dedupes per
+      // student+word, and makes the word reviewable in the standalone vocab UX.
+      // (Throws on RLS/error so the WordLens error toast still fires.)
+      return await addCard(studentId, {
         word: lowerWord,
-        meaning,
-        source: 'reading_passage',
-        source_unit_id: unitId || null,
-        source_reference: readingId || null,
-        context_sentence: contextSentence || null,
-        curriculum_vocabulary_id: lookup.data?.curriculum_vocabulary_id || null,
-        next_review_at: new Date().toISOString(),
-      }
-      // MEGA-FIX V2 Phase E: .select() after upsert so RLS failures surface
-      // instead of silently dropping ("save click did nothing").
-      const { data, error } = await supabase
-        .from('student_saved_words')
-        .upsert(payload, { onConflict: 'student_id,word' })
-        .select()
-      if (error) throw error
-      if (!data || data.length === 0) throw new Error('save_returned_no_rows')
-      return data[0]
+        curriculumVocabularyId: lookup.data?.curriculum_vocabulary_id || null,
+        meaningAr: lookup.data?.meaning_ar || null,
+        contextSentence: contextSentence || null,
+        source: 'reading',
+      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
@@ -129,10 +120,10 @@ export function useWordLensData({ word, readingId, unitId, studentId, contextSen
     mutationFn: async () => {
       if (!studentId || !lowerWord) throw new Error('missing studentId/word')
       const { error } = await supabase
-        .from('student_saved_words')
+        .from('vocab_cards')
         .delete()
         .eq('student_id', studentId)
-        .eq('word', lowerWord)
+        .eq('word_normalized', lowerWord)
       if (error) throw error
     },
     onSuccess: () => {

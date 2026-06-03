@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuthStudentData } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
+import { addCard } from '../../services/vocab'
 
 export default function SavedWordsPanel({ unitId, onClose }) {
   const studentData = useAuthStudentData()
@@ -15,51 +16,49 @@ export default function SavedWordsPanel({ unitId, onClose }) {
   const [search, setSearch] = useState('')
   const [expandedId, setExpandedId] = useState(null)
 
-  // Fetch all saved words
+  // Fetch all saved words from the unified store (reading + manual sources)
   const { data: words = [] } = useQuery({
     queryKey: ['saved-words', studentId],
     queryFn: async () => {
-      const { data } = await supabase
-        .from('student_saved_words')
-        .select('*, unit:source_unit_id(unit_number, theme_ar)')
+      const { data, error } = await supabase
+        .from('vocab_cards')
+        .select('id, word, meaning_ar, context_sentence, source, mastery_level, created_at')
         .eq('student_id', studentId)
+        .in('source', ['reading', 'manual'])
         .order('created_at', { ascending: false })
-      return data || []
+      if (error) {
+        console.warn('[SavedWordsPanel] load failed:', error.message)
+        return []
+      }
+      // Normalize to the shape the list renderer expects (meaning ← meaning_ar).
+      return (data || []).map((r) => ({ ...r, meaning: r.meaning_ar }))
     },
     enabled: !!studentId,
   })
 
-  // Add word
+  // Add word → unified store (idempotent; dedupes per student+word)
   const addMutation = useMutation({
     mutationFn: async ({ word, meaning }) => {
-      const { error } = await supabase.from('student_saved_words').insert({
-        student_id: studentId,
-        word,
-        meaning,
-        source_unit_id: unitId,
-      })
-      if (error) {
-        if (error.code === '23505') throw new Error('duplicate')
-        throw error
-      }
+      await addCard(studentId, { word, meaningAr: meaning, source: 'manual' })
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] })
       setNewWord('')
       setNewMeaning('')
       toast({ type: 'success', title: 'تم حفظ الكلمة' })
+      try {
+        window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word } }))
+      } catch { /* no-op */ }
     },
-    onError: (err) => {
-      if (err.message === 'duplicate') {
-        toast({ type: 'error', title: 'الكلمة محفوظة مسبقاً' })
-      }
+    onError: () => {
+      toast({ type: 'error', title: 'تعذّر حفظ الكلمة' })
     },
   })
 
   // Delete word
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
-      const { error } = await supabase.from('student_saved_words').delete().eq('id', id)
+      const { error } = await supabase.from('vocab_cards').delete().eq('id', id)
       if (error) throw error
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] }),

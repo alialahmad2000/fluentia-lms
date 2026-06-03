@@ -683,8 +683,10 @@ export default function App() {
               <Route path="/student/chat" element={<Page><StudentGroupChat /></Page>} />
               <Route path="/student/messages" element={<Page><StudentMessages /></Page>} />
               <Route path="/student/ai-chat" element={<Page><PackageRoute requiredPackage="talaqa" featureName="المساعد الذكي"><StudentChatbot /></PackageRoute></Page>} />
-              <Route path="/student/vocabulary" element={<Page><StudentVocabulary /></Page>} />
-              <Route path="/student/daily-review" element={<Page><DailyReview /></Page>} />
+              {/* Legacy vocab bank (vocabulary_bank table) retired → live "المفردات" page is /student/flashcards */}
+              <Route path="/student/vocabulary" element={<Navigate to="/student/flashcards" replace />} />
+              {/* Duplicate of the unified review surface → redirect to /student/srs */}
+              <Route path="/student/daily-review" element={<Navigate to="/student/srs" replace />} />
               <Route path="/student/srs" element={<Page><SrsHome /></Page>} />
               <Route path="/student/hard-words" element={<Page><HardWordsHome /></Page>} />
               <Route path="/student/level-exit-test/:levelId" element={<Page><LevelExitTest /></Page>} />
@@ -722,7 +724,8 @@ export default function App() {
               <Route path="/student/referral" element={<Page><StudentReferral /></Page>} />
               <Route path="/student/weekly-tasks" element={<Page><StudentWeeklyTasks /></Page>} />
               <Route path="/student/weekly-tasks/:id" element={<Page><StudentWeeklyTaskDetail /></Page>} />
-              <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
+              {/* Legacy StudentSpelling (spelling_words table) retired → /student/spelling-lab */}
+              <Route path="/student/spelling" element={<Navigate to="/student/spelling-lab" replace />} />
               <Route path="/student/spelling-lab" element={<Page><SpellingLab /></Page>} />
               <Route path="/student/verbs" element={<Page><IrregularVerbsPractice /></Page>} />
               <Route path="/student/writing-lab" element={<Page><ComingSoon featureName="معمل الكتابة" /></Page>} />

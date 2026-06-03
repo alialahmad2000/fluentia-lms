@@ -1,13 +1,10 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { X } from 'lucide-react'
 import { useAuthProfile } from '../../stores/authStore'
 import { useBodyLock } from '../../hooks/useBodyLock'
-import {
-  selectDrillBatch,
-  DRILL_MODE_AR,
-} from '../../services/hardWords'
+import { DRILL_MODE_AR, buildBatchFromCards } from './hardWordsBatch'
 import MatchingDrill from './MatchingDrill'
 import ContextFillDrill from './ContextFillDrill'
 import ListeningDrill from './ListeningDrill'
@@ -15,33 +12,38 @@ import TypingRecallDrill from './TypingRecallDrill'
 import HardWordsSessionComplete from './HardWordsSessionComplete'
 
 /**
- * Full-screen drill session.
+ * Full-screen drill session, scoped to the constellation world.
  * Props:
  *   mode: 'matching' | 'context_fill' | 'listening' | 'typing_recall'
- *   onClose: () => void   // close without finishing
+ *   cards: VocabCardWithContent[]   // hard cards from getHardWords (unified store)
+ *   onClose: () => void
+ *   autoplay: boolean
  */
-export default function DrillSessionContainer({ mode, onClose, autoplay = true }) {
+export default function DrillSessionContainer({ mode, cards, onClose, autoplay = true }) {
   const profile = useAuthProfile()
   const studentId = profile?.id
   const queryClient = useQueryClient()
-  const [sessionResult, setSessionResult] = useState(null) // set on complete
+  const [sessionResult, setSessionResult] = useState(null)
   const [closing, setClosing] = useState(false)
+  // Bump to reshape a fresh batch on "restart".
+  const [batchSeed, setBatchSeed] = useState(0)
 
   useBodyLock(true)
 
-  const { data: batch, isLoading, error } = useQuery({
-    queryKey: ['hard-words', 'drill-batch', studentId, mode],
-    queryFn: () => selectDrillBatch(studentId, mode),
-    enabled: !!studentId && !!mode,
-    staleTime: 0,
-    refetchOnWindowFocus: false,
-  })
+  // Build the batch from the unified-store cards (no extra fetch).
+  const batch = useMemo(
+    () => buildBatchFromCards(cards, mode),
+    // batchSeed forces a new shuffle/sample on restart
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [cards, mode, batchSeed]
+  )
 
   const handleComplete = useCallback(
     (result) => {
       setSessionResult(result)
-      // Invalidate dashboard queries so counts/breakdown refresh
+      // Refresh dashboard counts/cards + stats after a session.
       queryClient.invalidateQueries({ queryKey: ['hard-words'] })
+      queryClient.invalidateQueries({ queryKey: ['vocab-stats'] })
     },
     [queryClient]
   )
@@ -51,14 +53,10 @@ export default function DrillSessionContainer({ mode, onClose, autoplay = true }
     setTimeout(() => onClose?.(), 240)
   }, [onClose])
 
-  const handleBackToDashboard = useCallback(() => {
-    handleClose()
-  }, [handleClose])
-
   const handleRestart = useCallback(() => {
     setSessionResult(null)
-    queryClient.invalidateQueries({ queryKey: ['hard-words', 'drill-batch', studentId, mode] })
-  }, [queryClient, studentId, mode])
+    setBatchSeed((s) => s + 1)
+  }, [])
 
   const Drill = useMemo(() => {
     switch (mode) {
@@ -75,6 +73,8 @@ export default function DrillSessionContainer({ mode, onClose, autoplay = true }
     }
   }, [mode])
 
+  const hasWords = (batch?.primaryWords?.length ?? 0) > 0
+
   return (
     <AnimatePresence>
       {!closing && (
@@ -83,30 +83,26 @@ export default function DrillSessionContainer({ mode, onClose, autoplay = true }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[60] overflow-y-auto"
+          dir="rtl"
+          className="vocab-cosmos fixed inset-0 z-[60] overflow-y-auto"
           style={{
-            background: 'var(--bg-overlay, rgba(6,14,28,0.96))',
-            backdropFilter: 'blur(6px)',
+            background: 'radial-gradient(130% 85% at 50% -10%, var(--vc-field), var(--vc-void) 78%)',
           }}
         >
-          <div className="min-h-screen px-4 md:px-8 py-6 md:py-10 flex flex-col">
+          <div
+            className="min-h-[100dvh] px-4 md:px-8 py-6 md:py-10 flex flex-col"
+            style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 1.5rem)' }}
+          >
             {/* Header */}
             <div className="flex items-center justify-between max-w-3xl mx-auto w-full mb-6">
-              <h2
-                className="text-lg md:text-xl font-bold font-['Tajawal']"
-                style={{ color: 'var(--text-primary)' }}
-              >
+              <h2 className="text-lg md:text-xl font-bold" style={{ color: 'var(--vc-text)' }}>
                 {DRILL_MODE_AR[mode] || 'تدريب'}
               </h2>
               <button
                 type="button"
                 onClick={handleClose}
-                className="w-10 h-10 rounded-full flex items-center justify-center"
-                style={{
-                  background: 'var(--surface)',
-                  color: 'var(--text-secondary)',
-                  border: '1px solid var(--border)',
-                }}
+                className="vc-pill vc-card-hover"
+                style={{ padding: '0.55rem' }}
                 aria-label="إغلاق"
               >
                 <X size={18} />
@@ -115,20 +111,7 @@ export default function DrillSessionContainer({ mode, onClose, autoplay = true }
 
             {/* Body */}
             <div className="max-w-3xl mx-auto w-full flex-1">
-              {isLoading && <DrillSkeleton />}
-              {error && (
-                <div
-                  className="p-6 rounded-xl text-center font-['Tajawal']"
-                  style={{
-                    background: 'rgba(239,68,68,0.08)',
-                    color: 'rgb(239,68,68)',
-                    border: '1px solid rgba(239,68,68,0.25)',
-                  }}
-                >
-                  حدث خطأ أثناء تحميل التدريب. حاول مرة ثانية.
-                </div>
-              )}
-              {!isLoading && !error && batch && !sessionResult && Drill && (
+              {!sessionResult && hasWords && Drill && (
                 <Drill
                   batch={batch}
                   studentId={studentId}
@@ -139,31 +122,16 @@ export default function DrillSessionContainer({ mode, onClose, autoplay = true }
               {sessionResult && (
                 <HardWordsSessionComplete
                   result={sessionResult}
-                  onBack={handleBackToDashboard}
+                  onBack={handleClose}
                   onRestart={handleRestart}
                 />
               )}
-              {!isLoading && !error && batch && batch.primaryWords.length === 0 && !sessionResult && (
-                <div
-                  className="p-8 rounded-2xl text-center font-['Tajawal']"
-                  style={{
-                    background: 'var(--surface)',
-                    border: '1px solid var(--border)',
-                  }}
-                >
-                  <p className="text-base mb-4" style={{ color: 'var(--text-primary)' }}>
+              {!sessionResult && !hasWords && (
+                <div className="vc-card p-8 text-center">
+                  <p className="text-base mb-4" style={{ color: 'var(--vc-text)' }}>
                     ما عندك كلمات صعبة كافية لهذا التدريب الآن.
                   </p>
-                  <button
-                    type="button"
-                    onClick={handleBackToDashboard}
-                    className="px-5 py-2 rounded-xl font-bold"
-                    style={{
-                      background: 'var(--surface-raised)',
-                      color: 'var(--text-primary)',
-                      border: '1px solid var(--border)',
-                    }}
-                  >
+                  <button type="button" onClick={handleClose} className="vc-btn vc-btn-ghost">
                     عودة
                   </button>
                 </div>
@@ -173,25 +141,5 @@ export default function DrillSessionContainer({ mode, onClose, autoplay = true }
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
-
-function DrillSkeleton() {
-  return (
-    <div className="space-y-4">
-      <div
-        className="h-2 rounded-full"
-        style={{ background: 'var(--surface)' }}
-      />
-      <div className="grid grid-cols-2 gap-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="h-14 rounded-xl animate-pulse"
-            style={{ background: 'var(--surface)' }}
-          />
-        ))}
-      </div>
-    </div>
   )
 }

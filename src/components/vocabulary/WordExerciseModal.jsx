@@ -6,7 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { emitXP } from '../ui/XPFloater'
-import { applyRating, RATING } from '../../services/srs'
+import { recordExercise } from '../../services/vocab'
 import WordDetailModal from './WordDetailModal'
 
 function shuffle(arr) {
@@ -50,13 +50,14 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
   const handleExerciseComplete = async (exerciseKey, passed) => {
     if (!passed) return
 
-    // Route through FSRS: pass = Good. Creates the SRS row on first contact, otherwise advances state.
-    // Fail path lives in incrementAttempts (rating = Again).
+    // Unified store: record the exercise pass into vocab_cards (flags + mastery +
+    // schedules into review) so curriculum exercises feed words-known + review.
+    // (Replaces the old curriculum_vocabulary_srs bridge.) The per-exercise
+    // vocabulary_word_mastery row below is still the source of truth for unit UI.
     try {
-      await applyRating(word.id, RATING.GOOD, studentId)
+      await recordExercise(word.id, exerciseKey, { word: word.word, meaningAr: word.definition_ar })
     } catch (rerr) {
-      console.warn('[WordExercise] applyRating(Good) failed:', rerr?.message)
-      // Don't abort the mastery flow — the per-exercise mastery row below is the source of truth for UI.
+      console.warn('[WordExercise] recordExercise failed:', rerr?.message)
     }
 
     const fieldMap = {
@@ -115,8 +116,8 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
       }
 
       // Bonus XP if all 3 mastered.
-      // SRS entry creation no longer needed here — applyRating(Good) above already created/advanced
-      // the FSRS row on first exercise pass, with scheduling that respects difficulty + stability.
+      // recordExercise() above already created/advanced the unified vocab_cards
+      // row + scheduled the word into review on each exercise pass.
       if (updated?.mastery_level === 'mastered' && mastery?.mastery_level !== 'mastered') {
         await supabase.from('xp_transactions').insert({
           student_id: studentId,
@@ -159,13 +160,8 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
           last_practiced_at: new Date().toISOString(),
         }, { onConflict: 'student_id,vocabulary_id' })
     } catch {}
-
-    // Route wrong-answer through FSRS: rating = Again. Creates SRS row on first contact, or relearns.
-    try {
-      await applyRating(word.id, RATING.AGAIN, studentId)
-    } catch (rerr) {
-      console.warn('[WordExercise] applyRating(Again) failed:', rerr?.message)
-    }
+    // Wrong answers no longer bridge to the retired curriculum_vocabulary_srs.
+    // The unified store records progress on exercise *passes* via recordExercise.
   }
 
   return (

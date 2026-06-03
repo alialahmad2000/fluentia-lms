@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { Dumbbell, ChevronLeft } from 'lucide-react'
 import { useAuthProfile } from '../../stores/authStore'
-import { getHardWordsCount } from '../../services/hardWords'
+import { getHardWordsCount } from '../../services/vocab'
 
 const toArabicNum = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d])
 

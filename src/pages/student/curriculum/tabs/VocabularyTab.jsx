@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown, Flame } from 'lucide-react'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { supabase } from '../../../../lib/supabase'
+import { addCard } from '../../../../services/vocab'
 import { useAuthStore } from '../../../../stores/authStore'
 import { usePageReset } from '../../../../hooks/usePageReset'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -94,6 +95,7 @@ export default function VocabularyTab({ unitId }) {
 
   // SRS review state
   const [reviewOpen, setReviewOpen] = useState(false)
+  const navigate = useNavigate()
   const { data: srsDueWords, refetch: refetchSRSDue } = useSRSDue(studentData?.id, { limit: 50, enabled: !!studentData?.id && profile?.role === 'student' })
 
   // Save word to personal list
@@ -102,38 +104,34 @@ export default function VocabularyTab({ unitId }) {
     queryKey: ['saved-words-set', studentId],
     queryFn: async () => {
       const { data } = await supabase
-        .from('student_saved_words')
+        .from('vocab_cards')
         .select('word')
         .eq('student_id', studentId)
-      return new Set((data || []).map(w => w.word.toLowerCase()))
+      return new Set((data || []).map(w => (w.word || '').toLowerCase()))
     },
     enabled: !!studentId && profile?.role === 'student',
   })
 
   const saveWordMutation = useMutation({
     mutationFn: async (word) => {
-      const { data, error } = await supabase.from('student_saved_words').upsert({
-        student_id: studentId,
+      const card = await addCard(studentId, {
         word: word.word,
-        meaning: word.definition_ar,
-        source_unit_id: unitId,
-        context_sentence: word.example_sentence || null,
-        curriculum_vocabulary_id: word.id || null,
+        curriculumVocabularyId: word.id || null,
+        meaningAr: word.definition_ar,
+        contextSentence: word.example_sentence || null,
         source: 'manual',
-        next_review_at: new Date().toISOString(),
-      }, { onConflict: 'student_id,word' }).select()
-      if (error) throw error
-      // Log activity for SRS
-      if (data?.[0]) {
+      })
+      // Log activity for XP (rpc() is not a real Promise — use the then-reject arm, not .catch)
+      if (card?.id) {
         supabase.rpc('log_activity', {
           p_student_id: studentId,
           p_event_type: 'vocab_added',
-          p_ref_table: 'student_saved_words',
-          p_ref_id: data[0].id,
+          p_ref_table: 'vocab_cards',
+          p_ref_id: card.id,
           p_xp_delta: 5,
           p_skill_impact: { vocabulary: 1 },
           p_metadata: { source: 'manual' },
-        }).catch(() => {})
+        }).then(() => {}, () => {})
       }
     },
     onSuccess: (_, word) => {
@@ -643,7 +641,7 @@ export default function VocabularyTab({ unitId }) {
             </div>
           </div>
           <button
-            onClick={() => { refetchSRSDue().then(() => setReviewOpen(true)) }}
+            onClick={() => navigate('/student/srs')}
             className="px-3.5 py-1.5 rounded-lg text-[11px] font-bold text-sky-300 font-['Tajawal'] transition-all hover:bg-sky-500/15"
             style={{ background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)' }}
           >
@@ -834,7 +832,7 @@ export default function VocabularyTab({ unitId }) {
 
       {/* Quick practice indicator */}
       {quickPractice && exerciseWord && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 px-4 py-2 rounded-full text-xs font-bold font-['Tajawal'] text-white/70" style={{ background: 'rgba(10,22,40,0.9)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)' }}>
+        <div className="fixed left-1/2 -translate-x-1/2 z-40 px-4 py-2 rounded-full text-xs font-bold font-['Tajawal'] text-white/70" style={{ bottom: 'calc(var(--mobile-bottom-clearance, 96px) + 4px)', background: 'rgba(10,22,40,0.9)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)' }}>
           كلمة {totalWords - unmasteredLeft + 1} من {totalWords} المتبقية
         </div>
       )}

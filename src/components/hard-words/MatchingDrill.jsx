@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, CheckCircle, X } from 'lucide-react'
-import { recordDrillAttempt } from '../../services/hardWords'
+import { recordDrill } from '../../services/vocab'
 
 /**
  * Matching drill — 6 English words ↔ 6 shuffled Arabic meanings.
@@ -59,28 +59,22 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
 
   const handleAttempt = useCallback(
     async (enWord, arWord) => {
-      const isCorrect = enWord.vocabularyId === arWord.vocabularyId
-      const responseMs = Date.now() - cardStartRef.current
+      const isCorrect = enWord.id === arWord.id
       cardStartRef.current = Date.now()
-      setFlashing({ enId: enWord.vocabularyId, arId: arWord.vocabularyId, isCorrect })
+      setFlashing({ enId: enWord.id, arId: arWord.id, isCorrect })
 
       // Optimistic UI lock for correct pair
       if (isCorrect) {
-        setPairs((p) => ({ ...p, [enWord.vocabularyId]: 'correct' }))
+        setPairs((p) => ({ ...p, [enWord.id]: 'correct' }))
       }
 
       try {
-        const result = await recordDrillAttempt({
-          studentId,
-          vocabularyId: enWord.vocabularyId,
-          drillMode: 'matching',
-          isCorrect,
-          responseMs,
-        })
+        const card = await recordDrill(enWord.id, 'matching', isCorrect)
+        const promoted = card?.mastery_level === 'mastered'
         setSessionStats((s) => ({
           correct: s.correct + (isCorrect ? 1 : 0),
           wrong: s.wrong + (isCorrect ? 0 : 1),
-          promoted: s.promoted + (result.promoted ? 1 : 0),
+          promoted: s.promoted + (promoted ? 1 : 0),
         }))
       } catch (e) {
         // Log silently — UI continues
@@ -100,32 +94,32 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
 
   const handleEnglishTap = useCallback(
     (word) => {
-      if (pairs[word.vocabularyId] === 'correct') return // already paired
+      if (pairs[word.id] === 'correct') return // already paired
       playAudio(word.audioUrl)
       if (selectedAr) {
         // Already have an Arabic selected — attempt the pair
-        const arWord = primaries.find((w) => w.vocabularyId === selectedAr)
+        const arWord = primaries.find((w) => w.id === selectedAr)
         if (arWord) {
           handleAttempt(word, arWord)
           return
         }
       }
-      setSelectedEn(word.vocabularyId)
+      setSelectedEn(word.id)
     },
     [pairs, primaries, selectedAr, playAudio, handleAttempt]
   )
 
   const handleArabicTap = useCallback(
     (word) => {
-      if (pairs[word.vocabularyId] === 'correct') return
+      if (pairs[word.id] === 'correct') return
       if (selectedEn) {
-        const enWord = primaries.find((w) => w.vocabularyId === selectedEn)
+        const enWord = primaries.find((w) => w.id === selectedEn)
         if (enWord) {
           handleAttempt(enWord, word)
           return
         }
       }
-      setSelectedAr(word.vocabularyId)
+      setSelectedAr(word.id)
     },
     [pairs, primaries, selectedEn, handleAttempt]
   )
@@ -142,7 +136,7 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
   if (!primaries.length) {
     return (
       <div className="text-center py-12">
-        <p className="text-base font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-base" style={{ color: 'var(--vc-text-soft)' }}>
           لا توجد كلمات لهذا التدريب.
         </p>
       </div>
@@ -153,13 +147,13 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
     <div className="space-y-6">
       {/* Progress strip */}
       <div className="flex items-center justify-between">
-        <div className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
+        <div className="text-sm font-bold tabular-nums" style={{ color: 'var(--vc-text-soft)' }}>
           {completedCount} / {primaries.length}
         </div>
-        <div className="h-2 flex-1 mx-4 rounded-full overflow-hidden" style={{ background: 'var(--surface)' }}>
+        <div className="h-2 flex-1 mx-4 rounded-full overflow-hidden" style={{ background: 'var(--vc-surface-2)' }}>
           <motion.div
             className="h-full rounded-full"
-            style={{ background: 'linear-gradient(90deg, var(--accent-sky), var(--accent-emerald))' }}
+            style={{ background: 'linear-gradient(90deg, var(--vc-indigo), var(--vc-violet))' }}
             initial={{ width: 0 }}
             animate={{ width: `${(completedCount / primaries.length) * 100}%` }}
             transition={{ duration: 0.3 }}
@@ -171,20 +165,17 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
       <div className="grid grid-cols-2 gap-3 md:gap-4">
         {/* English column */}
         <div className="space-y-2.5">
-          <h3
-            className="text-xs font-bold text-center mb-2 font-['Tajawal']"
-            style={{ color: 'var(--text-tertiary)' }}
-          >
+          <h3 className="text-xs font-bold text-center mb-2" style={{ color: 'var(--vc-text-dim)' }}>
             English
           </h3>
           {primaries.map((w) => (
             <DrillCard
-              key={`en-${w.vocabularyId}`}
-              state={cardClass(w.vocabularyId, 'en')}
+              key={`en-${w.id}`}
+              state={cardClass(w.id, 'en')}
               onClick={() => handleEnglishTap(w)}
             >
               <div className="flex items-center gap-2 justify-between" dir="ltr">
-                <span className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>
+                <span className="vc-word text-base font-semibold" style={{ color: 'var(--vc-text)' }}>
                   {w.word}
                 </span>
                 {w.audioUrl && (
@@ -195,7 +186,7 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
                       playAudio(w.audioUrl)
                     }}
                     className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center"
-                    style={{ background: 'var(--surface-raised)', color: 'var(--text-tertiary)' }}
+                    style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-text-dim)' }}
                     aria-label="استمع"
                   >
                     <Volume2 size={14} />
@@ -208,23 +199,16 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
 
         {/* Arabic column */}
         <div className="space-y-2.5">
-          <h3
-            className="text-xs font-bold text-center mb-2 font-['Tajawal']"
-            style={{ color: 'var(--text-tertiary)' }}
-          >
+          <h3 className="text-xs font-bold text-center mb-2" style={{ color: 'var(--vc-text-dim)' }}>
             العربية
           </h3>
           {shuffledArabic.map((w) => (
             <DrillCard
-              key={`ar-${w.vocabularyId}`}
-              state={cardClass(w.vocabularyId, 'ar')}
+              key={`ar-${w.id}`}
+              state={cardClass(w.id, 'ar')}
               onClick={() => handleArabicTap(w)}
             >
-              <span
-                className="text-base font-semibold font-['Tajawal']"
-                style={{ color: 'var(--text-primary)' }}
-                dir="rtl"
-              >
+              <span className="text-base font-semibold" style={{ color: 'var(--vc-text)' }} dir="rtl">
                 {w.meaningAr || '—'}
               </span>
             </DrillCard>
@@ -276,14 +260,13 @@ export default function MatchingDrill({ batch, studentId, onComplete }) {
 function DrillCard({ state, children, onClick }) {
   const stateStyle = {
     idle: {
-      background: 'var(--surface)',
-      border: '1px solid var(--border)',
-      color: 'var(--text-primary)',
+      background: 'var(--vc-surface)',
+      border: '1px solid var(--vc-border)',
+      color: 'var(--vc-text)',
     },
     selected: {
-      background: 'rgba(56,189,248,0.12)',
-      border: '1.5px solid rgba(56,189,248,0.45)',
-      transform: 'scale(0.98)',
+      background: 'var(--vc-surface-2)',
+      border: '1.5px solid var(--vc-border-strong)',
     },
     'paired-correct': {
       background: 'rgba(34,197,94,0.12)',

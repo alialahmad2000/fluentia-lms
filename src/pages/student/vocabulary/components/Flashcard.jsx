@@ -13,8 +13,15 @@ const POS_LABELS = {
   interjection: 'تعجب',
 }
 
-export default function Flashcard({ word, onFlip }) {
+function masteryMeta(level) {
+  if (level === 'mastered') return { cls: 'is-mastered', label: 'أتقنتِها' }
+  if (level === 'learning') return { cls: 'is-learning', label: 'تتعلمينها' }
+  return { cls: 'is-new', label: 'جديدة' }
+}
+
+export default function Flashcard({ word, mastery, onFlip }) {
   const [isFlipped, setIsFlipped] = useState(false)
+  const star = masteryMeta(mastery)
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped)
@@ -28,16 +35,25 @@ export default function Flashcard({ word, onFlip }) {
     audio.play().catch(() => {})
   }
 
-  // Bold the word in the example sentence
+  // Bold the target word inside the example sentence.
+  // Escape regex metacharacters so a word like "C++" or "(re)do" never throws.
   const renderExample = (sentence, targetWord) => {
     if (!sentence || !targetWord) return sentence
-    const regex = new RegExp(`(${targetWord})`, 'gi')
+    const safe = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(`(${safe})`, 'gi')
     const parts = sentence.split(regex)
     return parts.map((part, i) =>
       part.toLowerCase() === targetWord.toLowerCase()
-        ? <strong key={i} className="text-sky-400 font-bold">{part}</strong>
+        ? <strong key={i} className="font-bold" style={{ color: 'var(--vc-indigo-bright)' }}>{part}</strong>
         : part
     )
+  }
+
+  const faceStyle = {
+    backfaceVisibility: 'hidden',
+    background:
+      'radial-gradient(120% 140% at 100% 0%, rgba(129, 140, 248, 0.07), transparent 55%), var(--vc-surface)',
+    border: '1px solid var(--vc-border)',
   }
 
   return (
@@ -54,19 +70,21 @@ export default function Flashcard({ word, onFlip }) {
       >
         {/* Front */}
         <div
-          className="absolute inset-0 rounded-[20px] flex flex-col items-center justify-center gap-3 p-6"
-          style={{
-            backfaceVisibility: 'hidden',
-            background: 'var(--card-bg, rgba(255,255,255,0.05))',
-            border: '1px solid var(--card-border, rgba(255,255,255,0.08))',
-          }}
+          className="absolute inset-0 rounded-[22px] flex flex-col items-center justify-center gap-3 p-6"
+          style={faceStyle}
         >
-          <span className="text-[28px] sm:text-[32px] font-bold text-[var(--text-primary)]">
+          {/* Mastery star (top corner) */}
+          <span
+            className={`vc-star ${star.cls} absolute top-4 right-4`}
+            title={star.label}
+          />
+
+          <span className="vc-word text-[30px] sm:text-[34px] font-bold" style={{ color: 'var(--vc-text)' }}>
             {word.word}
           </span>
 
           {word.part_of_speech && (
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-[var(--muted-bg,rgba(255,255,255,0.08))] text-[var(--text-muted)]">
+            <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-text-dim)' }}>
               {POS_LABELS[word.part_of_speech] || word.part_of_speech}
             </span>
           )}
@@ -74,40 +92,36 @@ export default function Flashcard({ word, onFlip }) {
           {word.audio_url && (
             <button
               onClick={playAudio}
-              className="w-11 h-11 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center hover:bg-sky-500/30 transition-colors"
+              className="w-11 h-11 rounded-full flex items-center justify-center transition-colors"
+              style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
               aria-label="تشغيل النطق"
             >
               <Volume2 size={20} />
             </button>
           )}
 
-          <span className="absolute bottom-4 text-xs text-[var(--text-muted)] opacity-60">
-            اضغط للقلب
+          <span className="absolute bottom-4 text-xs" style={{ color: 'var(--vc-text-dim)' }}>
+            اضغطي للقلب
           </span>
         </div>
 
         {/* Back */}
         <div
-          className="absolute inset-0 rounded-[20px] flex flex-col items-center justify-center gap-3 p-6"
-          style={{
-            backfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
-            background: 'var(--card-bg, rgba(255,255,255,0.05))',
-            border: '1px solid var(--card-border, rgba(255,255,255,0.08))',
-          }}
+          className="absolute inset-0 rounded-[22px] flex flex-col items-center justify-center gap-3 p-6"
+          style={{ ...faceStyle, transform: 'rotateY(180deg)' }}
         >
-          <span className="text-[24px] sm:text-[28px] font-bold text-[var(--text-primary)] font-[Tajawal] text-center leading-relaxed">
+          <span className="text-[24px] sm:text-[28px] font-bold text-center leading-relaxed" style={{ color: 'var(--vc-text)' }}>
             {word.definition_ar}
           </span>
 
           {word.definition_en && (
-            <span className="text-sm text-[var(--text-muted)] text-center max-w-[90%]">
+            <span className="text-sm text-center max-w-[90%]" style={{ color: 'var(--vc-text-dim)' }}>
               {word.definition_en}
             </span>
           )}
 
           {word.example_sentence && (
-            <p className="text-sm italic text-[var(--text-secondary)] text-center max-w-[90%] leading-relaxed">
+            <p className="text-sm italic text-center max-w-[90%] leading-relaxed" style={{ color: 'var(--vc-text-soft)' }}>
               {renderExample(word.example_sentence, word.word)}
             </p>
           )}
@@ -115,7 +129,8 @@ export default function Flashcard({ word, onFlip }) {
           {word.audio_url && (
             <button
               onClick={playAudio}
-              className="w-11 h-11 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center hover:bg-sky-500/30 transition-colors"
+              className="w-11 h-11 rounded-full flex items-center justify-center transition-colors"
+              style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
               aria-label="تشغيل النطق"
             >
               <Volume2 size={20} />

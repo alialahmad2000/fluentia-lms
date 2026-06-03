@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain } from 'lucide-react'
 import { useAuthStudentData } from '../../../stores/authStore'
@@ -15,15 +16,32 @@ import { awardPracticeXP } from '../../../utils/xpManager'
 import ChunkSelector from '../../../components/vocabulary/ChunkSelector'
 import VocabularyQuiz from '../../../components/vocabulary/VocabularyQuiz'
 import { useVocabularyMastery } from '../../../hooks/useVocabularyMastery'
+import VocabShell from '../../../components/vocab-cosmos/VocabShell'
+import VocabHeader from '../../../components/vocab-cosmos/VocabHeader'
+import { useVocabStats } from '../../../hooks/useVocabStats'
+import { toArabicNum } from '../../../lib/vocabFormat'
+
+// Vocabulary columns we read for the catalog cards. The reading→unit embeds are
+// INNER joins so the server-side level filter (.eq('reading.unit.level_id', …))
+// actually restricts the returned rows — we never ship the whole ~14k catalog.
+const VOCAB_SELECT =
+  'id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, difficulty_tier, sort_order, synonyms, antonyms, word_family, pronunciation_alert, reading:curriculum_readings!reading_id!inner(unit_id, unit:curriculum_units!unit_id!inner(unit_number, level_id, theme_ar))'
+
+// Map a vocab_cards mastery_level → the constellation star class.
+function starClass(level) {
+  if (level === 'mastered') return 'is-mastered'
+  if (level === 'learning') return 'is-learning'
+  return 'is-new'
+}
 
 // ─── Skeleton loaders ──────────────────────────────
 function FilterSkeleton() {
   return (
     <div className="flex flex-wrap gap-3 animate-pulse">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="h-10 w-28 rounded-xl bg-[rgba(255,255,255,0.06)]" />
+        <div key={i} className="h-10 w-28 rounded-xl" style={{ background: 'var(--vc-surface-2)' }} />
       ))}
-      <div className="h-10 flex-1 min-w-[180px] rounded-xl bg-[rgba(255,255,255,0.06)]" />
+      <div className="h-10 flex-1 min-w-[180px] rounded-xl" style={{ background: 'var(--vc-surface-2)' }} />
     </div>
   )
 }
@@ -31,128 +49,112 @@ function FilterSkeleton() {
 function CardSkeleton() {
   return (
     <div className="flex flex-col items-center gap-6 animate-pulse">
-      <div className="w-full max-w-[380px] h-[240px] max-sm:h-[200px] rounded-[20px] bg-[rgba(255,255,255,0.05)]" />
+      <div className="w-full max-w-[380px] h-[240px] max-sm:h-[200px] rounded-[22px]" style={{ background: 'var(--vc-surface)' }} />
       <div className="flex gap-4">
-        <div className="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.06)]" />
-        <div className="w-24 h-5 rounded bg-[rgba(255,255,255,0.06)] self-center" />
-        <div className="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.06)]" />
+        <div className="w-10 h-10 rounded-full" style={{ background: 'var(--vc-surface-2)' }} />
+        <div className="w-24 h-5 rounded self-center" style={{ background: 'var(--vc-surface-2)' }} />
+        <div className="w-10 h-10 rounded-full" style={{ background: 'var(--vc-surface-2)' }} />
       </div>
-    </div>
-  )
-}
-
-function ListSkeleton() {
-  return (
-    <div className="space-y-2 animate-pulse">
-      {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className="h-14 rounded-xl bg-[rgba(255,255,255,0.04)]" />
-      ))}
     </div>
   )
 }
 
 export default function VocabularyFlashcards() {
   const studentData = useAuthStudentData()
-  const [vocab, setVocab] = useState([])
+  const studentId = studentData?.id
+  const vocabStats = useVocabStats()
+
   const [levels, setLevels] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [levelsLoading, setLevelsLoading] = useState(true)
   const [error, setError] = useState(null)
 
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'chunks' | 'games' | 'anki'
-  const [activeGame, setActiveGame] = useState(null) // null | 'anki' | 'match' | 'speed' | 'scramble' | 'fill'
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'chunks' | 'games'
+  const [activeGame, setActiveGame] = useState(null)
   const [gameWordCount, setGameWordCount] = useState(10)
   const [xpAwarded, setXpAwarded] = useState(0)
 
   // Chunks + quiz state
-  const [activeChunk, setActiveChunk] = useState(null) // chunk object when practicing a specific chunk
-  const [quizState, setQuizState] = useState(null)     // { chunkWords, chunkIndex, title } or null
+  const [activeChunk, setActiveChunk] = useState(null)
+  const [quizState, setQuizState] = useState(null)
 
   const audioRef = useRef(null)
 
-  // Fetch levels + vocabulary
+  // ── Fetch levels only (tiny) — default to the student's academic level ──
   useEffect(() => {
     let isMounted = true
-
-    async function fetchData() {
-      setLoading(true)
-      setError(null)
-
-      // Fetch levels
-      const { data: levelsData, error: levelsErr } = await supabase
+    async function fetchLevels() {
+      setLevelsLoading(true)
+      const { data, error: levelsErr } = await supabase
         .from('curriculum_levels')
         .select('id, level_number, name_ar, color')
         .order('level_number')
-
       if (!isMounted) return
       if (levelsErr) {
         setError(levelsErr.message)
-        setLoading(false)
+        setLevelsLoading(false)
         return
       }
-      setLevels(levelsData || [])
-
-      // Set default level to student's current academic level
+      setLevels(data || [])
       const studentLevel = studentData?.academic_level ?? 0
-      const defaultLevel = levelsData?.find((l) => l.level_number === studentLevel) || levelsData?.[0]
-      if (defaultLevel && !selectedLevel) {
-        setSelectedLevel(defaultLevel.id)
-      }
-
-      // Fetch all vocabulary with reading → unit join
-      const { data: vocabData, error: vocabErr } = await supabase
-        .from('curriculum_vocabulary')
-        .select('id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, difficulty_tier, sort_order, synonyms, antonyms, word_family, pronunciation_alert, reading:curriculum_readings!reading_id(unit_id, unit:curriculum_units!unit_id(unit_number, level_id, theme_ar))')
-        .order('sort_order')
-
-      if (!isMounted) return
-      if (vocabErr) {
-        setError(vocabErr.message)
-        setLoading(false)
-        return
-      }
-
-      setVocab(vocabData || [])
-      setLoading(false)
+      const defaultLevel = data?.find((l) => l.level_number === studentLevel) || data?.[0]
+      if (defaultLevel) setSelectedLevel((prev) => prev ?? defaultLevel.id)
+      setLevelsLoading(false)
     }
-
-    fetchData()
+    fetchLevels()
     return () => { isMounted = false }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Derive available units for selected level
+  // ── PERF: fetch ONLY the selected level's words (server-side level filter) ──
+  // Filters via reading→unit→level so we never ship the whole ~14k catalog.
+  const {
+    data: vocab = [],
+    isLoading: vocabLoading,
+    error: vocabError,
+  } = useQuery({
+    queryKey: ['vocab-catalog-by-level', selectedLevel],
+    queryFn: async () => {
+      const { data, error: vErr } = await supabase
+        .from('curriculum_vocabulary')
+        .select(VOCAB_SELECT)
+        .eq('reading.unit.level_id', selectedLevel)
+        .order('sort_order')
+        .limit(4000)
+      if (vErr) throw vErr
+      // The !inner-style embed filter still returns rows whose embed is null on
+      // some PostgREST versions; keep only words that resolve to this level.
+      return (data || []).filter((v) => v.reading?.unit?.level_id === selectedLevel)
+    },
+    enabled: !!selectedLevel,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const loading = levelsLoading || (!!selectedLevel && vocabLoading)
+  const queryError = error || vocabError?.message
+
+  // Derive available units for the selected level
   const availableUnits = useMemo(() => {
-    if (!selectedLevel) return []
     const units = new Map()
     vocab.forEach((v) => {
       const unit = v.reading?.unit
-      if (unit && unit.level_id === selectedLevel) {
-        units.set(unit.unit_number, unit.theme_ar)
-      }
+      if (unit) units.set(unit.unit_number, unit.theme_ar)
     })
     return Array.from(units.entries())
       .sort((a, b) => a[0] - b[0])
       .map(([num, theme]) => ({ number: num, theme }))
-  }, [vocab, selectedLevel])
+  }, [vocab])
 
-  // Filter vocabulary
+  // Filter vocabulary (level already applied server-side; unit + search here)
   const filteredVocab = useMemo(() => {
     let filtered = vocab
 
-    // Filter by level
-    if (selectedLevel) {
-      filtered = filtered.filter((v) => v.reading?.unit?.level_id === selectedLevel)
-    }
-
-    // Filter by unit
     if (selectedUnit !== 'all') {
       const unitNum = parseInt(selectedUnit, 10)
       filtered = filtered.filter((v) => v.reading?.unit?.unit_number === unitNum)
     }
 
-    // Filter by search
     if (searchQuery.trim()) {
       const q = searchQuery.trim().toLowerCase()
       filtered = filtered.filter(
@@ -164,19 +166,60 @@ export default function VocabularyFlashcards() {
     }
 
     return filtered
-  }, [vocab, selectedLevel, selectedUnit, searchQuery])
+  }, [vocab, selectedUnit, searchQuery])
+
+  // ── Mastery overlay: fetch the student's vocab_cards for the visible words ──
+  const visibleIds = useMemo(() => filteredVocab.map((v) => v.id), [filteredVocab])
+  const visibleIdsKey = useMemo(() => visibleIds.slice().sort().join(','), [visibleIds])
+
+  const { data: masteryById = {} } = useQuery({
+    queryKey: ['vocab-card-mastery', studentId, visibleIdsKey],
+    queryFn: async () => {
+      if (!studentId || visibleIds.length === 0) return {}
+      const map = {}
+      // Chunk the IN() list so a large unit never blows the URL length.
+      for (let i = 0; i < visibleIds.length; i += 300) {
+        const slice = visibleIds.slice(i, i + 300)
+        const { data, error: mErr } = await supabase
+          .from('vocab_cards')
+          .select('curriculum_vocabulary_id, mastery_level')
+          .eq('student_id', studentId)
+          .in('curriculum_vocabulary_id', slice)
+        if (mErr) throw mErr
+        for (const row of data || []) {
+          if (row.curriculum_vocabulary_id) map[row.curriculum_vocabulary_id] = row.mastery_level
+        }
+      }
+      return map
+    },
+    enabled: !!studentId && visibleIds.length > 0,
+    staleTime: 30_000,
+  })
+
+  // Stats strip across the currently-displayed words
+  const masteryStats = useMemo(() => {
+    let mastered = 0
+    let learning = 0
+    for (const id of visibleIds) {
+      const lvl = masteryById[id]
+      if (lvl === 'mastered') mastered += 1
+      else if (lvl === 'learning') learning += 1
+    }
+    return {
+      total: visibleIds.length,
+      mastered,
+      learning,
+      newCount: visibleIds.length - mastered - learning,
+    }
+  }, [visibleIds, masteryById])
 
   // Find unit_id for the currently selected unit (needed for mastery + quiz attempts)
   const selectedUnitId = useMemo(() => {
     if (selectedUnit === 'all') return null
     const unitNum = parseInt(selectedUnit, 10)
-    const match = vocab.find(
-      (v) =>
-        v.reading?.unit?.level_id === selectedLevel &&
-        v.reading?.unit?.unit_number === unitNum,
-    )
+    const match = vocab.find((v) => v.reading?.unit?.unit_number === unitNum)
     return match?.reading?.unit_id || null
-  }, [vocab, selectedLevel, selectedUnit])
+  }, [vocab, selectedUnit])
 
   const selectedUnitTheme = useMemo(() => {
     if (!selectedUnitId) return null
@@ -189,9 +232,8 @@ export default function VocabularyFlashcards() {
     : ''
 
   // Mastery map for the current unit — required for chunk unlock state
-  const { masteryMap } = useVocabularyMastery(studentData?.id, selectedUnitId)
+  const { masteryMap } = useVocabularyMastery(studentId, selectedUnitId)
 
-  // Words belonging to the current unit, sorted by sort_order (already ordered from query)
   const unitWords = useMemo(() => {
     if (!selectedUnitId) return []
     return vocab.filter((v) => v.reading?.unit_id === selectedUnitId)
@@ -208,40 +250,43 @@ export default function VocabularyFlashcards() {
 
   const selectedLevelData = levels.find((l) => l.id === selectedLevel)
 
-  if (loading) {
+  // ─── Loading / error ───
+  if (loading && vocab.length === 0) {
     return (
-      <div className="space-y-12" dir="rtl">
-        <div>
-          <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
-          <p className="text-[var(--text-muted)] mt-1">تعلّم كلمات جديدة كل يوم</p>
+      <VocabShell maxWidth="max-w-4xl">
+        <VocabHeader
+          title="المفردات"
+          subtitle="استكشفي كلمات مستواكِ وأضيفيها إلى سمائك"
+          stats={vocabStats?.data}
+        />
+        <div className="space-y-8">
+          <FilterSkeleton />
+          <CardSkeleton />
         </div>
-        <FilterSkeleton />
-        <CardSkeleton />
-      </div>
+      </VocabShell>
     )
   }
 
-  if (error) {
+  if (queryError) {
     return (
-      <div className="space-y-12" dir="rtl">
-        <div>
-          <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
-        </div>
-        <div className="glass-card p-7 text-center space-y-4">
-          <p className="text-[var(--text-primary)]">حدث خطأ — حاول مرة ثانية</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-6 py-2.5 rounded-xl bg-sky-500 text-white text-sm font-medium hover:bg-sky-600 transition-colors"
-          >
+      <VocabShell maxWidth="max-w-4xl">
+        <VocabHeader
+          title="المفردات"
+          subtitle="استكشفي كلمات مستواكِ وأضيفيها إلى سمائك"
+          stats={vocabStats?.data}
+        />
+        <div className="vc-card p-7 text-center space-y-4">
+          <p style={{ color: 'var(--vc-text)' }}>حدث خطأ — حاولي مرة ثانية</p>
+          <button onClick={() => window.location.reload()} className="vc-btn vc-btn-primary">
             إعادة المحاولة
           </button>
         </div>
-      </div>
+      </VocabShell>
     )
   }
 
   return (
-    <div className="space-y-8" dir="rtl">
+    <VocabShell maxWidth="max-w-4xl">
       <XPNotification xp={xpAwarded} />
 
       <AnimatePresence>
@@ -251,7 +296,7 @@ export default function VocabularyFlashcards() {
             chunkWords={quizState.chunkWords}
             unitWords={unitWords}
             unitId={selectedUnitId}
-            studentId={studentData?.id}
+            studentId={studentId}
             chunkSize={quizState.chunkWords?.length || 10}
             chunkIndex={quizState.chunkIndex}
             title={quizState.title}
@@ -260,15 +305,14 @@ export default function VocabularyFlashcards() {
         )}
       </AnimatePresence>
 
-      {/* Header */}
-      <div>
-        <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
-        <p className="text-[var(--text-muted)] mt-1">تعلّم كلمات جديدة كل يوم</p>
-      </div>
+      <VocabHeader
+        title="المفردات"
+        subtitle="استكشفي كلمات مستواكِ وأضيفيها إلى سمائك"
+        stats={vocabStats?.data}
+      />
 
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-3">
-        {/* Level selector — custom dropdown */}
+      <div className="flex flex-wrap items-center gap-2.5">
         <LevelDropdown
           levels={levels}
           selectedLevel={selectedLevel}
@@ -276,6 +320,8 @@ export default function VocabularyFlashcards() {
           onChange={(id) => {
             setSelectedLevel(id)
             setSelectedUnit('all')
+            setActiveChunk(null)
+            setQuizState(null)
           }}
         />
 
@@ -291,7 +337,12 @@ export default function VocabularyFlashcards() {
                 setViewMode('cards')
               }
             }}
-            className="h-10 pl-7 pr-3 rounded-xl text-sm font-medium appearance-none cursor-pointer bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] focus:outline-none focus:border-sky-500/50"
+            className="h-10 pl-7 pr-3 rounded-full text-sm font-semibold appearance-none cursor-pointer focus:outline-none"
+            style={{
+              background: 'var(--vc-surface-2)',
+              border: '1px solid var(--vc-border)',
+              color: 'var(--vc-text-soft)',
+            }}
           >
             <option value="all">كل الوحدات</option>
             {availableUnits.map((u) => (
@@ -300,46 +351,75 @@ export default function VocabularyFlashcards() {
               </option>
             ))}
           </select>
-          <ChevronDown size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
+          <ChevronDown size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--vc-text-dim)' }} />
         </div>
 
         {/* Search */}
         <div className="relative flex-1 min-w-[180px]">
-          <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
+          <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--vc-text-dim)' }} />
           <input
             type="text"
-            placeholder="ابحث عن كلمة..."
+            placeholder="ابحثي عن كلمة…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-10 pr-9 pl-3 rounded-xl text-sm bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-sky-500/50"
+            className="w-full h-10 pr-9 pl-3 rounded-full text-sm focus:outline-none"
+            style={{
+              background: 'var(--vc-surface-2)',
+              border: '1px solid var(--vc-border)',
+              color: 'var(--vc-text)',
+            }}
           />
         </div>
       </div>
 
-      {/* Stats bar */}
-      <div className="flex items-center gap-4 text-sm text-[var(--text-muted)]">
-        <span className="flex items-center gap-1.5">
-          <BookOpen size={15} />
-          {filteredVocab.length} كلمة
-        </span>
+      {/* Mastery stats strip across the displayed words */}
+      <div className="mt-4 flex flex-wrap items-center gap-2.5">
+        <div className="vc-pill">
+          <BookOpen size={14} style={{ color: 'var(--vc-text-dim)' }} />
+          <span className="tabular-nums">{toArabicNum(masteryStats.total)}</span>
+          <span style={{ color: 'var(--vc-text-dim)' }}>كلمة</span>
+        </div>
+        <div className="vc-pill vc-pill-gold" title="كلمات أتقنتِها">
+          <span className="vc-star is-mastered" />
+          <span className="tabular-nums">{toArabicNum(masteryStats.mastered)}</span>
+          <span style={{ color: 'rgba(252,211,77,0.7)' }}>متقنة</span>
+        </div>
+        <div className="vc-pill">
+          <span className="vc-star is-learning" />
+          <span className="tabular-nums">{toArabicNum(masteryStats.learning)}</span>
+          <span style={{ color: 'var(--vc-text-dim)' }}>تتعلمينها</span>
+        </div>
+        <div className="vc-pill">
+          <span className="vc-star is-new" />
+          <span className="tabular-nums">{toArabicNum(masteryStats.newCount)}</span>
+          <span style={{ color: 'var(--vc-text-dim)' }}>جديدة</span>
+        </div>
         {audioCount > 0 && (
-          <span className="flex items-center gap-1.5">
-            <Volume2 size={15} />
-            {audioCount} مع صوت
-          </span>
+          <div className="vc-pill">
+            <Volume2 size={14} style={{ color: 'var(--vc-text-dim)' }} />
+            <span className="tabular-nums">{toArabicNum(audioCount)}</span>
+            <span style={{ color: 'var(--vc-text-dim)' }}>مع صوت</span>
+          </div>
         )}
         {selectedLevelData && (
           <span
-            className="px-2 py-0.5 rounded-md text-xs font-medium"
-            style={{ background: selectedLevelData.color + '22', color: selectedLevelData.color }}
+            className="vc-pill"
+            style={{
+              background: (selectedLevelData.color || 'var(--vc-indigo)') + '22',
+              borderColor: (selectedLevelData.color || 'var(--vc-indigo)') + '55',
+              color: selectedLevelData.color || 'var(--vc-indigo-bright)',
+            }}
           >
             {selectedLevelData.name_ar}
           </span>
         )}
       </div>
 
-      {/* Mode toggle — 4 tabs */}
-      <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] w-fit flex-wrap">
+      {/* Mode toggle — single scroll row, never wraps at 320px */}
+      <div
+        className="mt-5 flex items-center gap-1 p-1 rounded-full overflow-x-auto scrollbar-hide"
+        style={{ background: 'var(--vc-surface-2)', border: '1px solid var(--vc-border)' }}
+      >
         {[
           { key: 'cards', label: 'بطاقات', icon: Layers },
           { key: 'list', label: 'قائمة', icon: List },
@@ -347,26 +427,29 @@ export default function VocabularyFlashcards() {
           { key: 'games', label: 'ألعاب', icon: Zap },
         ].map(({ key, label, icon: Icon, requiresUnit }) => {
           const disabled = requiresUnit && !selectedUnitId
+          const active = viewMode === key
           return (
             <button
               key={key}
               disabled={disabled}
-              title={disabled ? 'اختر وحدة محددة أولاً' : undefined}
+              title={disabled ? 'اختاري وحدة محددة أولاً' : undefined}
               onClick={() => {
                 if (disabled) return
                 setViewMode(key)
                 setActiveGame(null)
                 setActiveChunk(null)
               }}
-              className={`flex items-center gap-2 px-4 h-[44px] rounded-lg text-sm font-medium transition-colors ${
-                viewMode === key
-                  ? 'bg-sky-500/20 text-sky-400'
-                  : disabled
-                    ? 'text-[var(--text-muted)] opacity-40 cursor-not-allowed'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-              }`}
+              className="flex items-center justify-center gap-1.5 shrink-0 px-3.5 h-10 rounded-full text-sm font-semibold whitespace-nowrap transition-all"
+              style={{
+                background: active ? 'var(--vc-surface-2)' : 'transparent',
+                border: active ? '1px solid var(--vc-border-strong)' : '1px solid transparent',
+                color: active ? 'var(--vc-indigo-bright)' : 'var(--vc-text-dim)',
+                opacity: disabled ? 0.4 : 1,
+                cursor: disabled ? 'not-allowed' : 'pointer',
+                boxShadow: active ? 'var(--vc-glow-indigo)' : 'none',
+              }}
             >
-              <Icon size={16} />
+              <Icon size={15} />
               {label}
             </button>
           )
@@ -374,122 +457,124 @@ export default function VocabularyFlashcards() {
       </div>
 
       {/* Content */}
-      {filteredVocab.length === 0 ? (
-        <div className="glass-card p-12 text-center">
-          <BookOpen size={40} className="mx-auto text-[var(--text-muted)] opacity-40 mb-4" />
-          <p className="text-[var(--text-muted)]">لا توجد مفردات لهذه الوحدة بعد</p>
-        </div>
-      ) : viewMode === 'cards' ? (
-        <FlashcardDeck words={filteredVocab} />
-      ) : viewMode === 'list' ? (
-        <VocabList words={filteredVocab} onPlayAudio={playWord} />
-      ) : viewMode === 'chunks' ? (
-        activeChunk ? (
-          <div>
-            <button
-              onClick={() => setActiveChunk(null)}
-              className="mb-4 text-sm text-sky-400 hover:text-sky-300 transition-colors"
-            >
-              ← العودة إلى الدفعات
-            </button>
-            <VocabularyPractice
-              studentId={studentData?.id}
-              words={activeChunk.words}
-              onComplete={async (stats) => {
-                const normalized = {
-                  score: stats?.mastered ?? stats?.correct ?? stats?.score ?? 0,
-                  total: stats?.total ?? activeChunk.words.length,
-                }
-                const xp = await awardPracticeXP(studentData?.id, 'vocab_anki', normalized)
-                if (xp > 0) {
-                  setXpAwarded(xp)
-                  setTimeout(() => setXpAwarded(0), 3000)
-                }
-                setActiveChunk(null)
-              }}
-              onBack={() => setActiveChunk(null)}
-            />
+      <div className="mt-6">
+        {filteredVocab.length === 0 ? (
+          <div className="vc-card p-12 text-center">
+            <BookOpen size={40} className="mx-auto mb-4" style={{ color: 'var(--vc-text-dim)', opacity: 0.5 }} />
+            <p style={{ color: 'var(--vc-text-dim)' }}>لا توجد مفردات لهذه الوحدة بعد</p>
           </div>
-        ) : (
-          <ChunkSelector
-            unitWords={unitWords}
-            masteryMap={masteryMap}
-            unitLabel={unitLabel}
-            onPractice={(chunk) => setActiveChunk(chunk)}
-            onQuiz={(chunk) =>
-              setQuizState({
-                chunkWords: chunk.words,
-                chunkIndex: chunk.index,
-                title: `اختبار الدفعة ${chunk.index + 1}`,
-              })
-            }
-            onFullQuiz={() =>
-              setQuizState({
-                chunkWords: unitWords,
-                chunkIndex: null,
-                title: `اختبار ${unitLabel}`,
-              })
-            }
+        ) : viewMode === 'cards' ? (
+          <FlashcardDeck words={filteredVocab} masteryById={masteryById} />
+        ) : viewMode === 'list' ? (
+          <VocabList words={filteredVocab} masteryById={masteryById} onPlayAudio={playWord} />
+        ) : viewMode === 'chunks' ? (
+          activeChunk ? (
+            <div>
+              <button
+                onClick={() => setActiveChunk(null)}
+                className="mb-4 text-sm font-semibold transition-colors"
+                style={{ color: 'var(--vc-indigo-bright)' }}
+              >
+                ← العودة إلى الدفعات
+              </button>
+              <VocabularyPractice
+                studentId={studentId}
+                words={activeChunk.words}
+                onComplete={async (stats) => {
+                  const normalized = {
+                    score: stats?.mastered ?? stats?.correct ?? stats?.score ?? 0,
+                    total: stats?.total ?? activeChunk.words.length,
+                  }
+                  const xp = await awardPracticeXP(studentId, 'vocab_anki', normalized)
+                  if (xp > 0) {
+                    setXpAwarded(xp)
+                    setTimeout(() => setXpAwarded(0), 3000)
+                  }
+                  setActiveChunk(null)
+                }}
+                onBack={() => setActiveChunk(null)}
+              />
+            </div>
+          ) : (
+            <ChunkSelector
+              unitWords={unitWords}
+              masteryMap={masteryMap}
+              unitLabel={unitLabel}
+              onPractice={(chunk) => setActiveChunk(chunk)}
+              onQuiz={(chunk) =>
+                setQuizState({
+                  chunkWords: chunk.words,
+                  chunkIndex: chunk.index,
+                  title: `اختبار الدفعة ${chunk.index + 1}`,
+                })
+              }
+              onFullQuiz={() =>
+                setQuizState({
+                  chunkWords: unitWords,
+                  chunkIndex: null,
+                  title: `اختبار ${unitLabel}`,
+                })
+              }
+            />
+          )
+        ) : !activeGame ? (
+          <GameHub
+            games={VOCAB_GAMES}
+            totalWords={filteredVocab.length}
+            onSelectGame={(gameId, count) => {
+              setGameWordCount(count)
+              setActiveGame(gameId)
+            }}
+            onBack={() => setViewMode('cards')}
           />
-        )
-      ) : !activeGame ? (
-        <GameHub
-          games={VOCAB_GAMES}
-          totalWords={filteredVocab.length}
-          onSelectGame={(gameId, count) => {
-            setGameWordCount(count)
-            setActiveGame(gameId)
-          }}
-          onBack={() => setViewMode('cards')}
-        />
-      ) : (
-        <VocabGameRenderer
-          studentId={studentData?.id}
-          gameId={activeGame}
-          words={gameWordCount === Infinity ? filteredVocab : filteredVocab.slice(0, gameWordCount)}
-          allWords={filteredVocab}
-          onBack={() => setActiveGame(null)}
-          onComplete={async (stats) => {
-            const xp = await awardPracticeXP(studentData?.id, `vocab_${activeGame}`, stats)
-            if (xp > 0) {
-              setXpAwarded(xp)
-              setTimeout(() => setXpAwarded(0), 3000)
-            }
-            // Save game session silently
-            const raw = stats._raw || {}
-            const { error } = await supabase.from('game_sessions').insert({
-              student_id: studentData?.id,
-              game_type: activeGame,
-              context: 'vocabulary',
-              score: stats.score,
-              max_score: stats.total,
-              accuracy_percent: stats.total > 0 ? Math.round((stats.score / stats.total) * 10000) / 100 : null,
-              time_seconds: raw.time || null,
-              items_count: stats.total,
-              items_correct: stats.score,
-              details: raw,
-              xp_awarded: xp || 0,
-            })
-            if (error) console.error('Failed to save game session:', error)
-          }}
-        />
-      )}
-    </div>
+        ) : (
+          <VocabGameRenderer
+            studentId={studentId}
+            gameId={activeGame}
+            words={gameWordCount === Infinity ? filteredVocab : filteredVocab.slice(0, gameWordCount)}
+            allWords={filteredVocab}
+            onBack={() => setActiveGame(null)}
+            onComplete={async (stats) => {
+              const xp = await awardPracticeXP(studentId, `vocab_${activeGame}`, stats)
+              if (xp > 0) {
+                setXpAwarded(xp)
+                setTimeout(() => setXpAwarded(0), 3000)
+              }
+              const raw = stats._raw || {}
+              const { error: gErr } = await supabase.from('game_sessions').insert({
+                student_id: studentId,
+                game_type: activeGame,
+                context: 'vocabulary',
+                score: stats.score,
+                max_score: stats.total,
+                accuracy_percent: stats.total > 0 ? Math.round((stats.score / stats.total) * 10000) / 100 : null,
+                time_seconds: raw.time || null,
+                items_count: stats.total,
+                items_correct: stats.score,
+                details: raw,
+                xp_awarded: xp || 0,
+              })
+              if (gErr) console.error('Failed to save game session:', gErr)
+            }}
+          />
+        )}
+      </div>
+    </VocabShell>
   )
 }
 
 // ─── Games config + renderer ──────────────────────────
 const VOCAB_GAMES = [
-  { id: 'anki', name: 'بطاقات سريعة', desc: 'بطاقات ذكية — اقلب وقيّم نفسك' },
-  { id: 'match', name: 'وصّل', desc: 'وصّل الكلمة بمعناها' },
-  { id: 'speed', name: 'اسمع واكتب', desc: 'اسمع المعنى واكتب الكلمة' },
-  { id: 'scramble', name: 'رتّب الحروف', desc: 'رتّب الحروف المبعثرة' },
-  { id: 'fill', name: 'أكمل الجملة', desc: 'اختر الكلمة الناقصة' },
+  { id: 'anki', name: 'بطاقات سريعة', desc: 'بطاقات ذكية — اقلبي وقيّمي نفسكِ' },
+  { id: 'match', name: 'وصّلي', desc: 'وصّلي الكلمة بمعناها' },
+  { id: 'speed', name: 'اسمعي واكتبي', desc: 'اسمعي المعنى واكتبي الكلمة' },
+  { id: 'scramble', name: 'رتّبي الحروف', desc: 'رتّبي الحروف المبعثرة' },
+  { id: 'fill', name: 'أكملي الجملة', desc: 'اختاري الكلمة الناقصة' },
 ]
 
 function getRandomDistractors(word, allWords, count) {
   const correctLower = word.word.toLowerCase()
-  const others = allWords.filter(w => w.id !== word.id && w.word.toLowerCase() !== correctLower)
+  const others = allWords.filter((w) => w.id !== word.id && w.word.toLowerCase() !== correctLower)
   const shuffled = [...others].sort(() => Math.random() - 0.5)
   const unique = []
   const seen = new Set()
@@ -527,8 +612,8 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete, studen
     case 'match':
       return (
         <MatchGame
-          pairs={words.map(w => ({ id: w.id, question: w.word, answer: w.definition_ar }))}
-          title="وصّل الكلمة بمعناها"
+          pairs={words.map((w) => ({ id: w.id, question: w.word, answer: w.definition_ar }))}
+          title="وصّلي الكلمة بمعناها"
           onComplete={handleComplete}
           onBack={backToHub}
         />
@@ -536,8 +621,8 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete, studen
     case 'speed':
       return (
         <SpeedTypeGame
-          items={words.map(w => ({ id: w.id, prompt: w.definition_ar, answer: w.word, audioUrl: w.audio_url }))}
-          title="اسمع واكتب"
+          items={words.map((w) => ({ id: w.id, prompt: w.definition_ar, answer: w.word, audioUrl: w.audio_url }))}
+          title="اسمعي واكتبي"
           onComplete={handleComplete}
           onBack={backToHub}
         />
@@ -545,16 +630,16 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete, studen
     case 'scramble':
       return (
         <ScrambleGame
-          items={words.map(w => ({ id: w.id, word: w.word, hint: w.definition_ar, audioUrl: w.audio_url }))}
-          title="رتّب الحروف"
+          items={words.map((w) => ({ id: w.id, word: w.word, hint: w.definition_ar, audioUrl: w.audio_url }))}
+          title="رتّبي الحروف"
           onComplete={handleComplete}
           onBack={backToHub}
         />
       )
     case 'fill': {
       const fillItems = words
-        .filter(w => w.example_sentence)
-        .map(w => ({
+        .filter((w) => w.example_sentence)
+        .map((w) => ({
           id: w.id,
           sentence: w.example_sentence.replace(new RegExp(w.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '_____'),
           correctAnswer: w.word,
@@ -562,13 +647,15 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete, studen
           distractors: getRandomDistractors(w, allWords, 3),
           audioUrl: w.audio_url,
         }))
-        .filter(item => item.sentence.includes('_____'))
+        .filter((item) => item.sentence.includes('_____'))
 
       if (fillItems.length === 0) {
         return (
-          <div className="glass-card p-12 text-center">
-            <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد جمل متاحة لهذه المفردات</p>
-            <button onClick={backToHub} className="mt-4 text-sm text-sky-400 hover:text-sky-300 font-['Tajawal']">العودة</button>
+          <div className="vc-card p-12 text-center">
+            <p style={{ color: 'var(--vc-text-dim)' }}>لا توجد جمل متاحة لهذه المفردات</p>
+            <button onClick={backToHub} className="mt-4 text-sm font-semibold" style={{ color: 'var(--vc-indigo-bright)' }}>
+              العودة
+            </button>
           </div>
         )
       }
@@ -576,7 +663,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete, studen
       return (
         <FillBlankGame
           items={fillItems}
-          title="أكمل الجملة"
+          title="أكملي الجملة"
           onComplete={handleComplete}
           onBack={backToHub}
         />
@@ -592,7 +679,6 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
-  // Close on outside click
   useEffect(() => {
     function handleClick(e) {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false)
@@ -607,11 +693,16 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 h-10 px-3 rounded-xl text-sm font-medium bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 transition-colors"
+        className="flex items-center gap-2 h-10 px-3.5 rounded-full text-sm font-semibold transition-colors"
+        style={{
+          background: 'var(--vc-surface-2)',
+          border: '1px solid var(--vc-border)',
+          color: 'var(--vc-text-soft)',
+        }}
       >
-        <Filter size={14} className="text-[var(--text-muted)]" />
-        {selected?.name_ar || 'اختر المستوى'}
-        <ChevronDown size={14} className={`text-[var(--text-muted)] transition-transform ${open ? 'rotate-180' : ''}`} />
+        <Filter size={14} style={{ color: 'var(--vc-text-dim)' }} />
+        {selected?.name_ar || 'اختاري المستوى'}
+        <ChevronDown size={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} style={{ color: 'var(--vc-text-dim)' }} />
       </button>
 
       <AnimatePresence>
@@ -621,12 +712,16 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.15 }}
-            className="absolute z-50 top-full mt-1.5 right-0 min-w-[200px] rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-raised)] shadow-xl"
+            className="absolute z-50 top-full mt-1.5 right-0 min-w-[200px] rounded-2xl overflow-hidden"
+            style={{
+              background: 'var(--vc-field)',
+              border: '1px solid var(--vc-border-strong)',
+              boxShadow: '0 18px 50px -12px rgba(0,0,0,0.6)',
+            }}
           >
             {levels.map((l) => {
               const isLocked = l.level_number > studentLevel
               const isSelected = l.id === selectedLevel
-
               return (
                 <button
                   key={l.id}
@@ -637,22 +732,27 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
                       setOpen(false)
                     }
                   }}
-                  className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm text-right transition-colors ${
-                    isLocked
-                      ? 'cursor-not-allowed opacity-45'
-                      : isSelected
-                        ? 'bg-sky-500/15 text-sky-400 font-medium'
-                        : 'text-[var(--text-primary)] hover:bg-[var(--surface-base)]'
-                  }`}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm text-right transition-colors"
+                  style={{
+                    background: isSelected ? 'var(--vc-surface-2)' : 'transparent',
+                    color: isSelected
+                      ? 'var(--vc-indigo-bright)'
+                      : isLocked
+                        ? 'var(--vc-text-dim)'
+                        : 'var(--vc-text-soft)',
+                    fontWeight: isSelected ? 700 : 500,
+                    opacity: isLocked ? 0.45 : 1,
+                    cursor: isLocked ? 'not-allowed' : 'pointer',
+                  }}
                 >
                   {l.color && (
                     <span
                       className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                      style={{ background: isLocked ? 'var(--text-muted)' : l.color }}
+                      style={{ background: isLocked ? 'var(--vc-text-dim)' : l.color }}
                     />
                   )}
                   <span className="flex-1">{l.name_ar}</span>
-                  {isLocked && <Lock size={13} className="text-[var(--text-muted)] flex-shrink-0" />}
+                  {isLocked && <Lock size={13} className="flex-shrink-0" style={{ color: 'var(--vc-text-dim)' }} />}
                 </button>
               )
             })}
@@ -664,7 +764,7 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
 }
 
 // ─── List View ──────────────────────────────
-function VocabList({ words, onPlayAudio }) {
+function VocabList({ words, masteryById, onPlayAudio }) {
   const [visible, setVisible] = useState(50)
   const shown = words.slice(0, visible)
   return (
@@ -672,16 +772,30 @@ function VocabList({ words, onPlayAudio }) {
       {shown.map((w) => (
         <motion.div
           key={w.id}
-          className="flex items-center gap-3 h-14 px-4 rounded-xl bg-[var(--card-bg,rgba(255,255,255,0.03))] border border-[var(--card-border,rgba(255,255,255,0.06))] hover:border-[rgba(255,255,255,0.12)] transition-colors"
+          className="vc-card vc-card-hover flex items-center gap-3 h-14 px-4"
+          style={{ borderRadius: 16 }}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.15 }}
         >
+          {/* Mastery star */}
+          <span
+            className={`vc-star ${starClass(masteryById[w.id])} flex-shrink-0`}
+            title={
+              masteryById[w.id] === 'mastered'
+                ? 'متقنة'
+                : masteryById[w.id] === 'learning'
+                  ? 'تتعلمينها'
+                  : 'جديدة'
+            }
+          />
+
           {/* Audio */}
           {w.audio_url ? (
             <button
               onClick={() => onPlayAudio(w.audio_url)}
-              className="w-9 h-9 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center flex-shrink-0 hover:bg-sky-500/25 transition-colors"
+              className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors"
+              style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
               aria-label={`تشغيل نطق ${w.word}`}
             >
               <Volume2 size={16} />
@@ -691,30 +805,30 @@ function VocabList({ words, onPlayAudio }) {
           )}
 
           {/* Word */}
-          <span className="font-semibold text-[var(--text-primary)] min-w-[100px] text-left" dir="ltr">
+          <span className="vc-word font-semibold min-w-[100px] text-left" dir="ltr" style={{ color: 'var(--vc-text)' }}>
             {w.word}
           </span>
 
           {/* Part of speech */}
           {w.part_of_speech && (
-            <span className="text-xs text-[var(--text-muted)] opacity-60 hidden sm:inline">
+            <span className="text-xs hidden sm:inline" style={{ color: 'var(--vc-text-dim)' }}>
               {w.part_of_speech}
             </span>
           )}
 
           {/* Arabic meaning */}
-          <span className="flex-1 text-sm text-[var(--text-secondary)] text-right truncate">
+          <span className="flex-1 text-sm text-right truncate" style={{ color: 'var(--vc-text-soft)' }}>
             {w.definition_ar}
           </span>
         </motion.div>
       ))}
       {visible < words.length && (
         <button
-          onClick={() => setVisible(v => v + 50)}
-          className="w-full py-2.5 mt-2 rounded-xl text-xs font-bold font-['Tajawal'] text-white/40 hover:text-white/60 transition-colors"
-          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}
+          onClick={() => setVisible((v) => v + 50)}
+          className="w-full py-2.5 mt-2 rounded-2xl text-xs font-bold transition-colors"
+          style={{ background: 'var(--vc-surface)', border: '1px solid var(--vc-border)', color: 'var(--vc-text-dim)' }}
         >
-          عرض المزيد ({words.length - visible} متبقي)
+          عرض المزيد ({toArabicNum(words.length - visible)} متبقية)
         </button>
       )}
     </div>
