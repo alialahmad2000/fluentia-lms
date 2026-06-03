@@ -91,6 +91,15 @@ export default function ChatHome() {
 
   const { data: threads = [] } = useDMThreads()
 
+  const { data: groupUnreads = [] } = useQuery({
+    queryKey: ['group-unreads', profile?.id],
+    enabled: !!profile?.id,
+    staleTime: 15_000,
+    refetchInterval: 30_000,
+    queryFn: async () => { const { data } = await supabase.rpc('get_group_unread_counts'); return data ?? [] },
+  })
+  const groupUnreadMap = Object.fromEntries(groupUnreads.map((r) => [r.group_id, r.unread]))
+
   return (
     <div className="chat-shell">
       <div className="chat-aurora" aria-hidden="true"><i className="ca-blob ca-sky" /><i className="ca-blob ca-violet" /><i className="ca-blob ca-emerald" /><i className="ca-blob ca-rose" /><i className="ca-blob ca-amber" /></div>
@@ -114,7 +123,7 @@ export default function ChatHome() {
           <div className="mb-2">
             <div className="px-3 py-1.5 text-[11px] font-semibold" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-tertiary)', letterSpacing: '0.04em' }}>المجموعات</div>
             {groups.map((g) => (
-              <Row key={g.id} avatar={<GroupGlyph level={g.level} />} name={g.name || 'المجموعة'} preview="محادثة المجموعة" onClick={() => navigate(`/chat/${g.id}`)} />
+              <Row key={g.id} avatar={<GroupGlyph level={g.level} />} name={g.name || 'المجموعة'} preview="محادثة المجموعة" unread={groupUnreadMap[g.id] || 0} onClick={() => navigate(`/chat/${g.id}`)} />
             ))}
           </div>
         )}
