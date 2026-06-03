@@ -28,6 +28,7 @@ import { getGreeting } from '../../../utils/dateHelpers'
 import { firstNameFrom } from '../../../utils/names'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../../lib/constants'
 import GlassPanel from '../../../design-system/components/GlassPanel'
+import { useNextLesson } from './useNextLesson'
 
 /* Real, self-gating widgets — each owns its own query / realtime + empty state. */
 import DailyProgressWidget from '../../../components/student/dashboard/DailyProgressWidget'
@@ -241,6 +242,7 @@ export default function SpotlightDashboard() {
   const reduced = useReducedMotion()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
+  const nextLesson = useNextLesson(profile?.id, studentData?.academic_level)
 
   /* ── DERIVED VALUES ── */
   const firstName = firstNameFrom(profile?.full_name) || profile?.display_name || ''
@@ -338,22 +340,27 @@ export default function SpotlightDashboard() {
               >
                 <span aria-hidden="true">✦</span>
                 مهمة اليوم
+                {nextLesson ? (
+                  <span style={{ color: 'var(--ds-text-tertiary)', fontWeight: 600 }}>
+                    {` · الوحدة ${nextLesson.unit_number}`}
+                  </span>
+                ) : null}
               </motion.p>
 
-              {/* big title line */}
+              {/* big title line — the actual next unit, or a warm fallback */}
               <motion.h1
                 {...rise}
                 transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE, delay: 0.1 }}
                 style={{
-                  fontSize: 'clamp(30px, 8vw, 46px)',
+                  fontSize: 'clamp(28px, 7vw, 44px)',
                   fontWeight: 800,
                   letterSpacing: '-0.025em',
-                  lineHeight: 1.12,
+                  lineHeight: 1.14,
                   color: 'var(--ds-text-primary)',
                   margin: '10px 0 0',
                 }}
               >
-                تابع رحلتك
+                {nextLesson?.title_ar || 'تابع رحلتك'}
               </motion.h1>
 
               {/* package · level line */}
@@ -425,7 +432,7 @@ export default function SpotlightDashboard() {
                   className="shrink-0"
                 >
                   <Link
-                    to="/student/curriculum"
+                    to={nextLesson?.to || '/student/curriculum'}
                     className="pd-cta inline-flex items-center justify-center gap-2 rounded-full font-bold"
                     style={{
                       padding: '14px 30px',
@@ -439,7 +446,9 @@ export default function SpotlightDashboard() {
                     }}
                   >
                     <Play size={17} strokeWidth={2.4} fill="currentColor" />
-                    <span style={{ position: 'relative', zIndex: 1 }}>متابعة التعلّم</span>
+                    <span style={{ position: 'relative', zIndex: 1 }}>
+                      {nextLesson ? 'متابعة الدرس' : 'متابعة التعلّم'}
+                    </span>
                   </Link>
                 </motion.div>
               </motion.div>
