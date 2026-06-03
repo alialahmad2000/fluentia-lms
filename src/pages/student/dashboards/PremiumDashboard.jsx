@@ -10,6 +10,7 @@ import GlassPanel from '../../../design-system/components/GlassPanel'
 
 import { AmbientField, SectionLabel, Band } from './_premiumShell'
 import PremiumHero from './PremiumHero'
+import './premiumDashboard.css'
 
 /* Legacy data-bound widgets — premium, theme-aware, own their empty/loading
  * states. We KEEP all of them so the premium dashboard has 100% feature
@@ -64,20 +65,34 @@ function QuickAccessGrid({ pendingAssignments = 0 }) {
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
       {QUICK_ACCESS.map((item) => (
         <Link key={item.to} to={item.to}>
-          <GlassPanel padding="md" hover className="cursor-pointer relative h-full">
-            <div
-              className="w-11 h-11 rounded-2xl flex items-center justify-center mb-3"
-              style={{ background: 'var(--ds-surface-2)', border: '1px solid var(--ds-border-subtle)' }}
-            >
-              <item.icon size={20} strokeWidth={1.6} style={{ color: 'var(--ds-accent-primary)' }} />
+          <GlassPanel padding="md" className="pd-quick cursor-pointer relative h-full">
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div
+                className="flex items-center justify-center rounded-2xl mb-3.5"
+                style={{
+                  width: 46,
+                  height: 46,
+                  background:
+                    'linear-gradient(135deg, color-mix(in srgb, var(--ds-accent-primary) 22%, transparent), color-mix(in srgb, var(--ds-accent-secondary) 14%, transparent))',
+                  border: '1px solid var(--ds-border-subtle)',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
+                }}
+              >
+                <item.icon size={21} strokeWidth={1.7} style={{ color: 'var(--ds-accent-primary)' }} />
+              </div>
+              <p className="font-semibold" style={{ fontSize: 14.5, color: 'var(--ds-text-primary)', lineHeight: 1.3 }}>
+                {item.label}
+              </p>
             </div>
-            <p className="font-medium" style={{ fontSize: 14, color: 'var(--ds-text-primary)' }}>
-              {item.label}
-            </p>
             {item.badgeKey === 'assignments' && pendingAssignments > 0 && (
               <span
-                className="absolute top-3 left-3 min-w-[20px] h-5 flex items-center justify-center rounded-full text-[11px] font-bold px-1.5"
-                style={{ background: 'var(--ds-accent-primary)', color: 'var(--ds-text-inverse)' }}
+                className="absolute top-3 left-3 min-w-[22px] h-[22px] flex items-center justify-center rounded-full text-[11px] font-bold px-1.5"
+                style={{
+                  zIndex: 2,
+                  background: 'var(--ds-accent-primary)',
+                  color: 'var(--ds-text-inverse)',
+                  boxShadow: '0 4px 12px -3px var(--ds-accent-primary-glow)',
+                }}
               >
                 {pendingAssignments}
               </span>
@@ -192,15 +207,19 @@ export default function PremiumDashboard() {
   if (isInitialLoading) return <StudentDashboardSkeleton />
 
   // ── RENDER ──
+  const weekHint = weeklyProgress
+    ? `${weeklyProgress.completed_tasks || 0}/${weeklyProgress.total_tasks || 0} مهمة`
+    : undefined
+
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="pd-root">
       <AmbientField />
 
       {/* one-time modals / banners (own their own visibility gating) */}
       <CompetitionKickoffModal />
       <PWAInstallBanner />
 
-      <div className="space-y-9" style={{ position: 'relative', zIndex: 1 }}>
+      <div className="space-y-10" style={{ position: 'relative', zIndex: 1 }}>
         {/* Journey Map CTA — hides itself once the first unit is opened. */}
         <JourneyMapHeroCTA />
 
@@ -209,6 +228,12 @@ export default function PremiumDashboard() {
 
         {/* 1. HERO — real XP / streak / level / package, premium presentation. */}
         <PremiumHero profile={profile} studentData={studentData} />
+
+        {/* 1.2 QUICK ACCESS — primary destinations, elevated right under the hero. */}
+        <Band delay={0.02}>
+          <SectionLabel>وصول سريع</SectionLabel>
+          <QuickAccessGrid pendingAssignments={pendingAssignments} />
+        </Band>
 
         {/* 1.5 Retention surfaces (self-gates per student/module → may render null). */}
         <RetentionDashboardSection />
@@ -222,17 +247,14 @@ export default function PremiumDashboard() {
           </div>
         </Band>
 
-        {/* 3. THIS WEEK — weekly tasks (always visible) + quick access links. */}
+        {/* 3. THIS WEEK — weekly tasks (always visible). */}
         <Band delay={0.04}>
-          <SectionLabel>هذا الأسبوع</SectionLabel>
-          <div className="space-y-4">
-            <WeeklyTasksWidget
-              weeklyProgress={weeklyProgress}
-              weeklyTasks={weeklyTasks}
-              loading={loadingWeekly}
-            />
-            <QuickAccessGrid pendingAssignments={pendingAssignments} />
-          </div>
+          <SectionLabel hint={weekHint}>هذا الأسبوع</SectionLabel>
+          <WeeklyTasksWidget
+            weeklyProgress={weeklyProgress}
+            weeklyTasks={weeklyTasks}
+            loading={loadingWeekly}
+          />
         </Band>
 
         {/* 4. STREAK + TEAM. */}

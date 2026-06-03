@@ -31,12 +31,13 @@ function Skeleton() {
   return (
     <div
       style={{
-        background: 'rgba(255,255,255,0.03)',
-        border: '1px solid rgba(255,255,255,0.06)',
-        borderRadius: 16,
-        padding: 24,
+        background: 'var(--ds-surface-1)',
+        border: '1px solid var(--ds-border-subtle)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-5)',
         direction: 'rtl',
         fontFamily: 'Tajawal, sans-serif',
+        boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.06)',
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -65,16 +66,16 @@ function MemberAvatar({ name, url, size = 36 }) {
       style={{
         width: size,
         height: size,
-        borderRadius: '50%',
+        borderRadius: 'var(--radius-full)',
         overflow: 'hidden',
-        border: '2px solid rgba(255,255,255,0.1)',
-        background: 'rgba(255,255,255,0.08)',
+        border: '1px solid var(--ds-border-subtle)',
+        background: 'var(--ds-surface-3)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 14,
         fontWeight: 600,
-        color: 'rgba(255,255,255,0.6)',
+        color: 'var(--ds-text-secondary)',
         flexShrink: 0,
       }}
     >
@@ -97,15 +98,15 @@ function OverflowBadge({ count, size = 36 }) {
       style={{
         width: size,
         height: size,
-        borderRadius: '50%',
-        background: 'rgba(255,255,255,0.08)',
-        border: '2px solid rgba(255,255,255,0.1)',
+        borderRadius: 'var(--radius-full)',
+        background: 'var(--ds-surface-2)',
+        border: '1px solid var(--ds-border-subtle)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 12,
         fontWeight: 700,
-        color: 'rgba(255,255,255,0.5)',
+        color: 'var(--ds-text-tertiary)',
         flexShrink: 0,
       }}
     >
@@ -231,15 +232,17 @@ export default function TeamCard({ groupId }) {
   return (
     <div
       style={{
-        background: 'rgba(255,255,255,0.03)',
+        background: 'var(--ds-surface-1)',
         border: compActive && inComp
           ? `1px solid ${teamColor}40`
-          : '1px solid rgba(255,255,255,0.06)',
-        borderRadius: 16,
-        padding: 24,
+          : '1px solid var(--ds-border-subtle)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-5)',
         direction: 'rtl',
         fontFamily: 'Tajawal, sans-serif',
-        boxShadow: compActive && inComp ? `0 0 20px ${teamColor}12` : undefined,
+        boxShadow: compActive && inComp
+          ? `0 0 20px ${teamColor}12, inset 0 1px 0 rgba(255,255,255,0.06)`
+          : 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.06)',
       }}
     >
       {/* ---- Header: group name + icon ---- */}
@@ -251,12 +254,12 @@ export default function TeamCard({ groupId }) {
           marginBottom: 6,
         }}
       >
-        <Users size={20} style={{ color: '#38bdf8', flexShrink: 0 }} />
+        <Users size={20} style={{ color: 'var(--ds-accent-primary)', flexShrink: 0 }} />
         <span
           style={{
             fontSize: 18,
             fontWeight: 700,
-            color: 'rgba(255,255,255,0.9)',
+            color: 'var(--ds-text-primary)',
           }}
         >
           {group.name}
@@ -268,7 +271,7 @@ export default function TeamCard({ groupId }) {
         <div
           style={{
             fontSize: 13,
-            color: 'rgba(255,255,255,0.45)',
+            color: 'var(--ds-text-tertiary)',
             marginBottom: 16,
           }}
         >
@@ -305,13 +308,13 @@ export default function TeamCard({ groupId }) {
             alignItems: 'center',
             gap: 8,
             fontSize: 14,
-            color: '#fbbf24',
+            color: 'var(--ds-accent-gold, var(--ds-accent-warning))',
             fontWeight: 600,
             paddingTop: 12,
-            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderTop: '1px solid var(--ds-border-subtle)',
           }}
         >
-          <Award size={18} style={{ color: '#fbbf24', flexShrink: 0 }} />
+          <Award size={18} style={{ color: 'var(--ds-accent-gold, var(--ds-accent-warning))', flexShrink: 0 }} />
           <span>
             🏆 الترتيب هذا الأسبوع: #{rankData.rank} من {rankData.total_groups}
           </span>
@@ -325,7 +328,7 @@ export default function TeamCard({ groupId }) {
           style={{
             marginTop: 12,
             paddingTop: 12,
-            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderTop: '1px solid var(--ds-border-subtle)',
             borderLeft: 'none',
             borderRight: 'none',
             borderBottom: 'none',
@@ -340,7 +343,7 @@ export default function TeamCard({ groupId }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              borderRadius: 10,
+              borderRadius: 'var(--radius-md)',
               padding: '8px 12px',
               background: `${teamColor}12`,
               border: `1px solid ${teamColor}30`,
@@ -352,7 +355,7 @@ export default function TeamCard({ groupId }) {
                 <div style={{ fontSize: 12, fontWeight: 700, color: teamColor }}>
                   {myTeam.emoji} {myTeam.name}
                 </div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>
+                <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary)' }}>
                   {myTeam.victory_points} VP
                   {oppTeam && ` — ${oppTeam.emoji} ${oppTeam.victory_points} VP`}
                 </div>
@@ -362,9 +365,9 @@ export default function TeamCard({ groupId }) {
               style={{
                 fontSize: 11,
                 fontWeight: 700,
-                color: '#0f172a',
+                color: 'var(--ds-text-inverse)',
                 background: teamColor,
-                borderRadius: 6,
+                borderRadius: 'var(--radius-sm)',
                 padding: '3px 8px',
               }}
             >
