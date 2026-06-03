@@ -312,6 +312,9 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — DASHBOARD: on-screen design switcher (no URL editing)
+- Owner wanted to flip between the 4 dashboard structures from the UI, not by editing `?design=`. Added `src/pages/student/dashboards/DashboardDesignSwitcher.jsx` — a floating, collapsible glass pill (Palette icon + chips الأساسي/المسار/التركيز/المرصد) that sets the `?design=` param via `setSearchParams`. Wired into `StudentDashboard.jsx` and gated to **staff/owner only**: shows when impersonating (real role via `_realProfile`), when the real account is admin/trainer, or on a `is_test_account` login — NEVER for real students. Cherry-picked onto main (2 files, no conflicts). Verified: chips render + tapping switches the live view and URL.
+
 ### 2026-06-03 — DASHBOARD: 3 selectable creative STRUCTURES (Journey / Spotlight / Observatory)
 - Owner wanted to choose between bolder structures (not restyles) before committing. Built 3 distinct, self-contained dashboard variants — all on REAL data + the living Aurora Veil background, RTL/mobile-first, live routes only — wired into the `?design=` switch in `src/pages/student/StudentDashboard.jsx` (default unchanged = Command Deck). 3 parallel agents built them; I integrated + verified.
   - `?design=journey` — the dashboard becomes a learning PATH (glowing spine + alternating station nodes; "أنت هنا · تابع" current node; SRS/streak/team/daily woven beside it).
