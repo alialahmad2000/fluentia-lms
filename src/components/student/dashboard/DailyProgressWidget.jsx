@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useDaySummary } from '../../../hooks/dashboard/useTodaySummary'
 import { useHistoryBounds } from '../../../hooks/dashboard/useHistoryBounds'
 import { riyadhToday, addDays, formatArabicDayLabel } from '../../../utils/riyadhTime'
+import { useG } from '../../../i18n/gender'
 
 /* ------------------------------------------------------------------ */
 /*  Design-system glass frame — matches GlassPanel (elevation 1) so the */
@@ -203,6 +204,7 @@ function NavBtn({ onClick, disabled, ariaLabel, children }) {
 /*  Main widget                                                        */
 /* ------------------------------------------------------------------ */
 export default function DailyProgressWidget({ studentId }) {
+  const g = useG()
   const [viewDate, setViewDate] = useState(null)
   const { data, isPending, error } = useDaySummary(studentId, viewDate)
   const { data: bounds } = useHistoryBounds(studentId)
@@ -342,11 +344,11 @@ export default function DailyProgressWidget({ studentId }) {
             className="mb-4 text-sm"
             style={{ color: 'var(--ds-text-secondary)' }}
           >
-            {isToday ? 'يوم جديد! ابدأ بأول نشاط واحصل على XP' : 'يوم خالٍ من النشاط'}
+            {isToday ? g('يوم جديد! ابدأ بأول نشاط واحصل على XP', 'يوم جديد! ابدئي بأول نشاط واحصلي على XP') : 'يوم خالٍ من النشاط'}
           </p>
           {isToday && (
             <Link to="/student/curriculum" className="fl-btn-primary">
-              ابدأ الآن
+              {g('ابدأ الآن', 'ابدئي الآن')}
             </Link>
           )}
         </div>

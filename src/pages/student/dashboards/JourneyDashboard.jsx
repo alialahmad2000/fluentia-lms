@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 
 import { useAuthStore } from '../../../stores/authStore'
+import { useG } from '../../../i18n/gender'
 import StudentDashboardSkeleton from '../../../components/skeletons/StudentDashboardSkeleton'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../../lib/constants'
 import { getGreeting } from '../../../utils/dateHelpers'
@@ -291,6 +292,7 @@ function Station({ index, total, label, tag, state, side, delay, children }) {
 export default function JourneyDashboard() {
   /* ── ALL HOOKS AT TOP (React #310 safe) ── */
   const reduced = useReducedMotion()
+  const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
 
@@ -404,11 +406,11 @@ export default function JourneyDashboard() {
           <div className="jp-spine" aria-hidden="true" />
 
           {/* (a) CURRENT — تابع رحلتك → /student/curriculum */}
-          <Station index={1} total={6} label="تابع رحلتك" tag="الخطوة الحالية" state="current" side="start" delay={0.02}>
+          <Station index={1} total={6} label={g('تابع رحلتك', 'تابعي رحلتكِ')} tag="الخطوة الحالية" state="current" side="start" delay={0.02}>
             <GlassPanel padding="lg" glow hover>
               <p style={{ margin: 0, fontSize: 13.5, color: 'var(--ds-text-secondary)', lineHeight: 1.7 }}>
                 {pkg ? `${pkg.name_ar} · ` : ''}
-                {academic ? `${academic.name_ar} (${academic.cefr})` : 'تابع من حيث توقفت'}
+                {academic ? `${academic.name_ar} (${academic.cefr})` : g('تابع من حيث توقفت', 'تابعي من حيث توقفتِ')}
               </p>
 
               {/* level-progress to next gamification level */}
@@ -484,7 +486,7 @@ export default function JourneyDashboard() {
                   boxShadow: '0 10px 30px var(--ds-accent-primary-glow)',
                 }}
               >
-                تابع التعلّم
+                {g('تابع التعلّم', 'تابعي التعلّم')}
                 <span aria-hidden="true">←</span>
               </Link>
             </GlassPanel>

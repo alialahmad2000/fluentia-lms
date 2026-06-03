@@ -13,6 +13,7 @@ import {
   Quote,
 } from 'lucide-react'
 import DailyLetterCard from '../../../components/dashboard/DailyLetterCard'
+import { useG } from '../../../i18n/gender'
 
 /* ------------------------------------------------------------------ *
  * Fluentia LMS — Student Dashboard, VARIANT "CINEMATIC"
@@ -277,6 +278,7 @@ function GlassCard({ children, mobile, hover, style, ...rest }) {
  * ------------------------------------------------------------------ */
 export default function CinematicDashboard({ data, isLoading, error, profile }) {
   const prefersReduced = useReducedMotion()
+  const g = useG()
   const audioRef = useRef(null)
   const [audioPlaying, setAudioPlaying] = useState(false)
 
@@ -431,10 +433,10 @@ export default function CinematicDashboard({ data, isLoading, error, profile }) 
     streakDays > 0
       ? activity.length > 0
         ? `اليوم ${streakDays} من سلسلتك. الصف يتدرّب الآن.`
-        : `اليوم ${streakDays} من سلسلتك. تابع الإيقاع.`
+        : `اليوم ${streakDays} من سلسلتك. ${g('تابع الإيقاع.', 'تابعي الإيقاع.')}`
       : activity.length > 0
         ? 'يوم جديد بصفحة بيضاء. الصف بدأ بالفعل.'
-        : 'يوم جديد بصفحة بيضاء. افتحها الآن.'
+        : g('يوم جديد بصفحة بيضاء. افتحها الآن.', 'يوم جديد بصفحة بيضاء. افتحيها الآن.')
 
   const continueHref = '/student/curriculum'
 
@@ -700,7 +702,7 @@ export default function CinematicDashboard({ data, isLoading, error, profile }) 
                       textDecoration: 'none',
                     }}
                   >
-                    ابدأ →
+                    {g('ابدأ', 'ابدئي')} →
                   </a>
                 </div>
               ) : (

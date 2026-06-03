@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { useDictionaryStats } from '../../../hooks/dashboard/useDictionaryStats'
 import { usePersonalDictionary } from '../../../hooks/dashboard/usePersonalDictionary'
 import { getCounts } from '../../../services/vocab'
+import { useG } from '../../../i18n/gender'
 
 const MASTERY_CONFIG = {
   new: { label: 'جديد', bg: 'rgba(56,189,248,0.12)', border: 'rgba(56,189,248,0.25)', color: 'var(--accent-sky)' },
@@ -141,14 +142,15 @@ function SkeletonLoader() {
 }
 
 function EmptyState() {
+  const g = useG()
   return (
     <div className="text-center py-8 px-4">
       <div className="text-4xl mb-3">📖</div>
       <h3 className="text-sm font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-        ابدأ ببناء قاموسك الشخصي
+        {g('ابدأ ببناء قاموسك الشخصي', 'ابدئي ببناء قاموسك الشخصي')}
       </h3>
       <p className="text-xs mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-        حدّد أي كلمة في قطع القراءة وأضفها لقاموسك بضغطة
+        {g('حدّد أي كلمة في قطع القراءة وأضفها لقاموسك بضغطة', 'حدّدي أي كلمة في قطع القراءة وأضفيها لقاموسك بضغطة')}
       </p>
       <Link
         to="/student/curriculum"
@@ -160,7 +162,7 @@ function EmptyState() {
         }}
       >
         <BookOpen size={16} />
-        ابدأ القراءة
+        {g('ابدأ القراءة', 'ابدئي القراءة')}
       </Link>
     </div>
   )

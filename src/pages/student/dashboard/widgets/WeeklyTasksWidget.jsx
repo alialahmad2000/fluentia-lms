@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { CalendarClock, CalendarDays, CheckCircle2, Circle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import GlassPanel from '../../../../design-system/components/GlassPanel'
+import { useG } from '../../../../i18n/gender'
 
 const TASK_TYPE_ICONS = {
   vocabulary: '📝', grammar: '📖', reading: '📚', listening: '🎧',
@@ -30,6 +31,7 @@ export function WeeklyTasksSkeleton() {
 
 // Empty state — always shown when no weekly tasks exist
 function WeeklyTasksEmpty() {
+  const g = useG()
   return (
     <GlassPanel padding="md">
       <div className="flex flex-col items-center text-center py-6 gap-3">
@@ -46,7 +48,7 @@ function WeeklyTasksEmpty() {
           className="text-sm font-medium leading-relaxed max-w-xs"
           style={{ color: 'var(--ds-text-secondary)' }}
         >
-          مهام الأسبوع تُحضّر حالياً — تابع التقدم اليومي في هذه الأثناء
+          {g('مهام الأسبوع تُحضّر حالياً — تابع التقدم اليومي في هذه الأثناء', 'مهام الأسبوع تُحضّر حالياً — تابعي التقدم اليومي في هذه الأثناء')}
         </p>
       </div>
     </GlassPanel>

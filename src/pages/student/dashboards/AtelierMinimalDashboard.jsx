@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import { useG } from '../../../i18n/gender'
 
 /* ------------------------------------------------------------------ *
  * Fluentia LMS — Student Dashboard, VARIANT "ATELIER-MINIMAL"
@@ -217,6 +218,7 @@ function TodayEmpty({ text }) {
 export default function AtelierMinimalDashboard({ data, isLoading, error, profile }) {
   /* ---- ALL hooks BEFORE any conditional return ---- */
   const reduced = useReducedMotion()
+  const g = useG()
   const M = useMotion(reduced)
 
   const today = useMemo(() => arabicToday(), [])
@@ -257,7 +259,7 @@ export default function AtelierMinimalDashboard({ data, isLoading, error, profil
       const mins = ch.xp ? Math.max(1, Math.round(ch.xp / 5)) : null
       const bits = ['تحدي اليوم', ch.title_ar]
       if (mins) bits.push(`${mins} دقائق`)
-      rows.push({ key: 'challenge', text: bits.join(' · '), actionLabel: 'ابدئي →', href: '#' })
+      rows.push({ key: 'challenge', text: bits.join(' · '), actionLabel: g('ابدأ →', 'ابدئي →'), href: '#' })
     } else {
       rows.push({ key: 'challenge', empty: true, text: 'لا يوجد تحدٍّ لليوم بعد' })
     }
@@ -267,14 +269,14 @@ export default function AtelierMinimalDashboard({ data, isLoading, error, profil
       rows.push({
         key: 'anki',
         text: `${due} كلمات في Anki جاهزة للمراجعة`,
-        actionLabel: 'راجعي →',
+        actionLabel: g('راجع →', 'راجعي →'),
         href: '#',
       })
     } else {
       rows.push({ key: 'anki', empty: true, text: 'لا كلمات للمراجعة الآن' })
     }
     return rows
-  }, [data?.next_class, data?.daily_challenge, data?.anki_due])
+  }, [data?.next_class, data?.daily_challenge, data?.anki_due, g])
 
   const streakValue = Number(data?.streak?.current) || 0
 
@@ -388,7 +390,7 @@ export default function AtelierMinimalDashboard({ data, isLoading, error, profil
             {streakValue}
           </div>
           <div style={{ fontFamily: F_BODY, fontSize: 15, color: INK_2, marginTop: 4 }}>
-            {streakValue > 0 ? 'يوم متصلة من التعلّم' : 'ابدئي سلسلتك اليوم'}
+            {streakValue > 0 ? 'يوم متصلة من التعلّم' : g('ابدأ سلسلتك اليوم', 'ابدئي سلسلتك اليوم')}
           </div>
         </div>
 
@@ -511,7 +513,7 @@ export default function AtelierMinimalDashboard({ data, isLoading, error, profil
           </figure>
         ) : (
           <div style={{ fontFamily: F_AR, fontStyle: 'italic', fontSize: 18, color: INK_3 }}>
-            كل يوم خطوة. واصلي.
+            {g('كل يوم خطوة. واصل.', 'كل يوم خطوة. واصلي.')}
           </div>
         )}
       </div>

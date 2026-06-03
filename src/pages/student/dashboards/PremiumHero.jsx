@@ -7,6 +7,7 @@ import { getGreeting } from '../../../utils/dateHelpers'
 import { firstNameFrom } from '../../../utils/names'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../../lib/constants'
 import { APPLE_EASE } from './_premiumShell'
+import { useG } from '../../../i18n/gender'
 
 /* ------------------------------------------------------------------ *
  * PremiumHero — the production dashboard's opening movement.
@@ -119,6 +120,7 @@ function Pill({ icon, value, suffix, label, pulse }) {
 
 export default function PremiumHero({ profile, studentData }) {
   const reduced = useReducedMotion()
+  const g = useG()
 
   const firstName = firstNameFrom(profile?.full_name) || profile?.display_name || ''
   const xp = studentData?.xp_total || 0
@@ -267,7 +269,7 @@ export default function PremiumHero({ profile, studentData }) {
                   نقطة للوصول إلى <span style={{ color: 'var(--ds-text-secondary)', fontWeight: 600 }}>{nextLevel.title_ar}</span>
                 </>
               ) : (
-                'بلغتِ أعلى مستوى — استمرّي في التألّق ✦'
+                g('بلغتَ أعلى مستوى — استمرّ في التألّق ✦', 'بلغتِ أعلى مستوى — استمرّي في التألّق ✦')
               )}
             </p>
 

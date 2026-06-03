@@ -70,7 +70,7 @@ export const STUDENT_NAV = {
         { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,       to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn',  label: 'كيف تكسب XP 🎯', icon: Target,    to: '/student/how-to-earn' },
-        { id: 'level-journey', label: 'خريطة رحلتكِ',   icon: Map,       to: '/student/level-journey' },
+        { id: 'level-journey', label: 'خريطة رحلتك',   icon: Map,       to: '/student/level-journey' },
       ],
     },
     {

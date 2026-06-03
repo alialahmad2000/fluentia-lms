@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 
 import { useAuthStore } from '../../../stores/authStore'
+import { useG } from '../../../i18n/gender'
 import StudentDashboardSkeleton from '../../../components/skeletons/StudentDashboardSkeleton'
 
 import { AmbientField, APPLE_EASE } from './_premiumShell'
@@ -240,6 +241,7 @@ function Section({ title, icon: Icon, defaultOpen = false, children }) {
 export default function SpotlightDashboard() {
   /* ── ALL HOOKS AT TOP (React #310 safe) ── */
   const reduced = useReducedMotion()
+  const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
   const nextLesson = useNextLesson(profile?.id, studentData?.academic_level)
@@ -360,7 +362,7 @@ export default function SpotlightDashboard() {
                   margin: '10px 0 0',
                 }}
               >
-                {nextLesson?.title_ar || 'تابع رحلتك'}
+                {nextLesson?.title_ar || g('تابع رحلتك', 'تابعي رحلتكِ')}
               </motion.h1>
 
               {/* package · level line */}
@@ -421,7 +423,7 @@ export default function SpotlightDashboard() {
                       <span style={{ color: 'var(--ds-text-secondary)', fontWeight: 600 }}>{nextLevel.title_ar}</span>
                     </>
                   ) : (
-                    'بلغتَ أعلى مستوى — استمرّ في التألّق ✦'
+                    g('بلغتَ أعلى مستوى — استمرّ في التألّق ✦', 'بلغتِ أعلى مستوى — استمرّي في التألّق ✦')
                   )}
                 </p>
 
@@ -475,7 +477,7 @@ export default function SpotlightDashboard() {
               مسار اليوم
             </h2>
             <span style={{ fontSize: 12, color: 'var(--ds-text-tertiary)', fontWeight: 500 }}>
-              اختر وجهتك
+              {g('اختر وجهتك', 'اختاري وجهتك')}
             </span>
           </div>
 

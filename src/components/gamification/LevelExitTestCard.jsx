@@ -4,8 +4,10 @@ import { Trophy, Lock, CheckCircle2, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
+import { useG } from '../../i18n/gender'
 
 export default function LevelExitTestCard({ studentId, academicLevel }) {
+  const g = useG()
   // Get level_id from academic_level number
   const { data: levelData } = useQuery({
     queryKey: ['student-level-data', academicLevel],
@@ -99,7 +101,7 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
             </div>
             <div>
               <p className="text-sm font-bold" style={{ color: 'var(--ds-text-primary)' }}>
-                جاهز لاختبار نهاية المستوى
+                {g('جاهز', 'جاهزة')} لاختبار نهاية المستوى
               </p>
               <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
                 {eligibility.units_completed} من {eligibility.units_total} وحدة مكتملة
@@ -110,7 +112,7 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
             to={`/student/level-exit-test/${levelData.id}`}
             className="fl-btn-primary text-sm py-2 px-4 flex items-center gap-2"
           >
-            <span>ابدأ</span>
+            <span>{g('ابدأ', 'ابدئي')}</span>
             <ArrowLeft size={14} />
           </Link>
         </div>
@@ -146,7 +148,7 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
               أنجزت {eligibility.units_completed} من {eligibility.units_total} وحدة
             </p>
             <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
-              خلّص {remaining} وحدات عشان تفتح اختبار نهاية المستوى
+              {g('خلّص', 'خلّصي')} {remaining} وحدات عشان {g('تفتح', 'تفتحي')} اختبار نهاية المستوى
             </p>
           </div>
         </div>

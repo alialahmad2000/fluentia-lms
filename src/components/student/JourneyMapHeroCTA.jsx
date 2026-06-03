@@ -5,11 +5,13 @@ import { useQuery } from '@tanstack/react-query'
 import { Map, X, ArrowLeft } from 'lucide-react'
 import { useAuthProfile, useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { useG } from '../../i18n/gender'
 
 const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000
 
 export default function JourneyMapHeroCTA() {
   // ── ALL HOOKS FIRST ──────────────────────────────────────────────
+  const g = useG()
   const profile = useAuthProfile()
   const isImpersonating = useAuthStore(s => s.isImpersonating)
   const navigate = useNavigate()
@@ -101,7 +103,7 @@ export default function JourneyMapHeroCTA() {
               className="text-sm font-bold leading-snug"
               style={{ color: 'var(--ds-text-primary)', fontFamily: "'Tajawal', sans-serif" }}
             >
-              ابدأي رحلة طلاقة — الوحدة الأولى بانتظارك
+              {g('ابدأ رحلة طلاقة — الوحدة الأولى بانتظارك', 'ابدئي رحلة طلاقة — الوحدة الأولى بانتظارك')}
             </p>
           </div>
 
@@ -126,7 +128,7 @@ export default function JourneyMapHeroCTA() {
               }}
             />
             <span className="relative flex items-center gap-1.5">
-              افتحي الخريطة
+              {g('افتح الخريطة', 'افتحي الخريطة')}
               <ArrowLeft size={14} />
             </span>
           </button>

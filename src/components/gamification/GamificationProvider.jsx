@@ -6,6 +6,7 @@ import AchievementUnlock from './AchievementUnlock'
 import LevelUpCelebration from './LevelUpCelebration'
 import { safeCelebrate } from '../../lib/celebrations'
 import { emitXP } from '../ui/XPFloater'
+import { useG } from '../../i18n/gender'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -116,6 +117,7 @@ const ACHIEVEMENT_CHECKS = [
 ]
 
 export default function GamificationProvider() {
+  const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
   const [unlockedAchievement, setUnlockedAchievement] = useState(null)
@@ -170,7 +172,7 @@ export default function GamificationProvider() {
       setUnlockedAchievement({
         icon: '\uD83D\uDD25',
         name_ar: `سلسلة ${currentMilestone} يوم!`,
-        description_ar: currentMilestone >= 30 ? 'إنجاز مذهل — استمر!' : 'أحسنت — واصل يومياً!',
+        description_ar: currentMilestone >= 30 ? g('إنجاز مذهل — استمر!', 'إنجاز مذهل — استمري!') : g('أحسنت — واصل يومياً!', 'أحسنت — واصلي يومياً!'),
         xp_reward: 0,
       })
     }
