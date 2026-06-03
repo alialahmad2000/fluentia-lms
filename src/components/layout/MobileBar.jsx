@@ -5,12 +5,14 @@ import { prefetchRoute } from '../../lib/prefetchRegistry'
 import { useAuthStore } from '../../stores/authStore'
 import { motion } from 'framer-motion'
 import { MoreHorizontal } from 'lucide-react'
+import { useChatUnread } from '../../features/chat/queries/useDM'
 
 function MobileBar({ nav, onMoreClick, role }) {
   const { t } = useTranslation()
   const location = useLocation()
   const profileId = useAuthStore((s) => s.profile?.id)
   const handlePrefetch = useCallback((path) => prefetchRoute(path, profileId), [profileId])
+  const chatUnread = useChatUnread()
 
   return (
     <nav
@@ -33,10 +35,16 @@ function MobileBar({ nav, onMoreClick, role }) {
               <button
                 key="more"
                 onClick={onMoreClick}
-                className="flex flex-col items-center gap-0.5 px-2 py-1.5 min-w-[56px] min-h-[44px] justify-center"
+                className="relative flex flex-col items-center gap-0.5 px-2 py-1.5 min-w-[56px] min-h-[44px] justify-center"
                 style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))' }}
               >
                 <MoreHorizontal size={22} />
+                {chatUnread > 0 && (
+                  <span className="absolute flex items-center justify-center tabular-nums" aria-label={`${chatUnread} رسائل غير مقروءة`}
+                    style={{ top: 4, insetInlineEnd: 10, minWidth: 16, height: 16, padding: '0 4px', borderRadius: 9999, fontSize: 9.5, fontWeight: 700, background: 'var(--ds-accent-danger, #ef4444)', color: '#fff', boxShadow: '0 0 0 2px var(--ds-bg-base)' }}>
+                    {chatUnread > 99 ? '99+' : chatUnread}
+                  </span>
+                )}
                 <span className="text-[10px] font-medium font-['Tajawal']">{item.labelKey ? t(item.labelKey) : item.label}</span>
               </button>
             )

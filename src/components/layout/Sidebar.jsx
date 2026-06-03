@@ -12,6 +12,7 @@ import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { getHardWordsCount } from '@/services/hardWords'
 import { getDueCount } from '@/services/vocab'
 import { toArabicNum } from '@/lib/vocabFormat'
+import { useChatUnread } from '@/features/chat/queries/useDM'
 import { supabase } from '@/lib/supabase'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin' }
@@ -70,9 +71,10 @@ function Sidebar({ nav, collapsed, onToggle }) {
     staleTime: 30_000,
     refetchOnWindowFocus: true,
   })
+  const chatUnread = useChatUnread()
   const badgeCounts = useMemo(
-    () => ({ 'srs-due': vocabDueCount, 'hard-words-count': hardWordsCount }),
-    [vocabDueCount, hardWordsCount]
+    () => ({ 'srs-due': vocabDueCount, 'hard-words-count': hardWordsCount, 'chat-unread': chatUnread }),
+    [vocabDueCount, hardWordsCount, chatUnread]
   )
 
   const navigate = useNavigate()

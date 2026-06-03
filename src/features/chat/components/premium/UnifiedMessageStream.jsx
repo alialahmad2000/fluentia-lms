@@ -110,6 +110,7 @@ export default function UnifiedMessageStream({
   deepLinkMessageId,
   generalChannelId,
   dmThreadId,            // when set → DM mode (data from group_messages via dm_thread_id)
+  readUpTo,             // DM: other member's last_read_at → drives ✓✓ receipts
   onScroll,
   onReply,
   onEdit,
@@ -238,6 +239,7 @@ export default function UnifiedMessageStream({
               groupId={groupId}
               onReply={onReply}
               onEdit={onEdit}
+              readUpTo={readUpTo}
               animateIn={new Date(item.messages[item.messages.length - 1].created_at).getTime() > mountedAtRef.current}
             />
           )
