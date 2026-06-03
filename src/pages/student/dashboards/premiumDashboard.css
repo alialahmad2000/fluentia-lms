@@ -1,121 +1,150 @@
 /* ══════════════════════════════════════════════════════════════════
-   PREMIUM STUDENT DASHBOARD — Atelier atmosphere + presentation layer
-   Scoped under .pd-root so nothing here leaks to other pages.
-   Everything is driven by --ds-* tokens → all themes "just work".
-   Performance contract: only transform/opacity animate; blooms are
-   blurred radial gradients (GPU-cheap); paused under reduced-motion
-   and trimmed on small screens.
+   PREMIUM STUDENT DASHBOARD — "Aurora Veil" living background + layout
+   The background (.av) is portaled to <body> so it is FULL-BLEED (not
+   confined to the centred content column) and sits above the global
+   velvet base but behind all dashboard content.
+   Performance contract: only transform/opacity animate; colour comes
+   from blurred radial gradients + one rotating conic halo; paused under
+   reduced-motion and on hidden tabs; trimmed on phones.
    ══════════════════════════════════════════════════════════════════ */
 
-.pd-root {
-  position: relative;
-  isolation: isolate;
-}
+.pd-root { position: relative; }
 
-/* ── Living ambient field ──────────────────────────────────────────
-   A dual-temperature wash: a warm primary bloom crowns the hero, while
-   cool secondary/teal blooms drift through the lower page. Together they
-   tie the gold hero and the cool data widgets into one composition. */
-.pd-atmo {
-  position: absolute;
+/* ── Aurora Veil — full-bleed living background ─────────────────────── */
+.av {
+  position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 0;            /* above velvet base (-1), below content (1) */
   pointer-events: none;
   overflow: hidden;
-  border-radius: inherit;
-  contain: layout paint style;
+  contain: strict;
+  /* Default / night palette — vivid jewel tones (the night --ds tokens
+     are intentionally muted, so the veil carries its own richer colours). */
+  --av-c1: #f0b73a;   /* gold   */
+  --av-c2: #7b5cff;   /* violet */
+  --av-c3: #24d3c2;   /* teal   */
+  --av-c4: #ff5fa2;   /* rose   */
+  --av-blend: screen;
+}
+[data-theme="aurora-cinematic"] .av { --av-c1: #38bdf8; --av-c2: #a78bfa; --av-c3: #22d3ee; --av-c4: #f472b6; }
+[data-theme="minimal"] .av {
+  --av-c1: #0ea5e9; --av-c2: #7c3aed; --av-c3: #0d9488; --av-c4: #db2777;
+  --av-blend: multiply;
 }
 
-/* Soft top "stage light" behind the hero — the warm welcome. */
-.pd-atmo__beam {
-  position: absolute;
-  inset-block-start: -18%;
-  inset-inline: -10%;
-  height: clamp(360px, 52vh, 620px);
-  background:
-    radial-gradient(60% 100% at 72% 0%,
-      color-mix(in srgb, var(--ds-accent-primary) 26%, transparent) 0%,
-      transparent 66%);
-  opacity: 0.9;
-  filter: blur(6px);
+/* faint top sheen to lift the very top edge */
+.av__base {
+  position: absolute; inset: 0;
+  background: radial-gradient(120% 70% at 50% -12%, rgba(255, 255, 255, 0.035), transparent 60%);
 }
 
-.pd-atmo__bloom {
+/* drifting jewel-tone light fields */
+.av__blob {
   position: absolute;
   border-radius: 50%;
+  filter: blur(64px);
+  mix-blend-mode: var(--av-blend);
   will-change: transform;
   transform: translate3d(0, 0, 0);
-  filter: blur(38px);
+}
+.av__blob--1 {
+  width: 62vmax; height: 62vmax; top: -24vmax; inset-inline-end: -14vmax;
+  background: radial-gradient(circle, var(--av-c1) 0%, transparent 62%);
+  opacity: 0.34; animation: av-d1 36s ease-in-out infinite;
+}
+.av__blob--2 {
+  width: 66vmax; height: 66vmax; top: 6vmax; inset-inline-start: -24vmax;
+  background: radial-gradient(circle, var(--av-c2) 0%, transparent 62%);
+  opacity: 0.32; animation: av-d2 48s ease-in-out infinite; animation-delay: -12s;
+}
+.av__blob--3 {
+  width: 54vmax; height: 54vmax; bottom: -20vmax; inset-inline-end: 4vmax;
+  background: radial-gradient(circle, var(--av-c3) 0%, transparent 62%);
+  opacity: 0.26; animation: av-d3 58s ease-in-out infinite; animation-delay: -26s;
+}
+.av__blob--4 {
+  width: 48vmax; height: 48vmax; bottom: 2vmax; inset-inline-start: 8vmax;
+  background: radial-gradient(circle, var(--av-c4) 0%, transparent 64%);
+  opacity: 0.22; animation: av-d4 66s ease-in-out infinite; animation-delay: -38s;
 }
 
-/* warm gold, crowning the hero (inline-end / top) */
-.pd-atmo__bloom--gold {
-  inset-block-start: -8%;
-  inset-inline-end: -6%;
-  width: clamp(340px, 46vw, 620px);
-  height: clamp(340px, 46vw, 620px);
-  background: radial-gradient(circle,
-    color-mix(in srgb, var(--ds-accent-primary) 32%, transparent) 0%,
-    transparent 62%);
-  opacity: 0.7;
-  animation: pd-drift-a 78s ease-in-out infinite;
+/* the living core: a slowly rotating multi-hue conic halo (continuous
+   hue-shift without animating colour itself — just a transform) */
+.av__halo {
+  position: absolute; top: 50%; left: 50%;
+  width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
+  background: conic-gradient(from 0deg,
+    transparent 0deg,
+    color-mix(in srgb, var(--av-c2) 62%, transparent) 55deg,
+    transparent 120deg,
+    color-mix(in srgb, var(--av-c1) 58%, transparent) 190deg,
+    transparent 250deg,
+    color-mix(in srgb, var(--av-c3) 55%, transparent) 315deg,
+    transparent 360deg);
+  filter: blur(72px);
+  mix-blend-mode: var(--av-blend);
+  opacity: 0.20;
+  will-change: transform;
+  animation: av-spin 120s linear infinite;
 }
 
-/* muted violet, mid page (inline-start) */
-.pd-atmo__bloom--violet {
-  inset-block-start: 30%;
-  inset-inline-start: -14%;
-  width: clamp(360px, 50vw, 680px);
-  height: clamp(360px, 50vw, 680px);
-  background: radial-gradient(circle,
-    color-mix(in srgb, var(--ds-accent-secondary) 30%, transparent) 0%,
-    transparent 64%);
-  opacity: 0.55;
-  animation: pd-drift-b 96s ease-in-out infinite;
-  animation-delay: -20s;
-}
-
-/* cool teal whisper, lower page (inline-end) — keeps the data zone alive */
-.pd-atmo__bloom--teal {
-  inset-block-end: 4%;
-  inset-inline-end: -10%;
-  width: clamp(320px, 44vw, 560px);
-  height: clamp(320px, 44vw, 560px);
-  background: radial-gradient(circle,
-    color-mix(in srgb, var(--ds-sky, var(--ds-accent-primary)) 26%, transparent) 0%,
-    transparent 64%);
-  opacity: 0.42;
-  animation: pd-drift-c 112s ease-in-out infinite;
-  animation-delay: -44s;
-}
-
-/* Hairline color sweep across the very top — a refined "horizon". */
-.pd-atmo__horizon {
+/* floating sparks (rendered in JSX with per-item inline left/delay/dur/colour) */
+.av__spark {
   position: absolute;
-  inset-block-start: 0;
-  inset-inline: 6%;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent,
-    color-mix(in srgb, var(--ds-accent-primary) 50%, transparent),
-    color-mix(in srgb, var(--ds-accent-secondary) 40%, transparent),
-    transparent);
-  opacity: 0.5;
+  width: 3px; height: 3px; border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-name: av-rise;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
 
-@keyframes pd-drift-a {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  33%      { transform: translate3d(-4%, 3%, 0); }
-  66%      { transform: translate3d(3%, -2%, 0); }
+/* edge vignette to focus the centre */
+.av__vig {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 38%, transparent 42%, rgba(0, 0, 0, 0.5) 100%);
 }
-@keyframes pd-drift-b {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50%      { transform: translate3d(5%, -4%, 0); }
+
+@keyframes av-d1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-7%, 6%, 0) scale(1.1); }
 }
-@keyframes pd-drift-c {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  33%      { transform: translate3d(4%, -3%, 0); }
-  66%      { transform: translate3d(-3%, 2%, 0); }
+@keyframes av-d2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(8%, -5%, 0) scale(1.12); }
+}
+@keyframes av-d3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-6%, -7%, 0) scale(1.08); }
+}
+@keyframes av-d4 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(6%, 7%, 0) scale(1.14); }
+}
+@keyframes av-spin { to { transform: rotate(360deg); } }
+@keyframes av-rise {
+  0%   { transform: translateY(24px) translateX(0); opacity: 0; }
+  12%  { opacity: 0.85; }
+  85%  { opacity: 0.45; }
+  100% { transform: translateY(-130px) translateX(12px); opacity: 0; }
+}
+
+/* pause on hidden tab (class toggled from JS) */
+.av.is-paused .av__blob,
+.av.is-paused .av__halo,
+.av.is-paused .av__spark { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .av__blob, .av__halo, .av__spark { animation: none !important; }
+  .av__spark { opacity: 0 !important; }
+}
+
+@media (max-width: 768px) {
+  /* phones: keep the colour, cut the cost — fewer layers, lighter blur */
+  .av__halo { display: none; }
+  .av__blob--4 { display: none; }
+  .av__blob { filter: blur(44px); }
+  .av__spark { display: none; }
 }
 
 /* ── Editorial section eyebrow ─────────────────────────────────────── */
@@ -169,18 +198,6 @@
   pointer-events: none;
 }
 
-/* ── Performance + accessibility ───────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .pd-atmo__bloom { animation: none !important; }
-}
-
-@media (max-width: 768px) {
-  /* Lighten the GPU load on phones: drop the heaviest bloom + ease blur. */
-  .pd-atmo__bloom--teal { display: none; }
-  .pd-atmo__bloom { filter: blur(26px); animation-duration: 150s; }
-  .pd-atmo__beam { filter: none; }
-}
-
 /* ── Bento "command deck" grid ─────────────────────────────────────── */
 .pd-bento {
   display: grid;
@@ -199,9 +216,7 @@
   .pd-cell--4 { grid-column: span 4; }
 }
 
-/* ── Unified premium tile chrome (applied to widgets reused in the deck) ──
-   Many legacy widgets bring slightly different card chrome. This optional
-   wrapper gives a tile a consistent glass frame when a widget is frameless. */
+/* ── Unified premium tile chrome helper ────────────────────────────── */
 .pd-tile {
   background: var(--ds-surface-1);
   border: 1px solid var(--ds-border-subtle);
