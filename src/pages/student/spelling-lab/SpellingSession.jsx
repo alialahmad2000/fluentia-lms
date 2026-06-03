@@ -1,18 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Volume2, Check, X, ArrowRight, RotateCcw } from 'lucide-react'
+import { Volume2, Check, X, ArrowLeft, RotateCcw } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { pronounceWord } from '../../../lib/audio/pronounceWord'
 import WordRevealCard from './WordRevealCard'
 
-// ── Spelling Lab session (prompt 09, Surface 3) ─────────────────────────────
+// ── Spelling Lab session (Surface 4 of the Constellation identity) ───────────
 // One drill of up to 10 words. Two modes:
 //   listen_type  — audio plays (audio_url or Web Speech fallback) → type it
-//   see_retype   — word shown 2s in Cormorant italic → fades → type from memory
+//   see_retype   — word shown 2s in serif → fades → type from memory
 // Server is the source of truth for correctness + Anki-lite mastery via the
 // spelling_lab_record_attempt RPC. Calm UI — no confetti, no exclamation marks.
+// Restyled into the indigo/gold "constellation" palette; gold = mastery only.
 
-const GOLD = 'var(--ds-accent-primary, #e9b949)'
 const SESSION_SIZE = 10
 const FEEDBACK_REVEAL_MS = 2200   // wrong answer: dwell long enough to read the reveal card before retype
 const SEE_REVEAL_MS = 2000
@@ -38,10 +38,11 @@ function ProgressDots({ marks, current }) {
             width: i === current ? 10 : 8,
             height: i === current ? 10 : 8,
             background:
-              m === 'correct' ? GOLD
-              : m === 'wrong' ? 'var(--ds-text-tertiary, #64748b)'
-              : i === current ? 'var(--ds-text-secondary, #94a3b8)'
-              : 'var(--ds-border-subtle, rgba(255,255,255,0.12))',
+              m === 'correct' ? 'var(--vc-gold)'
+              : m === 'wrong' ? 'var(--vc-text-dim)'
+              : i === current ? 'var(--vc-indigo-bright)'
+              : 'var(--vc-border-strong)',
+            boxShadow: m === 'correct' ? 'var(--vc-glow-gold)' : 'none',
           }}
         />
       ))}
@@ -54,28 +55,24 @@ function SessionSummary({ stats, total, onAgain, onExit }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center text-center px-4 py-10"
+      className="vc-card flex flex-col items-center text-center px-4 py-10"
       dir="rtl"
     >
-      <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: 56, lineHeight: 1, color: GOLD }}>
-        {stats.correct} <span style={{ color: 'var(--ds-text-tertiary, #64748b)', fontSize: 32 }}>/ {total}</span>
+      <p
+        className="vc-word max-w-full leading-none"
+        style={{ fontStyle: 'italic', fontSize: 'clamp(2.75rem, 14vw, 3.5rem)', color: 'var(--vc-gold-soft)' }}
+      >
+        {stats.correct}{' '}
+        <span style={{ color: 'var(--vc-text-dim)', fontSize: '0.6em' }}>/ {total}</span>
       </p>
-      <p className="mt-3 text-[15px]" style={{ fontFamily: "'Tajawal', sans-serif", color: 'var(--ds-text-secondary, #94a3b8)' }}>
-        أتممت الجلسة — دقّتك {accuracy}٪
+      <p className="mt-3 text-[15px]" style={{ color: 'var(--vc-text-soft)' }}>
+        أتممتِ الجلسة — دقّتكِ {accuracy}٪
       </p>
       <div className="mt-8 flex flex-col sm:flex-row gap-3 w-full max-w-sm">
-        <button
-          type="button" onClick={onAgain}
-          className="flex-1 h-12 rounded-xl text-[15px] font-medium"
-          style={{ background: GOLD, color: 'var(--ds-primary-ink, #0a0a0f)', fontFamily: "'Tajawal', sans-serif" }}
-        >
+        <button type="button" onClick={onAgain} className="vc-btn vc-btn-primary flex-1">
           جلسة جديدة
         </button>
-        <button
-          type="button" onClick={onExit}
-          className="flex-1 h-12 rounded-xl text-[15px]"
-          style={{ border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.12))', color: 'var(--ds-text-secondary, #94a3b8)', fontFamily: "'Tajawal', sans-serif" }}
-        >
+        <button type="button" onClick={onExit} className="vc-btn vc-btn-ghost flex-1">
           إلى المختبر
         </button>
       </div>
@@ -268,19 +265,21 @@ export default function SpellingSession({ mode, onExit }) {
   if (words === null) {
     return (
       <div className="flex items-center justify-center py-20" dir="rtl">
-        <div className="w-8 h-8 rounded-full animate-spin" style={{ border: '2px solid var(--ds-border-subtle, rgba(255,255,255,0.15))', borderTopColor: GOLD }} />
+        <div
+          className="w-8 h-8 rounded-full animate-spin"
+          style={{ border: '2px solid var(--vc-border-strong)', borderTopColor: 'var(--vc-indigo-bright)' }}
+        />
       </div>
     )
   }
 
   if (words.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 px-6 text-center" dir="rtl">
-        <p className="text-[15px]" style={{ fontFamily: "'Tajawal', sans-serif", color: 'var(--ds-text-secondary, #94a3b8)' }}>
+      <div className="vc-card flex flex-col items-center justify-center py-16 px-6 text-center" dir="rtl">
+        <p className="text-[15px]" style={{ color: 'var(--vc-text-soft)' }}>
           {loadError || 'لا توجد كلمات متاحة الآن.'}
         </p>
-        <button type="button" onClick={onExit} className="mt-6 h-11 px-6 rounded-xl text-[14px]"
-          style={{ border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.12))', color: 'var(--ds-text-secondary, #94a3b8)', fontFamily: "'Tajawal', sans-serif" }}>
+        <button type="button" onClick={onExit} className="vc-btn vc-btn-ghost mt-6">
           العودة
         </button>
       </div>
@@ -292,29 +291,36 @@ export default function SpellingSession({ mode, onExit }) {
   }
 
   return (
-    <div className="spelling-session flex flex-col items-center" dir="ltr">
+    <div className="spelling-session vc-card flex flex-col items-center p-5 sm:p-6" dir="ltr">
       {current?.audio_url && <audio ref={audioRef} src={current.audio_url} preload="auto" />}
 
       {/* top bar: progress + exit */}
       <div className="w-full flex items-center justify-between mb-10" dir="rtl">
-        <button type="button" onClick={onExit} aria-label="خروج" className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+        <button
+          type="button" onClick={onExit} aria-label="خروج"
+          className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+          style={{ color: 'var(--vc-text-dim)' }}
+        >
           <X size={18} />
         </button>
         <ProgressDots marks={marks} current={currentIdx} />
-        <span className="text-[12px] tabular-nums" style={{ color: 'var(--ds-text-tertiary, #64748b)', fontFamily: "'Readex Pro', sans-serif" }}>
+        <span className="text-xs tabular-nums" style={{ color: 'var(--vc-text-dim)' }}>
           {currentIdx + 1}/{words.length}
         </span>
       </div>
 
       <div className="w-full max-w-md flex flex-col items-center min-h-[280px] justify-center">
-        {/* listen_type: big gold audio button */}
+        {/* listen_type: big indigo audio button */}
         {mode === 'listen_type' && phase !== 'feedback' && (
           <motion.button
-            type="button" onClick={playWord} aria-label="استمع للكلمة"
+            type="button" onClick={playWord} aria-label="استمعي للكلمة"
             whileTap={{ scale: 0.94 }}
             className="mb-8 w-20 h-20 rounded-full flex items-center justify-center"
-            style={{ background: GOLD, color: 'var(--ds-primary-ink, #0a0a0f)', boxShadow: '0 12px 32px -8px rgba(233,185,73,0.5)' }}
+            style={{
+              background: 'linear-gradient(135deg, var(--vc-indigo), var(--vc-violet))',
+              color: '#0a0e1c',
+              boxShadow: '0 14px 36px -12px rgba(129,140,248,0.6)',
+            }}
           >
             <Volume2 size={36} />
           </motion.button>
@@ -327,7 +333,8 @@ export default function SpellingSession({ mode, onExit }) {
               key={`word-${currentIdx}`}
               initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: 56, color: 'var(--ds-text-primary, #f8fafc)' }}
+              className="vc-word max-w-full text-center break-words leading-tight"
+              style={{ fontStyle: 'italic', fontSize: 'clamp(2.25rem, 12vw, 3.5rem)', color: 'var(--vc-text)' }}
             >
               {current.word_en}
             </motion.div>
@@ -338,8 +345,10 @@ export default function SpellingSession({ mode, onExit }) {
         {(phase === 'input' || phase === 'retry') && (
           <div className="w-full px-1">
             {phase === 'retry' && (
-              <p className="mb-3 text-center text-[13px]" style={{ fontFamily: "'Tajawal', sans-serif", color: 'var(--ds-text-tertiary, #64748b)' }}>
-                أعد كتابة <span style={{ color: GOLD, fontFamily: "'Readex Pro', sans-serif" }}>{current.word_en}</span> للمتابعة
+              <p className="mb-3 text-center text-[13px]" style={{ color: 'var(--vc-text-dim)' }}>
+                أعيدي كتابة{' '}
+                <span className="vc-word" style={{ color: 'var(--vc-gold-soft)' }}>{current.word_en}</span>
+                {' '}للمتابعة
               </p>
             )}
             <input
@@ -352,29 +361,26 @@ export default function SpellingSession({ mode, onExit }) {
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
-              placeholder="اكتب الكلمة"
-              className="w-full text-center rounded-xl px-4 outline-none"
+              placeholder="اكتبي الكلمة"
+              className="w-full max-w-full text-center rounded-2xl px-4 outline-none"
               style={{
                 height: 60,
                 fontSize: 24,
-                fontFamily: "'Readex Pro', sans-serif",
-                background: 'var(--ds-bg-elevated, rgba(255,255,255,0.04))',
-                color: 'var(--ds-text-primary, #f8fafc)',
-                border: `1.5px solid ${phase === 'retry' ? GOLD : 'var(--ds-border-subtle, rgba(255,255,255,0.12))'}`,
-                boxShadow: phase === 'retry' ? '0 0 0 3px rgba(233,185,73,0.18)' : 'none',
+                fontFamily: "'Tajawal', sans-serif",
+                background: 'var(--vc-surface-2)',
+                color: 'var(--vc-text)',
+                border: `1.5px solid ${phase === 'retry' ? 'var(--vc-gold)' : 'var(--vc-border)'}`,
+                boxShadow: phase === 'retry' ? '0 0 0 3px rgba(251,191,36,0.18)' : 'none',
               }}
             />
             <button
               type="button"
               onClick={() => (phase === 'retry' ? submitRetry() : submit())}
               disabled={!answer.trim()}
-              className="mt-4 w-full h-12 rounded-xl text-[15px] font-medium flex items-center justify-center gap-2 transition-opacity"
-              style={{
-                background: GOLD, color: 'var(--ds-primary-ink, #0a0a0f)',
-                fontFamily: "'Tajawal', sans-serif", opacity: answer.trim() ? 1 : 0.4,
-              }}
+              className="vc-btn vc-btn-primary mt-4 w-full transition-opacity"
+              style={{ opacity: answer.trim() ? 1 : 0.4 }}
             >
-              تحقّق <ArrowRight size={16} />
+              تحقّقي <ArrowLeft size={16} />
             </button>
 
             {/* keep the teaching card visible while the student retypes the
@@ -395,18 +401,23 @@ export default function SpellingSession({ mode, onExit }) {
             className="flex flex-col items-center w-full" dir="rtl"
           >
             {wasCorrect ? (
-              <span className="w-16 h-16 rounded-full flex items-center justify-center"
-                style={{ background: 'rgba(74,222,128,0.14)', color: 'var(--ds-accent-success, #4ade80)' }}>
+              <span
+                className="w-16 h-16 rounded-full flex items-center justify-center"
+                style={{ background: 'rgba(251,191,36,0.14)', color: 'var(--vc-gold)' }}
+              >
                 <Check size={32} />
               </span>
             ) : (
               <>
-                <span className="w-16 h-16 rounded-full flex items-center justify-center"
-                  style={{ background: 'rgba(148,163,184,0.14)', color: 'var(--ds-text-secondary, #94a3b8)' }}>
+                <span
+                  className="w-16 h-16 rounded-full flex items-center justify-center"
+                  style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-text-soft)' }}
+                >
                   <X size={32} />
                 </span>
-                <p className="mt-4 text-[15px]" style={{ fontFamily: "'Tajawal', sans-serif", color: 'var(--ds-text-secondary, #94a3b8)' }}>
-                  الصحيح: <strong dir="ltr" style={{ fontFamily: "'Readex Pro', sans-serif", color: 'var(--ds-text-primary, #f8fafc)' }}>{current.word_en}</strong>
+                <p className="mt-4 text-[15px]" style={{ color: 'var(--vc-text-soft)' }}>
+                  الصحيح:{' '}
+                  <strong dir="ltr" className="vc-word" style={{ color: 'var(--vc-text)' }}>{current.word_en}</strong>
                 </p>
               </>
             )}
@@ -418,19 +429,20 @@ export default function SpellingSession({ mode, onExit }) {
               <motion.button
                 type="button" onClick={advance}
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-                className="mt-6 w-full max-w-md h-12 rounded-xl text-[15px] font-medium flex items-center justify-center gap-2"
-                style={{ background: GOLD, color: 'var(--ds-primary-ink, #0a0a0f)', fontFamily: "'Tajawal', sans-serif" }}
+                className="vc-btn vc-btn-primary mt-6 w-full max-w-md"
               >
-                التالي <ArrowRight size={16} />
+                التالي <ArrowLeft size={16} />
               </motion.button>
             )}
           </motion.div>
         )}
 
         {saveError && (
-          <p className="mt-4 text-[12px] flex items-center gap-1.5" dir="rtl"
-            style={{ fontFamily: "'Tajawal', sans-serif", color: 'var(--ds-accent-warning, #f59e0b)' }}>
-            <RotateCcw size={12} /> تعذّر حفظ هذه المحاولة — تابع، سنحاول لاحقًا
+          <p
+            className="mt-4 text-xs flex items-center gap-1.5" dir="rtl"
+            style={{ color: 'var(--vc-text-dim)' }}
+          >
+            <RotateCcw size={12} /> تعذّر حفظ هذه المحاولة — تابعي، سنحاول لاحقًا
           </p>
         )}
       </div>
