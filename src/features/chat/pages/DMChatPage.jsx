@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
-import { useDMThreadMeta } from '../queries/useDM'
+import { useDMThreadMeta, useDMOtherRead } from '../queries/useDM'
 import { usePresence } from '../realtime/usePresence'
 import SenderAvatar from '../components/premium/SenderAvatar'
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
@@ -20,6 +20,7 @@ export default function DMChatPage() {
   const { data: meta } = useDMThreadMeta(threadId)
   const other = meta?.profile
   const otherId = meta?.otherId
+  const readUpTo = useDMOtherRead(threadId)
   const { onlineUserIds } = usePresence(`dm:${threadId}`)
   const isOnline = otherId && onlineUserIds.includes(otherId)
   const sc = otherId ? senderColor(otherId) : null
@@ -92,6 +93,7 @@ export default function DMChatPage() {
       <div className="chat-stream">
         <UnifiedMessageStream
           dmThreadId={threadId}
+          readUpTo={readUpTo}
           onReply={startReply}
           onEdit={startEdit}
         />

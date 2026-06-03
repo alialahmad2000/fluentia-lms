@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useTransform } from 'framer-motion'
-import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft } from 'lucide-react'
+import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck } from 'lucide-react'
 import { useAuthProfile } from '../../../stores/authStore'
 import MessageBubbleText from './MessageBubbleText'
 import MessageBubbleVoice from './MessageBubbleVoice'
@@ -44,7 +44,7 @@ const SHADOW_OTHER = [
   'inset 0 1px 0 0 color-mix(in srgb, white 7%, transparent)',
 ].join(',')
 
-export default function MessageBubble({ message, isGrouped, position = 'single', channelId, groupId, onReply, onEdit }) {
+export default function MessageBubble({ message, isGrouped, position = 'single', channelId, groupId, onReply, onEdit, readUpTo }) {
   const profile = useAuthProfile()
   const [showReactionBar, setShowReactionBar] = useState(false)
   const [sheet, setSheet] = useState({ open: false, anchor: null })
@@ -166,10 +166,15 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           {message.type === 'announcement' && <MessageBubbleAnnouncement message={message} body={bodyText} />}
 
           {isOwn && (
-            <div className="flex justify-start mt-0.5">
+            <div className="flex items-center gap-1 justify-start mt-0.5">
               <span className="text-[10.5px] tabular-nums" style={{ color: 'color-mix(in srgb, var(--ds-accent-primary) 60%, var(--ds-text-tertiary))', fontVariantNumeric: 'tabular-nums' }}>
                 {time}{message.is_edited && ' · معدّل'}
               </span>
+              {readUpTo !== undefined && !String(message.id).startsWith('optimistic') && (
+                (readUpTo && new Date(message.created_at) <= new Date(readUpTo))
+                  ? <CheckCheck size={13} style={{ color: 'var(--ds-accent-primary)' }} aria-label="تمت القراءة" />
+                  : <Check size={13} style={{ color: 'var(--ds-text-tertiary)' }} aria-label="تم الإرسال" />
+              )}
             </div>
           )}
         </div>

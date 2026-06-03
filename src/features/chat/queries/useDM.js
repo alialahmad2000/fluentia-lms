@@ -152,6 +152,61 @@ export function useSendDM(threadId) {
   })
 }
 
+// Total unread (group + DMs) for the sidebar badge.
+export function useChatUnread() {
+  const qc = useQueryClient()
+  const profile = useAuthProfile()
+  const query = useQuery({
+    queryKey: ['chat-unread-badge', profile?.id],
+    enabled: !!profile?.id,
+    staleTime: 15_000,
+    refetchInterval: 30_000,
+    refetchOnWindowFocus: true,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('get_chat_unread_badge')
+      if (error) return 0
+      return data ?? 0
+    },
+  })
+  useEffect(() => {
+    if (!profile?.id) return
+    const invalidate = () => qc.invalidateQueries({ queryKey: ['chat-unread-badge'] })
+    const ch = supabase
+      .channel('chat-unread-' + Math.random().toString(36).slice(2))
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'group_messages' }, invalidate)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'channel_read_cursors' }, invalidate)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'dm_thread_reads' }, invalidate)
+      .subscribe()
+    return () => { ch.unsubscribe(); supabase.removeChannel(ch) }
+  }, [profile?.id, qc])
+  return query.data ?? 0
+}
+
+// The other DM member's last_read_at — drives ✓✓ read receipts (live).
+export function useDMOtherRead(threadId) {
+  const qc = useQueryClient()
+  const query = useQuery({
+    queryKey: ['dm-other-read', threadId],
+    enabled: !!threadId,
+    staleTime: 5_000,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('dm_other_last_read', { p_thread: threadId })
+      if (error) return null
+      return data ?? null
+    },
+  })
+  useEffect(() => {
+    if (!threadId) return
+    const ch = supabase
+      .channel(`dm:reads:${threadId}`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'dm_thread_reads', filter: `thread_id=eq.${threadId}` },
+        () => qc.invalidateQueries({ queryKey: ['dm-other-read', threadId] }))
+      .subscribe()
+    return () => { ch.unsubscribe(); supabase.removeChannel(ch) }
+  }, [threadId, qc])
+  return query.data ?? null
+}
+
 export function useDMMarkRead(threadId) {
   const profile = useAuthProfile()
   const qc = useQueryClient()

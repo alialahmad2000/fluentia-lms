@@ -11,6 +11,7 @@ import { toast } from '@/components/ui/FluentiaToast'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { getHardWordsCount } from '@/services/hardWords'
 import { supabase } from '@/lib/supabase'
+import { useChatUnread } from '@/features/chat/queries/useDM'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin' }
 
@@ -22,6 +23,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
 
   const { data: ieltsRoster } = useIELTSRoster()
   const hasIELTSStudents = Array.isArray(ieltsRoster) && ieltsRoster.length > 0
+  const chatUnread = useChatUnread()
 
   // Visibility-aware mock-exam access (unchanged logic).
   const isTestAccount = profile?.is_test_account === true
@@ -182,6 +184,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
                   if (!item || !item.to || !item.icon) return null
                   const active = isActive(item.to)
                   const Icon = item.icon
+                  const unread = item.showBadge && item.badgeSource === 'chat-unread' ? chatUnread : 0
                   return (
                     <NavLink
                       key={item.id}
@@ -247,6 +250,14 @@ function Sidebar({ nav, collapsed, onToggle }) {
                           {item.label}
                         </span>
                       )}
+                      {unread > 0 && (collapsed ? (
+                        <span className="absolute" aria-label={`${unread} غير مقروءة`}
+                          style={{ top: 8, insetInlineStart: 8, minWidth: 8, height: 8, borderRadius: 9999, background: 'var(--ds-accent-danger)', boxShadow: '0 0 0 2px var(--ds-bg-elevated)' }} />
+                      ) : (
+                        <span className="shrink-0 flex items-center justify-center tabular-nums" style={{ marginInlineStart: 'auto', minWidth: 20, height: 20, padding: '0 6px', borderRadius: 9999, fontSize: 11, fontWeight: 700, background: 'var(--ds-accent-danger)', color: '#fff' }}>
+                          {unread > 99 ? '99+' : unread}
+                        </span>
+                      ))}
                     </NavLink>
                   )
                 })}

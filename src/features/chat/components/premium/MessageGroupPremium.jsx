@@ -6,7 +6,7 @@ import MessageBubble from '../MessageBubble'
 import SenderAvatar from './SenderAvatar'
 import { useAuthProfile } from '../../../../stores/authStore'
 
-export default function MessageGroupPremium({ messages, channelId, groupId, onReply, onEdit, animateIn = true }) {
+export default function MessageGroupPremium({ messages, channelId, groupId, onReply, onEdit, animateIn = true, readUpTo }) {
   const profile = useAuthProfile()
   if (!messages.length) return null
 
@@ -41,6 +41,7 @@ export default function MessageGroupPremium({ messages, channelId, groupId, onRe
                   groupId={groupId}
                   onReply={onReply}
                   onEdit={onEdit}
+                  readUpTo={readUpTo}
                 />
               </motion.div>
             )
