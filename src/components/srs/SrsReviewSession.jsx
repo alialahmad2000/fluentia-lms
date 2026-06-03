@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useAuthProfile } from '../../stores/authStore'
 import { useBodyLock } from '../../hooks/useBodyLock'
 import { supabase } from '../../lib/supabase'
-import { applyRating, previewAllRatings, RATING } from '../../services/srs'
+import { applyRating, previewAllRatings, RATING } from '../../services/vocab'
 import SrsSessionComplete from './SrsSessionComplete'
 import { emitXP } from '../ui/XPFloater'
 
@@ -53,7 +53,18 @@ export default function SrsReviewSession({ isOpen, cards, autoplayAudio = true, 
 
   const totalCards = cards?.length ?? 0
   const currentCard = cards?.[currentIndex] ?? null
-  const vocab = currentCard?.curriculum_vocabulary ?? null
+  // Unified vocab_cards carry denormalized word/meaning; fall back to them when a
+  // card has no curriculum_vocabulary row (e.g. a word saved while reading).
+  const cv = currentCard?.curriculum_vocabulary ?? null
+  const vocab = currentCard
+    ? {
+        ...(cv || {}),
+        word: cv?.word ?? currentCard.word,
+        definition_ar: cv?.definition_ar ?? currentCard.meaning_ar,
+        definition_en: cv?.definition_en ?? currentCard.meaning_en,
+        example_sentence: cv?.example_sentence ?? currentCard.context_sentence,
+      }
+    : null
 
   // Reset state when the session opens with a fresh card list
   useEffect(() => {
@@ -95,7 +106,7 @@ export default function SrsReviewSession({ isOpen, cards, autoplayAudio = true, 
       setExitVector(EXIT_VECTORS[rating] || null)
 
       try {
-        await applyRating(currentCard.vocabulary_id, rating, profile.id)
+        await applyRating(currentCard.id, rating, profile.id)
 
         // Light XP: 2 for any non-Again rating, 0 for Again (anti-farming + non-punishing)
         const xp = rating === RATING.AGAIN ? 0 : 2

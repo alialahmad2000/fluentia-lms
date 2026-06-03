@@ -1,0 +1,192 @@
+/* ============================================================================
+ * Vocabulary "Constellation" identity — a dedicated visual world for the vocab
+ * surfaces (المفردات / المراجعة / الكلمات الصعبة / الإملاء). Words are stars you
+ * collect; your known vocabulary is a growing galaxy; mastered words glow gold.
+ * Distinct indigo-violet night sky, harmonized with the app's dark navy.
+ * ALL tokens + classes are namespaced under .vocab-cosmos so nothing leaks.
+ * ==========================================================================*/
+.vocab-cosmos {
+  --vc-void: #060a18;
+  --vc-field: #0a0f22;
+  --vc-surface: rgba(129, 140, 248, 0.055);
+  --vc-surface-2: rgba(129, 140, 248, 0.10);
+  --vc-border: rgba(165, 180, 252, 0.13);
+  --vc-border-strong: rgba(165, 180, 252, 0.26);
+
+  --vc-indigo: #818cf8;
+  --vc-indigo-bright: #a5b4fc;
+  --vc-violet: #a78bfa;
+  --vc-gold: #fbbf24;
+  --vc-gold-soft: #fcd34d;
+
+  --vc-star-new: rgba(148, 163, 184, 0.6);
+  --vc-star-learning: #a5b4fc;
+  --vc-star-mastered: #fbbf24;
+
+  --vc-text: #eef1ff;
+  --vc-text-soft: #c4caea;
+  --vc-text-dim: #8a92b8;
+
+  --vc-glow-indigo: 0 0 28px -6px rgba(129, 140, 248, 0.5);
+  --vc-glow-gold: 0 0 30px -6px rgba(251, 191, 36, 0.55);
+
+  position: relative;
+  color: var(--vc-text);
+  font-family: 'Tajawal', system-ui, sans-serif;
+}
+
+/* The English display word on a card (the "star name") */
+.vocab-cosmos .vc-word {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
+/* ── Surfaces ───────────────────────────────────────────────────────────── */
+.vocab-cosmos .vc-card {
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(129, 140, 248, 0.07), transparent 55%),
+    var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: 22px;
+  transition: transform 0.18s ease-out, border-color 0.18s ease-out, box-shadow 0.18s ease-out;
+}
+.vocab-cosmos .vc-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: var(--vc-border-strong);
+  box-shadow: var(--vc-glow-indigo);
+}
+
+/* ── Stat orb / pill ────────────────────────────────────────────────────── */
+.vocab-cosmos .vc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: var(--vc-surface-2);
+  border: 1px solid var(--vc-border);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--vc-text-soft);
+}
+.vocab-cosmos .vc-pill-gold {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: var(--vc-gold-soft);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.vocab-cosmos .vc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 16px;
+  font-weight: 700;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.9rem;
+  transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, background 0.16s ease-out;
+  cursor: pointer;
+}
+.vocab-cosmos .vc-btn:hover { transform: translateY(-2px); }
+.vocab-cosmos .vc-btn:active { transform: translateY(0); }
+.vocab-cosmos .vc-btn-primary {
+  background: linear-gradient(135deg, var(--vc-indigo), var(--vc-violet));
+  color: #0a0e1c;
+  box-shadow: 0 14px 36px -14px rgba(129, 140, 248, 0.6);
+}
+.vocab-cosmos .vc-btn-gold {
+  background: linear-gradient(135deg, var(--vc-gold), var(--vc-gold-soft));
+  color: #20160a;
+  box-shadow: 0 14px 36px -14px rgba(251, 191, 36, 0.6);
+}
+.vocab-cosmos .vc-btn-ghost {
+  background: var(--vc-surface-2);
+  border: 1px solid var(--vc-border);
+  color: var(--vc-text-soft);
+}
+
+/* ── The star (mastery node) ────────────────────────────────────────────── */
+.vocab-cosmos .vc-star {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+.vocab-cosmos .vc-star.is-new { background: var(--vc-star-new); }
+.vocab-cosmos .vc-star.is-learning {
+  background: var(--vc-star-learning);
+  box-shadow: 0 0 10px -1px var(--vc-star-learning);
+}
+.vocab-cosmos .vc-star.is-mastered {
+  background: var(--vc-star-mastered);
+  box-shadow: 0 0 12px -1px var(--vc-star-mastered);
+}
+
+/* ── Ambient field ──────────────────────────────────────────────────────── */
+.vocab-cosmos .vc-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+.vocab-cosmos .vc-field > * { position: absolute; }
+/* layered starfields via tiny radial gradients */
+.vocab-cosmos .vc-stars {
+  inset: -10%;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 22%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1.5px 1.5px at 70% 12%, rgba(199,210,254,0.8), transparent),
+    radial-gradient(1px 1px at 38% 64%, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1.5px 1.5px at 88% 48%, rgba(167,139,250,0.7), transparent),
+    radial-gradient(1px 1px at 25% 88%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 58% 78%, rgba(199,210,254,0.65), transparent),
+    radial-gradient(1px 1px at 92% 84%, rgba(255,255,255,0.45), transparent);
+  animation: vc-twinkle 7s ease-in-out infinite;
+}
+.vocab-cosmos .vc-nebula {
+  width: 60vw; height: 60vw; max-width: 620px; max-height: 620px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+.vocab-cosmos .vc-nebula-a {
+  top: -28%; inset-inline-end: -16%;
+  background: radial-gradient(circle, rgba(129,140,248,0.4), transparent 65%);
+  animation: vc-drift-a 26s ease-in-out infinite;
+}
+.vocab-cosmos .vc-nebula-b {
+  bottom: -32%; inset-inline-start: -18%;
+  background: radial-gradient(circle, rgba(167,139,250,0.32), transparent 65%);
+  animation: vc-drift-b 32s ease-in-out infinite;
+}
+
+@keyframes vc-twinkle {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.95; }
+}
+@keyframes vc-drift-a {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-4%, 5%); }
+}
+@keyframes vc-drift-b {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(5%, -4%); }
+}
+
+/* perf + accessibility: drop animation on reduced-motion / low-end */
+@media (prefers-reduced-motion: reduce) {
+  .vocab-cosmos .vc-stars,
+  .vocab-cosmos .vc-nebula-a,
+  .vocab-cosmos .vc-nebula-b { animation: none; }
+}
+.vocab-cosmos.vc-static .vc-stars,
+.vocab-cosmos.vc-static .vc-nebula-a,
+.vocab-cosmos.vc-static .vc-nebula-b { animation: none; }
+
+/* content sits above the field */
+.vocab-cosmos .vc-content { position: relative; z-index: 1; }

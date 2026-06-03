@@ -93,7 +93,7 @@ export interface VocabCard {
 }
 
 // curriculum_vocabulary fields a review card likes to show (audio/IPA/enrichment)
-const VOCAB_JOIN =
+export const VOCAB_CONTENT_SELECT =
   'curriculum_vocabulary ( id, word, definition_en, definition_ar, example_sentence, part_of_speech, pronunciation_ipa, audio_url, cefr_level, tier, synonyms, antonyms, word_family, pronunciation_alert )'
 
 export interface VocabCardWithContent extends VocabCard {
@@ -257,7 +257,7 @@ export async function getDueCards(
 ): Promise<VocabCardWithContent[]> {
   const { data, error } = await supabase
     .from('vocab_cards')
-    .select(`*, ${VOCAB_JOIN}`)
+    .select(`*, ${VOCAB_CONTENT_SELECT}`)
     .eq('student_id', profileId)
     .in('state', ['learning', 'review', 'relearning'])
     .lte('due', new Date().toISOString())
@@ -274,7 +274,7 @@ export async function getNewCards(
 ): Promise<VocabCardWithContent[]> {
   const { data, error } = await supabase
     .from('vocab_cards')
-    .select(`*, ${VOCAB_JOIN}`)
+    .select(`*, ${VOCAB_CONTENT_SELECT}`)
     .eq('student_id', profileId)
     .eq('state', 'new')
     .order('first_seen_at', { ascending: true })
@@ -469,7 +469,7 @@ export async function getHardWords(
 ): Promise<VocabCardWithContent[]> {
   const { data, error } = await supabase
     .from('vocab_cards')
-    .select(`*, ${VOCAB_JOIN}`)
+    .select(`*, ${VOCAB_CONTENT_SELECT}`)
     .eq('student_id', profileId)
     .neq('mastery_level', 'mastered')
     .or('lapses.gte.2,difficulty.gte.7')
