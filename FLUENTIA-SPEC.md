@@ -2468,6 +2468,25 @@ Creating quizzes manually takes hours. With Claude API, the trainer generates pr
 
 ---
 
+## Student Activity Monitoring (per-student day/week/month reports) — added 2026-06-03
+
+**Goal:** admins & teachers press a button on a student's page and see exactly what the student did over a chosen day / week / month — engaged time, words learned, lessons completed, scores, weak/strong skills, XP — with an AI Arabic summary, CSV/PDF export, and a login-free parent share link.
+
+**Tables**
+- `student_daily_activity` — one row per (student, Riyadh day) that had activity. Cols: learning_seconds, speaking_seconds, page_seconds, session_count, page_views, words_mastered/practiced/reviewed/saved, sections_completed, avg_score, quizzes_taken/quiz_questions/quiz_correct, speaking_recordings, submissions_count, xp_earned, skill_breakdown jsonb. UNIQUE(student_id, activity_date). RLS staff-read / student-own / service.
+- `activity_report_narratives` — cached AI summary per (student, range_type, period, locale), keyed by data_signature.
+- `activity_report_shares` — public parent links: token (64 hex), student_id, range_type, period_start/end, expires_at, revoked_at, view_count.
+
+**Functions / RPCs**
+- `compute_student_daily_activity(student, date)` — SOURCE OF TRUTH: computes one Riyadh day from raw tables and upserts (deletes if empty). Engaged time = curriculum `time_spent_seconds` (session-duration columns upstream are unreliable: 0 / NULL / inflated).
+- `refresh_daily_activity(date)` — recompute that day for all non-deleted, non-test students. Nightly pg_cron `rollup-daily-activity` (00:15 Riyadh) recomputes yesterday; the report live-refreshes today.
+- `get_student_activity_report(student, start, end)` — read aggregator → jsonb {student, range, totals, daily[], skills{current,period,strongest,weakest}, words_mastered_list[], lessons[], timeline[]}.
+- `create_activity_report_share(student, range_type, start, end, expires_days=30)` / `revoke_activity_report_share(token)` — staff-only, SECURITY DEFINER.
+
+**Edge function `student-activity-report`** (`--no-verify-jwt`). Body: {student_id, range:day|week|month|custom, date|start/end, locale, with_ai, force_ai} OR {share_token}. Dual auth (staff JWT / service-role key, OR a public share token). Live-refreshes today, calls `get_student_activity_report`, attaches a cached Claude `claude-sonnet-4-6` Arabic narrative + next steps. Returns {report, ai, period}.
+
+**Routes / UI:** `/{trainer,admin}/student/:id/report` → `StudentActivityReport.jsx` (period switcher يوم/أسبوع/شهر/مخصّص + date nav, AI summary, stat cards, daily chart, weak/strong skill bars, mastered words, lessons, timeline, CSV + print-PDF + parent-share). Reachable via the "تقرير النشاط التفصيلي" button on `StudentProgressDetail`. Public parent page `/report/:token` → `PublicActivityReport.jsx` reuses the same `ReportContent`. (`/r/:token` is the OLDER progress-report share — unchanged.)
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # END OF SPECIFICATION
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

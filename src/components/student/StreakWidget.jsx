@@ -33,15 +33,16 @@ function Skeleton() {
   return (
     <div
       style={{
-        background: 'rgba(255,255,255,0.03)',
-        border: '1px solid rgba(255,255,255,0.06)',
-        borderRadius: 16,
-        padding: 24,
+        background: 'var(--ds-surface-1)',
+        border: '1px solid var(--ds-border-subtle)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-5)',
+        boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.06)',
         direction: 'rtl',
         fontFamily: 'Tajawal, sans-serif',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         <div style={shimmerStyle(120, 24)} />
         <div style={shimmerStyle(60, 48)} />
         <div style={shimmerStyle(100, 16)} />
@@ -56,9 +57,9 @@ function shimmerStyle(width, height) {
   return {
     width: typeof width === 'number' ? width : width,
     height,
-    borderRadius: 8,
+    borderRadius: 'var(--radius-md)',
     background:
-      'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%)',
+      'linear-gradient(90deg, var(--ds-surface-2) 25%, var(--ds-surface-3) 50%, var(--ds-surface-2) 75%)',
     backgroundSize: '200% 100%',
     animation: 'shimmer 1.5s infinite',
   }
@@ -107,16 +108,20 @@ export default function StreakWidget({ profileId }) {
   const atMilestone = isAtMilestone(streak)
   const nextMilestone = getNextMilestone(streak)
   const progress = getMilestoneProgress(streak)
-  const streakColor = atMilestone || streak >= nextMilestone ? '#fbbf24' : '#38bdf8'
+  const streakColor =
+    atMilestone || streak >= nextMilestone
+      ? 'var(--ds-accent-gold, var(--ds-accent-warning))'
+      : 'var(--ds-accent-primary)'
   const showPulse = streak >= 3
 
   return (
     <div
       style={{
-        background: 'rgba(255,255,255,0.03)',
-        border: '1px solid rgba(255,255,255,0.06)',
-        borderRadius: 16,
-        padding: 24,
+        background: 'var(--ds-surface-1)',
+        border: '1px solid var(--ds-border-subtle)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-5)',
+        boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.06)',
         direction: 'rtl',
         fontFamily: 'Tajawal, sans-serif',
         position: 'relative',
@@ -129,9 +134,9 @@ export default function StreakWidget({ profileId }) {
           50% { transform: scale(1.15); }
         }
         @keyframes celebrate-ring {
-          0% { box-shadow: 0 0 0 0 rgba(251,191,36,0.5); }
-          70% { box-shadow: 0 0 0 12px rgba(251,191,36,0); }
-          100% { box-shadow: 0 0 0 0 rgba(251,191,36,0); }
+          0% { box-shadow: 0 0 0 0 var(--ds-accent-primary-glow); }
+          70% { box-shadow: 0 0 0 12px transparent; }
+          100% { box-shadow: 0 0 0 0 transparent; }
         }
         ${shimmerKeyframes}
       `}</style>
@@ -152,7 +157,7 @@ export default function StreakWidget({ profileId }) {
             style={{
               fontSize: 18,
               fontWeight: 700,
-              color: '#fbbf24',
+              color: 'var(--ds-accent-gold, var(--ds-accent-warning))',
             }}
           >
             ابدأ سلسلتك اليوم 🔥
@@ -190,7 +195,7 @@ export default function StreakWidget({ profileId }) {
                 height: 64,
                 animation: atMilestone ? 'celebrate-ring 1.5s ease-out infinite' : 'none',
                 background: atMilestone
-                  ? 'radial-gradient(circle, rgba(251,191,36,0.12) 0%, transparent 70%)'
+                  ? 'radial-gradient(circle, var(--ds-accent-primary-glow) 0%, transparent 70%)'
                   : 'transparent',
               }}
             >
@@ -209,7 +214,7 @@ export default function StreakWidget({ profileId }) {
             <span
               style={{
                 fontSize: 16,
-                color: 'rgba(255,255,255,0.6)',
+                color: 'var(--ds-text-secondary)',
                 fontWeight: 500,
               }}
             >
@@ -221,7 +226,7 @@ export default function StreakWidget({ profileId }) {
           <div
             style={{
               fontSize: 13,
-              color: 'rgba(255,255,255,0.4)',
+              color: 'var(--ds-text-tertiary)',
               marginBottom: 14,
             }}
           >
@@ -235,7 +240,7 @@ export default function StreakWidget({ profileId }) {
                 display: 'flex',
                 justifyContent: 'space-between',
                 fontSize: 11,
-                color: 'rgba(255,255,255,0.35)',
+                color: 'var(--ds-text-tertiary)',
                 marginBottom: 6,
               }}
             >
@@ -243,7 +248,10 @@ export default function StreakWidget({ profileId }) {
                 <span
                   key={m}
                   style={{
-                    color: streak >= m ? '#fbbf24' : 'rgba(255,255,255,0.35)',
+                    color:
+                      streak >= m
+                        ? 'var(--ds-accent-gold, var(--ds-accent-warning))'
+                        : 'var(--ds-text-tertiary)',
                     fontWeight: streak >= m ? 700 : 400,
                   }}
                 >
@@ -254,8 +262,8 @@ export default function StreakWidget({ profileId }) {
             <div
               style={{
                 height: 6,
-                borderRadius: 3,
-                background: 'rgba(255,255,255,0.06)',
+                borderRadius: 'var(--radius-full)',
+                background: 'var(--ds-surface-3)',
                 overflow: 'hidden',
               }}
             >
@@ -263,8 +271,9 @@ export default function StreakWidget({ profileId }) {
                 style={{
                   height: '100%',
                   width: `${Math.min(progress, 100)}%`,
-                  borderRadius: 3,
-                  background: 'linear-gradient(90deg, #38bdf8, #fbbf24)',
+                  borderRadius: 'var(--radius-full)',
+                  background:
+                    'linear-gradient(90deg, var(--ds-accent-primary), var(--ds-accent-gold, var(--ds-accent-primary)))',
                   transition: 'width 0.6s ease',
                 }}
               />

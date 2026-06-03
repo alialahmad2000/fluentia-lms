@@ -54,17 +54,20 @@ export default function JourneyMapHeroCTA() {
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
         dir="rtl"
-        className="relative rounded-2xl overflow-hidden"
+        className="relative overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, rgba(251,191,36,0.07) 0%, rgba(139,92,246,0.07) 100%)',
-          border: '1px solid rgba(251,191,36,0.22)',
+          background:
+            'linear-gradient(135deg, color-mix(in srgb, var(--ds-accent-primary) 10%, transparent), color-mix(in srgb, var(--ds-accent-secondary) 6%, transparent)), var(--ds-surface-1)',
+          border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 30%, transparent)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--ds-shadow-md)',
         }}
       >
         {/* Dismiss */}
         <button
           onClick={handleDismiss}
-          className="absolute top-3 left-3 p-1.5 rounded-lg transition-colors hover:text-white"
-          style={{ color: 'rgba(148,163,184,0.7)' }}
+          className="absolute top-3 left-3 p-1.5 transition-colors hover:opacity-100"
+          style={{ color: 'var(--ds-text-tertiary)', borderRadius: 'var(--radius-md)' }}
           aria-label="إغلاق"
         >
           <X size={14} />
@@ -75,27 +78,28 @@ export default function JourneyMapHeroCTA() {
           <motion.div
             animate={{ scale: [1, 1.08, 1], opacity: [0.85, 1, 0.85] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+            className="w-14 h-14 flex items-center justify-center flex-shrink-0"
             style={{
-              background: 'rgba(251,191,36,0.10)',
-              border: '1px solid rgba(251,191,36,0.22)',
-              boxShadow: '0 0 20px rgba(251,191,36,0.12)',
+              background: 'color-mix(in srgb, var(--ds-accent-primary) 12%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 30%, transparent)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--ds-shadow-glow)',
             }}
           >
-            <Map size={24} color="#fbbf24" />
+            <Map size={24} color="var(--ds-accent-primary)" />
           </motion.div>
 
           {/* Text */}
           <div className="flex-1 min-w-0">
             <p
               className="text-xs font-bold mb-1"
-              style={{ color: '#fbbf24', letterSpacing: '2px', textTransform: 'uppercase', fontFamily: "'Tajawal', sans-serif" }}
+              style={{ color: 'var(--ds-accent-gold, var(--ds-accent-warning))', letterSpacing: '2px', textTransform: 'uppercase', fontFamily: "'Tajawal', sans-serif" }}
             >
               رحلتك تنتظرك
             </p>
             <p
               className="text-sm font-bold leading-snug"
-              style={{ color: 'rgba(248,250,252,0.88)', fontFamily: "'Tajawal', sans-serif" }}
+              style={{ color: 'var(--ds-text-primary)', fontFamily: "'Tajawal', sans-serif" }}
             >
               ابدأي رحلة طلاقة — الوحدة الأولى بانتظارك
             </p>
@@ -104,16 +108,27 @@ export default function JourneyMapHeroCTA() {
           {/* CTA */}
           <button
             onClick={() => navigate('/student/level-journey')}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold flex-shrink-0 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="relative overflow-hidden flex items-center gap-1.5 px-4 py-2.5 text-sm font-bold flex-shrink-0 transition-all hover:scale-[1.02] active:scale-[0.98]"
             style={{
-              background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
-              color: '#0a0a0f',
+              background: 'linear-gradient(135deg, var(--ds-accent-primary), var(--ds-accent-gold, var(--ds-accent-primary)))',
+              color: 'var(--ds-text-inverse)',
               fontFamily: "'Tajawal', sans-serif",
-              boxShadow: '0 4px 14px rgba(251,191,36,0.25)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: '0 16px 32px -14px var(--ds-accent-primary-glow)',
             }}
           >
-            افتحي الخريطة
-            <ArrowLeft size={14} />
+            {/* Top inner sheen */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-1/2"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(255,255,255,0.22), transparent)',
+              }}
+            />
+            <span className="relative flex items-center gap-1.5">
+              افتحي الخريطة
+              <ArrowLeft size={14} />
+            </span>
           </button>
         </div>
       </motion.div>

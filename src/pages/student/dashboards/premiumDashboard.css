@@ -1,0 +1,182 @@
+/* ══════════════════════════════════════════════════════════════════
+   PREMIUM STUDENT DASHBOARD — Atelier atmosphere + presentation layer
+   Scoped under .pd-root so nothing here leaks to other pages.
+   Everything is driven by --ds-* tokens → all themes "just work".
+   Performance contract: only transform/opacity animate; blooms are
+   blurred radial gradients (GPU-cheap); paused under reduced-motion
+   and trimmed on small screens.
+   ══════════════════════════════════════════════════════════════════ */
+
+.pd-root {
+  position: relative;
+  isolation: isolate;
+}
+
+/* ── Living ambient field ──────────────────────────────────────────
+   A dual-temperature wash: a warm primary bloom crowns the hero, while
+   cool secondary/teal blooms drift through the lower page. Together they
+   tie the gold hero and the cool data widgets into one composition. */
+.pd-atmo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+  contain: layout paint style;
+}
+
+/* Soft top "stage light" behind the hero — the warm welcome. */
+.pd-atmo__beam {
+  position: absolute;
+  inset-block-start: -18%;
+  inset-inline: -10%;
+  height: clamp(360px, 52vh, 620px);
+  background:
+    radial-gradient(60% 100% at 72% 0%,
+      color-mix(in srgb, var(--ds-accent-primary) 26%, transparent) 0%,
+      transparent 66%);
+  opacity: 0.9;
+  filter: blur(6px);
+}
+
+.pd-atmo__bloom {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  filter: blur(38px);
+}
+
+/* warm gold, crowning the hero (inline-end / top) */
+.pd-atmo__bloom--gold {
+  inset-block-start: -8%;
+  inset-inline-end: -6%;
+  width: clamp(340px, 46vw, 620px);
+  height: clamp(340px, 46vw, 620px);
+  background: radial-gradient(circle,
+    color-mix(in srgb, var(--ds-accent-primary) 32%, transparent) 0%,
+    transparent 62%);
+  opacity: 0.7;
+  animation: pd-drift-a 78s ease-in-out infinite;
+}
+
+/* muted violet, mid page (inline-start) */
+.pd-atmo__bloom--violet {
+  inset-block-start: 30%;
+  inset-inline-start: -14%;
+  width: clamp(360px, 50vw, 680px);
+  height: clamp(360px, 50vw, 680px);
+  background: radial-gradient(circle,
+    color-mix(in srgb, var(--ds-accent-secondary) 30%, transparent) 0%,
+    transparent 64%);
+  opacity: 0.55;
+  animation: pd-drift-b 96s ease-in-out infinite;
+  animation-delay: -20s;
+}
+
+/* cool teal whisper, lower page (inline-end) — keeps the data zone alive */
+.pd-atmo__bloom--teal {
+  inset-block-end: 4%;
+  inset-inline-end: -10%;
+  width: clamp(320px, 44vw, 560px);
+  height: clamp(320px, 44vw, 560px);
+  background: radial-gradient(circle,
+    color-mix(in srgb, var(--ds-sky, var(--ds-accent-primary)) 26%, transparent) 0%,
+    transparent 64%);
+  opacity: 0.42;
+  animation: pd-drift-c 112s ease-in-out infinite;
+  animation-delay: -44s;
+}
+
+/* Hairline color sweep across the very top — a refined "horizon". */
+.pd-atmo__horizon {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 6%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    color-mix(in srgb, var(--ds-accent-primary) 50%, transparent),
+    color-mix(in srgb, var(--ds-accent-secondary) 40%, transparent),
+    transparent);
+  opacity: 0.5;
+}
+
+@keyframes pd-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  33%      { transform: translate3d(-4%, 3%, 0); }
+  66%      { transform: translate3d(3%, -2%, 0); }
+}
+@keyframes pd-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(5%, -4%, 0); }
+}
+@keyframes pd-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  33%      { transform: translate3d(4%, -3%, 0); }
+  66%      { transform: translate3d(-3%, 2%, 0); }
+}
+
+/* ── Editorial section eyebrow ─────────────────────────────────────── */
+.pd-eyebrow__rule {
+  height: 1px;
+  flex: 1 1 auto;
+  background: linear-gradient(90deg,
+    var(--ds-border-subtle),
+    color-mix(in srgb, var(--ds-border-subtle) 30%, transparent));
+}
+
+/* ── Premium quick-access tile ─────────────────────────────────────── */
+.pd-quick {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--motion-base, 240ms) var(--ease-out, ease),
+              border-color var(--motion-base, 240ms) var(--ease-out, ease),
+              box-shadow var(--motion-base, 240ms) var(--ease-out, ease);
+}
+.pd-quick::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(120% 80% at 80% 0%,
+    color-mix(in srgb, var(--ds-accent-primary) 14%, transparent), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--motion-base, 240ms) var(--ease-out, ease);
+  pointer-events: none;
+}
+.pd-quick:hover {
+  transform: translateY(-3px);
+  border-color: var(--ds-border-strong) !important;
+  box-shadow: var(--ds-shadow-md);
+}
+.pd-quick:hover::after { opacity: 1; }
+
+/* ── Hero CTA sheen ────────────────────────────────────────────────── */
+.pd-cta {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--motion-fast, 150ms) var(--ease-out, ease),
+              box-shadow var(--motion-base, 240ms) var(--ease-out, ease);
+}
+.pd-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 52%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* ── Performance + accessibility ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .pd-atmo__bloom { animation: none !important; }
+}
+
+@media (max-width: 768px) {
+  /* Lighten the GPU load on phones: drop the heaviest bloom + ease blur. */
+  .pd-atmo__bloom--teal { display: none; }
+  .pd-atmo__bloom { filter: blur(26px); animation-duration: 150s; }
+  .pd-atmo__beam { filter: none; }
+}

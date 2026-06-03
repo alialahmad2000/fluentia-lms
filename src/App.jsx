@@ -179,6 +179,7 @@ const AdminSpeakingHubDetail = lazyRetry(() => import('./pages/admin/AdminSpeaki
 const StudentSpeakingHubs = lazyRetry(() => import('./pages/student/StudentSpeakingHubs'))
 const StudentSpeakingHubDetail = lazyRetry(() => import('./pages/student/StudentSpeakingHubDetail'))
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
+const StudentActivityReport = lazyRetry(() => import('./pages/shared/StudentActivityReport'))
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
@@ -228,6 +229,7 @@ const InteractiveCurriculumUnits = lazyRetry(() => import('./pages/shared/Intera
 const InteractiveCurriculumPage = lazyRetry(() => import('./pages/shared/InteractiveCurriculumPage'))
 
 const SharedReport = lazyRetry(() => import('./pages/public/SharedReport'))
+const PublicActivityReport = lazyRetry(() => import('./pages/public/PublicActivityReport'))
 
 const PartnersLanding = lazyRetry(() => import('./pages/partners/PartnersLanding'))
 const PartnersSubmitted = lazyRetry(() => import('./pages/partners/PartnersSubmitted'))
@@ -595,6 +597,7 @@ export default function App() {
           {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/r/:token" element={<Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="animate-spin w-8 h-8 border-2 border-sky-400 border-t-transparent rounded-full" /></div>}><SharedReport /></Suspense>} />
+          <Route path="/report/:token" element={<Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="animate-spin w-8 h-8 border-2 border-sky-400 border-t-transparent rounded-full" /></div>}><PublicActivityReport /></Suspense>} />
           <Route path="/forgot-password" element={
             <ErrorBoundary fallback={<PageErrorFallback />}>
               <Suspense fallback={<LoadingSkeleton />}><ForgotPassword /></Suspense>
@@ -845,6 +848,7 @@ export default function App() {
               <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
+              <Route path="/trainer/student/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
               <Route path="/trainer/student/:studentId" element={<Page><Student360Page /></Page>} />
               <Route path="/trainer/ielts" element={<Page><IELTSOverview /></Page>} />
 
@@ -928,6 +932,7 @@ export default function App() {
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
+              <Route path="/admin/student/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
               <Route path="/admin/design-showcase-masterclass" element={<Page><MasterclassDesignShowcase /></Page>} />
               <Route path="/admin/atelier-preview/student" element={<AtelierStudentPreview />} />
               <Route path="/admin/atelier-preview/trainer" element={<AtelierTrainerPreview />} />
