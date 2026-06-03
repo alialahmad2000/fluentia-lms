@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, AlertCircle, Clock } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
-import { useG } from '@/i18n/gender'
+import { useG, genderizeText } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -413,7 +413,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
             {/* Arabic prompt */}
             {task.prompt_ar && (
               <p className="text-sm text-[var(--text-muted)] font-['Tajawal'] mt-1.5 leading-relaxed">
-                {task.prompt_ar}
+                {genderizeText(task.prompt_ar)}
               </p>
             )}
           </div>
