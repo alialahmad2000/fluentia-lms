@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Volume2, Loader2, Sparkles, Star } from 'lucide-react'
 import { getStop, addCard, applyRating, RATING } from '@/services/vocab'
@@ -52,6 +53,15 @@ export default function JourneyStop({ profileId, unitId, constellationIndex, the
   useEffect(() => {
     mountedRef.current = true
     return () => { mountedRef.current = false }
+  }, [])
+
+  // Lock background scroll while this full-screen stop is open. The stop is
+  // portaled to <body> (see the return) so its `fixed inset-0` always covers
+  // the viewport instead of getting trapped low in the scrolling page.
+  useEffect(() => {
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
   }, [])
 
   // load + assemble the beat queue
@@ -166,7 +176,7 @@ export default function JourneyStop({ profileId, unitId, constellationIndex, the
     }
   }
 
-  return (
+  return createPortal(
     <div
       className="vocab-cosmos fixed inset-0 z-[80] flex flex-col"
       style={{ background: 'var(--vc-bg, #0a0e27)' }}
@@ -313,7 +323,8 @@ export default function JourneyStop({ profileId, unitId, constellationIndex, the
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 
