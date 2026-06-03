@@ -523,6 +523,30 @@ export async function recordDrill(
   return data as VocabCard
 }
 
+// ── Path of Light (journey) ──
+
+/** The trail: regions + progress + the current stop + headline stats. */
+export async function getJourney(profileId: string): Promise<any> {
+  const { data, error } = await supabase.rpc('vocab_get_journey', { p_student: profileId })
+  if (error) throw error
+  return data
+}
+
+/** The composed word list for one micro-session at (unit, constellation). */
+export async function getStop(
+  profileId: string,
+  unitId: string,
+  constellationIndex: number
+): Promise<{ new: any[]; review: any[]; hard: any[] }> {
+  const { data, error } = await supabase.rpc('vocab_get_stop', {
+    p_student: profileId,
+    p_unit_id: unitId,
+    p_constellation_index: constellationIndex,
+  })
+  if (error) throw error
+  return data as { new: any[]; review: any[]; hard: any[] }
+}
+
 /** Cards reviewed in the last N days (for "extra practice"). */
 export async function getRecentlyReviewed(
   profileId: string,

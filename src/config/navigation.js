@@ -18,7 +18,7 @@ export const STUDENT_NAV = {
         { id: 'srs',         label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
         { id: 'hard-words',  label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
-        { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
+        { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/vocab-journey' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
         { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,    to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
@@ -65,7 +65,7 @@ export const STUDENT_NAV = {
         { id: 'hard-words',   label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
-        { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
+        { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/vocab-journey' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
         { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,       to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
@@ -97,7 +97,7 @@ export const STUDENT_NAV = {
   mobileBar: [
     { id: 'dashboard',   label: 'الرئيسية',  icon: Home,       to: '/student' },
     { id: 'curriculum',  label: 'المنهج',     icon: BookOpen,   to: '/student/curriculum' },
-    { id: 'flashcards',  label: 'المفردات',   icon: FileText,   to: '/student/flashcards' },
+    { id: 'flashcards',  label: 'المفردات',   icon: FileText,   to: '/student/vocab-journey' },
     // 2026-06-02 (prompt 09): 'progress' was hidden from the sidebar, so it's replaced here by the
     // new Spelling Lab to keep the 5-slot bar consistent on mobile (primary device). 'progress'
     // stays reachable via the "More" drawer + direct URL.

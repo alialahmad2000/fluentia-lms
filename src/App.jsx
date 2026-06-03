@@ -98,6 +98,7 @@ const HowToEarnPage = lazyRetry(() => import('./pages/student/HowToEarnPage'))
 const ProgressDashboard = lazyRetry(() => import('./pages/student/ProgressDashboard'))
 const StudentCurriculum = lazyRetry(() => import('./pages/student/StudentCurriculum'))
 const VocabularyFlashcards = lazyRetry(() => import('./pages/student/vocabulary/VocabularyFlashcards'))
+const VocabJourney = lazyRetry(() => import('./pages/student/vocabulary/VocabJourney'))
 const CurriculumBrowser = lazyRetry(() => import('./pages/student/curriculum/CurriculumBrowser'))
 const StylePreview = lazyRetry(() => import('./pages/student/curriculum/StylePreview'))
 const LevelUnits = lazyRetry(() => import('./pages/student/curriculum/LevelUnits'))
@@ -691,6 +692,8 @@ export default function App() {
               <Route path="/student/hard-words" element={<Page><HardWordsHome /></Page>} />
               <Route path="/student/level-exit-test/:levelId" element={<Page><LevelExitTest /></Page>} />
               <Route path="/student/level-journey" element={<Page><LevelJourneyMap /></Page>} />
+              {/* "المفردات" is now the Path of Light journey; the old flashcard browse stays reachable */}
+              <Route path="/student/vocab-journey" element={<Page><VocabJourney /></Page>} />
               <Route path="/student/flashcards" element={<Page><VocabularyFlashcards /></Page>} />
               <Route path="/student/billing" element={<Page><StudentBilling /></Page>} />
               <Route path="/student/exercises" element={<Page><StudentExercises /></Page>} />
