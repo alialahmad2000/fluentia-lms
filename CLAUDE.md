@@ -312,6 +312,9 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-03 — SPOTLIGHT hero → REAL next lesson (deep-link)
+- The Spotlight hero now names the student's actual next curriculum unit and jumps into it. New `src/pages/student/dashboards/useNextLesson.js`: resolves the next incomplete unit within the student's level — `curriculum_levels.level_number === academic_level` → `curriculum_units` (order by `unit_number`) → first whose `unit_progress.percentage < 100` (RLS-safe: student reads own progress; defensive on the percentage column name). Hero title = the unit's `theme_ar`, eyebrow = "مهمة اليوم · الوحدة N", CTA "متابعة الدرس" → `/student/curriculum/unit/:id`. Graceful fallback to the generic "متابعة التعلّم → /student/curriculum" when no data / all units complete (never faked). Verified on real data (mock-test-a1 → "المهرجانات الثقافية", Unit 1, correct deep-link, 0 errors). Cherry-picked to main → production.
+
 ### 2026-06-03 — SPOTLIGHT polish pass (now the default)
 - Surfaced the two most motivating REAL numbers in the Spotlight hero — current streak (Flame, `fire-pulse` at ≥3) + total XP (Zap) — as compact chips (were buried in a collapsed section). Replaced the fake "●●○○○" chip-rail dots with an honest "اختر وجهتك" prompt. The feed has no reliable "next lesson" target, so the hero CTA stays the real "متابعة التعلّم → /student/curriculum". File: `src/pages/student/dashboards/SpotlightDashboard.jsx`. Build green; screenshot-verified; cherry-picked to main → production.
 
