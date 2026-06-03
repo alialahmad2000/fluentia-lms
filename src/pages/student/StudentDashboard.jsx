@@ -9,6 +9,7 @@ import AtelierMinimalDashboard from './dashboards/AtelierMinimalDashboard'
 import JourneyDashboard from './dashboards/JourneyDashboard'
 import SpotlightDashboard from './dashboards/SpotlightDashboard'
 import ObservatoryDashboard from './dashboards/ObservatoryDashboard'
+import DashboardDesignSwitcher from './dashboards/DashboardDesignSwitcher'
 
 // Thin switch. Production students (no ?design) see the default dashboard
 // (currently the "Command Deck" PremiumDashboard) — full real data wiring
@@ -25,28 +26,51 @@ import ObservatoryDashboard from './dashboards/ObservatoryDashboard'
 //   ?design=v1 | v2 | v3        → older feed-only explorations
 export default function StudentDashboard() {
   const profile = useAuthStore((s) => s.profile)
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const realProfile = useAuthStore((s) => s._realProfile)
   const [searchParams] = useSearchParams()
   const variant = searchParams.get('design')
   const dashboard = useStudentDashboard(profile?.id)
 
+  // Owner/staff-only design switcher — shown when impersonating, when the
+  // real account is staff, or on the test account. NEVER for real students.
+  const realRole = impersonation ? realProfile?.role : profile?.role
+  const showSwitcher =
+    realRole === 'admin' || realRole === 'trainer' || profile?.is_test_account === true
+
   // ── all hooks above any conditional return ──
+  let variantEl
   switch (variant) {
     case 'original':
     case 'classic':
-      return <OriginalDashboard />
+      variantEl = <OriginalDashboard />
+      break
     case 'v1':
-      return <EditorialDashboard {...dashboard} profile={profile} />
+      variantEl = <EditorialDashboard {...dashboard} profile={profile} />
+      break
     case 'v2':
-      return <CinematicDashboard {...dashboard} profile={profile} />
+      variantEl = <CinematicDashboard {...dashboard} profile={profile} />
+      break
     case 'v3':
-      return <AtelierMinimalDashboard {...dashboard} profile={profile} />
+      variantEl = <AtelierMinimalDashboard {...dashboard} profile={profile} />
+      break
     case 'journey':
-      return <JourneyDashboard />
+      variantEl = <JourneyDashboard />
+      break
     case 'spotlight':
-      return <SpotlightDashboard />
+      variantEl = <SpotlightDashboard />
+      break
     case 'observatory':
-      return <ObservatoryDashboard />
+      variantEl = <ObservatoryDashboard />
+      break
     default:
-      return <PremiumDashboard />
+      variantEl = <PremiumDashboard />
   }
+
+  return (
+    <>
+      {variantEl}
+      {showSwitcher && <DashboardDesignSwitcher />}
+    </>
+  )
 }
