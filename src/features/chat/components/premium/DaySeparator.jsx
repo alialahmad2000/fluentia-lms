@@ -40,15 +40,15 @@ export default function DaySeparator({ date }) {
       <div
         className="shrink-0 select-none"
         style={{
-          background: 'color-mix(in srgb, var(--ds-bg-elevated) 70%, transparent)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
+          background: 'color-mix(in srgb, var(--ds-bg-elevated) 64%, transparent)',
+          backdropFilter: 'blur(16px) saturate(140%)',
+          WebkitBackdropFilter: 'blur(16px) saturate(140%)',
           border: '1px solid var(--ds-border-subtle)',
           borderRadius: 999,
-          padding: '4px 12px',
-          fontSize: 12,
-          fontWeight: 600,
-          letterSpacing: '0.02em',
+          padding: '6px 16px',
+          fontSize: 12.5,
+          fontWeight: 500,
+          letterSpacing: '0.015em',
           fontFamily: 'Tajawal, sans-serif',
           color: 'var(--ds-text-secondary)',
           fontFeatureSettings: '"tnum"',

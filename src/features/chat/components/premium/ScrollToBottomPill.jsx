@@ -9,16 +9,23 @@ export default function ScrollToBottomPill({ count, onClick }) {
         <motion.button
           {...popIn}
           onClick={onClick}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium z-20 shadow-lg"
+          className="absolute flex items-center gap-1.5 px-4 py-2 rounded-full text-[13px] font-semibold"
           style={{
-            background: 'color-mix(in srgb, var(--ds-accent-primary) 90%, transparent)',
-            color: 'var(--ds-bg-base)',
-            backdropFilter: 'blur(12px)',
+            bottom: 14,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 8,
+            background: 'color-mix(in srgb, var(--ds-accent-primary) 92%, transparent)',
+            color: 'var(--ds-text-inverse)',
             fontFamily: 'Tajawal, sans-serif',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
+            border: '1px solid color-mix(in srgb, white 22%, transparent)',
+            boxShadow: '0 10px 30px -8px color-mix(in srgb, var(--ds-accent-primary) 55%, transparent)',
           }}
         >
           <ChevronDown size={16} />
-          {count} رسائل جديدة
+          {count === 1 ? 'رسالة جديدة' : `${count > 99 ? '99+' : count} رسائل جديدة`}
         </motion.button>
       )}
     </AnimatePresence>

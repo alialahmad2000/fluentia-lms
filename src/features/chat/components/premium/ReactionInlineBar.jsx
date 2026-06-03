@@ -4,7 +4,7 @@ import { popIn } from '../../lib/motion'
 
 const EMOJIS = ['👍', '🔥', '❤️', '😂', '👏']
 
-export default function ReactionInlineBar({ visible, onReact, onDismiss }) {
+export default function ReactionInlineBar({ visible, onReact, onDismiss, isOwn = false }) {
   const [tapped, setTapped] = useState(null)
 
   function handleReact(emoji) {
@@ -22,10 +22,11 @@ export default function ReactionInlineBar({ visible, onReact, onDismiss }) {
         <motion.div
           {...popIn}
           onMouseLeave={onDismiss}
-          className="absolute z-30 flex items-center gap-1 px-2 py-1.5 rounded-2xl"
+          className="absolute flex items-center gap-1 px-2 py-1.5 rounded-2xl"
           style={{
+            zIndex: 30,
             bottom: '100%',
-            right: 0,
+            [isOwn ? 'left' : 'right']: 0,
             background: 'color-mix(in srgb, var(--ds-bg-elevated) 94%, transparent)',
             backdropFilter: 'blur(24px) saturate(140%)',
             WebkitBackdropFilter: 'blur(24px) saturate(140%)',

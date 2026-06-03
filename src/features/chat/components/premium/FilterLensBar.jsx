@@ -12,9 +12,9 @@ const LENSES = [
 ]
 
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-base) 85%, transparent)',
-  backdropFilter: 'blur(16px)',
-  WebkitBackdropFilter: 'blur(16px)',
+  background: 'color-mix(in srgb, var(--ds-bg-base) 55%, transparent)',
+  backdropFilter: 'blur(18px) saturate(140%)',
+  WebkitBackdropFilter: 'blur(18px) saturate(140%)',
   borderBottom: '1px solid var(--ds-border-subtle)',
 }
 
@@ -40,17 +40,12 @@ export default function FilterLensBar({ groupId, activeLens, onLensChange }) {
   }
 
   return (
-    <div style={{ ...glass, position: 'sticky', top: 56, zIndex: 25, direction: 'rtl' }}>
-      <div
-        ref={scrollRef}
-        className="flex gap-2 px-4 py-2 overflow-x-auto"
-        style={{ scrollbarWidth: 'none', scrollSnapType: 'x mandatory' }}
-      >
+    <div style={{ ...glass, direction: 'rtl' }}>
+      <div ref={scrollRef} className="chat-hscroll px-4 py-2.5">
         {LENSES.map((lens) => (
           <div
             key={lens.slug}
             ref={lens.slug === activeLens ? activeRef : null}
-            style={{ scrollSnapAlign: 'start' }}
           >
             <FilterLensPill
               lens={lens}

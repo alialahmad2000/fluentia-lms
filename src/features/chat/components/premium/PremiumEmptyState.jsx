@@ -1,92 +1,48 @@
 import { motion } from 'framer-motion'
-import { Mic, MessageSquare } from 'lucide-react'
+import { MessageSquare } from 'lucide-react'
 import { fadeRise } from '../../lib/motion'
 
-export default function PremiumEmptyState({ onStartVoice, onStartText }) {
+export default function PremiumEmptyState() {
   return (
     <motion.div
       {...fadeRise}
-      className="flex-1 flex flex-col items-center justify-center gap-6 px-8 text-center"
-      style={{ direction: 'rtl', minHeight: 320 }}
+      className="h-full flex flex-col items-center justify-center gap-5 px-8 text-center"
+      style={{ direction: 'rtl' }}
     >
-      {/* Breathing gradient orb */}
-      <div className="relative w-32 h-32 mb-2">
+      {/* Single breathing orb */}
+      <div className="relative" style={{ width: 104, height: 104 }}>
         <div
-          className="absolute inset-0 rounded-full"
+          className="chat-breathe absolute inset-0 rounded-full"
           style={{
-            background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-primary) 20%, transparent), transparent 70%)',
-            animation: 'pulse 3s ease-in-out infinite',
+            background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-gold) 26%, transparent), transparent 66%)',
           }}
         />
         <div
-          className="absolute inset-4 rounded-full"
+          className="absolute rounded-full flex items-center justify-center"
           style={{
-            background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-gold) 15%, transparent), transparent 70%)',
-            animation: 'pulse 4s ease-in-out infinite 1s',
-          }}
-        />
-        <div
-          className="absolute inset-8 rounded-full flex items-center justify-center"
-          style={{
-            background: 'var(--ds-surface-glass)',
-            border: '1px solid var(--ds-border-subtle)',
-            backdropFilter: 'blur(12px)',
+            inset: '26%',
+            background: 'color-mix(in srgb, var(--ds-bg-elevated) 70%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 28%, transparent)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.12), 0 8px 24px -8px color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)',
           }}
         >
-          <MessageSquare size={28} style={{ color: 'var(--ds-accent-primary)', opacity: 0.8 }} />
+          <MessageSquare size={22} style={{ color: 'var(--ds-accent-gold)', opacity: 0.85 }} />
         </div>
       </div>
 
-      <div>
+      <div className="max-w-xs">
         <h3
-          className="text-xl font-bold mb-2"
-          style={{
-            fontFamily: 'Tajawal, sans-serif',
-            fontWeight: 700,
-            color: 'var(--ds-text-primary)',
-          }}
+          className="mb-1.5"
+          style={{ fontFamily: 'Tajawal, sans-serif', fontWeight: 700, fontSize: 20, color: 'var(--ds-text-primary)', letterSpacing: '0.01em' }}
         >
           ابدأ المحادثة الأولى
         </h3>
         <p
-          className="text-sm leading-relaxed"
-          style={{
-            fontFamily: 'Tajawal, sans-serif',
-            color: 'var(--ds-text-secondary)',
-            lineHeight: 1.7,
-          }}
+          style={{ fontFamily: 'Tajawal, sans-serif', fontWeight: 400, fontSize: 14, color: 'var(--ds-text-secondary)', lineHeight: 1.75 }}
         >
-          شارك صوتاً، سؤالاً، أو تأملاً من الحصة
+          شارك صوتاً، سؤالاً، أو تأمّلاً من الحصة — اكتب رسالتك بالأسفل لتبدأ.
         </p>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <button
-          onClick={onStartVoice}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-2xl font-medium transition-all hover:scale-105"
-          style={{
-            background: 'color-mix(in srgb, var(--ds-accent-primary) 15%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 30%, transparent)',
-            color: 'var(--ds-accent-primary)',
-            fontFamily: 'Tajawal, sans-serif',
-          }}
-        >
-          <Mic size={16} />
-          سجل صوتية
-        </button>
-        <button
-          onClick={onStartText}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-2xl font-medium transition-all hover:scale-105"
-          style={{
-            background: 'var(--ds-surface-glass)',
-            border: '1px solid var(--ds-border-subtle)',
-            color: 'var(--ds-text-primary)',
-            fontFamily: 'Tajawal, sans-serif',
-          }}
-        >
-          <MessageSquare size={16} />
-          اكتب رسالة
-        </button>
       </div>
     </motion.div>
   )

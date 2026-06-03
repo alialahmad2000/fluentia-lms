@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+import { supabase } from '../../../../lib/supabase'
 import { useAuthProfile } from '../../../../stores/authStore'
 import { useUnifiedMessages } from '../../queries/useUnifiedMessages'
 import { useMarkRead } from '../../mutations/useMarkRead'
@@ -9,6 +10,7 @@ import MessageGroupPremium from './MessageGroupPremium'
 import PremiumEmptyState from './PremiumEmptyState'
 import ScrollToBottomPill from './ScrollToBottomPill'
 import SystemMessageCluster from './SystemMessageCluster'
+import UnreadDivider from './UnreadDivider'
 
 const GROUP_WINDOW_MS = 4 * 60 * 1000
 
@@ -23,21 +25,14 @@ function isSameGroup(a, b) {
   return Math.abs(new Date(a.created_at) - new Date(b.created_at)) < GROUP_WINDOW_MS
 }
 
-// Build flat item list: {type: 'separator'|'group'|'system-cluster', ...}
-//
-// Rules (P10/P11):
-//   - System messages accumulate regardless of day boundaries.
-//   - A run of 1 system msg → single ghost line.
-//   - A run of 2+ system msgs → collapsed "N رسائل نظام · عرض".
-//   - Day separators appear only before real (non-system) messages, and
-//     only when the real-message day changes — never for system-only days.
-//   - System clusters between real messages get tight padding (8px).
-//   - System clusters preceding the very first real message also get tight.
-function buildItems(messages) {
+// Build flat item list: {type: 'separator'|'group'|'system-cluster'|'unread'}
+function buildItems(messages, { unreadAfter, myId } = {}) {
   const items = []
-  let systemBuf = []      // accumulating consecutive system messages
-  let currentGroup = null // accumulating a real-message group
-  let lastRealDay = null  // dayKey of the last flushed real message
+  let systemBuf = []
+  let currentGroup = null
+  let lastRealDay = null
+  let unreadPlaced = false
+  const unreadTs = unreadAfter ? new Date(unreadAfter).getTime() : null
 
   function flushSystem() {
     if (!systemBuf.length) return
@@ -51,38 +46,61 @@ function buildItems(messages) {
 
   for (const msg of messages) {
     if (msg.type === 'system') {
-      // System messages accumulate without breaking for day boundaries
       flushGroup()
       systemBuf.push(msg)
+      continue
+    }
+    const day = dayKey(msg.created_at)
+    const dayChanged = lastRealDay !== null && lastRealDay !== day
+
+    flushGroup()
+    flushSystem()
+
+    if (lastRealDay === null || dayChanged) {
+      items.push({ type: 'separator', date: msg.created_at })
+      lastRealDay = day
+    }
+
+    // "New messages" divider — before the first unread message not sent by me
+    if (
+      !unreadPlaced && unreadTs &&
+      new Date(msg.created_at).getTime() > unreadTs &&
+      msg.sender_id !== myId
+    ) {
+      items.push({ type: 'unread' })
+      unreadPlaced = true
+    }
+
+    if (currentGroup && isSameGroup(currentGroup[currentGroup.length - 1], msg)) {
+      currentGroup.push(msg)
     } else {
-      // Real message
-      const day = dayKey(msg.created_at)
-      const dayChanged = lastRealDay !== null && lastRealDay !== day
-
-      // Flush any pending system cluster (always tight — they live between real content)
       flushGroup()
-      flushSystem()
-
-      // Day separator: only when a real-content day changes
-      if (lastRealDay === null || dayChanged) {
-        items.push({ type: 'separator', date: msg.created_at })
-        lastRealDay = day
-      }
-
-      // Group with previous real message if same sender within 4 min
-      if (currentGroup && isSameGroup(currentGroup[currentGroup.length - 1], msg)) {
-        currentGroup.push(msg)
-      } else {
-        flushGroup()
-        currentGroup = [msg]
-      }
+      currentGroup = [msg]
     }
   }
 
   flushGroup()
-  flushSystem() // trailing system messages after the last real message
-
+  flushSystem()
   return items
+}
+
+function LoadingSkeleton() {
+  const rows = [
+    { own: false, w: 220 }, { own: true, w: 140 }, { own: false, w: 280 },
+    { own: false, w: 180 }, { own: true, w: 200 },
+  ]
+  return (
+    <div className="flex flex-col gap-4 px-4 pt-6" style={{ direction: 'rtl' }}>
+      {rows.map((r, i) => (
+        <div key={i} className="flex" style={{ justifyContent: r.own ? 'flex-start' : 'flex-end' }}>
+          <div
+            className="skeleton"
+            style={{ width: r.w, maxWidth: '70%', height: 40, borderRadius: 18, opacity: 0.5 }}
+          />
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default function UnifiedMessageStream({
@@ -91,25 +109,48 @@ export default function UnifiedMessageStream({
   deepLinkMessageId,
   generalChannelId,
   onScroll,
+  onReply,
+  onEdit,
 }) {
   const profile = useAuthProfile()
-  const qc = useQueryClient()
   const virtuosoRef = useRef(null)
   const [atBottom, setAtBottom] = useState(true)
   const [newCount, setNewCount] = useState(0)
   const prevLenRef = useRef(0)
-  const observerRef = useRef(null)
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useUnifiedMessages(groupId, lens)
 
-  // Effective channelId for mark-read: use generalChannelId (or null — hook handles gracefully)
   const { markMessageRead } = useMarkRead(generalChannelId)
 
-  const messages = (data?.pages ?? []).flatMap((p) => [...p]).reverse()
-  const items = buildItems(messages)
+  // Capture the read cursor ONCE per visit → stable "new messages" divider.
+  const { data: unreadAfter } = useQuery({
+    queryKey: ['chat-read-cursor', generalChannelId, profile?.id],
+    enabled: !!generalChannelId && !!profile?.id,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const { data: row } = await supabase
+        .from('channel_read_cursors')
+        .select('last_read_at')
+        .eq('channel_id', generalChannelId)
+        .eq('user_id', profile.id)
+        .maybeSingle()
+      return row?.last_read_at ?? null
+    },
+  })
 
-  // Track new-message count when scrolled up
+  const messages = useMemo(
+    () => (data?.pages ?? []).flatMap((p) => [...p]).reverse(),
+    [data]
+  )
+  const items = useMemo(
+    () => (lens === 'all' ? buildItems(messages, { unreadAfter, myId: profile?.id }) : buildItems(messages)),
+    [messages, unreadAfter, profile?.id, lens]
+  )
+
+  // Track new-message count while scrolled up
   useEffect(() => {
     if (!atBottom && messages.length > prevLenRef.current) {
       setNewCount((c) => c + (messages.length - prevLenRef.current))
@@ -117,64 +158,43 @@ export default function UnifiedMessageStream({
     prevLenRef.current = messages.length
   }, [messages.length, atBottom])
 
+  // Mark newest read when viewing the bottom of the stream
+  useEffect(() => {
+    if (!atBottom || !messages.length) return
+    const newest = messages[messages.length - 1]
+    if (newest && newest.sender_id !== profile?.id && !String(newest.id).startsWith('optimistic')) {
+      markMessageRead(newest.id)
+    }
+  }, [atBottom, messages.length, profile?.id, markMessageRead])
+
   // Deep-link scroll
   useEffect(() => {
     if (!deepLinkMessageId || !virtuosoRef.current || !messages.length) return
-    const idx = messages.findIndex((m) => m.id === deepLinkMessageId)
-    if (idx === -1) return
-    // Find which item index contains this message
-    let itemIdx = 0
+    let itemIdx = -1
     for (let i = 0; i < items.length; i++) {
       if (items[i].type === 'group' && items[i].messages.some((m) => m.id === deepLinkMessageId)) {
         itemIdx = i; break
       }
     }
+    if (itemIdx === -1) return
     setTimeout(() => {
       virtuosoRef.current?.scrollToIndex({ index: itemIdx, behavior: 'smooth', align: 'center' })
       const el = document.getElementById(`msg-${deepLinkMessageId}`)
-      if (el) {
-        el.classList.add('chat-highlight')
-        setTimeout(() => el.classList.remove('chat-highlight'), 2400)
-      }
-    }, 300)
-  }, [deepLinkMessageId, messages.length])
-
-  // IntersectionObserver for read state
-  useEffect(() => {
-    if (!profile?.id) return
-    observerRef.current = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue
-        const msgId = e.target.dataset.messageId
-        const senderId = e.target.dataset.senderId
-        if (msgId && senderId !== profile.id) markMessageRead(msgId)
-      }
-    }, { threshold: 0.5 })
-    return () => { observerRef.current?.disconnect(); observerRef.current = null }
-  }, [profile?.id, markMessageRead])
+      if (el) { el.classList.add('chat-highlight'); setTimeout(() => el.classList.remove('chat-highlight'), 2400) }
+    }, 320)
+  }, [deepLinkMessageId, messages.length]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const scrollToBottom = useCallback(() => {
-    if (virtuosoRef.current) {
-      virtuosoRef.current.scrollToIndex({ index: items.length - 1, behavior: 'smooth' })
-    }
+    virtuosoRef.current?.scrollToIndex({ index: items.length - 1, behavior: 'smooth' })
     setNewCount(0)
     setAtBottom(true)
   }, [items.length])
 
-  if (isLoading) {
-    return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[var(--ds-accent-primary)] border-t-transparent rounded-full animate-spin" />
-      </div>
-    )
-  }
-
-  if (!messages.length) {
-    return <PremiumEmptyState />
-  }
+  if (isLoading) return <LoadingSkeleton />
+  if (!messages.length) return <PremiumEmptyState />
 
   return (
-    <div className="relative flex-1 min-h-0 h-full">
+    <div className="relative h-full">
       <Virtuoso
         ref={virtuosoRef}
         style={{ height: '100%' }}
@@ -182,33 +202,35 @@ export default function UnifiedMessageStream({
         initialTopMostItemIndex={items.length - 1}
         followOutput="smooth"
         atBottomThreshold={120}
-        atBottomStateChange={(bottom) => {
-          setAtBottom(bottom)
-          if (bottom) setNewCount(0)
-        }}
-        startReached={() => {
-          if (hasNextPage && !isFetchingNextPage) fetchNextPage()
-        }}
+        atBottomStateChange={(bottom) => { setAtBottom(bottom); if (bottom) setNewCount(0) }}
+        startReached={() => { if (hasNextPage && !isFetchingNextPage) fetchNextPage() }}
         onScroll={(e) => onScroll?.(e.target.scrollTop)}
+        components={{
+          Header: () => (
+            <div style={{ height: isFetchingNextPage ? 36 : 12 }} className="flex items-center justify-center">
+              {isFetchingNextPage && (
+                <div className="w-5 h-5 border-2 rounded-full animate-spin"
+                  style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-primary) 35%, transparent)', borderTopColor: 'transparent' }} />
+              )}
+            </div>
+          ),
+          Footer: () => <div style={{ height: 10 }} />,
+        }}
         itemContent={(index) => {
           const item = items[index]
           if (!item) return null
-          if (item.type === 'separator') {
-            return <DaySeparator key={item.date} date={item.date} />
-          }
-          if (item.type === 'system-cluster') {
-            return <SystemMessageCluster key={item.messages[0].id} messages={item.messages} />
-          }
+          if (item.type === 'separator') return <DaySeparator key={item.date} date={item.date} />
+          if (item.type === 'unread') return <UnreadDivider key="unread" />
+          if (item.type === 'system-cluster') return <SystemMessageCluster key={item.messages[0].id} messages={item.messages} />
           return (
-            <div key={item.messages[0].id}>
-              <MessageGroupPremium
-                messages={item.messages}
-                channelId={generalChannelId}
-                groupId={groupId}
-                onReply={() => {}}
-                onEdit={() => {}}
-              />
-            </div>
+            <MessageGroupPremium
+              key={item.messages[0].id}
+              messages={item.messages}
+              channelId={generalChannelId}
+              groupId={groupId}
+              onReply={onReply}
+              onEdit={onEdit}
+            />
           )
         }}
       />

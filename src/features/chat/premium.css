@@ -1,0 +1,137 @@
+/* ════════════════════════════════════════════════════════════════════════
+   المحادثة — Immersive Aurora chat shell
+   ------------------------------------------------------------------------
+   The chat is a fixed app-panel anchored to the layout CSS variables so it
+   can NEVER overlap the header, sidebar, or mobile bottom-nav on any device.
+
+     top    = safe-area-top + impersonation banner + header (64px)
+     right  = sidebar width  (264 / 76 desktop · 0 on ≤1024px)   [RTL: sidebar is physically right]
+     left   = 0
+     bottom = mobile nav (64 + safe-area)  →  0 on desktop
+
+   These vars are live-maintained by SidebarMetricsObserver + z-index.css.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.chat-shell {
+  position: fixed;
+  top: calc(var(--sat, 0px) + var(--impersonation-banner-height, 0px) + var(--header-height, 64px));
+  left: 0;
+  right: var(--sidebar-width, 0px);
+  bottom: calc(var(--bottom-nav-height, 64px) + var(--sab, 0px));
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  direction: rtl;
+  background: var(--ds-bg-base);
+  /* NOTE: deliberately no `transform`/`contain`/`will-change` here — those would
+     make .chat-shell a containing block for position:fixed descendants and trap
+     the search panel / announcement sheet inside the panel. isolate is safe. */
+  isolation: isolate;
+}
+@media (min-width: 1024px) {
+  .chat-shell { bottom: 0; }       /* no mobile nav on desktop */
+}
+
+/* Rows that frame the scroll area never shrink; only the stream scrolls. */
+.chat-shell > .chat-row { flex: 0 0 auto; position: relative; z-index: 2; }
+.chat-shell > .chat-stream { flex: 1 1 auto; min-height: 0; position: relative; z-index: 1; }
+
+/* ───────────────────────── Immersive aurora backdrop ───────────────────── */
+.chat-aurora {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.chat-aurora::before,
+.chat-aurora::after,
+.chat-aurora > i {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  will-change: transform;
+}
+.chat-aurora::before {                 /* gold — top, sidebar side */
+  width: 46vmax; height: 46vmax;
+  top: -18vmax; right: -10vmax;
+  background: radial-gradient(circle at 50% 50%,
+    color-mix(in srgb, var(--ds-accent-gold) 50%, transparent), transparent 66%);
+  opacity: 0.40;
+  animation: chat-drift-a 28s ease-in-out infinite alternate;
+}
+.chat-aurora::after {                   /* violet/navy — bottom, far side */
+  width: 52vmax; height: 52vmax;
+  bottom: -22vmax; left: -16vmax;
+  background: radial-gradient(circle at 50% 50%,
+    color-mix(in srgb, var(--ds-aurora-2) 58%, transparent), transparent 66%);
+  opacity: 0.42;
+  animation: chat-drift-b 34s ease-in-out infinite alternate;
+}
+.chat-aurora > i {                      /* sky — drifting center */
+  width: 40vmax; height: 40vmax;
+  top: 26%; left: 28%;
+  background: radial-gradient(circle at 50% 50%,
+    color-mix(in srgb, var(--ds-aurora-1) 40%, transparent), transparent 70%);
+  opacity: 0.34;
+  animation: chat-drift-c 40s ease-in-out infinite alternate;
+}
+/* Legibility scrims: darken top (under glass header) + bottom (under composer). */
+.chat-aurora-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, color-mix(in srgb, var(--ds-bg-base) 78%, transparent) 0%, transparent 16%, transparent 84%, color-mix(in srgb, var(--ds-bg-base) 82%, transparent) 100%),
+    radial-gradient(120% 80% at 50% 0%, transparent 60%, color-mix(in srgb, var(--ds-bg-base) 55%, transparent) 100%);
+}
+
+@keyframes chat-drift-a { from { transform: translate3d(0,0,0) scale(1);    } to { transform: translate3d(-4vmax, 3vmax, 0) scale(1.12); } }
+@keyframes chat-drift-b { from { transform: translate3d(0,0,0) scale(1.05); } to { transform: translate3d(5vmax, -3vmax, 0) scale(1);    } }
+@keyframes chat-drift-c { from { transform: translate3d(0,0,0) scale(1);    } to { transform: translate3d(3vmax, 4vmax, 0) scale(1.1);  } }
+
+/* ───────────────────────── Misc chat atoms ────────────────────────────── */
+
+/* Horizontal pill rows (filter lenses, pinned cards) — clean swipe, no bar. */
+.chat-hscroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+}
+.chat-hscroll::-webkit-scrollbar { display: none; }
+.chat-hscroll > * { scroll-snap-align: start; flex: 0 0 auto; }
+
+/* Breathing orb (empty state) */
+@keyframes chat-breathe { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .3; transform: scale(1.06); } }
+
+/* Online presence dot */
+@keyframes chat-pulse {
+  0%, 100% { opacity: 1;  box-shadow: 0 0 0 0 color-mix(in srgb, var(--ds-accent-success) 50%, transparent); }
+  50%      { opacity: .55; box-shadow: 0 0 0 5px color-mix(in srgb, var(--ds-accent-success) 0%, transparent); }
+}
+.chat-online-dot { animation: chat-pulse 2.4s ease-in-out infinite; }
+
+/* Typing bubble dots */
+@keyframes chat-typing { 0%, 60%, 100% { transform: translateY(0); opacity: .35; } 30% { transform: translateY(-3px); opacity: 1; } }
+.chat-typing-dot { animation: chat-typing 1.3s ease-in-out infinite; }
+
+/* Deep-link / pin scroll target flash (chat-highlight base lives in animations.css) */
+
+/* The two global corner FABs (accessibility z-998, bug-report z-997) sit at the
+   bottom corners — exactly where the composer's send / attachment buttons are.
+   Hide them only inside the immersive chat; both remain on every other screen. */
+body.chat-page .z-\[998\],
+body.chat-page .z-\[997\] { display: none !important; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .chat-aurora::before, .chat-aurora::after, .chat-aurora > i,
+  .chat-online-dot, .chat-typing-dot { animation: none !important; }
+}

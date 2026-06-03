@@ -39,7 +39,7 @@ export default function PinnedStrip({ groupId, onScrollToMessage }) {
   if (!pinned.length) return null
 
   return (
-    <div style={{ ...glass, position: 'sticky', top: 56, zIndex: 24, direction: 'rtl' }}>
+    <div style={{ ...glass, direction: 'rtl' }}>
       {/* Collapse toggle bar */}
       <button
         onClick={() => setExpanded((p) => !p)}
@@ -60,13 +60,9 @@ export default function PinnedStrip({ groupId, onScrollToMessage }) {
       {/* Expanded pin cards */}
       <AnimatePresence>
         {expanded && (
-          <motion.div
-            {...slideIn}
-            className="flex gap-2 px-4 pb-3 overflow-x-auto"
-            style={{ scrollbarWidth: 'none', scrollSnapType: 'x mandatory' }}
-          >
+          <motion.div {...slideIn} className="chat-hscroll px-4 pb-3">
             {pinned.slice(0, 5).map((p) => (
-              <div key={p.id} style={{ scrollSnapAlign: 'start' }}>
+              <div key={p.id}>
                 <PinnedCard
                   message={p}
                   onScrollTo={onScrollToMessage}

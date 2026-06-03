@@ -96,7 +96,7 @@ export function useUnifiedMessages(groupId, lens = 'all') {
         event: '*', schema: 'public', table: 'message_reactions',
       }, () => qc.invalidateQueries({ queryKey: ['unified-messages', groupId] }))
       .subscribe()
-    return () => supabase.removeChannel(ch)
+    return () => { ch.unsubscribe(); supabase.removeChannel(ch) }
   }, [groupId, qc])
 
   return query

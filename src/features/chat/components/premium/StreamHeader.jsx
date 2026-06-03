@@ -4,11 +4,11 @@ import { fadeRise } from '../../lib/motion'
 import ActiveUsersDots from './ActiveUsersDots'
 
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-elevated) 80%, transparent)',
-  backdropFilter: 'blur(24px) saturate(140%)',
-  WebkitBackdropFilter: 'blur(24px) saturate(140%)',
-  borderBottom: '1px solid var(--ds-border-subtle)',
-  boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4), inset 0 1px 0 0 color-mix(in srgb, white 6%, transparent)',
+  background: 'color-mix(in srgb, var(--ds-bg-elevated) 62%, transparent)',
+  backdropFilter: 'blur(28px) saturate(150%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(150%)',
+  borderBottom: '1px solid color-mix(in srgb, var(--ds-accent-gold) 12%, var(--ds-border-subtle))',
+  boxShadow: '0 10px 30px -16px rgba(0,0,0,0.5), inset 0 1px 0 0 color-mix(in srgb, white 7%, transparent)',
 }
 
 // Level → gradient + shadow color
@@ -36,7 +36,7 @@ export default function StreamHeader({
   return (
     <motion.header
       layout
-      style={{ ...glass, direction: 'rtl', position: 'sticky', top: 0, zIndex: 30 }}
+      style={{ ...glass, direction: 'rtl', position: 'relative', zIndex: 3 }}
       className="px-4"
     >
       <AnimatePresence mode="wait">
@@ -96,21 +96,31 @@ export default function StreamHeader({
 
 function GroupAvatar({ initial, size, grad, glow }) {
   return (
-    <div
-      className="rounded-full flex items-center justify-center shrink-0 font-bold select-none"
-      style={{
-        width: size,
-        height: size,
-        background: grad,
-        color: 'rgba(255,255,255,0.92)',
-        fontSize: Math.round(size * 0.38),
-        fontFamily: 'Tajawal, sans-serif',
-        fontWeight: 700,
-        boxShadow: `0 4px 16px -4px ${glow}, inset 0 1px 0 0 rgba(255,255,255,0.15)`,
-        transition: 'all 0.24s',
-      }}
-    >
-      {initial}
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      {/* Gold ring */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          inset: -2,
+          background: 'conic-gradient(from 140deg, color-mix(in srgb, var(--ds-accent-gold) 75%, transparent), color-mix(in srgb, var(--ds-accent-gold) 18%, transparent) 50%, color-mix(in srgb, var(--ds-accent-gold) 75%, transparent))',
+          opacity: 0.85,
+        }}
+      />
+      <div
+        className="absolute rounded-full flex items-center justify-center font-bold select-none"
+        style={{
+          inset: 0,
+          background: grad,
+          color: 'rgba(255,255,255,0.94)',
+          fontSize: Math.round(size * 0.38),
+          fontFamily: 'Tajawal, sans-serif',
+          fontWeight: 700,
+          boxShadow: `0 6px 18px -6px ${glow}, inset 0 1px 1px rgba(255,255,255,0.22), inset 0 -2px 4px rgba(0,0,0,0.22)`,
+          transition: 'all 0.24s',
+        }}
+      >
+        {initial}
+      </div>
     </div>
   )
 }
@@ -122,8 +132,8 @@ function OnlineChip({ count }) {
       style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-accent-success)' }}
     >
       <span
-        className="w-1.5 h-1.5 rounded-full shrink-0"
-        style={{ background: 'var(--ds-accent-success)', animation: 'pulse 2s ease-in-out infinite' }}
+        className="chat-online-dot w-1.5 h-1.5 rounded-full shrink-0"
+        style={{ background: 'var(--ds-accent-success)' }}
       />
       {count === 1 ? 'متصل الآن' : `${count} متصلين الآن`}
     </span>
