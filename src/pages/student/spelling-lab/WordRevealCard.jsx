@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Volume2, BookOpen, Quote } from 'lucide-react'
+import { Volume2, BookOpen, Quote, Shuffle, ArrowLeftRight, GitBranch } from 'lucide-react'
 
 // ── Spelling Lab — WordRevealCard (prompt: enrich the lab) ──────────────────
 // Shown on the FEEDBACK screen, AFTER the student has submitted / revealed the
@@ -59,11 +59,103 @@ function renderExample(example, word) {
   }
 }
 
+// A small section label (icon + Arabic caption) — matches the meaning/example
+// labels above so the curiosity zone reads as one calm system.
+function FieldLabel({ icon: Icon, children }) {
+  return (
+    <div
+      className="flex items-center gap-1.5 mb-1.5"
+      style={{ color: 'var(--vc-text-dim, #8a92b8)' }}
+    >
+      <Icon size={13} style={{ color: GOLD }} />
+      <span style={{ fontFamily: "'Tajawal', sans-serif", fontSize: 12, fontWeight: 600 }}>
+        {children}
+      </span>
+    </div>
+  )
+}
+
+// One English-word chip (synonyms / antonyms). `strong` fills it gold.
+function WordChip({ word, strong }) {
+  return (
+    <span
+      dir="ltr"
+      className="inline-flex items-center px-2.5 py-1 rounded-lg"
+      style={{
+        fontFamily: "'Readex Pro', sans-serif",
+        fontSize: 13,
+        lineHeight: 1.2,
+        color: strong ? '#20160a' : 'var(--vc-text-soft, #c4caea)',
+        background: strong ? 'var(--vc-gold, #fbbf24)' : 'var(--vc-surface-2, rgba(255,255,255,0.05))',
+        border: `1px solid ${strong ? 'transparent' : 'var(--vc-border, rgba(165,180,252,0.13))'}`,
+      }}
+    >
+      {word}
+    </span>
+  )
+}
+
+// One word-family member: English form + its Arabic part of speech.
+function FamilyChip({ member }) {
+  const pos = posLabelAr(member.part_of_speech || member.pos)
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg"
+      style={{
+        background: 'var(--vc-surface-2, rgba(255,255,255,0.05))',
+        border: '1px solid var(--vc-border, rgba(165,180,252,0.13))',
+      }}
+    >
+      <span
+        dir="ltr"
+        style={{
+          fontFamily: "'Readex Pro', sans-serif",
+          fontSize: 13,
+          lineHeight: 1.2,
+          color: 'var(--vc-text, #eef1ff)',
+        }}
+      >
+        {member.word}
+      </span>
+      {pos && (
+        <span
+          style={{
+            fontFamily: "'Tajawal', sans-serif",
+            fontSize: 10,
+            color: 'var(--vc-text-dim, #8a92b8)',
+          }}
+        >
+          {pos}
+        </span>
+      )}
+    </span>
+  )
+}
+
+// Normalise the relation arrays — tolerate nulls / non-arrays / blank entries.
+function cleanList(v) {
+  return Array.isArray(v) ? v.filter((x) => x && x.word) : []
+}
+
 export default function WordRevealCard({ word, onPlayAudio }) {
   if (!word) return null
 
   const posAr = posLabelAr(word.part_of_speech)
   const posEn = word.part_of_speech ? String(word.part_of_speech) : null
+
+  // ── curiosity layer (present for a meaningful slice of the lab words) ──────
+  const target = String(word.word_en || '').toLowerCase()
+  const synonyms = cleanList(word.synonyms).slice(0, 5)
+  const antonyms = cleanList(word.antonyms).slice(0, 4)
+  // the family includes the base word itself — drop it, keep the relatives
+  const family = cleanList(word.word_family)
+    .filter((m) => String(m.word).toLowerCase() !== target)
+    .slice(0, 4)
+  const alert =
+    word.pronunciation_alert && word.pronunciation_alert.has_alert
+      ? word.pronunciation_alert
+      : null
+  const hasRelated = synonyms.length || antonyms.length || family.length || alert
 
   return (
     <motion.div
@@ -212,6 +304,93 @@ export default function WordRevealCard({ word, onPlayAudio }) {
           </div>
         )}
       </div>
+
+      {/* ── curiosity layer: synonyms · antonyms · family · pronunciation ──── */}
+      {hasRelated ? (
+        <div
+          className="px-5 py-4 space-y-4"
+          style={{ borderTop: '1px solid var(--vc-border, rgba(165,180,252,0.13))' }}
+        >
+          {synonyms.length > 0 && (
+            <div>
+              <FieldLabel icon={Shuffle}>مرادفات</FieldLabel>
+              <div className="flex flex-wrap gap-1.5" dir="ltr">
+                {synonyms.map((s, i) => (
+                  <WordChip key={`${s.word}-${i}`} word={s.word} strong={!!s.is_strongest} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {antonyms.length > 0 && (
+            <div>
+              <FieldLabel icon={ArrowLeftRight}>العكس</FieldLabel>
+              <div className="flex flex-wrap gap-1.5" dir="ltr">
+                {antonyms.map((a, i) => (
+                  <WordChip key={`${a.word}-${i}`} word={a.word} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {family.length > 0 && (
+            <div>
+              <FieldLabel icon={GitBranch}>عائلة الكلمة</FieldLabel>
+              <div className="flex flex-wrap gap-1.5" dir="ltr">
+                {family.map((m, i) => (
+                  <FamilyChip key={`${m.word}-${i}`} member={m} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {alert && (alert.correct_approximation_ar || alert.practice_tip_ar) && (
+            <div>
+              <FieldLabel icon={Volume2}>نطقها</FieldLabel>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                {alert.common_mispronunciation_ar && (
+                  <span
+                    style={{
+                      fontFamily: "'Tajawal', sans-serif",
+                      fontSize: 13,
+                      color: 'var(--vc-text-dim, #8a92b8)',
+                      textDecoration: 'line-through',
+                      textDecorationColor: 'rgba(239,68,68,0.5)',
+                    }}
+                  >
+                    {alert.common_mispronunciation_ar}
+                  </span>
+                )}
+                {alert.correct_approximation_ar && (
+                  <span
+                    style={{
+                      fontFamily: "'Tajawal', sans-serif",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: 'var(--vc-gold, #fbbf24)',
+                    }}
+                  >
+                    {alert.correct_approximation_ar}
+                  </span>
+                )}
+              </div>
+              {alert.practice_tip_ar && (
+                <p
+                  className="mt-1"
+                  style={{
+                    fontFamily: "'Tajawal', sans-serif",
+                    fontSize: 12.5,
+                    lineHeight: 1.5,
+                    color: 'var(--vc-text-soft, #c4caea)',
+                  }}
+                >
+                  {alert.practice_tip_ar}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      ) : null}
     </motion.div>
   )
 }
