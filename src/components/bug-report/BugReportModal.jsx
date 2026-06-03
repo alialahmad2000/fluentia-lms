@@ -1,14 +1,55 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Bug, ImagePlus, Loader2, CheckCircle2 } from 'lucide-react'
 import { toast } from '../ui/FluentiaToast'
 import { submitBugReport } from '../../lib/bugReport'
+import { AREAS, PROBLEM_TYPES, SEVERITIES, areaById, detectArea } from '../../lib/bugReportTaxonomy'
 
 const MAX_BYTES = 10 * 1024 * 1024 // 10MB
 
-// Simple, fast "report a problem" sheet. One textarea + an optional screenshot
-// (paste with Ctrl/⌘+V, pick a file, or drop). RTL, mobile-first.
+// Selectable pill. Compact, RTL, touch-friendly (≥40px tap height via padding).
+function Chip({ active, onClick, children, accent = '#38bdf8' }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-full text-[13px] font-semibold transition-all"
+      style={{
+        fontFamily: "'Tajawal',sans-serif",
+        padding: '8px 13px',
+        background: active ? `color-mix(in srgb, ${accent} 18%, transparent)` : 'var(--surface-base, rgba(255,255,255,0.04))',
+        color: active ? accent : 'var(--text-secondary, #cbd5e1)',
+        border: `1px solid ${active ? `color-mix(in srgb, ${accent} 45%, transparent)` : 'var(--ds-border-subtle, rgba(255,255,255,0.10))'}`,
+        boxShadow: active ? `0 4px 14px -8px ${accent}` : 'none',
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+function FieldLabel({ children, hint }) {
+  return (
+    <div className="flex items-baseline gap-2 mb-2">
+      <span style={{ fontFamily: "'Tajawal',sans-serif", fontWeight: 700, fontSize: 13.5, color: 'var(--text-primary,#f8fafc)' }}>
+        {children}
+      </span>
+      {hint && (
+        <span style={{ fontFamily: "'Tajawal',sans-serif", fontSize: 11.5, color: 'var(--text-tertiary,#64748b)' }}>{hint}</span>
+      )}
+    </div>
+  )
+}
+
+// Guided "report a problem" sheet. Helps the student point us at exactly WHERE
+// (area → sub-section, area auto-detected from the current page) and WHAT KIND
+// of problem, plus the old free-text + optional screenshot. RTL, mobile-first.
 export default function BugReportModal({ open, onClose }) {
+  const [area, setArea] = useState(null)
+  const [areaAuto, setAreaAuto] = useState(false) // was the area auto-detected?
+  const [subsection, setSubsection] = useState(null)
+  const [problemType, setProblemType] = useState(null)
+  const [severity, setSeverity] = useState(null)
   const [description, setDescription] = useState('')
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
@@ -17,6 +58,9 @@ export default function BugReportModal({ open, onClose }) {
   const fileInputRef = useRef(null)
 
   const reset = useCallback(() => {
+    const auto = detectArea(window.location.pathname)
+    setArea(auto || null); setAreaAuto(!!auto)
+    setSubsection(null); setProblemType(null); setSeverity(null)
     setDescription(''); setFile(null); setDone(false); setSubmitting(false)
     setPreview((p) => { if (p) URL.revokeObjectURL(p); return null })
   }, [])
@@ -47,16 +91,24 @@ export default function BugReportModal({ open, onClose }) {
     return () => { window.removeEventListener('paste', onPaste); window.removeEventListener('keydown', onKey) }
   }, [open, attach, onClose, submitting])
 
-  // Reset whenever it re-opens.
+  // Reset whenever it re-opens (re-detects the area for the current page).
   useEffect(() => { if (open) reset() }, [open, reset])
 
-  const canSubmit = description.trim().length >= 3 || !!file
+  const currentArea = useMemo(() => areaById(area), [area])
+  const subsections = currentArea?.subsections || []
+
+  // Permissive: a problem type OR a description OR a screenshot is enough.
+  const canSubmit = !!problemType || description.trim().length >= 3 || !!file
+
+  const handlePickArea = (id) => {
+    setArea(id); setAreaAuto(false); setSubsection(null)
+  }
 
   const handleSubmit = async () => {
     if (!canSubmit || submitting) return
     setSubmitting(true)
     try {
-      const res = await submitBugReport({ description, file })
+      const res = await submitBugReport({ description, file, area, subsection, problemType, severity })
       setDone(true)
       if (res?.screenshot_tried && !res?.screenshot_attached) {
         toast({ type: 'success', title: 'وصلنا بلاغك ✅', description: 'تعذّر رفع الصورة لكن البلاغ اتسجّل.' })
@@ -105,7 +157,7 @@ export default function BugReportModal({ open, onClose }) {
                     أبلغ عن مشكلة
                   </div>
                   <div style={{ fontFamily: "'Tajawal',sans-serif", fontSize: 12, color: 'var(--text-tertiary,#64748b)' }}>
-                    ساعدنا نطوّر المنصة — وصف بسيط وصورة إن أمكن
+                    ساعدينا نوصل للمشكلة بسرعة — حدّدي المكان والنوع
                   </div>
                 </div>
               </div>
@@ -124,22 +176,79 @@ export default function BugReportModal({ open, onClose }) {
                 </div>
               </div>
             ) : (
-              <div className="px-5 pb-5 space-y-4 overflow-y-auto" style={{ maxHeight: 'calc(92vh - 80px)' }}>
+              <div className="px-5 pb-5 space-y-5 overflow-y-auto" style={{ maxHeight: 'calc(92vh - 80px)' }}>
+                {/* WHERE — area */}
+                <div>
+                  <FieldLabel hint={areaAuto && area ? '(اخترناه لك تلقائياً — عدّليه إن أردتِ)' : null}>
+                    أين واجهتِ المشكلة؟
+                  </FieldLabel>
+                  <div className="flex flex-wrap gap-2">
+                    {AREAS.map((a) => (
+                      <Chip key={a.id} active={area === a.id} onClick={() => handlePickArea(a.id)}>
+                        {a.emoji} {a.label}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+
+                {/* WHERE — sub-section (only when the area has them) */}
+                {subsections.length > 0 && (
+                  <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}>
+                    <FieldLabel hint="(اختياري)">في أي جزء من {currentArea.label}؟</FieldLabel>
+                    <div className="flex flex-wrap gap-2">
+                      {subsections.map((s) => (
+                        <Chip key={s.id} active={subsection === s.id} accent="#a78bfa"
+                          onClick={() => setSubsection(subsection === s.id ? null : s.id)}>
+                          {s.label}
+                        </Chip>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* WHAT — problem type */}
+                <div>
+                  <FieldLabel>ما نوع المشكلة؟</FieldLabel>
+                  <div className="flex flex-wrap gap-2">
+                    {PROBLEM_TYPES.map((p) => (
+                      <Chip key={p.id} active={problemType === p.id} accent="#fbbf24"
+                        onClick={() => setProblemType(problemType === p.id ? null : p.id)}>
+                        {p.emoji} {p.label}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+
+                {/* SEVERITY — optional */}
+                <div>
+                  <FieldLabel hint="(اختياري)">كم أثّرت عليكِ؟</FieldLabel>
+                  <div className="flex flex-wrap gap-2">
+                    {SEVERITIES.map((s) => (
+                      <Chip key={s.id} active={severity === s.id} accent={s.color}
+                        onClick={() => setSeverity(severity === s.id ? null : s.id)}>
+                        {s.emoji} {s.label}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Description */}
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="وش المشكلة اللي واجهتك؟ (مثال: ضغطت على كلمة في القراءة وما طلعت الترجمة)"
-                  rows={4}
-                  autoFocus
-                  className="w-full rounded-2xl px-4 py-3 resize-none outline-none"
-                  style={{
-                    fontFamily: "'Tajawal',sans-serif", fontSize: 15, lineHeight: 1.7,
-                    background: 'var(--surface-base, rgba(255,255,255,0.03))',
-                    border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.1))',
-                    color: 'var(--text-primary,#f8fafc)',
-                  }}
-                />
+                <div>
+                  <FieldLabel hint="(اختياري لكنه يساعدنا)">تفاصيل إضافية</FieldLabel>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="مثال: ضغطت على كلمة في القراءة وما طلعت الترجمة"
+                    rows={3}
+                    className="w-full rounded-2xl px-4 py-3 resize-none outline-none"
+                    style={{
+                      fontFamily: "'Tajawal',sans-serif", fontSize: 15, lineHeight: 1.7,
+                      background: 'var(--surface-base, rgba(255,255,255,0.03))',
+                      border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.1))',
+                      color: 'var(--text-primary,#f8fafc)',
+                    }}
+                  />
+                </div>
 
                 {/* Screenshot */}
                 {!preview ? (
@@ -154,8 +263,8 @@ export default function BugReportModal({ open, onClose }) {
                     }}
                   >
                     <ImagePlus size={22} />
-                    <span style={{ fontSize: 13.5, fontWeight: 600 }}>أرفق صورة للمشكلة (اختياري)</span>
-                    <span style={{ fontSize: 11.5 }}>الصق صورة بـ Ctrl/⌘+V أو اضغط لاختيارها</span>
+                    <span style={{ fontSize: 13.5, fontWeight: 600 }}>أرفقي صورة للمشكلة (اختياري)</span>
+                    <span style={{ fontSize: 11.5 }}>الصقي صورة بـ Ctrl/⌘+V أو اضغطي لاختيارها</span>
                   </button>
                 ) : (
                   <div className="relative rounded-2xl overflow-hidden" style={{ border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.1))' }}>

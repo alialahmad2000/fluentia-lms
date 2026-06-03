@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Bug, RefreshCw, ExternalLink, Image as ImageIcon, Loader2 } from 'lucide-react'
 import { toast } from '../../components/ui/FluentiaToast'
+import { PROBLEM_TYPES, problemTypeById, severityById } from '../../lib/bugReportTaxonomy'
 
 const STATUS = {
   new:         { label: 'جديد',        color: '#38bdf8', bg: 'rgba(56,189,248,0.12)' },
@@ -10,6 +11,38 @@ const STATUS = {
   wontfix:     { label: 'لن يُعالَج',  color: '#94a3b8', bg: 'rgba(148,163,184,0.12)' },
 }
 const FILTERS = [['all', 'الكل'], ['new', 'جديد'], ['in_progress', 'قيد العمل'], ['resolved', 'تم الحل']]
+
+function Chip({ children, color = '#94a3b8', solid = false }) {
+  return (
+    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-bold"
+      style={{
+        color: solid ? '#06121f' : color,
+        background: solid ? color : `color-mix(in srgb, ${color} 14%, transparent)`,
+        border: `1px solid color-mix(in srgb, ${color} 36%, transparent)`,
+        fontFamily: "'Tajawal',sans-serif",
+      }}>
+      {children}
+    </span>
+  )
+}
+
+// The structured "where + what + how bad" the student picked, rendered as chips.
+function ContextChips({ ctx }) {
+  if (!ctx) return null
+  const pt = ctx.problem_type ? (problemTypeById(ctx.problem_type) || { label: ctx.problem_type_label, emoji: '' }) : null
+  const sev = ctx.severity ? (severityById(ctx.severity) || null) : null
+  const hasAny = ctx.area_label || pt || sev
+  if (!hasAny) return null
+  return (
+    <div className="flex items-center gap-1.5 flex-wrap mb-2">
+      {ctx.area_label && (
+        <Chip color="#38bdf8">📍 {ctx.area_label}{ctx.subsection_label ? ` › ${ctx.subsection_label}` : ''}</Chip>
+      )}
+      {pt && <Chip color="#fbbf24">{pt.emoji} {pt.label || ctx.problem_type_label}</Chip>}
+      {sev && <Chip color={sev.color}>{sev.emoji} {sev.label}</Chip>}
+    </div>
+  )
+}
 
 function Screenshot({ path }) {
   const [url, setUrl] = useState(null)
@@ -36,6 +69,7 @@ export default function AdminBugReports() {
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
+  const [typeFilter, setTypeFilter] = useState('all')
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -48,6 +82,18 @@ export default function AdminBugReports() {
   }, [filter])
 
   useEffect(() => { load() }, [load])
+
+  // Problem-type filter is applied client-side off device_info.context.
+  const visibleRows = useMemo(() => {
+    if (typeFilter === 'all') return rows
+    return rows.filter((r) => r.device_info?.context?.problem_type === typeFilter)
+  }, [rows, typeFilter])
+
+  // Only show type chips that actually appear in the loaded set (keeps the bar tidy).
+  const presentTypes = useMemo(() => {
+    const set = new Set(rows.map((r) => r.device_info?.context?.problem_type).filter(Boolean))
+    return PROBLEM_TYPES.filter((p) => set.has(p.id))
+  }, [rows])
 
   const setStatus = async (id, status) => {
     const patch = { status }
@@ -82,7 +128,7 @@ export default function AdminBugReports() {
         </button>
       </div>
 
-      {/* Filters */}
+      {/* Status filters */}
       <div className="flex items-center gap-2 flex-wrap">
         {FILTERS.map(([id, label]) => (
           <button key={id} type="button" onClick={() => setFilter(id)}
@@ -97,17 +143,44 @@ export default function AdminBugReports() {
         ))}
       </div>
 
+      {/* Problem-type filters (only types present in the loaded set) */}
+      {presentTypes.length > 0 && (
+        <div className="flex items-center gap-2 flex-wrap">
+          <button type="button" onClick={() => setTypeFilter('all')}
+            className="px-3 py-1 rounded-full text-[12px] font-semibold transition-colors"
+            style={{
+              background: typeFilter === 'all' ? 'rgba(251,191,36,0.16)' : 'transparent',
+              color: typeFilter === 'all' ? '#fbbf24' : 'var(--text-tertiary,#94a3b8)',
+              border: `1px solid ${typeFilter === 'all' ? 'rgba(251,191,36,0.4)' : 'var(--border-default,rgba(255,255,255,0.08))'}`,
+            }}>
+            كل الأنواع
+          </button>
+          {presentTypes.map((p) => (
+            <button key={p.id} type="button" onClick={() => setTypeFilter(p.id)}
+              className="px-3 py-1 rounded-full text-[12px] font-semibold transition-colors"
+              style={{
+                background: typeFilter === p.id ? 'rgba(251,191,36,0.16)' : 'transparent',
+                color: typeFilter === p.id ? '#fbbf24' : 'var(--text-tertiary,#94a3b8)',
+                border: `1px solid ${typeFilter === p.id ? 'rgba(251,191,36,0.4)' : 'var(--border-default,rgba(255,255,255,0.08))'}`,
+              }}>
+              {p.emoji} {p.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {loading ? (
         <div className="py-20 flex justify-center"><Loader2 className="animate-spin" style={{ color: '#38bdf8' }} /></div>
-      ) : rows.length === 0 ? (
+      ) : visibleRows.length === 0 ? (
         <div className="py-20 text-center" style={{ color: 'var(--text-tertiary,#64748b)' }}>
           <Bug size={40} className="mx-auto mb-3 opacity-40" />
-          لا توجد بلاغات {filter !== 'all' ? 'بهذه الحالة' : 'بعد'}.
+          لا توجد بلاغات {filter !== 'all' || typeFilter !== 'all' ? 'بهذا الفلتر' : 'بعد'}.
         </div>
       ) : (
         <div className="space-y-3">
-          {rows.map((r) => {
+          {visibleRows.map((r) => {
             const st = STATUS[r.status] || STATUS.new
+            const di = r.device_info || {}
             return (
               <div key={r.id} className="rounded-2xl p-4"
                 style={{ background: 'var(--surface-raised,rgba(255,255,255,0.03))', border: '1px solid var(--border-default,rgba(255,255,255,0.08))' }}>
@@ -120,7 +193,12 @@ export default function AdminBugReports() {
                   <span className="px-2.5 py-1 rounded-full text-[12px] font-bold" style={{ color: st.color, background: st.bg }}>{st.label}</span>
                 </div>
 
-                <p className="mt-2.5" style={{ color: 'var(--text-primary,#f8fafc)', fontSize: 15, lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
+                {/* Structured context chips */}
+                <div className="mt-2.5">
+                  <ContextChips ctx={di.context} />
+                </div>
+
+                <p className="mt-1" style={{ color: 'var(--text-primary,#f8fafc)', fontSize: 15, lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
                   {r.description}
                 </p>
 
@@ -133,8 +211,16 @@ export default function AdminBugReports() {
                     </a>
                   )}
                   <Screenshot path={r.screenshot_path} />
-                  {r.device_info?.viewport && (
-                    <span className="text-[12px]" style={{ color: 'var(--text-tertiary,#64748b)' }}>{r.device_info.viewport} · {(r.device_info.platform || '').slice(0, 24)}</span>
+                  {(di.viewport || di.appVersion) && (
+                    <span className="text-[12px]" style={{ color: 'var(--text-tertiary,#64748b)' }}>
+                      {[
+                        di.viewport,
+                        (di.platform || '').slice(0, 24),
+                        di.appVersion ? `v${di.appVersion}` : null,
+                        di.standalone ? 'PWA' : 'متصفح',
+                        di.online === false ? 'غير متصل' : null,
+                      ].filter(Boolean).join(' · ')}
+                    </span>
                   )}
                 </div>
 
