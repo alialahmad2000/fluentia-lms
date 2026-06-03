@@ -3,7 +3,7 @@
 import { useInfiniteQuery, useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useCallback, useRef } from 'react'
 import { supabase } from '../../../lib/supabase'
-import { useAuthProfile } from '../../../stores/authStore'
+import { useAuthProfile, useAuthImpersonation } from '../../../stores/authStore'
 import { signedVoiceUrl, signedImageUrl, signedFileUrl } from '../../../lib/chatStorage'
 
 const PAGE_SIZE = 60
@@ -41,12 +41,16 @@ export function useDMThreads() {
 
 export function useDMContacts() {
   const profile = useAuthProfile()
+  const impersonation = useAuthImpersonation()
+  // When an admin is impersonating, show the picker as that user would see it
+  // (the server ignores p_as_user unless the real caller is an admin).
+  const asUser = impersonation?.userId ?? null
   return useQuery({
-    queryKey: ['dm-contacts'],
+    queryKey: ['dm-contacts', asUser ?? profile?.id],
     enabled: !!profile?.id,
     staleTime: 5 * 60_000,
     queryFn: async () => {
-      const { data, error } = await supabase.rpc('dm_list_contacts')
+      const { data, error } = await supabase.rpc('dm_list_contacts', asUser ? { p_as_user: asUser } : {})
       if (error) throw error
       return data ?? []
     },
