@@ -1,4 +1,4 @@
-import { useCallback, memo, useMemo } from 'react'
+import { useCallback, memo } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 import { ChevronLeft, Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import UserAvatar from '@/components/common/UserAvatar'
-import { getGreeting } from '@/utils/dateHelpers'
 import { hasIELTSAccess } from '@/lib/packageAccess'
 import { toast } from '@/components/ui/FluentiaToast'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
@@ -24,9 +23,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
   const { data: ieltsRoster } = useIELTSRoster()
   const hasIELTSStudents = Array.isArray(ieltsRoster) && ieltsRoster.length > 0
 
-  // Visibility-aware mock-exam access. Sidebar entry shows when:
-  //   - an active mock_exam matches the student's academic_level AND
-  //   - visibility is 'live' OR (visibility is 'preview' AND profile.is_test_account or role is staff)
+  // Visibility-aware mock-exam access (unchanged logic).
   const isTestAccount = profile?.is_test_account === true
   const isStaff = role === 'admin' || role === 'trainer'
   const { data: mockExamRows = [] } = useQuery({
@@ -40,7 +37,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
       return data || []
     },
     staleTime: 60_000,
-    refetchOnMount: 'always',   // VISIBILITY-FIX (2026-05-23): never trust cached visibility on initial PWA mount
+    refetchOnMount: 'always',
     enabled: !!profileId,
   })
   const studentLevelNumber = studentData?.academic_level ?? null
@@ -55,13 +52,14 @@ function Sidebar({ nav, collapsed, onToggle }) {
     return false
   })
 
-  // Conditional hard-words nav visibility — only show when student has hard words
+  // Conditional hard-words nav visibility (unchanged logic).
   const { data: hardWordsCount = 0 } = useQuery({
     queryKey: ['hard-words', 'count', profileId],
     queryFn: () => getHardWordsCount(profileId),
     enabled: !!profileId && role === 'student',
     staleTime: 60_000,
   })
+
   const navigate = useNavigate()
   const location = useLocation()
   const displayName = profile?.display_name || profile?.full_name || 'مستخدم'
@@ -80,32 +78,79 @@ function Sidebar({ nav, collapsed, onToggle }) {
       role="navigation"
       data-sidebar-root
       aria-label="القائمة الرئيسية"
-      className="hidden lg:flex flex-col fixed right-0 z-30 transition-all duration-300"
+      className="pd-rail hidden lg:flex flex-col fixed right-0 z-30 transition-all duration-300"
       style={{
         top: 'var(--impersonation-banner-height, 0px)',
         height: 'calc(100vh - var(--impersonation-banner-height, 0px))',
         width: collapsed ? 76 : 264,
-        background: 'var(--ds-bg-elevated, var(--surface-base, #0b0f18))',
-        borderLeft: '1px solid var(--ds-border-subtle, var(--border-subtle, rgba(255,255,255,0.06)))',
+        background: 'var(--ds-bg-elevated, #0b0f18)',
+        borderLeft: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.06))',
+        position: 'fixed',
+        overflow: 'hidden',
       }}
     >
-      {/* Brand header */}
+      {/* ambient warm glow behind the brand */}
       <div
-        className="flex items-center shrink-0 px-5 cursor-pointer"
-        style={{ height: 72 }}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          insetBlockStart: '-30%',
+          insetInline: '-20%',
+          height: 280,
+          background:
+            'radial-gradient(60% 80% at 70% 0%, var(--ds-accent-primary-glow, rgba(233,185,73,0.35)), transparent 70%)',
+          opacity: 0.5,
+          pointerEvents: 'none',
+        }}
+      />
+      {/* inner edge highlight */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          insetBlock: 0,
+          insetInlineStart: 0,
+          width: 1,
+          background: 'linear-gradient(180deg, transparent, var(--ds-border-strong, rgba(251,191,36,0.4)), transparent)',
+          opacity: 0.4,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Brand */}
+      <div
+        className="flex items-center shrink-0 cursor-pointer relative"
+        style={{ height: 76, paddingInline: collapsed ? 0 : 20, justifyContent: collapsed ? 'center' : 'flex-start', gap: 12, zIndex: 1 }}
         onClick={() => navigate(ROLE_DASHBOARDS[role] || '/student')}
       >
-        {collapsed ? (
-          <span className="mx-auto text-xl font-bold" style={{ color: 'var(--ds-accent-primary, var(--accent-gold, #e9b949))', fontFamily: "'Playfair Display', serif" }}>ط</span>
-        ) : (
-          <span className="text-lg font-bold" style={{ color: 'var(--ds-text-primary, var(--text-primary, #faf5e6))', fontFamily: "'Tajawal', sans-serif" }}>
-            <span style={{ color: 'var(--ds-accent-primary, var(--accent-gold, #e9b949))', fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 900 }}>ط</span>لاقة
+        <span
+          className="flex items-center justify-center shrink-0"
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 13,
+            background: 'linear-gradient(135deg, var(--ds-accent-primary), var(--ds-accent-gold, var(--ds-accent-primary)))',
+            color: 'var(--ds-text-inverse, #0b0f18)',
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 24,
+            fontWeight: 900,
+            boxShadow: '0 8px 20px -8px var(--ds-accent-primary-glow), inset 0 1px 0 rgba(255,255,255,0.35)',
+          }}
+        >
+          ط
+        </span>
+        {!collapsed && (
+          <span
+            className="text-[19px] font-bold leading-none"
+            style={{ color: 'var(--ds-text-primary, #faf5e6)', fontFamily: "'Tajawal', sans-serif", letterSpacing: '-0.01em' }}
+          >
+            طلاقة
           </span>
         )}
       </div>
 
       {/* Sections */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 space-y-5">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 space-y-5 relative" style={{ zIndex: 1 }}>
         {nav.sections.map((section) => {
           const visibleItems = section.items.filter(item => {
             if (item.visibleWhen === 'hard-words-count' && hardWordsCount <= 0) return false
@@ -117,94 +162,118 @@ function Sidebar({ nav, collapsed, onToggle }) {
           })
           if (visibleItems.length === 0) return null
           return (
-          <div key={section.id}>
-            {!collapsed && (
-              <div
-                className="px-3 mb-2 text-[11px] font-semibold"
-                style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary, #6b6557))', letterSpacing: '0.05em' }}
-              >
-                {section.label}
-              </div>
-            )}
-            <div className="space-y-0.5">
-              {visibleItems.map((item) => {
-                if (!item || !item.to || !item.icon) return null
-                const active = isActive(item.to)
-                const Icon = item.icon
-                return (
-                  <NavLink
-                    key={item.id}
-                    to={item.to}
-                    end={item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'}
-                    aria-current={active ? 'page' : undefined}
-                    onMouseEnter={() => prefetchRoute(item.to, profileId)}
-                    onFocus={() => prefetchRoute(item.to, profileId)}
-                    onTouchStart={() => prefetchRoute(item.to, profileId)}
-                    onClick={(e) => {
-                      if (item.requiresPackage === 'ielts' && !hasIELTSAccess(studentData)) {
-                        e.preventDefault()
-                        toast({ type: 'error', title: 'هذي الميزة لباقة IELTS فقط 🔒' })
-                      }
-                    }}
-                    className="relative flex items-center gap-3 rounded-[14px] transition-all duration-[240ms] outline-none focus-visible:ring-2 focus-visible:ring-[var(--ds-accent-primary,var(--accent-sky))] focus-visible:ring-offset-2"
-                    style={{
-                      height: 44,
-                      padding: collapsed ? '0 0' : '0 16px',
-                      justifyContent: collapsed ? 'center' : 'flex-start',
-                      background: active ? 'var(--ds-surface-2, var(--glass-card-active, rgba(255,255,255,0.065)))' : 'transparent',
-                      color: active ? 'var(--ds-accent-primary, var(--accent-gold, #e9b949))' : 'var(--ds-text-secondary, var(--text-secondary, #c9c3b0))',
-                    }}
-                    title={collapsed ? item.label : undefined}
+            <div key={section.id}>
+              {!collapsed && (
+                <div className="flex items-center gap-2 px-3 mb-2.5">
+                  <span
+                    aria-hidden="true"
+                    style={{ width: 14, height: 2, borderRadius: 2, background: 'var(--ds-accent-primary)', opacity: 0.8 }}
+                  />
+                  <span
+                    className="text-[10.5px] font-bold uppercase"
+                    style={{ color: 'var(--ds-text-tertiary)', letterSpacing: '0.16em' }}
                   >
-                    {/* Active glow bar */}
-                    {active && (
-                      <motion.div
-                        layoutId="active-sidebar-indicator"
-                        className="absolute right-0 top-2 bottom-2"
+                    {section.label}
+                  </span>
+                </div>
+              )}
+              <div className="space-y-1">
+                {visibleItems.map((item) => {
+                  if (!item || !item.to || !item.icon) return null
+                  const active = isActive(item.to)
+                  const Icon = item.icon
+                  return (
+                    <NavLink
+                      key={item.id}
+                      to={item.to}
+                      end={item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'}
+                      aria-current={active ? 'page' : undefined}
+                      onMouseEnter={() => prefetchRoute(item.to, profileId)}
+                      onFocus={() => prefetchRoute(item.to, profileId)}
+                      onTouchStart={() => prefetchRoute(item.to, profileId)}
+                      onClick={(e) => {
+                        if (item.requiresPackage === 'ielts' && !hasIELTSAccess(studentData)) {
+                          e.preventDefault()
+                          toast({ type: 'error', title: 'هذي الميزة لباقة IELTS فقط 🔒' })
+                        }
+                      }}
+                      className={`pd-rail-item relative flex items-center rounded-[14px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--ds-accent-primary)] ${active ? 'is-active' : ''}`}
+                      style={{
+                        height: 46,
+                        gap: 12,
+                        padding: collapsed ? '0' : '0 12px',
+                        justifyContent: collapsed ? 'center' : 'flex-start',
+                        background: active
+                          ? 'linear-gradient(90deg, color-mix(in srgb, var(--ds-accent-primary) 16%, transparent), color-mix(in srgb, var(--ds-accent-primary) 4%, transparent))'
+                          : 'transparent',
+                        color: active ? 'var(--ds-accent-primary)' : 'var(--ds-text-secondary)',
+                      }}
+                      title={collapsed ? item.label : undefined}
+                    >
+                      {active && (
+                        <motion.div
+                          layoutId="active-sidebar-indicator"
+                          className="absolute right-0 top-2.5 bottom-2.5"
+                          style={{
+                            width: 3,
+                            borderRadius: 9999,
+                            background: 'var(--ds-accent-primary)',
+                            boxShadow: '0 0 16px var(--ds-accent-primary-glow)',
+                          }}
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                      <span
+                        className="pd-rail-ico flex items-center justify-center shrink-0"
                         style={{
-                          width: 3,
-                          borderRadius: 9999,
-                          background: 'var(--ds-accent-primary, var(--accent-gold, #e9b949))',
-                          boxShadow: '0 0 16px var(--ds-accent-primary-glow, rgba(233,185,73,0.35))',
+                          width: 36,
+                          height: 36,
+                          borderRadius: 11,
+                          background: active
+                            ? 'linear-gradient(135deg, color-mix(in srgb, var(--ds-accent-primary) 30%, transparent), color-mix(in srgb, var(--ds-accent-primary) 10%, transparent))'
+                            : 'transparent',
+                          border: active ? '1px solid var(--ds-border-subtle)' : '1px solid transparent',
+                          boxShadow: active ? 'inset 0 1px 0 rgba(255,255,255,0.12)' : 'none',
                         }}
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
-                    )}
-
-                    <Icon
-                      size={20}
-                      strokeWidth={1.75}
-                      style={active ? { filter: 'drop-shadow(0 0 8px var(--ds-accent-primary-glow, rgba(233,185,73,0.35)))' } : undefined}
-                    />
-                    {!collapsed && (
-                      <span className="text-[14px] font-medium truncate font-['Tajawal']">{item.label}</span>
-                    )}
-                  </NavLink>
-                )
-              })}
+                      >
+                        <Icon
+                          size={20}
+                          strokeWidth={active ? 2 : 1.75}
+                          style={active ? { filter: 'drop-shadow(0 0 8px var(--ds-accent-primary-glow))' } : undefined}
+                        />
+                      </span>
+                      {!collapsed && (
+                        <span className={`text-[14px] truncate font-['Tajawal'] ${active ? 'font-bold' : 'font-medium'}`}>
+                          {item.label}
+                        </span>
+                      )}
+                    </NavLink>
+                  )
+                })}
+              </div>
             </div>
-          </div>
           )
         })}
       </div>
 
       {/* User card */}
-      <div className="shrink-0 p-3">
+      <div className="shrink-0 p-3 relative" style={{ zIndex: 1 }}>
         <div
-          className="rounded-[var(--ds-radius-lg,20px)] p-3 flex items-center gap-3"
+          className="rounded-[18px] p-3 flex items-center gap-3"
           style={{
-            background: 'var(--ds-surface-1, var(--glass-card, rgba(255,255,255,0.035)))',
-            border: '1px solid var(--ds-border-subtle, var(--border-subtle, rgba(255,255,255,0.06)))',
+            background: 'var(--ds-surface-1)',
+            border: '1px solid var(--ds-border-subtle)',
+            boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
           }}
         >
-          <UserAvatar user={profile} size={collapsed ? 32 : 40} rounded="xl" />
+          <UserAvatar user={profile} size={collapsed ? 34 : 42} rounded="xl" />
           {!collapsed && (
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold truncate font-['Tajawal']" style={{ color: 'var(--ds-text-primary, var(--text-primary))' }}>
+              <div className="text-[13px] font-semibold truncate font-['Tajawal']" style={{ color: 'var(--ds-text-primary)' }}>
                 {displayName}
               </div>
-              <div className="text-[11px] truncate font-['Tajawal']" style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))' }}>
-                {level != null ? `المستوى ${level}` : ''}{level != null && xp > 0 ? ' · ' : ''}{xp > 0 ? `${xp.toLocaleString('ar-SA')} XP` : ''}
+              <div className="text-[11px] truncate font-data" style={{ color: 'var(--ds-text-tertiary)' }}>
+                {level != null ? `المستوى ${level}` : ''}{level != null && xp > 0 ? ' · ' : ''}{xp > 0 ? `${xp.toLocaleString('en-US')} XP` : ''}
               </div>
             </div>
           )}
@@ -212,7 +281,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
             <button
               onClick={(e) => { e.stopPropagation(); navigate(role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/my-students' : '/student/profile') }}
               className="shrink-0 p-1.5 rounded-lg transition-colors duration-200"
-              style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))' }}
+              style={{ color: 'var(--ds-text-tertiary)' }}
               aria-label="الإعدادات"
             >
               <Settings size={16} strokeWidth={1.5} />
@@ -226,17 +295,21 @@ function Sidebar({ nav, collapsed, onToggle }) {
         onClick={onToggle}
         className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full flex items-center justify-center z-40 transition-all duration-200 cursor-pointer"
         style={{
-          background: 'var(--ds-bg-elevated, var(--surface-raised, #0b0f18))',
-          border: '1px solid var(--ds-border-subtle, var(--border-subtle, rgba(255,255,255,0.08)))',
-          color: 'var(--ds-text-tertiary, var(--text-tertiary))',
+          background: 'var(--ds-bg-elevated, #0b0f18)',
+          border: '1px solid var(--ds-border-subtle)',
+          color: 'var(--ds-text-tertiary)',
+          boxShadow: 'var(--ds-shadow-sm)',
         }}
         aria-label={collapsed ? 'توسيع القائمة' : 'طي القائمة'}
       >
-        <ChevronLeft
-          size={14}
-          style={{ transform: collapsed ? 'rotate(180deg)' : 'none', transition: 'transform 200ms' }}
-        />
+        <ChevronLeft size={14} style={{ transform: collapsed ? 'rotate(180deg)' : 'none', transition: 'transform 200ms' }} />
       </button>
+
+      <style>{`
+        .pd-rail-item { transition: background var(--motion-base,240ms) var(--ease-out,ease), color var(--motion-base,240ms) var(--ease-out,ease); }
+        .pd-rail-item:not(.is-active):hover { background: var(--ds-surface-1) !important; color: var(--ds-text-primary) !important; }
+        .pd-rail-item:not(.is-active):hover .pd-rail-ico { background: var(--ds-surface-2); }
+      `}</style>
     </aside>
   )
 }

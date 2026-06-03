@@ -74,7 +74,7 @@ function AvatarCircle({ url, name, id, size = 40, rank, isCaller }) {
 /* ------------------------------------------------------------------ */
 function SkeletonCard() {
   return (
-    <div className="rounded-xl p-3 animate-pulse" style={{ background: 'var(--glass-card)' }}>
+    <div className="rounded-xl p-3 animate-pulse" style={{ background: 'var(--ds-surface-2)' }}>
       <div className="flex flex-col items-center gap-2">
         <div className="w-10 h-10 rounded-full bg-white/10" />
         <div className="w-16 h-3 rounded bg-white/10" />
@@ -166,8 +166,9 @@ function PrivacyModal({ studentId, onClose }) {
         transition={{ duration: 0.2 }}
         className="w-full max-w-sm rounded-2xl p-6 relative"
         style={{
-          background: 'var(--glass-card)',
-          border: '1px solid var(--border-default)',
+          background: 'var(--ds-surface-1)',
+          border: '1px solid var(--ds-border-subtle)',
+          boxShadow: 'var(--ds-shadow-md), inset 0 1px 0 rgba(255,255,255,0.05)',
         }}
         onClick={(e) => e.stopPropagation()}
         dir="rtl"
@@ -175,19 +176,19 @@ function PrivacyModal({ studentId, onClose }) {
         <button
           onClick={onClose}
           className="absolute top-4 left-4 p-1 rounded-lg hover:bg-white/10 transition-colors"
-          style={{ color: 'var(--text-tertiary)' }}
+          style={{ color: 'var(--ds-text-tertiary)' }}
         >
           <X size={18} />
         </button>
 
         <div className="flex items-center gap-2 mb-3">
-          <Settings size={18} style={{ color: 'var(--text-secondary)' }} />
-          <h3 className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>
+          <Settings size={18} style={{ color: 'var(--ds-text-secondary)' }} />
+          <h3 className="font-bold text-base" style={{ color: 'var(--ds-text-primary)' }}>
             إعدادات الظهور للزملاء
           </h3>
         </div>
 
-        <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--ds-text-secondary)' }}>
           إذا أوقفت هذا الخيار، لن يظهر اسمك ونشاطك للطلاب الآخرين في نفس مستواك.
         </p>
 
@@ -196,8 +197,8 @@ function PrivacyModal({ studentId, onClose }) {
             <div className="w-5 h-5 border-2 border-white/20 border-t-white/60 rounded-full animate-spin" />
           </div>
         ) : (
-          <div className="flex items-center justify-between rounded-xl p-3" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+          <div className="flex items-center justify-between rounded-xl p-3" style={{ background: 'var(--ds-surface-2)' }}>
+            <span className="text-sm font-medium" style={{ color: 'var(--ds-text-primary)' }}>
               {showInLeaderboard ? (
                 <span className="flex items-center gap-2">
                   <Eye size={16} style={{ color: 'var(--accent-emerald)' }} />
@@ -205,7 +206,7 @@ function PrivacyModal({ studentId, onClose }) {
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  <EyeOff size={16} style={{ color: 'var(--text-tertiary)' }} />
+                  <EyeOff size={16} style={{ color: 'var(--ds-text-tertiary)' }} />
                   مخفي عن الزملاء
                 </span>
               )}
@@ -247,8 +248,9 @@ function MoverCard({ mover, rank }) {
         isCaller ? 'ring-2 ring-sky-400 shadow-lg shadow-sky-500/20' : ''
       }`}
       style={{
-        background: 'rgba(255,255,255,0.04)',
-        border: '1px solid var(--border-default)',
+        background: 'var(--ds-surface-2)',
+        border: '1px solid var(--ds-border-subtle)',
+        boxShadow: 'var(--ds-shadow-sm)',
       }}
     >
       {/* Rank badge */}
@@ -267,7 +269,7 @@ function MoverCard({ mover, rank }) {
         />
         <span
           className="text-sm font-bold line-clamp-2 leading-tight w-full"
-          style={{ color: 'var(--text-primary)' }}
+          style={{ color: 'var(--ds-text-primary)' }}
         >
           {mover.display_name}
         </span>
@@ -298,7 +300,7 @@ function FeedItem({ item, isNew }) {
       animate={{ opacity: 1, height: 'auto', y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
       className="flex items-start gap-3 py-3"
-      style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
+      style={{ borderBottom: '1px solid var(--ds-border-subtle)' }}
     >
       {/* Avatar (right side in RTL) */}
       <AvatarCircle
@@ -310,13 +312,13 @@ function FeedItem({ item, isNew }) {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <span className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
+        <span className="text-sm font-bold" style={{ color: 'var(--ds-text-primary)' }}>
           {item.actor_name}
         </span>
-        <p className="text-sm mt-0.5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-sm mt-0.5 leading-relaxed" style={{ color: 'var(--ds-text-secondary)' }}>
           {text}
         </p>
-        <span className="text-xs mt-1 block" style={{ color: 'var(--text-tertiary)' }}>
+        <span className="text-xs mt-1 block" style={{ color: 'var(--ds-text-tertiary)' }}>
           {item.relative_time_ar}
         </span>
       </div>
@@ -430,6 +432,12 @@ export default function LiveLevelActivityFeed({ studentId }) {
         className={`fl-card-static p-6 relative transition-all duration-300 ${
           borderFlash ? 'ring-2 ring-emerald-400/50' : ''
         }`}
+        style={{
+          background: 'var(--ds-surface-1)',
+          border: '1px solid var(--ds-border-subtle)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+        }}
       >
         {/* Live indicator */}
         <div className="absolute top-4 left-4 flex items-center gap-1.5">
@@ -470,7 +478,7 @@ export default function LiveLevelActivityFeed({ studentId }) {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <Flame size={18} style={{ color: 'var(--accent-amber)' }} />
-                    <h3 className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>
+                    <h3 className="font-bold text-sm" style={{ color: 'var(--ds-text-primary)' }}>
                       🔥 الأكثر نشاطاً
                     </h3>
                   </div>
@@ -478,7 +486,7 @@ export default function LiveLevelActivityFeed({ studentId }) {
                   {/* Period toggle */}
                   <div
                     className="flex rounded-lg overflow-hidden text-xs"
-                    style={{ border: '1px solid var(--border-default)' }}
+                    style={{ border: '1px solid var(--ds-border-subtle)' }}
                   >
                     {[
                       { key: 'today', label: 'اليوم' },
@@ -496,7 +504,7 @@ export default function LiveLevelActivityFeed({ studentId }) {
                           color:
                             moversPeriod === key
                               ? '#fff'
-                              : 'var(--text-secondary)',
+                              : 'var(--ds-text-secondary)',
                         }}
                       >
                         {label}
@@ -517,10 +525,10 @@ export default function LiveLevelActivityFeed({ studentId }) {
                   const text = getMotivationalText()
                   if (!text) return null
                   return (
-                    <div className="mt-3 pt-3" style={{ borderTop: '1px solid var(--border-default)' }}>
+                    <div className="mt-3 pt-3" style={{ borderTop: '1px solid var(--ds-border-subtle)' }}>
                       <p
                         className="text-center text-xs font-medium"
-                        style={{ color: 'var(--text-secondary)' }}
+                        style={{ color: 'var(--ds-text-secondary)' }}
                       >
                         {text}
                       </p>
@@ -534,20 +542,20 @@ export default function LiveLevelActivityFeed({ studentId }) {
             {!hasMovers && (
               <div
                 className="text-center py-6 rounded-xl"
-                style={{ background: 'rgba(255,255,255,0.03)' }}
+                style={{ background: 'var(--ds-surface-1)' }}
               >
-                <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
                   لا يوجد نشاط بعد اليوم — كن أول من يبدأ!
                 </p>
               </div>
             )}
 
             {/* Divider between sections */}
-            <div style={{ borderTop: '1px solid var(--border-default)' }} />
+            <div style={{ borderTop: '1px solid var(--ds-border-subtle)' }} />
 
             {/* ---- ACTIVITY FEED ---- */}
             <div>
-              <h3 className="font-bold text-sm mb-3" style={{ color: 'var(--text-primary)' }}>
+              <h3 className="font-bold text-sm mb-3" style={{ color: 'var(--ds-text-primary)' }}>
                 آخر النشاطات
               </h3>
 
@@ -566,9 +574,9 @@ export default function LiveLevelActivityFeed({ studentId }) {
               ) : (
                 <div
                   className="text-center py-8 rounded-xl"
-                  style={{ background: 'rgba(255,255,255,0.03)' }}
+                  style={{ background: 'var(--ds-surface-1)' }}
                 >
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--ds-text-tertiary)' }}>
                     🌱 لا يوجد نشاط حديث من الزملاء بعد
                     <br />
                     كن أول من يبدأ — فعالية الأكاديمية تبدأ منك!
@@ -578,11 +586,11 @@ export default function LiveLevelActivityFeed({ studentId }) {
             </div>
 
             {/* ---- PRIVACY BUTTON ---- */}
-            <div className="pt-2" style={{ borderTop: '1px solid var(--border-default)' }}>
+            <div className="pt-2" style={{ borderTop: '1px solid var(--ds-border-subtle)' }}>
               <button
                 onClick={() => setShowPrivacy(true)}
                 className="flex items-center gap-1.5 text-xs font-medium hover:opacity-80 transition-opacity mx-auto"
-                style={{ color: 'var(--text-tertiary)' }}
+                style={{ color: 'var(--ds-text-tertiary)' }}
               >
                 <Settings size={14} />
                 إعدادات الخصوصية

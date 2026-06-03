@@ -46,18 +46,26 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fl-card-static p-5 relative"
-        style={{ borderColor: 'rgba(16,185,129,0.15)' }}
+        className="fl-card-static p-5 relative w-full"
+        style={{
+          background: 'var(--ds-surface-1)',
+          border: '1px solid var(--ds-border-subtle)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+        }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center"
+            style={{ background: 'color-mix(in srgb, var(--ds-accent-success) 16%, transparent)' }}
+          >
             <CheckCircle2 size={20} className="text-emerald-400" />
           </div>
           <div>
-            <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
+            <p className="text-sm font-bold" style={{ color: 'var(--ds-text-primary)' }}>
               اجتزت اختبار {levelLabel}
             </p>
-            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+            <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
               أفضل نتيجة: {eligibility.best_score}%
             </p>
           </div>
@@ -72,20 +80,28 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fl-card-static p-5 relative"
-        style={{ borderColor: 'rgba(167,139,250,0.2)' }}
+        className="fl-card-static p-5 relative w-full"
+        style={{
+          background: 'var(--ds-surface-1)',
+          border: '1px solid var(--ds-border-subtle)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+        }}
       >
         <div className="card-top-line violet" style={{ opacity: 0.4 }} />
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              style={{ background: 'color-mix(in srgb, var(--ds-accent-secondary) 16%, transparent)' }}
+            >
               <Trophy size={20} className="text-violet-400" />
             </div>
             <div>
-              <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
+              <p className="text-sm font-bold" style={{ color: 'var(--ds-text-primary)' }}>
                 جاهز لاختبار نهاية المستوى
               </p>
-              <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+              <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
                 {eligibility.units_completed} من {eligibility.units_total} وحدة مكتملة
               </p>
             </div>
@@ -110,17 +126,26 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fl-card-static p-5"
+        className="fl-card-static p-5 w-full"
+        style={{
+          background: 'var(--ds-surface-1)',
+          border: '1px solid var(--ds-border-subtle)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+        }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center"
+            style={{ background: 'color-mix(in srgb, var(--ds-accent-warning) 16%, transparent)' }}
+          >
             <Lock size={20} className="text-amber-400" />
           </div>
           <div>
-            <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+            <p className="text-sm font-medium" style={{ color: 'var(--ds-text-primary)' }}>
               أنجزت {eligibility.units_completed} من {eligibility.units_total} وحدة
             </p>
-            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+            <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
               خلّص {remaining} وحدات عشان تفتح اختبار نهاية المستوى
             </p>
           </div>

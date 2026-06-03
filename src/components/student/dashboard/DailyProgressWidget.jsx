@@ -8,6 +8,18 @@ import { useHistoryBounds } from '../../../hooks/dashboard/useHistoryBounds'
 import { riyadhToday, addDays, formatArabicDayLabel } from '../../../utils/riyadhTime'
 
 /* ------------------------------------------------------------------ */
+/*  Design-system glass frame — matches GlassPanel (elevation 1) so the */
+/*  card reads as one cohesive system in the bento grid. Inline style   */
+/*  wins over the fl-card-static class (whose backdrop blur we KEEP).    */
+/* ------------------------------------------------------------------ */
+const DS_GLASS_FRAME = {
+  background: 'var(--ds-surface-1)',
+  border: '1px solid var(--ds-border-subtle)',
+  borderRadius: 'var(--radius-lg)',
+  boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
+}
+
+/* ------------------------------------------------------------------ */
 /*  Confetti burst – lightweight CSS-only, no external library         */
 /* ------------------------------------------------------------------ */
 const CONFETTI_EMOJIS = ['🎉', '✨', '🌟', '🎊', '💎', '⭐']
@@ -79,20 +91,22 @@ function StatChip({ icon: Icon, value, label, accentColor, index }) {
       variants={chipVariants}
       initial="hidden"
       animate="visible"
-      className={`flex items-center gap-2 rounded-xl bg-white/5 px-3 py-2 transition-colors hover:bg-white/10 ${
+      className={`flex items-center gap-2 rounded-xl px-3 py-2 transition-colors ${
         value === 0 ? 'opacity-50' : ''
       }`}
+      style={{ background: 'var(--ds-surface-2)' }}
+      whileHover={{ background: 'var(--ds-surface-3)' }}
     >
       <Icon size={16} style={{ color: accentColor }} />
       <span
         className="text-sm font-semibold"
-        style={{ color: 'var(--text-primary)' }}
+        style={{ color: 'var(--ds-text-primary)' }}
       >
         <AnimatedNumber value={value} />
       </span>
       <span
         className="text-xs"
-        style={{ color: 'var(--text-secondary)' }}
+        style={{ color: 'var(--ds-text-secondary)' }}
       >
         {label}
       </span>
@@ -137,21 +151,23 @@ function Skeleton() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className="fl-card-static relative overflow-hidden p-6"
+      style={DS_GLASS_FRAME}
     >
-      <div className="mb-4 h-4 w-44 animate-pulse rounded bg-white/10" />
+      <div className="mb-4 h-4 w-44 animate-pulse rounded" style={{ background: 'var(--ds-surface-2)' }} />
 
       <div className="flex flex-col items-center gap-5 md:flex-row">
-        <div className="h-20 w-20 flex-shrink-0 animate-pulse rounded-full bg-white/10" />
+        <div className="h-20 w-20 flex-shrink-0 animate-pulse rounded-full" style={{ background: 'var(--ds-surface-2)' }} />
 
         <div className="flex-1 space-y-3">
-          <div className="h-3 w-full animate-pulse rounded-full bg-white/10" />
-          <div className="h-3 w-32 animate-pulse rounded bg-white/10" />
+          <div className="h-3 w-full animate-pulse rounded-full" style={{ background: 'var(--ds-surface-2)' }} />
+          <div className="h-3 w-32 animate-pulse rounded" style={{ background: 'var(--ds-surface-2)' }} />
 
           <div className="flex flex-wrap gap-2">
             {[1, 2, 3, 4].map((n) => (
               <div
                 key={n}
-                className="h-9 w-24 animate-pulse rounded-xl bg-white/10"
+                className="h-9 w-24 animate-pulse rounded-xl"
+                style={{ background: 'var(--ds-surface-2)' }}
               />
             ))}
           </div>
@@ -172,8 +188,8 @@ function NavBtn({ onClick, disabled, ariaLabel, children }) {
       aria-label={ariaLabel}
       className="p-1.5 rounded-lg transition-colors"
       style={{
-        background: disabled ? 'transparent' : 'rgba(255,255,255,0.06)',
-        color: disabled ? 'var(--text-tertiary)' : 'var(--text-secondary)',
+        background: disabled ? 'transparent' : 'var(--ds-surface-2)',
+        color: disabled ? 'var(--ds-text-tertiary)' : 'var(--ds-text-secondary)',
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.3 : 1,
       }}
@@ -223,8 +239,9 @@ export default function DailyProgressWidget({ studentId }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
         className="fl-card-static p-6 text-center"
+        style={DS_GLASS_FRAME}
       >
-        <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+        <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
           حدث خطأ في تحميل البيانات
         </p>
       </motion.div>
@@ -258,7 +275,7 @@ export default function DailyProgressWidget({ studentId }) {
           <ChevronRight size={16} />
         </NavBtn>
 
-        <p className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
+        <p className="text-xs font-medium" style={{ color: 'var(--ds-text-tertiary)' }}>
           📅 {dateLabel}
         </p>
 
@@ -314,6 +331,7 @@ export default function DailyProgressWidget({ studentId }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
         className="fl-card-static relative overflow-hidden p-6"
+        style={DS_GLASS_FRAME}
         dir="rtl"
       >
         {navHeader}
@@ -322,7 +340,7 @@ export default function DailyProgressWidget({ studentId }) {
           <span className="mb-3 text-4xl">{isToday ? '🌅' : '🌙'}</span>
           <p
             className="mb-4 text-sm"
-            style={{ color: 'var(--text-secondary)' }}
+            style={{ color: 'var(--ds-text-secondary)' }}
           >
             {isToday ? 'يوم جديد! ابدأ بأول نشاط واحصل على XP' : 'يوم خالٍ من النشاط'}
           </p>
@@ -360,6 +378,7 @@ export default function DailyProgressWidget({ studentId }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className="fl-card-static relative overflow-hidden p-6"
+      style={DS_GLASS_FRAME}
       dir="rtl"
     >
       {/* Confetti — only on today */}
@@ -387,7 +406,7 @@ export default function DailyProgressWidget({ studentId }) {
             {/* Progress bar */}
             <div>
               <div className="mb-1.5 flex items-center justify-between text-xs">
-                <span style={{ color: 'var(--text-secondary)' }}>
+                <span style={{ color: 'var(--ds-text-secondary)' }}>
                   <AnimatedNumber value={xp_amount} /> / {daily_goal_xp} XP
                 </span>
                 <span
@@ -438,7 +457,7 @@ export default function DailyProgressWidget({ studentId }) {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
                 className="text-xs"
-                style={{ color: 'var(--text-tertiary)' }}
+                style={{ color: 'var(--ds-text-tertiary)' }}
               >
                 {touchedLabel}
               </motion.p>
