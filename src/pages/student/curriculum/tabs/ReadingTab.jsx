@@ -736,12 +736,21 @@ function ReadingContent({ reading, studentId, unitId }) {
                   {reading.passage_word_count} words
                 </span>
               )}
-              {/* Audio indicator — SmartAudioPlayer is rendered below */}
+              {/* Read-along (karaoke) — surfaced as a first-class button (was buried in
+                  the ⚙️ tools drawer). The loved v1 "listen while reading" experience:
+                  tapping it switches the passage to the synced word-by-word player. */}
               {audioData && (
-                <span className="inline-flex items-center gap-1.5 text-xs text-sky-400 font-['Tajawal']">
+                <button
+                  onClick={() => setAudioMode((v) => !v)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
+                    audioMode
+                      ? 'bg-sky-500/15 text-sky-400 border-sky-500/30'
+                      : 'bg-slate-800/50 text-slate-300 border-slate-700/50 hover:text-sky-400 hover:border-sky-500/30'
+                  }`}
+                >
                   <Headphones size={12} />
-                  صوت متوفر
-                </span>
+                  {audioMode ? 'وضع القراءة' : 'استمع واقرأ'}
+                </button>
               )}
               {/* Focus Mode Toggle */}
               <button
@@ -865,8 +874,16 @@ function ReadingContent({ reading, studentId, unitId }) {
 
           {/* ── Passage text + audio ──────────────────────────────────── */}
           {/* Editorial rebuild: ArticleBody is the default reading surface (every
-              word tappable → WordPopup). The karaoke/full-audio player is demoted
-              to the ⚙️ tools drawer and only mounts when the student turns it on. */}
+              word tappable → WordPopup). The read-along (karaoke) player mounts when
+              the student turns on "استمع واقرأ" (the masthead button above). */}
+          {/* Discoverability hint — many students don't realize words are tappable. */}
+          <p
+            className="text-[11px] font-['Tajawal'] mb-3"
+            dir="rtl"
+            style={{ color: 'var(--ds-text-tertiary, #64748b)' }}
+          >
+            💡 {g('اضغط على أي كلمة لسماع نطقها ومعناها — الكلمات المهمّة باللون الذهبي.', 'اضغطي على أي كلمة لسماع نطقها ومعناها — الكلمات المهمّة باللون الذهبي.')}
+          </p>
           {!audioMode ? (
             <ArticleBody
               paragraphs={reading.passage_content?.paragraphs || []}

@@ -82,19 +82,14 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
         .article-body .aw:hover { background: color-mix(in oklab, var(--ds-accent-primary, #e9b949) 8%, transparent); }
         .article-body .aw:active { background: color-mix(in oklab, var(--ds-accent-primary, #e9b949) 18%, transparent); }
         .article-body .aw:focus-visible { outline: 2px solid var(--ds-accent-primary, #e9b949); outline-offset: 2px; }
-        /* Vocabulary words — a soft, warm "highlighter" sweep instead of a dotted
-           underline (which read like a spell-check typo / dead link). It marks the
-           words worth learning the way a student highlights a beautiful textbook —
-           clearly intentional, while the editorial prose stays calm. A low gold wash
-           sits along the baseline; hover/tap deepen it to a full soft-gold pill. */
+        /* Vocabulary words — style the WORD ITSELF (no underline, no highlighter
+           background — both disliked): a warm gold ink + slightly heavier weight, so
+           a key word reads as special inline while the editorial prose stays calm.
+           Tap feedback is the shared faint-gold pill from .aw:hover / .aw:active. */
         .article-body .aw-vocab {
-          color: var(--ds-text-primary, #f4efe2);
-          background: linear-gradient(to top, rgba(233,185,73,0.26) 0, rgba(233,185,73,0.26) 0.36em, transparent 0.36em);
-          border-radius: 2px;
-          transition: background 160ms ease;
+          color: var(--ds-accent-primary, #e9b949);
+          font-weight: 500;
         }
-        .article-body .aw-vocab:hover { background: rgba(233,185,73,0.17); }
-        .article-body .aw-vocab:active { background: rgba(233,185,73,0.30); }
       `}</style>
 
       {paras.map((para, pi) => {
