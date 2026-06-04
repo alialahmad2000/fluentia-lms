@@ -223,6 +223,24 @@ function drawParticle(ctx, p, shape) {
 /* ═══════════════════════════════════════════════
    Component
    ═══════════════════════════════════════════════ */
+// Decorative ambiance only — skip the canvas ENTIRELY on touch / coarse-pointer
+// devices (phones & tablets) and low-core machines. THE Android-tablet fix: on
+// Android the browser toolbar shows/hides while scrolling, firing window 'resize'
+// and resetting this full-screen canvas every scroll → the whole unit page flickered
+// ("moved fast on and off"). A fixed, full-viewport canvas repainting every frame
+// behind the scrolling glass panels (backdrop-filter blur) also forces the blur to
+// recompute every frame → severe jank. Removing the canvas on touch makes the
+// backdrop static & cheap too. Desktop (fine pointer) keeps the ambiance.
+const SHOULD_SKIP_AMBIENT = (() => {
+  if (typeof window === 'undefined') return true
+  try {
+    if (window.matchMedia('(pointer: coarse)').matches) return true
+    if (window.matchMedia('(hover: none)').matches) return true
+  } catch {}
+  const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency : null
+  return cores != null && cores <= 4
+})()
+
 export default function AmbientParticles({ type = 'ambientDots' }) {
   const { reduced } = useCinematicMotion()
 
@@ -231,11 +249,7 @@ export default function AmbientParticles({ type = 'ambientDots' }) {
   const rafRef = useRef(null)
 
   useEffect(() => {
-    if (reduced) return
-    // Skip the rAF canvas loop entirely on low-end devices (<= 4 cores).
-    // On older laptops this loop was the #1 CPU user on unit pages (5-8% idle).
-    const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency : null
-    if (cores != null && cores <= 4) return
+    if (reduced || SHOULD_SKIP_AMBIENT) return
     const preset = PARTICLE_PRESETS[type] || PARTICLE_PRESETS.ambientDots
     const canvas = canvasRef.current
     if (!canvas) return
@@ -252,8 +266,12 @@ export default function AmbientParticles({ type = 'ambientDots' }) {
         30
       )
 
-    /* Resize canvas to viewport */
+    /* Resize canvas to viewport — but ONLY on a WIDTH change. Android's browser
+       toolbar shows/hides on scroll, changing only the viewport HEIGHT; reacting to
+       that reset the canvas on every scroll and flickered the page. Width changes
+       (orientation / real desktop resize) still re-fit the canvas. */
     function resize() {
+      if (canvas.width === window.innerWidth) return
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
@@ -338,7 +356,7 @@ export default function AmbientParticles({ type = 'ambientDots' }) {
     }
   }, [type, reduced]) // re-init when type changes or motion preference changes
 
-  if (reduced) return null
+  if (reduced || SHOULD_SKIP_AMBIENT) return null
 
   return (
     <canvas
