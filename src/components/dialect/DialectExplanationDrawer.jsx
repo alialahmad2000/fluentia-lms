@@ -11,7 +11,7 @@ export default function DialectExplanationDrawer({ explanation, isOpen, onClose 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[1000] bg-black/60 backdrop-blur-sm"
             onClick={onClose}
           />
 
@@ -20,7 +20,7 @@ export default function DialectExplanationDrawer({ explanation, isOpen, onClose 
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 220 }}
-            className="fixed inset-y-0 end-0 z-50 w-full max-w-[520px] flex flex-col"
+            className="fixed inset-y-0 end-0 z-[1001] w-full max-w-[520px] flex flex-col"
             style={{ background: 'var(--vm-surface, #0f0a1f)', borderLeft: '1px solid rgba(255,255,255,0.1)', boxShadow: '-12px 0 48px rgba(0,0,0,0.6)' }}
             dir="rtl"
             role="dialog"
@@ -75,11 +75,52 @@ export default function DialectExplanationDrawer({ explanation, isOpen, onClose 
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-5 sm:px-6 py-4">
-              <div className="leading-[1.9] text-[15px] sm:text-base whitespace-pre-wrap font-['Tajawal']"
-                style={{ color: 'rgba(255,255,255,0.9)' }}>
-                {explanation.explanation_najdi}
-              </div>
+            <div className="flex-1 overflow-y-auto px-5 sm:px-6 py-5">
+              {Array.isArray(explanation.explanation_sections) && explanation.explanation_sections.length > 0 ? (
+                <div className="space-y-7">
+                  {explanation.explanation_sections.map((sec, i) => (
+                    <section key={i}>
+                      {sec.label && (
+                        <div className="flex items-center gap-2.5 mb-3">
+                          <span className="h-4 w-1.5 rounded-full shrink-0" style={{ background: 'var(--vm-accent, #d4a574)' }} />
+                          <h3 className="text-[15px] font-bold tracking-wide font-['Tajawal']" style={{ color: 'var(--vm-accent, #d4a574)' }}>
+                            {sec.label}
+                          </h3>
+                        </div>
+                      )}
+                      {sec.body && (
+                        <p className="leading-[2] text-[15px] sm:text-base whitespace-pre-wrap font-['Tajawal']" style={{ color: 'rgba(255,255,255,0.9)' }}>
+                          {sec.body}
+                        </p>
+                      )}
+                      {Array.isArray(sec.items) && sec.items.length > 0 && (
+                        <div className="space-y-2.5">
+                          {sec.items.map((it, j) => (
+                            <div key={j} className="rounded-xl px-3.5 py-3"
+                              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                              {it.en && (
+                                <p dir="ltr" className="text-[15px] font-semibold mb-1 text-left" style={{ color: '#fff' }}>
+                                  {it.en}
+                                </p>
+                              )}
+                              {it.ar && (
+                                <p className="text-[13.5px] leading-relaxed font-['Tajawal']" style={{ color: 'rgba(255,255,255,0.62)' }}>
+                                  {it.ar}
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </section>
+                  ))}
+                </div>
+              ) : (
+                <div className="leading-[1.9] text-[15px] sm:text-base whitespace-pre-wrap font-['Tajawal']"
+                  style={{ color: 'rgba(255,255,255,0.9)' }}>
+                  {explanation.explanation_najdi}
+                </div>
+              )}
             </div>
 
             <footer className="px-5 sm:px-6 py-4 text-xs text-center font-['Tajawal']"
