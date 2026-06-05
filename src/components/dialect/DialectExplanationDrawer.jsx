@@ -1,32 +1,38 @@
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X, Volume2 } from 'lucide-react'
 
 export default function DialectExplanationDrawer({ explanation, isOpen, onClose }) {
-  return (
+  // Render through a portal to <body> so the overlay escapes any transformed/
+  // scaled ancestor (e.g. the admin "معاينة منهج الطالب" preview wrapper) — a
+  // position:fixed element is otherwise trapped & clipped inside such a wrapper.
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[1000] flex items-center justify-center p-3 sm:p-5"
+          style={{ background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
+          onClick={onClose}
+        >
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[1000] bg-black/60 backdrop-blur-sm"
-            onClick={onClose}
-          />
-
-          <motion.aside
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 220 }}
-            className="fixed inset-y-0 end-0 z-[1001] w-full max-w-[520px] flex flex-col"
-            style={{ background: 'var(--vm-surface, #0f0a1f)', borderLeft: '1px solid rgba(255,255,255,0.1)', boxShadow: '-12px 0 48px rgba(0,0,0,0.6)' }}
+            initial={{ opacity: 0, scale: 0.96, y: 14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, y: 8 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 260 }}
+            className="relative z-[1001] w-full max-w-[560px] flex flex-col rounded-2xl overflow-hidden"
+            style={{ maxHeight: 'min(88vh, 780px)', background: 'var(--vm-surface, #0f0a1f)', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 24px 80px rgba(0,0,0,0.7)' }}
             dir="rtl"
             role="dialog"
             aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
           >
-            <header className="flex items-start justify-between gap-3 p-5 sm:p-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+            <header className="flex items-start justify-between gap-3 p-5 sm:p-6 shrink-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="rounded-full px-2.5 py-0.5 text-[11px] font-semibold tracking-wide"
@@ -50,21 +56,21 @@ export default function DialectExplanationDrawer({ explanation, isOpen, onClose 
                 onClick={onClose}
                 aria-label="إغلاق"
                 className="shrink-0 rounded-xl p-2 transition-colors"
-                style={{ color: 'rgba(255,255,255,0.6)' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+                style={{ color: 'rgba(255,255,255,0.6)', background: 'rgba(255,255,255,0.06)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.14)'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
               >
                 <X className="h-5 w-5" />
               </button>
             </header>
 
-            <div className="mx-5 sm:mx-6 mt-4 mb-2 flex items-center gap-3 rounded-xl p-3"
+            <div className="mx-5 sm:mx-6 mt-4 mb-2 flex items-center gap-3 rounded-xl p-3 shrink-0"
               style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.04)' }}>
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg"
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg shrink-0"
                 style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.6)' }}>
                 <Volume2 className="h-4 w-4" />
               </div>
-              <div className="flex-1 text-sm">
+              <div className="flex-1 min-w-0 text-sm">
                 {explanation.audio_url_najdi ? (
                   <audio controls src={explanation.audio_url_najdi} className="w-full">
                     متصفحك ما يدعم تشغيل الصوت
@@ -99,7 +105,7 @@ export default function DialectExplanationDrawer({ explanation, isOpen, onClose 
                             <div key={j} className="rounded-xl px-3.5 py-3"
                               style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
                               {it.en && (
-                                <p dir="ltr" className="text-[15px] font-semibold mb-1 text-left" style={{ color: '#fff' }}>
+                                <p dir="ltr" className="text-[15px] font-semibold mb-1 text-left break-words" style={{ color: '#fff' }}>
                                   {it.en}
                                 </p>
                               )}
@@ -123,13 +129,14 @@ export default function DialectExplanationDrawer({ explanation, isOpen, onClose 
               )}
             </div>
 
-            <footer className="px-5 sm:px-6 py-4 text-xs text-center font-['Tajawal']"
+            <footer className="px-5 sm:px-6 py-4 text-xs text-center font-['Tajawal'] shrink-0"
               style={{ borderTop: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)' }}>
               شرح مكتوب خصيصاً لطلاب Fluentia · أكاديمية طلاقة
             </footer>
-          </motion.aside>
-        </>
+          </motion.div>
+        </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }
