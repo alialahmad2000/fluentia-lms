@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useBodyLock } from '../../hooks/useBodyLock'
 import { motion, AnimatePresence } from 'framer-motion'
 import WordDetailHeader from './WordDetailHeader'
@@ -121,7 +122,7 @@ export default function WordDetailModal({
     }
   }
 
-  return (
+  return createPortal(
     <AnimatePresence>
       <motion.div
         key="wd-backdrop"
@@ -129,7 +130,7 @@ export default function WordDetailModal({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        className="fixed inset-0 z-[70] flex items-stretch sm:items-center justify-center sm:p-4"
+        className="fixed inset-0 z-[110] flex items-stretch sm:items-center justify-center sm:p-4"
         style={{
           background: 'rgba(0, 0, 0, 0.6)',
           backdropFilter: 'blur(6px)',
@@ -181,6 +182,7 @@ export default function WordDetailModal({
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

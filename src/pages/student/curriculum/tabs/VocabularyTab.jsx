@@ -445,6 +445,29 @@ export default function VocabularyTab({ unitId }) {
     }
   }
 
+  // Advance the OPEN modal to the next word WITHOUT closing to the grid (reuses
+  // setExerciseWord so the modal stays mounted and swaps its word). Prefers the
+  // next still-unmastered word AFTER the current position; else any other
+  // unmastered word; else the literal next word in order; else closes.
+  const handleNextWord = useCallback(() => {
+    if (!exerciseWord) return
+    const idx = allWords.findIndex(w => w.id === exerciseWord.id)
+    if (idx === -1) { setExerciseWord(null); return }
+    // 1) next still-unmastered AFTER the current position
+    let next = allWords
+      .slice(idx + 1)
+      .find(w => getWordMasteryLevel(w.id) !== 'mastered')
+    // 2) any other unmastered word
+    if (!next) {
+      next = allWords.find(w => w.id !== exerciseWord.id && getWordMasteryLevel(w.id) !== 'mastered')
+    }
+    // 3) the literal next word in order
+    if (!next) {
+      next = allWords[idx + 1] || null
+    }
+    setExerciseWord(next || null)
+  }, [exerciseWord, allWords, getWordMasteryLevel])
+
   if (isLoading || progressLoading) return <VocabSkeleton />
 
   if (allWords.length === 0) {
@@ -793,6 +816,8 @@ export default function VocabularyTab({ unitId }) {
           }
         }}
         onMasteryUpdate={handleMasteryUpdate}
+        onNextWord={handleNextWord}
+        hasNextWord={!!exerciseWord && allWords.some(w => w.id !== exerciseWord.id && getWordMasteryLevel(w.id) !== 'mastered')}
       />
 
       {/* Chunk Mini-Session modal (Prompt 06) */}

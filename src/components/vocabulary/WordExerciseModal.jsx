@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useBodyLock } from '../../hooks/useBodyLock'
-import { X, CheckCircle, Volume2, BookOpen, PenLine, Headphones, Maximize2, AlertTriangle } from 'lucide-react'
+import { X, CheckCircle, Volume2, BookOpen, PenLine, Headphones, Maximize2, AlertTriangle, ChevronLeft } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
@@ -24,10 +24,20 @@ const EXERCISES = [
   { key: 'listening', label: 'استمع واختر', icon: Headphones, color: 'amber' },
 ]
 
-export default function WordExerciseModal({ word, unitWords, mastery, studentId, isOpen, onClose, onMasteryUpdate }) {
+export default function WordExerciseModal({ word, unitWords, mastery, studentId, isOpen, onClose, onMasteryUpdate, onNextWord, hasNextWord }) {
   const [activeExercise, setActiveExercise] = useState(null)
   const [detailOpen, setDetailOpen] = useState(false)
   const [detailInitialTab, setDetailInitialTab] = useState('meaning')
+
+  // Live in-session pass state, seeded from the mastery prop at open. Derive the
+  // header dots + passedCount + mastery screen from THIS so progress reflects
+  // live as the student passes exercises in-session (the prop is only re-fetched
+  // after the modal closes/re-opens).
+  const [passed, setPassed] = useState(() => ({
+    meaning: !!mastery?.meaning_exercise_passed,
+    sentence: !!mastery?.sentence_exercise_passed,
+    listening: !!mastery?.listening_exercise_passed,
+  }))
 
   // Hooks must be called before any conditional return (React rules of hooks)
   const distractors = useMemo(() => {
@@ -36,16 +46,30 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
     return shuffle(others).slice(0, Math.min(3, others.length))
   }, [word?.id, unitWords])
 
+  // Reset on word change (next-word swap): close any active exercise + re-seed
+  // local pass state from the new word's mastery so it opens fresh.
+  useEffect(() => {
+    setActiveExercise(null)
+    setPassed({
+      meaning: !!mastery?.meaning_exercise_passed,
+      sentence: !!mastery?.sentence_exercise_passed,
+      listening: !!mastery?.listening_exercise_passed,
+    })
+    // mastery is keyed to word; re-seed when the word identity changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [word?.id])
+
   // Lock body scroll + hide mobile nav while open (iOS Safari safe)
   useBodyLock(isOpen)
 
   if (!isOpen || !word) return null
 
-  const passedCount = [
-    mastery?.meaning_exercise_passed,
-    mastery?.sentence_exercise_passed,
-    mastery?.listening_exercise_passed,
-  ].filter(Boolean).length
+  const passedCount = [passed.meaning, passed.sentence, passed.listening].filter(Boolean).length
+
+  // Order of exercises for auto-advance: meaning → sentence → listening
+  const EXERCISE_ORDER = ['meaning', 'sentence', 'listening']
+  const nextUnpassedExercise = (passedState) =>
+    EXERCISE_ORDER.find(key => !passedState[key]) || null
 
   const handleExerciseComplete = async (exerciseKey, passed) => {
     if (!passed) return
@@ -76,12 +100,15 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
     // Snapshot the post-update state by OR-ing this pass with the existing
     // booleans, then count how many of the 3 exercises are passed.
     const passedAfter = {
-      meaning: exerciseKey === 'meaning' ? true : !!mastery?.meaning_exercise_passed,
-      sentence: exerciseKey === 'sentence' ? true : !!mastery?.sentence_exercise_passed,
-      listening: exerciseKey === 'listening' ? true : !!mastery?.listening_exercise_passed,
+      meaning: exerciseKey === 'meaning' ? true : !!passed.meaning,
+      sentence: exerciseKey === 'sentence' ? true : !!passed.sentence,
+      listening: exerciseKey === 'listening' ? true : !!passed.listening,
     }
     const passedCountAfter = [passedAfter.meaning, passedAfter.sentence, passedAfter.listening].filter(Boolean).length
     const nextMasteryLevel = passedCountAfter >= 3 ? 'mastered' : passedCountAfter >= 1 ? 'learning' : 'new'
+
+    // Live-sync the header dots + mastery screen immediately on this pass.
+    setPassed(passedAfter)
 
     const updates = {
       student_id: studentId,
@@ -138,7 +165,11 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
       toast({ type: 'error', title: 'تعذر حفظ التقدم', description: detail?.slice(0, 160) })
     }
 
-    setActiveExercise(null)
+    // Auto-advance through the 3 exercises in order. If a next NOT-yet-passed
+    // exercise exists → jump straight to it (single cohesive flow). Only when all
+    // 3 are passed → land on the mastery screen (activeExercise=null).
+    const nextKey = nextUnpassedExercise(passedAfter)
+    setActiveExercise(nextKey)
   }
 
   const incrementAttempts = async (exerciseKey) => {
@@ -216,7 +247,8 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
                 exerciseKey={activeExercise}
                 word={word}
                 distractors={distractors}
-                onComplete={(passed) => handleExerciseComplete(activeExercise, passed)}
+                stepIndex={EXERCISE_ORDER.indexOf(activeExercise)}
+                onComplete={(ok) => handleExerciseComplete(activeExercise, ok)}
                 onWrong={() => incrementAttempts(activeExercise)}
                 onBack={() => setActiveExercise(null)}
               />
@@ -237,8 +269,8 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
 
                 {/* Exercise list */}
                 {EXERCISES.map(ex => {
-                  const fieldKey = `${ex.key}_exercise_passed`
-                  const passed = mastery?.[fieldKey]
+                  // Live-sync from local pass state (updates as exercises pass in-session)
+                  const isPassed = !!passed[ex.key]
                   const attempts = mastery?.[`${ex.key}_exercise_attempts`] || 0
                   return (
                     <motion.button
@@ -247,29 +279,42 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
                       onClick={() => setActiveExercise(ex.key)}
                       className="w-full flex items-center gap-3 p-4 rounded-xl text-right transition-all"
                       style={{
-                        background: passed ? 'rgba(34,197,94,0.08)' : 'rgba(255,255,255,0.03)',
-                        border: `1px solid ${passed ? 'rgba(34,197,94,0.2)' : 'rgba(255,255,255,0.06)'}`,
+                        background: isPassed ? 'rgba(34,197,94,0.08)' : 'rgba(255,255,255,0.03)',
+                        border: `1px solid ${isPassed ? 'rgba(34,197,94,0.2)' : 'rgba(255,255,255,0.06)'}`,
                       }}
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${passed ? 'bg-emerald-500/15' : `bg-${ex.color}-500/10`}`}>
-                        {passed ? <CheckCircle size={18} className="text-emerald-400" /> : <ex.icon size={18} className={`text-${ex.color}-400`} />}
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${isPassed ? 'bg-emerald-500/15' : `bg-${ex.color}-500/10`}`}>
+                        {isPassed ? <CheckCircle size={18} className="text-emerald-400" /> : <ex.icon size={18} className={`text-${ex.color}-400`} />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-white font-['Tajawal']">{ex.label}</p>
                         <p className="text-[10px] text-white/40 font-['Tajawal']">
-                          {passed ? 'تم الاجتياز' : attempts > 0 ? `${attempts} محاولة` : 'لم يُجرب بعد'}
+                          {isPassed ? 'تم الاجتياز' : attempts > 0 ? `${attempts} محاولة` : 'لم يُجرب بعد'}
                         </p>
                       </div>
-                      {passed && <span className="text-emerald-400 text-xs font-bold">✓</span>}
+                      {isPassed && <span className="text-emerald-400 text-xs font-bold">✓</span>}
                     </motion.button>
                   )
                 })}
 
-                {/* Mastered celebration */}
+                {/* Mastered celebration + next-word CTA */}
                 {passedCount >= 3 && (
-                  <div className="text-center py-4 space-y-2">
+                  <div className="text-center py-4 space-y-3">
                     <p className="text-2xl">🌟</p>
                     <p className="text-sm font-bold text-emerald-400 font-['Tajawal']">أتقنت هذه الكلمة!</p>
+                    {hasNextWord ? (
+                      <button
+                        type="button"
+                        onClick={() => onNextWord?.()}
+                        className="w-full mt-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-[#0a1628] font-['Tajawal'] transition-transform active:scale-[0.98] min-h-[48px]"
+                        style={{ background: 'linear-gradient(135deg,#38bdf8,#818cf8)' }}
+                      >
+                        <span>الكلمة التالية</span>
+                        <ChevronLeft size={18} className="shrink-0" />
+                      </button>
+                    ) : (
+                      <p className="text-sm font-bold text-amber-300 font-['Tajawal']">أتقنت كل كلمات الوحدة! 🎉</p>
+                    )}
                   </div>
                 )}
 
@@ -299,25 +344,63 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
   )
 }
 
+// ─── Exercise step progress (تمرين X / 3) ─────────────────
+function ExerciseProgress({ stepIndex }) {
+  const current = (stepIndex ?? 0) + 1
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="text-[11px] font-bold text-white/40 font-['Tajawal']">تمرين {current} / 3</span>
+        <div className="flex items-center gap-1">
+          {[0, 1, 2].map(i => (
+            <div
+              key={i}
+              className="h-1.5 rounded-full transition-all"
+              style={{
+                width: i === stepIndex ? 18 : 10,
+                background: i <= stepIndex ? 'linear-gradient(135deg,#38bdf8,#818cf8)' : 'rgba(255,255,255,0.1)',
+              }}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="h-1 rounded-full bg-white/[0.06] overflow-hidden">
+        <motion.div
+          className="h-full rounded-full"
+          style={{ background: 'linear-gradient(90deg,#38bdf8,#818cf8)' }}
+          initial={{ width: 0 }}
+          animate={{ width: `${(current / 3) * 100}%` }}
+          transition={{ duration: 0.35 }}
+        />
+      </div>
+    </div>
+  )
+}
+
 // ─── Exercise View (dispatches to specific exercise) ──────
-function ExerciseView({ exerciseKey, word, distractors, onComplete, onWrong, onBack }) {
+function ExerciseView({ exerciseKey, word, distractors, stepIndex, onComplete, onWrong, onBack }) {
   switch (exerciseKey) {
-    case 'meaning': return <MeaningExercise word={word} distractors={distractors} onComplete={onComplete} onWrong={onWrong} onBack={onBack} />
-    case 'sentence': return <SentenceExercise word={word} distractors={distractors} onComplete={onComplete} onWrong={onWrong} onBack={onBack} />
-    case 'listening': return <ListeningExercise word={word} distractors={distractors} onComplete={onComplete} onWrong={onWrong} onBack={onBack} />
+    case 'meaning': return <MeaningExercise word={word} distractors={distractors} stepIndex={stepIndex} onComplete={onComplete} onWrong={onWrong} onBack={onBack} />
+    case 'sentence': return <SentenceExercise word={word} distractors={distractors} stepIndex={stepIndex} onComplete={onComplete} onWrong={onWrong} onBack={onBack} />
+    case 'listening': return <ListeningExercise word={word} distractors={distractors} stepIndex={stepIndex} onComplete={onComplete} onWrong={onWrong} onBack={onBack} />
     default: return null
   }
 }
 
 // ─── Exercise 1: Choose Arabic Meaning ──────────────────
-function MeaningExercise({ word, distractors, onComplete, onWrong, onBack }) {
+function MeaningExercise({ word, distractors, stepIndex, onComplete, onWrong, onBack }) {
   const [selected, setSelected] = useState(null)
   const [answered, setAnswered] = useState(false)
+  const [wrongAttempts, setWrongAttempts] = useState(0)
+  const [shakeId, setShakeId] = useState(null)
+  const [revealed, setRevealed] = useState(false)
 
   const options = useMemo(() => shuffle([
     { id: word.id, text: word.definition_ar, correct: true },
     ...distractors.map(d => ({ id: d.id, text: d.definition_ar, correct: false })),
   ]), [word, distractors])
+
+  const correctText = word.definition_ar
 
   const handleSelect = (opt) => {
     if (answered) return
@@ -325,16 +408,27 @@ function MeaningExercise({ word, distractors, onComplete, onWrong, onBack }) {
     setAnswered(true)
 
     if (opt.correct) {
-      setTimeout(() => onComplete(true), 1000)
+      navigator.vibrate?.(8)
+      setTimeout(() => onComplete(true), 500)
     } else {
       onWrong()
-      // Allow retry after 1.5s
-      setTimeout(() => { setSelected(null); setAnswered(false) }, 1500)
+      navigator.vibrate?.(15)
+      setShakeId(opt.id)
+      const nextWrong = wrongAttempts + 1
+      setWrongAttempts(nextWrong)
+      if (nextWrong >= 2) {
+        // After 2 wrong attempts, reveal the correct option + let them tap to continue
+        setRevealed(true)
+        setTimeout(() => { setShakeId(null) }, 400)
+      } else {
+        setTimeout(() => { setSelected(null); setAnswered(false); setShakeId(null) }, 1200)
+      }
     }
   }
 
   return (
     <div className="space-y-4">
+      <ExerciseProgress stepIndex={stepIndex} />
       <div className="flex items-center justify-between">
         <h4 className="text-sm font-bold text-white font-['Tajawal']">اختر المعنى الصحيح</h4>
         <button onClick={onBack} className="text-xs text-sky-400 font-bold font-['Tajawal']">العودة</button>
@@ -348,13 +442,16 @@ function MeaningExercise({ word, distractors, onComplete, onWrong, onBack }) {
       <div className="space-y-2">
         {options.map(opt => {
           const isSelected = selected === opt.id
-          const showCorrect = answered && opt.correct
-          const showWrong = isSelected && !opt.correct
+          // Highlight correct when answered correctly OR when revealed after 2 wrongs
+          const showCorrect = (answered || revealed) && opt.correct
+          const showWrong = isSelected && !opt.correct && !showCorrect
           return (
             <motion.button
               key={opt.id}
               whileTap={{ scale: 0.97 }}
-              onClick={() => handleSelect(opt)}
+              animate={shakeId === opt.id ? { x: [0, -8, 8, -6, 6, 0] } : { x: 0 }}
+              transition={{ duration: 0.4 }}
+              onClick={() => (revealed && opt.correct ? onComplete(false) : handleSelect(opt))}
               className="w-full px-4 py-3.5 rounded-xl text-sm font-['Tajawal'] text-right transition-all min-h-[48px]"
               style={{
                 background: showCorrect ? 'rgba(34,197,94,0.15)' : showWrong ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.03)',
@@ -371,14 +468,33 @@ function MeaningExercise({ word, distractors, onComplete, onWrong, onBack }) {
           )
         })}
       </div>
+
+      {showWrongCaption(answered, selected, options) && (
+        <p className="text-center text-xs text-white/50 font-['Tajawal']">
+          الإجابة: <span className="text-emerald-400 font-bold">{correctText}</span>
+        </p>
+      )}
+      {revealed && (
+        <p className="text-center text-[11px] text-white/40 font-['Tajawal']">اضغط على الإجابة الصحيحة للمتابعة</p>
+      )}
     </div>
   )
 }
 
+// Helper: show the "الإجابة: …" caption only when the current answer is wrong
+function showWrongCaption(answered, selectedId, options) {
+  if (!answered) return false
+  const sel = options.find(o => o.id === selectedId)
+  return !!sel && !sel.correct
+}
+
 // ─── Exercise 2: Complete the Sentence ──────────────────
-function SentenceExercise({ word, distractors, onComplete, onWrong, onBack }) {
+function SentenceExercise({ word, distractors, stepIndex, onComplete, onWrong, onBack }) {
   const [selected, setSelected] = useState(null)
   const [answered, setAnswered] = useState(false)
+  const [wrongAttempts, setWrongAttempts] = useState(0)
+  const [shakeId, setShakeId] = useState(null)
+  const [revealed, setRevealed] = useState(false)
 
   const sentence = word.example_sentence
     ? word.example_sentence.replace(new RegExp(word.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '_____')
@@ -389,21 +505,34 @@ function SentenceExercise({ word, distractors, onComplete, onWrong, onBack }) {
     ...distractors.map(d => ({ id: d.id, text: d.word, correct: false })),
   ]), [word, distractors])
 
+  const correctText = word.word
+
   const handleSelect = (opt) => {
     if (answered) return
     setSelected(opt.id)
     setAnswered(true)
 
     if (opt.correct) {
-      setTimeout(() => onComplete(true), 1000)
+      navigator.vibrate?.(8)
+      setTimeout(() => onComplete(true), 500)
     } else {
       onWrong()
-      setTimeout(() => { setSelected(null); setAnswered(false) }, 1500)
+      navigator.vibrate?.(15)
+      setShakeId(opt.id)
+      const nextWrong = wrongAttempts + 1
+      setWrongAttempts(nextWrong)
+      if (nextWrong >= 2) {
+        setRevealed(true)
+        setTimeout(() => { setShakeId(null) }, 400)
+      } else {
+        setTimeout(() => { setSelected(null); setAnswered(false); setShakeId(null) }, 1200)
+      }
     }
   }
 
   return (
     <div className="space-y-4">
+      <ExerciseProgress stepIndex={stepIndex} />
       <div className="flex items-center justify-between">
         <h4 className="text-sm font-bold text-white font-['Tajawal']">أكمل الجملة</h4>
         <button onClick={onBack} className="text-xs text-sky-400 font-bold font-['Tajawal']">العودة</button>
@@ -417,13 +546,15 @@ function SentenceExercise({ word, distractors, onComplete, onWrong, onBack }) {
       <div className="grid grid-cols-2 gap-2">
         {options.map(opt => {
           const isSelected = selected === opt.id
-          const showCorrect = answered && opt.correct
-          const showWrong = isSelected && !opt.correct
+          const showCorrect = (answered || revealed) && opt.correct
+          const showWrong = isSelected && !opt.correct && !showCorrect
           return (
             <motion.button
               key={opt.id}
               whileTap={{ scale: 0.97 }}
-              onClick={() => handleSelect(opt)}
+              animate={shakeId === opt.id ? { x: [0, -8, 8, -6, 6, 0] } : { x: 0 }}
+              transition={{ duration: 0.4 }}
+              onClick={() => (revealed && opt.correct ? onComplete(false) : handleSelect(opt))}
               className="px-4 py-3 rounded-xl text-sm font-bold font-['Inter'] transition-all min-h-[48px]"
               dir="ltr"
               style={{
@@ -437,15 +568,28 @@ function SentenceExercise({ word, distractors, onComplete, onWrong, onBack }) {
           )
         })}
       </div>
+
+      {showWrongCaption(answered, selected, options) && (
+        <p className="text-center text-xs text-white/50 font-['Tajawal']">
+          الإجابة: <span className="text-emerald-400 font-bold font-['Inter']" dir="ltr">{correctText}</span>
+        </p>
+      )}
+      {revealed && (
+        <p className="text-center text-[11px] text-white/40 font-['Tajawal']">اضغط على الإجابة الصحيحة للمتابعة</p>
+      )}
     </div>
   )
 }
 
 // ─── Exercise 3: Listen & Choose ────────────────────────
-function ListeningExercise({ word, distractors, onComplete, onWrong, onBack }) {
+function ListeningExercise({ word, distractors, stepIndex, onComplete, onWrong, onBack }) {
   const [selected, setSelected] = useState(null)
   const [answered, setAnswered] = useState(false)
   const [playing, setPlaying] = useState(false)
+  const [needsTap, setNeedsTap] = useState(false)
+  const [wrongAttempts, setWrongAttempts] = useState(0)
+  const [shakeId, setShakeId] = useState(null)
+  const [revealed, setRevealed] = useState(false)
   const audioRef = useRef(null)
 
   const options = useMemo(() => shuffle([
@@ -453,29 +597,39 @@ function ListeningExercise({ word, distractors, onComplete, onWrong, onBack }) {
     ...distractors.map(d => ({ id: d.id, text: d.word, correct: false })),
   ]), [word, distractors])
 
+  const correctText = word.word
+
   const playAudio = useCallback(() => {
     if (!word.audio_url) {
       // Fallback: use browser TTS
-      const utterance = new SpeechSynthesisUtterance(word.word)
-      utterance.lang = 'en-US'
-      utterance.rate = 0.8
-      utterance.onstart = () => setPlaying(true)
-      utterance.onend = () => setPlaying(false)
-      speechSynthesis.speak(utterance)
+      try {
+        const utterance = new SpeechSynthesisUtterance(word.word)
+        utterance.lang = 'en-US'
+        utterance.rate = 0.8
+        utterance.onstart = () => { setPlaying(true); setNeedsTap(false) }
+        utterance.onend = () => setPlaying(false)
+        speechSynthesis.speak(utterance)
+      } catch {
+        setNeedsTap(true)
+      }
       return
     }
     if (audioRef.current) audioRef.current.pause()
     audioRef.current = new Audio(word.audio_url)
-    audioRef.current.onplay = () => setPlaying(true)
+    audioRef.current.onplay = () => { setPlaying(true); setNeedsTap(false) }
     audioRef.current.onended = () => setPlaying(false)
-    audioRef.current.onerror = () => setPlaying(false)
-    audioRef.current.play().catch(() => setPlaying(false))
+    audioRef.current.onerror = () => { setPlaying(false); setNeedsTap(true) }
+    // play() must run synchronously inside the gesture path (entering this
+    // exercise is itself the result of the student's tap). On iOS Safari a
+    // detached setTimeout(play) silently fails — so we call play() directly in
+    // the mount effect and surface a tap affordance if it's rejected.
+    audioRef.current.play().then(() => setNeedsTap(false)).catch(() => { setPlaying(false); setNeedsTap(true) })
   }, [word])
 
-  // Auto-play on mount
+  // Play immediately on mount (gesture-synchronous — no setTimeout delay)
   useEffect(() => {
-    const timer = setTimeout(playAudio, 500)
-    return () => { clearTimeout(timer); if (audioRef.current) audioRef.current.pause() }
+    playAudio()
+    return () => { if (audioRef.current) audioRef.current.pause() }
   }, [playAudio])
 
   const handleSelect = (opt) => {
@@ -484,15 +638,26 @@ function ListeningExercise({ word, distractors, onComplete, onWrong, onBack }) {
     setAnswered(true)
 
     if (opt.correct) {
-      setTimeout(() => onComplete(true), 1000)
+      navigator.vibrate?.(8)
+      setTimeout(() => onComplete(true), 500)
     } else {
       onWrong()
-      setTimeout(() => { setSelected(null); setAnswered(false) }, 1500)
+      navigator.vibrate?.(15)
+      setShakeId(opt.id)
+      const nextWrong = wrongAttempts + 1
+      setWrongAttempts(nextWrong)
+      if (nextWrong >= 2) {
+        setRevealed(true)
+        setTimeout(() => { setShakeId(null) }, 400)
+      } else {
+        setTimeout(() => { setSelected(null); setAnswered(false); setShakeId(null) }, 1200)
+      }
     }
   }
 
   return (
     <div className="space-y-4">
+      <ExerciseProgress stepIndex={stepIndex} />
       <div className="flex items-center justify-between">
         <h4 className="text-sm font-bold text-white font-['Tajawal']">استمع واختر الكلمة</h4>
         <button onClick={onBack} className="text-xs text-sky-400 font-bold font-['Tajawal']">العودة</button>
@@ -503,30 +668,34 @@ function ListeningExercise({ word, distractors, onComplete, onWrong, onBack }) {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={playAudio}
+          animate={needsTap ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+          transition={needsTap ? { repeat: Infinity, duration: 1.1 } : { duration: 0.2 }}
           className="w-20 h-20 rounded-full flex items-center justify-center transition-colors"
           style={{
-            background: playing ? 'rgba(245,158,11,0.2)' : 'rgba(56,189,248,0.1)',
-            border: `2px solid ${playing ? 'rgba(245,158,11,0.4)' : 'rgba(56,189,248,0.3)'}`,
+            background: needsTap ? 'rgba(56,189,248,0.25)' : playing ? 'rgba(245,158,11,0.2)' : 'rgba(56,189,248,0.1)',
+            border: `2px solid ${needsTap ? 'rgba(56,189,248,0.6)' : playing ? 'rgba(245,158,11,0.4)' : 'rgba(56,189,248,0.3)'}`,
           }}
         >
           <Volume2 size={32} className={playing ? 'text-amber-400' : 'text-sky-400'} />
         </motion.button>
       </div>
-      <p className="text-center text-xs text-white/40 font-['Tajawal']">
-        {playing ? 'جاري التشغيل...' : 'اضغط للاستماع مرة أخرى'}
+      <p className="text-center text-xs font-['Tajawal'] font-bold" style={{ color: needsTap ? '#38bdf8' : 'rgba(255,255,255,0.4)' }}>
+        {needsTap ? 'اضغط للاستماع 🔊' : playing ? 'جاري التشغيل...' : 'اضغط للاستماع مرة أخرى'}
       </p>
 
       {/* Options */}
       <div className="grid grid-cols-2 gap-2">
         {options.map(opt => {
           const isSelected = selected === opt.id
-          const showCorrect = answered && opt.correct
-          const showWrong = isSelected && !opt.correct
+          const showCorrect = (answered || revealed) && opt.correct
+          const showWrong = isSelected && !opt.correct && !showCorrect
           return (
             <motion.button
               key={opt.id}
               whileTap={{ scale: 0.97 }}
-              onClick={() => handleSelect(opt)}
+              animate={shakeId === opt.id ? { x: [0, -8, 8, -6, 6, 0] } : { x: 0 }}
+              transition={{ duration: 0.4 }}
+              onClick={() => (revealed && opt.correct ? onComplete(false) : handleSelect(opt))}
               className="px-4 py-3.5 rounded-xl text-sm font-bold font-['Inter'] transition-all min-h-[48px]"
               dir="ltr"
               style={{
@@ -540,6 +709,15 @@ function ListeningExercise({ word, distractors, onComplete, onWrong, onBack }) {
           )
         })}
       </div>
+
+      {showWrongCaption(answered, selected, options) && (
+        <p className="text-center text-xs text-white/50 font-['Tajawal']">
+          الإجابة: <span className="text-emerald-400 font-bold font-['Inter']" dir="ltr">{correctText}</span>
+        </p>
+      )}
+      {revealed && (
+        <p className="text-center text-[11px] text-white/40 font-['Tajawal']">اضغط على الإجابة الصحيحة للمتابعة</p>
+      )}
     </div>
   )
 }

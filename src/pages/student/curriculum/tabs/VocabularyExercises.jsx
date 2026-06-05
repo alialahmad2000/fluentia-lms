@@ -6,6 +6,16 @@ import { useAuthProfile } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { validateAnswer } from '../../../../utils/answerValidator'
+import { recordExercise } from '../../../../services/vocab'
+
+// Map each drill to a unified vocab_cards exercise key.
+// match/choose test the meaning; fill_blank/scramble test sentence/spelling.
+const EXERCISE_VOCAB_KEY = {
+  match: 'meaning',
+  choose: 'meaning',
+  fill_blank: 'sentence',
+  scramble: 'sentence',
+}
 
 // ─── Shuffle helper ───────────────────────────────
 function shuffle(arr) {
@@ -100,6 +110,26 @@ export default function VocabularyExercises({ unitId, allWords }) {
         .select('id')
         .single()
       if (inserted) progressIdRef.current = inserted.id
+    }
+
+    // Best-effort mirror into the unified vocab_cards store so completing these
+    // unit drills feeds the sidebar vocabulary journey (/student/vocab-journey).
+    // Purely additive — a mirror failure must never break the exercise.
+    try {
+      const vocabKey = EXERCISE_VOCAB_KEY[exerciseKey]
+      const correctWords = result?.correctWords || []
+      if (vocabKey && correctWords.length) {
+        for (const w of correctWords) {
+          if (!w?.id) continue
+          await recordExercise(w.id, vocabKey, {
+            word: w.word,
+            meaningAr: w.definition_ar,
+            contextSentence: w.example_sentence || null,
+          })
+        }
+      }
+    } catch (mirrorErr) {
+      console.warn('[VocabularyExercises] vocab_cards mirror failed:', mirrorErr?.message)
     }
 
     // Award XP on first full completion
@@ -218,8 +248,9 @@ function MatchExercise({ words, onComplete, onBack }) {
 
   const handleSubmit = () => {
     setSubmitted(true)
-    const score = items.filter(w => selected[w.id] === w.id).length
-    setTimeout(() => onComplete({ score, maxScore: items.length, answers: selected }), 1500)
+    const correctWords = items.filter(w => selected[w.id] === w.id)
+    const score = correctWords.length
+    setTimeout(() => onComplete({ score, maxScore: items.length, answers: selected, correctWords }), 1500)
   }
 
   const allMatched = Object.keys(selected).length >= items.length
@@ -301,11 +332,12 @@ function FillBlankExercise({ words, onComplete, onBack }) {
 
   const handleSubmit = () => {
     setSubmitted(true)
-    const score = effectiveItems.filter(w => {
+    const correctWords = effectiveItems.filter(w => {
       const ans = (answers[w.id] || '').trim()
       return validateAnswer(ans, [w.word], { fullSentence: w.example_sentence })
-    }).length
-    setTimeout(() => onComplete({ score, maxScore: effectiveItems.length, answers }), 1500)
+    })
+    const score = correctWords.length
+    setTimeout(() => onComplete({ score, maxScore: effectiveItems.length, answers, correctWords }), 1500)
   }
 
   return (
@@ -337,9 +369,11 @@ function FillBlankExercise({ words, onComplete, onBack }) {
                 dir="ltr"
                 value={answers[w.id] || ''}
                 onChange={e => setAnswers(prev => ({ ...prev, [w.id]: e.target.value }))}
+                onKeyDown={e => { if (e.key === 'Enter' && !submitted) handleSubmit() }}
                 disabled={submitted}
                 placeholder="____ (one word)"
-                className="w-full px-3 py-2 rounded-lg text-sm font-['Inter'] bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-sky-500/50 outline-none transition-colors"
+                style={{ fontSize: '16px' }}
+                className="w-full px-3 py-2 rounded-lg text-base font-['Inter'] bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-sky-500/50 outline-none transition-colors"
               />
               {!submitted && i === 0 && (
                 <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
@@ -373,6 +407,7 @@ function ChooseExercise({ words, allWords, onComplete, onBack }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [finished, setFinished] = useState(false)
   const [finalScore, setFinalScore] = useState(0)
+  const correctWordsRef = useRef([])
 
   const current = items[currentIdx]
   const options = useMemo(() => {
@@ -388,7 +423,11 @@ function ChooseExercise({ words, allWords, onComplete, onBack }) {
   const handleSelect = (opt) => {
     if (selectedAnswer) return
     setSelectedAnswer(opt.id)
-    if (opt.correct) setScore(s => s + 1)
+    if (opt.correct) {
+      setScore(s => s + 1)
+      // current is the word being asked; a correct pick means its meaning is known.
+      if (current) correctWordsRef.current.push(current)
+    }
 
     setTimeout(() => {
       if (currentIdx < items.length - 1) {
@@ -400,7 +439,7 @@ function ChooseExercise({ words, allWords, onComplete, onBack }) {
         const computed = score + (opt.correct ? 1 : 0)
         setFinalScore(computed)
         setFinished(true)
-        setTimeout(() => onComplete({ score: computed, maxScore: items.length }), 800)
+        setTimeout(() => onComplete({ score: computed, maxScore: items.length, correctWords: correctWordsRef.current }), 800)
       }
     }, 1000)
   }
@@ -482,6 +521,7 @@ function ScrambleExercise({ words, onComplete, onBack }) {
   const [hintUsed, setHintUsed] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [finished, setFinished] = useState(false)
+  const correctWordsRef = useRef([])
 
   const current = items[currentIdx]
 
@@ -529,7 +569,10 @@ function ScrambleExercise({ words, onComplete, onBack }) {
     if (!current) return
     setSubmitted(true)
     const correct = built.toLowerCase() === current.word.toLowerCase()
-    if (correct) setScore(s => s + 1)
+    if (correct) {
+      setScore(s => s + 1)
+      correctWordsRef.current.push(current)
+    }
 
     setTimeout(() => {
       if (currentIdx < items.length - 1) {
@@ -537,7 +580,7 @@ function ScrambleExercise({ words, onComplete, onBack }) {
       } else {
         const finalScore = score + (correct ? 1 : 0)
         setFinished(true)
-        setTimeout(() => onComplete({ score: finalScore, maxScore: items.length }), 800)
+        setTimeout(() => onComplete({ score: finalScore, maxScore: items.length, correctWords: correctWordsRef.current }), 800)
       }
     }, 1200)
   }
