@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import { useLocation } from 'react-router-dom'
-import { refreshAppSession } from '@/lib/refreshAppSession'
 import { useActiveExamAttempt } from '@/hooks/useActiveExamAttempt'
 
 const POLL_INTERVAL_MS = 60_000      // 60s + on-focus
@@ -27,10 +26,27 @@ function UpdateBanner() {
   const applyUpdate = useCallback((toPath) => {
     // Clear stored version so we re-baseline against the fresh build after reload.
     try { localStorage.removeItem('app_version') } catch {}
-    // Keep the student logged in and send them to the page they were navigating
-    // to; refreshAppSession purges caches + the service worker so fresh code is
-    // guaranteed.
-    refreshAppSession({ redirectTo: toPath, keepAuth: true })
+    // GENTLE update: drop ONLY the service worker so the reload fetches the fresh
+    // build from the network. We deliberately do NOT wipe caches or indexedDB here —
+    // the old full purge churned every student's storage on every deploy and could
+    // break media/state mid-session. Auth, image cache and app data are preserved.
+    let done = false
+    const go = () => {
+      if (done) return
+      done = true
+      try { window.location.replace(toPath) } catch { window.location.reload() }
+    }
+    try {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations()
+          .then((regs) => Promise.all(regs.map((r) => r.unregister().catch(() => {}))))
+          .catch(() => {})
+          .finally(go)
+        setTimeout(go, 1500) // safety net if the SW API stalls
+      } else {
+        go()
+      }
+    } catch { go() }
   }, [])
 
   // Poll /version.json on an interval + whenever the tab regains focus.
