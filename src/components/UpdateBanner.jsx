@@ -1,34 +1,40 @@
-import { useState, useEffect, useCallback, memo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef, useCallback, memo } from 'react'
+import { useLocation } from 'react-router-dom'
 import { refreshAppSession } from '@/lib/refreshAppSession'
 import { useActiveExamAttempt } from '@/hooks/useActiveExamAttempt'
 
-const POLL_INTERVAL_MS = 60_000      // was 5 min — now 60s + on-focus
-const COUNTDOWN_SECONDS = 10
+const POLL_INTERVAL_MS = 60_000      // 60s + on-focus
 
-// Layer 1 (auto-recovery): detect a new deploy and apply it with zero manual
-// browser action. During an active mock exam the update is DEFERRED (a calm
-// banner, no reload) so a student mid-exam is never interrupted.
+// SILENT auto-update (owner directive 2026-06-04): detect a new deploy and apply
+// it TRANSPARENTLY — no banner, no button, no countdown.
+//
+// CRITICAL: a student must NEVER be reloaded in the middle of an activity —
+// writing, reading, a listening exercise with questions, a quiz, a unit
+// assessment, or a mock exam. Yanking them off the page would lose their work.
+// So the update is applied ONLY at a SAFE boundary: the next time the student
+// NAVIGATES to a different page (a different route — a natural break where they
+// are already leaving the current screen). Switching tabs/activities *within* a
+// unit (same route, only the ?activity= query changes) does NOT trigger it.
+// The student is never interrupted; they simply land on the next page already
+// running the latest build. (Renders null — kept mounted so the existing mount
+// points in LayoutShell / TrainerLayout don't need to change.)
 function UpdateBanner() {
+  const location = useLocation()
   const isExamActive = useActiveExamAttempt()
-  const [hasUpdate, setHasUpdate] = useState(false)
-  const [updating, setUpdating] = useState(false)
-  const [cancelled, setCancelled] = useState(false)
-  const [countdown, setCountdown] = useState(null)
+  const [pendingUpdate, setPendingUpdate] = useState(false)
+  const lastPathRef = useRef(location.pathname)
 
-  const applyUpdate = useCallback(() => {
-    setUpdating(true)
-    // Clear stored version so the banner doesn't re-trigger after reload.
+  const applyUpdate = useCallback((toPath) => {
+    // Clear stored version so we re-baseline against the fresh build after reload.
     try { localStorage.removeItem('app_version') } catch {}
-    // Soft update: keep the student logged in + keep them on the current page;
-    // refreshAppSession purges caches + SW so fresh code is guaranteed.
-    refreshAppSession({
-      redirectTo: window.location.pathname + window.location.search,
-      keepAuth: true,
-    })
+    // Keep the student logged in and send them to the page they were navigating
+    // to; refreshAppSession purges caches + the service worker so fresh code is
+    // guaranteed.
+    refreshAppSession({ redirectTo: toPath, keepAuth: true })
   }, [])
 
   // Poll /version.json on an interval + whenever the tab regains focus.
+  // This only FLAGS that a new build exists — it never reloads here.
   useEffect(() => {
     let cancelledEffect = false
     const check = async () => {
@@ -43,7 +49,7 @@ function UpdateBanner() {
           localStorage.setItem('app_version', remote.version)
           return
         }
-        if (local !== remote.version) setHasUpdate(true)
+        if (local !== remote.version) setPendingUpdate(true)
       } catch {
         // network blip — try next interval
       }
@@ -59,78 +65,20 @@ function UpdateBanner() {
     }
   }, [])
 
-  // When an update is available, not deferred, and not cancelled → 10s auto-apply.
+  // Apply the pending update ONLY when the route's pathname changes — i.e. the
+  // student left the current screen for a different one. A mid-activity tab/query
+  // change (same pathname) is ignored, and mid mock-exam is deferred entirely.
   useEffect(() => {
-    if (!hasUpdate || isExamActive || cancelled) {
-      setCountdown(null)
-      return
+    const prevPath = lastPathRef.current
+    const nextPath = location.pathname
+    if (prevPath === nextPath) return        // same page (or only ?activity= changed) → never interrupt
+    lastPathRef.current = nextPath
+    if (pendingUpdate && !isExamActive) {
+      applyUpdate(nextPath + location.search)
     }
-    setCountdown(COUNTDOWN_SECONDS)
-    const id = setInterval(() => {
-      setCountdown((c) => {
-        if (c === null) return null
-        if (c <= 1) { clearInterval(id); applyUpdate(); return 0 }
-        return c - 1
-      })
-    }, 1000)
-    return () => clearInterval(id)
-  }, [hasUpdate, isExamActive, cancelled, applyUpdate])
+  }, [location.pathname, location.search, pendingUpdate, isExamActive, applyUpdate])
 
-  if (!hasUpdate || cancelled) return null
-
-  const deferred = isExamActive
-
-  return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -60, opacity: 0 }}
-        className="fixed left-0 right-0 z-[9999] flex items-center justify-between shadow-lg"
-        dir="rtl"
-        style={{
-          top: 0,
-          paddingTop: 'calc(env(safe-area-inset-top, 0px) + 12px)',
-          paddingBottom: '12px',
-          paddingLeft: '16px',
-          paddingRight: '16px',
-          background: deferred
-            ? 'linear-gradient(to left, rgb(120,87,16), rgb(146,64,14))'
-            : 'linear-gradient(to left, rgb(2,132,199), rgb(79,70,229))',
-          backdropFilter: 'blur(8px)',
-        }}
-      >
-        <div className="flex items-center gap-2">
-          <span className="text-lg">{deferred ? '✨' : '🆕'}</span>
-          <span className="text-sm font-medium font-['Tajawal'] text-white">
-            {deferred
-              ? 'نسخة جديدة جاهزة — ستُطبَّق تلقائياً بعد انتهاء اختبارك'
-              : countdown != null
-                ? `نسخة محسّنة متاحة — جاري التطبيق خلال ${countdown} ثانية...`
-                : 'يوجد تحديث جديد للموقع!'}
-          </span>
-        </div>
-        {!deferred && (
-          <div className="flex items-center gap-2">
-            <button
-              onClick={applyUpdate}
-              disabled={updating}
-              className="bg-white/20 hover:bg-white/30 text-white text-sm font-bold px-4 py-1.5 rounded-lg transition-colors font-['Tajawal'] min-h-[44px] disabled:opacity-70"
-            >
-              {updating ? 'جاري التحديث...' : 'تطبيق الآن ↻'}
-            </button>
-            <button
-              onClick={() => setCancelled(true)}
-              disabled={updating}
-              className="text-white/80 hover:text-white text-sm px-3 py-1.5 font-['Tajawal'] min-h-[44px]"
-            >
-              لاحقاً
-            </button>
-          </div>
-        )}
-      </motion.div>
-    </AnimatePresence>
-  )
+  return null
 }
 
 export default memo(UpdateBanner)
