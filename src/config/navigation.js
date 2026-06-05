@@ -89,6 +89,7 @@ export const STUDENT_NAV = {
       label: 'حسابي',
       items: [
         { id: 'profile',     label: 'ملفي',         icon: User,       to: '/student/profile' },
+        { id: 'my-reports',  label: 'بلاغاتي',       icon: Bug,        to: '/student/my-reports' },
       ],
     },
   ],
