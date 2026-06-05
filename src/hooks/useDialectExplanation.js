@@ -8,7 +8,7 @@ export function useDialectExplanation(grammarLessonId) {
       if (!grammarLessonId) return null
       const { data, error } = await supabase
         .from('dialect_explanations')
-        .select('id, concept_title, explanation_najdi, audio_url_najdi, cefr_level, tags, word_count')
+        .select('id, concept_title, explanation_najdi, explanation_sections, audio_url_najdi, cefr_level, tags, word_count')
         .eq('grammar_lesson_id', grammarLessonId)
         .eq('is_published', true)
         .maybeSingle()
