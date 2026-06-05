@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Bug, RefreshCw, ExternalLink, Image as ImageIcon, Loader2 } from 'lucide-react'
 import { toast } from '../../components/ui/FluentiaToast'
+import BugReplyPanel from '@/components/bug-report/BugReplyPanel'
 import { PROBLEM_TYPES, problemTypeById, severityById } from '../../lib/bugReportTaxonomy'
 
 const STATUS = {
@@ -238,6 +239,8 @@ export default function AdminBugReports() {
                     </button>
                   ))}
                 </div>
+
+                <BugReplyPanel reportId={r.id} />
               </div>
             )
           })}

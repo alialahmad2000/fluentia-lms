@@ -34,6 +34,7 @@ const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboar
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
 const StudentGrades = lazyRetry(() => import('./pages/student/StudentGrades'))
 const StudentProfile = lazyRetry(() => import('./pages/student/StudentProfile'))
+const MyBugReports = lazyRetry(() => import('./pages/student/MyReports'))
 const StudentSpeaking = lazyRetry(() => import('./pages/student/StudentSpeaking'))
 const StudentLibrary = lazyRetry(() => import('./pages/student/StudentLibrary'))
 const StudentLeaderboard = lazyRetry(() => import('./pages/student/StudentLeaderboard'))
@@ -723,6 +724,7 @@ export default function App() {
               <Route path="/student/assessments" element={<Page><ComingSoon featureName="الاختبارات" /></Page>} />
               <Route path="/student/quiz" element={<Page><StudentQuiz /></Page>} />
               <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
+              <Route path="/student/my-reports" element={<Page><MyBugReports /></Page>} />
               <Route path="/student/speaking-hub" element={<Page><StudentSpeakingHubs /></Page>} />
               <Route path="/student/speaking-hub/:id" element={<Page><StudentSpeakingHubDetail /></Page>} />
               <Route path="/student/certificates" element={<Page><StudentCertificate /></Page>} />
