@@ -164,16 +164,17 @@ export const ADMIN_NAV = {
         { id: 'students',    label: 'الطلاب',       icon: GraduationCap, to: '/admin/users' },
         { id: 'groups',      label: 'المجموعات',    icon: Users,         to: '/admin/groups' },
         { id: 'trainers',    label: 'المدربون',     icon: UserCog,       to: '/admin/trainers' },
-        { id: 'team',        label: 'الموظفون',     icon: UserCog,       to: '/admin/team' },
       ],
     },
     {
-      // CRM / customer-service — one home so it's easy to follow (owner request 2026-06-06).
-      id: 'cs',
-      label: 'فريق العملاء',
+      // الموارد البشرية — one home for staff + CRM so it's easy to follow (owner request 2026-06-06).
+      id: 'hr',
+      label: 'الموارد البشرية',
       items: [
-        { id: 'cs-team',        label: 'مساحة الفريق', icon: Users,      to: '/team/pipeline' },
-        { id: 'cs-performance', label: 'أداء الفريق',  icon: TrendingUp, to: '/admin/cs-performance' },
+        { id: 'team',           label: 'الموظفون',          icon: UserCog,       to: '/admin/team' },
+        { id: 'cs-team',        label: 'مساحة فريق العملاء', icon: Users,         to: '/team/pipeline' },
+        { id: 'cs-performance', label: 'أداء فريق العملاء',  icon: TrendingUp,    to: '/admin/cs-performance' },
+        { id: 'integrations',   label: 'التكاملات',          icon: CalendarClock, to: '/admin/integrations' },
       ],
     },
     {
@@ -202,7 +203,6 @@ export const ADMIN_NAV = {
         { id: 'bug-reports', label: 'بلاغات المشاكل', icon: Bug,           to: '/admin/bug-reports' },
         { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'system-diagnostics', label: 'تشخيص النظام', icon: Activity,   to: '/admin/system' },
-        { id: 'integrations', label: 'التكاملات', icon: CalendarClock, to: '/admin/integrations' },
         { id: 'settings',    label: 'الإعدادات',    icon: Settings,      to: '/admin/settings' },
       ],
     },
