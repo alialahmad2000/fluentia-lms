@@ -107,12 +107,15 @@
 }
 /* candlelight overlay */
 .lib-candle {
-  position: absolute; inset: 0; pointer-events: none; z-index: 1; mix-blend-mode: soft-light;
-  background: radial-gradient(70% 55% at 50% 6%, rgba(255,176,84,0.30), transparent 72%);
-  animation: lib-flicker 4.5s ease-in-out infinite;
+  position: fixed; inset: 0; pointer-events: none; z-index: 3;
+  /* warm pool of light up-centre + the edges falling into shadow = candlelight */
+  background:
+    radial-gradient(78% 58% at 50% 30%, rgba(255,178,86,0.16) 0%, transparent 48%),
+    radial-gradient(120% 100% at 50% 34%, transparent 40%, rgba(26,13,3,0.46) 100%);
+  animation: lib-flicker 5s ease-in-out infinite;
 }
-@keyframes lib-flicker { 0%,100% { opacity: 0.72 } 22% { opacity: 0.96 } 44% { opacity: 0.6 } 67% { opacity: 0.88 } 85% { opacity: 0.7 } }
-@media (prefers-reduced-motion: reduce) { .lib-candle { animation: none; opacity: 0.8; } }
+@keyframes lib-flicker { 0%,100% { opacity: 0.85 } 25% { opacity: 1 } 50% { opacity: 0.78 } 72% { opacity: 0.94 } 88% { opacity: 0.82 } }
+@media (prefers-reduced-motion: reduce) { .lib-candle { animation: none; opacity: 0.9; } }
 /* theme-matched lamp mood */
 .lib-reader-stage[data-mood="mystery"] { --lib-lamp: rgba(120,180,220,0.075); }
 .lib-reader-stage[data-mood="grief"] { --lib-lamp: rgba(180,160,205,0.065); }
