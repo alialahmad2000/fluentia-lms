@@ -155,7 +155,6 @@ export const ADMIN_NAV = {
         { id: 'dashboard',   label: 'الرئيسية',     icon: Home,          to: '/admin' },
         { id: 'reports',     label: 'التقارير',     icon: BarChart3,     to: '/admin/reports' },
         { id: 'mock-exam',   label: 'نتائج الاختبار التجريبي', icon: FileCheck, to: '/admin/mock-exam-results' },
-        { id: 'cs-performance', label: 'أداء فريق العملاء', icon: TrendingUp, to: '/admin/cs-performance' },
       ],
     },
     {
@@ -168,20 +167,28 @@ export const ADMIN_NAV = {
       ],
     },
     {
+      // CRM / customer-service — one home so it's easy to follow (owner request 2026-06-06).
+      id: 'cs',
+      label: 'فريق العملاء',
+      items: [
+        { id: 'cs-team',        label: 'مساحة الفريق', icon: Users,      to: '/team/pipeline' },
+        { id: 'cs-performance', label: 'أداء الفريق',  icon: TrendingUp, to: '/admin/cs-performance' },
+      ],
+    },
+    {
       id: 'operations',
       label: 'العمليات',
       items: [
-        { id: 'content',     label: 'المحتوى',      icon: BookOpen,      to: '/admin/content' },
+        // SIDEBAR-HIDDEN 2026-06-06: content / curriculum / ielts-atelier-preview / competition
+        // hidden from the admin sidebar per owner — curriculum setup is done, he no longer uses
+        // these tools and doesn't want to see them. Routes stay registered in App.jsx (still
+        // reachable by direct URL); NO data deleted. cs-team moved to the 'cs' section above.
         { id: 'library',     label: 'المكتبة',      icon: BookMarked,    to: '/library' },
-        { id: 'curriculum',  label: 'المنهج',       icon: FileText,      to: '/admin/curriculum' },
         { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: BookOpen, to: '/admin/student-curriculum' },
-        { id: 'ielts-atelier-preview',   label: 'معاينة منهج IELTS',  icon: Target,   to: '/admin/ielts-atelier-preview' },
         { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: BookOpen, to: '/admin/interactive-curriculum' },
         { id: 'payments',    label: 'المالية',      icon: CreditCard,    to: '/admin/packages' },
         { id: 'marketing',   label: 'التسويق',      icon: Megaphone,     to: '/admin/announcements' },
         { id: 'affiliates',  label: 'الشركاء',      icon: Users,         to: '/admin/affiliates' },
-        { id: 'cs-team',     label: 'فريق العملاء',  icon: Users,         to: '/team/pipeline' },
-        { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,        to: '/admin/competition' },
         { id: 'ielts',       label: 'IELTS',         icon: Target,        to: '/admin/curriculum/ielts' },
         { id: 'speaking-hubs', label: 'نادي المحادثة', icon: MessageCircle, to: '/admin/speaking-hubs' },
         { id: 'chat',          label: 'المحادثة',      icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
