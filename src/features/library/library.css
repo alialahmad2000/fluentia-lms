@@ -227,6 +227,37 @@
 .lib-chapter-row .ti .e { font-family: var(--lib-serif); font-style: italic; font-size: 13px; color: var(--ds-text-tertiary, #94a3b8); }
 .lib-chapter-row .w { font-size: 11px; color: var(--ds-text-tertiary, #94a3b8); font-family: 'Tajawal', sans-serif; }
 
+/* ---- Codex (book pages) mode -------------------------------------------- */
+.lib-codex { position: relative; }
+.lib-codex-viewport { overflow: hidden; padding: 4px 22px 0; }
+.lib-codex-pages {
+  column-gap: 0; column-fill: auto; direction: ltr;
+  height: clamp(420px, 64dvh, 720px);
+  will-change: transform;
+  transition: transform .42s cubic-bezier(.22, .61, .36, 1);
+}
+.lib-codex-chhead { break-inside: avoid; text-align: center; padding: 4px 0 22px; }
+.lib-codex-chhead .ch-num { font-family: var(--lib-serif); font-style: italic; color: var(--lib-whisper); font-size: 14px; letter-spacing: 0.1em; }
+.lib-codex-chhead .ch-title { font-family: var(--lib-serif); font-weight: 600; font-size: 25px; color: var(--lib-ink); margin-top: 4px; line-height: 1.1; }
+.lib-codex-p { font-family: var(--lib-serif); font-size: 19px; line-height: 1.9; color: var(--lib-ink); margin: 0 0 1em; text-align: left; direction: ltr; }
+.lib-codex-edge { position: absolute; top: 0; bottom: 46px; width: 24%; background: none; border: none; cursor: pointer; z-index: 3; }
+.lib-codex-edge.left { left: 0; }
+.lib-codex-edge.right { right: 0; }
+.lib-codex-foot { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 14px 0 4px; }
+.lib-codex-foot button { background: rgba(237,228,211,0.06); border: 1px solid var(--lib-line); color: var(--lib-ink); width: 44px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 18px; line-height: 1; }
+.lib-codex-foot button:disabled { opacity: 0.3; cursor: default; }
+.lib-codex-foot .pg { font-family: 'Tajawal', sans-serif; font-size: 12px; color: var(--lib-whisper); min-width: 66px; text-align: center; }
+.lib-codex-tray {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  background: linear-gradient(180deg, var(--lib-paper-2), var(--lib-paper));
+  border-top: 1px solid rgba(251,191,36,0.3); border-radius: 16px 16px 0 0;
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+  box-shadow: 0 -16px 44px -16px rgba(0,0,0,0.7);
+}
+.lib-codex-tray .en { font-family: var(--lib-serif); font-size: 17px; color: var(--lib-ink); margin-bottom: 6px; direction: ltr; }
+.lib-codex-tray .ar { font-family: 'Tajawal', sans-serif; font-size: 15px; color: var(--lib-whisper); line-height: 1.8; }
+.lib-codex-tray .close { margin-top: 10px; background: none; border: none; color: var(--lib-gold); font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
+
 .lib-empty { text-align: center; color: var(--ds-text-tertiary, #94a3b8); font-family: 'Tajawal', sans-serif; padding: 40px 16px; font-size: 14px; }
 .lib-skel { height: 220px; border-radius: 12px; background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06), rgba(255,255,255,0.03)); background-size: 200% 100%; animation: lib-shimmer 1.4s infinite; }
 @keyframes lib-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
