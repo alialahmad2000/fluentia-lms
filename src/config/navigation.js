@@ -193,6 +193,7 @@ export const ADMIN_NAV = {
         { id: 'bug-reports', label: 'بلاغات المشاكل', icon: Bug,           to: '/admin/bug-reports' },
         { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'system-diagnostics', label: 'تشخيص النظام', icon: Activity,   to: '/admin/system' },
+        { id: 'integrations', label: 'التكاملات', icon: CalendarClock, to: '/admin/integrations' },
         { id: 'settings',    label: 'الإعدادات',    icon: Settings,      to: '/admin/settings' },
       ],
     },
