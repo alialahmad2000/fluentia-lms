@@ -3,7 +3,7 @@
 //   صفحات  (codex)  — book pages, page-turn; veil-lift opens a bottom tray
 //   انسياب (reveal) — calm scroll; tap a sentence → Arabic unfolds inline
 //   مساعدة (assist) — English paragraph with its Arabic stacked beneath (no tap)
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, Sparkles } from 'lucide-react'
@@ -39,93 +39,94 @@ function AssistProse({ paragraphs }) {
   )
 }
 
-// Codex — CSS-column pagination (the ebook trick): content flows into columns
-// of one page width that overflow horizontally; we translateX to "turn pages".
-function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev }) {
+// Codex — a real open book. CSS-column pagination: content flows into page-width
+// columns that overflow horizontally; on a wide screen TWO columns show at once
+// (left page + right page + spine), and we translateX to turn the spread.
+function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, bookTitle }) {
   const vpRef = useRef(null)
   const pgRef = useRef(null)
-  const [pageW, setPageW] = useState(0)
-  const [pageCount, setPageCount] = useState(1)
-  const [page, setPage] = useState(0)
+  const [spread, setSpread] = useState(0)
+  const [m, setM] = useState({ colW: 0, gap: 0, two: false, spreads: 1 })
   const [tray, setTray] = useState(null)
 
-  useEffect(() => {
+  const measure = useCallback(() => {
     const vp = vpRef.current
-    if (!vp) return
-    const set = () => setPageW(vp.clientWidth)
-    set()
-    const ro = new ResizeObserver(set)
-    ro.observe(vp)
-    return () => ro.disconnect()
+    const pg = pgRef.current
+    if (!vp || !pg) return
+    const w = vp.clientWidth
+    if (!w) return
+    const two = w >= 600                       // open-book spread on wide screens, single page on phones
+    const gap = two ? 56 : 0                    // the spine gutter
+    const colW = two ? (w - gap) / 2 : w
+    pg.style.columnWidth = `${colW}px`
+    pg.style.columnGap = `${gap}px`
+    // force layout, then count columns → spreads
+    const cols = Math.max(1, Math.round((pg.scrollWidth + gap) / (colW + gap)))
+    const spreads = Math.max(1, Math.ceil(cols / (two ? 2 : 1)))
+    setM({ colW, gap, two, spreads })
+    setSpread((s) => Math.min(s, spreads - 1))
   }, [])
 
-  // measure page count once the column layout (and fonts) have settled
   useEffect(() => {
-    if (!pageW) return
-    let raf
-    const measure = () => {
-      const pg = pgRef.current
-      if (!pg) return
-      const total = Math.max(1, Math.round(pg.scrollWidth / pageW))
-      setPageCount(total)
-      setPage((p) => Math.min(p, total - 1))
-    }
-    raf = requestAnimationFrame(() => requestAnimationFrame(measure))
-    const t = setTimeout(measure, 420)
-    return () => { cancelAnimationFrame(raf); clearTimeout(t) }
-  }, [pageW, paragraphs, chapter?.id])
+    measure()
+    const ro = new ResizeObserver(() => measure())
+    if (vpRef.current) ro.observe(vpRef.current)
+    const t1 = setTimeout(measure, 250)
+    const t2 = setTimeout(measure, 650)        // re-measure after the serif font loads
+    return () => { ro.disconnect(); clearTimeout(t1); clearTimeout(t2) }
+  }, [measure, paragraphs, chapter?.id])
 
-  useEffect(() => { setPage(0); setTray(null) }, [chapter?.id])
+  useEffect(() => { setSpread(0); setTray(null) }, [chapter?.id])
 
+  const stride = (m.two ? 2 : 1) * (m.colW + m.gap)
   const go = (dir) => {
     setTray(null)
-    if (dir > 0) { if (page < pageCount - 1) setPage(page + 1); else if (hasNext) onNext() }
-    else { if (page > 0) setPage(page - 1); else if (hasPrev) onPrev() }
+    if (dir > 0) { if (spread < m.spreads - 1) setSpread(spread + 1); else if (hasNext) onNext() }
+    else { if (spread > 0) setSpread(spread - 1); else if (hasPrev) onPrev() }
   }
 
   return (
     <div className="lib-codex">
-      <div className="lib-codex-viewport" ref={vpRef}>
-        <div
-          className="lib-codex-pages"
-          ref={pgRef}
-          style={{ columnWidth: pageW ? `${pageW}px` : '100%', transform: `translateX(${-page * pageW}px)` }}
-        >
-          <div className="lib-codex-chhead">
-            <div className="ch-num">{`Chapter ${chapter?.chapter_number}`}</div>
-            <div className="ch-title">{chapter?.title_en || chapter?.title_ar}</div>
+      <div className="lib-book">
+        <div className="lib-book-head">{bookTitle}</div>
+        <div className="lib-book-spread" ref={vpRef}>
+          <div className="lib-codex-pages" ref={pgRef} style={{ transform: `translateX(${-spread * stride}px)` }}>
+            <div className="lib-codex-chhead">
+              <div className="ch-num">{`Chapter ${chapter?.chapter_number}`}</div>
+              <div className="ch-title">{chapter?.title_en || chapter?.title_ar}</div>
+            </div>
+            {paragraphs.map((p, i) => (
+              <p key={p.id} className={`lib-codex-p${i === 0 ? ' first' : ''}`}>
+                {p.sentences.map((s) => (
+                  <span
+                    key={s.id}
+                    className="lib-sentence"
+                    data-dialogue={s.is_dialogue || undefined}
+                    onClick={() => setTray({ en: s.text_en, ar: s.text_ar })}
+                  >
+                    {s.text_en}{' '}
+                  </span>
+                ))}
+              </p>
+            ))}
           </div>
-          {paragraphs.map((p) => (
-            <p key={p.id} className="lib-codex-p">
-              {p.sentences.map((s) => (
-                <span
-                  key={s.id}
-                  className="lib-sentence"
-                  data-dialogue={s.is_dialogue || undefined}
-                  onClick={() => setTray({ en: s.text_en, ar: s.text_ar })}
-                >
-                  {s.text_en}{' '}
-                </span>
-              ))}
-            </p>
-          ))}
+          <button className="lib-codex-edge left" onClick={() => go(-1)} aria-label="الصفحة السابقة" />
+          <button className="lib-codex-edge right" onClick={() => go(1)} aria-label="الصفحة التالية" />
         </div>
-      </div>
-      <button className="lib-codex-edge left" onClick={() => go(-1)} aria-label="الصفحة السابقة" />
-      <button className="lib-codex-edge right" onClick={() => go(1)} aria-label="الصفحة التالية" />
-      <div className="lib-codex-foot">
-        <button onClick={() => go(-1)} disabled={page === 0 && !hasPrev}>‹</button>
-        <span className="pg">{page + 1} / {pageCount}</span>
-        <button onClick={() => go(1)}>{page >= pageCount - 1 && !hasNext ? '✦' : '›'}</button>
+        <div className="lib-codex-foot">
+          <button onClick={() => go(-1)} disabled={spread === 0 && !hasPrev}>‹</button>
+          <span className="pg">{spread + 1} / {m.spreads}</span>
+          <button onClick={() => go(1)}>{spread >= m.spreads - 1 && !hasNext ? '✦' : '›'}</button>
+        </div>
       </div>
       <AnimatePresence>
         {tray && (
           <motion.div
             className="lib-codex-tray"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
+            initial={{ x: '-50%', y: 44, opacity: 0 }}
+            animate={{ x: '-50%', y: 0, opacity: 1 }}
+            exit={{ x: '-50%', y: 44, opacity: 0 }}
+            transition={{ duration: 0.26, ease: [0.22, 0.61, 0.36, 1] }}
           >
             <div className="en" dir="ltr">{tray.en}</div>
             {tray.ar && <div className="ar" dir="rtl">{tray.ar}</div>}
@@ -202,7 +203,7 @@ export default function LibraryReader() {
         </div>
       ) : mode === 'codex' ? (
         isLoading ? <div className="lib-page"><div className="lib-skel" style={{ height: 320 }} /></div>
-          : hasContent ? <CodexProse paragraphs={paragraphs} chapter={current} onNext={onNext} onPrev={onPrev} hasNext={!!next} hasPrev={!!prev} />
+          : hasContent ? <CodexProse paragraphs={paragraphs} chapter={current} onNext={onNext} onPrev={onPrev} hasNext={!!next} hasPrev={!!prev} bookTitle={book?.title_en || book?.title_ar} />
             : <div className="lib-page"><div className="lib-empty">هذا الفصل قيد الإعداد.</div></div>
       ) : (
         <div className="lib-page">

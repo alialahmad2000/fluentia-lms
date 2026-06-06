@@ -227,36 +227,62 @@
 .lib-chapter-row .ti .e { font-family: var(--lib-serif); font-style: italic; font-size: 13px; color: var(--ds-text-tertiary, #94a3b8); }
 .lib-chapter-row .w { font-size: 11px; color: var(--ds-text-tertiary, #94a3b8); font-family: 'Tajawal', sans-serif; }
 
-/* ---- Codex (book pages) mode -------------------------------------------- */
-.lib-codex { position: relative; }
-.lib-codex-viewport { overflow: hidden; padding: 4px 22px 0; }
-.lib-codex-pages {
-  column-gap: 0; column-fill: auto; direction: ltr;
-  height: clamp(420px, 64dvh, 720px);
-  will-change: transform;
-  transition: transform .42s cubic-bezier(.22, .61, .36, 1);
+/* ---- Codex (Pages) — a real open book of warm paper on the midnight desk -- */
+.lib-codex { display: flex; flex-direction: column; align-items: center; padding: 8px 0 20px; }
+.lib-book {
+  position: relative; width: min(940px, 96vw); color: #2b2117;
+  background: radial-gradient(120% 82% at 50% -4%, #fbf4e4 0%, #f4e8d1 52%, #ecdcbe 100%);
+  border-radius: 6px; padding: 30px 40px 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.45), 0 34px 80px -28px rgba(0,0,0,0.85), inset 0 0 70px rgba(120,86,40,0.10);
 }
-.lib-codex-chhead { break-inside: avoid; text-align: center; padding: 4px 0 22px; }
-.lib-codex-chhead .ch-num { font-family: var(--lib-serif); font-style: italic; color: var(--lib-whisper); font-size: 14px; letter-spacing: 0.1em; }
-.lib-codex-chhead .ch-title { font-family: var(--lib-serif); font-weight: 600; font-size: 25px; color: var(--lib-ink); margin-top: 4px; line-height: 1.1; }
-.lib-codex-p { font-family: var(--lib-serif); font-size: 19px; line-height: 1.9; color: var(--lib-ink); margin: 0 0 1em; text-align: left; direction: ltr; }
-.lib-codex-edge { position: absolute; top: 0; bottom: 46px; width: 24%; background: none; border: none; cursor: pointer; z-index: 3; }
+/* paper grain */
+.lib-book::before {
+  content: ""; position: absolute; inset: 0; border-radius: 6px; pointer-events: none; opacity: 0.42; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 150px;
+}
+/* page-thickness edges peeking beneath the book */
+.lib-book::after {
+  content: ""; position: absolute; top: 7px; bottom: 7px; left: -4px; right: -4px; z-index: -1; border-radius: 7px;
+  background: repeating-linear-gradient(90deg, #cdbb96 0, #ece0c6 1.5px, #cdbb96 3px);
+}
+.lib-book-head { position: relative; text-align: center; font-family: var(--lib-serif); font-style: italic; letter-spacing: 0.16em; font-size: 11.5px; color: #836c46; text-transform: uppercase; margin-bottom: 16px; }
+.lib-book-spread { position: relative; overflow: hidden; }
+/* the spine — soft center crease where the two pages meet */
+.lib-book-spread::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 64px; transform: translateX(-50%); pointer-events: none; z-index: 2;
+  background: radial-gradient(58% 100% at 50% 50%, rgba(86,58,20,0.20), transparent 74%);
+}
+@media (max-width: 599px) { .lib-book { padding: 22px 22px 14px; } .lib-book-spread::after { display: none; } }
+.lib-codex-pages {
+  column-fill: auto; direction: ltr; height: clamp(440px, 62dvh, 700px);
+  will-change: transform; transition: transform .52s cubic-bezier(.36, .12, .2, 1);
+}
+.lib-codex-chhead { break-inside: avoid; text-align: center; margin-bottom: 16px; }
+.lib-codex-chhead .ch-num { font-family: var(--lib-serif); font-style: italic; color: #8a6f47; font-size: 13.5px; letter-spacing: 0.1em; }
+.lib-codex-chhead .ch-title { font-family: var(--lib-serif); font-weight: 600; font-size: 23px; color: #2b2117; margin-top: 3px; line-height: 1.12; }
+.lib-codex-p { font-family: var(--lib-serif); font-size: 18.5px; line-height: 1.76; color: #2b2117; margin: 0 0 0.8em; text-align: justify; -webkit-hyphens: auto; hyphens: auto; direction: ltr; }
+.lib-codex-p.first::first-letter { font-size: 3.1em; line-height: 0.78; float: left; padding: 8px 9px 0 0; font-weight: 600; color: #6b4f28; }
+.lib-codex-p .lib-sentence { cursor: pointer; border-radius: 2px; transition: background .2s ease; }
+.lib-codex-p .lib-sentence:hover { background: rgba(120,86,40,0.12); }
+.lib-codex-p .lib-sentence[data-dialogue] { font-style: italic; }
+.lib-codex-edge { position: absolute; top: 0; bottom: 0; width: 28%; background: none; border: none; cursor: pointer; z-index: 4; }
 .lib-codex-edge.left { left: 0; }
 .lib-codex-edge.right { right: 0; }
-.lib-codex-foot { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 14px 0 4px; }
-.lib-codex-foot button { background: rgba(237,228,211,0.06); border: 1px solid var(--lib-line); color: var(--lib-ink); width: 44px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 18px; line-height: 1; }
-.lib-codex-foot button:disabled { opacity: 0.3; cursor: default; }
-.lib-codex-foot .pg { font-family: 'Tajawal', sans-serif; font-size: 12px; color: var(--lib-whisper); min-width: 66px; text-align: center; }
+.lib-codex-foot { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 12px; }
+.lib-codex-foot button { background: #e9dabb; border: 1px solid #c9b285; color: #5a4423; width: 46px; height: 36px; border-radius: 9px; cursor: pointer; font-size: 18px; line-height: 1; box-shadow: 0 1px 2px rgba(0,0,0,0.22); }
+.lib-codex-foot button:disabled { opacity: 0.4; cursor: default; }
+.lib-codex-foot .pg { font-family: 'Tajawal', sans-serif; font-size: 12px; color: #836c46; min-width: 84px; text-align: center; }
+/* veil-lift in Codex — a parchment slip that rises (so pages never reflow) */
 .lib-codex-tray {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-  background: linear-gradient(180deg, var(--lib-paper-2), var(--lib-paper));
-  border-top: 1px solid rgba(251,191,36,0.3); border-radius: 16px 16px 0 0;
-  padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
-  box-shadow: 0 -16px 44px -16px rgba(0,0,0,0.7);
+  position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 60; width: min(620px, 92vw);
+  background: radial-gradient(120% 100% at 50% 0%, #fbf4e4, #efe1c6);
+  border: 1px solid #c9b285; border-radius: 14px; padding: 15px 20px; color: #2b2117;
+  box-shadow: 0 26px 54px -18px rgba(0,0,0,0.7);
 }
-.lib-codex-tray .en { font-family: var(--lib-serif); font-size: 17px; color: var(--lib-ink); margin-bottom: 6px; direction: ltr; }
-.lib-codex-tray .ar { font-family: 'Tajawal', sans-serif; font-size: 15px; color: var(--lib-whisper); line-height: 1.8; }
-.lib-codex-tray .close { margin-top: 10px; background: none; border: none; color: var(--lib-gold); font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
+.lib-codex-tray .en { font-family: var(--lib-serif); font-size: 17px; margin-bottom: 6px; direction: ltr; }
+.lib-codex-tray .ar { font-family: 'Tajawal', sans-serif; font-size: 15px; color: #5a4423; line-height: 1.8; direction: rtl; }
+.lib-codex-tray .close { margin-top: 10px; background: none; border: none; color: #8a5a18; font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
 
 .lib-empty { text-align: center; color: var(--ds-text-tertiary, #94a3b8); font-family: 'Tajawal', sans-serif; padding: 40px 16px; font-size: 14px; }
 .lib-skel { height: 220px; border-radius: 12px; background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06), rgba(255,255,255,0.03)); background-size: 200% 100%; animation: lib-shimmer 1.4s infinite; }
