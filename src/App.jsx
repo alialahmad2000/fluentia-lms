@@ -29,6 +29,14 @@ import { AuroraBackground } from './design-system/components'
 // ─── MEGA-FIX V2 Phase D — Popup contract foundation ─────────
 import SidebarMetricsObserver from './lib/ui/SidebarMetricsObserver'
 
+// ─── CS Ops — /team workspace (agent + admin) ────────────────
+const TeamWorkspace = lazyRetry(() => import('./pages/team/TeamWorkspace'))
+const TeamPipeline  = lazyRetry(() => import('./pages/team/TeamPipeline'))
+const TeamFollowups = lazyRetry(() => import('./pages/team/TeamFollowups'))
+const TeamSchedule  = lazyRetry(() => import('./pages/team/TeamSchedule'))
+const CsPerformance = lazyRetry(() => import('./pages/admin/CsPerformance'))
+const CsIntegrations = lazyRetry(() => import('./pages/admin/CsIntegrations'))
+
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -511,6 +519,8 @@ function RoleRedirect() {
       return <Navigate to="/admin" replace />
     case 'affiliate':
       return <Navigate to="/partner" replace />
+    case 'agent':
+      return <Navigate to="/team" replace />
     default:
       return <Navigate to="/login" replace />
   }
@@ -889,6 +899,18 @@ export default function App() {
             </Route>
           </Route>
 
+          {/* CS Team workspace (agent + admin) */}
+          <Route element={<ProtectedRoute allowedRoles={['agent', 'admin']} />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
+              <Route path="/team" element={<Page><TeamWorkspace /></Page>}>
+                <Route index element={<Navigate to="/team/pipeline" replace />} />
+                <Route path="pipeline" element={<Page><TeamPipeline /></Page>} />
+                <Route path="followups" element={<Page><TeamFollowups /></Page>} />
+                <Route path="schedule" element={<Page><TeamSchedule /></Page>} />
+              </Route>
+            </Route>
+          </Route>
+
           {/* Admin routes */}
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
             <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
@@ -898,6 +920,8 @@ export default function App() {
               <Route path="/admin/trainers" element={<Page><AdminTrainers /></Page>} />
               <Route path="/admin/packages" element={<Page><AdminPayments /></Page>} />
               <Route path="/admin/reports" element={<Page><AdminReports /></Page>} />
+              <Route path="/admin/cs-performance" element={<Page><CsPerformance /></Page>} />
+              <Route path="/admin/integrations" element={<Page><CsIntegrations /></Page>} />
               <Route path="/admin/bug-reports" element={<Page><AdminBugReports /></Page>} />
               {/* Retention — admin */}
               <Route path="/admin/retention" element={<Page><AdminRetentionMasterSwitch /></Page>} />
