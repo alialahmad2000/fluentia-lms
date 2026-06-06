@@ -54,7 +54,7 @@ export function useBook(bookId) {
       if (error) throw error
       const { data: chapters, error: chErr } = await supabase
         .from('library_chapters')
-        .select('id,chapter_number,title_en,title_ar,word_count,audio_url')
+        .select('id,chapter_number,title_en,title_ar,word_count,audio_url,illustrations')
         .eq('book_id', bookId)
         .order('chapter_number', { ascending: true })
       if (chErr) throw chErr

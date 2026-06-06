@@ -315,6 +315,38 @@
 .lib-codex-tray .ar { font-family: 'Tajawal', sans-serif; font-size: 15px; color: #5a4423; line-height: 1.8; direction: rtl; }
 .lib-codex-tray .close { margin-top: 10px; background: none; border: none; color: #8a5a18; font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
 
+/* free-edge sheen on the turning leaf — reads more like real paper */
+.lib-leaf::before { content: ""; position: absolute; inset: 0; pointer-events: none; }
+.lib-leaf.next::before { background: linear-gradient(90deg, transparent 58%, rgba(255,255,255,0.2) 92%, rgba(60,40,12,0.08) 100%); }
+.lib-leaf.prev::before { background: linear-gradient(270deg, transparent 58%, rgba(255,255,255,0.2) 92%, rgba(60,40,12,0.08) 100%); }
+
+/* illustration plates */
+.lib-plate { margin: 30px auto; }
+.lib-plate img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; border: 1px solid rgba(237,228,211,0.12); box-shadow: 0 20px 46px -22px rgba(0,0,0,0.78); }
+.lib-plate figcaption { font-family: var(--lib-serif); font-style: italic; font-size: 12.5px; color: var(--lib-whisper); text-align: center; margin-top: 9px; }
+.lib-codex-plate { break-inside: avoid; margin: 4px 0 16px; }
+.lib-codex-plate img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; border: 1px solid rgba(90,60,20,0.22); box-shadow: 0 10px 22px -12px rgba(60,40,12,0.55); }
+.lib-codex-plate figcaption { font-family: var(--lib-serif); font-style: italic; font-size: 11.5px; color: #8a6f47; text-align: center; margin-top: 6px; }
+
+/* paper-colour picker (Codex) */
+.lib-papers { display: flex; align-items: center; gap: 6px; }
+.lib-swatch { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.3); cursor: pointer; padding: 0; box-shadow: inset 0 1px 2px rgba(0,0,0,0.15); }
+.lib-swatch[data-active="true"] { outline: 2px solid var(--lib-gold); outline-offset: 2px; }
+.lib-swatch[data-paper="ivory"] { background: #f1e9d7; }
+.lib-swatch[data-paper="cream"] { background: #fbf8f0; }
+.lib-swatch[data-paper="linen"] { background: #f3f4f1; }
+.lib-swatch[data-paper="parchment"] { background: #f0e6cd; }
+.lib-swatch[data-paper="sepia"] { background: #ecddbd; }
+/* paper variants applied to the book */
+.lib-book[data-paper="cream"] { background: radial-gradient(125% 92% at 50% -6%, #fdfaf3 0%, #faf6ec 54%, #f3ecdd 100%); }
+.lib-book[data-paper="cream"] .lib-leaf { background: linear-gradient(105deg, #fdfaf3, #faf6ec 58%, #f3ecdd); }
+.lib-book[data-paper="linen"] { background: radial-gradient(125% 92% at 50% -6%, #f8f9f6 0%, #f2f3ef 54%, #e9ebe5 100%); }
+.lib-book[data-paper="linen"] .lib-leaf { background: linear-gradient(105deg, #f8f9f6, #f2f3ef 58%, #e9ebe5); }
+.lib-book[data-paper="parchment"] { background: radial-gradient(125% 92% at 50% -6%, #f6ecd2 0%, #efe2c2 54%, #e6d6b0 100%); }
+.lib-book[data-paper="parchment"] .lib-leaf { background: linear-gradient(105deg, #f6ecd2, #efe2c2 58%, #e6d6b0); }
+.lib-book[data-paper="sepia"] { background: radial-gradient(125% 92% at 50% -6%, #f3e7c9 0%, #ecdcb8 54%, #e1cfa3 100%); }
+.lib-book[data-paper="sepia"] .lib-leaf { background: linear-gradient(105deg, #f3e7c9, #ecdcb8 58%, #e1cfa3); }
+
 .lib-empty { text-align: center; color: var(--ds-text-tertiary, #94a3b8); font-family: 'Tajawal', sans-serif; padding: 40px 16px; font-size: 14px; }
 .lib-skel { height: 220px; border-radius: 12px; background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06), rgba(255,255,255,0.03)); background-size: 200% 100%; animation: lib-shimmer 1.4s infinite; }
 @keyframes lib-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
