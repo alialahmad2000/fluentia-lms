@@ -18,6 +18,7 @@ import './teacher.css'
  */
 export default function TeacherLayout() {
   const profile = useAuthStore((s) => s.profile)
+  const impersonation = useAuthStore((s) => s.impersonation)
   const location = useLocation()
 
   usePageTracking()
@@ -26,6 +27,13 @@ export default function TeacherLayout() {
     document.body.classList.add('teacher-role')
     return () => document.body.classList.remove('teacher-role')
   }, [])
+
+  // Offset the shell below the admin impersonation banner (44px) so it never
+  // covers the teacher header/sidebar while previewing as a trainer.
+  useEffect(() => {
+    document.documentElement.style.setProperty('--impersonation-banner-height', impersonation ? '44px' : '0px')
+    return () => document.documentElement.style.setProperty('--impersonation-banner-height', '0px')
+  }, [impersonation])
 
   useEffect(() => {
     const content = document.querySelector('.tea-content')
