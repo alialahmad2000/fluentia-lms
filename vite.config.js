@@ -3,6 +3,13 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import fs from 'fs'
 
+// Single source of truth for this build's version. Written to version.json AND
+// embedded into the bundle as __BUILD_VERSION__, so the running code knows its
+// OWN version and can reliably detect a newer deploy (fixes the stale-PWA bug
+// where the updater baselined to the remote version and never noticed it was
+// running old code).
+const BUILD_VERSION = Date.now().toString(36)
+
 export default defineConfig(({ mode }) => ({
   // In production, strip all console.* and debugger statements.
   // The codebase has ~236 console calls (mostly error/warn for dev diagnostics);
@@ -10,16 +17,18 @@ export default defineConfig(({ mode }) => ({
   // on hot paths. esbuild's `drop` is safer than sed-deleting them from source
   // since dev builds still log normally.
   esbuild: mode === 'production' ? { drop: ['console', 'debugger'] } : {},
+  define: {
+    __BUILD_VERSION__: JSON.stringify(BUILD_VERSION),
+  },
   plugins: [
     react(),
     {
       name: 'version-stamp',
       buildStart() {
-        const version = JSON.stringify({
-          version: Date.now().toString(36),
+        fs.writeFileSync('public/version.json', JSON.stringify({
+          version: BUILD_VERSION,
           buildTime: new Date().toISOString(),
-        })
-        fs.writeFileSync('public/version.json', version)
+        }))
       },
     },
     VitePWA({

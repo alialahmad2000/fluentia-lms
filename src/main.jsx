@@ -83,45 +83,27 @@ try {
 // device. No visibilitychange listener (loop risk). Boot-only is sufficient.
 ;(async function selfHealStaleClient() {
   try {
-    const alreadyTried = sessionStorage.getItem('fluentia:self-heal-attempted')
+    // The version THIS bundle was built as (embedded at build time). Compared to
+    // the deployed /version.json. If they differ, the device is running stale
+    // code (a stubborn SW/CDN cache) → clear caches, unregister SWs, hard reload.
+    // This is reliable because it knows the running version directly — no fragile
+    // localStorage baseline that could mark a stale device as "up to date".
+    const running = (typeof __BUILD_VERSION__ !== 'undefined') ? __BUILD_VERSION__ : null
+    if (!running) return // bundle predates version embedding — nothing to compare
     const res = await fetch('/version.json?_=' + Date.now(), { cache: 'no-store' })
     if (!res.ok) return
     const remote = await res.json()
     if (!remote?.version) return
+    if (running === remote.version) return // running the latest build — done
 
-    const local = localStorage.getItem('fluentia:bundle-version')
-
-    if (alreadyTried === '1') {
-      // Reload already attempted this session; persistent mismatch means
-      // something is wrong upstream (CDN, SW, manual cache). Log to console
-      // and stop — we will not loop the device.
-      if (local && local !== remote.version) {
-        // eslint-disable-next-line no-console
-        console.warn('[self-heal] version mismatch persists after reload — giving up', {
-          local,
-          remote: remote.version,
-        })
-      } else if (local !== remote.version) {
-        // First boot of a healing session — record current version.
-        localStorage.setItem('fluentia:bundle-version', remote.version)
-      }
+    // Stale. Heal exactly once per session (sessionStorage guard) so a stubborn
+    // upstream cache that survives the purge can never loop the device.
+    if (sessionStorage.getItem('fluentia:self-heal-attempted') === '1') {
+      // eslint-disable-next-line no-console
+      console.warn('[self-heal] still stale after reload — giving up', { running, remote: remote.version })
       return
     }
-
-    if (!local) {
-      // Fresh device — no marker yet. Just record it; no reload.
-      localStorage.setItem('fluentia:bundle-version', remote.version)
-      return
-    }
-    if (local === remote.version) {
-      // Up-to-date — done.
-      return
-    }
-
-    // Mismatch — try to self-heal exactly once.
     sessionStorage.setItem('fluentia:self-heal-attempted', '1')
-    localStorage.setItem('fluentia:bundle-version', remote.version)
-
     if ('caches' in window) {
       const keys = await caches.keys()
       await Promise.all(keys.map((k) => caches.delete(k)))
