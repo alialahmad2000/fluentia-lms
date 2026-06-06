@@ -14,8 +14,10 @@ export default function ImpersonateButton({ userId, role, name, variant = 'icon'
     await startImpersonation(userId, role, name)
     // Clear all cached queries so the impersonated user's data is fetched fresh
     queryClient.clear()
-    // Full page load forces all components to remount with new user context
-    window.location.href = role === 'student' ? '/student' : '/trainer'
+    // Full page load forces all components to remount with new user context.
+    // Route to the impersonated role's home (agents → /team, admins → /admin).
+    const dest = role === 'student' ? '/student' : role === 'agent' ? '/team' : role === 'admin' ? '/admin' : '/trainer'
+    window.location.href = dest
   }
 
   if (variant === 'icon') {

@@ -67,5 +67,33 @@ serve(async (req) => {
     return json({ ok: true });
   }
 
+  if (action === "delete") {
+    const { user_id } = body;
+    if (!user_id) return json({ error: "invalid input" }, 400);
+    if (user_id === user.id) return json({ error: "لا يمكنك حذف حسابك" }, 400);
+    const { data: target } = await sb.from("profiles").select("role").eq("id", user_id).maybeSingle();
+    if (!target) return json({ error: "الحساب غير موجود" }, 404);
+    // never remove the last admin
+    if (target.role === "admin") {
+      const { count } = await sb.from("profiles").select("id", { count: "exact", head: true }).eq("role", "admin");
+      if ((count || 0) <= 1) return json({ error: "لا يمكن حذف آخر مدير" }, 400);
+    }
+    // clear the only soft refs that block a profile delete (the user's own notifications),
+    // plus a trainers stub row if present.
+    await sb.from("notifications").delete().eq("user_id", user_id);
+    await sb.from("trainers").delete().eq("id", user_id);
+    // Delete the profile. FK NO-ACTION constraints on REAL data (lessons, grading,
+    // payments, messages, students…) will block this — which is the safety net:
+    // an account with history can't be hard-deleted, only deactivated.
+    const { error: pErr } = await sb.from("profiles").delete().eq("id", user_id);
+    if (pErr) {
+      return json({ error: "هذا الحساب مرتبط ببيانات سابقة (دروس/تصحيح/طلاب…) فلا يمكن حذفه نهائياً — عطّله بدلاً من ذلك." }, 409);
+    }
+    // Remove the auth user (no profiles↔auth cascade in this project).
+    const { error: aErr } = await sb.auth.admin.deleteUser(user_id);
+    if (aErr) return json({ ok: true, warning: "profile deleted; auth remained: " + aErr.message });
+    return json({ ok: true });
+  }
+
   return json({ error: "unknown action" }, 400);
 });

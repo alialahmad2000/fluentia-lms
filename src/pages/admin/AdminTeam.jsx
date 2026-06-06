@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
-import { UserPlus, Shield, GraduationCap, Headset, X, Copy, Check, Power, KeyRound, BarChart3 } from 'lucide-react'
+import { UserPlus, Shield, GraduationCap, Headset, X, Copy, Check, Power, KeyRound, BarChart3, Trash2 } from 'lucide-react'
 import { toast } from '../../components/ui/FluentiaToast'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { timeAgo } from '../../utils/dateHelpers'
+import ImpersonateButton from '../../components/ImpersonateButton'
+import { useAuthStore } from '../../stores/authStore'
 
 const ROLES = [
   { key: 'admin',   label: 'مدير',         group: 'المدراء',        icon: Shield },
@@ -97,7 +99,7 @@ function AddStaffModal({ onClose, onDone }) {
   )
 }
 
-function StaffRow({ s, onChanged }) {
+function StaffRow({ s, selfId, onChanged }) {
   const [busy, setBusy] = useState(false)
   const meta = roleMeta(s.role)
   const run = async (fn, ok) => {
@@ -108,6 +110,11 @@ function StaffRow({ s, onChanged }) {
   const changeRole = (e) => { const r = e.target.value; if (r !== s.role) run(async () => { const { error } = await supabase.rpc('admin_set_role', { p_user: s.id, p_role: r }); if (error) throw error }, 'تم تغيير الدور') }
   const toggleActive = () => run(() => callStaff({ action: 'set_active', user_id: s.id, active: s.is_banned }), s.is_banned ? 'تمت إعادة التفعيل' : 'تم التعطيل')
   const resetPw = () => { const p = genPassword(); run(async () => { await callStaff({ action: 'reset_password', user_id: s.id, password: p }); navigator.clipboard?.writeText(p) }, 'كلمة مرور جديدة نُسخت: ' + p) }
+  const del = () => {
+    if (s.id === selfId) return
+    if (!window.confirm(`حذف حساب "${s.name}" نهائياً؟ لا يمكن التراجع.\n(إن كان مرتبطاً ببيانات سابقة فلن يُحذف — عطّله بدلاً من ذلك.)`)) return
+    run(() => callStaff({ action: 'delete', user_id: s.id }), 'تم حذف الحساب')
+  }
 
   return (
     <div className="flex items-center justify-between gap-3 px-4 py-3" style={{ borderTop: '1px solid var(--ds-border-subtle)' }}>
@@ -120,12 +127,14 @@ function StaffRow({ s, onChanged }) {
         <div className="text-[11px]" style={{ color: 'var(--ds-text-muted)' }}>{s.last_active_at ? 'آخر نشاط ' + timeAgo(s.last_active_at) : 'لم يدخل بعد'}</div>
       </div>
       <div className="flex items-center gap-1.5 shrink-0">
+        {s.id !== selfId && <ImpersonateButton userId={s.id} role={s.role} name={s.name} />}
         {s.role === 'agent' && <Link to="/admin/cs-performance" className="p-1.5 rounded" style={{ color: 'var(--ds-text-tertiary)' }} title="أداء خدمة العملاء"><BarChart3 size={15} /></Link>}
         <select disabled={busy} value={s.role} onChange={changeRole} className="text-xs rounded-lg px-2 py-1.5" style={{ background: 'var(--ds-surface-2)', border: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-secondary)' }}>
           {ROLES.map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
         </select>
         <button disabled={busy} onClick={resetPw} className="p-1.5 rounded" style={{ color: 'var(--ds-text-tertiary)' }} title="إعادة تعيين كلمة المرور"><KeyRound size={15} /></button>
         <button disabled={busy} onClick={toggleActive} className="p-1.5 rounded" style={{ color: s.is_banned ? 'var(--ds-accent-success)' : 'var(--ds-accent-danger)' }} title={s.is_banned ? 'تفعيل' : 'تعطيل'}><Power size={15} /></button>
+        {s.id !== selfId && <button disabled={busy} onClick={del} className="p-1.5 rounded" style={{ color: 'var(--ds-accent-danger)' }} title="حذف نهائي"><Trash2 size={15} /></button>}
       </div>
     </div>
   )
@@ -133,6 +142,7 @@ function StaffRow({ s, onChanged }) {
 
 export default function AdminTeam() {
   const qc = useQueryClient()
+  const selfId = useAuthStore((s) => s.profile?.id)
   const [showAdd, setShowAdd] = useState(false)
   const { data: staff = [], isLoading } = useQuery({
     queryKey: ['admin-staff'],
@@ -167,7 +177,7 @@ export default function AdminTeam() {
             <div style={card}>
               {members.length === 0
                 ? <div className="text-xs text-center py-5" style={{ color: 'var(--ds-text-muted)' }}>لا يوجد</div>
-                : members.map((s) => <StaffRow key={s.id} s={s} onChanged={refresh} />)}
+                : members.map((s) => <StaffRow key={s.id} s={s} selfId={selfId} onChanged={refresh} />)}
             </div>
           </div>
         )
