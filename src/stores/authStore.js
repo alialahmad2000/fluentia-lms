@@ -295,6 +295,7 @@ export const useAuthStore = create((set, get) => ({
     return ['trainer', 'admin'].includes(s.profile?.role)
   },
   isStudent: () => get().profile?.role === 'student',
+  isAgent: () => get().profile?.role === 'agent',
   isImpersonating: () => !!get().impersonation,
 }))
 
@@ -332,6 +333,7 @@ export const useIsTrainer = () =>
     return ['trainer', 'admin'].includes(s.profile?.role)
   })
 export const useIsStudent = () => useAuthStore((s) => s.profile?.role === 'student')
+export const useIsAgent = () => useAuthStore((s) => s.profile?.role === 'agent')
 export const useIsImpersonating = () => useAuthStore((s) => !!s.impersonation)
 
 // Action-only hook — actions are stable references, useShallow keeps the

@@ -29,6 +29,12 @@ import { AuroraBackground } from './design-system/components'
 // ─── MEGA-FIX V2 Phase D — Popup contract foundation ─────────
 import SidebarMetricsObserver from './lib/ui/SidebarMetricsObserver'
 
+// ─── CS Ops — /team workspace (agent + admin) ────────────────
+const TeamWorkspace = lazyRetry(() => import('./pages/team/TeamWorkspace'))
+const TeamPipeline  = lazyRetry(() => import('./pages/team/TeamPipeline'))
+const TeamFollowups = lazyRetry(() => import('./pages/team/TeamFollowups'))
+const TeamSchedule  = lazyRetry(() => import('./pages/team/TeamSchedule'))
+
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -508,6 +514,8 @@ function RoleRedirect() {
       return <Navigate to="/admin" replace />
     case 'affiliate':
       return <Navigate to="/partner" replace />
+    case 'agent':
+      return <Navigate to="/team" replace />
     default:
       return <Navigate to="/login" replace />
   }
@@ -879,6 +887,18 @@ export default function App() {
                 <Route key={p} path={p} element={<Navigate to="/trainer" replace />} />
               ))}
               <Route path="/trainer/ai-assistant" element={<Navigate to="/trainer" replace />} />
+            </Route>
+          </Route>
+
+          {/* CS Team workspace (agent + admin) */}
+          <Route element={<ProtectedRoute allowedRoles={['agent', 'admin']} />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
+              <Route path="/team" element={<Page><TeamWorkspace /></Page>}>
+                <Route index element={<Navigate to="/team/pipeline" replace />} />
+                <Route path="pipeline" element={<Page><TeamPipeline /></Page>} />
+                <Route path="followups" element={<Page><TeamFollowups /></Page>} />
+                <Route path="schedule" element={<Page><TeamSchedule /></Page>} />
+              </Route>
             </Route>
           </Route>
 

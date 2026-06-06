@@ -178,6 +178,7 @@ export const ADMIN_NAV = {
         { id: 'payments',    label: 'المالية',      icon: CreditCard,    to: '/admin/packages' },
         { id: 'marketing',   label: 'التسويق',      icon: Megaphone,     to: '/admin/announcements' },
         { id: 'affiliates',  label: 'الشركاء',      icon: Users,         to: '/admin/affiliates' },
+        { id: 'cs-team',     label: 'فريق العملاء',  icon: Users,         to: '/team/pipeline' },
         { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,        to: '/admin/competition' },
         { id: 'ielts',       label: 'IELTS',         icon: Target,        to: '/admin/curriculum/ielts' },
         { id: 'speaking-hubs', label: 'نادي المحادثة', icon: MessageCircle, to: '/admin/speaking-hubs' },
@@ -204,8 +205,26 @@ export const ADMIN_NAV = {
   ],
 }
 
+export const AGENT_NAV = {
+  sections: [
+    {
+      id: 'cs',
+      label: 'فريق العملاء',
+      items: [
+        { id: 'team', label: 'مساحة الفريق', icon: Users, to: '/team' },
+      ],
+    },
+  ],
+  mobileBar: [
+    { id: 'pipeline',  label: 'العملاء',   icon: Users,         to: '/team/pipeline' },
+    { id: 'followups', label: 'المتابعات', icon: Activity,      to: '/team/followups' },
+    { id: 'schedule',  label: 'الجدولة',   icon: CalendarClock, to: '/team/schedule' },
+  ],
+}
+
 export function getNavForRole(role) {
   if (role === 'trainer') return TRAINER_NAV
   if (role === 'admin') return ADMIN_NAV
+  if (role === 'agent') return AGENT_NAV
   return STUDENT_NAV
 }
