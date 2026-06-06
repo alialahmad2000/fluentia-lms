@@ -98,6 +98,16 @@ function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, boo
     }
   }
 
+  // keyboard paging — English book: → forward, ← back (re-bind each render to stay fresh)
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); turn(1) }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); turn(-1) }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
   const leftNum = spread * per + 1
   const rightNum = m.two ? spread * 2 + 2 : null
   const content = (
@@ -105,6 +115,7 @@ function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, boo
       <div className="lib-codex-chhead">
         <div className="ch-num">{`Chapter ${chapter?.chapter_number}`}</div>
         <div className="ch-title">{chapter?.title_en || chapter?.title_ar}</div>
+        <div className="lib-ch-orn"><span /></div>
       </div>
       {paragraphs.map((p, i) => (
         <p key={p.id} className={`lib-codex-p${i === 0 ? ' first' : ''}`}>
@@ -128,10 +139,10 @@ function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, boo
       <div className="lib-book">
         <div className="lib-book-head">{bookTitle}</div>
         <div className="lib-book-spread" ref={vpRef}>
-          <div className="lib-codex-pages" ref={pgRef} style={{ transform: `translateX(${-spread * stride}px)` }}>
+          <div className="lib-codex-pages" lang="en" ref={pgRef} style={{ transform: `translateX(${-spread * stride}px)` }}>
             {content}
           </div>
-          <div className="lib-codex-measure" ref={measRef} aria-hidden="true">{content}</div>
+          <div className="lib-codex-measure" lang="en" ref={measRef} aria-hidden="true">{content}</div>
           {leftNum <= m.pages && <span className="lib-folio left">{leftNum}</span>}
           {rightNum && rightNum <= m.pages && <span className="lib-folio right">{rightNum}</span>}
           <AnimatePresence>
@@ -142,13 +153,11 @@ function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, boo
                 initial={{ rotateY: 0 }}
                 animate={{ rotateY: flip.dir > 0 ? -174 : 174 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.56, ease: [0.32, 0.04, 0.2, 1] }}
+                transition={{ duration: 0.95, ease: [0.4, 0.0, 0.2, 1] }}
                 onAnimationComplete={() => setFlip(null)}
               />
             )}
           </AnimatePresence>
-          <button className="lib-codex-edge left" onClick={() => turn(-1)} aria-label="الصفحة السابقة" />
-          <button className="lib-codex-edge right" onClick={() => turn(1)} aria-label="الصفحة التالية" />
         </div>
         <div className="lib-codex-foot">
           <button onClick={() => turn(-1)} disabled={spread === 0 && !hasPrev}>‹</button>
