@@ -56,6 +56,19 @@
 .lib-card-tag[data-kind="seal"] { background: rgba(251,191,36,0.12); color: var(--lib-gold); border: 1px solid rgba(251,191,36,0.28); }
 .lib-card-tag[data-kind="tease"] { background: rgba(56,189,248,0.10); color: #7dd3fc; border: 1px solid rgba(56,189,248,0.24); }
 .lib-card-tag[data-kind="soon"] { background: rgba(255,255,255,0.05); color: #94a3b8; border: 1px solid rgba(255,255,255,0.08); }
+/* gold seal on finished books */
+.lib-card-cover { position: relative; }
+.lib-seal-badge { position: absolute; top: 8px; inset-inline-end: 8px; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 35%, #fbbf24, #d97706); color: #2a1c02; font-size: 14px; box-shadow: 0 3px 10px rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.45); }
+/* continue-reading hero */
+.lib-continue { display: flex; align-items: center; gap: 14px; width: 100%; text-align: start; cursor: pointer; background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(255,255,255,0.03)); border: 1px solid rgba(251,191,36,0.24); border-radius: 16px; padding: 12px 14px; margin: 6px 0 10px; transition: transform .2s ease, border-color .2s ease; }
+.lib-continue:hover { transform: translateY(-2px); border-color: rgba(251,191,36,0.4); }
+.lib-continue .lib-cover-wrap { width: 50px; flex-shrink: 0; }
+.lib-continue-info { flex: 1; min-width: 0; }
+.lib-continue-info .k { font-family: 'Tajawal', sans-serif; font-size: 11px; color: var(--lib-gold, #fbbf24); letter-spacing: 0.04em; }
+.lib-continue-info .t { font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 15px; color: var(--ds-text-primary, #f1f5f9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lib-continue-info .s { font-family: var(--lib-serif); font-style: italic; font-size: 12px; color: var(--ds-text-tertiary, #94a3b8); }
+.lib-continue-go { color: var(--lib-gold, #fbbf24); flex-shrink: 0; }
+.lib-detail-seal { margin-top: 10px; display: inline-block; font-family: 'Tajawal', sans-serif; font-size: 12px; color: var(--lib-gold, #fbbf24); background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.28); border-radius: 999px; padding: 4px 12px; }
 
 /* ---- The publisher's-series cover -------------------------------------- */
 .lib-cover {

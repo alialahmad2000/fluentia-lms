@@ -5,10 +5,12 @@
 // Original illustrations (plates) are interleaved at authored positions.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, Sparkles, Settings2 } from 'lucide-react'
 import SentenceReveal, { renderEN } from '../components/SentenceReveal'
-import { useBook, useChapterContent } from '../hooks/useLibrary'
+import { useBook, useChapterContent, saveProgress, completeChapter } from '../hooks/useLibrary'
+import { useAuthProfileId } from '../../../stores/authStore'
 import '../library.css'
 
 const PAPERS = ['ivory', 'cream', 'linen', 'parchment', 'sepia']
@@ -194,6 +196,8 @@ function CodexProse({ blocks, chapter, onNext, onPrev, hasNext, hasPrev, bookTit
 export default function LibraryReader() {
   const { bookId, chapterId } = useParams()
   const navigate = useNavigate()
+  const qc = useQueryClient()
+  const myId = useAuthProfileId()
   const { data: bookData } = useBook(bookId)
   const { data: paragraphs, isLoading } = useChapterContent(chapterId)
   const [mode, setModeRaw] = useState(() => {
@@ -247,6 +251,11 @@ export default function LibraryReader() {
 
   useEffect(() => { setFinished(false); setTray(null); window.scrollTo(0, 0) }, [chapterId])
 
+  // remember where the reader is (powers "continue reading")
+  useEffect(() => {
+    if (myId && bookId && chapterId) saveProgress(myId, bookId, chapterId, mode)
+  }, [myId, bookId, chapterId, mode])
+
   // ambient soundscape — play/pause the theme's loop
   useEffect(() => {
     const el = ambientRef.current
@@ -271,7 +280,12 @@ export default function LibraryReader() {
     if (el) { if (v && ambienceUrl) { el.volume = 0.28; el.play().catch(() => {}) } else { el.pause() } }
   }
   const goChapter = (c) => navigate(`/library/${bookId}/read/${c.id}`)
-  const onNext = () => { if (next) goChapter(next); else setFinished(true) }
+  const onNext = () => {
+    if (myId && current) {
+      completeChapter(myId, bookId, current.id, mode, !next).then(() => qc.invalidateQueries({ queryKey: ['library-my-progress'] }))
+    }
+    if (next) goChapter(next); else setFinished(true)
+  }
   const onPrev = () => { if (prev) goChapter(prev) }
   const hasContent = blocks.length > 0
 

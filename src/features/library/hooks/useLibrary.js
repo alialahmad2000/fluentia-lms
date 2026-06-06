@@ -85,3 +85,52 @@ export function useChapterContent(chapterId) {
     },
   })
 }
+
+// reading progress + completions for the current user (resume + gold seals)
+export function useMyProgress(myId) {
+  return useQuery({
+    queryKey: ['library-my-progress', myId],
+    enabled: !!myId,
+    staleTime: 60 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('library_reading_progress')
+        .select('book_id,current_chapter_id,mode,book_completed_at,updated_at')
+        .eq('student_id', myId)
+        .order('updated_at', { ascending: false })
+      if (error) throw error
+      const rows = data || []
+      const byBook = {}
+      for (const r of rows) byBook[r.book_id] = r
+      return { rows, byBook }
+    },
+  })
+}
+
+// the mode column only allows reveal/assist — codex reads as 'reveal'
+const dbMode = (m) => (m === 'assist' ? 'assist' : 'reveal')
+
+export async function saveProgress(myId, bookId, chapterId, mode) {
+  if (!myId || !bookId || !chapterId) return
+  const { error } = await supabase
+    .from('library_reading_progress')
+    .upsert({ student_id: myId, book_id: bookId, current_chapter_id: chapterId, mode: dbMode(mode), updated_at: new Date().toISOString() }, { onConflict: 'student_id,book_id' })
+    .select()
+  if (error) console.warn('library saveProgress:', error.message)
+}
+
+export async function completeChapter(myId, bookId, chapterId, mode, isLast) {
+  if (!myId || !bookId || !chapterId) return
+  const { error } = await supabase
+    .from('library_chapter_completions')
+    .upsert({ student_id: myId, book_id: bookId, chapter_id: chapterId, mode: dbMode(mode) }, { onConflict: 'student_id,chapter_id' })
+    .select()
+  if (error) console.warn('library completeChapter:', error.message)
+  if (isLast) {
+    const { error: e2 } = await supabase
+      .from('library_reading_progress')
+      .upsert({ student_id: myId, book_id: bookId, current_chapter_id: chapterId, mode: dbMode(mode), book_completed_at: new Date().toISOString(), updated_at: new Date().toISOString() }, { onConflict: 'student_id,book_id' })
+      .select()
+    if (e2) console.warn('library completeBook:', e2.message)
+  }
+}

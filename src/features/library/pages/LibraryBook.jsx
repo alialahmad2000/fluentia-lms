@@ -2,19 +2,25 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { ChevronRight, BookOpen } from 'lucide-react'
 import BookCover from '../components/BookCover'
-import { useBook } from '../hooks/useLibrary'
+import { useBook, useMyProgress } from '../hooks/useLibrary'
+import { useAuthProfileId } from '../../../stores/authStore'
 import '../library.css'
 
 export default function LibraryBook() {
   const { bookId } = useParams()
   const navigate = useNavigate()
+  const myId = useAuthProfileId()
   const { data, isLoading, error } = useBook(bookId)
+  const { data: prog } = useMyProgress(myId)
 
   if (isLoading) return <div className="lib-detail"><div className="lib-skel" style={{ height: 280 }} /></div>
   if (error || !data?.book) return <div className="lib-empty">تعذّر فتح هذه الرواية.</div>
 
   const { book, chapters } = data
   const firstChapter = chapters[0]
+  const bookProg = (prog?.byBook || {})[bookId]
+  const completed = !!bookProg?.book_completed_at
+  const resumeChapter = bookProg?.current_chapter_id && !completed ? bookProg.current_chapter_id : null
 
   return (
     <div className="lib-detail">
@@ -28,14 +34,15 @@ export default function LibraryBook() {
           <h1>{book.title_ar || book.title_en}</h1>
           <div className="en">{book.title_en}</div>
           <div className="by">{book.author_label || 'Fluentia Originals'} · {book.cefr}</div>
+          {completed && <div className="lib-detail-seal">✦ تمّت — رواية كاملة في رصيدك</div>}
         </div>
       </div>
 
       {book.synopsis_ar && <p className="lib-syn">{book.synopsis_ar}</p>}
 
       {firstChapter ? (
-        <button className="lib-start" onClick={() => navigate(`/library/${book.id}/read/${firstChapter.id}`)}>
-          <BookOpen size={17} /> ابدأ القراءة
+        <button className="lib-start" onClick={() => navigate(`/library/${book.id}/read/${resumeChapter || firstChapter.id}`)}>
+          <BookOpen size={17} /> {completed ? 'اقرأ مجدّدًا' : resumeChapter ? 'تابع القراءة' : 'ابدأ القراءة'}
         </button>
       ) : (
         <div className="lib-empty">الفصل الأول قيد الإعداد — قريباً بإذن الله.</div>
