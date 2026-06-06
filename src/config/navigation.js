@@ -155,6 +155,7 @@ export const ADMIN_NAV = {
         { id: 'dashboard',   label: 'الرئيسية',     icon: Home,          to: '/admin' },
         { id: 'reports',     label: 'التقارير',     icon: BarChart3,     to: '/admin/reports' },
         { id: 'mock-exam',   label: 'نتائج الاختبار التجريبي', icon: FileCheck, to: '/admin/mock-exam-results' },
+        { id: 'cs-performance', label: 'أداء فريق العملاء', icon: TrendingUp, to: '/admin/cs-performance' },
       ],
     },
     {
