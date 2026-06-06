@@ -10,6 +10,7 @@ import { useAuthStore } from '../../../../stores/authStore'
 import { usePageReset } from '../../../../hooks/usePageReset'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import VocabularyExercises from './VocabularyExercises'
 import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
 import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
@@ -58,6 +59,7 @@ const cardVariant = {
 export default function VocabularyTab({ unitId }) {
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const [viewMode, setViewMode] = useState('cards')
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -366,6 +368,7 @@ export default function VocabularyTab({ unitId }) {
 
   // Save progress
   const saveProgress = useCallback(async (reviewed, total) => {
+    if (readOnly) return
     if (!profile?.id || !unitId) return
     const reviewedAll = reviewed.size >= total && total > 0
     const row = {

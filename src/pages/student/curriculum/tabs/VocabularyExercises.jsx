@@ -5,6 +5,7 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthProfile } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import { validateAnswer } from '../../../../utils/answerValidator'
 
 // ─── Shuffle helper ───────────────────────────────
@@ -34,6 +35,7 @@ export default function VocabularyExercises({ unitId, allWords }) {
   const [completedExercises, setCompletedExercises] = useState({})
   const [savedProgress, setSavedProgress] = useState(null)
   const progressIdRef = useRef(null)
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
 
   // Load saved exercise progress
   useEffect(() => {
@@ -66,6 +68,7 @@ export default function VocabularyExercises({ unitId, allWords }) {
 
   // Save exercise result
   const saveResult = useCallback(async (exerciseKey, result) => {
+    if (readOnly) return
     if (!profile?.id || !unitId) return
 
     const updated = {

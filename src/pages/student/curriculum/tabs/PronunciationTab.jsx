@@ -8,10 +8,12 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import PronunciationActivity from '../../../../components/curriculum/PronunciationActivity'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 
 export default function PronunciationTab({ unitId, onBack }) {
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const queryClient = useQueryClient()
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const [showReference, setShowReference] = useState(false)
 
   const { data: pronunciation, isLoading } = useQuery({
@@ -97,6 +99,7 @@ export default function PronunciationTab({ unitId, onBack }) {
           pronunciationData={pronunciation}
           unitId={unitId}
           onComplete={() => {
+            if (readOnly) return
             queryClient.invalidateQueries({ queryKey: ['pronunciation-progress', studentData?.id, unitId] })
             queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive'] })
             awardCurriculumXP(studentData?.id, 'pronunciation', null, unitId)

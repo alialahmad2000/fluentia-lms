@@ -10,6 +10,7 @@ import { useG, genderizeText } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
@@ -75,6 +76,7 @@ export default function WritingTab({ unitId }) {
 
 // ─── Writing Task ────────────────────────────────────
 function WritingTask({ task, number, total, studentId, unitId, studentName, groupId, studentLevel }) {
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const g = useG()
   const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
@@ -162,7 +164,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
 
   // Save to DB
   const saveToDb = useCallback(async (currentText, isSubmit = false) => {
-    if (!studentId || !task.id) return
+    if (readOnly || !studentId || !task.id) return
     const wc = countWords(currentText)
     const meetsMin = wc >= task.word_count_min
     const now = new Date().toISOString()
