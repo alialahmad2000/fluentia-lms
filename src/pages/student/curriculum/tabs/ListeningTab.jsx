@@ -6,6 +6,7 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthUser } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { ListeningSection as ListeningSectionUI } from '../../../../components/players/listening/ListeningSection'
 import { TranscriptReader } from '../../../../components/players/listening/TranscriptReader'
@@ -36,6 +37,7 @@ const QUESTION_TYPE_COLORS = {
 // ─── Main Component ─────────────────────────────────
 export default function ListeningTab({ unitId }) {
   const user = useAuthUser()
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
 
   const { data: listenings, isLoading } = useQuery({
     queryKey: ['unit-listening', unitId],
@@ -481,6 +483,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
   //   Autosave (isComplete=false): INSERT or UPDATE, status='in_progress', score=null.
   //   Submit  (isComplete=true):  UPDATE, status='completed', score computed, XP awarded.
   const saveProgress = useCallback(async (currentAnswers, isComplete) => {
+    if (readOnly) return
     if (!studentId || !listeningId) return
     const results = buildResults(currentAnswers)
     const correct = Object.values(currentAnswers).filter(a => a.correct).length

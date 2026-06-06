@@ -12,6 +12,7 @@ import { useAuthUser } from '../../../../stores/authStore'
 import { useG, genderizeText } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import PageHelp from '../../../../components/PageHelp'
@@ -77,6 +78,7 @@ function PremiumImage({ src, alt, className, aspectClass = 'aspect-[16/9]' }) {
 export default function ReadingTab({ unitId }) {
   const [activeReading, setActiveReading] = useState(0)
   const user = useAuthUser()
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
 
   const { data: readings, isLoading } = useQuery({
     queryKey: ['unit-readings', unitId],
@@ -216,6 +218,7 @@ function ReadingContent({ reading, studentId, unitId }) {
   // Autosave partial progress — NEVER writes status='completed' or score.
   // Uses INSERT + UPDATE by ID so it never overwrites a previous completed row.
   const handleComprehensionAutosave = useCallback(async (answers) => {
+    if (readOnly) return
     if (!studentId || !reading?.id) return
 
     if (currentRowId.current) {
@@ -274,6 +277,7 @@ function ReadingContent({ reading, studentId, unitId }) {
 
   // Explicit submit — ONLY path that marks status='completed' and awards XP.
   const handleComprehensionComplete = useCallback(async (answers, score) => {
+    if (readOnly) return
     if (!studentId || !reading?.id || !currentRowId.current) return
 
     const { error } = await supabase
@@ -1342,6 +1346,7 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
 
   // Save/update paragraph note
   const saveNote = async (paragraphIndex) => {
+    if (readOnly) return
     if (!studentId || !readingId || !noteText.trim()) return
     const existing = notesByParagraph[paragraphIndex]
     if (existing) {

@@ -7,7 +7,7 @@ import { supabase } from './lib/supabase'
 import { queryClient } from './lib/queryClient'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
-import TrainerLayout from './layouts/TrainerLayout'
+import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
 import GamificationProvider from './components/gamification/GamificationProvider'
@@ -196,6 +196,15 @@ const StudentSpeakingHubDetail = lazyRetry(() => import('./pages/student/Student
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
 const StudentActivityReport = lazyRetry(() => import('./pages/shared/StudentActivityReport'))
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
+
+// ── Teacher app (ground-up rebuild — replaces the legacy trainer surface) ──
+const TeacherHome = lazyRetry(() => import('./pages/teacher/TeacherHome'))
+const TeacherStudentsList = lazyRetry(() => import('./pages/teacher/students/StudentsList'))
+const TeacherStudentProfile = lazyRetry(() => import('./pages/teacher/students/StudentProfile'))
+const TeacherStudentAnswers = lazyRetry(() => import('./pages/teacher/students/StudentAnswers'))
+const TeacherWorkReview = lazyRetry(() => import('./pages/teacher/work/WorkReview'))
+const TeacherSettings = lazyRetry(() => import('./pages/teacher/TeacherSettings'))
+const TeacherCurriculumPreview = lazyRetry(() => import('./pages/teacher/curriculum/TeacherCurriculumPreview'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const EvaluationHealthPage = lazyRetry(() => import('./pages/admin/EvaluationHealthPage'))
@@ -840,63 +849,50 @@ export default function App() {
 
           {/* Trainer routes */}
           <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
-            {/* Onboarding — full-screen, outside LayoutShell */}
-            <Route path="/trainer/onboarding" element={
-              <ErrorBoundary fallback={<PageErrorFallback />}>
-                <Suspense fallback={<LoadingSkeleton />}><TrainerOnboarding /></Suspense>
-              </ErrorBoundary>
-            } />
-            <Route element={<ErrorBoundary><TrainerOnboardingGuard><TrainerLayout /></TrainerOnboardingGuard></ErrorBoundary>}>
-              {/* ── V2: real pages (existing components, swapped in T3/T6/T7) ── */}
-              <Route path="/trainer" element={<Page><CockpitPage /></Page>} />
-              <Route path="/trainer/grading" element={<Page><GradingStationPage /></Page>} />
-              <Route path="/trainer/mock-exam-results" element={<Page><MockExamResults /></Page>} />
-              <Route path="/trainer/debrief/:summaryId" element={<Page><ClassDebriefPage /></Page>} />
-              <Route path="/trainer/students" element={<Page><TrainerStudentView /></Page>} />
-              <Route path="/trainer/curriculum" element={<Navigate to="/trainer/interactive-curriculum" replace />} />
+            {/* Onboarding retired — teachers land directly on the new home */}
+            <Route path="/trainer/onboarding" element={<Navigate to="/trainer" replace />} />
+            <Route element={<ErrorBoundary><TeacherLayout /></ErrorBoundary>}>
+              {/* ── New teacher app ── */}
+              <Route path="/trainer" element={<Page><TeacherHome /></Page>} />
+              <Route path="/trainer/students" element={<Page><TeacherStudentsList /></Page>} />
+              <Route path="/trainer/students/:studentId" element={<Page><TeacherStudentProfile /></Page>} />
+              <Route path="/trainer/students/:studentId/answers" element={<Page><TeacherStudentAnswers /></Page>} />
+              <Route path="/trainer/students/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
+              <Route path="/trainer/work" element={<Page><TeacherWorkReview /></Page>} />
+              <Route path="/trainer/curriculum" element={<Page><TeacherCurriculumPreview><CurriculumBrowser /></TeacherCurriculumPreview></Page>} />
+              <Route path="/trainer/curriculum/level/:levelNumber" element={<Page><TeacherCurriculumPreview><LevelUnits /></TeacherCurriculumPreview></Page>} />
+              <Route path="/trainer/curriculum/unit/:unitId" element={<Page><TeacherCurriculumPreview><UnitContentRouter /></TeacherCurriculumPreview></Page>} />
+              <Route path="/trainer/settings" element={<Page><TeacherSettings /></Page>} />
 
-              {/* ── Deprecated routes → redirect to active pages ── */}
-              <Route path="/trainer/interventions" element={<Navigate to="/trainer/students" replace />} />
-              <Route path="/trainer/prep" element={<Navigate to="/trainer" replace />} />
-              <Route path="/trainer/live" element={<Navigate to="/trainer" replace />} />
-              <Route path="/trainer/competition" element={<Navigate to="/trainer" replace />} />
-              <Route path="/trainer/my-growth" element={<Navigate to="/trainer" replace />} />
-              <Route path="/trainer/nabih" element={<Navigate to="/trainer" replace />} />
-              <Route path="/trainer/nabih/:conversationId" element={<Navigate to="/trainer" replace />} />
-              <Route path="/trainer/help" element={<Page><HelpPage /></Page>} />
-              <Route path="/trainer/settings" element={<Page><TrainerSettings /></Page>} />
-              <Route path="/trainer/students/:studentId" element={<Page><TrainerStudentView /></Page>} />
-
-              {/* ── Keep as-is: still functional ── */}
-              <Route path="/trainer/progress-reports/:id/review" element={<Page><ReportReview /></Page>} />
-              <Route path="/trainer/student-curriculum" element={<Page><TrainerCurriculumPreview><CurriculumBrowser /></TrainerCurriculumPreview></Page>} />
-              <Route path="/trainer/student-curriculum/level/:levelNumber" element={<Page><TrainerCurriculumPreview><LevelUnits /></TrainerCurriculumPreview></Page>} />
-              <Route path="/trainer/student-curriculum/unit/:unitId" element={<Page><TrainerCurriculumPreview><UnitContentRouter /></TrainerCurriculumPreview></Page>} />
-              <Route path="/trainer/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
-              <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
-              <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
-              <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
+              {/* ── Back-compat: old singular /trainer/student/:id deep links ── */}
+              <Route path="/trainer/student/:studentId" element={<Page><TeacherStudentProfile /></Page>} />
+              <Route path="/trainer/student/:studentId/answers" element={<Page><TeacherStudentAnswers /></Page>} />
               <Route path="/trainer/student/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
-              <Route path="/trainer/student/:studentId" element={<Page><Student360Page /></Page>} />
-              <Route path="/trainer/ielts" element={<Page><IELTSOverview /></Page>} />
+              <Route path="/trainer/student/:studentId/progress" element={<Page><TeacherStudentProfile /></Page>} />
 
-              {/* ── Redirects: 19 legacy routes → V2 equivalents ── */}
-              {['/trainer/notes', '/trainer/library', '/trainer/points',
-                '/trainer/chat', '/trainer/messages', '/trainer/my-notes',
-                '/trainer/weekly-report'].map(p => (
+              {/* ── Retired surfaces → nearest new home ── */}
+              <Route path="/trainer/grading" element={<Navigate to="/trainer/work" replace />} />
+              <Route path="/trainer/mock-exam-results" element={<Navigate to="/trainer/work" replace />} />
+              <Route path="/trainer/student-curriculum" element={<Navigate to="/trainer/curriculum" replace />} />
+              <Route path="/trainer/student-curriculum/level/:levelNumber" element={<Navigate to="/trainer/curriculum" replace />} />
+              <Route path="/trainer/student-curriculum/unit/:unitId" element={<Navigate to="/trainer/curriculum" replace />} />
+              <Route path="/trainer/interactive-curriculum" element={<Navigate to="/trainer/curriculum" replace />} />
+              <Route path="/trainer/debrief/:summaryId" element={<Navigate to="/trainer" replace />} />
+              <Route path="/trainer/progress-reports/:id/review" element={<Navigate to="/trainer" replace />} />
+              <Route path="/trainer/nabih/:conversationId" element={<Navigate to="/trainer" replace />} />
+              {['/trainer/help', '/trainer/ielts', '/trainer/prep', '/trainer/live', '/trainer/competition',
+                '/trainer/my-growth', '/trainer/nabih', '/trainer/ai-assistant', '/trainer/notes', '/trainer/library',
+                '/trainer/points', '/trainer/chat', '/trainer/messages', '/trainer/my-notes', '/trainer/weekly-report',
+                '/trainer/attendance', '/trainer/lesson-planner', '/trainer/quiz', '/trainer/teams', '/trainer/reports',
+                '/trainer/progress-matrix'].map(p => (
                 <Route key={p} path={p} element={<Navigate to="/trainer" replace />} />
               ))}
               {['/trainer/assignments', '/trainer/writing', '/trainer/weekly-grading'].map(p => (
-                <Route key={p} path={p} element={<Navigate to="/trainer/grading" replace />} />
+                <Route key={p} path={p} element={<Navigate to="/trainer/work" replace />} />
               ))}
-              {['/trainer/student-notes', '/trainer/teams', '/trainer/reports',
-                '/trainer/progress-matrix', '/trainer/my-students'].map(p => (
+              {['/trainer/interventions', '/trainer/student-notes', '/trainer/my-students'].map(p => (
                 <Route key={p} path={p} element={<Navigate to="/trainer/students" replace />} />
               ))}
-              {['/trainer/attendance', '/trainer/lesson-planner', '/trainer/quiz'].map(p => (
-                <Route key={p} path={p} element={<Navigate to="/trainer" replace />} />
-              ))}
-              <Route path="/trainer/ai-assistant" element={<Navigate to="/trainer" replace />} />
             </Route>
           </Route>
 

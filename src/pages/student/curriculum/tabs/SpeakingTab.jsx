@@ -14,6 +14,7 @@ import { useAuthStore } from '../../../../stores/authStore'
 import VoiceRecorder from '../../../../components/VoiceRecorder'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import { toast } from '../../../../components/ui/FluentiaToast'
 
 // ─── Main Component ──────────────────────────────────
@@ -23,6 +24,7 @@ export default function SpeakingTab({ unitId }) {
   const studentName = profile?.full_name || profile?.display_name
   const groupId = studentData?.group_id
   const queryClient = useQueryClient()
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
 
   const { data: topics, isLoading } = useQuery({
     queryKey: ['unit-speaking', unitId],
@@ -90,6 +92,7 @@ export default function SpeakingTab({ unitId }) {
 
   // Save progress after upload
   const handleUploadComplete = useCallback(async () => {
+    if (readOnly) return
     try { safeCelebrate('speaking_uploaded') } catch {}
     queryClient.invalidateQueries({ queryKey: ['speaking-recordings', unitId, studentId] })
 

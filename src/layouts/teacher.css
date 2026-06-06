@@ -1,0 +1,228 @@
+/* ============================================================================
+   Teacher App — self-contained premium shell + shared page primitives.
+   Scoped to .teacher-app so it never leaks into student/admin surfaces and is
+   independent of the legacy trainer theme system. Dark, RTL, mobile-first.
+   ========================================================================== */
+
+.teacher-app {
+  /* Palette (academy premium dark) */
+  --tea-bg:          #060e1c;
+  --tea-bg-2:        #0a1326;
+  --tea-surface:     rgba(255, 255, 255, 0.034);
+  --tea-surface-2:   rgba(255, 255, 255, 0.055);
+  --tea-surface-hi:  rgba(255, 255, 255, 0.08);
+  --tea-border:      rgba(255, 255, 255, 0.07);
+  --tea-border-hi:   rgba(255, 255, 255, 0.14);
+  --tea-text:        #f1f5f9;
+  --tea-text-2:      #aab6c7;
+  --tea-text-3:      #6b7a90;
+  --tea-sky:         #38bdf8;
+  --tea-sky-soft:    #7dd3fc;
+  --tea-gold:        #fbbf24;
+  --tea-emerald:     #4ade80;
+  --tea-rose:        #fb7185;
+  --tea-amber:       #f59e0b;
+  --tea-violet:      #a78bfa;
+
+  --tea-sidebar-w:   258px;
+  --tea-header-h:    64px;
+  --tea-mobilebar-h: 64px;
+  --tea-radius:      16px;
+  --tea-radius-sm:   12px;
+
+  --sab: env(safe-area-inset-bottom, 0px);
+
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(1100px 700px at 100% -10%, rgba(56, 189, 248, 0.07), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(251, 191, 36, 0.05), transparent 60%),
+    var(--tea-bg);
+  color: var(--tea-text);
+  font-family: 'Tajawal', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.tea-frame {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+/* ── Sidebar (desktop; sits on the RIGHT in RTL) ────────────────────────── */
+.tea-sidebar {
+  width: var(--tea-sidebar-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-inline-start: 1px solid var(--tea-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 30%), var(--tea-bg-2);
+  padding: 18px 14px calc(14px + var(--sab));
+}
+
+.tea-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 16px;
+}
+.tea-brand__dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fde68a, var(--tea-gold));
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.55);
+}
+.tea-brand__name { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; }
+.tea-brand__role { font-size: 11px; color: var(--tea-text-3); margin-inline-start: auto; font-weight: 600; }
+
+.tea-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.tea-nav-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 12px; border-radius: var(--tea-radius-sm);
+  color: var(--tea-text-2); font-size: 15px; font-weight: 600;
+  text-decoration: none; position: relative;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.tea-nav-link:hover { background: var(--tea-surface); color: var(--tea-text); }
+.tea-nav-link.is-active {
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.04));
+  color: #fff;
+}
+.tea-nav-link.is-active::before {
+  content: ''; position: absolute; inset-inline-start: 0; top: 22%; bottom: 22%;
+  width: 3px; border-radius: 3px;
+  background: linear-gradient(180deg, var(--tea-sky), var(--tea-sky-soft));
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+.tea-nav-link__icon { display: grid; place-items: center; width: 26px; height: 26px; flex-shrink: 0; }
+.tea-nav-link__text { flex: 1; }
+.tea-nav-badge {
+  min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px;
+  display: grid; place-items: center; font-size: 11px; font-weight: 800;
+  background: var(--tea-gold); color: #1a1206;
+}
+
+.tea-foot {
+  margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--tea-border);
+  display: flex; align-items: center; gap: 10px;
+}
+.tea-foot__avatar {
+  width: 36px; height: 36px; border-radius: 11px; flex-shrink: 0;
+  display: grid; place-items: center; font-weight: 800; font-size: 15px; color: #06121f;
+  background: linear-gradient(135deg, var(--tea-sky), var(--tea-sky-soft));
+}
+.tea-foot__meta { flex: 1; min-width: 0; }
+.tea-foot__name { font-size: 13.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tea-foot__sub { font-size: 11px; color: var(--tea-text-3); }
+.tea-foot__signout {
+  width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+  display: grid; place-items: center; color: var(--tea-text-3);
+  background: var(--tea-surface); border: 1px solid var(--tea-border); cursor: pointer;
+  transition: color 150ms ease, background 150ms ease;
+}
+.tea-foot__signout:hover { color: var(--tea-rose); background: var(--tea-surface-2); }
+
+/* ── Main column ────────────────────────────────────────────────────────── */
+.tea-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.tea-header {
+  height: var(--tea-header-h); flex-shrink: 0;
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--tea-border);
+  background: rgba(6, 14, 28, 0.6);
+  backdrop-filter: blur(12px);
+}
+.tea-header__title { font-size: 17px; font-weight: 700; }
+.tea-header__spacer { flex: 1; }
+.tea-content {
+  flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
+  padding: 28px 24px calc(40px + var(--sab));
+  scroll-behavior: smooth;
+}
+
+/* ── Mobile bottom bar ──────────────────────────────────────────────────── */
+.tea-mobilebar { display: none; }
+
+@media (max-width: 1023px) {
+  .tea-sidebar { display: none; }
+  .tea-header { padding: 0 16px; }
+  .tea-content { padding: 18px 14px calc(var(--tea-mobilebar-h) + var(--sab) + 24px); }
+  .tea-mobilebar {
+    display: flex; position: fixed; inset-inline: 0; bottom: 0; z-index: 50;
+    height: calc(var(--tea-mobilebar-h) + var(--sab));
+    padding-bottom: var(--sab);
+    background: rgba(8, 16, 32, 0.94);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--tea-border);
+  }
+  .tea-mb-item {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; color: var(--tea-text-3); text-decoration: none; font-size: 10.5px; font-weight: 600;
+    position: relative;
+  }
+  .tea-mb-item.is-active { color: var(--tea-sky); }
+  .tea-mb-badge {
+    position: absolute; top: 6px; inset-inline-end: 22%;
+    min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px;
+    background: var(--tea-gold); color: #1a1206; font-size: 9px; font-weight: 800;
+    display: grid; place-items: center;
+  }
+}
+
+/* ============================================================================
+   Shared page primitives (used across all teacher pages)
+   ========================================================================== */
+.teacher-app .tea-page { max-width: 1180px; margin: 0 auto; }
+.teacher-app .tea-pagehead { margin-bottom: 22px; }
+.teacher-app .tea-pagehead__title { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
+.teacher-app .tea-pagehead__sub { font-size: 14px; color: var(--tea-text-2); margin-top: 4px; }
+
+.teacher-app .tea-card {
+  background: var(--tea-surface);
+  border: 1px solid var(--tea-border);
+  border-radius: var(--tea-radius);
+  padding: 18px;
+}
+.teacher-app .tea-card--hover { transition: transform 160ms ease, border-color 160ms ease, background 160ms ease; }
+.teacher-app .tea-card--hover:hover { transform: translateY(-2px); border-color: var(--tea-border-hi); background: var(--tea-surface-2); }
+
+.teacher-app .tea-section-title { font-size: 13px; font-weight: 800; color: var(--tea-text-2); letter-spacing: 0.04em; text-transform: none; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+
+.teacher-app .tea-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  background: var(--tea-surface-2); border: 1px solid var(--tea-border); color: var(--tea-text-2);
+}
+.teacher-app .tea-pill--sky    { background: rgba(56, 189, 248, 0.13); border-color: rgba(56, 189, 248, 0.28); color: var(--tea-sky-soft); }
+.teacher-app .tea-pill--gold   { background: rgba(251, 191, 36, 0.13); border-color: rgba(251, 191, 36, 0.30); color: var(--tea-gold); }
+.teacher-app .tea-pill--green  { background: rgba(74, 222, 128, 0.12); border-color: rgba(74, 222, 128, 0.28); color: var(--tea-emerald); }
+.teacher-app .tea-pill--rose   { background: rgba(251, 113, 133, 0.12); border-color: rgba(251, 113, 133, 0.28); color: var(--tea-rose); }
+.teacher-app .tea-pill--amber  { background: rgba(245, 158, 11, 0.13); border-color: rgba(245, 158, 11, 0.30); color: var(--tea-amber); }
+
+.teacher-app .tea-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 16px; border-radius: var(--tea-radius-sm); font-size: 14px; font-weight: 700;
+  border: 1px solid var(--tea-border); background: var(--tea-surface-2); color: var(--tea-text);
+  cursor: pointer; transition: background 150ms ease, border-color 150ms ease, transform 120ms ease;
+}
+.teacher-app .tea-btn:hover { background: var(--tea-surface-hi); border-color: var(--tea-border-hi); }
+.teacher-app .tea-btn:active { transform: translateY(1px); }
+.teacher-app .tea-btn--primary { background: linear-gradient(135deg, var(--tea-sky), #0ea5e9); border-color: transparent; color: #06121f; }
+.teacher-app .tea-btn--primary:hover { filter: brightness(1.06); }
+.teacher-app .tea-btn--ghost { background: transparent; }
+.teacher-app .tea-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.teacher-app .tea-empty {
+  text-align: center; padding: 48px 20px; color: var(--tea-text-3);
+  border: 1px dashed var(--tea-border); border-radius: var(--tea-radius);
+}
+.teacher-app .tea-empty__icon { color: var(--tea-text-3); opacity: 0.6; margin: 0 auto 12px; }
+
+.teacher-app .tea-skel {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+  background-size: 200% 100%; animation: tea-shimmer 1.4s ease-in-out infinite; border-radius: 10px;
+}
+@keyframes tea-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .teacher-app, .teacher-app * { animation: none !important; transition: none !important; }
+}

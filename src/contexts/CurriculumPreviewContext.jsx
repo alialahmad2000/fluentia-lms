@@ -3,6 +3,7 @@ import { createContext, useContext } from 'react'
 const DEFAULT_STATE = {
   previewMode: false,
   canSeeAllLevels: false,
+  readOnly: false,
   basePath: '/student/curriculum',
 }
 
