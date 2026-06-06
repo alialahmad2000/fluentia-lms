@@ -192,7 +192,10 @@ export default function LibraryReader() {
   const navigate = useNavigate()
   const { data: bookData } = useBook(bookId)
   const { data: paragraphs, isLoading } = useChapterContent(chapterId)
-  const [mode, setMode] = useState('reveal')
+  const [mode, setModeRaw] = useState(() => {
+    try { return localStorage.getItem('fluentia:lib:mode') || 'codex' } catch { return 'codex' }
+  })
+  const setMode = (mn) => { setModeRaw(mn); try { localStorage.setItem('fluentia:lib:mode', mn) } catch { /* ignore */ } }
   const [finished, setFinished] = useState(false)
   const [prog, setProg] = useState(0)
   const [tray, setTray] = useState(null)
