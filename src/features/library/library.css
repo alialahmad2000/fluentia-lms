@@ -119,9 +119,11 @@
 .lib-reader-stage[data-mood="ambition"] { --lib-lamp: rgba(251,191,36,0.085); }
 /* reader settings gear + sheet */
 .lib-gear { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 9px; background: rgba(237,228,211,0.06); border: 1px solid var(--lib-line); color: var(--lib-ink-soft); cursor: pointer; }
-.lib-sheet-scrim { position: fixed; inset: 0; z-index: 70; background: rgba(6,10,16,0.5); backdrop-filter: blur(2px); }
+/* z above the mobile bottom nav (~z40) AND the global FABs (z997/998) so the
+   sheet sits on top of everything — its "تم" is never covered by the sticky nav */
+.lib-sheet-scrim { position: fixed; inset: 0; z-index: 1000; background: rgba(6,10,16,0.5); backdrop-filter: blur(2px); }
 .lib-sheet {
-  position: fixed; left: 50%; bottom: 0; z-index: 71; width: min(460px, 100%);
+  position: fixed; left: 50%; bottom: 0; z-index: 1001; width: min(460px, 100%);
   background: linear-gradient(180deg, var(--lib-paper-2), var(--lib-paper)); border: 1px solid var(--lib-line); border-bottom: none;
   border-radius: 18px 18px 0 0; padding: 10px 20px calc(20px + env(safe-area-inset-bottom)); box-shadow: 0 -20px 50px -16px rgba(0,0,0,0.7);
 }
