@@ -49,12 +49,17 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
   // Reset on word change (next-word swap): close any active exercise + re-seed
   // local pass state from the new word's mastery so it opens fresh.
   useEffect(() => {
-    setActiveExercise(null)
-    setPassed({
+    const seeded = {
       meaning: !!mastery?.meaning_exercise_passed,
       sentence: !!mastery?.sentence_exercise_passed,
       listening: !!mastery?.listening_exercise_passed,
-    })
+    }
+    setPassed(seeded)
+    // Smooth flow: auto-START the first not-yet-passed exercise instead of
+    // dropping the student on a 3-item menu they have to pick from for every
+    // word. If all 3 are already passed -> null -> the mastery + next-word screen.
+    const firstUnpassed = ['meaning', 'sentence', 'listening'].find(k => !seeded[k]) || null
+    setActiveExercise(firstUnpassed)
     // mastery is keyed to word; re-seed when the word identity changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [word?.id])
@@ -71,8 +76,12 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
   const nextUnpassedExercise = (passedState) =>
     EXERCISE_ORDER.find(key => !passedState[key]) || null
 
-  const handleExerciseComplete = async (exerciseKey, passed) => {
-    if (!passed) return
+  const handleExerciseComplete = async (exerciseKey, ok) => {
+    // NOTE: param renamed `passed` -> `ok`. It previously SHADOWED the `passed`
+    // STATE object below, so `passedAfter` read booleans off a boolean
+    // (`true.meaning` -> undefined) and the flow never reached exercise 3 /
+    // mastered / next-word. The rename restores the whole smooth flow.
+    if (!ok) return
 
     // Unified store: record the exercise pass into vocab_cards (flags + mastery +
     // schedules into review) so curriculum exercises feed words-known + review.

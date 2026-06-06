@@ -23,7 +23,12 @@ export default defineConfig(({ mode }) => ({
       },
     },
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt' (NOT 'autoUpdate'): a freshly-deployed service worker must NOT
+      // seize the live tab and reload it mid-activity (that was cutting audio /
+      // recordings and making "الشاشه ماهي ثابته"). The app's own UpdateBanner is
+      // the SINGLE updater — it applies the new build only at a navigation
+      // boundary, never mid-page.
+      registerType: 'prompt',
       includeAssets: ['logo-icon-dark.png', 'logo-icon-light.png', 'logo-full-dark.png', 'logo-full-light.png'],
       manifest: {
         name: 'Fluentia | طلاقة',
@@ -46,11 +51,12 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         importScripts: ['/push-sw.js'],
         maximumFileSizeToCacheInBytes: 1.5 * 1024 * 1024,
-        // Take over from any older (broken) SW as fast as possible so the audio
-        // fix below reaches existing clients on their next visit, and drop stale
-        // precaches.
-        skipWaiting: true,
-        clientsClaim: true,
+        // skipWaiting:false — a new SW must NOT activate + seize the live tab and
+        // force a reload mid-audio/mid-recording. It waits; the app's UpdateBanner
+        // performs the swap at a safe navigation boundary. (clientsClaim only
+        // matters once activated, which now waits, so it can't grab a live tab.)
+        skipWaiting: false,
+        clientsClaim: false,
         cleanupOutdatedCaches: true,
         // Only precache essential files — not every JS chunk
         globPatterns: ['**/*.{css,html,ico,png,svg,woff2}', 'push-sw.js'],
