@@ -108,6 +108,10 @@ export function ListeningPlayer({
   // real-device telemetry showed bursts of AbortError on every press; this guard
   // is what stops the self-interrupting loop. (LISTENING-ABORT-FIX 2026-06-03)
   const isStartingRef = useRef(false)
+  // Blob-source plumbing: the object URL for the current source + the in-flight
+  // fetch's AbortController, so a source swap cancels a stale download.
+  const blobUrlRef = useRef(null)
+  const sourceAbortRef = useRef(null)
   const sidebarWidth = useSidebarWidth()
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -126,6 +130,49 @@ export function ListeningPlayer({
   // only makes the audio element stable across re-renders.
   const onTimeUpdateRef = useRef(onTimeUpdate)
   onTimeUpdateRef.current = onTimeUpdate
+
+  // Resolve the audio source to an in-memory blob: URL and attach it. A blob is
+  // immune to the two iOS-Safari killers behind the long "no sound on iPhone"
+  // saga: (1) a stale CacheFirst service worker that breaks HTTP Range streaming,
+  // and (2) Range quirks inside an installed PWA. A FULL fetch() returns the whole
+  // body even through a CacheFirst SW, so listening plays WITHOUT a reinstall —
+  // the same blob approach that already made word pronunciation reliable on these
+  // devices (audio_event_log: word blobs play, raw-URL <audio> listening stays
+  // silent). Falls back to streaming the raw URL if the fetch fails, so it is
+  // never worse than the previous direct-URL behaviour. (LISTENING-BLOB-FIX 2026-06-06)
+  const loadSource = useCallback(
+    async (audio) => {
+      if (!audio || !audioUrl) return
+      if (sourceAbortRef.current) sourceAbortRef.current.abort()
+      const ac = new AbortController()
+      sourceAbortRef.current = ac
+      try {
+        const resp = await fetch(audioUrl, { signal: ac.signal })
+        if (!resp.ok) throw new Error('http_' + resp.status)
+        const blob = await resp.blob()
+        if (ac.signal.aborted) return
+        // Don't clobber a source the student already started (e.g. an early tap
+        // fell back to the raw URL and it's running).
+        if (!audio.paused || audio.currentTime > 0) return
+        const burl = URL.createObjectURL(blob)
+        if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
+        blobUrlRef.current = burl
+        audio.src = burl
+      } catch (e) {
+        if (ac.signal.aborted) return
+        // Fallback to direct streaming (the pre-blob behaviour) if not already set.
+        if (!audio.getAttribute('src')) audio.src = audioUrl
+        logAudioFailure({
+          context: 'listening',
+          rowId: listeningId,
+          audioUrl,
+          errorCode: null,
+          errorMessage: ('blob_fallback_raw:' + (e?.message || e)).slice(0, 200),
+        })
+      }
+    },
+    [audioUrl, listeningId],
+  )
 
   // Audio source loading — re-runs ONLY when the source row changes
   useEffect(() => {
@@ -215,7 +262,10 @@ export function ListeningPlayer({
     // then rejects ("nothing happens"). Setting src lets preload="metadata" fetch the
     // header for the scrubber; the gesture-driven play() performs the full load inside
     // the user-gesture context, which iOS honors. (Chrome/WebKit-headless unaffected.)
-    audio.src = audioUrl
+    // The source itself is resolved to a blob: URL (Safari/stale-SW immune) via
+    // loadSource; on slow connections the user can still tap before it resolves,
+    // and togglePlay then falls back to streaming the raw URL inside the gesture.
+    loadSource(audio)
 
     return () => {
       audio.removeEventListener('error', onError)
@@ -230,13 +280,29 @@ export function ListeningPlayer({
         clearTimeout(silentCheckRef.current)
         silentCheckRef.current = null
       }
+      if (sourceAbortRef.current) {
+        sourceAbortRef.current.abort()
+        sourceAbortRef.current = null
+      }
     }
-  }, [audioUrl, listeningId])
+  }, [audioUrl, listeningId, loadSource])
 
   // Apply playback rate
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = speed
   }, [speed])
+
+  // Revoke the blob URL + cancel any in-flight fetch when the player unmounts.
+  useEffect(
+    () => () => {
+      if (sourceAbortRef.current) sourceAbortRef.current.abort()
+      if (blobUrlRef.current) {
+        URL.revokeObjectURL(blobUrlRef.current)
+        blobUrlRef.current = null
+      }
+    },
+    [],
+  )
 
   // Begin playback + arm the silent-failure watchdog. Separated so the
   // canplay-gated path and the ready path share one implementation.
@@ -351,9 +417,15 @@ export function ListeningPlayer({
     // Fix: call play() now. The tap authorizes both the fetch and playback; play()
     // itself kicks buffering. startPlayback is async but invokes audio.play()
     // synchronously (no await before it), so the gesture context is preserved.
+    // Ensure a source is attached synchronously inside the gesture. Normally the
+    // blob: URL is already set by loadSource; if the student tapped before the blob
+    // finished downloading, fall back to streaming the raw URL in-gesture so iOS
+    // still honours play() (loadSource then sees a playing element and won't swap).
+    if (!audio.getAttribute('src')) audio.src = audioUrl
+
     if (audio.readyState < 2 /* HAVE_CURRENT_DATA */) setIsBuffering(true)
     startPlayback(audio)
-  }, [startPlayback])
+  }, [startPlayback, audioUrl])
 
   const seekTo = useCallback(
     (ms) => {
@@ -374,9 +446,9 @@ export function ListeningPlayer({
     if (!audio || !audioUrl) return
     setLoadError(null)
     setSilentFailure(false)
-    audio.src = audioUrl
-    audio.load()
-  }, [audioUrl])
+    // Re-resolve via blob (with raw-URL fallback) instead of re-streaming the URL.
+    loadSource(audio)
+  }, [audioUrl, loadSource])
 
   const total = actualDurationMs || durationMs || 0
   const progressPct = total > 0 ? Math.max(0, Math.min(100, (currentMs / total) * 100)) : 0
