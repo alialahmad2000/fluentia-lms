@@ -82,6 +82,36 @@
   <body class="font-tajawal bg-[var(--surface-base)] text-[var(--text-primary)] antialiased">
     <div id="root"></div>
     <script>
+      // BLANK-SHELL SELF-HEAL — runs from index.html itself, so it survives even
+      // when the app's JS/CSS chunks fail to load (a stale PWA shell pointing at
+      // chunks a newer deploy replaced → blank page). If a chunk errors OR the app
+      // never mounts, clear caches + unregister SWs and hard-reload — ONCE per
+      // session (guarded so it can never loop the device).
+      (function () {
+        var HEAL_KEY = 'fluentia:shell-heal';
+        function heal() {
+          try { if (sessionStorage.getItem(HEAL_KEY) === '1') return; sessionStorage.setItem(HEAL_KEY, '1'); } catch (e) {}
+          (async function () {
+            try { if (window.caches) { var k = await caches.keys(); await Promise.all(k.map(function (x) { return caches.delete(x); })); } } catch (e) {}
+            try { if (navigator.serviceWorker) { var r = await navigator.serviceWorker.getRegistrations(); await Promise.all(r.map(function (x) { return x.unregister(); })); } } catch (e) {}
+            location.reload();
+          })();
+        }
+        // 1) an /assets/ chunk failed to load → stale shell (capture phase: resource errors don't bubble)
+        window.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (!t) return;
+          var url = t.src || t.href || '';
+          if ((t.tagName === 'SCRIPT' || t.tagName === 'LINK') && url.indexOf('/assets/') !== -1) heal();
+        }, true);
+        // 2) safety net: the app never mounted within 10s (boot screen mounts in <1s when JS runs)
+        setTimeout(function () {
+          var root = document.getElementById('root');
+          if (root && root.childElementCount === 0) heal();
+        }, 10000);
+      })();
+    </script>
+    <script>
       // One-time service worker + cache purge to fix stale deployments
       // After purge, VitePWA will re-register a fresh SW on next build
       (function() {
