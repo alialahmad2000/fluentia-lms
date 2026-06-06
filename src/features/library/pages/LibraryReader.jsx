@@ -39,20 +39,24 @@ function AssistProse({ paragraphs }) {
   )
 }
 
-// Codex — a real open book. CSS-column pagination: content flows into page-width
-// columns that overflow horizontally; on a wide screen TWO columns show at once
-// (left page + right page + spine), and we translateX to turn the spread.
+// Codex — a real open book. CSS-column pagination + a hidden single-column
+// measurer for a reliable page count; TWO facing pages on wide screens; a 3D
+// page-curl on turn (next drags right→left, prev drags left→right); gilt folios.
 function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, bookTitle }) {
   const vpRef = useRef(null)
   const pgRef = useRef(null)
+  const measRef = useRef(null)
+  const flipId = useRef(0)
   const [spread, setSpread] = useState(0)
-  const [m, setM] = useState({ colW: 0, gap: 0, two: false, spreads: 1 })
+  const [m, setM] = useState({ colW: 0, gap: 0, two: false, spreads: 1, pages: 1 })
   const [tray, setTray] = useState(null)
+  const [flip, setFlip] = useState(null) // { dir, id }
 
   const measure = useCallback(() => {
     const vp = vpRef.current
     const pg = pgRef.current
-    if (!vp || !pg) return
+    const meas = measRef.current
+    if (!vp || !pg || !meas) return
     const w = vp.clientWidth
     if (!w) return
     const two = w >= 600                       // open-book spread on wide screens, single page on phones
@@ -60,10 +64,13 @@ function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, boo
     const colW = two ? (w - gap) / 2 : w
     pg.style.columnWidth = `${colW}px`
     pg.style.columnGap = `${gap}px`
-    // force layout, then count columns → spreads
-    const cols = Math.max(1, Math.round((pg.scrollWidth + gap) / (colW + gap)))
-    const spreads = Math.max(1, Math.ceil(cols / (two ? 2 : 1)))
-    setM({ colW, gap, two, spreads })
+    meas.style.width = `${colW}px`
+    // pages = how many page-heights the content fills (measured in one column)
+    const pageH = pg.clientHeight || 1
+    const naturalH = meas.scrollHeight || pageH
+    const pages = Math.max(1, Math.ceil(naturalH / pageH))
+    const spreads = Math.max(1, Math.ceil(pages / (two ? 2 : 1)))
+    setM({ colW, gap, two, spreads, pages })
     setSpread((s) => Math.min(s, spreads - 1))
   }, [])
 
@@ -72,18 +79,49 @@ function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, boo
     const ro = new ResizeObserver(() => measure())
     if (vpRef.current) ro.observe(vpRef.current)
     const t1 = setTimeout(measure, 250)
-    const t2 = setTimeout(measure, 650)        // re-measure after the serif font loads
+    const t2 = setTimeout(measure, 700)        // re-measure after the serif font loads
     return () => { ro.disconnect(); clearTimeout(t1); clearTimeout(t2) }
   }, [measure, paragraphs, chapter?.id])
 
-  useEffect(() => { setSpread(0); setTray(null) }, [chapter?.id])
+  useEffect(() => { setSpread(0); setTray(null); setFlip(null) }, [chapter?.id])
 
-  const stride = (m.two ? 2 : 1) * (m.colW + m.gap)
-  const go = (dir) => {
+  const per = m.two ? 2 : 1
+  const stride = per * (m.colW + m.gap)
+  const turn = (dir) => {
     setTray(null)
-    if (dir > 0) { if (spread < m.spreads - 1) setSpread(spread + 1); else if (hasNext) onNext() }
-    else { if (spread > 0) setSpread(spread - 1); else if (hasPrev) onPrev() }
+    if (dir > 0) {
+      if (spread < m.spreads - 1) { flipId.current += 1; setFlip({ dir: 1, id: flipId.current }); setSpread(spread + 1) }
+      else if (hasNext) onNext()
+    } else {
+      if (spread > 0) { flipId.current += 1; setFlip({ dir: -1, id: flipId.current }); setSpread(spread - 1) }
+      else if (hasPrev) onPrev()
+    }
   }
+
+  const leftNum = spread * per + 1
+  const rightNum = m.two ? spread * 2 + 2 : null
+  const content = (
+    <>
+      <div className="lib-codex-chhead">
+        <div className="ch-num">{`Chapter ${chapter?.chapter_number}`}</div>
+        <div className="ch-title">{chapter?.title_en || chapter?.title_ar}</div>
+      </div>
+      {paragraphs.map((p, i) => (
+        <p key={p.id} className={`lib-codex-p${i === 0 ? ' first' : ''}`}>
+          {p.sentences.map((s) => (
+            <span
+              key={s.id}
+              className="lib-sentence"
+              data-dialogue={s.is_dialogue || undefined}
+              onClick={() => setTray({ en: s.text_en, ar: s.text_ar })}
+            >
+              {s.text_en}{' '}
+            </span>
+          ))}
+        </p>
+      ))}
+    </>
+  )
 
   return (
     <div className="lib-codex">
@@ -91,32 +129,31 @@ function CodexProse({ paragraphs, chapter, onNext, onPrev, hasNext, hasPrev, boo
         <div className="lib-book-head">{bookTitle}</div>
         <div className="lib-book-spread" ref={vpRef}>
           <div className="lib-codex-pages" ref={pgRef} style={{ transform: `translateX(${-spread * stride}px)` }}>
-            <div className="lib-codex-chhead">
-              <div className="ch-num">{`Chapter ${chapter?.chapter_number}`}</div>
-              <div className="ch-title">{chapter?.title_en || chapter?.title_ar}</div>
-            </div>
-            {paragraphs.map((p, i) => (
-              <p key={p.id} className={`lib-codex-p${i === 0 ? ' first' : ''}`}>
-                {p.sentences.map((s) => (
-                  <span
-                    key={s.id}
-                    className="lib-sentence"
-                    data-dialogue={s.is_dialogue || undefined}
-                    onClick={() => setTray({ en: s.text_en, ar: s.text_ar })}
-                  >
-                    {s.text_en}{' '}
-                  </span>
-                ))}
-              </p>
-            ))}
+            {content}
           </div>
-          <button className="lib-codex-edge left" onClick={() => go(-1)} aria-label="الصفحة السابقة" />
-          <button className="lib-codex-edge right" onClick={() => go(1)} aria-label="الصفحة التالية" />
+          <div className="lib-codex-measure" ref={measRef} aria-hidden="true">{content}</div>
+          {leftNum <= m.pages && <span className="lib-folio left">{leftNum}</span>}
+          {rightNum && rightNum <= m.pages && <span className="lib-folio right">{rightNum}</span>}
+          <AnimatePresence>
+            {flip && (
+              <motion.div
+                key={flip.id}
+                className={`lib-leaf ${flip.dir > 0 ? 'next' : 'prev'} ${m.two ? '' : 'single'}`}
+                initial={{ rotateY: 0 }}
+                animate={{ rotateY: flip.dir > 0 ? -174 : 174 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.56, ease: [0.32, 0.04, 0.2, 1] }}
+                onAnimationComplete={() => setFlip(null)}
+              />
+            )}
+          </AnimatePresence>
+          <button className="lib-codex-edge left" onClick={() => turn(-1)} aria-label="الصفحة السابقة" />
+          <button className="lib-codex-edge right" onClick={() => turn(1)} aria-label="الصفحة التالية" />
         </div>
         <div className="lib-codex-foot">
-          <button onClick={() => go(-1)} disabled={spread === 0 && !hasPrev}>‹</button>
-          <span className="pg">{spread + 1} / {m.spreads}</span>
-          <button onClick={() => go(1)}>{spread >= m.spreads - 1 && !hasNext ? '✦' : '›'}</button>
+          <button onClick={() => turn(-1)} disabled={spread === 0 && !hasPrev}>‹</button>
+          <span className="pg">{m.two ? `${leftNum}–${Math.min(rightNum || leftNum, m.pages)}` : leftNum} / {m.pages}</span>
+          <button onClick={() => turn(1)}>{spread >= m.spreads - 1 && !hasNext ? '✦' : '›'}</button>
         </div>
       </div>
       <AnimatePresence>
