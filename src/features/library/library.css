@@ -98,12 +98,44 @@
 .lib-reader-stage {
   position: relative; min-height: calc(100dvh - 64px);
   margin: -24px -16px -24px; padding: 0 16px;
+  --lib-fontscale: 1;
   background:
     radial-gradient(120% 60% at 50% -8%, var(--lib-lamp), transparent 60%),
     var(--lib-paper);
   color: var(--lib-ink);
   animation: lib-warm-in .4s ease both;
 }
+/* candlelight overlay */
+.lib-candle {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1; mix-blend-mode: soft-light;
+  background: radial-gradient(70% 55% at 50% 6%, rgba(255,176,84,0.30), transparent 72%);
+  animation: lib-flicker 4.5s ease-in-out infinite;
+}
+@keyframes lib-flicker { 0%,100% { opacity: 0.72 } 22% { opacity: 0.96 } 44% { opacity: 0.6 } 67% { opacity: 0.88 } 85% { opacity: 0.7 } }
+@media (prefers-reduced-motion: reduce) { .lib-candle { animation: none; opacity: 0.8; } }
+/* theme-matched lamp mood */
+.lib-reader-stage[data-mood="mystery"] { --lib-lamp: rgba(120,180,220,0.075); }
+.lib-reader-stage[data-mood="grief"] { --lib-lamp: rgba(180,160,205,0.065); }
+.lib-reader-stage[data-mood="ambition"] { --lib-lamp: rgba(251,191,36,0.085); }
+/* reader settings gear + sheet */
+.lib-gear { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 9px; background: rgba(237,228,211,0.06); border: 1px solid var(--lib-line); color: var(--lib-ink-soft); cursor: pointer; }
+.lib-sheet-scrim { position: fixed; inset: 0; z-index: 70; background: rgba(6,10,16,0.5); backdrop-filter: blur(2px); }
+.lib-sheet {
+  position: fixed; left: 50%; bottom: 0; z-index: 71; width: min(460px, 100%);
+  background: linear-gradient(180deg, var(--lib-paper-2), var(--lib-paper)); border: 1px solid var(--lib-line); border-bottom: none;
+  border-radius: 18px 18px 0 0; padding: 10px 20px calc(20px + env(safe-area-inset-bottom)); box-shadow: 0 -20px 50px -16px rgba(0,0,0,0.7);
+}
+.lib-sheet-grip { width: 40px; height: 4px; border-radius: 4px; background: var(--lib-line); margin: 4px auto 12px; }
+.lib-sheet-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 2px; border-bottom: 1px solid var(--lib-line); }
+.lib-sheet-row > span { font-family: 'Tajawal', sans-serif; font-size: 14px; color: var(--lib-ink); }
+.lib-stepper { display: flex; align-items: center; gap: 10px; }
+.lib-stepper button { width: 38px; height: 32px; border-radius: 8px; background: rgba(237,228,211,0.07); border: 1px solid var(--lib-line); color: var(--lib-ink); font-family: var(--lib-serif); font-size: 15px; cursor: pointer; }
+.lib-stepper i { font-family: 'Tajawal', sans-serif; font-style: normal; font-size: 12px; color: var(--lib-whisper); min-width: 42px; text-align: center; }
+.lib-toggle { width: 46px; height: 26px; border-radius: 999px; background: rgba(237,228,211,0.1); border: 1px solid var(--lib-line); position: relative; cursor: pointer; padding: 0; }
+.lib-toggle i { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--lib-ink-soft); transition: all .2s ease; }
+.lib-toggle.on { background: rgba(251,191,36,0.25); border-color: rgba(251,191,36,0.4); }
+.lib-toggle.on i { left: 22px; background: var(--lib-gold); }
+.lib-sheet-done { width: 100%; margin-top: 16px; padding: 12px; border-radius: 12px; background: rgba(251,191,36,0.16); border: 1px solid rgba(251,191,36,0.3); color: var(--lib-gold); font-family: 'Tajawal', sans-serif; font-size: 14px; cursor: pointer; }
 @media (min-width: 1024px) { .lib-reader-stage { margin: -32px -40px -32px; padding: 0 40px; } }
 @keyframes lib-warm-in { from { opacity: 0; } to { opacity: 1; } }
 
@@ -141,10 +173,10 @@
 .lib-chapter-head .ch-rule { width: 40px; height: 1px; background: var(--lib-line); margin: 18px auto 0; }
 
 .lib-prose p {
-  font-family: var(--lib-serif); font-size: 20px; line-height: 1.95; color: var(--lib-ink);
+  font-family: var(--lib-serif); font-size: calc(20px * var(--lib-fontscale, 1)); line-height: 1.95; color: var(--lib-ink);
   margin: 0 0 1.25em; text-align: left; direction: ltr; letter-spacing: 0.003em;
 }
-@media (max-width: 480px) { .lib-prose p { font-size: 18.5px; line-height: 1.9; } }
+@media (max-width: 480px) { .lib-prose p { font-size: calc(18.5px * var(--lib-fontscale, 1)); line-height: 1.9; } }
 
 /* ---- The veil-lift -------------------------------------------------------*/
 .lib-sentence { cursor: pointer; border-radius: 3px; transition: background .25s ease, box-shadow .25s ease; }
@@ -170,7 +202,7 @@
 }
 .lib-assist-para { margin: 0 0 1.6em; }
 .lib-assist-en {
-  font-family: var(--lib-serif); font-size: 20px; line-height: 1.9; color: var(--lib-ink);
+  font-family: var(--lib-serif); font-size: calc(20px * var(--lib-fontscale, 1)); line-height: 1.9; color: var(--lib-ink);
   direction: ltr; text-align: left; margin: 0 0 .4em;
 }
 .lib-assist-ar {
@@ -274,7 +306,7 @@
 .lib-ch-orn { display: flex; align-items: center; justify-content: center; gap: 9px; margin: 12px 0 2px; color: #9a7b3c; }
 .lib-ch-orn::before, .lib-ch-orn::after { content: ""; width: 30px; height: 1px; background: currentColor; opacity: 0.55; }
 .lib-ch-orn span { width: 5px; height: 5px; transform: rotate(45deg); background: currentColor; opacity: 0.8; }
-.lib-codex-p { font-family: var(--lib-serif); font-size: 18.5px; line-height: 1.76; color: #2b2117; margin: 0 0 0.8em; text-align: justify; -webkit-hyphens: auto; hyphens: auto; direction: ltr; }
+.lib-codex-p { font-family: var(--lib-serif); font-size: calc(18.5px * var(--lib-fontscale, 1)); line-height: 1.76; color: #2b2117; margin: 0 0 0.8em; text-align: justify; -webkit-hyphens: auto; hyphens: auto; direction: ltr; }
 .lib-codex-p.first::first-letter { font-size: 3.1em; line-height: 0.78; float: left; padding: 8px 9px 0 0; font-weight: 600; color: #6b4f28; }
 .lib-codex-p .lib-sentence { cursor: pointer; border-radius: 2px; transition: background .2s ease; }
 .lib-codex-p .lib-sentence:hover { background: rgba(120,86,40,0.12); }

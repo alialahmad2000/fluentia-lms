@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, Sparkles } from 'lucide-react'
+import { ChevronRight, Sparkles, Settings2 } from 'lucide-react'
 import SentenceReveal from '../components/SentenceReveal'
 import { useBook, useChapterContent } from '../hooks/useLibrary'
 import '../library.css'
@@ -202,6 +202,13 @@ export default function LibraryReader() {
   const [paper, setPaper] = useState(() => {
     try { return localStorage.getItem('fluentia:lib:paper') || 'ivory' } catch { return 'ivory' }
   })
+  const [fontScale, setFontScale] = useState(() => {
+    try { return parseFloat(localStorage.getItem('fluentia:lib:font')) || 1 } catch { return 1 }
+  })
+  const [candle, setCandle] = useState(() => {
+    try { return localStorage.getItem('fluentia:lib:candle') === '1' } catch { return false }
+  })
+  const [showSettings, setShowSettings] = useState(false)
 
   const chapters = bookData?.chapters || []
   const book = bookData?.book
@@ -229,13 +236,21 @@ export default function LibraryReader() {
   useEffect(() => { setFinished(false); setTray(null); window.scrollTo(0, 0) }, [chapterId])
 
   const changePaper = (p) => { setPaper(p); try { localStorage.setItem('fluentia:lib:paper', p) } catch { /* ignore */ } }
+  const bumpFont = (d) => {
+    const v = Math.min(1.35, Math.max(0.85, Math.round((fontScale + d) * 100) / 100))
+    setFontScale(v); try { localStorage.setItem('fluentia:lib:font', String(v)) } catch { /* ignore */ }
+  }
+  const toggleCandle = () => {
+    const v = !candle; setCandle(v); try { localStorage.setItem('fluentia:lib:candle', v ? '1' : '0') } catch { /* ignore */ }
+  }
   const goChapter = (c) => navigate(`/library/${bookId}/read/${c.id}`)
   const onNext = () => { if (next) goChapter(next); else setFinished(true) }
   const onPrev = () => { if (prev) goChapter(prev) }
   const hasContent = blocks.length > 0
 
   return (
-    <div className="lib-reader-stage">
+    <div className="lib-reader-stage" data-candle={candle || undefined} data-mood={book?.theme || undefined} style={{ '--lib-fontscale': fontScale }}>
+      {candle && <div className="lib-candle" />}
       <div className="lib-reader-bar">
         <button className="lib-back" onClick={() => navigate(`/library/${bookId}`)}>
           <ChevronRight size={16} /> الرواية
@@ -244,13 +259,7 @@ export default function LibraryReader() {
           <div className="bt">{book?.title_ar || book?.title_en || ''}</div>
           {current && <div className="bc">{current.title_en || `Chapter ${current.chapter_number}`}</div>}
         </div>
-        {mode === 'codex' && (
-          <div className="lib-papers">
-            {PAPERS.map((p) => (
-              <button key={p} className="lib-swatch" data-paper={p} data-active={paper === p} onClick={() => changePaper(p)} aria-label={`ورق ${p}`} />
-            ))}
-          </div>
-        )}
+        <button className="lib-gear" onClick={() => setShowSettings(true)} aria-label="إعدادات القراءة"><Settings2 size={17} /></button>
         <div className="lib-mode">
           <button data-active={mode === 'codex'} onClick={() => setMode('codex')}>صفحات</button>
           <button data-active={mode === 'reveal'} onClick={() => setMode('reveal')}>انسياب</button>
@@ -305,6 +314,40 @@ export default function LibraryReader() {
             {tray.ar && <div className="ar" dir="rtl">{tray.ar}</div>}
             <button className="close" onClick={() => setTray(null)}>إغلاق</button>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showSettings && (
+          <>
+            <motion.div className="lib-sheet-scrim" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowSettings(false)} />
+            <motion.div className="lib-sheet" initial={{ x: '-50%', y: '100%' }} animate={{ x: '-50%', y: 0 }} exit={{ x: '-50%', y: '100%' }} transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}>
+              <div className="lib-sheet-grip" />
+              {mode === 'codex' && (
+                <div className="lib-sheet-row">
+                  <span>الورق</span>
+                  <div className="lib-papers">
+                    {PAPERS.map((p) => (
+                      <button key={p} className="lib-swatch" data-paper={p} data-active={paper === p} onClick={() => changePaper(p)} aria-label={`ورق ${p}`} />
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div className="lib-sheet-row">
+                <span>حجم الخط</span>
+                <div className="lib-stepper">
+                  <button onClick={() => bumpFont(-0.05)}>A−</button>
+                  <i>{Math.round(fontScale * 100)}%</i>
+                  <button onClick={() => bumpFont(0.05)}>A+</button>
+                </div>
+              </div>
+              <div className="lib-sheet-row">
+                <span>إضاءة الشموع</span>
+                <button className={`lib-toggle ${candle ? 'on' : ''}`} onClick={toggleCandle} aria-label="إضاءة الشموع"><i /></button>
+              </div>
+              <button className="lib-sheet-done" onClick={() => setShowSettings(false)}>تم</button>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
