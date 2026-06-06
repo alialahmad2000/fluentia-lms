@@ -1,11 +1,28 @@
 // The signature "veil-lift": tap an English sentence and its Arabic translation
-// grows softly from underneath it — a whisper of meaning, never a popup.
+// grows softly from underneath it. Honors the reader's help level:
+//   full  — tap any sentence → Arabic (default)
+//   hints — long/hard words get a faint dotted underline; sentences still tap
+//   off   — English only, no tap (pure immersion)
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function SentenceReveal({ en, ar, isDialogue }) {
+// render English text, optionally underlining long words as gentle hints
+export function renderEN(text, help) {
+  if (help !== 'hints') return text
+  return String(text).split(/(\s+)/).map((tok, i) => {
+    const w = tok.replace(/[^A-Za-z']/g, '')
+    return w.length >= 8 ? <u key={i} className="lib-hint">{tok}</u> : tok
+  })
+}
+
+export default function SentenceReveal({ en, ar, isDialogue, help = 'full' }) {
   const [open, setOpen] = useState(false)
   const toggle = () => setOpen((o) => !o)
+
+  if (help === 'off') {
+    return <span className="lib-sentence" data-static="" data-dialogue={isDialogue || undefined}>{en}{' '}</span>
+  }
+
   return (
     <>
       <span
@@ -19,7 +36,7 @@ export default function SentenceReveal({ en, ar, isDialogue }) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle() }
         }}
       >
-        {en}{' '}
+        {renderEN(en, help)}{' '}
       </span>
       <AnimatePresence initial={false}>
         {open && ar && (

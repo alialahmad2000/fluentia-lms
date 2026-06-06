@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, Sparkles, Settings2 } from 'lucide-react'
-import SentenceReveal from '../components/SentenceReveal'
+import SentenceReveal, { renderEN } from '../components/SentenceReveal'
 import { useBook, useChapterContent } from '../hooks/useLibrary'
 import '../library.css'
 
@@ -37,14 +37,14 @@ function Plate({ img, variant }) {
   )
 }
 
-function RevealProse({ blocks }) {
+function RevealProse({ blocks, help }) {
   return (
     <div className="lib-prose">
       {blocks.map((b, i) => b.t === 'img'
         ? <Plate key={`i${i}`} img={b.img} variant="scroll" />
         : (
           <p key={b.p.id}>
-            {b.p.sentences.map((s) => <SentenceReveal key={s.id} en={s.text_en} ar={s.text_ar} isDialogue={s.is_dialogue} />)}
+            {b.p.sentences.map((s) => <SentenceReveal key={s.id} en={s.text_en} ar={s.text_ar} isDialogue={s.is_dialogue} help={help} />)}
           </p>
         ))}
     </div>
@@ -69,7 +69,7 @@ function AssistProse({ blocks }) {
 
 // Codex — open book; reliable page count via a hidden single-column measurer;
 // TWO facing pages on wide screens; a slow page-curl; gilt folios.
-function CodexProse({ blocks, chapter, onNext, onPrev, hasNext, hasPrev, bookTitle, paper, onTray }) {
+function CodexProse({ blocks, chapter, onNext, onPrev, hasNext, hasPrev, bookTitle, paper, onTray, help }) {
   const vpRef = useRef(null)
   const pgRef = useRef(null)
   const measRef = useRef(null)
@@ -143,10 +143,12 @@ function CodexProse({ blocks, chapter, onNext, onPrev, hasNext, hasPrev, bookTit
         ? <Plate key={`i${i}`} img={b.img} variant="codex" />
         : (
           <p key={b.p.id} className={`lib-codex-p${i === 0 ? ' first' : ''}`}>
-            {b.p.sentences.map((s) => (
-              <span key={s.id} className="lib-sentence" data-dialogue={s.is_dialogue || undefined}
-                onClick={() => onTray({ en: s.text_en, ar: s.text_ar })}>{s.text_en}{' '}</span>
-            ))}
+            {b.p.sentences.map((s) => help === 'off'
+              ? <span key={s.id} className="lib-sentence" data-static="" data-dialogue={s.is_dialogue || undefined}>{s.text_en}{' '}</span>
+              : (
+                <span key={s.id} className="lib-sentence" data-dialogue={s.is_dialogue || undefined}
+                  onClick={() => onTray({ en: s.text_en, ar: s.text_ar })}>{renderEN(s.text_en, help)}{' '}</span>
+              ))}
           </p>
         ))}
     </>
@@ -208,6 +210,9 @@ export default function LibraryReader() {
   const [candle, setCandle] = useState(() => {
     try { return localStorage.getItem('fluentia:lib:candle') === '1' } catch { return false }
   })
+  const [help, setHelp] = useState(() => {
+    try { return localStorage.getItem('fluentia:lib:help') || 'full' } catch { return 'full' }
+  })
   const [showSettings, setShowSettings] = useState(false)
 
   const chapters = bookData?.chapters || []
@@ -243,6 +248,7 @@ export default function LibraryReader() {
   const toggleCandle = () => {
     const v = !candle; setCandle(v); try { localStorage.setItem('fluentia:lib:candle', v ? '1' : '0') } catch { /* ignore */ }
   }
+  const changeHelp = (h) => { setHelp(h); setTray(null); try { localStorage.setItem('fluentia:lib:help', h) } catch { /* ignore */ } }
   const goChapter = (c) => navigate(`/library/${bookId}/read/${c.id}`)
   const onNext = () => { if (next) goChapter(next); else setFinished(true) }
   const onPrev = () => { if (prev) goChapter(prev) }
@@ -278,7 +284,7 @@ export default function LibraryReader() {
         </div>
       ) : mode === 'codex' ? (
         isLoading ? <div className="lib-page"><div className="lib-skel" style={{ height: 320 }} /></div>
-          : hasContent ? <CodexProse blocks={blocks} chapter={current} onNext={onNext} onPrev={onPrev} hasNext={!!next} hasPrev={!!prev} bookTitle={book?.title_en || book?.title_ar} paper={paper} onTray={setTray} />
+          : hasContent ? <CodexProse blocks={blocks} chapter={current} onNext={onNext} onPrev={onPrev} hasNext={!!next} hasPrev={!!prev} bookTitle={book?.title_en || book?.title_ar} paper={paper} onTray={setTray} help={help} />
             : <div className="lib-page"><div className="lib-empty">هذا الفصل قيد الإعداد.</div></div>
       ) : (
         <div className="lib-page">
@@ -291,7 +297,7 @@ export default function LibraryReader() {
           )}
           {isLoading && <div className="lib-skel" style={{ height: 320 }} />}
           {!isLoading && !hasContent && <div className="lib-empty">هذا الفصل قيد الإعداد.</div>}
-          {!isLoading && hasContent && (mode === 'reveal' ? <RevealProse blocks={blocks} /> : <AssistProse blocks={blocks} />)}
+          {!isLoading && hasContent && (mode === 'reveal' ? <RevealProse blocks={blocks} help={help} /> : <AssistProse blocks={blocks} />)}
           {!isLoading && hasContent && (
             <div className="lib-foot">
               <button disabled={!prev} onClick={onPrev}>الفصل السابق</button>
@@ -301,6 +307,18 @@ export default function LibraryReader() {
         </div>
       )}
 
+      <AnimatePresence>
+        {mode === 'codex' && tray && (
+          <motion.div
+            key="scrim"
+            className="lib-tray-scrim"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setTray(null)}
+          />
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {mode === 'codex' && tray && (
           <motion.div
@@ -344,6 +362,14 @@ export default function LibraryReader() {
               <div className="lib-sheet-row">
                 <span>إضاءة الشموع</span>
                 <button className={`lib-toggle ${candle ? 'on' : ''}`} onClick={toggleCandle} aria-label="إضاءة الشموع"><i /></button>
+              </div>
+              <div className="lib-sheet-row">
+                <span>مستوى المساعدة</span>
+                <div className="lib-seg">
+                  <button data-active={help === 'full'} onClick={() => changeHelp('full')}>الكل</button>
+                  <button data-active={help === 'hints'} onClick={() => changeHelp('hints')}>تلميح</button>
+                  <button data-active={help === 'off'} onClick={() => changeHelp('off')}>إيقاف</button>
+                </div>
               </div>
               <button className="lib-sheet-done" onClick={() => setShowSettings(false)}>تم</button>
             </motion.div>

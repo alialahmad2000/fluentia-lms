@@ -136,6 +136,9 @@
 .lib-toggle.on { background: rgba(251,191,36,0.25); border-color: rgba(251,191,36,0.4); }
 .lib-toggle.on i { left: 22px; background: var(--lib-gold); }
 .lib-sheet-done { width: 100%; margin-top: 16px; padding: 12px; border-radius: 12px; background: rgba(251,191,36,0.16); border: 1px solid rgba(251,191,36,0.3); color: var(--lib-gold); font-family: 'Tajawal', sans-serif; font-size: 14px; cursor: pointer; }
+.lib-seg { display: inline-flex; background: rgba(237,228,211,0.06); border: 1px solid var(--lib-line); border-radius: 999px; padding: 3px; gap: 2px; }
+.lib-seg button { font-family: 'Tajawal', sans-serif; font-size: 12px; color: var(--lib-ink-soft); background: none; border: none; border-radius: 999px; padding: 6px 11px; cursor: pointer; }
+.lib-seg button[data-active="true"] { background: rgba(251,191,36,0.16); color: var(--lib-gold); }
 @media (min-width: 1024px) { .lib-reader-stage { margin: -32px -40px -32px; padding: 0 40px; } }
 @keyframes lib-warm-in { from { opacity: 0; } to { opacity: 1; } }
 
@@ -181,6 +184,9 @@
 /* ---- The veil-lift -------------------------------------------------------*/
 .lib-sentence { cursor: pointer; border-radius: 3px; transition: background .25s ease, box-shadow .25s ease; }
 .lib-sentence:hover { background: rgba(251,191,36,0.05); }
+.lib-sentence[data-static] { cursor: default; }
+.lib-sentence[data-static]:hover { background: none; box-shadow: none; }
+.lib-hint { text-decoration: none; border-bottom: 1px dotted currentColor; opacity: 0.66; }
 .lib-sentence[data-open="true"] {
   background: rgba(251,191,36,0.09);
   box-shadow: 0 0 0 1px rgba(251,191,36,0.10);
@@ -337,12 +343,17 @@
 .lib-leaf.single { width: 100%; left: 0; }
 .lib-leaf.single.prev { transform-origin: right center; }
 /* veil-lift in Codex — a parchment slip that rises (so pages never reflow) */
+/* tap-anywhere-outside scrim closes the translation pop-out */
+.lib-tray-scrim { position: fixed; inset: 0; z-index: 88; background: rgba(6,10,16,0.2); }
 .lib-codex-tray {
-  position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 60; width: min(620px, 92vw);
+  position: fixed; left: 50%; z-index: 90; width: min(620px, 92vw);
+  /* sit clearly ABOVE the mobile bottom nav + iOS home indicator (never covered) */
+  bottom: var(--mobile-bottom-clearance, calc(64px + env(safe-area-inset-bottom) + 16px));
   background: radial-gradient(120% 100% at 50% 0%, #fbf4e4, #efe1c6);
   border: 1px solid #c9b285; border-radius: 14px; padding: 15px 20px; color: #2b2117;
-  box-shadow: 0 26px 54px -18px rgba(0,0,0,0.7);
+  box-shadow: 0 26px 60px -16px rgba(0,0,0,0.75);
 }
+@media (min-width: 1024px) { .lib-codex-tray { bottom: calc(env(safe-area-inset-bottom) + 24px); } }
 .lib-codex-tray .en { font-family: var(--lib-serif); font-size: 17px; margin-bottom: 6px; direction: ltr; }
 .lib-codex-tray .ar { font-family: 'Tajawal', sans-serif; font-size: 15px; color: #5a4423; line-height: 1.8; direction: rtl; }
 .lib-codex-tray .close { margin-top: 10px; background: none; border: none; color: #8a5a18; font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
