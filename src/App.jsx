@@ -36,6 +36,7 @@ const TeamFollowups = lazyRetry(() => import('./pages/team/TeamFollowups'))
 const TeamSchedule  = lazyRetry(() => import('./pages/team/TeamSchedule'))
 const CsPerformance = lazyRetry(() => import('./pages/admin/CsPerformance'))
 const CsIntegrations = lazyRetry(() => import('./pages/admin/CsIntegrations'))
+const AdminTeam = lazyRetry(() => import('./pages/admin/AdminTeam'))
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
@@ -922,6 +923,7 @@ export default function App() {
               <Route path="/admin/reports" element={<Page><AdminReports /></Page>} />
               <Route path="/admin/cs-performance" element={<Page><CsPerformance /></Page>} />
               <Route path="/admin/integrations" element={<Page><CsIntegrations /></Page>} />
+              <Route path="/admin/team" element={<Page><AdminTeam /></Page>} />
               <Route path="/admin/bug-reports" element={<Page><AdminBugReports /></Page>} />
               {/* Retention — admin */}
               <Route path="/admin/retention" element={<Page><AdminRetentionMasterSwitch /></Page>} />

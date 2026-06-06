@@ -164,6 +164,7 @@ export const ADMIN_NAV = {
         { id: 'students',    label: 'الطلاب',       icon: GraduationCap, to: '/admin/users' },
         { id: 'groups',      label: 'المجموعات',    icon: Users,         to: '/admin/groups' },
         { id: 'trainers',    label: 'المدربون',     icon: UserCog,       to: '/admin/trainers' },
+        { id: 'team',        label: 'الموظفون',     icon: UserCog,       to: '/admin/team' },
       ],
     },
     {
