@@ -33,7 +33,9 @@
   --sab: env(safe-area-inset-bottom, 0px);
 
   position: fixed;
-  inset: 0;
+  top: calc(var(--sat, 0px) + var(--impersonation-banner-height, 0px));
+  inset-inline: 0;
+  bottom: 0;
   background:
     radial-gradient(1100px 700px at 100% -10%, rgba(56, 189, 248, 0.07), transparent 60%),
     radial-gradient(900px 600px at -10% 110%, rgba(251, 191, 36, 0.05), transparent 60%),
@@ -142,7 +144,7 @@
 /* ── Mobile bottom bar ──────────────────────────────────────────────────── */
 .tea-mobilebar { display: none; }
 
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   .tea-sidebar { display: none; }
   .tea-header { padding: 0 16px; }
   .tea-content { padding: 18px 14px calc(var(--tea-mobilebar-h) + var(--sab) + 24px); }
