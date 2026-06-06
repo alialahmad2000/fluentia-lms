@@ -45,6 +45,9 @@ const StudentMessages = lazyRetry(() => import('./pages/student/StudentMessages'
 const ChatHome = lazyRetry(() => import('./features/chat/pages/ChatHome'))
 const DMChatPage = lazyRetry(() => import('./features/chat/pages/DMChatPage'))
 const GroupChatPage = lazyRetry(() => import('./features/chat/pages/GroupChatPage'))
+const LibraryHome = lazyRetry(() => import('./features/library/pages/LibraryHome'))
+const LibraryBook = lazyRetry(() => import('./features/library/pages/LibraryBook'))
+const LibraryReader = lazyRetry(() => import('./features/library/pages/LibraryReader'))
 const StudentChatbot = lazyRetry(() => import('./pages/student/StudentChatbot'))
 const StudentVocabulary = lazyRetry(() => import('./pages/student/StudentVocabulary'))
 const StudentBilling = lazyRetry(() => import('./pages/student/StudentBilling'))
@@ -662,6 +665,10 @@ export default function App() {
                 <Route path="/chat/:groupId" element={<Page><GroupChatPage /></Page>} />
                 <Route path="/chat/:groupId/:channelSlug" element={<Page><GroupChatPage /></Page>} />
                 <Route path="/chat/:groupId/:channelSlug/m/:messageId" element={<Page><GroupChatPage /></Page>} />
+                {/* مكتبة طلاقة — Fluentia Library (novels). Shared route; admin reviews here. */}
+                <Route path="/library" element={<Page><LibraryHome /></Page>} />
+                <Route path="/library/:bookId" element={<Page><LibraryBook /></Page>} />
+                <Route path="/library/:bookId/read/:chapterId" element={<Page><LibraryReader /></Page>} />
               </Route>
             </Route>
           </Route>

@@ -1,0 +1,176 @@
+{
+  "book": {
+    "title_en": "The Silent Tide",
+    "title_ar": "المدّ الصامت",
+    "synopsis_en": "In a quiet English seaside town, the lighthouse keeper is found drowned. He was afraid of the water — and he left one note, with one name, for the town librarian.",
+    "synopsis_ar": "في بلدة إنجليزية ساحلية هادئة، يُعثر على حارس المنارة غريقاً. كان يخاف الماء، وترك رسالة واحدة، فيها اسم واحد، لأمينة مكتبة البلدة.",
+    "theme": "mystery",
+    "cefr": "A1-A2",
+    "level_number": 1,
+    "cover_data": { "style": "typographic", "palette": "mystery", "motif": "tideline" },
+    "author_label": "Fluentia Originals",
+    "sort_order": 1,
+    "status": "published"
+  },
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title_en": "The Morning Tide",
+      "title_ar": "مدّ الصباح",
+      "paragraphs": [
+        [
+          { "en": "Eleanor Vane opened the library every morning at nine o'clock.", "ar": "كانت إلينور فِين تفتح المكتبة كل صباح في الساعة التاسعة." }
+        ],
+        [
+          { "en": "She liked the quiet.", "ar": "كانت تحب الهدوء." },
+          { "en": "She liked the smell of old books and floor polish.", "ar": "كانت تحب رائحة الكتب القديمة وملمّع الأرضيات." },
+          { "en": "Most of all, she liked the window.", "ar": "وأكثر من أي شيء، كانت تحب النافذة." },
+          { "en": "From her desk she could see the whole town of Harbour's End — the grey sea, the white houses, the little boats, and the old lighthouse on the rocks.", "ar": "من مكتبها كانت تستطيع أن ترى بلدة «هاربرز إند» بأكملها: البحر الرمادي، والبيوت البيضاء، والقوارب الصغيرة، والمنارة العتيقة فوق الصخور." }
+        ],
+        [
+          { "en": "This morning the sea lay very still.", "ar": "هذا الصباح كان البحر ساكناً جداً." },
+          { "en": "Too still, she thought.", "ar": "ساكن أكثر من اللازم، فكّرت في نفسها." },
+          { "en": "It lay flat and grey, like a sheet of cold metal, and it told her nothing at all.", "ar": "كان مسطّحاً ورمادياً، كأنه صفيحة من معدن بارد، ولا يبوح لها بشيء على الإطلاق." }
+        ],
+        [
+          { "en": "At half past nine, the door opened.", "ar": "في التاسعة والنصف، انفتح الباب." },
+          { "en": "It was Tom, the milk boy.", "ar": "كان توم، صبيّ الحليب." },
+          { "en": "He was twelve years old and he ran everywhere.", "ar": "كان في الثانية عشرة من عمره، وكان يركض إلى كل مكان." }
+        ],
+        [
+          { "en": "\"Morning, Miss Vane.\"", "ar": "«صباح الخير يا آنسة فِين».", "d": true },
+          { "en": "He was out of breath.", "ar": "كان لاهثاً." },
+          { "en": "\"Have you heard?\"", "ar": "«هل سمعتِ الخبر؟»", "d": true }
+        ],
+        [
+          { "en": "\"Heard what, Tom?\"", "ar": "«سمعتُ ماذا يا توم؟»", "d": true }
+        ],
+        [
+          { "en": "\"Mr Pike. The lighthouse keeper.\"", "ar": "«السيد بايك. حارس المنارة».", "d": true },
+          { "en": "Tom's voice went small and strange.", "ar": "صار صوت توم خافتاً وغريباً." },
+          { "en": "\"They found him this morning. On the rocks below the light. He's dead, Miss Vane. They say he drowned.\"", "ar": "«وجدوه هذا الصباح. على الصخور أسفل المنارة. لقد مات يا آنسة فِين. يقولون إنه غرق».", "d": true }
+        ],
+        [
+          { "en": "Eleanor put down her pen.", "ar": "وضعت إلينور قلمها." },
+          { "en": "For a moment she said nothing at all.", "ar": "للحظةٍ لم تقل شيئاً على الإطلاق." }
+        ],
+        [
+          { "en": "\"That is very sad,\" she said at last.", "ar": "«هذا محزن جداً»، قالت أخيراً.", "d": true },
+          { "en": "\"Poor Mr Pike.\"", "ar": "«مسكين السيد بايك».", "d": true }
+        ],
+        [
+          { "en": "Tom nodded and ran out again, hungry to tell the next person.", "ar": "أومأ توم برأسه وركض خارجاً من جديد، متلهّفاً ليخبر الشخص التالي." },
+          { "en": "The door closed.", "ar": "انغلق الباب." },
+          { "en": "The library was quiet once more.", "ar": "وعادت المكتبة هادئة مرة أخرى." }
+        ],
+        [
+          { "en": "But the quiet felt different now.", "ar": "لكن الهدوء صار محسوساً على نحوٍ مختلف الآن." },
+          { "en": "Something was wrong.", "ar": "كان هناك شيء غير صحيح." },
+          { "en": "Eleanor did not yet know what it was — it was only a small, cold feeling, like a draught moving under a closed door.", "ar": "لم تكن إلينور تعرف بعد ما هو، لم يكن سوى إحساس صغير بارد، كنسمةٍ تتسلّل من تحت بابٍ مغلق." }
+        ],
+        [
+          { "en": "She sat very still and she thought about Mr Pike.", "ar": "جلست ساكنةً تماماً، وأخذت تفكّر في السيد بايك." }
+        ],
+        [
+          { "en": "He came to the library every Friday.", "ar": "كان يأتي إلى المكتبة كل يوم جمعة." },
+          { "en": "Every Friday, for nine years.", "ar": "كل جمعة، طوال تسع سنوات." },
+          { "en": "He was a tall, slow man with kind eyes and big hands, and he always borrowed the same kind of book: stories about the sea, maps of far countries, tales of ships and islands.", "ar": "كان رجلاً طويلاً بطيء الحركة، له عينان طيّبتان ويدان كبيرتان، وكان دائماً يستعير النوع نفسه من الكتب: قصصاً عن البحر، وخرائط لبلاد بعيدة، وحكايات عن السفن والجزر." },
+          { "en": "He read about the ocean.", "ar": "كان يقرأ عن المحيط." },
+          { "en": "But he never went near it.", "ar": "لكنه لم يقترب منه قط." }
+        ],
+        [
+          { "en": "That was the strange thing.", "ar": "كان ذلك هو الأمر الغريب." },
+          { "en": "Everybody in Harbour's End knew it.", "ar": "كان كل من في «هاربرز إند» يعرف ذلك." },
+          { "en": "Mr Pike was afraid of the water.", "ar": "كان السيد بايك يخاف الماء." }
+        ],
+        [
+          { "en": "He kept the great lamp burning at the top of the lighthouse, night after night, so that other men would come home safe.", "ar": "كان يُبقي المصباح الكبير مشتعلاً في أعلى المنارة، ليلةً بعد ليلة، كي يعود الرجال الآخرون إلى بيوتهم سالمين." },
+          { "en": "But he could not swim one stroke.", "ar": "لكنه لم يكن يستطيع السباحة ولو حركةً واحدة." },
+          { "en": "He would not walk on the wet rocks, even in summer.", "ar": "ولم يكن يمشي على الصخور المبتلّة، حتى في الصيف." },
+          { "en": "At night he stayed inside and locked his door against the sound of the waves.", "ar": "وفي الليل كان يبقى في الداخل، ويُغلق بابه في وجه صوت الأمواج." }
+        ],
+        [
+          { "en": "So Eleanor asked herself a simple question, and she could find no simple answer.", "ar": "لذا سألت إلينور نفسها سؤالاً بسيطاً، ولم تجد له جواباً بسيطاً." }
+        ],
+        [
+          { "en": "Why was Mr Pike on the rocks, in the dark, by the cold and hungry sea?", "ar": "لماذا كان السيد بايك على الصخور، في الظلام، بجوار البحر البارد الجائع؟" }
+        ],
+        [
+          { "en": "She stood up.", "ar": "وقفت." },
+          { "en": "She walked to the returns desk, where the night's books waited in a small wooden box.", "ar": "مشت إلى منضدة الإرجاع، حيث تنتظر كتب الليلة في صندوقٍ خشبيٍّ صغير." },
+          { "en": "And then she stopped, because she remembered something.", "ar": "ثم توقّفت، لأنها تذكّرت شيئاً." }
+        ],
+        [
+          { "en": "Mr Pike had come in yesterday.", "ar": "كان السيد بايك قد جاء بالأمس." }
+        ],
+        [
+          { "en": "Yesterday was Thursday. Not Friday.", "ar": "كان الأمس يوم الخميس. لا الجمعة." },
+          { "en": "In nine years he had never once come on a Thursday.", "ar": "في تسع سنوات لم يأتِ ولو مرة واحدة يوم خميس." },
+          { "en": "But yesterday, just before closing time, the door had opened and there he was, with his hat in his hands and rain on his coat.", "ar": "لكن بالأمس، قُبيل موعد الإغلاق، انفتح الباب، وإذا به هناك، قبّعته في يديه والمطر على معطفه." }
+        ],
+        [
+          { "en": "He had not looked at the new books.", "ar": "لم ينظر إلى الكتب الجديدة." },
+          { "en": "He had not talked about the weather, the way he always did.", "ar": "ولم يتحدّث عن الطقس، كما كان يفعل دائماً." },
+          { "en": "He had only returned the book in his hand, very quickly, and he had said one odd thing.", "ar": "اكتفى بأن أرجع الكتاب الذي في يده، بسرعة شديدة، وقال شيئاً واحداً غريباً." }
+        ],
+        [
+          { "en": "\"Keep this one safe for me, Miss Vane,\" he had said.", "ar": "«احفظي هذا في أمان من أجلي يا آنسة فِين»، قال.", "d": true },
+          { "en": "\"Just for a few days.\"", "ar": "«لبضعة أيام فقط».", "d": true }
+        ],
+        [
+          { "en": "Then he had gone out into the rain, and she had not thought about it again.", "ar": "ثم خرج إلى المطر، ولم تفكّر في الأمر مرة أخرى." },
+          { "en": "Until now.", "ar": "حتى الآن." }
+        ],
+        [
+          { "en": "Eleanor's hands were not quite steady as she looked through the box.", "ar": "لم تكن يدا إلينور ثابتتين تماماً وهي تفتّش في الصندوق." },
+          { "en": "Sea Charts of the Northern Coast. Treasure Island. A History of Lighthouses.", "ar": "«خرائط بحرية للساحل الشمالي». «جزيرة الكنز». «تاريخ المنارات»." },
+          { "en": "And there, at the bottom — the book.", "ar": "وهناك، في القاع، الكتاب." }
+        ],
+        [
+          { "en": "It was an old green book, soft at the corners, called Tales of the Quiet Sea.", "ar": "كان كتاباً أخضر قديماً، ليّن الأطراف، عنوانه «حكايات البحر الهادئ»." },
+          { "en": "Mr Pike's favourite.", "ar": "كان الكتاب المفضّل لدى السيد بايك." },
+          { "en": "He had borrowed it more times than any other reader in the town.", "ar": "كان قد استعاره مرات أكثر من أي قارئٍ آخر في البلدة." }
+        ],
+        [
+          { "en": "She picked it up.", "ar": "التقطته." },
+          { "en": "It felt heavier than a book should feel.", "ar": "بدا أثقل مما ينبغي لكتابٍ أن يكون." }
+        ],
+        [
+          { "en": "She opened it.", "ar": "فتحته." }
+        ],
+        [
+          { "en": "Between two pages near the middle, someone had folded a single sheet of white paper.", "ar": "بين صفحتين قرب المنتصف، كان أحدهم قد طوى ورقةً بيضاء واحدة." },
+          { "en": "It was folded twice, with great care, and her name was written on the front in pencil: Miss Vane.", "ar": "كانت مطويّةً مرّتين، بعناية بالغة، واسمها مكتوب على وجهها بالقلم الرصاص: آنسة فِين." }
+        ],
+        [
+          { "en": "The library was warm, but Eleanor felt cold all the way down to her shoes.", "ar": "كانت المكتبة دافئة، لكن إلينور شعرت بالبرد حتى أطراف حذائها." }
+        ],
+        [
+          { "en": "She looked at the door.", "ar": "نظرت إلى الباب." },
+          { "en": "The town was waking up outside — she could hear a cart, a dog, a woman calling a child.", "ar": "كانت البلدة تستيقظ في الخارج، تسمع عربةً، وكلباً، وامرأةً تنادي طفلاً." },
+          { "en": "The world went on, ordinary and bright.", "ar": "كان العالم يمضي، عادياً ومشرقاً." },
+          { "en": "Nobody was watching her at all.", "ar": "لم يكن أحد يراقبها على الإطلاق." }
+        ],
+        [
+          { "en": "She unfolded the paper.", "ar": "فتحت طيّة الورقة." }
+        ],
+        [
+          { "en": "There were only three lines, written in a slow and careful hand.", "ar": "لم يكن فيها سوى ثلاثة أسطر، مكتوبة بخطٍّ بطيءٍ متأنٍّ." },
+          { "en": "The first line was a date — three nights ago.", "ar": "كان السطر الأول تاريخاً، قبل ثلاث ليالٍ." },
+          { "en": "The second line was a single word that made no sense to her: Margaret.", "ar": "وكان السطر الثاني كلمةً واحدة لا معنى لها عندها: مارغريت." },
+          { "en": "And the third line was not really a sentence at all.", "ar": "أما السطر الثالث فلم يكن جملةً في الحقيقة." },
+          { "en": "It was a short, frightened message, and it changed everything she thought she knew about the quiet man who read about the sea.", "ar": "كان رسالةً قصيرةً مذعورة، وقد غيّرت كل ما ظنّت أنها تعرفه عن الرجل الهادئ الذي كان يقرأ عن البحر." }
+        ],
+        [
+          { "en": "It said:", "ar": "كانت تقول:" }
+        ],
+        [
+          { "en": "If they find me in the water, Miss Vane — I did not fall.", "ar": "إن وجدوني في الماء يا آنسة فِين، فأنا لم أسقط.", "d": true }
+        ],
+        [
+          { "en": "Eleanor Vane sat down very slowly in her chair by the window, with the paper in her hand and the still grey sea outside, and she understood, for the first time in her careful and peaceful life, that she was the only person in Harbour's End who knew that the lighthouse keeper had been afraid — and that he had been right to be.", "ar": "جلست إلينور فِين ببطءٍ شديد في كرسيّها قرب النافذة، والورقة في يدها والبحر الرمادي الساكن في الخارج، وأدركت، لأول مرة في حياتها المتأنّية الوادعة، أنها الشخص الوحيد في «هاربرز إند» الذي يعرف أن حارس المنارة كان خائفاً، وأنه كان محقّاً في خوفه." }
+        ]
+      ]
+    }
+  ]
+}

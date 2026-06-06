@@ -171,6 +171,7 @@ export const ADMIN_NAV = {
       label: 'العمليات',
       items: [
         { id: 'content',     label: 'المحتوى',      icon: BookOpen,      to: '/admin/content' },
+        { id: 'library',     label: 'المكتبة',      icon: BookMarked,    to: '/library' },
         { id: 'curriculum',  label: 'المنهج',       icon: FileText,      to: '/admin/curriculum' },
         { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: BookOpen, to: '/admin/student-curriculum' },
         { id: 'ielts-atelier-preview',   label: 'معاينة منهج IELTS',  icon: Target,   to: '/admin/ielts-atelier-preview' },
