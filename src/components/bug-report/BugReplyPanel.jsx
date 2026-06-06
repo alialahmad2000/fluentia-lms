@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Send, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
@@ -7,23 +7,32 @@ import { toast } from '@/components/ui/FluentiaToast'
 // Staff-side reply thread for a bug-report ticket. Drop into the admin bug-report
 // detail with <BugReplyPanel reportId={report.id} />. Posting a reply fires the
 // DB trigger that notifies the student who reported it.
-export default function BugReplyPanel({ reportId }) {
+export default function BugReplyPanel({ reportId, refreshTick }) {
   const profile = useAuthStore((s) => s.profile)
   const [messages, setMessages] = useState(null)
   const [reply, setReply] = useState('')
   const [sending, setSending] = useState(false)
+  const [loadError, setLoadError] = useState(null)
+  const scrollRef = useRef(null)
 
   const load = useCallback(async () => {
     if (!reportId) return
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('bug_report_messages')
       .select('*')
       .eq('report_id', reportId)
       .order('created_at', { ascending: true })
+    if (error) { setLoadError(error.message); return }
+    setLoadError(null)
     setMessages(data || [])
   }, [reportId])
 
-  useEffect(() => { load() }, [load])
+  // Reload on mount + whenever the parent polls (refreshTick), and keep newest in view.
+  useEffect(() => { load() }, [load, refreshTick])
+  useEffect(() => {
+    const el = scrollRef.current
+    if (el) el.scrollTop = el.scrollHeight
+  }, [messages])
 
   const send = async () => {
     const body = reply.trim()
@@ -45,9 +54,10 @@ export default function BugReplyPanel({ reportId }) {
   return (
     <div dir="rtl" className="mt-3 rounded-xl border border-white/10 bg-white/[0.02] p-3" style={{ fontFamily: 'Tajawal, sans-serif' }}>
       <div className="text-xs text-slate-400 mb-2">المحادثة مع الطالب</div>
-      <div className="space-y-2 mb-2 max-h-60 overflow-y-auto">
-        {messages === null && <div className="text-xs text-slate-500">جارٍ التحميل…</div>}
-        {messages?.length === 0 && <div className="text-xs text-slate-500">لا توجد رسائل بعد.</div>}
+      <div ref={scrollRef} className="space-y-2 mb-2 max-h-60 overflow-y-auto">
+        {messages === null && !loadError && <div className="text-xs text-slate-500">جارٍ التحميل…</div>}
+        {loadError && <div className="text-xs text-red-400">تعذّر تحميل الرسائل: {loadError}</div>}
+        {messages?.length === 0 && !loadError && <div className="text-xs text-slate-500">لا توجد رسائل بعد.</div>}
         {messages?.map((m) => {
           const staff = m.sender_role === 'admin' || m.sender_role === 'trainer'
           return (

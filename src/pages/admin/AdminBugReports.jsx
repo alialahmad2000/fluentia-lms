@@ -68,27 +68,62 @@ function Screenshot({ path }) {
 
 export default function AdminBugReports() {
   const [rows, setRows] = useState([])
+  const [latestMsg, setLatestMsg] = useState({})      // report_id → newest message {sender_role}
+  const [studentCount, setStudentCount] = useState({}) // report_id → # of student messages
+  const [refreshTick, setRefreshTick] = useState(0)
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
   const [typeFilter, setTypeFilter] = useState('all')
 
   const load = useCallback(async () => {
-    setLoading(true)
     let q = supabase.from('bug_reports').select('*').order('created_at', { ascending: false }).limit(500)
     if (filter !== 'all') q = q.eq('status', filter)
-    const { data, error } = await q
+    // Load reports AND all messages together so we can sort/flag by conversation activity.
+    const [{ data, error }, { data: msgs }] = await Promise.all([
+      q,
+      supabase.from('bug_report_messages').select('report_id, sender_role, created_at').order('created_at', { ascending: false }),
+    ])
     setLoading(false)
     if (error) { toast({ type: 'error', title: 'تعذّر تحميل البلاغات', description: error.message }); return }
+    const latest = {}, counts = {}
+    for (const m of msgs || []) {
+      if (!latest[m.report_id]) latest[m.report_id] = m // newest-first list → first seen = latest
+      if (m.sender_role !== 'admin' && m.sender_role !== 'trainer') counts[m.report_id] = (counts[m.report_id] || 0) + 1
+    }
+    setLatestMsg(latest)
+    setStudentCount(counts)
     setRows(data || [])
+    setRefreshTick((t) => t + 1)
   }, [filter])
 
   useEffect(() => { load() }, [load])
+  // Poll every 12s so a new student message surfaces without a manual refresh.
+  useEffect(() => {
+    const id = setInterval(load, 12000)
+    return () => clearInterval(id)
+  }, [load])
 
-  // Problem-type filter is applied client-side off device_info.context.
+  // A report "needs you" when the student spoke last, or marked it still-broken.
+  const awaiting = useCallback((r) => {
+    if (r.reporter_status === 'still_broken') return true
+    const m = latestMsg[r.id]
+    return !!(m && m.sender_role !== 'admin' && m.sender_role !== 'trainer')
+  }, [latestMsg])
+  const activityTs = (r) => new Date(r.last_reply_at || r.created_at).getTime()
+
+  // Problem-type filter (client-side) + sort: still-broken → awaiting your reply → newest activity.
   const visibleRows = useMemo(() => {
-    if (typeFilter === 'all') return rows
-    return rows.filter((r) => r.device_info?.context?.problem_type === typeFilter)
-  }, [rows, typeFilter])
+    const base = typeFilter === 'all' ? rows : rows.filter((r) => r.device_info?.context?.problem_type === typeFilter)
+    return [...base].sort((a, b) => {
+      const ab = a.reporter_status === 'still_broken' ? 1 : 0, bb = b.reporter_status === 'still_broken' ? 1 : 0
+      if (ab !== bb) return bb - ab
+      const aw = awaiting(a) ? 1 : 0, bw = awaiting(b) ? 1 : 0
+      if (aw !== bw) return bw - aw
+      return activityTs(b) - activityTs(a)
+    })
+  }, [rows, typeFilter, awaiting])
+
+  const awaitingCount = useMemo(() => rows.filter(awaiting).length, [rows, awaiting])
 
   // Only show type chips that actually appear in the loaded set (keeps the bar tidy).
   const presentTypes = useMemo(() => {
@@ -128,6 +163,12 @@ export default function AdminBugReports() {
           <RefreshCw size={15} /> تحديث
         </button>
       </div>
+
+      {awaitingCount > 0 && (
+        <div className="rounded-xl px-4 py-2.5 text-sm font-bold" style={{ background: 'rgba(251,191,36,0.12)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.32)' }}>
+          💬 {awaitingCount} بلاغ بانتظار ردّك — مرتّبة في الأعلى
+        </div>
+      )}
 
       {/* Status filters */}
       <div className="flex items-center gap-2 flex-wrap">
@@ -191,7 +232,18 @@ export default function AdminBugReports() {
                     <span>·</span><span>{r.reporter_role || ''}</span>
                     <span>·</span><span>{fmt(r.created_at)}</span>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full text-[12px] font-bold" style={{ color: st.color, background: st.bg }}>{st.label}</span>
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                    {r.reporter_status === 'still_broken' && (
+                      <span className="px-2.5 py-1 rounded-full text-[12px] font-bold" style={{ color: '#f87171', background: 'rgba(248,113,113,0.16)' }}>🔴 الطالب: لا تزال المشكلة</span>
+                    )}
+                    {r.reporter_status !== 'still_broken' && latestMsg[r.id] && latestMsg[r.id].sender_role !== 'admin' && latestMsg[r.id].sender_role !== 'trainer' && (
+                      <span className="px-2.5 py-1 rounded-full text-[12px] font-bold" style={{ color: '#fbbf24', background: 'rgba(251,191,36,0.16)' }}>💬 ردّ جديد من الطالب</span>
+                    )}
+                    {studentCount[r.id] > 0 && (
+                      <span className="px-2 py-1 rounded-full text-[11px] font-bold" style={{ color: '#94a3b8', background: 'rgba(148,163,184,0.12)' }}>💬 {studentCount[r.id]}</span>
+                    )}
+                    <span className="px-2.5 py-1 rounded-full text-[12px] font-bold" style={{ color: st.color, background: st.bg }}>{st.label}</span>
+                  </div>
                 </div>
 
                 {/* Structured context chips */}
@@ -240,7 +292,7 @@ export default function AdminBugReports() {
                   ))}
                 </div>
 
-                <BugReplyPanel reportId={r.id} />
+                <BugReplyPanel reportId={r.id} refreshTick={refreshTick} />
               </div>
             )
           })}
