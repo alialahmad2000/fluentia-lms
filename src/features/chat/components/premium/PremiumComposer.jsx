@@ -9,6 +9,7 @@ import { useSendMessage } from '../../mutations/useSendMessage'
 import { useSendDM } from '../../queries/useDM'
 import { useEditMessage } from '../../mutations/useEditMessage'
 import { uploadChatFile, uploadChatImage } from '../../../../lib/chatStorage'
+import { toast } from '../../../../components/ui/FluentiaToast'
 import VoiceRecorder from '../VoiceRecorder'
 import MentionPicker from './MentionPicker'
 import SenderAvatar from './SenderAvatar'
@@ -118,7 +119,7 @@ export default function PremiumComposer({
       onClearEdit?.()
       try {
         await editMessage.mutateAsync({ messageId: target.id, body: text, createdAt: target.created_at })
-      } catch (err) { console.error(err) }
+      } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر تعديل الرسالة' }) }
       return
     }
 
@@ -147,7 +148,7 @@ export default function PremiumComposer({
       const img = new window.Image(); img.src = URL.createObjectURL(file)
       await new Promise((res) => { img.onload = res })
       await sendMessage.mutateAsync({ type: 'image', image_url: path, image_width: img.naturalWidth, image_height: img.naturalHeight })
-    } catch (err) { console.error(err) } finally { setUploading(false); e.target.value = '' }
+    } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر رفع الصورة', description: 'تحقّقي من الاتصال وحاولي مجددًا' }) } finally { setUploading(false); e.target.value = '' }
   }
 
   async function handleFilePick(e) {
@@ -156,7 +157,7 @@ export default function PremiumComposer({
     try {
       const path = await uploadChatFile(file, isDM ? `dm/${dmThreadId}` : groupId)
       await sendMessage.mutateAsync({ type: 'file', file_url: path, file_name: file.name, file_size: file.size, file_mime: file.type })
-    } catch (err) { console.error(err) } finally { setUploading(false); e.target.value = '' }
+    } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر رفع الملف', description: 'تحقّقي من الاتصال وحاولي مجددًا' }) } finally { setUploading(false); e.target.value = '' }
   }
 
   const canSend = !!input.trim() && (isDM ? !!dmThreadId : !!generalChannelId) && !sendMessage.isPending && !editMessage.isPending && !uploading

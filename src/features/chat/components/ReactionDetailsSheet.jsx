@@ -17,7 +17,7 @@ export default function ReactionDetailsSheet({ messageId, onClose }) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('message_reactions')
-        .select('emoji, created_at, user:profiles!user_id(id, first_name_ar, last_name_ar, avatar_url, role)')
+        .select('emoji, created_at, user:profiles!user_id(id, display_name, full_name, avatar_url, role)')
         .eq('message_id', messageId)
         .order('created_at')
       if (error) throw error
@@ -68,13 +68,13 @@ export default function ReactionDetailsSheet({ messageId, onClose }) {
                 <span className="text-sm text-[var(--text-muted)]">{rows.length}</span>
               </div>
               {rows.map((r) => {
-                const name = `${r.user?.first_name_ar ?? ''} ${r.user?.last_name_ar ?? ''}`.trim()
+                const name = (r.user?.display_name || r.user?.full_name || '').trim()
                 return (
                   <div key={r.user?.id ?? Math.random()} className="flex items-center gap-3 px-4 py-2.5 border-b border-[var(--border)]">
                     <div className="w-8 h-8 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-400 text-sm shrink-0 overflow-hidden">
                       {r.user?.avatar_url
                         ? <img src={r.user.avatar_url} alt="" className="w-full h-full object-cover" />
-                        : (r.user?.first_name_ar?.[0] ?? '?')
+                        : ((r.user?.display_name || r.user?.full_name)?.[0] ?? '?')
                       }
                     </div>
                     <span className="flex-1 text-sm text-[var(--text-primary)]" style={{ fontFamily: 'Tajawal, sans-serif' }}>

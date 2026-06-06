@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useTransform } from 'framer-motion'
-import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck } from 'lucide-react'
+import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck, Clock, AlertCircle } from 'lucide-react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useAuthProfile } from '../../../stores/authStore'
 import MessageBubbleText from './MessageBubbleText'
 import MessageBubbleVoice from './MessageBubbleVoice'
@@ -19,6 +20,7 @@ import { useChatGestures } from '../lib/useChatGestures'
 import { useReact } from '../mutations/useReact'
 import { useDeleteMessage } from '../mutations/useDeleteMessage'
 import { useTogglePin } from '../mutations/useTogglePin'
+import { resendMessage } from '../mutations/useSendMessage'
 
 // Tail-radius presets (CSS order: TL TR BR BL). Rounded 18px, tail/spine 5px.
 function getBubbleRadius(position, isOwn) {
@@ -46,6 +48,7 @@ const SHADOW_OTHER = [
 
 export default function MessageBubble({ message, isGrouped, position = 'single', channelId, groupId, onReply, onEdit, readUpTo }) {
   const profile = useAuthProfile()
+  const qc = useQueryClient()
   const [showReactionBar, setShowReactionBar] = useState(false)
   const [sheet, setSheet] = useState({ open: false, anchor: null })
   const [burst, setBurst] = useState(null)
@@ -170,11 +173,18 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
               <span className="text-[10.5px] tabular-nums" style={{ color: 'color-mix(in srgb, var(--ds-accent-primary) 60%, var(--ds-text-tertiary))', fontVariantNumeric: 'tabular-nums' }}>
                 {time}{message.is_edited && ' · معدّل'}
               </span>
-              {readUpTo !== undefined && !String(message.id).startsWith('optimistic') && (
+              {message._status === 'failed' ? (
+                <button onClick={(e) => { e.stopPropagation(); resendMessage(qc, message) }}
+                  className="flex items-center gap-1 text-[10.5px] font-medium" style={{ color: 'var(--ds-accent-danger)', fontFamily: 'Tajawal, sans-serif' }}>
+                  <AlertCircle size={12} /> فشل الإرسال · إعادة المحاولة
+                </button>
+              ) : message._status === 'sending' ? (
+                <Clock size={12} style={{ color: 'var(--ds-text-tertiary)' }} aria-label="جارٍ الإرسال" />
+              ) : (readUpTo !== undefined && !String(message.id).startsWith('optimistic') && (
                 (readUpTo && new Date(message.created_at) <= new Date(readUpTo))
                   ? <CheckCheck size={13} style={{ color: 'var(--ds-accent-primary)' }} aria-label="تمت القراءة" />
                   : <Check size={13} style={{ color: 'var(--ds-text-tertiary)' }} aria-label="تم الإرسال" />
-              )}
+              ))}
             </div>
           )}
         </div>
