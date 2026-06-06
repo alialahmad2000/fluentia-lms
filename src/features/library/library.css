@@ -277,7 +277,10 @@
   background: radial-gradient(125% 92% at 50% -6%, #f9f3e7 0%, #f1e9d7 54%, #e8dec9 100%);
   border-radius: 7px; padding: 32px 44px 18px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 38px 90px -30px rgba(0,0,0,0.85), inset 0 0 50px rgba(120,86,40,0.06);
+  transform-origin: top center; animation: lib-book-open 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
+@keyframes lib-book-open { from { transform: perspective(1500px) rotateX(9deg) scale(0.95); opacity: 0.25; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .lib-book { animation: none; } }
 /* paper grain */
 .lib-book::before {
   content: ""; position: absolute; inset: 0; border-radius: 6px; pointer-events: none; opacity: 0.42; mix-blend-mode: multiply;

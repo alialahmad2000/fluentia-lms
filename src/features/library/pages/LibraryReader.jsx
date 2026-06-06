@@ -12,6 +12,8 @@ import { useBook, useChapterContent } from '../hooks/useLibrary'
 import '../library.css'
 
 const PAPERS = ['ivory', 'cream', 'linen', 'parchment', 'sepia']
+const AMB_BASE = 'https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/library-audio/ambience'
+const AMBIENCE = { mystery: `${AMB_BASE}/sea.mp3`, grief: `${AMB_BASE}/rain.mp3` }
 
 // interleave authored illustrations (after:-1 = chapter opener) into the paragraph flow
 function buildBlocks(paragraphs, illustrations) {
@@ -213,6 +215,10 @@ export default function LibraryReader() {
   const [help, setHelp] = useState(() => {
     try { return localStorage.getItem('fluentia:lib:help') || 'full' } catch { return 'full' }
   })
+  const [ambient, setAmbient] = useState(() => {
+    try { return localStorage.getItem('fluentia:lib:ambient') === '1' } catch { return false }
+  })
+  const ambientRef = useRef(null)
   const [showSettings, setShowSettings] = useState(false)
 
   const chapters = bookData?.chapters || []
@@ -221,6 +227,7 @@ export default function LibraryReader() {
   const current = idx >= 0 ? chapters[idx] : null
   const prev = idx > 0 ? chapters[idx - 1] : null
   const next = idx >= 0 && idx < chapters.length - 1 ? chapters[idx + 1] : null
+  const ambienceUrl = AMBIENCE[book?.theme] || null
 
   const blocks = useMemo(() => buildBlocks(paragraphs, current?.illustrations), [paragraphs, current])
 
@@ -240,6 +247,14 @@ export default function LibraryReader() {
 
   useEffect(() => { setFinished(false); setTray(null); window.scrollTo(0, 0) }, [chapterId])
 
+  // ambient soundscape — play/pause the theme's loop
+  useEffect(() => {
+    const el = ambientRef.current
+    if (!el) return
+    if (ambient && ambienceUrl) { el.volume = 0.28; el.play().catch(() => {}) } else { el.pause() }
+  }, [ambient, ambienceUrl])
+  useEffect(() => () => { const el = ambientRef.current; if (el) { el.pause() } }, [])
+
   const changePaper = (p) => { setPaper(p); try { localStorage.setItem('fluentia:lib:paper', p) } catch { /* ignore */ } }
   const bumpFont = (d) => {
     const v = Math.min(1.35, Math.max(0.85, Math.round((fontScale + d) * 100) / 100))
@@ -249,6 +264,12 @@ export default function LibraryReader() {
     const v = !candle; setCandle(v); try { localStorage.setItem('fluentia:lib:candle', v ? '1' : '0') } catch { /* ignore */ }
   }
   const changeHelp = (h) => { setHelp(h); setTray(null); try { localStorage.setItem('fluentia:lib:help', h) } catch { /* ignore */ } }
+  const toggleAmbient = () => {
+    const v = !ambient; setAmbient(v)
+    try { localStorage.setItem('fluentia:lib:ambient', v ? '1' : '0') } catch { /* ignore */ }
+    const el = ambientRef.current
+    if (el) { if (v && ambienceUrl) { el.volume = 0.28; el.play().catch(() => {}) } else { el.pause() } }
+  }
   const goChapter = (c) => navigate(`/library/${bookId}/read/${c.id}`)
   const onNext = () => { if (next) goChapter(next); else setFinished(true) }
   const onPrev = () => { if (prev) goChapter(prev) }
@@ -257,6 +278,7 @@ export default function LibraryReader() {
   return (
     <div className="lib-reader-stage" data-candle={candle || undefined} data-mood={book?.theme || undefined} style={{ '--lib-fontscale': fontScale }}>
       {candle && <div className="lib-candle" />}
+      <audio ref={ambientRef} loop preload="none" src={ambienceUrl || undefined} />
       <div className="lib-reader-bar">
         <button className="lib-back" onClick={() => navigate(`/library/${bookId}`)}>
           <ChevronRight size={16} /> الرواية
@@ -363,6 +385,12 @@ export default function LibraryReader() {
                 <span>إضاءة الشموع</span>
                 <button className={`lib-toggle ${candle ? 'on' : ''}`} onClick={toggleCandle} aria-label="إضاءة الشموع"><i /></button>
               </div>
+              {ambienceUrl && (
+                <div className="lib-sheet-row">
+                  <span>أجواء صوتية</span>
+                  <button className={`lib-toggle ${ambient ? 'on' : ''}`} onClick={toggleAmbient} aria-label="أجواء صوتية"><i /></button>
+                </div>
+              )}
               <div className="lib-sheet-row">
                 <span>مستوى المساعدة</span>
                 <div className="lib-seg">
