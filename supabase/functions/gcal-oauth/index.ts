@@ -16,17 +16,8 @@ const SCOPE = "https://www.googleapis.com/auth/calendar.events";
 serve(async (req) => {
   const url = new URL(req.url);
   if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
-    const html = `<!doctype html><html dir="rtl" lang="ar"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>تقويم Google</title>
-<style>body{font-family:'Tajawal',system-ui,sans-serif;background:#060e1c;color:#f0f4f8;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center}
-.box{max-width:420px;padding:32px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px}
-h1{font-size:20px;margin:0 0 12px}p{color:#94a3b8;font-size:15px;line-height:1.7;margin:0 0 20px}
-a{display:inline-block;background:#38bdf8;color:#06121f;text-decoration:none;font-weight:700;padding:10px 20px;border-radius:10px}</style></head>
-<body><div class="box"><h1>تقويم Google غير مُفعّل بعد</h1>
-<p>لتفعيل التذكيرات التلقائية، يجب ضبط بيانات اعتماد Google أولاً (تُضاف من قِبل الإدارة). الحجوزات تعمل الآن — فقط تنبيهات التقويم بانتظار هذه الخطوة.</p>
-<a href="${APP_URL}/admin/integrations">العودة</a></div></body></html>`;
-    return new Response(html, { status: 200, headers: { "Content-Type": "text/html; charset=utf-8" } });
+    // Not connected yet → bounce back into the app instead of showing a bare page.
+    return Response.redirect(`${APP_URL}/admin/integrations?gcal=notconfigured`, 302);
   }
 
   const code = url.searchParams.get("code");

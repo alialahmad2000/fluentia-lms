@@ -25,6 +25,7 @@ export default function CsIntegrations() {
     const p = new URLSearchParams(window.location.search).get('gcal')
     if (p === 'connected') { toast({ type: 'success', title: 'تم ربط تقويم Google' }); qc.invalidateQueries({ queryKey: ['cs-integration', 'google'] }) }
     else if (p === 'error') { toast({ type: 'error', title: 'تعذّر الربط', description: 'لم يتم استلام صلاحية دائمة — حاول مرة أخرى' }) }
+    else if (p === 'notconfigured') { toast({ type: 'warning', title: 'تقويم Google غير مُعدّ بعد', description: 'يلزم ضبط بيانات اعتماد Google أولاً لتفعيل التذكيرات' }) }
     if (p) window.history.replaceState({}, '', '/admin/integrations')
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
