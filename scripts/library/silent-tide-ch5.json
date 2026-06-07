@@ -1,0 +1,87 @@
+{
+  "book_title": "The Silent Tide",
+  "chapter_number": 5,
+  "title_en": "The Last Light",
+  "title_ar": "الضوء الأخير",
+  "paragraphs": [
+    [
+      { "en": "Eleanor did not sleep that night.", "ar": "لم تنم إلينور تلك الليلة.", "sp": "narrator" },
+      { "en": "By morning she had written two letters and made a plan.", "ar": "وبحلول الصباح كانت قد كتبت رسالتين، ورسمت خطة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The first letter went to the city, to an inspector of the county police — a man who did not know Harbour's End, and who did not call murder an accident.", "ar": "ذهبت الرسالة الأولى إلى المدينة، إلى مفتّشٍ في شرطة المقاطعة — رجلٍ لا يعرف «هاربرز إند»، ولا يسمّي الجريمة حادثاً.", "sp": "narrator" },
+      { "en": "In it she wrote everything: the old wreck, the secret, Mr Pike's pages, and the man called Carrow.", "ar": "كتبت فيها كل شيء: الحُطام القديم، والسرّ، وصفحات السيد بايك، والرجل المدعوّ كارو.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The second part of her plan was more dangerous: she had to make Mr Carrow come to her.", "ar": "أما الجزء الثاني من خطتها فكان أخطر: كان عليها أن تجعل السيد كارو يأتي إليها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "So she let the word travel, as words do in a small village.", "ar": "لذا تركت الخبر يسري، كما تسري الأخبار في قريةٍ صغيرة.", "sp": "narrator" },
+      { "en": "She told Mrs Tregeer, and Mrs Tregeer told the harbour, that the librarian had found the old keeper's papers — and would hand them to the police at the lighthouse, at dusk on Friday.", "ar": "أخبرت السيدة تريغير، وأخبرت السيدة تريغير الميناء، أن أمينة المكتبة قد وجدت أوراق الحارس العجوز — وأنها ستسلّمها إلى الشرطة عند المنارة، وقت الغروب يوم الجمعة.", "sp": "narrator" },
+      { "en": "If Carrow wanted the pages, he would have to come for them.", "ar": "إن أراد كارو الصفحات، فعليه أن يأتي ليأخذها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "On Friday the inspector arrived quietly on the early train.", "ar": "يوم الجمعة وصل المفتّش بهدوءٍ مع قطار الصباح الباكر.", "sp": "narrator" },
+      { "en": "He was a tall, calm man, and he believed her at once when he read Mr Pike's pages.", "ar": "كان رجلاً طويلاً هادئاً، وصدّقها على الفور حين قرأ صفحات السيد بايك.", "sp": "narrator" },
+      { "en": "\"You have done a brave thing, Miss Vane,\" he said. \"Now let us be careful. We will be close, but he must not see us.\"", "ar": "«لقد فعلتِ أمراً شجاعاً يا آنسة فِين»، قال. «الآن لنكن حذرين. سنكون قريبين، لكن يجب ألّا يرانا.»", "d": true, "sp": "Inspector" }
+    ],
+    [
+      { "en": "At dusk, Eleanor walked up to the lighthouse alone, the pages in her hand.", "ar": "عند الغروب، صعدت إلينور إلى المنارة وحدها، والصفحات في يدها.", "sp": "narrator" },
+      { "en": "The sea was grey and very still, the way it had been on the morning Mr Pike was found.", "ar": "كان البحر رمادياً وساكناً جداً، كما كان في الصباح الذي وُجِد فيه السيد بايك.", "sp": "narrator" },
+      { "en": "The inspector and the constable waited in the shadows below.", "ar": "انتظر المفتّش والشرطيّ في الظلال أسفل المنارة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "She did not wait long.", "ar": "لم تنتظر طويلاً.", "sp": "narrator" },
+      { "en": "A man's shape came up the path: Mr Carrow, in his dark coat.", "ar": "صعد شبحُ رجلٍ في الطريق: السيد كارو، بمعطفه الداكن.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"You are a sensible woman after all, Miss Vane,\" he said. \"Give me the papers, and we need never meet again.\"", "ar": "«أنتِ امرأةٌ عاقلةٌ في النهاية يا آنسة فِين»، قال. «أعطيني الأوراق، ولن نلتقي بعدها أبداً.»", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "\"You want them very badly,\" she said, \"for a man who is only writing a history.\"", "ar": "«تريدها بشدّة»، قالت، «بالنسبة لرجلٍ لا يفعل سوى كتابة تاريخ.»", "d": true, "sp": "Eleanor" },
+      { "en": "His smile was gone now.", "ar": "اختفت ابتسامته الآن.", "sp": "narrator" },
+      { "en": "\"Give them to me,\" he said.", "ar": "«أعطيني إيّاها»، قال.", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "\"You were here the night Mr Pike died,\" Eleanor said.", "ar": "«كنت هنا في الليلة التي مات فيها السيد بايك»، قالت إلينور.", "d": true, "sp": "Eleanor" },
+      { "en": "\"You brought him out onto the rocks he feared, and you let the sea take him — because he had seen you, thirty years ago, on the night his sister drowned.\"", "ar": "«جئت به إلى الصخور التي كان يخافها، وتركت البحر يأخذه — لأنه رآك، قبل ثلاثين عاماً، في الليلة التي غرقت فيها أخته.»", "d": true, "sp": "Eleanor" }
+    ],
+    [
+      { "en": "For a moment the man said nothing.", "ar": "للحظةٍ لم يقل الرجل شيئاً.", "sp": "narrator" },
+      { "en": "Then, very quietly, he spoke.", "ar": "ثم، بهدوءٍ شديد، تكلّم.", "sp": "narrator" },
+      { "en": "\"The old fool should have stayed silent, as he had for thirty years. I only asked him to forget. He would not.\"", "ar": "«كان على العجوز الأحمق أن يبقى صامتاً، كما بقي ثلاثين عاماً. كل ما طلبته منه أن ينسى. لكنه أبى.»", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "It was enough.", "ar": "كان ذلك كافياً.", "sp": "narrator" },
+      { "en": "From the shadows below, the inspector stepped out into the last grey light.", "ar": "من الظلال في الأسفل، خرج المفتّش إلى آخر ضوءٍ رمادي.", "sp": "narrator" },
+      { "en": "\"Mr Carrow,\" he said, \"you will come with me.\"", "ar": "«سيد كارو»، قال، «ستأتي معي.»", "d": true, "sp": "Inspector" }
+    ],
+    [
+      { "en": "Carrow turned to run, but the constable was already behind him on the path.", "ar": "استدار كارو ليهرب، لكن الشرطيّ كان خلفه على الطريق من قبل.", "sp": "narrator" },
+      { "en": "There was nowhere to go but the sea, and even he was afraid of that.", "ar": "لم يكن هناك مهربٌ إلا البحر، وحتى هو كان يخافه.", "sp": "narrator" },
+      { "en": "He stood still, and it was over.", "ar": "وقف ساكناً، وانتهى الأمر.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Later, the inspector told her the rest.", "ar": "في وقتٍ لاحق، روى لها المفتّش البقيّة.", "sp": "narrator" },
+      { "en": "Thirty years ago, on the night of the storm, Carrow's men had carried stolen gold ashore and hidden it in the rocks below the light.", "ar": "قبل ثلاثين عاماً، في ليلة العاصفة، حمل رجال كارو ذهباً مسروقاً إلى الشاطئ وأخفوه في الصخور أسفل المنارة.", "sp": "narrator" },
+      { "en": "A boy had seen them, but they had never found him — until Carrow, grown old and greedy, came back for the gold, and learned the boy was now the lighthouse keeper.", "ar": "رآهم صبيّ، لكنهم لم يجدوه قط — حتى عاد كارو، وقد شاخ وطمع، باحثاً عن الذهب، فعلم أن الصبيّ صار حارس المنارة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The gold was still there, where it had lain for thirty years, in a dry place beneath the rocks.", "ar": "كان الذهب لا يزال هناك، حيث رقد ثلاثين عاماً، في موضعٍ جافٍّ تحت الصخور.", "sp": "narrator" },
+      { "en": "But Mr Pike had not died for gold.", "ar": "لكن السيد بايك لم يمت من أجل الذهب.", "sp": "narrator" },
+      { "en": "He had died because he would not forget his sister, or the truth.", "ar": "مات لأنه أبى أن ينسى أخته، أو الحقيقة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The lighthouse did not stay dark for long.", "ar": "لم تبقَ المنارة مظلمةً طويلاً.", "sp": "narrator" },
+      { "en": "A young keeper came in the spring, and the great lamp burned again over Harbour's End, steady and warm, the way Mr Pike had kept it.", "ar": "جاء حارسٌ شابّ في الربيع، واشتعل المصباح الكبير من جديد فوق «هاربرز إند»، ثابتاً دافئاً، كما أبقاه السيد بايك.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Eleanor put the book, Tales of the Quiet Sea, back on its shelf in the library, where it belonged.", "ar": "أعادت إلينور الكتاب، «حكايات البحر الهادئ»، إلى رفّه في المكتبة، حيث ينتمي.", "sp": "narrator" },
+      { "en": "Inside the cover she kept the small photograph of a girl beside a boat.", "ar": "وداخل الغلاف احتفظت بالصورة الصغيرة لفتاةٍ بجوار قارب.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And on quiet mornings, when the sea lay flat and grey outside her window, Eleanor Vane thought of the brother and the sister, and of the long faithful light.", "ar": "وفي الصباحات الهادئة، حين يرقد البحر مسطّحاً رمادياً خارج نافذتها، كانت إلينور فِين تفكّر في الأخ والأخت، وفي الضوء الوفيّ الطويل.", "sp": "narrator" },
+      { "en": "And she was glad, at last, that the truth had not been lost beneath the silent tide.", "ar": "وكانت سعيدة، أخيراً، أن الحقيقة لم تَضِع تحت المدّ الصامت.", "sp": "narrator" }
+    ]
+  ]
+}

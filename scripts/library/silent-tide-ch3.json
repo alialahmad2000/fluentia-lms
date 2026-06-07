@@ -1,0 +1,77 @@
+{
+  "book_title": "The Silent Tide",
+  "chapter_number": 3,
+  "title_en": "The Stranger from the City",
+  "title_ar": "الغريب القادم من المدينة",
+  "paragraphs": [
+    [
+      { "en": "The next morning Eleanor knew where to begin.", "ar": "في صباح اليوم التالي، عرفت إلينور من أين تبدأ.", "sp": "narrator" },
+      { "en": "A stranger who stays in Harbour's End stays in one place: the old inn called The Anchor.", "ar": "الغريب الذي يبقى في «هاربرز إند» يبقى في مكانٍ واحد: النُّزل العتيق المسمّى «المرساة».", "sp": "narrator" }
+    ],
+    [
+      { "en": "She went to the inn after breakfast.", "ar": "ذهبت إلى النُّزل بعد الفطور.", "sp": "narrator" },
+      { "en": "Mr Hollis, the innkeeper, was cleaning glasses behind the bar.", "ar": "كان السيد هوليس، صاحب النُّزل، ينظّف الكؤوس خلف المنضدة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Mr Hollis, a man from the city stayed here not long ago,\" Eleanor said. \"Do you remember him?\"", "ar": "«سيد هوليس، رجلٌ من المدينة أقام هنا منذ وقتٍ قريب»، قالت إلينور. «هل تذكره؟»", "d": true, "sp": "Eleanor" },
+      { "en": "\"Aye, Miss Vane. A quiet man. Good clothes,\" said Mr Hollis. \"He stayed two nights, two weeks back.\"", "ar": "«نعم يا آنسة فِين. رجلٌ هادئ. ثيابٌ أنيقة»، قال السيد هوليس. «أقام ليلتين، قبل أسبوعين.»", "d": true, "sp": "Mr Hollis" },
+      { "en": "\"He asked a great many questions.\"", "ar": "«وطرح أسئلةً كثيرة.»", "d": true, "sp": "Mr Hollis" }
+    ],
+    [
+      { "en": "\"What kind of questions?\" Eleanor asked.", "ar": "«أيّ نوعٍ من الأسئلة؟» سألت إلينور.", "d": true, "sp": "Eleanor" },
+      { "en": "\"About the lighthouse. About old shipwrecks. About the big storm, thirty years ago.\"", "ar": "«عن المنارة. عن حُطام السفن القديمة. عن العاصفة الكبيرة، قبل ثلاثين عاماً.»", "d": true, "sp": "Mr Hollis" },
+      { "en": "\"He wanted to know what the old keeper had seen that night. So I told him to go and ask Mr Pike himself.\"", "ar": "«أراد أن يعرف ما رآه الحارس العجوز تلك الليلة. فقلت له أن يذهب ويسأل السيد بايك بنفسه.»", "d": true, "sp": "Mr Hollis" }
+    ],
+    [
+      { "en": "Eleanor felt cold.", "ar": "شعرت إلينور بالبرد.", "sp": "narrator" },
+      { "en": "So the stranger had been sent straight to Mr Pike's door, and no one had meant any harm by it.", "ar": "إذن، أُرسِل الغريب إلى باب السيد بايك مباشرةً، ولم يقصد أحدٌ بذلك أيّ سوء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Did he give a name?\" she asked.", "ar": "«هل ذكر اسماً؟» سألت.", "d": true, "sp": "Eleanor" },
+      { "en": "\"Carrow. Mr Carrow,\" said the innkeeper. \"But a man can give any name he likes.\"", "ar": "«كارو. السيد كارو»، قال صاحب النُّزل. «لكن للمرء أن يعطي أيّ اسمٍ يشاء.»", "d": true, "sp": "Mr Hollis" },
+      { "en": "\"He left after two nights. Then I saw him again, three days ago, down by the harbour at dusk.\"", "ar": "«غادر بعد ليلتين. ثم رأيته من جديد، قبل ثلاثة أيام، قرب الميناء عند الغروب.»", "d": true, "sp": "Mr Hollis" }
+    ],
+    [
+      { "en": "Three days ago.", "ar": "قبل ثلاثة أيام.", "sp": "narrator" },
+      { "en": "The same night Mr Pike had written his note.", "ar": "الليلة نفسها التي كتب فيها السيد بايك ورقته.", "sp": "narrator" },
+      { "en": "Eleanor thanked the innkeeper and walked out into the cold morning.", "ar": "شكرت إلينور صاحب النُّزل وخرجت إلى الصباح البارد.", "sp": "narrator" }
+    ],
+    [
+      { "en": "There was only one place left to look.", "ar": "لم يبقَ سوى مكانٍ واحد للبحث.", "sp": "narrator" },
+      { "en": "The lighthouse stood empty now on its black rocks.", "ar": "كانت المنارة تقف فارغةً الآن على صخورها السوداء.", "sp": "narrator" },
+      { "en": "She had to see where Mr Pike had lived, and what he had kept.", "ar": "كان عليها أن ترى أين عاش السيد بايك، وما الذي احتفظ به.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The path to the lighthouse was wet and steep.", "ar": "كان الطريق إلى المنارة مبتلاً وشديد الانحدار.", "sp": "narrator" },
+      { "en": "The door was not locked; the constable had been and gone.", "ar": "لم يكن الباب موصداً؛ فقد جاء الشرطيّ وذهب.", "sp": "narrator" },
+      { "en": "Inside it was cold and very quiet, and it smelled of oil and the sea.", "ar": "في الداخل كان الجوّ بارداً وهادئاً جداً، تفوح منه رائحة الزيت والبحر.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Mr Pike's life had been a small one.", "ar": "كانت حياة السيد بايك حياةً صغيرة.", "sp": "narrator" },
+      { "en": "A bed, a chair, a shelf of his sea books, and the great lamp above.", "ar": "سرير، وكرسيّ، ورفٌّ من كتب البحر، والمصباح الكبير في الأعلى.", "sp": "narrator" },
+      { "en": "On the table stood a small tin box.", "ar": "وعلى الطاولة كان صندوقٌ صغيرٌ من الصفيح.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Eleanor opened the box.", "ar": "فتحت إلينور الصندوق.", "sp": "narrator" },
+      { "en": "Inside were a few old letters, a photograph of a young girl beside a boat — Margaret — and, folded under everything, several pages in Mr Pike's slow, careful hand.", "ar": "في الداخل كانت بضع رسائل قديمة، وصورةٌ لفتاةٍ صغيرة بجوار قارب — مارغريت — ومطويّةٌ تحت كل شيء، عدّة صفحاتٍ بخطّ السيد بايك البطيء المتأنّي.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The pages had been written long ago.", "ar": "كُتبت الصفحات منذ زمنٍ بعيد.", "sp": "narrator" },
+      { "en": "They told the story of the night his sister died.", "ar": "كانت تروي قصّة الليلة التي ماتت فيها أخته.", "sp": "narrator" },
+      { "en": "But they told something more.", "ar": "لكنها روت شيئاً آخر أيضاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "While the boy Pike stood on the rocks, crying for Margaret, he had seen something else through the storm.", "ar": "بينما كان الصبيّ بايك واقفاً على الصخور يبكي مارغريت، رأى شيئاً آخر من خلال العاصفة.", "sp": "narrator" },
+      { "en": "A dark boat with no lights had come close to the shore, and men were carrying heavy boxes up out of the water.", "ar": "قاربٌ مظلمٌ بلا أنوار اقترب من الشاطئ، ورجالٌ يحملون صناديق ثقيلة خارجةً من الماء.", "sp": "narrator" },
+      { "en": "One of the men had looked up and seen him — a small boy alone on the rocks.", "ar": "نظر أحد الرجال إلى الأعلى ورآه — صبيّاً صغيراً وحيداً على الصخور.", "sp": "narrator" },
+      { "en": "Pike had been too frightened, and too full of grief, ever to tell.", "ar": "كان بايك مذعوراً أكثر من اللازم، ومثقلاً بالحزن أكثر من أن يبوح يوماً.", "sp": "narrator" },
+      { "en": "For thirty years he had carried both the loss and the secret, alone.", "ar": "طوال ثلاثين عاماً حمل الفقد والسرّ معاً، وحده.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Eleanor folded the pages with shaking hands.", "ar": "طوت إلينور الصفحات بيدين مرتجفتين.", "sp": "narrator" },
+      { "en": "Now she understood everything — and how dangerous it all was.", "ar": "الآن فهمت كل شيء — وكم كان الأمر خطيراً.", "sp": "narrator" },
+      { "en": "She stepped out of the lighthouse into the grey light.", "ar": "خرجت من المنارة إلى الضوء الرمادي.", "sp": "narrator" },
+      { "en": "And there, at the bottom of the rocks, a man in a dark coat stood very still, looking up at her.", "ar": "وهناك، عند أسفل الصخور، وقف رجلٌ بمعطفٍ داكنٍ ساكناً تماماً، يرفع نظره إليها.", "sp": "narrator" }
+    ]
+  ]
+}

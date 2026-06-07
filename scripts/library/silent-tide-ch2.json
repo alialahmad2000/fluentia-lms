@@ -1,0 +1,80 @@
+{
+  "book_title": "The Silent Tide",
+  "chapter_number": 2,
+  "title_en": "The Name in the Note",
+  "title_ar": "الاسم في الورقة",
+  "paragraphs": [
+    [
+      { "en": "Eleanor kept the note in her pocket all that day.", "ar": "احتفظت إلينور بالورقة في جيبها طوال ذلك اليوم.", "sp": "narrator" },
+      { "en": "She did not show it to anyone.", "ar": "لم تُرِها لأحد.", "sp": "narrator" },
+      { "en": "The note said he did not fall — and if that was true, then someone in Harbour's End was not telling the truth.", "ar": "قالت الورقة إنه لم يسقط، وإن كان ذلك صحيحاً، فإنّ أحداً في «هاربرز إند» لا يقول الحقيقة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "So Eleanor decided to be careful.", "ar": "لذا قرّرت إلينور أن تكون حذرة.", "sp": "narrator" },
+      { "en": "She would not run to the police, not yet.", "ar": "لن تُسرع إلى الشرطة، ليس بعد.", "sp": "narrator" },
+      { "en": "First she had to understand one thing: who was Margaret?", "ar": "أولاً، عليها أن تفهم أمراً واحداً: مَن تكون مارغريت؟", "sp": "narrator" }
+    ],
+    [
+      { "en": "The library was quiet that morning and the work was easy, but her mind was not on the books.", "ar": "كانت المكتبة هادئة ذلك الصباح، والعمل سهلاً، لكن عقلها لم يكن مع الكتب.", "sp": "narrator" },
+      { "en": "Every time the door opened, she looked up quickly.", "ar": "في كل مرة يُفتح فيها الباب، كانت ترفع نظرها بسرعة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "At eleven o'clock, Tom came in with a parcel of books from the next town.", "ar": "في الساعة الحادية عشرة، دخل توم وفي يده طردٌ من الكتب من البلدة المجاورة.", "sp": "narrator" },
+      { "en": "\"Tom,\" said Eleanor, \"do you know anyone called Margaret?\"", "ar": "«توم»، قالت إلينور، «هل تعرف أحداً اسمه مارغريت؟»", "d": true, "sp": "Eleanor" },
+      { "en": "Tom thought for a moment.", "ar": "فكّر توم لحظة.", "sp": "narrator" },
+      { "en": "\"No, Miss Vane. There is no Margaret in the village now.\"", "ar": "«لا يا آنسة فِين. لا توجد مارغريت في القرية الآن.»", "d": true, "sp": "Tom" },
+      { "en": "He said now in an odd way, as if there had once been one.", "ar": "قالها بطريقةٍ غريبة، وكأنه كان هناك واحدة ذات يوم.", "sp": "narrator" }
+    ],
+    [
+      { "en": "When Tom had gone, Eleanor sat and thought.", "ar": "بعدما ذهب توم، جلست إلينور تفكّر.", "sp": "narrator" },
+      { "en": "There was one person in Harbour's End who remembered everything: old Mrs Tregeer, who had lived by the harbour for eighty years.", "ar": "كان في «هاربرز إند» شخصٌ واحد يتذكّر كل شيء: العجوز السيدة تريغير، التي عاشت قرب الميناء ثمانين عاماً.", "sp": "narrator" },
+      { "en": "If anyone knew about a Margaret, it was she.", "ar": "إن كان أحدٌ يعرف عن مارغريت، فهي.", "sp": "narrator" }
+    ],
+    [
+      { "en": "At one o'clock Eleanor closed the library for an hour and walked down to the harbour.", "ar": "في الساعة الواحدة أغلقت إلينور المكتبة لساعة، ومشت نازلةً إلى الميناء.", "sp": "narrator" },
+      { "en": "The wind was cold and the sea was the colour of old iron.", "ar": "كانت الريح باردة، والبحر بلون الحديد القديم.", "sp": "narrator" },
+      { "en": "Mrs Tregeer's small house stood at the very end of the row, close to the water.", "ar": "كان بيت السيدة تريغير الصغير يقف في آخر الصف تماماً، قريباً من الماء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The old woman opened the door before Eleanor could knock.", "ar": "فتحت العجوز الباب قبل أن تطرق إلينور.", "sp": "narrator" },
+      { "en": "\"You have come about Mr Pike,\" said Mrs Tregeer.", "ar": "«جئتِ بشأن السيد بايك»، قالت السيدة تريغير.", "d": true, "sp": "Mrs Tregeer" },
+      { "en": "It was not a question.", "ar": "لم يكن سؤالاً.", "sp": "narrator" },
+      { "en": "\"Come in, child. Sit by the fire.\"", "ar": "«ادخلي يا صغيرتي. اجلسي قرب النار.»", "d": true, "sp": "Mrs Tregeer" }
+    ],
+    [
+      { "en": "Inside, the room was warm and smelled of salt and smoke.", "ar": "في الداخل، كانت الغرفة دافئة، تفوح منها رائحة الملح والدخان.", "sp": "narrator" },
+      { "en": "Eleanor sat down and asked her question gently.", "ar": "جلست إلينور وسألت سؤالها برفق.", "sp": "narrator" },
+      { "en": "\"Mrs Tregeer, who was Margaret?\"", "ar": "«سيدة تريغير، من كانت مارغريت؟»", "d": true, "sp": "Eleanor" }
+    ],
+    [
+      { "en": "The old woman was quiet for a long time.", "ar": "صمتت العجوز طويلاً.", "sp": "narrator" },
+      { "en": "\"Margaret was his sister,\" she said at last. \"His little sister.\"", "ar": "«كانت مارغريت أخته»، قالت أخيراً. «أخته الصغيرة.»", "d": true, "sp": "Mrs Tregeer" },
+      { "en": "\"It was thirty years ago. A storm came in the night, and a small boat was out on the water.\"", "ar": "«كان ذلك قبل ثلاثين عاماً. جاءت عاصفة في الليل، وكان قاربٌ صغير في عرض الماء.»", "d": true, "sp": "Mrs Tregeer" },
+      { "en": "\"Margaret was in that boat. Young Pike swam out to save her, but he was not strong enough, and the sea was too big.\"", "ar": "«كانت مارغريت في ذلك القارب. سبح بايك الشاب لينقذها، لكنه لم يكن قوياً بما يكفي، وكان البحر أكبر من أن يُقهَر.»", "d": true, "sp": "Mrs Tregeer" },
+      { "en": "\"She was lost. He never went into the water again.\"", "ar": "«ضاعت. ولم يدخل الماء بعدها قط.»", "d": true, "sp": "Mrs Tregeer" }
+    ],
+    [
+      { "en": "Now Eleanor understood his fear.", "ar": "الآن فهمت إلينور خوفه.", "sp": "narrator" },
+      { "en": "For thirty years Mr Pike had kept the great lamp burning, so that no other boat would be lost the way Margaret was lost.", "ar": "طوال ثلاثين عاماً أبقى السيد بايك المصباح الكبير مشتعلاً، كي لا يضيع قاربٌ آخر كما ضاعت مارغريت.", "sp": "narrator" },
+      { "en": "It was a quiet kind of sorrow, carried for half a life.", "ar": "كان حزناً هادئاً، حُمِل نصف عمر.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"But why would he write her name now,\" Eleanor said, almost to herself, \"on the night he died?\"", "ar": "«لكن لماذا يكتب اسمها الآن»، قالت إلينور، شبه مخاطِبةً نفسها، «في الليلة التي مات فيها؟»", "d": true, "sp": "Eleanor" },
+      { "en": "Mrs Tregeer looked into the fire.", "ar": "نظرت السيدة تريغير إلى النار.", "sp": "narrator" },
+      { "en": "\"Because someone made him remember,\" she said.", "ar": "«لأن أحداً جعله يتذكّر»، قالت.", "d": true, "sp": "Mrs Tregeer" }
+    ],
+    [
+      { "en": "\"Two weeks ago, Mr Pike came to this house. He was pale, like a man who had seen a ghost.\"", "ar": "«قبل أسبوعين، جاء السيد بايك إلى هذا البيت. كان شاحباً، كرجلٍ رأى شبحاً.»", "d": true, "sp": "Mrs Tregeer" },
+      { "en": "\"He asked me if I remembered the night Margaret drowned. He said a stranger had come to the lighthouse, asking questions about it.\"", "ar": "«سألني إن كنت أتذكّر ليلة غرق مارغريت. قال إن غريباً جاء إلى المنارة يسأل عنها.»", "d": true, "sp": "Mrs Tregeer" },
+      { "en": "\"A stranger?\" said Eleanor.", "ar": "«غريب؟» قالت إلينور.", "d": true, "sp": "Eleanor" },
+      { "en": "\"A man from the city. He came twice. Mr Pike was afraid of him.\"", "ar": "«رجلٌ من المدينة. جاء مرّتين. كان السيد بايك يخافه.»", "d": true, "sp": "Mrs Tregeer" }
+    ],
+    [
+      { "en": "Eleanor walked home along the harbour in the grey afternoon.", "ar": "مشت إلينور إلى البيت على طول الميناء في عصرٍ رمادي.", "sp": "narrator" },
+      { "en": "Two weeks ago, a stranger had come asking about a drowning thirty years old.", "ar": "قبل أسبوعين، جاء غريبٌ يسأل عن غرقٍ عمره ثلاثون عاماً.", "sp": "narrator" },
+      { "en": "Three nights ago, Mr Pike had written his sister's name and three frightened lines.", "ar": "وقبل ثلاث ليالٍ، كتب السيد بايك اسم أخته وثلاثة أسطرٍ مذعورة.", "sp": "narrator" },
+      { "en": "And then the sea, which he had feared all his life, had taken him too.", "ar": "ثم أخذه البحر الذي خافه طوال حياته، هو أيضاً.", "sp": "narrator" },
+      { "en": "Eleanor stopped and looked out at the water. She was certain of one thing now: she had to find the stranger from the city.", "ar": "توقّفت إلينور ونظرت إلى الماء. كانت متيقّنة من أمرٍ واحد الآن: عليها أن تجد الغريب القادم من المدينة.", "sp": "narrator" }
+    ]
+  ]
+}

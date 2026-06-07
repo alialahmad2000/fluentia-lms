@@ -1,0 +1,77 @@
+{
+  "book_title": "The Silent Tide",
+  "chapter_number": 4,
+  "title_en": "The Man in the Dark Coat",
+  "title_ar": "الرجل صاحب المعطف الداكن",
+  "paragraphs": [
+    [
+      { "en": "Eleanor stood very still at the top of the rocks.", "ar": "وقفت إلينور ساكنةً تماماً في أعلى الصخور.", "sp": "narrator" },
+      { "en": "The man below did not move.", "ar": "لم يتحرّك الرجل في الأسفل.", "sp": "narrator" },
+      { "en": "Then, slowly, he began to climb towards her.", "ar": "ثم، ببطء، بدأ يتسلّق نحوها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "She slipped the pages quickly inside her coat, against her heart, and waited.", "ar": "دسّت الصفحات بسرعة داخل معطفها، عند قلبها، وانتظرت.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Good afternoon,\" the man said.", "ar": "«مساء الخير»، قال الرجل.", "d": true, "sp": "Mr Carrow" },
+      { "en": "His voice was soft, and his clothes were from the city.", "ar": "كان صوته ناعماً، وثيابه من المدينة.", "sp": "narrator" },
+      { "en": "\"You must be the librarian. Miss Vane.\"", "ar": "«لا بدّ أنكِ أمينة المكتبة. الآنسة فِين.»", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "\"And you are Mr Carrow,\" she said.", "ar": "«وأنت السيد كارو»، قالت.", "d": true, "sp": "Eleanor" },
+      { "en": "The man smiled, but his eyes did not.", "ar": "ابتسم الرجل، لكن عينيه لم تبتسما.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"So you have heard of me. I am writing a history of this old coast — its storms, its wrecks,\" he said. \"The keeper here knew many stories.\"", "ar": "«إذن سمعتِ بي. أنا أكتب تاريخ هذا الساحل العتيق — عواصفه، وحُطام سفنه»، قال. «كان الحارس هنا يعرف حكاياتٍ كثيرة.»", "d": true, "sp": "Mr Carrow" },
+      { "en": "\"Such a sad thing, his accident.\"", "ar": "«يا له من أمرٍ محزن، حادثُه ذاك.»", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "Accident.", "ar": "حادث.", "sp": "narrator" },
+      { "en": "Eleanor kept her face calm, but her heart was beating loudly.", "ar": "حافظت إلينور على هدوء وجهها، لكن قلبها كان يدقّ بقوة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"They say he slipped on the rocks in the dark,\" she said, watching him.", "ar": "«يقولون إنه انزلق على الصخور في الظلام»، قالت وهي تراقبه.", "d": true, "sp": "Eleanor" },
+      { "en": "\"Yes. A man should not walk on wet rocks at night,\" said Mr Carrow.", "ar": "«نعم. لا ينبغي للمرء أن يمشي على صخورٍ مبتلّة ليلاً»، قال السيد كارو.", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "But Eleanor knew that Mr Pike had feared the water all his life.", "ar": "لكن إلينور كانت تعرف أن السيد بايك خاف الماء طوال حياته.", "sp": "narrator" },
+      { "en": "He would never have walked on the wet rocks at night, not for any reason in the world.", "ar": "ما كان ليمشي على الصخور المبتلّة ليلاً، لأيّ سببٍ في الدنيا.", "sp": "narrator" },
+      { "en": "Someone had brought him there — and this man knew exactly where the old keeper had fallen.", "ar": "أحدٌ ما جاء به إلى هناك — وهذا الرجل يعرف بالضبط أين سقط الحارس العجوز.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Tell me, Miss Vane,\" he said, stepping closer, \"did the old man leave anything behind? Papers? An old book, perhaps?\"", "ar": "«قولي لي يا آنسة فِين»، قال مقترباً، «هل ترك العجوز شيئاً خلفه؟ أوراقاً؟ كتاباً قديماً، ربّما؟»", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "So that was it.", "ar": "إذن، هذا هو الأمر.", "sp": "narrator" },
+      { "en": "He was looking for the very pages that lay now against her heart.", "ar": "كان يبحث عن الصفحات نفسها التي تستقرّ الآن عند قلبها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"He left very little,\" she said quietly. \"A few sea books, and those are gone now.\"", "ar": "«ترك القليل جداً»، قالت بهدوء. «بضعة كتبٍ عن البحر، وقد ذهبت الآن.»", "d": true, "sp": "Eleanor" }
+    ],
+    [
+      { "en": "The man looked at her for a long moment.", "ar": "نظر إليها الرجل لحظةً طويلة.", "sp": "narrator" },
+      { "en": "\"These rocks are dangerous, Miss Vane,\" he said softly. \"It is not wise to come here alone.\"", "ar": "«هذه الصخور خطيرة يا آنسة فِين»، قال برفق. «ليس من الحكمة أن تأتي إلى هنا وحدك.»", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "It was not advice.", "ar": "لم تكن نصيحة.", "sp": "narrator" },
+      { "en": "It was a warning, said in a gentle voice, and it frightened her more than any shout could have.", "ar": "كان تحذيراً، قيل بصوتٍ لطيف، وأخافها أكثر مما قد تخيف أيّ صرخة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Just then, a voice called down from the path above.", "ar": "في تلك اللحظة، نادى صوتٌ من الطريق في الأعلى.", "sp": "narrator" },
+      { "en": "It was Tom, running down towards them.", "ar": "كان توم، يركض نازلاً نحوهما.", "sp": "narrator" },
+      { "en": "\"Miss Vane! Miss Vane! Mrs Tregeer sent me to find you!\"", "ar": "«آنسة فِين! آنسة فِين! أرسلتني السيدة تريغير لأجدك!»", "d": true, "sp": "Tom" }
+    ],
+    [
+      { "en": "The man's face changed.", "ar": "تغيّر وجه الرجل.", "sp": "narrator" },
+      { "en": "He stepped back, and the cold smile returned.", "ar": "تراجع خطوةً، وعادت الابتسامة الباردة.", "sp": "narrator" },
+      { "en": "\"Another time, then, Miss Vane,\" he said, and turned away down the rocks.", "ar": "«في وقتٍ آخر إذن يا آنسة فِين»، قال، واستدار نازلاً بين الصخور.", "d": true, "sp": "Mr Carrow" }
+    ],
+    [
+      { "en": "Eleanor climbed the path with Tom, her legs weak and the pages safe against her heart.", "ar": "صعدت إلينور الطريق مع توم، وساقاها واهنتان، والصفحات في أمانٍ عند قلبها.", "sp": "narrator" },
+      { "en": "She was sure of two things now.", "ar": "كانت متيقّنة من أمرين الآن.", "sp": "narrator" },
+      { "en": "Mr Carrow had killed Mr Pike to bury an old secret — and he believed she might hold the proof.", "ar": "قتل السيد كارو السيد بايك ليدفن سرّاً قديماً — وهو يظنّ أنها قد تملك الدليل.", "sp": "narrator" },
+      { "en": "She could not go to the village constable, who called it an accident; she needed something even he could not ignore.", "ar": "لم تكن تستطيع الذهاب إلى شرطيّ القرية الذي سمّاه حادثاً؛ كانت بحاجةٍ إلى شيءٍ لا يستطيع حتى هو أن يتجاهله.", "sp": "narrator" },
+      { "en": "By the time she reached the harbour, she had a plan — and it was a dangerous one.", "ar": "وحين بلغت الميناء، كانت قد رسمت خطة — وكانت خطةً خطيرة.", "sp": "narrator" }
+    ]
+  ]
+}
