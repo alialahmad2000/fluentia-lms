@@ -107,6 +107,24 @@ export function useMyProgress(myId) {
   })
 }
 
+// words the user saved from novels (the «كلماتي» deck)
+export function useMySavedWords(myId) {
+  return useQuery({
+    queryKey: ['library-my-words', myId],
+    enabled: !!myId,
+    staleTime: 30 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('library_saved_vocab')
+        .select('id,word,meaning,context_sentence,book_id,created_at')
+        .eq('student_id', myId)
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      return data || []
+    },
+  })
+}
+
 // the mode column only allows reveal/assist — codex reads as 'reveal'
 const dbMode = (m) => (m === 'assist' ? 'assist' : 'reveal')
 

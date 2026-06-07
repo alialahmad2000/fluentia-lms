@@ -1,10 +1,10 @@
-// Library browse — "three rooms": My Library / Read Chapter One / Coming Soon.
-// Plus a "Continue reading" hero and gold seals on finished books.
-import { useMemo } from 'react'
+// Library browse — "three rooms" + a Continue-reading hero + gold seals,
+// and a «كلماتي» view for the words saved from novels (the deck).
+import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BookOpen } from 'lucide-react'
 import BookCover from '../components/BookCover'
-import { useLibraryBooks, usePreviewLevel, roomForBook, useMyProgress } from '../hooks/useLibrary'
+import { useLibraryBooks, usePreviewLevel, roomForBook, useMyProgress, useMySavedWords } from '../hooks/useLibrary'
 import { useAuthProfileId } from '../../../stores/authStore'
 import '../library.css'
 
@@ -41,12 +41,41 @@ function Room({ title, count, children }) {
   )
 }
 
+function speakWord(w) {
+  try {
+    const u = new SpeechSynthesisUtterance(w); u.lang = 'en-US'; u.rate = 0.92
+    window.speechSynthesis.cancel(); window.speechSynthesis.speak(u)
+  } catch { /* ignore */ }
+}
+
+function WordsView({ words, titleById }) {
+  if (!words.length) {
+    return <div className="lib-empty">لم تحفظ كلمات بعد — أثناء القراءة، اضغط الجملة ثم أي كلمة لإضافتها إلى «كلماتي».</div>
+  }
+  return (
+    <div className="lib-words">
+      {words.map((w) => (
+        <div key={w.id} className="lib-word-row">
+          <button className="lib-word-say" onClick={() => speakWord(w.word)} aria-label="استمع">🔊</button>
+          <div className="lib-word-main">
+            <div className="lib-word-en">{w.word}</div>
+            {w.context_sentence && <div className="lib-word-ctx" dir="ltr">{w.context_sentence}</div>}
+            {titleById[w.book_id] && <div className="lib-word-book">{titleById[w.book_id]}</div>}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function LibraryHome() {
   const navigate = useNavigate()
   const level = usePreviewLevel()
   const myId = useAuthProfileId()
   const { data: books = [], isLoading, error } = useLibraryBooks()
   const { data: prog } = useMyProgress(myId)
+  const { data: words = [] } = useMySavedWords(myId)
+  const [view, setView] = useState('shelf')
   const byBook = prog?.byBook || {}
   const rows = prog?.rows || []
 
@@ -55,6 +84,12 @@ export default function LibraryHome() {
     for (const b of books) g[roomForBook(b, level)].push(b)
     return g
   }, [books, level])
+
+  const titleById = useMemo(() => {
+    const m = {}
+    for (const b of books) m[b.id] = b.title_ar || b.title_en
+    return m
+  }, [books])
 
   const continueEntry = rows.find((r) => !r.book_completed_at && r.current_chapter_id)
   const continueBook = continueEntry ? books.find((b) => b.id === continueEntry.book_id) : null
@@ -69,39 +104,52 @@ export default function LibraryHome() {
         <p>روايات عالمية أصلية، بإنجليزية متدرّجة — اقرأ بمتعة، واضغط أي جملة لترى معناها يظهر بهدوء من تحتها.</p>
       </header>
 
-      {continueBook && (
-        <button className="lib-continue" onClick={() => navigate(`/library/${continueBook.id}/read/${continueEntry.current_chapter_id}`)}>
-          <div className="lib-cover-wrap"><BookCover book={continueBook} /></div>
-          <div className="lib-continue-info">
-            <div className="k">تابع القراءة</div>
-            <div className="t">{continueBook.title_ar || continueBook.title_en}</div>
-            <div className="s">{continueBook.title_en}</div>
-          </div>
-          <BookOpen size={20} className="lib-continue-go" />
-        </button>
-      )}
+      <div className="lib-view-tabs-wrap">
+        <div className="lib-view-tabs">
+          <button data-active={view === 'shelf'} onClick={() => setView('shelf')}>المكتبة</button>
+          <button data-active={view === 'words'} onClick={() => setView('words')}>كلماتي{words.length ? ` · ${words.length}` : ''}</button>
+        </div>
+      </div>
 
-      {isLoading && <div className="lib-shelf">{[0, 1, 2, 3].map((i) => <div key={i} className="lib-skel" />)}</div>}
-      {error && <div className="lib-empty">تعذّر تحميل المكتبة الآن. حاول بعد قليل.</div>}
-
-      {!isLoading && !error && (
+      {view === 'words' ? (
+        <WordsView words={words} titleById={titleById} />
+      ) : (
         <>
-          {rooms.mine.length > 0 && (
-            <Room title="مكتبتي" count={`${rooms.mine.length} رواية`}>
-              {rooms.mine.map((b) => <Card key={b.id} book={b} room="mine" completed={!!byBook[b.id]?.book_completed_at} onOpen={open} />)}
-            </Room>
+          {continueBook && (
+            <button className="lib-continue" onClick={() => navigate(`/library/${continueBook.id}/read/${continueEntry.current_chapter_id}`)}>
+              <div className="lib-cover-wrap"><BookCover book={continueBook} /></div>
+              <div className="lib-continue-info">
+                <div className="k">تابع القراءة</div>
+                <div className="t">{continueBook.title_ar || continueBook.title_en}</div>
+                <div className="s">{continueBook.title_en}</div>
+              </div>
+              <BookOpen size={20} className="lib-continue-go" />
+            </button>
           )}
-          {rooms.tease.length > 0 && (
-            <Room title="اقرأ الفصل الأول" count={`${rooms.tease.length}`}>
-              {rooms.tease.map((b) => <Card key={b.id} book={b} room="tease" onOpen={open} />)}
-            </Room>
+
+          {isLoading && <div className="lib-shelf">{[0, 1, 2, 3].map((i) => <div key={i} className="lib-skel" />)}</div>}
+          {error && <div className="lib-empty">تعذّر تحميل المكتبة الآن. حاول بعد قليل.</div>}
+
+          {!isLoading && !error && (
+            <>
+              {rooms.mine.length > 0 && (
+                <Room title="مكتبتي" count={`${rooms.mine.length} رواية`}>
+                  {rooms.mine.map((b) => <Card key={b.id} book={b} room="mine" completed={!!byBook[b.id]?.book_completed_at} onOpen={open} />)}
+                </Room>
+              )}
+              {rooms.tease.length > 0 && (
+                <Room title="اقرأ الفصل الأول" count={`${rooms.tease.length}`}>
+                  {rooms.tease.map((b) => <Card key={b.id} book={b} room="tease" onOpen={open} />)}
+                </Room>
+              )}
+              {rooms.soon.length > 0 && (
+                <Room title="قريباً" count={`${rooms.soon.length}`}>
+                  {rooms.soon.map((b) => <Card key={b.id} book={b} room="soon" onOpen={open} />)}
+                </Room>
+              )}
+              {books.length === 0 && <div className="lib-empty">المكتبة قيد الإعداد — أول رواية في الطريق.</div>}
+            </>
           )}
-          {rooms.soon.length > 0 && (
-            <Room title="قريباً" count={`${rooms.soon.length}`}>
-              {rooms.soon.map((b) => <Card key={b.id} book={b} room="soon" onOpen={open} />)}
-            </Room>
-          )}
-          {books.length === 0 && <div className="lib-empty">المكتبة قيد الإعداد — أول رواية في الطريق.</div>}
         </>
       )}
     </div>
