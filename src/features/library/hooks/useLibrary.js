@@ -119,6 +119,17 @@ export async function saveProgress(myId, bookId, chapterId, mode) {
   if (error) console.warn('library saveProgress:', error.message)
 }
 
+// save a tapped word to the personal Library deck (SM-2 defaults handle the rest)
+export async function saveWord(myId, bookId, chapterId, word, context) {
+  const clean = String(word || '').replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '').toLowerCase()
+  if (!myId || clean.length < 2) return { ok: false, word: clean }
+  const { error } = await supabase
+    .from('library_saved_vocab')
+    .insert({ student_id: myId, book_id: bookId || null, chapter_id: chapterId || null, word: clean, context_sentence: context || null, source: 'library' })
+  // a duplicate (already in the deck) is a success from the reader's point of view
+  return { ok: true, word: clean, dup: !!error }
+}
+
 export async function completeChapter(myId, bookId, chapterId, mode, isLast) {
   if (!myId || !bookId || !chapterId) return
   const { error } = await supabase

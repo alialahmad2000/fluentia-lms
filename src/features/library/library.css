@@ -378,6 +378,29 @@
 .lib-codex-tray .en { font-family: var(--lib-serif); font-size: 17px; margin-bottom: 6px; direction: ltr; }
 .lib-codex-tray .ar { font-family: 'Tajawal', sans-serif; font-size: 15px; color: #5a4423; line-height: 1.8; direction: rtl; }
 .lib-codex-tray .close { margin-top: 10px; background: none; border: none; color: #8a5a18; font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
+/* tap-a-word to save (in the translation card) */
+.lib-word { cursor: pointer; border-radius: 3px; padding: 0 1px; transition: background .15s ease; }
+.lib-word:hover { background: rgba(120,86,40,0.14); }
+.lib-word[data-saved] { color: #8a5a18; background: rgba(251,191,36,0.22); box-shadow: inset 0 -2px 0 rgba(251,191,36,0.55); }
+.lib-tray-hint { font-family: 'Tajawal', sans-serif; font-size: 11.5px; color: #8a6f47; margin-top: 8px; text-align: center; }
+/* #32 — high-contrast NIGHT reading page */
+.lib-swatch[data-paper="night"] { background: #1b1f27; }
+.lib-book[data-paper="night"] { background: radial-gradient(125% 92% at 50% -6%, #20242c 0%, #181b22 54%, #11141a 100%); color: #e7e3d7; }
+.lib-book[data-paper="night"] .lib-codex-p { color: #e7e3d7; }
+.lib-book[data-paper="night"] .lib-codex-p .lib-sentence[data-dialogue] { color: #d2cbb9; }
+.lib-book[data-paper="night"] .lib-codex-p.first::first-letter { color: #d9b877; }
+.lib-book[data-paper="night"] .lib-codex-p .lib-sentence:hover { background: rgba(255,255,255,0.08); }
+.lib-book[data-paper="night"] .lib-codex-chhead .ch-title { color: #e7e3d7; }
+.lib-book[data-paper="night"] .lib-codex-chhead .ch-num { color: #9aa0ab; }
+.lib-book[data-paper="night"] .lib-book-head { color: #8b91a0; }
+.lib-book[data-paper="night"] .lib-ch-orn { color: #c9a45a; }
+.lib-book[data-paper="night"] .lib-folio { color: #c9a45a; text-shadow: none; }
+.lib-book[data-paper="night"] .lib-leaf { background: linear-gradient(105deg, #232730, #1b1f27 58%, #14171e); }
+.lib-book[data-paper="night"] .lib-codex-foot button { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: #e7e3d7; }
+.lib-book[data-paper="night"] .lib-codex-foot .pg { color: #c9a45a; text-shadow: none; }
+.lib-book[data-paper="night"] .lib-book-spread::before { background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, transparent 12%, transparent 41%, rgba(0,0,0,0.24) 50%, transparent 59%, transparent 88%, rgba(0,0,0,0.2) 100%); }
+.lib-book[data-paper="night"] .lib-book-spread::after { background: radial-gradient(58% 100% at 50% 50%, rgba(0,0,0,0.42), transparent 74%); }
+.lib-book[data-paper="night"] .lib-codex-plate img { border-color: rgba(255,255,255,0.14); }
 
 /* free-edge sheen on the turning leaf — reads more like real paper */
 .lib-leaf::before { content: ""; position: absolute; inset: 0; pointer-events: none; }

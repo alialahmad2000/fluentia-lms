@@ -9,11 +9,11 @@ import { useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, Sparkles, Settings2 } from 'lucide-react'
 import SentenceReveal, { renderEN } from '../components/SentenceReveal'
-import { useBook, useChapterContent, saveProgress, completeChapter } from '../hooks/useLibrary'
+import { useBook, useChapterContent, saveProgress, completeChapter, saveWord } from '../hooks/useLibrary'
 import { useAuthProfileId } from '../../../stores/authStore'
 import '../library.css'
 
-const PAPERS = ['ivory', 'cream', 'linen', 'parchment', 'sepia']
+const PAPERS = ['ivory', 'cream', 'linen', 'parchment', 'sepia', 'night']
 const AMB_BASE = 'https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/library-audio/ambience'
 const AMBIENCE = { mystery: `${AMB_BASE}/sea.mp3`, grief: `${AMB_BASE}/rain.mp3` }
 
@@ -223,6 +223,7 @@ export default function LibraryReader() {
     try { return localStorage.getItem('fluentia:lib:ambient') === '1' } catch { return false }
   })
   const ambientRef = useRef(null)
+  const [savedWords, setSavedWords] = useState(() => new Set())
   const [showSettings, setShowSettings] = useState(false)
 
   const chapters = bookData?.chapters || []
@@ -273,6 +274,15 @@ export default function LibraryReader() {
     const v = !candle; setCandle(v); try { localStorage.setItem('fluentia:lib:candle', v ? '1' : '0') } catch { /* ignore */ }
   }
   const changeHelp = (h) => { setHelp(h); setTray(null); try { localStorage.setItem('fluentia:lib:help', h) } catch { /* ignore */ } }
+  const cleanWord = (w) => String(w || '').replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '').toLowerCase()
+  const onSaveWord = (raw, context) => {
+    const clean = cleanWord(raw)
+    if (clean.length < 2) return
+    try { const u = new SpeechSynthesisUtterance(clean); u.lang = 'en-US'; u.rate = 0.92; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u) } catch { /* ignore */ }
+    if (savedWords.has(clean)) return
+    setSavedWords((s) => { const n = new Set(s); n.add(clean); return n })
+    if (myId && current) saveWord(myId, bookId, current.id, clean, context)
+  }
   const toggleAmbient = () => {
     const v = !ambient; setAmbient(v)
     try { localStorage.setItem('fluentia:lib:ambient', v ? '1' : '0') } catch { /* ignore */ }
@@ -364,8 +374,13 @@ export default function LibraryReader() {
             exit={{ x: '-50%', y: 44, opacity: 0 }}
             transition={{ duration: 0.26, ease: [0.22, 0.61, 0.36, 1] }}
           >
-            <div className="en" dir="ltr">{tray.en}</div>
+            <div className="en" dir="ltr">
+              {tray.en.split(/(\s+)/).map((tok, i) => /[A-Za-z]/.test(tok)
+                ? <span key={i} className="lib-word" data-saved={savedWords.has(cleanWord(tok)) || undefined} onClick={() => onSaveWord(tok, tray.en)}>{tok}</span>
+                : tok)}
+            </div>
             {tray.ar && <div className="ar" dir="rtl">{tray.ar}</div>}
+            <div className="lib-tray-hint">اضغط أي كلمة لإضافتها إلى «كلماتي» وسماعها 🔊</div>
             <button className="close" onClick={() => setTray(null)}>إغلاق</button>
           </motion.div>
         )}
