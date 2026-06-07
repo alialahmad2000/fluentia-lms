@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
 import { useAuthProfile } from '../../../stores/authStore'
 
-const EDIT_WINDOW_MS = 15 * 60 * 1000
+const EDIT_WINDOW_MS = 24 * 60 * 60 * 1000 // 24h (was 15m) — pro chats allow long edit windows
 
 export function useEditMessage(channelId) {
   const qc = useQueryClient()

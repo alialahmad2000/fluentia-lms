@@ -193,6 +193,26 @@ export default function UnifiedMessageStream({
     }, 320)
   }, [deepLinkMessageId, messages.length]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Jump-to-message (tappable reply quotes fire fluentia:jump-to-message)
+  useEffect(() => {
+    const handler = (e) => {
+      const id = e.detail?.id
+      if (!id || !virtuosoRef.current) return
+      let itemIdx = -1
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type === 'group' && items[i].messages.some((m) => m.id === id)) { itemIdx = i; break }
+      }
+      const flash = () => {
+        const el = document.getElementById(`msg-${id}`)
+        if (el) { el.classList.add('chat-highlight'); setTimeout(() => el.classList.remove('chat-highlight'), 2400) }
+      }
+      if (itemIdx !== -1) { virtuosoRef.current.scrollToIndex({ index: itemIdx, behavior: 'smooth', align: 'center' }); setTimeout(flash, 300) }
+      else flash()
+    }
+    window.addEventListener('fluentia:jump-to-message', handler)
+    return () => window.removeEventListener('fluentia:jump-to-message', handler)
+  }, [items])
+
   const scrollToBottom = useCallback(() => {
     virtuosoRef.current?.scrollToIndex({ index: items.length - 1, behavior: 'smooth' })
     setNewCount(0)

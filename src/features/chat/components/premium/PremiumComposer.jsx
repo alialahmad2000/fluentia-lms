@@ -38,6 +38,7 @@ export default function PremiumComposer({
   dmThreadId,
 }) {
   const isDM = !!dmThreadId
+  const draftKey = `fluentia:draft:${isDM ? 'dm:' + dmThreadId : 'group:' + groupId}`
   const profile = useAuthProfile()
   const [input, setInput] = useState('')
   const [uploading, setUploading] = useState(false)
@@ -67,6 +68,16 @@ export default function PremiumComposer({
     }
     if (!editing) editingIdRef.current = null
   }, [editing])
+
+  // Auto-saved drafts — restore on conversation change, persist as you type (never while editing)
+  useEffect(() => {
+    if (editing) return
+    try { const d = localStorage.getItem(draftKey); setInput(d || ''); if (d) setTimeout(autoResize, 0) } catch { /* ignore */ }
+  }, [draftKey]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (editing) return
+    try { if (input.trim()) localStorage.setItem(draftKey, input); else localStorage.removeItem(draftKey) } catch { /* ignore */ }
+  }, [input, draftKey, editing])
 
   function detectMentionContext() {
     const ta = textareaRef.current
@@ -106,6 +117,7 @@ export default function PremiumComposer({
 
   function resetComposer() {
     setInput(''); setMentions([]); setMentionQuery(null)
+    try { localStorage.removeItem(draftKey) } catch { /* ignore */ }
     if (textareaRef.current) textareaRef.current.style.height = 'auto'
   }
 

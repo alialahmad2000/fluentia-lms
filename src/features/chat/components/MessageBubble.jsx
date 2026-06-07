@@ -152,13 +152,18 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           )}
 
           {message.reply_message && (
-            <div className="mb-2 px-2.5 py-1.5 rounded-xl text-xs"
-              style={{ borderInlineStart: `2.5px solid ${replyColor}`, background: `color-mix(in srgb, ${replyColor} 10%, transparent)`, fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-secondary)' }}>
-              <span className="font-semibold" style={{ color: replyColor }}>
-                {message.reply_message.sender?.display_name || message.reply_message.sender?.full_name}:{' '}
+            <button type="button" onPointerDown={stop}
+              onClick={(e) => { e.stopPropagation(); const tid = message.reply_message.id || message.reply_to; if (tid) window.dispatchEvent(new CustomEvent('fluentia:jump-to-message', { detail: { id: tid } })) }}
+              className="mb-2 px-2.5 py-1.5 rounded-xl text-xs w-full flex items-start gap-1.5 transition-[filter] hover:brightness-110"
+              style={{ borderInlineStart: `2.5px solid ${replyColor}`, background: `color-mix(in srgb, ${replyColor} 10%, transparent)`, fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-secondary)', textAlign: 'start' }}>
+              <CornerUpLeft size={12} style={{ color: replyColor, marginTop: 2, flexShrink: 0 }} />
+              <span>
+                <span className="font-semibold" style={{ color: replyColor }}>
+                  {message.reply_message.sender?.display_name || message.reply_message.sender?.full_name}:{' '}
+                </span>
+                {message.reply_message.body || message.reply_message.content || '🎙️'}
               </span>
-              {message.reply_message.body || message.reply_message.content || '🎙️'}
-            </div>
+            </button>
           )}
 
           {message.type === 'text' && <MessageBubbleText body={bodyText} mentions={message.mentions} myId={profile?.id} />}

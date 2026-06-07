@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Plus } from 'lucide-react'
 import { popIn } from '../../lib/motion'
+import EmojiPicker from './EmojiPicker'
 
 const EMOJIS = ['👍', '🔥', '❤️', '😂', '👏']
 
 export default function ReactionInlineBar({ visible, onReact, onDismiss, isOwn = false }) {
   const [tapped, setTapped] = useState(null)
+  const [expanded, setExpanded] = useState(false)
 
   function handleReact(emoji) {
     setTapped(emoji)
@@ -13,15 +16,15 @@ export default function ReactionInlineBar({ visible, onReact, onDismiss, isOwn =
       setTapped(null)
       onReact(emoji)
       onDismiss()
-    }, 240)
+    }, 200)
   }
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={() => setExpanded(false)}>
       {visible && (
         <motion.div
           {...popIn}
-          onMouseLeave={onDismiss}
+          onMouseLeave={expanded ? undefined : onDismiss}
           className="absolute flex items-center gap-1 px-2 py-1.5 rounded-2xl"
           style={{
             zIndex: 30,
@@ -35,29 +38,36 @@ export default function ReactionInlineBar({ visible, onReact, onDismiss, isOwn =
             marginBottom: 4,
           }}
         >
-          {EMOJIS.map((emoji) => {
-            const isTapped = tapped === emoji
-            return (
-              <motion.button
-                key={emoji}
-                onClick={() => handleReact(emoji)}
-                animate={isTapped ? { scale: 1.2 } : { scale: 1 }}
-                whileHover={{ scale: 1.08 }}
-                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          {expanded ? (
+            <EmojiPicker onPick={handleReact} />
+          ) : (
+            <>
+              {EMOJIS.map((emoji) => {
+                const isTapped = tapped === emoji
+                return (
+                  <motion.button
+                    key={emoji}
+                    onClick={() => handleReact(emoji)}
+                    animate={isTapped ? { scale: 1.2 } : { scale: 1 }}
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex items-center justify-center rounded-xl transition-colors"
+                    style={{ width: 36, height: 36, fontSize: 20, background: isTapped ? 'var(--ds-surface-2)' : 'transparent' }}
+                  >
+                    {emoji}
+                  </motion.button>
+                )
+              })}
+              <button
+                onClick={() => setExpanded(true)}
+                aria-label="المزيد من الرموز"
                 className="flex items-center justify-center rounded-xl transition-colors"
-                style={{
-                  width: 36,
-                  height: 36,
-                  fontSize: 20,
-                  background: isTapped
-                    ? 'var(--ds-surface-2)'
-                    : 'transparent',
-                }}
+                style={{ width: 36, height: 36, color: 'var(--ds-text-tertiary)', background: 'var(--ds-surface-1)' }}
               >
-                {emoji}
-              </motion.button>
-            )
-          })}
+                <Plus size={18} />
+              </button>
+            </>
+          )}
         </motion.div>
       )}
     </AnimatePresence>
