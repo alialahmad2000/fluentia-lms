@@ -1,0 +1,46 @@
+{
+  "book_title": "The Light Between Us",
+  "chapter_number": 3,
+  "title_en": "The Letter",
+  "title_ar": "الرسالة",
+  "paragraphs": [
+    [
+      { "en": "Nora held the envelope for a long time before she opened it.", "ar": "أمسكت نورا الظرف طويلاً قبل أن تفتحه.", "sp": "narrator" },
+      { "en": "Her name was written on the front, but the letter had never been sent.", "ar": "كان اسمها مكتوباً على الوجه، لكن الرسالة لم تُرسَل قط.", "sp": "narrator" },
+      { "en": "She opened it carefully and began to read.", "ar": "فتحتها بعناية، وبدأت تقرأ.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"My dear Nora,\"", "ar": "«عزيزتي نورا،»", "d": true, "sp": "Mother" },
+      { "en": "\"I am not good with words. I never have been.\"", "ar": "«لستُ بارعةً بالكلمات. لم أكن كذلك قط.»", "d": true, "sp": "Mother" }
+    ],
+    [
+      { "en": "\"My own mother was a quiet, cold woman, and she never once told me that she loved me.\"", "ar": "«كانت أمّي امرأةً هادئةً باردة، ولم تقل لي ولو مرّةً واحدة إنها تحبّني.»", "d": true, "sp": "Mother" },
+      { "en": "\"So I never learned how to say it to you. But I want you to know it now.\"", "ar": "«لذا لم أتعلّم قط كيف أقولها لكِ. لكنني أريدكِ أن تعرفيها الآن.»", "d": true, "sp": "Mother" }
+    ],
+    [
+      { "en": "\"I have been proud of you every single day of your life.\"", "ar": "«كنتُ فخورةً بكِ كل يومٍ من حياتكِ.»", "d": true, "sp": "Mother" },
+      { "en": "\"I have kept every letter you sent me, and I have read each one many, many times.\"", "ar": "«احتفظتُ بكل رسالةٍ أرسلتِها لي، وقرأتُ كلّ واحدةٍ مراتٍ ومرات.»", "d": true, "sp": "Mother" }
+    ],
+    [
+      { "en": "\"I am sorry for the long silences between us.\"", "ar": "«أعتذر عن الصمت الطويل بيننا.»", "d": true, "sp": "Mother" },
+      { "en": "\"They were never because I did not care. They were because I did not know how to begin.\"", "ar": "«لم يكن قط لأنني لا أهتمّ. كان لأنني لم أعرف كيف أبدأ.»", "d": true, "sp": "Mother" }
+    ],
+    [
+      { "en": "\"If you are reading this, then I am gone, and I have left too many things unsaid.\"", "ar": "«إن كنتِ تقرئين هذا، فأنا قد رحلت، وتركتُ أموراً كثيرةً دون أن تُقال.»", "d": true, "sp": "Mother" },
+      { "en": "\"So let me say one of them, at last: I love you, my Nora, more than I ever showed.\"", "ar": "«فدعيني أقول واحداً منها، أخيراً: أحبّكِ يا نورا، أكثر مما أظهرتُ يوماً.»", "d": true, "sp": "Mother" }
+    ],
+    [
+      { "en": "\"Keep a light in the window for someone, the way I kept one for you.\"", "ar": "«أبقي ضوءاً في النافذة لأحدٍ ما، كما أبقيتُ واحداً لكِ.»", "d": true, "sp": "Mother" }
+    ],
+    [
+      { "en": "Nora read the letter again, and then a third time.", "ar": "قرأت نورا الرسالة من جديد، ثم مرّةً ثالثة.", "sp": "narrator" },
+      { "en": "The house was very quiet around her.", "ar": "كان البيت هادئاً جداً من حولها.", "sp": "narrator" },
+      { "en": "She understood now what the lamp in the window had meant.", "ar": "فهمت الآن ما الذي كان يعنيه المصباح في النافذة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Her mother had loved her all along — quietly, without the right words, but completely.", "ar": "كانت أمّها تحبّها طوال الوقت — بهدوء، دون الكلمات الصحيحة، لكن بالكامل.", "sp": "narrator" },
+      { "en": "And Nora had loved her too, in the same silent way.", "ar": "وكانت نورا تحبّها هي الأخرى، بالطريقة الصامتة نفسها.", "sp": "narrator" },
+      { "en": "The distance between them had never been emptiness; it had been two people who did not know how to say the thing they both felt.", "ar": "لم تكن المسافة بينهما فراغاً قط؛ بل كانت شخصين لا يعرفان كيف يقولان الشيء الذي يشعران به كلتاهما.", "sp": "narrator" }
+    ]
+  ]
+}
