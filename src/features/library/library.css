@@ -383,6 +383,9 @@
 .lib-word:hover { background: rgba(120,86,40,0.14); }
 .lib-word[data-saved] { color: #8a5a18; background: rgba(251,191,36,0.22); box-shadow: inset 0 -2px 0 rgba(251,191,36,0.55); }
 .lib-tray-hint { font-family: 'Tajawal', sans-serif; font-size: 11.5px; color: #8a6f47; margin-top: 8px; text-align: center; }
+.lib-tray-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.lib-tray-actions .close { margin-top: 0; }
+.lib-tray-share { font-family: 'Tajawal', sans-serif; font-size: 13px; color: #8a5a18; background: rgba(251,191,36,0.16); border: 1px solid rgba(251,191,36,0.32); border-radius: 10px; padding: 8px 14px; cursor: pointer; }
 /* #32 — high-contrast NIGHT reading page */
 .lib-swatch[data-paper="night"] { background: #1b1f27; }
 .lib-book[data-paper="night"] { background: radial-gradient(125% 92% at 50% -6%, #20242c 0%, #181b22 54%, #11141a 100%); color: #e7e3d7; }

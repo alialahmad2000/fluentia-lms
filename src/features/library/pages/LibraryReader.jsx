@@ -11,6 +11,7 @@ import { ChevronRight, Sparkles, Settings2 } from 'lucide-react'
 import SentenceReveal, { renderEN } from '../components/SentenceReveal'
 import { useBook, useChapterContent, saveProgress, completeChapter, saveWord } from '../hooks/useLibrary'
 import { useAuthProfileId } from '../../../stores/authStore'
+import { shareQuote } from '../lib/quoteCard'
 import '../library.css'
 
 const PAPERS = ['ivory', 'cream', 'linen', 'parchment', 'sepia', 'night']
@@ -381,7 +382,10 @@ export default function LibraryReader() {
             </div>
             {tray.ar && <div className="ar" dir="rtl">{tray.ar}</div>}
             <div className="lib-tray-hint">اضغط أي كلمة لإضافتها إلى «كلماتي» وسماعها 🔊</div>
-            <button className="close" onClick={() => setTray(null)}>إغلاق</button>
+            <div className="lib-tray-actions">
+              <button className="lib-tray-share" onClick={() => shareQuote({ en: tray.en, ar: tray.ar, title: book?.title_en || book?.title_ar })}>شارك الاقتباس ✦</button>
+              <button className="close" onClick={() => setTray(null)}>إغلاق</button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
