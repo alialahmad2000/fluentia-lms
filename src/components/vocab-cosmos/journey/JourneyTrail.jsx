@@ -48,7 +48,9 @@ export default function JourneyTrail({ regions = [], currentUnitId }) {
           const isCurrent = r.unit_id === currentUnitId
           const done = r.status === 'complete'
           const inProgress = r.status === 'in_progress'
-          const pct = r.total_words > 0 ? Math.round((r.mastered_words / r.total_words) * 100) : 0
+          // progress fills as words are studied (coverage), matching how the path advances
+          const studied = r.studied_words ?? r.mastered_words ?? 0
+          const pct = r.total_words > 0 ? Math.round((studied / r.total_words) * 100) : 0
           return (
             <div
               key={r.unit_id}

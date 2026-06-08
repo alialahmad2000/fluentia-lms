@@ -5,6 +5,7 @@ import { X, Volume2, Loader2, Sparkles, Star } from 'lucide-react'
 import { getStop, addCard, applyRating, RATING } from '@/services/vocab'
 import { pronounceWord } from '@/lib/audio/pronounceWord'
 import { toArabicNum } from '@/lib/vocabFormat'
+import { useAuthStore } from '@/stores/authStore'
 
 // local word-key for de-duping beats (lowercase + strip outer non-letters)
 const norm = (s) => String(s || '').toLowerCase().trim().replace(/^[^\p{L}]+|[^\p{L}]+$/gu, '')
@@ -49,6 +50,11 @@ export default function JourneyStop({ profileId, unitId, constellationIndex, the
   const [phase, setPhase] = useState('play') // play | done
   const [learned, setLearned] = useState(0)
   const mountedRef = useRef(true)
+  // Admin "view as student" is a client-side profile swap — the Supabase session
+  // is still the admin's. Writing here would silently fail (RLS) or, worse, save the
+  // word onto the ADMIN's own vocab (vocab_add_card derives the student from
+  // auth.uid()). So in preview we walk the flow but never persist.
+  const impersonating = useAuthStore((s) => !!s.impersonation)
 
   useEffect(() => {
     mountedRef.current = true
@@ -79,9 +85,12 @@ export default function JourneyStop({ profileId, unitId, constellationIndex, the
           seen.add(k)
           out.push(b)
         }
-        // 1) discover — constellation words not yet mastered
+        // 1) discover — constellation words the student hasn't practiced yet.
+        // Already-studied words (learning/mastered) are skipped here; they come
+        // back through the recall channel below when they're actually due, so a
+        // re-visited constellation surfaces only the genuinely-new words.
         for (const w of stop.new || []) {
-          if (w.card && w.card.mastery_level === 'mastered') continue
+          if (w.card && w.card.mastery_level !== 'new') continue
           push({
             kind: 'discover',
             word: w.word,
@@ -148,20 +157,25 @@ export default function JourneyStop({ profileId, unitId, constellationIndex, the
     if (saving || !beat) return
     setSaving(true)
     try {
-      let cardId = beat.cardId
-      if (!cardId) {
-        const card = await addCard(profileId, {
-          word: beat.word,
-          curriculumVocabularyId: beat.cvId,
-          meaningAr: beat.meaningAr,
-          meaningEn: beat.meaningEn,
-          contextSentence: beat.example,
-          source: 'curriculum',
-        })
-        cardId = card?.id
+      if (impersonating) {
+        // preview only — advance the UI, persist nothing
+        if (rating >= RATING.GOOD) setLearned((n) => n + 1)
+      } else {
+        let cardId = beat.cardId
+        if (!cardId) {
+          const card = await addCard(profileId, {
+            word: beat.word,
+            curriculumVocabularyId: beat.cvId,
+            meaningAr: beat.meaningAr,
+            meaningEn: beat.meaningEn,
+            contextSentence: beat.example,
+            source: 'curriculum',
+          })
+          cardId = card?.id
+        }
+        if (cardId) await applyRating(cardId, rating, profileId)
+        if (rating >= RATING.GOOD) setLearned((n) => n + 1)
       }
-      if (cardId) await applyRating(cardId, rating, profileId)
-      if (rating >= RATING.GOOD) setLearned((n) => n + 1)
     } catch {
       // non-blocking — the word simply re-surfaces in a later stop
     } finally {

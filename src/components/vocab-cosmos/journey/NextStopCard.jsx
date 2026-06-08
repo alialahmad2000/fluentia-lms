@@ -9,7 +9,9 @@ import { toArabicNum, estMinutes } from '@/lib/vocabFormat'
  */
 export default function NextStopCard({ current, region, dueCount = 0, onStart }) {
   if (!current) return null
-  const toLearn = Math.max(0, (current.total || 0) - (current.mastered || 0))
+  // "new words" = words in this constellation not yet practiced. The journey
+  // advances on coverage (studied), so count down from studied, not mastered.
+  const toLearn = Math.max(0, (current.total || 0) - (current.studied ?? current.mastered ?? 0))
   const constTotal = region?.constellations || 1
   // the stop blends new words + a few folded-in reviews
   const approxWords = toLearn + Math.min(dueCount, 4)
