@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, MoreVertical, ChevronRight, Images } from 'lucide-react'
+import { Search, MoreVertical, ChevronRight, Images, Bell, BellOff } from 'lucide-react'
 import { fadeRise } from '../../lib/motion'
 import ActiveUsersDots from './ActiveUsersDots'
+import { useChatMutes, useToggleChatMute, muteActive } from '../../queries/useChatMute'
 
 function BackBtn({ onBack }) {
   return (
@@ -44,6 +45,10 @@ export default function StreamHeader({
 }) {
   const { grad, glow } = getLevelGradient(groupLevel)
   const initial = groupName?.trim()?.slice(0, 2) ?? 'م'
+  const { data: mutes } = useChatMutes()
+  const toggleMute = useToggleChatMute()
+  const muted = muteActive(mutes, 'group', groupId)
+  const onToggleMute = () => { if (groupId) toggleMute.mutate({ scope: 'group', target: groupId, muted: !muted }) }
 
   return (
     <motion.header
@@ -71,7 +76,7 @@ export default function StreamHeader({
                 <OnlineChip count={onlineUserIds.length} />
               )}
             </div>
-            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} />
+            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} muted={muted} onToggleMute={onToggleMute} mutePending={toggleMute.isPending} />
           </motion.div>
         ) : (
           <motion.div
@@ -100,7 +105,7 @@ export default function StreamHeader({
                 </div>
               </div>
             </div>
-            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} />
+            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} muted={muted} onToggleMute={onToggleMute} mutePending={toggleMute.isPending} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -154,9 +159,23 @@ function OnlineChip({ count }) {
   )
 }
 
-function HeaderActions({ onSearchOpen, onOpenMedia, isTrainer }) {
+function HeaderActions({ onSearchOpen, onOpenMedia, isTrainer, muted, onToggleMute, mutePending }) {
   return (
     <div className="flex items-center gap-1">
+      {onToggleMute && (
+        <button
+          onClick={onToggleMute}
+          disabled={mutePending}
+          className="rounded-full transition-all"
+          style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: muted ? 'var(--ds-accent-gold, #e9b949)' : 'var(--ds-text-secondary)', border: '1px solid transparent', transition: 'all 0.12s', opacity: mutePending ? 0.5 : 1 }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ds-surface-1)'; e.currentTarget.style.borderColor = 'var(--ds-border-subtle)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent' }}
+          aria-label={muted ? 'تشغيل إشعارات المجلس' : 'كتم إشعارات المجلس'}
+          title={muted ? 'الإشعارات مكتومة — اضغط للتشغيل' : 'كتم إشعارات هذا المجلس'}
+        >
+          {muted ? <BellOff size={18} /> : <Bell size={18} />}
+        </button>
+      )}
       {onOpenMedia && (
         <button
           onClick={onOpenMedia}
