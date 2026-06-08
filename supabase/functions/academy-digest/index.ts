@@ -62,9 +62,15 @@ Deno.serve(async (req) => {
     // ── Gather data ──────────────────────────────────────────────────────────
     const { data: students } = await supabase
       .from("students")
-      .select("id, academic_level, group_id, status, profiles(display_name, full_name), groups(name)")
+      .select("id, academic_level, group_id, status, access_expires_at, profiles(display_name, full_name), groups(name)")
       .eq("status", "active").is("deleted_at", null);
-    const sList = students || [];
+    // Exclude lapsed-subscription accounts (access_expires_at in the past = soft-blocked).
+    // They are no longer enrolled, so they must NOT skew the denominator or the AI's read.
+    const nowMs = Date.now();
+    const isLapsed = (s: any) => s.access_expires_at && new Date(s.access_expires_at).getTime() <= nowMs;
+    const allActive = students || [];
+    const lapsedCount = allActive.filter(isLapsed).length;
+    const sList = allActive.filter((s: any) => !isLapsed(s));
     const ids = sList.map((s: any) => s.id);
     const nameOf = (s: any) => s?.profiles?.display_name || s?.profiles?.full_name || "طالب";
 
@@ -131,7 +137,7 @@ Deno.serve(async (req) => {
       if (i.severity !== "celebrate" && intv.list.length < 12) intv.list.push({ name: nm, reason: i.reason_ar });
     }
 
-    const data = { period, startDate, endDate, academy, rows, active, inactive, skillTotals, intv };
+    const data = { period, startDate, endDate, academy, rows, active, inactive, skillTotals, intv, lapsed: lapsedCount };
 
     // ── AI feedback (one Claude call, with template fallback) ───────────────
     let ai = null, aiErr: string | null = null;
@@ -334,6 +340,7 @@ function renderEmail(d: any, ai: any) {
 
         <div style="margin-top:22px;padding-top:14px;border-top:1px solid ${C.line};text-align:center;font-size:11px;color:${C.sub};font-family:Tajawal,Arial,sans-serif">
           تقرير تلقائي من منصة طلاقة · ${d.period === "weekly" ? "أسبوعي (نهاية السبت)" : "يومي (منتصف الليل)"}
+          ${d.lapsed ? `<div style="margin-top:4px">التقرير يشمل الطلاب المشتركين فقط — تم استبعاد ${d.lapsed} حساباً منتهي الاشتراك</div>` : ""}
         </div>
       </div>
     </div>
