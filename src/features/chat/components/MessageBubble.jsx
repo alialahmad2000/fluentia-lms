@@ -9,6 +9,7 @@ import MessageBubbleVoice from './MessageBubbleVoice'
 import MessageBubbleImage from './MessageBubbleImage'
 import MessageBubbleFile from './MessageBubbleFile'
 import MessageBubbleVideo from './MessageBubbleVideo'
+import MessageBubbleAlbum from './MessageBubbleAlbum'
 import MessageBubbleLink from './MessageBubbleLink'
 import MessageBubbleAnnouncement from './MessageBubbleAnnouncement'
 import MessageBubbleSystem from './MessageBubbleSystem'
@@ -76,7 +77,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
 
   // Gestures (hook must run before any early return)
   const { bind, swipeX } = useChatGestures({
-    onDoubleTap: message.type === 'image' ? undefined : () => reactWith('❤️'),
+    onDoubleTap: (message.type === 'image' || message.type === 'album') ? undefined : () => reactWith('❤️'),
     onLongPress: (e) => setSheet({ open: true, anchor: { x: e.clientX, y: e.clientY } }),
     onSwipeReply: () => onReply?.(message),
   })
@@ -176,6 +177,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           {message.type === 'image' && <MessageBubbleImage message={message} />}
           {message.type === 'file' && <MessageBubbleFile message={message} />}
           {message.type === 'video' && <MessageBubbleVideo message={message} />}
+          {message.type === 'album' && <MessageBubbleAlbum message={message} />}
           {message.type === 'link' && <MessageBubbleLink message={message} />}
           {message.type === 'announcement' && <MessageBubbleAnnouncement message={message} body={bodyText} />}
 
