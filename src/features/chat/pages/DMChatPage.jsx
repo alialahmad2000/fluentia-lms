@@ -6,6 +6,7 @@ import { useDMThreadMeta, useDMOtherRead } from '../queries/useDM'
 import { usePresence } from '../realtime/usePresence'
 import SenderAvatar from '../components/premium/SenderAvatar'
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
+import ErrorBoundary from '../../../components/ErrorBoundary'
 import PremiumComposer from '../components/premium/PremiumComposer'
 import { senderColor } from '../lib/senderColors'
 import '../premium.css'
@@ -91,12 +92,19 @@ export default function DMChatPage() {
 
       {/* DM stream */}
       <div className="chat-stream">
-        <UnifiedMessageStream
-          dmThreadId={threadId}
-          readUpTo={readUpTo}
-          onReply={startReply}
-          onEdit={startEdit}
-        />
+        <ErrorBoundary fallback={(
+          <div dir="rtl" className="h-full flex flex-col items-center justify-center gap-3 p-6 text-center">
+            <p style={{ color: 'var(--ds-text-secondary)', fontFamily: 'Tajawal, sans-serif' }}>تعذّر عرض المحادثة مؤقتًا</p>
+            <button onClick={() => window.location.reload()} className="px-4 py-2 rounded-lg text-sm font-semibold" style={{ background: 'var(--ds-accent-primary)', color: '#06121f' }}>إعادة التحميل</button>
+          </div>
+        )}>
+          <UnifiedMessageStream
+            dmThreadId={threadId}
+            readUpTo={readUpTo}
+            onReply={startReply}
+            onEdit={startEdit}
+          />
+        </ErrorBoundary>
       </div>
 
       {/* DM composer */}

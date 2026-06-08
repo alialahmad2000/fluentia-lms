@@ -94,7 +94,15 @@ export function useUnifiedMessages(groupId, lens = 'all') {
       }, () => qc.invalidateQueries({ queryKey: ['unified-messages', groupId] }))
       .on('postgres_changes', {
         event: '*', schema: 'public', table: 'message_reactions',
-      }, () => qc.invalidateQueries({ queryKey: ['unified-messages', groupId] }))
+      }, (payload) => {
+        // Only refresh when the reacted message is actually loaded — scopes the
+        // re-query storm (reactions table has no group filter at the realtime layer).
+        const mid = payload.new?.message_id || payload.old?.message_id
+        if (!mid) return
+        const cached = qc.getQueriesData({ queryKey: ['unified-messages', groupId] })
+        const loaded = cached.some(([, data]) => data?.pages?.some((pg) => Array.isArray(pg) && pg.some((m) => m.id === mid)))
+        if (loaded) qc.invalidateQueries({ queryKey: ['unified-messages', groupId] })
+      })
       .subscribe()
     return () => { ch.unsubscribe(); supabase.removeChannel(ch) }
   }, [groupId, qc])

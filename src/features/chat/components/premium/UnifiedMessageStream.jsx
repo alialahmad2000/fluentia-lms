@@ -158,6 +158,17 @@ export default function UnifiedMessageStream({
     [messages, unreadAfter, profile?.id, lens, isDM]
   )
 
+  // Auto-scroll to the first unread message on open (once per conversation)
+  const unreadDoneRef = useRef('')
+  useEffect(() => {
+    const convo = isDM ? `dm:${dmThreadId}` : `g:${groupId}`
+    if (unreadDoneRef.current === convo || !virtuosoRef.current || !messages.length) return
+    const idx = items.findIndex((it) => it.type === 'unread')
+    if (idx === -1) return
+    unreadDoneRef.current = convo
+    setTimeout(() => virtuosoRef.current?.scrollToIndex({ index: idx, align: 'start', behavior: 'auto' }), 250)
+  }, [items, messages.length, isDM, dmThreadId, groupId])
+
   // Track new-message count while scrolled up
   useEffect(() => {
     if (!atBottom && messages.length > prevLenRef.current) {

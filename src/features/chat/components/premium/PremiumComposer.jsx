@@ -10,6 +10,8 @@ import { useSendDM } from '../../queries/useDM'
 import { useEditMessage } from '../../mutations/useEditMessage'
 import { uploadChatFile, uploadChatImage } from '../../../../lib/chatStorage'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import { supabase } from '../../../../lib/supabase'
+import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
 import VoiceRecorder from '../VoiceRecorder'
 import MentionPicker from './MentionPicker'
 import SenderAvatar from './SenderAvatar'
@@ -136,12 +138,26 @@ export default function PremiumComposer({
     }
 
     resetComposer()
-    await sendMessage.mutateAsync({
+    const sent = await sendMessage.mutateAsync({
       type: 'text', body: text, content: text,
       reply_to: replyTo?.id ?? null,
       mentions: mentions.map((m) => m.id),
     })
     onClearReply?.()
+    const url = text.match(/https?:\/\/[^\s<]+/)?.[0]
+    if (url && sent?.id) unfurlLink(sent.id, url)
+  }
+
+  // Best-effort link preview: fetch OG data after send + patch the message (realtime refreshes the bubble).
+  async function unfurlLink(messageId, url) {
+    try {
+      const { data, error } = await invokeWithRetry('link-preview', { body: { url } })
+      if (error || !data || (!data.title && !data.image)) return
+      await supabase.from('group_messages').update({
+        link_url: data.url || url, link_title: data.title || null, link_description: data.description || null,
+        link_image_url: data.image || null, link_domain: data.domain || null,
+      }).eq('id', messageId)
+    } catch { /* best-effort */ }
   }
 
   function handleKeyDown(e) {

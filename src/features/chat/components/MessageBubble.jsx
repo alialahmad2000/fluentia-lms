@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useTransform } from 'framer-motion'
-import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck, Clock, AlertCircle } from 'lucide-react'
+import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck, Clock, AlertCircle, MoreHorizontal } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useAuthProfile } from '../../../stores/authStore'
 import MessageBubbleText from './MessageBubbleText'
@@ -21,6 +21,9 @@ import { useReact } from '../mutations/useReact'
 import { useDeleteMessage } from '../mutations/useDeleteMessage'
 import { useTogglePin } from '../mutations/useTogglePin'
 import { resendMessage } from '../mutations/useSendMessage'
+
+// Touch devices get a visible "⋯" action button (long-press alone is undiscoverable).
+const IS_TOUCH = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches
 
 // Tail-radius presets (CSS order: TL TR BR BL). Rounded 18px, tail/spine 5px.
 function getBubbleRadius(position, isOwn) {
@@ -167,6 +170,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           )}
 
           {message.type === 'text' && <MessageBubbleText body={bodyText} mentions={message.mentions} myId={profile?.id} />}
+          {message.type === 'text' && message.link_url && <MessageBubbleLink message={message} />}
           {message.type === 'voice' && <MessageBubbleVoice message={message} />}
           {message.type === 'image' && <MessageBubbleImage message={message} />}
           {message.type === 'file' && <MessageBubbleFile message={message} />}
@@ -197,6 +201,16 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
         <div onPointerDown={stop}>
           <ReactionSummary reactions={message.reactions} myId={profile?.id} messageId={message.id} onReact={(emoji) => reactWith(emoji)} />
         </div>
+
+        {/* Mobile: discoverable tap-to-reveal actions (long-press also still works) */}
+        {IS_TOUCH && (
+          <button onPointerDown={stop} onClick={(e) => { e.stopPropagation(); setSheet({ open: true, anchor: { x: e.clientX, y: e.clientY } }) }}
+            aria-label="إجراءات الرسالة"
+            className="absolute flex items-center justify-center rounded-full"
+            style={{ top: -10, insetInlineEnd: 0, width: 26, height: 26, background: 'color-mix(in srgb, var(--ds-bg-elevated) 92%, transparent)', border: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-tertiary)', boxShadow: '0 4px 12px -4px rgba(0,0,0,0.4)', zIndex: 11 }}>
+            <MoreHorizontal size={14} />
+          </button>
+        )}
 
         {/* Desktop hover toolbar */}
         <div onPointerDown={stop}
