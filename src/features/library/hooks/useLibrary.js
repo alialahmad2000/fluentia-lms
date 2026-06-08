@@ -12,7 +12,8 @@ export function usePreviewLevel() {
   const studentData = useAuthStudentData()
   const role = useAuthRole()
   if (studentData && studentData.academic_level != null) return Number(studentData.academic_level)
-  return role === 'admin' || role === 'trainer' ? 1 : 0
+  // staff (admin/trainer) preview at max so every novel is readable for review
+  return role === 'admin' || role === 'trainer' ? 99 : 0
 }
 
 // mine = current level & below (full read) · tease = exactly +1 (Chapter 1 only)
