@@ -16,7 +16,8 @@ import { invokeWithRetry } from '../../../lib/invokeWithRetry'
 import { useG } from '../../../i18n/gender'
 import { safeCelebrate } from '../../../lib/celebrations'
 
-const MIN_END_TURNS = 3
+const MIN_END_TURNS = 3   // student may end after this many turns
+const MAX_TURNS = 8       // ceiling — the coach wraps up here (bounds API cost)
 
 // ── Safari-safe mime (mirrors VoiceRecorder.jsx) ──
 const getMime = () => {
@@ -111,7 +112,7 @@ export default function ConversationMode({ topic, studentId, unitId, questionInd
   const analyserRef = useRef(null)
   const audioCtxRef = useRef(null)
   const rafRef = useRef(null)
-  const maxTurnSec = topic?.max_duration_seconds ? Math.min(120, Math.max(45, topic.max_duration_seconds)) : 90
+  const maxTurnSec = topic?.max_duration_seconds ? Math.min(60, Math.max(30, topic.max_duration_seconds)) : 60
 
   useEffect(() => {
     const a = new Audio()
@@ -334,7 +335,21 @@ export default function ConversationMode({ topic, studentId, unitId, questionInd
           {/* ── ACTIVE ── */}
           {phase === 'active' && (
             <motion.div key="active" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div ref={scrollRef} className="px-4 py-5 space-y-3.5 overflow-y-auto" style={{ maxHeight: 380, minHeight: 200 }}>
+              {/* Turn-progress — shows the conversation ceiling + when the student can finish */}
+              <div className="px-4 pt-3">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[10px] font-bold font-['Tajawal']" style={{ color: 'rgba(248,250,252,0.5)' }}>تقدّم المحادثة</span>
+                  <span className="text-[10px] font-bold font-['Tajawal'] tabular-nums" style={{ color: studentTurns >= MIN_END_TURNS ? '#6ee7b7' : 'rgba(248,250,252,0.45)' }}>
+                    {studentTurns >= MIN_END_TURNS ? `يمكنك الإنهاء الآن · ${Math.min(studentTurns, MAX_TURNS)}/${MAX_TURNS}` : `${studentTurns}/${MAX_TURNS}`}
+                  </span>
+                </div>
+                <div dir="ltr" className="relative h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
+                  <motion.div className="h-full rounded-full" animate={{ width: `${Math.min(100, (studentTurns / MAX_TURNS) * 100)}%` }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ background: studentTurns >= MIN_END_TURNS ? 'linear-gradient(90deg,#22d3ee,#34d399)' : 'linear-gradient(90deg,#22d3ee,#a78bfa)' }} />
+                  <div className="absolute top-0 bottom-0" title="يمكنك الإنهاء من هنا" style={{ left: `${(MIN_END_TURNS / MAX_TURNS) * 100}%`, width: 2, background: 'rgba(255,255,255,0.4)' }} />
+                </div>
+              </div>
+              <div ref={scrollRef} className="px-4 pt-3 pb-5 space-y-3.5 overflow-y-auto" style={{ maxHeight: 360, minHeight: 180 }}>
                 {messages.map((m, i) => (
                   <Bubble key={m.id} message={m} onReplay={() => playCoach(m.audioUrl)} speaking={coachSpeaking && m.role === 'ai' && i === messages.length - 1} reduce={reduce} />
                 ))}

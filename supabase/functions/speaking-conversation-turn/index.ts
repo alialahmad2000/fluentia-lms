@@ -61,7 +61,7 @@ const LEVEL_DESCRIPTORS: Record<number, string> = {
 async function synthesize(sb: any, text: string): Promise<string | null> {
   const clean = (text || '').trim()
   if (!clean) return null
-  const hash = await sha256hex(VOICE_ID + '|v1|' + clean)
+  const hash = await sha256hex(VOICE_ID + '|v2t|' + clean)
   const path = `conversation-tts/${hash}.mp3`
   const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${TTS_BUCKET}/${path}`
   try {
@@ -75,7 +75,7 @@ async function synthesize(sb: any, text: string): Promise<string | null> {
       headers: { 'xi-api-key': ELEVEN_KEY, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg' },
       body: JSON.stringify({
         text: clean,
-        model_id: 'eleven_multilingual_v2',
+        model_id: 'eleven_turbo_v2_5',
         voice_settings: { stability: 0.45, similarity_boost: 0.8, style: 0.15, use_speaker_boost: true },
       }),
     }, 30000)
@@ -130,7 +130,7 @@ async function callClaude(system: string, messages: any[], maxTokens = 160): Pro
   const r = await fetchWithTimeout('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-api-key': CLAUDE_API_KEY, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: maxTokens, temperature: 0.7, system, messages }),
+    body: JSON.stringify({ model: 'claude-haiku-4-5', max_tokens: maxTokens, temperature: 0.7, system, messages }),
   }, 45000)
   if (!r.ok) throw new Error(`claude ${r.status}: ${(await r.text()).slice(0, 160)}`)
   const j = await r.json()
@@ -139,7 +139,7 @@ async function callClaude(system: string, messages: any[], maxTokens = 160): Pro
 
 async function logUsage(sb: any, type: string, studentId: string, model: string, inT: number, outT: number) {
   try {
-    const costSAR = ((inT * 3 + outT * 15) / 1_000_000) * 3.75
+    const costSAR = ((inT * 1 + outT * 5) / 1_000_000) * 3.75
     await sb.from('ai_usage').insert({
       type, student_id: studentId, model, input_tokens: inT, output_tokens: outT,
       estimated_cost_sar: costSAR.toFixed(4),
@@ -205,7 +205,7 @@ serve(async (req) => {
       try {
         const c = await callClaude(system, [{ role: 'user', content: openUser }], 160)
         replyText = c.text
-        await logUsage(sb, 'chatbot', studentId, 'claude-sonnet-4-6', c.inT, c.outT)
+        await logUsage(sb, 'chatbot', studentId, 'claude-haiku-4-5', c.inT, c.outT)
       } catch (_e) {
         replyText = `Hi! Let's have a little chat in English about ${topic?.title_en || 'today\'s topic'}. Don't worry — just speak slowly. To start, can you tell me a little about it?`
       }
@@ -298,7 +298,7 @@ serve(async (req) => {
       try {
         const c = await callClaude(system, history, 160)
         replyText = c.text || "That's great. Tell me a little more?"
-        await logUsage(sb, 'chatbot', studentId, 'claude-sonnet-4-6', c.inT, c.outT)
+        await logUsage(sb, 'chatbot', studentId, 'claude-haiku-4-5', c.inT, c.outT)
       } catch (_e) {
         replyText = "That's great — tell me a little more about that?"
       }

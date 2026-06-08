@@ -113,7 +113,7 @@ serve(async (req) => {
   const studentTranscript = studentTurns.map((t: any) => t.content.trim()).join(' ')
   const wordCount = studentTranscript.split(/\s+/).filter(Boolean).length
 
-  if (!CLAUDE_API_KEY) return revert('CLAUDE_API_KEY not set')
+  // (no CLAUDE_API_KEY → tryGrade returns null → graceful fallback completion below)
 
   const systemPrompt = `You are a strict but encouraging ESL speaking examiner at Fluentia Academy (Saudi Arabia). You evaluate an Arabic-speaking student's spoken English from a transcript of a short CONVERSATION they had with an AI coach. Score ONLY the STUDENT's English (their own turns), judged for their level. The coach's lines are context only.
 
@@ -140,41 +140,53 @@ Full conversation:
 ${dialogue}
 """
 
-Respond ONLY with valid JSON (no markdown, no backticks):
+Respond ONLY with valid JSON (no markdown, no backticks). Be CONCISE — short phrases, no long paragraphs:
 {
-  "level_context": "Level ${level} (${(LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]).split(' — ')[0]})",
-  "analysis": { "strengths": ["<quoted student phrase + why good>", "<quoted>", "<quoted>"], "weaknesses": ["<quoted student phrase + what's off>", "<quoted>", "<quoted>"] },
+  "analysis": { "strengths": ["<short quoted student phrase + why good>", "<quoted>"], "weaknesses": ["<short quoted phrase + what's off>", "<quoted>"] },
   "grammar_score": 0, "vocabulary_score": 0, "fluency_score": 0, "task_completion_score": 0, "overall_score": 0,
-  "score_justification": "<1 sentence tying overall_score to quoted evidence>",
-  "corrected_transcript": "<the student's words across the conversation, rewritten with correct grammar + better vocabulary>",
-  "errors": [{"spoken": "", "corrected": "", "rule": "<Arabic explanation>", "category": "grammar|vocabulary"}],
-  "better_expressions": [{"basic": "", "natural": "", "context": "<Arabic usage note>"}],
-  "fluency_tips": ["<Arabic practical tip>"],
-  "model_answer": "<How a good L${level} speaker might handle this conversation — 2-3 sentences>",
-  "strengths": "<Arabic — warm, specific praise for what they did well in the conversation>",
+  "errors": [{"spoken": "", "corrected": "", "rule": "<short Arabic>", "category": "grammar|vocabulary"}],
+  "better_expressions": [{"basic": "", "natural": "", "context": "<short Arabic>"}],
+  "strengths": "<Arabic — warm specific praise, 1 sentence>",
   "improvement_tip": "<Arabic — ONE specific next step>",
-  "feedback_ar": "<Arabic — 3-4 sentences: what was good in محادثتك, what to improve, encouragement>",
-  "feedback_en": "<English summary>",
-  "suggestions": ["<tip 1>", "<tip 2>"]
-}`
+  "feedback_ar": "<Arabic — 2-3 short sentences: what was good in محادثتك, one thing to improve, encouragement>"
+}
+Keep "errors" to AT MOST 3 and "better_expressions" to AT MOST 2 (only the most useful ones).`
 
-  let aiEvaluation: any = null
+  // Grade with Haiku (fast) + one retry. SUBMIT MUST NEVER FAIL: if grading can't complete,
+  // fall back to a graceful engagement-based result so the conversation always finishes.
   let inT = 0, outT = 0
-  try {
-    const r = await fetchWithTimeout('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': CLAUDE_API_KEY, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 4096, temperature: 0.2, system: systemPrompt, messages: [{ role: 'user', content: userPrompt }] }),
-    }, 60000)
-    if (!r.ok) return revert(`claude ${r.status}: ${(await r.text()).slice(0, 160)}`)
-    const j = await r.json()
-    const text: string = j.content?.[0]?.text || ''
-    inT = j.usage?.input_tokens || 0; outT = j.usage?.output_tokens || 0
-    const start = text.indexOf('{'), end = text.lastIndexOf('}') + 1
-    if (start === -1 || end <= start) return revert('claude returned no JSON')
-    try { aiEvaluation = JSON.parse(text.slice(start, end)) }
-    catch { try { aiEvaluation = JSON.parse(text.slice(start, text.slice(0, end).lastIndexOf('}') + 1)) } catch { return revert('claude JSON parse failed') } }
-  } catch (e: any) { return revert(`claude error: ${e.message}`) }
+  async function tryGrade(): Promise<any | null> {
+    if (!CLAUDE_API_KEY) return null
+    try {
+      const r = await fetchWithTimeout('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': CLAUDE_API_KEY, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: 'claude-haiku-4-5', max_tokens: 1500, temperature: 0.2, system: systemPrompt, messages: [{ role: 'user', content: userPrompt }] }),
+      }, 35000)
+      if (!r.ok) return null
+      const j = await r.json()
+      inT = j.usage?.input_tokens || 0; outT = j.usage?.output_tokens || 0
+      const text: string = j.content?.[0]?.text || ''
+      const s = text.indexOf('{'), e = text.lastIndexOf('}') + 1
+      if (s === -1 || e <= s) return null
+      try { return JSON.parse(text.slice(s, e)) } catch { try { return JSON.parse(text.slice(s, text.slice(0, e).lastIndexOf('}') + 1)) } catch { return null } }
+    } catch { return null }
+  }
+  let aiEvaluation: any = (await tryGrade()) || (await tryGrade())
+  let isFallback = false
+  if (!aiEvaluation) {
+    isFallback = true
+    const vt = studentTurns.length
+    const base = Math.round(Math.min(7.5, Math.max(5, 5 + vt * 0.3)) * 10) / 10
+    aiEvaluation = {
+      grammar_score: base, vocabulary_score: base, fluency_score: base, task_completion_score: base, overall_score: base,
+      analysis: { strengths: [], weaknesses: [] }, errors: [], better_expressions: [], fluency_tips: [], suggestions: [],
+      strengths: 'أكملتِ محادثة كاملة بالإنجليزي — هذا إنجاز جميل.',
+      improvement_tip: 'واصلي التدرّب على المحادثة لتزداد طلاقتك.',
+      feedback_ar: 'تم استلام محادثتك بنجاح! 🤍 تكلّمتِ بالإنجليزي اليوم وهذا أهم شيء. سيراجع معلّمك محادثتك ويعطيك ملاحظات أدق قريباً.',
+      needs_review: true,
+    }
+  }
 
   // Recompute overall from subscores (anti-anchoring), attach transcript
   const g = Number(aiEvaluation.grammar_score) || 0
@@ -185,6 +197,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
   aiEvaluation.score = aiEvaluation.overall_score
   aiEvaluation.transcript = studentTranscript
   aiEvaluation.mode = 'conversation'
+  aiEvaluation.fallback = isFallback
 
   // ── Summary speaking_recordings row (trainer visibility + progress trigger) ──
   // Use the longest student turn's audio for playback.
@@ -201,7 +214,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
       audio_url: signedUrl, audio_path: longest.audio_path,
       audio_duration_seconds: convo.total_speaking_seconds || longest.audio_duration_seconds || 0,
       ai_evaluation: aiEvaluation, ai_evaluated_at: new Date().toISOString(),
-      ai_model: 'claude-sonnet-4-6 + whisper-1 (conversation)',
+      ai_model: 'claude-haiku-4-5 + whisper-1 (conversation)',
       evaluation_status: 'completed', conversation_id,
     }).select('id').maybeSingle()
     recordingId = rec?.id || null
@@ -210,7 +223,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
   // ── Finalize the conversation row ──
   await sb.from('speaking_conversations').update({
     ai_evaluation: aiEvaluation, ai_evaluated_at: new Date().toISOString(),
-    ai_model: 'claude-sonnet-4-6 + whisper-1', score: aiEvaluation.overall_score,
+    ai_model: 'claude-haiku-4-5 + whisper-1', score: aiEvaluation.overall_score,
     speaking_recording_id: recordingId, updated_at: new Date().toISOString(),
   }).eq('id', conversation_id)
 
@@ -229,8 +242,8 @@ Respond ONLY with valid JSON (no markdown, no backticks):
 
   // Usage log
   try {
-    const costSAR = ((inT * 3 + outT * 15) / 1_000_000) * 3.75
-    await sb.from('ai_usage').insert({ type: 'speaking_analysis', student_id: studentId, model: 'claude-sonnet-4-6', input_tokens: inT, output_tokens: outT, estimated_cost_sar: costSAR.toFixed(4) })
+    const costSAR = ((inT * 1 + outT * 5) / 1_000_000) * 3.75
+    await sb.from('ai_usage').insert({ type: 'speaking_analysis', student_id: studentId, model: 'claude-haiku-4-5', input_tokens: inT, output_tokens: outT, estimated_cost_sar: costSAR.toFixed(4) })
   } catch { /* non-blocking */ }
 
   return json({
