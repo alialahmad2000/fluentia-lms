@@ -121,8 +121,10 @@ export const TRAINER_NAV = {
   mobileBar: [
     { id: 'dashboard',  label: 'الرئيسية', icon: Home,          to: '/trainer' },
     { id: 'students',   label: 'الطلاب',   icon: GraduationCap, to: '/trainer/my-students' },
+    // 2026-06-08: chat in the bottom bar for teachers too (Telegram-replacement) — center slot.
+    // Took 'points' (الحصة) slot here; الحصة stays in the sidebar (الأدوات) + direct URL.
+    { id: 'chat',       label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
     { id: 'grading',    label: 'التقييم',   icon: ClipboardList, to: '/trainer/grading' },
-    { id: 'points',     label: 'الحصة',     icon: Zap,           to: '/trainer/points' },
     { id: 'more',       label: 'المزيد',    icon: 'more',        to: null },
   ],
 }
@@ -192,8 +194,10 @@ export const ADMIN_NAV = {
   mobileBar: [
     { id: 'dashboard', label: 'الرئيسية', icon: Home,          to: '/admin' },
     { id: 'students',  label: 'الطلاب',   icon: GraduationCap, to: '/admin/users' },
+    // 2026-06-08: chat in the bottom bar for admin too (Telegram-replacement) — center slot.
+    // Took 'reports' slot here; التقارير stays in the sidebar (نظرة عامة) + direct URL.
+    { id: 'chat',      label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
     { id: 'groups',    label: 'المجموعات', icon: Users,         to: '/admin/groups' },
-    { id: 'reports',   label: 'التقارير',  icon: BarChart3,     to: '/admin/reports' },
     { id: 'more',      label: 'المزيد',    icon: 'more',        to: null },
   ],
 }
