@@ -156,14 +156,17 @@ serve(async (req) => {
   try { body = await req.json() } catch { return json({ error: 'bad body' }, 400) }
   const { action } = body
 
-  // ── Auth: the student must own this conversation ──
+  // ── Auth + effective student (impersonation-aware): an admin/trainer viewing AS a student
+  //    writes for that student; a real student can only act for themselves. ──
   const token = (req.headers.get('Authorization') || '').replace('Bearer ', '')
   const { data: { user }, error: authErr } = await sb.auth.getUser(token)
   if (authErr || !user) return json({ error: 'Unauthorized' }, 401)
-  const studentId = user.id
+  const callerId = user.id
+  const { data: caller } = await sb.from('profiles').select('role').eq('id', callerId).maybeSingle()
+  const isStaff = caller?.role === 'admin' || caller?.role === 'trainer'
 
   // Resolve topic + level (shared by both actions)
-  async function loadContext(unitId: string, speakingId?: string) {
+  async function loadContext(unitId: string, speakingId?: string, sid?: string) {
     let topic: any = null
     if (speakingId) {
       const { data } = await sb.from('curriculum_speaking').select('*').eq('id', speakingId).maybeSingle()
@@ -179,7 +182,7 @@ serve(async (req) => {
       .select('level:curriculum_levels(level_number)').eq('id', unitId).maybeSingle()
     if ((unitData?.level as any)?.level_number) level = (unitData?.level as any).level_number
     if (level === 1) {
-      const { data: s } = await sb.from('students').select('academic_level').eq('id', studentId).maybeSingle()
+      const { data: s } = await sb.from('students').select('academic_level').eq('id', sid).maybeSingle()
       if (s?.academic_level) level = s.academic_level
     }
     return { topic, level }
@@ -190,7 +193,8 @@ serve(async (req) => {
     if (action === 'start') {
       const { unit_id, speaking_id, question_index = 0 } = body
       if (!unit_id) return json({ error: 'unit_id required' }, 400)
-      const { topic, level } = await loadContext(unit_id, speaking_id)
+      const studentId = (body.as_student_id && isStaff && body.as_student_id !== callerId) ? body.as_student_id : callerId
+      const { topic, level } = await loadContext(unit_id, speaking_id, studentId)
       const levelDesc = LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]
 
       const { data: convo, error: cErr } = await sb.from('speaking_conversations').insert({
@@ -232,8 +236,9 @@ serve(async (req) => {
 
       const { data: convo } = await sb.from('speaking_conversations').select('*').eq('id', conversation_id).maybeSingle()
       if (!convo) return json({ error: 'conversation not found' }, 404)
-      if (convo.student_id !== studentId) return json({ error: 'Forbidden' }, 403)
+      if (convo.student_id !== callerId && !isStaff) return json({ error: 'Forbidden' }, 403)
       if (convo.status !== 'in_progress') return json({ error: 'conversation already finished', done: true }, 409)
+      const studentId = convo.student_id  // effective student (conversation owner)
 
       // Idempotency: same client_turn_uuid already processed → return the AI reply that followed it
       if (client_turn_uuid) {
@@ -282,7 +287,7 @@ serve(async (req) => {
       }).eq('id', conversation_id)
 
       // Context + reply
-      const { topic, level } = await loadContext(convo.unit_id, convo.speaking_id)
+      const { topic, level } = await loadContext(convo.unit_id, convo.speaking_id, studentId)
       const levelDesc = LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]
       const wrap = newStudentTurnCount >= MAX_STUDENT_TURNS || newStudentTurnCount >= WRAP_HINT_AFTER
       const done = newStudentTurnCount >= MAX_STUDENT_TURNS

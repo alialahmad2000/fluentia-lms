@@ -733,6 +733,14 @@ function AIEvaluationCard({ evaluation }) {
         </p>
       )}
 
+      {/* Why this score — so the student understands her grade */}
+      {evaluation.score_justification && (
+        <div className="rounded-lg px-3 py-2 flex items-start gap-2" style={{ background: 'rgba(168,85,247,0.06)', border: '1px solid rgba(168,85,247,0.14)' }}>
+          <span className="text-[11px] font-bold text-purple-300 font-['Tajawal'] flex-shrink-0">لماذا هذه الدرجة؟</span>
+          <span className="text-[11px] text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">{evaluation.score_justification}</span>
+        </div>
+      )}
+
       {/* Toggle for detailed feedback */}
       {(errors.length > 0 || betterExpressions.length > 0 || correctedTranscript || modelAnswer) && (
         <button

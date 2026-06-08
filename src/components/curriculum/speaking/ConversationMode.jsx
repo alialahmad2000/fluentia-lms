@@ -154,7 +154,9 @@ export default function ConversationMode({ topic, studentId, unitId, questionInd
     setPhase('active')
     setRecState('processing')
     const { data, error: err } = await invokeWithRetry('speaking-conversation-turn', {
-      body: { action: 'start', unit_id: unitId, speaking_id: topic?.id, question_index: questionIndex },
+      // as_student_id makes impersonation work: when staff view AS a student, completion is
+      // written for that student (studentId here = the effective/impersonated profile id).
+      body: { action: 'start', unit_id: unitId, speaking_id: topic?.id, question_index: questionIndex, as_student_id: studentId },
     }, { timeoutMs: 45000, retries: 1 })
     const parsed = await parseData(data)
     setRecState('idle')

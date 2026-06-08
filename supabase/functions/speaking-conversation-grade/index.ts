@@ -54,11 +54,15 @@ serve(async (req) => {
   const token = (req.headers.get('Authorization') || '').replace('Bearer ', '')
   const { data: { user }, error: authErr } = await sb.auth.getUser(token)
   if (authErr || !user) return json({ error: 'Unauthorized' }, 401)
-  const studentId = user.id
+  const callerId = user.id
+  const { data: caller } = await sb.from('profiles').select('role').eq('id', callerId).maybeSingle()
+  const isStaff = caller?.role === 'admin' || caller?.role === 'trainer'
 
   const { data: convo } = await sb.from('speaking_conversations').select('*').eq('id', conversation_id).maybeSingle()
   if (!convo) return json({ error: 'conversation not found' }, 404)
-  if (convo.student_id !== studentId) return json({ error: 'Forbidden' }, 403)
+  if (convo.student_id !== callerId && !isStaff) return json({ error: 'Forbidden' }, 403)
+  // Effective student = conversation owner (the impersonated student when staff is viewing as them).
+  const studentId = convo.student_id
 
   // Already graded → return existing
   if (convo.status === 'completed' && convo.ai_evaluation) {
@@ -140,17 +144,22 @@ Full conversation:
 ${dialogue}
 """
 
-Respond ONLY with valid JSON (no markdown, no backticks). Be CONCISE — short phrases, no long paragraphs:
+Respond ONLY with valid JSON (no markdown, no backticks). Give DETAILED, specific, encouraging feedback — quote the student's REAL words:
 {
-  "analysis": { "strengths": ["<short quoted student phrase + why good>", "<quoted>"], "weaknesses": ["<short quoted phrase + what's off>", "<quoted>"] },
+  "level_context": "Level ${level} (${(LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]).split(' — ')[0]})",
+  "analysis": { "strengths": ["<quoted student phrase + why it's good>", "<quoted>", "<quoted>"], "weaknesses": ["<quoted phrase + what's off>", "<quoted>", "<quoted>"] },
   "grammar_score": 0, "vocabulary_score": 0, "fluency_score": 0, "task_completion_score": 0, "overall_score": 0,
-  "errors": [{"spoken": "", "corrected": "", "rule": "<short Arabic>", "category": "grammar|vocabulary"}],
-  "better_expressions": [{"basic": "", "natural": "", "context": "<short Arabic>"}],
-  "strengths": "<Arabic — warm specific praise, 1 sentence>",
+  "score_justification": "<Arabic — 1-2 sentences: WHY this overall score, tied to the quoted evidence, so she clearly understands her grade>",
+  "corrected_transcript": "<the student's words across the conversation, rewritten with correct grammar + better vocabulary>",
+  "errors": [{"spoken": "", "corrected": "", "rule": "<Arabic explanation>", "category": "grammar|vocabulary"}],
+  "better_expressions": [{"basic": "", "natural": "", "context": "<Arabic usage note>"}],
+  "fluency_tips": ["<Arabic practical tip>"],
+  "model_answer": "<How a good L${level} speaker might handle this conversation — 2-3 sentences>",
+  "strengths": "<Arabic — warm, specific praise for what she did well, 1-2 sentences>",
   "improvement_tip": "<Arabic — ONE specific next step>",
-  "feedback_ar": "<Arabic — 2-3 short sentences: what was good in محادثتك, one thing to improve, encouragement>"
+  "feedback_ar": "<Arabic — 3-4 sentences: what was good in محادثتك, what to improve, and warm encouragement>"
 }
-Keep "errors" to AT MOST 3 and "better_expressions" to AT MOST 2 (only the most useful ones).`
+Include 2-4 "errors" and 2-3 "better_expressions" whenever there is material. Be thorough but warm.`
 
   // Grade with Haiku (fast) + one retry. SUBMIT MUST NEVER FAIL: if grading can't complete,
   // fall back to a graceful engagement-based result so the conversation always finishes.
@@ -161,7 +170,7 @@ Keep "errors" to AT MOST 3 and "better_expressions" to AT MOST 2 (only the most 
       const r = await fetchWithTimeout('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-api-key': CLAUDE_API_KEY, 'anthropic-version': '2023-06-01' },
-        body: JSON.stringify({ model: 'claude-haiku-4-5', max_tokens: 1500, temperature: 0.2, system: systemPrompt, messages: [{ role: 'user', content: userPrompt }] }),
+        body: JSON.stringify({ model: 'claude-haiku-4-5', max_tokens: 3000, temperature: 0.2, system: systemPrompt, messages: [{ role: 'user', content: userPrompt }] }),
       }, 35000)
       if (!r.ok) return null
       const j = await r.json()
@@ -181,6 +190,7 @@ Keep "errors" to AT MOST 3 and "better_expressions" to AT MOST 2 (only the most 
     aiEvaluation = {
       grammar_score: base, vocabulary_score: base, fluency_score: base, task_completion_score: base, overall_score: base,
       analysis: { strengths: [], weaknesses: [] }, errors: [], better_expressions: [], fluency_tips: [], suggestions: [],
+      score_justification: 'هذه درجة مبدئية مبنية على تفاعلك في المحادثة، وسيراجعها معلّمك ويمنحك ملاحظات أدق.',
       strengths: 'أكملتِ محادثة كاملة بالإنجليزي — هذا إنجاز جميل.',
       improvement_tip: 'واصلي التدرّب على المحادثة لتزداد طلاقتك.',
       feedback_ar: 'تم استلام محادثتك بنجاح! 🤍 تكلّمتِ بالإنجليزي اليوم وهذا أهم شيء. سيراجع معلّمك محادثتك ويعطيك ملاحظات أدق قريباً.',
