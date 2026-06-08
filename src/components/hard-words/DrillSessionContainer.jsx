@@ -84,8 +84,17 @@ export default function DrillSessionContainer({ mode, cards, onClose, autoplay =
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           dir="rtl"
-          className="vocab-cosmos fixed inset-0 z-[60] overflow-y-auto"
+          // position/inset/z-index are INLINE on purpose — see JourneyStop: the
+          // `.vocab-cosmos` class's `position: relative` would otherwise override a
+          // `fixed` utility class and drop this full-screen drill below the fold.
+          className="vocab-cosmos overflow-y-auto"
           style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            zIndex: 9999,
             background: 'radial-gradient(130% 85% at 50% -10%, var(--vc-field), var(--vc-void) 78%)',
           }}
         >

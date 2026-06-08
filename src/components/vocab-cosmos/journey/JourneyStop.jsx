@@ -178,8 +178,21 @@ export default function JourneyStop({ profileId, unitId, constellationIndex, the
 
   return createPortal(
     <div
-      className="vocab-cosmos fixed inset-0 z-[80] flex flex-col"
-      style={{ background: 'var(--vc-bg, #0a0e27)' }}
+      // NOTE: position/inset/z-index are set INLINE on purpose. The `.vocab-cosmos`
+      // class carries `position: relative` (needed for the page starfield), and it
+      // loads after Tailwind's utilities — so a `fixed` utility class here loses the
+      // specificity tie and the full-screen session collapses to in-flow `relative`,
+      // landing far below the fold (invisible). Inline styles win unconditionally.
+      className="vocab-cosmos flex flex-col"
+      style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        zIndex: 9999,
+        background: 'var(--vc-bg, #0a0e27)',
+      }}
       dir="rtl"
     >
       {/* starfield */}

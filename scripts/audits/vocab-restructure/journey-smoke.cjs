@@ -47,10 +47,12 @@ const sel = (t) => `text=${t}`
     out.startBtn = await page.locator('button:has-text("ابدئي")').count()
     out.trailPresent = await page.locator(sel('الرحلات')).count()
 
-    // purge any high-z modal overlay (onboarding/PWA) blocking interaction — NOT the journey stop (z-80)
+    // purge any high-z modal overlay (onboarding/PWA) blocking interaction — but NEVER the
+    // journey stop / drill session themselves (they are .vocab-cosmos overlays at z-9999).
     const purge = () => page.evaluate(() => {
       document.querySelectorAll('div,section,aside').forEach((d) => {
         const s = getComputedStyle(d)
+        if (d.classList.contains('vocab-cosmos')) return
         if (s.position === 'fixed' && parseInt(s.zIndex || '0', 10) >= 900) d.remove()
       })
     })
