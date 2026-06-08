@@ -9,7 +9,6 @@ import {
   SpellCheck,
   Mic,
   Layers,
-  Trophy,
   TrendingUp,
   Flame,
   GraduationCap,
@@ -35,7 +34,6 @@ import { useNextLesson } from './useNextLesson'
 import DailyProgressWidget from '../../../components/student/dashboard/DailyProgressWidget'
 import WeeklyProgressWidget from '../../../components/student/dashboard/WeeklyProgressWidget'
 import StreakWidget from '../../../components/student/StreakWidget'
-import TeamCard from '../../../components/student/TeamCard'
 import NextClassWidget from '../dashboard/widgets/NextClassWidget'
 import SrsReviewCard from '../../../components/gamification/SrsReviewCard'
 import LevelExitTestCard from '../../../components/gamification/LevelExitTestCard'
@@ -77,7 +75,6 @@ const PATH_CHIPS = [
   { to: '/student/spelling-lab', label: 'إملاء', icon: SpellCheck },
   { to: '/student/speaking-hub', label: 'محادثة', icon: Mic },
   { to: '/student/flashcards', label: 'مفردات', icon: Layers },
-  { to: '/student/leaderboard', label: 'المتصدّرون', icon: Trophy },
 ]
 
 /* ── compact corner level emblem: number + slim XP-to-next ring ── */
@@ -530,10 +527,9 @@ export default function SpotlightDashboard() {
             </div>
           </Section>
 
-          <Section title="إيقاعك ومجموعتك" icon={Flame}>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <Section title="إيقاعك" icon={Flame}>
+            <div className="grid grid-cols-1 gap-4">
               <StreakWidget profileId={profile.id} />
-              <TeamCard groupId={studentData?.group_id} />
             </div>
           </Section>
 

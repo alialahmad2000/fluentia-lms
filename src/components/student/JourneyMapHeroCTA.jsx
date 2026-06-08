@@ -10,6 +10,10 @@ import { useG } from '../../i18n/gender'
 const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000
 
 export default function JourneyMapHeroCTA() {
+  // HIDDEN 2026-06-08 (owner): the "journey map" hero CTA is hidden from every in-page spot,
+  // matching the level-journey sidebar hide. Route + data kept. Delete this return to restore.
+  return null
+  // eslint-disable-next-line no-unreachable
   // ── ALL HOOKS FIRST ──────────────────────────────────────────────
   const g = useG()
   const profile = useAuthProfile()

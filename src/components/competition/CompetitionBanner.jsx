@@ -7,6 +7,11 @@ function daysRemaining(seconds) {
 }
 
 export default function CompetitionBanner() {
+  // HIDDEN 2026-06-08 (owner): competition is hidden from every in-page spot (dashboards/banners),
+  // matching the sidebar hide. Route + data kept; the banner just never renders. Delete this
+  // return to restore.
+  return null
+  // eslint-disable-next-line no-unreachable
   const navigate = useNavigate()
   const { data: comp } = useActiveCompetition()
   const { data: ctx } = useCompetitionContext()

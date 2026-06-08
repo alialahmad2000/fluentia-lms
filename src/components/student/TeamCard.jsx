@@ -121,6 +121,11 @@ function OverflowBadge({ count, size = 36 }) {
 const MAX_VISIBLE_AVATARS = 7
 
 export default function TeamCard({ groupId }) {
+  // HIDDEN 2026-06-08 (owner): the team / competition-rank widget is hidden from every in-page spot
+  // (it links into the now-hidden competition + shows team standings). Route + data kept. Delete
+  // this return to restore.
+  return null
+  // eslint-disable-next-line no-unreachable
   const navigate = useNavigate()
   const isMounted = useRef(true)
   const { data: activeComp } = useActiveCompetition()
