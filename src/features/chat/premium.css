@@ -136,3 +136,15 @@ body.chat-page .z-\[997\] { display: none !important; }
   .chat-aurora[data-pulsing="true"] { transform: scale(1) !important; }
   .chat-online-dot, .chat-typing-dot { animation: none !important; }
 }
+
+/* On touch devices, a long-press on a bubble must drive OUR action menu / double-tap
+   react — not the iOS magnifier + word-select that fights it. Suppress the native
+   callout & selection on touch only; desktop (pointer:fine) keeps text selection +
+   copy, and touch users still copy via the action sheet's "نسخ". */
+@media (pointer: coarse) {
+  .chat-bubble {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
