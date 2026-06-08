@@ -12,6 +12,7 @@ import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import VoiceRecorder from '../../../../components/VoiceRecorder'
+import ConversationMode from '../../../../components/curriculum/speaking/ConversationMode'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
@@ -190,6 +191,12 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
   const [liveEvaluation, setLiveEvaluation] = useState(null)
   const [realtimeStatus, setRealtimeStatus] = useState(existingRecording?.evaluation_status || null)
   const [attemptsOpen, setAttemptsOpen] = useState(false)
+  // Speaking surface: 'conversation' (new default) | 'classic' (record-once). Per-student,
+  // persisted in localStorage so the switch is remembered — a gradual opt-out, not forced.
+  const [surface, setSurface] = useState(() => {
+    try { return localStorage.getItem('fluentia:speakingMode:' + studentId) === 'classic' ? 'classic' : 'conversation' } catch { return 'conversation' }
+  })
+  const switchSurface = (s) => { setSurface(s); try { localStorage.setItem('fluentia:speakingMode:' + studentId, s) } catch {} }
   const { data: leaderboard } = useActivityLeaderboard('speaking', unitId, studentId, groupId)
 
   // Realtime subscription — updates live when sweeper completes evaluation
@@ -237,9 +244,11 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
   }
 
   const aiEval = liveEvaluation || existingRecording?.ai_evaluation
+  // The text coach sidebar only belongs to the classic surface (in conversation mode the chat IS the coach)
+  const showCoach = !existingRecording && !!studentId && !!topic.id && surface === 'classic'
 
   return (
-    <div className="lg:grid lg:grid-cols-[1fr_380px] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+    <div className={showCoach ? 'lg:grid lg:grid-cols-[1fr_380px] lg:gap-6 lg:items-start space-y-4 lg:space-y-0' : 'space-y-4'}>
       {/* Main content column */}
       <div className="space-y-4 min-w-0">
 
@@ -389,6 +398,28 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
         </div>
       )}
 
+      {/* Conversation (default) vs classic recording surface */}
+      {surface === 'conversation' && studentId && (
+        <ConversationMode
+          topic={topic}
+          studentId={studentId}
+          unitId={unitId}
+          questionIndex={questionIndex}
+          onComplete={onUploadComplete}
+          onSwitchToClassic={() => switchSurface('classic')}
+        />
+      )}
+
+      {surface === 'classic' && (<>
+      {studentId && (
+        <button
+          onClick={() => switchSurface('conversation')}
+          className="flex items-center gap-1.5 text-[11px] font-bold font-['Tajawal'] text-cyan-400 hover:text-cyan-300 transition-colors"
+        >
+          <Sparkles size={12} /> جرّب المحادثة مع المدرّبة بدل التسجيل
+        </button>
+      )}
+
       {/* Mode toggle — only when no final recording yet */}
       {!existingRecording && studentId && (
         <div className="flex gap-2 p-1 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)' }}>
@@ -458,6 +489,7 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
           />
         </div>
       )}
+      </>)}
 
       {/* Recording timestamp */}
       {existingRecording?.created_at && (
@@ -618,8 +650,8 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
 
       </div>{/* end main content column */}
 
-      {/* AI Coach Panel — sticky right sidebar (only before final recording) */}
-      {!existingRecording && studentId && topic.id && (
+      {/* AI Coach Panel — sticky right sidebar (classic surface only; conversation has its own coach) */}
+      {showCoach && (
         <div className="lg:sticky lg:top-20">
           <AICoachPanel
             studentId={studentId}
