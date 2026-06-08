@@ -1,7 +1,7 @@
 // 1:1 direct-message chat — reuses the premium aurora shell + stream + composer.
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ChevronRight, Images } from 'lucide-react'
+import { ChevronRight, Images, Bell, BellOff } from 'lucide-react'
 import { useDMThreadMeta, useDMOtherRead } from '../queries/useDM'
 import { usePresence } from '../realtime/usePresence'
 import SenderAvatar from '../components/premium/SenderAvatar'
@@ -10,6 +10,7 @@ import ErrorBoundary from '../../../components/ErrorBoundary'
 import PremiumComposer from '../components/premium/PremiumComposer'
 import SharedMediaGallery from '../components/premium/SharedMediaGallery'
 import { senderColor } from '../lib/senderColors'
+import { useChatMutes, useToggleChatMute, muteActive } from '../queries/useChatMute'
 import '../premium.css'
 
 export default function DMChatPage() {
@@ -28,6 +29,9 @@ export default function DMChatPage() {
   const isOnline = otherId && onlineUserIds.includes(otherId)
   const sc = otherId ? senderColor(otherId) : null
   const name = other?.full_name || other?.display_name || 'محادثة'
+  const { data: mutes } = useChatMutes()
+  const toggleMute = useToggleChatMute()
+  const muted = muteActive(mutes, 'dm', threadId)
 
   useEffect(() => {
     document.body.classList.add('chat-page')
@@ -94,6 +98,16 @@ export default function DMChatPage() {
               )}
             </div>
           </div>
+          <button
+            onClick={() => threadId && toggleMute.mutate({ scope: 'dm', target: threadId, muted: !muted })}
+            disabled={toggleMute.isPending}
+            aria-label={muted ? 'تشغيل إشعارات المحادثة' : 'كتم إشعارات المحادثة'}
+            title={muted ? 'الإشعارات مكتومة — اضغط للتشغيل' : 'كتم إشعارات هذه المحادثة'}
+            className="rounded-full flex items-center justify-center shrink-0 transition-colors hover:bg-[var(--ds-surface-1)]"
+            style={{ width: 38, height: 38, color: muted ? 'var(--ds-accent-gold, #e9b949)' : 'var(--ds-text-secondary)', opacity: toggleMute.isPending ? 0.5 : 1 }}
+          >
+            {muted ? <BellOff size={18} /> : <Bell size={18} />}
+          </button>
           <button
             onClick={() => setMediaOpen(true)}
             aria-label="الوسائط المشتركة"
