@@ -117,6 +117,7 @@ export function useDMMessages(threadId) {
         if (msg.type === 'voice' && msg.voice_url) { try { msg._signedVoiceUrl = await signedVoiceUrl(msg.voice_url) } catch (_) {} }
         if (msg.type === 'image' && msg.image_url) { try { msg._signedImageUrl = await signedImageUrl(msg.image_url) } catch (_) {} }
         if ((msg.type === 'file' || msg.type === 'video') && msg.file_url) { try { msg._signedFileUrl = await signedFileUrl(msg.file_url) } catch (_) {} }
+        if (msg.type === 'album' && Array.isArray(msg.album)) { try { msg._signedAlbum = await Promise.all(msg.album.map((a) => signedImageUrl(a.path).catch(() => null))) } catch (_) {} }
         return msg
       }))
     },

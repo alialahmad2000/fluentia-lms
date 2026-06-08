@@ -168,15 +168,36 @@ export default function PremiumComposer({
     }
   }
 
+  function imageDims(file) {
+    return new Promise((res) => {
+      const img = new window.Image()
+      img.onload = () => res({ w: img.naturalWidth, h: img.naturalHeight })
+      img.onerror = () => res({ w: null, h: null })
+      img.src = URL.createObjectURL(file)
+    })
+  }
+
   async function handleImagePick(e) {
-    const file = e.target.files?.[0]; if (!file) return
+    const files = Array.from(e.target.files || []); if (!files.length) return
+    const scope = isDM ? `dm/${dmThreadId}` : groupId
     setUploading(true)
     try {
-      const path = await uploadChatImage(file, isDM ? `dm/${dmThreadId}` : groupId)
-      const img = new window.Image(); img.src = URL.createObjectURL(file)
-      await new Promise((res) => { img.onload = res })
-      await sendMessage.mutateAsync({ type: 'image', image_url: path, image_width: img.naturalWidth, image_height: img.naturalHeight })
-    } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر رفع الصورة', description: 'تحقّقي من الاتصال وحاولي مجددًا' }) } finally { setUploading(false); e.target.value = '' }
+      if (files.length === 1) {
+        const file = files[0]
+        const path = await uploadChatImage(file, scope)
+        const dim = await imageDims(file)
+        await sendMessage.mutateAsync({ type: 'image', image_url: path, image_width: dim.w, image_height: dim.h })
+      } else {
+        // Multi-image album → one message holding all images
+        const items = []
+        for (const file of files.slice(0, 10)) {
+          const path = await uploadChatImage(file, scope)
+          const dim = await imageDims(file)
+          items.push({ path, w: dim.w, h: dim.h })
+        }
+        await sendMessage.mutateAsync({ type: 'album', album: items })
+      }
+    } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر رفع الصور', description: 'تحقّقي من الاتصال وحاولي مجددًا' }) } finally { setUploading(false); e.target.value = '' }
   }
 
   async function handleFilePick(e) {
@@ -260,7 +281,7 @@ export default function PremiumComposer({
 
       {!isLoading && (
         <div className="flex items-end gap-1.5 px-3 py-2.5">
-          <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
+          <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple className="hidden" onChange={handleImagePick} />
           <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip,video/*" className="hidden" onChange={handleFilePick} />
 
           {voiceMode ? (
