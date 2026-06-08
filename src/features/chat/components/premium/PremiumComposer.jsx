@@ -57,7 +57,7 @@ export default function PremiumComposer({
   const groupSend = useSendMessage(generalChannelId, groupId)
   const dmSend = useSendDM(isDM ? dmThreadId : undefined)
   const sendMessage = isDM ? dmSend : groupSend
-  const editMessage = useEditMessage(generalChannelId)
+  const editMessage = useEditMessage()
   const { broadcastTyping, typers } = useTypingIndicator(isDM ? `dm:${dmThreadId}` : generalChannelId)
   const { data: announcementChannel } = useGroupAnnouncementChannel(isDM ? undefined : groupId)
 
@@ -132,7 +132,7 @@ export default function PremiumComposer({
       resetComposer()
       onClearEdit?.()
       try {
-        await editMessage.mutateAsync({ messageId: target.id, body: text, createdAt: target.created_at })
+        await editMessage.mutateAsync({ messageId: target.id, body: text, createdAt: target.created_at, message: target })
       } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر تعديل الرسالة' }) }
       return
     }

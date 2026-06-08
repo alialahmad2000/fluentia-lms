@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
+import { cancelMessageQueries, patchMessage, restoreSnapshot, invalidateMessage } from './messageCache'
 
-export function useDeleteMessage(channelId) {
+export function useDeleteMessage() {
   const qc = useQueryClient()
 
   return useMutation({
@@ -12,27 +13,13 @@ export function useDeleteMessage(channelId) {
         .eq('id', messageId)
       if (error) throw error
     },
-    onMutate: async ({ messageId }) => {
-      await qc.cancelQueries({ queryKey: ['channel-messages', channelId] })
-      const previous = qc.getQueryData(['channel-messages', channelId])
-      qc.setQueryData(['channel-messages', channelId], (old) => {
-        if (!old) return old
-        return {
-          ...old,
-          pages: old.pages.map((page) =>
-            page.map((msg) =>
-              msg.id === messageId ? { ...msg, deleted_at: new Date().toISOString() } : msg
-            )
-          ),
-        }
-      })
-      return { previous }
+    onMutate: async ({ message }) => {
+      if (!message) return {}
+      await cancelMessageQueries(qc, message)
+      const snapshot = patchMessage(qc, message, (m) => ({ ...m, deleted_at: new Date().toISOString() }))
+      return { snapshot }
     },
-    onError: (_err, _vars, context) => {
-      if (context?.previous) qc.setQueryData(['channel-messages', channelId], context.previous)
-    },
-    onSettled: () => {
-      qc.invalidateQueries({ queryKey: ['channel-messages', channelId] })
-    },
+    onError: (_err, _vars, context) => restoreSnapshot(qc, context?.snapshot),
+    onSettled: (_data, _err, vars) => { if (vars?.message) invalidateMessage(qc, vars.message) },
   })
 }
