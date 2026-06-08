@@ -1,0 +1,57 @@
+{
+  "book_title": "What the River Kept",
+  "chapter_number": 3,
+  "title_en": "The Road Down",
+  "title_ar": "النزول إلى البلدة",
+  "paragraphs": [
+    [
+      { "en": "The next morning Cora walked down into the valley along the old road that the water was giving back.", "ar": "في صباح اليوم التالي نزلت كورا إلى الوادي على الطريق القديم الذي كان الماء يعيده.", "sp": "narrator" },
+      { "en": "The mud was thick and grey, and it pulled at her boots with every step.", "ar": "كان الطين كثيفاً رمادياً، يشدّ حذاءها مع كلّ خطوة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "A man from the water company had warned her not to go.", "ar": "كان رجلٌ من شركة المياه قد حذّرها من الذهاب.", "sp": "narrator" },
+      { "en": "\"The ground isn't safe,\" he had said. \"Forty years under the lake — the walls could fall at any moment.\"", "ar": "«الأرض ليست آمنة»، قال. «أربعون عاماً تحت البحيرة — قد تنهار الجدران في أيّ لحظة.»", "d": true, "sp": "Official" },
+      { "en": "But Cora had thanked him, and gone anyway.", "ar": "لكنّ كورا شكرته، ومضت رغم ذلك.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The town rose around her as she walked, street by street, like a drowned thing remembering how to stand.", "ar": "صعدت البلدة من حولها وهي تمشي، شارعاً شارعاً، كشيءٍ غريقٍ يتذكّر كيف يقف.", "sp": "narrator" },
+      { "en": "Everything was the same colour — the grey of stone and the grey of mud — with, here and there, a black doorway opening onto nothing.", "ar": "كان كلّ شيءٍ بلونٍ واحد — رماديّ الحجر ورماديّ الطين — وهنا وهناك بابٌ أسود يفتح على لا شيء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "She passed the empty church, its windows gone, weed hanging from the roof like wet hair.", "ar": "مرّت بالكنيسة الفارغة، نوافذها زالت، والأعشاب تتدلّى من سقفها كشعرٍ مبلّل.", "sp": "narrator" },
+      { "en": "She passed the small square, where a single iron bench still stood, bent under the weight of forty years of water.", "ar": "مرّت بالساحة الصغيرة، حيث ما زال مقعدٌ حديديّ وحيد قائماً، منحنياً تحت ثقل أربعين عاماً من الماء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "She had studied the old photograph until she knew the streets by heart, and now her feet found the way without her.", "ar": "كانت قد درست الصورة القديمة حتى حفظت الشوارع عن ظهر قلب، والآن وجدت قدماها الطريق دونها.", "sp": "narrator" },
+      { "en": "At the end of a narrow lane she found it: a small house beside the mill — the house where her grandmother had been a girl.", "ar": "في نهاية زقاقٍ ضيّق وجدته: بيتاً صغيراً بجوار الطاحونة — البيت الذي كانت فيه جدّتها فتاة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The door had rotted away. Inside, the mud had risen to her knees, smooth and still.", "ar": "كان الباب قد تعفّن وزال. في الداخل، ارتفع الطين إلى ركبتيها، أملسَ ساكناً.", "sp": "narrator" },
+      { "en": "On the wall, under the grey, she could just see the marks where a family had once measured a child's height, year by year.", "ar": "على الجدار، تحت الرماديّ، استطاعت بالكاد أن ترى العلامات حيث قاست عائلةٌ يوماً طول طفلٍ، عاماً بعد عام.", "sp": "narrator" },
+      { "en": "Cora stood very still, and for a moment the dead town felt unbearably alive.", "ar": "وقفت كورا ساكنةً تماماً، وللحظةٍ بدت البلدة الميتة حيّةً على نحوٍ لا يُحتمَل.", "sp": "narrator" }
+    ],
+    [
+      { "en": "But she had not come for the house. She had come for the mill.", "ar": "لكنها لم تأتِ من أجل البيت. جاءت من أجل الطاحونة.", "sp": "narrator" },
+      { "en": "It stood at the water's edge, the largest building in the town, its great wheel broken and still.", "ar": "وقفت عند حافّة الماء، أكبر مبنًى في البلدة، عجلتها الكبيرة مكسورةً ساكنة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "In the wooden box, beneath the photograph, Cora had found one more thing she had not told Mr Ledbury about: a small rusted key, and a word in her grandmother's hand — \"the mill.\"", "ar": "في الصندوق الخشبي، تحت الصورة، كانت كورا قد وجدت شيئاً آخر لم تخبر السيّد لِدبري عنه: مفتاحاً صغيراً صدئاً، وكلمةً بخطّ جدّتها — «الطاحونة».", "sp": "narrator" },
+      { "en": "Edith had known. All these years, she had known where her sister was.", "ar": "كانت إيديث تعرف. كلّ هذه السنوات، كانت تعرف أين أختها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The mill door hung open on one hinge.", "ar": "كان باب الطاحونة معلّقاً على مفصلٍ واحد.", "sp": "narrator" },
+      { "en": "Cora stepped inside, into a wide dim room that smelled of cold stone and old water.", "ar": "دخلت كورا، إلى غرفةٍ واسعةٍ معتمة تفوح منها رائحة الحجر البارد والماء العتيق.", "sp": "narrator" },
+      { "en": "At the far end, half buried in dried mud, was a low wooden door set into the floor — the door to the cellar.", "ar": "في الطرف البعيد، نصف مدفونٍ في طينٍ جافّ، كان بابٌ خشبيّ منخفض مثبّتٌ في الأرض — باب القبو.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The rusted key from the box turned in the lock with a sound like a held breath let go.", "ar": "دار المفتاح الصدئ من الصندوق في القفل بصوتٍ كأنفاسٍ محبوسةٍ أُطلِقت.", "sp": "narrator" },
+      { "en": "Cora knelt, and pulled, and the cellar door came up out of the mud.", "ar": "ركعت كورا، وسحبت، فصعد باب القبو من الطين.", "sp": "narrator" },
+      { "en": "Below her was darkness, and a flight of stone steps going down.", "ar": "تحتها كان الظلام، ودرجٌ حجريّ ينزل إلى الأسفل.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Cold air rose from the dark, and with it the smell of forty years of silence.", "ar": "صعد هواءٌ بارد من الظلمة، ومعه رائحة أربعين عاماً من الصمت.", "sp": "narrator" },
+      { "en": "Somewhere below was the truth her grandmother had locked away and could never bring herself to speak.", "ar": "في مكانٍ ما في الأسفل كانت الحقيقة التي أقفلتها جدّتها وعجزت أبداً عن قولها.", "sp": "narrator" },
+      { "en": "Cora took a breath, and went down.", "ar": "أخذت كورا نفَساً، ونزلت.", "sp": "narrator" }
+    ]
+  ]
+}

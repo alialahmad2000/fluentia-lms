@@ -1,0 +1,55 @@
+{
+  "book_title": "What the River Kept",
+  "chapter_number": 2,
+  "title_en": "The New Town on the Hill",
+  "title_ar": "البلدة الجديدة على التلّ",
+  "paragraphs": [
+    [
+      { "en": "Cora drove up the hill road to the new town, which had been built forty years ago for the people of Nethercote.", "ar": "صعدت كورا بسيّارتها طريق التلّ إلى البلدة الجديدة، التي بُنِيت قبل أربعين عاماً لأهل «نذركوت».", "sp": "narrator" },
+      { "en": "It was a tidy place of grey houses in straight rows, with a small square and a single café.", "ar": "كانت مكاناً مرتّباً من بيوتٍ رمادية في صفوفٍ مستقيمة، فيه ساحةٌ صغيرة ومقهًى وحيد.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Among her grandmother's papers she had found a single name: Mr Ledbury, an old friend of the family who still lived in the new town.", "ar": "بين أوراق جدّتها وجدت اسماً واحداً: السيّد «لِدبري»، صديقٌ قديم للعائلة ما زال يعيش في البلدة الجديدة.", "sp": "narrator" },
+      { "en": "She knocked on his door in the late afternoon, the note from the wooden box folded in her pocket.", "ar": "طرقت بابه في وقتٍ متأخّر من العصر، والورقة من الصندوق الخشبي مطويّةٌ في جيبها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "A very old man opened the door — thin and bent, with bright, careful eyes.", "ar": "فتح الباب رجلٌ عجوزٌ جداً — نحيلٌ منحنٍ، بعينين لامعتين حذِرتين.", "sp": "narrator" },
+      { "en": "\"You have her face,\" he said quietly, before she had spoken a word. \"Edith's face. You must be her granddaughter.\"", "ar": "«لكِ وجهها»، قال بهدوء، قبل أن تنطق بكلمة. «وجه إيديث. لا بدّ أنكِ حفيدتها.»", "d": true, "sp": "Ledbury" }
+    ],
+    [
+      { "en": "He made tea with shaking hands, and they sat by the window that looked down the hill toward the valley.", "ar": "أعدّ الشاي بيدين مرتجفتين، وجلسا قرب النافذة التي تطلّ على التلّ نحو الوادي.", "sp": "narrator" },
+      { "en": "Far below, the grey roofs of the dead town stood above the falling water, small and clear in the evening light.", "ar": "في الأسفل البعيد، وقفت السطوح الرمادية للبلدة الميتة فوق الماء المنحسر، صغيرةً واضحةً في ضوء المساء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Cora put the note on the table between them.", "ar": "وضعت كورا الورقة على الطاولة بينهما.", "sp": "narrator" },
+      { "en": "\"My grandmother wrote this before she died,\" she said. \"It says Alice never left — that the river kept her. I have to know what it means.\"", "ar": "«كتبت جدّتي هذه قبل أن تموت»، قالت. «تقول إن أليس لم ترحل قط — إن النهر احتفظ بها. لا بدّ أن أعرف ما معناها.»", "d": true, "sp": "Cora" }
+    ],
+    [
+      { "en": "The old man looked at the note for a long time, and his careful eyes grew wet.", "ar": "نظر العجوز إلى الورقة وقتاً طويلاً، وابتلّت عيناه الحذِرتان.", "sp": "narrator" },
+      { "en": "\"For forty years I told myself it was none of my business,\" he said. \"But I am too old now to be afraid.\"", "ar": "«أربعين عاماً قلتُ لنفسي إن هذا ليس شأني»، قال. «لكنّي صرتُ أكبر من أن أخاف الآن.»", "d": true, "sp": "Ledbury" }
+    ],
+    [
+      { "en": "He told her that Alice had been clever and stubborn — the kind of person who asked too many questions.", "ar": "أخبرها أن أليس كانت ذكيّةً عنيدة — من النوع الذي يطرح أسئلةً كثيرةً جداً.", "sp": "narrator" },
+      { "en": "In the last weeks before the flood, Alice had been asking about money: the compensation the families were promised when they lost their homes.", "ar": "في الأسابيع الأخيرة قبل الفيضان، كانت أليس تسأل عن المال: التعويض الذي وُعِد به الأهالي حين فقدوا بيوتهم.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Each family in Nethercote was owed a payment for the house the water would take.", "ar": "كان لكلّ عائلةٍ في «نذركوت» حقٌّ في دفعةٍ مقابل البيت الذي سيأخذه الماء.", "sp": "narrator" },
+      { "en": "But the payments were small — far smaller than the law allowed — and the man who handled them was a relocation agent named Thorne.", "ar": "لكن الدفعات كانت صغيرة — أصغر بكثيرٍ مما يسمح به القانون — والرجل الذي تولّاها كان وكيل ترحيلٍ يُدعى «ثورن».", "sp": "narrator" },
+      { "en": "\"Alice worked in his office for a season,\" Mr Ledbury said. \"She saw the real numbers. She understood he was keeping most of the money for himself.\"", "ar": "«عملت أليس في مكتبه فترةً»، قال السيّد لِدبري. «رأت الأرقام الحقيقية. فهمت أنه كان يحتفظ بمعظم المال لنفسه.»", "d": true, "sp": "Ledbury" }
+    ],
+    [
+      { "en": "\"She told me she had proof,\" he went on. \"Papers, in his own writing. She was going to take them to the city, to the newspapers.\"", "ar": "«قالت لي إن لديها دليلاً»، تابع. «أوراقٌ بخطّ يده هو. كانت ستأخذها إلى المدينة، إلى الصحف.»", "d": true, "sp": "Ledbury" },
+      { "en": "\"And then, one week before the water came, they said she had gone. Run away to the city, they said. And no one ever heard from her again.\"", "ar": "«ثم، قبل أسبوعٍ من مجيء الماء، قالوا إنها رحلت. هربت إلى المدينة، قالوا. ولم يسمع عنها أحدٌ بعد ذلك أبداً.»", "d": true, "sp": "Ledbury" }
+    ],
+    [
+      { "en": "Cora felt the cold of it settle over her.", "ar": "شعرت كورا ببرودة الأمر تستقرّ عليها.", "sp": "narrator" },
+      { "en": "\"You don't think she ran away,\" she said. \"You think he stopped her.\"", "ar": "«أنت لا تظنّ أنها هربت»، قالت. «تظنّ أنه أوقفها.»", "d": true, "sp": "Cora" },
+      { "en": "The old man did not answer. He only looked down the hill, at the grey town rising slowly from the water.", "ar": "لم يجب العجوز. اكتفى بالنظر إلى أسفل التلّ، إلى البلدة الرمادية تصعد ببطءٍ من الماء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Thorne is still alive,\" Mr Ledbury said at last. \"An old man like me, in a big house on the far side of the valley. Rich, and respected, and careful.\"", "ar": "«ثورن ما زال حيّاً»، قال السيّد لِدبري أخيراً. «عجوزٌ مثلي، في بيتٍ كبير على الجانب البعيد من الوادي. غنيٌّ، ومحترَم، وحذِر.»", "d": true, "sp": "Ledbury" },
+      { "en": "\"If Alice is anywhere, child, she is down there, in the town that is coming back. And so is whatever she was carrying.\"", "ar": "«إن كانت أليس في مكانٍ ما يا بنيّتي، فهي هناك في الأسفل، في البلدة العائدة. وكذلك كلّ ما كانت تحمله.»", "d": true, "sp": "Ledbury" },
+      { "en": "Cora looked at the drowned town, and she knew that tomorrow she would go down into it.", "ar": "نظرت كورا إلى البلدة الغارقة، وعرفت أنها ستنزل إليها غداً.", "sp": "narrator" }
+    ]
+  ]
+}
