@@ -1,18 +1,17 @@
-// Per-sender colour identity — every participant gets a distinct, STABLE hue
-// (Telegram / Slack / Discord style) so the conversation reads colourful and
-// alive instead of monochrome. Own messages use a separate branded signature.
+// المجلس — restrained per-sender identity. Instead of 10 vivid hues, every
+// participant gets a STABLE warm-neutral "aged metal / earth" tone (brass, bronze,
+// sand, taupe, stone, clay…) so the circle reads calm and premium, never a rainbow.
+// Own messages keep the branded brass signature (via --ds-accent-gold in the chat).
 
 export const SENDER_PALETTE = [
-  { name: 'sky',     base: '#38bdf8', soft: '#7dd3fc' },
-  { name: 'indigo',  base: '#818cf8', soft: '#a5b4fc' },
-  { name: 'violet',  base: '#c084fc', soft: '#d8b4fe' },
-  { name: 'fuchsia', base: '#e879f9', soft: '#f0abfc' },
-  { name: 'rose',    base: '#fb7185', soft: '#fda4af' },
-  { name: 'orange',  base: '#fb923c', soft: '#fdba74' },
-  { name: 'amber',   base: '#fbbf24', soft: '#fcd34d' },
-  { name: 'lime',    base: '#a3e635', soft: '#bef264' },
-  { name: 'emerald', base: '#34d399', soft: '#6ee7b7' },
-  { name: 'teal',    base: '#2dd4bf', soft: '#5eead4' },
+  { name: 'brass',  base: '#C9A86A', soft: '#E2C88E' },
+  { name: 'bronze', base: '#B08D57', soft: '#CFAE7C' },
+  { name: 'sand',   base: '#BCAA86', soft: '#D7C9AC' },
+  { name: 'taupe',  base: '#A9A18C', soft: '#C7BFAB' },
+  { name: 'stone',  base: '#9A9488', soft: '#BBB3A6' },
+  { name: 'clay',   base: '#B68F77', soft: '#D2B19E' },
+  { name: 'olive',  base: '#9A9B79', soft: '#BDBE9C' },
+  { name: 'pewter', base: '#8E96A0', soft: '#B1B8C1' },
 ]
 
 // djb2-ish stable hash → even distribution across the palette
