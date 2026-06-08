@@ -1,13 +1,14 @@
 // 1:1 direct-message chat — reuses the premium aurora shell + stream + composer.
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, Images } from 'lucide-react'
 import { useDMThreadMeta, useDMOtherRead } from '../queries/useDM'
 import { usePresence } from '../realtime/usePresence'
 import SenderAvatar from '../components/premium/SenderAvatar'
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
 import ErrorBoundary from '../../../components/ErrorBoundary'
 import PremiumComposer from '../components/premium/PremiumComposer'
+import SharedMediaGallery from '../components/premium/SharedMediaGallery'
 import { senderColor } from '../lib/senderColors'
 import '../premium.css'
 
@@ -16,6 +17,7 @@ export default function DMChatPage() {
   const navigate = useNavigate()
   const [replyTo, setReplyTo] = useState(null)
   const [editing, setEditing] = useState(null)
+  const [mediaOpen, setMediaOpen] = useState(false)
   const auroraRef = useRef(null)
 
   const { data: meta } = useDMThreadMeta(threadId)
@@ -52,6 +54,11 @@ export default function DMChatPage() {
       </div>
       <div className="chat-aurora-scrim" aria-hidden="true" />
 
+      {/* Shared-media gallery overlay */}
+      {mediaOpen && (
+        <SharedMediaGallery threadId={threadId} onClose={() => setMediaOpen(false)} />
+      )}
+
       {/* DM header */}
       <div className="chat-row">
         <div
@@ -87,6 +94,14 @@ export default function DMChatPage() {
               )}
             </div>
           </div>
+          <button
+            onClick={() => setMediaOpen(true)}
+            aria-label="الوسائط المشتركة"
+            className="rounded-full flex items-center justify-center shrink-0 transition-colors hover:bg-[var(--ds-surface-1)]"
+            style={{ width: 38, height: 38, color: 'var(--ds-text-secondary)' }}
+          >
+            <Images size={18} />
+          </button>
         </div>
       </div>
 
