@@ -8,17 +8,17 @@ import { supabase } from '../../../../lib/supabase'
 import { signedImageUrl, signedFileUrl } from '../../../../lib/chatStorage'
 import ImageLightbox from './ImageLightbox'
 
-export default function SharedMediaGallery({ groupId, onClose }) {
+export default function SharedMediaGallery({ groupId, threadId, onClose }) {
   const [lightbox, setLightbox] = useState(null) // { images: string[], index }
 
   const { data: media = [], isLoading } = useQuery({
-    queryKey: ['shared-media', groupId],
-    enabled: !!groupId,
+    queryKey: ['shared-media', threadId ? `dm:${threadId}` : `g:${groupId}`],
+    enabled: !!(groupId || threadId),
     staleTime: 60_000,
     queryFn: async () => {
-      const { data, error } = await supabase.rpc('get_group_messages', {
-        p_group_id: groupId, p_lens: 'all', p_before: null, p_limit: 300,
-      })
+      const { data, error } = threadId
+        ? await supabase.rpc('get_dm_messages', { p_thread: threadId, p_before: null, p_limit: 300 })
+        : await supabase.rpc('get_group_messages', { p_group_id: groupId, p_lens: 'all', p_before: null, p_limit: 300 })
       if (error) throw error
       const rows = (data ?? []).filter(
         (m) => (m.type === 'image' && m.image_url) || (m.type === 'video' && m.file_url)
