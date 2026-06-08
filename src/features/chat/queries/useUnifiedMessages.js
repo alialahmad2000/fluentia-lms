@@ -15,6 +15,7 @@ export function useUnifiedMessages(groupId, lens = 'all') {
     queryKey: ['unified-messages', groupId, lens],
     enabled: !!groupId,
     staleTime: 30_000,
+    refetchOnReconnect: 'always',
     initialPageParam: null,
     queryFn: async ({ pageParam }) => {
       // Server-side RPC with lens filter (replaces per-channel query)
@@ -92,6 +93,16 @@ export function useUnifiedMessages(groupId, lens = 'all') {
         ? lastPage[lastPage.length - 1].created_at
         : undefined,
   })
+
+  // Gap recovery: Supabase Realtime does NOT replay events missed while the tab was
+  // backgrounded/offline (common on iPhone Safari PWAs). Refetch on focus + reconnect.
+  useEffect(() => {
+    if (!groupId) return
+    const recover = () => { if (document.visibilityState === 'visible') qc.invalidateQueries({ queryKey: ['unified-messages', groupId] }) }
+    window.addEventListener('online', recover)
+    document.addEventListener('visibilitychange', recover)
+    return () => { window.removeEventListener('online', recover); document.removeEventListener('visibilitychange', recover) }
+  }, [groupId, qc])
 
   // Realtime: invalidate on new messages for this group
   useEffect(() => {
