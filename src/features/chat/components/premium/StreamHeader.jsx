@@ -1,230 +1,61 @@
-import { motion, AnimatePresence } from 'framer-motion'
-import { Search, MoreVertical, ChevronRight, Images, Bell, BellOff } from 'lucide-react'
-import { fadeRise } from '../../lib/motion'
-import ActiveUsersDots from './ActiveUsersDots'
+import { motion } from 'framer-motion'
+import { Search, ChevronRight, Images, Bell, BellOff } from 'lucide-react'
 import { useChatMutes, useToggleChatMute, muteActive } from '../../queries/useChatMute'
 
-function BackBtn({ onBack }) {
+// المجلس — quiet centered wordmark header (matches the prototype). The presence
+// circle below owns identity + who's-here, so the header stays minimal.
+const glass = {
+  background: 'color-mix(in srgb, var(--ds-bg-elevated) 55%, transparent)',
+  backdropFilter: 'blur(28px) saturate(150%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(150%)',
+  borderBottom: '1px solid color-mix(in srgb, var(--ds-accent-gold) 10%, var(--ds-border-subtle))',
+}
+
+function IconBtn({ onClick, label, children }) {
   return (
-    <button onClick={onBack} aria-label="رجوع"
-      className="rounded-full flex items-center justify-center shrink-0 transition-colors hover:bg-[var(--ds-surface-1)]"
-      style={{ width: 36, height: 36, color: 'var(--ds-text-secondary)' }}>
-      <ChevronRight size={22} />
+    <button onClick={onClick} aria-label={label}
+      className="rounded-full flex items-center justify-center shrink-0 transition-colors"
+      style={{ width: 38, height: 38, color: 'var(--ds-text-secondary)', border: '1px solid transparent' }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ds-surface-1)'; e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'; e.currentTarget.style.color = 'var(--ds-text-primary)' }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.color = 'var(--ds-text-secondary)' }}>
+      {children}
     </button>
   )
 }
 
-const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-elevated) 62%, transparent)',
-  backdropFilter: 'blur(28px) saturate(150%)',
-  WebkitBackdropFilter: 'blur(28px) saturate(150%)',
-  borderBottom: '1px solid color-mix(in srgb, var(--ds-accent-gold) 12%, var(--ds-border-subtle))',
-  boxShadow: '0 10px 30px -16px rgba(0,0,0,0.5), inset 0 1px 0 0 color-mix(in srgb, white 7%, transparent)',
-}
-
-// المجلس: one accent — the group avatar is always aged brass (no per-level hues).
-function getLevelGradient() {
-  return { grad: 'linear-gradient(135deg, #D8BC86 0%, #B0905A 100%)', glow: 'rgba(201,168,106,0.32)' }
-}
-
-export default function StreamHeader({
-  groupName,
-  groupLevel,
-  groupId,
-  onlineUserIds = [],
-  onSearchOpen,
-  onOpenMedia,
-  onBack,
-  isTrainer = false,
-  collapsed = false,
-}) {
-  const { grad, glow } = getLevelGradient(groupLevel)
-  const initial = groupName?.trim()?.slice(0, 2) ?? 'م'
+export default function StreamHeader({ groupName, groupId, onSearchOpen, onOpenMedia, onBack }) {
   const { data: mutes } = useChatMutes()
   const toggleMute = useToggleChatMute()
   const muted = muteActive(mutes, 'group', groupId)
-  const onToggleMute = () => { if (groupId) toggleMute.mutate({ scope: 'group', target: groupId, muted: !muted }) }
 
   return (
-    <motion.header
-      layout
-      style={{ ...glass, direction: 'rtl', position: 'relative', zIndex: 3 }}
-      className="px-4"
-    >
-      <AnimatePresence mode="wait">
-        {collapsed ? (
-          <motion.div
-            key="collapsed"
-            {...fadeRise}
-            className="flex items-center justify-between py-2"
-          >
-            <div className="flex items-center gap-2">
-              {onBack && <BackBtn onBack={onBack} />}
-              <GroupAvatar initial={initial} size={28} grad={grad} glow={glow} />
-              <span
-                className="font-bold text-[var(--ds-text-primary)]"
-                style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 15 }}
-              >
-                {groupName}
-              </span>
-              {onlineUserIds.length > 0 && (
-                <OnlineChip count={onlineUserIds.length} />
-              )}
-            </div>
-            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} muted={muted} onToggleMute={onToggleMute} mutePending={toggleMute.isPending} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="expanded"
-            {...fadeRise}
-            className="flex items-start justify-between py-3"
-          >
-            <div className="flex items-center gap-3">
-              {onBack && <BackBtn onBack={onBack} />}
-              <GroupAvatar initial={initial} size={40} grad={grad} glow={glow} />
-              <div>
-                <p
-                  className="font-bold leading-tight text-[var(--ds-text-primary)]"
-                  style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 18 }}
-                >
-                  {groupName || 'المجموعة'}
-                </p>
-                <div className="flex items-center gap-2 mt-0.5">
-                  <span className="text-[12px]" style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-muted)' }}>
-                    حلقة المحادثة
-                  </span>
-                </div>
-              </div>
-            </div>
-            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} muted={muted} onToggleMute={onToggleMute} mutePending={toggleMute.isPending} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
-  )
-}
+    <motion.header layout style={{ ...glass, direction: 'rtl', position: 'relative', zIndex: 3 }} className="px-2.5">
+      <div className="flex items-center justify-between" style={{ paddingTop: 10, paddingBottom: 10 }}>
+        <div className="flex items-center" style={{ minWidth: 88 }}>
+          {onBack && <IconBtn onClick={onBack} label="رجوع"><ChevronRight size={22} /></IconBtn>}
+        </div>
 
-function GroupAvatar({ initial, size, grad, glow }) {
-  return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
-      {/* Gold ring */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          inset: -2,
-          background: 'conic-gradient(from 140deg, color-mix(in srgb, var(--ds-accent-gold) 75%, transparent), color-mix(in srgb, var(--ds-accent-gold) 18%, transparent) 50%, color-mix(in srgb, var(--ds-accent-gold) 75%, transparent))',
-          opacity: 0.85,
-        }}
-      />
-      <div
-        className="absolute rounded-full flex items-center justify-center font-bold select-none"
-        style={{
-          inset: 0,
-          background: grad,
-          color: 'rgba(255,255,255,0.94)',
-          fontSize: Math.round(size * 0.38),
-          fontFamily: 'Tajawal, sans-serif',
-          fontWeight: 700,
-          boxShadow: `0 6px 18px -6px ${glow}, inset 0 1px 1px rgba(255,255,255,0.22), inset 0 -2px 4px rgba(0,0,0,0.22)`,
-          transition: 'all 0.24s',
-        }}
-      >
-        {initial}
+        <div className="text-center leading-tight px-2 flex-1 min-w-0">
+          <div className="font-bold flex items-center justify-center gap-2"
+            style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 16, letterSpacing: '0.03em' }}>
+            <span style={{ color: 'var(--ds-accent-gold)' }}>المجلس</span>
+            <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--ds-accent-gold)', display: 'inline-block' }} />
+            <span className="truncate" style={{ color: 'var(--ds-text-primary)', fontWeight: 500, maxWidth: 160 }}>{groupName || 'المجموعة'}</span>
+          </div>
+          <div style={{ fontSize: 11.5, color: 'var(--ds-text-muted)', marginTop: 3, fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
+            حلقة المحادثة
+          </div>
+        </div>
+
+        <div className="flex items-center gap-0.5" style={{ minWidth: 88, justifyContent: 'flex-end' }}>
+          <IconBtn onClick={() => { if (groupId) toggleMute.mutate({ scope: 'group', target: groupId, muted: !muted }) }}
+            label={muted ? 'تشغيل إشعارات المجلس' : 'كتم إشعارات المجلس'}>
+            {muted ? <BellOff size={18} style={{ color: 'var(--ds-accent-gold)' }} /> : <Bell size={18} />}
+          </IconBtn>
+          {onOpenMedia && <IconBtn onClick={onOpenMedia} label="الوسائط المشتركة"><Images size={18} /></IconBtn>}
+          <IconBtn onClick={onSearchOpen} label="بحث"><Search size={18} /></IconBtn>
+        </div>
       </div>
-    </div>
-  )
-}
-
-function OnlineChip({ count }) {
-  return (
-    <span
-      className="flex items-center gap-1 text-[12px]"
-      style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-accent-success)' }}
-    >
-      <span
-        className="chat-online-dot w-1.5 h-1.5 rounded-full shrink-0"
-        style={{ background: 'var(--ds-accent-success)' }}
-      />
-      {count === 1 ? 'متصل الآن' : `${count} متصلين الآن`}
-    </span>
-  )
-}
-
-function HeaderActions({ onSearchOpen, onOpenMedia, isTrainer, muted, onToggleMute, mutePending }) {
-  return (
-    <div className="flex items-center gap-1">
-      {onToggleMute && (
-        <button
-          onClick={onToggleMute}
-          disabled={mutePending}
-          className="rounded-full transition-all"
-          style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: muted ? 'var(--ds-accent-gold, #e9b949)' : 'var(--ds-text-secondary)', border: '1px solid transparent', transition: 'all 0.12s', opacity: mutePending ? 0.5 : 1 }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ds-surface-1)'; e.currentTarget.style.borderColor = 'var(--ds-border-subtle)' }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent' }}
-          aria-label={muted ? 'تشغيل إشعارات المجلس' : 'كتم إشعارات المجلس'}
-          title={muted ? 'الإشعارات مكتومة — اضغط للتشغيل' : 'كتم إشعارات هذا المجلس'}
-        >
-          {muted ? <BellOff size={18} /> : <Bell size={18} />}
-        </button>
-      )}
-      {onOpenMedia && (
-        <button
-          onClick={onOpenMedia}
-          className="rounded-full transition-all"
-          style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ds-text-secondary)', border: '1px solid transparent', transition: 'all 0.12s' }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ds-surface-1)'; e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'; e.currentTarget.style.color = 'var(--ds-text-primary)' }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.color = 'var(--ds-text-secondary)' }}
-          aria-label="الوسائط المشتركة"
-        >
-          <Images size={18} />
-        </button>
-      )}
-      <button
-        onClick={onSearchOpen}
-        className="rounded-full transition-all"
-        style={{
-          width: 40, height: 40,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: 'var(--ds-text-secondary)',
-          border: '1px solid transparent',
-          transition: 'all 0.12s',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'var(--ds-surface-1)'
-          e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'
-          e.currentTarget.style.color = 'var(--ds-text-primary)'
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'transparent'
-          e.currentTarget.style.borderColor = 'transparent'
-          e.currentTarget.style.color = 'var(--ds-text-secondary)'
-        }}
-        aria-label="بحث"
-      >
-        <Search size={18} />
-      </button>
-      {isTrainer && (
-        <button
-          className="rounded-full transition-all"
-          style={{
-            width: 40, height: 40,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'var(--ds-text-secondary)',
-            border: '1px solid transparent',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--ds-surface-1)'
-            e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'transparent'
-            e.currentTarget.style.borderColor = 'transparent'
-          }}
-          aria-label="القائمة"
-        >
-          <MoreVertical size={18} />
-        </button>
-      )}
-    </div>
+    </motion.header>
   )
 }

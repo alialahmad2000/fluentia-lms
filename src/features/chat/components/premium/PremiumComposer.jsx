@@ -321,7 +321,7 @@ export default function PremiumComposer({
                   onClick={detectMentionContext}
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}
-                  placeholder="اكتب رسالة… اكتب @ لذكر شخص"
+                  placeholder="اكتب في المجلس…"
                   rows={1}
                   className="flex-1 resize-none bg-transparent outline-none"
                   style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 16, color: 'var(--ds-text-primary)', lineHeight: 1.6, direction: 'auto', minHeight: 28, maxHeight: 160 }}
