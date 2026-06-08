@@ -72,6 +72,27 @@ function AssistProse({ blocks }) {
   )
 }
 
+// Cinema — narrated, with the chapter art as a living backdrop; the spoken
+// sentence glows and the page auto-scrolls to it. Tap a sentence → veil-lift.
+function CinemaProse({ blocks, curKey, onTray }) {
+  return (
+    <div className="lib-cine-prose" dir="ltr">
+      {blocks.map((b) => b.t === 'img' ? null : (
+        <p key={b.p.id}>
+          {b.p.sentences.map((s) => {
+            const key = `${b.p.index}-${s.sentence_index}`
+            return (
+              <span key={s.id} data-cinekey={key} className="lib-cine-sentence"
+                data-spoken={key === curKey || undefined} data-dialogue={s.is_dialogue || undefined}
+                onClick={() => onTray({ en: s.text_en, ar: s.text_ar })}>{s.text_en}{' '}</span>
+            )
+          })}
+        </p>
+      ))}
+    </div>
+  )
+}
+
 // Codex — open book; reliable page count via a hidden single-column measurer;
 // TWO facing pages on wide screens; a slow page-curl; gilt folios.
 function CodexProse({ blocks, chapter, onNext, onPrev, hasNext, hasPrev, bookTitle, paper, onTray, help }) {
@@ -226,6 +247,10 @@ export default function LibraryReader() {
   const ambientRef = useRef(null)
   const [savedWords, setSavedWords] = useState(() => new Set())
   const [showSettings, setShowSettings] = useState(false)
+  const narrRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const [curKey, setCurKey] = useState(null)
+  const [audioPct, setAudioPct] = useState(0)
 
   const chapters = bookData?.chapters || []
   const book = bookData?.book
@@ -236,6 +261,32 @@ export default function LibraryReader() {
   const ambienceUrl = AMBIENCE[book?.theme] || null
 
   const blocks = useMemo(() => buildBlocks(paragraphs, current?.illustrations), [paragraphs, current])
+  const cinemaBg = current?.illustrations?.find((x) => Number(x.after) < 0)?.url || current?.illustrations?.[0]?.url || null
+
+  // cinema narration — reset on chapter/mode change
+  useEffect(() => {
+    setPlaying(false); setCurKey(null); setAudioPct(0)
+    const el = narrRef.current; if (el) { el.pause(); try { el.currentTime = 0 } catch { /* ignore */ } }
+  }, [chapterId, mode])
+  const onAudioTime = () => {
+    const el = narrRef.current; if (!el) return
+    setAudioPct(el.duration ? (el.currentTime / el.duration) * 100 : 0)
+    const timing = current?.audio_timing || []
+    if (!timing.length) return
+    const ms = el.currentTime * 1000
+    let k = null
+    for (let i = 0; i < timing.length; i++) { if (timing[i].t0 <= ms) k = `${timing[i].p}-${timing[i].s}`; else break }
+    setCurKey((prev) => (k !== prev ? k : prev))
+  }
+  const toggleNarration = () => {
+    const el = narrRef.current; if (!el) return
+    if (el.paused) { el.play().then(() => setPlaying(true)).catch(() => {}) } else { el.pause(); setPlaying(false) }
+  }
+  useEffect(() => {
+    if (mode !== 'cinema' || !curKey) return
+    const elx = document.querySelector(`[data-cinekey="${curKey}"]`)
+    if (elx) elx.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [curKey, mode])
 
   useEffect(() => {
     if (mode === 'codex') return
@@ -304,6 +355,7 @@ export default function LibraryReader() {
     <div className="lib-reader-stage" data-candle={candle || undefined} data-mood={book?.theme || undefined} style={{ '--lib-fontscale': fontScale }}>
       {candle && <div className="lib-candle" />}
       <audio ref={ambientRef} loop preload="none" src={ambienceUrl || undefined} />
+      <audio ref={narrRef} src={current?.audio_url || undefined} preload="metadata" playsInline onTimeUpdate={onAudioTime} onEnded={() => setPlaying(false)} />
       <div className="lib-reader-bar">
         <button className="lib-back" onClick={() => navigate(`/library/${bookId}`)}>
           <ChevronRight size={16} /> الرواية
@@ -317,9 +369,10 @@ export default function LibraryReader() {
           <button data-active={mode === 'codex'} onClick={() => setMode('codex')}>صفحات</button>
           <button data-active={mode === 'reveal'} onClick={() => setMode('reveal')}>انسياب</button>
           <button data-active={mode === 'assist'} onClick={() => setMode('assist')}>مساعدة</button>
+          <button data-active={mode === 'cinema'} onClick={() => setMode('cinema')}>سينما</button>
         </div>
       </div>
-      {mode !== 'codex' && <div className="lib-progress"><i style={{ width: `${Math.round(prog * 100)}%` }} /></div>}
+      {mode !== 'codex' && mode !== 'cinema' && <div className="lib-progress"><i style={{ width: `${Math.round(prog * 100)}%` }} /></div>}
 
       {finished ? (
         <div className="lib-page">
@@ -333,6 +386,37 @@ export default function LibraryReader() {
         isLoading ? <div className="lib-page"><div className="lib-skel" style={{ height: 320 }} /></div>
           : hasContent ? <CodexProse blocks={blocks} chapter={current} onNext={onNext} onPrev={onPrev} hasNext={!!next} hasPrev={!!prev} bookTitle={book?.title_en || book?.title_ar} paper={paper} onTray={setTray} help={help} />
             : <div className="lib-page"><div className="lib-empty">هذا الفصل قيد الإعداد.</div></div>
+      ) : mode === 'cinema' ? (
+        <>
+          {cinemaBg && <div className="lib-cine-bg" style={{ backgroundImage: `url("${cinemaBg}")` }} />}
+          <div className="lib-cine-veil" />
+          <div className="lib-page lib-cine-page">
+            {current && (
+              <div className="lib-chapter-head lib-cine-head">
+                <div className="ch-num">{current.title_ar ? `الفصل ${current.chapter_number}` : `Chapter ${current.chapter_number}`}</div>
+                <div className="ch-title">{current.title_en || current.title_ar}</div>
+                <div className="ch-rule" />
+              </div>
+            )}
+            {isLoading && <div className="lib-skel" style={{ height: 320 }} />}
+            {!isLoading && !hasContent && <div className="lib-empty">هذا الفصل قيد الإعداد.</div>}
+            {!isLoading && hasContent && <CinemaProse blocks={blocks} curKey={curKey} onTray={setTray} />}
+            {!isLoading && hasContent && (
+              <div className="lib-foot">
+                <button disabled={!prev} onClick={onPrev}>الفصل السابق</button>
+                <button className="lib-finish" onClick={onNext}>{next ? 'الفصل التالي' : 'أنهيت الرواية ✦'}</button>
+              </div>
+            )}
+          </div>
+          <div className="lib-cine-bar">
+            {current?.audio_url ? (
+              <>
+                <button className="lib-cine-play" onClick={toggleNarration} aria-label="تشغيل أو إيقاف الصوت">{playing ? '❚❚' : '▶'}</button>
+                <div className="lib-cine-track"><i style={{ width: `${audioPct}%` }} /></div>
+              </>
+            ) : <span className="lib-cine-soon">🎧 الرواية الصوتية لهذا الفصل قريباً</span>}
+          </div>
+        </>
       ) : (
         <div className="lib-page">
           {current && (
@@ -355,7 +439,7 @@ export default function LibraryReader() {
       )}
 
       <AnimatePresence>
-        {mode === 'codex' && tray && (
+        {(mode === 'codex' || mode === 'cinema') && tray && (
           <motion.div
             key="scrim"
             className="lib-tray-scrim"
@@ -367,7 +451,7 @@ export default function LibraryReader() {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {mode === 'codex' && tray && (
+        {(mode === 'codex' || mode === 'cinema') && tray && (
           <motion.div
             className="lib-codex-tray"
             initial={{ x: '-50%', y: 44, opacity: 0 }}
