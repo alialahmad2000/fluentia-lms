@@ -20,11 +20,12 @@ export const STUDENT_NAV = {
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/vocab-journey' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
-        { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,    to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
-        // SIDEBAR-HIDDEN 2026-06-02 (prompt 09): removed from sidebar nav only — routes still
-        // registered in App.jsx (direct-URL reachable) and items kept in drawerSections below:
-        //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP), level-journey(خريطة رحلتكِ)
+        // SIDEBAR-HIDDEN 2026-06-08 (owner): fully hidden from EVERY sidebar surface (desktop +
+        // mobile "More" drawer + mobile bar) — routes stay registered in App.jsx (direct-URL
+        // reachable), they're just not shown anywhere in the nav. Removed from here AND drawerSections:
+        //   ielts-atelier(IELTS Atelier), progress(تقدّمي), reports(التقارير),
+        //   how-to-earn(كيف تكسب XP), level-journey(خريطة رحلتك).
       ],
     },
     {
@@ -39,10 +40,9 @@ export const STUDENT_NAV = {
       label: 'المجتمع',
       items: [
         { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-        { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
-        { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
-        // SIDEBAR-HIDDEN 2026-06-02 (prompt 09): removed from sidebar nav only — routes still
-        // registered + kept in drawerSections below: competition(المسابقة), competition-rules(قواعد المسابقة)
+        // SIDEBAR-HIDDEN 2026-06-08 (owner): fully hidden from EVERY sidebar surface (routes kept).
+        // Removed from here AND drawerSections AND the LayoutShell mobile-bar injection:
+        //   leaderboard(لوحة الشرف), duels(المبارزات), competition(المسابقة), competition-rules(قواعد المسابقة)
       ],
     },
     {
@@ -54,8 +54,10 @@ export const STUDENT_NAV = {
       ],
     },
   ],
-  /* drawerSections — used by the "More" drawer (MobileDrawer).
-     Includes ALL items so removed sidebar items stay accessible. */
+  /* drawerSections — the "More" drawer (MobileDrawer) on phones. Mirrors the desktop
+     sidebar exactly: the owner-hidden items (IELTS Atelier, تقدّمي, التقارير, كيف تكسب XP,
+     خريطة رحلتك, المسابقة, قواعد المسابقة, لوحة الشرف, المبارزات) are intentionally ABSENT
+     here too, so they never reappear on iPhone or during impersonation. Routes still exist. */
   drawerSections: [
     {
       id: 'learning',
@@ -65,23 +67,8 @@ export const STUDENT_NAV = {
         { id: 'srs',          label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
         { id: 'hard-words',   label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
-        { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/vocab-journey' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
-        { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,       to: '/student/ielts-atelier', requiresPackage: 'ielts' },
-        { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
-        { id: 'how-to-earn',  label: 'كيف تكسب XP 🎯', icon: Target,    to: '/student/how-to-earn' },
-        { id: 'level-journey', label: 'خريطة رحلتك',   icon: Map,       to: '/student/level-journey' },
-      ],
-    },
-    {
-      id: 'community',
-      label: 'المجتمع',
-      items: [
-        { id: 'competition',       label: 'المسابقة ⚔️',       icon: Swords,   to: '/student/competition' },
-        { id: 'competition-rules', label: 'قواعد المسابقة 📜',  icon: BookOpen, to: '/student/competition/rules' },
-        { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
-        { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
       ],
     },
     {

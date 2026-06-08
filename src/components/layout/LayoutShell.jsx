@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback, Suspense, useMemo } from 'rea
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import lazyRetry from '../../utils/lazyRetry'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Loader2, Swords } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import MobileBar from './MobileBar'
@@ -25,7 +25,6 @@ import { usePageTracking } from '@/hooks/usePageTracking'
 import { tracker } from '@/services/activityTracker'
 import { useQueryClient, useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
-import { useActiveCompetition } from '@/hooks/useCompetition'
 import { useAdminBroadcastListener } from '@/hooks/useAdminBroadcastListener'
 
 import VocabGainTicker from '../curriculum/VocabGainTicker'
@@ -52,19 +51,9 @@ export default function LayoutShell() {
   const dismissSummary = useClassMode((s) => s.dismissSummary)
 
   const role = profile?.role || 'student'
-  const { data: activeComp } = useActiveCompetition()
-  const nav = useMemo(() => {
-    const base = getNavForRole(role)
-    if (role !== 'student' || !activeComp || activeComp.status !== 'active') return base
-    return {
-      ...base,
-      mobileBar: [
-        base.mobileBar[0],
-        { id: 'competition', label: 'المسابقة', icon: Swords, to: '/student/competition' },
-        ...base.mobileBar.slice(1),
-      ],
-    }
-  }, [role, activeComp])
+  // SIDEBAR-HIDDEN 2026-06-08 (owner): competition is fully hidden from the nav, so the previous
+  // "inject المسابقة into the mobile bar while a competition is active" behaviour is removed.
+  const nav = useMemo(() => getNavForRole(role), [role])
   const navigate = useNavigate()
   const location = useLocation()
   const queryClient = useQueryClient()
