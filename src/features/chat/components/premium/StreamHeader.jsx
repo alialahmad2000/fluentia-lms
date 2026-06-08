@@ -31,16 +31,16 @@ export default function StreamHeader({ groupName, groupId, onSearchOpen, onOpenM
   return (
     <motion.header layout style={{ ...glass, direction: 'rtl', position: 'relative', zIndex: 3 }} className="px-2.5">
       <div className="flex items-center justify-between" style={{ paddingTop: 10, paddingBottom: 10 }}>
-        <div className="flex items-center" style={{ minWidth: 88 }}>
+        <div className="flex items-center" style={{ minWidth: 72 }}>
           {onBack && <IconBtn onClick={onBack} label="رجوع"><ChevronRight size={22} /></IconBtn>}
         </div>
 
-        <div className="text-center leading-tight px-2 flex-1 min-w-0">
-          <div className="font-bold flex items-center justify-center gap-2"
-            style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 16, letterSpacing: '0.03em' }}>
-            <span style={{ color: 'var(--ds-accent-gold)' }}>المجلس</span>
-            <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--ds-accent-gold)', display: 'inline-block' }} />
-            <span className="truncate" style={{ color: 'var(--ds-text-primary)', fontWeight: 500, maxWidth: 160 }}>{groupName || 'المجموعة'}</span>
+        <div className="text-center leading-tight px-1 flex-1 min-w-0">
+          <div className="font-bold flex items-center justify-center gap-1.5"
+            style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 15, letterSpacing: '0.01em' }}>
+            <span style={{ color: 'var(--ds-accent-gold)', whiteSpace: 'nowrap' }}>المجلس</span>
+            <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--ds-accent-gold)', display: 'inline-block', flexShrink: 0 }} />
+            <span className="truncate" style={{ color: 'var(--ds-text-primary)', fontWeight: 500, maxWidth: 210 }}>{groupName || 'المجموعة'}</span>
           </div>
           <div style={{ fontSize: 11.5, color: 'var(--ds-text-muted)', marginTop: 3, fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
             حلقة المحادثة
