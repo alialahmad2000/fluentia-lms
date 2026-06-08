@@ -80,6 +80,7 @@ export function useDMMessages(threadId) {
     queryKey: ['dm-messages', threadId],
     enabled: !!threadId,
     staleTime: 30_000,
+    refetchOnReconnect: 'always',
     initialPageParam: null,
     queryFn: async ({ pageParam }) => {
       const { data, error } = await supabase.rpc('get_dm_messages', { p_thread: threadId, p_before: pageParam ?? null, p_limit: PAGE_SIZE })
@@ -121,6 +122,16 @@ export function useDMMessages(threadId) {
     },
     getNextPageParam: (lastPage) => (lastPage.length === PAGE_SIZE ? lastPage[lastPage.length - 1].created_at : undefined),
   })
+
+  // Gap recovery: Supabase Realtime does NOT replay events missed while the tab was
+  // backgrounded/offline (common on iPhone Safari PWAs). Refetch on focus + reconnect.
+  useEffect(() => {
+    if (!threadId) return
+    const recover = () => { if (document.visibilityState === 'visible') qc.invalidateQueries({ queryKey: ['dm-messages', threadId] }) }
+    window.addEventListener('online', recover)
+    document.addEventListener('visibilitychange', recover)
+    return () => { window.removeEventListener('online', recover); document.removeEventListener('visibilitychange', recover) }
+  }, [threadId, qc])
 
   useEffect(() => {
     if (!threadId) return
