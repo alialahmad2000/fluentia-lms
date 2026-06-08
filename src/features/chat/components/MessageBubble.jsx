@@ -143,7 +143,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
 
       <motion.div className="inline-block relative align-top" {...bind}
         style={{ float: isOwn ? 'left' : 'right', maxWidth: '78%', x: swipeX, touchAction: 'pan-y' }}>
-        <div ref={bubbleRef} className="px-3.5 py-2.5" style={{ ...bubbleStyle, borderRadius, lineHeight: 1.75 }}>
+        <div ref={bubbleRef} className="chat-bubble px-3.5 py-2.5" style={{ ...bubbleStyle, borderRadius, lineHeight: 1.75 }}>
           {!isGrouped && !isOwn && (
             <div className="flex items-baseline gap-2 mb-1">
               <span className="text-[13px] font-bold truncate"

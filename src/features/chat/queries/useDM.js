@@ -91,7 +91,15 @@ export function useDMMessages(threadId) {
         const { data: rxn } = await supabase.from('message_reactions').select('message_id, emoji, user_id').in('message_id', ids)
         reactions = rxn ?? []
       }
-      const senderIds = [...new Set(rows.map((r) => r.sender_id).filter(Boolean))]
+      // Reply previews: hydrate each message's parent (reply_to) so the quote renders.
+      const replyIds = [...new Set(rows.map((r) => r.reply_to).filter(Boolean))]
+      let parents = []
+      if (replyIds.length) {
+        const { data: pr } = await supabase.from('group_messages').select('id, body, content, type, sender_id, voice_url, image_url').in('id', replyIds)
+        parents = pr ?? []
+      }
+      const parentMap = Object.fromEntries(parents.map((p) => [p.id, p]))
+      const senderIds = [...new Set([...rows.map((r) => r.sender_id), ...parents.map((p) => p.sender_id)].filter(Boolean))]
       let senders = []
       if (senderIds.length) {
         const { data: sp } = await supabase.from('profiles').select('id, full_name, display_name, avatar_url, role').in('id', senderIds)
@@ -100,7 +108,10 @@ export function useDMMessages(threadId) {
       const senderMap = Object.fromEntries(senders.map((s) => [s.id, s]))
       const rxnMap = {}
       for (const r of reactions) { (rxnMap[r.message_id] ||= []).push(r) }
-      const enriched = rows.map((m) => ({ ...m, sender: senderMap[m.sender_id] ?? null, reactions: rxnMap[m.id] ?? [] }))
+      const enriched = rows.map((m) => {
+        const parent = m.reply_to ? parentMap[m.reply_to] : null
+        return { ...m, sender: senderMap[m.sender_id] ?? null, reactions: rxnMap[m.id] ?? [], reply_message: parent ? { ...parent, sender: senderMap[parent.sender_id] ?? null } : null }
+      })
       return Promise.all(enriched.map(async (msg) => {
         if (msg.type === 'voice' && msg.voice_url) { try { msg._signedVoiceUrl = await signedVoiceUrl(msg.voice_url) } catch (_) {} }
         if (msg.type === 'image' && msg.image_url) { try { msg._signedImageUrl = await signedImageUrl(msg.image_url) } catch (_) {} }

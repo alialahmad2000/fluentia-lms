@@ -37,7 +37,17 @@ export function useUnifiedMessages(groupId, lens = 'all') {
           .from('message_reactions').select('message_id, emoji, user_id').in('message_id', ids)
         reactions = rxn ?? []
       }
-      const senderIds = [...new Set(rows.map((r) => r.sender_id).filter(Boolean))]
+      // Reply previews: hydrate each message's parent (reply_to) so the quote renders.
+      const replyIds = [...new Set(rows.map((r) => r.reply_to).filter(Boolean))]
+      let parents = []
+      if (replyIds.length) {
+        const { data: pr } = await supabase
+          .from('group_messages').select('id, body, content, type, sender_id, voice_url, image_url').in('id', replyIds)
+        parents = pr ?? []
+      }
+      const parentMap = Object.fromEntries(parents.map((p) => [p.id, p]))
+
+      const senderIds = [...new Set([...rows.map((r) => r.sender_id), ...parents.map((p) => p.sender_id)].filter(Boolean))]
       let senders = []
       if (senderIds.length) {
         const { data: sp } = await supabase
@@ -51,11 +61,15 @@ export function useUnifiedMessages(groupId, lens = 'all') {
         rxnMap[r.message_id].push(r)
       }
 
-      const enriched = rows.map((m) => ({
-        ...m,
-        sender:    senderMap[m.sender_id] ?? null,
-        reactions: rxnMap[m.id] ?? [],
-      }))
+      const enriched = rows.map((m) => {
+        const parent = m.reply_to ? parentMap[m.reply_to] : null
+        return {
+          ...m,
+          sender:    senderMap[m.sender_id] ?? null,
+          reactions: rxnMap[m.id] ?? [],
+          reply_message: parent ? { ...parent, sender: senderMap[parent.sender_id] ?? null } : null,
+        }
+      })
 
       const filtered = enriched
 
