@@ -158,6 +158,17 @@ export default function UnifiedMessageStream({
     [messages, unreadAfter, profile?.id, lens, isDM]
   )
 
+  // Auto-scroll to the first unread message on open (once per conversation)
+  const unreadDoneRef = useRef('')
+  useEffect(() => {
+    const convo = isDM ? `dm:${dmThreadId}` : `g:${groupId}`
+    if (unreadDoneRef.current === convo || !virtuosoRef.current || !messages.length) return
+    const idx = items.findIndex((it) => it.type === 'unread')
+    if (idx === -1) return
+    unreadDoneRef.current = convo
+    setTimeout(() => virtuosoRef.current?.scrollToIndex({ index: idx, align: 'start', behavior: 'auto' }), 250)
+  }, [items, messages.length, isDM, dmThreadId, groupId])
+
   // Track new-message count while scrolled up
   useEffect(() => {
     if (!atBottom && messages.length > prevLenRef.current) {
@@ -192,6 +203,26 @@ export default function UnifiedMessageStream({
       if (el) { el.classList.add('chat-highlight'); setTimeout(() => el.classList.remove('chat-highlight'), 2400) }
     }, 320)
   }, [deepLinkMessageId, messages.length]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Jump-to-message (tappable reply quotes fire fluentia:jump-to-message)
+  useEffect(() => {
+    const handler = (e) => {
+      const id = e.detail?.id
+      if (!id || !virtuosoRef.current) return
+      let itemIdx = -1
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type === 'group' && items[i].messages.some((m) => m.id === id)) { itemIdx = i; break }
+      }
+      const flash = () => {
+        const el = document.getElementById(`msg-${id}`)
+        if (el) { el.classList.add('chat-highlight'); setTimeout(() => el.classList.remove('chat-highlight'), 2400) }
+      }
+      if (itemIdx !== -1) { virtuosoRef.current.scrollToIndex({ index: itemIdx, behavior: 'smooth', align: 'center' }); setTimeout(flash, 300) }
+      else flash()
+    }
+    window.addEventListener('fluentia:jump-to-message', handler)
+    return () => window.removeEventListener('fluentia:jump-to-message', handler)
+  }, [items])
 
   const scrollToBottom = useCallback(() => {
     virtuosoRef.current?.scrollToIndex({ index: items.length - 1, behavior: 'smooth' })

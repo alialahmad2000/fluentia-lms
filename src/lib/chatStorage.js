@@ -1,5 +1,8 @@
 import { supabase } from './supabase'
 
+// signed-URL TTL — 7 days so chat media doesn't silently 404 mid-session (was 1h).
+const SIGNED_URL_TTL = 60 * 60 * 24 * 7
+
 export async function uploadVoice(file, scope) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error('Not authenticated')
@@ -42,7 +45,7 @@ export async function uploadChatFile(file, scope) {
 export async function signedVoiceUrl(path) {
   const { data, error } = await supabase.storage
     .from('chat-voice')
-    .createSignedUrl(path, 3600)
+    .createSignedUrl(path, SIGNED_URL_TTL)
   if (error) throw error
   return data.signedUrl
 }
@@ -50,7 +53,7 @@ export async function signedVoiceUrl(path) {
 export async function signedImageUrl(path) {
   const { data, error } = await supabase.storage
     .from('chat-images')
-    .createSignedUrl(path, 3600)
+    .createSignedUrl(path, SIGNED_URL_TTL)
   if (error) throw error
   return data.signedUrl
 }
@@ -58,7 +61,7 @@ export async function signedImageUrl(path) {
 export async function signedFileUrl(path) {
   const { data, error } = await supabase.storage
     .from('chat-files')
-    .createSignedUrl(path, 3600)
+    .createSignedUrl(path, SIGNED_URL_TTL)
   if (error) throw error
   return data.signedUrl
 }

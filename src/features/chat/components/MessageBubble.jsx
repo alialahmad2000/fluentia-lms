@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useTransform } from 'framer-motion'
-import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck } from 'lucide-react'
+import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck, Clock, AlertCircle, MoreHorizontal } from 'lucide-react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useAuthProfile } from '../../../stores/authStore'
 import MessageBubbleText from './MessageBubbleText'
 import MessageBubbleVoice from './MessageBubbleVoice'
@@ -19,6 +20,10 @@ import { useChatGestures } from '../lib/useChatGestures'
 import { useReact } from '../mutations/useReact'
 import { useDeleteMessage } from '../mutations/useDeleteMessage'
 import { useTogglePin } from '../mutations/useTogglePin'
+import { resendMessage } from '../mutations/useSendMessage'
+
+// Touch devices get a visible "⋯" action button (long-press alone is undiscoverable).
+const IS_TOUCH = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches
 
 // Tail-radius presets (CSS order: TL TR BR BL). Rounded 18px, tail/spine 5px.
 function getBubbleRadius(position, isOwn) {
@@ -46,6 +51,7 @@ const SHADOW_OTHER = [
 
 export default function MessageBubble({ message, isGrouped, position = 'single', channelId, groupId, onReply, onEdit, readUpTo }) {
   const profile = useAuthProfile()
+  const qc = useQueryClient()
   const [showReactionBar, setShowReactionBar] = useState(false)
   const [sheet, setSheet] = useState({ open: false, anchor: null })
   const [burst, setBurst] = useState(null)
@@ -149,16 +155,22 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           )}
 
           {message.reply_message && (
-            <div className="mb-2 px-2.5 py-1.5 rounded-xl text-xs"
-              style={{ borderInlineStart: `2.5px solid ${replyColor}`, background: `color-mix(in srgb, ${replyColor} 10%, transparent)`, fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-secondary)' }}>
-              <span className="font-semibold" style={{ color: replyColor }}>
-                {message.reply_message.sender?.display_name || message.reply_message.sender?.full_name}:{' '}
+            <button type="button" onPointerDown={stop}
+              onClick={(e) => { e.stopPropagation(); const tid = message.reply_message.id || message.reply_to; if (tid) window.dispatchEvent(new CustomEvent('fluentia:jump-to-message', { detail: { id: tid } })) }}
+              className="mb-2 px-2.5 py-1.5 rounded-xl text-xs w-full flex items-start gap-1.5 transition-[filter] hover:brightness-110"
+              style={{ borderInlineStart: `2.5px solid ${replyColor}`, background: `color-mix(in srgb, ${replyColor} 10%, transparent)`, fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-secondary)', textAlign: 'start' }}>
+              <CornerUpLeft size={12} style={{ color: replyColor, marginTop: 2, flexShrink: 0 }} />
+              <span>
+                <span className="font-semibold" style={{ color: replyColor }}>
+                  {message.reply_message.sender?.display_name || message.reply_message.sender?.full_name}:{' '}
+                </span>
+                {message.reply_message.body || message.reply_message.content || '🎙️'}
               </span>
-              {message.reply_message.body || message.reply_message.content || '🎙️'}
-            </div>
+            </button>
           )}
 
           {message.type === 'text' && <MessageBubbleText body={bodyText} mentions={message.mentions} myId={profile?.id} />}
+          {message.type === 'text' && message.link_url && <MessageBubbleLink message={message} />}
           {message.type === 'voice' && <MessageBubbleVoice message={message} />}
           {message.type === 'image' && <MessageBubbleImage message={message} />}
           {message.type === 'file' && <MessageBubbleFile message={message} />}
@@ -170,11 +182,18 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
               <span className="text-[10.5px] tabular-nums" style={{ color: 'color-mix(in srgb, var(--ds-accent-primary) 60%, var(--ds-text-tertiary))', fontVariantNumeric: 'tabular-nums' }}>
                 {time}{message.is_edited && ' · معدّل'}
               </span>
-              {readUpTo !== undefined && !String(message.id).startsWith('optimistic') && (
+              {message._status === 'failed' ? (
+                <button onClick={(e) => { e.stopPropagation(); resendMessage(qc, message) }}
+                  className="flex items-center gap-1 text-[10.5px] font-medium" style={{ color: 'var(--ds-accent-danger)', fontFamily: 'Tajawal, sans-serif' }}>
+                  <AlertCircle size={12} /> فشل الإرسال · إعادة المحاولة
+                </button>
+              ) : message._status === 'sending' ? (
+                <Clock size={12} style={{ color: 'var(--ds-text-tertiary)' }} aria-label="جارٍ الإرسال" />
+              ) : (readUpTo !== undefined && !String(message.id).startsWith('optimistic') && (
                 (readUpTo && new Date(message.created_at) <= new Date(readUpTo))
                   ? <CheckCheck size={13} style={{ color: 'var(--ds-accent-primary)' }} aria-label="تمت القراءة" />
                   : <Check size={13} style={{ color: 'var(--ds-text-tertiary)' }} aria-label="تم الإرسال" />
-              )}
+              ))}
             </div>
           )}
         </div>
@@ -182,6 +201,16 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
         <div onPointerDown={stop}>
           <ReactionSummary reactions={message.reactions} myId={profile?.id} messageId={message.id} onReact={(emoji) => reactWith(emoji)} />
         </div>
+
+        {/* Mobile: discoverable tap-to-reveal actions (long-press also still works) */}
+        {IS_TOUCH && (
+          <button onPointerDown={stop} onClick={(e) => { e.stopPropagation(); setSheet({ open: true, anchor: { x: e.clientX, y: e.clientY } }) }}
+            aria-label="إجراءات الرسالة"
+            className="absolute flex items-center justify-center rounded-full"
+            style={{ top: -10, insetInlineEnd: 0, width: 26, height: 26, background: 'color-mix(in srgb, var(--ds-bg-elevated) 92%, transparent)', border: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-tertiary)', boxShadow: '0 4px 12px -4px rgba(0,0,0,0.4)', zIndex: 11 }}>
+            <MoreHorizontal size={14} />
+          </button>
+        )}
 
         {/* Desktop hover toolbar */}
         <div onPointerDown={stop}

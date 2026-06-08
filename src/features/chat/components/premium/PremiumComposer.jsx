@@ -9,6 +9,9 @@ import { useSendMessage } from '../../mutations/useSendMessage'
 import { useSendDM } from '../../queries/useDM'
 import { useEditMessage } from '../../mutations/useEditMessage'
 import { uploadChatFile, uploadChatImage } from '../../../../lib/chatStorage'
+import { toast } from '../../../../components/ui/FluentiaToast'
+import { supabase } from '../../../../lib/supabase'
+import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
 import VoiceRecorder from '../VoiceRecorder'
 import MentionPicker from './MentionPicker'
 import SenderAvatar from './SenderAvatar'
@@ -37,6 +40,7 @@ export default function PremiumComposer({
   dmThreadId,
 }) {
   const isDM = !!dmThreadId
+  const draftKey = `fluentia:draft:${isDM ? 'dm:' + dmThreadId : 'group:' + groupId}`
   const profile = useAuthProfile()
   const [input, setInput] = useState('')
   const [uploading, setUploading] = useState(false)
@@ -66,6 +70,16 @@ export default function PremiumComposer({
     }
     if (!editing) editingIdRef.current = null
   }, [editing])
+
+  // Auto-saved drafts — restore on conversation change, persist as you type (never while editing)
+  useEffect(() => {
+    if (editing) return
+    try { const d = localStorage.getItem(draftKey); setInput(d || ''); if (d) setTimeout(autoResize, 0) } catch { /* ignore */ }
+  }, [draftKey]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (editing) return
+    try { if (input.trim()) localStorage.setItem(draftKey, input); else localStorage.removeItem(draftKey) } catch { /* ignore */ }
+  }, [input, draftKey, editing])
 
   function detectMentionContext() {
     const ta = textareaRef.current
@@ -105,6 +119,7 @@ export default function PremiumComposer({
 
   function resetComposer() {
     setInput(''); setMentions([]); setMentionQuery(null)
+    try { localStorage.removeItem(draftKey) } catch { /* ignore */ }
     if (textareaRef.current) textareaRef.current.style.height = 'auto'
   }
 
@@ -118,17 +133,31 @@ export default function PremiumComposer({
       onClearEdit?.()
       try {
         await editMessage.mutateAsync({ messageId: target.id, body: text, createdAt: target.created_at })
-      } catch (err) { console.error(err) }
+      } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر تعديل الرسالة' }) }
       return
     }
 
     resetComposer()
-    await sendMessage.mutateAsync({
+    const sent = await sendMessage.mutateAsync({
       type: 'text', body: text, content: text,
       reply_to: replyTo?.id ?? null,
       mentions: mentions.map((m) => m.id),
     })
     onClearReply?.()
+    const url = text.match(/https?:\/\/[^\s<]+/)?.[0]
+    if (url && sent?.id) unfurlLink(sent.id, url)
+  }
+
+  // Best-effort link preview: fetch OG data after send + patch the message (realtime refreshes the bubble).
+  async function unfurlLink(messageId, url) {
+    try {
+      const { data, error } = await invokeWithRetry('link-preview', { body: { url } })
+      if (error || !data || (!data.title && !data.image)) return
+      await supabase.from('group_messages').update({
+        link_url: data.url || url, link_title: data.title || null, link_description: data.description || null,
+        link_image_url: data.image || null, link_domain: data.domain || null,
+      }).eq('id', messageId)
+    } catch { /* best-effort */ }
   }
 
   function handleKeyDown(e) {
@@ -147,7 +176,7 @@ export default function PremiumComposer({
       const img = new window.Image(); img.src = URL.createObjectURL(file)
       await new Promise((res) => { img.onload = res })
       await sendMessage.mutateAsync({ type: 'image', image_url: path, image_width: img.naturalWidth, image_height: img.naturalHeight })
-    } catch (err) { console.error(err) } finally { setUploading(false); e.target.value = '' }
+    } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر رفع الصورة', description: 'تحقّقي من الاتصال وحاولي مجددًا' }) } finally { setUploading(false); e.target.value = '' }
   }
 
   async function handleFilePick(e) {
@@ -156,7 +185,7 @@ export default function PremiumComposer({
     try {
       const path = await uploadChatFile(file, isDM ? `dm/${dmThreadId}` : groupId)
       await sendMessage.mutateAsync({ type: 'file', file_url: path, file_name: file.name, file_size: file.size, file_mime: file.type })
-    } catch (err) { console.error(err) } finally { setUploading(false); e.target.value = '' }
+    } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر رفع الملف', description: 'تحقّقي من الاتصال وحاولي مجددًا' }) } finally { setUploading(false); e.target.value = '' }
   }
 
   const canSend = !!input.trim() && (isDM ? !!dmThreadId : !!generalChannelId) && !sendMessage.isPending && !editMessage.isPending && !uploading

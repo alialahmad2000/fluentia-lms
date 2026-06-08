@@ -11,6 +11,7 @@ import { supabase } from '../../../lib/supabase'
 import StreamHeader from '../components/premium/StreamHeader'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
+import ErrorBoundary from '../../../components/ErrorBoundary'
 import FilterLensBar from '../components/premium/FilterLensBar'
 import PinnedStrip from '../components/premium/PinnedStrip'
 import PremiumComposer from '../components/premium/PremiumComposer'
@@ -129,15 +130,22 @@ export default function GroupChatPage() {
 
       {/* Unified message stream */}
       <div className="chat-stream">
-        <UnifiedMessageStream
-          groupId={groupId}
-          lens={activeLens}
-          deepLinkMessageId={messageId}
-          onScroll={handleStreamScroll}
-          generalChannelId={generalChannel?.id}
-          onReply={startReply}
-          onEdit={startEdit}
-        />
+        <ErrorBoundary fallback={(
+          <div dir="rtl" className="h-full flex flex-col items-center justify-center gap-3 p-6 text-center">
+            <p style={{ color: 'var(--ds-text-secondary)', fontFamily: 'Tajawal, sans-serif' }}>تعذّر عرض المحادثة مؤقتًا</p>
+            <button onClick={() => window.location.reload()} className="px-4 py-2 rounded-lg text-sm font-semibold" style={{ background: 'var(--ds-accent-primary)', color: '#06121f' }}>إعادة التحميل</button>
+          </div>
+        )}>
+          <UnifiedMessageStream
+            groupId={groupId}
+            lens={activeLens}
+            deepLinkMessageId={messageId}
+            onScroll={handleStreamScroll}
+            generalChannelId={generalChannel?.id}
+            onReply={startReply}
+            onEdit={startEdit}
+          />
+        </ErrorBoundary>
       </div>
 
       {/* Composer */}
