@@ -325,38 +325,38 @@
 .lib-codex { display: flex; flex-direction: column; align-items: center; padding: 8px 0 20px; }
 .lib-book {
   position: relative; width: min(940px, 96vw); color: #2b2117;
-  background: radial-gradient(125% 92% at 50% -6%, #f9f3e7 0%, #f1e9d7 54%, #e8dec9 100%);
-  border-radius: 7px; padding: 32px 44px 18px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 38px 90px -30px rgba(0,0,0,0.85), inset 0 0 50px rgba(120,86,40,0.06);
+  background: radial-gradient(130% 95% at 50% -8%, #fcf8ef 0%, #f6efdf 55%, #efe6d2 100%);
+  border-radius: 7px; padding: 32px 46px 18px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 38px 90px -30px rgba(0,0,0,0.85), inset 0 0 80px rgba(120,86,40,0.05);
   transform-origin: top center; animation: lib-book-open 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 @keyframes lib-book-open { from { transform: perspective(1500px) rotateX(9deg) scale(0.95); opacity: 0.25; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .lib-book { animation: none; } }
-/* paper grain */
+/* paper grain — a whisper of organic texture, never a pattern you can read */
 .lib-book::before {
-  content: ""; position: absolute; inset: 0; border-radius: 6px; pointer-events: none; opacity: 0.42; mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 150px;
+  content: ""; position: absolute; inset: 0; border-radius: 6px; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px;
 }
-/* page-thickness edges peeking beneath the book */
+/* clean page-thickness edge peeking beneath the book (no stripes) */
 .lib-book::after {
-  content: ""; position: absolute; top: 7px; bottom: 7px; left: -4px; right: -4px; z-index: -1; border-radius: 7px;
-  background: repeating-linear-gradient(90deg, #cdbb96 0, #ece0c6 1.5px, #cdbb96 3px);
+  content: ""; position: absolute; top: 6px; bottom: 6px; left: -3px; right: -3px; z-index: -1; border-radius: 8px;
+  background: #e6dcc3; box-shadow: 0 0 0 1px rgba(120,86,40,0.10);
 }
 .lib-book-head { position: relative; text-align: center; font-family: var(--lib-serif); font-style: italic; letter-spacing: 0.16em; font-size: 11.5px; color: #836c46; text-transform: uppercase; margin-bottom: 16px; }
 .lib-book-spread { position: relative; overflow: hidden; perspective: 2000px; }
 /* page curvature — the pages bow into the spine + faint outer-edge shading */
 .lib-book-spread::before {
   content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
-  background: linear-gradient(90deg, rgba(74,52,18,0.07) 0%, transparent 12%, transparent 41%, rgba(74,52,18,0.09) 50%, transparent 59%, transparent 88%, rgba(74,52,18,0.07) 100%);
+  background: linear-gradient(90deg, rgba(74,52,18,0.05) 0%, transparent 15%, transparent 43%, rgba(74,52,18,0.045) 50%, transparent 57%, transparent 85%, rgba(74,52,18,0.05) 100%);
 }
 @media (max-width: 599px) {
-  .lib-book-spread::before { background: linear-gradient(90deg, rgba(74,52,18,0.06), transparent 16%, transparent 84%, rgba(74,52,18,0.06)); }
+  .lib-book-spread::before { background: linear-gradient(90deg, rgba(74,52,18,0.045), transparent 18%, transparent 82%, rgba(74,52,18,0.045)); }
 }
 /* the spine — soft center crease where the two pages meet */
 .lib-book-spread::after {
-  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 64px; transform: translateX(-50%); pointer-events: none; z-index: 2;
-  background: radial-gradient(58% 100% at 50% 50%, rgba(86,58,20,0.20), transparent 74%);
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 56px; transform: translateX(-50%); pointer-events: none; z-index: 2;
+  background: radial-gradient(56% 100% at 50% 50%, rgba(86,58,20,0.10), transparent 76%);
 }
 @media (max-width: 599px) { .lib-book { padding: 22px 22px 14px; } .lib-book-spread::after { display: none; } }
 .lib-codex-pages {
@@ -392,7 +392,7 @@
 .lib-leaf {
   position: absolute; top: 0; bottom: 0; width: 50%; z-index: 5; pointer-events: none;
   transform-style: preserve-3d; backface-visibility: hidden;
-  background: linear-gradient(105deg, #f9f3e7 0%, #f1e9d7 58%, #e8dec9 100%);
+  background: linear-gradient(105deg, #fcf8ef 0%, #f6efdf 58%, #efe6d2 100%);
 }
 .lib-leaf::after { content: ""; position: absolute; top: 0; bottom: 0; width: 42px; pointer-events: none; }
 .lib-leaf.next { left: 50%; transform-origin: left center; border-radius: 0 6px 6px 0; box-shadow: -20px 0 40px -14px rgba(60,40,12,0.55); }
@@ -474,6 +474,12 @@
 .lib-book[data-paper="parchment"] .lib-leaf { background: linear-gradient(105deg, #f6ecd2, #efe2c2 58%, #e6d6b0); }
 .lib-book[data-paper="sepia"] { background: radial-gradient(125% 92% at 50% -6%, #f3e7c9 0%, #ecdcb8 54%, #e1cfa3 100%); }
 .lib-book[data-paper="sepia"] .lib-leaf { background: linear-gradient(105deg, #f3e7c9, #ecdcb8 58%, #e1cfa3); }
+/* clean page-edge tuned to each paper colour (no stripes) */
+.lib-book[data-paper="cream"]::after { background: #f1eadb; }
+.lib-book[data-paper="linen"]::after { background: #e7e9e3; box-shadow: 0 0 0 1px rgba(40,46,40,0.08); }
+.lib-book[data-paper="parchment"]::after { background: #e3d5b4; }
+.lib-book[data-paper="sepia"]::after { background: #dccba6; }
+.lib-book[data-paper="night"]::after { background: #20242c; box-shadow: 0 0 0 1px rgba(255,255,255,0.06); }
 
 .lib-empty { text-align: center; color: var(--ds-text-tertiary, #94a3b8); font-family: 'Tajawal', sans-serif; padding: 40px 16px; font-size: 14px; }
 .lib-skel { height: 220px; border-radius: 12px; background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06), rgba(255,255,255,0.03)); background-size: 200% 100%; animation: lib-shimmer 1.4s infinite; }
