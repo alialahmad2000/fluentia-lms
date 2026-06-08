@@ -156,8 +156,8 @@ body.chat-page .z-\[997\] { display: none !important; }
    ════════════════════════════════════════════════════════════════════════ */
 .chat-shell {
   /* obsidian canvas + warm-neutral surfaces */
-  --ds-bg-base: #08090c;
-  --ds-bg-elevated: #0d0f14;
+  --ds-bg-base: #0b0907;
+  --ds-bg-elevated: #16120d;
   --ds-surface-1: rgba(236,234,226,0.045);
   --ds-surface-2: rgba(236,234,226,0.07);
   --ds-border-subtle: rgba(236,234,226,0.085);
@@ -172,29 +172,28 @@ body.chat-page .z-\[997\] { display: none !important; }
   --ds-text-secondary: rgba(236,234,226,0.66);
   --ds-text-muted: rgba(236,234,226,0.42);
   --ds-text-tertiary: rgba(236,234,226,0.40);
-  background: #08090c;
+  background: #0b0907;
 }
 
-/* Background: a single soft overhead light + film grain (no colour blooms) */
+/* Background: a single warm overhead lamp + film grain over warm obsidian (no colour blooms) */
 .chat-aurora {
   background:
-    radial-gradient(120% 72% at 50% -12%, rgba(255,243,222,0.075), rgba(255,243,222,0) 56%),
-    radial-gradient(58% 34% at 50% -4%, rgba(255,236,205,0.06), rgba(255,236,205,0) 60%),
-    #08090c;
+    radial-gradient(95% 52% at 50% 4%, rgba(255,214,156,0.20), rgba(255,214,156,0) 52%),
+    radial-gradient(150% 85% at 50% -4%, rgba(201,168,106,0.12), rgba(201,168,106,0) 62%),
+    #0b0907;
 }
 .chat-aurora::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-  opacity: 0.035; mix-blend-mode: overlay;
+  opacity: 0.05; mix-blend-mode: overlay;
 }
 .chat-shell .ca-blob { display: none !important; }   /* retire the 5 colour blooms */
 
 /* Vignette + legibility scrim in obsidian (no navy) */
 .chat-aurora-scrim {
   background:
-    radial-gradient(135% 108% at 50% 24%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%),
-    linear-gradient(to bottom, rgba(8,9,12,0.62) 0%, rgba(8,9,12,0) 22%,
-                    rgba(8,9,12,0) 80%, rgba(8,9,12,0.5) 100%) !important;
+    radial-gradient(150% 120% at 50% 34%, rgba(0,0,0,0) 44%, rgba(0,0,0,0.45) 100%),
+    linear-gradient(to bottom, rgba(11,9,7,0) 0%, rgba(11,9,7,0) 72%, rgba(11,9,7,0.55) 100%) !important;
 }
 
 /* Editorial calm: quieter, deeper bubble shadow */
