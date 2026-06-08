@@ -22,14 +22,9 @@ const glass = {
   boxShadow: '0 10px 30px -16px rgba(0,0,0,0.5), inset 0 1px 0 0 color-mix(in srgb, white 7%, transparent)',
 }
 
-// Level → gradient + shadow color
-function getLevelGradient(level) {
-  const l = Number(level) || 0
-  if (l <= 1)  return { grad: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)', glow: 'rgba(59,130,246,0.30)' }
-  if (l === 2) return { grad: 'linear-gradient(135deg, #fbbf24 0%, #d97706 100%)', glow: 'rgba(251,191,36,0.30)' }
-  if (l === 3) return { grad: 'linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%)', glow: 'rgba(124,58,237,0.30)' }
-  // IELTS / 4+
-  return { grad: 'linear-gradient(135deg, #10b981 0%, #065f46 100%)', glow: 'rgba(16,185,129,0.30)' }
+// المجلس: one accent — the group avatar is always aged brass (no per-level hues).
+function getLevelGradient() {
+  return { grad: 'linear-gradient(135deg, #D8BC86 0%, #B0905A 100%)', glow: 'rgba(201,168,106,0.32)' }
 }
 
 export default function StreamHeader({

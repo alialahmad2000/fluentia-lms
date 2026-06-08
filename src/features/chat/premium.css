@@ -148,3 +148,58 @@ body.chat-page .z-\[997\] { display: none !important; }
     user-select: none;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   المجلس — The Majlis  ·  obsidian + ONE brass accent; depth from light, not colour.
+   Scoped to .chat-shell so the rest of the app keeps its palette. Overrides the
+   Aurora rules above (later-wins). Fully reversible: delete this block to restore.
+   ════════════════════════════════════════════════════════════════════════ */
+.chat-shell {
+  /* obsidian canvas + warm-neutral surfaces */
+  --ds-bg-base: #08090c;
+  --ds-bg-elevated: #0d0f14;
+  --ds-surface-1: rgba(236,234,226,0.045);
+  --ds-surface-2: rgba(236,234,226,0.07);
+  --ds-border-subtle: rgba(236,234,226,0.085);
+  /* the single accent = aged brass (replaces gold / sky / primary across the chat) */
+  --ds-accent-gold: #C9A86A;
+  --ds-accent-primary: #C9A86A;
+  --ds-accent-primary-glow: rgba(201,168,106,0.28);
+  --ds-accent-secondary: #C9A86A;
+  --ds-accent-success: #A9B7A0;        /* muted sage presence dot, not neon green */
+  /* warm ivory text ladder */
+  --ds-text-primary: #ECEAE2;
+  --ds-text-secondary: rgba(236,234,226,0.66);
+  --ds-text-muted: rgba(236,234,226,0.42);
+  --ds-text-tertiary: rgba(236,234,226,0.40);
+  background: #08090c;
+}
+
+/* Background: a single soft overhead light + film grain (no colour blooms) */
+.chat-aurora {
+  background:
+    radial-gradient(120% 72% at 50% -12%, rgba(255,243,222,0.075), rgba(255,243,222,0) 56%),
+    radial-gradient(58% 34% at 50% -4%, rgba(255,236,205,0.06), rgba(255,236,205,0) 60%),
+    #08090c;
+}
+.chat-aurora::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  opacity: 0.035; mix-blend-mode: overlay;
+}
+.chat-shell .ca-blob { display: none !important; }   /* retire the 5 colour blooms */
+
+/* Vignette + legibility scrim in obsidian (no navy) */
+.chat-aurora-scrim {
+  background:
+    radial-gradient(135% 108% at 50% 24%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%),
+    linear-gradient(to bottom, rgba(8,9,12,0.62) 0%, rgba(8,9,12,0) 22%,
+                    rgba(8,9,12,0) 80%, rgba(8,9,12,0.5) 100%) !important;
+}
+
+/* Editorial calm: quieter, deeper bubble shadow */
+.chat-shell .chat-bubble { box-shadow: 0 16px 44px -24px rgba(0,0,0,0.85) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-aurora[data-pulsing="true"] { transform: scale(1) !important; }
+}
