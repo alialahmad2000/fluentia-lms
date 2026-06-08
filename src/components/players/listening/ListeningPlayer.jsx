@@ -153,7 +153,13 @@ export function ListeningPlayer({
         if (ac.signal.aborted) return
         // Don't clobber a source the student already started (e.g. an early tap
         // fell back to the raw URL and it's running).
-        if (!audio.paused || audio.currentTime > 0) return
+        // RACE FIX (2026-06-09): also bail while a play() is PENDING (isStartingRef).
+        // The blob fetch can resolve in the tiny window AFTER the gesture's play()
+        // call but BEFORE audio.paused flips to false — at which point the old guard
+        // (paused && currentTime===0) was still true, so we set audio.src = blob +
+        // load(), which RESET the element and aborted the just-started playback. That
+        // is the "plays a fraction of a second then stops" report (الهنوف, لمياء).
+        if (isStartingRef.current || !audio.paused || audio.currentTime > 0) return
         const burl = URL.createObjectURL(blob)
         if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
         blobUrlRef.current = burl

@@ -658,9 +658,35 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
 
   // Explicit submit — shows confirmation dialog first
   const handleFinish = useCallback(() => {
-    if (!allAnswered || hasSaved.current || submitting) return
+    if (hasSaved.current || submitting) return
+    // Not all answered: instead of a dead disabled button, GUIDE the student to the
+    // first unanswered question (scroll + highlight) so she knows what's blocking
+    // the submit. This was the "حلي ما ينرفق / my answer won't submit" report (ليان).
+    if (!allAnswered) {
+      const firstMissing = exercises.findIndex((_, i) => {
+        const s = answers[i]?.selected
+        return s === null || s === undefined
+      })
+      if (firstMissing >= 0) {
+        const el = document.getElementById(`listen-q-${firstMissing}`)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          el.style.transition = 'box-shadow .25s ease'
+          el.style.boxShadow = '0 0 0 2px #a855f7'
+          setTimeout(() => { if (el) el.style.boxShadow = '' }, 1600)
+        }
+        const remaining = total - answered
+        toast({
+          type: 'info',
+          title: remaining === 1
+            ? 'باقٍ سؤال واحد بدون إجابة — انتقلنا له'
+            : `باقٍ ${remaining} أسئلة بدون إجابة — انتقلنا لأول سؤال`,
+        })
+      }
+      return
+    }
     setConfirmOpen(true)
-  }, [allAnswered, submitting])
+  }, [allAnswered, submitting, exercises, answers, total, answered])
 
   const handleConfirmSubmit = useCallback(() => {
     setConfirmOpen(false)
@@ -731,17 +757,18 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
 
       <div className="space-y-4">
         {exercises.map((ex, idx) => (
-          <ListeningMCQ
-            key={idx}
-            exercise={ex}
-            index={idx}
-            answer={answers[idx]}
-            revealCorrect={isCompleted && !retrying}
-            onAnswer={(ans) => {
-              if (isCompleted && !retrying) return
-              setAnswers(prev => ({ ...prev, [idx]: ans }))
-            }}
-          />
+          <div key={idx} id={`listen-q-${idx}`} className="rounded-xl">
+            <ListeningMCQ
+              exercise={ex}
+              index={idx}
+              answer={answers[idx]}
+              revealCorrect={isCompleted && !retrying}
+              onAnswer={(ans) => {
+                if (isCompleted && !retrying) return
+                setAnswers(prev => ({ ...prev, [idx]: ans }))
+              }}
+            />
+          </div>
         ))}
       </div>
 
@@ -761,7 +788,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
             <button
               type="button"
               onClick={handleFinish}
-              disabled={!allAnswered || submitting}
+              disabled={submitting}
               className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
                 background: allAnswered ? '#a855f7' : 'var(--surface-raised)',

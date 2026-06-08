@@ -32,6 +32,10 @@ export function useAudioEngine({
   // AbortController, so a source swap / unmount cancels a stale download.
   const blobUrlRef = useRef(null)
   const sourceAbortRef = useRef(null)
+  // RACE FIX (2026-06-09): true once the student has initiated playback in a
+  // gesture. The background blob fetch must NOT clobber audio.src after that, or
+  // it resets a just-started element → "plays a moment then stops" (الهنوف).
+  const committedRef = useRef(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -219,8 +223,10 @@ export function useAudioEngine({
       const blob = await resp.blob()
       if (ac.signal.aborted) return
       // Don't clobber a source the student already started (an early tap fell back
-      // to the raw URL inside the gesture and it's running).
-      if (!audio.paused || audio.currentTime > 0) return
+      // to the raw URL inside the gesture and it's running) — OR a play() the
+      // student just committed to in a gesture but that hasn't flipped paused→false
+      // yet (the race that stopped playback a fraction of a second in).
+      if (committedRef.current || !audio.paused || audio.currentTime > 0) return
       const burl = URL.createObjectURL(blob)
       if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
       blobUrlRef.current = burl
@@ -251,6 +257,7 @@ export function useAudioEngine({
     setCurrentTime(0)
     setDuration(0)
     setIsPlaying(false)
+    committedRef.current = false   // new source → not committed to playback yet
     currentSegIdxRef.current = 0
     setCurrentSegmentIndex(0)
 
@@ -280,6 +287,7 @@ export function useAudioEngine({
   const play = useCallback(async () => {
     const audio = audioRef.current
     if (!audio) return
+    committedRef.current = true // committed in-gesture; blob fetch must not clobber
     // If the blob is still downloading, attach the raw URL synchronously inside
     // this gesture so iOS Safari honours play(); loadSource then sees a playing
     // element and won't clobber it.
@@ -307,6 +315,7 @@ export function useAudioEngine({
     const audio = audioRef.current
     if (!audio) return
     if (audio.paused) {
+      committedRef.current = true // committed in-gesture; blob fetch must not clobber
       if (!audio.getAttribute('src') && sourceUrlRef.current) audio.src = sourceUrlRef.current
       try {
         const p = audio.play()
@@ -365,6 +374,7 @@ export function useAudioEngine({
     setErrorReason(null)
     setIsLoading(true)
     setPlayState(PLAY_STATES.LOADING)
+    committedRef.current = true // committed in-gesture; blob fetch must not clobber
     // Re-attach the raw URL synchronously (in-gesture, bypasses a blob that may
     // have failed) so iOS honours the retry tap.
     if (sourceUrlRef.current) audio.src = sourceUrlRef.current
