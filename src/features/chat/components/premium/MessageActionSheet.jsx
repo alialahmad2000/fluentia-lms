@@ -1,10 +1,11 @@
 // Long-press / right-click message menu — a premium reaction strip + actions.
 // Bottom sheet on phone, anchored popover on desktop. Portaled to body.
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Reply, Copy, Pin, Edit2, Trash2 } from 'lucide-react'
+import { Reply, Copy, Pin, Edit2, Trash2, Forward } from 'lucide-react'
 import { ease } from '../../lib/motion'
+import ForwardSheet from './ForwardSheet'
 
 const EMOJIS = ['👍', '🔥', '❤️', '😂', '👏', '🙏']
 
@@ -12,6 +13,7 @@ export default function MessageActionSheet({
   open, onClose, message, isOwn, isTrainer, anchor,
   onReact, onReply, onEdit, onPin, onDelete,
 }) {
+  const [forwardOpen, setForwardOpen] = useState(false)
   useEffect(() => {
     if (!open) return
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -30,6 +32,7 @@ export default function MessageActionSheet({
   const actions = [
     { key: 'reply', label: 'رد', icon: Reply, onClick: run(() => onReply?.(message)) },
     (message?.body || message?.content) && { key: 'copy', label: 'نسخ', icon: Copy, onClick: copy },
+    { key: 'forward', label: 'إعادة توجيه', icon: Forward, onClick: () => { setForwardOpen(true); onClose() } },
     isTrainer && { key: 'pin', label: message?.is_pinned ? 'إلغاء التثبيت' : 'تثبيت', icon: Pin, onClick: run(onPin), gold: true },
     isOwn && { key: 'edit', label: 'تعديل', icon: Edit2, onClick: run(() => onEdit?.(message)) },
     (isOwn || isTrainer) && { key: 'delete', label: 'حذف', icon: Trash2, onClick: run(onDelete), danger: true },
@@ -87,6 +90,7 @@ export default function MessageActionSheet({
   )
 
   return createPortal(
+    <>
     <AnimatePresence>
       {open && (
         <>
@@ -124,7 +128,9 @@ export default function MessageActionSheet({
           )}
         </>
       )}
-    </AnimatePresence>,
+    </AnimatePresence>
+    {forwardOpen && <ForwardSheet message={message} onClose={() => setForwardOpen(false)} />}
+    </>,
     document.body
   )
 }
