@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, MoreVertical, ChevronRight } from 'lucide-react'
+import { Search, MoreVertical, ChevronRight, Images } from 'lucide-react'
 import { fadeRise } from '../../lib/motion'
 import ActiveUsersDots from './ActiveUsersDots'
 
@@ -37,6 +37,7 @@ export default function StreamHeader({
   groupId,
   onlineUserIds = [],
   onSearchOpen,
+  onOpenMedia,
   onBack,
   isTrainer = false,
   collapsed = false,
@@ -70,7 +71,7 @@ export default function StreamHeader({
                 <OnlineChip count={onlineUserIds.length} />
               )}
             </div>
-            <HeaderActions onSearchOpen={onSearchOpen} isTrainer={isTrainer} />
+            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} />
           </motion.div>
         ) : (
           <motion.div
@@ -99,7 +100,7 @@ export default function StreamHeader({
                 </div>
               </div>
             </div>
-            <HeaderActions onSearchOpen={onSearchOpen} isTrainer={isTrainer} />
+            <HeaderActions onSearchOpen={onSearchOpen} onOpenMedia={onOpenMedia} isTrainer={isTrainer} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -153,9 +154,21 @@ function OnlineChip({ count }) {
   )
 }
 
-function HeaderActions({ onSearchOpen, isTrainer }) {
+function HeaderActions({ onSearchOpen, onOpenMedia, isTrainer }) {
   return (
     <div className="flex items-center gap-1">
+      {onOpenMedia && (
+        <button
+          onClick={onOpenMedia}
+          className="rounded-full transition-all"
+          style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ds-text-secondary)', border: '1px solid transparent', transition: 'all 0.12s' }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ds-surface-1)'; e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'; e.currentTarget.style.color = 'var(--ds-text-primary)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.color = 'var(--ds-text-secondary)' }}
+          aria-label="الوسائط المشتركة"
+        >
+          <Images size={18} />
+        </button>
+      )}
       <button
         onClick={onSearchOpen}
         className="rounded-full transition-all"

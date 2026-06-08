@@ -15,6 +15,7 @@ import ErrorBoundary from '../../../components/ErrorBoundary'
 import FilterLensBar from '../components/premium/FilterLensBar'
 import PinnedStrip from '../components/premium/PinnedStrip'
 import PremiumComposer from '../components/premium/PremiumComposer'
+import SharedMediaGallery from '../components/premium/SharedMediaGallery'
 import '../premium.css'
 
 export default function GroupChatPage() {
@@ -23,6 +24,7 @@ export default function GroupChatPage() {
   const navigate = useNavigate()
   const profile = useAuthProfile()
   const [searchOpen, setSearchOpen] = useState(false)
+  const [mediaOpen, setMediaOpen] = useState(false)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
   const [activeLens, setActiveLens] = useState('all')
   const [replyTo, setReplyTo] = useState(null)
@@ -100,6 +102,11 @@ export default function GroupChatPage() {
         <ChatSearchPanel groupId={groupId} onClose={() => setSearchOpen(false)} />
       )}
 
+      {/* Shared-media gallery overlay */}
+      {mediaOpen && (
+        <SharedMediaGallery groupId={groupId} onClose={() => setMediaOpen(false)} />
+      )}
+
       {/* Header */}
       <div className="chat-row">
         <StreamHeader
@@ -108,6 +115,7 @@ export default function GroupChatPage() {
           groupId={groupId}
           onlineUserIds={onlineUserIds}
           onSearchOpen={() => setSearchOpen(true)}
+          onOpenMedia={() => setMediaOpen(true)}
           onBack={() => navigate('/chat')}
           isTrainer={isTrainer}
           collapsed={headerCollapsed}
