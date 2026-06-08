@@ -9,6 +9,7 @@ import { usePresence } from '../realtime/usePresence'
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../../lib/supabase'
 import StreamHeader from '../components/premium/StreamHeader'
+import PresenceCircle from '../components/premium/PresenceCircle'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
 import ErrorBoundary from '../../../components/ErrorBoundary'
@@ -120,6 +121,11 @@ export default function GroupChatPage() {
           isTrainer={isTrainer}
           collapsed={headerCollapsed}
         />
+      </div>
+
+      {/* المجلس — the presence circle (the gathering) */}
+      <div className="chat-row">
+        <PresenceCircle groupId={groupId} onlineUserIds={onlineUserIds} />
       </div>
 
       {/* Pinned strip (renders nothing when empty) */}

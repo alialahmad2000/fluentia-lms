@@ -109,19 +109,21 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
     ? senderColor(message.reply_message.sender.id).base
     : (sc ? sc.base : 'var(--ds-accent-primary)')
 
+  // المجلس — editorial bubbles: clean warm-glass surfaces, a single hairline, no
+  // sender-coloured borders or glows. Identity comes from the brass name + avatar.
   const bubbleStyle = isOwn
     ? {
         background: `linear-gradient(135deg,
-          color-mix(in srgb, var(--ds-accent-primary) 24%, var(--ds-bg-elevated)) 0%,
-          color-mix(in srgb, var(--ds-accent-secondary) 22%, var(--ds-bg-elevated)) 100%)`,
-        border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 36%, transparent)',
-        backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', boxShadow: SHADOW_OWN,
+          color-mix(in srgb, var(--ds-accent-primary) 17%, var(--ds-bg-elevated)) 0%,
+          color-mix(in srgb, var(--ds-accent-primary) 9%, var(--ds-bg-elevated)) 100%)`,
+        border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 26%, transparent)',
+        backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', boxShadow: SHADOW_OWN,
       }
     : {
-        background: `color-mix(in srgb, ${sc.base} 7%, color-mix(in srgb, var(--ds-bg-elevated) 74%, transparent))`,
-        backdropFilter: 'blur(22px) saturate(150%)', WebkitBackdropFilter: 'blur(22px) saturate(150%)',
-        border: `1px solid color-mix(in srgb, ${sc.base} 30%, transparent)`,
-        boxShadow: `${SHADOW_OTHER}, 0 16px 36px -18px color-mix(in srgb, ${sc.base} 38%, transparent)`,
+        background: 'color-mix(in srgb, var(--ds-bg-elevated) 78%, transparent)',
+        backdropFilter: 'blur(22px) saturate(140%)', WebkitBackdropFilter: 'blur(22px) saturate(140%)',
+        border: '1px solid color-mix(in srgb, var(--ds-text-primary) 8%, transparent)',
+        boxShadow: SHADOW_OTHER,
       }
 
   const innerSide = isOwn ? { left: 4 } : { right: 4 }
