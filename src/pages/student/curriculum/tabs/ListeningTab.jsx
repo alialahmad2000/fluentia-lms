@@ -25,6 +25,9 @@ const QUESTION_TYPE_LABELS = {
   detail: 'تفاصيل',
   vocabulary: 'مفردات',
   inference: 'استنتاج',
+  speaker_attitude: 'نبرة المتحدّث',
+  sequence: 'تسلسل الأحداث',
+  cause_effect: 'السبب والنتيجة',
 }
 
 const QUESTION_TYPE_COLORS = {
@@ -32,6 +35,18 @@ const QUESTION_TYPE_COLORS = {
   detail: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
   vocabulary: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
   inference: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
+  speaker_attitude: 'bg-pink-500/15 text-pink-400 border-pink-500/30',
+  sequence: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
+  cause_effect: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30',
+}
+
+// 5 difficulty tiers — makes the variety (and the genuinely hard "تحدٍّ" question) visible.
+const DIFFICULTY = {
+  1: { label: 'سهل جداً', cls: 'bg-emerald-500/12 text-emerald-300 border-emerald-500/25' },
+  2: { label: 'سهل', cls: 'bg-sky-500/12 text-sky-300 border-sky-500/25' },
+  3: { label: 'متوسط', cls: 'bg-violet-500/12 text-violet-300 border-violet-500/25' },
+  4: { label: 'متقدّم', cls: 'bg-amber-500/12 text-amber-300 border-amber-500/25' },
+  5: { label: 'تحدٍّ', cls: 'bg-rose-500/14 text-rose-300 border-rose-500/35', flame: true },
 }
 
 // ─── Main Component ─────────────────────────────────
@@ -833,22 +848,30 @@ function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer
 
   const typeBadge = QUESTION_TYPE_LABELS[exercise.question_type] || exercise.question_type
   const typeColor = QUESTION_TYPE_COLORS[exercise.question_type] || QUESTION_TYPE_COLORS.detail
+  const diff = DIFFICULTY[exercise.difficulty]
 
   return (
     <div
       className="rounded-xl p-4 sm:p-5 space-y-3"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', ...(diff?.flame ? { borderInlineStart: '3px solid rgba(244,63,94,0.55)' } : {}) }}
     >
       <div className="flex items-start gap-3">
         <div className="w-7 h-7 rounded-lg bg-purple-500/15 text-purple-400 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
           {index + 1}
         </div>
         <div className="flex-1 space-y-2">
-          {exercise.question_type && (
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
-              {typeBadge}
-            </span>
-          )}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {exercise.question_type && (
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
+                {typeBadge}
+              </span>
+            )}
+            {diff && (
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border font-['Tajawal'] ${diff.cls}`}>
+                {diff.flame ? '🔥 ' : ''}{diff.label}
+              </span>
+            )}
+          </div>
           <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
             {exercise.question_en}
           </p>

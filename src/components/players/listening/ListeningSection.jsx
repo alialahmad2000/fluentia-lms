@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Headphones } from 'lucide-react'
 import { ListeningPlayer } from './ListeningPlayer'
 import { ListeningAudioComingSoon } from './ListeningAudioComingSoon'
@@ -54,44 +55,61 @@ export function ListeningSection({
 
   return (
     <div className="space-y-5">
-      {/* ── Section header ── */}
-      <div dir="rtl" className="flex items-start justify-between gap-4">
-        <div className="space-y-1.5 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
-            <Headphones size={15} style={{ color: 'var(--accent-sky)', flexShrink: 0 }} />
-            <span
-              className="text-xs font-bold font-['Tajawal'] uppercase tracking-wide"
-              style={{ color: 'var(--accent-sky)' }}
-            >
-              الاستماع
-            </span>
-            {/* Admin-only drift chip — students never see it */}
-            <DriftChip transcript={listening.transcript} storedHash={listening.source_text_hash} />
+      {/* ── Cinematic hero (topic image) — premium banner; graceful text fallback ── */}
+      {listening.image_url ? (
+        <div dir="rtl" className="relative overflow-hidden rounded-2xl" style={{ border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 18px 50px -24px rgba(0,0,0,0.75)' }}>
+          <motion.img
+            src={listening.image_url}
+            alt=""
+            initial={{ scale: 1.09 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 9, ease: 'easeOut' }}
+            className="w-full h-44 sm:h-60 object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(6,14,28,0.10) 0%, rgba(6,14,28,0.34) 48%, rgba(6,14,28,0.90) 100%)' }} />
+          <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 space-y-1.5">
+            <div className="flex items-center gap-2">
+              <Headphones size={14} style={{ color: '#7dd3fc', flexShrink: 0 }} />
+              <span className="text-[11px] font-bold font-['Tajawal'] uppercase tracking-wide" style={{ color: '#7dd3fc' }}>الاستماع</span>
+              <DriftChip transcript={listening.transcript} storedHash={listening.source_text_hash} />
+            </div>
+            {(listening.title_ar || listening.title_en) && (
+              <h2 className="text-lg sm:text-2xl font-bold font-['Tajawal'] leading-snug" style={{ color: '#fff', textShadow: '0 2px 14px rgba(0,0,0,0.55)' }}>
+                {listening.title_ar || listening.title_en}
+              </h2>
+            )}
+            {listening.audio_type && (
+              <span className="inline-block text-[10px] font-bold px-2.5 py-1 rounded-lg font-['Tajawal']" style={{ background: 'rgba(56,189,248,0.18)', color: '#bae6fd', border: '1px solid rgba(56,189,248,0.32)', backdropFilter: 'blur(6px)' }}>
+                {typeLabel}
+              </span>
+            )}
           </div>
-
-          {(listening.title_ar || listening.title_en) && (
-            <h2
-              className="text-xl font-bold font-['Tajawal'] leading-snug"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              {listening.title_ar || listening.title_en}
-            </h2>
-          )}
-
-          {listening.audio_type && (
-            <span
-              className="inline-block text-[10px] font-bold px-2.5 py-1 rounded-lg font-['Tajawal']"
-              style={{
-                background: 'var(--info-bg)',
-                color: 'var(--accent-sky)',
-                border: '1px solid var(--info-border)',
-              }}
-            >
-              {typeLabel}
-            </span>
-          )}
         </div>
-      </div>
+      ) : (
+        <div dir="rtl" className="flex items-start justify-between gap-4">
+          <div className="space-y-1.5 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <Headphones size={15} style={{ color: 'var(--accent-sky)', flexShrink: 0 }} />
+              <span className="text-xs font-bold font-['Tajawal'] uppercase tracking-wide" style={{ color: 'var(--accent-sky)' }}>
+                الاستماع
+              </span>
+              {/* Admin-only drift chip — students never see it */}
+              <DriftChip transcript={listening.transcript} storedHash={listening.source_text_hash} />
+            </div>
+            {(listening.title_ar || listening.title_en) && (
+              <h2 className="text-xl font-bold font-['Tajawal'] leading-snug" style={{ color: 'var(--text-primary)' }}>
+                {listening.title_ar || listening.title_en}
+              </h2>
+            )}
+            {listening.audio_type && (
+              <span className="inline-block text-[10px] font-bold px-2.5 py-1 rounded-lg font-['Tajawal']" style={{ background: 'var(--info-bg)', color: 'var(--accent-sky)', border: '1px solid var(--info-border)' }}>
+                {typeLabel}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* ── Transcript — HIDDEN by default; revealed via the player's toggle ── */}
       {listening.transcript && transcriptHidden && (
