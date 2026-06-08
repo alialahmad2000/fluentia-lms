@@ -17,7 +17,7 @@ function timeAgoAr(iso) {
 
 export default function PinnedCard({ message, onScrollTo }) {
   const profile = useAuthProfile()
-  const togglePin = useTogglePin(message?.channel_id)
+  const togglePin = useTogglePin()
   const isStaff = ['trainer', 'admin'].includes(profile?.role)
 
   const sender = message?.sender
@@ -82,7 +82,7 @@ export default function PinnedCard({ message, onScrollTo }) {
           onClick={(e) => {
             e.stopPropagation()
             if (window.confirm('إلغاء تثبيت هذه الرسالة؟')) {
-              togglePin.mutate({ messageId: message.id })
+              togglePin.mutate({ messageId: message.id, message })
             }
           }}
           className="opacity-0 group-hover:opacity-100 p-1 rounded-lg transition-all"

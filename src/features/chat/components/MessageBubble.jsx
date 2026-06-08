@@ -58,15 +58,15 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
   const [burst, setBurst] = useState(null)
   const bubbleRef = useRef(null)
 
-  const react = useReact(channelId)
-  const deleteMsg = useDeleteMessage(channelId)
-  const togglePin = useTogglePin(channelId)
+  const react = useReact()
+  const deleteMsg = useDeleteMessage()
+  const togglePin = useTogglePin()
 
   const isOwn = message.sender_id === profile?.id
   const isTrainerOrAdmin = ['trainer', 'admin'].includes(profile?.role)
 
   function reactWith(emoji) {
-    react.mutate({ messageId: message.id, emoji })
+    react.mutate({ messageId: message.id, emoji, message })
     const el = bubbleRef.current
     if (el) {
       const r = el.getBoundingClientRect()
@@ -226,11 +226,11 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           </div>
           <ToolBtn label="رد" onClick={() => onReply?.(message)}><Reply size={14} /></ToolBtn>
           {isTrainerOrAdmin && (
-            <ToolBtn label={message.is_pinned ? 'إلغاء التثبيت' : 'تثبيت'} onClick={() => togglePin.mutate({ messageId: message.id })} color={message.is_pinned ? 'var(--ds-accent-gold)' : undefined}><Pin size={14} /></ToolBtn>
+            <ToolBtn label={message.is_pinned ? 'إلغاء التثبيت' : 'تثبيت'} onClick={() => togglePin.mutate({ messageId: message.id, message })} color={message.is_pinned ? 'var(--ds-accent-gold)' : undefined}><Pin size={14} /></ToolBtn>
           )}
           {isOwn && <ToolBtn label="تعديل" onClick={() => onEdit?.(message)}><Edit2 size={14} /></ToolBtn>}
           {(isOwn || isTrainerOrAdmin) && (
-            <ToolBtn label="حذف" onClick={() => { if (window.confirm('هل تريد حذف هذه الرسالة؟')) deleteMsg.mutate({ messageId: message.id }) }}><Trash2 size={14} /></ToolBtn>
+            <ToolBtn label="حذف" onClick={() => { if (window.confirm('هل تريد حذف هذه الرسالة؟')) deleteMsg.mutate({ messageId: message.id, message }) }}><Trash2 size={14} /></ToolBtn>
           )}
         </div>
       </motion.div>
@@ -249,8 +249,8 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
         onReact={reactWith}
         onReply={onReply}
         onEdit={onEdit}
-        onPin={() => togglePin.mutate({ messageId: message.id })}
-        onDelete={() => { if (window.confirm('هل تريد حذف هذه الرسالة؟')) deleteMsg.mutate({ messageId: message.id }) }}
+        onPin={() => togglePin.mutate({ messageId: message.id, message })}
+        onDelete={() => { if (window.confirm('هل تريد حذف هذه الرسالة؟')) deleteMsg.mutate({ messageId: message.id, message }) }}
       />
     </div>
   )
