@@ -25,7 +25,7 @@ export function roomForBook(book, level) {
   return 'soon'
 }
 
-const THEME_LABEL = { mystery: 'MYSTERY', grief: 'A QUIET DRAMA', ambition: 'AMBITION' }
+const THEME_LABEL = { mystery: 'MYSTERY', grief: 'A QUIET DRAMA', ambition: 'AMBITION', courage: 'COURAGE', adventure: 'AN ADVENTURE', wonder: 'A WONDER', warmth: 'A WARM TALE', discovery: 'A DISCOVERY' }
 export function themeKicker(theme) { return THEME_LABEL[theme] || 'A NOVEL' }
 
 export function useLibraryBooks() {

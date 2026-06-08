@@ -98,6 +98,16 @@
 .lib-cover[data-theme="mystery"]  .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #0e3a40 0%, #07262b 55%, #051b1f 100%); }
 .lib-cover[data-theme="grief"]    .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #2b3346 0%, #1d2230 60%, #161a25 100%); }
 .lib-cover[data-theme="ambition"] .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #5a3f12 0%, #3a2a0c 60%, #281b06 100%); }
+.lib-cover[data-theme="courage"]   { --lib-deepA: #1c2733; --lib-deepB: #121a24; --lib-veil: #2e4255; }
+.lib-cover[data-theme="adventure"] { --lib-deepA: #123026; --lib-deepB: #0c2019; --lib-veil: #1d4a3a; }
+.lib-cover[data-theme="wonder"]    { --lib-deepA: #221a3a; --lib-deepB: #161028; --lib-veil: #322a5a; }
+.lib-cover[data-theme="warmth"]    { --lib-deepA: #3a2218; --lib-deepB: #281510; --lib-veil: #5e3826; }
+.lib-cover[data-theme="discovery"] { --lib-deepA: #142a3a; --lib-deepB: #0e1d28; --lib-veil: #21455e; }
+.lib-cover[data-theme="courage"]   .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #2e4255 0%, #1c2733 60%, #121a24 100%); }
+.lib-cover[data-theme="adventure"] .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #1d4a3a 0%, #123026 60%, #0c2019 100%); }
+.lib-cover[data-theme="wonder"]    .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #322a5a 0%, #221a3a 60%, #161028 100%); }
+.lib-cover[data-theme="warmth"]    .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #5e3826 0%, #3a2218 60%, #281510 100%); }
+.lib-cover[data-theme="discovery"] .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #21455e 0%, #142a3a 60%, #0e1d28 100%); }
 
 /* full-bleed cover illustration behind the type */
 .lib-cover-art {
