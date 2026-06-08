@@ -75,26 +75,22 @@ export async function uploadChatFile(file, scope) {
   return path
 }
 
-export async function signedVoiceUrl(path) {
-  const { data, error } = await supabase.storage
-    .from('chat-voice')
-    .createSignedUrl(path, SIGNED_URL_TTL)
+// Signed URLs are re-resolved for every media message on every queryFn run (and
+// realtime invalidates a lot). Cache by bucket+path so we mint once per ~6 days
+// instead of hammering the Storage API. Re-mint before the 7-day URL expires.
+const CACHE_TTL_MS = 60 * 60 * 24 * 6 * 1000 // 6 days
+const signedUrlCache = new Map() // `${bucket}:${path}` → { url, expires }
+
+async function cachedSignedUrl(bucket, path) {
+  const key = `${bucket}:${path}`
+  const hit = signedUrlCache.get(key)
+  if (hit && hit.expires > Date.now()) return hit.url
+  const { data, error } = await supabase.storage.from(bucket).createSignedUrl(path, SIGNED_URL_TTL)
   if (error) throw error
+  signedUrlCache.set(key, { url: data.signedUrl, expires: Date.now() + CACHE_TTL_MS })
   return data.signedUrl
 }
 
-export async function signedImageUrl(path) {
-  const { data, error } = await supabase.storage
-    .from('chat-images')
-    .createSignedUrl(path, SIGNED_URL_TTL)
-  if (error) throw error
-  return data.signedUrl
-}
-
-export async function signedFileUrl(path) {
-  const { data, error } = await supabase.storage
-    .from('chat-files')
-    .createSignedUrl(path, SIGNED_URL_TTL)
-  if (error) throw error
-  return data.signedUrl
-}
+export async function signedVoiceUrl(path) { return cachedSignedUrl('chat-voice', path) }
+export async function signedImageUrl(path) { return cachedSignedUrl('chat-images', path) }
+export async function signedFileUrl(path) { return cachedSignedUrl('chat-files', path) }
