@@ -201,6 +201,7 @@ export const ADMIN_NAV = {
       label: 'النظام',
       items: [
         { id: 'bug-reports', label: 'بلاغات المشاكل', icon: Bug,           to: '/admin/bug-reports' },
+        { id: 'subscriptions', label: 'اشتراكات الطلاب', icon: CreditCard,   to: '/admin/subscriptions' },
         { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'system-diagnostics', label: 'تشخيص النظام', icon: Activity,   to: '/admin/system' },
         { id: 'settings',    label: 'الإعدادات',    icon: Settings,      to: '/admin/settings' },
