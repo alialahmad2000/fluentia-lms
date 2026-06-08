@@ -300,9 +300,9 @@ function renderEmail(d: any, ai: any) {
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet"></head>
   <body style="margin:0;background:${C.bg};padding:18px 0;font-family:Tajawal,Arial,sans-serif">
     <div style="max-width:680px;margin:0 auto;background:${C.card};border:1px solid ${C.line};border-radius:18px;overflow:hidden">
-      <div style="background:linear-gradient(135deg,#0a1225,#1a2d50);padding:24px 22px;text-align:center">
-        <div style="font-size:22px;font-weight:800;color:#fbbf24">أكاديمية طلاقة</div>
-        <div style="font-size:14px;color:#cbd5e1;margin-top:4px">${periodLabel} · ${dateLabel}</div>
+      <div style="background:linear-gradient(135deg,#0a1225,#1a2d50);padding:22px;text-align:center">
+        <img src="https://fluentia-lms.vercel.app/logo-full-light.png" alt="أكاديمية طلاقة" width="180" style="width:180px;max-width:70%;height:auto;display:block;margin:0 auto 8px" />
+        <div style="font-size:14px;color:#cbd5e1;margin-top:2px;font-family:Tajawal,Arial,sans-serif">${periodLabel} · ${dateLabel}</div>
       </div>
       <div style="padding:20px 22px">
         <table width="100%" cellspacing="6" cellpadding="0" style="border-collapse:separate"><tr>
