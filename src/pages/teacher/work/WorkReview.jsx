@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { PenLine, Mic, Clock, CheckCircle2, ExternalLink, Inbox } from 'lucide-react'
 import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
 import { useGradeSubmission, useRequestRedo } from '@/hooks/teacher/useGrade'
+import FeedbackSnippets from '@/components/teacher/answers/FeedbackSnippets'
 
 const TYPE_META = {
   writing: { label: 'كتابة', icon: PenLine, color: '#f59e0b' },
@@ -42,6 +43,7 @@ function QueueCard({ row }) {
         <div className="flex items-center gap-1.5 text-[13px] text-emerald-400 font-bold"><CheckCircle2 size={16} /> تمّ التقييم</div>
       ) : (
         <>
+          <div className="mb-2"><FeedbackSnippets onPick={(s) => setFeedback((f) => (f && f.trim() ? `${f.trim()}\n${s}` : s))} /></div>
           <textarea value={feedback} onChange={(e) => setFeedback(e.target.value)} placeholder="ملاحظة للطالب…" rows={2} dir="auto"
             className="w-full text-[13px] rounded-lg bg-black/25 border border-white/10 px-2.5 py-2 text-slate-200 placeholder:text-slate-600 focus:border-sky-500/40 outline-none resize-none mb-2" />
           <div className="flex items-center gap-2 flex-wrap">

@@ -3,6 +3,7 @@ import { Users, Activity, ClipboardCheck, Flame, ChevronLeft } from 'lucide-reac
 import { useAuthStore } from '@/stores/authStore'
 import { useTeacherRoster, useRosterActivity, studentName, fmtMinutes, riyadhDate } from '@/hooks/teacher/useTeacherRoster'
 import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
+import NeedsAttentionPanel from '@/components/teacher/home/NeedsAttentionPanel'
 
 function greeting() {
   const h = Number(new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Riyadh', hour: 'numeric', hour12: false }).format(new Date()))
@@ -71,6 +72,8 @@ export default function TeacherHome() {
         <StatCard icon={Activity} value={activeToday} label="نشِطون اليوم" tone="#4ade80" />
         <StatCard icon={ClipboardCheck} value={queue.length} label="بانتظار التقييم" tone="#fbbf24" to="/trainer/work" />
       </div>
+
+      <NeedsAttentionPanel />
 
       {isLoading && <div className="space-y-3">{Array.from({ length: 3 }).map((_, i) => <div key={i} className="tea-skel h-40" />)}</div>}
 
