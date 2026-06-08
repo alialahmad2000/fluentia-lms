@@ -13,6 +13,8 @@ function MobileBar({ nav, onMoreClick, role }) {
   const profileId = useAuthStore((s) => s.profile?.id)
   const handlePrefetch = useCallback((path) => prefetchRoute(path, profileId), [profileId])
   const chatUnread = useChatUnread()
+  // When chat is a primary tab in the bar, show its unread badge on that tab (not on "More").
+  const hasChatTab = (nav.mobileBar || []).some((i) => i && i.badgeSource === 'chat-unread')
 
   return (
     <nav
@@ -39,7 +41,7 @@ function MobileBar({ nav, onMoreClick, role }) {
                 style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))' }}
               >
                 <MoreHorizontal size={22} />
-                {chatUnread > 0 && (
+                {chatUnread > 0 && !hasChatTab && (
                   <span className="absolute flex items-center justify-center tabular-nums" aria-label={`${chatUnread} رسائل غير مقروءة`}
                     style={{ top: 4, insetInlineEnd: 10, minWidth: 16, height: 16, padding: '0 4px', borderRadius: 9999, fontSize: 9.5, fontWeight: 700, background: 'var(--ds-accent-danger, #ef4444)', color: '#fff', boxShadow: '0 0 0 2px var(--ds-bg-base)' }}>
                     {chatUnread > 99 ? '99+' : chatUnread}
@@ -87,6 +89,12 @@ function MobileBar({ nav, onMoreClick, role }) {
                 strokeWidth={1.75}
                 style={active ? { filter: 'drop-shadow(0 0 6px var(--ds-accent-primary-glow, rgba(233,185,73,0.3)))' } : undefined}
               />
+              {item.badgeSource === 'chat-unread' && chatUnread > 0 && (
+                <span className="absolute flex items-center justify-center tabular-nums" aria-label={`${chatUnread} رسائل غير مقروءة`}
+                  style={{ top: 4, insetInlineEnd: 10, minWidth: 16, height: 16, padding: '0 4px', borderRadius: 9999, fontSize: 9.5, fontWeight: 700, background: 'var(--ds-accent-danger, #ef4444)', color: '#fff', boxShadow: '0 0 0 2px var(--ds-bg-base)' }}>
+                  {chatUnread > 99 ? '99+' : chatUnread}
+                </span>
+              )}
               <span className="text-[10px] font-medium font-['Tajawal']">{item.labelKey ? t(item.labelKey) : item.label}</span>
             </NavLink>
           )

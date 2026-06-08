@@ -15,6 +15,8 @@ export const STUDENT_NAV = {
       label: 'التعلّم',
       items: [
         { id: 'dashboard',   label: 'الرئيسية',    icon: Home,       to: '/student' },
+        // 2026-06-08: chat promoted to the top of the sidebar (Telegram-replacement) — most prominent after home.
+        { id: 'chat',        label: 'المحادثة',    icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
         { id: 'srs',         label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
         { id: 'hard-words',  label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
@@ -35,16 +37,9 @@ export const STUDENT_NAV = {
         { id: 'mock-exam', label: 'الاختبار التجريبي', icon: FileCheck, to: '/student/mock-exam', requiresMockExamAccess: true },
       ],
     },
-    {
-      id: 'community',
-      label: 'المجتمع',
-      items: [
-        { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-        // SIDEBAR-HIDDEN 2026-06-08 (owner): fully hidden from EVERY sidebar surface (routes kept).
-        // Removed from here AND drawerSections AND the LayoutShell mobile-bar injection:
-        //   leaderboard(لوحة الشرف), duels(المبارزات), competition(المسابقة), competition-rules(قواعد المسابقة)
-      ],
-    },
+    // 2026-06-08: 'community' section removed — its only visible item (chat) was promoted to the
+    // top of the 'learning' section. The hidden community items (leaderboard/duels/competition)
+    // stay route-reachable; they were already absent from every nav surface.
     {
       id: 'account',
       label: 'حسابي',
@@ -86,11 +81,10 @@ export const STUDENT_NAV = {
   mobileBar: [
     { id: 'dashboard',   label: 'الرئيسية',  icon: Home,       to: '/student' },
     { id: 'curriculum',  label: 'المنهج',     icon: BookOpen,   to: '/student/curriculum' },
+    // 2026-06-08: chat promoted to the bottom bar (Telegram-replacement) — center, most-reachable slot.
+    // It takes spelling-lab's slot here; spelling-lab stays in the sidebar + "More" drawer + direct URL.
+    { id: 'chat',        label: 'المحادثة',   icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
     { id: 'flashcards',  label: 'المفردات',   icon: FileText,   to: '/student/vocab-journey' },
-    // 2026-06-02 (prompt 09): 'progress' was hidden from the sidebar, so it's replaced here by the
-    // new Spelling Lab to keep the 5-slot bar consistent on mobile (primary device). 'progress'
-    // stays reachable via the "More" drawer + direct URL.
-    { id: 'spelling-lab', label: 'الإملاء',   icon: PencilLine, to: '/student/spelling-lab' },
     { id: 'more',        label: 'المزيد',     icon: 'more',     to: null },
   ],
 }
