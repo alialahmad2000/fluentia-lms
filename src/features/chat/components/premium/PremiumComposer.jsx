@@ -184,7 +184,8 @@ export default function PremiumComposer({
     setUploading(true)
     try {
       const path = await uploadChatFile(file, isDM ? `dm/${dmThreadId}` : groupId)
-      await sendMessage.mutateAsync({ type: 'file', file_url: path, file_name: file.name, file_size: file.size, file_mime: file.type })
+      const isVid = (file.type || '').startsWith('video/')
+      await sendMessage.mutateAsync({ type: isVid ? 'video' : 'file', file_url: path, file_name: file.name, file_size: file.size, file_mime: file.type })
     } catch (err) { console.error(err); toast({ type: 'error', title: 'تعذّر رفع الملف', description: 'تحقّقي من الاتصال وحاولي مجددًا' }) } finally { setUploading(false); e.target.value = '' }
   }
 
@@ -260,7 +261,7 @@ export default function PremiumComposer({
       {!isLoading && (
         <div className="flex items-end gap-1.5 px-3 py-2.5">
           <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
-          <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
+          <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip,video/*" className="hidden" onChange={handleFilePick} />
 
           {voiceMode ? (
             <VoiceRecorder channelId={generalChannelId} groupId={groupId} dmThreadId={dmThreadId} onDone={() => setVoiceMode(false)} />

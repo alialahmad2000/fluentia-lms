@@ -104,7 +104,7 @@ export function useDMMessages(threadId) {
       return Promise.all(enriched.map(async (msg) => {
         if (msg.type === 'voice' && msg.voice_url) { try { msg._signedVoiceUrl = await signedVoiceUrl(msg.voice_url) } catch (_) {} }
         if (msg.type === 'image' && msg.image_url) { try { msg._signedImageUrl = await signedImageUrl(msg.image_url) } catch (_) {} }
-        if (msg.type === 'file' && msg.file_url) { try { msg._signedFileUrl = await signedFileUrl(msg.file_url) } catch (_) {} }
+        if ((msg.type === 'file' || msg.type === 'video') && msg.file_url) { try { msg._signedFileUrl = await signedFileUrl(msg.file_url) } catch (_) {} }
         return msg
       }))
     },

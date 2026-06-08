@@ -8,6 +8,7 @@ import MessageBubbleText from './MessageBubbleText'
 import MessageBubbleVoice from './MessageBubbleVoice'
 import MessageBubbleImage from './MessageBubbleImage'
 import MessageBubbleFile from './MessageBubbleFile'
+import MessageBubbleVideo from './MessageBubbleVideo'
 import MessageBubbleLink from './MessageBubbleLink'
 import MessageBubbleAnnouncement from './MessageBubbleAnnouncement'
 import MessageBubbleSystem from './MessageBubbleSystem'
@@ -174,6 +175,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           {message.type === 'voice' && <MessageBubbleVoice message={message} />}
           {message.type === 'image' && <MessageBubbleImage message={message} />}
           {message.type === 'file' && <MessageBubbleFile message={message} />}
+          {message.type === 'video' && <MessageBubbleVideo message={message} />}
           {message.type === 'link' && <MessageBubbleLink message={message} />}
           {message.type === 'announcement' && <MessageBubbleAnnouncement message={message} body={bodyText} />}
 
