@@ -90,13 +90,9 @@ export default function StreamHeader({
                   {groupName || 'المجموعة'}
                 </p>
                 <div className="flex items-center gap-2 mt-0.5">
-                  {onlineUserIds.length > 0 ? (
-                    <ActiveUsersDots userIds={onlineUserIds} />
-                  ) : (
-                    <span className="text-[12px]" style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-muted)' }}>
-                      محادثة المجموعة
-                    </span>
-                  )}
+                  <span className="text-[12px]" style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-muted)' }}>
+                    حلقة المحادثة
+                  </span>
                 </div>
               </div>
             </div>

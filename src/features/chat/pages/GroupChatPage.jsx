@@ -133,14 +133,7 @@ export default function GroupChatPage() {
         <PinnedStrip groupId={groupId} onScrollToMessage={scrollToMessage} />
       </div>
 
-      {/* Filter lenses */}
-      <div className="chat-row">
-        <FilterLensBar
-          groupId={groupId}
-          activeLens={activeLens}
-          onLensChange={setActiveLens}
-        />
-      </div>
+      {/* Filter lenses — hidden for the Majlis calm (the prototype has no chips bar). */}
 
       {/* Unified message stream */}
       <div className="chat-stream">
