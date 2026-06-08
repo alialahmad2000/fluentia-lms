@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Headphones, Eye, GraduationCap, CheckCircle2, Clock } from 'lucide-react'
+import { Headphones, Eye, BarChart3, Sparkles, ChevronLeft } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import VocabShell from '../../components/vocab-cosmos/VocabShell'
@@ -9,41 +9,34 @@ import VocabHeader from '../../components/vocab-cosmos/VocabHeader'
 import { useVocabStats } from '../../hooks/useVocabStats'
 import { toArabicNum } from '../../lib/vocabFormat'
 import SpellingSession from './spelling-lab/SpellingSession'
+import SpellingProgressMap from './spelling-lab/SpellingProgressMap'
+import SpellingActivityReport from './spelling-lab/SpellingActivityReport'
+import SpellingStrengthReport from './spelling-lab/SpellingStrengthReport'
 
 // ── Spelling Lab (مختبر الإملاء) — Surface 4 of the Constellation identity ────
 // Premium, leveled, curriculum-sourced spelling drill. Uses its OWN data
 // (spelling_lab_* tables/RPCs) — spelling is a separate skill from the vocab
-// review queue. This surface is harmonized into the indigo/gold "constellation"
-// world so it feels like one product with the other vocab surfaces.
-// Calm UI — no XP fireworks, no leaderboard. Gold = mastery only.
+// review queue. Home shows a progression map (where am I / what's next), the two
+// drill modes, and two reports (my activity, my strengths). Calm UI — no XP
+// fireworks, no leaderboard. Gold = mastery only.
 
-// The English display word keeps its premium serif pairing via .vc-word.
-
-function StatTile({ icon: Icon, label, value, gold = false }) {
-  // Gold is reserved for mastery — the "متقنة" tile gets a warm gold wash;
-  // the others stay in the indigo field.
-  const goldStyle = gold
-    ? {
-        background: 'rgba(251, 191, 36, 0.07)',
-        borderColor: 'rgba(251, 191, 36, 0.28)',
-      }
-    : undefined
+// A tappable report entry card for the "تقاريري" section.
+function ReportCard({ icon: Icon, title, subtitle, onClick }) {
   return (
-    <div className="vc-card p-4 flex flex-col gap-1.5" style={goldStyle}>
-      <span
-        className="flex items-center gap-2 text-xs"
-        style={{ color: 'var(--vc-text-dim)' }}
-      >
-        <Icon size={14} style={{ color: gold ? 'var(--vc-gold)' : 'var(--vc-indigo-bright)' }} />
-        {label}
+    <motion.button
+      type="button" onClick={onClick} whileTap={{ scale: 0.99 }}
+      className="vc-card vc-card-hover w-full flex items-center gap-3 px-5 py-4 text-right"
+    >
+      <span className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+        style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}>
+        <Icon size={20} />
       </span>
-      <span
-        className="text-2xl sm:text-[26px] font-bold tabular-nums"
-        style={{ color: gold ? 'var(--vc-gold-soft)' : 'var(--vc-text)' }}
-      >
-        {value}
+      <span className="flex-1 min-w-0">
+        <span className="block text-[15px] font-bold" style={{ color: 'var(--vc-text)' }}>{title}</span>
+        <span className="block text-xs mt-0.5" style={{ color: 'var(--vc-text-dim)' }}>{subtitle}</span>
       </span>
-    </div>
+      <ChevronLeft size={18} style={{ color: 'var(--vc-text-dim)' }} />
+    </motion.button>
   )
 }
 
@@ -51,37 +44,32 @@ export default function SpellingLab() {
   const profile = useAuthStore((s) => s.profile)
   const queryClient = useQueryClient()
   const vocabStats = useVocabStats()
-  const [view, setView] = useState('home')          // home | session
+  const [view, setView] = useState('home')              // home | session | activity | strength
   const [sessionMode, setSessionMode] = useState('listen_type')
+  const [sessionSource, setSessionSource] = useState('session')  // session | weak
 
-  const { data: stats, isLoading } = useQuery({
-    queryKey: ['spelling-lab-stats', profile?.id],
+  const { data: overview, isLoading } = useQuery({
+    queryKey: ['spelling-lab-overview', profile?.id],
     enabled: !!profile?.id,
     staleTime: 30_000,
     queryFn: async () => {
-      const nowIso = new Date().toISOString()
-      const [lvlRes, masteredRes, dueRes] = await Promise.all([
-        supabase.rpc('spelling_lab_student_level'),
-        supabase.from('spelling_lab_mastery').select('id', { count: 'exact', head: true }).eq('state', 'mastered'),
-        supabase.from('spelling_lab_mastery').select('id', { count: 'exact', head: true })
-          .not('due_at', 'is', null).lte('due_at', nowIso).in('state', ['learning', 'reviewing']),
-      ])
-      return {
-        level: lvlRes.data ?? 1,
-        mastered: masteredRes.count ?? 0,
-        due: dueRes.count ?? 0,
-      }
+      const { data, error } = await supabase.rpc('spelling_lab_overview')
+      if (error) throw error
+      return data
     },
   })
 
-  const startSession = useCallback((mode) => {
+  const startSession = useCallback((mode, source = 'session') => {
     setSessionMode(mode)
+    setSessionSource(source)
     setView('session')
   }, [])
 
   const exitSession = useCallback(() => {
     setView('home')
-    queryClient.invalidateQueries({ queryKey: ['spelling-lab-stats', profile?.id] })
+    queryClient.invalidateQueries({ queryKey: ['spelling-lab-overview', profile?.id] })
+    queryClient.invalidateQueries({ queryKey: ['spelling-activity-report', profile?.id] })
+    queryClient.invalidateQueries({ queryKey: ['spelling-strength-report', profile?.id] })
   }, [queryClient, profile?.id])
 
   if (!profile?.id) return null
@@ -89,12 +77,31 @@ export default function SpellingLab() {
   if (view === 'session') {
     return (
       <VocabShell maxWidth="max-w-2xl">
-        <SpellingSession mode={sessionMode} onExit={exitSession} />
+        <SpellingSession mode={sessionMode} source={sessionSource} onExit={exitSession} />
       </VocabShell>
     )
   }
 
-  const due = stats?.due ?? 0
+  if (view === 'activity') {
+    return (
+      <VocabShell maxWidth="max-w-2xl">
+        <SpellingActivityReport onBack={() => setView('home')} />
+      </VocabShell>
+    )
+  }
+
+  if (view === 'strength') {
+    return (
+      <VocabShell maxWidth="max-w-2xl">
+        <SpellingStrengthReport
+          onBack={() => setView('home')}
+          onPracticeWeak={() => startSession('listen_type', 'weak')}
+        />
+      </VocabShell>
+    )
+  }
+
+  const due = overview?.due ?? 0
 
   return (
     <VocabShell maxWidth="max-w-2xl">
@@ -104,30 +111,25 @@ export default function SpellingLab() {
         stats={vocabStats?.data}
       />
 
-      {/* Stat tiles — single column under sm, three across above */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatTile icon={GraduationCap} label="المستوى" value={isLoading ? '—' : toArabicNum(stats.level)} />
-        <StatTile icon={CheckCircle2} label="كلمات متقنة" value={isLoading ? '—' : toArabicNum(stats.mastered)} gold />
-        <StatTile icon={Clock} label="تنتظر المراجعة" value={isLoading ? '—' : toArabicNum(due)} />
-      </div>
+      {/* progression map — where am I / what's next */}
+      <SpellingProgressMap
+        overview={overview}
+        loading={isLoading}
+        onStart={() => startSession('listen_type')}
+      />
 
-      {/* Today's session */}
+      {/* Drill modes */}
       <section className="mt-7 space-y-3">
         <h2 className="text-sm font-medium" style={{ color: 'var(--vc-text-soft)' }}>
-          جلسة اليوم
+          اختاري طريقة التدريب
         </h2>
 
         <motion.button
           type="button" onClick={() => startSession('listen_type')} whileTap={{ scale: 0.99 }}
           className="vc-card vc-card-hover w-full flex items-center gap-3 px-5 py-4 text-right"
         >
-          <span
-            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-            style={{
-              background: 'linear-gradient(135deg, var(--vc-indigo), var(--vc-violet))',
-              color: '#0a0e1c',
-            }}
-          >
+          <span className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+            style={{ background: 'linear-gradient(135deg, var(--vc-indigo), var(--vc-violet))', color: '#0a0e1c' }}>
             <Headphones size={20} />
           </span>
           <span className="flex-1 min-w-0">
@@ -140,17 +142,34 @@ export default function SpellingLab() {
           type="button" onClick={() => startSession('see_retype')} whileTap={{ scale: 0.99 }}
           className="vc-card vc-card-hover w-full flex items-center gap-3 px-5 py-4 text-right"
         >
-          <span
-            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
-          >
+          <span className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+            style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}>
             <Eye size={20} />
           </span>
           <span className="flex-1 min-w-0">
-            <span className="block text-[15px] font-bold" style={{ color: 'var(--vc-text)' }}>عرض وإعادة كتابة</span>
-            <span className="block text-xs mt-0.5" style={{ color: 'var(--vc-text-dim)' }}>انظري للكلمة لحظة ثم اكتبيها من الذاكرة</span>
+            <span className="block text-[15px] font-bold" style={{ color: 'var(--vc-text)' }}>تذكّر الكلمة</span>
+            <span className="block text-xs mt-0.5" style={{ color: 'var(--vc-text-dim)' }}>ادرسيها ثوانٍ، ثم تختفي لتكتبيها من الذاكرة</span>
           </span>
         </motion.button>
+      </section>
+
+      {/* Reports */}
+      <section className="mt-7 space-y-3">
+        <h2 className="text-sm font-medium" style={{ color: 'var(--vc-text-soft)' }}>
+          تقاريري
+        </h2>
+        <ReportCard
+          icon={BarChart3}
+          title="نشاطي"
+          subtitle="ماذا أنجزتِ منذ البداية"
+          onClick={() => setView('activity')}
+        />
+        <ReportCard
+          icon={Sparkles}
+          title="نقاط قوّتي وضعفي"
+          subtitle="أقوى كلماتكِ وأضعفها"
+          onClick={() => setView('strength')}
+        />
       </section>
 
       {/* Due review — only when there's something due */}
@@ -161,9 +180,7 @@ export default function SpellingLab() {
           </h2>
           <div className="vc-card flex items-center justify-between gap-3 px-5 py-4">
             <span className="text-sm" style={{ color: 'var(--vc-text-soft)' }}>
-              {due === 1
-                ? 'كلمة واحدة تنتظر المراجعة'
-                : `${toArabicNum(due)} كلمات تنتظر المراجعة`}
+              {due === 1 ? 'كلمة واحدة تنتظر المراجعة' : `${toArabicNum(due)} كلمات تنتظر المراجعة`}
             </span>
             <button
               type="button" onClick={() => startSession('listen_type')}
