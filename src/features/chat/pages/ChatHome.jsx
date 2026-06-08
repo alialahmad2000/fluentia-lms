@@ -15,11 +15,7 @@ import { timeAgo } from '../../../utils/dateHelpers'
 import '../premium.css'
 
 function GroupGlyph({ level }) {
-  const l = Number(level) || 0
-  const grad = l <= 1 ? 'linear-gradient(135deg,#3b82f6,#1d4ed8)'
-    : l === 2 ? 'linear-gradient(135deg,#fbbf24,#d97706)'
-    : l === 3 ? 'linear-gradient(135deg,#7c3aed,#4c1d95)'
-    : 'linear-gradient(135deg,#10b981,#065f46)'
+  const grad = 'linear-gradient(135deg,#D8BC86,#B0905A)' // المجلس: brass group avatar, no per-level hues
   return (
     <div className="relative shrink-0" style={{ width: 44, height: 44 }}>
       <div className="absolute rounded-full" style={{ inset: -2, background: 'conic-gradient(from 140deg, var(--ds-accent-gold), color-mix(in srgb,var(--ds-accent-gold) 18%,transparent) 50%, var(--ds-accent-gold))', opacity: 0.85 }} />
