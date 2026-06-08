@@ -1,6 +1,9 @@
 import { useState } from 'react'
-import { Check, X, Volume2, FileText, BookOpen, Headphones, PenLine, Mic, Sparkles, ClipboardCheck } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import { Check, X, Volume2, FileText, BookOpen, Headphones, PenLine, Mic, Sparkles, ClipboardCheck, SlidersHorizontal } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
 import { useGradeSubmission, useRequestRedo } from '@/hooks/teacher/useGrade'
+import FeedbackSnippets from '@/components/teacher/answers/FeedbackSnippets'
 
 const SKILL = {
   reading:             { label: 'القراءة',          icon: BookOpen,       color: '#38bdf8' },
@@ -155,17 +158,64 @@ function StatusPill({ status }) {
   return <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${cls}`}>{label}</span>
 }
 
+function RubricGrader({ writingId, onTotal }) {
+  const { data: rubric } = useQuery({
+    queryKey: ['writing-rubric', writingId],
+    enabled: !!writingId,
+    staleTime: 3_600_000,
+    queryFn: async () => {
+      const { data } = await supabase.from('curriculum_writing').select('rubric').eq('id', writingId).maybeSingle()
+      return data?.rubric || null
+    },
+  })
+  const [scores, setScores] = useState({})
+  if (!rubric || typeof rubric !== 'object' || !Object.keys(rubric).length) {
+    return <div className="text-[12px] text-slate-500">لا توجد معايير محددة لهذه المهمة.</div>
+  }
+  const criteria = Object.entries(rubric)
+  const total = criteria.reduce((s, [k]) => s + (Number(scores[k]) || 0), 0)
+  const setC = (k, v, max) => {
+    const val = Math.max(0, Math.min(Number(max), Number(v) || 0))
+    const next = { ...scores, [k]: val }
+    setScores(next)
+    onTotal(criteria.reduce((s, [kk]) => s + (Number(next[kk]) || 0), 0))
+  }
+  return (
+    <div className="rounded-lg bg-black/20 border border-white/8 p-2.5 space-y-1.5">
+      {criteria.map(([name, max]) => (
+        <div key={name} className="flex items-center gap-2 text-[12.5px]">
+          <span className="flex-1 text-slate-300" dir="auto">{name}</span>
+          <input type="number" min="0" max={max} value={scores[name] ?? ''} onChange={(e) => setC(name, e.target.value, max)}
+            className="w-14 text-[12.5px] rounded bg-black/30 border border-white/10 px-1.5 py-0.5 text-slate-200 text-center" />
+          <span className="text-slate-500 w-9 text-[11px]">/ {max}</span>
+        </div>
+      ))}
+      <div className="flex justify-between text-[12.5px] font-bold pt-1.5 border-t border-white/8"><span className="text-slate-300">المجموع</span><span className="text-sky-300">{total}</span></div>
+    </div>
+  )
+}
+
 function GradeBox({ item }) {
   const grade = useGradeSubmission()
   const redo = useRequestRedo()
   const type = item.section_type === 'writing' ? 'writing' : 'speaking'
   const [score, setScore] = useState(item.trainer_grade ?? '')
   const [feedback, setFeedback] = useState(item.trainer_feedback ?? '')
+  const [rubricOn, setRubricOn] = useState(false)
   const busy = grade.isPending || redo.isPending
+  const addSnippet = (s) => setFeedback((f) => (f && f.trim() ? `${f.trim()}\n${s}` : s))
 
   return (
     <div className="mt-3 pt-3 border-t border-white/8 space-y-2">
-      <div className="text-[11.5px] font-bold text-slate-400">تقييم المدرّب</div>
+      <div className="flex items-center justify-between">
+        <div className="text-[11.5px] font-bold text-slate-400">تقييم المدرّب</div>
+        {type === 'writing' && item.writing_id && (
+          <button type="button" onClick={() => setRubricOn((v) => !v)}
+            className="text-[11px] text-sky-400 hover:text-sky-300 inline-flex items-center gap-1"><SlidersHorizontal size={12} /> {rubricOn ? 'إخفاء المعايير' : 'تقييم بالمعايير'}</button>
+        )}
+      </div>
+      {rubricOn && type === 'writing' && <RubricGrader writingId={item.writing_id} onTotal={(t) => setScore(t)} />}
+      <FeedbackSnippets onPick={addSnippet} />
       <textarea
         value={feedback} onChange={(e) => setFeedback(e.target.value)}
         placeholder="اكتب ملاحظتك للطالب…" rows={2} dir="auto"

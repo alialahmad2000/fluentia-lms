@@ -205,6 +205,7 @@ const TeacherStudentAnswers = lazyRetry(() => import('./pages/teacher/students/S
 const TeacherWorkReview = lazyRetry(() => import('./pages/teacher/work/WorkReview'))
 const TeacherSettings = lazyRetry(() => import('./pages/teacher/TeacherSettings'))
 const TeacherCurriculumPreview = lazyRetry(() => import('./pages/teacher/curriculum/TeacherCurriculumPreview'))
+const TeacherClassHub = lazyRetry(() => import('./pages/teacher/class/ClassHub'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const EvaluationHealthPage = lazyRetry(() => import('./pages/admin/EvaluationHealthPage'))
@@ -859,6 +860,7 @@ export default function App() {
               <Route path="/trainer/students/:studentId/answers" element={<Page><TeacherStudentAnswers /></Page>} />
               <Route path="/trainer/students/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
               <Route path="/trainer/work" element={<Page><TeacherWorkReview /></Page>} />
+              <Route path="/trainer/class" element={<Page><TeacherClassHub /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TeacherCurriculumPreview><CurriculumBrowser /></TeacherCurriculumPreview></Page>} />
               <Route path="/trainer/curriculum/level/:levelNumber" element={<Page><TeacherCurriculumPreview><LevelUnits /></TeacherCurriculumPreview></Page>} />
               <Route path="/trainer/curriculum/unit/:unitId" element={<Page><TeacherCurriculumPreview><UnitContentRouter /></TeacherCurriculumPreview></Page>} />

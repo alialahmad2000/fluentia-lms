@@ -26,6 +26,8 @@ import NotesPanel from '../../../components/student/NotesPanel'
 import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
 import ClassSummaryView from '../../../components/student/ClassSummaryView'
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
+import { useUnitLockedForMe } from '../../../hooks/useUnitLock'
+import { Lock as UnitLockIcon } from 'lucide-react'
 import UnitMasteryCard from '../assessment/UnitMasteryCard'
 
 import { useUnitLayoutVersion } from '../../../hooks/useUnitLayoutVersion'
@@ -91,6 +93,10 @@ function UnitContentV3Wrapper() {
 
   const unitData = useUnitData(unitId)
   const { unit, starRanking, activities, loading: unitDataLoading, error: unitDataError } = unitData
+
+  // Teacher delivery control: a teacher may lock this unit for the student's
+  // group. Fail-open — only blocks when an explicit lock row exists.
+  const unitLocked = useUnitLockedForMe(unitId, isStudent)
 
   const activeActivity = searchParams.get('activity') || null
 
@@ -301,6 +307,22 @@ function UnitContentV3Wrapper() {
           className="font-['Tajawal']"
           style={{ fontSize: V1.type.bodySm, color: V1.accentCyan, background: 'none', border: 'none', cursor: 'pointer' }}
         >
+          العودة للمنهج
+        </button>
+      </div>
+    )
+  }
+
+  if (unitLocked) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 py-24 text-center" dir="rtl">
+        <div className="w-16 h-16 rounded-2xl grid place-items-center" style={{ background: 'rgba(245,158,11,0.12)', color: '#f59e0b' }}>
+          <UnitLockIcon size={28} />
+        </div>
+        <p className="font-['Tajawal'] text-lg font-bold" style={{ color: V1.textPrimary }}>هذه الوحدة مقفلة مؤقتاً</p>
+        <p className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodySm }}>سيفتحها لكِ مدرّبك في الوقت المناسب.</p>
+        <button onClick={() => navigate(basePath)} className="font-['Tajawal']"
+          style={{ fontSize: V1.type.bodySm, color: V1.accentCyan, background: 'none', border: 'none', cursor: 'pointer' }}>
           العودة للمنهج
         </button>
       </div>

@@ -1,7 +1,7 @@
 // Apple Voice Memos-inspired player: gradient waveform, seek, speed, autoplay
 import { useState, useRef, useEffect } from 'react'
 import { Play, Pause, Loader2, FileText } from 'lucide-react'
-import { supabase } from '../../../lib/supabase'
+import { supabase } from '../../../../lib/supabase'
 
 const SPEEDS = [1, 1.5, 2]
 

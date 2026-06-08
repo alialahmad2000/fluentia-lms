@@ -5,6 +5,7 @@ import { useStudentDetail, useStudentRecentActivity } from '@/hooks/teacher/useS
 import { useStudentNotes, useAddTrainerNote } from '@/hooks/trainer/useStudent360'
 import { studentName, fmtMinutes } from '@/hooks/teacher/useTeacherRoster'
 import MoveStudentDialog from '@/components/teacher/students/MoveStudentDialog'
+import AiInsightSection from '@/components/teacher/students/AiInsightSection'
 
 const NOTE_TYPES = [
   ['observation', 'ملاحظة', 'tea-pill'],
@@ -119,6 +120,8 @@ export default function StudentProfile() {
           <div className="tea-card !p-2.5 text-center"><div className="text-[15px] font-extrabold text-slate-100">{weekSections}</div><div className="text-[11px] text-slate-500">مهمة مكتملة</div></div>
         </div>
       </div>
+
+      <AiInsightSection studentId={studentId} />
 
       {/* Skills */}
       <div className="tea-card">
