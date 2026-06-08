@@ -13,6 +13,7 @@ import UpdateBanner from '../UpdateBanner'
 import NetworkStatusIndicator from '../NetworkStatusIndicator'
 import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
 import BugReportButton from '../bug-report/BugReportButton'
+import SubscriptionGate from '../access/SubscriptionGate'
 import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
 import TimerBadge from '../trainer/TimerBadge'
@@ -206,6 +207,7 @@ export default function LayoutShell() {
 
       <A11yFloatingButton />
       <BugReportButton />
+      <SubscriptionGate />
 
       {/* Mobile bottom bar */}
       {!isClassMode && <MobileBar nav={nav} onMoreClick={openDrawer} role={role} />}
