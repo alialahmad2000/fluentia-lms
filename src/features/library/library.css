@@ -92,9 +92,35 @@
   position: absolute; inset: 0; display: flex; flex-direction: column;
   padding: 16px 15px; color: #f4ecdc;
 }
+.lib-cover[data-theme="mystery"]  { --lib-deepA: #07262b; --lib-deepB: #051b1f; --lib-veil: #0e3a40; }
+.lib-cover[data-theme="grief"]    { --lib-deepA: #1d2230; --lib-deepB: #161a25; --lib-veil: #2b3346; }
+.lib-cover[data-theme="ambition"] { --lib-deepA: #3a2a0c; --lib-deepB: #281b06; --lib-veil: #5a3f12; }
 .lib-cover[data-theme="mystery"]  .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #0e3a40 0%, #07262b 55%, #051b1f 100%); }
 .lib-cover[data-theme="grief"]    .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #2b3346 0%, #1d2230 60%, #161a25 100%); }
 .lib-cover[data-theme="ambition"] .lib-cover-field { background: radial-gradient(120% 90% at 50% 0%, #5a3f12 0%, #3a2a0c 60%, #281b06 100%); }
+
+/* full-bleed cover illustration behind the type */
+.lib-cover-art {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center;
+}
+.lib-cover-art::after {
+  content: ""; position: absolute; inset: 0;
+  background: var(--lib-veil); mix-blend-mode: soft-light; opacity: 0.5;
+}
+/* with art, the field is a scrim only: soft top wash for the tag + theme-toned
+   bottom wash for the title; the middle stays clear so the art reads */
+.lib-cover[data-art="true"] .lib-cover-field {
+  z-index: 1; background: linear-gradient(180deg,
+    rgba(4,9,12,0.5) 0%, rgba(4,9,12,0.10) 16%, transparent 40%,
+    var(--lib-deepA) 77%, var(--lib-deepB) 100%);
+}
+.lib-cover[data-art="true"] .lib-cover-kicker,
+.lib-cover[data-art="true"] .lib-cover-level,
+.lib-cover[data-art="true"] .lib-cover-author { text-shadow: 0 1px 12px rgba(0,0,0,0.6); }
+.lib-cover[data-art="true"] .lib-cover-title { text-shadow: 0 1px 16px rgba(0,0,0,0.7); }
+.lib-cover[data-locked="true"] .lib-cover-art { filter: blur(3px) saturate(0.7) brightness(0.6); }
+
 .lib-cover-top { display: flex; justify-content: space-between; align-items: center; }
 .lib-cover-kicker { font-family: 'Tajawal', sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.72; }
 .lib-cover-level { font-family: 'Tajawal', sans-serif; font-size: 9.5px; letter-spacing: 0.08em; padding: 2px 6px; border: 1px solid rgba(244,236,220,0.3); border-radius: 4px; opacity: 0.82; }
