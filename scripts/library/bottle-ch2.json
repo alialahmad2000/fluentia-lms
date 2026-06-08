@@ -1,0 +1,46 @@
+{
+  "book_title": "The Bottle from the Sea",
+  "chapter_number": 2,
+  "title_en": "Across the Water",
+  "title_ar": "عبر الماء",
+  "paragraphs": [
+    [
+      { "en": "Milo wrote his letter that night.", "ar": "كتب ميلو رسالته تلك الليلة.", "sp": "narrator" },
+      { "en": "He told Ada his name, and his age, and that he was new in Greyport and had no friends.", "ar": "أخبر آدا باسمه، وعمره، وأنه جديدٌ في «غرايبورت» وليس لديه أصدقاء.", "sp": "narrator" },
+      { "en": "\"I am lonely too,\" he wrote. \"I will be your friend.\"", "ar": "«أنا وحيدٌ أيضاً»، كتب. «سأكون صديقكِ.»", "d": true, "sp": "Milo" }
+    ],
+    [
+      { "en": "But how could he send it?", "ar": "لكن كيف يرسلها؟", "sp": "narrator" },
+      { "en": "Ada lived far out in the sea, and Milo did not know the way.", "ar": "كانت آدا تعيش بعيداً في البحر، وميلو لا يعرف الطريق.", "sp": "narrator" },
+      { "en": "So he did the only thing he could think of: he put his letter in the bottle, walked to the water, and threw it as far as he could.", "ar": "ففعل الشيء الوحيد الذي خطر له: وضع رسالته في القارورة، ومشى إلى الماء، ورماها أبعد ما استطاع.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Please find her,\" he whispered to the sea.", "ar": "«أرجوكِ، جِديها»، همس للبحر.", "d": true, "sp": "Milo" },
+      { "en": "Then he went home, and he was sure he would never hear anything back.", "ar": "ثم عاد إلى البيت، وكان متأكّداً أنه لن يسمع أيّ ردّ أبداً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The next day, Milo told an old man at the harbour about the bottle.", "ar": "في اليوم التالي، أخبر ميلو رجلاً عجوزاً في الميناء عن القارورة.", "sp": "narrator" },
+      { "en": "The old man laughed kindly. \"A bottle? The sea is big, boy. But there is a better way.\"", "ar": "ضحك العجوز بلطف. «قارورة؟ البحر كبيرٌ يا فتى. لكن هناك طريقةٌ أفضل.»", "d": true, "sp": "Harbourman" }
+    ],
+    [
+      { "en": "\"Once a month, a small boat takes food and oil out to the lighthouse island,\" he said. \"If you give me a letter, I will put it on the boat.\"", "ar": "«مرّةً في الشهر، يأخذ قاربٌ صغير الطعام والزيت إلى جزيرة المنارة»، قال. «إن أعطيتني رسالةً، سأضعها على القارب.»", "d": true, "sp": "Harbourman" },
+      { "en": "Milo could not believe it. There was a real way to reach her.", "ar": "لم يصدّق ميلو. كانت هناك طريقةٌ حقيقية للوصول إليها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "He ran home and wrote a second letter, longer and happier than the first.", "ar": "ركض إلى البيت وكتب رسالةً ثانية، أطول وأكثر سعادةً من الأولى.", "sp": "narrator" },
+      { "en": "He gave it to the old man, and the boat took it across the water.", "ar": "أعطاها للعجوز، وأخذها القارب عبر الماء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Three long weeks later, the boat came back.", "ar": "بعد ثلاثة أسابيع طويلة، عاد القارب.", "sp": "narrator" },
+      { "en": "And the old man at the harbour was smiling, with a letter in his hand. It was from Ada.", "ar": "وكان العجوز في الميناء يبتسم، وفي يده رسالة. كانت من آدا.", "sp": "narrator" }
+    ],
+    [
+      { "en": "She had found his bottle on her beach — the real bottle, the one he had thrown into the sea.", "ar": "وجدت قارورته على شاطئها — القارورة الحقيقية، التي رماها في البحر.", "sp": "narrator" },
+      { "en": "\"The sea brought it to me,\" she wrote. \"I think we were meant to be friends.\"", "ar": "«البحر أحضرها إليّ»، كتبت. «أظنّ أنه كان مقدّراً لنا أن نكون صديقين.»", "d": true, "sp": "Ada" }
+    ],
+    [
+      { "en": "And so it began — letter after letter, across the cold grey water, all through the winter.", "ar": "وهكذا بدأ الأمر — رسالةً بعد رسالة، عبر الماء الرمادي البارد، طوال الشتاء.", "sp": "narrator" },
+      { "en": "For the first time, neither of them was alone.", "ar": "لأول مرّة، لم يكن أيٌّ منهما وحيداً.", "sp": "narrator" }
+    ]
+  ]
+}

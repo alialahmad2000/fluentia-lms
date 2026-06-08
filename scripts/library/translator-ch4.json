@@ -1,0 +1,35 @@
+{
+  "book_title": "The Translator",
+  "chapter_number": 4,
+  "title_en": "The Translator's Choice",
+  "title_ar": "اختيار المترجم",
+  "paragraphs": [
+    [
+      { "en": "In the end, Anton did go in.", "ar": "في النهاية، دخل أنطون.", "sp": "narrator" },
+      { "en": "The old woman, whose name was Marta, made him weak tea and apologised for the cold, and did not understand why a famous translator had climbed five flights of stairs to sit in her single room.", "ar": "المرأة العجوز، واسمها مارتا، أعدّت له شاياً خفيفاً واعتذرت عن البرد، ولم تفهم لماذا تسلّق مترجمٌ مشهور خمسة طوابق ليجلس في غرفتها الوحيدة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "He asked her, gently, what she knew of her uncle Lev.", "ar": "سألها، برفق، عمّا تعرفه عن خالها ليف.", "sp": "narrator" },
+      { "en": "\"Only that he wrote,\" she said. \"My mother said he was always writing, in the cold, and that he was kind, and that he died before anyone could read a word of it. She was sad that nothing of him was left in the world.\"", "ar": "«فقط أنه كان يكتب»، قالت. «قالت أمّي إنه كان دائماً يكتب، في البرد، وإنه كان طيّباً، وإنه مات قبل أن يقرأ أحدٌ كلمةً مما كتب. كانت حزينة أنّ لا شيء منه بقي في العالم.»", "d": true, "sp": "Marta" }
+    ],
+    [
+      { "en": "Anton sat with that — nothing of him was left in the world — in a room that was colder than any sentence he had ever had to translate.", "ar": "جلس أنطون مع ذلك — لا شيء منه بقي في العالم — في غرفةٍ كانت أبرد من أيّ جملةٍ اضطرّ يوماً إلى ترجمتها.", "sp": "narrator" },
+      { "en": "It was not true. Something of Lev was left in the world. It was, in fact, the most beloved book in it. It simply wore another man's name.", "ar": "لم يكن هذا صحيحاً. شيءٌ من ليف بقي في العالم. بل كان، في الواقع، أحبّ كتابٍ فيه. لكنه كان يحمل اسم رجلٍ آخر فحسب.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And there, in Marta's freezing room, Anton Reye understood what he had really been asked to do — not to translate a manuscript, but to decide whether a lie that the whole world loved was stronger than a truth that no one but a dead man and an old woman would ever know.", "ar": "وهناك، في غرفة مارتا المتجمّدة، فهم أنطون ريي ما طُلِب منه فعله حقاً — لا أن يترجم مخطوطة، بل أن يقرّر ما إن كانت كذبةٌ يحبّها العالم كلّه أقوى من حقيقةٍ لن يعرفها أحدٌ سوى رجلٍ ميّت وامرأةٍ عجوز.", "sp": "narrator" }
+    ],
+    [
+      { "en": "He had spent his whole life saying that a translator must betray the words to keep faith with their soul.", "ar": "أمضى حياته كلها يقول إنّ على المترجم أن يخون الكلمات كي يحفظ العهد مع روحها.", "sp": "narrator" },
+      { "en": "He saw, at last, that the soul of this text was not its beauty. Its soul was its truth — a dying man's last, desperate attempt to give back what he had taken.", "ar": "رأى، أخيراً، أنّ روح هذا النصّ ليست جماله. روحه حقيقته — محاولة رجلٍ يحتضر الأخيرة اليائسة أن يردّ ما أخذ.", "sp": "narrator" },
+      { "en": "To soften it, to bury it, to translate it into a harmless masterpiece — that would not be mercy. That would be the one betrayal a translator must never commit: to make the words lie.", "ar": "أن يلطّفه، أن يدفنه، أن يترجمه إلى تحفةٍ غير مؤذية — لن يكون ذلك رحمة. سيكون الخيانة الوحيدة التي يجب ألا يرتكبها مترجمٌ أبداً: أن يجعل الكلمات تكذب.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Anton took Marta's thin cold hand in both of his.", "ar": "أخذ أنطون يد مارتا الباردة النحيلة بكلتا يديه.", "sp": "narrator" },
+      { "en": "\"Your uncle did leave something in the world,\" he said. \"And I am going to make sure, before I die, that it finally has his name on it.\"", "ar": "«خالكِ ترك شيئاً في العالم»، قال. «وسأحرص، قبل أن أموت، على أن يحمل اسمه أخيراً.»", "d": true, "sp": "Anton" }
+    ],
+    [
+      { "en": "He went home and, for the first time in his long career, he translated a manuscript with no betrayal in it at all — every word exact, every confession whole, the truth carried across the dark water of language and set down, unbroken, on the other side.", "ar": "عاد إلى البيت، ولأول مرّةٍ في مسيرته الطويلة، ترجم مخطوطةً دون أيّ خيانةٍ فيها على الإطلاق — كلّ كلمةٍ دقيقة، كلّ اعترافٍ كامل، الحقيقة محمولةً عبر الماء المظلم للّغة وموضوعةً، سليمة، على الضفّة الأخرى.", "sp": "narrator" }
+    ]
+  ]
+}

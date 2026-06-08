@@ -1,0 +1,38 @@
+{
+  "book_title": "The Cartographer",
+  "chapter_number": 1,
+  "title_en": "The Blank Space",
+  "title_ar": "البقعة البيضاء",
+  "paragraphs": [
+    [
+      { "en": "In the great map-house of Pellmouth, where a hundred cartographers bent over their tables in the grey northern light, there was one map that no one had ever been able to finish.", "ar": "في دار الخرائط الكبرى في «بِلماوث»، حيث انحنى مئة رسّام خرائطٍ على طاولاتهم في الضوء الشمالي الرمادي، كانت هناك خريطةٌ واحدة لم يتمكّن أحدٌ قط من إتمامها.", "sp": "narrator" },
+      { "en": "It was the map of the northern sea, and it was nearly perfect — every island named, every current drawn, every reef marked in careful ink.", "ar": "كانت خريطة البحر الشمالي، وكانت شبه كاملة — كلّ جزيرةٍ مُسمّاة، وكلّ تيّارٍ مرسوم، وكلّ شُعابٍ مُعلَّمة بحبرٍ متقن.", "sp": "narrator" },
+      { "en": "Every part of it, that is, except one.", "ar": "كلّ جزءٍ منها، أي، عدا جزءاً واحداً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "In the far north of the chart there was a wide, empty shape, edged in faded ink and marked with three words in an old hand: Here, the Grey Reach.", "ar": "في أقصى شمال الخريطة كان هناك شكلٌ واسع فارغ، محدودٌ بحبرٍ باهت ومُعلَّمٌ بثلاث كلماتٍ بخطٍّ قديم: «هنا، المدى الرمادي».", "sp": "narrator" },
+      { "en": "It was the last blank space on the map of the known world.", "ar": "كانت آخر بقعةٍ بيضاء على خريطة العالم المعروف.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Ships that sailed into the Grey Reach did not come back.", "ar": "السفن التي أبحرت إلى «المدى الرمادي» لم تعد.", "sp": "narrator" },
+      { "en": "The few that did return brought no charts and no answers — only broken men who spoke of an endless grey fog, and a sea that turned upon itself, and the slow madness of sailing forever and arriving nowhere.", "ar": "والقلّة التي عادت لم تجلب خرائط ولا أجوبة — بل رجالاً محطّمين يتحدّثون عن ضبابٍ رمادي لا نهاية له، وبحرٍ ينقلب على نفسه، وجنونٍ بطيء من الإبحار إلى الأبد والوصول إلى لا مكان.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Vera Lund had grown up in the shadow of that blank space.", "ar": "نشأت «فيرا لوند» في ظلّ تلك البقعة البيضاء.", "sp": "narrator" },
+      { "en": "Her father had been the finest cartographer in Pellmouth, and twenty years ago he had sailed north to fill it — and he had never returned.", "ar": "كان أبوها أمهر رسّام خرائطٍ في «بِلماوث»، وقبل عشرين عاماً أبحر شمالاً ليملأها — ولم يعد قط.", "sp": "narrator" },
+      { "en": "He had left her his instruments, his unfinished map, and a single sentence written in the margin: \"A map with a blank space is an honest map; but a cartographer who fears the blank is no cartographer at all.\"", "ar": "ترك لها أدواته، وخريطته غير المكتملة، وجملةً واحدة مكتوبةً في الهامش: «الخريطة ذات البقعة البيضاء خريطةٌ صادقة؛ لكنّ رسّام خرائطٍ يخاف البياض ليس رسّام خرائطٍ على الإطلاق.»", "sp": "narrator" }
+    ],
+    [
+      { "en": "For most of her life, Vera had read that sentence as a challenge, and the blank space as a wound.", "ar": "طوال معظم حياتها، قرأت فيرا تلك الجملة كتحدٍّ، والبقعة البيضاء كجُرح.", "sp": "narrator" },
+      { "en": "She did not want to be a cartographer who feared it. She wanted to be the one who filled it.", "ar": "لم تُرِد أن تكون رسّامة خرائطٍ تخافه. أرادت أن تكون من يملؤه.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And so, after years of saving and arguing and refusing to be told no, Vera did what her father had done.", "ar": "وهكذا، بعد سنواتٍ من الادّخار والجدال ورفض أن يُقال لها لا، فعلت فيرا ما فعله أبوها.", "sp": "narrator" },
+      { "en": "She found a captain brave or desperate enough to take her, a small strong ship called the Compass Rose, and a crew of nine who did not ask too many questions.", "ar": "وجدت قبطاناً شجاعاً أو يائساً بما يكفي ليأخذها، وسفينةً صغيرة قويّة تُدعى «وردة البوصلة»، وطاقماً من تسعةٍ لم يطرحوا أسئلةً كثيرة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "On a cold spring morning, the Compass Rose left the harbour and turned her bow to the north, toward the place where the maps ran out.", "ar": "في صباحٍ ربيعيٍّ بارد، غادرت «وردة البوصلة» الميناء وأدارت مقدّمتها شمالاً، نحو المكان الذي تنتهي عنده الخرائط.", "sp": "narrator" },
+      { "en": "Vera stood at the rail with her father's instruments in a wooden case, and she did not look back.", "ar": "وقفت فيرا عند الحاجز وأدوات أبيها في صندوقٍ خشبي، ولم تنظر إلى الوراء.", "sp": "narrator" }
+    ]
+  ]
+}

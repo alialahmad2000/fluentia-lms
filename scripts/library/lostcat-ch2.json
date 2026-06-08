@@ -1,0 +1,27 @@
+{
+  "book_title": "The Lost Cat",
+  "chapter_number": 2,
+  "title_en": "The Open Window",
+  "title_ar": "النافذة المفتوحة",
+  "paragraphs": [
+    [
+      { "en": "One morning, the window is open.", "ar": "في صباحٍ ما، النافذة مفتوحة.", "sp": "narrator" },
+      { "en": "It is a warm day.", "ar": "إنه يومٌ دافئ.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Misho looks at the window.", "ar": "تنظر «ميشو» إلى النافذة.", "sp": "narrator" },
+      { "en": "Misho jumps up. Misho goes outside.", "ar": "تقفز «ميشو». تخرج «ميشو».", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"I will come back soon,\" thinks Misho.", "ar": "«سأعود قريباً»، تفكّر «ميشو».", "d": true, "sp": "Misho" },
+      { "en": "But Misho does not come back.", "ar": "لكنّ «ميشو» لا تعود.", "sp": "narrator" }
+    ],
+    [
+      { "en": "At night, Lina calls her cat. \"Misho! Misho!\"", "ar": "في الليل، تنادي لينا قطّتها. «ميشو! ميشو!»", "d": true, "sp": "Lina" },
+      { "en": "But Misho is not there.", "ar": "لكنّ «ميشو» ليست هناك.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Lina is sad. Where is Misho?", "ar": "لينا حزينة. أين «ميشو»؟", "sp": "narrator" }
+    ]
+  ]
+}

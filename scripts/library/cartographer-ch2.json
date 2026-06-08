@@ -1,0 +1,40 @@
+{
+  "book_title": "The Cartographer",
+  "chapter_number": 2,
+  "title_en": "Into the Grey",
+  "title_ar": "إلى الرماد",
+  "paragraphs": [
+    [
+      { "en": "For nine days they sailed north through ordinary seas, and Vera filled page after page with careful measurements — the depth of the water, the set of the current, the angle of the cold sun.", "ar": "تسعة أيامٍ أبحروا شمالاً عبر بحارٍ عادية، وملأت فيرا صفحةً بعد صفحة بقياساتٍ متقنة — عمق الماء، واتجاه التيّار، وزاوية الشمس الباردة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "On the tenth day, the fog came.", "ar": "في اليوم العاشر، جاء الضباب.", "sp": "narrator" },
+      { "en": "It did not roll in like weather. It simply was there, all at once, as if the ship had sailed through a grey curtain into another world.", "ar": "لم يتدحرج كحالةٍ جوّية. كان هناك ببساطة، دفعةً واحدة، كأنّ السفينة أبحرت عبر ستارٍ رمادي إلى عالمٍ آخر.", "sp": "narrator" },
+      { "en": "The sea went still and pale, the sky disappeared, and the world shrank to a circle of grey water a few yards wide.", "ar": "سكن البحر وشحب، واختفت السماء، وانكمش العالم إلى دائرةٍ من الماء الرمادي بعرض أمتارٍ قليلة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"The Grey Reach,\" said the captain quietly, and even he, a hard man who feared nothing, said it the way other men say a prayer.", "ar": "«المدى الرمادي»، قال القبطان بهدوء، وحتى هو، الرجل القاسي الذي لا يخاف شيئاً، قالها كما يقول غيره دعاءً.", "d": true, "sp": "Captain" }
+    ],
+    [
+      { "en": "The crew grew quiet.", "ar": "صار الطاقم هادئاً.", "sp": "narrator" },
+      { "en": "There was no wind, but the ship moved — pulled, slow and certain, by a current they could feel but not see.", "ar": "لم تكن هناك ريح، لكنّ السفينة تحرّكت — مسحوبةً، ببطءٍ ويقين، بتيّارٍ يشعرون به ولا يرونه.", "sp": "narrator" },
+      { "en": "Vera leaned over the side and dropped a weighted line, and could not find the bottom.", "ar": "انحنت فيرا فوق الحافّة وأنزلت خيطاً مُثقّلاً، ولم تجد القاع.", "sp": "narrator" }
+    ],
+    [
+      { "en": "She worked harder than ever, because work was the only thing that kept the fear small.", "ar": "عملت أكثر من أيّ وقتٍ مضى، لأنّ العمل كان الشيء الوحيد الذي يُبقي الخوف صغيراً.", "sp": "narrator" },
+      { "en": "She measured the current, the temperature, and the strange way the compass needle drifted and would not settle.", "ar": "قاست التيّار، والحرارة، والطريقة الغريبة التي انجرفت بها إبرة البوصلة ولم تستقرّ.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"The needle is wrong,\" said the captain, watching her. \"In the Grey Reach, they say, north is everywhere and nowhere.\"", "ar": "«الإبرة مخطئة»، قال القبطان وهو يراقبها. «في المدى الرمادي، يقولون، الشمال في كلّ مكانٍ ولا مكان.»", "d": true, "sp": "Captain" },
+      { "en": "\"The needle is not wrong,\" Vera said. \"We only have to learn to read it.\"", "ar": "«الإبرة ليست مخطئة»، قالت فيرا. «علينا فقط أن نتعلّم قراءتها.»", "d": true, "sp": "Vera" }
+    ],
+    [
+      { "en": "But as the grey days passed — and it was hard to call them days, with no sun and no stars — Vera began to notice something that frightened her more than any monster.", "ar": "لكن مع مرور الأيام الرمادية — وكان من الصعب تسميتها أياماً، دون شمسٍ ولا نجوم — بدأت فيرا تلاحظ شيئاً أرعبها أكثر من أيّ وحش.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The water, the light, the very feel of the air — they did not change.", "ar": "الماء، الضوء، حتى ملمس الهواء — لم تتغيّر.", "sp": "narrator" },
+      { "en": "No matter how far they sailed, it was always the same grey sea.", "ar": "مهما أبحروا بعيداً، كان دائماً البحر الرمادي نفسه.", "sp": "narrator" },
+      { "en": "It was as if the Compass Rose were not moving at all.", "ar": "كان الأمر كأنّ «وردة البوصلة» لا تتحرّك على الإطلاق.", "sp": "narrator" }
+    ]
+  ]
+}

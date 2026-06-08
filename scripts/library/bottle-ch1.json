@@ -1,0 +1,42 @@
+{
+  "book_title": "The Bottle from the Sea",
+  "chapter_number": 1,
+  "title_en": "The Grey Town",
+  "title_ar": "البلدة الرمادية",
+  "paragraphs": [
+    [
+      { "en": "Milo did not want to live in Greyport.", "ar": "لم يكن ميلو يريد أن يعيش في «غرايبورت».", "sp": "narrator" },
+      { "en": "His family moved there in the autumn, and the town was grey and cold and full of strangers.", "ar": "انتقلت عائلته إليها في الخريف، وكانت البلدة رمادية وباردة ومليئة بالغرباء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "At his old home, Milo had friends.", "ar": "في بيته القديم، كان لميلو أصدقاء.", "sp": "narrator" },
+      { "en": "Here, he had no one.", "ar": "هنا، لم يكن لديه أحد.", "sp": "narrator" },
+      { "en": "At school, the other children already had their groups, and Milo sat alone.", "ar": "في المدرسة، كان لدى الأطفال الآخرين مجموعاتهم بالفعل، وجلس ميلو وحده.", "sp": "narrator" }
+    ],
+    [
+      { "en": "After school, he liked to walk on the long beach by himself.", "ar": "بعد المدرسة، كان يحبّ أن يمشي على الشاطئ الطويل وحده.", "sp": "narrator" },
+      { "en": "The sea was grey and the wind was cold, but the beach was quiet — and quiet was better than lonely in a crowd.", "ar": "كان البحر رمادياً والريح باردة، لكنّ الشاطئ كان هادئاً — والهدوء أفضل من الوحدة وسط الزحام.", "sp": "narrator" }
+    ],
+    [
+      { "en": "One evening, Milo saw something in the sand near the water.", "ar": "ذات مساء، رأى ميلو شيئاً في الرمل قرب الماء.", "sp": "narrator" },
+      { "en": "It was an old glass bottle, green and smooth, with something white inside it.", "ar": "كانت قارورةً زجاجية قديمة، خضراء ملساء، وفي داخلها شيءٌ أبيض.", "sp": "narrator" }
+    ],
+    [
+      { "en": "His heart beat fast. He picked it up and pulled out the cork.", "ar": "خفق قلبه سريعاً. التقطها وسحب الفلّينة.", "sp": "narrator" },
+      { "en": "Inside was a piece of paper, rolled up tight. It was a letter.", "ar": "في الداخل كانت ورقةٌ ملفوفة بإحكام. كانت رسالة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The letter said:", "ar": "قالت الرسالة:", "sp": "narrator" },
+      { "en": "\"Hello. My name is Ada. I am eleven years old. I live on a small island with a lighthouse, far out in the sea. There is no one here my age, and the days are very long. If you find this, please write back. I would like a friend. — Ada\"", "ar": "«مرحباً. اسمي آدا. عمري إحدى عشرة سنة. أعيش على جزيرةٍ صغيرة فيها منارة، بعيداً في البحر. لا أحد هنا في مثل عمري، والأيام طويلة جداً. إن وجدتَ هذه الرسالة، أرجو أن تردّ. أودّ صديقاً. — آدا»", "d": true, "sp": "Ada" }
+    ],
+    [
+      { "en": "Milo read the letter three times.", "ar": "قرأ ميلو الرسالة ثلاث مرّات.", "sp": "narrator" },
+      { "en": "Somewhere far out in that cold grey sea, another child was lonely too.", "ar": "في مكانٍ ما بعيداً في ذلك البحر الرمادي البارد، كان طفلٌ آخر وحيداً أيضاً.", "sp": "narrator" },
+      { "en": "And she was asking for a friend.", "ar": "وكانت تطلب صديقاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "For the first time since he came to Greyport, Milo smiled.", "ar": "لأول مرّةٍ منذ أن جاء إلى «غرايبورت»، ابتسم ميلو.", "sp": "narrator" },
+      { "en": "That night, he sat at his window with a pencil and a clean sheet of paper, and he began to write.", "ar": "تلك الليلة، جلس عند نافذته بقلمٍ رصاص وورقةٍ نظيفة، وبدأ يكتب.", "sp": "narrator" }
+    ]
+  ]
+}

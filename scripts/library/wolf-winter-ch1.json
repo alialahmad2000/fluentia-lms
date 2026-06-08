@@ -1,0 +1,52 @@
+{
+  "book_title": "The Wolf Winter",
+  "chapter_number": 1,
+  "title_en": "The White Silence",
+  "title_ar": "الصمت الأبيض",
+  "paragraphs": [
+    [
+      { "en": "The winter that the wolves came was the hardest winter the village of Stonehollow had ever known.", "ar": "كان الشتاء الذي جاءت فيه الذئاب أقسى شتاءٍ عرفته قرية «ستونهولو».", "sp": "narrator" },
+      { "en": "The snow began in October and did not stop, and by December it had buried the low houses to their windows and closed the mountain road completely.", "ar": "بدأ الثلج في أكتوبر ولم يتوقّف، وبحلول ديسمبر كان قد دفن البيوت المنخفضة حتى نوافذها، وأغلق طريق الجبل تماماً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The village sat alone in a white world, cut off from everything below.", "ar": "جلست القرية وحدها في عالمٍ أبيض، مقطوعةً عن كلّ ما في الأسفل.", "sp": "narrator" },
+      { "en": "And in the long blue evenings, when the cold came down hard from the peaks, the people heard a new sound — the howling of wolves.", "ar": "وفي الأمسيات الزرقاء الطويلة، حين يهبط البرد قاسياً من القمم، سمع الناس صوتاً جديداً — عواء الذئاب.", "sp": "narrator" }
+    ],
+    [
+      { "en": "No one in Stonehollow could remember the wolves ever coming so close.", "ar": "لم يستطع أحدٌ في «ستونهولو» أن يتذكّر أنّ الذئاب اقتربت يوماً إلى هذا الحد.", "sp": "narrator" },
+      { "en": "They lived high in the far forests, the old people said, and they kept to themselves.", "ar": "كانت تعيش عالياً في الغابات البعيدة، قال العجائز، وتبقى في حالها.", "sp": "narrator" },
+      { "en": "But this winter was different, and the wolves had come down.", "ar": "لكنّ هذا الشتاء كان مختلفاً، والذئاب نزلت.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Reni was sixteen, and she was not afraid of the howling the way the others were.", "ar": "كانت ريني في السادسة عشرة، ولم تكن تخاف من العواء كما يخاف الآخرون.", "sp": "narrator" },
+      { "en": "She would stand at the edge of the village in the falling snow and listen, and the sound did not seem cruel to her — only lonely, and very cold.", "ar": "كانت تقف عند طرف القرية في الثلج المتساقط وتُصغي، ولم يبدُ لها الصوت قاسياً — بل وحيداً فحسب، وبارداً جداً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Her father, Joren, was the head of the village hunters, and he did not listen for loneliness in the dark.", "ar": "كان أبوها، جورن، رئيس صيّادي القرية، ولم يكن يُصغي إلى الوحدة في الظلام.", "sp": "narrator" },
+      { "en": "\"A hungry wolf is a dangerous wolf,\" he told her. \"When the snow traps them and us together, one of us has to lose.\"", "ar": "«الذئب الجائع ذئبٌ خطير»، قال لها. «حين يحبسنا الثلج معاً، لا بدّ أن يخسر أحدنا.»", "d": true, "sp": "Joren" },
+      { "en": "He had set iron traps along the forest edge, and he meant to use them.", "ar": "نصب فخاخاً حديدية على حافّة الغابة، وكان عازماً على استخدامها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "One grey morning, before the others were awake, Reni went out to bring wood from the shed behind the house.", "ar": "في صباحٍ رمادي، قبل أن يستيقظ الآخرون، خرجت ريني لتجلب الحطب من السقيفة خلف البيت.", "sp": "narrator" },
+      { "en": "The snow had stopped in the night, and the whole world was held in a deep, white silence.", "ar": "توقّف الثلج في الليل، وكان العالم كلّه مأسوراً في صمتٍ أبيض عميق.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And there, against the back wall of the shed, half buried in the snow, was a young wolf.", "ar": "وهناك، إلى الجدار الخلفي للسقيفة، نصف مدفونٍ في الثلج، كان ذئبٌ صغير.", "sp": "narrator" },
+      { "en": "It was thin and grey, not much more than a cub, and one of its back legs was caught and torn in the iron jaws of her father's trap.", "ar": "كان نحيلاً رمادياً، لا يزيد كثيراً عن جرو، وإحدى رجليه الخلفيتين عالقةٌ ممزّقة في فكّي فخّ أبيها الحديدي.", "sp": "narrator" }
+    ],
+    [
+      { "en": "It did not snarl. It was too tired and too cold to snarl.", "ar": "لم يزمجر. كان أتعب وأبرد من أن يزمجر.", "sp": "narrator" },
+      { "en": "It only lifted its head and looked at her, with eyes the colour of amber, and waited to see what she would do.", "ar": "اكتفى برفع رأسه والنظر إليها، بعينين بلون الكهرمان، وانتظر ليرى ما ستفعله.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Reni knew exactly what she was supposed to do.", "ar": "عرفت ريني تماماً ما يُفترض بها أن تفعله.", "sp": "narrator" },
+      { "en": "She was supposed to call her father, who would come with the other hunters, and that would be the end of it.", "ar": "كان يُفترض بها أن تنادي أباها، الذي سيأتي مع بقية الصيّادين، وينتهي الأمر.", "sp": "narrator" },
+      { "en": "It was the rule of the village, and the rule kept everyone safe.", "ar": "كانت تلك قاعدة القرية، والقاعدة تُبقي الجميع آمنين.", "sp": "narrator" }
+    ],
+    [
+      { "en": "But she looked at the amber eyes, and the torn leg, and the small grey body shaking in the snow, and she could not do it.", "ar": "لكنها نظرت إلى العينين الكهرمانيتين، والرجل الممزّقة، والجسد الرمادي الصغير يرتجف في الثلج، فلم تستطع.", "sp": "narrator" },
+      { "en": "Quietly, with cold and careful hands, Reni opened the trap.", "ar": "بهدوء، بيدين باردتين حذرتين، فتحت ريني الفخّ.", "sp": "narrator" },
+      { "en": "And in that moment, without knowing it, she chose a side in a war the whole village was about to fight.", "ar": "وفي تلك اللحظة، دون أن تدري، اختارت جانباً في حربٍ كانت القرية كلها على وشك أن تخوضها.", "sp": "narrator" }
+    ]
+  ]
+}

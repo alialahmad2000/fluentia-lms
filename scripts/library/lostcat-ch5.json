@@ -1,0 +1,32 @@
+{
+  "book_title": "The Lost Cat",
+  "chapter_number": 5,
+  "title_en": "The Happy Surprise",
+  "title_ar": "المفاجأة السعيدة",
+  "paragraphs": [
+    [
+      { "en": "Lina goes home. She is very tired.", "ar": "تعود لينا إلى البيت. هي متعبةٌ جداً.", "sp": "narrator" },
+      { "en": "Then she hears a small sound.", "ar": "ثم تسمع صوتاً صغيراً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The sound comes from the old shed in the garden.", "ar": "يأتي الصوت من السقيفة القديمة في الحديقة.", "sp": "narrator" },
+      { "en": "Lina opens the door slowly.", "ar": "تفتح لينا الباب ببطء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And there is Misho!", "ar": "وهناك «ميشو»!", "sp": "narrator" },
+      { "en": "Misho is in a box, on a soft blanket.", "ar": "«ميشو» في صندوق، على بطّانيةٍ ناعمة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And next to Misho are three baby cats!", "ar": "وبجانب «ميشو» ثلاثُ قطط صغيرة!", "sp": "narrator" },
+      { "en": "Three small, soft kittens.", "ar": "ثلاثُ هريراتٍ صغيرة ناعمة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Misho was not lost.", "ar": "لم تكن «ميشو» ضائعة.", "sp": "narrator" },
+      { "en": "Misho found a safe place for her babies.", "ar": "وجدت «ميشو» مكاناً آمناً لصغارها.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Lina is so happy. She is not sad any more.", "ar": "لينا سعيدةٌ جداً. لم تعد حزينة.", "sp": "narrator" },
+      { "en": "Now she has Misho — and three little kittens too.", "ar": "الآن لديها «ميشو» — وثلاثُ هريراتٍ صغيرة أيضاً.", "sp": "narrator" }
+    ]
+  ]
+}

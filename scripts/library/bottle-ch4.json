@@ -1,0 +1,46 @@
+{
+  "book_title": "The Bottle from the Sea",
+  "chapter_number": 4,
+  "title_en": "The Last Light",
+  "title_ar": "الضوء الأخير",
+  "paragraphs": [
+    [
+      { "en": "It was not easy.", "ar": "لم يكن الأمر سهلاً.", "sp": "narrator" },
+      { "en": "Milo had to ask his father to take him on the boat, all the way out to the island in the cold early spring.", "ar": "كان على ميلو أن يطلب من أبيه أن يأخذه على القارب، إلى الجزيرة في برد أوائل الربيع.", "sp": "narrator" },
+      { "en": "His father listened to the whole story — the bottle, the letters, the lonely girl — and at the end, he was quiet for a long time.", "ar": "أصغى أبوه إلى القصّة كلها — القارورة، والرسائل، والفتاة الوحيدة — وفي النهاية، صمت وقتاً طويلاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"When we came to Greyport, you were so unhappy,\" his father said. \"I did not know how to help you. But this Ada helped you, from far across the sea.\"", "ar": "«حين جئنا إلى «غرايبورت»، كنتَ تعيساً جداً»، قال أبوه. «لم أعرف كيف أساعدك. لكن آدا هذه ساعدتك، من بعيدٍ عبر البحر.»", "d": true, "sp": "Father" },
+      { "en": "\"Yes,\" said Milo. \"Now I want to help her.\"", "ar": "«نعم»، قال ميلو. «والآن أريد أن أساعدها.»", "d": true, "sp": "Milo" },
+      { "en": "His father smiled. \"Then we will go.\"", "ar": "ابتسم أبوه. «إذاً سنذهب.»", "d": true, "sp": "Father" }
+    ],
+    [
+      { "en": "They went out on the supply boat on a grey, cold evening.", "ar": "خرجا على قارب التموين في مساءٍ رمادي بارد.", "sp": "narrator" },
+      { "en": "The sea was big and rough, and the island was far.", "ar": "كان البحر كبيراً هائجاً، والجزيرة بعيدة.", "sp": "narrator" },
+      { "en": "But ahead in the dark, Milo saw it at last — the great white lighthouse, its light turning, turning, across the black water.", "ar": "لكن أمامه في الظلام، رآها ميلو أخيراً — المنارة البيضاء العظيمة، وضوؤها يدور، يدور، عبر الماء الأسود.", "sp": "narrator" }
+    ],
+    [
+      { "en": "On the small stone dock, a girl was waiting in the wind, with an old man beside her.", "ar": "على الرصيف الحجري الصغير، كانت فتاةٌ تنتظر في الريح، وبجانبها رجلٌ عجوز.", "sp": "narrator" },
+      { "en": "Milo knew her at once, though he had never seen her face.", "ar": "عرفها ميلو على الفور، رغم أنه لم يرَ وجهها قط.", "sp": "narrator" },
+      { "en": "\"Ada?\" he said. \"It's me. It's Milo.\"", "ar": "«آدا؟» قال. «هذا أنا. أنا ميلو.»", "d": true, "sp": "Milo" }
+    ],
+    [
+      { "en": "Ada's eyes filled with tears, and she laughed at the same time.", "ar": "امتلأت عينا آدا بالدموع، وضحكت في الوقت نفسه.", "sp": "narrator" },
+      { "en": "\"You came,\" she said. \"You really came. Across all that sea.\"", "ar": "«أتيتَ»، قالت. «أتيتَ فعلاً. عبر كلّ ذلك البحر.»", "d": true, "sp": "Ada" },
+      { "en": "The two friends, who had written a hundred letters, stood and looked at each other, and neither of them could stop smiling.", "ar": "وقف الصديقان، اللذان كتبا مئة رسالة، ونظر كلٌّ منهما إلى الآخر، ولم يستطع أيٌّ منهما أن يكفّ عن الابتسام.", "sp": "narrator" }
+    ],
+    [
+      { "en": "That night, they climbed to the top of the lighthouse together.", "ar": "تلك الليلة، صعدا إلى قمّة المنارة معاً.", "sp": "narrator" },
+      { "en": "Ada's grandfather lit the great old light by hand, the way his family had done for a hundred years — for the very last time.", "ar": "أشعل جدّ آدا الضوء القديم العظيم بيده، كما فعلت عائلته مئة عام — للمرّة الأخيرة على الإطلاق.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The huge light turned slowly above them, sweeping gold across the dark sea.", "ar": "دار الضوء الضخم ببطءٍ فوقهما، يكنس الذهب عبر البحر المظلم.", "sp": "narrator" },
+      { "en": "\"I will miss it so much,\" Ada whispered.", "ar": "«سأشتاق إليه كثيراً»، همست آدا.", "d": true, "sp": "Ada" },
+      { "en": "\"You will have new things,\" Milo said. \"And you will not be alone. I promise.\"", "ar": "«ستحصلين على أشياء جديدة»، قال ميلو. «ولن تكوني وحدكِ. أعدكِ.»", "d": true, "sp": "Milo" }
+    ],
+    [
+      { "en": "At midnight, the old keeper turned the great light off, and the lighthouse went dark for the first time in a hundred years.", "ar": "عند منتصف الليل، أطفأ الحارس العجوز الضوء العظيم، وأظلمت المنارة لأول مرّة منذ مئة عام.", "sp": "narrator" },
+      { "en": "But up in the dark tower, two friends stood side by side, and they were not afraid.", "ar": "لكن أعلى في البرج المظلم، وقف صديقان جنباً إلى جنب، ولم يكونا خائفين.", "sp": "narrator" }
+    ]
+  ]
+}

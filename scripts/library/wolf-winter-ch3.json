@@ -1,0 +1,46 @@
+{
+  "book_title": "The Wolf Winter",
+  "chapter_number": 3,
+  "title_en": "The Sealed Pass",
+  "title_ar": "الممرّ المُغلق",
+  "paragraphs": [
+    [
+      { "en": "Reni had to know why the wolves had come, and so one clear, bitter morning she did something forbidden: she went up toward the forest alone.", "ar": "كان على ريني أن تعرف لماذا جاءت الذئاب، ففي صباحٍ صافٍ قارس فعلت شيئاً ممنوعاً: صعدت نحو الغابة وحدها.", "sp": "narrator" },
+      { "en": "She climbed for an hour through snow that reached her knees, following the old shepherd's path.", "ar": "تسلّقت ساعةً عبر ثلجٍ يبلغ ركبتيها، متتبّعةً درب الراعي القديم.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Near the tree line she found old Maren, the last shepherd who still kept his sheep high in the hills, mending a fence in the cold.", "ar": "قرب حدّ الأشجار وجدت العجوز «مارِن»، آخر راعٍ ما زال يُبقي غنمه عالياً في التلال، يُصلح سياجاً في البرد.", "sp": "narrator" },
+      { "en": "\"You want to know about the wolves,\" the old man said, before she had spoken. \"Everyone is hunting them. No one is asking why they came.\"", "ar": "«تريدين أن تعرفي عن الذئاب»، قال العجوز قبل أن تتكلّم. «الجميع يصطادها. لا أحد يسأل لماذا جاءت.»", "d": true, "sp": "Maren" }
+    ],
+    [
+      { "en": "He pointed his stick high up the valley, to where the great peaks stood white against the sky.", "ar": "أشار بعصاه عالياً في الوادي، إلى حيث وقفت القمم العظيمة بيضاء في وجه السماء.", "sp": "narrator" },
+      { "en": "\"In the autumn, the whole mountainside came down — a great slide of snow and rock. It buried the high forest where the deer feed, and it sealed the passes the wolves use to hunt.\"", "ar": "«في الخريف، انهار جانب الجبل كلّه — انزلاقٌ عظيم من الثلج والصخر. دفن الغابة العالية حيث يرعى الغزال، وأغلق الممرّات التي تصطاد بها الذئاب.»", "d": true, "sp": "Maren" }
+    ],
+    [
+      { "en": "\"The deer are gone, and the way to follow them is gone. So the wolves came down the only valley still open — ours.\"", "ar": "«ذهب الغزال، وذهب السبيل إلى تتبّعه. فنزلت الذئاب الوادي الوحيد الذي ما زال مفتوحاً — وادينا.»", "d": true, "sp": "Maren" },
+      { "en": "\"They did not come for us, girl. They came because they are starving, and they have nowhere else on this earth to go.\"", "ar": "«لم تأتِ من أجلنا يا فتاة. جاءت لأنها تتضوّر جوعاً، وليس لها في هذه الأرض مكانٌ آخر تذهب إليه.»", "d": true, "sp": "Maren" }
+    ],
+    [
+      { "en": "Reni felt the truth of it settle in her chest like a stone.", "ar": "شعرت ريني بحقيقة الأمر تستقرّ في صدرها كحجر.", "sp": "narrator" },
+      { "en": "The wolves were not the village's enemy. They were its mirror — cold, frightened, and trapped by the same cruel winter.", "ar": "لم تكن الذئاب عدوّة القرية. كانت مرآتها — باردةً، خائفةً، ومحبوسةً في الشتاء القاسي نفسه.", "sp": "narrator" },
+      { "en": "She would go back, she decided, and she would make them listen.", "ar": "ستعود، قرّرت، وستجعلهم يُصغون.", "sp": "narrator" }
+    ],
+    [
+      { "en": "But when she came down the path, the wind had risen, and the sky had turned the colour of iron.", "ar": "لكن حين نزلت الدرب، كانت الريح قد اشتدّت، والسماء استحالت لون الحديد.", "sp": "narrator" },
+      { "en": "A great storm was sweeping down off the peaks — the worst of the whole winter.", "ar": "كانت عاصفةٌ عظيمة تجتاح هابطةً من القمم — أسوأ عواصف الشتاء كلّه.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And in the village, all was fear and shouting.", "ar": "وفي القرية، كان كلّ شيءٍ خوفاً وصياحاً.", "sp": "narrator" },
+      { "en": "Little Tomas, the miller's son, only seven years old, had gone out after a lost lamb before the storm — and he had not come back.", "ar": "الصغير «توماس»، ابن الطحّان، في السابعة من عمره فقط، خرج وراء حَمَلٍ ضائع قبل العاصفة — ولم يعد.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"The wolves!\" the people cried. \"The wolves have taken the boy!\"", "ar": "«الذئاب!» صرخ الناس. «الذئاب أخذت الصبي!»", "d": true, "sp": "narrator" },
+      { "en": "And the hunters took up their iron and their torches and went out into the screaming white storm, hungry now for blood.", "ar": "وأخذ الصيّادون حديدهم ومشاعلهم وخرجوا إلى العاصفة البيضاء الصارخة، متعطّشين الآن للدم.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Reni stood in the storm and understood two terrible things at once.", "ar": "وقفت ريني في العاصفة وفهمت أمرين فظيعين في آنٍ واحد.", "sp": "narrator" },
+      { "en": "A small boy was lost and freezing somewhere in the dark — and the wolves, who had not taken him, were about to die for a crime they had not done.", "ar": "صبيٌّ صغير ضائعٌ يتجمّد في مكانٍ ما في الظلام — والذئاب، التي لم تأخذه، على وشك أن تموت بجريمةٍ لم ترتكبها.", "sp": "narrator" },
+      { "en": "Only she knew the truth. And only she had a wolf who might help her find him.", "ar": "وحدها تعرف الحقيقة. ووحدها لديها ذئبٌ قد يساعدها في العثور عليه.", "sp": "narrator" }
+    ]
+  ]
+}

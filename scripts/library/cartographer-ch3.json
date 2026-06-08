@@ -1,0 +1,42 @@
+{
+  "book_title": "The Cartographer",
+  "chapter_number": 3,
+  "title_en": "The Sea That Turns",
+  "title_ar": "البحر الذي يدور",
+  "paragraphs": [
+    [
+      { "en": "It was a young sailor named Pell who first said aloud what they were all beginning to feel.", "ar": "كان بحّارٌ شابّ يُدعى «بِل» أول من قال بصوتٍ عالٍ ما بدأوا جميعاً يشعرون به.", "sp": "narrator" },
+      { "en": "\"That barrel,\" he said, pointing into the fog. \"We passed that broken barrel this morning. And yesterday. We are sailing in a circle.\"", "ar": "«ذلك البرميل»، قال، مشيراً إلى الضباب. «مررنا بذلك البرميل المكسور هذا الصباح. وبالأمس. نحن نُبحر في دائرة.»", "d": true, "sp": "Pell" }
+    ],
+    [
+      { "en": "The captain said it was impossible, that they had held their course, that one grey barrel looked like another.", "ar": "قال القبطان إنّ هذا مستحيل، وإنهم حافظوا على مسارهم، وإنّ برميلاً رمادياً يشبه آخر.", "sp": "narrator" },
+      { "en": "But the next \"day,\" they passed the barrel again.", "ar": "لكن في «اليوم» التالي، مرّوا بالبرميل من جديد.", "sp": "narrator" },
+      { "en": "And the men grew cold and quiet, and then loud and afraid.", "ar": "وصار الرجال باردين هادئين، ثم صاخبين خائفين.", "sp": "narrator" }
+    ],
+    [
+      { "en": "This was the true terror of the Grey Reach.", "ar": "كان هذا هو الرعب الحقيقيّ لـ«المدى الرمادي».", "sp": "narrator" },
+      { "en": "Not monsters, not storms, but a sea that gave you back your own wake — that took every mile you sailed and quietly returned you to where you had begun.", "ar": "لا وحوش، لا عواصف، بل بحرٌ يُعيد إليك أثر سفينتك — يأخذ كلّ ميلٍ تُبحره ويُعيدك بهدوءٍ إلى حيث بدأت.", "sp": "narrator" },
+      { "en": "A man could sail his whole life here and travel ten thousand miles and never leave a space the size of a harbour.", "ar": "يمكن للرجل أن يُبحر حياته كلها هنا ويقطع عشرة آلاف ميل ولا يغادر أبداً مساحةً بحجم ميناء.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Now Vera understood what had broken the men who came back, and what had taken her father.", "ar": "الآن فهمت فيرا ما حطّم الرجال الذين عادوا، وما أخذ أباها.", "sp": "narrator" },
+      { "en": "It was not death. It was the slow horror of effort without progress, of a journey with no end and no arrival.", "ar": "لم يكن الموت. كان الرعب البطيء للجهد دون تقدّم، لرحلةٍ بلا نهايةٍ ولا وصول.", "sp": "narrator" }
+    ],
+    [
+      { "en": "On the fifteenth grey day, the crew came to the captain and said they would go no further.", "ar": "في اليوم الرمادي الخامس عشر، جاء الطاقم إلى القبطان وقالوا إنهم لن يمضوا أبعد.", "sp": "narrator" },
+      { "en": "\"There is no chart to make of a circle,\" Pell said. \"Turn the ship, before we forget which way is home.\"", "ar": "«لا خريطة تُرسَم لدائرة»، قال «بِل». «أدِر السفينة، قبل أن ننسى أين الطريق إلى الديار.»", "d": true, "sp": "Pell" }
+    ],
+    [
+      { "en": "But Vera had spent fifteen days doing the one thing the broken sailors had never done: she had kept measuring.", "ar": "لكنّ فيرا قضت خمسة عشر يوماً تفعل الشيء الوحيد الذي لم يفعله البحّارة المحطّمون قط: ظلّت تقيس.", "sp": "narrator" },
+      { "en": "And in her careful pages, a pattern had begun to appear.", "ar": "وفي صفحاتها المتقنة، بدأ نمطٌ يظهر.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The current did not run in a true circle. It ran in a vast, slow spiral — a whirlpool so wide that, from the deck, each turn looked straight.", "ar": "لم يجرِ التيّار في دائرةٍ حقيقية. جرى في حلزونٍ شاسعٍ بطيء — دوّامةٍ من الاتّساع بحيث بدا كلّ منعطفٍ من على السطح مستقيماً.", "sp": "narrator" },
+      { "en": "They were not trapped in a circle. They were turning, very slowly, around a centre.", "ar": "لم يكونوا محبوسين في دائرة. كانوا يدورون، ببطءٍ شديد، حول مركز.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Give me one more day,\" Vera told the captain. \"If the sea turns around a centre, then the sea has an edge. And if it has an edge, I can find the way out.\"", "ar": "«أعطني يوماً واحداً آخر»، قالت فيرا للقبطان. «إن كان البحر يدور حول مركز، فللبحر حافّة. وإن كانت له حافّة، فأستطيع أن أجد المخرج.»", "d": true, "sp": "Vera" },
+      { "en": "\"And if you are wrong?\" said the captain. \"Then we are no more lost tomorrow than we are tonight,\" she said.", "ar": "«وإن كنتِ مخطئة؟» قال القبطان. «إذاً لن نكون غداً أكثر ضياعاً مما نحن عليه الليلة»، قالت.", "d": true, "sp": "Vera" }
+    ]
+  ]
+}

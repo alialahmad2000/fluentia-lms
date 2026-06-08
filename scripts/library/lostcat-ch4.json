@@ -1,0 +1,28 @@
+{
+  "book_title": "The Lost Cat",
+  "chapter_number": 4,
+  "title_en": "Far from the House",
+  "title_ar": "بعيداً عن البيت",
+  "paragraphs": [
+    [
+      { "en": "Lina walks to the park.", "ar": "تمشي لينا إلى الحديقة العامّة.", "sp": "narrator" },
+      { "en": "She looks under the trees.", "ar": "تبحث تحت الأشجار.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Misho! Misho!\" she calls.", "ar": "«ميشو! ميشو!» تنادي.", "d": true, "sp": "Lina" },
+      { "en": "But Misho is not in the park.", "ar": "لكنّ «ميشو» ليست في الحديقة العامّة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Then Lina goes to the shop.", "ar": "ثم تذهب لينا إلى المتجر.", "sp": "narrator" },
+      { "en": "She sees an old woman.", "ar": "ترى امرأةً عجوزاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Did you see an orange cat?\" asks Lina.", "ar": "«هل رأيتِ قطّةً برتقالية؟» تسأل لينا.", "d": true, "sp": "Lina" },
+      { "en": "\"No, little one. I am sorry,\" says the old woman.", "ar": "«لا يا صغيرتي. أنا آسفة»، تقول المرأة العجوز.", "d": true, "sp": "Old Woman" }
+    ],
+    [
+      { "en": "Now Lina is very sad.", "ar": "الآن لينا حزينةٌ جداً.", "sp": "narrator" },
+      { "en": "She looks everywhere, but she cannot find Misho.", "ar": "تبحث في كلّ مكان، لكنها لا تجد «ميشو».", "sp": "narrator" }
+    ]
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "book_title": "The Translator",
+  "chapter_number": 1,
+  "title_en": "The Faithful Betrayal",
+  "title_ar": "الخيانة الأمينة",
+  "paragraphs": [
+    [
+      { "en": "Anton Reye had spent fifty years carrying other people's words across the border between one language and another, and in all that time he had never once managed to do it without committing a small, necessary betrayal.", "ar": "أمضى أنطون ريي خمسين عاماً يحمل كلمات الآخرين عبر الحدود بين لغةٍ وأخرى، وفي كلّ ذلك الزمن لم ينجح ولو مرّةً في فعل ذلك دون أن يرتكب خيانةً صغيرةً ضرورية.", "sp": "narrator" },
+      { "en": "This was the first thing he taught his students, and the last thing most of them believed.", "ar": "كان هذا أول ما يعلّمه لطلّابه، وآخر ما يصدّقه معظمهم.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"A translation is not a window,\" he would say. \"It is a portrait. The translator chooses the light, the angle, what to keep in shadow. To translate faithfully is not to copy — it is to betray the words in order to keep faith with their soul.\"", "ar": "«الترجمة ليست نافذة»، كان يقول. «إنها بورتريه. المترجم يختار الضوء، والزاوية، وما يُبقيه في الظلّ. أن تترجم بأمانةٍ ليس أن تنسخ — بل أن تخون الكلمات كي تحفظ العهد مع روحها.»", "d": true, "sp": "Anton" }
+    ],
+    [
+      { "en": "Now he was old, and his hands shook, and the great publishers had begun to speak of him in the past tense.", "ar": "الآن صار عجوزاً، ويداه ترتجفان، وبدأت دور النشر الكبرى تتحدّث عنه بصيغة الماضي.", "sp": "narrator" },
+      { "en": "So when the letter came from the house of Vasilov, he read it twice, and then he sat very still for a long time.", "ar": "فحين جاءت الرسالة من دار «فاسيلوف»، قرأها مرّتين، ثم جلس ساكناً تماماً وقتاً طويلاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Pyotr Vasilov had been the greatest writer of their age — a recluse, a legend, the author of a single immortal novel that every educated person on the continent had read.", "ar": "كان بيوتر فاسيلوف أعظم كاتبٍ في عصرهم — منعزلاً، أسطورة، صاحب روايةٍ خالدةٍ واحدة قرأها كلّ متعلّمٍ في القارّة.", "sp": "narrator" },
+      { "en": "He had died in the winter, alone, in his house by the northern lakes.", "ar": "مات في الشتاء، وحيداً، في بيته قرب البحيرات الشمالية.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And he had left behind one last manuscript, sealed, written in the old language of his childhood — a language almost no one alive could still read.", "ar": "وترك خلفه مخطوطةً أخيرة، مختومة، مكتوبةً بلغة طفولته القديمة — لغةٌ لم يعد أحدٌ حيٌّ تقريباً يستطيع قراءتها.", "sp": "narrator" },
+      { "en": "Almost no one. The family had searched, and the search had led, as such searches always did in the end, to Anton Reye.", "ar": "لا أحد تقريباً. بحثت العائلة، وقاد البحث، كما تقود مثل هذه البحوث دائماً في النهاية، إلى أنطون ريي.", "sp": "narrator" }
+    ],
+    [
+      { "en": "They wanted him to translate it. They were certain it was a final masterpiece — the last gift of a genius to the world.", "ar": "أرادوه أن يترجمها. كانوا متيقّنين أنها تحفةٌ أخيرة — آخر هدية عبقريٍّ للعالم.", "sp": "narrator" },
+      { "en": "They spoke of the honour, and the money, and the place his name would hold beside Vasilov's forever.", "ar": "تحدّثوا عن الشرف، والمال، والمكانة التي سيحتلّها اسمه بجانب اسم فاسيلوف إلى الأبد.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Anton took the commission, as they had known he would.", "ar": "قبِل أنطون المهمّة، كما عرفوا أنه سيفعل.", "sp": "narrator" },
+      { "en": "An old translator does not easily refuse the chance to carry, one last time, the words of a master across the dark water of language.", "ar": "لا يرفض مترجمٌ عجوزٌ بسهولةٍ فرصةَ أن يحمل، لمرّةٍ أخيرة، كلماتِ معلّمٍ عبر الماء المظلم للّغة.", "sp": "narrator" },
+      { "en": "He did not yet know that this manuscript would ask of him not his skill, but his soul.", "ar": "لم يكن يعرف بعد أنّ هذه المخطوطة لن تطلب منه مهارته، بل روحه.", "sp": "narrator" }
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "book_title": "The Lost Cat",
+  "chapter_number": 3,
+  "title_en": "Near the House",
+  "title_ar": "قرب البيت",
+  "paragraphs": [
+    [
+      { "en": "In the morning, Lina looks for Misho.", "ar": "في الصباح، تبحث لينا عن «ميشو».", "sp": "narrator" },
+      { "en": "First, she looks in the garden.", "ar": "أولاً، تبحث في الحديقة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Misho, are you here?\" says Lina.", "ar": "«ميشو، هل أنتِ هنا؟» تقول لينا.", "d": true, "sp": "Lina" },
+      { "en": "But Misho is not in the garden.", "ar": "لكنّ «ميشو» ليست في الحديقة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Then Lina looks in the street.", "ar": "ثم تبحث لينا في الشارع.", "sp": "narrator" },
+      { "en": "She sees the baker.", "ar": "ترى الخبّاز.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"Excuse me, did you see my cat?\" says Lina.", "ar": "«من فضلك، هل رأيت قطّتي؟» تقول لينا.", "d": true, "sp": "Lina" },
+      { "en": "\"No, I did not see a cat,\" says the baker.", "ar": "«لا، لم أرَ قطّة»، يقول الخبّاز.", "d": true, "sp": "Baker" }
+    ],
+    [
+      { "en": "Misho is not near the house.", "ar": "«ميشو» ليست قرب البيت.", "sp": "narrator" },
+      { "en": "Lina looks far away.", "ar": "تبحث لينا بعيداً.", "sp": "narrator" }
+    ]
+  ]
+}

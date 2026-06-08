@@ -1,0 +1,43 @@
+{
+  "book_title": "The Bottle from the Sea",
+  "chapter_number": 3,
+  "title_en": "The News",
+  "title_ar": "الخبر",
+  "paragraphs": [
+    [
+      { "en": "Through the winter, Milo and Ada told each other everything.", "ar": "طوال الشتاء، أخبر ميلو وآدا كلٌّ منهما الآخر بكلّ شيء.", "sp": "narrator" },
+      { "en": "She told him about the island, and the great light that turned all night, and the seabirds, and her grandfather who kept the lighthouse.", "ar": "أخبرته عن الجزيرة، والضوء العظيم الذي يدور طوال الليل، والطيور البحرية، وجدّها الذي يحرس المنارة.", "sp": "narrator" },
+      { "en": "He told her about school, and the grey town, and slowly, about other things too.", "ar": "أخبرها عن المدرسة، والبلدة الرمادية، وببطء، عن أشياء أخرى أيضاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "A strange thing happened. Because Milo was happier, he was braver.", "ar": "حدث شيءٌ غريب. لأنّ ميلو صار أسعد، صار أشجع.", "sp": "narrator" },
+      { "en": "He spoke to a boy at school named Theo, and Theo, it turned out, was kind.", "ar": "تحدّث إلى صبيٍّ في المدرسة اسمه «ثيو»، وتبيّن أنّ ثيو لطيف.", "sp": "narrator" },
+      { "en": "Milo was not so alone in Greyport any more.", "ar": "لم يعد ميلو وحيداً في «غرايبورت» إلى هذا الحدّ.", "sp": "narrator" }
+    ],
+    [
+      { "en": "But one cold morning, a letter came that was different.", "ar": "لكن في صباحٍ بارد، جاءت رسالةٌ مختلفة.", "sp": "narrator" },
+      { "en": "Ada's writing was small and sad.", "ar": "كان خطّ آدا صغيراً وحزيناً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "\"I have bad news,\" she wrote. \"The men from the city are putting a new light in the lighthouse — a machine light, that needs no keeper.\"", "ar": "«لديّ خبرٌ سيّئ»، كتبت. «رجالٌ من المدينة يضعون ضوءاً جديداً في المنارة — ضوءاً آليّاً لا يحتاج إلى حارس.»", "d": true, "sp": "Ada" },
+      { "en": "\"So my grandfather has no work here any more. In the spring, we must leave the island forever.\"", "ar": "«فلم يعد لجدّي عملٌ هنا. في الربيع، علينا أن نترك الجزيرة إلى الأبد.»", "d": true, "sp": "Ada" }
+    ],
+    [
+      { "en": "\"This island is the only home I have ever known,\" she wrote. \"I do not know where we will go. I am very afraid.\"", "ar": "«هذه الجزيرة هي البيت الوحيد الذي عرفته في حياتي»، كتبت. «لا أعرف إلى أين سنذهب. أنا خائفةٌ جداً.»", "d": true, "sp": "Ada" }
+    ],
+    [
+      { "en": "Milo read the letter and felt the sadness as if it were his own.", "ar": "قرأ ميلو الرسالة وشعر بالحزن وكأنه حزنه هو.", "sp": "narrator" },
+      { "en": "He knew exactly how it felt to lose your home and go somewhere strange.", "ar": "كان يعرف تماماً كيف يكون فقدان البيت والذهاب إلى مكانٍ غريب.", "sp": "narrator" },
+      { "en": "It had happened to him, only a few months ago.", "ar": "حدث له ذلك، قبل بضعة أشهرٍ فقط.", "sp": "narrator" }
+    ],
+    [
+      { "en": "He wanted to help her, but what could a boy do?", "ar": "أراد أن يساعدها، لكن ماذا عسى صبيٍّ أن يفعل؟", "sp": "narrator" },
+      { "en": "Then he thought of something.", "ar": "ثم خطر له شيء.", "sp": "narrator" },
+      { "en": "The boat would make one last trip to the island, on the night the old light was turned off for the last time.", "ar": "سيقوم القارب برحلةٍ أخيرة إلى الجزيرة، في الليلة التي يُطفأ فيها الضوء القديم للمرّة الأخيرة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Milo decided that he would be on that boat.", "ar": "قرّر ميلو أن يكون على ذلك القارب.", "sp": "narrator" },
+      { "en": "He would cross the water and meet his friend at last, before she was gone.", "ar": "سيعبر الماء ويلتقي صديقته أخيراً، قبل أن ترحل.", "sp": "narrator" }
+    ]
+  ]
+}

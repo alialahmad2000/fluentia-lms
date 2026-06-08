@@ -1,0 +1,25 @@
+{
+  "book_title": "The Lost Cat",
+  "chapter_number": 1,
+  "title_en": "Lina and Misho",
+  "title_ar": "لينا وميشو",
+  "paragraphs": [
+    [
+      { "en": "Lina is a girl. She is seven years old.", "ar": "لينا فتاة. عمرها سبع سنوات.", "sp": "narrator" },
+      { "en": "Lina has a cat. The cat is orange and soft.", "ar": "لدى لينا قطّة. القطّة برتقالية وناعمة.", "sp": "narrator" },
+      { "en": "The cat's name is Misho.", "ar": "اسم القطّة «ميشو».", "sp": "narrator" }
+    ],
+    [
+      { "en": "Lina loves Misho very much.", "ar": "تحبّ لينا «ميشو» كثيراً.", "sp": "narrator" },
+      { "en": "And Misho loves Lina too.", "ar": "و«ميشو» تحبّ لينا أيضاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Every day, they play in the house.", "ar": "كلّ يوم، يلعبان في البيت.", "sp": "narrator" },
+      { "en": "Misho runs, and Lina laughs.", "ar": "تركض «ميشو»، وتضحك لينا.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Every night, Misho sleeps on Lina's bed.", "ar": "كلّ ليلة، تنام «ميشو» على سرير لينا.", "sp": "narrator" },
+      { "en": "Lina is happy. Misho is happy.", "ar": "لينا سعيدة. «ميشو» سعيدة.", "sp": "narrator" }
+    ]
+  ]
+}

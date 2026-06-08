@@ -1,0 +1,34 @@
+{
+  "book_title": "The Translator",
+  "chapter_number": 5,
+  "title_en": "The Other Side of the Water",
+  "title_ar": "الضفّة الأخرى للماء",
+  "paragraphs": [
+    [
+      { "en": "The truth, when it came, fell upon the literary world like a tower coming down.", "ar": "الحقيقة، حين جاءت، سقطت على العالم الأدبيّ كبرجٍ ينهار.", "sp": "narrator" },
+      { "en": "The family of Vasilov raged, and threatened, and finally fell silent, because there is no argument to be made against a man's own confession, faithfully translated, in his own dying hand.", "ar": "غضبت عائلة فاسيلوف، وهدّدت، ثم صمتت أخيراً، لأنه لا حجّة تُقال ضدّ اعتراف رجلٍ نفسه، مترجَماً بأمانة، بخطّه وهو يحتضر.", "sp": "narrator" }
+    ],
+    [
+      { "en": "There was grief, and scandal, and a long, hard reckoning.", "ar": "كان هناك حزن، وفضيحة، وحسابٌ طويلٌ عسير.", "sp": "narrator" },
+      { "en": "But when the dust of it all had settled, the most beautiful novel of the age carried, at last, the name of the frail young man who had written it in a single feverish winter and died before anyone could read a word: Lev Mihaly.", "ar": "لكن حين انقشع غبار كلّ ذلك، حملت أجملُ رواية في العصر، أخيراً، اسم الشابّ الواهن الذي كتبها في شتاءٍ محمومٍ واحد ومات قبل أن يقرأ أحدٌ كلمة: ليف ميهالي.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Marta did not become rich, and she did not live very long after.", "ar": "لم تصبح مارتا غنيّة، ولم تعش طويلاً بعد ذلك.", "sp": "narrator" },
+      { "en": "But in her last year she sat, an honoured guest, in halls she could never have entered before, and heard a thousand people speak her uncle's name with love and wonder.", "ar": "لكن في عامها الأخير جلست، ضيفةً مكرَّمة، في قاعاتٍ لم تكن لتدخلها من قبل، وسمعت ألفَ شخصٍ ينطقون اسم خالها بحبٍّ ودهشة.", "sp": "narrator" },
+      { "en": "\"My mother was wrong,\" she told Anton, smiling, near the end. \"Something of him was left in the world after all. You only had to carry it across.\"", "ar": "«كانت أمّي مخطئة»، قالت لأنطون، مبتسمةً، قرب النهاية. «شيءٌ منه بقي في العالم في النهاية. كان عليك فقط أن تحمله إلى الضفّة الأخرى.»", "d": true, "sp": "Marta" }
+    ],
+    [
+      { "en": "As for Anton Reye, the world remembered him, in the end, not for the elegance of his fifty years of translations, but for the single one in which he had refused to be elegant at all.", "ar": "أما أنطون ريي، فتذكّره العالم، في النهاية، لا لأناقة خمسين عاماً من ترجماته، بل للترجمة الوحيدة التي رفض فيها أن يكون أنيقاً البتّة.", "sp": "narrator" },
+      { "en": "The one in which he had carried every hard, ruinous, redeeming word across exactly as it was.", "ar": "تلك التي حمل فيها كلّ كلمةٍ قاسيةٍ مدمّرةٍ مُخلِّصة عبر الماء تماماً كما هي.", "sp": "narrator" }
+    ],
+    [
+      { "en": "He had taught his whole life that every translation is a betrayal. He had been right, and he had been wrong.", "ar": "علّم حياته كلها أنّ كلّ ترجمةٍ خيانة. كان محقّاً، وكان مخطئاً.", "sp": "narrator" },
+      { "en": "For there is one thing a translator can carry across the border perfectly intact, if only he is brave enough to refuse every easier choice — and that thing is the truth.", "ar": "فهناك شيءٌ واحد يستطيع المترجم أن يحمله عبر الحدود سليماً تماماً، إن كان فقط شجاعاً بما يكفي ليرفض كلّ خيارٍ أسهل — وذلك الشيء هو الحقيقة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Words, Anton had always known, are the most fragile cargo in the world; so much is lost when we move them from one shore to another — the music, the shadow, the breath between them.", "ar": "الكلمات، كما عرف أنطون دائماً، أكثر الحمولات هشاشةً في العالم؛ فالكثير يُفقَد حين ننقلها من ضفّةٍ إلى أخرى — الموسيقى، الظلّ، النَّفَس بينها.", "sp": "narrator" },
+      { "en": "But a man who will not lie can ferry one thing safely across the dark water, every time.", "ar": "لكنّ الرجل الذي لا يكذب يستطيع أن يُعبّر شيئاً واحداً بأمانٍ عبر الماء المظلم، في كلّ مرّة.", "sp": "narrator" },
+      { "en": "And that, in the end, is the whole and only art of the translator.", "ar": "وذلك، في النهاية، هو فنّ المترجم كلّه ووحده.", "sp": "narrator" }
+    ]
+  ]
+}

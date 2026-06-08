@@ -1,0 +1,49 @@
+{
+  "book_title": "The Wolf Winter",
+  "chapter_number": 2,
+  "title_en": "The Secret in the Loft",
+  "title_ar": "السرّ في العِلّية",
+  "paragraphs": [
+    [
+      { "en": "Reni could not carry a wolf through the village in daylight, so she waited.", "ar": "لم تستطع ريني أن تحمل ذئباً عبر القرية في وضح النهار، فانتظرت.", "sp": "narrator" },
+      { "en": "That night, when the house was dark and her father was asleep, she wrapped the cub in an old blanket and carried it to the empty barn at the far end of the lane.", "ar": "تلك الليلة، حين أظلم البيت ونام أبوها، لفّت الجرو في بطّانيةٍ قديمة وحملته إلى الحظيرة الفارغة في آخر الزقاق.", "sp": "narrator" }
+    ],
+    [
+      { "en": "High under the roof there was a hay loft that no one used any more, and there she made a bed of straw and hid the wolf.", "ar": "عالياً تحت السقف كانت هناك عِلّية تبنٍ لم يعد أحدٌ يستخدمها، وهناك صنعت فراشاً من القشّ وأخفت الذئب.", "sp": "narrator" },
+      { "en": "She cleaned the torn leg with warm water and bound it with strips of cloth, the way she had once seen the old healer bind a lamb.", "ar": "نظّفت الرجل الممزّقة بماءٍ دافئ وضمّدتها بخِرَقٍ من القماش، كما رأت المُداوية العجوز يوماً تضمّد حَمَلاً.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The wolf watched her the whole time with its amber eyes, and it did not bite.", "ar": "راقبها الذئب طوال الوقت بعينيه الكهرمانيتين، ولم يعضّ.", "sp": "narrator" },
+      { "en": "It was as if it understood that, for now, this strange girl was the only thing in the world that was not trying to kill it.", "ar": "كان الأمر كأنه يفهم أنّ هذه الفتاة الغريبة، في الوقت الحالي، هي الشيء الوحيد في العالم الذي لا يحاول قتله.", "sp": "narrator" },
+      { "en": "She called it Ash, for the grey of its fur and the grey of the winter sky.", "ar": "سمّته «رماد»، للون فرائه الرمادي ولون سماء الشتاء الرمادية.", "sp": "narrator" }
+    ],
+    [
+      { "en": "In the days that followed, Reni lived two lives.", "ar": "في الأيام التي تلت، عاشت ريني حياتين.", "sp": "narrator" },
+      { "en": "By day she was the hunter's quiet daughter; by night she crept to the barn with scraps of meat and bread saved from her own plate.", "ar": "نهاراً كانت ابنة الصيّاد الهادئة؛ وليلاً تتسلّل إلى الحظيرة بفُتاتٍ من اللحم والخبز ادّخرته من صحنها.", "sp": "narrator" },
+      { "en": "Slowly, Ash grew stronger.", "ar": "ببطء، اشتدّ «رماد».", "sp": "narrator" }
+    ],
+    [
+      { "en": "But while the wolf healed in secret, the fear in the village grew.", "ar": "لكن بينما كان الذئب يتعافى في الخفاء، نما الخوف في القرية.", "sp": "narrator" },
+      { "en": "Two sheep were taken from the Harlin farm, and a goat from another, and now everyone spoke of the wolves with anger in their voices.", "ar": "أُخِذت شاتان من مزرعة «هارلِن»، وعنزةٌ من أخرى، وصار الجميع يتحدّثون عن الذئاب وفي أصواتهم غضب.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Her father called a meeting in the cold hall, and the whole village came.", "ar": "دعا أبوها إلى اجتماعٍ في القاعة الباردة، وجاءت القرية كلها.", "sp": "narrator" },
+      { "en": "\"The wolves are starving, and a starving animal fears nothing,\" Joren said. \"If we wait, they will come for the children next. We hunt them — we drive them from the valley, or we kill them.\"", "ar": "«الذئاب جائعة، والحيوان الجائع لا يخاف شيئاً»، قال جورن. «إن انتظرنا، فسيأتون إلى الأطفال تالياً. سنصطادها — نطردها من الوادي، أو نقتلها.»", "d": true, "sp": "Joren" },
+      { "en": "And all around the hall, the people nodded.", "ar": "وفي أنحاء القاعة، أومأ الناس.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Reni stood at the back and said nothing.", "ar": "وقفت ريني في الخلف ولم تقل شيئاً.", "sp": "narrator" },
+      { "en": "What could she say? That she had a wolf in the old barn, healing under a blanket she had taken from her father's house?", "ar": "ماذا عساها تقول؟ إنّ لديها ذئباً في الحظيرة القديمة، يتعافى تحت بطّانيةٍ أخذتها من بيت أبيها؟", "sp": "narrator" },
+      { "en": "They would not understand. They were too afraid to understand.", "ar": "لن يفهموا. كانوا أخوف من أن يفهموا.", "sp": "narrator" }
+    ],
+    [
+      { "en": "That night she sat with Ash in the loft and held its grey head in her lap.", "ar": "تلك الليلة جلست مع «رماد» في العِلّية وأمسكت رأسه الرمادي في حِجرها.", "sp": "narrator" },
+      { "en": "\"They think you are a monster,\" she whispered. \"But you are just hungry, and far from home, and afraid. Same as them.\"", "ar": "«يظنّونك وحشاً»، همست. «لكنك جائعٌ فحسب، وبعيدٌ عن الديار، وخائف. مثلهم تماماً.»", "d": true, "sp": "Reni" }
+    ],
+    [
+      { "en": "Outside, far up in the dark forest, the pack was howling again — closer now, and hungrier.", "ar": "في الخارج، عالياً في الغابة المظلمة، كان القطيع يعوي من جديد — أقرب الآن، وأشدّ جوعاً.", "sp": "narrator" },
+      { "en": "Ash lifted its head and listened, and something old and wild stirred in its amber eyes.", "ar": "رفع «رماد» رأسه وأصغى، وتحرّك شيءٌ قديمٌ بريّ في عينيه الكهرمانيتين.", "sp": "narrator" },
+      { "en": "Reni understood then that she could not keep him forever.", "ar": "فهمت ريني حينها أنها لا تستطيع أن تُبقيه إلى الأبد.", "sp": "narrator" }
+    ]
+  ]
+}

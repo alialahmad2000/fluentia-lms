@@ -1,0 +1,38 @@
+{
+  "book_title": "The Bottle from the Sea",
+  "chapter_number": 5,
+  "title_en": "Home",
+  "title_ar": "البيت",
+  "paragraphs": [
+    [
+      { "en": "In the morning, before the boat took Milo home, Ada had a question to ask.", "ar": "في الصباح، قبل أن يأخذ القارب ميلو إلى بيته، كان لدى آدا سؤالٌ تطرحه.", "sp": "narrator" },
+      { "en": "\"We have to leave the island,\" she said. \"But we do not know where to go. Grandfather says one grey town is the same as another to him now.\"", "ar": "«علينا أن نترك الجزيرة»، قالت. «لكننا لا نعرف إلى أين نذهب. يقول جدّي إنّ بلدةً رمادية صارت كأيّ بلدةٍ أخرى بالنسبة له الآن.»", "d": true, "sp": "Ada" }
+    ],
+    [
+      { "en": "Milo's heart jumped.", "ar": "قفز قلب ميلو.", "sp": "narrator" },
+      { "en": "\"Then come to Greyport,\" he said. \"Come to my town.\"", "ar": "«إذاً تعالوا إلى «غرايبورت»»، قال. «تعالوا إلى بلدتي.»", "d": true, "sp": "Milo" },
+      { "en": "\"There is a harbour, and a school, and a long quiet beach. And there is me.\"", "ar": "«فيها ميناء، ومدرسة، وشاطئٌ طويل هادئ. وفيها أنا.»", "d": true, "sp": "Milo" }
+    ],
+    [
+      { "en": "Ada looked at her grandfather, and the old man, for the first time in many weeks, smiled.", "ar": "نظرت آدا إلى جدّها، وابتسم العجوز، لأول مرّةٍ منذ أسابيع كثيرة.", "sp": "narrator" },
+      { "en": "\"A harbour and a friend,\" he said. \"That is more than we have now. Yes — we will come to Greyport.\"", "ar": "«ميناءٌ وصديق»، قال. «هذا أكثر مما لدينا الآن. نعم — سنأتي إلى «غرايبورت».»", "d": true, "sp": "Grandfather" }
+    ],
+    [
+      { "en": "And so, in the spring, when the snow had gone and the sea was kinder, a small family moved into a house near the harbour in Greyport.", "ar": "وهكذا، في الربيع، حين ذهب الثلج وصار البحر ألطف، انتقلت عائلةٌ صغيرة إلى بيتٍ قرب الميناء في «غرايبورت».", "sp": "narrator" },
+      { "en": "The lonely town did not feel so grey any more.", "ar": "لم تعد البلدة الوحيدة رمادية إلى هذا الحدّ.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Milo had hated Greyport when he first came.", "ar": "كان ميلو يكره «غرايبورت» حين جاء أول مرّة.", "sp": "narrator" },
+      { "en": "Now it held his two best friends — Theo, from school, and Ada, from across the sea.", "ar": "والآن صارت تضمّ أعزّ صديقيه — ثيو، من المدرسة، وآدا، من عبر البحر.", "sp": "narrator" },
+      { "en": "A place is only grey, he learned, when you have no one in it to love.", "ar": "تعلّم أنّ المكان لا يكون رمادياً إلا حين لا يكون فيه من تحبّه.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Milo kept the old green bottle on the shelf by his window.", "ar": "احتفظ ميلو بالقارورة الخضراء القديمة على الرفّ قرب نافذته.", "sp": "narrator" },
+      { "en": "Sometimes he and Ada looked at it together and remembered how it all began — one lonely letter, thrown into a great cold sea, by a girl who only wanted a friend.", "ar": "أحياناً كانا ينظران إليها معاً ويتذكّران كيف بدأ كلّ شيء — رسالةً وحيدة، أُلقيت في بحرٍ بارد عظيم، من فتاةٍ لم ترد سوى صديق.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The sea is very big, and the world can feel very lonely.", "ar": "البحر كبيرٌ جداً، والعالم قد يبدو وحيداً جداً.", "sp": "narrator" },
+      { "en": "But Milo and Ada knew a secret now: if you are brave enough to reach out, even across all that dark water, somewhere, someone is reaching back.", "ar": "لكنّ ميلو وآدا عرفا سرّاً الآن: إن كنتَ شجاعاً بما يكفي لتمدّ يدك، حتى عبر كلّ ذلك الماء المظلم، ففي مكانٍ ما، هناك من يمدّ يده إليك.", "sp": "narrator" }
+    ]
+  ]
+}

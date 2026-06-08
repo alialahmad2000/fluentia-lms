@@ -1,0 +1,39 @@
+{
+  "book_title": "The Translator",
+  "chapter_number": 2,
+  "title_en": "The Sealed Pages",
+  "title_ar": "الصفحات المختومة",
+  "paragraphs": [
+    [
+      { "en": "Anton worked alone, in the quiet of his study, through the long grey weeks of early spring.", "ar": "عمل أنطون وحده، في هدوء مكتبه، عبر أسابيع الربيع الأولى الرمادية الطويلة.", "sp": "narrator" },
+      { "en": "The manuscript was, at first, everything he had hoped — the same luminous, aching prose that had made Vasilov immortal, every sentence a small perfect machine of feeling.", "ar": "كانت المخطوطة، في البداية، كلّ ما تمنّاه — النثر المُضيء الموجِع نفسه الذي جعل فاسيلوف خالداً، كلّ جملةٍ آلةٌ صغيرة متقنة من الشعور.", "sp": "narrator" }
+    ],
+    [
+      { "en": "But it was not a novel.", "ar": "لكنها لم تكن رواية.", "sp": "narrator" },
+      { "en": "It was a letter — a long confession, addressed to no one, written by a dying man who knew that only a translator would ever read it, and only after he was safely beyond the reach of judgement.", "ar": "كانت رسالة — اعترافاً طويلاً، موجَّهاً إلى لا أحد، كتبه رجلٌ يحتضر يعرف أنّ مترجماً وحده سيقرؤه يوماً، وفقط بعد أن يصير في مأمنٍ من الحساب.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And what it confessed, in that exquisite, unbearable prose, was this:", "ar": "وما اعترفت به، بذلك النثر البديع الذي لا يُحتمَل، كان هذا:", "sp": "narrator" },
+      { "en": "The great novel — the one immortal book, the foundation of everything Vasilov had been and everything his family still lived upon — was not his.", "ar": "الرواية العظيمة — الكتاب الخالد الوحيد، أساس كلّ ما كانه فاسيلوف وكلّ ما زالت عائلته تعيش عليه — لم تكن له.", "sp": "narrator" }
+    ],
+    [
+      { "en": "He had written it, Vasilov confessed, with the hand of a friend.", "ar": "كتبها، اعترف فاسيلوف، بيد صديق.", "sp": "narrator" },
+      { "en": "As a young man, poor and unknown, he had shared a cold apartment with another young writer — a true genius, frail and tubercular, named Lev.", "ar": "في شبابه، فقيراً مجهولاً، تقاسم شقّةً باردة مع كاتبٍ شابّ آخر — عبقريٍّ حقيقيّ، واهنٍ مسلول، يُدعى ليف.", "sp": "narrator" },
+      { "en": "Lev had written the novel in a single feverish winter, and then, before he could show it to a single living soul, he had died.", "ar": "كتب ليف الرواية في شتاءٍ محمومٍ واحد، ثم، قبل أن يستطيع أن يُريها لروحٍ حيّةٍ واحدة، مات.", "sp": "narrator" }
+    ],
+    [
+      { "en": "And Vasilov — grieving, starving, holding in his hands the most beautiful thing he had ever read — had put his own name upon it.", "ar": "وفاسيلوف — حزيناً، جائعاً، ممسكاً بين يديه أجملَ شيءٍ قرأه في حياته — وضع اسمه عليه.", "sp": "narrator" },
+      { "en": "The world had crowned him for it. He had worn that crown for fifty years, and it had never, for one single day, stopped burning.", "ar": "توّجه العالم به. حمل ذلك التاج خمسين عاماً، ولم يتوقّف، ولو ليومٍ واحد، عن أن يحرقه.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Anton set down his pen with a hand that shook more than age alone could explain.", "ar": "وضع أنطون قلمه بيدٍ ترتجف أكثر مما يفسّره العمر وحده.", "sp": "narrator" },
+      { "en": "He understood, now, what he was holding.", "ar": "فهم، الآن، ما الذي يمسكه.", "sp": "narrator" },
+      { "en": "Not a masterpiece to be celebrated, but a confession to be reckoned with — and he, Anton Reye, was the only living person who could read it.", "ar": "لا تحفةً يُحتفى بها، بل اعترافاً يجب الحساب معه — وهو، أنطون ريي، الشخص الحيّ الوحيد القادر على قراءته.", "sp": "narrator" }
+    ],
+    [
+      { "en": "He could translate it faithfully, and unmake a legend, and break a family, and rewrite the literary history of a century.", "ar": "كان بإمكانه أن يترجمها بأمانة، فيهدم أسطورة، ويحطّم عائلة، ويُعيد كتابة التاريخ الأدبيّ لقرن.", "sp": "narrator" },
+      { "en": "Or he could do what no one would ever discover: translate the confession into the gentle, harmless masterpiece the family expected, and let the dead keep their secrets and the living keep their peace.", "ar": "أو يفعل ما لن يكتشفه أحدٌ أبداً: يترجم الاعتراف إلى التحفة اللطيفة غير المؤذية التي تتوقّعها العائلة، ويدع الموتى يحتفظون بأسرارهم والأحياء يحتفظون بسلامهم.", "sp": "narrator" },
+      { "en": "He was a translator. Betrayal, after all, was his craft.", "ar": "كان مترجماً. والخيانة، في النهاية، كانت حرفته.", "sp": "narrator" }
+    ]
+  ]
+}

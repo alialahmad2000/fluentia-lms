@@ -1,0 +1,38 @@
+{
+  "book_title": "The Translator",
+  "chapter_number": 3,
+  "title_en": "The Weight of a Name",
+  "title_ar": "ثِقل الاسم",
+  "paragraphs": [
+    [
+      { "en": "For three days Anton did not touch the manuscript.", "ar": "ثلاثة أيامٍ لم يلمس أنطون المخطوطة.", "sp": "narrator" },
+      { "en": "He walked the cold streets and argued with himself the way he had once argued over a single untranslatable word — for hours, with his whole being, and no resolution.", "ar": "مشى في الشوارع الباردة وجادل نفسه كما جادل يوماً حول كلمةٍ واحدة لا تُترجَم — ساعات، بكلّ كيانه، دون حسم.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The case for mercy was strong.", "ar": "كانت حجّة الرحمة قويّة.", "sp": "narrator" },
+      { "en": "Vasilov was dead; Lev had been dead for fifty years; no living person remembered him.", "ar": "فاسيلوف ميّت؛ وليف مات منذ خمسين عاماً؛ ولا أحد حيّ يتذكّره.", "sp": "narrator" },
+      { "en": "The novel itself — the beautiful, true thing — would remain beautiful and true whatever name sat upon its spine. Why break a hundred living hearts to right a wrong that no one even felt as a wound?", "ar": "الرواية نفسها — الشيء الجميل الحقيقيّ — ستبقى جميلةً حقيقية أيّاً كان الاسم الجالس على كعبها. فلماذا يحطّم مئة قلبٍ حيّ ليُصحّح خطأً لا يشعر به أحدٌ حتى كجُرح؟", "sp": "narrator" }
+    ],
+    [
+      { "en": "But Anton was a translator, and a translator's whole life is the refusal to let a thing mean less than it truly means.", "ar": "لكنّ أنطون كان مترجماً، وحياة المترجم كلها رفضُ أن يعني الشيء أقلّ مما يعنيه حقاً.", "sp": "narrator" },
+      { "en": "So he did the thing the confession asked of no one and that his conscience demanded of him: he went looking for Lev.", "ar": "ففعل الشيء الذي لم يطلبه الاعتراف من أحد والذي طالبه به ضميره: ذهب يبحث عن ليف.", "sp": "narrator" }
+    ],
+    [
+      { "en": "It took weeks. Old church records, a forgotten burial register, the yellowed papers of a vanished neighbourhood.", "ar": "استغرق الأمر أسابيع. سجلّاتٌ كنسيّة قديمة، دفترُ دفنٍ منسيّ، أوراقٌ مصفرّة لحيٍّ اندثر.", "sp": "narrator" },
+      { "en": "But at last he found him: Lev Mihaly, born in poverty, dead at twenty-six, buried in a pauper's grave with no stone — and survived, the records said, by one younger sister.", "ar": "لكنه وجده أخيراً: ليف ميهالي، وُلِد في الفقر، مات في السادسة والعشرين، دُفِن في قبر فقراءَ بلا شاهدة — وتركه، قالت السجلّات، أختٌ صغرى واحدة.", "sp": "narrator" }
+    ],
+    [
+      { "en": "The sister had died too, long ago. But she had had a daughter, and that daughter was still alive — an old woman now, living on almost nothing in a single room at the edge of the city.", "ar": "ماتت الأخت أيضاً، منذ زمنٍ بعيد. لكن كان لها ابنة، وتلك الابنة ما زالت حيّة — امرأةٌ عجوز الآن، تعيش على لا شيءٍ تقريباً في غرفةٍ واحدة عند طرف المدينة.", "sp": "narrator" },
+      { "en": "The only living blood of the man who had written the most celebrated novel of the age — and she did not even know his name was hers to be proud of.", "ar": "الدم الحيّ الوحيد للرجل الذي كتب أشهر رواية في العصر — ولم تكن تعرف حتى أنّ اسمه لها لتفتخر به.", "sp": "narrator" }
+    ],
+    [
+      { "en": "Anton stood across the street from her building for a long time, in the rain, and did not go in.", "ar": "وقف أنطون مقابل بنايتها وقتاً طويلاً، في المطر، ولم يدخل.", "sp": "narrator" },
+      { "en": "What would he say? That her family's name belonged on a monument, but that to put it there he would have to take a great man's monument down?", "ar": "ماذا عساه يقول؟ إنّ اسم عائلتها يستحقّ نصباً، لكن لوضعه هناك عليه أن يهدم نصبَ رجلٍ عظيم؟", "sp": "narrator" }
+    ],
+    [
+      { "en": "He went home with the question heavier than ever.", "ar": "عاد إلى البيت والسؤال أثقل من أيّ وقتٍ مضى.", "sp": "narrator" },
+      { "en": "He was not deciding whether to tell the truth. He was deciding whose truth would be allowed to survive: the dead thief's comfortable legend, or the dead genius's stolen name.", "ar": "لم يكن يقرّر ما إن كان سيقول الحقيقة. كان يقرّر حقيقةَ مَن سيُسمَح لها بالبقاء: أسطورةَ اللصّ الميّت المريحة، أم اسمَ العبقريّ الميّت المسروق.", "sp": "narrator" },
+      { "en": "And he, alone, with his pen, was the border they would have to cross.", "ar": "وهو، وحده، بقلمه، كان الحدّ الذي عليهما عبوره.", "sp": "narrator" }
+    ]
+  ]
+}
