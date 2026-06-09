@@ -97,6 +97,18 @@ export default function AdminBugReports() {
   }, [filter])
 
   useEffect(() => { load() }, [load])
+
+  // Force EVERY device to wipe its cache + re-download the latest build on its
+  // next app-open (covers "we fixed it but their phone still runs old code").
+  const [forcing, setForcing] = useState(false)
+  const handleForceRefresh = useCallback(async () => {
+    if (!window.confirm('إجبار جميع الأجهزة على مسح الكاش وتحميل أحدث نسخة عند فتح التطبيق القادم؟ (يُنصح به بعد إصلاح مهم)')) return
+    setForcing(true)
+    const { error } = await supabase.rpc('bump_force_refresh')
+    setForcing(false)
+    if (error) { toast({ type: 'error', title: 'تعذّر التنفيذ', description: error.message }); return }
+    toast({ type: 'success', title: 'تم ✅ كل جهاز سيُحدّث نفسه عند فتح التطبيق القادم' })
+  }, [])
   // Poll every 12s so a new student message surfaces without a manual refresh.
   useEffect(() => {
     const id = setInterval(load, 12000)
@@ -158,10 +170,18 @@ export default function AdminBugReports() {
             <p style={{ color: 'var(--text-tertiary,#64748b)', fontSize: 13 }}>ما يرسله الطلاب من مشاكل ومقترحات</p>
           </div>
         </div>
-        <button type="button" onClick={load} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm"
-          style={{ background: 'var(--surface-raised,rgba(255,255,255,0.04))', color: 'var(--text-secondary,#cbd5e1)', border: '1px solid var(--border-default,rgba(255,255,255,0.08))' }}>
-          <RefreshCw size={15} /> تحديث
-        </button>
+        <div className="flex items-center gap-2 flex-wrap">
+          <button type="button" onClick={handleForceRefresh} disabled={forcing}
+            title="يجبر كل أجهزة الطلاب على مسح الكاش وتنزيل أحدث نسخة عند فتح التطبيق القادم"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm disabled:opacity-50"
+            style={{ background: 'rgba(251,191,36,0.12)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.32)' }}>
+            {forcing ? <Loader2 size={15} className="animate-spin" /> : <RefreshCw size={15} />} إجبار تحديث الأجهزة
+          </button>
+          <button type="button" onClick={load} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm"
+            style={{ background: 'var(--surface-raised,rgba(255,255,255,0.04))', color: 'var(--text-secondary,#cbd5e1)', border: '1px solid var(--border-default,rgba(255,255,255,0.08))' }}>
+            <RefreshCw size={15} /> تحديث
+          </button>
+        </div>
       </div>
 
       {awaitingCount > 0 && (

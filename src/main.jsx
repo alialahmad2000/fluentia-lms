@@ -119,6 +119,47 @@ try {
   }
 })()
 
+// ─── FORCE-REFRESH SWITCH 2026-06-09 ──────────────────────────────────────
+// A server-controlled lever (app_config.force_refresh_at, read via the public
+// get_app_force_refresh RPC) lets an admin make EVERY device wipe its cache +
+// re-download the latest build on next app-open — even when version.json matches
+// (covers the "we fixed it but their phone still runs the old code" reports).
+// Independent of the version-mismatch self-heal above. Applies a given epoch at
+// most once (durable localStorage marker, set BEFORE reload) so it cannot loop.
+;(async function applyForcedRefresh() {
+  try {
+    const base = import.meta.env.VITE_SUPABASE_URL
+    const key = import.meta.env.VITE_SUPABASE_ANON_KEY
+    if (!base || !key) return
+    const res = await fetch(base + '/rest/v1/rpc/get_app_force_refresh', {
+      method: 'POST',
+      headers: { apikey: key, Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
+      cache: 'no-store',
+      body: '{}',
+    })
+    if (!res.ok) return
+    const want = Number(await res.json()) || 0
+    if (!want) return // switch never triggered
+    const applied = Number(localStorage.getItem('fluentia_force_refresh_applied') || 0)
+    if (want <= applied) return // already wiped for this epoch
+    if (sessionStorage.getItem('fluentia:force-refresh-attempted') === '1') return
+    sessionStorage.setItem('fluentia:force-refresh-attempted', '1')
+    localStorage.setItem('fluentia_force_refresh_applied', String(want)) // mark FIRST → no loop
+    if ('caches' in window) {
+      const keys = await caches.keys()
+      await Promise.all(keys.map((k) => caches.delete(k)))
+    }
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(regs.map((r) => r.unregister()))
+    }
+    location.reload()
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn('[force-refresh] failed', e?.message || e)
+  }
+})()
+
 // Mobile debug console — activate via ?debug=1 or localStorage
 if (new URLSearchParams(window.location.search).get('debug') === '1' ||
     localStorage.getItem('fluentia_debug') === '1') {
