@@ -13,7 +13,6 @@ function formatDayLabel(dateStr) {
   }
   const sameYear = d.getFullYear() === now.getFullYear()
   if (sameYear) {
-    // e.g. "٥ مايو" — numeric day + Arabic month
     return { text: d.toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' }), isArabic: true }
   }
   return { text: d.toLocaleDateString('ar-SA', { day: 'numeric', month: 'long', year: 'numeric' }), isArabic: true }
@@ -28,43 +27,26 @@ export default function DaySeparator({ date }) {
       className="flex items-center gap-0 my-6 px-6"
       style={{ direction: 'rtl' }}
     >
-      {/* Left gradient rail */}
-      <div
-        className="flex-1 h-px"
-        style={{
-          background: 'linear-gradient(to left, var(--ds-border-subtle) 0%, transparent 100%)',
-        }}
-      />
+      {/* gradient hairline rail */}
+      <div className="flex-1 h-px" style={{ background: 'linear-gradient(to left, color-mix(in srgb, var(--ds-text-primary) 9%, transparent) 0%, transparent 100%)' }} />
 
-      {/* Glass pill */}
-      <div
-        className="shrink-0 select-none"
+      {/* المجلس — plain label on the rails (prototype style, no pill) */}
+      <span
+        className="shrink-0 select-none px-4"
         style={{
-          background: 'color-mix(in srgb, var(--ds-bg-elevated) 64%, transparent)',
-          backdropFilter: 'blur(16px) saturate(140%)',
-          WebkitBackdropFilter: 'blur(16px) saturate(140%)',
-          border: '1px solid var(--ds-border-subtle)',
-          borderRadius: 999,
-          padding: '6px 16px',
-          fontSize: 12.5,
+          fontSize: 10.5,
           fontWeight: 500,
-          letterSpacing: '0.015em',
+          letterSpacing: '0.22em',
           fontFamily: 'Tajawal, sans-serif',
-          color: 'var(--ds-text-secondary)',
+          color: 'var(--ds-text-tertiary)',
           fontFeatureSettings: '"tnum"',
-          boxShadow: 'inset 0 1px 0 0 color-mix(in srgb, white 4%, transparent)',
         }}
       >
         {text}
-      </div>
+      </span>
 
-      {/* Right gradient rail */}
-      <div
-        className="flex-1 h-px"
-        style={{
-          background: 'linear-gradient(to right, var(--ds-border-subtle) 0%, transparent 100%)',
-        }}
-      />
+      {/* gradient hairline rail */}
+      <div className="flex-1 h-px" style={{ background: 'linear-gradient(to right, color-mix(in srgb, var(--ds-text-primary) 9%, transparent) 0%, transparent 100%)' }} />
     </motion.div>
   )
 }
