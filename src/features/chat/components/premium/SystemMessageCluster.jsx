@@ -15,7 +15,7 @@ export default function SystemMessageCluster({ messages, tight = false }) {
 
   if (!messages.length) return null
 
-  const padding = tight ? { paddingTop: 8, paddingBottom: 8 } : { paddingTop: 12, paddingBottom: 12 }
+  const padding = tight ? { paddingTop: 8, paddingBottom: 8 } : { paddingTop: 16, paddingBottom: 16 }
 
   if (messages.length === 1) {
     return (

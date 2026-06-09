@@ -26,8 +26,9 @@ function Avatar({ m, isTeacher }) {
     ? { ...base, color: '#E2C88E', border: '1.5px solid rgba(201,168,106,0.32)',
         background: 'radial-gradient(120% 120% at 50% 0%, rgba(201,168,106,0.16), rgba(201,168,106,0.03) 70%)',
         boxShadow: '0 0 0 4px rgba(201,168,106,0.05), 0 0 18px -4px rgba(201,168,106,0.35), inset 0 1px 0 rgba(255,255,255,0.06)' }
-    : { ...base, color: 'rgba(236,234,226,0.7)', border: '1px solid rgba(236,234,226,0.09)',
-        background: 'rgba(236,234,226,0.05)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)' }
+    : { ...base, color: 'rgba(236,234,226,0.74)', border: '1px solid rgba(236,234,226,0.10)',
+        background: 'linear-gradient(180deg, rgba(236,234,226,0.11), rgba(236,234,226,0.03) 62%)',
+        boxShadow: '0 2px 9px -3px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07)' }
   return <div style={style}>{initialOf(m.display_name || m.full_name)}</div>
 }
 

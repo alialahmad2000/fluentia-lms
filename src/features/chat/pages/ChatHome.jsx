@@ -134,8 +134,8 @@ export default function ChatHome() {
           {threads.length === 0 ? (
             <button onClick={() => setPickerOpen(true)} className="w-full flex flex-col items-center text-center px-6" style={{ direction: 'rtl', paddingTop: 56, paddingBottom: 48, gap: 14 }}>
               <span style={{ position: 'relative', display: 'grid', placeItems: 'center' }}>
-                <span aria-hidden style={{ position: 'absolute', width: 184, height: 184, borderRadius: '50%', background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-gold) 18%, transparent) 0%, transparent 68%)', filter: 'blur(26px)', pointerEvents: 'none' }} />
-                <span style={{ position: 'relative', width: 64, height: 64, borderRadius: '50%', display: 'grid', placeItems: 'center', color: 'var(--ds-accent-gold)', background: 'radial-gradient(130% 130% at 50% 0%, color-mix(in srgb, var(--ds-accent-gold) 22%, transparent), transparent 72%)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)', boxShadow: '0 0 30px -8px color-mix(in srgb, var(--ds-accent-gold) 45%, transparent), inset 0 1px 0 color-mix(in srgb, white 12%, transparent)' }}>
+                <span aria-hidden style={{ position: 'absolute', width: 148, height: 148, borderRadius: '50%', background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-gold) 22%, transparent) 0%, transparent 66%)', filter: 'blur(22px)', pointerEvents: 'none' }} />
+                <span style={{ position: 'relative', width: 64, height: 64, borderRadius: '50%', display: 'grid', placeItems: 'center', color: 'var(--ds-accent-gold)', background: 'radial-gradient(130% 130% at 50% 0%, color-mix(in srgb, var(--ds-accent-gold) 22%, transparent), transparent 72%)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)', boxShadow: '0 0 30px -8px color-mix(in srgb, var(--ds-accent-gold) 45%, transparent), inset 0 1px 0 color-mix(in srgb, var(--ds-accent-gold) 24%, transparent)' }}>
                   <PenSquare size={24} />
                 </span>
               </span>

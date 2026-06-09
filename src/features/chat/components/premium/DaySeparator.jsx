@@ -4,7 +4,10 @@ import { fadeRise } from '../../lib/motion'
 function formatDayLabel(dateStr) {
   const d = new Date(dateStr)
   const now = new Date()
-  const diffDays = Math.floor((now - d) / 86400000)
+  // compare by CALENDAR date (midnight-to-midnight) — matches dayKey() in the
+  // stream, so yesterday-afternoon reads "أمس", never a duplicate "اليوم"
+  const midnight = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime()
+  const diffDays = Math.round((midnight(now) - midnight(d)) / 86400000)
 
   if (diffDays === 0) return { text: 'اليوم', isArabic: true }
   if (diffDays === 1) return { text: 'أمس', isArabic: true }
@@ -34,11 +37,11 @@ export default function DaySeparator({ date }) {
       <span
         className="shrink-0 select-none px-4"
         style={{
-          fontSize: 11.5,
-          fontWeight: 600,
-          letterSpacing: '0.16em',
+          fontSize: 12,
+          fontWeight: 500,
+          letterSpacing: '0.14em',
           fontFamily: 'Tajawal, sans-serif',
-          color: 'color-mix(in srgb, var(--ds-accent-gold) 60%, transparent)',
+          color: 'color-mix(in srgb, var(--ds-accent-gold) 46%, transparent)',
           fontFeatureSettings: '"tnum"',
         }}
       >
