@@ -313,6 +313,12 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-09 — LIBRARY home: bleed the room BEHIND the global nav (Ali: "make the room bleed behind the nav too")
+- `LibraryHome.jsx` toggles `document.body.classList.toggle('lib-immersive', view==='shelf')` (useEffect, removed on unmount / words view). CSS scoped to `body.lib-immersive` turns the shared chrome translucent so the full-bleed `.lib-env` (already `fixed; inset:0`) shows through: `aside[data-sidebar-root]` → warm-glass gradient `rgba(13,9,17,.58)→rgba(9,7,13,.66)` + `blur(18px)` + brass `border-inline-end` (inline `background` overridden with `!important`); `.mobile-bottom-nav` → matching warm glass; `[data-app-header]` border warmed. Nav text stays legible (dark warm scrim + blur over the room's already-dim right wall).
+- Route-scoped only — every other page's sidebar/header/mobile-bar is untouched (class is removed on unmount + in words view).
+- **Verified live** (mock-test-a1, app.fluentia.academy): `body.lib-immersive`=true, sidebar computed bg transparent + warm gradient + blur(18px); the room visibly continues behind the rail (desktop) and under the bottom bar (mobile) — one continuous library. **Shipped main `1b973daf`.**
+- Files: `src/features/library/pages/LibraryHome.jsx`, `src/features/library/library.css`.
+
 ### 2026-06-09 — LIBRARY home: TRUE full-bleed immersion redo (Ali: "looks fake/like a picture, doesn't cover the whole thing")
 - After the first pass, Ali rejected it: the backdrop "looks like a picture… not immersive… does not actually cover the whole thing… we want it as if the student is actually inside this." Root causes: (1) a single CENTERED "postcard" FLUX composition, (2) a hard black bottom scrim that made the room a band, (3) env boxed to the content area (header/sidebar offsets).
 - **New backdrop:** rewrote the prompt in `generate-library-backdrop.mjs` to a FIRST-PERSON deep reading-hall — towering shelves on BOTH sides receding in perspective, brass lamps lining the walls to a distant glowing window, reflective floor, naturally dark edges (built-in vignette), no centered subject. Generated 3 candidates, chose the deep cathedral-nave one, re-published to the SAME path (no URL change).
