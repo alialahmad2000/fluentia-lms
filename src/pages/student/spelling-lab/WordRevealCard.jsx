@@ -1,24 +1,21 @@
 import { motion } from 'framer-motion'
 import { Volume2, BookOpen, Quote, Shuffle, ArrowLeftRight, GitBranch } from 'lucide-react'
 
-// ── Spelling Lab — WordRevealCard (the teaching moment) ─────────────────────
+// ── Spelling Lab — WordRevealCard (prompt: enrich the lab) ──────────────────
 // Shown on the FEEDBACK screen, AFTER the student has submitted / revealed the
-// word, so it can teach freely without spoiling the spelling challenge.
+// word. The spelling challenge stays the hero; this card teaches the word
+// *without spoiling* the challenge (it only appears once the answer is in).
 //
-// The spelling challenge stays the hero; this card turns each word into a small
-// window onto the language. It renders (every field null-safe — missing data
-// simply collapses):
-//   • the word + audio + IPA + a tasteful part-of-speech pill
-//   • the Arabic meaning
-//   • an English example with the target word bolded
-//   • مرادفات (synonyms) — chips, the strongest one emphasised
-//   • العكس (antonyms) — chips
-//   • عائلة الكلمة (word family) — derived forms + their Arabic type
-//   • نطقها (a pronunciation note) — the common mistake vs the correct sound
-// The relations come from curriculum_vocabulary and are present for a
-// meaningful slice of the lab words; the card stays calm when they're absent.
+// Renders: the word itself (Cormorant, large), an audio button (uses the
+// host-provided onPlayAudio so we reuse the existing pronounceWord pipeline),
+// IPA when present, a tasteful part-of-speech pill (with Arabic label), the
+// Arabic meaning, and an English example sentence with the target word bolded.
+// Every field is null-safe — missing IPA / example / POS simply collapse.
 
-const GOLD = 'var(--ds-accent-primary, #e9b949)'
+// Harmonized into the Constellation palette. Gold = mastery/teaching highlight;
+// indigo/violet field tokens for surfaces. Falls back to the legacy --ds-* value
+// outside the .vocab-cosmos scope.
+const GOLD = 'var(--vc-gold-soft, var(--ds-accent-primary, #e9b949))'
 
 // English POS → Arabic label. Handles the few compound values in the data
 // (e.g. "noun/verb", "adjective (past participle/adjective)") by mapping the
@@ -62,15 +59,16 @@ function renderExample(example, word) {
   }
 }
 
-// A small section label (icon + Arabic caption) — reused across the card.
+// A small section label (icon + Arabic caption) — matches the meaning/example
+// labels above so the curiosity zone reads as one calm system.
 function FieldLabel({ icon: Icon, children }) {
   return (
     <div
       className="flex items-center gap-1.5 mb-1.5"
-      style={{ color: 'var(--ds-text-tertiary, #64748b)' }}
+      style={{ color: 'var(--vc-text-dim, #8a92b8)' }}
     >
       <Icon size={13} style={{ color: GOLD }} />
-      <span style={{ fontFamily: "'Tajawal', sans-serif", fontSize: 11, fontWeight: 600 }}>
+      <span style={{ fontFamily: "'Tajawal', sans-serif", fontSize: 12, fontWeight: 600 }}>
         {children}
       </span>
     </div>
@@ -87,9 +85,9 @@ function WordChip({ word, strong }) {
         fontFamily: "'Readex Pro', sans-serif",
         fontSize: 13,
         lineHeight: 1.2,
-        color: strong ? 'var(--ds-primary-ink, #0a0a0f)' : 'var(--ds-text-secondary, #94a3b8)',
-        background: strong ? GOLD : 'var(--ds-bg-elevated, rgba(255,255,255,0.05))',
-        border: `1px solid ${strong ? 'transparent' : 'var(--ds-border-subtle, rgba(255,255,255,0.10))'}`,
+        color: strong ? '#20160a' : 'var(--vc-text-soft, #c4caea)',
+        background: strong ? 'var(--vc-gold, #fbbf24)' : 'var(--vc-surface-2, rgba(255,255,255,0.05))',
+        border: `1px solid ${strong ? 'transparent' : 'var(--vc-border, rgba(165,180,252,0.13))'}`,
       }}
     >
       {word}
@@ -104,8 +102,8 @@ function FamilyChip({ member }) {
     <span
       className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg"
       style={{
-        background: 'var(--ds-bg-elevated, rgba(255,255,255,0.05))',
-        border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.10))',
+        background: 'var(--vc-surface-2, rgba(255,255,255,0.05))',
+        border: '1px solid var(--vc-border, rgba(165,180,252,0.13))',
       }}
     >
       <span
@@ -114,7 +112,7 @@ function FamilyChip({ member }) {
           fontFamily: "'Readex Pro', sans-serif",
           fontSize: 13,
           lineHeight: 1.2,
-          color: 'var(--ds-text-primary, #f8fafc)',
+          color: 'var(--vc-text, #eef1ff)',
         }}
       >
         {member.word}
@@ -124,7 +122,7 @@ function FamilyChip({ member }) {
           style={{
             fontFamily: "'Tajawal', sans-serif",
             fontSize: 10,
-            color: 'var(--ds-text-tertiary, #64748b)',
+            color: 'var(--vc-text-dim, #8a92b8)',
           }}
         >
           {pos}
@@ -145,7 +143,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
   const posAr = posLabelAr(word.part_of_speech)
   const posEn = word.part_of_speech ? String(word.part_of_speech) : null
 
-  // ── curiosity layer ──────────────────────────────────────────────────────
+  // ── curiosity layer (present for a meaningful slice of the lab words) ──────
   const target = String(word.word_en || '').toLowerCase()
   const synonyms = cleanList(word.synonyms).slice(0, 5)
   const antonyms = cleanList(word.antonyms).slice(0, 4)
@@ -157,7 +155,6 @@ export default function WordRevealCard({ word, onPlayAudio }) {
     word.pronunciation_alert && word.pronunciation_alert.has_alert
       ? word.pronunciation_alert
       : null
-
   const hasRelated = synonyms.length || antonyms.length || family.length || alert
 
   return (
@@ -169,15 +166,15 @@ export default function WordRevealCard({ word, onPlayAudio }) {
       className="w-full max-w-md mt-6 rounded-2xl overflow-hidden"
       style={{
         background:
-          'linear-gradient(165deg, rgba(233,185,73,0.10), var(--ds-card, rgba(255,255,255,0.035)) 42%)',
-        border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.10))',
+          'linear-gradient(165deg, rgba(251,191,36,0.10), var(--vc-surface, rgba(129,140,248,0.055)) 42%)',
+        border: '1px solid var(--vc-border, rgba(165,180,252,0.13))',
         boxShadow: '0 18px 48px -20px rgba(0,0,0,0.55)',
       }}
     >
       {/* hero: the word + audio + IPA + POS pill */}
       <div
         className="px-5 pt-5 pb-4"
-        style={{ borderBottom: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.07))' }}
+        style={{ borderBottom: '1px solid var(--vc-border, rgba(165,180,252,0.13))' }}
       >
         <div className="flex items-center gap-3" dir="ltr">
           {/* audio button — reuses the host pronounce pipeline */}
@@ -188,9 +185,9 @@ export default function WordRevealCard({ word, onPlayAudio }) {
             aria-label="استمع للكلمة"
             className="w-11 h-11 shrink-0 rounded-full flex items-center justify-center"
             style={{
-              background: GOLD,
-              color: 'var(--ds-primary-ink, #0a0a0f)',
-              boxShadow: '0 8px 22px -8px rgba(233,185,73,0.6)',
+              background: 'linear-gradient(135deg, var(--vc-gold, #fbbf24), var(--vc-gold-soft, #fcd34d))',
+              color: '#20160a',
+              boxShadow: '0 8px 22px -8px rgba(251,191,36,0.6)',
             }}
           >
             <Volume2 size={20} />
@@ -204,7 +201,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
                 fontStyle: 'italic',
                 fontSize: 34,
                 lineHeight: 1.1,
-                color: 'var(--ds-text-primary, #f8fafc)',
+                color: 'var(--vc-text, #eef1ff)',
               }}
             >
               {word.word_en}
@@ -215,7 +212,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
                 style={{
                   fontFamily: 'ui-monospace, monospace',
                   fontSize: 13,
-                  color: 'var(--ds-text-tertiary, #64748b)',
+                  color: 'var(--vc-text-dim, #8a92b8)',
                   marginTop: 2,
                 }}
               >
@@ -226,11 +223,12 @@ export default function WordRevealCard({ word, onPlayAudio }) {
 
           {posAr && (
             <span
-              className="shrink-0 inline-flex flex-col items-center justify-center px-3 py-1.5 rounded-xl"
+              className="shrink-0 inline-flex items-center justify-center px-3 py-1.5 rounded-xl"
               dir="rtl"
+              title={posEn || undefined}
               style={{
-                background: 'rgba(233,185,73,0.14)',
-                border: '1px solid rgba(233,185,73,0.32)',
+                background: 'rgba(251,191,36,0.14)',
+                border: '1px solid rgba(251,191,36,0.32)',
               }}
             >
               <span
@@ -244,19 +242,6 @@ export default function WordRevealCard({ word, onPlayAudio }) {
               >
                 {posAr}
               </span>
-              <span
-                dir="ltr"
-                style={{
-                  fontFamily: "'Inter', system-ui, sans-serif",
-                  fontSize: 9,
-                  letterSpacing: 0.4,
-                  textTransform: 'lowercase',
-                  color: 'var(--ds-text-tertiary, #64748b)',
-                  marginTop: 1,
-                }}
-              >
-                {posEn}
-              </span>
             </span>
           )}
         </div>
@@ -266,13 +251,23 @@ export default function WordRevealCard({ word, onPlayAudio }) {
       <div className="px-5 py-4 space-y-4">
         {word.meaning_ar && (
           <div>
-            <FieldLabel icon={BookOpen}>المعنى</FieldLabel>
+            <div
+              className="flex items-center gap-1.5 mb-1.5"
+              style={{ color: 'var(--vc-text-dim, #8a92b8)' }}
+            >
+              <BookOpen size={13} style={{ color: GOLD }} />
+              <span
+                style={{ fontFamily: "'Tajawal', sans-serif", fontSize: 12, fontWeight: 600 }}
+              >
+                المعنى
+              </span>
+            </div>
             <p
               style={{
                 fontFamily: "'Tajawal', sans-serif",
                 fontSize: 16,
                 lineHeight: 1.5,
-                color: 'var(--ds-text-primary, #f8fafc)',
+                color: 'var(--vc-text, #eef1ff)',
               }}
             >
               {word.meaning_ar}
@@ -282,7 +277,17 @@ export default function WordRevealCard({ word, onPlayAudio }) {
 
         {word.example_en && (
           <div>
-            <FieldLabel icon={Quote}>مثال</FieldLabel>
+            <div
+              className="flex items-center gap-1.5 mb-1.5"
+              style={{ color: 'var(--vc-text-dim, #8a92b8)' }}
+            >
+              <Quote size={13} style={{ color: GOLD }} />
+              <span
+                style={{ fontFamily: "'Tajawal', sans-serif", fontSize: 12, fontWeight: 600 }}
+              >
+                مثال
+              </span>
+            </div>
             <p
               dir="ltr"
               style={{
@@ -290,7 +295,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
                 fontStyle: 'italic',
                 fontSize: 16,
                 lineHeight: 1.55,
-                color: 'var(--ds-text-secondary, #94a3b8)',
+                color: 'var(--vc-text-soft, #c4caea)',
                 textAlign: 'left',
               }}
             >
@@ -304,7 +309,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
       {hasRelated ? (
         <div
           className="px-5 py-4 space-y-4"
-          style={{ borderTop: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.07))' }}
+          style={{ borderTop: '1px solid var(--vc-border, rgba(165,180,252,0.13))' }}
         >
           {synonyms.length > 0 && (
             <div>
@@ -348,7 +353,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
                     style={{
                       fontFamily: "'Tajawal', sans-serif",
                       fontSize: 13,
-                      color: 'var(--ds-text-tertiary, #64748b)',
+                      color: 'var(--vc-text-dim, #8a92b8)',
                       textDecoration: 'line-through',
                       textDecorationColor: 'rgba(239,68,68,0.5)',
                     }}
@@ -362,7 +367,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
                       fontFamily: "'Tajawal', sans-serif",
                       fontSize: 14,
                       fontWeight: 700,
-                      color: 'var(--ds-accent-success, #4ade80)',
+                      color: 'var(--vc-gold, #fbbf24)',
                     }}
                   >
                     {alert.correct_approximation_ar}
@@ -376,7 +381,7 @@ export default function WordRevealCard({ word, onPlayAudio }) {
                     fontFamily: "'Tajawal', sans-serif",
                     fontSize: 12.5,
                     lineHeight: 1.5,
-                    color: 'var(--ds-text-secondary, #94a3b8)',
+                    color: 'var(--vc-text-soft, #c4caea)',
                   }}
                 >
                   {alert.practice_tip_ar}
