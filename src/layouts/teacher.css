@@ -139,6 +139,14 @@
   flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
   padding: 28px 24px calc(40px + var(--sab));
   scroll-behavior: smooth;
+  /* CONTAIN the student curriculum renderer's `position: fixed; inset:0` backgrounds
+     (AmbientParticles 100vh canvas, UnitBrief bg, the zIndex:9999 cinematic intro, etc.).
+     A transform makes this element the containing block for ALL fixed descendants, so the
+     teacher curriculum preview can NEVER cover/hide the sidebar — it stays beside it.
+     Teacher-only (students use LayoutShell), so the student experience is untouched. */
+  transform: translateZ(0);
+  position: relative;
+  z-index: 0;
 }
 
 /* ── Mobile bottom bar ──────────────────────────────────────────────────── */
