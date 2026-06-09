@@ -174,13 +174,14 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
         backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', boxShadow: SHADOW_OWN,
       }
     : {
+        // top edge catches the brass lamp, then falls quickly to a lit-neutral surface
         background: `linear-gradient(180deg,
-          color-mix(in srgb, var(--ds-text-primary) 10%, var(--ds-bg-elevated)) 0%,
-          color-mix(in srgb, var(--ds-text-primary) 5%, var(--ds-bg-elevated)) 38%,
-          color-mix(in srgb, var(--ds-text-primary) 2%, var(--ds-bg-elevated)) 100%)`,
+          color-mix(in srgb, var(--ds-accent-gold) 10%, var(--ds-bg-elevated)) 0%,
+          color-mix(in srgb, var(--ds-text-primary) 6%, var(--ds-bg-elevated)) 16%,
+          var(--ds-bg-elevated) 100%)`,
         backdropFilter: 'blur(22px) saturate(140%)', WebkitBackdropFilter: 'blur(22px) saturate(140%)',
-        border: '1px solid color-mix(in srgb, var(--ds-text-primary) 10%, transparent)',
-        borderTopColor: 'color-mix(in srgb, var(--ds-text-primary) 18%, transparent)',
+        border: '1px solid color-mix(in srgb, var(--ds-text-primary) 9%, transparent)',
+        borderTopColor: 'color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)',
         boxShadow: SHADOW_OTHER,
       }
 

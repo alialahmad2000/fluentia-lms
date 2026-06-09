@@ -133,11 +133,14 @@ export default function ChatHome() {
           <div className="px-3 py-1.5 text-[12px] font-semibold" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-tertiary)', letterSpacing: '0.04em' }}>الرسائل الخاصة</div>
           {threads.length === 0 ? (
             <button onClick={() => setPickerOpen(true)} className="w-full flex flex-col items-center text-center px-6" style={{ direction: 'rtl', paddingTop: 56, paddingBottom: 48, gap: 14 }}>
-              <span style={{ width: 64, height: 64, borderRadius: '50%', display: 'grid', placeItems: 'center', color: 'var(--ds-accent-gold)', background: 'radial-gradient(130% 130% at 50% 0%, color-mix(in srgb, var(--ds-accent-gold) 20%, transparent), transparent 72%)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 28%, transparent)', boxShadow: '0 0 34px -6px color-mix(in srgb, var(--ds-accent-gold) 48%, transparent), inset 0 1px 0 color-mix(in srgb, white 10%, transparent)' }}>
-                <PenSquare size={24} />
+              <span style={{ position: 'relative', display: 'grid', placeItems: 'center' }}>
+                <span aria-hidden style={{ position: 'absolute', width: 184, height: 184, borderRadius: '50%', background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-gold) 18%, transparent) 0%, transparent 68%)', filter: 'blur(26px)', pointerEvents: 'none' }} />
+                <span style={{ position: 'relative', width: 64, height: 64, borderRadius: '50%', display: 'grid', placeItems: 'center', color: 'var(--ds-accent-gold)', background: 'radial-gradient(130% 130% at 50% 0%, color-mix(in srgb, var(--ds-accent-gold) 22%, transparent), transparent 72%)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)', boxShadow: '0 0 30px -8px color-mix(in srgb, var(--ds-accent-gold) 45%, transparent), inset 0 1px 0 color-mix(in srgb, white 12%, transparent)' }}>
+                  <PenSquare size={24} />
+                </span>
               </span>
               <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 17, fontWeight: 600, color: 'var(--ds-text-primary)', letterSpacing: '0.01em' }}>ابدأ محادثة خاصة</span>
-              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 13.5, color: 'var(--ds-text-secondary)', lineHeight: 1.8, maxWidth: 280 }}>راسل مدربك أو زميلاً من نفس مستواك — اضغط هنا لاختيار من حلقتك.</span>
+              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 13.5, color: 'rgba(232,222,206,0.62)', lineHeight: 1.8, maxWidth: 280 }}>راسل مدربك أو زميلاً من نفس مستواك — اضغط هنا لاختيار من حلقتك.</span>
             </button>
           ) : threads.map((t) => (
             <Row key={t.thread_id}

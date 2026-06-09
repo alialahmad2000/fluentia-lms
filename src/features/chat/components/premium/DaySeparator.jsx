@@ -35,10 +35,10 @@ export default function DaySeparator({ date }) {
         className="shrink-0 select-none px-4"
         style={{
           fontSize: 11.5,
-          fontWeight: 500,
+          fontWeight: 600,
           letterSpacing: '0.16em',
           fontFamily: 'Tajawal, sans-serif',
-          color: 'var(--ds-text-tertiary)',
+          color: 'color-mix(in srgb, var(--ds-accent-gold) 60%, transparent)',
           fontFeatureSettings: '"tnum"',
         }}
       >
