@@ -82,7 +82,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--surface-base)' }}>
+    <div className="min-h-[100dvh] flex items-center justify-center p-6" style={{ background: 'var(--surface-base)', paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}>
       {/* Background ambient gradients */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-[120px] glow-breathe" style={{ background: 'var(--accent-sky-glow)' }} />
@@ -97,19 +97,33 @@ export default function LoginPage() {
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         className="w-full max-w-[420px] relative z-10"
       >
-        {/* Logo & Title */}
+        {/* Brand lockup — typographic, Arabic-first wordmark (razor-sharp at any density) */}
         <div className="text-center mb-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center gap-3.5"
           >
-            <img
-              src={effectiveTheme === 'light' ? '/logo-full-light.png' : '/logo-full-dark.png'}
-              alt="Fluentia Academy"
-              className="h-16 w-auto mx-auto mb-5"
-            />
-            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>{ACADEMY.name_ar}</p>
+            {/* English eyebrow with hairline rules */}
+            <div className="flex items-center gap-3" style={{ color: 'var(--text-tertiary)' }} dir="ltr">
+              <span className="h-px w-8" style={{ background: 'linear-gradient(to right, transparent, currentColor)' }} />
+              <span className="text-[11px] font-semibold uppercase" style={{ letterSpacing: '0.34em' }}>Fluentia&nbsp;Academy</span>
+              <span className="h-px w-8" style={{ background: 'linear-gradient(to left, transparent, currentColor)' }} />
+            </div>
+            {/* Arabic wordmark — the brand */}
+            <h1
+              className="leading-none"
+              style={{
+                fontFamily: "'Cairo', 'Tajawal', sans-serif",
+                fontWeight: 800,
+                fontSize: 'clamp(2.75rem, 13vw, 3.5rem)',
+                color: 'var(--text-primary)',
+                textShadow: '0 2px 40px var(--accent-sky-glow, rgba(56, 189, 248, 0.28))',
+              }}
+            >
+              طلاقة
+            </h1>
           </motion.div>
         </div>
 
@@ -131,7 +145,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => { setLoginMode(loginMode === 'email' ? 'username' : 'email'); setError('') }}
-                className="text-xs text-sky-400 hover:text-sky-300 transition-colors"
+                className="text-xs text-muted hover:text-sky-400 transition-colors"
               >
                 {loginMode === 'email' ? t('auth.login.toggle_username') : t('auth.login.toggle_email')}
               </button>
