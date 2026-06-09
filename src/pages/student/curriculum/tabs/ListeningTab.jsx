@@ -386,6 +386,10 @@ function AudioPlayer({ url, duration: initialDuration }) {
 // the phantom-submit-on-reload bug. Each retry creates a new DB row instead of
 // overwriting the previous one via upsert.
 function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
+  // readOnly must be read HERE (this component owns saveProgress). It was declared
+  // only in the parent ListeningTab, so `if (readOnly) return` in saveProgress threw
+  // ReferenceError → all listening saves silently failed for every student since 2026-06-06.
+  const { readOnly } = useCurriculumPreview()
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)

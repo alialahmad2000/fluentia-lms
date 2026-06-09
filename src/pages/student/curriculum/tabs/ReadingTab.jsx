@@ -152,6 +152,11 @@ export default function ReadingTab({ unitId }) {
 // overwriting a previous completed row's score/status during a retry.
 function ReadingContent({ reading, studentId, unitId }) {
   const g = useG()
+  // readOnly must be read HERE (this component owns the save handlers). It was
+  // declared only in the parent ReadingTab, so the `if (readOnly) return` guards
+  // below threw ReferenceError inside a fire-and-forget callback → all reading
+  // saves silently failed for every student since 2026-06-06.
+  const { readOnly } = useCurriculumPreview()
   const [savedProgress, setSavedProgress] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -1274,6 +1279,7 @@ function VocabTooltipPortal({ vocab, targetRef, onMouseEnter, onMouseLeave }) {
 
 // ─── Passage Display ─────────────────────────────────
 function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId, wordAssistanceEnabled = true, hoverEnabled = true }) {
+  const { readOnly } = useCurriculumPreview() // owns the note-save guard; must be in-scope here (see ReadingContent note)
   const [activeTooltip, setActiveTooltip] = useState(null)
   const [activeTooltipEl, setActiveTooltipEl] = useState(null)
   const [editingNote, setEditingNote] = useState(null)
