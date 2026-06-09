@@ -36,7 +36,7 @@ function buildBlocks(paragraphs, illustrations) {
 function Plate({ img, variant }) {
   return (
     <figure className={variant === 'codex' ? 'lib-codex-plate' : 'lib-plate'}>
-      <img src={img.url} alt={img.alt || ''} loading="lazy" />
+      <div className="lib-plate-frame"><img src={img.url} alt={img.alt || ''} loading="lazy" /></div>
       {img.alt && <figcaption>{img.alt}</figcaption>}
     </figure>
   )
@@ -258,6 +258,8 @@ export default function LibraryReader() {
   const [audioPct, setAudioPct] = useState(0)
   const [audioTime, setAudioTime] = useState(0)
   const [audioDur, setAudioDur] = useState(0)
+  const [rate, setRate] = useState(() => { try { return Number(localStorage.getItem('fluentia:lib:rate')) || 1 } catch { return 1 } })
+  const [speedOpen, setSpeedOpen] = useState(false)
 
   const chapters = bookData?.chapters || []
   const book = bookData?.book
@@ -315,6 +317,11 @@ export default function LibraryReader() {
     el.currentTime = hit.t0 / 1000; setAudioTime(hit.t0 / 1000); setCurKey(key)
     el.play().then(() => setPlaying(true)).catch(() => {})
   }
+  // playback speed (slower / faster) — persists across chapters & sessions
+  useEffect(() => {
+    if (narrRef.current) narrRef.current.playbackRate = rate
+    try { localStorage.setItem('fluentia:lib:rate', String(rate)) } catch { /* ignore */ }
+  }, [rate])
   useEffect(() => {
     if (mode !== 'cinema' || !curKey) return
     const elx = document.querySelector(`[data-cinekey="${curKey}"]`)
@@ -388,7 +395,7 @@ export default function LibraryReader() {
     <div className="lib-reader-stage" data-candle={candle || undefined} data-mood={book?.theme || undefined} style={{ '--lib-fontscale': fontScale }}>
       {candle && <div className="lib-candle" />}
       <audio ref={ambientRef} loop preload="none" src={ambienceUrl || undefined} />
-      <audio ref={narrRef} src={current?.audio_url || undefined} preload="metadata" playsInline onTimeUpdate={onAudioTime} onLoadedMetadata={() => setAudioDur(narrRef.current?.duration || 0)} onEnded={() => setPlaying(false)} />
+      <audio ref={narrRef} src={current?.audio_url || undefined} preload="metadata" playsInline onTimeUpdate={onAudioTime} onLoadedMetadata={() => { const el = narrRef.current; if (el) { setAudioDur(el.duration || 0); el.playbackRate = rate } }} onEnded={() => setPlaying(false)} />
       <div className="lib-reader-bar">
         <button className="lib-back" onClick={() => navigate(`/library/${bookId}`)}>
           <ChevronRight size={16} /> الرواية
@@ -441,13 +448,13 @@ export default function LibraryReader() {
               </div>
             )}
           </div>
-          <div className="lib-cine-bar" data-rich={current?.audio_url ? true : undefined}>
+          <div className="lib-cine-bar" data-rich={current?.audio_url ? true : undefined} dir={current?.audio_url ? 'ltr' : undefined}>
             {current?.audio_url ? (
               <>
                 <button className="lib-cine-play" onClick={toggleNarration} aria-label={playing ? 'إيقاف مؤقت' : 'تشغيل'}>{playing ? '❚❚' : '▶'}</button>
                 <button className="lib-cine-skip" onClick={() => skipBy(-10)} aria-label="إرجاع ١٠ ثوانٍ"><RotateCcw size={15} /><b>10</b></button>
                 <span className="lib-cine-time">{fmtTime(audioTime)}</span>
-                <div className="lib-cine-track" ref={trackRef} dir="ltr" role="slider"
+                <div className="lib-cine-track" ref={trackRef} role="slider"
                   aria-label="شريط الصوت" aria-valuemin={0} aria-valuemax={Math.round(audioDur)} aria-valuenow={Math.round(audioTime)}
                   onPointerDown={onScrubDown} onPointerMove={onScrubMove} onPointerUp={onScrubUp} onPointerCancel={onScrubUp}>
                   <i style={{ width: `${audioPct}%` }} />
@@ -455,6 +462,16 @@ export default function LibraryReader() {
                 </div>
                 <span className="lib-cine-time lib-cine-time-total">{fmtTime(audioDur)}</span>
                 <button className="lib-cine-skip" onClick={() => skipBy(10)} aria-label="تقديم ١٠ ثوانٍ"><RotateCw size={15} /><b>10</b></button>
+                <div className="lib-cine-speed-wrap">
+                  <button className="lib-cine-speed" onClick={() => setSpeedOpen((o) => !o)} aria-label="سرعة الصوت">{rate}×</button>
+                  {speedOpen && (
+                    <div className="lib-cine-speed-pop">
+                      {[0.75, 1, 1.25, 1.5, 1.75].map((r) => (
+                        <button key={r} data-active={r === rate || undefined} onClick={() => { setRate(r); setSpeedOpen(false) }}>{r}×</button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </>
             ) : <span className="lib-cine-soon">🎧 الرواية الصوتية لهذا الفصل قريباً</span>}
           </div>

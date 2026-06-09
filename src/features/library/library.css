@@ -460,11 +460,18 @@
 
 /* illustration plates */
 .lib-plate { margin: 30px auto; }
-.lib-plate img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; border: 1px solid rgba(237,228,211,0.12); box-shadow: 0 20px 46px -22px rgba(0,0,0,0.78); }
+.lib-plate-frame { overflow: hidden; border-radius: 6px; }
+.lib-plate .lib-plate-frame { border: 1px solid rgba(237,228,211,0.12); box-shadow: 0 20px 46px -22px rgba(0,0,0,0.78); }
+.lib-plate img, .lib-codex-plate img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
+/* every chapter picture slowly breathes — Ken-Burns within a static frame */
+.lib-plate img { transform: scale(1.05); animation: lib-plate-kb 42s ease-in-out infinite alternate; will-change: transform; }
 .lib-plate figcaption { font-family: var(--lib-serif); font-style: italic; font-size: 12.5px; color: var(--lib-whisper); text-align: center; margin-top: 9px; }
 .lib-codex-plate { break-inside: avoid; margin: 4px 0 16px; }
-.lib-codex-plate img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; border: 1px solid rgba(90,60,20,0.22); box-shadow: 0 10px 22px -12px rgba(60,40,12,0.55); }
+.lib-codex-plate .lib-plate-frame { border-radius: 4px; border: 1px solid rgba(90,60,20,0.22); box-shadow: 0 10px 22px -12px rgba(60,40,12,0.55); }
+.lib-codex-plate img { transform: scale(1.05); animation: lib-plate-kb 50s ease-in-out infinite alternate; will-change: transform; }
 .lib-codex-plate figcaption { font-family: var(--lib-serif); font-style: italic; font-size: 11.5px; color: #8a6f47; text-align: center; margin-top: 6px; }
+@keyframes lib-plate-kb { from { transform: scale(1.05) translate(0,0); } to { transform: scale(1.12) translate(-1.5%,-1.8%); } }
+@media (prefers-reduced-motion: reduce) { .lib-plate img, .lib-codex-plate img { animation: none; transform: none; } }
 
 /* paper-colour picker (Codex) */
 .lib-papers { display: flex; align-items: center; gap: 6px; }
@@ -549,4 +556,24 @@
 .lib-cine-track > i { position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 5px; border-radius: 3px; background: linear-gradient(90deg, rgba(251,191,36,0.7), var(--lib-gold)); box-shadow: 0 0 10px rgba(251,191,36,0.6); transition: width 0.1s linear; }
 .lib-cine-thumb { position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; background: #fdf6e6; box-shadow: 0 0 10px rgba(251,191,36,0.85), 0 1px 4px rgba(0,0,0,0.6); transform: translate(-50%, -50%); pointer-events: none; transition: left 0.1s linear; }
 .lib-cine-soon { flex: 1; text-align: center; font-family: 'Tajawal', sans-serif; font-size: 13px; color: #c9a45a; }
+.lib-cine-speed-wrap { position: relative; flex: 0 0 auto; }
+.lib-cine-speed {
+  width: 42px; height: 34px; border-radius: 9px; cursor: pointer;
+  background: rgba(244,236,220,0.06); border: 1px solid rgba(251,191,36,0.22); color: #e9d9a8;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums;
+  transition: background 0.15s, border-color 0.15s;
+}
+.lib-cine-speed:hover { background: rgba(251,191,36,0.12); border-color: rgba(251,191,36,0.4); }
+.lib-cine-speed-pop {
+  position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; gap: 3px; padding: 5px;
+  background: rgba(12,16,24,0.97); backdrop-filter: blur(12px); border: 1px solid rgba(251,191,36,0.3);
+  border-radius: 12px; box-shadow: 0 14px 32px -12px rgba(0,0,0,0.85);
+}
+.lib-cine-speed-pop button {
+  min-width: 60px; padding: 8px 12px; border-radius: 8px; cursor: pointer; border: none; background: transparent;
+  color: #cbb377; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12.5px; font-weight: 600; text-align: center;
+}
+.lib-cine-speed-pop button:hover { background: rgba(251,191,36,0.1); }
+.lib-cine-speed-pop button[data-active] { background: linear-gradient(135deg, var(--lib-gold), #f59e0b); color: #1a1206; }
 @media (max-width: 380px) { .lib-cine-time-total { display: none; } .lib-cine-bar { gap: 7px; padding: 9px 12px; } }
