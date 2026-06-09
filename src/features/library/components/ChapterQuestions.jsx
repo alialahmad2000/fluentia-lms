@@ -50,7 +50,7 @@ export default function ChapterQuestions({ chapterId, bookId, myId, onJump, onSh
     <div className="lib-q-panel" dir="rtl">
       <div className="lib-q-head">
         <span>اختبري فهمك</span>
-        {graded.length > 0 && <em>{doneCount} / {graded.length}</em>}
+        {graded.length > 0 && <em dir="ltr">{doneCount} / {graded.length}</em>}
       </div>
       {questions.map((q) => {
         const st = state(q)
