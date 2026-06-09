@@ -21,11 +21,13 @@ export const STUDENT_NAV = {
         { id: 'library',     label: 'المكتبة',      icon: BookMarked, to: '/library' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
-        { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,    to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
-        // SIDEBAR-HIDDEN 2026-06-02 (prompt 09): removed from sidebar nav only — routes still
-        // registered in App.jsx (direct-URL reachable) and items kept in drawerSections below:
-        //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP), level-journey(خريطة رحلتكِ)
+        // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
+        //   ielts-atelier, progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
+        //   level-journey(خريطة رحلتك), competition(المسابقة), competition-rules, leaderboard, duels.
+        // Re-hidden 2026-06-09: commit 80e76b2 ("add Library") was based off a pre-c72640a tree and
+        // silently re-added these. RULE: if you add/remove an item here, mirror it in drawerSections
+        // below — the mobile "More" drawer reads that SEPARATE list, or the item shows on phones.
       ],
     },
     {
@@ -40,10 +42,7 @@ export const STUDENT_NAV = {
       label: 'المجتمع',
       items: [
         { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-        { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
-        { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
-        // SIDEBAR-HIDDEN 2026-06-02 (prompt 09): removed from sidebar nav only — routes still
-        // registered + kept in drawerSections below: competition(المسابقة), competition-rules(قواعد المسابقة)
+        // OWNER-HIDDEN (routes kept): leaderboard(لوحة الشرف), duels(المبارزات), competition, competition-rules.
       ],
     },
     {
@@ -73,7 +72,6 @@ export const STUDENT_NAV = {
         { id: 'library',      label: 'المكتبة',      icon: BookMarked,   to: '/library' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
-        { id: 'ielts-atelier', label: 'IELTS Atelier', icon: Award,       to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
       ],
     },
@@ -82,8 +80,6 @@ export const STUDENT_NAV = {
       label: 'المجتمع',
       items: [
         { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-        { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
-        { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
       ],
     },
     {
