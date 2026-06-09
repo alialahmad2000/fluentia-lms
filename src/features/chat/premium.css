@@ -202,3 +202,14 @@ body.chat-page .z-\[997\] { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .chat-aurora[data-pulsing="true"] { transform: scale(1) !important; }
 }
+
+/* ── Immersive chat: it becomes its own full-screen world ─────────────────────
+   On any /chat page, hide the app's top header + bottom nav and let the chat fill
+   the screen. They reappear on every other page. The impersonation banner stays. */
+body.chat-page { background: #0b0907 !important; }
+body.chat-page [data-app-header] { display: none !important; }
+body.chat-page .mobile-bottom-nav { display: none !important; }
+body.chat-page .chat-shell {
+  top: calc(var(--sat, 0px) + var(--impersonation-banner-height, 0px)) !important;
+  bottom: var(--sab, 0px) !important;
+}

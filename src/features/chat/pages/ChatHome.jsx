@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
-import { Users, PenSquare, ChevronLeft } from 'lucide-react'
+import { Users, PenSquare, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { useDMThreads } from '../queries/useDM'
@@ -104,6 +104,11 @@ export default function ChatHome() {
       {/* Header */}
       <div className="chat-row">
         <div className="flex items-center gap-2 px-4" style={{ height: 60, direction: 'rtl', background: 'color-mix(in srgb, var(--ds-bg-elevated) 62%, transparent)', backdropFilter: 'blur(28px) saturate(150%)', WebkitBackdropFilter: 'blur(28px) saturate(150%)', borderBottom: '1px solid var(--ds-border-subtle)' }}>
+          <button onClick={() => navigate(profile?.role === 'trainer' ? '/trainer' : profile?.role === 'admin' ? '/admin' : '/student')} aria-label="الخروج من المحادثة"
+            className="rounded-full flex items-center justify-center shrink-0 transition-colors hover:bg-[var(--ds-surface-1)]"
+            style={{ width: 38, height: 38, color: 'var(--ds-text-secondary)' }}>
+            <ChevronRight size={22} />
+          </button>
           <h1 className="flex-1 font-bold" style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 20, color: 'var(--ds-text-primary)' }}>المحادثات</h1>
           <button onClick={() => setPickerOpen(true)} aria-label="رسالة جديدة"
             className="rounded-full flex items-center justify-center transition-all"
