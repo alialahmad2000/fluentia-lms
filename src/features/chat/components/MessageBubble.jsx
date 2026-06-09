@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useTransform } from 'framer-motion'
-import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck, Clock, AlertCircle, MoreHorizontal } from 'lucide-react'
+import { Reply, Pin, Edit2, Trash2, Smile, CornerUpLeft, Check, CheckCheck, Clock, AlertCircle, MoreHorizontal, Sparkles } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useAuthProfile } from '../../../stores/authStore'
 import MessageBubbleText from './MessageBubbleText'
@@ -19,6 +19,7 @@ import ReactionBurst from './premium/ReactionBurst'
 import MessageActionSheet from './premium/MessageActionSheet'
 import { senderColor } from '../lib/senderColors'
 import { useChatGestures } from '../lib/useChatGestures'
+import { supabase } from '../../../lib/supabase'
 import { useReact } from '../mutations/useReact'
 import { useDeleteMessage } from '../mutations/useDeleteMessage'
 import { useTogglePin } from '../mutations/useTogglePin'
@@ -50,6 +51,59 @@ const SHADOW_OTHER = [
   '0 14px 34px -14px rgba(0,0,0,0.28)',
   'inset 0 1px 0 0 color-mix(in srgb, white 7%, transparent)',
 ].join(',')
+
+// المجلس — "the teacher's ear": tap ✦ on your own English message and د. علي gently
+// recasts it (only when there's a real improvement). Computed on tap, private to you.
+const hasEnglish = (t) => ((String(t || '').match(/[A-Za-z]/g) || []).length >= 3)
+
+function TeacherEar({ text }) {
+  const [state, setState] = useState('idle') // idle | loading | good | done
+  const [data, setData] = useState(null)
+  async function run(e) {
+    e.stopPropagation()
+    if (state === 'loading') return
+    setState('loading')
+    try {
+      const { data: res } = await supabase.functions.invoke('majlis-recast', { body: { text } })
+      if (res?.has_suggestion && res.better) { setData(res); setState('done') }
+      else setState('good')
+    } catch { setState('good') }
+  }
+  if (state === 'idle') {
+    return (
+      <button type="button" onClick={run} onPointerDown={(e) => e.stopPropagation()}
+        className="mt-1.5 inline-flex items-center gap-1.5 transition-opacity hover:opacity-100"
+        style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 11, color: 'var(--ds-accent-gold)', opacity: 0.72 }}>
+        <Sparkles size={12} /> راجع صياغتي
+      </button>
+    )
+  }
+  if (state === 'loading') {
+    return (
+      <div className="mt-1.5 inline-flex items-center gap-1.5 text-[11px]" style={{ color: 'var(--ds-text-muted)', fontFamily: 'Tajawal, sans-serif' }}>
+        <Sparkles size={12} className="animate-pulse" /> د. علي يستمع…
+      </div>
+    )
+  }
+  if (state === 'good') {
+    return (
+      <div className="mt-1.5 inline-flex items-center gap-1.5 text-[11px]" style={{ color: 'var(--ds-accent-gold)', fontFamily: 'Tajawal, sans-serif' }}>
+        <Check size={12} /> صياغتك ممتازة
+      </div>
+    )
+  }
+  return (
+    <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
+      className="mt-2 rounded-xl px-3 py-2.5"
+      style={{ maxWidth: 320, background: 'color-mix(in srgb, var(--ds-accent-gold) 7%, var(--ds-bg-elevated))', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 20%, transparent)', borderInlineStart: '2.5px solid var(--ds-accent-gold)' }}>
+      <div className="flex items-center gap-1.5 mb-1.5" style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 10.5, color: 'var(--ds-accent-gold)', fontWeight: 600, letterSpacing: '0.02em' }}>
+        <Sparkles size={12} /> همسة من المجلس · د. علي
+      </div>
+      <div dir="ltr" style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: 15, color: 'var(--ds-text-primary)', lineHeight: 1.5, textAlign: 'left', marginBottom: 7 }}>“{data.better}”</div>
+      <div style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 12.5, color: 'var(--ds-text-secondary)', lineHeight: 1.7 }}>{data.note_ar}</div>
+    </motion.div>
+  )
+}
 
 export default function MessageBubble({ message, isGrouped, position = 'single', channelId, groupId, onReply, onEdit, readUpTo }) {
   const profile = useAuthProfile()
@@ -203,6 +257,10 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
             </div>
           )}
         </div>
+
+        {isOwn && message.type === 'text' && !message.deleted_at && hasEnglish(bodyText) && (
+          <div onPointerDown={stop}><TeacherEar text={bodyText} /></div>
+        )}
 
         <div onPointerDown={stop}>
           <ReactionSummary reactions={message.reactions} myId={profile?.id} messageId={message.id} onReact={(emoji) => reactWith(emoji)} />
