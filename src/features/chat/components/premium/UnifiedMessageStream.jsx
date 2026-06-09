@@ -31,7 +31,7 @@ function buildItems(messages, { unreadAfter, myId } = {}) {
   const items = []
   let systemBuf = []
   let currentGroup = null
-  let lastRealDay = null
+  const emittedDays = new Set()
   let unreadPlaced = false
   const unreadTs = unreadAfter ? new Date(unreadAfter).getTime() : null
 
@@ -52,14 +52,14 @@ function buildItems(messages, { unreadAfter, myId } = {}) {
       continue
     }
     const day = dayKey(msg.created_at)
-    const dayChanged = lastRealDay !== null && lastRealDay !== day
 
     flushGroup()
     flushSystem()
 
-    if (lastRealDay === null || dayChanged) {
+    // one day-divider per calendar day, ever (no duplicate "اليوم")
+    if (!emittedDays.has(day)) {
       items.push({ type: 'separator', date: msg.created_at })
-      lastRealDay = day
+      emittedDays.add(day)
     }
 
     // "New messages" divider — before the first unread message not sent by me

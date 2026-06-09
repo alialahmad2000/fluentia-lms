@@ -80,14 +80,14 @@ function TeacherEar({ text }) {
   }
   if (state === 'loading') {
     return (
-      <div className="mt-1.5 inline-flex items-center gap-1.5 text-[11px]" style={{ color: 'var(--ds-text-muted)', fontFamily: 'Tajawal, sans-serif' }}>
+      <div className="mt-1.5 inline-flex items-center gap-1.5 text-[12px]" style={{ color: 'var(--ds-text-muted)', fontFamily: 'Tajawal, sans-serif' }}>
         <Sparkles size={12} className="animate-pulse" /> د. علي يستمع…
       </div>
     )
   }
   if (state === 'good') {
     return (
-      <div className="mt-1.5 inline-flex items-center gap-1.5 text-[11px]" style={{ color: 'var(--ds-accent-gold)', fontFamily: 'Tajawal, sans-serif' }}>
+      <div className="mt-1.5 inline-flex items-center gap-1.5 text-[12px]" style={{ color: 'var(--ds-accent-gold)', fontFamily: 'Tajawal, sans-serif' }}>
         <Check size={12} /> صياغتك ممتازة
       </div>
     )
@@ -207,8 +207,8 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
                 style={{ fontFamily: 'Tajawal, sans-serif', color: sc.soft, letterSpacing: '0.01em', maxWidth: 200 }}>
                 {displayName}
               </span>
-              <span className="text-[11px] tabular-nums shrink-0" style={{ color: 'var(--ds-text-tertiary)', fontVariantNumeric: 'tabular-nums' }}>{time}</span>
-              {message.is_edited && <span className="text-[11px] shrink-0" style={{ color: 'var(--ds-text-tertiary)', fontFamily: 'Tajawal' }}>· معدّل</span>}
+              <span className="text-[12px] tabular-nums shrink-0" style={{ color: 'var(--ds-text-tertiary)', fontVariantNumeric: 'tabular-nums' }}>{time}</span>
+              {message.is_edited && <span className="text-[12px] shrink-0" style={{ color: 'var(--ds-text-tertiary)', fontFamily: 'Tajawal' }}>· معدّل</span>}
             </div>
           )}
 
@@ -239,12 +239,12 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
 
           {isOwn && (
             <div className="flex items-center gap-1 justify-start mt-0.5">
-              <span className="text-[10.5px] tabular-nums" style={{ color: 'color-mix(in srgb, var(--ds-accent-primary) 60%, var(--ds-text-tertiary))', fontVariantNumeric: 'tabular-nums' }}>
+              <span className="text-[12px] tabular-nums" style={{ color: 'color-mix(in srgb, var(--ds-accent-primary) 60%, var(--ds-text-tertiary))', fontVariantNumeric: 'tabular-nums' }}>
                 {time}{message.is_edited && ' · معدّل'}
               </span>
               {message._status === 'failed' ? (
                 <button onClick={(e) => { e.stopPropagation(); resendMessage(qc, message) }}
-                  className="flex items-center gap-1 text-[10.5px] font-medium" style={{ color: 'var(--ds-accent-danger)', fontFamily: 'Tajawal, sans-serif' }}>
+                  className="flex items-center gap-1 text-[12px] font-medium" style={{ color: 'var(--ds-accent-danger)', fontFamily: 'Tajawal, sans-serif' }}>
                   <AlertCircle size={12} /> فشل الإرسال · إعادة المحاولة
                 </button>
               ) : message._status === 'sending' ? (
