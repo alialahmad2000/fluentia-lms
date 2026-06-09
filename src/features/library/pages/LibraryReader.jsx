@@ -7,11 +7,16 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, Sparkles, Settings2, RotateCcw, RotateCw } from 'lucide-react'
+import { ChevronRight, Sparkles, Settings2, RotateCcw, RotateCw, Mic } from 'lucide-react'
 import SentenceReveal, { renderEN } from '../components/SentenceReveal'
 import { useBook, useChapterContent, saveProgress, completeChapter, saveWord } from '../hooks/useLibrary'
-import { useAuthProfileId } from '../../../stores/authStore'
+import { useAuthProfileId, useAuthProfile } from '../../../stores/authStore'
 import { shareQuote } from '../lib/quoteCard'
+import ChapterQuestions from '../components/ChapterQuestions'
+import NovelRollup from '../components/NovelRollup'
+import BookClub from '../components/BookClub'
+import ShadowMode from '../components/ShadowMode'
+import { postDiscussion } from '../hooks/useLibraryEngagement'
 import '../library.css'
 
 const PAPERS = ['ivory', 'cream', 'linen', 'parchment', 'sepia', 'night']
@@ -223,6 +228,8 @@ export default function LibraryReader() {
   const navigate = useNavigate()
   const qc = useQueryClient()
   const myId = useAuthProfileId()
+  const profile = useAuthProfile()
+  const authorName = profile?.display_name || profile?.full_name || null
   const { data: bookData } = useBook(bookId)
   const { data: paragraphs, isLoading } = useChapterContent(chapterId)
   const [mode, setModeRaw] = useState(() => {
@@ -271,6 +278,15 @@ export default function LibraryReader() {
 
   const blocks = useMemo(() => buildBlocks(paragraphs, current?.illustrations), [paragraphs, current])
   const cinemaBg = current?.illustrations?.find((x) => Number(x.after) < 0)?.url || current?.illustrations?.[0]?.url || null
+  const [shadowOpen, setShadowOpen] = useState(false)
+  // sentence list for shadowing: join the chapter's audio_timing with the sentence text
+  const shadowSentences = useMemo(() => {
+    const timing = current?.audio_timing || []
+    if (!timing.length || !blocks.length) return []
+    const textOf = {}
+    for (const b of blocks) if (b.t !== 'img') for (const s of b.p.sentences) textOf[`${b.p.index}-${s.sentence_index}`] = s.text_en
+    return timing.map((t) => ({ p: t.p, s: t.s, en: textOf[`${t.p}-${t.s}`] || '', t0: t.t0, t1: t.t1 })).filter((x) => x.en)
+  }, [current, blocks])
 
   // cinema narration — reset on chapter/mode change
   useEffect(() => {
@@ -317,6 +333,9 @@ export default function LibraryReader() {
     el.currentTime = hit.t0 / 1000; setAudioTime(hit.t0 / 1000); setCurKey(key)
     el.play().then(() => setPlaying(true)).catch(() => {})
   }
+  // engagement: jump a comprehension miss back into the story; share an opinion to the club
+  const onJumpQ = (p, s) => jumpToSentence(`${p}-${s}`)
+  const shareOpinion = async (text) => { if (myId && bookId) await postDiscussion(myId, bookId, { body: text, chapter_number: current?.chapter_number, author_name: authorName }) }
   // playback speed (slower / faster) — persists across chapters & sessions
   useEffect(() => {
     if (narrRef.current) narrRef.current.playbackRate = rate
@@ -342,7 +361,7 @@ export default function LibraryReader() {
     return () => { mounted = false; window.removeEventListener('scroll', onScroll) }
   }, [chapterId, mode, isLoading])
 
-  useEffect(() => { setFinished(false); setTray(null); window.scrollTo(0, 0) }, [chapterId])
+  useEffect(() => { setFinished(false); setTray(null); setShadowOpen(false); window.scrollTo(0, 0) }, [chapterId])
 
   // remember where the reader is (powers "continue reading")
   useEffect(() => {
@@ -418,9 +437,11 @@ export default function LibraryReader() {
         <div className="lib-page">
           <div className="lib-seal">
             <div className="ring"><Sparkles size={34} /></div>
-            <h3>{next ? 'إلى الفصل التالي' : 'تمّت الرواية'}</h3>
-            <p>{next ? '' : `أتممت «${book?.title_ar || book?.title_en}» — رواية كاملة في رصيدك.`}</p>
+            <h3>تمّت الرواية</h3>
+            <p>{`أتممت «${book?.title_ar || book?.title_en}» — رواية كاملة في رصيدك.`}</p>
           </div>
+          <NovelRollup bookId={bookId} myId={myId} bookTitle={book?.title_ar || book?.title_en} />
+          <BookClub bookId={bookId} bookTitle={book?.title_ar || book?.title_en} authorName={authorName} viewerChapter={chapters.length} totalChapters={chapters.length} />
         </div>
       ) : mode === 'codex' ? (
         isLoading ? <div className="lib-page"><div className="lib-skel" style={{ height: 320 }} /></div>
@@ -441,6 +462,10 @@ export default function LibraryReader() {
             {isLoading && <div className="lib-skel" style={{ height: 320 }} />}
             {!isLoading && !hasContent && <div className="lib-empty">هذا الفصل قيد الإعداد.</div>}
             {!isLoading && hasContent && <CinemaProse blocks={blocks} curKey={curKey} onTray={setTray} onSeek={jumpToSentence} />}
+            {!isLoading && hasContent && shadowSentences.length > 0 && (
+              <button className="lib-shadow-cta" onClick={() => setShadowOpen(true)}><Mic size={15} /> ردّدي بصوتك — تدرّبي على نطقك مع الراوي</button>
+            )}
+            {!isLoading && hasContent && <ChapterQuestions chapterId={current.id} bookId={bookId} myId={myId} onJump={onJumpQ} onShareOpinion={shareOpinion} />}
             {!isLoading && hasContent && (
               <div className="lib-foot">
                 <button disabled={!prev} onClick={onPrev}>الفصل السابق</button>
@@ -488,6 +513,7 @@ export default function LibraryReader() {
           {isLoading && <div className="lib-skel" style={{ height: 320 }} />}
           {!isLoading && !hasContent && <div className="lib-empty">هذا الفصل قيد الإعداد.</div>}
           {!isLoading && hasContent && (mode === 'reveal' ? <RevealProse blocks={blocks} help={help} /> : <AssistProse blocks={blocks} />)}
+          {!isLoading && hasContent && <ChapterQuestions chapterId={current.id} bookId={bookId} myId={myId} onShareOpinion={shareOpinion} />}
           {!isLoading && hasContent && (
             <div className="lib-foot">
               <button disabled={!prev} onClick={onPrev}>الفصل السابق</button>
@@ -495,6 +521,10 @@ export default function LibraryReader() {
             </div>
           )}
         </div>
+      )}
+
+      {shadowOpen && current && (
+        <ShadowMode sentences={shadowSentences} audioUrl={current.audio_url} chapterId={current.id} bookId={bookId} myId={myId} onClose={() => setShadowOpen(false)} />
       )}
 
       <AnimatePresence>

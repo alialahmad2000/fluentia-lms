@@ -2,14 +2,17 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { ChevronRight, BookOpen } from 'lucide-react'
 import BookCover from '../components/BookCover'
+import BookClub from '../components/BookClub'
 import { useBook, useMyProgress } from '../hooks/useLibrary'
-import { useAuthProfileId } from '../../../stores/authStore'
+import { useAuthProfileId, useAuthProfile } from '../../../stores/authStore'
 import '../library.css'
 
 export default function LibraryBook() {
   const { bookId } = useParams()
   const navigate = useNavigate()
   const myId = useAuthProfileId()
+  const profile = useAuthProfile()
+  const authorName = profile?.display_name || profile?.full_name || null
   const { data, isLoading, error } = useBook(bookId)
   const { data: prog } = useMyProgress(myId)
 
@@ -63,6 +66,8 @@ export default function LibraryBook() {
           ))}
         </div>
       )}
+
+      <BookClub bookId={book.id} bookTitle={book.title_ar || book.title_en} authorName={authorName} totalChapters={chapters.length} />
     </div>
   )
 }
