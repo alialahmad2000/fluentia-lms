@@ -163,7 +163,7 @@ export default function MessageBubbleText({ body, mentions = [], myId }) {
               </span>
             )
           }
-          return <span key={i}>{renderRich(token.value, i, onWord)}</span>
+          return <span key={i}>{renderRich(token.value, i, null)}</span>
         })}
       </p>
       {lens && <WordLens word={lens.word} rect={lens.rect} onClose={() => setLens(null)} />}

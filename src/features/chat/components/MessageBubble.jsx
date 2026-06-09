@@ -258,9 +258,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           )}
         </div>
 
-        {isOwn && message.type === 'text' && !message.deleted_at && hasEnglish(bodyText) && (
-          <div onPointerDown={stop}><TeacherEar text={bodyText} /></div>
-        )}
+        {/* TeacherEar (AI recast) hidden 2026-06-09 per owner — component kept for re-enable. */}
 
         <div onPointerDown={stop}>
           <ReactionSummary reactions={message.reactions} myId={profile?.id} messageId={message.id} onReact={(emoji) => reactWith(emoji)} />

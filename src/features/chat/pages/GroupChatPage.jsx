@@ -130,15 +130,7 @@ export default function GroupChatPage() {
         <PresenceCircle groupId={groupId} onlineUserIds={onlineUserIds} />
       </div>
 
-      {/* خلاصة المجلس — AI catch-up of what you missed */}
-      <div className="chat-row">
-        <MajlisDigest groupId={groupId} />
-      </div>
-
-      {/* بطاقة المجلس — the teacher's live word/question of the day */}
-      <div className="chat-row">
-        <MajlisCard groupId={groupId} />
-      </div>
+      {/* المجلس AI add-ons (خلاصة + بطاقة) hidden 2026-06-09 per owner — keep a clean premium chat; components + RPCs intact for re-enable. */}
 
       {/* Pinned strip (renders nothing when empty) */}
       <div className="chat-row">
