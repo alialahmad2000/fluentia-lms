@@ -1931,3 +1931,9 @@ This is how future sessions know what happened.
 - Edge Functions: phrasebook-builder (NEW, deployed) — auth admin/sb_secret like the detector; runs via EdgeRuntime.waitUntil; weekly pg_cron Wed 23:00 UTC (Vault bearer `edge_service_key`). VOICING IS BEST-EFFORT: if the ElevenLabs key dies (subscription may be cancelled ~June 11) entries stay text-only and a later run backfills audio (15/run).
 - Status: complete & live (migration applied, fn deployed + first build done, UI pushed to main)
 - Notes: rerun-safe (phrasebook_processed + dedupe upserts). MAX 25 recordings/run. If Ali cancels ElevenLabs, the feature degrades gracefully — consider pre-voicing the backlog before ~June 11.
+
+### 2026-06-09 — PROD SMOKE SUITE (Playwright, money paths)
+- What: first automated regression net. 11 specs × chromium + webkit (webkit matters — Safari is where Fluentia bugs live) run against LIVE prod with the mock student; render + fatal-console assertions only (ReferenceError / not-defined / not-a-function / bad-MIME / minified-React — the exact classes from client_error_log), no submissions so reruns never pollute data. 14/14 student specs green on first full run.
+- Files: tests/smoke/playwright.config.mjs, tests/smoke/helpers.mjs (login clicks the EXACT «دخول» button — the first form button is the username-mode switch; modal suppression keys are fluentia_onboarded_<id>='true' + pwa_install_dismissed_at=now), tests/smoke/student-money-paths.spec.mjs (units are BUTTONS not links — enter via «ابدأ من حيث توقفت»), tests/smoke/admin-paths.spec.mjs
+- Status: complete; run: `npx playwright test --config tests/smoke/playwright.config.mjs`
+- Notes: ADMIN smokes SKIP by default — the CLAUDE.md admin password (Fluentia2025!) is STALE on prod (login returns «البريد الإلكتروني أو كلمة المرور غير صحيحة»); pass SMOKE_ADMIN_EMAIL/SMOKE_ADMIN_PASSWORD env to enable. Update the credentials line above when Ali confirms the current one.
