@@ -227,6 +227,7 @@ const AdminHolidays = lazyRetry(() => import('./pages/admin/AdminHolidays'))
 const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 const AdminAudioTelemetry = lazyRetry(() => import('./pages/admin/AdminAudioTelemetry'))
 const AdminCurriculumQuality = lazyRetry(() => import('./pages/admin/AdminCurriculumQuality'))
+const StudentPhrasebook = lazyRetry(() => import('./pages/student/StudentPhrasebook'))
 const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
 const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
 const AdminDataExport = lazyRetry(() => import('./pages/admin/AdminDataExport'))
@@ -764,6 +765,7 @@ export default function App() {
               {/* Legacy StudentSpelling (spelling_words table) retired → /student/spelling-lab */}
               <Route path="/student/spelling" element={<Navigate to="/student/spelling-lab" replace />} />
               <Route path="/student/spelling-lab" element={<Page><SpellingLab /></Page>} />
+              <Route path="/student/phrasebook" element={<Page><StudentPhrasebook /></Page>} />
               <Route path="/student/verbs" element={<Page><IrregularVerbsPractice /></Page>} />
               <Route path="/student/writing-lab" element={<Page><ComingSoon featureName="معمل الكتابة" /></Page>} />
               <Route path="/student/group-activity" element={<Page><PackageRoute requiredPackage="talaqa" featureName="نشاط المجموعة"><StudentGroupActivity /></PackageRoute></Page>} />

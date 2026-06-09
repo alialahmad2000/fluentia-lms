@@ -1,4 +1,5 @@
 import {
+  NotebookPen,
   ShieldAlert,
   Home, BookOpen, BookOpenCheck, PenLine, Mic, Users, Trophy,
   BookMarked, User, Settings, BarChart3, ClipboardList,
@@ -22,6 +23,7 @@ export const STUDENT_NAV = {
         { id: 'library',     label: 'المكتبة',      icon: BookMarked, to: '/library' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
+        { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
         // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
         //   ielts-atelier, progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
@@ -73,6 +75,7 @@ export const STUDENT_NAV = {
         { id: 'library',      label: 'المكتبة',      icon: BookMarked,   to: '/library' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
+        { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
       ],
     },
@@ -102,6 +105,7 @@ export const STUDENT_NAV = {
     // new Spelling Lab to keep the 5-slot bar consistent on mobile (primary device). 'progress'
     // stays reachable via the "More" drawer + direct URL.
     { id: 'spelling-lab', label: 'الإملاء',   icon: PencilLine, to: '/student/spelling-lab' },
+    { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
     { id: 'more',        label: 'المزيد',     icon: 'more',     to: null },
   ],
 }
