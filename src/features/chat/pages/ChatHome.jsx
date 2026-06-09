@@ -140,7 +140,7 @@ export default function ChatHome() {
                 </span>
               </span>
               <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 17, fontWeight: 600, color: 'var(--ds-text-primary)', letterSpacing: '0.01em' }}>ابدأ محادثة خاصة</span>
-              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 13.5, color: 'rgba(232,222,206,0.62)', lineHeight: 1.8, maxWidth: 280 }}>راسل مدربك أو زميلاً من نفس مستواك — اضغط هنا لاختيار من حلقتك.</span>
+              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 13.5, color: 'rgba(245,240,232,0.66)', lineHeight: 1.8, maxWidth: 280 }}>راسل مدربك أو زميلاً من نفس مستواك — اضغط هنا لاختيار من حلقتك.</span>
             </button>
           ) : threads.map((t) => (
             <Row key={t.thread_id}

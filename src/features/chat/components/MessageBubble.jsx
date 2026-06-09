@@ -208,11 +208,11 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
 
       <motion.div className="inline-block relative align-top" {...bind}
         style={{ float: isOwn ? 'left' : 'right', maxWidth: '78%', x: swipeX, touchAction: 'pan-y' }}>
-        <div ref={bubbleRef} className="chat-bubble px-3.5 py-2.5" style={{ ...bubbleStyle, borderRadius, lineHeight: 1.75 }}>
+        <div ref={bubbleRef} className="chat-bubble px-3.5 py-2.5" style={{ ...bubbleStyle, ...(isTeacherSender && !isOwn ? { borderInlineStartColor: 'color-mix(in srgb, var(--ds-accent-gold) 34%, transparent)', borderInlineStartWidth: 2 } : {}), borderRadius, lineHeight: 1.75 }}>
           {!isGrouped && !isOwn && (
             <div className="flex items-baseline gap-2 mb-1">
               <span className="text-[13px] truncate"
-                style={{ fontFamily: 'Tajawal, sans-serif', color: isTeacherSender ? 'var(--ds-accent-gold)' : 'rgba(245,240,232,0.74)', fontWeight: isTeacherSender ? 700 : 500, letterSpacing: '0.01em', maxWidth: 200 }}>
+                style={{ fontFamily: 'Tajawal, sans-serif', color: isTeacherSender ? '#D8B677' : 'rgba(245,240,232,0.74)', fontWeight: isTeacherSender ? 700 : 500, letterSpacing: '0.01em', maxWidth: 200 }}>
                 {displayName}
               </span>
               <span className="text-[12px] tabular-nums shrink-0" style={{ color: 'var(--ds-text-tertiary)', fontVariantNumeric: 'tabular-nums' }}>{time}</span>
