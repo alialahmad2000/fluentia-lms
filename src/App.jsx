@@ -226,6 +226,7 @@ const AdminWeeklyTasks = lazyRetry(() => import('./pages/admin/AdminWeeklyTasks'
 const AdminHolidays = lazyRetry(() => import('./pages/admin/AdminHolidays'))
 const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 const AdminAudioTelemetry = lazyRetry(() => import('./pages/admin/AdminAudioTelemetry'))
+const AdminCurriculumQuality = lazyRetry(() => import('./pages/admin/AdminCurriculumQuality'))
 const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
 const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
 const AdminDataExport = lazyRetry(() => import('./pages/admin/AdminDataExport'))
@@ -939,6 +940,7 @@ export default function App() {
               <Route path="/admin/progress-diagnostic" element={<Page><StudentProgressDiagnostic /></Page>} />
               <Route path="/admin/audit-log" element={<Page><AdminAuditLog /></Page>} />
               <Route path="/admin/audio-telemetry" element={<Page><AdminAudioTelemetry /></Page>} />
+              <Route path="/admin/curriculum-quality" element={<Page><AdminCurriculumQuality /></Page>} />
               <Route path="/admin/testimonials" element={<Page><AdminTestimonials /></Page>} />
               <Route path="/admin/today" element={<Page><AdminActionCenter /></Page>} />
               <Route path="/admin/export" element={<Page><AdminDataExport /></Page>} />
