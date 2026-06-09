@@ -55,16 +55,16 @@ export default function PresenceCircle({ groupId, onlineUserIds = [] }) {
   const online = new Set(onlineUserIds)
   const teacher = members.find((m) => m.role === 'trainer' || m.role === 'admin')
   let others = members.filter((m) => m !== teacher)
-  // keep the circle clean like the prototype — at most 5 classmates around the teacher
-  others = others.slice(0, 5)
+  // keep the circle clean like the prototype — at most 4 classmates around the teacher (5 total)
+  others = others.slice(0, 4)
   const half = Math.ceil(others.length / 2)
   const ordered = teacher ? [...others.slice(0, half), teacher, ...others.slice(half)] : others
   const onlineCount = ordered.filter((m) => online.has(m.id)).length
   const center = (ordered.length - 1) / 2
 
   return (
-    <div style={{ direction: 'rtl', padding: '16px 12px 16px', position: 'relative' }}>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', gap: 12 }}>
+    <div style={{ direction: 'rtl', padding: '18px 16px 20px', position: 'relative' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', gap: 16 }}>
         {ordered.map((m, i) => {
           const isTeacher = m.role === 'trainer' || m.role === 'admin'
           const lift = isTeacher ? -3 : Math.round(Math.abs(i - center) * 5)
@@ -78,14 +78,14 @@ export default function PresenceCircle({ groupId, onlineUserIds = [] }) {
                   <span className="chat-online-dot" style={{ position: 'absolute', insetInlineEnd: 1, insetBlockEnd: 1, width: isTeacher ? 11 : 9, height: isTeacher ? 11 : 9, borderRadius: '50%', background: '#C9A86A', border: '2px solid #0b0907' }} />
                 )}
               </div>
-              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 11, fontWeight: isTeacher ? 500 : 400, color: isTeacher ? 'rgba(201,168,106,0.66)' : 'rgba(236,234,226,0.46)', whiteSpace: 'nowrap', maxWidth: 56, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 12, fontWeight: isTeacher ? 600 : 400, color: isTeacher ? 'rgba(226,200,142,0.85)' : 'rgba(236,234,226,0.55)', whiteSpace: 'nowrap', maxWidth: 58, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {first}
               </span>
             </div>
           )
         })}
       </div>
-      <div style={{ textAlign: 'center', marginTop: 16, fontSize: 12, color: 'rgba(236,234,226,0.46)', fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
+      <div style={{ textAlign: 'center', marginTop: 18, fontSize: 12.5, color: 'rgba(236,234,226,0.62)', fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
         <span style={{ display: 'inline-block', width: 4, height: 4, borderRadius: '50%', background: '#C9A86A', boxShadow: '0 0 8px #C9A86A', marginInlineEnd: 7, verticalAlign: 'middle' }} />
         {onlineCount <= 0 ? 'حلقة المجلس'
           : onlineCount === 1 ? 'حاضر واحد الآن · المجلس مفتوح'

@@ -46,10 +46,10 @@ const SHADOW_OWN = [
 ].join(',')
 
 const SHADOW_OTHER = [
-  '0 1px 2px -1px rgba(0,0,0,0.16)',
-  '0 6px 16px -6px rgba(0,0,0,0.24)',
-  '0 14px 34px -14px rgba(0,0,0,0.28)',
-  'inset 0 1px 0 0 color-mix(in srgb, white 7%, transparent)',
+  '0 1px 2px -1px rgba(0,0,0,0.30)',
+  '0 8px 20px -8px rgba(0,0,0,0.38)',
+  '0 18px 40px -16px rgba(0,0,0,0.34)',
+  'inset 0 1px 0 0 color-mix(in srgb, white 9%, transparent)',
 ].join(',')
 
 // المجلس — "the teacher's ear": tap ✦ on your own English message and د. علي gently
@@ -174,9 +174,12 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
         backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', boxShadow: SHADOW_OWN,
       }
     : {
-        background: 'color-mix(in srgb, var(--ds-bg-elevated) 78%, transparent)',
+        background: `linear-gradient(180deg,
+          color-mix(in srgb, var(--ds-text-primary) 7%, var(--ds-bg-elevated)) 0%,
+          color-mix(in srgb, var(--ds-text-primary) 2%, var(--ds-bg-elevated)) 100%)`,
         backdropFilter: 'blur(22px) saturate(140%)', WebkitBackdropFilter: 'blur(22px) saturate(140%)',
-        border: '1px solid color-mix(in srgb, var(--ds-text-primary) 8%, transparent)',
+        border: '1px solid color-mix(in srgb, var(--ds-text-primary) 10%, transparent)',
+        borderTopColor: 'color-mix(in srgb, var(--ds-text-primary) 16%, transparent)',
         boxShadow: SHADOW_OTHER,
       }
 

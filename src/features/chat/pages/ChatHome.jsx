@@ -122,7 +122,7 @@ export default function ChatHome() {
       <div className="chat-stream overflow-y-auto px-2 py-2" style={{ overscrollBehavior: 'contain' }}>
         {groups.length > 0 && (
           <div className="mb-2">
-            <div className="px-3 py-1.5 text-[11px] font-semibold" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-tertiary)', letterSpacing: '0.04em' }}>المجموعات</div>
+            <div className="px-3 py-1.5 text-[12px] font-semibold" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-tertiary)', letterSpacing: '0.04em' }}>المجموعات</div>
             {groups.map((g) => (
               <Row key={g.id} avatar={<GroupGlyph level={g.level} />} name={g.name || 'المجموعة'} preview="محادثة المجموعة" unread={groupUnreadMap[g.id] || 0} onClick={() => navigate(`/chat/${g.id}`)} />
             ))}
@@ -130,12 +130,14 @@ export default function ChatHome() {
         )}
 
         <div>
-          <div className="px-3 py-1.5 text-[11px] font-semibold" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-tertiary)', letterSpacing: '0.04em' }}>الرسائل الخاصة</div>
+          <div className="px-3 py-1.5 text-[12px] font-semibold" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-tertiary)', letterSpacing: '0.04em' }}>الرسائل الخاصة</div>
           {threads.length === 0 ? (
-            <button onClick={() => setPickerOpen(true)} className="w-full text-center py-8 px-4" style={{ direction: 'rtl' }}>
-              <p className="text-sm" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-muted)', lineHeight: 1.8 }}>
-                لا توجد رسائل خاصة بعد.<br />اضغط على ✎ لبدء محادثة مع مدربك أو زميل من نفس مستواك.
-              </p>
+            <button onClick={() => setPickerOpen(true)} className="w-full flex flex-col items-center text-center px-6 gap-3" style={{ direction: 'rtl', paddingTop: 40, paddingBottom: 40 }}>
+              <span style={{ width: 56, height: 56, borderRadius: '50%', display: 'grid', placeItems: 'center', color: 'var(--ds-accent-gold)', background: 'radial-gradient(120% 120% at 50% 0%, color-mix(in srgb, var(--ds-accent-gold) 16%, transparent), transparent 70%)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)', boxShadow: '0 0 26px -8px color-mix(in srgb, var(--ds-accent-gold) 40%, transparent)' }}>
+                <PenSquare size={22} />
+              </span>
+              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 15, fontWeight: 600, color: 'var(--ds-text-primary)' }}>ابدأ محادثة خاصة</span>
+              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 13, color: 'var(--ds-text-muted)', lineHeight: 1.75, maxWidth: 270 }}>راسل مدربك أو زميلاً من نفس مستواك — اضغط هنا لاختيار من حلقتك.</span>
             </button>
           ) : threads.map((t) => (
             <Row key={t.thread_id}
