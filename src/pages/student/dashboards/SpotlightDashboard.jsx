@@ -69,12 +69,13 @@ function getNextLevel(xp) {
 }
 
 /* The live quick-action paths for the chip rail (verified-live routes only). */
+/* per-destination colour identity (explicit rgba — no color-mix, iOS<16.4 safe) */
 const PATH_CHIPS = [
-  { to: '/student/curriculum', label: 'التعلّم', icon: BookOpen },
-  { to: '/student/srs', label: 'مراجعة', icon: RefreshCw },
-  { to: '/student/spelling-lab', label: 'إملاء', icon: SpellCheck },
-  { to: '/student/speaking-hub', label: 'محادثة', icon: Mic },
-  { to: '/student/flashcards', label: 'مفردات', icon: Layers },
+  { to: '/student/curriculum', label: 'التعلّم', icon: BookOpen, hue: '#38bdf8', soft: 'rgba(56,189,248,0.14)' },
+  { to: '/student/srs', label: 'مراجعة', icon: RefreshCw, hue: '#a78bfa', soft: 'rgba(167,139,250,0.14)' },
+  { to: '/student/spelling-lab', label: 'إملاء', icon: SpellCheck, hue: '#34d399', soft: 'rgba(52,211,153,0.14)' },
+  { to: '/student/speaking-hub', label: 'محادثة', icon: Mic, hue: '#fb7185', soft: 'rgba(251,113,133,0.14)' },
+  { to: '/student/flashcards', label: 'مفردات', icon: Layers, hue: '#22d3ee', soft: 'rgba(34,211,238,0.14)' },
 ]
 
 /* ── compact corner level emblem: number + slim XP-to-next ring ── */
@@ -154,7 +155,7 @@ function HeroStat({ icon, value, suffix }) {
 }
 
 /* ── reusable collapsible accordion section (own hooks → rules-of-hooks safe) ── */
-function Section({ title, icon: Icon, defaultOpen = false, children }) {
+function Section({ title, icon: Icon, defaultOpen = false, hue = 'var(--ds-accent-primary)', soft = 'var(--ds-surface-3)', children }) {
   const reduced = useReducedMotion()
   const [open, setOpen] = useState(defaultOpen)
   const headingId = `sd-sec-${title}`
@@ -162,10 +163,13 @@ function Section({ title, icon: Icon, defaultOpen = false, children }) {
   return (
     <section
       style={{
-        background: 'var(--ds-surface-1)',
+        background: 'var(--ds-surface-2)',
         border: '1px solid var(--ds-border-subtle)',
+        borderInlineStartWidth: 3,
+        borderInlineStartColor: hue,
         borderRadius: 'var(--radius-lg)',
-        boxShadow: 'var(--ds-shadow-sm)',
+        /* layered depth + inset top highlight so cards lift off the aurora */
+        boxShadow: '0 1px 2px rgba(0,0,0,0.4), 0 10px 26px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
         overflow: 'hidden',
       }}
     >
@@ -187,9 +191,9 @@ function Section({ title, icon: Icon, defaultOpen = false, children }) {
       >
         <span
           className="flex items-center justify-center rounded-xl shrink-0"
-          style={{ width: 38, height: 38, background: 'var(--ds-surface-3)', border: '1px solid var(--ds-border-subtle)' }}
+          style={{ width: 38, height: 38, background: soft, border: `1px solid ${soft}` }}
         >
-          <Icon size={18} strokeWidth={1.9} style={{ color: 'var(--ds-accent-primary)' }} />
+          <Icon size={18} strokeWidth={1.9} style={{ color: hue }} />
         </span>
         <span
           className="min-w-0 flex-1 truncate"
@@ -425,8 +429,8 @@ export default function SpotlightDashboard() {
                 </p>
 
                 <motion.div
-                  whileHover={reduced ? undefined : { scale: 1.03 }}
-                  whileTap={reduced ? undefined : { scale: 0.97 }}
+                  whileHover={reduced ? undefined : { y: -2 }}
+                  whileTap={reduced ? undefined : { y: 0 }}
                   transition={{ duration: 0.25, ease: APPLE_EASE }}
                   className="shrink-0"
                 >
@@ -437,11 +441,12 @@ export default function SpotlightDashboard() {
                       padding: '14px 30px',
                       minHeight: 50,
                       fontSize: 15.5,
-                      background:
-                        'linear-gradient(135deg, var(--ds-accent-primary), var(--ds-accent-gold, var(--ds-accent-primary)))',
+                      /* metallic traverse: bright gold → deep bronze (reads as dimensional metal, not a flat slab) */
+                      background: 'linear-gradient(160deg, #fcd34d 0%, var(--ds-accent-gold, #fbbf24) 45%, #c4843a 100%)',
                       color: 'var(--ds-text-inverse)',
                       textDecoration: 'none',
-                      boxShadow: '0 18px 38px -16px var(--ds-accent-primary-glow)',
+                      boxShadow:
+                        '0 1px 2px rgba(60,30,0,0.35), 0 16px 34px -14px var(--ds-accent-primary-glow), inset 0 1px 0 rgba(255,255,255,0.45)',
                     }}
                   >
                     <Play size={17} strokeWidth={2.4} fill="currentColor" />
@@ -482,19 +487,19 @@ export default function SpotlightDashboard() {
             className="scrollbar-hide flex gap-2.5 overflow-x-auto"
             style={{ paddingBottom: 4, WebkitOverflowScrolling: 'touch' }}
           >
-            {PATH_CHIPS.map(({ to, label, icon: Icon }) => (
+            {PATH_CHIPS.map(({ to, label, icon: Icon, hue, soft }) => (
               <motion.div
                 key={to}
                 whileHover={reduced ? undefined : { y: -3 }}
-                whileTap={reduced ? undefined : { scale: 0.96 }}
+                whileTap={reduced ? undefined : { y: 0 }}
                 transition={{ duration: 0.2, ease: APPLE_EASE }}
                 className="shrink-0"
               >
                 <Link
                   to={to}
-                  className="inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2.5"
                   style={{
-                    padding: '10px 16px',
+                    padding: '8px 16px 8px 10px',
                     minHeight: 44,
                     borderRadius: 'var(--radius-full)',
                     background: 'var(--ds-surface-2)',
@@ -504,10 +509,15 @@ export default function SpotlightDashboard() {
                     fontSize: 13.5,
                     fontWeight: 600,
                     whiteSpace: 'nowrap',
-                    boxShadow: 'var(--ds-shadow-sm)',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05)',
                   }}
                 >
-                  <Icon size={16} strokeWidth={2} style={{ color: 'var(--ds-accent-primary)' }} />
+                  <span
+                    className="flex items-center justify-center rounded-full shrink-0"
+                    style={{ width: 28, height: 28, background: soft, border: `1px solid ${soft}` }}
+                  >
+                    <Icon size={15} strokeWidth={2.2} style={{ color: hue }} />
+                  </span>
                   {label}
                 </Link>
               </motion.div>
@@ -520,20 +530,20 @@ export default function SpotlightDashboard() {
 
         {/* ════════ 4 · COLLAPSIBLE SECTIONS — the signature ════════ */}
         <div className="space-y-3">
-          <Section title="تقدّمك" icon={TrendingUp} defaultOpen>
+          <Section title="تقدّمك" icon={TrendingUp} hue="#38bdf8" soft="rgba(56,189,248,0.13)" defaultOpen>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <DailyProgressWidget studentId={profile.id} />
               <WeeklyProgressWidget studentId={profile.id} />
             </div>
           </Section>
 
-          <Section title="إيقاعك" icon={Flame}>
+          <Section title="إيقاعك" icon={Flame} hue="#fb923c" soft="rgba(251,146,60,0.13)">
             <div className="grid grid-cols-1 gap-4">
               <StreakWidget profileId={profile.id} />
             </div>
           </Section>
 
-          <Section title="المراجعة والاختبارات" icon={GraduationCap}>
+          <Section title="المراجعة والاختبارات" icon={GraduationCap} hue="#a78bfa" soft="rgba(167,139,250,0.13)">
             <div className="space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <SrsReviewCard studentId={profile.id} />
@@ -543,11 +553,11 @@ export default function SpotlightDashboard() {
             </div>
           </Section>
 
-          <Section title="حصّتك القادمة" icon={CalendarClock}>
+          <Section title="حصّتك القادمة" icon={CalendarClock} hue="#34d399" soft="rgba(52,211,153,0.13)">
             <NextClassWidget group={group} schedule={schedule} />
           </Section>
 
-          <Section title="نبض الأكاديمية" icon={Radio}>
+          <Section title="نبض الأكاديمية" icon={Radio} hue="#22d3ee" soft="rgba(34,211,238,0.13)">
             <LiveLevelActivityFeed studentId={profile.id} />
           </Section>
         </div>
