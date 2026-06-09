@@ -11,7 +11,13 @@ export default function ImpersonateButton({ userId, role, name, variant = 'icon'
 
   const handleClick = async (e) => {
     e.stopPropagation()
-    await startImpersonation(userId, role, name)
+    try {
+      await startImpersonation(userId, role, name)
+    } catch (err) {
+      // eslint-disable-next-line no-alert
+      alert(`تعذّر بدء المعاينة: ${err?.message || 'حدث خطأ'}`)
+      return
+    }
     // Clear all cached queries so the impersonated user's data is fetched fresh
     queryClient.clear()
     // Full page load forces all components to remount with new user context.

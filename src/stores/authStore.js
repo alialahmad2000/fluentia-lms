@@ -171,115 +171,94 @@ export const useAuthStore = create((set, get) => ({
     try { window.localStorage.removeItem('fluentia-query-cache-v1') } catch (_) {}
   },
 
-  // ── Impersonation ──
+  // ── Impersonation (REAL session) ──
+  // "View as student" swaps the ACTUAL Supabase session to the target so auth.uid()
+  // becomes them — the only way student-scoped writes (RLS / SECURITY DEFINER RPCs)
+  // persist during preview. The admin's session is stashed in sessionStorage and
+  // restored on exit. Callers (ImpersonateButton / ImpersonationBanner) do a full
+  // page reload after these resolve, so init()/restoreImpersonation() rebuild state.
   startImpersonation: async (userId, role, name) => {
     const state = get()
-    // Save admin's real data
-    set({
-      _realProfile: state.profile,
-      _realStudentData: state.studentData,
-      _realTrainerData: state.trainerData,
-      impersonation: { userId, role, name, returnPath: window.location.pathname },
-    })
+    // 1) snapshot the admin session so we can return to it on exit
+    const { data: { session: adminSession } } = await supabase.auth.getSession()
+    if (!adminSession) throw new Error('انتهت جلستك — سجّلي الدخول من جديد')
 
-    // Persist to sessionStorage for refresh survival
+    // 2) backend mints a one-time login token for the target (verifies caller is admin)
+    const { data, error } = await supabase.functions.invoke('impersonate', {
+      body: { target_user_id: userId },
+    })
+    if (error) throw new Error(error.message || 'تعذّر بدء المعاينة')
+    if (data?.error) throw new Error(data.error)
+    if (!data?.token_hash) throw new Error('تعذّر بدء المعاينة')
+
+    // 3) stash restore + meta BEFORE swapping the session
+    sessionStorage.setItem('fluentia_admin_restore', JSON.stringify({
+      access_token: adminSession.access_token,
+      refresh_token: adminSession.refresh_token,
+    }))
     sessionStorage.setItem('fluentia_impersonation', JSON.stringify({
       userId, role, name, returnPath: window.location.pathname,
+      adminProfile: state.profile
+        ? { id: state.profile.id, role: state.profile.role, full_name: state.profile.full_name, email: state.profile.email }
+        : null,
     }))
 
-    // Fetch impersonated user's profile
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-
-    if (!profile) return
-
-    set({ profile })
-
-    if (role === 'student') {
-      const { data: studentData } = await supabase
-        .from('students')
-        .select('*, groups(*)')
-        .eq('id', userId)
-        .single()
-      set({ studentData: studentData || null, trainerData: null })
-    } else if (role === 'trainer') {
-      const { data: trainerData } = await supabase
-        .from('trainers')
-        .select('*')
-        .eq('id', userId)
-        .single()
-      set({ trainerData: trainerData || null, studentData: null })
+    // 4) become the target — REAL session (writes now persist as them)
+    const { error: vErr } = await supabase.auth.verifyOtp({
+      token_hash: data.token_hash,
+      type: data.type || 'magiclink',
+    })
+    if (vErr) {
+      sessionStorage.removeItem('fluentia_admin_restore')
+      sessionStorage.removeItem('fluentia_impersonation')
+      throw vErr
     }
+    // caller reloads → init() loads the target session, restoreImpersonation() shows the banner
   },
 
-  stopImpersonation: () => {
+  stopImpersonation: async () => {
     const state = get()
     const returnPath = state.impersonation?.returnPath || '/admin'
-    set({
-      profile: state._realProfile,
-      studentData: state._realStudentData,
-      trainerData: state._realTrainerData,
-      impersonation: null,
-      _realProfile: null,
-      _realStudentData: null,
-      _realTrainerData: null,
-    })
+    let restore = null
+    try { restore = JSON.parse(sessionStorage.getItem('fluentia_admin_restore') || 'null') } catch { /* ignore */ }
     sessionStorage.removeItem('fluentia_impersonation')
+    sessionStorage.removeItem('fluentia_admin_restore')
+    set({ impersonation: null, _realProfile: null, _realStudentData: null, _realTrainerData: null })
+    // restore the admin's real session (or fall back to a clean sign-out)
+    try {
+      if (restore?.refresh_token) {
+        await supabase.auth.setSession({
+          access_token: restore.access_token,
+          refresh_token: restore.refresh_token,
+        })
+      } else {
+        await supabase.auth.signOut()
+      }
+    } catch {
+      try { await supabase.auth.signOut() } catch { /* ignore */ }
+    }
     return returnPath
   },
 
-  // Restore impersonation from sessionStorage on init (called after auth init)
+  // Restore the impersonation banner on reload. With the real-session model the
+  // active session already IS the target; we just re-attach the banner + the saved
+  // admin profile (so role-guard helpers that read _realProfile keep working).
   restoreImpersonation: async () => {
     const stored = sessionStorage.getItem('fluentia_impersonation')
     if (!stored) return
-    try {
-      const { userId, role, name, returnPath } = JSON.parse(stored)
-      const state = get()
-      // Only restore if admin is logged in
-      if (state.profile?.role !== 'admin') {
-        sessionStorage.removeItem('fluentia_impersonation')
-        return
-      }
-      // Save real data and load impersonated data
-      set({
-        _realProfile: state.profile,
-        _realStudentData: state.studentData,
-        _realTrainerData: state.trainerData,
-        impersonation: { userId, role, name, returnPath },
-      })
-
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single()
-      if (!profile) {
-        sessionStorage.removeItem('fluentia_impersonation')
-        return
-      }
-      set({ profile })
-
-      if (role === 'student') {
-        const { data: studentData } = await supabase
-          .from('students')
-          .select('*, groups(*)')
-          .eq('id', userId)
-          .single()
-        set({ studentData: studentData || null, trainerData: null })
-      } else if (role === 'trainer') {
-        const { data: trainerData } = await supabase
-          .from('trainers')
-          .select('*')
-          .eq('id', userId)
-          .single()
-        set({ trainerData: trainerData || null, studentData: null })
-      }
-    } catch {
+    let meta
+    try { meta = JSON.parse(stored) } catch { sessionStorage.removeItem('fluentia_impersonation'); return }
+    const cur = get()
+    // the logged-in session must be the impersonated user; otherwise the flag is stale
+    if (!cur.profile || cur.profile.id !== meta.userId) {
       sessionStorage.removeItem('fluentia_impersonation')
+      sessionStorage.removeItem('fluentia_admin_restore')
+      return
     }
+    set({
+      _realProfile: meta.adminProfile || null,
+      impersonation: { userId: meta.userId, role: meta.role, name: meta.name, returnPath: meta.returnPath },
+    })
   },
 
   setProfile: (profile) => set({ profile }),

@@ -24,7 +24,10 @@ export default function VocabJourney() {
     () => regions.find((r) => r.unit_id === current?.unit_id) || null,
     [regions, current]
   )
-  const litRegions = regions.filter((r) => r.status === 'complete').length
+  // Count lit (fully-studied) CONSTELLATIONS, not whole regions — this moves the
+  // moment you finish a single stop, instead of sitting at 0 until an entire region
+  // (5 constellations) is done.
+  const litConstellations = regions.reduce((s, r) => s + (r.constellations_done || 0), 0)
 
   const handleStopComplete = () => {
     setActiveStop(null)
@@ -79,7 +82,7 @@ export default function VocabJourney() {
                   {toArabicNum(journey?.words_known ?? 0)} نجمة
                 </span>
                 <span className="vc-pill text-[12.5px] tabular-nums">
-                  {toArabicNum(litRegions)} كوكبة مكتملة
+                  {toArabicNum(litConstellations)} كوكبة مضيئة
                 </span>
                 {(journey?.due_count ?? 0) > 0 && (
                   <span className="vc-pill text-[12.5px] tabular-nums">

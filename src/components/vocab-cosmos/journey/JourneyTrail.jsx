@@ -20,7 +20,10 @@ export default function JourneyTrail({ regions = [], currentUnitId }) {
     }
   }, [currentUnitId, regions.length])
 
-  const doneCount = regions.filter((r) => r.status === 'complete').length
+  // Count CONSTELLATIONS (stops), not whole regions, so the tally ticks up each time
+  // a single constellation is finished rather than waiting for an entire region.
+  const litConstellations = regions.reduce((s, r) => s + (r.constellations_done || 0), 0)
+  const totalConstellations = regions.reduce((s, r) => s + (r.constellations || 0), 0)
 
   if (!regions.length) return null
 
@@ -34,7 +37,7 @@ export default function JourneyTrail({ regions = [], currentUnitId }) {
           الرحلات
         </span>
         <span className="vc-pill text-[12px] tabular-nums">
-          {toArabicNum(doneCount)} / {toArabicNum(regions.length)} مكتملة
+          {toArabicNum(litConstellations)} / {toArabicNum(totalConstellations)} كوكبة
         </span>
       </div>
 

@@ -11,8 +11,9 @@ function ImpersonationBanner() {
 
   const roleLabel = impersonation.role === 'student' ? 'طالب' : 'مدرب'
 
-  const handleExit = () => {
-    const returnPath = stopImpersonation()
+  const handleExit = async () => {
+    // Restores the admin's real session, then a full reload remounts as admin.
+    const returnPath = await stopImpersonation()
     // Clear all cached queries so admin's own data is fetched fresh
     queryClient.clear()
     // Full page load forces all components to remount with admin context
