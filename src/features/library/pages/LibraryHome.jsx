@@ -1,6 +1,6 @@
 // Library browse — "three rooms" + a Continue-reading hero + gold seals,
 // and a «كلماتي» view for the words saved from novels (the deck).
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BookOpen } from 'lucide-react'
 import BookCover from '../components/BookCover'
@@ -76,6 +76,14 @@ export default function LibraryHome() {
   const { data: prog } = useMyProgress(myId)
   const { data: words = [] } = useMySavedWords(myId)
   const [view, setView] = useState('shelf')
+
+  // Let the Midnight Reading Room bleed behind the global nav chrome — shelf view only.
+  useEffect(() => {
+    const on = view === 'shelf'
+    document.body.classList.toggle('lib-immersive', on)
+    return () => document.body.classList.remove('lib-immersive')
+  }, [view])
+
   const byBook = prog?.byBook || {}
   const rows = prog?.rows || []
 
