@@ -124,15 +124,20 @@ export default function LibraryHome() {
       ) : (
         <>
           {continueBook && (
-            <button className="lib-continue" onClick={() => navigate(`/library/${continueBook.id}/read/${continueEntry.current_chapter_id}`)}>
-              <div className="lib-cover-wrap"><BookCover book={continueBook} /></div>
-              <div className="lib-continue-info">
-                <div className="k">تابع القراءة</div>
-                <div className="t">{continueBook.title_ar || continueBook.title_en}</div>
-                <div className="s">{continueBook.title_en}</div>
+            <div className="lib-continue-wrap">
+              <div className="lib-room-head lib-continue-head">
+                <h2>تابع القراءة</h2>
+                <span className="lib-room-rule" />
               </div>
-              <BookOpen size={20} className="lib-continue-go" />
-            </button>
+              <button className="lib-continue" onClick={() => navigate(`/library/${continueBook.id}/read/${continueEntry.current_chapter_id}`)}>
+                <div className="lib-cover-wrap"><BookCover book={continueBook} /></div>
+                <div className="lib-continue-info">
+                  <div className="t">{continueBook.title_ar || continueBook.title_en}</div>
+                  <div className="s">{continueBook.title_en}</div>
+                </div>
+                <BookOpen size={20} className="lib-continue-go" />
+              </button>
+            </div>
           )}
 
           {isLoading && <div className="lib-shelf">{[0, 1, 2, 3].map((i) => <div key={i} className="lib-skel" />)}</div>}
