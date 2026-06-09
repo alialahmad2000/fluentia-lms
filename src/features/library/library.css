@@ -736,30 +736,26 @@
 .lib-home > :not(.lib-env) { position: relative; z-index: 1; }
 
 .lib-env {
-  position: fixed;
-  inset-block-start: var(--header-height, 64px);
-  inset-block-end: 0;
-  inset-inline-start: 0;
-  inset-inline-end: var(--sidebar-width, 0px);
+  position: fixed; inset: 0;          /* full-bleed: the room IS the whole canvas */
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  animation: lib-env-in 1.5s ease both;
+  animation: lib-env-in 1.6s ease both;
 }
 @keyframes lib-env-in { from { opacity: 0; } to { opacity: 1; } }
 
-/* the lamplit bookshelf photograph, slow Ken-Burns drift */
+/* the great reading-hall — a slow push-in down the aisle, like walking in */
 .lib-env-img {
-  position: absolute; inset: -5%;
-  background: url("https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/library-art/backdrops/midnight-reading-room.jpg") center 40% / cover no-repeat;
-  filter: brightness(0.6) saturate(1.04) contrast(1.02);
-  transform: scale(1.06);
-  animation: lib-env-drift 64s ease-in-out infinite alternate;
+  position: absolute; inset: -6%;
+  background: url("https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/library-art/backdrops/midnight-reading-room.jpg") center 48% / cover no-repeat;
+  filter: brightness(0.74) saturate(1.05) contrast(1.06);
+  transform: scale(1.08);
+  animation: lib-env-drift 72s ease-in-out infinite alternate;
   will-change: transform;
 }
 @keyframes lib-env-drift {
-  from { transform: scale(1.06) translate3d(0, 0, 0); }
-  to   { transform: scale(1.13) translate3d(-1.6%, -1.4%, 0); }
+  from { transform: scale(1.08) translate3d(0, 0, 0); }
+  to   { transform: scale(1.17) translate3d(0, -1.6%, 0); }
 }
 
 /* warm amber lamp bloom, screen-blended, gentle breathing */
@@ -789,13 +785,14 @@
   to   { background-position: 0 -150px, 40px -120px; }
 }
 
-/* legibility scrims: soften the top behind the masthead, ground the bottom, vignette */
+/* legibility scrims — LIGHT + CONTINUOUS so the room never cuts to flat black.
+   A focused dark floor only behind the masthead, plus gentle edge-vignette depth. */
 .lib-env-scrim {
   position: absolute; inset: 0;
   background:
-    radial-gradient(96% 62% at 50% 4%, rgba(8,6,12,0.72), transparent 80%),
-    linear-gradient(180deg, rgba(8,6,12,0.58) 0%, rgba(8,6,12,0.14) 24%, rgba(8,6,12,0.30) 58%, rgba(8,6,12,0.86) 100%),
-    radial-gradient(125% 85% at 50% 32%, transparent 48%, rgba(8,6,12,0.55) 100%);
+    radial-gradient(78% 46% at 50% 6%, rgba(8,6,12,0.62), transparent 74%),
+    radial-gradient(135% 110% at 50% 42%, transparent 52%, rgba(8,6,12,0.52) 100%),
+    linear-gradient(180deg, rgba(8,6,12,0.28) 0%, transparent 28%, transparent 66%, rgba(8,6,12,0.42) 100%);
 }
 
 /* ground each cover with a soft contact shadow so books sit ON the shelf */
