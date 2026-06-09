@@ -175,11 +175,12 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
       }
     : {
         background: `linear-gradient(180deg,
-          color-mix(in srgb, var(--ds-text-primary) 7%, var(--ds-bg-elevated)) 0%,
+          color-mix(in srgb, var(--ds-text-primary) 10%, var(--ds-bg-elevated)) 0%,
+          color-mix(in srgb, var(--ds-text-primary) 5%, var(--ds-bg-elevated)) 38%,
           color-mix(in srgb, var(--ds-text-primary) 2%, var(--ds-bg-elevated)) 100%)`,
         backdropFilter: 'blur(22px) saturate(140%)', WebkitBackdropFilter: 'blur(22px) saturate(140%)',
         border: '1px solid color-mix(in srgb, var(--ds-text-primary) 10%, transparent)',
-        borderTopColor: 'color-mix(in srgb, var(--ds-text-primary) 16%, transparent)',
+        borderTopColor: 'color-mix(in srgb, var(--ds-text-primary) 18%, transparent)',
         boxShadow: SHADOW_OTHER,
       }
 

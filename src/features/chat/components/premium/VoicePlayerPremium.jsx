@@ -153,8 +153,8 @@ export default function VoicePlayerPremium({ message }) {
                   borderRadius: 2,
                   background: played
                     ? `linear-gradient(to top, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 60%, transparent))`
-                    : 'var(--ds-text-muted)',
-                  opacity: played ? 1 : 0.30,
+                    : 'color-mix(in srgb, var(--ds-accent-gold) 22%, var(--ds-text-muted))',
+                  opacity: played ? 1 : 0.46,
                   boxShadow: isPlayhead
                     ? `0 0 6px 2px color-mix(in srgb, var(--ds-accent-gold) 60%, transparent)`
                     : 'none',

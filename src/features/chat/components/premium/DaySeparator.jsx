@@ -24,19 +24,19 @@ export default function DaySeparator({ date }) {
   return (
     <motion.div
       {...fadeRise}
-      className="flex items-center gap-0 my-6 px-6"
+      className="flex items-center justify-center gap-0 my-7 px-6"
       style={{ direction: 'rtl' }}
     >
-      {/* gradient hairline rail */}
-      <div className="flex-1 h-px" style={{ background: 'linear-gradient(to left, color-mix(in srgb, var(--ds-text-primary) 9%, transparent) 0%, transparent 100%)' }} />
+      {/* short brass-tinted hairline rail (capped so the label anchors the centre) */}
+      <div className="flex-1 h-px" style={{ maxWidth: 84, background: 'linear-gradient(to left, color-mix(in srgb, var(--ds-accent-gold) 14%, transparent) 0%, transparent 100%)' }} />
 
       {/* المجلس — plain label on the rails (prototype style, no pill) */}
       <span
         className="shrink-0 select-none px-4"
         style={{
-          fontSize: 10.5,
+          fontSize: 11.5,
           fontWeight: 500,
-          letterSpacing: '0.22em',
+          letterSpacing: '0.16em',
           fontFamily: 'Tajawal, sans-serif',
           color: 'var(--ds-text-tertiary)',
           fontFeatureSettings: '"tnum"',
@@ -45,8 +45,8 @@ export default function DaySeparator({ date }) {
         {text}
       </span>
 
-      {/* gradient hairline rail */}
-      <div className="flex-1 h-px" style={{ background: 'linear-gradient(to right, color-mix(in srgb, var(--ds-text-primary) 9%, transparent) 0%, transparent 100%)' }} />
+      {/* short brass-tinted hairline rail */}
+      <div className="flex-1 h-px" style={{ maxWidth: 84, background: 'linear-gradient(to right, color-mix(in srgb, var(--ds-accent-gold) 14%, transparent) 0%, transparent 100%)' }} />
     </motion.div>
   )
 }
