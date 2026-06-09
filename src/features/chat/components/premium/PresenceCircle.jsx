@@ -87,7 +87,7 @@ export default function PresenceCircle({ groupId, onlineUserIds = [] }) {
         })}
       </div>
       <div style={{ textAlign: 'center', marginTop: 18, fontSize: 12.5, color: 'rgba(236,234,226,0.62)', fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
-        <span style={{ display: 'inline-block', width: 4, height: 4, borderRadius: '50%', background: '#C9A86A', boxShadow: '0 0 8px #C9A86A', marginInlineEnd: 7, verticalAlign: 'middle' }} />
+        <span style={{ display: 'inline-block', width: 4, height: 4, borderRadius: '50%', background: '#C9A86A', boxShadow: '0 0 8px #C9A86A', marginInlineEnd: 7, verticalAlign: 'middle', transform: 'translateY(1px)' }} />
         {onlineCount <= 0 ? 'حلقة المجلس'
           : onlineCount === 1 ? 'حاضر واحد الآن · المجلس مفتوح'
           : onlineCount === 2 ? 'حاضران الآن · المجلس مفتوح'

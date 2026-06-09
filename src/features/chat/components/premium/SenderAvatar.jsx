@@ -1,12 +1,9 @@
-import { senderColor, senderGradient } from '../../lib/senderColors'
-
-// Per-sender avatar with a Telegram/Slack-style coloured identity ring.
-// The ring is a conic gradient in the sender's `base` hue; the inner disc
-// is filled with the sender's 135deg soft→base gradient. Falls back to the
-// first character of the display name when there is no avatar image.
+// المجلس — restrained avatar. One brass accent, no per-sender hues: the teacher
+// (trainer/admin) gets a brass-ringed, brass-tinted disc so they read as the centre
+// of the circle; classmates get a quiet top-lit neutral disc. Falls back to the first
+// character of the display name when there is no avatar image.
 export default function SenderAvatar({ sender, senderId, size = 34 }) {
-  const color = senderColor(senderId)
-  const fill = senderGradient(senderId)
+  const isTeacher = sender?.role === 'trainer' || sender?.role === 'admin'
 
   const name =
     sender?.display_name ||
@@ -16,33 +13,32 @@ export default function SenderAvatar({ sender, senderId, size = 34 }) {
   const initial = String(name).trim().charAt(0) || 'م'
   const avatarUrl = sender?.avatar_url
 
+  const disc = isTeacher
+    ? {
+        background: 'radial-gradient(120% 120% at 50% 0%, rgba(201,168,106,0.18), rgba(201,168,106,0.035) 70%)',
+        boxShadow:
+          '0 2px 10px -4px rgba(201,168,106,0.40), inset 0 0 0 1px rgba(201,168,106,0.50), inset 0 1px 0 rgba(255,255,255,0.08)',
+        color: '#E2C88E',
+      }
+    : {
+        background: 'linear-gradient(180deg, rgba(236,234,226,0.12), rgba(236,234,226,0.03) 62%)',
+        boxShadow:
+          '0 2px 9px -3px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(236,234,226,0.09), inset 0 1px 0 rgba(255,255,255,0.07)',
+        color: 'rgba(236,234,226,0.82)',
+      }
+
   return (
-    <div
-      style={{ position: 'relative', width: size, height: size, flex: '0 0 auto' }}
-    >
-      {/* Colour identity ring */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: -2,
-          borderRadius: '9999px',
-          background: `conic-gradient(from 140deg, ${color.base}, color-mix(in srgb, ${color.base} 20%, transparent) 50%, ${color.base})`,
-          opacity: 0.9,
-        }}
-      />
-      {/* Inner disc: avatar image or initial on the sender gradient */}
+    <div style={{ position: 'relative', width: size, height: size, flex: '0 0 auto' }}>
       <div
         style={{
           position: 'absolute',
           inset: 0,
           borderRadius: '9999px',
           overflow: 'hidden',
-          background: fill,
-          boxShadow: `0 4px 14px -6px ${color.base}, inset 0 1px 1px rgba(255,255,255,0.2)`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          ...disc,
         }}
       >
         {avatarUrl ? (
@@ -56,10 +52,9 @@ export default function SenderAvatar({ sender, senderId, size = 34 }) {
           <span
             style={{
               fontFamily: 'Tajawal, sans-serif',
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: Math.round(size * 0.42),
               lineHeight: 1,
-              color: 'rgba(255,255,255,0.96)',
               userSelect: 'none',
             }}
           >

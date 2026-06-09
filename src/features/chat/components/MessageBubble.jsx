@@ -159,6 +159,9 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
   const time = new Date(message.created_at).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })
 
   const sc = isOwn ? null : senderColor(message.sender_id)
+  // المجلس — the teacher is the gravitational centre: their name reads brass + bold,
+  // classmates stay warm-neutral. One conditional turns a peer chat into a Majlis.
+  const isTeacherSender = message.sender?.role === 'trainer' || message.sender?.role === 'admin'
   const replyColor = message.reply_message?.sender?.id
     ? senderColor(message.reply_message.sender.id).base
     : (sc ? sc.base : 'var(--ds-accent-primary)')
@@ -208,8 +211,8 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
         <div ref={bubbleRef} className="chat-bubble px-3.5 py-2.5" style={{ ...bubbleStyle, borderRadius, lineHeight: 1.75 }}>
           {!isGrouped && !isOwn && (
             <div className="flex items-baseline gap-2 mb-1">
-              <span className="text-[13px] font-bold truncate"
-                style={{ fontFamily: 'Tajawal, sans-serif', color: sc.soft, letterSpacing: '0.01em', maxWidth: 200 }}>
+              <span className="text-[13px] truncate"
+                style={{ fontFamily: 'Tajawal, sans-serif', color: isTeacherSender ? 'var(--ds-accent-gold)' : 'rgba(245,240,232,0.74)', fontWeight: isTeacherSender ? 700 : 500, letterSpacing: '0.01em', maxWidth: 200 }}>
                 {displayName}
               </span>
               <span className="text-[12px] tabular-nums shrink-0" style={{ color: 'var(--ds-text-tertiary)', fontVariantNumeric: 'tabular-nums' }}>{time}</span>
