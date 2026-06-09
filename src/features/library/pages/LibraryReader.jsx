@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, Sparkles, Settings2 } from 'lucide-react'
+import { ChevronRight, Sparkles, Settings2, RotateCcw, RotateCw } from 'lucide-react'
 import SentenceReveal, { renderEN } from '../components/SentenceReveal'
 import { useBook, useChapterContent, saveProgress, completeChapter, saveWord } from '../hooks/useLibrary'
 import { useAuthProfileId } from '../../../stores/authStore'
@@ -72,9 +72,11 @@ function AssistProse({ blocks }) {
   )
 }
 
+const fmtTime = (s) => { if (!s || !isFinite(s)) return '0:00'; const m = Math.floor(s / 60); const ss = Math.floor(s % 60); return `${m}:${String(ss).padStart(2, '0')}` }
+
 // Cinema — narrated, with the chapter art as a living backdrop; the spoken
 // sentence glows and the page auto-scrolls to it. Tap a sentence → veil-lift.
-function CinemaProse({ blocks, curKey, onTray }) {
+function CinemaProse({ blocks, curKey, onTray, onSeek }) {
   return (
     <div className="lib-cine-prose" dir="ltr">
       {blocks.map((b) => b.t === 'img' ? null : (
@@ -84,7 +86,8 @@ function CinemaProse({ blocks, curKey, onTray }) {
             return (
               <span key={s.id} data-cinekey={key} className="lib-cine-sentence"
                 data-spoken={key === curKey || undefined} data-dialogue={s.is_dialogue || undefined}
-                onClick={() => onTray({ en: s.text_en, ar: s.text_ar })}>{s.text_en}{' '}</span>
+                title="اضغط للاستماع من هنا"
+                onClick={() => { onSeek?.(key); onTray({ en: s.text_en, ar: s.text_ar }) }}>{s.text_en}{' '}</span>
             )
           })}
         </p>
@@ -248,9 +251,13 @@ export default function LibraryReader() {
   const [savedWords, setSavedWords] = useState(() => new Set())
   const [showSettings, setShowSettings] = useState(false)
   const narrRef = useRef(null)
+  const trackRef = useRef(null)
+  const scrubbingRef = useRef(false)
   const [playing, setPlaying] = useState(false)
   const [curKey, setCurKey] = useState(null)
   const [audioPct, setAudioPct] = useState(0)
+  const [audioTime, setAudioTime] = useState(0)
+  const [audioDur, setAudioDur] = useState(0)
 
   const chapters = bookData?.chapters || []
   const book = bookData?.book
@@ -265,11 +272,12 @@ export default function LibraryReader() {
 
   // cinema narration — reset on chapter/mode change
   useEffect(() => {
-    setPlaying(false); setCurKey(null); setAudioPct(0)
+    setPlaying(false); setCurKey(null); setAudioPct(0); setAudioTime(0); setAudioDur(0)
     const el = narrRef.current; if (el) { el.pause(); try { el.currentTime = 0 } catch { /* ignore */ } }
   }, [chapterId, mode])
   const onAudioTime = () => {
     const el = narrRef.current; if (!el) return
+    setAudioTime(el.currentTime)
     setAudioPct(el.duration ? (el.currentTime / el.duration) * 100 : 0)
     const timing = current?.audio_timing || []
     if (!timing.length) return
@@ -281,6 +289,31 @@ export default function LibraryReader() {
   const toggleNarration = () => {
     const el = narrRef.current; if (!el) return
     if (el.paused) { el.play().then(() => setPlaying(true)).catch(() => {}) } else { el.pause(); setPlaying(false) }
+  }
+  // seekable player: scrub the track, skip ±, or tap a sentence to play from there
+  const seekToRatio = (r) => {
+    const el = narrRef.current; if (!el || !el.duration) return
+    const t = Math.min(1, Math.max(0, r)) * el.duration
+    el.currentTime = t; setAudioTime(t); setAudioPct((t / el.duration) * 100)
+  }
+  const ratioFromEvent = (e) => {
+    const el = trackRef.current; if (!el) return 0
+    const box = el.getBoundingClientRect()
+    return box.width ? (e.clientX - box.left) / box.width : 0
+  }
+  const onScrubDown = (e) => { scrubbingRef.current = true; try { e.currentTarget.setPointerCapture(e.pointerId) } catch { /* ignore */ } seekToRatio(ratioFromEvent(e)) }
+  const onScrubMove = (e) => { if (scrubbingRef.current) seekToRatio(ratioFromEvent(e)) }
+  const onScrubUp = (e) => { scrubbingRef.current = false; try { e.currentTarget.releasePointerCapture(e.pointerId) } catch { /* ignore */ } }
+  const skipBy = (d) => {
+    const el = narrRef.current; if (!el || !el.duration) return
+    el.currentTime = Math.min(el.duration, Math.max(0, el.currentTime + d))
+  }
+  const jumpToSentence = (key) => {
+    const el = narrRef.current; const timing = current?.audio_timing || []
+    const hit = timing.find((t) => `${t.p}-${t.s}` === key)
+    if (!el || !hit) return
+    el.currentTime = hit.t0 / 1000; setAudioTime(hit.t0 / 1000); setCurKey(key)
+    el.play().then(() => setPlaying(true)).catch(() => {})
   }
   useEffect(() => {
     if (mode !== 'cinema' || !curKey) return
@@ -355,7 +388,7 @@ export default function LibraryReader() {
     <div className="lib-reader-stage" data-candle={candle || undefined} data-mood={book?.theme || undefined} style={{ '--lib-fontscale': fontScale }}>
       {candle && <div className="lib-candle" />}
       <audio ref={ambientRef} loop preload="none" src={ambienceUrl || undefined} />
-      <audio ref={narrRef} src={current?.audio_url || undefined} preload="metadata" playsInline onTimeUpdate={onAudioTime} onEnded={() => setPlaying(false)} />
+      <audio ref={narrRef} src={current?.audio_url || undefined} preload="metadata" playsInline onTimeUpdate={onAudioTime} onLoadedMetadata={() => setAudioDur(narrRef.current?.duration || 0)} onEnded={() => setPlaying(false)} />
       <div className="lib-reader-bar">
         <button className="lib-back" onClick={() => navigate(`/library/${bookId}`)}>
           <ChevronRight size={16} /> الرواية
@@ -400,7 +433,7 @@ export default function LibraryReader() {
             )}
             {isLoading && <div className="lib-skel" style={{ height: 320 }} />}
             {!isLoading && !hasContent && <div className="lib-empty">هذا الفصل قيد الإعداد.</div>}
-            {!isLoading && hasContent && <CinemaProse blocks={blocks} curKey={curKey} onTray={setTray} />}
+            {!isLoading && hasContent && <CinemaProse blocks={blocks} curKey={curKey} onTray={setTray} onSeek={jumpToSentence} />}
             {!isLoading && hasContent && (
               <div className="lib-foot">
                 <button disabled={!prev} onClick={onPrev}>الفصل السابق</button>
@@ -408,11 +441,20 @@ export default function LibraryReader() {
               </div>
             )}
           </div>
-          <div className="lib-cine-bar">
+          <div className="lib-cine-bar" data-rich={current?.audio_url ? true : undefined}>
             {current?.audio_url ? (
               <>
-                <button className="lib-cine-play" onClick={toggleNarration} aria-label="تشغيل أو إيقاف الصوت">{playing ? '❚❚' : '▶'}</button>
-                <div className="lib-cine-track"><i style={{ width: `${audioPct}%` }} /></div>
+                <button className="lib-cine-play" onClick={toggleNarration} aria-label={playing ? 'إيقاف مؤقت' : 'تشغيل'}>{playing ? '❚❚' : '▶'}</button>
+                <button className="lib-cine-skip" onClick={() => skipBy(-10)} aria-label="إرجاع ١٠ ثوانٍ"><RotateCcw size={15} /><b>10</b></button>
+                <span className="lib-cine-time">{fmtTime(audioTime)}</span>
+                <div className="lib-cine-track" ref={trackRef} dir="ltr" role="slider"
+                  aria-label="شريط الصوت" aria-valuemin={0} aria-valuemax={Math.round(audioDur)} aria-valuenow={Math.round(audioTime)}
+                  onPointerDown={onScrubDown} onPointerMove={onScrubMove} onPointerUp={onScrubUp} onPointerCancel={onScrubUp}>
+                  <i style={{ width: `${audioPct}%` }} />
+                  <span className="lib-cine-thumb" style={{ left: `${audioPct}%` }} />
+                </div>
+                <span className="lib-cine-time lib-cine-time-total">{fmtTime(audioDur)}</span>
+                <button className="lib-cine-skip" onClick={() => skipBy(10)} aria-label="تقديم ١٠ ثوانٍ"><RotateCw size={15} /><b>10</b></button>
               </>
             ) : <span className="lib-cine-soon">🎧 الرواية الصوتية لهذا الفصل قريباً</span>}
           </div>
