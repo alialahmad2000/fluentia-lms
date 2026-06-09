@@ -23,10 +23,13 @@ function IconBtn({ onClick, label, children }) {
   )
 }
 
-export default function StreamHeader({ groupName, groupId, onSearchOpen, onOpenMedia, onBack }) {
+const ORD = ['', 'الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس', 'السادس']
+
+export default function StreamHeader({ groupName, groupLevel, groupId, onSearchOpen, onOpenMedia, onBack }) {
   const { data: mutes } = useChatMutes()
   const toggleMute = useToggleChatMute()
   const muted = muteActive(mutes, 'group', groupId)
+  const sub = groupLevel ? `حلقة المحادثة · المستوى ${ORD[Number(groupLevel)] || groupLevel}` : 'حلقة المحادثة'
 
   return (
     <motion.header layout style={{ ...glass, direction: 'rtl', position: 'relative', zIndex: 3 }} className="px-2.5">
@@ -43,7 +46,7 @@ export default function StreamHeader({ groupName, groupId, onSearchOpen, onOpenM
             <span className="truncate" style={{ color: 'var(--ds-text-primary)', fontWeight: 500, maxWidth: 210 }}>{groupName || 'المجموعة'}</span>
           </div>
           <div style={{ fontSize: 11.5, color: 'var(--ds-text-muted)', marginTop: 3, fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
-            حلقة المحادثة
+            {sub}
           </div>
         </div>
 
