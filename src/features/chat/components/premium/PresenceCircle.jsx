@@ -55,8 +55,8 @@ export default function PresenceCircle({ groupId, onlineUserIds = [] }) {
   const online = new Set(onlineUserIds)
   const teacher = members.find((m) => m.role === 'trainer' || m.role === 'admin')
   let others = members.filter((m) => m !== teacher)
-  // keep the circle clean like the prototype — at most 6 classmates around the teacher
-  others = others.slice(0, 6)
+  // keep the circle clean like the prototype — at most 5 classmates around the teacher
+  others = others.slice(0, 5)
   const half = Math.ceil(others.length / 2)
   const ordered = teacher ? [...others.slice(0, half), teacher, ...others.slice(half)] : others
   const onlineCount = ordered.filter((m) => online.has(m.id)).length
@@ -78,16 +78,20 @@ export default function PresenceCircle({ groupId, onlineUserIds = [] }) {
                   <span className="chat-online-dot" style={{ position: 'absolute', insetInlineEnd: 1, insetBlockEnd: 1, width: isTeacher ? 11 : 9, height: isTeacher ? 11 : 9, borderRadius: '50%', background: '#C9A86A', border: '2px solid #0b0907' }} />
                 )}
               </div>
-              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 10.5, fontWeight: isTeacher ? 500 : 400, color: isTeacher ? 'rgba(201,168,106,0.62)' : 'rgba(236,234,226,0.42)', whiteSpace: 'nowrap', maxWidth: 56, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <span style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 11, fontWeight: isTeacher ? 500 : 400, color: isTeacher ? 'rgba(201,168,106,0.66)' : 'rgba(236,234,226,0.46)', whiteSpace: 'nowrap', maxWidth: 56, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {first}
               </span>
             </div>
           )
         })}
       </div>
-      <div style={{ textAlign: 'center', marginTop: 16, fontSize: 11.5, color: 'rgba(236,234,226,0.42)', fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
+      <div style={{ textAlign: 'center', marginTop: 16, fontSize: 12, color: 'rgba(236,234,226,0.46)', fontFamily: 'Tajawal, sans-serif', letterSpacing: '0.02em' }}>
         <span style={{ display: 'inline-block', width: 4, height: 4, borderRadius: '50%', background: '#C9A86A', boxShadow: '0 0 8px #C9A86A', marginInlineEnd: 7, verticalAlign: 'middle' }} />
-        {onlineCount > 0 ? `${onlineCount} حاضرون الآن · المجلس مفتوح` : 'حلقة المجلس'}
+        {onlineCount <= 0 ? 'حلقة المجلس'
+          : onlineCount === 1 ? 'حاضر واحد الآن · المجلس مفتوح'
+          : onlineCount === 2 ? 'حاضران الآن · المجلس مفتوح'
+          : onlineCount <= 10 ? `${onlineCount} حاضرين الآن · المجلس مفتوح`
+          : `${onlineCount} حاضراً الآن · المجلس مفتوح`}
       </div>
       <div style={{ position: 'absolute', insetInline: 24, bottom: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(236,234,226,0.09), transparent)' }} />
     </div>

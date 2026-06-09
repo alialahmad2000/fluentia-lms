@@ -213,3 +213,9 @@ body.chat-page .chat-shell {
   top: calc(var(--sat, 0px) + var(--impersonation-banner-height, 0px)) !important;
   bottom: var(--sab, 0px) !important;
 }
+
+/* Desktop: center the conversation into a reading column instead of a thin ribbon
+   pinned against the sidebar (header + composer stay full-width, like Telegram desktop). */
+@media (min-width: 1024px) {
+  .chat-shell .chat-stream { padding-inline: max(24px, calc((100% - 820px) / 2)) !important; }
+}
