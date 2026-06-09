@@ -18,8 +18,16 @@ const CONFIRM = process.argv.includes('--confirm');
 const BATCH_SIZE = 10;
 const BATCH_DELAY_MS = 200;
 
-const TOKEN = 'sbp_413df100e74f46976469493a8fed4d68581fdf82';
-const PROJECT_REF = 'nmjexpuycmqcxuxljier';
+// Token resolution mirrors scripts/_mgmt-query.cjs — env var first, then .mcp.json.
+function readToken() {
+  if (process.env.SUPABASE_ACCESS_TOKEN) return process.env.SUPABASE_ACCESS_TOKEN;
+  const raw = fs.readFileSync(path.join(__dirname, '..', '.mcp.json'), 'utf8');
+  const m = raw.match(/sbp_[A-Za-z0-9]+/);
+  if (!m) throw new Error('No sbp_ token: set SUPABASE_ACCESS_TOKEN or add it to .mcp.json');
+  return m[0];
+}
+const TOKEN = readToken();
+const PROJECT_REF = process.env.SUPABASE_PROJECT_REF || 'nmjexpuycmqcxuxljier';
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,

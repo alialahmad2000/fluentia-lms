@@ -152,6 +152,10 @@ export default defineConfig(({ mode }) => ({
           'vendor-motion': ['framer-motion'],
           'vendor-zustand': ['zustand'],
           'vendor-charts': ['recharts'],
+          // clsx is shared by the eager nav AND recharts — without its own chunk
+          // Rollup hoists it INTO vendor-charts, forcing every first load to
+          // download the whole 115 kB chart bundle just for className joining.
+          'vendor-clsx': ['clsx'],
           'vendor-dates': ['date-fns'],
         },
       },

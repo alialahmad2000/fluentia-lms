@@ -5,6 +5,7 @@ import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { pronounceWord } from '../../../lib/audio/pronounceWord'
 import WordRevealCard from './WordRevealCard'
+import { useG } from '../../../i18n/gender'
 
 // ── Spelling Lab session (Surface 4 of the Constellation identity) ───────────
 // One drill of up to 10 words. Two modes:
@@ -150,6 +151,7 @@ function SessionSummary({ stats, total, onAgain, onExit, source }) {
 
 export default function SpellingSession({ mode, source = 'session', onExit }) {
   // ── ALL hooks at top (React rules) ──
+  const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const [words, setWords] = useState(null)        // null = loading
   const [loadError, setLoadError] = useState(null)
@@ -432,7 +434,7 @@ export default function SpellingSession({ mode, source = 'session', onExit }) {
         {/* listen_type: big indigo audio button */}
         {mode === 'listen_type' && phase !== 'feedback' && (
           <motion.button
-            type="button" onClick={playWord} aria-label="استمعي للكلمة"
+            type="button" onClick={playWord} aria-label={g('استمع للكلمة', 'استمعي للكلمة')}
             whileTap={{ scale: 0.94 }}
             className="mb-8 w-20 h-20 rounded-full flex items-center justify-center"
             style={{
@@ -460,7 +462,7 @@ export default function SpellingSession({ mode, source = 'session', onExit }) {
               <div className="flex items-center gap-3 mb-1">
                 <CountdownRing left={revealLeft} total={peekSecs} />
                 <p className="text-[13px] text-center" style={{ color: 'var(--vc-text-dim)' }}>
-                  ادرسي الكلمة، ثم ستختفي لتكتبيها من الذاكرة
+                  {g('ادرس الكلمة، ثم ستختفي لتكتبها من الذاكرة', 'ادرسي الكلمة، ثم ستختفي لتكتبيها من الذاكرة')}
                 </p>
               </div>
               <div className="my-2">
@@ -483,7 +485,7 @@ export default function SpellingSession({ mode, source = 'session', onExit }) {
           <div className="w-full px-1">
             {phase === 'retry' && (
               <p className="mb-3 text-center text-[13px]" style={{ color: 'var(--vc-text-dim)' }}>
-                أعيدي كتابة{' '}
+                {g('أعد كتابة', 'أعيدي كتابة')}{' '}
                 <span className="vc-word" style={{ color: 'var(--vc-gold-soft)' }}>{current.word_en}</span>
                 {' '}للمتابعة
               </p>
@@ -498,7 +500,7 @@ export default function SpellingSession({ mode, source = 'session', onExit }) {
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
-              placeholder="اكتبي الكلمة"
+              placeholder={g('اكتب الكلمة', 'اكتبي الكلمة')}
               className="w-full max-w-full text-center rounded-2xl px-4 outline-none"
               style={{
                 height: 60,

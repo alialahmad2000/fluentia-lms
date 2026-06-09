@@ -5,6 +5,7 @@ import { Bug, ChevronDown, Send, CheckCircle2, AlertCircle, Loader2 } from 'luci
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 import { toast } from '@/components/ui/FluentiaToast'
+import { useG } from '@/i18n/gender'
 
 const STATUS_META = {
   new:         { label: 'قيد المراجعة', cls: 'text-sky-300 bg-sky-500/10 border-sky-500/20' },
@@ -18,6 +19,7 @@ function fmtDate(s) {
 }
 
 export default function MyReports() {
+  const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const [searchParams] = useSearchParams()
   const focusId = searchParams.get('report')
@@ -45,7 +47,7 @@ export default function MyReports() {
         </div>
         <div>
           <h1 className="text-2xl font-bold text-white">بلاغاتي</h1>
-          <p className="text-sm text-slate-400">تابعي حالة المشكلات التي أبلغتِ عنها وردّي علينا</p>
+          <p className="text-sm text-slate-400">{g('تابع حالة المشكلات التي أبلغت عنها ورُدّ علينا', 'تابعي حالة المشكلات التي أبلغتِ عنها وردّي علينا')}</p>
         </div>
       </div>
 
@@ -56,7 +58,7 @@ export default function MyReports() {
       {reports?.length === 0 && (
         <div className="text-center py-16 text-slate-400">
           <Bug className="w-10 h-10 mx-auto mb-3 opacity-40" />
-          <p>لا توجد بلاغات بعد. إذا واجهتِ مشكلة، استخدمي زر «أبلغ عن مشكلة».</p>
+          <p>{g('لا توجد بلاغات بعد. إذا واجهت مشكلة، استخدم زر «أبلغ عن مشكلة».', 'لا توجد بلاغات بعد. إذا واجهتِ مشكلة، استخدمي زر «أبلغ عن مشكلة».')}</p>
         </div>
       )}
 
@@ -77,6 +79,7 @@ export default function MyReports() {
 }
 
 function ReportCard({ report, isOpen, onToggle, currentUserId, onChanged }) {
+  const g = useG()
   const meta = STATUS_META[report.status] || STATUS_META.new
   const [messages, setMessages] = useState(null)
   const [reply, setReply] = useState('')
@@ -138,7 +141,7 @@ function ReportCard({ report, isOpen, onToggle, currentUserId, onChanged }) {
             <div className="px-4 pb-4 border-t border-white/10 pt-3">
               <div className="space-y-2 mb-3">
                 {messages === null && <div className="text-xs text-slate-500">جارٍ التحميل…</div>}
-                {messages?.length === 0 && <div className="text-xs text-slate-500">لا توجد ردود بعد. اكتبي لنا إذا عندك تفاصيل إضافية.</div>}
+                {messages?.length === 0 && <div className="text-xs text-slate-500">لا توجد ردود بعد. {g('اكتب لنا إذا عندك تفاصيل إضافية.', 'اكتبي لنا إذا عندك تفاصيل إضافية.')}</div>}
                 {messages?.map((m) => {
                   const mine = m.sender_id === currentUserId
                   return (
@@ -166,7 +169,7 @@ function ReportCard({ report, isOpen, onToggle, currentUserId, onChanged }) {
 
               <div className="flex items-end gap-2">
                 <textarea
-                  value={reply} onChange={(e) => setReply(e.target.value)} rows={1} placeholder="اكتبي ردّك…"
+                  value={reply} onChange={(e) => setReply(e.target.value)} rows={1} placeholder={g('اكتب ردّك…', 'اكتبي ردّك…')}
                   className="flex-1 resize-none rounded-xl bg-white/[0.04] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500/40"
                   style={{ fontSize: '16px' }}
                   onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendReply() } }}

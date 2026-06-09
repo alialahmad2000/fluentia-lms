@@ -137,7 +137,8 @@ export default function RecordingPlayerCascade({
 
     // Update student tier1 failure count
     if (currentTier === 1 && user?.id) {
-      supabase.rpc('increment_student_tier1_failures', { uid: user.id }).catch(() => {})
+      // PostgREST builders are thenables WITHOUT .catch — calling it throws.
+      supabase.rpc('increment_student_tier1_failures', { uid: user.id }).then(() => {}, () => {})
     }
 
     // Escalate to next tier, skipping dead tiers (3,4,5 have 0% success)
