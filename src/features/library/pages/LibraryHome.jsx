@@ -97,7 +97,15 @@ export default function LibraryHome() {
   const open = (book) => navigate(`/library/${book.id}`)
 
   return (
-    <div className="lib-home">
+    <div className="lib-home" data-view={view}>
+      {view === 'shelf' && (
+        <div className="lib-env" aria-hidden="true">
+          <div className="lib-env-img" />
+          <div className="lib-env-glow" />
+          <div className="lib-env-motes" />
+          <div className="lib-env-scrim" />
+        </div>
+      )}
       <header className="lib-masthead">
         <h1>مكتبة طلاقة</h1>
         <div className="lib-wordmark">The Fluentia Library</div>

@@ -702,3 +702,92 @@
 .lib-shadow-nav { display: flex; justify-content: space-between; width: 100%; max-width: 620px; }
 .lib-shadow-nav button { display: inline-flex; align-items: center; gap: 5px; background: none; border: none; color: #b39e6e; font-family: 'Tajawal'; font-size: 13.5px; cursor: pointer; padding: 8px; }
 .lib-shadow-nav button:disabled { opacity: 0.35; cursor: default; }
+
+/* ============================================================================
+   Immersive "Midnight Reading Room" environment — full-bleed living backdrop
+   behind the shelf view only. Pure CSS transform/opacity/bg-position (low-power
+   + reduced-motion safe). Content sits above on z-index 1; the room sits behind.
+   ========================================================================== */
+.lib-home { position: relative; }
+.lib-home > :not(.lib-env) { position: relative; z-index: 1; }
+
+.lib-env {
+  position: fixed;
+  inset-block-start: var(--header-height, 64px);
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inset-inline-end: var(--sidebar-width, 0px);
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  animation: lib-env-in 1.5s ease both;
+}
+@keyframes lib-env-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* the lamplit bookshelf photograph, slow Ken-Burns drift */
+.lib-env-img {
+  position: absolute; inset: -5%;
+  background: url("https://nmjexpuycmqcxuxljier.supabase.co/storage/v1/object/public/library-art/backdrops/midnight-reading-room.jpg") center 40% / cover no-repeat;
+  filter: brightness(0.6) saturate(1.04) contrast(1.02);
+  transform: scale(1.06);
+  animation: lib-env-drift 64s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes lib-env-drift {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to   { transform: scale(1.13) translate3d(-1.6%, -1.4%, 0); }
+}
+
+/* warm amber lamp bloom, screen-blended, gentle breathing */
+.lib-env-glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(56% 48% at 50% 28%, rgba(251, 191, 36, 0.17), transparent 70%),
+    radial-gradient(42% 40% at 66% 62%, rgba(217, 119, 6, 0.12), transparent 72%);
+  mix-blend-mode: screen;
+  animation: lib-env-breathe 9.5s ease-in-out infinite alternate;
+}
+@keyframes lib-env-breathe { from { opacity: 0.65; } to { opacity: 1; } }
+
+/* floating dust motes in the lamplight (seamless upward drift) */
+.lib-env-motes {
+  position: absolute; inset: -12%;
+  background-image:
+    radial-gradient(circle, rgba(255, 240, 205, 0.45) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 240, 205, 0.28) 1px, transparent 1.6px);
+  background-size: 150px 150px, 95px 95px;
+  background-position: 0 0, 40px 30px;
+  opacity: 0.5;
+  animation: lib-env-motes 34s linear infinite;
+}
+@keyframes lib-env-motes {
+  from { background-position: 0 0, 40px 30px; }
+  to   { background-position: 0 -150px, 40px -120px; }
+}
+
+/* legibility scrims: soften the top behind the masthead, ground the bottom, vignette */
+.lib-env-scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8,6,12,0.58) 0%, rgba(8,6,12,0.14) 20%, rgba(8,6,12,0.30) 58%, rgba(8,6,12,0.86) 100%),
+    radial-gradient(125% 85% at 50% 32%, transparent 48%, rgba(8,6,12,0.55) 100%);
+}
+
+/* ground each cover with a soft contact shadow so books sit ON the shelf */
+.lib-home[data-view="shelf"] .lib-card-cover::after {
+  content: ''; position: absolute; inset-inline: 7%; bottom: -11px; height: 16px;
+  background: radial-gradient(50% 100% at 50% 0%, rgba(0,0,0,0.6), transparent 76%);
+  filter: blur(3px); pointer-events: none;
+}
+
+/* lift the chrome off the photographed room with text shadows */
+.lib-home[data-view="shelf"] .lib-masthead h1 { text-shadow: 0 2px 26px rgba(0,0,0,0.65), 0 1px 3px rgba(0,0,0,0.85); }
+.lib-home[data-view="shelf"] .lib-masthead .lib-wordmark { text-shadow: 0 1px 14px rgba(217,119,6,0.4); }
+.lib-home[data-view="shelf"] .lib-masthead p { text-shadow: 0 1px 10px rgba(0,0,0,0.8); }
+.lib-home[data-view="shelf"] .lib-room-head h2 { text-shadow: 0 1px 12px rgba(0,0,0,0.8); }
+.lib-home[data-view="shelf"] .lib-card-meta .t,
+.lib-home[data-view="shelf"] .lib-card-meta .s { text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lib-env, .lib-env-img, .lib-env-glow, .lib-env-motes { animation: none !important; }
+}
