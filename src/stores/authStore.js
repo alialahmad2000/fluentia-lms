@@ -15,6 +15,41 @@ const withTimeout = (promise, ms, label) =>
     ),
   ])
 
+// ── Impersonation persistence ──────────────────────────────────────────────────
+// MUST live in localStorage, NOT sessionStorage. The impersonation swaps the
+// REAL Supabase session, which itself persists in localStorage (shared across
+// tabs, survives tab/process kills). Keeping the banner marker + admin restore
+// tokens in sessionStorage (tab-scoped) caused the "stuck as the student" bug:
+// after a while iOS/Safari discards the tab, or the PWA reopens in a fresh
+// context → sessionStorage is wiped → the student session persists with NO
+// banner and no way back to the admin account except a full logout/login.
+const IMP_META_KEY = 'fluentia_impersonation'
+const IMP_RESTORE_KEY = 'fluentia_admin_restore'
+
+const impGet = (key) => {
+  // localStorage is canonical; fall back to sessionStorage so an impersonation
+  // started on the previous (sessionStorage) build migrates seamlessly.
+  try {
+    const v = window.localStorage.getItem(key)
+    if (v != null) return v
+  } catch { /* ignore */ }
+  try {
+    const v = window.sessionStorage.getItem(key)
+    if (v != null) {
+      try { window.localStorage.setItem(key, v) } catch { /* ignore */ }
+      return v
+    }
+  } catch { /* ignore */ }
+  return null
+}
+const impSet = (key, value) => {
+  try { window.localStorage.setItem(key, value) } catch { /* ignore */ }
+}
+const impRemove = (key) => {
+  try { window.localStorage.removeItem(key) } catch { /* ignore */ }
+  try { window.sessionStorage.removeItem(key) } catch { /* ignore */ }
+}
+
 export const useAuthStore = create((set, get) => ({
   user: null,
   profile: null,
@@ -87,6 +122,9 @@ export const useAuthStore = create((set, get) => ({
         await get().fetchProfile(session.user)
         // Initialize activity tracker
         tracker.init(session.user.id)
+        // Re-attach the impersonation banner if the session arrived AFTER the
+        // boot-time restore ran (e.g. getSession was slow at startup). Idempotent.
+        try { await get().restoreImpersonation() } catch { /* ignore */ }
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
         // Token refresh only changes the auth header — data is still valid.
         // Supabase JS auto-injects the new JWT on every subsequent request, so
@@ -192,11 +230,11 @@ export const useAuthStore = create((set, get) => ({
     if (!data?.token_hash) throw new Error('تعذّر بدء المعاينة')
 
     // 3) stash restore + meta BEFORE swapping the session
-    sessionStorage.setItem('fluentia_admin_restore', JSON.stringify({
+    impSet(IMP_RESTORE_KEY, JSON.stringify({
       access_token: adminSession.access_token,
       refresh_token: adminSession.refresh_token,
     }))
-    sessionStorage.setItem('fluentia_impersonation', JSON.stringify({
+    impSet(IMP_META_KEY, JSON.stringify({
       userId, role, name, returnPath: window.location.pathname,
       adminProfile: state.profile
         ? { id: state.profile.id, role: state.profile.role, full_name: state.profile.full_name, email: state.profile.email }
@@ -209,8 +247,8 @@ export const useAuthStore = create((set, get) => ({
       type: data.type || 'magiclink',
     })
     if (vErr) {
-      sessionStorage.removeItem('fluentia_admin_restore')
-      sessionStorage.removeItem('fluentia_impersonation')
+      impRemove(IMP_RESTORE_KEY)
+      impRemove(IMP_META_KEY)
       throw vErr
     }
     // caller reloads → init() loads the target session, restoreImpersonation() shows the banner
@@ -220,9 +258,9 @@ export const useAuthStore = create((set, get) => ({
     const state = get()
     const returnPath = state.impersonation?.returnPath || '/admin'
     let restore = null
-    try { restore = JSON.parse(sessionStorage.getItem('fluentia_admin_restore') || 'null') } catch { /* ignore */ }
-    sessionStorage.removeItem('fluentia_impersonation')
-    sessionStorage.removeItem('fluentia_admin_restore')
+    try { restore = JSON.parse(impGet(IMP_RESTORE_KEY) || 'null') } catch { /* ignore */ }
+    impRemove(IMP_META_KEY)
+    impRemove(IMP_RESTORE_KEY)
     set({ impersonation: null, _realProfile: null, _realStudentData: null, _realTrainerData: null })
     // restore the admin's real session (or fall back to a clean sign-out)
     try {
@@ -244,15 +282,20 @@ export const useAuthStore = create((set, get) => ({
   // active session already IS the target; we just re-attach the banner + the saved
   // admin profile (so role-guard helpers that read _realProfile keep working).
   restoreImpersonation: async () => {
-    const stored = sessionStorage.getItem('fluentia_impersonation')
+    const stored = impGet(IMP_META_KEY)
     if (!stored) return
     let meta
-    try { meta = JSON.parse(stored) } catch { sessionStorage.removeItem('fluentia_impersonation'); return }
+    try { meta = JSON.parse(stored) } catch { impRemove(IMP_META_KEY); return }
     const cur = get()
-    // the logged-in session must be the impersonated user; otherwise the flag is stale
-    if (!cur.profile || cur.profile.id !== meta.userId) {
-      sessionStorage.removeItem('fluentia_impersonation')
-      sessionStorage.removeItem('fluentia_admin_restore')
+    // Validate against the SESSION user (cur.user), NOT the profile: the profile
+    // fetch can fail transiently (timeout / flaky network) and a transient failure
+    // must never delete the admin's restore tokens — that's a one-way door that
+    // strands the admin inside the student account.
+    if (!cur.user) return // no session loaded right now — keep keys, re-validate on next boot
+    if (cur.user.id !== meta.userId) {
+      // session is genuinely someone else (e.g. the admin again) — flag is stale
+      impRemove(IMP_META_KEY)
+      impRemove(IMP_RESTORE_KEY)
       return
     }
     set({
