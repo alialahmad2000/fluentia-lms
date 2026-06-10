@@ -15,7 +15,7 @@ import { toArabicNum } from '@/lib/vocabFormat'
 import { useChatUnread } from '@/features/chat/queries/useDM'
 import { supabase } from '@/lib/supabase'
 
-const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin', agent: '/team' }
+const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin', agent: '/team', coordinator: '/coordinator' }
 
 function Sidebar({ nav, collapsed, onToggle }) {
   const profile = useAuthStore((s) => s.profile)
@@ -316,7 +316,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
           )}
           {!collapsed && (
             <button
-              onClick={(e) => { e.stopPropagation(); navigate(role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/my-students' : role === 'agent' ? '/team' : '/student/profile') }}
+              onClick={(e) => { e.stopPropagation(); navigate(role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/my-students' : role === 'agent' ? '/team' : role === 'coordinator' ? '/coordinator' : '/student/profile') }}
               className="shrink-0 p-1.5 rounded-lg transition-colors duration-200"
               style={{ color: 'var(--ds-text-tertiary)' }}
               aria-label="الإعدادات"

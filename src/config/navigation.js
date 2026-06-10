@@ -208,8 +208,37 @@ export const ADMIN_NAV = {
   ],
 }
 
+export const COORDINATOR_NAV = {
+  sections: [
+    {
+      id: 'coordination',
+      label: 'التنسيق',
+      items: [
+        { id: 'week',      label: 'جدول الحصص',      icon: CalendarClock, to: '/coordinator' },
+        { id: 'schedules', label: 'المواعيد الثابتة', icon: ClipboardList, to: '/coordinator/schedules' },
+      ],
+    },
+  ],
+  drawerSections: [
+    {
+      id: 'coordination',
+      label: 'التنسيق',
+      items: [
+        { id: 'week',      label: 'جدول الحصص',      icon: CalendarClock, to: '/coordinator' },
+        { id: 'schedules', label: 'المواعيد الثابتة', icon: ClipboardList, to: '/coordinator/schedules' },
+      ],
+    },
+  ],
+  mobileBar: [
+    { id: 'week',      label: 'الجدول',   icon: CalendarClock, to: '/coordinator' },
+    { id: 'schedules', label: 'المواعيد', icon: ClipboardList, to: '/coordinator/schedules' },
+    { id: 'more',      label: 'المزيد',   icon: 'more',        to: null },
+  ],
+}
+
 export function getNavForRole(role) {
   if (role === 'trainer') return TRAINER_NAV
   if (role === 'admin') return ADMIN_NAV
+  if (role === 'coordinator') return COORDINATOR_NAV
   return STUDENT_NAV
 }
