@@ -13,6 +13,6 @@ export const TEACHER_NAV = [
   { id: 'settings',   href: '/trainer/settings',   label: 'الإعدادات',       icon: Settings },
 ]
 
-// Mobile bottom bar: 5 items (drop Settings + Curriculum on phones to keep
-// targets comfortable — both remain reachable from the desktop sidebar).
-export const TEACHER_MOBILE_BAR = TEACHER_NAV.filter((i) => i.id !== 'settings' && i.id !== 'curriculum')
+// Mobile bottom bar: 6 items (drop only Settings on phones — Curriculum must
+// stay reachable for teachers following lessons from a phone/tablet).
+export const TEACHER_MOBILE_BAR = TEACHER_NAV.filter((i) => i.id !== 'settings')

@@ -16,7 +16,7 @@ function RescheduleModal({ session, onClose, onDone }) {
   const m = useCoordMutations()
   const [date, setDate] = useState(riyadhDayStr(new Date(session.start_at).getTime()))
   const [time, setTime] = useState(
-    new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Riyadh', hour: '2-digit', minute: '2-digit', hour12: false })
+    new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Riyadh', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
       .format(new Date(session.start_at)))
   const [saving, setSaving] = useState(false)
 

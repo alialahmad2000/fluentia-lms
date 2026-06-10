@@ -428,6 +428,11 @@ begin
   returning id into v_id;
 
   v_created := public.materialize_one_schedule(v_id, 14);
+  if v_created = 0 then
+    -- every upcoming occurrence collides with an existing session: surface it
+    -- instead of silently saving a schedule that will never produce classes
+    raise exception 'conflict' using errcode = '23P01';
+  end if;
 
   select coalesce(display_name, full_name) into v_trainer_name from public.profiles where id = p_trainer;
   v_students := public.class_session_students(p_type, p_student, p_group);
@@ -489,7 +494,8 @@ begin
     day_of_week      = coalesce(p_day_of_week, day_of_week),
     start_time       = coalesce(p_start_time, start_time),
     duration_minutes = coalesce(p_duration, duration_minutes),
-    meeting_link     = coalesce(nullif(trim(p_meeting_link), ''), meeting_link),
+    -- NULL = keep current link; empty string = explicitly clear it
+    meeting_link     = case when p_meeting_link is null then meeting_link else nullif(trim(p_meeting_link), '') end,
     notes            = coalesce(p_notes, notes),
     status           = coalesce(p_status, status)
   where id = p_id
@@ -651,7 +657,8 @@ as $$
 begin
   perform public.coord_assert();
   update public.class_sessions set
-    meeting_link = coalesce(nullif(trim(p_meeting_link), ''), meeting_link),
+    -- NULL = keep current link; empty string = explicitly clear it
+    meeting_link = case when p_meeting_link is null then meeting_link else nullif(trim(p_meeting_link), '') end,
     notes        = coalesce(p_notes, notes),
     status       = coalesce(p_status, status)
   where id = p_id;
