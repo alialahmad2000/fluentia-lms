@@ -1,0 +1,68 @@
+# Perf regression guard — keeps the 2026-06-11 optimization pass from being
+# silently undone by later commits (the historical failure mode).
+# Job 1 (always): build + perf budget (entry/initial-JS/chunk-size caps).
+# Job 2 (needs secrets): the protected-behaviors Playwright suite on
+#   chromium + webkit against a local preview of the production build.
+#   Requires VITE_SUPABASE_URL + VITE_SUPABASE_ANON_KEY repo secrets; the job
+#   skips itself when they are absent rather than failing the push.
+name: perf-guard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: perf-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Build + perf budget
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://placeholder.supabase.co' }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'placeholder' }}
+        run: npm run build:check
+
+  protected-behaviors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Check secrets
+        id: secrets
+        run: |
+          if [ -n "${{ secrets.VITE_SUPABASE_URL }}" ] && [ -n "${{ secrets.VITE_SUPABASE_ANON_KEY }}" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY secrets missing — skipping behavior suite"
+          fi
+      - if: steps.secrets.outputs.ok == 'true'
+        run: npm ci --no-audit --no-fund
+      - if: steps.secrets.outputs.ok == 'true'
+        run: npx playwright install --with-deps chromium webkit
+      - if: steps.secrets.outputs.ok == 'true'
+        name: Build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: npm run build
+      - if: steps.secrets.outputs.ok == 'true'
+        name: Preview + protected-behaviors suite
+        run: |
+          npx vite preview --port 4731 --strictPort &
+          for i in $(seq 1 30); do curl -sf http://localhost:4731 >/dev/null && break; sleep 1; done
+          PERF_BASE_URL=http://localhost:4731 npm run test:perf-safety
