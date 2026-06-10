@@ -106,6 +106,18 @@ export function useAudioEngine({
     // no crossOrigin — plain playback of public Supabase media; no Web Audio API
     // consumes this element, so crossOrigin only forces strict CORS media mode that
     // iOS Safari can silently abort (Chrome is lenient) (WebKit fix, prompt 10)
+    //
+    // DOM-ATTACH FIX (2026-06-10, الهنوف): iOS/iPadOS Safari interrupts/reclaims a
+    // DETACHED `new Audio()` element during LONG playback — a short word clip (<2s)
+    // finishes before this bites, but a 3-minute reading article "plays a moment
+    // then stops" (her exact symptom; word pronunciation works, article doesn't).
+    // The listening player (ListeningPlayer) uses a DOM-ATTACHED <audio> and is
+    // reliable for her — so mirror it: keep this element in the document for its
+    // whole life, hidden and inert. Standard iOS audio-reliability practice.
+    audio.setAttribute('aria-hidden', 'true')
+    audio.setAttribute('tabindex', '-1')
+    audio.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none'
+    try { document.body.appendChild(audio) } catch { /* SSR / no document */ }
     audioRef.current = audio
 
     const onLoadStart = () => {
@@ -136,6 +148,10 @@ export function useAudioEngine({
       setIsPlaying(false)
       // Only flip to paused if we're not already in a terminal state.
       setPlayState((s) => (s === PLAY_STATES.ENDED || s === PLAY_STATES.ERROR ? s : PLAY_STATES.PAUSED))
+      // DIAGNOSTIC (2026-06-10): record WHERE playback paused. An unexpected pause a
+      // fraction of a second in (t≈0, not at the end) is the "plays a moment then
+      // stops" signature — this makes it visible instead of silent. reason = "t/dur".
+      try { log('audio_pause_evt', `${audio.currentTime.toFixed(2)}/${(audio.duration || 0).toFixed(0)}`, null) } catch { /* noop */ }
     }
     const onError = () => {
       setIsLoading(false)
@@ -198,6 +214,7 @@ export function useAudioEngine({
       audio.removeEventListener('stalled', onStalled)
       if (sourceAbortRef.current) { sourceAbortRef.current.abort(); sourceAbortRef.current = null }
       if (blobUrlRef.current) { URL.revokeObjectURL(blobUrlRef.current); blobUrlRef.current = null }
+      try { audio.remove() } catch { /* may already be detached */ }
       audioRef.current = null
     }
   }, []) // eslint-disable-line
@@ -320,6 +337,10 @@ export function useAudioEngine({
       try {
         const p = audio.play()
         if (p !== undefined) await p
+        // DIAGNOSTIC (2026-06-10): the main play button uses toggle(), which until
+        // now logged NOTHING on success — so a successful start left no trace and we
+        // couldn't tell "play started then stopped" from "play never started". Log it.
+        log('play_ok', 'toggle')
       } catch (err) {
         const reason = classifyPlayError(err)
         if (reason === 'AbortError') return

@@ -4,6 +4,7 @@ import { useMemo, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BookOpen } from 'lucide-react'
 import BookCover from '../components/BookCover'
+import Guestbook from '../components/Guestbook'
 import { useLibraryBooks, usePreviewLevel, roomForBook, useMyProgress, useMySavedWords } from '../hooks/useLibrary'
 import { useAuthProfileId } from '../../../stores/authStore'
 import '../library.css'
@@ -169,6 +170,7 @@ export default function LibraryHome() {
                 </Room>
               )}
               {books.length === 0 && <div className="lib-empty">المكتبة قيد الإعداد — أول رواية في الطريق.</div>}
+              <Guestbook />
             </>
           )}
         </>
