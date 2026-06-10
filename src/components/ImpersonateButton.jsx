@@ -22,7 +22,7 @@ export default function ImpersonateButton({ userId, role, name, variant = 'icon'
     queryClient.clear()
     // Full page load forces all components to remount with new user context.
     // Route to the impersonated role's home (agents → /team, admins → /admin).
-    const dest = role === 'student' ? '/student' : role === 'agent' ? '/team' : role === 'admin' ? '/admin' : '/trainer'
+    const dest = role === 'student' ? '/student' : role === 'agent' ? '/team' : role === 'admin' ? '/admin' : role === 'coordinator' ? '/coordinator' : '/trainer'
     window.location.href = dest
   }
 

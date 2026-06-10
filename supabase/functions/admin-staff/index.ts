@@ -31,7 +31,7 @@ serve(async (req) => {
 
   if (action === "create") {
     const { name, email, password, role } = body;
-    if (!name || !email || !password || !["admin", "trainer", "agent"].includes(role)) {
+    if (!name || !email || !password || !["admin", "trainer", "agent", "coordinator"].includes(role)) {
       return json({ error: "invalid input" }, 400);
     }
     const { data: created, error: cErr } = await sb.auth.admin.createUser({

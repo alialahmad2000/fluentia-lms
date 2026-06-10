@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
-import { UserPlus, Shield, GraduationCap, Headset, X, Copy, Check, Power, KeyRound, BarChart3, Trash2 } from 'lucide-react'
+import { UserPlus, Shield, GraduationCap, Headset, CalendarClock, X, Copy, Check, Power, KeyRound, BarChart3, Trash2 } from 'lucide-react'
 import { toast } from '../../components/ui/FluentiaToast'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
@@ -11,9 +11,10 @@ import ImpersonateButton from '../../components/ImpersonateButton'
 import { useAuthStore } from '../../stores/authStore'
 
 const ROLES = [
-  { key: 'admin',   label: 'مدير',         group: 'المدراء',        icon: Shield },
-  { key: 'trainer', label: 'مدرب',         group: 'المدربون',       icon: GraduationCap },
-  { key: 'agent',   label: 'خدمة عملاء',   group: 'خدمة العملاء',   icon: Headset },
+  { key: 'admin',       label: 'مدير',          group: 'المدراء',        icon: Shield },
+  { key: 'trainer',     label: 'مدرب',          group: 'المدربون',       icon: GraduationCap },
+  { key: 'agent',       label: 'خدمة عملاء',    group: 'خدمة العملاء',   icon: Headset },
+  { key: 'coordinator', label: 'منسقة الحصص',   group: 'تنسيق الحصص',    icon: CalendarClock },
 ]
 const roleMeta = (k) => ROLES.find((r) => r.key === k) || ROLES[2]
 const genPassword = () => 'Fluentia' + Math.floor(1000 + Math.random() * 9000) + '!'

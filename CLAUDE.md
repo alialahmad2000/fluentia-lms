@@ -313,6 +313,12 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-11 — HR HUB: coordinator role visible + impersonation + nav (Ali: "where is Hajar / where is HR in my sidebar?")
+- Two gaps: (1) the HR hub /admin/team was NEVER in ADMIN_NAV (only direct-URL reachable — fixed in PR #23's nav commit: الموظفون + تنسيق الحصص under الأشخاص); (2) the whole HR stack predated the coordinator role, so هاجر was invisible: `admin_list_staff` filtered roles to admin/trainer/agent, `admin_set_role` rejected 'coordinator', AdminTeam's ROLES array (groups + both selects) lacked it, ImpersonateButton routed unknown roles to /trainer, and the admin-staff edge fn's create whitelist excluded it.
+- Fixes: both RPCs updated (migration `20260611130000_hr_coordinator_visibility.sql`, applied to prod via Mgmt API); AdminTeam ROLES + منسقة الحصص group (CalendarClock); ImpersonateButton coordinator → /coordinator; admin-staff v3 deployed (create whitelist + no extra row needed for coordinator). Impersonation works for coordinators already (edge fn only blocks admin targets).
+- Verified with a real admin JWT (magiclink trick): admin_list_staff returns هاجر (role coordinator) among 6 staff.
+- Files: `src/pages/admin/AdminTeam.jsx`, `src/components/ImpersonateButton.jsx`, `supabase/functions/admin-staff/index.ts`, `supabase/migrations/20260611130000_hr_coordinator_visibility.sql` (NEW). DB: 2 RPCs replaced. Edge fns: admin-staff v3.
+
 ### 2026-06-11 — REPORTS HUB v2: flexible ranges (اليوم→الكل) + today-partial rollup + الوقت حسب القسم
 - Owner follow-up: wanted ANY period (1/3/7 days… entire history), and "which section and how much time was spent on it".
 - **Migration `20260611100000_admin_reports_hub_v2.sql` (applied):** full CREATE OR REPLACE of the 6 report RPCs — window clamp widened 7..365 → **1..3650 days** ("الكل" = whole history). NEW `admin_report_refresh_today()` (staff-gated, VOLATILE) calls the existing `refresh_daily_activity(today)` so 1-/3-day windows include TODAY's partial rollup. `admin_report_usage` gains **`section_time`** — minutes/completions/unique-students per curriculum section from `student_daily_activity.skill_breakdown`.
