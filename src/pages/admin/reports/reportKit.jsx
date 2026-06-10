@@ -254,19 +254,34 @@ export function ChartCard({ title, subtitle, footnote, action, children, classNa
   )
 }
 
-// ── range picker (14/30/90 days) ────────────────────────────────────────────
+// ── range picker: from a single day to the entire history ───────────────────
+export const RANGE_PRESETS = [
+  { days: 1,    label: 'اليوم' },
+  { days: 3,    label: '٣ أيام' },
+  { days: 7,    label: 'أسبوع' },
+  { days: 14,   label: '١٤ يوم' },
+  { days: 30,   label: 'شهر' },
+  { days: 90,   label: '٩٠ يوم' },
+  { days: 3650, label: 'الكل' },
+]
+export const VALID_DAYS = RANGE_PRESETS.map((p) => p.days)
+
+export function rangeLabel(days) {
+  return RANGE_PRESETS.find((p) => p.days === days)?.label || `${days} يوم`
+}
+
 export function RangePicker({ days, onChange }) {
   return (
-    <div className="inline-flex items-center rounded-xl border border-white/[0.08] bg-white/[0.03] p-0.5">
-      {[14, 30, 90].map((d) => (
+    <div className="inline-flex max-w-full items-center overflow-x-auto rounded-xl border border-white/[0.08] bg-white/[0.03] p-0.5">
+      {RANGE_PRESETS.map(({ days: d, label }) => (
         <button
           key={d}
           onClick={() => onChange(d)}
-          className={`px-3.5 py-2.5 rounded-[10px] text-xs font-semibold transition-colors tabular-nums ${
+          className={`px-3 py-2.5 rounded-[10px] text-xs font-semibold whitespace-nowrap transition-colors ${
             days === d ? 'bg-amber-400/15 text-amber-300 border border-amber-400/25' : 'text-slate-400 hover:text-slate-200 border border-transparent'
           }`}
         >
-          {d} يوم
+          {label}
         </button>
       ))}
     </div>

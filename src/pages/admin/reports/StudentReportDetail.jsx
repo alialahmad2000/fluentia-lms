@@ -12,14 +12,14 @@ import {
 } from 'recharts'
 import { useStudentReportDetail } from './useAdminReports'
 import {
-  card, ACCENTS, StatCard, ChartCard, RangePicker, LoadingBlock, EmptyNote,
+  card, ACCENTS, StatCard, ChartCard, RangePicker, LoadingBlock, EmptyNote, VALID_DAYS,
   SECTION_AR, AI_TYPE_AR, num, fmtMinutes, fmtSAR, relTimeAr, shortDate, tooltipStyle, axisTick,
 } from './reportKit'
 
 export default function StudentReportDetail() {
   const { studentId } = useParams()
   const [params, setParams] = useSearchParams()
-  const days = [14, 30, 90].includes(Number(params.get('days'))) ? Number(params.get('days')) : 30
+  const days = VALID_DAYS.includes(Number(params.get('days'))) ? Number(params.get('days')) : 30
   const { data, isLoading, error } = useStudentReportDetail(studentId, days)
 
   if (isLoading) return <div dir="rtl" className="max-w-6xl mx-auto"><LoadingBlock rows={4} /></div>
@@ -76,7 +76,7 @@ export default function StudentReportDetail() {
       </div>
 
       {/* daily activity */}
-      <ChartCard title="دقائق التعلّم يوميًا" footnote="من التجميعة الليلية — حتى أمس">
+      <ChartCard title="دقائق التعلّم يوميًا" footnote="يشمل اليوم حتى لحظة العرض (تجميعة اليوم تُحدَّث تلقائيًا عند فتح التقرير)">
         {daily.length === 0 ? <EmptyNote /> : (
           <div dir="ltr" className="h-52">
             <ResponsiveContainer width="100%" height="100%">

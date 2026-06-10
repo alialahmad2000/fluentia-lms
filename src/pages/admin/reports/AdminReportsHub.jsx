@@ -9,7 +9,7 @@ import {
   Activity, Users, MousePointerClick, GraduationCap, HeartPulse,
   History, ScrollText,
 } from 'lucide-react'
-import { RangePicker } from './reportKit'
+import { RangePicker, VALID_DAYS } from './reportKit'
 import PulseTab from './tabs/PulseTab'
 import StudentsTab from './tabs/StudentsTab'
 import UsageTab from './tabs/UsageTab'
@@ -27,7 +27,7 @@ const TABS = [
 export default function AdminReportsHub() {
   const [params, setParams] = useSearchParams()
   const tabId = TABS.some((t) => t.id === params.get('tab')) ? params.get('tab') : 'pulse'
-  const days = [14, 30, 90].includes(Number(params.get('days'))) ? Number(params.get('days')) : 30
+  const days = VALID_DAYS.includes(Number(params.get('days'))) ? Number(params.get('days')) : 30
   const active = TABS.find((t) => t.id === tabId)
 
   const update = (patch) => {

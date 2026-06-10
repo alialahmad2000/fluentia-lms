@@ -1,9 +1,10 @@
-// الاستخدام — which features earn their place and which are ignored,
-// devices/browsers students actually use, and the busiest pages.
-import { Smartphone, Globe2, FileSearch, Users } from 'lucide-react'
+// الاستخدام — where the TIME actually goes (per curriculum section), which
+// features earn their place and which are ignored, devices/browsers, top pages.
+import { Smartphone, Globe2, FileSearch, Users, Timer } from 'lucide-react'
 import { useReportUsage } from '../useAdminReports'
 import {
-  card, ACCENTS, ChartCard, RankedBars, LoadingBlock, EmptyNote, featureLabel, num,
+  card, ACCENTS, ChartCard, RankedBars, LoadingBlock, EmptyNote, featureLabel,
+  SECTION_AR, num, fmtMinutes,
 } from '../reportKit'
 
 export default function UsageTab({ days }) {
@@ -18,6 +19,9 @@ export default function UsageTab({ days }) {
     kind: f.kind,
   }))
 
+  const sectionTime = data.section_time || []
+  const totalSectionMinutes = sectionTime.reduce((a, s) => a + (Number(s.minutes) || 0), 0)
+
   const pages = (data.top_pages || []).map((p) => ({
     label: prettyPath(p.page_path),
     value: p.views,
@@ -26,6 +30,47 @@ export default function UsageTab({ days }) {
 
   return (
     <div className="space-y-4">
+      {/* time per curriculum section — the "where do the hours go" answer */}
+      <ChartCard
+        title="الوقت المستثمَر حسب القسم"
+        subtitle="مجموع دقائق التعلّم لكل قسم من المنهج في الفترة المحددة — مع عدد الإكمالات وعدد الطلاب"
+        action={
+          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 tabular-nums" dir="auto">
+            <Timer size={13} /> {fmtMinutes(totalSectionMinutes)} إجمالًا
+          </span>
+        }
+      >
+        <div className="space-y-3">
+          {sectionTime.map((s, i) => {
+            const max = Math.max(...sectionTime.map((x) => Number(x.minutes) || 0), 1)
+            const pct = totalSectionMinutes > 0 ? Math.round(((Number(s.minutes) || 0) / totalSectionMinutes) * 100) : 0
+            return (
+              <div key={s.section}>
+                <div className="flex items-center justify-between gap-3 mb-1">
+                  <span className="text-xs text-slate-200 font-semibold">
+                    {SECTION_AR[s.section] || s.section}
+                    <span className="text-slate-500 font-normal"> · {num(s.completed)} إكمال · {num(s.users)} طالب</span>
+                  </span>
+                  <span className="text-xs text-slate-300 tabular-nums shrink-0 font-bold" dir="auto">
+                    {fmtMinutes(s.minutes)} <span className="text-slate-600 font-normal">({pct}%)</span>
+                  </span>
+                </div>
+                <div className="h-2 rounded-full bg-white/[0.04] overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{
+                      width: `${Math.max(((Number(s.minutes) || 0) / max) * 100, 2)}%`,
+                      background: `linear-gradient(90deg, ${SECTION_COLORS[s.section] || ACCENTS.slate}99, ${SECTION_COLORS[s.section] || ACCENTS.slate})`,
+                    }}
+                  />
+                </div>
+              </div>
+            )
+          })}
+          {sectionTime.length === 0 && <EmptyNote text="لا وقت مسجل في هذه الفترة" />}
+        </div>
+      </ChartCard>
+
       <div className="grid lg:grid-cols-2 gap-4">
         <ChartCard
           title="ترتيب الميزات حسب الاستخدام"
@@ -84,6 +129,17 @@ export default function UsageTab({ days }) {
 }
 
 const DEVICE_AR = { mobile: 'جوال', desktop: 'كمبيوتر', tablet: 'تابلت', 'غير معروف': 'غير معروف' }
+
+const SECTION_COLORS = {
+  reading: ACCENTS.sky,
+  listening: ACCENTS.violet,
+  grammar: ACCENTS.gold,
+  writing: ACCENTS.emerald,
+  speaking: ACCENTS.rose,
+  vocabulary: '#22d3ee',
+  vocabulary_exercise: '#22d3ee',
+  pronunciation: '#f472b6',
+}
 
 function prettyPath(p) {
   if (!p) return '؟'

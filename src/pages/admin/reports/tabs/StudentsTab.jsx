@@ -173,7 +173,7 @@ export default function StudentsTab({ days }) {
         {students.length === 0 && <EmptyNote text="لا يوجد طلاب" />}
       </div>
       <p className="text-xs text-slate-600">
-        اضغط على أي طالب لفتح تقريره التفصيلي · «آخر نشاط» لحظي، بينما الدقائق والأقسام من تجميعة الليل (حتى أمس)
+        اضغط على أي طالب لفتح تقريره التفصيلي · الأرقام تشمل نشاط اليوم حتى لحظة العرض
       </p>
     </div>
   )
