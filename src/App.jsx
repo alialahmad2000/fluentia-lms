@@ -217,6 +217,8 @@ const AdminGroups = lazyRetry(() => import('./pages/admin/AdminGroups'))
 const AdminTrainers = lazyRetry(() => import('./pages/admin/AdminTrainers'))
 const AdminPayments = lazyRetry(() => import('./pages/admin/AdminPayments'))
 const AdminReports = lazyRetry(() => import('./pages/admin/AdminReports'))
+const AdminReportsHub = lazyRetry(() => import('./pages/admin/reports/AdminReportsHub'))
+const AdminReportStudentDetail = lazyRetry(() => import('./pages/admin/reports/StudentReportDetail'))
 const AdminSettings = lazyRetry(() => import('./pages/admin/AdminSettings'))
 const SystemDiagnostics = lazyRetry(() => import('./pages/admin/SystemDiagnostics'))
 const AdminChurnPrediction = lazyRetry(() => import('./pages/admin/AdminChurnPrediction'))
@@ -922,7 +924,10 @@ export default function App() {
               <Route path="/admin/groups" element={<Page><AdminGroups /></Page>} />
               <Route path="/admin/trainers" element={<Page><AdminTrainers /></Page>} />
               <Route path="/admin/packages" element={<Page><AdminPayments /></Page>} />
-              <Route path="/admin/reports" element={<Page><AdminReports /></Page>} />
+              <Route path="/admin/reports" element={<Page><AdminReportsHub /></Page>} />
+              <Route path="/admin/reports/student/:studentId" element={<Page><AdminReportStudentDetail /></Page>} />
+              {/* legacy reports page — archived, reachable, never deleted (hide-don't-delete rule) */}
+              <Route path="/admin/reports-legacy" element={<Page><AdminReports /></Page>} />
               <Route path="/admin/cs-performance" element={<Page><CsPerformance /></Page>} />
               <Route path="/admin/integrations" element={<Page><CsIntegrations /></Page>} />
               <Route path="/admin/team" element={<Page><AdminTeam /></Page>} />

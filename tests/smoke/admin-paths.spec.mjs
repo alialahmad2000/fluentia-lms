@@ -48,4 +48,28 @@ test.describe('admin paths', () => {
     await page.waitForLoadState('networkidle')
     await expect(page.locator('body')).not.toContainText('تعذر إظهار الصفحة')
   })
+
+  test('reports hub renders with tabs + live data', async ({ page }) => {
+    await page.goto('/admin/reports')
+    await page.waitForLoadState('networkidle')
+    await expect(page.locator('body')).toContainText(/مركز التقارير/, { timeout: 20_000 })
+    await expect(page.locator('body')).toContainText(/النبض/)
+    await expect(page.locator('body')).toContainText(/الطلاب/)
+  })
+
+  test('reports hub students tab → student deep-dive', async ({ page }) => {
+    await page.goto('/admin/reports?tab=students')
+    await page.waitForLoadState('networkidle')
+    // desktop table OR mobile cards — click the first student entry
+    const row = page.locator('tbody tr, [role="button"].rounded-2xl').first()
+    await row.click()
+    await page.waitForURL(/\/admin\/reports\/student\//, { timeout: 20_000 })
+    await expect(page.locator('body')).toContainText(/دقائق التعلّم/, { timeout: 20_000 })
+  })
+
+  test('legacy reports archived at /admin/reports-legacy', async ({ page }) => {
+    await page.goto('/admin/reports-legacy')
+    await page.waitForLoadState('networkidle')
+    await expect(page.locator('body')).toContainText(/توقع الانسحاب/, { timeout: 20_000 })
+  })
 })
