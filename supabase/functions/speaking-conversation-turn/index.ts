@@ -151,11 +151,15 @@ HOW TO TALK:
 ${wrap ? '- IMPORTANT: this conversation has gone on nicely — start to warmly wrap it up now. Acknowledge their effort, say something kind, and gently bring it to a close.' : ''}`
 }
 
-// Replies are spoken by TTS — strip any stage directions the model sneaks in
-// (*smiles*, [laughs], (extends hand)…) so they are never read aloud.
+// ROLEPLAY replies are spoken by TTS — strip stage directions the model sneaks in
+// (*smiles warmly*, [laughs], (extends hand)…) so they are never read aloud.
+// Short asterisk spans (≤2 words) are markdown EMPHASIS, not stage directions —
+// those are unwrapped (keep the words), longer spans are removed.
+// Applied ONLY on the module-roleplay path; the curriculum coach path is untouched.
 function stripStageDirections(text: string): string {
   return (text || '')
-    .replace(/\*[^*\n]{1,80}\*/g, ' ')
+    .replace(/\*([^*\n]{1,80})\*/g, (_m, inner) =>
+      inner.trim().split(/\s+/).length <= 2 ? inner : ' ')
     .replace(/\[[^\]\n]{1,80}\]/g, ' ')
     .replace(/^\([^)\n]{1,80}\)\s*/gm, '')
     .replace(/\s{2,}/g, ' ')
@@ -280,7 +284,8 @@ serve(async (req) => {
       let replyText = ''
       try {
         const c = await callClaude(system, [{ role: 'user', content: openUser }], 160)
-        replyText = stripStageDirections(c.text)
+        replyText = module_id ? stripStageDirections(c.text) : c.text
+        if (!replyText) replyText = `Hi! Great to meet you. Shall we begin — could you introduce yourself?`
         await logUsage(sb, 'chatbot', studentId, 'claude-haiku-4-5', c.inT, c.outT)
       } catch (_e) {
         replyText = `Hi! Let's have a little chat in English about ${topic?.title_en || 'today\'s topic'}. Don't worry — just speak slowly. To start, can you tell me a little about it?`
@@ -383,7 +388,7 @@ serve(async (req) => {
       let replyText = ''
       try {
         const c = await callClaude(system, history, 160)
-        replyText = stripStageDirections(c.text) || "That's great. Tell me a little more?"
+        replyText = (convo.module_id ? stripStageDirections(c.text) : c.text) || "That's great. Tell me a little more?"
         await logUsage(sb, 'chatbot', studentId, 'claude-haiku-4-5', c.inT, c.outT)
       } catch (_e) {
         replyText = "That's great — tell me a little more about that?"

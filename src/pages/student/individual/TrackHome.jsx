@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Clock3, Lock, CheckCircle2 } from 'lucide-react'
-import { useIndividualTrack, MODULE_STAGES } from '@/hooks/useIndividualTrack'
+import { useIndividualTrack, MODULE_STAGES, stageDone } from '@/hooks/useIndividualTrack'
 import './individual.css'
 
 /* /student/track — the full professional track for individual students.
@@ -41,7 +41,7 @@ export default function TrackHome() {
       <motion.div {...fade} className="relative iv-panel p-3 sm:p-5">
         {loading && <div style={{ height: 320 }} />}
         {(items || []).map((m, idx) => {
-          const stagesDone = MODULE_STAGES.filter((s) => Boolean(m.progress?.stage_state?.[s]?.done)).length
+          const stagesDone = MODULE_STAGES.filter((s) => stageDone(m.progress, s)).length
           return (
             <div
               key={m.id}

@@ -42,7 +42,7 @@ export function useIndividualTrack() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('specialization_modules')
-        .select('id, module_number, title_ar, title_en, scenario_ar, estimated_minutes, sort_order')
+        .select('id, module_number, title_ar, title_en, scenario_ar, estimated_minutes, sort_order, vocab_count')
         .eq('specialization_id', specializationId)
         .eq('is_published', true)
         .order('sort_order')
@@ -76,16 +76,17 @@ export function useIndividualTrack() {
       return { ...m, progress: p, completion: moduleCompletion(p), completed: p?.status === 'completed' }
     })
     const completedCount = items.filter((i) => i.completed).length
-    // current = first not-completed module; everything after it is locked
+    // current = first not-completed module; later ones are locked —
+    // except modules already completed (e.g. after an admin reorders the track).
     const currentIdx = items.findIndex((i) => !i.completed)
     const withLock = items.map((i, idx) => ({
       ...i,
-      locked: currentIdx !== -1 && idx > currentIdx,
+      locked: !i.completed && currentIdx !== -1 && idx > currentIdx,
       isCurrent: idx === currentIdx,
     }))
     const scores = items.map((i) => i.progress?.score).filter((s) => s != null)
     const avgScore = scores.length ? Math.round((scores.reduce((a, b) => a + Number(b), 0) / scores.length) * 10) / 10 : null
-    const wordsLearned = completedCount * 10 // 10 vocab terms per module
+    const wordsLearned = items.filter((i) => i.completed).reduce((sum, i) => sum + (i.vocab_count ?? 0), 0)
     return {
       items: withLock,
       completedCount,

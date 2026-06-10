@@ -10,8 +10,24 @@ import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
 import { useModule, MODULE_STAGES, stageDone } from '@/hooks/useIndividualTrack'
 import { pronounceWord } from '@/lib/audio/pronounceWord'
+import { countWords } from '@/lib/mockExam'
 import { useQueryClient } from '@tanstack/react-query'
 import './individual.css'
+
+// Audio for terms/phrases: pronounceWord() is a single-word utility (its normalizer
+// fuses spaces), so multi-word text goes through Web Speech directly.
+function sayEnglish(text, studentId) {
+  const clean = (text || '').trim()
+  if (!clean) return
+  if (!/\s/.test(clean)) { pronounceWord(clean, { studentId }); return }
+  try {
+    window.speechSynthesis.cancel()
+    const u = new SpeechSynthesisUtterance(clean)
+    u.lang = 'en-US'
+    u.rate = 0.92
+    window.speechSynthesis.speak(u)
+  } catch { /* no speech support — button is best-effort */ }
+}
 
 const ConversationMode = lazyRetry(() => import('@/components/curriculum/speaking/ConversationMode'))
 
@@ -22,8 +38,6 @@ const STAGE_META = {
   roleplay: { label: 'المحادثة', icon: Mic },
   writing: { label: 'الكتابة', icon: PenLine },
 }
-
-const countWords = (t) => (t || '').trim().split(/\s+/).filter(Boolean).length
 
 export default function ModulePage() {
   const { moduleId } = useParams()
@@ -44,8 +58,14 @@ export default function ModulePage() {
   useEffect(() => { setStage(firstOpen) }, [firstOpen])
 
   const [writingText, setWritingText] = useState('')
+  // reset when switching modules…
+  useEffect(() => { setWritingText('') }, [moduleId])
+  // …then restore a submitted draft when it arrives — but NEVER clobber live typing
+  // (the progress row id flips undefined→uuid after the first completed stage,
+  // which used to wipe an in-progress draft with the server's empty string)
   useEffect(() => {
-    setWritingText(progress?.stage_state?.writing?.text || '')
+    const serverText = progress?.stage_state?.writing?.text || ''
+    if (serverText) setWritingText(serverText)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moduleId, progress?.id])
 
@@ -56,12 +76,15 @@ export default function ModulePage() {
     if (idx < MODULE_STAGES.length - 1) setStage(MODULE_STAGES[idx + 1])
   }
 
+  const [stageError, setStageError] = useState('')
   const markStage = async (s, extra) => {
+    setStageError('')
     try {
       await completeStage.mutateAsync({ stage: s, extra })
       goNextStage(s)
     } catch {
-      /* keep the student where they are; the button stays available */
+      // surface the failure — a silent no-op reads as "submitted" to the student
+      setStageError('لم يتم الحفظ — تحقّق من اتصالك بالإنترنت ثم أعد المحاولة.')
     }
   }
 
@@ -118,6 +141,16 @@ export default function ModulePage() {
         })}
       </nav>
 
+      {stageError && (
+        <div
+          className="relative mb-4 px-4 py-3 rounded-[12px] text-[13.5px] font-['Tajawal']"
+          style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', color: '#fca5a5' }}
+          role="alert"
+        >
+          {stageError}
+        </div>
+      )}
+
       <AnimatePresence mode="wait">
         {/* ── BRIEF ── */}
         {stage === 'brief' && (
@@ -168,7 +201,7 @@ export default function ModulePage() {
                       {v.pos && <span className="iv-pos shrink-0">{v.pos}</span>}
                     </div>
                     <button
-                      onClick={() => pronounceWord(v.term, { studentId: profile?.id })}
+                      onClick={() => sayEnglish(v.term, profile?.id)}
                       className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center"
                       style={{ border: '1px solid var(--iv-line)', color: 'var(--iv-brass)' }}
                       aria-label={`نطق ${v.term}`}
@@ -204,7 +237,7 @@ export default function ModulePage() {
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-[15.5px] font-semibold" style={{ color: 'var(--iv-text)' }} dir="ltr">“{p.en}”</p>
                     <button
-                      onClick={() => pronounceWord(p.en, { studentId: profile?.id })}
+                      onClick={() => sayEnglish(p.en, profile?.id)}
                       className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center"
                       style={{ border: '1px solid var(--iv-line)', color: 'var(--iv-brass)' }}
                       aria-label="استماع"

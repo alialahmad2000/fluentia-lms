@@ -64,8 +64,30 @@ serve(async (req) => {
   // Effective student = conversation owner (the impersonated student when staff is viewing as them).
   const studentId = convo.student_id
 
-  // Already graded → return existing
+  // Atomic module-progress writer (idempotent — safe to call on retries/heals)
+  async function markRoleplay(score: number): Promise<boolean> {
+    const { error } = await sb.rpc('track_mark_roleplay', {
+      p_student_id: studentId,
+      p_module_id: convo.module_id,
+      p_score: score,
+      p_conversation_id: conversation_id,
+    })
+    if (error) console.error('track_mark_roleplay failed:', error.message)
+    return !error
+  }
+
+  // Already graded → return existing. For module conversations, HEAL the progress
+  // write first if a previous call's track_mark_roleplay failed transiently —
+  // otherwise that failure would be unrecoverable (this early-return blocks re-grading).
   if (convo.status === 'completed' && convo.ai_evaluation) {
+    if (convo.module_id) {
+      const { data: prog } = await sb.from('specialization_module_progress')
+        .select('stage_state').eq('student_id', studentId).eq('module_id', convo.module_id)
+        .is('deleted_at', null).maybeSingle()
+      if (!prog?.stage_state?.roleplay?.done) {
+        await markRoleplay(Number(convo.ai_evaluation.overall_score) || Number(convo.score) || 0)
+      }
+    }
     return json({ ok: true, evaluation: convo.ai_evaluation, recording_id: convo.speaking_recording_id, already: true })
   }
 
@@ -255,13 +277,10 @@ Include 2-4 "errors" and 2-3 "better_expressions" whenever there is material. Be
     // ── Individual-track completion: atomic, service-role-only RPC ──
     // track_mark_roleplay() merges the roleplay stage + score in ONE statement so it
     // can never race/clobber the client's track_complete_stage() writes.
-    const { error: rpErr } = await sb.rpc('track_mark_roleplay', {
-      p_student_id: studentId,
-      p_module_id: convo.module_id,
-      p_score: aiEvaluation.overall_score,
-      p_conversation_id: conversation_id,
-    })
-    if (rpErr) console.error('track_mark_roleplay failed:', rpErr.message)
+    // One inline retry; a still-failing write self-heals on the next grade call
+    // (see the already-graded branch above).
+    const ok = await markRoleplay(aiEvaluation.overall_score)
+    if (!ok) await markRoleplay(aiEvaluation.overall_score)
   } else {
     // ── Curriculum progress (mirror evaluate-speaking exactly — phantom guard skips 'speaking') ──
     const scoreOutOf100 = aiEvaluation.overall_score * 10

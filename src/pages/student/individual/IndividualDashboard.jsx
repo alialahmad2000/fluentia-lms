@@ -5,6 +5,7 @@ import { ArrowLeft, Briefcase, CheckCircle2, Clock3, MessageSquare, BookMarked }
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
 import { useIndividualTrack } from '@/hooks/useIndividualTrack'
+import { firstNameFrom } from '@/utils/names'
 import './individual.css'
 
 /* The INDIVIDUAL (1-on-1) student home — an "executive briefing", not a gamified deck.
@@ -24,10 +25,7 @@ export default function IndividualDashboard() {
   const { specialization, loading, items, completedCount, total, trackPercent, nextModule, avgScore, wordsLearned } =
     useIndividualTrack()
 
-  const firstName = useMemo(() => {
-    const n = profile?.display_name || profile?.full_name || ''
-    return n.trim().split(/\s+/)[0] || ''
-  }, [profile])
+  const firstName = firstNameFrom(profile?.display_name || profile?.full_name || '')
 
   const hour = new Date().getHours()
   const fade = reduce

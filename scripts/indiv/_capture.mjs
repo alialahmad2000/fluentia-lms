@@ -53,12 +53,7 @@ const run = async () => {
   await login(page)
   await shoot(page, '/student', 'dashboard-desktop')
   await shoot(page, '/student/track', 'track-desktop')
-  // first module
-  const moduleId = await page.evaluate(async () => {
-    const el = document.querySelector('.iv-step--open, .iv-step--current')
-    return null
-  })
-  // navigate via click on the current step
+  // first module — navigate via click on the current step
   await page.goto(`${BASE}/student/track`, { waitUntil: 'networkidle' })
   await page.waitForTimeout(1500)
   await page.locator('.iv-step--current, .iv-step--open').first().click()

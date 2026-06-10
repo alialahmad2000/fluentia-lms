@@ -115,59 +115,37 @@ export const STUDENT_NAV = {
    A deliberately minimal, profession-first nav: their professional track replaces the
    group curriculum, and every group-dependent surface (leaderboards, group widgets,
    curriculum units, SRS tied to curriculum vocab) is absent BY DESIGN, not hidden CSS.
-   RULE: any change here must be mirrored in individualDrawerSections + individualMobileBar
-   (same four-surfaces rule as STUDENT_NAV). */
+   sections === drawerSections by construction (ONE shared list — no mirror-sync hazard;
+   STUDENT_NAV's lists genuinely diverge, these don't). Keep mobileBar in sync manually. */
+const INDIVIDUAL_SECTIONS = [
+  {
+    id: 'learning',
+    label: 'التعلّم',
+    items: [
+      { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
+      { id: 'track', label: 'مساري المهني', icon: Briefcase, to: '/student/track' },
+      { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
+    ],
+  },
+  {
+    id: 'community',
+    label: 'المجتمع',
+    items: [
+      { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+    ],
+  },
+  {
+    id: 'account',
+    label: 'حسابي',
+    items: [
+      { id: 'profile', label: 'ملفي', icon: User, to: '/student/profile' },
+    ],
+  },
+]
+
 export const INDIVIDUAL_NAV = {
-  sections: [
-    {
-      id: 'learning',
-      label: 'التعلّم',
-      items: [
-        { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
-        { id: 'track', label: 'مساري المهني', icon: Briefcase, to: '/student/track' },
-        { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
-      ],
-    },
-    {
-      id: 'community',
-      label: 'المجتمع',
-      items: [
-        { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-      ],
-    },
-    {
-      id: 'account',
-      label: 'حسابي',
-      items: [
-        { id: 'profile', label: 'ملفي', icon: User, to: '/student/profile' },
-      ],
-    },
-  ],
-  drawerSections: [
-    {
-      id: 'learning',
-      label: 'التعلّم',
-      items: [
-        { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
-        { id: 'track', label: 'مساري المهني', icon: Briefcase, to: '/student/track' },
-        { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
-      ],
-    },
-    {
-      id: 'community',
-      label: 'المجتمع',
-      items: [
-        { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-      ],
-    },
-    {
-      id: 'account',
-      label: 'حسابي',
-      items: [
-        { id: 'profile', label: 'ملفي', icon: User, to: '/student/profile' },
-      ],
-    },
-  ],
+  sections: INDIVIDUAL_SECTIONS,
+  drawerSections: INDIVIDUAL_SECTIONS,
   mobileBar: [
     { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
     { id: 'track', label: 'مساري', icon: Briefcase, to: '/student/track' },
