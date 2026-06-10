@@ -98,8 +98,9 @@ Deno.serve(async (req) => {
       const f = existing.get(c.dedupe_key);
       if (!f) return true;
       if (f.status === "open") return false; // already waiting for a human
+      if (f.status === "fixed" || f.status === "dismissed") return false; // human decided — never silently re-open (2026-06-10)
       const prev = Number(f.evidence?.attempts || 0);
-      return c.evidence.attempts - prev >= 5; // re-judge only with fresh signal
+      return c.evidence.attempts - prev >= 5; // re-judge only auto_ok with fresh signal
     }).slice(0, MAX_AI_ITEMS);
 
     // ── 2. AI verdicts (report-only) — batched 4-wide, upserted as they land,
