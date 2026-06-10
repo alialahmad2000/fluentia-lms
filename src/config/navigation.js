@@ -192,6 +192,7 @@ export const ADMIN_NAV = {
       label: 'النظام',
       items: [
         { id: 'bug-reports', label: 'بلاغات المشاكل', icon: Bug,           to: '/admin/bug-reports' },
+        { id: 'library-feedback', label: 'آراء المكتبة', icon: BookMarked,  to: '/admin/library-feedback' },
         { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'curriculum-quality', label: 'جودة المنهج', icon: ShieldAlert,   to: '/admin/curriculum-quality' },
         { id: 'system-diagnostics', label: 'تشخيص النظام', icon: Activity,   to: '/admin/system' },
