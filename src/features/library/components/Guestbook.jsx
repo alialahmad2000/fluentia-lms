@@ -33,7 +33,12 @@ export default function Guestbook() {
     if (!open) return
     const onKey = (e) => { if (e.key === 'Escape') close() }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
   }, [open, close])
 
   const submit = async () => {
@@ -70,6 +75,7 @@ export default function Guestbook() {
       {open && createPortal(
         <div className="lib-gb-overlay" onClick={close} role="dialog" aria-modal="true" aria-label="دفتر زوّار المكتبة" dir="rtl">
           <div className="lib-gb-panel" onClick={(e) => e.stopPropagation()}>
+            <span className="lib-gb-grab" aria-hidden="true" />
             <button type="button" className="lib-gb-close" onClick={close} aria-label="إغلاق"><X size={18} /></button>
 
             {done ? (
@@ -89,9 +95,11 @@ export default function Guestbook() {
                 <div className="lib-gb-field">
                   <label>وش تقييمك للمكتبة؟</label>
                   <div className="lib-gb-seals" role="radiogroup" aria-label="التقييم">
+    {/* key includes lit-state so newly-lit seals remount → the stamp-pop
+        animation re-runs with its per-seal cascade delay */}
                     {[1, 2, 3, 4, 5].map((n) => (
-                      <button key={n} type="button" role="radio" aria-checked={rating === n}
-                        className="lib-gb-seal" data-on={n <= rating || undefined}
+                      <button key={`${n}-${n <= rating}`} type="button" role="radio" aria-checked={rating === n}
+                        className="lib-gb-seal" data-on={n <= rating || undefined} style={{ '--i': n - 1 }}
                         onClick={() => setRating(n === rating ? 0 : n)} aria-label={`${n} من 5`}>
                         ✦
                       </button>
