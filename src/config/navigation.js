@@ -166,6 +166,9 @@ export const ADMIN_NAV = {
         { id: 'students',    label: 'الطلاب',       icon: GraduationCap, to: '/admin/users' },
         { id: 'groups',      label: 'المجموعات',    icon: Users,         to: '/admin/groups' },
         { id: 'trainers',    label: 'المدربون',     icon: UserCog,       to: '/admin/trainers' },
+        // HR hub (was reachable only by direct URL — Ali couldn't find it, 2026-06-11)
+        { id: 'team',        label: 'الموظفون',     icon: ClipboardList, to: '/admin/team' },
+        { id: 'coordination', label: 'تنسيق الحصص', icon: CalendarClock, to: '/coordinator' },
       ],
     },
     {
