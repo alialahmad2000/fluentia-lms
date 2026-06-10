@@ -1,4 +1,16 @@
-import confetti from 'canvas-confetti'
+// canvas-confetti (~24 kB) loads on demand and is warmed during idle, so it
+// stays out of the entry chunk. Worst case a celebration's FIRST burst arrives
+// ~100 ms late; visuals are otherwise identical.
+let _confetti = null
+function withConfetti(fn) {
+  if (_confetti) { fn(_confetti); return }
+  import('canvas-confetti').then((m) => { _confetti = m.default; fn(_confetti) }).catch(() => {})
+}
+if (typeof window !== 'undefined') {
+  const warm = () => import('canvas-confetti').then((m) => { _confetti = m.default }).catch(() => {})
+  if ('requestIdleCallback' in window) requestIdleCallback(warm, { timeout: 5000 })
+  else setTimeout(warm, 3000)
+}
 
 // ===== SOUND PREFERENCE =====
 function isSoundEnabled() {
@@ -14,65 +26,75 @@ export const celebrations = {
   // Small burst — XP gain, correct answer
   sparkle: () => {
     if (isReducedMotion()) return
-    confetti({
-      particleCount: 30,
-      spread: 60,
-      startVelocity: 20,
-      gravity: 0.8,
-      colors: ['#38bdf8', '#818cf8', '#c084fc'],
-      disableForReducedMotion: true,
+    withConfetti((confetti) => {
+      confetti({
+        particleCount: 30,
+        spread: 60,
+        startVelocity: 20,
+        gravity: 0.8,
+        colors: ['#38bdf8', '#818cf8', '#c084fc'],
+        disableForReducedMotion: true,
+      })
     })
   },
 
   // Medium — assignment submitted, word mastered
   burst: () => {
     if (isReducedMotion()) return
-    confetti({
-      particleCount: 60,
-      spread: 80,
-      startVelocity: 25,
-      colors: ['#38bdf8', '#818cf8', '#fbbf24', '#34d399'],
-      disableForReducedMotion: true,
+    withConfetti((confetti) => {
+      confetti({
+        particleCount: 60,
+        spread: 80,
+        startVelocity: 25,
+        colors: ['#38bdf8', '#818cf8', '#fbbf24', '#34d399'],
+        disableForReducedMotion: true,
+      })
     })
   },
 
   // Big — streak milestone, level up, all words mastered
   fireworks: () => {
     if (isReducedMotion()) return
-    const end = Date.now() + 2000
-    const interval = setInterval(() => {
-      if (Date.now() > end) return clearInterval(interval)
-      confetti({
-        particleCount: 40,
-        startVelocity: 30,
-        spread: 360,
-        origin: { x: Math.random(), y: Math.random() * 0.4 },
-        colors: ['#38bdf8', '#fbbf24', '#34d399', '#f472b6', '#818cf8'],
-        disableForReducedMotion: true,
-      })
-    }, 300)
+    withConfetti((confetti) => {
+      const end = Date.now() + 2000
+      const interval = setInterval(() => {
+        if (Date.now() > end) return clearInterval(interval)
+        confetti({
+          particleCount: 40,
+          startVelocity: 30,
+          spread: 360,
+          origin: { x: Math.random(), y: Math.random() * 0.4 },
+          colors: ['#38bdf8', '#fbbf24', '#34d399', '#f472b6', '#818cf8'],
+          disableForReducedMotion: true,
+        })
+      }, 300)
+    })
   },
 
   // Gold rain — achievement unlocked, star earned
   goldRain: () => {
     if (isReducedMotion()) return
-    confetti({
-      particleCount: 80,
-      spread: 120,
-      startVelocity: 35,
-      gravity: 0.6,
-      colors: ['#fbbf24', '#f59e0b', '#d97706', '#fde68a'],
-      shapes: ['circle'],
-      disableForReducedMotion: true,
+    withConfetti((confetti) => {
+      confetti({
+        particleCount: 80,
+        spread: 120,
+        startVelocity: 35,
+        gravity: 0.6,
+        colors: ['#fbbf24', '#f59e0b', '#d97706', '#fde68a'],
+        shapes: ['circle'],
+        disableForReducedMotion: true,
+      })
     })
   },
 
   // Side cannons — big win (both sides)
   cannons: () => {
     if (isReducedMotion()) return
-    const defaults = { startVelocity: 35, spread: 55, colors: ['#38bdf8', '#fbbf24', '#34d399', '#f472b6'] }
-    confetti({ ...defaults, particleCount: 40, origin: { x: 0, y: 0.7 }, angle: 60 })
-    confetti({ ...defaults, particleCount: 40, origin: { x: 1, y: 0.7 }, angle: 120 })
+    withConfetti((confetti) => {
+      const defaults = { startVelocity: 35, spread: 55, colors: ['#38bdf8', '#fbbf24', '#34d399', '#f472b6'] }
+      confetti({ ...defaults, particleCount: 40, origin: { x: 0, y: 0.7 }, angle: 60 })
+      confetti({ ...defaults, particleCount: 40, origin: { x: 1, y: 0.7 }, angle: 120 })
+    })
   },
 }
 
