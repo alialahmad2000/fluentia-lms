@@ -100,6 +100,56 @@ App.jsx routes 104 kB · i18next+locales ≈ 145 kB · **layout 70 kB** ·
 confined to that account's own rows; no new prod users, no other students touched).
 Gate: must be green before AND after every individual optimization commit.
 
-## AFTER (filled in Phase E)
+## AFTER (2026-06-11, all five LOW-risk fixes applied)
 
-_TBD_
+Bundle (same measurement method as baseline):
+
+| Chunk | Before | After | Δ |
+|---|---|---|---|
+| entry `index` | 500 kB (gz 147) | **432 kB (gz 124)** | −14% (gz −16%) |
+| **TOTAL INITIAL JS** | **1,030 kB (gz ≈320)** | **944 kB (gz 280)** | **−8% (gz −13%)** |
+| UnitContentRouter (every unit open) | 737 kB (gz 141) | **57 kB (gz 17)** | **−92% (gz −88%)** |
+| Largest lazy chunk | 737 kB (UnitContentRouter) | 494 kB (eruda, `?debug=1` only) | |
+
+New always-lazy chunks: FloatingToolbar 30 kB (trainers only), vocab+ts-fsrs
+(first badge fetch), confetti 11 kB (idle-warmed).
+
+Render-blocking font stylesheets on student first paint: 5 → 2 (Tajawal kept
+deliberately; the rest moved to the async preload pattern, display=swap
+behavior unchanged).
+
+Runtime (same profiler, localhost preview, SW blocked):
+
+| Metric | Chromium before → after | WebKit before → after |
+|---|---|---|
+| Login page load → content | 1,821 → **1,443 ms** | 1,506 → **1,308 ms** |
+| Dashboard full load | 644 → **489 ms** | 640 → 678 ms (±noise) |
+| Curriculum full load | 533 → 555 ms (±noise) | 456 → 605 ms (±noise) |
+| SPA route-nav avg | 210 → **104 ms** | 70 → 99 ms (±noise) |
+| Heap after 10 rapid navs | 12.8 flat → **11.3 MB flat** | n/a |
+
+Long tasks ≥200 ms: 1 → **0**; total long tasks (chromium): 11 → **0**.
+Route-load numbers carry ±150 ms noise because data still comes from prod
+Supabase (Frankfurt); the decisive, deterministic wins are the payload cuts —
+which matter most on the students' cellular iPhones, where localhost numbers
+under-state the improvement.
+
+## Applied fixes (each individually gated by the 14-scenario suite, both engines)
+
+1. `1e6599c` static icon map in ActivityStation — UnitContentRouter 737→58 kB
+2. `baab745` lazy trainer-only shell chrome — entry 512→481 kB
+3. `ffd9915` dynamic-import vocab service for the sidebar badge — entry 481→453 kB
+4. `a75d660` lazy-load canvas-confetti (idle-warmed) — entry 453→443 kB
+5. `6eaa70b` async trainer/preview-only font stylesheets — 3 fewer render-blocking requests
+6. `84e930d` perf budget script + perf-guard CI workflow (Phase D armor)
+
+## Reverted attempts
+
+None — every applied fix passed the gate on the first run.
+
+## CI guard status
+
+`perf-guard.yml` budget job: ACTIVE on every push/PR
+(budgets: entry ≤ 510 kB, initial JS ≤ 1,100 kB, any chunk ≤ 600 kB).
+Behavior-suite job: DORMANT until `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY`
+repo secrets are added (it skips itself with a notice meanwhile).
