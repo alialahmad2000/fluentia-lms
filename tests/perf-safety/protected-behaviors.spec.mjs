@@ -84,7 +84,14 @@ async function answerQuestion(i) {
 }
 
 test('1. login lands on the student dashboard', async () => {
-  await login(page, STUDENT)
+  // repeated suite runs trip auth-endpoint backoff; one in-test retry keeps
+  // an environmental slow-login from aborting the whole serial chain
+  try {
+    await login(page, STUDENT)
+  } catch {
+    await page.goto('/login').catch(() => {})
+    await login(page, STUDENT)
+  }
   await expect(page).toHaveURL(/\/student/)
   await expect(page.locator('main, h1, h2').first()).toBeVisible()
 })

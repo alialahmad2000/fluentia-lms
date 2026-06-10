@@ -15,8 +15,12 @@ import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
 import BugReportButton from '../bug-report/BugReportButton'
 import SubscriptionGate from '../access/SubscriptionGate'
 import XPFloater from '../ui/XPFloater'
-import FloatingToolbar from '../trainer/FloatingToolbar'
-import TimerBadge from '../trainer/TimerBadge'
+// Trainer-only chrome: lazy so students never download it. FloatingToolbar
+// self-gates on role; TimerBadge reads the local-only classModeStore, which a
+// student device can never set — gating the render on trainer/admin is
+// behavior-identical (both rendered null for students before).
+const FloatingToolbar = lazyRetry(() => import('../trainer/FloatingToolbar'))
+const TimerBadge = lazyRetry(() => import('../trainer/TimerBadge'))
 import { useAuthStore } from '@/stores/authStore'
 import { getNavForUser } from '@/config/navigation'
 import useClassMode from '@/stores/classModeStore'
@@ -178,8 +182,12 @@ export default function LayoutShell() {
       {/* Floating elements */}
       <XPFloater />
       <VocabGainTicker />
-      <TimerBadge />
-      <FloatingToolbar />
+      {(role === 'trainer' || role === 'admin') && (
+        <Suspense fallback={null}>
+          <TimerBadge />
+          <FloatingToolbar />
+        </Suspense>
+      )}
 
       {/* Post-Class Summary */}
       <AnimatePresence>
