@@ -27,12 +27,21 @@ test.afterAll(async () => {
   await page?.context()?.close()
 })
 
+// WebKit aborts page.goto whenever the app issues its own client navigation
+// (even to the SAME url) while the load is in flight. The destination is
+// still reached — tolerate exactly that error class, then wait for content.
+async function safeGoto(url) {
+  await page.goto(url).catch((e) => {
+    if (!String(e).includes('interrupted by another navigation')) throw e
+  })
+  await expect(page.locator('main, h1, h2').first()).toBeVisible({ timeout: 45_000 })
+}
+
 // Direct goto on `?activity=…` gets interrupted in WebKit (the unit page
 // normalizes the URL while loading). Load the unit cleanly, then switch
 // activity via an SPA history update — exactly what in-app navigation does.
 async function gotoActivity(activity) {
-  await page.goto(unitUrl)
-  await expect(page.locator('main, h1, h2').first()).toBeVisible({ timeout: 45_000 })
+  await safeGoto(unitUrl)
   await page.waitForTimeout(800) // let any mount-time URL normalization settle
   await page.evaluate((url) => {
     window.history.pushState({}, '', url)
@@ -119,8 +128,7 @@ test('3. partial answers auto-save and restore — never auto-complete', async (
   await page.waitForTimeout(4500)
 
   // leave, come back
-  await page.goto('/student')
-  await expect(page.locator('main, h1, h2').first()).toBeVisible()
+  await safeGoto('/student')
   await gotoReadingQuiz()
 
   // restored: exactly 1 answered, NOT submitted, no score reveal
@@ -174,8 +182,7 @@ test('6. rapid navigation stays stable (no #310, no blank shell)', async () => {
   ]
   // SPA navigation (what students actually do) — full reloads race the app's
   // own redirects in WebKit and aren't the behavior under test here.
-  await page.goto('/student').catch(() => {})
-  await expect(page.locator('main, h1, h2').first()).toBeVisible({ timeout: 45_000 })
+  await safeGoto('/student')
   for (const r of routes) {
     await page.evaluate((url) => {
       window.history.pushState({}, '', url)
