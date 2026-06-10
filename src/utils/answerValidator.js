@@ -87,6 +87,15 @@ export function validateAnswer(studentAnswer, acceptedAnswers, options = {}) {
 
   if (!normStudent) return false
 
+  // Free-response items: a key explicitly marked "(sample answer)" is just ONE
+  // example — "complete with your own idea" prompts have no single correct answer,
+  // so any substantive attempt is acceptable. Exact-matching them against the
+  // sample wrongly failed valid answers (curriculum-quality flag, 2026-06-10).
+  const isSampleAnswer = accepted.some((a) => /\bsample answer\b/i.test(String(a || '')))
+  if (isSampleAnswer) {
+    return normStudent.split(/\s+/).filter(Boolean).length >= 3
+  }
+
   for (const ans of accepted) {
     const normAccepted = normalize(ans)
 
@@ -101,6 +110,23 @@ export function validateAnswer(studentAnswer, acceptedAnswers, options = {}) {
 
     // 4. Multi-blank separator-tolerant match (handles comma vs dash vs slash etc.)
     if (compareMultiBlank(studentAnswer, ans)) return true
+
+    // 4b. Slash ALTERNATIVES: a key like "who/that" or "that/which" means EITHER
+    //     option is acceptable (relative pronouns, articles, single-word choices).
+    //     Distinct from a multi-blank answer (those are comma-separated and ALL
+    //     required) — gated on every slash-part being a single word so a real
+    //     two-blank "was, were" style answer is never loosened. Accepts the student
+    //     giving one alternative, or several of them in any separator.
+    //     (curriculum-quality flag, 2026-06-10: "who/that" rejected valid "who".)
+    if (ans && String(ans).includes('/')) {
+      const altParts = String(ans).split('/').map((p) => p.trim()).filter(Boolean)
+      if (altParts.length >= 2 && altParts.every((p) => !/\s/.test(p))) {
+        const normAlts = altParts.map(normalize).filter(Boolean)
+        if (normAlts.includes(normStudent)) return true
+        const studentAlts = splitMultiBlank(studentAnswer).map(normalize).filter(Boolean)
+        if (studentAlts.length > 0 && studentAlts.every((t) => normAlts.includes(t))) return true
+      }
+    }
   }
 
   // 5. Full-sentence detection for fill-blank:
