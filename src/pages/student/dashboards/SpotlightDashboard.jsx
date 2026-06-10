@@ -554,7 +554,7 @@ export default function SpotlightDashboard() {
           </Section>
 
           <Section title="حصّتك القادمة" icon={CalendarClock} hue="#34d399" soft="rgba(52,211,153,0.13)">
-            <NextClassWidget group={group} schedule={schedule} />
+            <NextClassWidget group={group} schedule={schedule} hideTitle />
           </Section>
 
           <Section title="نبض الأكاديمية" icon={Radio} hue="#22d3ee" soft="rgba(34,211,238,0.13)">

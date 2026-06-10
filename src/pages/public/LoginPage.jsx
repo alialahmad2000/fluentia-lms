@@ -31,6 +31,8 @@ export default function LoginPage() {
       case 'student': return <Navigate to="/student" replace />
       case 'trainer': return <Navigate to="/trainer" replace />
       case 'admin':   return <Navigate to="/admin" replace />
+      case 'agent':   return <Navigate to="/team" replace />
+      case 'coordinator': return <Navigate to="/coordinator" replace />
     }
   }
 

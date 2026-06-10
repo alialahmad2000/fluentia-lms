@@ -30,6 +30,10 @@ import { AuroraBackground } from './design-system/components'
 import SidebarMetricsObserver from './lib/ui/SidebarMetricsObserver'
 
 // ─── CS Ops — /team workspace (agent + admin) ────────────────
+const CoordinatorWorkspace = lazyRetry(() => import('./pages/coordinator/CoordinatorWorkspace'))
+const CoordinatorWeek = lazyRetry(() => import('./pages/coordinator/CoordinatorWeek'))
+const SchedulesList = lazyRetry(() => import('./pages/coordinator/SchedulesList'))
+const TeacherSchedule = lazyRetry(() => import('./pages/teacher/schedule/TeacherSchedule'))
 const TeamWorkspace = lazyRetry(() => import('./pages/team/TeamWorkspace'))
 const TeamPipeline  = lazyRetry(() => import('./pages/team/TeamPipeline'))
 const TeamFollowups = lazyRetry(() => import('./pages/team/TeamFollowups'))
@@ -538,6 +542,8 @@ function RoleRedirect() {
       return <Navigate to="/partner" replace />
     case 'agent':
       return <Navigate to="/team" replace />
+    case 'coordinator':
+      return <Navigate to="/coordinator" replace />
     default:
       return <Navigate to="/login" replace />
   }
@@ -868,6 +874,7 @@ export default function App() {
               <Route path="/trainer/students/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
               <Route path="/trainer/work" element={<Page><TeacherWorkReview /></Page>} />
               <Route path="/trainer/class" element={<Page><TeacherClassHub /></Page>} />
+              <Route path="/trainer/schedule" element={<Page><TeacherSchedule /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TeacherCurriculumPreview><CurriculumBrowser /></TeacherCurriculumPreview></Page>} />
               <Route path="/trainer/curriculum/level/:levelNumber" element={<Page><TeacherCurriculumPreview><LevelUnits /></TeacherCurriculumPreview></Page>} />
               <Route path="/trainer/curriculum/unit/:unitId" element={<Page><TeacherCurriculumPreview><UnitContentRouter /></TeacherCurriculumPreview></Page>} />
@@ -913,6 +920,16 @@ export default function App() {
                 <Route path="pipeline" element={<Page><TeamPipeline /></Page>} />
                 <Route path="followups" element={<Page><TeamFollowups /></Page>} />
                 <Route path="schedule" element={<Page><TeamSchedule /></Page>} />
+              </Route>
+            </Route>
+          </Route>
+
+          {/* Class-coordinator workspace (coordinator + admin) */}
+          <Route element={<ProtectedRoute allowedRoles={['coordinator', 'admin']} />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
+              <Route path="/coordinator" element={<Page><CoordinatorWorkspace /></Page>}>
+                <Route index element={<Page><CoordinatorWeek /></Page>} />
+                <Route path="schedules" element={<Page><SchedulesList /></Page>} />
               </Route>
             </Route>
           </Route>
