@@ -10,7 +10,6 @@ import { hasIELTSAccess } from '@/lib/packageAccess'
 import { toast } from '@/components/ui/FluentiaToast'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { getHardWordsCount } from '@/services/hardWords'
-import { getDueCount } from '@/services/vocab'
 import { toArabicNum } from '@/lib/vocabFormat'
 import { useChatUnread } from '@/features/chat/queries/useDM'
 import { supabase } from '@/lib/supabase'
@@ -66,7 +65,12 @@ function Sidebar({ nav, collapsed, onToggle }) {
   // "X words due" daily-return badge — same unified count the review surface shows.
   const { data: vocabDueCount = 0 } = useQuery({
     queryKey: ['vocab-due-badge', profileId],
-    queryFn: () => getDueCount(profileId),
+    // dynamic import: a static `services/vocab` import drags ts-fsrs (~56 kB)
+    // into the entry chunk just for this badge count
+    queryFn: async () => {
+      const { getDueCount } = await import('@/services/vocab')
+      return getDueCount(profileId)
+    },
     enabled: !!profileId && role === 'student',
     staleTime: 30_000,
     refetchOnWindowFocus: true,
