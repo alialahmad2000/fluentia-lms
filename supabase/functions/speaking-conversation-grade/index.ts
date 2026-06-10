@@ -92,23 +92,35 @@ serve(async (req) => {
     return json({ ok: false, error: msg }, 200)
   }
 
-  // ── Context (topic + level) ──
+  // ── Context (topic + level) — curriculum topic OR individual-track module roleplay ──
+  const isModuleConvo = Boolean(convo.module_id)
   let topic: any = null
-  if (convo.speaking_id) {
-    const { data } = await sb.from('curriculum_speaking').select('*').eq('id', convo.speaking_id).maybeSingle()
-    topic = data
-  }
-  if (!topic) {
-    const { data } = await sb.from('curriculum_speaking').select('*').eq('unit_id', convo.unit_id).order('sort_order').limit(1).maybeSingle()
-    topic = data
-  }
-  let level = 1, unitTitle = topic?.title_en || 'Speaking Conversation'
-  const { data: unitData } = await sb.from('curriculum_units').select('title_en, level:curriculum_levels(level_number)').eq('id', convo.unit_id).maybeSingle()
-  if (unitData?.title_en) unitTitle = unitData.title_en
-  if ((unitData?.level as any)?.level_number) level = (unitData?.level as any).level_number
-  if (level === 1) {
+  let level = 1, unitTitle = 'Speaking Conversation'
+  if (isModuleConvo) {
+    const { data: mod } = await sb.from('specialization_modules')
+      .select('id, title_en, roleplay').eq('id', convo.module_id).maybeSingle()
+    const rp = (mod?.roleplay && typeof mod.roleplay === 'object') ? mod.roleplay : {}
+    topic = mod ? { title_en: rp.title_en || mod.title_en, prompt_en: rp.prompt_en || '' } : null
+    unitTitle = topic?.title_en || 'Professional Roleplay'
     const { data: s } = await sb.from('students').select('academic_level').eq('id', studentId).maybeSingle()
     if (s?.academic_level) level = s.academic_level
+  } else {
+    if (convo.speaking_id) {
+      const { data } = await sb.from('curriculum_speaking').select('*').eq('id', convo.speaking_id).maybeSingle()
+      topic = data
+    }
+    if (!topic) {
+      const { data } = await sb.from('curriculum_speaking').select('*').eq('unit_id', convo.unit_id).order('sort_order').limit(1).maybeSingle()
+      topic = data
+    }
+    unitTitle = topic?.title_en || 'Speaking Conversation'
+    const { data: unitData } = await sb.from('curriculum_units').select('title_en, level:curriculum_levels(level_number)').eq('id', convo.unit_id).maybeSingle()
+    if (unitData?.title_en) unitTitle = unitData.title_en
+    if ((unitData?.level as any)?.level_number) level = (unitData?.level as any).level_number
+    if (level === 1) {
+      const { data: s } = await sb.from('students').select('academic_level').eq('id', studentId).maybeSingle()
+      if (s?.academic_level) level = s.academic_level
+    }
   }
   const levelDesc = LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]
 
@@ -210,10 +222,12 @@ Include 2-4 "errors" and 2-3 "better_expressions" whenever there is material. Be
   aiEvaluation.fallback = isFallback
 
   // ── Summary speaking_recordings row (trainer visibility + progress trigger) ──
-  // Use the longest student turn's audio for playback.
+  // Module roleplays skip this: speaking_recordings/unit-progress are curriculum
+  // structures (unit_id NOT NULL there) — module completion lives in
+  // specialization_module_progress instead (written below).
   const longest = [...studentTurns].sort((a: any, b: any) => (b.audio_duration_seconds || 0) - (a.audio_duration_seconds || 0))[0]
   let signedUrl: string | null = null
-  if (longest?.audio_path) {
+  if (!isModuleConvo && longest?.audio_path) {
     const { data: urlData } = await sb.storage.from('voice-notes').createSignedUrl(longest.audio_path, 60 * 60 * 24 * 365)
     signedUrl = urlData?.signedUrl || null
   }
@@ -237,17 +251,30 @@ Include 2-4 "errors" and 2-3 "better_expressions" whenever there is material. Be
     speaking_recording_id: recordingId, updated_at: new Date().toISOString(),
   }).eq('id', conversation_id)
 
-  // ── Curriculum progress (mirror evaluate-speaking exactly — phantom guard skips 'speaking') ──
-  const scoreOutOf100 = aiEvaluation.overall_score * 10
-  const { data: existing } = await sb.from('student_curriculum_progress')
-    .select('id').eq('student_id', studentId).eq('unit_id', convo.unit_id).eq('section_type', 'speaking').maybeSingle()
-  if (existing) {
-    await sb.from('student_curriculum_progress').update({ status: 'completed', score: scoreOutOf100, completed_at: new Date().toISOString() }).eq('id', existing.id)
-  } else {
-    await sb.from('student_curriculum_progress').insert({
-      student_id: studentId, unit_id: convo.unit_id, section_type: 'speaking',
-      status: 'completed', score: scoreOutOf100, completed_at: new Date().toISOString(),
+  if (isModuleConvo) {
+    // ── Individual-track completion: atomic, service-role-only RPC ──
+    // track_mark_roleplay() merges the roleplay stage + score in ONE statement so it
+    // can never race/clobber the client's track_complete_stage() writes.
+    const { error: rpErr } = await sb.rpc('track_mark_roleplay', {
+      p_student_id: studentId,
+      p_module_id: convo.module_id,
+      p_score: aiEvaluation.overall_score,
+      p_conversation_id: conversation_id,
     })
+    if (rpErr) console.error('track_mark_roleplay failed:', rpErr.message)
+  } else {
+    // ── Curriculum progress (mirror evaluate-speaking exactly — phantom guard skips 'speaking') ──
+    const scoreOutOf100 = aiEvaluation.overall_score * 10
+    const { data: existing } = await sb.from('student_curriculum_progress')
+      .select('id').eq('student_id', studentId).eq('unit_id', convo.unit_id).eq('section_type', 'speaking').maybeSingle()
+    if (existing) {
+      await sb.from('student_curriculum_progress').update({ status: 'completed', score: scoreOutOf100, completed_at: new Date().toISOString() }).eq('id', existing.id)
+    } else {
+      await sb.from('student_curriculum_progress').insert({
+        student_id: studentId, unit_id: convo.unit_id, section_type: 'speaking',
+        status: 'completed', score: scoreOutOf100, completed_at: new Date().toISOString(),
+      })
+    }
   }
 
   // Usage log

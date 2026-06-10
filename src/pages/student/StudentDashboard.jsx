@@ -9,6 +9,7 @@ import AtelierMinimalDashboard from './dashboards/AtelierMinimalDashboard'
 import JourneyDashboard from './dashboards/JourneyDashboard'
 import SpotlightDashboard from './dashboards/SpotlightDashboard'
 import ObservatoryDashboard from './dashboards/ObservatoryDashboard'
+import IndividualDashboard from './individual/IndividualDashboard'
 
 // "Today Spotlight" (التركيز) is THE student dashboard — the single, default,
 // only student-facing experience (owner decision 2026-06-03). The on-screen
@@ -21,11 +22,18 @@ import ObservatoryDashboard from './dashboards/ObservatoryDashboard'
 //   ?design=original | classic | v1 | v2 | v3       → older dashboards
 export default function StudentDashboard() {
   const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
   const [searchParams] = useSearchParams()
   const variant = searchParams.get('design')
-  const dashboard = useStudentDashboard(profile?.id)
+  const isIndividual = studentData?.study_mode === 'individual'
+  // Individual students never render the group dashboards — skip their data fetch entirely.
+  const dashboard = useStudentDashboard(isIndividual ? null : profile?.id)
 
   // ── all hooks above any conditional return ──
+  // INDIVIDUAL (1-on-1) students get the profession-tailored executive home —
+  // the group dashboards (and their group widgets) never mount for them.
+  if (isIndividual) return <IndividualDashboard />
+
   switch (variant) {
     case 'original':
     case 'classic':

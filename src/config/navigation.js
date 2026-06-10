@@ -1,6 +1,7 @@
 import {
   NotebookPen,
   ShieldAlert,
+  Briefcase,
   Home, BookOpen, BookOpenCheck, PenLine, Mic, Users, Trophy,
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
@@ -107,6 +108,72 @@ export const STUDENT_NAV = {
     { id: 'spelling-lab', label: 'الإملاء',   icon: PencilLine, to: '/student/spelling-lab' },
     { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
     { id: 'more',        label: 'المزيد',     icon: 'more',     to: null },
+  ],
+}
+
+/* INDIVIDUAL (1-on-1) students — students.study_mode === 'individual'.
+   A deliberately minimal, profession-first nav: their professional track replaces the
+   group curriculum, and every group-dependent surface (leaderboards, group widgets,
+   curriculum units, SRS tied to curriculum vocab) is absent BY DESIGN, not hidden CSS.
+   RULE: any change here must be mirrored in individualDrawerSections + individualMobileBar
+   (same four-surfaces rule as STUDENT_NAV). */
+export const INDIVIDUAL_NAV = {
+  sections: [
+    {
+      id: 'learning',
+      label: 'التعلّم',
+      items: [
+        { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
+        { id: 'track', label: 'مساري المهني', icon: Briefcase, to: '/student/track' },
+        { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
+      ],
+    },
+    {
+      id: 'community',
+      label: 'المجتمع',
+      items: [
+        { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+      ],
+    },
+    {
+      id: 'account',
+      label: 'حسابي',
+      items: [
+        { id: 'profile', label: 'ملفي', icon: User, to: '/student/profile' },
+      ],
+    },
+  ],
+  drawerSections: [
+    {
+      id: 'learning',
+      label: 'التعلّم',
+      items: [
+        { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
+        { id: 'track', label: 'مساري المهني', icon: Briefcase, to: '/student/track' },
+        { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
+      ],
+    },
+    {
+      id: 'community',
+      label: 'المجتمع',
+      items: [
+        { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+      ],
+    },
+    {
+      id: 'account',
+      label: 'حسابي',
+      items: [
+        { id: 'profile', label: 'ملفي', icon: User, to: '/student/profile' },
+      ],
+    },
+  ],
+  mobileBar: [
+    { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
+    { id: 'track', label: 'مساري', icon: Briefcase, to: '/student/track' },
+    { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
+    { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+    { id: 'more', label: 'المزيد', icon: 'more', to: null },
   ],
 }
 
@@ -245,4 +312,11 @@ export function getNavForRole(role) {
   if (role === 'admin') return ADMIN_NAV
   if (role === 'coordinator') return COORDINATOR_NAV
   return STUDENT_NAV
+}
+
+/** Account-aware nav: individual (1-on-1) students get INDIVIDUAL_NAV.
+    Works under impersonation too — studentData is the swapped student row. */
+export function getNavForUser(role, studentData) {
+  if ((role === 'student' || !role) && studentData?.study_mode === 'individual') return INDIVIDUAL_NAV
+  return getNavForRole(role)
 }

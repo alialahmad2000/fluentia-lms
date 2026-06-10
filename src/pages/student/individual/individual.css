@@ -1,0 +1,296 @@
+/* ═══════════════════════════════════════════════════════════════════
+   INDIVIDUAL TRACK — "Executive" skin
+   Obsidian surfaces + ONE brass accent. Restrained, editorial, premium.
+   Scoped under .iv-root — never leaks into group-student surfaces.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.iv-root {
+  --iv-brass: #c9a25c;
+  --iv-brass-bright: #e3c389;
+  --iv-brass-glow: rgba(201, 162, 92, 0.22);
+  --iv-ink: #0b0e14;
+  --iv-panel: rgba(255, 255, 255, 0.025);
+  --iv-panel-strong: rgba(255, 255, 255, 0.045);
+  --iv-line: rgba(227, 195, 137, 0.14);
+  --iv-line-soft: rgba(255, 255, 255, 0.06);
+  --iv-text: #f2ede2;
+  --iv-text-2: #b9b2a3;
+  --iv-text-3: #7d776b;
+  color: var(--iv-text);
+}
+
+/* ── atmosphere: a single quiet brass beam, no color circus ── */
+.iv-atmo {
+  position: absolute;
+  inset: -80px -40px auto -40px;
+  height: 420px;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 70% at 78% 0%, var(--iv-brass-glow), transparent 68%),
+    radial-gradient(40% 52% at 12% 8%, rgba(255, 255, 255, 0.035), transparent 70%);
+  opacity: 0.85;
+}
+
+/* ── panels ── */
+.iv-panel {
+  position: relative;
+  background: var(--iv-panel);
+  border: 1px solid var(--iv-line-soft);
+  border-radius: 20px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 48px -32px rgba(0, 0, 0, 0.55);
+}
+.iv-panel--lit {
+  border-color: var(--iv-line);
+  background:
+    linear-gradient(165deg, rgba(227, 195, 137, 0.05), transparent 38%),
+    var(--iv-panel);
+}
+
+/* hairline editorial rule with a brass tick */
+.iv-rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.iv-rule::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--iv-brass);
+}
+.iv-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--iv-line), transparent);
+}
+.iv-eyebrow {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--iv-text-3);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* interactive panels lift like the rest of the platform */
+.iv-panel-interactive {
+  transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+.iv-panel-interactive:hover {
+  transform: translateY(-2px);
+  border-color: var(--iv-line);
+  background: var(--iv-panel-strong);
+}
+
+/* serif display numerals (EN) — the "annual report" voice */
+.iv-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--iv-text);
+  font-variant-numeric: lining-nums;
+}
+
+/* ── the track ladder ── */
+.iv-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+.iv-step--open { cursor: pointer; }
+.iv-step--open:hover {
+  background: var(--iv-panel-strong);
+  border-color: var(--iv-line);
+  transform: translateY(-2px);
+}
+.iv-step--current {
+  background:
+    linear-gradient(165deg, rgba(227, 195, 137, 0.07), transparent 50%),
+    var(--iv-panel-strong);
+  border-color: var(--iv-line);
+}
+/* locked = valuable and sealed, not invisible: titles stay readable, only the chrome dims */
+.iv-step--locked { opacity: 1; cursor: default; }
+.iv-step--locked .iv-step-num { opacity: 0.55; }
+.iv-step--locked [data-title-ar] { color: var(--iv-text-2) !important; }
+
+.iv-step-num {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 1px solid var(--iv-line-soft);
+  background: rgba(255, 255, 255, 0.02);
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--iv-text-2);
+}
+.iv-step--current .iv-step-num {
+  border-color: var(--iv-brass);
+  color: var(--iv-brass-bright);
+  box-shadow: 0 0 18px var(--iv-brass-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.iv-step--done .iv-step-num {
+  background: rgba(201, 162, 92, 0.12);
+  border-color: var(--iv-line);
+  color: var(--iv-brass);
+}
+
+/* connector spine between steps (logical prop — RTL-safe) */
+.iv-spine {
+  position: absolute;
+  inset-inline-start: 41px;
+  top: 100%;
+  width: 2px;
+  height: 14px;
+  background: var(--iv-line-soft);
+}
+.iv-step--done .iv-spine { background: var(--iv-line); }
+
+/* ── stage stepper (module page) ── */
+.iv-stage-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--iv-line-soft);
+  background: transparent;
+  color: var(--iv-text-3);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+.iv-stage-tab:hover { color: var(--iv-text-2); border-color: var(--iv-line); }
+.iv-stage-tab--active {
+  background: rgba(201, 162, 92, 0.12);
+  border-color: var(--iv-brass);
+  color: var(--iv-brass-bright);
+  font-weight: 700;
+}
+.iv-stage-tab--done { color: var(--iv-brass); }
+
+/* ── buttons ── */
+.iv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 48px;
+  padding: 0 26px;
+  border-radius: 14px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  border: 1px solid transparent;
+}
+.iv-btn--brass {
+  background: linear-gradient(135deg, var(--iv-brass-bright), var(--iv-brass));
+  color: #1a1206;
+  box-shadow: 0 12px 28px -12px var(--iv-brass-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.iv-btn--brass:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px var(--iv-brass-glow); }
+.iv-btn--ghost {
+  background: transparent;
+  border-color: var(--iv-line-soft);
+  color: var(--iv-text-2);
+}
+.iv-btn--ghost:hover { border-color: var(--iv-line); color: var(--iv-text); }
+.iv-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+/* ── vocab dossier cards ── */
+.iv-term {
+  border: 1px solid var(--iv-line-soft);
+  border-radius: 16px;
+  padding: 16px 18px;
+  background: var(--iv-panel);
+  transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+}
+.iv-term:hover { border-color: var(--iv-line); background: var(--iv-panel-strong); transform: translateY(-2px); }
+.iv-term-word {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--iv-text);
+}
+.iv-pos {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--iv-line);
+  color: var(--iv-brass);
+  text-transform: uppercase;
+}
+
+/* phrase rows — fill fades AWAY from the brass spine (logical direction, RTL-safe) */
+.iv-phrase {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  border-inline-start: 2px solid var(--iv-line);
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: 12px;
+}
+[dir='rtl'] .iv-phrase { background: linear-gradient(270deg, rgba(255, 255, 255, 0.02), transparent); }
+[dir='ltr'] .iv-phrase { background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), transparent); }
+
+/* progress arc label */
+.iv-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--iv-line-soft);
+  background: var(--iv-panel);
+}
+.iv-kpi-num { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; line-height: 1; color: var(--iv-text); }
+.iv-kpi-label { font-size: 12px; color: var(--iv-text-3); font-family: 'Tajawal', sans-serif; }
+
+/* writing area */
+.iv-textarea {
+  width: 100%;
+  min-height: 220px;
+  border-radius: 16px;
+  border: 1px solid var(--iv-line-soft);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--iv-text);
+  padding: 18px;
+  font-size: 16px;
+  line-height: 1.8;
+  resize: vertical;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+.iv-textarea:focus {
+  border-color: var(--iv-brass);
+  box-shadow: 0 0 0 3px var(--iv-brass-glow);
+}
+
+/* 44px touch targets on touch devices */
+@media (pointer: coarse) {
+  .iv-stage-tab { padding: 12px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iv-step--open:hover, .iv-term:hover, .iv-btn--brass:hover, .iv-panel-interactive:hover { transform: none; }
+}

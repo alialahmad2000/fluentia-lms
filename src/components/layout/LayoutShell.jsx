@@ -18,7 +18,7 @@ import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
 import TimerBadge from '../trainer/TimerBadge'
 import { useAuthStore } from '@/stores/authStore'
-import { getNavForRole } from '@/config/navigation'
+import { getNavForUser } from '@/config/navigation'
 import useClassMode from '@/stores/classModeStore'
 import usePullToRefresh from '@/hooks/usePullToRefresh'
 import { usePageTracking } from '@/hooks/usePageTracking'
@@ -53,7 +53,8 @@ export default function LayoutShell() {
   const role = profile?.role || 'student'
   // SIDEBAR-HIDDEN 2026-06-08 (owner): competition is fully hidden from the nav, so the previous
   // "inject المسابقة into the mobile bar while a competition is active" behaviour is removed.
-  const nav = useMemo(() => getNavForRole(role), [role])
+  // Individual (1-on-1) students get the minimal profession-first nav (INDIVIDUAL_NAV).
+  const nav = useMemo(() => getNavForUser(role, studentData), [role, studentData])
   const navigate = useNavigate()
   const location = useLocation()
   const queryClient = useQueryClient()

@@ -108,6 +108,31 @@ async function transcribe(sb: any, audioPath: string): Promise<string> {
   return (j.text || '').trim()
 }
 
+// Individual-track professional roleplay: the AI plays a CHARACTER from the module's
+// scenario (a client, a CEO, an agency rep…) instead of "Layla the coach". Same warmth,
+// same recast rules, same level-awareness — different persona.
+function buildRoleplaySystemPrompt(rp: any, levelDesc: string, wrap: boolean): string {
+  const phrases = Array.isArray(rp?.useful_phrases) && rp.useful_phrases.length
+    ? rp.useful_phrases.join('; ') : ''
+  return `${rp?.ai_role || 'You are a friendly professional in a workplace roleplay with an adult Arabic-speaking English learner at Fluentia Academy in Saudi Arabia.'}
+
+This is a SPOKEN workplace roleplay to help the learner practice professional English.
+SCENARIO (stay inside it, never drift): "${rp?.title_en || 'a professional conversation'}"
+${rp?.prompt_en ? `The learner's mission: ${rp.prompt_en}` : ''}
+${rp?.student_role ? `The learner's role: ${rp.student_role}` : ''}
+${phrases ? `Phrases from their lesson you can naturally create openings for: ${phrases}` : ''}
+Learner level: ${levelDesc}
+
+HOW TO TALK:
+- Your reply is SPOKEN ALOUD by text-to-speech. Output ONLY the words your character says — NEVER stage directions, actions, or descriptions (no asterisks, no "*smiles*", no brackets, no narration).
+- Stay IN CHARACTER the whole time. Reply in ENGLISH only, 1–2 short sentences, and end most replies with ONE question or prompt that moves the scenario forward. The learner should talk much more than you.
+- Match their level (above). Be professional but warm and human — no lists, no meta talk, never say you are an AI or a model, never break character to teach.
+- NEVER correct their grammar explicitly. If they make a meaning-blocking mistake, gently model the correct form INSIDE your in-character reply (a natural recast).
+- If they answer in Arabic or get stuck, kindly receive the meaning, give them the simple English way to say it as part of your reply, then continue the scenario.
+- Follow the scenario's arc: if your character is meant to push back, negotiate, or eventually approve, do it naturally across the turns.
+${wrap ? '- IMPORTANT: begin wrapping the scenario up now IN CHARACTER — move to a natural conclusion (an agreement, a decision, a thank-you), acknowledge their effort, and close warmly.' : ''}`
+}
+
 function buildSystemPrompt(topic: any, levelDesc: string, wrap: boolean): string {
   const phrases = Array.isArray(topic?.useful_phrases) && topic.useful_phrases.length
     ? topic.useful_phrases.join('; ') : ''
@@ -124,6 +149,17 @@ HOW TO TALK:
 - NEVER correct their grammar explicitly during the chat. If they make a meaning-blocking mistake, gently model the correct form INSIDE your reply (a natural recast): if they say "I go market yesterday", you reply "Oh, you went to the market yesterday — what did you buy?".
 - If they answer in Arabic or get stuck, kindly receive the meaning, give them the simple English way to say it, then continue with your question. Never shame a mistake.
 ${wrap ? '- IMPORTANT: this conversation has gone on nicely — start to warmly wrap it up now. Acknowledge their effort, say something kind, and gently bring it to a close.' : ''}`
+}
+
+// Replies are spoken by TTS — strip any stage directions the model sneaks in
+// (*smiles*, [laughs], (extends hand)…) so they are never read aloud.
+function stripStageDirections(text: string): string {
+  return (text || '')
+    .replace(/\*[^*\n]{1,80}\*/g, ' ')
+    .replace(/\[[^\]\n]{1,80}\]/g, ' ')
+    .replace(/^\([^)\n]{1,80}\)\s*/gm, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
 }
 
 async function callClaude(system: string, messages: any[], maxTokens = 160): Promise<{ text: string; inT: number; outT: number }> {
@@ -165,6 +201,28 @@ serve(async (req) => {
   const { data: caller } = await sb.from('profiles').select('role').eq('id', callerId).maybeSingle()
   const isStaff = caller?.role === 'admin' || caller?.role === 'trainer'
 
+  // Individual-track module roleplay context: scenario from specialization_modules,
+  // level from the student row (modules aren't tied to curriculum levels).
+  async function loadModuleContext(moduleId: string, sid?: string) {
+    const { data: mod } = await sb.from('specialization_modules')
+      .select('id, title_en, title_ar, roleplay').eq('id', moduleId).maybeSingle()
+    const rp = (mod?.roleplay && typeof mod.roleplay === 'object') ? mod.roleplay : {}
+    let level = 1
+    if (sid) {
+      const { data: s } = await sb.from('students').select('academic_level').eq('id', sid).maybeSingle()
+      if (s?.academic_level) level = s.academic_level
+    }
+    // topic-shaped object so the rest of the pipeline (and the client) stays identical
+    const topic = mod ? {
+      id: null,
+      title_en: rp.title_en || mod.title_en,
+      prompt_en: rp.prompt_en || '',
+      prompt_ar: rp.prompt_ar || '',
+      useful_phrases: rp.useful_phrases || [],
+    } : null
+    return { mod, rp, topic, level }
+  }
+
   // Resolve topic + level (shared by both actions)
   async function loadContext(unitId: string, speakingId?: string, sid?: string) {
     let topic: any = null
@@ -191,24 +249,38 @@ serve(async (req) => {
   try {
     // ── START: create the conversation + warm opening (voiced) ──
     if (action === 'start') {
-      const { unit_id, speaking_id, question_index = 0 } = body
-      if (!unit_id) return json({ error: 'unit_id required' }, 400)
+      const { unit_id, speaking_id, module_id, question_index = 0 } = body
+      if (!unit_id && !module_id) return json({ error: 'unit_id or module_id required' }, 400)
       const studentId = (body.as_student_id && isStaff && body.as_student_id !== callerId) ? body.as_student_id : callerId
-      const { topic, level } = await loadContext(unit_id, speaking_id, studentId)
+
+      let topic: any, level: number, rp: any = null
+      if (module_id) {
+        const ctx = await loadModuleContext(module_id, studentId)
+        if (!ctx.mod) return json({ error: 'module not found' }, 404)
+        topic = ctx.topic; level = ctx.level; rp = ctx.rp
+      } else {
+        const ctx = await loadContext(unit_id, speaking_id, studentId)
+        topic = ctx.topic; level = ctx.level
+      }
       const levelDesc = LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]
 
       const { data: convo, error: cErr } = await sb.from('speaking_conversations').insert({
-        student_id: studentId, unit_id, speaking_id: topic?.id || speaking_id || null,
+        student_id: studentId, unit_id: unit_id || null, module_id: module_id || null,
+        speaking_id: (!module_id && (topic?.id || speaking_id)) || null,
         question_index, status: 'in_progress',
       }).select().single()
       if (cErr || !convo) return json({ error: `create failed: ${cErr?.message}` }, 500)
 
-      const system = buildSystemPrompt(topic, levelDesc, false)
-      const openUser = '[The learner just opened the speaking task and may be a little nervous. Greet them warmly, start the conversation in 1–2 short sentences, then ask your first VERY simple question about the topic.]'
+      const system = module_id
+        ? buildRoleplaySystemPrompt(rp, levelDesc, false)
+        : buildSystemPrompt(topic, levelDesc, false)
+      const openUser = module_id
+        ? '[The learner just entered the roleplay and may be a little nervous. Open the scenario IN CHARACTER in 1–2 short sentences (greet them the way your character naturally would), then ask your first simple question to start the scenario.]'
+        : '[The learner just opened the speaking task and may be a little nervous. Greet them warmly, start the conversation in 1–2 short sentences, then ask your first VERY simple question about the topic.]'
       let replyText = ''
       try {
         const c = await callClaude(system, [{ role: 'user', content: openUser }], 160)
-        replyText = c.text
+        replyText = stripStageDirections(c.text)
         await logUsage(sb, 'chatbot', studentId, 'claude-haiku-4-5', c.inT, c.outT)
       } catch (_e) {
         replyText = `Hi! Let's have a little chat in English about ${topic?.title_en || 'today\'s topic'}. Don't worry — just speak slowly. To start, can you tell me a little about it?`
@@ -286,12 +358,21 @@ serve(async (req) => {
         updated_at: new Date().toISOString(),
       }).eq('id', conversation_id)
 
-      // Context + reply
-      const { topic, level } = await loadContext(convo.unit_id, convo.speaking_id, studentId)
+      // Context + reply (module roleplay vs curriculum topic)
+      let topic: any, level: number, rp: any = null
+      if (convo.module_id) {
+        const ctx = await loadModuleContext(convo.module_id, studentId)
+        topic = ctx.topic; level = ctx.level; rp = ctx.rp
+      } else {
+        const ctx = await loadContext(convo.unit_id, convo.speaking_id, studentId)
+        topic = ctx.topic; level = ctx.level
+      }
       const levelDesc = LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]
       const wrap = newStudentTurnCount >= MAX_STUDENT_TURNS || newStudentTurnCount >= WRAP_HINT_AFTER
       const done = newStudentTurnCount >= MAX_STUDENT_TURNS
-      const system = buildSystemPrompt(topic, levelDesc, wrap)
+      const system = convo.module_id
+        ? buildRoleplaySystemPrompt(rp, levelDesc, wrap)
+        : buildSystemPrompt(topic, levelDesc, wrap)
 
       const history = [
         ...(turns || []).filter((t: any) => t.content).map((t: any) => ({ role: t.role === 'ai' ? 'assistant' : 'user', content: t.content })),
@@ -302,7 +383,7 @@ serve(async (req) => {
       let replyText = ''
       try {
         const c = await callClaude(system, history, 160)
-        replyText = c.text || "That's great. Tell me a little more?"
+        replyText = stripStageDirections(c.text) || "That's great. Tell me a little more?"
         await logUsage(sb, 'chatbot', studentId, 'claude-haiku-4-5', c.inT, c.outT)
       } catch (_e) {
         replyText = "That's great — tell me a little more about that?"

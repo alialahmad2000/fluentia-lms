@@ -654,6 +654,20 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
   const [academicLevel, setAcademicLevel] = useState(1)
   const [pkg, setPkg] = useState('asas')
   const [gender, setGender] = useState('female')
+  // Account type: group (default) or individual 1-on-1 with a profession-tailored track
+  const [studyMode, setStudyMode] = useState('group')
+  const [specializationId, setSpecializationId] = useState('')
+  const { data: specializations = [] } = useQuery({
+    queryKey: ['specializations-active'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('specializations').select('id, slug, title_ar, title_en')
+        .eq('is_active', true).order('sort_order')
+      if (error) return []
+      return data || []
+    },
+    staleTime: 5 * 60_000,
+  })
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [createdStudent, setCreatedStudent] = useState(null)
@@ -720,13 +734,15 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
         must_change_password: true,
       }, { onConflict: 'id' })
 
-      // Create student record
+      // Create student record (individual students carry no group by design)
       await supabase.from('students').upsert({
         id: userId,
-        group_id: groupId || null,
+        group_id: studyMode === 'individual' ? null : (groupId || null),
         academic_level: parseInt(academicLevel),
         package: pkg,
         gender,
+        study_mode: studyMode,
+        specialization_id: studyMode === 'individual' ? (specializationId || null) : null,
         status: 'active',
         temp_password: tempPassword,
         enrollment_date: new Date().toISOString(),
@@ -839,15 +855,52 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
               <label className="input-label">الهاتف (اختياري)</label>
               <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-field" dir="ltr" />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="input-label">المجموعة</label>
-                <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="input-field">
-                  <option value="">بدون مجموعة</option>
-                  {groups?.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
-                </select>
+            <div>
+              <label className="input-label">نوع الحساب</label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setStudyMode('group')}
+                  className="input-field text-sm font-bold"
+                  style={studyMode === 'group'
+                    ? { borderColor: 'var(--accent-sky)', color: 'var(--accent-sky)', background: 'var(--accent-sky-glow)' }
+                    : { color: 'var(--text-secondary)' }}
+                >
+                  طالب مجموعات
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStudyMode('individual')}
+                  className="input-field text-sm font-bold"
+                  style={studyMode === 'individual'
+                    ? { borderColor: 'var(--accent-gold)', color: 'var(--accent-gold)', background: 'var(--accent-gold-glow)' }
+                    : { color: 'var(--text-secondary)' }}
+                >
+                  فردي ١:١ — مسار مهني
+                </button>
               </div>
+            </div>
+            {studyMode === 'individual' && (
               <div>
+                <label className="input-label">التخصص المهني</label>
+                <select value={specializationId} onChange={(e) => setSpecializationId(e.target.value)} className="input-field" required>
+                  <option value="">— اختيار التخصص —</option>
+                  {specializations.map(s => <option key={s.id} value={s.id}>{s.title_ar} — {s.title_en}</option>)}
+                </select>
+                <p className="text-xs text-muted mt-1.5">يحدد التخصصُ المسارَ المهني الذي يظهر للطالب بدل منهج المجموعات</p>
+              </div>
+            )}
+            <div className="grid grid-cols-2 gap-4">
+              {studyMode === 'group' && (
+                <div>
+                  <label className="input-label">المجموعة</label>
+                  <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="input-field">
+                    <option value="">بدون مجموعة</option>
+                    {groups?.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
+                  </select>
+                </div>
+              )}
+              <div className={studyMode === 'group' ? '' : 'col-span-2'}>
                 <label className="input-label">المستوى</label>
                 <select value={academicLevel} onChange={(e) => setAcademicLevel(e.target.value)} className="input-field">
                   {Object.entries(ACADEMIC_LEVELS).map(([k, v]) => (

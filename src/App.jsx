@@ -44,6 +44,8 @@ const AdminTeam = lazyRetry(() => import('./pages/admin/AdminTeam'))
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
+const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
+const IndividualModulePage = lazyRetry(() => import('./pages/student/individual/ModulePage'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
 const StudentGrades = lazyRetry(() => import('./pages/student/StudentGrades'))
 const StudentProfile = lazyRetry(() => import('./pages/student/StudentProfile'))
@@ -711,6 +713,9 @@ export default function App() {
             <Route element={<StudentStatusGuard />}>
             <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
               <Route path="/student" element={<Page><StudentDashboard /></Page>} />
+              {/* Individual (1-on-1) professional track */}
+              <Route path="/student/track" element={<Page><IndividualTrackHome /></Page>} />
+              <Route path="/student/track/:moduleId" element={<Page><IndividualModulePage /></Page>} />
               <Route path="/student/assignments" element={<Page><StudentAssignments /></Page>} />
               <Route path="/student/study-plan" element={<Page><StudentStudyPlan /></Page>} />
               <Route path="/student/grades" element={<Page><PackageRoute requiredPackage="talaqa" featureName="الدرجات والنتائج"><StudentGrades /></PackageRoute></Page>} />

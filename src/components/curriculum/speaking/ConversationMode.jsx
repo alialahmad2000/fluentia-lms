@@ -86,7 +86,9 @@ const STYLE = `
 @media (prefers-reduced-motion: reduce){.cvm-aurora,.cvm-orb,.cvm-orb-ring,.cvm-sbar,.cvm-cta::after,.cvm-mic-pulse,.cvm-shim{animation:none!important}}
 `
 
-export default function ConversationMode({ topic, studentId, unitId, questionIndex = 0, onComplete, onSwitchToClassic }) {
+// moduleId (optional): individual-track professional roleplay — the edge fn loads the
+// scenario from specialization_modules instead of curriculum_speaking (unitId is null then).
+export default function ConversationMode({ topic, studentId, unitId, moduleId = null, questionIndex = 0, onComplete, onSwitchToClassic }) {
   const g = useG()
   const reduce = useReducedMotion()
   const [phase, setPhase] = useState('intro')          // intro | active | grading | result
@@ -156,7 +158,9 @@ export default function ConversationMode({ topic, studentId, unitId, questionInd
     const { data, error: err } = await invokeWithRetry('speaking-conversation-turn', {
       // as_student_id makes impersonation work: when staff view AS a student, completion is
       // written for that student (studentId here = the effective/impersonated profile id).
-      body: { action: 'start', unit_id: unitId, speaking_id: topic?.id, question_index: questionIndex, as_student_id: studentId },
+      body: moduleId
+        ? { action: 'start', module_id: moduleId, as_student_id: studentId }
+        : { action: 'start', unit_id: unitId, speaking_id: topic?.id, question_index: questionIndex, as_student_id: studentId },
     }, { timeoutMs: 45000, retries: 1 })
     const parsed = await parseData(data)
     setRecState('idle')
@@ -167,7 +171,7 @@ export default function ConversationMode({ topic, studentId, unitId, questionInd
     setConversationId(parsed.conversation_id)
     pushMessage({ role: 'ai', text: parsed.reply, audioUrl: parsed.reply_audio_url })
     playCoach(parsed.reply_audio_url)
-  }, [unitId, topic?.id, questionIndex, pushMessage, playCoach])
+  }, [unitId, moduleId, topic?.id, questionIndex, studentId, pushMessage, playCoach])
 
   // ── Recording + live analyser waveform ──
   const tickBars = useCallback(() => {
