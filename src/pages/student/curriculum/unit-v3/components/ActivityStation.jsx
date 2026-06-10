@@ -1,16 +1,22 @@
 import React, { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import * as LucideIcons from 'lucide-react'
-import { Check, Circle, CircleDashed } from 'lucide-react'
+import {
+  Check, Circle, CircleDashed,
+  BookOpen, PenLine, Sparkles, Headphones, FileEdit, Mic, Video, Volume2,
+} from 'lucide-react'
 import { ACTIVITY_SHORT_DESCRIPTIONS_AR } from '../_v3Mappings'
 import { resolvePalette } from '../_v3Tokens'
 import NextSuggestionPulse from './NextSuggestionPulse'
 
 // Single activity station nested inside a MovementPanel.
-// Uses the activity icon string from V2's ACTIVITY_MAP (BookOpen, PenLine,
-// Sparkles, Headphones, FileEdit, Mic, Video) via lucide-react.
+// Icon strings come from V2's ACTIVITY_MAP (useUnitData.js) — a closed set.
+// A namespace import (`import * as LucideIcons`) defeats tree-shaking and
+// bundled the ENTIRE icon library (~650 kB) into the unit chunk; keep this
+// an explicit map.
+const STATION_ICONS = { BookOpen, PenLine, Sparkles, Headphones, FileEdit, Mic, Video, Volume2 }
+
 function ActivityIcon({ name, color }) {
-  const Cmp = (name && LucideIcons[name]) || LucideIcons.Sparkles
+  const Cmp = (name && STATION_ICONS[name]) || Sparkles
   return <Cmp size={22} strokeWidth={2} color={color} aria-hidden="true" />
 }
 

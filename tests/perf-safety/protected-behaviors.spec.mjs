@@ -44,9 +44,29 @@ async function gotoReadingQuiz() {
   await gotoActivity('reading')
   // passage card is the "reading tab is alive" signal
   await expect(page.getByText('أسئلة الفهم')).toBeVisible({ timeout: 45_000 })
-  // completed earlier run? start a fresh attempt so assertions are deterministic
+}
+
+// Normalize to a FRESH attempt no matter what state earlier runs left behind:
+// completed → click retry; restored in-progress answers → finish + submit that
+// attempt, then retry. (The restore itself is exactly the protected behavior,
+// so inheriting answers across runs is expected, not a bug.)
+async function ensureFreshAttempt() {
   const retry = page.getByRole('button', { name: 'محاولة جديدة' })
   if (await retry.count()) {
+    await retry.first().click()
+    await expect(page.getByText('محاولة جديدة — أجب على الأسئلة من جديد')).toBeVisible()
+    return
+  }
+  if (await page.getByText(/مُجاب عليها/).count()) {
+    // leftover in-progress answers — complete and submit them, then retry
+    const total = await questionBlocks().count()
+    for (let i = 0; i < total; i++) await answerQuestion(i)
+    const submitBtn = page.getByRole('button', { name: /تسليم الإجابات/ })
+    await submitBtn.scrollIntoViewIfNeeded()
+    await submitBtn.click()
+    await expect(page.getByText('تأكيد التسليم')).toBeVisible()
+    await page.getByRole('button', { name: 'تسليم', exact: true }).click()
+    await expect(retry.first()).toBeVisible({ timeout: 30_000 })
     await retry.first().click()
     await expect(page.getByText('محاولة جديدة — أجب على الأسئلة من جديد')).toBeVisible()
   }
@@ -82,6 +102,7 @@ test('2. curriculum renders unit access (0-units regression guard)', async () =>
 
 test('3. partial answers auto-save and restore — never auto-complete', async () => {
   await gotoReadingQuiz()
+  await ensureFreshAttempt()
   const total = await questionBlocks().count()
   expect(total).toBeGreaterThan(1)
 
