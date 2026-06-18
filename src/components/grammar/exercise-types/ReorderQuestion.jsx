@@ -2,10 +2,21 @@ import { useState } from 'react'
 import { validateAnswer } from '../../../utils/answerValidator'
 import { useG } from '@/i18n/gender'
 
+function extractOptionsFromQuestion(question) {
+  if (!question) return []
+  const colon = question.indexOf(':')
+  let raw = colon >= 0 ? question.slice(colon + 1).trim() : question.trim()
+  if (raw.startsWith('[') && raw.includes(']')) raw = raw.slice(1, raw.lastIndexOf(']'))
+  if (raw.includes(' / ')) return raw.split(' / ').map(w => w.trim()).filter(Boolean)
+  if (raw.includes('|')) return raw.split('|').map(w => w.trim()).filter(Boolean)
+  return []
+}
+
 export default function ReorderQuestion({ item, answer, onAnswer }) {
   const g = useG()
   const [selected, setSelected] = useState([])
-  const [available, setAvailable] = useState(item.options || [])
+  const rawOptions = item.options?.length ? item.options : extractOptionsFromQuestion(item.question)
+  const [available, setAvailable] = useState(rawOptions)
 
   const handleWordClick = (word) => {
     if (answer) return
