@@ -158,7 +158,7 @@ export default function WordDetailSheet({
         position: 'fixed',
         top: 0,
         bottom: 0,
-        insetInlineStart: 0, // left in RTL
+        left: 0,
         width: 'min(480px, 95vw)',
       }
 

@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { X, Volume2, Bookmark, Check } from 'lucide-react'
+import { X, Volume2, Bookmark, ExternalLink } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthProfileId } from '../../stores/authStore'
-import { addCard } from '../../services/vocab'
 import SmartAudioPlayer from './SmartAudioPlayer'
+import { computePopupPositionFromTap } from '../../lib/ui/computePopupPosition'
 
 // ── Vocab lookup ──────────────────────────────────────────────────────────────
 async function lookupVocab(word, readingId) {
@@ -83,24 +82,14 @@ function DesktopPopover({ vocab, word, loading, onClose, anchorPosition }) {
     return () => document.removeEventListener('mousedown', handler)
   }, [onClose])
 
-  // Sidebar-aware positioning
-  const POPUP_W = 360, POPUP_H = 480, MARGIN = 16
-  const BAR_H = typeof window !== 'undefined' && window.innerWidth < 768 ? 72 : 96
-  const sidebar = typeof document !== 'undefined'
-    ? document.querySelector('aside[role="navigation"]')
-    : null
-  const sidebarLeft = sidebar ? sidebar.getBoundingClientRect().left : null
-  const rightBoundary = sidebarLeft != null ? sidebarLeft - MARGIN : window.innerWidth - MARGIN
-  const bottomBoundary = window.innerHeight - BAR_H - MARGIN
-
+  // Sidebar-aware positioning via computePopupPosition utility
+  const POPUP_W = 360, POPUP_H = 480
   const anchorX = anchorPosition?.x ?? 200
   const anchorY = anchorPosition?.y ?? 200
-  let px = anchorX - POPUP_W / 2
-  let py = anchorY + 16
-  if (px + POPUP_W > rightBoundary) px = rightBoundary - POPUP_W
-  if (px < MARGIN) px = MARGIN
-  if (py + POPUP_H > bottomBoundary) py = anchorY - POPUP_H - 16
-  if (py < MARGIN) py = MARGIN
+  const { top: py, left: px } = computePopupPositionFromTap(
+    { x: anchorX, y: anchorY },
+    { width: POPUP_W, height: POPUP_H }
+  )
 
   const style = {
     position: 'fixed',
@@ -124,33 +113,6 @@ function DesktopPopover({ vocab, word, loading, onClose, anchorPosition }) {
 
 // ── Shared content ────────────────────────────────────────────────────────────
 function VocabContent({ vocab, word, loading, onClose }) {
-  const profileId = useAuthProfileId()
-  const [saved, setSaved] = useState(false)
-  const [saving, setSaving] = useState(false)
-
-  const handleSave = useCallback(async () => {
-    if (saved || saving || !profileId) return
-    setSaving(true)
-    try {
-      // Unified vocab store — the single save path (idempotent, reviewable).
-      await addCard(profileId, {
-        word: vocab?.word || word,
-        curriculumVocabularyId: vocab?.id || null,
-        meaningAr: vocab?.definition_ar || null,
-        contextSentence: vocab?.example_sentence || null,
-        source: 'reading',
-      })
-      setSaved(true)
-      try {
-        window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word: vocab?.word || word } }))
-      } catch { /* no-op */ }
-    } catch {
-      /* best-effort — keep button in "save" state for retry */
-    } finally {
-      setSaving(false)
-    }
-  }, [saved, saving, profileId, vocab, word])
-
   return (
     <div className="p-5 space-y-4" dir="rtl">
       {/* Header */}
@@ -239,17 +201,11 @@ function VocabContent({ vocab, word, loading, onClose }) {
           {/* Actions */}
           <div className="flex items-center gap-2 pt-1">
             <button
-              onClick={handleSave}
-              disabled={saving || saved}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs rounded-xl transition-colors font-['Tajawal'] disabled:opacity-60"
-              style={
-                saved
-                  ? { background: 'rgba(34,197,94,0.12)', color: '#22c55e' }
-                  : { background: 'rgba(56,189,248,0.1)', color: '#38bdf8' }
-              }
+              onClick={() => console.log('Save to flashcards not implemented yet', vocab.word)}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs rounded-xl bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 transition-colors font-['Tajawal']"
             >
-              {saved ? <Check size={13} /> : <Bookmark size={13} />}
-              {saved ? 'محفوظة في مفرداتي' : 'احفظ في مفرداتي'}
+              <Bookmark size={13} />
+              احفظ في مفرداتي
             </button>
           </div>
         </>
