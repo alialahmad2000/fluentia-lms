@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { computePopupPosition } from '../../lib/ui/computePopupPosition'
 
 export function WordPopover({
   word,
@@ -14,23 +15,8 @@ export function WordPopover({
 
   useEffect(() => {
     if (!rect) return
-    const popoverHeight = 140
-    const popoverWidth = 280
-    const gap = 12
-    const margin = 16
-
-    let top = rect.top - popoverHeight - gap + window.scrollY
-    let placement = 'top'
-
-    if (top < window.scrollY + margin) {
-      top = rect.bottom + gap + window.scrollY
-      placement = 'bottom'
-    }
-
-    let left = rect.left + rect.width / 2 - popoverWidth / 2
-    left = Math.max(margin, Math.min(left, window.innerWidth - popoverWidth - margin))
-
-    setPos({ top, left, placement })
+    const result = computePopupPosition(rect, { width: 280, height: 140 })
+    setPos(result)
   }, [rect])
 
   if (!rect) return null
@@ -43,7 +29,7 @@ export function WordPopover({
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.15 }}
         style={{
-          position: 'absolute',
+          position: 'fixed',
           top: pos.top,
           left: pos.left,
           width: 280,

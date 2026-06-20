@@ -313,6 +313,22 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-20 — FIX: reading MCQ correct answer always option A (shuffle choices)
+- What: In the reading section (both Article A and B), the correct answer was always the first option displayed (A) because `MCQQuestion` rendered `question.choices` in the exact DB-stored order, and the generator always places the correct answer first.
+- Root cause: No shuffle existed anywhere in the pipeline — not in the generator, DB insert, or frontend renderer.
+- Fix: Added a `useMemo` Fisher-Yates shuffle inside `MCQQuestion` keyed on `question.id`. Safe because grading compares by text value (`.toLowerCase().trim()` match), not by array index, so shuffling the display order never breaks scoring. Re-shuffles only when the question changes, not on every re-render.
+- Files: `src/pages/student/curriculum/tabs/ReadingTab.jsx` (MCQQuestion component, ~15 lines added)
+- DB: none — Edge Functions: none
+- Status: complete, pushed to main
+
+### 2026-06-19 — FIX: vocab popups covered by RTL sidebar on iPad
+- What: On iPad, tapping a vocabulary word showed the popup behind/under the right-side sidebar. Three files had broken sidebar-aware positioning.
+- Root cause (3 layers): (1) `WordPopover.jsx` used `position: absolute` with naive `window.innerWidth - width - margin` clamping that ignored the 264px RTL sidebar; (2) `VocabPopup.jsx` DesktopPopover used `document.querySelector('aside[role="navigation"]')` which silently returns null for Fluentia's sidebar (which uses `data-sidebar-root`), so the sidebar offset was never subtracted; (3) `WordDetailSheet.jsx` used `insetInlineStart: 0` — in RTL this maps to `right: 0` (sidebar side), so the panel slid in from the wrong side.
+- Fix: All three now use the existing `computePopupPosition` utility (`src/lib/ui/computePopupPosition.js`) which correctly reads the `--sidebar-width` CSS var. WordPopover switched to `position: fixed`. VocabPopup uses `computePopupPositionFromTap`. WordDetailSheet changed to `left: 0` (physical, always content side).
+- Files: `src/components/players/WordPopover.jsx`, `src/components/audio/VocabPopup.jsx`, `src/components/curriculum/word-detail/WordDetailSheet.jsx`
+- DB: none — Edge Functions: none
+- Status: complete, pushed to main
+
 ### 2026-06-18 — FIX: reorder grammar questions invisible (8 exercises had empty options)
 - What: Student Layan reported that in Unit 10 Grammar (adverbs of frequency), question 3 "رتّب الكلمات" showed no word chips to click — just a placeholder and a blank area. She couldn't arrange words into a sentence.
 - Root cause: 8 `curriculum_grammar_exercises` rows had `items[0].options = []` even though the words to arrange were embedded in the `question` field (e.g. "Put the words in the correct order: often / We / eat / French / bread"). `ReorderQuestion.jsx` did `useState(item.options || [])` → rendered zero chips from an empty array.

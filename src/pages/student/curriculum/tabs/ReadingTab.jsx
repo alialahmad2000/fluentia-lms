@@ -152,6 +152,7 @@ export default function ReadingTab({ unitId }) {
 // overwriting a previous completed row's score/status during a retry.
 function ReadingContent({ reading, studentId, unitId }) {
   const g = useG()
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const [savedProgress, setSavedProgress] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -1098,8 +1099,8 @@ function ReadingContent({ reading, studentId, unitId }) {
               className="w-full"
             />
           </div>
-          <p className="text-sm text-slate-500 text-center mt-2 italic font-['Inter']">
-            Infographic
+          <p className="text-[12px] text-slate-500 text-center mt-2 font-['Tajawal']" dir="rtl">
+            لمحة بصرية
           </p>
         </div>
       )}
@@ -1274,6 +1275,7 @@ function VocabTooltipPortal({ vocab, targetRef, onMouseEnter, onMouseLeave }) {
 
 // ─── Passage Display ─────────────────────────────────
 function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId, wordAssistanceEnabled = true, hoverEnabled = true }) {
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const [activeTooltip, setActiveTooltip] = useState(null)
   const [activeTooltipEl, setActiveTooltipEl] = useState(null)
   const [editingNote, setEditingNote] = useState(null)
@@ -1852,6 +1854,18 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
 // submit), the answer is locked and correctness is revealed. This is what
 // separates autosave (no grading) from submit (graded).
 function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer }) {
+  // Shuffle choices once per question so the correct answer isn't always option A.
+  // Safe because grading matches by text value, not by index position.
+  const shuffledChoices = useMemo(() => {
+    if (!question.choices?.length) return question.choices || []
+    const arr = [...question.choices]
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    return arr
+  }, [question.id]) // re-shuffle only when the question changes, not on every re-render
+
   const handleSelect = (choice) => {
     if (revealCorrect) return // locked after submit
     const correct = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
@@ -1884,7 +1898,7 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
 
       {/* Choices */}
       <div className="grid grid-cols-1 gap-2 mt-1">
-        {question.choices?.map((choice, i) => {
+        {shuffledChoices.map((choice, i) => {
           const isSelected = answer?.selected === choice
           const isCorrectAnswer = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
           // Correctness styling is ONLY revealed after explicit submit.

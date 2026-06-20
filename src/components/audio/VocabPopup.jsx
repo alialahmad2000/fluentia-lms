@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { X, Volume2, Bookmark, ExternalLink } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import SmartAudioPlayer from './SmartAudioPlayer'
+import { computePopupPositionFromTap } from '../../lib/ui/computePopupPosition'
 
 // ── Vocab lookup ──────────────────────────────────────────────────────────────
 async function lookupVocab(word, readingId) {
@@ -81,24 +82,14 @@ function DesktopPopover({ vocab, word, loading, onClose, anchorPosition }) {
     return () => document.removeEventListener('mousedown', handler)
   }, [onClose])
 
-  // Sidebar-aware positioning
-  const POPUP_W = 360, POPUP_H = 480, MARGIN = 16
-  const BAR_H = typeof window !== 'undefined' && window.innerWidth < 768 ? 72 : 96
-  const sidebar = typeof document !== 'undefined'
-    ? document.querySelector('aside[role="navigation"]')
-    : null
-  const sidebarLeft = sidebar ? sidebar.getBoundingClientRect().left : null
-  const rightBoundary = sidebarLeft != null ? sidebarLeft - MARGIN : window.innerWidth - MARGIN
-  const bottomBoundary = window.innerHeight - BAR_H - MARGIN
-
+  // Sidebar-aware positioning via computePopupPosition utility
+  const POPUP_W = 360, POPUP_H = 480
   const anchorX = anchorPosition?.x ?? 200
   const anchorY = anchorPosition?.y ?? 200
-  let px = anchorX - POPUP_W / 2
-  let py = anchorY + 16
-  if (px + POPUP_W > rightBoundary) px = rightBoundary - POPUP_W
-  if (px < MARGIN) px = MARGIN
-  if (py + POPUP_H > bottomBoundary) py = anchorY - POPUP_H - 16
-  if (py < MARGIN) py = MARGIN
+  const { top: py, left: px } = computePopupPositionFromTap(
+    { x: anchorX, y: anchorY },
+    { width: POPUP_W, height: POPUP_H }
+  )
 
   const style = {
     position: 'fixed',
