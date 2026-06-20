@@ -152,11 +152,7 @@ export default function ReadingTab({ unitId }) {
 // overwriting a previous completed row's score/status during a retry.
 function ReadingContent({ reading, studentId, unitId }) {
   const g = useG()
-  // readOnly must be read HERE (this component owns the save handlers). It was
-  // declared only in the parent ReadingTab, so the `if (readOnly) return` guards
-  // below threw ReferenceError inside a fire-and-forget callback → all reading
-  // saves silently failed for every student since 2026-06-06.
-  const { readOnly } = useCurriculumPreview()
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const [savedProgress, setSavedProgress] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -1103,8 +1099,8 @@ function ReadingContent({ reading, studentId, unitId }) {
               className="w-full"
             />
           </div>
-          <p className="text-sm text-slate-500 text-center mt-2 italic font-['Inter']">
-            Infographic
+          <p className="text-[12px] text-slate-500 text-center mt-2 font-['Tajawal']" dir="rtl">
+            لمحة بصرية
           </p>
         </div>
       )}
@@ -1279,7 +1275,7 @@ function VocabTooltipPortal({ vocab, targetRef, onMouseEnter, onMouseLeave }) {
 
 // ─── Passage Display ─────────────────────────────────
 function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId, wordAssistanceEnabled = true, hoverEnabled = true }) {
-  const { readOnly } = useCurriculumPreview() // owns the note-save guard; must be in-scope here (see ReadingContent note)
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const [activeTooltip, setActiveTooltip] = useState(null)
   const [activeTooltipEl, setActiveTooltipEl] = useState(null)
   const [editingNote, setEditingNote] = useState(null)
@@ -1735,33 +1731,6 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
     onComplete?.(answers, score)
   }
 
-  // Not all answered: guide to the first unanswered question instead of leaving a
-  // dead disabled button (the "my answer won't submit" report, ليان).
-  const handleFinish = () => {
-    if (submitted) return
-    if (!allAnswered) {
-      const missing = questions.find((q) => answers[q.id] == null)
-      if (missing) {
-        const el = document.getElementById(`read-q-${missing.id}`)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          el.style.transition = 'box-shadow .25s ease'
-          el.style.boxShadow = '0 0 0 2px #38bdf8'
-          setTimeout(() => { if (el) el.style.boxShadow = '' }, 1600)
-        }
-        const remaining = total - answered
-        toast({
-          type: 'info',
-          title: remaining === 1
-            ? 'باقٍ سؤال واحد بدون إجابة — انتقلنا له'
-            : `باقٍ ${remaining} أسئلة بدون إجابة — انتقلنا لأول سؤال`,
-        })
-      }
-      return
-    }
-    setConfirmOpen(true)
-  }
-
   if (progressLoading) {
     return (
       <div className="space-y-4">
@@ -1790,15 +1759,14 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
       </div>
       <div className="space-y-4">
         {questions.map((q, idx) => (
-          <div key={q.id} id={`read-q-${q.id}`} className="rounded-xl">
-            <MCQQuestion
-              question={q}
-              index={idx}
-              answer={answers[q.id]}
-              revealCorrect={submitted}
-              onAnswer={(ans) => setAnswers(prev => ({ ...prev, [q.id]: ans }))}
-            />
-          </div>
+          <MCQQuestion
+            key={q.id}
+            question={q}
+            index={idx}
+            answer={answers[q.id]}
+            revealCorrect={submitted}
+            onAnswer={(ans) => setAnswers(prev => ({ ...prev, [q.id]: ans }))}
+          />
         ))}
       </div>
 
@@ -1807,8 +1775,9 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
         <div className="flex flex-col items-center gap-2 pt-2">
           <button
             type="button"
-            onClick={handleFinish}
-            className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95"
+            onClick={() => allAnswered && setConfirmOpen(true)}
+            disabled={!allAnswered}
+            className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               background: allAnswered ? '#38bdf8' : 'rgba(255,255,255,0.05)',
               color: allAnswered ? '#0a1225' : '#94a3b8',
@@ -1885,6 +1854,18 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
 // submit), the answer is locked and correctness is revealed. This is what
 // separates autosave (no grading) from submit (graded).
 function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer }) {
+  // Shuffle choices once per question so the correct answer isn't always option A.
+  // Safe because grading matches by text value, not by index position.
+  const shuffledChoices = useMemo(() => {
+    if (!question.choices?.length) return question.choices || []
+    const arr = [...question.choices]
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    return arr
+  }, [question.id]) // re-shuffle only when the question changes, not on every re-render
+
   const handleSelect = (choice) => {
     if (revealCorrect) return // locked after submit
     const correct = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
@@ -1917,7 +1898,7 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
 
       {/* Choices */}
       <div className="grid grid-cols-1 gap-2 mt-1">
-        {question.choices?.map((choice, i) => {
+        {shuffledChoices.map((choice, i) => {
           const isSelected = answer?.selected === choice
           const isCorrectAnswer = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
           // Correctness styling is ONLY revealed after explicit submit.
