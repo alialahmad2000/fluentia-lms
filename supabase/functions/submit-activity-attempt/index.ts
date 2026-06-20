@@ -110,16 +110,18 @@ Deno.serve(async (req) => {
     const gradedDetails: any[] = []
 
     for (const q of questions) {
-      const studentAnswer = studentAnswers[q.id] ?? null
+      // DB questions use question_number (not id) as the key
+      const questionKey = q.id ?? String(q.question_number)
+      const studentAnswer = studentAnswers[questionKey] ?? null
       const isCorrect = gradeQuestion(
-        q.question_type ?? "mcq",
+        q.type ?? q.question_type ?? "mcq",
         q.correct_answer,
         q.accepted_answers ?? null,
         studentAnswer,
       )
       if (isCorrect) correctCount++
       gradedDetails.push({
-        question_id:    q.id,
+        question_id:    questionKey,
         student_answer: studentAnswer,
         correct_answer: q.correct_answer,
         is_correct:     isCorrect,

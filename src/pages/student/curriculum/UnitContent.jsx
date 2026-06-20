@@ -31,6 +31,7 @@ const SpeakingTab = lazyRetry(() => import('./tabs/SpeakingTab'))
 // Tab definition, lazy import, and render case retained as comments for revival.
 // const PronunciationTab = lazyRetry(() => import('./tabs/PronunciationTab'))
 const RecordingTab = lazyRetry(() => import('../../../components/curriculum/RecordingTab'))
+const AssessmentTab = lazyRetry(() => import('./tabs/AssessmentTab'))
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
 import {
   TrophyButton,
@@ -57,6 +58,7 @@ const TABS = [
   // PRONUNCIATION-HIDDEN 2026-05-19 — tab hidden from student-facing nav.
   // { id: 'pronunciation', label: 'النطق' },
   { id: 'recording', label: 'التسجيل' },
+  { id: 'assessment', label: 'اختبار الوحدة' },
 ]
 
 const LEVEL_NAMES = {
@@ -286,6 +288,7 @@ export default function UnitContent() {
       // PRONUNCIATION-HIDDEN 2026-05-19 — defensive fallback (the tab is gone from nav).
       // case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} onBack={handleBackToGrid} /></>
       case 'recording':    return <RecordingTab unitId={unitId} />
+      case 'assessment':   return <>{ribbon}<AssessmentTab unitId={unitId} /></>
       default:             return <ActivityFallbackEmpty reason="unknown_activity" onBack={handleBackToGrid} />
     }
   }
