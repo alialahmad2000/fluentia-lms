@@ -313,6 +313,13 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-20 — FIX: impersonation banner disappears (localStorage + safe restore)
+- What: Admin's orange "أنت تتصفح كـ …" banner disappeared mid-session or after PWA reopen, leaving admin stuck as the student with no exit.
+- Root cause (2 bugs): (1) `fluentia_impersonation` was stored in **sessionStorage** (tab-scoped) — iOS Safari PWA tab kills discard it, so banner never restores after reopen. (2) `restoreImpersonation` destructively checked `state.profile?.role !== 'admin'`: if `fetchProfile` timed out (profile=null), `null?.role !== 'admin'` → true → KEY DELETED permanently. Also: SIGNED_IN event called `fetchProfile` unconditionally, which would overwrite the impersonated student's profile with the admin's real profile.
+- Fix: (a) `startImpersonation` + `stopImpersonation` → `localStorage` instead of sessionStorage. (b) `restoreImpersonation` is now idempotent (returns early if already active), migrates old sessionStorage keys, and only clears the key when the session is CONFIRMED non-admin (user AND profile both loaded AND role ≠ admin); returns WITHOUT clearing if user/profile is null. (c) `onAuthStateChange SIGNED_IN` handler skips `fetchProfile` if impersonating, then calls `restoreImpersonation` (idempotent — handles slow-boot retry).
+- Files: `src/stores/authStore.js` — DB/edge: none
+- Status: complete, pushed to main (commit `8245ddb`)
+
 ### 2026-06-20 — FIX: assessment tab non-functional (created AssessmentTab + fixed edge fn grading)
 - What: Unit assessment/exam tab was completely broken — component never existed, edge function graded all answers 0%.
 - Root cause (3 layers): (1) `AssessmentTab.jsx` was never created — `UnitContent.jsx` had no import or switch case for it; (2) `submit-activity-attempt` keyed student answers by `q.id` which is always undefined in DB (DB uses `question_number`, not `id`) so every answer graded as wrong; (3) question type field used `q.question_type` (wrong — DB field is `q.type`), though this accidentally worked by falling through to "mcq" default.
