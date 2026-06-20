@@ -313,6 +313,15 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-06-20 — FIX: assessment tab non-functional (created AssessmentTab + fixed edge fn grading)
+- What: Unit assessment/exam tab was completely broken — component never existed, edge function graded all answers 0%.
+- Root cause (3 layers): (1) `AssessmentTab.jsx` was never created — `UnitContent.jsx` had no import or switch case for it; (2) `submit-activity-attempt` keyed student answers by `q.id` which is always undefined in DB (DB uses `question_number`, not `id`) so every answer graded as wrong; (3) question type field used `q.question_type` (wrong — DB field is `q.type`), though this accidentally worked by falling through to "mcq" default.
+- Fix: Created `src/pages/student/curriculum/tabs/AssessmentTab.jsx` (full premium quiz flow: first-time CTA, resume in-progress, view history, QuizPlayer with per-question nav, result review with correct-answer explanations). Wired into `UnitContent.jsx` (lazy import + TABS entry `{ id: 'assessment', label: 'اختبار الوحدة' }` + switch case). Fixed edge function: `q.id ?? String(q.question_number)` as answer key, `q.type ?? q.question_type ?? "mcq"` for type.
+- Files: NEW `src/pages/student/curriculum/tabs/AssessmentTab.jsx`; modified `src/pages/student/curriculum/UnitContent.jsx` (3 edits), `supabase/functions/submit-activity-attempt/index.ts`
+- DB: none (78 rows in `curriculum_assessments` already existed)
+- Edge Functions: `submit-activity-attempt` deployed to Supabase (project nmjexpuycmqcxuxljier)
+- Status: complete — pushed to main (commit `08b94c0b5836ce1054aabb8138f7fce10bd75853`), Vercel deployed
+
 ### 2026-06-20 — FIX: reading MCQ correct answer always option A (shuffle choices)
 - What: In the reading section (both Article A and B), the correct answer was always the first option displayed (A) because `MCQQuestion` rendered `question.choices` in the exact DB-stored order, and the generator always places the correct answer first.
 - Root cause: No shuffle existed anywhere in the pipeline — not in the generator, DB insert, or frontend renderer.
