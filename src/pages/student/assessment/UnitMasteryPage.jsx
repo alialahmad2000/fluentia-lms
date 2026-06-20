@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useAuthProfile } from '../../../stores/authStore'
+import { useAuthProfile, useAuthStore } from '../../../stores/authStore'
 import { useG } from '../../../i18n/gender'
 import { supabase } from '../../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -170,6 +170,7 @@ export default function UnitMasteryPage() {
   const { assessmentId } = useParams()
   const navigate = useNavigate()
   const profile = useAuthProfile()
+  const impersonation = useAuthStore((s) => s.impersonation)
   const g = useG()
   const [attemptId, setAttemptId] = useState(null)
   const [questions, setQuestions] = useState([])
@@ -199,7 +200,11 @@ export default function UnitMasteryPage() {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${session.access_token}`,
             },
-            body: JSON.stringify({ assessment_id: assessmentId }),
+            body: JSON.stringify({
+              assessment_id: assessmentId,
+              // When admin is impersonating, auth token is admin's — pass student id so edge fn uses correct student
+              ...(impersonation ? { as_student_id: profile?.id } : {}),
+            }),
           }
         )
         const data = await res.json()
