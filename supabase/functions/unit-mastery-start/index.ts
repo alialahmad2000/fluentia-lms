@@ -38,14 +38,28 @@ Deno.serve(async (req) => {
       });
     }
 
-    const userId = user.id;
+    const callerId = user.id;
     const db = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
-    const { assessment_id } = await req.json();
+    const body = await req.json();
+    const { assessment_id, as_student_id } = body;
 
     if (!assessment_id) {
       return new Response(JSON.stringify({ error: "assessment_id required" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+
+    // Support admin/trainer impersonation — caller provides as_student_id, we verify the caller's role
+    let userId = callerId;
+    if (as_student_id && as_student_id !== callerId) {
+      const { data: callerProfile } = await db
+        .from("profiles")
+        .select("role")
+        .eq("id", callerId)
+        .single();
+      if (callerProfile?.role === "admin" || callerProfile?.role === "trainer") {
+        userId = as_student_id;
+      }
     }
 
     // Fetch assessment config (includes new columns from v2 migration)
@@ -62,17 +76,46 @@ Deno.serve(async (req) => {
       });
     }
 
-    // 1) Activity completion gate (preserve existing fn)
-    const { data: activityPct } = await db.rpc("fn_unit_activity_completion", {
-      p_student_id: userId,
-      p_unit_id: assessment.unit_id,
-    });
+    // 1) Activity completion gate — inline check (excludes pronunciation + recording which are optional/hidden)
+    const REQUIRED_SECTIONS = ["reading", "grammar", "writing", "listening", "speaking"] as const;
+    const TABLE_MAP: Record<string, string> = {
+      reading: "curriculum_readings",
+      grammar: "curriculum_grammar",
+      writing: "curriculum_writing",
+      listening: "curriculum_listening",
+      speaking: "curriculum_speaking",
+    };
+
+    // Count which required sections have content for this unit
+    const sectionChecks = await Promise.all(
+      REQUIRED_SECTIONS.map(async (section) => {
+        const { count } = await db
+          .from(TABLE_MAP[section])
+          .select("id", { count: "exact", head: true })
+          .eq("unit_id", assessment.unit_id);
+        return (count ?? 0) > 0 ? section : null;
+      })
+    );
+    const requiredSections = sectionChecks.filter(Boolean) as string[];
+    const totalSections = requiredSections.length;
+
+    // Count which of those the student has completed
+    const { data: completedRows } = await db
+      .from("student_curriculum_progress")
+      .select("section_type")
+      .eq("student_id", userId)
+      .eq("unit_id", assessment.unit_id)
+      .not("completed_at", "is", null)
+      .in("section_type", requiredSections);
+
+    const doneSections = new Set((completedRows ?? []).map((r: any) => r.section_type)).size;
+    const activityPct = totalSections > 0 ? Math.round((doneSections / totalSections) * 100) : 0;
 
     const requiredPct = assessment.unlock_threshold_percent ?? 70;
-    if ((activityPct ?? 0) < requiredPct) {
+    if (activityPct < requiredPct) {
       return errResp("cannot_start", {
         reason: "activities_incomplete",
-        current_pct: activityPct ?? 0,
+        current_pct: activityPct,
         required_pct: requiredPct,
         message: `أكملي ${requiredPct}% من أنشطة الوحدة لفتح الاختبار`,
       });
