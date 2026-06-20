@@ -15,41 +15,6 @@ const withTimeout = (promise, ms, label) =>
     ),
   ])
 
-// ── Impersonation persistence ──────────────────────────────────────────────────
-// MUST live in localStorage, NOT sessionStorage. The impersonation swaps the
-// REAL Supabase session, which itself persists in localStorage (shared across
-// tabs, survives tab/process kills). Keeping the banner marker + admin restore
-// tokens in sessionStorage (tab-scoped) caused the "stuck as the student" bug:
-// after a while iOS/Safari discards the tab, or the PWA reopens in a fresh
-// context → sessionStorage is wiped → the student session persists with NO
-// banner and no way back to the admin account except a full logout/login.
-const IMP_META_KEY = 'fluentia_impersonation'
-const IMP_RESTORE_KEY = 'fluentia_admin_restore'
-
-const impGet = (key) => {
-  // localStorage is canonical; fall back to sessionStorage so an impersonation
-  // started on the previous (sessionStorage) build migrates seamlessly.
-  try {
-    const v = window.localStorage.getItem(key)
-    if (v != null) return v
-  } catch { /* ignore */ }
-  try {
-    const v = window.sessionStorage.getItem(key)
-    if (v != null) {
-      try { window.localStorage.setItem(key, v) } catch { /* ignore */ }
-      return v
-    }
-  } catch { /* ignore */ }
-  return null
-}
-const impSet = (key, value) => {
-  try { window.localStorage.setItem(key, value) } catch { /* ignore */ }
-}
-const impRemove = (key) => {
-  try { window.localStorage.removeItem(key) } catch { /* ignore */ }
-  try { window.sessionStorage.removeItem(key) } catch { /* ignore */ }
-}
-
 export const useAuthStore = create((set, get) => ({
   user: null,
   profile: null,
@@ -119,12 +84,14 @@ export const useAuthStore = create((set, get) => ({
         if (typeof window !== 'undefined' && window.location.pathname === '/reset-password') {
           return
         }
-        await get().fetchProfile(session.user)
+        // Skip fetchProfile while impersonating — it would overwrite the student's profile with admin's
+        if (!get().impersonation) {
+          await get().fetchProfile(session.user)
+        }
+        // Re-run restore in case a slow/failed boot left the banner missing (idempotent)
+        await get().restoreImpersonation()
         // Initialize activity tracker
         tracker.init(session.user.id)
-        // Re-attach the impersonation banner if the session arrived AFTER the
-        // boot-time restore ran (e.g. getSession was slow at startup). Idempotent.
-        try { await get().restoreImpersonation() } catch { /* ignore */ }
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
         // Token refresh only changes the auth header — data is still valid.
         // Supabase JS auto-injects the new JWT on every subsequent request, so
@@ -209,99 +176,139 @@ export const useAuthStore = create((set, get) => ({
     try { window.localStorage.removeItem('fluentia-query-cache-v1') } catch (_) {}
   },
 
-  // ── Impersonation (REAL session) ──
-  // "View as student" swaps the ACTUAL Supabase session to the target so auth.uid()
-  // becomes them — the only way student-scoped writes (RLS / SECURITY DEFINER RPCs)
-  // persist during preview. The admin's session is stashed in sessionStorage and
-  // restored on exit. Callers (ImpersonateButton / ImpersonationBanner) do a full
-  // page reload after these resolve, so init()/restoreImpersonation() rebuild state.
+  // ── Impersonation ──
   startImpersonation: async (userId, role, name) => {
     const state = get()
-    // 1) snapshot the admin session so we can return to it on exit
-    const { data: { session: adminSession } } = await supabase.auth.getSession()
-    if (!adminSession) throw new Error('انتهت جلستك — سجّلي الدخول من جديد')
-
-    // 2) backend mints a one-time login token for the target (verifies caller is admin)
-    const { data, error } = await supabase.functions.invoke('impersonate', {
-      body: { target_user_id: userId },
+    // Save admin's real data
+    set({
+      _realProfile: state.profile,
+      _realStudentData: state.studentData,
+      _realTrainerData: state.trainerData,
+      impersonation: { userId, role, name, returnPath: window.location.pathname },
     })
-    if (error) throw new Error(error.message || 'تعذّر بدء المعاينة')
-    if (data?.error) throw new Error(data.error)
-    if (!data?.token_hash) throw new Error('تعذّر بدء المعاينة')
 
-    // 3) stash restore + meta BEFORE swapping the session
-    impSet(IMP_RESTORE_KEY, JSON.stringify({
-      access_token: adminSession.access_token,
-      refresh_token: adminSession.refresh_token,
-    }))
-    impSet(IMP_META_KEY, JSON.stringify({
+    // Persist to localStorage (not sessionStorage) — survives PWA tab discard / iOS kill
+    localStorage.setItem('fluentia_impersonation', JSON.stringify({
       userId, role, name, returnPath: window.location.pathname,
-      adminProfile: state.profile
-        ? { id: state.profile.id, role: state.profile.role, full_name: state.profile.full_name, email: state.profile.email }
-        : null,
     }))
 
-    // 4) become the target — REAL session (writes now persist as them)
-    const { error: vErr } = await supabase.auth.verifyOtp({
-      token_hash: data.token_hash,
-      type: data.type || 'magiclink',
-    })
-    if (vErr) {
-      impRemove(IMP_RESTORE_KEY)
-      impRemove(IMP_META_KEY)
-      throw vErr
+    // Fetch impersonated user's profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single()
+
+    if (!profile) return
+
+    set({ profile })
+
+    if (role === 'student') {
+      const { data: studentData } = await supabase
+        .from('students')
+        .select('*, groups(*)')
+        .eq('id', userId)
+        .single()
+      set({ studentData: studentData || null, trainerData: null })
+    } else if (role === 'trainer') {
+      const { data: trainerData } = await supabase
+        .from('trainers')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      set({ trainerData: trainerData || null, studentData: null })
     }
-    // caller reloads → init() loads the target session, restoreImpersonation() shows the banner
   },
 
-  stopImpersonation: async () => {
+  stopImpersonation: () => {
     const state = get()
     const returnPath = state.impersonation?.returnPath || '/admin'
-    let restore = null
-    try { restore = JSON.parse(impGet(IMP_RESTORE_KEY) || 'null') } catch { /* ignore */ }
-    impRemove(IMP_META_KEY)
-    impRemove(IMP_RESTORE_KEY)
-    set({ impersonation: null, _realProfile: null, _realStudentData: null, _realTrainerData: null })
-    // restore the admin's real session (or fall back to a clean sign-out)
-    try {
-      if (restore?.refresh_token) {
-        await supabase.auth.setSession({
-          access_token: restore.access_token,
-          refresh_token: restore.refresh_token,
-        })
-      } else {
-        await supabase.auth.signOut()
-      }
-    } catch {
-      try { await supabase.auth.signOut() } catch { /* ignore */ }
-    }
+    set({
+      profile: state._realProfile,
+      studentData: state._realStudentData,
+      trainerData: state._realTrainerData,
+      impersonation: null,
+      _realProfile: null,
+      _realStudentData: null,
+      _realTrainerData: null,
+    })
+    localStorage.removeItem('fluentia_impersonation')
     return returnPath
   },
 
-  // Restore the impersonation banner on reload. With the real-session model the
-  // active session already IS the target; we just re-attach the banner + the saved
-  // admin profile (so role-guard helpers that read _realProfile keep working).
+  // Restore impersonation from localStorage on init (idempotent — safe to call multiple times)
   restoreImpersonation: async () => {
-    const stored = impGet(IMP_META_KEY)
+    // Already active in this session — nothing to do
+    if (get().impersonation) return
+
+    // Migrate any in-flight sessionStorage key from old builds
+    try {
+      const old = sessionStorage.getItem('fluentia_impersonation')
+      if (old) {
+        localStorage.setItem('fluentia_impersonation', old)
+        sessionStorage.removeItem('fluentia_impersonation')
+      }
+    } catch { /* ignore — sessionStorage may be unavailable (private mode edge cases) */ }
+
+    const stored = localStorage.getItem('fluentia_impersonation')
     if (!stored) return
-    let meta
-    try { meta = JSON.parse(stored) } catch { impRemove(IMP_META_KEY); return }
-    const cur = get()
-    // Validate against the SESSION user (cur.user), NOT the profile: the profile
-    // fetch can fail transiently (timeout / flaky network) and a transient failure
-    // must never delete the admin's restore tokens — that's a one-way door that
-    // strands the admin inside the student account.
-    if (!cur.user) return // no session loaded right now — keep keys, re-validate on next boot
-    if (cur.user.id !== meta.userId) {
-      // session is genuinely someone else (e.g. the admin again) — flag is stale
-      impRemove(IMP_META_KEY)
-      impRemove(IMP_RESTORE_KEY)
-      return
+
+    try {
+      const { userId, role, name, returnPath } = JSON.parse(stored)
+      const state = get()
+
+      // Guards — ordered from least to most destructive:
+      // 1. No session at all: profile fetch may have timed out. Return WITHOUT clearing
+      //    so the next SIGNED_IN event can retry.
+      if (!state.user) return
+      // 2. Session exists but profile not loaded yet (transient timeout/flaky network).
+      //    Return WITHOUT clearing — we can't confirm identity yet.
+      if (!state.profile) return
+      // 3. Session is a confirmed non-admin user (different person / wrong account).
+      //    Only THEN is it safe to discard the stale marker.
+      if (state.profile.role !== 'admin') {
+        localStorage.removeItem('fluentia_impersonation')
+        return
+      }
+
+      // Admin confirmed — restore
+      set({
+        _realProfile: state.profile,
+        _realStudentData: state.studentData,
+        _realTrainerData: state.trainerData,
+        impersonation: { userId, role, name, returnPath },
+      })
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      if (!profile) {
+        localStorage.removeItem('fluentia_impersonation')
+        set({ impersonation: null, _realProfile: null, _realStudentData: null, _realTrainerData: null })
+        return
+      }
+      set({ profile })
+
+      if (role === 'student') {
+        const { data: studentData } = await supabase
+          .from('students')
+          .select('*, groups(*)')
+          .eq('id', userId)
+          .single()
+        set({ studentData: studentData || null, trainerData: null })
+      } else if (role === 'trainer') {
+        const { data: trainerData } = await supabase
+          .from('trainers')
+          .select('*')
+          .eq('id', userId)
+          .single()
+        set({ trainerData: trainerData || null, studentData: null })
+      }
+    } catch {
+      localStorage.removeItem('fluentia_impersonation')
     }
-    set({
-      _realProfile: meta.adminProfile || null,
-      impersonation: { userId: meta.userId, role: meta.role, name: meta.name, returnPath: meta.returnPath },
-    })
   },
 
   setProfile: (profile) => set({ profile }),
@@ -317,8 +324,6 @@ export const useAuthStore = create((set, get) => ({
     return ['trainer', 'admin'].includes(s.profile?.role)
   },
   isStudent: () => get().profile?.role === 'student',
-  isAgent: () => get().profile?.role === 'agent',
-  isCoordinator: () => get().profile?.role === 'coordinator',
   isImpersonating: () => !!get().impersonation,
 }))
 
@@ -356,8 +361,6 @@ export const useIsTrainer = () =>
     return ['trainer', 'admin'].includes(s.profile?.role)
   })
 export const useIsStudent = () => useAuthStore((s) => s.profile?.role === 'student')
-export const useIsAgent = () => useAuthStore((s) => s.profile?.role === 'agent')
-export const useIsCoordinator = () => useAuthStore((s) => s.profile?.role === 'coordinator')
 export const useIsImpersonating = () => useAuthStore((s) => !!s.impersonation)
 
 // Action-only hook — actions are stable references, useShallow keeps the
