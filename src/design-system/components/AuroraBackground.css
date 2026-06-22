@@ -165,6 +165,23 @@
   .velvet-atmo__orb--2 { animation-duration: 200s; }
 }
 
+/* ── Touch devices (phones & tablets, ANY orientation): freeze the drift +
+   drop the mix-blend grain. The (max-width: 768px) rule above misses tablets in
+   LANDSCAPE (e.g. an Android tablet at 1200px), which then ran all 3 animating
+   orbs + the blend-mode grain. On Android the browser toolbar fires window
+   'resize' on every scroll → fixed full-screen layers re-rasterize, and a
+   continuously-animating orb + a mix-blend-mode layer over scrolling content
+   makes the WHOLE page flicker ("الشاشة غير ثابتة في التابلت"). This mirrors the
+   AmbientParticles (pointer: coarse) skip; desktop (fine pointer) keeps the
+   full ambiance. Reported by نادية (Android tablet) 2026-06-22. ── */
+@media (pointer: coarse) {
+  .velvet-atmo__orb {
+    animation: none !important;
+    will-change: auto;
+  }
+  .velvet-atmo__grain { display: none; }
+}
+
 /* ── Optional variant tuning ── */
 .velvet-atmo--subtle .velvet-atmo__orb  { opacity: 0.6; }
 .velvet-atmo--intense .velvet-atmo__orb { opacity: 1.2; }
