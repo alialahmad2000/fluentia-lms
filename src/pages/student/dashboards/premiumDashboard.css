@@ -226,3 +226,266 @@
   overflow: hidden;
   height: 100%;
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   CINEMATIC HOME — "رحلتك" image-rich journey (hero · track · tiles)
+   Every value below is explicit rgba (no color-mix → iOS < 16.4 safe).
+   Only transform/opacity animate; all motion is reduced-motion gated.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── 1 · Cinematic hero (real next-unit cover, Ken-Burns + scrim) ───── */
+.sd-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  isolation: isolate;
+  border: 1px solid var(--ds-border-subtle);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 30px 70px -30px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+@media (max-width: 640px) { .sd-hero { min-height: 480px; border-radius: 24px; } }
+
+.sd-hero__media {
+  position: absolute;
+  inset: -4%;                 /* slight bleed so the Ken-Burns never shows an edge */
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transform: scale(1.04);
+  animation: sd-kenburns 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.sd-hero__media--empty {
+  background:
+    radial-gradient(120% 90% at 75% 0%, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(120% 90% at 0% 100%, rgba(167, 139, 250, 0.18), transparent 60%),
+    var(--ds-bg-elevated);
+  animation: none;
+}
+
+/* layered scrim: dark floor for legibility + a time-of-day colour wash on top */
+.sd-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* readable floor pushed up to where the greeting/eyebrow actually render */
+  background:
+    linear-gradient(0deg, rgba(3, 7, 18, 0.96) 0%, rgba(3, 7, 18, 0.80) 30%, rgba(3, 7, 18, 0.40) 55%, rgba(3, 7, 18, 0.16) 76%, rgba(3, 7, 18, 0.42) 100%),
+    radial-gradient(120% 80% at 50% 120%, rgba(0, 0, 0, 0.55), transparent 60%);
+  pointer-events: none;
+}
+.sd-hero__wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+/* film grain (tiny SVG, tiled) — the curriculum's signature texture */
+.sd-hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.10;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+.sd-hero__hair {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  pointer-events: none;
+}
+.sd-hero__body { position: relative; z-index: 4; padding: clamp(20px, 4vw, 36px); }
+
+@keyframes sd-kenburns {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to   { transform: scale(1.13) translate3d(-1.5%, -2%, 0); }
+}
+
+/* gold CTA — dimensional metal, shared sheen with .pd-cta */
+.sd-cta {
+  position: relative;
+  overflow: hidden;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 240ms ease;
+}
+.sd-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 50%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* ── 2 · Journey track — horizontal cinematic campaign rail ─────────── */
+.sd-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 2px 18px;       /* room for the hover lift + shadows */
+  scrollbar-width: none;
+}
+.sd-track::-webkit-scrollbar { display: none; }
+
+.sd-node {
+  position: relative;
+  flex: 0 0 auto;
+  width: 168px;
+  height: 224px;
+  scroll-snap-align: start;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  isolation: isolate;
+  border: 1px solid var(--ds-border-subtle);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 30px -16px rgba(0, 0, 0, 0.6);
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 260ms ease;
+}
+@media (max-width: 640px) { .sd-node { width: 150px; height: 206px; } }
+
+.sd-node__media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sd-node__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(3, 7, 18, 0.95) 4%, rgba(3, 7, 18, 0.55) 40%, rgba(3, 7, 18, 0.15) 72%);
+  pointer-events: none;
+}
+.sd-node__body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.sd-node:not(.sd-node--locked):hover {
+  transform: translateY(-6px);
+  border-color: var(--ds-border-strong);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 22px 48px -18px rgba(0, 0, 0, 0.7);
+}
+.sd-node:not(.sd-node--locked):hover .sd-node__media { transform: scale(1.07); }
+
+.sd-node--current {
+  border-color: rgba(251, 191, 36, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(251, 191, 36, 0.55),
+    0 16px 40px -14px rgba(251, 191, 36, 0.45),
+    0 14px 30px -16px rgba(0, 0, 0, 0.6);
+  /* alive on arrival — 3 settle-pulses, then rests on the static gold glow */
+  animation: sd-current-glow 2.6s ease-in-out 3;
+}
+@keyframes sd-current-glow {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.45), 0 16px 40px -16px rgba(251, 191, 36, 0.35), 0 14px 30px -16px rgba(0, 0, 0, 0.6); }
+  50%      { box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.85), 0 18px 50px -12px rgba(251, 191, 36, 0.6), 0 14px 30px -16px rgba(0, 0, 0, 0.6); }
+}
+.sd-node--completed .sd-node__media { filter: saturate(1.04); }
+.sd-node--locked { cursor: default; }
+.sd-node--locked .sd-node__media { filter: grayscale(0.7) brightness(0.5); }
+
+/* small status pill (top of each node) */
+.sd-pill {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.sd-pill--current { background: rgba(251, 191, 36, 0.92); color: #1a1206; }
+.sd-pill--done    { background: rgba(74, 222, 128, 0.20); color: #bbf7d0; border: 1px solid rgba(74, 222, 128, 0.4); }
+.sd-pill--locked  { background: rgba(255, 255, 255, 0.12); color: rgba(248, 250, 252, 0.7); }
+
+/* thin progress bar pinned to the bottom of a node */
+.sd-node__bar {
+  position: relative;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+  margin-top: 8px;
+}
+.sd-node__bar > span {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fcd34d, #fbbf24);
+}
+
+/* ── 3 · Discover tiles — image/gradient-backed destinations ────────── */
+.sd-disc {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 20px;
+  min-height: 132px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  text-decoration: none;
+  border: 1px solid var(--ds-border-subtle);
+  background: var(--ds-surface-2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 240ms ease, box-shadow 240ms ease;
+}
+.sd-disc__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.sd-disc > * { position: relative; z-index: 1; }
+.sd-disc:hover {
+  transform: translateY(-4px);
+  border-color: var(--ds-border-strong);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -20px rgba(0, 0, 0, 0.7);
+}
+.sd-disc__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+}
+
+/* ── reduced motion: still beautiful, just still ───────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .sd-hero__media { animation: none !important; transform: scale(1.04); }
+  .sd-node--current { animation: none !important; }
+  .sd-node__media, .sd-node, .sd-disc, .sd-cta { transition: none !important; }
+}
