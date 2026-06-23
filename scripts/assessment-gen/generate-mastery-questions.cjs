@@ -99,7 +99,20 @@ async function loadOrDiscover() {
 }
 
 // ── System prompt ─────────────────────────────────────────────────────────
+const CEFR_BY_LEVEL = { 0: 'Pre-A1', 1: 'A1', 2: 'A2', 3: 'B1', 4: 'B2', 5: 'C1' };
+const DIFFICULTY_BY_LEVEL = {
+  0: 'Very simple. ≤10 words per question stem. Concrete everyday words only.',
+  1: 'Simple. ≤12 words per stem. Basic present tense, everyday vocabulary.',
+  2: 'Elementary. ≤14 words per stem. Everyday topics, simple past/future, common collocations.',
+  3: 'Intermediate. ≤18 words per stem. Opinions, reasons, less-common vocabulary, mild inference.',
+  4: 'Upper-intermediate. ≤22 words per stem. Nuance, inference, phrasal verbs, near-synonym distinctions, some abstract topics.',
+  5: 'Advanced. ≤26 words per stem. Subtle nuance, idiom, register, inference across the passage, fine shades of meaning.',
+};
+
 function buildSystemPrompt(snapshot, hasGrammar) {
+  const lvlNum = snapshot.level?.level_number ?? 0;
+  const cefr = CEFR_BY_LEVEL[lvlNum] ?? 'A1';
+  const difficulty = DIFFICULTY_BY_LEVEL[lvlNum] ?? DIFFICULTY_BY_LEVEL[1];
   const vocabList = snapshot.vocabulary.slice(0, 30)
     .map(w => `  - "${w.word}" (${w.pos}) → ${w.meaning_ar} | e.g. "${w.example_sentence}"`).join('\n');
 
@@ -117,9 +130,9 @@ function buildSystemPrompt(snapshot, hasGrammar) {
 
   const dist = hasGrammar ? '4 vocabulary + 3 grammar + 3 reading' : '5 vocabulary + 0 grammar + 5 reading';
 
-  return `You generate end-of-unit mastery assessment questions for Arabic-speaking English learners at CEFR Pre-A1.
+  return `You generate end-of-unit mastery assessment questions for Arabic-speaking English learners at CEFR ${cefr}.
 
-LEARNER: Native Arabic speaker, Pre-A1 English, adult (Saudi Arabia).
+LEARNER: Native Arabic speaker, ${cefr} English, adult (Saudi Arabia).
 
 UNIT CONTENT:
 VOCABULARY:
@@ -148,7 +161,7 @@ RULES:
 4. fill_blank: 2-4 accepted answer forms.
 5. matching: EXACTLY 4 pairs. left=English, right=Arabic.
 6. Every question: 1-sentence Arabic explanation in explanation_ar.
-7. CEFR Pre-A1: ≤10 words per question stem.
+7. Difficulty: CEFR ${cefr}. ${difficulty}
 8. MCQ correct_answer: option id string ("a","b","c","d").
 9. true_false correct_answer: boolean true or false (NOT string).
 10. fill_blank correct_answer: the correct word (string).
@@ -359,6 +372,18 @@ async function main() {
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   await db.connect();
   const snapshot = await loadOrDiscover();
+
+  // Idempotent re-run guard: if this assessment already has questions, skip BEFORE generating.
+  // (Generation is the expensive part — this makes resuming after a partial/credit failure free
+  //  for units already done, so re-running the whole batch only generates the units still missing.)
+  if (!DRY_RUN) {
+    const pre = (await db.query(
+      `SELECT COUNT(*)::int AS n FROM unit_mastery_questions WHERE variant_id IN (SELECT id FROM unit_mastery_variants WHERE assessment_id = $1)`,
+      [snapshot.assessment.id]
+    )).rows[0].n;
+    if (pre > 0) { console.log(`[Unit ${UNIT}] already has ${pre} questions — skipping (idempotent).`); await db.end(); return; }
+  }
+
   const hasGrammar = !!snapshot.grammar;
   const systemPrompt = buildSystemPrompt(snapshot, hasGrammar);
 

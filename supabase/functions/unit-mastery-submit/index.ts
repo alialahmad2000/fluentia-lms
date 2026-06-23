@@ -198,18 +198,10 @@ Deno.serve(async (req) => {
       related_id: attempt_id,
     });
 
-    // Update student xp_total
-    await db.rpc("increment_field", {
-      row_id: userId,
-      table_name: "active_students",
-      field_name: "xp_total",
-      increment_by: xpAmount,
-    }).then(() => {}).catch(() => {
-      // Fallback: direct update if RPC doesn't exist
-      db.from("active_students")
-        .update({ xp_total: db.rpc ? undefined : undefined })
-        .eq("id", userId);
-    });
+    // NOTE: students.xp_total is auto-incremented by the DB trigger `on_xp_transaction_insert`
+    // (update_student_xp) that fires on the xp_transactions INSERT above — so there is nothing
+    // to do here. (Removed a dead `increment_field` RPC call that didn't exist and only logged
+    // a swallowed error on every submit.)
 
     // Post-pass improvement logging (read side computes best score — no mutation needed)
     const { data: priorPassed } = await db
