@@ -1,0 +1,321 @@
+/* ══════════════════════════════════════════════════════════════════════
+   THE LIVING ATLAS — immersive student home
+   The whole viewport IS a living world built from the student's OWN current
+   unit cover art (portaled full-bleed behind the nav). Depth layers + a
+   breathing aurora bloom + drifting motes + film grain mean nothing on the
+   page is a flat colour — everything moves on its own. Content floats inside
+   the world; the analytics live in a frosted drawer that rises over it.
+
+   Perf contract: only transform/opacity/background-position animate (GPU,
+   iPhone-smooth — no scroll listeners, no canvas). Reduced-motion freezes
+   all drift. Explicit rgba (iOS < 16.4 safe).
+   ══════════════════════════════════════════════════════════════════════ */
+
+.atlas-root { position: relative; z-index: 1; }
+
+/* ── 1 · THE WORLD (portaled to <body>, fixed, behind everything) ─────── */
+.atlas-world {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  animation: atlas-in 1.5s ease both;
+}
+@keyframes atlas-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* far depth: the cover blown up, blurred + dim, slow counter-drift */
+.atlas-world__far {
+  position: absolute;
+  inset: -14%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(52px) brightness(0.5) saturate(1.3);
+  transform: scale(1.28);
+  animation: atlas-far 64s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes atlas-far {
+  from { transform: scale(1.28) translate3d(0, 0, 0); }
+  to   { transform: scale(1.36) translate3d(2.2%, 1.6%, 0); }
+}
+
+/* near focal: the cover, cinematic, slow Ken-Burns push-in */
+.atlas-world__near {
+  position: absolute;
+  inset: -7%;
+  background-size: cover;
+  background-position: center 42%;
+  filter: brightness(0.82) saturate(1.08) contrast(1.06);
+  transform: scale(1.06);
+  animation: atlas-near 52s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes atlas-near {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to   { transform: scale(1.17) translate3d(-1.6%, -2.2%, 0); }
+}
+.atlas-world--empty .atlas-world__near {
+  background:
+    radial-gradient(120% 100% at 70% 0%, rgba(56, 189, 248, 0.3), transparent 60%),
+    radial-gradient(120% 100% at 10% 100%, rgba(167, 139, 250, 0.24), transparent 60%),
+    #0a1428;
+  animation: none;
+  filter: none;
+}
+
+/* time-of-day / unit colour wash (background set inline) */
+.atlas-world__wash {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: soft-light;
+  opacity: 0.55;     /* season the cover's own colour, don't repaint it */
+}
+
+/* breathing aurora bloom — living light, screen-blended */
+.atlas-world__bloom {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(50% 44% at 26% 22%, rgba(56, 189, 248, 0.20), transparent 70%),
+    radial-gradient(48% 42% at 80% 68%, rgba(167, 139, 250, 0.17), transparent 72%),
+    radial-gradient(42% 38% at 60% 12%, rgba(251, 191, 36, 0.13), transparent 72%);
+  animation: atlas-breathe 12s ease-in-out infinite alternate;
+  will-change: opacity;
+}
+@keyframes atlas-breathe { from { opacity: 0.5; } to { opacity: 1; } }
+
+/* drifting motes — autonomous, iPhone-cheap (animated background-position) */
+.atlas-world__motes {
+  position: absolute;
+  inset: -16%;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(255, 240, 205, 0.34) 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(186, 230, 253, 0.4) 1px, transparent 1.5px);
+  background-size: 175px 175px, 115px 115px, 230px 230px;
+  background-position: 0 0, 50px 30px, 120px 80px;
+  opacity: 0.42;
+  animation: atlas-motes 44s linear infinite;
+  will-change: background-position;
+}
+@keyframes atlas-motes {
+  from { background-position: 0 0, 50px 30px, 120px 80px; }
+  to   { background-position: 0 -175px, 50px -200px, 120px -150px; }
+}
+
+/* legibility scrim — continuous, never flat black; strong floor for content */
+.atlas-world__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(125% 85% at 50% 122%, rgba(3, 6, 16, 0.74), transparent 60%),
+    linear-gradient(180deg, rgba(3, 6, 16, 0.5) 0%, transparent 20%, transparent 46%, rgba(3, 6, 16, 0.62) 80%, rgba(3, 6, 16, 0.9) 100%),
+    radial-gradient(140% 120% at 50% 38%, transparent 50%, rgba(3, 6, 16, 0.42) 100%);
+}
+
+/* film grain — the cinematic texture */
+.atlas-world__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ── 2 · CHROME BLEED — the world continues behind the nav ────────────── */
+body.home-immersive aside[data-sidebar-root] {
+  background: linear-gradient(180deg, rgba(8, 12, 24, 0.42), rgba(6, 10, 20, 0.54)) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  backdrop-filter: blur(18px) saturate(135%);
+  border-inline-end: 1px solid rgba(255, 255, 255, 0.08);
+}
+body.home-immersive [data-app-header] {
+  background: linear-gradient(180deg, rgba(6, 10, 20, 0.5), rgba(6, 10, 20, 0.12)) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  backdrop-filter: blur(14px) saturate(130%);
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+}
+body.home-immersive .mobile-bottom-nav {
+  background: linear-gradient(0deg, rgba(6, 10, 20, 0.62), rgba(8, 12, 24, 0.42)) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  backdrop-filter: blur(18px) saturate(135%);
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── 3 · FLOATING HERO (a title treatment, not a card) ───────────────── */
+.atlas-stage { position: relative; z-index: 1; }
+
+.atlas-hero { position: relative; padding: clamp(8px, 3vw, 28px) 2px clamp(20px, 4vw, 40px); }
+/* localized contrast bed so the headline is EMBOSSED into the world, not
+   pasted on the photo. Anchored to the start (right, RTL) where Arabic begins. */
+.atlas-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -6% -20% 22% -20%;
+  pointer-events: none;
+  background: radial-gradient(74% 80% at 80% 44%, rgba(3, 6, 16, 0.66), transparent 72%);
+}
+
+.atlas-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fcd34d;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+.atlas-title {
+  font-size: clamp(34px, 9vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  color: #fff;
+  margin: 12px 0 0;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 60px rgba(0, 0, 0, 0.5);
+}
+.atlas-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.66);
+  margin: 10px 0 0;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* luminous floating stat pill */
+.atlas-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: rgba(8, 12, 24, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* gold CTA — dimensional metal + sweeping sheen */
+.atlas-cta {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 16px 34px;
+  min-height: 54px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  color: #1a1206;
+  background: linear-gradient(160deg, #fde68a 0%, #fbbf24 45%, #c4843a 100%);
+  box-shadow:
+    0 1px 2px rgba(60, 30, 0, 0.4),
+    0 20px 44px -16px rgba(251, 191, 36, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 240ms ease;
+}
+.atlas-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 50%);
+  pointer-events: none;
+}
+.atlas-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline-start: -60%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transform: skewX(-18deg);
+  animation: atlas-sheen 4.5s ease-in-out infinite;
+}
+@keyframes atlas-sheen {
+  0%, 62% { inset-inline-start: -60%; }
+  84%, 100% { inset-inline-start: 130%; }
+}
+.atlas-cta:hover { transform: translateY(-3px); }
+
+/* a section eyebrow that floats in the world */
+.atlas-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.atlas-label span:first-child {
+  width: 22px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #38bdf8, #a78bfa);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+  flex: 0 0 auto;
+}
+.atlas-label h2 {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+}
+.atlas-label .rule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.22), transparent);
+}
+.atlas-label .hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  flex: 0 0 auto;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* ── 4 · FROSTED DATA DRAWER — analytics rise over the world ──────────── */
+.atlas-drawer {
+  position: relative;
+  margin-top: clamp(28px, 5vw, 48px);
+  padding: clamp(22px, 4vw, 34px) clamp(14px, 3vw, 26px) calc(24px + env(safe-area-inset-bottom, 0px));
+  border-radius: 30px 30px 0 0;
+  /* lighter floor → the aurora world genuinely glows through the glass */
+  background: linear-gradient(180deg, rgba(12, 16, 30, 0.40), rgba(8, 12, 24, 0.66));
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+  backdrop-filter: blur(24px) saturate(135%);
+  box-shadow:
+    0 -28px 70px -34px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 44px 90px -64px rgba(120, 140, 255, 0.2);   /* world-light spill */
+}
+.atlas-drawer__grip {
+  width: 56px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.55), transparent);
+  margin: 0 auto 22px;
+}
+
+/* ── reduced motion: gorgeous, just still ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .atlas-world,
+  .atlas-world__far,
+  .atlas-world__near,
+  .atlas-world__bloom,
+  .atlas-world__motes,
+  .atlas-cta::after { animation: none !important; }
+  .atlas-cta, .atlas-world__near { transition: none !important; }
+}
