@@ -17,12 +17,13 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY') || ''
 const CLAUDE_API_KEY  = Deno.env.get('CLAUDE_API_KEY') || Deno.env.get('ANTHROPIC_API_KEY') || ''
-const ELEVEN_KEY      = Deno.env.get('ELEVENLABS_API_KEY') || ''
 const SUPABASE_URL    = Deno.env.get('SUPABASE_URL') || ''
 const SERVICE_KEY     = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
 
-// Warm, gentle female English voice for the coach (ElevenLabs default "Rachel").
-const VOICE_ID  = '21m00Tcm4TlvDq8ikWAM'
+// Coach voice via OpenAI TTS. ElevenLabs runtime TTS was retired (~June 2026) → the coach went
+// silently voiceless; OPENAI_API_KEY is provisioned + working (Whisper uses it), so voice is back.
+const TTS_VOICE  = 'nova'   // warm, friendly female English voice (matches Everyday English)
+const TTS_MODEL  = 'tts-1'
 const TTS_BUCKET = 'curriculum-audio'
 
 const MAX_STUDENT_TURNS = 8   // hard cap — after this the AI wraps up (done=true)
@@ -57,27 +58,24 @@ const LEVEL_DESCRIPTORS: Record<number, string> = {
   5: 'C1 Advanced — near-natural, nuanced, can lightly debate the topic while staying warm.',
 }
 
-// ── ElevenLabs sentence TTS, content-addressed cache in the public curriculum-audio bucket ──
+// ── OpenAI TTS, content-addressed cache in the public curriculum-audio bucket ──
+// New hash seed (voice+model) so every line is fresh OpenAI audio — no mixing with the few
+// legacy ElevenLabs "Rachel" files, so a conversation keeps ONE consistent voice.
 async function synthesize(sb: any, text: string): Promise<string | null> {
   const clean = (text || '').trim()
-  if (!clean) return null
-  const hash = await sha256hex(VOICE_ID + '|v2t|' + clean)
+  if (!clean || !OPENAI_API_KEY) return null
+  const hash = await sha256hex(`${TTS_VOICE}|oai-${TTS_MODEL}|${clean}`)
   const path = `conversation-tts/${hash}.mp3`
   const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${TTS_BUCKET}/${path}`
   try {
     const head = await fetch(publicUrl, { method: 'HEAD' })
     if (head.ok) return publicUrl
   } catch { /* fall through to synth */ }
-  if (!ELEVEN_KEY) return null
   try {
-    const tts = await fetchWithTimeout(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`, {
+    const tts = await fetchWithTimeout('https://api.openai.com/v1/audio/speech', {
       method: 'POST',
-      headers: { 'xi-api-key': ELEVEN_KEY, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg' },
-      body: JSON.stringify({
-        text: clean,
-        model_id: 'eleven_turbo_v2_5',
-        voice_settings: { stability: 0.45, similarity_boost: 0.8, style: 0.15, use_speaker_boost: true },
-      }),
+      headers: { Authorization: `Bearer ${OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: TTS_MODEL, voice: TTS_VOICE, input: clean, response_format: 'mp3' }),
     }, 30000)
     if (!tts.ok) return null
     const bytes = new Uint8Array(await tts.arrayBuffer())
