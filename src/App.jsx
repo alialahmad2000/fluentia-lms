@@ -219,6 +219,7 @@ const EvaluationHealthPage = lazyRetry(() => import('./pages/admin/EvaluationHea
 const StudentProgressDiagnostic = lazyRetry(() => import('./pages/admin/StudentProgressDiagnostic'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
 const AdminBugReports = lazyRetry(() => import('./pages/admin/AdminBugReports'))
+const AdminMonthlyRewards = lazyRetry(() => import('./pages/admin/AdminMonthlyRewards'))
 const AdminLibraryFeedback = lazyRetry(() => import('./pages/admin/AdminLibraryFeedback'))
 const AdminSubscriptions = lazyRetry(() => import('./pages/admin/AdminSubscriptions'))
 const AdminGroups = lazyRetry(() => import('./pages/admin/AdminGroups'))
@@ -957,6 +958,7 @@ export default function App() {
               <Route path="/admin/integrations" element={<Page><CsIntegrations /></Page>} />
               <Route path="/admin/team" element={<Page><AdminTeam /></Page>} />
               <Route path="/admin/bug-reports" element={<Page><AdminBugReports /></Page>} />
+              <Route path="/admin/monthly-rewards" element={<Page><AdminMonthlyRewards /></Page>} />
               <Route path="/admin/library-feedback" element={<Page><AdminLibraryFeedback /></Page>} />
               <Route path="/admin/subscriptions" element={<Page><AdminSubscriptions /></Page>} />
               {/* Retention — admin */}

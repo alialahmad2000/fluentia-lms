@@ -1,6 +1,7 @@
 import {
   NotebookPen,
   ShieldAlert,
+  Gift,
   Briefcase,
   Home, BookOpen, BookOpenCheck, PenLine, Mic, Users, Trophy,
   BookMarked, User, Settings, BarChart3, ClipboardList,
@@ -245,6 +246,7 @@ export const ADMIN_NAV = {
         { id: 'library-feedback', label: 'آراء المكتبة', icon: BookMarked,  to: '/admin/library-feedback' },
         { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'curriculum-quality', label: 'جودة المنهج', icon: ShieldAlert,   to: '/admin/curriculum-quality' },
+        { id: 'monthly-rewards', label: 'مكافآت الشهر', icon: Gift,          to: '/admin/monthly-rewards' },
         { id: 'system-diagnostics', label: 'تشخيص النظام', icon: Activity,   to: '/admin/system' },
         { id: 'settings',    label: 'الإعدادات',    icon: Settings,      to: '/admin/settings' },
       ],
