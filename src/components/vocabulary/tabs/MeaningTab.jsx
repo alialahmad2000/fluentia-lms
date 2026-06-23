@@ -1,4 +1,5 @@
 import { Volume2 } from 'lucide-react'
+import { playWordAudioOnce } from '../../../lib/audio/wordAudioGate'
 
 /**
  * المعنى tab — Arabic meaning, English definition, example sentence + translation, audio.
@@ -42,9 +43,7 @@ export default function MeaningTab({ word }) {
   const playAudio = (e) => {
     e?.stopPropagation()
     if (!word.audio_url) return
-    try {
-      new Audio(word.audio_url).play().catch(() => {})
-    } catch {}
+    playWordAudioOnce(word.audio_url)
   }
 
   const hasAnyContent =

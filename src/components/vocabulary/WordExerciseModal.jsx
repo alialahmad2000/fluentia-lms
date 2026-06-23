@@ -1,4 +1,5 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react'
+import { playWordAudioOnce, stopWordAudio } from '../../lib/audio/wordAudioGate'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useBodyLock } from '../../hooks/useBodyLock'
 import { X, CheckCircle, Volume2, BookOpen, PenLine, Headphones, Maximize2, AlertTriangle, ChevronLeft } from 'lucide-react'
@@ -623,22 +624,19 @@ function ListeningExercise({ word, distractors, stepIndex, onComplete, onWrong, 
       }
       return
     }
-    if (audioRef.current) audioRef.current.pause()
-    audioRef.current = new Audio(word.audio_url)
-    audioRef.current.onplay = () => { setPlaying(true); setNeedsTap(false) }
-    audioRef.current.onended = () => setPlaying(false)
-    audioRef.current.onerror = () => { setPlaying(false); setNeedsTap(true) }
-    // play() must run synchronously inside the gesture path (entering this
-    // exercise is itself the result of the student's tap). On iOS Safari a
-    // detached setTimeout(play) silently fails — so we call play() directly in
-    // the mount effect and surface a tap affordance if it's rejected.
-    audioRef.current.play().then(() => setNeedsTap(false)).catch(() => { setPlaying(false); setNeedsTap(true) })
+    // Single-flight: while a clip is playing, repeated taps are IGNORED (no stacked audio).
+    // play() runs synchronously inside the gesture; on iOS autoplay-block onError surfaces a tap affordance.
+    playWordAudioOnce(word.audio_url, {
+      onStart: () => { setPlaying(true); setNeedsTap(false) },
+      onEnd: () => setPlaying(false),
+      onError: () => { setPlaying(false); setNeedsTap(true) },
+    })
   }, [word])
 
   // Play immediately on mount (gesture-synchronous — no setTimeout delay)
   useEffect(() => {
     playAudio()
-    return () => { if (audioRef.current) audioRef.current.pause() }
+    return () => stopWordAudio()
   }, [playAudio])
 
   const handleSelect = (opt) => {

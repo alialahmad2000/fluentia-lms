@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { playWordAudioOnce } from '../../../../lib/audio/wordAudioGate'
 import { motion } from 'framer-motion'
 import { Volume2 } from 'lucide-react'
 
@@ -31,8 +32,7 @@ export default function Flashcard({ word, mastery, onFlip }) {
   const playAudio = (e) => {
     e.stopPropagation()
     if (!word.audio_url) return
-    const audio = new Audio(word.audio_url)
-    audio.play().catch(() => {})
+    playWordAudioOnce(word.audio_url)
   }
 
   // Bold the target word inside the example sentence.

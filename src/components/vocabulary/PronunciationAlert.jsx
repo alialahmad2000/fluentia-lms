@@ -1,4 +1,5 @@
 import { Volume2 } from 'lucide-react'
+import { playWordAudioOnce } from '../../lib/audio/wordAudioGate'
 
 /**
  * Renders a pronunciation alert for a vocabulary word.
@@ -84,9 +85,7 @@ export default function PronunciationAlert({ alert, word, audioUrl, compact = fa
   const playAudio = (e) => {
     e?.stopPropagation()
     if (!audioUrl) return
-    try {
-      new Audio(audioUrl).play().catch(() => {})
-    } catch {}
+    playWordAudioOnce(audioUrl)
   }
 
   return (

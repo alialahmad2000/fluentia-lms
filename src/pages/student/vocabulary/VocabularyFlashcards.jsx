@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
+import { playWordAudioOnce } from '../../../lib/audio/wordAudioGate'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain } from 'lucide-react'
@@ -242,10 +243,7 @@ export default function VocabularyFlashcards() {
   const audioCount = filteredVocab.filter((v) => v.audio_url).length
 
   const playWord = (url) => {
-    if (audioRef.current) audioRef.current.pause()
-    if (!url) return
-    audioRef.current = new Audio(url)
-    audioRef.current.play().catch(() => {})
+    playWordAudioOnce(url)
   }
 
   const selectedLevelData = levels.find((l) => l.id === selectedLevel)

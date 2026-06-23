@@ -1,4 +1,5 @@
 import { X, Volume2 } from 'lucide-react'
+import { playWordAudioOnce } from '../../lib/audio/wordAudioGate'
 
 /**
  * Fixed header for WordDetailModal: word, IPA, POS · Arabic meaning, audio, close, level badge.
@@ -32,9 +33,7 @@ export default function WordDetailHeader({ word, onClose }) {
   const playAudio = (e) => {
     e?.stopPropagation()
     if (!word.audio_url) return
-    try {
-      new Audio(word.audio_url).play().catch(() => {})
-    } catch {}
+    playWordAudioOnce(word.audio_url)
   }
 
   const ipa = word.ipa || word.pronunciation_alert?.ipa || null

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import { playWordAudioOnce } from '../../../../lib/audio/wordAudioGate'
 import { Link, useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
@@ -944,12 +945,10 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
   const playAudio = (e) => {
     e.stopPropagation()
     if (!word.audio_url) return
-    if (audioRef.current) audioRef.current.pause()
-    audioRef.current = new Audio(word.audio_url)
-    audioRef.current.onplay = () => setPlaying(true)
-    audioRef.current.onended = () => setPlaying(false)
-    audioRef.current.onerror = () => setPlaying(false)
-    audioRef.current.play().catch(() => setPlaying(false))
+    playWordAudioOnce(word.audio_url, {
+      onStart: () => setPlaying(true),
+      onEnd: () => setPlaying(false),
+    })
   }
 
   const isMastered = mastery?.mastery_level === 'mastered'
@@ -1090,9 +1089,7 @@ function WordListView({ vocabulary, getMastery, reviewedWords, onView, onPractic
 
   const playAudio = (url, e) => {
     e.stopPropagation()
-    if (audioRef.current) audioRef.current.pause()
-    audioRef.current = new Audio(url)
-    audioRef.current.play().catch(() => {})
+    playWordAudioOnce(url)
   }
 
   return (
