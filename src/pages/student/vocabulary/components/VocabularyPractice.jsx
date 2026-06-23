@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { playWordAudioOnce } from '../../../../lib/audio/wordAudioGate'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, CheckCircle, RotateCcw, ArrowRight, Maximize2, AlertTriangle } from 'lucide-react'
 import WordDetailModal from '../../../../components/vocabulary/WordDetailModal'
@@ -54,9 +55,7 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
   const playAudio = useCallback((e) => {
     if (e) e.stopPropagation()
     if (!currentWord?.audio_url) return
-    if (audioRef.current) audioRef.current.pause()
-    audioRef.current = new Audio(currentWord.audio_url)
-    audioRef.current.play().catch(() => {})
+    playWordAudioOnce(currentWord.audio_url)
   }, [currentWord])
 
   const handleFlip = useCallback(() => {
