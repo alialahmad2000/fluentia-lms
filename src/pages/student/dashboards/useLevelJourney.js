@@ -76,13 +76,15 @@ export function useLevelJourney(studentId, academicLevel) {
       return { level, units: [], current: null, currentUnitId: null, currentIndex: -1, completedCount: 0 }
     }
 
-    /* first pass: progress + availability (a unit opens once it's been
-       started OR the previous unit is complete; unit 1 is always open) */
-    const enriched = units.map((u, i) => {
+    /* first pass: progress. Every unit in the student's current level is
+       OPENABLE — the home no longer auto-locks a unit just because an
+       earlier one isn't 100% (students study out of order, which made a
+       skipped middle unit look "locked" while later ones were reachable).
+       Deliberate per-group locks are still enforced at the unit page via
+       useUnitLockedForMe; level access is still gated in CurriculumBrowser. */
+    const enriched = units.map((u) => {
       const pct = Math.max(0, Math.min(100, progressMap[u.id] ?? 0))
-      const prevPct = i === 0 ? 100 : progressMap[units[i - 1].id] ?? 0
-      const available = i === 0 || pct > 0 || prevPct >= 100
-      return { ...u, pct, completed: pct >= 100, started: pct > 0, available }
+      return { ...u, pct, completed: pct >= 100, started: pct > 0, available: true }
     })
 
     /* the "you are here" pin = first open-but-unfinished unit; if every
