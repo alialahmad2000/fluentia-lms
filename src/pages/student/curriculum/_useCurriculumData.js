@@ -62,18 +62,33 @@ export function useCurriculumData() {
     enabled: !isNaN(levelNum),
   })
 
+  // Fardi custom-curriculum flag (from studentData, impersonation-safe). NULL/false → unchanged behaviour.
+  const useCustomCurriculum = studentData?.uses_custom_curriculum === true
+
   const { data: units = [], isLoading: loadingUnits } = useQuery({
-    queryKey: ['curriculum-units', level?.id],
+    queryKey: ['curriculum-units', useCustomCurriculum ? `custom:${profile?.id}` : level?.id],
     queryFn: async () => {
+      if (useCustomCurriculum) {
+        // This student has their own curriculum → show ONLY their units, ordered by custom_sort.
+        const { data, error } = await supabase
+          .from('curriculum_units')
+          .select('*')
+          .eq('owner_student_id', profile.id)
+          .order('custom_sort', { ascending: true, nullsFirst: false })
+        if (error) throw error
+        return data || []
+      }
+      // Default path — generic level units only (owner_student_id IS NULL). Behaviour unchanged for everyone else.
       const { data, error } = await supabase
         .from('curriculum_units')
         .select('*')
         .eq('level_id', level.id)
+        .is('owner_student_id', null)
         .order('unit_number')
       if (error) throw error
       return data || []
     },
-    enabled: !!level?.id,
+    enabled: useCustomCurriculum ? !!profile?.id : !!level?.id,
   })
 
   const { data: progressMap = {} } = useLevelProgress(profile?.id, units)
