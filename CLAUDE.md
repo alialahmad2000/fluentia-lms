@@ -313,6 +313,15 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-07-02 — PROJECT-STATUS-001 installed as source of truth + Sara's Meet link applied
+- What: Ran `PROJECT-STATUS-001.md` — the new canonical project status doc (supersedes the unnumbered `prompts/agents/PROJECT-STATUS.md`; highest-numbered wins, older kept as history). Two concrete actions taken from it:
+  1. **Applied Sara's recurring Google Meet link** `https://meet.google.com/qrc-paov-ruw` to all 12 of her `private_sessions` (they were provisioned NULL and flagged pending Ali; the doc supplies the link). Direct service-role UPDATE, `.select()`-verified → **12/12** now carry the link. Also updated the `SARA_MEET_LINK` constant in `scripts/provision-sara-alasmari.cjs` so the recorded config matches (the provisioning Phase C only inserts missing sessions, so it wouldn't have backfilled the 12 existing rows).
+  2. **Installed the doc** at `prompts/agents/PROJECT-STATUS-001.md` (old `prompts/agents/PROJECT-STATUS.md` left intact — never overwrite older).
+- Context for future sessions (from the doc): the Fardi custom-curriculum engine + Sara's fully-custom account are DONE (curriculum, goal-framed purple home, 12 sessions now with the Meet link, IT vocab, audio). Pricing FLOORS (SAR/mo, never discount below): L0 750 · L1 group 1200 · L2 تميّز 2200 · L3 الفردي/private 3000 · IELTS 5000. ElevenLabs is BACK (fresh payg key). Schedule: Sara Sat & Wed 11:00 PM, Mon 6:00 PM. Deferred: karaoke word-highlight (needs ElevenLabs with-timestamps). Horizon: ManyChat Default-Reply AI step (lead conversion, highest leverage), landing `DESIGN.md` → `/atelier` build, push auto-retry, Vercel deploy-fail alert.
+- Files: `prompts/agents/PROJECT-STATUS-001.md` (NEW — canonical status), `scripts/provision-sara-alasmari.cjs` (Meet-link constant). DB: 12 `private_sessions.google_meet_link` set. Edge fns: none. No frontend/schema change → no deploy needed.
+- Status: Complete. Committed to main via Git Data API. Sara's account is now 100% complete end-to-end, and her 12 sessions have the join link.
+
+
 ### 2026-07-02 — AUDIO for Sara's 8 custom IT units (ElevenLabs Alice, mono `-ac 1` Safari-safe)
 - What: Generated audio for Sara Al-Asmari's 8 "Career English for IT" units — all 8 reading passages + all 56 vocabulary words — via ElevenLabs (voice **Alice** `Xb7hH8MSUJpSbSDYk0k2`, British-female educator, `eleven_multilingual_v2`), each re-encoded to **MONO with `-ac 1`** (the fix for the ElevenLabs channel-drift Safari silent-audio bug), uploaded to `curriculum-audio`, and wired to the DB. Only Sara's units touched.
 - **ElevenLabs is BACK** (contradicts the "retired" memory): Ali has a fresh **payg** key with a ~10k-char budget (18 used before, ~5,504 this run → plenty left). If the budget ever runs out, OpenAI TTS is the fallback (no OPENAI key in `.env` yet).

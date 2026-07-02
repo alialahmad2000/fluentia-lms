@@ -14,7 +14,7 @@ const { createClient } = require('@supabase/supabase-js');
 
 // ─── 🔴 FILL BEFORE RUNNING ────────────────────────────────────────────────
 const SARA_EMAIL = 'Sarahasmari6@gmail.com';   // ← her real email
-const SARA_MEET_LINK = '';                      // ← recurring Google Meet link, or blank to add later
+const SARA_MEET_LINK = 'https://meet.google.com/qrc-paov-ruw'; // recurring Google Meet link (applied to all 12 sessions 2026-07-02)
 // ───────────────────────────────────────────────────────────────────────────
 
 // FIXED FACTS (verified against project docs + live schema)
