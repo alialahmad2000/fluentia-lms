@@ -313,6 +313,15 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-07-02 — Sara's July plan → premium Arabic Atelier PDF
+- What: Rendered Sara's July plan as a premium Arabic PDF in the Fluentia **Atelier** style — a bespoke reassurance piece for Ali to send her before her first session (Sat 4 Jul). A4, RTL, **6 pages**. Palette cream `#FBF6EC` / emerald `#15604B` / gold `#A9842A` / rust `#9C4324`; Arabic in `.arx` spans (**Readex Pro**, letter-spacing 0), a Cormorant-Garamond Latin flourish, Space Grotesk numerals. Gold page frame + corner ticks + folio per page; emerald headings with a gold diamond mark + hairline rule.
+- Content rendered VERBATIM (feminine address, no paraphrase): cover (أكاديمية طلاقة · خطتك للشهر · إنجليزية المهنة — مسارٌ مبنيٌّ عليكِ · سارة علي الأسمري · يوليو ٢٠٢٦) → ترحيب → هدفك بوضوح → كيف نوصل (5 gold-numeral pillars) → محرّك كل حصة → رحلة الأربع أسابيع → جدول ١٢ حصة (عبر Google Meet) → قبل حصتك الأولى (checklist) → كلمة أخيرة + د. علي signature.
+- Pipeline (mirrors the Atelier render recipe): Playwright chromium (already installed) → `page.goto(file://…, waitUntil:'load')` → `document.fonts.ready` → `waitForTimeout(1400)` → `page.pdf({format:'A4', printBackground:true, preferCSSPageSize:true})`. Design-loop verified via a full-page screenshot (fonts loaded, palette + RTL correct, no clipping, calm editorial whitespace).
+- Output: `~/Downloads/سارة-خطة-يوليو.pdf` (6 pages, 444 KB).
+- Files: `scripts/atelier-pdf/sara-july-plan.html` (NEW, source), `scripts/atelier-pdf/render-sara-plan.mjs` (NEW, Playwright renderer). No DB / frontend / schema change — one-off deliverable. Committed to main via Git Data API.
+- Status: Complete. PDF ready to send.
+
+
 ### 2026-07-02 — PROJECT-STATUS-001 installed as source of truth + Sara's Meet link applied
 - What: Ran `PROJECT-STATUS-001.md` — the new canonical project status doc (supersedes the unnumbered `prompts/agents/PROJECT-STATUS.md`; highest-numbered wins, older kept as history). Two concrete actions taken from it:
   1. **Applied Sara's recurring Google Meet link** `https://meet.google.com/qrc-paov-ruw` to all 12 of her `private_sessions` (they were provisioned NULL and flagged pending Ali; the doc supplies the link). Direct service-role UPDATE, `.select()`-verified → **12/12** now carry the link. Also updated the `SARA_MEET_LINK` constant in `scripts/provision-sara-alasmari.cjs` so the recorded config matches (the provisioning Phase C only inserts missing sessions, so it wouldn't have backfilled the 12 existing rows).

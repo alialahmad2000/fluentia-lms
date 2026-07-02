@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>خطة سارة — يوليو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream:   #FBF6EC;
+    --cream-2: #F4ECDA;
+    --emerald: #15604B;
+    --emerald-deep: #0F4A39;
+    --gold:    #A9842A;
+    --gold-soft: rgba(169,132,42,0.28);
+    --rust:    #9C4324;
+    --ink:     #2B2118;
+    --ink-soft: #5A4B3B;
+  }
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--cream); }
+  body {
+    font-family: 'Readex Pro', system-ui, sans-serif;
+    color: var(--ink);
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .arx { font-family: 'Readex Pro', system-ui, sans-serif; letter-spacing: 0; }
+  .lat { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.02em; }
+  .num { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+
+  .page {
+    position: relative;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 24mm 26mm 22mm;
+    background: var(--cream);
+    break-after: page;
+    overflow: hidden;
+  }
+  .page:last-child { break-after: auto; }
+
+  /* fine page frame — a hairline gold inset border, corner ticks */
+  .frame {
+    position: absolute; inset: 12mm;
+    border: 0.4pt solid var(--gold-soft);
+    pointer-events: none;
+  }
+  .frame::before, .frame::after {
+    content: ''; position: absolute; width: 7mm; height: 7mm;
+    border: 0.9pt solid var(--gold);
+  }
+  .frame::before { top: -0.4pt; right: -0.4pt; border-left: none; border-bottom: none; }
+  .frame::after  { bottom: -0.4pt; left: -0.4pt; border-right: none; border-top: none; }
+
+  .folio {
+    position: absolute; bottom: 14mm; left: 0; right: 0; text-align: center;
+    font-family: 'Space Grotesk', sans-serif; font-size: 8pt; letter-spacing: 0.28em;
+    color: var(--gold);
+  }
+
+  /* diamond kufic mark */
+  .mark { display:inline-block; width: 9px; height: 9px; background: var(--gold); transform: rotate(45deg); }
+  .mark-lg { width: 13px; height: 13px; }
+
+  /* ─────────── COVER ─────────── */
+  .cover { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .cover .eyebrow {
+    font-size: 12.5pt; font-weight: 500; color: var(--emerald);
+    display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20mm;
+  }
+  .cover .rule-top { width: 46mm; height: 0; border-top: 0.6pt solid var(--gold); position: relative; margin: 0 auto 4mm; }
+  .cover .rule-top::after { content:''; position:absolute; left:50%; top:-3.5px; transform:translateX(-50%) rotate(45deg); width:6px; height:6px; background: var(--gold); }
+  .cover h1 {
+    font-family: 'Readex Pro', sans-serif; font-weight: 700; font-size: 52pt; line-height: 1.12;
+    color: var(--emerald); margin: 6mm 0 5mm; letter-spacing: 0;
+  }
+  .cover .sub { font-size: 16pt; font-weight: 400; color: var(--rust); margin-bottom: 3mm; }
+  .cover .rule-bot { width: 30mm; height: 0; border-top: 0.6pt solid var(--gold-soft); margin: 9mm auto 7mm; }
+  .cover .who { font-size: 14pt; font-weight: 500; color: var(--ink); }
+  .cover .latin { margin-top: 22mm; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13pt; letter-spacing: 0.14em; color: var(--gold); }
+
+  /* ─────────── SECTIONS ─────────── */
+  section { margin-bottom: 9mm; break-inside: avoid; }
+  section:last-child { margin-bottom: 0; }
+  .h {
+    display: flex; align-items: center; gap: 11px; margin-bottom: 5mm;
+  }
+  .h .t { font-weight: 700; font-size: 19pt; color: var(--emerald); }
+  .h .line { flex: 1; height: 0; border-top: 0.5pt solid var(--gold-soft); }
+
+  p.body { font-size: 12pt; line-height: 2.05; color: var(--ink); text-align: right; }
+  p.body + p.body { margin-top: 3mm; }
+  .lead-name { color: var(--emerald-deep); font-weight: 600; }
+  .rust { color: var(--rust); font-weight: 600; }
+
+  .intro-line { font-size: 12pt; line-height: 1.9; color: var(--ink-soft); margin-bottom: 5mm; text-align: right; }
+
+  /* pillars */
+  .pillar { display: flex; gap: 14px; padding: 3.4mm 0; border-bottom: 0.4pt solid rgba(169,132,42,0.16); align-items: baseline; }
+  .pillar:last-child { border-bottom: none; }
+  .pillar .n {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+    border: 0.8pt solid var(--gold); color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12pt; font-weight: 600; transform: translateY(2px);
+  }
+  .pillar .txt { font-size: 11.6pt; line-height: 1.95; color: var(--ink); }
+  .pillar .txt b { color: var(--emerald-deep); font-weight: 700; }
+
+  /* week rhythm */
+  .week { padding: 3mm 0; border-bottom: 0.4pt solid rgba(169,132,42,0.16); display: flex; gap: 12px; align-items: baseline; }
+  .week:last-child { border-bottom: none; }
+  .week .w { flex-shrink: 0; color: var(--gold); font-weight: 600; font-size: 11.6pt; min-width: 30mm; }
+  .week .d { font-size: 11.6pt; line-height: 1.9; color: var(--ink); }
+
+  /* schedule */
+  .sess { display: flex; align-items: baseline; gap: 12px; padding: 2.9mm 0; border-bottom: 0.4pt solid rgba(169,132,42,0.16); }
+  .sess:last-child { border-bottom: none; }
+  .sess .dot { flex-shrink: 0; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg) translateY(4px); }
+  .sess .when { flex-shrink: 0; min-width: 58mm; font-weight: 600; font-size: 11.4pt; color: var(--emerald-deep); }
+  .sess .what { font-size: 11.4pt; color: var(--ink); line-height: 1.6; }
+  .meet-note { margin-top: 4mm; font-size: 10pt; color: var(--gold); }
+
+  /* checklist */
+  .chk { display: flex; gap: 12px; align-items: baseline; padding: 2.6mm 0; }
+  .chk .b { flex-shrink: 0; width: 9px; height: 9px; border: 1pt solid var(--gold); transform: rotate(45deg) translateY(3px); }
+  .chk .c { font-size: 11.8pt; line-height: 1.9; color: var(--ink); }
+
+  /* closing / signature */
+  .closing { margin-top: 4mm; }
+  .sign { margin-top: 9mm; text-align: left; }
+  .sign .rule { width: 44mm; height: 0; border-top: 0.6pt solid var(--gold); margin-bottom: 4mm; margin-left: 0; }
+  .sign .name { font-size: 14pt; font-weight: 600; color: var(--emerald); }
+</style>
+</head>
+<body>
+
+  <!-- ══════════ PAGE 1 · COVER ══════════ -->
+  <div class="page cover">
+    <div class="frame"></div>
+    <div class="eyebrow"><span class="mark"></span><span class="arx">أكاديمية طلاقة</span><span class="mark"></span></div>
+    <div class="rule-top"></div>
+    <h1 class="arx">خطتك للشهر</h1>
+    <div class="sub arx">إنجليزية المهنة — مسارٌ مبنيٌّ عليكِ</div>
+    <div class="rule-bot"></div>
+    <div class="who arx">سارة علي الأسمري · يوليو ٢٠٢٦</div>
+    <div class="latin">Fluentia · Atelier</div>
+    <div class="folio">TALAQA</div>
+  </div>
+
+  <!-- ══════════ PAGE 2 · ترحيب + الهدف ══════════ -->
+  <div class="page">
+    <div class="frame"></div>
+    <section>
+      <div class="h"><span class="mark"></span><span class="t arx">ترحيب</span><span class="line"></span></div>
+      <p class="body arx"><span class="lead-name">أهلاً سارة،</span></p>
+      <p class="body arx">هذي خطتك للشهر، مبنية عليكِ أنتِ بالتحديد — على شغلك، وعلى الهدف اللي تبينه. ما هي خطة عامة؛ كل خطوة فيها مصمّمة عشان توصلك لمكان واحد: أن تتكلمي وتشرحي أي مشكلة تقنية على المكالمة بثقة وطلاقة، من غير توقّف ولا ترجمة في ذهنك. بدينا في وقتنا، وكل حصة خطوة واضحة نحو هذا الهدف.</p>
+    </section>
+    <section>
+      <div class="h"><span class="mark"></span><span class="t arx">هدفك بوضوح</span><span class="line"></span></div>
+      <p class="body arx">بنهاية الشهر تقدرين تشرحين مشكلة تقنية كاملة على مكالمة — بأجزائها المختلفة، ومع أسئلة الفريق — في تدفّق واحد، بدون ما تتوقفين أو تدوّرين على الكلمة. هذا اللي نقيس عليه، وهذا اللي يفرق في شغلك اليومي.</p>
+    </section>
+    <div class="folio">٢ · طلاقة</div>
+  </div>
+
+  <!-- ══════════ PAGE 3 · كيف نوصل ══════════ -->
+  <div class="page">
+    <div class="frame"></div>
+    <section>
+      <div class="h"><span class="mark"></span><span class="t arx">كيف نوصل</span><span class="line"></span></div>
+      <p class="intro-line arx">مسارك مبني على خمس ركائز، كلها تصبّ في هدفك:</p>
+
+      <div class="pillar"><span class="n num">١</span><span class="txt arx"><b>هيكل الشرح</b> — قالب واحد تشرحين فيه أي مشكلة: السياق ← العرض ← الأثر ← اللي فحصتيه ← اللي تحتاجينه. أول ما يصير تلقائي، ما تحتاجين تفكرين وش تقولين، بس كيف تقولينها.</span></div>
+      <div class="pillar"><span class="n num">٢</span><span class="txt arx"><b>الطلاقة</b> — نلغي فجوة «أفكّر ثم أترجم ثم أتكلم» اللي تخليك تتوقفين.</span></div>
+      <div class="pillar"><span class="n num">٣</span><span class="txt arx"><b>النطق والوضوح</b> — الأصوات اللي تصعب على المتحدث العربي، ونبرة الكلام، وسرعة يفهمك فيها المستمع من أول مرة.</span></div>
+      <div class="pillar"><span class="n num">٤</span><span class="txt arx"><b>مفردات مجالك</b> — مصطلحات الـIT وإدارة الأعطال، جاهزة تطلع بسرعة على المكالمة.</span></div>
+      <div class="pillar"><span class="n num">٥</span><span class="txt arx"><b>لغة الاجتماعات والمكالمات</b> — التوضيح، التأكيد، طلب الإعادة، وتلخيص الخطوات.</span></div>
+    </section>
+    <div class="folio">٣ · طلاقة</div>
+  </div>
+
+  <!-- ══════════ PAGE 4 · المحرّك + رحلة الأسابيع ══════════ -->
+  <div class="page">
+    <div class="frame"></div>
+    <section>
+      <div class="h"><span class="mark"></span><span class="t arx">محرّك كل حصة</span><span class="line"></span></div>
+      <p class="body arx">قلب كل حصة تمثيل مكالمة دعم حقيقية: أنا أمثّل فريق الدعم، وأنتِ تشرحين مشكلة من شغلك الفعلي. نسجّل ← نراجع ← نحسّن ← نعيد أنظف. جِيبي معك مشاكل حقيقية واجهتيها، عشان كل تمرين ينفعك يوم الأحد في المكتب.</p>
+    </section>
+    <section>
+      <div class="h"><span class="mark"></span><span class="t arx">رحلة الأربع أسابيع</span><span class="line"></span></div>
+      <div class="week"><span class="w arx">الأسبوع الأول</span><span class="d arx">نشخّص ونبني الهيكل: تسجيل أساسي، ثم قالب الشرح على مشاكل بسيطة.</span></div>
+      <div class="week"><span class="w arx">الأسبوع الثاني</span><span class="d arx">نبني الأساس: النطق والوضوح، تمثيل مكالمات فيها أسئلة، ومفردات المستوى الأول.</span></div>
+      <div class="week"><span class="w arx">الأسبوع الثالث</span><span class="d arx">تحت الضغط: مشاكل متعددة الأجزاء، مقاطعات، إعادة صياغة إذا ما فهم المستمع، وسرعة أعلى.</span></div>
+      <div class="week"><span class="w arx">الأسبوع الرابع</span><span class="d arx">نثبّت ونُثبِت: مكالمات كاملة من البداية للنهاية، وفي آخر حصة نعيد التسجيل الأول ونشوف الفرق.</span></div>
+    </section>
+    <div class="folio">٤ · طلاقة</div>
+  </div>
+
+  <!-- ══════════ PAGE 5 · جدول الحصص ══════════ -->
+  <div class="page">
+    <div class="frame"></div>
+    <section>
+      <div class="h"><span class="mark"></span><span class="t arx">جدول حصصك — ١٢ حصة</span><span class="line"></span></div>
+      <p class="intro-line arx" style="margin-bottom:4mm">عبر Google Meet</p>
+      <div class="sess"><span class="dot"></span><span class="when arx">السبت ٤ يوليو · ١١:٠٠ م</span><span class="what arx">تشخيص وتسجيل أساسي</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الاثنين ٦ يوليو · ٦:٠٠ م</span><span class="what arx">قالب الشرح</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الأربعاء ٨ يوليو · ١١:٠٠ م</span><span class="what arx">أول تمثيل مكالمة</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">السبت ١١ يوليو · ١١:٠٠ م</span><span class="what arx">الوضوح لمستمعٍ غير أصلي</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الاثنين ١٣ يوليو · ٦:٠٠ م</span><span class="what arx">التعامل مع الأسئلة التوضيحية</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الأربعاء ١٥ يوليو · ١١:٠٠ م</span><span class="what arx">وصف سلوك النظام بدقة</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">السبت ١٨ يوليو · ١١:٠٠ م</span><span class="what arx">مشاكل متعددة الأجزاء</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الاثنين ٢٠ يوليو · ٦:٠٠ م</span><span class="what arx">سرعة أعلى ومقاطعات</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الأربعاء ٢٢ يوليو · ١١:٠٠ م</span><span class="what arx">إعادة الصياغة عند سوء الفهم</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">السبت ٢٥ يوليو · ١١:٠٠ م</span><span class="what arx">مكالمة كاملة (١)</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الاثنين ٢٧ يوليو · ٦:٠٠ م</span><span class="what arx">مكالمة كاملة (٢) وصقل</span></div>
+      <div class="sess"><span class="dot"></span><span class="when arx">الأربعاء ٢٩ يوليو · ١١:٠٠ م</span><span class="what arx">التقييم الختامي</span></div>
+    </section>
+    <div class="folio">٥ · طلاقة</div>
+  </div>
+
+  <!-- ══════════ PAGE 6 · قبل الحصة + كلمة أخيرة ══════════ -->
+  <div class="page">
+    <div class="frame"></div>
+    <section>
+      <div class="h"><span class="mark"></span><span class="t arx">قبل حصتك الأولى</span><span class="line"></span></div>
+      <div class="chk"><span class="b"></span><span class="c arx">سمّاعة رأس ومكان هادئ.</span></div>
+      <div class="chk"><span class="b"></span><span class="c arx">جهّزي في بالك مشكلتين أو ثلاث مشاكل تقنية واجهتيها مؤخراً في العمل، نبدأ فيها.</span></div>
+      <div class="chk"><span class="b"></span><span class="c arx">افتحي منصتك — بتلقين مسارك ومفرداتك وحصصك كلها فيها.</span></div>
+    </section>
+    <section class="closing">
+      <div class="h"><span class="mark"></span><span class="t arx">كلمة أخيرة</span><span class="line"></span></div>
+      <p class="body arx">البداية دايماً أصعب خطوة، وأنتِ خطيتِها. الباقي مجرد تكرار مُوجّه، حصة بعد حصة، لين يصير الكلام على المكالمة عندك عادة، مو تحدّي. نراكِ السبت.</p>
+      <div class="sign">
+        <div class="rule"></div>
+        <div class="name arx">د. علي · أكاديمية طلاقة</div>
+      </div>
+    </section>
+    <div class="folio">٦ · طلاقة</div>
+  </div>
+
+</body>
+</html>
