@@ -44,6 +44,13 @@
   --accent-sky-glow:     rgba(56, 189, 248, 0.15);
   --accent-sky-strong:   #7dd3fc;
 
+  /* Fardi (individual / custom-curriculum student) accent — purple. One token,
+     referenced everywhere. Applied only within a [data-track="fardi"] subtree. */
+  --accent-individual:        #a855f7;
+  --accent-individual-dim:    #3b0764;
+  --accent-individual-glow:   rgba(168, 85, 247, 0.18);
+  --accent-individual-strong: #c084fc;
+
   --accent-gold:         #fbbf24;
   --accent-gold-dim:     #713f12;
   --accent-gold-glow:    rgba(251, 191, 36, 0.12);
@@ -603,4 +610,29 @@
   --color-dropdown-bg: rgba(16, 14, 36, 0.97);
   --color-kbd-bg: rgba(167, 139, 250, 0.06);
   --color-kbd-border: rgba(167, 139, 250, 0.12);
+}
+
+/* ══════════════════════════════════════════════════════════════════════ *
+ * FARDI ACCENT (scoped) — an individual / custom-curriculum student's whole
+ * space reads purple instead of the sky-blue/gold primary. Set on <html> via
+ * data-track="fardi" (LayoutShell, gated on students.uses_custom_curriculum),
+ * so it reaches the sidebar, the portaled home world, buttons and progress —
+ * WITHOUT touching any other student's palette. Specificity html[...] (0,1,1)
+ * beats the :root / [data-theme] token definitions (0,1,0), so this wins in
+ * every theme. Remaps BOTH the legacy (--accent-*) and design-system (--ds-*)
+ * primary-accent tokens to the one --accent-individual token.
+ * ══════════════════════════════════════════════════════════════════════ */
+html[data-track="fardi"] {
+  --accent-sky:            var(--accent-individual);
+  --accent-sky-strong:     var(--accent-individual-strong);
+  --accent-sky-glow:       var(--accent-individual-glow);
+  --accent-sky-dim:        var(--accent-individual-dim);
+  --text-link:             var(--accent-individual);
+  --info:                  var(--accent-individual);
+  --sidebar-active-border: var(--accent-individual);
+  --sidebar-icon-active:   var(--accent-individual);
+
+  --ds-accent-primary:      var(--accent-individual);
+  --ds-accent-primary-glow: var(--accent-individual-glow);
+  --ds-sky:                 var(--accent-individual-strong);
 }

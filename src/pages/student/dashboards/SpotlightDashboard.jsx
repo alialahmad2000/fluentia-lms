@@ -36,6 +36,7 @@ import { getGreeting } from '../../../utils/dateHelpers'
 import { firstNameFrom } from '../../../utils/names'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../../lib/constants'
 import { useLevelJourney } from './useLevelJourney'
+import { useUpcomingPrivateSessions, formatSessionWhen } from '../../../hooks/usePrivateSessions'
 
 /* Real, self-gating widgets — each owns its own query / realtime + empty state. */
 import DailyProgressWidget from '../../../components/student/dashboard/DailyProgressWidget'
@@ -365,13 +366,152 @@ function Section({ title, icon: Icon, defaultOpen = false, hue = 'var(--ds-accen
   )
 }
 
+/* ── FARDI HERO — goal-framed home for a custom-curriculum student ──
+   Leads with her mission, then track progress (X of N), then her next 1:1
+   session; XP/streak/level demoted to a small meta row. Own hooks at top. */
+function FardiHero({ studentId, greeting, firstName, mission, completedUnits, totalUnits, xp, streak, level, heroTo, allDone, reduced, g }) {
+  const { data: sessions = [] } = useUpcomingPrivateSessions(studentId, true, 1)
+  const next = sessions[0] || null
+  const pct = totalUnits > 0 ? Math.round((completedUnits / totalUnits) * 100) : 0
+  const rise = reduced ? {} : { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 } }
+
+  return (
+    <>
+      <motion.p {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE }} className="atlas-sub" style={{ margin: 0 }}>
+        {greeting}
+        {firstName ? <span style={{ color: '#fff', fontWeight: 700 }}>{` · ${firstName}`}</span> : null}
+      </motion.p>
+
+      <motion.p {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.05 }} className="fardi-eyebrow" style={{ marginTop: 'clamp(12px,3vw,18px)' }}>
+        <Sparkles size={13} strokeWidth={2.4} aria-hidden="true" />
+        {g('مهمتك', 'مهمتكِ')}
+      </motion.p>
+
+      <motion.h1 {...rise} transition={reduced ? undefined : { duration: 0.6, ease: APPLE_EASE, delay: 0.08 }} className="fardi-mission">
+        {mission}
+      </motion.h1>
+
+      {totalUnits > 0 ? (
+        <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.12 }} className="fardi-progress">
+          <div className="fardi-progress__head">
+            <span className="fardi-progress__label">{g('مسارك المهني', 'مساركِ المهني')}</span>
+            <span className="fardi-progress__count">
+              <b>{completedUnits}</b> من {totalUnits} {totalUnits === 1 ? 'وحدة' : 'وحدات'}
+            </span>
+          </div>
+          <div className="fardi-progress__track">
+            <motion.div
+              className="fardi-progress__fill"
+              initial={{ width: 0 }}
+              animate={{ width: `${pct}%` }}
+              transition={reduced ? { duration: 0 } : { duration: 1, delay: 0.3, ease: 'easeOut' }}
+            />
+          </div>
+        </motion.div>
+      ) : null}
+
+      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.16 }}>
+        {next ? (
+          <div className="fardi-session">
+            <span className="fardi-session__icon"><CalendarClock size={18} strokeWidth={2} /></span>
+            <div className="min-w-0">
+              <div className="fardi-session__label">{g('حصتك القادمة', 'حصتكِ القادمة')}</div>
+              <div className="fardi-session__when">{formatSessionWhen(next.date, next.start_time)}</div>
+              {next.notes ? <div className="fardi-session__note">{next.notes}</div> : null}
+            </div>
+          </div>
+        ) : (
+          <div className="fardi-session fardi-session--empty">
+            <span className="fardi-session__icon"><CalendarClock size={18} strokeWidth={2} /></span>
+            <div className="min-w-0">
+              <div className="fardi-session__label">{g('حصصك الخاصة', 'حصصكِ الخاصة')}</div>
+              <div className="fardi-session__when" style={{ fontSize: 13.5, fontWeight: 600, color: 'rgba(255,255,255,0.75)' }}>
+                {g('سنحدّد موعدك القادم قريباً', 'سنحدّد موعدكِ القادم قريباً')}
+              </div>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.2 }} className="fardi-meta">
+        <span className="fardi-meta__item">
+          <GraduationCap size={14} strokeWidth={2} style={{ color: 'var(--accent-individual-strong,#c084fc)' }} /> المستوى <b>{level}</b>
+        </span>
+        <span className="fardi-meta__dot" aria-hidden="true" />
+        <span className="fardi-meta__item">
+          <Zap size={14} strokeWidth={2} style={{ color: 'var(--accent-individual-strong,#c084fc)' }} /> <b>{xp.toLocaleString('en-US')}</b> XP
+        </span>
+        <span className="fardi-meta__dot" aria-hidden="true" />
+        <span className="fardi-meta__item">
+          <Flame size={14} strokeWidth={2} className={streak >= 3 ? 'fire-pulse' : ''} style={{ color: '#fbbf24' }} /> <b>{streak}</b> يوم
+        </span>
+      </motion.div>
+
+      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.24 }} style={{ marginTop: 'clamp(20px,4vw,30px)' }}>
+        <Link to={heroTo} className="atlas-cta">
+          <Play size={18} strokeWidth={2.4} fill="currentColor" />
+          <span style={{ position: 'relative', zIndex: 1 }}>{allDone ? g('راجع وحداتك', 'راجعي وحداتكِ') : g('ابدأ اليوم', 'ابدئي اليوم')}</span>
+        </Link>
+      </motion.div>
+    </>
+  )
+}
+
+/* ── FARDI next-session list for the analytics drawer (custom students) ── */
+function FardiNextSessions({ studentId, g }) {
+  const { data: sessions = [], isLoading } = useUpcomingPrivateSessions(studentId, true, 5)
+  if (isLoading) return <div style={{ fontSize: 13, color: 'var(--ds-text-tertiary)' }}>…</div>
+  if (!sessions.length) return <div style={{ fontSize: 13.5, color: 'var(--ds-text-secondary)' }}>لا توجد حصص قادمة مجدولة حالياً.</div>
+  return (
+    <div className="space-y-2.5">
+      {sessions.map((s) => (
+        <div
+          key={s.id}
+          className="flex items-center gap-3"
+          style={{
+            padding: '11px 13px',
+            borderRadius: 'var(--radius-md)',
+            background: 'var(--ds-surface-3, rgba(255,255,255,0.03))',
+            border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.06))',
+          }}
+        >
+          <span
+            className="flex items-center justify-center shrink-0"
+            style={{ width: 34, height: 34, borderRadius: 10, background: 'var(--accent-individual-glow, rgba(168,85,247,0.18))', color: 'var(--accent-individual-strong, #c084fc)' }}
+          >
+            <CalendarClock size={17} strokeWidth={2} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--ds-text-primary)' }}>{formatSessionWhen(s.date, s.start_time)}</div>
+            {s.notes ? (
+              <div style={{ fontSize: 12, color: 'var(--ds-text-secondary)', marginTop: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.notes}</div>
+            ) : null}
+          </div>
+          {s.google_meet_link ? (
+            <a
+              href={s.google_meet_link}
+              target="_blank"
+              rel="noreferrer"
+              className="shrink-0"
+              style={{ fontSize: 12, fontWeight: 700, padding: '7px 12px', borderRadius: 999, background: 'var(--accent-individual, #a855f7)', color: '#fff', textDecoration: 'none' }}
+            >
+              دخول
+            </a>
+          ) : null}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function SpotlightDashboard() {
   /* ── ALL HOOKS AT TOP (React #310 safe) ── */
   const reduced = useReducedMotion()
   const g = useG()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
-  const journey = useLevelJourney(profile?.id, studentData?.academic_level)
+  const useCustomCurriculum = studentData?.uses_custom_curriculum === true
+  const journey = useLevelJourney(profile?.id, studentData?.academic_level, useCustomCurriculum)
 
   /* ── DERIVED VALUES ── */
   const firstName = firstNameFrom(profile?.full_name) || profile?.display_name || ''
@@ -394,6 +534,9 @@ export default function SpotlightDashboard() {
   const completedUnits = journey.completedCount
   const allDone = totalUnits > 0 && completedUnits === totalUnits
 
+  const mission = studentData?.custom_mission_ar
+  const isFardi = useCustomCurriculum && !!mission
+
   const heroCover = current?.cover_image_url || null
   const heroTitle = current?.theme_ar || g('تابع رحلتك', 'تابعي رحلتكِ')
   const heroUnitNumber = current?.unit_number
@@ -412,6 +555,24 @@ export default function SpotlightDashboard() {
       <div className="atlas-stage space-y-10" style={{ maxWidth: 1180, margin: '0 auto' }}>
         {/* ════════ 1 · FLOATING HERO — the mission, lit by its own world ════════ */}
         <header className="atlas-hero">
+          {isFardi ? (
+            <FardiHero
+              studentId={profile.id}
+              greeting={getGreeting()}
+              firstName={firstName}
+              mission={mission}
+              completedUnits={completedUnits}
+              totalUnits={totalUnits}
+              xp={xp}
+              streak={streak}
+              level={currentLevel.level}
+              heroTo={heroTo}
+              allDone={allDone}
+              reduced={reduced}
+              g={g}
+            />
+          ) : (
+          <>
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <motion.p
@@ -513,6 +674,8 @@ export default function SpotlightDashboard() {
               </span>
             </Link>
           </motion.div>
+          </>
+          )}
         </header>
 
         {/* ════════ 2 · JOURNEY FILMSTRIP — the level, floating in the world ════════ */}
@@ -613,7 +776,7 @@ export default function SpotlightDashboard() {
             </Section>
 
             <Section title="حصّتك القادمة" icon={CalendarClock} hue="#34d399" soft="rgba(52,211,153,0.13)">
-              <NextClassWidget group={group} schedule={schedule} />
+              {isFardi ? <FardiNextSessions studentId={profile.id} g={g} /> : <NextClassWidget group={group} schedule={schedule} />}
             </Section>
 
             <Section title="نبض الأكاديمية" icon={Radio} hue="#22d3ee" soft="rgba(34,211,238,0.13)">

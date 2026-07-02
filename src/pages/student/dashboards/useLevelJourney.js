@@ -17,7 +17,7 @@ import { supabase } from '../../../lib/supabase'
  * RLS-safe: curriculum_units/levels are readable by any authenticated
  * user; unit_progress is row-scoped to the student (student_id = auth.uid()).
  * ------------------------------------------------------------------ */
-export function useLevelJourney(studentId, academicLevel) {
+export function useLevelJourney(studentId, academicLevel, useCustom = false) {
   const hasLevel = academicLevel !== null && academicLevel !== undefined
 
   const { data: level } = useQuery({
@@ -36,14 +36,28 @@ export function useLevelJourney(studentId, academicLevel) {
   })
 
   const { data: units = [] } = useQuery({
-    queryKey: ['level-journey', 'units', level?.id],
-    enabled: !!level?.id,
+    queryKey: useCustom
+      ? ['level-journey', 'units', 'custom', studentId]
+      : ['level-journey', 'units', level?.id],
+    enabled: useCustom ? !!studentId : !!level?.id,
     staleTime: 5 * 60_000,
     queryFn: async () => {
+      if (useCustom) {
+        // Fardi student → HER own units (owner_student_id), ordered by custom_sort.
+        const { data, error } = await supabase
+          .from('curriculum_units')
+          .select('id, theme_ar, theme_en, unit_number, cover_image_url, level_id')
+          .eq('owner_student_id', studentId)
+          .order('custom_sort', { ascending: true, nullsFirst: false })
+        if (error) throw error
+        return data || []
+      }
+      // Default → generic level units only (exclude any owned/custom rows).
       const { data, error } = await supabase
         .from('curriculum_units')
         .select('id, theme_ar, theme_en, unit_number, cover_image_url, level_id')
         .eq('level_id', level.id)
+        .is('owner_student_id', null)
         .order('unit_number', { ascending: true })
       if (error) throw error
       return data || []

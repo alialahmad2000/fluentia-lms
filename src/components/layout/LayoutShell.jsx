@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback, Suspense, useMemo } from 'rea
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import lazyRetry from '../../utils/lazyRetry'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Swords } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import MobileBar from './MobileBar'
@@ -15,20 +15,17 @@ import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
 import BugReportButton from '../bug-report/BugReportButton'
 import SubscriptionGate from '../access/SubscriptionGate'
 import XPFloater from '../ui/XPFloater'
-// Trainer-only chrome: lazy so students never download it. FloatingToolbar
-// self-gates on role; TimerBadge reads the local-only classModeStore, which a
-// student device can never set — gating the render on trainer/admin is
-// behavior-identical (both rendered null for students before).
-const FloatingToolbar = lazyRetry(() => import('../trainer/FloatingToolbar'))
-const TimerBadge = lazyRetry(() => import('../trainer/TimerBadge'))
+import FloatingToolbar from '../trainer/FloatingToolbar'
+import TimerBadge from '../trainer/TimerBadge'
 import { useAuthStore } from '@/stores/authStore'
-import { getNavForUser } from '@/config/navigation'
+import { getNavForRole } from '@/config/navigation'
 import useClassMode from '@/stores/classModeStore'
 import usePullToRefresh from '@/hooks/usePullToRefresh'
 import { usePageTracking } from '@/hooks/usePageTracking'
 import { tracker } from '@/services/activityTracker'
 import { useQueryClient, useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
+import { useActiveCompetition } from '@/hooks/useCompetition'
 import { useAdminBroadcastListener } from '@/hooks/useAdminBroadcastListener'
 
 import VocabGainTicker from '../curriculum/VocabGainTicker'
@@ -54,11 +51,35 @@ export default function LayoutShell() {
   const pointsGiven = useClassMode((s) => s.pointsGiven)
   const dismissSummary = useClassMode((s) => s.dismissSummary)
 
+  // Fardi (custom-curriculum) students get a purple accent scoped to their whole
+  // space via <html data-track="fardi"> (remap in design-tokens.css). Gated on
+  // studentData.uses_custom_curriculum — impersonation-safe, and no other
+  // student's palette is touched. Cleaned up on unmount / student switch.
+  useEffect(() => {
+    const el = document.documentElement
+    if (studentData?.uses_custom_curriculum === true) el.setAttribute('data-track', 'fardi')
+    else if (el.getAttribute('data-track') === 'fardi') el.removeAttribute('data-track')
+    return () => {
+      if (document.documentElement.getAttribute('data-track') === 'fardi') {
+        document.documentElement.removeAttribute('data-track')
+      }
+    }
+  }, [studentData?.uses_custom_curriculum])
+
   const role = profile?.role || 'student'
-  // SIDEBAR-HIDDEN 2026-06-08 (owner): competition is fully hidden from the nav, so the previous
-  // "inject المسابقة into the mobile bar while a competition is active" behaviour is removed.
-  // Individual (1-on-1) students get the minimal profession-first nav (INDIVIDUAL_NAV).
-  const nav = useMemo(() => getNavForUser(role, studentData), [role, studentData])
+  const { data: activeComp } = useActiveCompetition()
+  const nav = useMemo(() => {
+    const base = getNavForRole(role)
+    if (role !== 'student' || !activeComp || activeComp.status !== 'active') return base
+    return {
+      ...base,
+      mobileBar: [
+        base.mobileBar[0],
+        { id: 'competition', label: 'المسابقة', icon: Swords, to: '/student/competition' },
+        ...base.mobileBar.slice(1),
+      ],
+    }
+  }, [role, activeComp])
   const navigate = useNavigate()
   const location = useLocation()
   const queryClient = useQueryClient()
@@ -182,12 +203,8 @@ export default function LayoutShell() {
       {/* Floating elements */}
       <XPFloater />
       <VocabGainTicker />
-      {(role === 'trainer' || role === 'admin') && (
-        <Suspense fallback={null}>
-          <TimerBadge />
-          <FloatingToolbar />
-        </Suspense>
-      )}
+      <TimerBadge />
+      <FloatingToolbar />
 
       {/* Post-Class Summary */}
       <AnimatePresence>
