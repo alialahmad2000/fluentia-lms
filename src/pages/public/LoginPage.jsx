@@ -13,7 +13,7 @@ import FloatingParticles from '../../components/illustrations/FloatingParticles'
 
 export default function LoginPage() {
   const { t } = useTranslation()
-  const { user, profile, loading: authLoading } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile, loading: s.loading })))
+  const { user, profile, studentData, loading: authLoading } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile, studentData: s.studentData, loading: s.loading })))
   const signIn = useAuthStore((s) => s.signIn)
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
 
@@ -28,7 +28,7 @@ export default function LoginPage() {
   // If already logged in, redirect based on role
   if (!authLoading && user && profile) {
     switch (profile.role) {
-      case 'student': return <Navigate to="/student" replace />
+      case 'student': return <Navigate to={studentData?.uses_pro_desk === true ? '/desk' : '/student'} replace />
       case 'trainer': return <Navigate to="/trainer" replace />
       case 'admin':   return <Navigate to="/admin" replace />
       case 'agent':   return <Navigate to="/team" replace />

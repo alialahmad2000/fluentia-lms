@@ -22,7 +22,10 @@ export default function ImpersonateButton({ userId, role, name, variant = 'icon'
     queryClient.clear()
     // Full page load forces all components to remount with new user context.
     // Route to the impersonated role's home (agents → /team, admins → /admin).
-    const dest = role === 'student' ? '/student' : role === 'agent' ? '/team' : role === 'admin' ? '/admin' : role === 'coordinator' ? '/coordinator' : '/trainer'
+    // Pro Desk students land straight in their /desk surface (Operations Room), not the
+    // normal student home. studentData was loaded by startImpersonation above.
+    const usesDesk = useAuthStore.getState().studentData?.uses_pro_desk === true
+    const dest = role === 'student' ? (usesDesk ? '/desk' : '/student') : role === 'agent' ? '/team' : role === 'admin' ? '/admin' : role === 'coordinator' ? '/coordinator' : '/trainer'
     window.location.href = dest
   }
 
