@@ -10,7 +10,7 @@ import { ArrowRight, Loader2, Target, BookOpen, MessageSquareQuote, Headset, Pen
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
-import ConversationMode from '@/components/curriculum/speaking/ConversationMode'
+import DeskCallInterface from '@/components/desk/DeskCallInterface'
 import { useDeskModules } from './useDeskModules'
 import './desk.css'
 
@@ -29,7 +29,6 @@ export default function DeskScenarioPlayer() {
   const qc = useQueryClient()
   const { data, isLoading } = useDeskModules()
   const [tab, setTab] = useState('brief')
-  const [roleplayOpen, setRoleplayOpen] = useState(false)
 
   const module = useMemo(() => data?.modules?.find((m) => m.id === moduleId) || null, [data, moduleId])
 
@@ -170,31 +169,15 @@ export default function DeskScenarioPlayer() {
             </div>
           )}
 
-          {/* ROLEPLAY */}
+          {/* ROLEPLAY — a live incoming work call */}
           {tab === 'roleplay' && (
-            <div>
-              {roleplayOpen ? (
-                <ConversationMode
-                  moduleId={moduleId}
-                  studentId={profileId}
-                  topic={{ title_en: rp?.title_en || module.title_en, useful_phrases: rp?.useful_phrases || phrases.map((p) => p.en) }}
-                  onComplete={onRoleplayComplete}
-                />
-              ) : (
-                <div className="desk-glass p-8 text-center">
-                  <div className="w-16 h-16 mx-auto rounded-2xl grid place-items-center mb-4" style={{ background: 'radial-gradient(circle at 34% 28%, rgba(239,210,153,0.9), rgba(201,162,92,0.4) 60%)', boxShadow: '0 0 40px -8px rgba(201,162,92,0.55)' }}>
-                    <Headset size={26} style={{ color: '#1a130a' }} />
-                  </div>
-                  <h3 className="font-['Tajawal'] font-bold text-lg mb-1.5" style={{ color: 'var(--cream)' }}>محاكاة المكالمة الحيّة</h3>
-                  <p className="font-['Tajawal'] text-[13px] max-w-md mx-auto leading-relaxed mb-5" style={{ color: 'rgba(243,238,226,0.6)' }}>
-                    ستتحدث بالصوت مع {rp?.ai_role ? 'الشخص على الطرف الآخر' : 'زميلك'} كما لو كانت مكالمة عمل حقيقية. تكلّم بثقة — إذا تعثّرت، لا بأس.
-                  </p>
-                  <button onClick={() => setRoleplayOpen(true)} className="px-7 h-12 rounded-2xl font-['Tajawal'] font-bold text-[14px] transition-transform hover:-translate-y-0.5" style={{ color: '#1a130a', background: 'linear-gradient(135deg,#efd299,#c9a25c)', boxShadow: '0 12px 30px -8px rgba(201,162,92,0.5)' }}>
-                    ابدأ المكالمة →
-                  </button>
-                </div>
-              )}
-            </div>
+            <DeskCallInterface
+              module={module}
+              moduleId={moduleId}
+              studentId={profileId}
+              phrases={phrases}
+              onComplete={onRoleplayComplete}
+            />
           )}
 
           {/* WRITING */}

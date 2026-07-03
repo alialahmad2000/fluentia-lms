@@ -3,6 +3,11 @@
 // vanishing point, a reflective cool floor, volumetric haze and drifting brass motes.
 // Full-bleed, fixed, behind everything (the Desk chrome sits over it, like the Library room).
 //
+// The room is ALIVE: it parallaxes to the cursor and to page scroll (the vanishing point,
+// racks, haze and motes shift at different depths) so moving the mouse feels like leaning
+// into a real control room. Pointer parallax is gated to fine pointers (desktop); touch
+// devices get the scroll parallax only.
+//
 // Performance: DPR-capped, resize-aware, motion gated — reduced-motion or a low-core device
 // gets a single static frame (mirrors the AmbientParticles discipline that fixed the Android
 // toolbar-scroll flicker).
@@ -19,7 +24,16 @@ export default function NocBackdrop() {
 
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
     const lowCore = (navigator.hardwareConcurrency || 8) <= 4
+    const finePointer = window.matchMedia?.('(pointer: fine)')?.matches
     const animate = !reduce && !lowCore
+
+    // Parallax state — target follows input, current eases toward it each frame.
+    const par = { tx: 0, ty: 0, x: 0, y: 0, tScroll: 0, scroll: 0 }
+    const onPointer = (e) => {
+      par.tx = (e.clientX / (window.innerWidth || 1)) - 0.5   // -0.5 … 0.5
+      par.ty = (e.clientY / (window.innerHeight || 1)) - 0.5
+    }
+    const onScroll = () => { par.tScroll = Math.min((window.scrollY || 0) / 900, 1) }
 
     let W = 0, H = 0, dpr = 1, raf = 0
     const ROWS = 12 // cabinets per side
@@ -60,8 +74,14 @@ export default function NocBackdrop() {
 
     const draw = (tMs) => {
       const t = tMs / 1000
-      const vpx = W * 0.63   // vanishing point — aisle recedes toward the sidebar side
-      const vpy = H * 0.5
+      // ease parallax toward its target (smooth, no jitter)
+      par.x += (par.tx - par.x) * 0.06
+      par.y += (par.ty - par.y) * 0.06
+      par.scroll += (par.tScroll - par.scroll) * 0.08
+      // vanishing point drifts opposite the cursor (leaning in) + a touch of breathing sway
+      const sway = animate ? Math.sin(t * 0.11) * 0.006 : 0
+      const vpx = W * (0.63 - par.x * 0.045 + sway)
+      const vpy = H * (0.5 - par.y * 0.05 - par.scroll * 0.04)
 
       // base wash
       const bg = ctx.createLinearGradient(0, 0, 0, H)
@@ -171,11 +191,11 @@ export default function NocBackdrop() {
       ctx.fillStyle = haze
       ctx.fillRect(0, 0, W, H)
 
-      // drifting brass motes
+      // drifting brass motes — nearer motes (higher z) parallax more (depth)
       for (const m of motes) {
         const y = animate ? (m.y + (t * 0.014 * m.drift)) % 1 : m.y
-        const px = m.x * W
-        const py = y * H
+        const px = m.x * W - par.x * W * 0.06 * m.z
+        const py = y * H - par.y * H * 0.06 * m.z - par.scroll * H * 0.03 * m.z
         ctx.fillStyle = `rgba(201,162,92,${0.06 + m.z * 0.12})`
         ctx.beginPath(); ctx.arc(px, py, m.z * 1.5, 0, 6.283); ctx.fill()
       }
@@ -185,11 +205,17 @@ export default function NocBackdrop() {
 
     resize()
     draw(0)
-    if (animate) raf = requestAnimationFrame(draw)
+    if (animate) {
+      raf = requestAnimationFrame(draw)
+      if (finePointer) window.addEventListener('pointermove', onPointer, { passive: true })
+      window.addEventListener('scroll', onScroll, { passive: true })
+    }
     window.addEventListener('resize', resize)
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
+      window.removeEventListener('pointermove', onPointer)
+      window.removeEventListener('scroll', onScroll)
     }
   }, [])
 

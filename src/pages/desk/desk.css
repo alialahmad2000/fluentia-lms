@@ -147,6 +147,134 @@
   .desk-live-dot, .desk-rise { animation: none !important; }
 }
 
+/* ══ the incoming-call experience (DeskCallInterface) ══ */
+.desk-call-panel {
+  position: relative;
+  overflow: hidden;
+}
+.desk-call-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 20%, rgba(201,162,92,0.10), transparent 60%);
+  pointer-events: none;
+}
+.desk-call-avatar-wrap {
+  position: relative;
+  width: 96px; height: 96px;
+  margin: 0 auto;
+  display: grid; place-items: center;
+}
+.desk-call-avatar {
+  position: relative; z-index: 2;
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  color: rgba(26,19,8,0.62);   /* embossed, not stamped */
+  background:
+    radial-gradient(120% 120% at 50% 16%, rgba(255,255,255,0.30), transparent 44%),
+    radial-gradient(circle at 50% 44%, #e6cd91 0%, #c9a25c 56%, #6d5121 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.5),
+    inset 0 -12px 22px rgba(58,40,12,0.55),   /* interior vignette = depth, not gloss */
+    0 0 0 6px rgba(201,162,92,0.06),
+    0 0 64px -8px rgba(201,162,92,0.55);
+}
+.desk-call-avatar span { text-shadow: 0 1px 0 rgba(255,255,255,0.22); }
+.desk-call-ring {
+  position: absolute; inset: 0; z-index: 1;
+  border-radius: 50%;
+  border: 2px solid rgba(201,162,92,0.62);
+  box-shadow: 0 0 16px rgba(201,162,92,0.22);
+  animation: deskCallRing 1.8s ease-out infinite;
+}
+@keyframes deskCallRing {
+  0%   { transform: scale(1);    opacity: 0.9; }
+  100% { transform: scale(2.15); opacity: 0; }
+}
+.desk-call-ring-in { animation: deskCallRingIn 1.2s ease-in-out infinite; }
+@keyframes deskCallRingIn {
+  0%,100% { transform: scale(1.9); opacity: 0; }
+  50%     { transform: scale(1.1); opacity: 0.6; }
+}
+/* ringing dots */
+.desk-call-dots span {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--brass); opacity: 0.35;
+  animation: deskDot 1.4s ease-in-out infinite;
+}
+.desk-call-dots span:nth-child(2) { animation-delay: 0.2s; }
+.desk-call-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes deskDot { 0%,100% { opacity: 0.25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+/* answer / decline buttons */
+.desk-call-btn {
+  width: 64px; height: 64px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: #fff;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+}
+.desk-call-btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.desk-call-btn:active { transform: scale(0.94); }
+.desk-call-answer {
+  /* retuned green so it sits IN the brass room, with a brass rim tying it to the palette */
+  background: linear-gradient(180deg, #3ec983, #128a4f);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 0 0 1px rgba(201,162,92,0.5),
+    0 0 0 6px rgba(62,201,131,0.10),
+    0 14px 30px -10px rgba(18,138,79,0.6);
+}
+/* invite the tap with a calm glow breath — never a bounce */
+.desk-call-answer-breathe { animation: deskBreathe 2.4s ease-in-out infinite; }
+@keyframes deskBreathe {
+  0%,100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 1px rgba(201,162,92,0.5), 0 0 0 6px rgba(62,201,131,0.10), 0 14px 30px -10px rgba(18,138,79,0.6); }
+  50%     { box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 0 1px rgba(201,162,92,0.6), 0 0 0 11px rgba(62,201,131,0.20), 0 16px 36px -10px rgba(18,138,79,0.72); }
+}
+.desk-call-answer-breathe:hover { animation: none; }
+.desk-call-decline {
+  background: linear-gradient(180deg, #4b5560, #2b333c);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 0 0 1px rgba(226,105,78,0.25), 0 10px 24px -10px rgba(0,0,0,0.6);
+  color: rgba(255,180,164,0.95);
+}
+
+/* signal meter — bouncing bars */
+.desk-signal { display: inline-flex; align-items: flex-end; gap: 3px; height: 22px; }
+.desk-signal span {
+  width: 3px; border-radius: 2px;
+  background: linear-gradient(180deg, var(--brass-hi), var(--brass));
+  animation: deskSignal 0.9s ease-in-out infinite;
+}
+.desk-signal span:nth-child(1) { animation-delay: 0s; }
+.desk-signal span:nth-child(2) { animation-delay: 0.12s; }
+.desk-signal span:nth-child(3) { animation-delay: 0.24s; }
+.desk-signal span:nth-child(4) { animation-delay: 0.36s; }
+.desk-signal span:nth-child(5) { animation-delay: 0.48s; }
+@keyframes deskSignal { 0%,100% { height: 5px; opacity: 0.5; } 50% { height: 22px; opacity: 1; } }
+.desk-signal-sm { height: 16px; }
+.desk-signal-sm span { animation-name: deskSignalSm; }
+@keyframes deskSignalSm { 0%,100% { height: 4px; opacity: 0.55; } 50% { height: 16px; opacity: 1; } }
+/* connected = a STEADY line: bars mostly solid, only the last one jitters (authentic, not an equalizer) */
+.desk-signal-steady span { animation: none; opacity: 0.92; }
+.desk-signal-steady span:nth-child(1) { height: 7px; }
+.desk-signal-steady span:nth-child(2) { height: 11px; }
+.desk-signal-steady span:nth-child(3) { height: 14px; }
+.desk-signal-steady span:nth-child(4) { height: 16px; animation: deskSignalSm 1.3s ease-in-out infinite; }
+
+/* connected HUD */
+.desk-call-hud-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center; flex-shrink: 0;
+  color: #1a130a;
+  background: radial-gradient(circle at 34% 28%, #f6e3b8, #c9a25c 62%, #7c5f2c);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 4px 12px -4px rgba(201,162,92,0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desk-call-ring, .desk-call-ring-in, .desk-call-dots span, .desk-call-answer-breathe, .desk-signal span { animation: none !important; }
+  .desk-signal span { height: 14px; }
+}
+
 /* mobile bottom bar */
 .desk-mobilebar {
   position: fixed;

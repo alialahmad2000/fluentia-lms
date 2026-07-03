@@ -88,7 +88,7 @@ const STYLE = `
 
 // moduleId (optional): individual-track professional roleplay — the edge fn loads the
 // scenario from specialization_modules instead of curriculum_speaking (unitId is null then).
-export default function ConversationMode({ topic, studentId, unitId, moduleId = null, questionIndex = 0, onComplete, onSwitchToClassic }) {
+export default function ConversationMode({ topic, studentId, unitId, moduleId = null, autoStart = false, questionIndex = 0, onComplete, onSwitchToClassic }) {
   const g = useG()
   const reduce = useReducedMotion()
   const [phase, setPhase] = useState('intro')          // intro | active | grading | result
@@ -172,6 +172,16 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
     pushMessage({ role: 'ai', text: parsed.reply, audioUrl: parsed.reply_audio_url })
     playCoach(parsed.reply_audio_url)
   }, [unitId, moduleId, topic?.id, questionIndex, studentId, pushMessage, playCoach])
+
+  // When mounted inside the Desk call flow, the incoming-call ceremony already happened —
+  // begin immediately so answering feels like a live call (no second "start" screen).
+  const autoStartedRef = useRef(false)
+  useEffect(() => {
+    if (autoStart && !autoStartedRef.current && phase === 'intro') {
+      autoStartedRef.current = true
+      startConversation()
+    }
+  }, [autoStart, phase, startConversation])
 
   // ── Recording + live analyser waveform ──
   const tickBars = useCallback(() => {
@@ -312,7 +322,7 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
 
         <AnimatePresence mode="wait">
           {/* ── INTRO ── */}
-          {phase === 'intro' && (
+          {phase === 'intro' && !autoStart && (
             <motion.div key="intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 py-8 flex flex-col items-center text-center gap-5">
               <CoachOrb size={92} speaking animate={!reduce} />
               <div className="space-y-2.5 max-w-sm">
