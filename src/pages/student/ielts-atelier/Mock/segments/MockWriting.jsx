@@ -139,7 +139,7 @@ export default function MockWriting({ attemptId, answers, content, startedAt, on
     <div dir="rtl" style={{ maxWidth: 1000, margin: '0 auto', paddingBottom: 60 }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0 16px', borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>✍️ الكتابة</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>الكتابة</span>
         <span style={{ fontSize: 16, fontWeight: 900, color: isCritical ? '#f87171' : isUrgent ? 'var(--sunset-amber)' : 'var(--ds-text)', fontFamily: "'IBM Plex Mono', monospace" }}>{formatTime(secsLeft)}</span>
         <button onClick={handleSubmit} disabled={submitting} style={{ padding: '7px 18px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--sunset-orange) 35%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: submitting ? 'not-allowed' : 'pointer' }}>إرسال للتقييم</button>
       </div>

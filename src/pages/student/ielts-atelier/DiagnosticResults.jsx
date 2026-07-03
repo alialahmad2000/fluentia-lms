@@ -1,300 +1,118 @@
-import React, { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { BookOpen, Headphones, PenLine, Mic } from 'lucide-react'
-
-import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
-import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDiagnosticResultV2 } from '@/hooks/ielts/useDiagnosticResultV2'
+import { useAdaptivePlan } from '@/hooks/ielts/useIELTSHub'
+import { useStudentId } from './_helpers/resolveStudentId'
 import { useG } from '@/i18n/gender'
+import { Card, PrimaryButton, Icon, SectionHeader } from './_ui/primitives'
 
-const SKILL_CONFIG = [
-  { key: 'listening', label: 'الاستماع', icon: Headphones },
-  { key: 'reading',   label: 'القراءة',  icon: BookOpen },
-  { key: 'writing',   label: 'الكتابة',  icon: PenLine },
-  { key: 'speaking',  label: 'المحادثة', icon: Mic },
-]
+const BASE = '/student/ielts-atelier'
+const SKILLS = ['reading', 'listening', 'writing', 'speaking']
+const SKILL_LABEL = { reading: 'القراءة', listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة' }
 
-const NARRATIVE_LINES = [
-  'انتهى الفصل الأول.',
-  'وهنا نبدأ نرسم خارطتك.',
-]
-
-function EmptyState() {
-  const g = useG()
-  return (
-    <div
-      dir="rtl"
-      style={{
-        maxWidth: 440,
-        margin: '80px auto',
-        padding: 16,
-        textAlign: 'center',
-      }}
-    >
-      <div style={{
-        padding: '40px 32px',
-        borderRadius: 20,
-        background: 'color-mix(in srgb, var(--sunset-base-mid) 55%, transparent)',
-        border: 'var(--ds-border-width, 1px) solid color-mix(in srgb, var(--ds-border) 60%, transparent)',
-        backdropFilter: 'blur(var(--ds-blur-sm, 8px))',
-      }}>
-        <p style={{ fontSize: 18, fontWeight: 800, color: 'var(--ds-text)', margin: '0 0 10px', fontFamily: "'Tajawal', sans-serif" }}>
-          {g('لم تُكمل اختبار تشخيصي بعد.', 'لم تُكملي اختبار تشخيصي بعد.')}
-        </p>
-        <p style={{ fontSize: 14, color: 'var(--ds-text-muted)', margin: '0 0 24px', fontFamily: "'Tajawal', sans-serif' " }}>
-          {g('ابدأ التشخيص لتحصل على خارطتك الكاملة.', 'ابدأي التشخيص لتحصلي على خارطتك الكاملة.')}
-        </p>
-        <Link
-          to="/student/ielts-atelier/diagnostic"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            padding: '12px 28px',
-            borderRadius: 12,
-            background: 'color-mix(in srgb, var(--sunset-orange) 22%, var(--sunset-base-mid))',
-            border: 'var(--ds-border-width, 1px) solid color-mix(in srgb, var(--sunset-orange) 40%, transparent)',
-            color: 'var(--ds-text)',
-            fontSize: 15,
-            fontWeight: 800,
-            textDecoration: 'none',
-            fontFamily: "'Tajawal', sans-serif",
-          }}
-        >
-          {g('ابدأ الآن', 'ابدأي الآن')}
-        </Link>
-      </div>
-    </div>
-  )
+// Concise IELTS band meaning (Arabic).
+function bandMeaning(b) {
+  if (b == null) return ''
+  if (b >= 8) return 'مستخدم متمكّن — تفهم وتُعبّر بدقّة وطلاقة.'
+  if (b >= 7) return 'مستخدم جيّد — تتحكّم في اللغة مع أخطاء قليلة غير منهجية.'
+  if (b >= 6) return 'مستخدم كفؤ — فهم جيّد رغم بعض الأخطاء وسوء الفهم أحياناً.'
+  if (b >= 5) return 'مستخدم متوسّط — تتعامل مع المعنى العام رغم كثرة الأخطاء.'
+  if (b >= 4) return 'مستخدم محدود — كفاءتك واضحة في المواقف المألوفة فقط.'
+  return 'مستخدم محدود جداً — تحتاج لبناء الأساسيات.'
 }
 
 export default function DiagnosticResults() {
-  // ========== ALL HOOKS TOP ==========
   const navigate = useNavigate()
   const g = useG()
+  const studentId = useStudentId()
   const { data: result, isLoading } = useDiagnosticResultV2()
-  const [revealed, setRevealed] = useState(false)
+  const { data: plan } = useAdaptivePlan(studentId)
+  const target = plan?.target_band != null ? Number(plan.target_band) : null
 
   if (isLoading) {
     return (
-      <div dir="rtl" style={{ textAlign: 'center', padding: '80px 16px' }}>
-        <p style={{ color: 'var(--ds-text-muted)', fontSize: 14, fontFamily: "'Tajawal', sans-serif" }}>
-          جاري تحميل نتيجتك...
-        </p>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 260 }}>
+        <div style={{ width: 24, height: 24, border: '2px solid var(--iel-border)', borderTopColor: 'var(--iel-accent)', borderRadius: '50%', animation: 'iel-spin .7s linear infinite' }} />
       </div>
     )
   }
 
   if (!result?.hasResult) {
-    return <EmptyState />
+    return (
+      <div style={{ maxWidth: 460, margin: '60px auto', textAlign: 'center' }}>
+        <p style={{ fontSize: 17, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 8px' }}>{g('لم تُكمل اختباراً تشخيصياً بعد', 'لم تُكملي اختباراً تشخيصياً بعد')}</p>
+        <p style={{ fontSize: 14, color: 'var(--iel-ink-3)', margin: '0 0 22px', lineHeight: 1.8 }}>ابدأ التشخيص لتحصل على تقريرك الكامل.</p>
+        <PrimaryButton onClick={() => navigate(`${BASE}/diagnostic`)}>{g('ابدأ الآن', 'ابدئي الآن')} <Icon.chevron size={16} sw={2.4} /></PrimaryButton>
+      </div>
+    )
   }
 
-  const { overallBand, skills, strengthSkills, weaknessSkills } = result
+  const { overallBand, skills } = result
+  const overall = overallBand != null ? Number(overallBand) : null
+  const bands = Object.fromEntries(SKILLS.map((s) => [s, skills?.[s] != null ? Number(skills[s]) : null]))
+  const rated = SKILLS.filter((s) => bands[s] != null)
+  const strongest = rated.length ? rated.reduce((a, b) => (bands[a] >= bands[b] ? a : b)) : null
+  const weakest = rated.length ? rated.reduce((a, b) => (bands[a] <= bands[b] ? a : b)) : null
 
   return (
-    <div
-      dir="rtl"
-      style={{
-        maxWidth: 680,
-        margin: '0 auto',
-        paddingBottom: 80,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 48,
-      }}
-    >
-      {/* ========== 1. NARRATIVE ========== */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        style={{ paddingTop: 32 }}
-      >
-        <NarrativeReveal
-          lines={NARRATIVE_LINES}
-          delayBetweenLines={900}
-          pauseAfterLast={600}
-          onComplete={() => setRevealed(true)}
-        />
-      </motion.section>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2, maxWidth: 760 }}>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>نتيجة الاختبار التشخيصي</div>
+        <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>هذه نقطة انطلاقك — لا نهايتك.</h1>
+      </div>
 
-      {/* ========== 2. THE REVEAL ========== */}
-      <motion.section
-        animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 24 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        style={{
-          textAlign: 'center',
-          padding: '40px 24px',
-          borderRadius: 24,
-          background: 'color-mix(in srgb, var(--sunset-base-mid) 60%, transparent)',
-          border: 'var(--ds-border-width, 1px) solid color-mix(in srgb, var(--sunset-orange) 30%, transparent)',
-          backdropFilter: 'blur(var(--ds-blur-sm, 10px))',
-        }}
-      >
-        <BandDisplay band={overallBand} size="xl" animate label="نتيجتك" />
-        <p style={{
-          marginTop: 24,
-          fontSize: 16,
-          color: 'var(--ds-text-muted)',
-          lineHeight: 1.8,
-          fontFamily: "'Tajawal', sans-serif",
-        }}>
-          Band {overallBand != null ? Number(overallBand).toFixed(1) : '—'}. هذه نقطة انطلاقك — ليست نهايتك.
-        </p>
-      </motion.section>
+      {/* Overall band */}
+      <Card style={{ padding: '26px 28px', display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 26, alignItems: 'center' }}>
+        <div style={{ textAlign: 'center', paddingInlineEnd: 26, borderInlineEnd: '1px solid var(--iel-border)' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-ink-3)', marginBottom: 6 }}>نطاقك العام</div>
+          <div className="iel-serif" style={{ fontSize: 64, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: .85 }}>{overall != null ? overall.toFixed(1) : '—'}</div>
+          {target != null && <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', fontWeight: 700, marginTop: 8 }}>الهدف {target.toFixed(1)}</div>}
+        </div>
+        <div>
+          <p style={{ fontSize: 15.5, color: 'var(--iel-ink)', fontWeight: 700, margin: '0 0 6px', lineHeight: 1.6 }}>{bandMeaning(overall)}</p>
+          <p style={{ fontSize: 13.5, color: 'var(--iel-ink-3)', margin: 0, lineHeight: 1.8 }}>
+            {strongest && weakest && strongest !== weakest
+              ? <>أقوى مهاراتك <b style={{ color: 'var(--iel-ink)' }}>{SKILL_LABEL[strongest]}</b>، وأكبر فرصة للنموّ في <b style={{ color: 'var(--iel-ink)' }}>{SKILL_LABEL[weakest]}</b>.</>
+              : 'أداؤك متوازن عبر المهارات الأربع — بداية ممتازة.'}
+          </p>
+        </div>
+      </Card>
 
-      {/* ========== 3. FOUR SKILL BREAKDOWN ========== */}
-      <motion.section
-        animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 20 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-      >
-        <h2 style={{
-          fontSize: 18,
-          fontWeight: 900,
-          color: 'var(--ds-text)',
-          margin: '0 0 16px',
-        }}>
-          أداؤك في المهارات الأربع
-        </h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: 12,
-        }}>
-          {SKILL_CONFIG.map(({ key, label, icon: Icon }) => {
-            const band = skills?.[key]
-            const isStrong = band != null && overallBand != null && band >= overallBand + 0.5
-            const isWeak   = band != null && overallBand != null && band <= overallBand - 0.5
-            const accent = isStrong
-              ? 'var(--ds-accent-success, var(--sunset-orange))'
-              : isWeak
-              ? 'var(--ds-text-muted)'
-              : 'var(--sunset-orange)'
-
+      {/* Per-skill breakdown */}
+      <div>
+        <SectionHeader title="نتيجتك في كل مهارة" />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 13 }}>
+          {SKILLS.map((s) => {
+            const b = bands[s]
+            const isStrong = b != null && overall != null && b >= overall + 0.5
+            const isWeak = b != null && overall != null && b <= overall - 0.5
+            const I = Icon[s]
             return (
-              <div
-                key={key}
-                style={{
-                  padding: '18px 20px',
-                  borderRadius: 16,
-                  background: 'color-mix(in srgb, var(--sunset-base-mid) 55%, transparent)',
-                  border: `var(--ds-border-width, 1px) solid color-mix(in srgb, ${accent} 25%, transparent)`,
-                  backdropFilter: 'blur(var(--ds-blur-sm, 6px))',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                  <div style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: 9,
-                    background: `color-mix(in srgb, ${accent} 15%, transparent)`,
-                    color: accent,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                    <Icon size={16} strokeWidth={2} />
-                  </div>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>
-                    {label}
-                  </span>
+              <Card key={s} style={{ padding: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+                  <span style={{ color: 'var(--iel-ink-3)', display: 'flex' }}><I size={15} /></span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--iel-ink-2)' }}>{SKILL_LABEL[s]}</span>
                 </div>
-                <div style={{
-                  fontSize: 34,
-                  fontWeight: 900,
-                  color: accent,
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  lineHeight: 1,
-                }}>
-                  {band != null ? Number(band).toFixed(1) : '—'}
+                <div className="iel-serif" style={{ fontSize: 32, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: 1 }}>{b != null ? b.toFixed(1) : '—'}</div>
+                <div style={{ fontSize: 11.5, fontWeight: 700, marginTop: 8, color: isStrong ? 'var(--iel-good)' : isWeak ? 'var(--iel-warn)' : 'var(--iel-ink-3)' }}>
+                  {isStrong ? 'نقطة قوّة' : isWeak ? 'نقطة تركيز' : 'متوازنة'}
                 </div>
-              </div>
+              </Card>
             )
           })}
         </div>
-      </motion.section>
+      </div>
 
-      {/* ========== 4. STRENGTHS NARRATIVE ========== */}
-      <motion.section
-        animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 16 }}
-        transition={{ duration: 0.6, delay: 0.55 }}
-        style={{
-          padding: '24px',
-          borderRadius: 18,
-          background: 'color-mix(in srgb, var(--sunset-base-mid) 50%, transparent)',
-          border: 'var(--ds-border-width, 1px) solid color-mix(in srgb, var(--sunset-orange) 18%, transparent)',
-          backdropFilter: 'blur(var(--ds-blur-sm, 6px))',
-        }}
-      >
-        <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sunset-orange)', letterSpacing: 2, marginBottom: 10 }}>
-          نقاط القوة
+      {/* Next step */}
+      <Card style={{ padding: '22px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 18, flexWrap: 'wrap' }}>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', marginBottom: 4 }}>خطوتك القادمة</div>
+          <div style={{ fontSize: 13.5, color: 'var(--iel-ink-3)', fontWeight: 600, lineHeight: 1.7 }}>
+            {weakest ? <>سنبدأ خطّتك بالتركيز على <b style={{ color: 'var(--iel-ink)' }}>{SKILL_LABEL[weakest]}</b> — أكبر فجوة نحو هدفك.</> : 'لنبنِ خطّتك الأسبوعية نحو هدفك.'}
+          </div>
         </div>
-        <p style={{ fontSize: 15, color: 'var(--ds-text)', lineHeight: 1.8, margin: 0, fontFamily: "'Tajawal', sans-serif" }}>
-          {strengthSkills.length > 0
-            ? <>نقاط قوّتكِ: <strong>{strengthSkills.join(' و')}</strong>. هذه أسس نبني عليها.</>
-            : 'أداؤكِ متوازن عبر المهارات الأربع — بداية ممتازة.'}
-        </p>
-      </motion.section>
-
-      {/* ========== 5. FOCUS AREAS NARRATIVE ========== */}
-      <motion.section
-        animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 16 }}
-        transition={{ duration: 0.6, delay: 0.7 }}
-        style={{
-          padding: '24px',
-          borderRadius: 18,
-          background: 'color-mix(in srgb, var(--sunset-base-mid) 50%, transparent)',
-          border: 'var(--ds-border-width, 1px) solid color-mix(in srgb, var(--ds-border) 50%, transparent)',
-          backdropFilter: 'blur(var(--ds-blur-sm, 6px))',
-        }}
-      >
-        <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--ds-text-muted)', letterSpacing: 2, marginBottom: 10 }}>
-          ما سنعمل عليه
-        </div>
-        <p style={{ fontSize: 15, color: 'var(--ds-text)', lineHeight: 1.8, margin: 0, fontFamily: "'Tajawal', sans-serif" }}>
-          {weaknessSkills.length > 0
-            ? <>ما سنعمل عليه: <strong>{weaknessSkills.join(' و')}</strong>. كل أسبوع سنقترب خطوة.</>
-            : 'لا يوجد ضعف واضح — سنركّز على التطوير المتوازن.'}
-        </p>
-      </motion.section>
-
-      {/* ========== 6. CTA ========== */}
-      <motion.section
-        animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 16 }}
-        transition={{ duration: 0.6, delay: 0.85 }}
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}
-      >
-        <button
-          onClick={() => navigate('/student/ielts-atelier/journey')}
-          style={{
-            width: '100%',
-            maxWidth: 480,
-            padding: '18px 32px',
-            borderRadius: 16,
-            border: 'var(--ds-border-width, 1px) solid color-mix(in srgb, var(--sunset-orange) 50%, transparent)',
-            background: 'color-mix(in srgb, var(--sunset-orange) 22%, var(--sunset-base-mid))',
-            color: 'var(--ds-text)',
-            fontSize: 17,
-            fontWeight: 900,
-            fontFamily: "'Tajawal', sans-serif",
-            cursor: 'pointer',
-          }}
-        >
-          {g('ابدأ رحلتك', 'ابدأي رحلتك')}
-        </button>
-
-        <Link
-          to="/student/ielts-atelier"
-          style={{
-            fontSize: 13,
-            color: 'var(--ds-text-muted)',
-            textDecoration: 'none',
-            fontFamily: "'Tajawal', sans-serif",
-          }}
-        >
-          العودة للرئيسية
-        </Link>
-      </motion.section>
+        <PrimaryButton onClick={() => navigate(`${BASE}/journey`)}>{g('اعرض خطّتي', 'اعرض خطّتي')} <Icon.chevron size={16} sw={2.4} /></PrimaryButton>
+      </Card>
     </div>
   )
 }

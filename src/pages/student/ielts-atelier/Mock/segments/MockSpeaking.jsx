@@ -237,7 +237,7 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
     <div dir="rtl" style={{ maxWidth: 900, margin: '0 auto', paddingBottom: 60 }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0 16px', borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', marginBottom: 20, gap: 12, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif" }}>🎤 {meta.label}</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif" }}>{meta.label}</span>
         <span style={{ fontSize: 16, fontWeight: 900, color: isCritical ? '#f87171' : isUrgent ? 'var(--sunset-amber)' : 'var(--ds-text)', fontFamily: "'IBM Plex Mono', monospace" }}>{formatTime(secsLeft)}</span>
         <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>سؤال {qIdx + 1}/{questions.length}</span>
       </div>

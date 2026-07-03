@@ -1,49 +1,43 @@
-// Diagnostic Session — runs the four lean segments in sequence, then finalizes
-// into a real band per skill + adaptive plan (which lights up the whole Atelier).
-// Reuses the proven mock segment engine; gentle "measurement" framing, not exam.
+// Diagnostic Session — an organized placement exam: a cohesive stepper, a clear
+// per-section intro before each part, then the section itself (reusing the proven
+// segment engines), then a real band + adaptive plan.
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { BookOpen, Headphones, PenLine, Mic, Check } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
 import { invokeWithRetry } from '@/lib/invokeWithRetry'
 import { useMockAttempt, saveSegmentResult } from './Mock/useMockSession'
 import MockReading from './Mock/segments/MockReading'
 import MockListening from './Mock/segments/MockListening'
 import MockWriting from './Mock/segments/MockWriting'
 import MockSpeaking from './Mock/segments/MockSpeaking'
-import { useG } from '@/i18n/gender'
+import { Icon, PrimaryButton } from './_ui/primitives'
 
-// Ease in with reading; keep IELTS-familiar order after.
+const BASE = '/student/ielts-atelier'
 const DIAG_SKILLS = ['reading', 'listening', 'writing', 'speaking']
-const SKILL_META = {
-  reading:   { icon: BookOpen,   label: 'القراءة' },
-  listening: { icon: Headphones, label: 'الاستماع' },
-  writing:   { icon: PenLine,    label: 'الكتابة' },
-  speaking:  { icon: Mic,        label: 'المحادثة' },
+const SECTION = {
+  reading:   { label: 'القراءة', time: '٢٠ دقيقة', notes: ['اقرأ النصّ ثم أجِب عن الأسئلة.', 'يمكنك التنقّل بين الأسئلة بحرّية.'] },
+  listening: { label: 'الاستماع', time: '١٠ دقائق', notes: ['المقطع يُشغَّل مرّة واحدة فقط — كن مستعدّاً.', 'أجِب أثناء الاستماع.'] },
+  writing:   { label: 'الكتابة', time: '٢٠ دقيقة', notes: ['اكتب ردّاً منظّماً على المهمّة.', 'يُقيَّم على المعايير الأربعة الرسمية.'] },
+  speaking:  { label: 'المحادثة', time: '٥ دقائق', notes: ['سجّل إجابتك صوتياً بالميكروفون.', 'تحدّث بطبيعية — لا داعي للحفظ.'] },
 }
-const MONO = "'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, monospace"
+const SEG = { reading: MockReading, listening: MockListening, writing: MockWriting, speaking: MockSpeaking }
 
-function ProgressRibbon({ current, doneSet }) {
+function Stepper({ current, doneSet }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, padding: '10px 0 22px', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 0 22px', flexWrap: 'wrap' }}>
       {DIAG_SKILLS.map((s, i) => {
-        const { icon: Icon, label } = SKILL_META[s]
-        const done = doneSet.has(s)
-        const active = s === current
-        const accent = 'var(--sunset-orange)'  // re-themed to signal-teal by the layout
-        const color = done ? accent : active ? 'var(--ds-text)' : 'var(--ds-text-muted)'
-        const bg = active ? 'color-mix(in srgb, var(--sunset-orange) 12%, transparent)' : 'transparent'
-        const border = done
-          ? `color-mix(in srgb, ${accent} 45%, transparent)`
-          : active ? `color-mix(in srgb, ${accent} 35%, transparent)` : 'color-mix(in srgb, var(--ds-border) 40%, transparent)'
+        const done = doneSet.has(s), active = s === current
+        const color = done ? 'var(--iel-accent)' : active ? 'var(--iel-ink)' : 'var(--iel-ink-3)'
         return (
-          <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 13px', borderRadius: 999, background: bg, border: `1px solid ${border}` }}>
-              <span style={{ display: 'flex', color }}>{done ? <Check size={14} strokeWidth={2.5} /> : <Icon size={14} strokeWidth={2} />}</span>
-              <span style={{ fontSize: 12.5, fontWeight: active || done ? 700 : 500, color, fontFamily: "'Tajawal', sans-serif" }}>{label}</span>
+          <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 8, padding: '7px 13px', borderRadius: 999,
+              border: `1px solid ${done ? 'color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border))' : active ? 'color-mix(in srgb, var(--iel-accent) 35%, var(--iel-border))' : 'var(--iel-border)'}`,
+              background: active ? 'var(--iel-accent-soft)' : 'transparent', color,
+            }}>
+              <span style={{ display: 'flex' }}>{done ? <Icon.readiness size={15} /> : <span style={{ width: 18, textAlign: 'center', fontSize: 12, fontWeight: 800 }}>{i + 1}</span>}</span>
+              <span style={{ fontSize: 12.5, fontWeight: active || done ? 700 : 600, fontFamily: "'Tajawal', sans-serif" }}>{SECTION[s].label}</span>
             </div>
-            {i < DIAG_SKILLS.length - 1 && <span style={{ color: 'var(--ds-text-muted)', fontSize: 11, opacity: 0.5 }}>—</span>}
+            {i < DIAG_SKILLS.length - 1 && <span style={{ color: 'var(--iel-ink-3)', opacity: .5 }}>—</span>}
           </div>
         )
       })}
@@ -53,17 +47,11 @@ function ProgressRibbon({ current, doneSet }) {
 
 function Finalizing() {
   return (
-    <div dir="rtl" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '55vh', gap: 22, textAlign: 'center' }}>
-      <div style={{ position: 'relative', width: 76, height: 76 }}>
-        <motion.div
-          animate={{ rotate: 360 }} transition={{ duration: 2.4, repeat: Infinity, ease: 'linear' }}
-          style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'var(--sunset-orange)', borderRightColor: 'color-mix(in srgb, var(--sunset-orange) 35%, transparent)' }}
-        />
-        <div style={{ position: 'absolute', inset: 16, borderRadius: '50%', border: '1px solid color-mix(in srgb, var(--sunset-orange) 25%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: MONO, fontSize: 13, color: 'var(--sunset-orange)', fontWeight: 700 }}>?.?</div>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '55vh', gap: 20, textAlign: 'center' }}>
+      <div style={{ width: 46, height: 46, borderRadius: '50%', border: '2px solid var(--iel-border)', borderTopColor: 'var(--iel-accent)', animation: 'iel-spin .8s linear infinite' }} />
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: 18, fontWeight: 800, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>نحسب مستواك بدقّة…</p>
-        <p style={{ margin: 0, fontSize: 13.5, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8 }}>نقرأ إجاباتك ونرسم خارطتك — لحظات.</p>
+        <p style={{ margin: '0 0 6px', fontSize: 18, fontWeight: 800, color: 'var(--iel-ink)' }}>نحسب نتيجتك بدقّة…</p>
+        <p style={{ margin: 0, fontSize: 13.5, color: 'var(--iel-ink-3)', lineHeight: 1.8 }}>نقرأ إجاباتك ونرسم خارطتك — لحظات.</p>
       </div>
     </div>
   )
@@ -72,10 +60,10 @@ function Finalizing() {
 export default function DiagnosticSession() {
   const { attemptId } = useParams()
   const navigate = useNavigate()
-  const g = useG()
   const attemptQ = useMockAttempt(attemptId)
 
   const [currentSkill, setCurrentSkill] = useState(null)
+  const [phase, setPhase] = useState('intro') // intro | active
   const [transitioning, setTransitioning] = useState(false)
   const [finalizing, setFinalizing] = useState(false)
   const [error, setError] = useState(null)
@@ -89,13 +77,9 @@ export default function DiagnosticSession() {
     finalizeGuard.current = true
     setFinalizing(true)
     try {
-      const { error: fnErr } = await invokeWithRetry(
-        'complete-ielts-diagnostic',
-        { body: { attempt_id: attemptId } },
-        { timeoutMs: 120000, retries: 1 },
-      )
+      const { error: fnErr } = await invokeWithRetry('complete-ielts-diagnostic', { body: { attempt_id: attemptId } }, { timeoutMs: 120000, retries: 1 })
       if (fnErr) throw new Error(fnErr)
-      navigate('/student/ielts-atelier/diagnostic/results', { replace: true })
+      navigate(`${BASE}/diagnostic/results`, { replace: true })
     } catch (e) {
       setError(e.message || 'تعذّر احتساب النتيجة')
       setFinalizing(false)
@@ -103,12 +87,12 @@ export default function DiagnosticSession() {
     }
   }, [attemptId, navigate])
 
-  // Resolve the current segment once the attempt loads.
   useEffect(() => {
     if (!attempt || currentSkill || finalizing) return
     const pending = DIAG_SKILLS.find((s) => !answers[s]?.done)
     if (!pending) { finalize(); return }
     setCurrentSkill(pending)
+    setPhase('intro')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attempt])
 
@@ -117,14 +101,9 @@ export default function DiagnosticSession() {
     setTransitioning(true)
     try {
       await saveSegmentResult(attemptId, skill, result)
-      const nextSkill = DIAG_SKILLS[DIAG_SKILLS.indexOf(skill) + 1]
-      if (nextSkill) {
-        setCurrentSkill(nextSkill)
-        await attemptQ.refetch()
-      } else {
-        setCurrentSkill(null)
-        await finalize()
-      }
+      const next = DIAG_SKILLS[DIAG_SKILLS.indexOf(skill) + 1]
+      if (next) { setCurrentSkill(next); setPhase('intro'); await attemptQ.refetch() }
+      else { setCurrentSkill(null); await finalize() }
     } finally {
       setTransitioning(false)
     }
@@ -134,52 +113,78 @@ export default function DiagnosticSession() {
 
   if (error) {
     return (
-      <div dir="rtl" style={{ maxWidth: 460, margin: '80px auto', textAlign: 'center', padding: 24 }}>
-        <p style={{ fontSize: 16, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", margin: '0 0 8px' }}>تعذّر احتساب نتيجتك</p>
-        <p style={{ fontSize: 13.5, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", margin: '0 0 20px', lineHeight: 1.8 }}>إجاباتك محفوظة. جرّبي مرة أخرى.</p>
-        <button onClick={() => { setError(null); finalize() }} style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 45%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 16%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>إعادة المحاولة</button>
+      <div style={{ maxWidth: 440, margin: '70px auto', textAlign: 'center' }}>
+        <p style={{ fontSize: 16, fontWeight: 700, color: 'var(--iel-ink)', margin: '0 0 8px' }}>تعذّر احتساب نتيجتك</p>
+        <p style={{ fontSize: 13.5, color: 'var(--iel-ink-3)', margin: '0 0 20px', lineHeight: 1.8 }}>إجاباتك محفوظة. جرّب مرة أخرى.</p>
+        <PrimaryButton onClick={() => { setError(null); finalize() }}>إعادة المحاولة</PrimaryButton>
       </div>
     )
   }
 
   if (attemptQ.isLoading || !attempt || !currentSkill) {
     return (
-      <div dir="rtl" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '50vh', gap: 10, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-        <div style={{ width: 20, height: 20, borderRadius: '50%', border: '2px solid var(--sunset-orange)', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
-        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
-        جاري تحميل التشخيص…
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '50vh' }}>
+        <div style={{ width: 24, height: 24, borderRadius: '50%', border: '2px solid var(--iel-border)', borderTopColor: 'var(--iel-accent)', animation: 'iel-spin .7s linear infinite' }} />
       </div>
     )
   }
 
-  const content = answers.content || {}
+  const doneSet = new Set(DIAG_SKILLS.filter((s) => answers[s]?.done))
+  const idx = DIAG_SKILLS.indexOf(currentSkill)
+  const info = SECTION[currentSkill]
+  const I = Icon[currentSkill]
+
+  if (transitioning) {
+    return (
+      <div>
+        <Stepper current={currentSkill} doneSet={doneSet} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '40vh', gap: 14 }}>
+          <div style={{ width: 30, height: 30, borderRadius: '50%', border: '2px solid var(--iel-border)', borderTopColor: 'var(--iel-accent)', animation: 'iel-spin .8s linear infinite' }} />
+          <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--iel-ink)', margin: 0 }}>أحسنت — القسم التالي</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Per-section intro
+  if (phase === 'intro') {
+    return (
+      <div style={{ maxWidth: 640 }}>
+        <Stepper current={currentSkill} doneSet={doneSet} />
+        <div style={{ background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', borderRadius: 18, boxShadow: 'var(--iel-shadow)', padding: '30px 30px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+            <span style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><I size={22} /></span>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-ink-3)', letterSpacing: '.08em' }}>القسم {idx + 1} من {DIAG_SKILLS.length} · {info.time}</div>
+              <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--iel-ink)', margin: '2px 0 0' }}>{info.label}</h1>
+            </div>
+          </div>
+          <ul style={{ margin: '0 0 24px', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {info.notes.map((n, i) => (
+              <li key={i} style={{ display: 'flex', gap: 10, fontSize: 14.5, color: 'var(--iel-ink-2)', lineHeight: 1.6 }}>
+                <span style={{ color: 'var(--iel-accent)', flex: 'none', marginTop: 2, display: 'flex' }}><Icon.readiness size={16} /></span>{n}
+              </li>
+            ))}
+          </ul>
+          <PrimaryButton onClick={() => setPhase('active')} style={{ padding: '13px 26px', fontSize: 15.5 }}>ابدأ القسم <Icon.chevron size={17} sw={2.4} /></PrimaryButton>
+        </div>
+      </div>
+    )
+  }
+
+  // Active section — reuse the segment engine
+  const Segment = SEG[currentSkill]
   const segmentProps = {
     attemptId,
     answers: answers[currentSkill] || {},
-    content,
+    content: answers.content || {},
     startedAt: answers[currentSkill]?.started_at,
     onComplete: (result) => handleSegmentComplete(currentSkill, result),
   }
-  const doneSet = new Set(DIAG_SKILLS.filter((s) => answers[s]?.done))
-
   return (
-    <div dir="rtl" style={{ maxWidth: 1100, margin: '0 auto' }}>
-      <ProgressRibbon current={currentSkill} doneSet={doneSet} />
-
-      {transitioning ? (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '45vh', gap: 14, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          <div style={{ width: 30, height: 30, borderRadius: '50%', border: '2px solid var(--sunset-orange)', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
-          <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--ds-text)', margin: 0 }}>{g('أحسنت — التالي', 'أحسنتِ — التالي')}</p>
-        </motion.div>
-      ) : (
-        <>
-          {currentSkill === 'reading'   && <MockReading   key="r" {...segmentProps} />}
-          {currentSkill === 'listening' && <MockListening key="l" {...segmentProps} />}
-          {currentSkill === 'writing'   && <MockWriting   key="w" {...segmentProps} />}
-          {currentSkill === 'speaking'  && <MockSpeaking  key="s" {...segmentProps} />}
-        </>
-      )}
+    <div>
+      <Stepper current={currentSkill} doneSet={doneSet} />
+      <Segment {...segmentProps} />
     </div>
   )
 }
