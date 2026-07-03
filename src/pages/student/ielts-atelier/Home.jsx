@@ -182,8 +182,8 @@ export default function Home() {
         )}
       </section>
 
-      {/* ===== skill instruments ===== */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: 12 }}>
+      {/* ===== skill instruments (4-up desktop, 2-up mobile) ===== */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(158px, 1fr))', gap: 12 }}>
         {SKILLS.map((s, i) => (
           <SkillMeter key={s.id} s={s} band={skillBands[s.id]} target={targetBand} measuredAt={measuredAt} index={i} />
         ))}
