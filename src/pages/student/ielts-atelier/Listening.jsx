@@ -736,12 +736,9 @@ export default function Listening() {
             transition={{ duration: 0.6 }}
             style={{ paddingTop: 32 }}
           >
-            <NarrativeReveal
-              lines={NARRATIVE_LINES}
-              delayBetweenLines={700}
-              pauseAfterLast={400}
-              onComplete={() => { narrativeDoneRef.current = true }}
-            />
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>التدريب · الاستماع</div>
+            <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>الاستماع</h1>
+            <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '54ch' }}>مقاطع صوتية بأنواع أسئلة الآيلتس. استمع، أجب، واحصل على تصحيح فوري وشرح لكل إجابة.</p>
           </motion.section>
         )}
 

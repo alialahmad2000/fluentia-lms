@@ -602,12 +602,9 @@ export default function Writing() {
         {/* Narrative */}
         {!narrativeDone && (
           <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} style={{ paddingTop: 32 }}>
-            <NarrativeReveal
-              lines={NARRATIVE_LINES}
-              delayBetweenLines={700}
-              pauseAfterLast={400}
-              onComplete={() => setNarrativeDone(true)}
-            />
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>التدريب · الكتابة</div>
+            <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>الكتابة</h1>
+            <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '54ch' }}>مهام كتابية بمعايير الآيلتس الأربعة. اكتب واحصل على تقييم فوري بالنطاق (Band) وملاحظات مفصّلة على كتابتك.</p>
           </motion.section>
         )}
 
