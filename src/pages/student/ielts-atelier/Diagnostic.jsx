@@ -1,70 +1,91 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Headphones, Clock, VolumeX, Heart, ArrowLeft } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Headphones, Clock, VolumeX, Heart, Check, ArrowLeft } from 'lucide-react'
 
-import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
-import TrainerPresence from '@/design-system/components/masterclass/TrainerPresence'
 import { useDiagnosticStateV2 } from '@/hooks/ielts/useDiagnosticStateV2'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { createDiagnosticAttempt } from './_helpers/diagnostic'
 import { useG } from '@/i18n/gender'
 
-const CHECKLIST_ITEMS = [
-  { id: 'headphones', icon: Headphones, label: 'السماعات موصولة وواضحة' },
-  { id: 'time',       icon: Clock,      label: 'لديّ ٦٠ دقيقة متواصلة دون مقاطعة' },
-  { id: 'quiet',      icon: VolumeX,    label: 'المكان هادئ' },
-  { id: 'ready',      icon: Heart,      label: 'أنا مرتاحة، تنفّست، ومستعدة' },
+// ── The Threshold ──────────────────────────────────────────────────────────
+// A cinematic dawn: the learner stands at the edge of her IELTS journey. Warm,
+// immersive, aspirational — a deliberate departure from a clinical test intake.
+
+const CHECKLIST = [
+  { id: 'headphones', icon: Headphones, label: 'السمّاعات موصولة وواضحة' },
+  { id: 'time',       icon: Clock,      label: 'لديّ ٣٥ دقيقة متواصلة دون مقاطعة' },
+  { id: 'quiet',      icon: VolumeX,    label: 'المكان هادئ', mirror: true },
+  { id: 'ready',      icon: Heart,      label: 'أنا مرتاحة، تنفّست، ومستعدّة' },
 ]
 
-const NARRATIVE_LINES = [
-  'فصل جديد يبدأ.',
-  'اليوم ليس اختباراً — اليوم خارطة.',
-  'تنفّسي. ابدأي.',
-]
+const C = {
+  cream: '#f8f1e8', dim: '#dcccba', faint: '#a4917f',
+  gold: '#ffd27a', amber: '#f6b45a', rose: '#e97b74',
+  arab: "'Tajawal', 'Readex Pro', sans-serif",
+  serif: "'Amiri', 'Scheherazade New', Georgia, serif",
+}
+
+function DawnAtmosphere() {
+  return (
+    <div aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+      <div className="dawn-sky" style={{
+        position: 'absolute', inset: 0,
+        background:
+          'radial-gradient(120% 82% at 50% 106%, rgba(246,180,90,.55) 0%, rgba(233,123,116,.30) 24%, rgba(30,19,48,0) 56%),' +
+          'radial-gradient(92% 54% at 50% 116%, rgba(255,210,122,.48) 0%, rgba(255,210,122,0) 46%),' +
+          'radial-gradient(86% 60% at 50% 70%, rgba(246,180,90,.16) 0%, transparent 60%),' +
+          'radial-gradient(48% 66% at 50% 44%, rgba(255,210,122,.09) 0%, transparent 72%)',
+      }} />
+      <div className="dawn-breathe" style={{
+        position: 'absolute', inset: 0, transformOrigin: '50% 92%',
+        background:
+          'radial-gradient(90% 48% at 50% 108%, rgba(255,214,132,.26), transparent 55%),' +
+          'radial-gradient(70% 42% at 50% 68%, rgba(246,180,90,.08), transparent 62%)',
+      }} />
+      <div style={{
+        position: 'absolute', left: '-12%', right: '-12%', bottom: '34%', height: 1,
+        background: 'linear-gradient(90deg, transparent, rgba(255,210,122,.5) 44%, rgba(255,228,168,.85) 50%, rgba(255,210,122,.5) 56%, transparent)',
+        filter: 'blur(.3px)', boxShadow: '0 0 46px 7px rgba(246,180,90,.20)',
+      }} />
+      <div className="dawn-dust" style={{
+        position: 'absolute', inset: 0, opacity: .5,
+        backgroundImage:
+          'radial-gradient(1.2px 1.2px at 20% 26%, rgba(248,241,232,.5), transparent),' +
+          'radial-gradient(1px 1px at 72% 16%, rgba(248,241,232,.34), transparent),' +
+          'radial-gradient(1px 1px at 42% 22%, rgba(248,241,232,.3), transparent),' +
+          'radial-gradient(1px 1px at 86% 34%, rgba(248,241,232,.22), transparent),' +
+          'radial-gradient(1.1px 1.1px at 12% 12%, rgba(248,241,232,.3), transparent)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, mixBlendMode: 'overlay', opacity: .05,
+        backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+      }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(122% 92% at 50% 38%, transparent 54%, rgba(6,4,10,.45) 100%)' }} />
+    </div>
+  )
+}
 
 export default function Diagnostic() {
   const navigate = useNavigate()
   const g = useG()
   const studentId = useStudentId()
   const { loading, state, attemptId, latestOverallBand } = useDiagnosticStateV2()
+
+  const [checked, setChecked] = useState({ headphones: false, time: false, quiet: false, ready: false })
   const [starting, setStarting] = useState(false)
   const [startError, setStartError] = useState(null)
 
-  // Gender-aware copies of the module-level constants (resolved at render).
-  const checklistItems = CHECKLIST_ITEMS.map((item) =>
-    item.id === 'ready'
-      ? { ...item, label: g('أنا مرتاح، تنفّست، ومستعد', 'أنا مرتاحة، تنفّست، ومستعدة') }
-      : item
-  )
-  const narrativeLines = [
-    NARRATIVE_LINES[0],
-    NARRATIVE_LINES[1],
-    g('تنفّس. ابدأ.', 'تنفّسي. ابدأي.'),
-  ]
-
-  const [checked, setChecked] = useState({
-    headphones: false,
-    time: false,
-    quiet: false,
-    ready: false,
-  })
-
   const allChecked = Object.values(checked).every(Boolean)
-
-  function toggle(id) {
-    setChecked((prev) => ({ ...prev, [id]: !prev[id] }))
-  }
+  const toggle = (id) => setChecked((p) => ({ ...p, [id]: !p[id] }))
 
   async function handleStart() {
     if (starting) return
-    // Resume an in-progress diagnostic instead of starting a new one.
     if (state === 'in_progress' && attemptId) {
       navigate(`/student/ielts-atelier/diagnostic/session/${attemptId}`)
       return
     }
-    setStarting(true)
-    setStartError(null)
+    setStarting(true); setStartError(null)
     try {
       const id = await createDiagnosticAttempt(studentId)
       navigate(`/student/ielts-atelier/diagnostic/session/${id}`)
@@ -74,312 +95,154 @@ export default function Diagnostic() {
     }
   }
 
+  const readyLabel = g('أنا مرتاح، تنفّست، ومستعد', 'أنا مرتاحة، تنفّست، ومستعدّة')
+  const ctaLabel = starting
+    ? 'جاري التجهيز…'
+    : state === 'in_progress'
+    ? g('تابع من حيث توقفت', 'تابعي من حيث توقفتِ')
+    : g('أنا جاهز، لنبدأ رحلتي', 'أنا جاهزة، لنبدأ رحلتي')
+
+  const rise = (delay) => ({
+    initial: { opacity: 0, y: 16 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] },
+  })
+
   return (
-    <div
-      dir="rtl"
-      style={{
-        maxWidth: 640,
-        margin: '0 auto',
-        paddingBottom: 80,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 48,
-      }}
-    >
-      {/* ========== 1. NARRATIVE OPENING ========== */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        style={{ paddingTop: 32 }}
-      >
-        <NarrativeReveal
-          lines={narrativeLines}
-          delayBetweenLines={700}
-          pauseAfterLast={800}
-        />
-      </motion.section>
+    <div dir="rtl" style={{ position: 'relative', minHeight: 'calc(100dvh - 120px)', color: C.cream }}>
+      <style>{`
+        @keyframes dawn-breathe { 0%,100%{opacity:.85;transform:scale(1)} 50%{opacity:1;transform:scale(1.035)} }
+        @keyframes dawn-drift { from{transform:translateY(0)} to{transform:translateY(-16px)} }
+        @keyframes dawn-sweep { 0%,58%{transform:translateX(-130%)} 100%{transform:translateX(130%)} }
+        .dawn-breathe{ animation:dawn-breathe 17s ease-in-out infinite; will-change:opacity,transform }
+        .dawn-dust{ animation:dawn-drift 26s linear infinite }
+        .ielts-cta .sweep::before{ content:""; position:absolute; inset:-40%; transform:translateX(-130%);
+          background:linear-gradient(115deg, transparent 38%, rgba(255,255,255,.5) 50%, transparent 62%);
+          animation:dawn-sweep 5s ease-in-out infinite }
+        @media (prefers-reduced-motion: reduce){ .dawn-breathe,.dawn-dust,.ielts-cta .sweep::before{ animation:none } }
+      `}</style>
 
-      {/* ========== 2. TRAINER PRESENCE + EXPLANATION ========== */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-        style={{
-          display: 'flex',
-          gap: 20,
-          alignItems: 'flex-start',
-          padding: '24px',
-          borderRadius: 20,
-          background: 'color-mix(in srgb, var(--sunset-base-mid) 55%, transparent)',
-          border: 'var(--ds-border-width, 1px) solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)',
-          backdropFilter: 'blur(var(--ds-blur-sm, 8px))',
-        }}
-      >
-        <div style={{ flexShrink: 0, paddingTop: 4 }}>
-          <TrainerPresence trainerName="د. علي" size="md" />
-        </div>
-        <div style={{ flex: 1 }}>
+      <DawnAtmosphere />
+
+      <div style={{
+        position: 'relative', zIndex: 1, maxWidth: 600, margin: '0 auto',
+        display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        minHeight: 'calc(100dvh - 120px)', gap: 32,
+        paddingBottom: 'max(24px, env(safe-area-inset-bottom))',
+      }}>
+        {/* Eyebrow */}
+        <motion.div {...rise(0)} style={{ display: 'flex', alignItems: 'center', gap: 12, color: C.gold, fontSize: 12, fontWeight: 600, letterSpacing: '.26em' }}>
+          <span style={{ fontFamily: C.serif, letterSpacing: '.2em', fontSize: 13.5, opacity: .92 }}>IELTS</span>
+          <span>· طلاقة</span>
+          <span style={{ width: 30, height: 1, background: 'linear-gradient(-90deg, #ffd27a, transparent)' }} />
+        </motion.div>
+
+        {/* Lede */}
+        <motion.div {...rise(0.12)}>
+          <h1 style={{ fontFamily: C.serif, fontWeight: 400, lineHeight: 1.44, fontSize: 'clamp(30px,7.4vw,46px)', margin: 0, textWrap: 'balance', textShadow: '0 1px 44px rgba(246,180,90,.2)' }}>
+            لحظةٌ واحدة،<br />ثمّ نعرف <span style={{ color: C.gold }}>أين تقف{g('', 'ين')}</span>.
+          </h1>
+          <p style={{ marginTop: 16, fontSize: 16.5, lineHeight: 1.85, color: C.cream, opacity: .9, maxWidth: '40ch', fontFamily: C.arab }}>
+            اليوم ليس اختباراً — اليوم نرسم خريطتك نحو هدفك.
+          </p>
+        </motion.div>
+
+        {/* Coach — a warm light, whispering */}
+        <motion.div {...rise(0.12)} style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
           <div style={{
-            fontSize: 13,
-            fontWeight: 700,
-            color: 'var(--sunset-orange)',
-            letterSpacing: 1,
-            marginBottom: 8,
-          }}>
-            د. علي الأحمد — مدرب IELTS
+            flex: 'none', width: 58, height: 58, borderRadius: '50%',
+            background: 'radial-gradient(circle at 32% 26%, #ffe4ad, #e97b74 60%, #7a2f4e)',
+            boxShadow: '0 0 0 1px rgba(255,210,122,.42), 0 0 44px rgba(233,123,116,.42), 0 8px 26px rgba(122,47,78,.4)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: C.serif, fontSize: 22, color: '#3a1220', fontWeight: 700,
+          }}>ع</div>
+          <div style={{ borderInlineStart: '1px solid rgba(246,180,90,.28)', paddingInlineStart: 15, fontFamily: C.serif, fontSize: 16, lineHeight: 2, color: C.dim }}>
+            <span style={{ display: 'block', color: C.gold, fontSize: 12, fontWeight: 600, letterSpacing: '.05em', marginBottom: 7, fontFamily: C.arab }}>د. علي الأحمد — مدرّب IELTS</span>
+            سنقضي هذه الدقائق معاً: <b style={{ color: C.cream, fontWeight: 700, fontFamily: C.arab }}>استماع، قراءة، كتابة، محادثة.</b> {g('لا تقلق من الأخطاء', 'لا تقلقي من الأخطاء')} — هي ما يرسم لنا الطريق. {g('بعد الانتهاء، ستحصل على خريطتك الكاملة.', 'بعد الانتهاء، ستحصلين على خريطتك الكاملة.')}
           </div>
-          <p style={{
-            fontSize: 15,
-            color: 'var(--ds-text)',
-            lineHeight: 1.85,
-            margin: 0,
-            fontFamily: "'Tajawal', sans-serif",
-          }}>
-            سنقضي الساعة القادمة معاً. أربعة فصول: استماع، قراءة، كتابة، محادثة.
-            <br />
-            {g('لا تقلق من الأخطاء — هي ما سيرسم لنا الطريق.', 'لا تقلقي من الأخطاء — هي ما سيرسم لنا الطريق.')}
-            <br />
-            {g('بعد الانتهاء، ستحصل على خارطتك الكاملة.', 'بعد الانتهاء، ستحصلين على خارطتك الكاملة.')}
-          </p>
-        </div>
-      </motion.section>
+        </motion.div>
 
-      {/* ========== 3. PRE-FLIGHT CHECKLIST ========== */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-      >
-        <div style={{ marginBottom: 16 }}>
-          <h2 style={{
-            fontSize: 18,
-            fontWeight: 900,
-            color: 'var(--ds-text)',
-            margin: 0,
-            marginBottom: 4,
-          }}>
-            قبل أن نبدأ
-          </h2>
-          <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0 }}>
-            {g('تأكد من هذه النقاط الأربع.', 'تأكدي من هذه النقاط الأربع.')}
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {checklistItems.map(({ id, icon: Icon, label }) => {
-            const isChecked = checked[id]
+        {/* Checklist — tap to confirm; the doorway ignites when all four are lit */}
+        <motion.div {...rise(0.22)} style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
+          <div style={{ fontSize: 12.5, color: C.faint, letterSpacing: '.12em' }}>قبل أن نبدأ — {g('تأكد من هذه الأربع', 'تأكّدي من هذه الأربع')}</div>
+          {CHECKLIST.map(({ id, icon: Icon, label, mirror }) => {
+            const on = checked[id]
             return (
-              <motion.button
-                key={id}
-                onClick={() => toggle(id)}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 14,
-                  padding: '14px 18px',
-                  borderRadius: 14,
-                  border: `1px solid ${isChecked
-                    ? 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)'
-                    : 'color-mix(in srgb, var(--ds-border) 80%, transparent)'}`,
-                  background: isChecked
-                    ? 'color-mix(in srgb, var(--sunset-orange) 10%, transparent)'
-                    : 'color-mix(in srgb, var(--ds-surface) 60%, transparent)',
-                  cursor: 'pointer',
-                  textAlign: 'right',
-                  transition: 'background 0.2s, border-color 0.2s',
-                  backdropFilter: 'blur(var(--ds-blur-sm, 6px))',
-                }}
-              >
-                <div style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  background: isChecked
-                    ? 'color-mix(in srgb, var(--sunset-orange) 20%, transparent)'
-                    : 'color-mix(in srgb, var(--ds-surface) 80%, transparent)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  color: isChecked ? 'var(--sunset-orange)' : 'var(--ds-text-muted)',
-                  transition: 'background 0.2s, color 0.2s',
-                }}>
-                  <Icon size={16} strokeWidth={2} />
-                </div>
-
+              <motion.button key={id} onClick={() => toggle(id)} whileTap={{ scale: 0.99 }} style={{
+                display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 15, cursor: 'pointer', textAlign: 'right',
+                border: `1px solid ${on ? 'rgba(246,180,90,.44)' : 'rgba(248,241,232,.1)'}`,
+                background: on ? 'linear-gradient(180deg, rgba(246,180,90,.11), rgba(233,123,116,.05))' : 'linear-gradient(180deg, rgba(248,241,232,.04), rgba(248,241,232,.014))',
+                backdropFilter: 'blur(7px)', WebkitBackdropFilter: 'blur(7px)', transition: 'border-color .25s, background .25s',
+              }}>
                 <span style={{
-                  flex: 1,
-                  fontSize: 14,
-                  fontWeight: isChecked ? 700 : 500,
-                  color: isChecked ? 'var(--ds-text)' : 'var(--ds-text-muted)',
-                  fontFamily: "'Tajawal', sans-serif",
-                  transition: 'color 0.2s',
+                  flex: 'none', width: 24, height: 24, borderRadius: '50%',
+                  border: `1.5px solid ${on ? C.gold : 'rgba(248,241,232,.28)'}`,
+                  background: on ? 'radial-gradient(circle at 35% 30%, #ffe4ad, #f6b45a)' : 'transparent',
+                  boxShadow: on ? '0 0 18px rgba(246,180,90,.55)' : 'none',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all .25s',
                 }}>
-                  {label}
+                  {on && <Check size={13} strokeWidth={3} color="#3a1220" />}
                 </span>
-
-                {/* Checkmark */}
-                <div style={{
-                  width: 22,
-                  height: 22,
-                  borderRadius: '50%',
-                  border: `2px solid ${isChecked ? 'var(--sunset-orange)' : 'var(--ds-border)'}`,
-                  background: isChecked ? 'var(--sunset-orange)' : 'transparent',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  transition: 'all 0.2s',
-                }}>
-                  <AnimatePresence>
-                    {isChecked && (
-                      <motion.svg
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        exit={{ scale: 0 }}
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                      >
-                        <path
-                          d="M2 6l3 3 5-5"
-                          stroke="var(--sunset-base-deep)"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </motion.svg>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <span style={{ flex: 1, fontSize: 15, fontWeight: on ? 600 : 500, color: on ? C.cream : C.dim, fontFamily: C.arab, transition: 'color .25s' }}>
+                  {id === 'ready' ? readyLabel : label}
+                </span>
+                <span style={{ flex: 'none', color: on ? C.amber : C.faint, transform: mirror ? 'scaleX(-1)' : 'none', transition: 'color .25s' }}>
+                  <Icon size={18} strokeWidth={1.6} />
+                </span>
               </motion.button>
             )
           })}
-        </div>
-      </motion.section>
+        </motion.div>
 
-      {/* ========== 4. PRIMARY CTA ========== */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}
-      >
-        <motion.button
-          onClick={allChecked && !starting ? handleStart : undefined}
-          disabled={!allChecked || starting}
-          whileHover={allChecked && !starting ? { scale: 1.02 } : undefined}
-          whileTap={allChecked && !starting ? { scale: 0.98 } : undefined}
-          style={{
-            width: '100%',
-            maxWidth: 480,
-            padding: '18px 32px',
-            borderRadius: 16,
-            border: `1px solid color-mix(in srgb, var(--sunset-orange) ${allChecked ? 50 : 20}%, transparent)`,
-            background: allChecked
-              ? 'color-mix(in srgb, var(--sunset-orange) 22%, var(--sunset-base-mid))'
-              : 'color-mix(in srgb, var(--ds-surface) 50%, transparent)',
-            color: allChecked ? 'var(--ds-text)' : 'var(--ds-text-muted)',
-            fontSize: 17,
-            fontWeight: 900,
-            fontFamily: "'Tajawal', sans-serif",
-            cursor: allChecked && !starting ? 'pointer' : 'not-allowed',
-            opacity: allChecked ? 1 : 0.5,
-            transition: 'all 0.25s',
-            backdropFilter: 'blur(var(--ds-blur-sm, 8px))',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-          }}
-        >
-          {starting && <span style={{ width: 16, height: 16, borderRadius: '50%', border: '2px solid currentColor', borderTopColor: 'transparent', animation: 'spin 1s linear infinite', display: 'inline-block' }} />}
-          <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
-          {starting ? 'جاري التجهيز…' : (state === 'in_progress' ? g('تابع من حيث توقفت', 'تابعي من حيث توقفتِ') : g('أنا جاهز، لنبدأ', 'أنا جاهزة، لنبدأ'))}
-        </motion.button>
+        {/* CTA — light spilling through the lit doorway */}
+        <motion.div {...rise(0.32)} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, paddingTop: 4 }}>
+          <button
+            className="ielts-cta"
+            onClick={allChecked && !starting ? handleStart : undefined}
+            disabled={!allChecked || starting}
+            style={{
+              position: 'relative', overflow: 'hidden', width: '100%', maxWidth: 460, padding: 20, borderRadius: 18, border: 0,
+              fontFamily: C.arab, fontSize: 17.5, fontWeight: 700, letterSpacing: '.01em',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+              cursor: allChecked && !starting ? 'pointer' : 'not-allowed',
+              color: allChecked ? '#2a160a' : 'rgba(248,241,232,.5)',
+              background: allChecked
+                ? 'linear-gradient(180deg,#ffe0a0,#f6b45a 54%,#ec9a52)'
+                : 'linear-gradient(180deg, rgba(248,241,232,.06), rgba(248,241,232,.02))',
+              boxShadow: allChecked
+                ? '0 -24px 66px -14px rgba(255,214,132,.5), 0 12px 36px -6px rgba(246,180,90,.55), 0 0 0 1px rgba(255,228,168,.55) inset, 0 2px 0 rgba(255,255,255,.42) inset'
+                : '0 0 0 1px rgba(248,241,232,.08) inset',
+              transition: 'background .3s, box-shadow .3s, color .3s',
+            }}
+          >
+            {starting && <span style={{ width: 16, height: 16, borderRadius: '50%', border: '2px solid currentColor', borderTopColor: 'transparent', animation: 'spin 1s linear infinite', display: 'inline-block' }} />}
+            <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+            {ctaLabel}
+            {allChecked && !starting && <span className="sweep" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />}
+          </button>
 
-        {startError ? (
-          <p style={{ fontSize: 12, color: '#f87171', textAlign: 'center', margin: 0, fontFamily: "'Tajawal', sans-serif" }}>{startError}</p>
-        ) : (
-          <p style={{ fontSize: 11, color: 'var(--ds-text-muted)', textAlign: 'center', margin: 0, fontFamily: "'Tajawal', sans-serif" }}>
-            {g('قراءة · استماع · كتابة · محادثة — نحو ٣٠ دقيقة، بلا ضغط.', 'قراءة · استماع · كتابة · محادثة — نحو ٣٠ دقيقة، بلا ضغط.')}
-          </p>
+          {startError ? (
+            <p style={{ fontSize: 12.5, color: '#f6a6a0', textAlign: 'center', margin: 0, fontFamily: C.arab }}>{startError}</p>
+          ) : (
+            <p style={{ fontSize: 12.5, color: C.dim, textAlign: 'center', margin: 0, fontFamily: C.arab, textShadow: '0 1px 12px rgba(6,4,10,.6)' }}>
+              قراءة · استماع · كتابة · محادثة — <b style={{ color: C.cream, fontWeight: 600 }}>نحو ٣٥ دقيقة، بلا ضغط</b>
+            </p>
+          )}
+        </motion.div>
+
+        {/* Resume / already-taken */}
+        {!loading && state === 'completed' && latestOverallBand != null && (
+          <motion.div {...rise(0.42)} style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap',
+            padding: '14px 18px', borderRadius: 14, border: '1px solid rgba(248,241,232,.1)',
+            background: 'linear-gradient(180deg, rgba(248,241,232,.04), rgba(248,241,232,.012))', backdropFilter: 'blur(7px)',
+          }}>
+            <span style={{ fontSize: 13, color: C.dim, fontFamily: C.arab }}>آخر نتيجة: Band {Number(latestOverallBand).toFixed(1)}</span>
+            <Link to="/student/ielts-atelier/diagnostic/results" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 13, fontWeight: 700, color: C.gold, textDecoration: 'none', fontFamily: C.arab }}>
+              {g('شاهد نتيجتك', 'شاهدي نتيجتكِ')} <ArrowLeft size={13} />
+            </Link>
+          </motion.div>
         )}
-      </motion.section>
-
-      {/* ========== 5. RESUME / ALREADY-TAKEN BRANCH ========== */}
-      {!loading && (
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
-        >
-          {state === 'in_progress' && (
-            <div style={{
-              padding: '18px 20px',
-              borderRadius: 16,
-              background: 'color-mix(in srgb, var(--ds-surface) 60%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--sunset-amber) 30%, transparent)',
-              backdropFilter: 'blur(var(--ds-blur-sm, 8px))',
-              textAlign: 'center',
-            }}>
-              <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: '0 0 12px', fontFamily: "'Tajawal', sans-serif" }}>
-                {g('لديك اختبار لم يكتمل — يمكنك إتمامه.', 'لديكِ اختبار لم يكتمل — يمكنكِ إتمامه.')}
-              </p>
-              <button
-                onClick={() => attemptId && navigate(`/student/ielts-atelier/diagnostic/session/${attemptId}`)}
-                style={{
-                  padding: '10px 24px',
-                  borderRadius: 12,
-                  border: '1px solid color-mix(in srgb, var(--sunset-amber) 35%, transparent)',
-                  background: 'color-mix(in srgb, var(--sunset-amber) 12%, transparent)',
-                  color: 'var(--ds-text)',
-                  fontSize: 14,
-                  fontWeight: 700,
-                  fontFamily: "'Tajawal', sans-serif",
-                  cursor: 'pointer',
-                }}
-              >
-                {g('تابع من حيث توقفت', 'تابعي من حيث توقفتِ')}
-              </button>
-            </div>
-          )}
-
-          {state === 'completed' && latestOverallBand != null && (
-            <div style={{
-              padding: '16px 20px',
-              borderRadius: 14,
-              background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--ds-border) 60%, transparent)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 12,
-              backdropFilter: 'blur(var(--ds-blur-sm, 6px))',
-              flexWrap: 'wrap',
-            }}>
-              <span style={{ fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                آخر نتيجة: Band {Number(latestOverallBand).toFixed(1)}
-              </span>
-              <Link
-                to="/student/ielts-atelier/diagnostic/results"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 4,
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: 'var(--sunset-orange)',
-                  textDecoration: 'none',
-                }}
-              >
-                {g('شاهد نتيجتك', 'شاهدي نتيجتكِ')}
-                <ArrowLeft size={13} />
-              </Link>
-            </div>
-          )}
-        </motion.section>
-      )}
+      </div>
     </div>
   )
 }

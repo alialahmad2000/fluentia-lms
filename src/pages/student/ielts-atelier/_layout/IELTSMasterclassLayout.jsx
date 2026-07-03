@@ -17,24 +17,25 @@ const PAGE_TITLES = {
   '/student/ielts-atelier/readiness': 'الجاهزية',
 }
 
-// The Instrument palette — overrides the warm "sunset" tokens the 21 Atelier
-// pages consume, re-theming the whole section to cool graphite + one signal teal.
-const INSTRUMENT_TOKENS = {
-  '--sunset-base-deep': '#090b0e',
-  '--sunset-base-mid':  '#13181d',
-  '--sunset-base-warm': '#1a2128',
-  '--sunset-amber':     '#35c9b0',
-  '--sunset-orange':    '#3fdcc0',
-  '--sunset-bronze':    '#2c6f63',
-  '--sunset-cream':     '#eceff1',
-  '--sunset-gold':      '#9fe9db',
-  '--ds-accent-primary': '#3fdcc0',
-  '--ds-accent-gold':    '#3fdcc0',
+// The Dawn palette — overrides the "sunset" tokens the 21 Atelier pages consume,
+// re-theming the whole section to a warm, cinematic dawn: deep warm-plum grounds
+// with a luminous gold/amber accent. (Replaces the earlier cool "instrument".)
+const DAWN_TOKENS = {
+  '--sunset-base-deep': '#0d0812',
+  '--sunset-base-mid':  '#1a1024',
+  '--sunset-base-warm': '#241634',
+  '--sunset-amber':     '#f6b45a',
+  '--sunset-orange':    '#ffcf7a',
+  '--sunset-bronze':    '#b5763a',
+  '--sunset-cream':     '#f8f1e8',
+  '--sunset-gold':      '#ffd27a',
+  '--ds-accent-primary': '#ffcf7a',
+  '--ds-accent-gold':    '#ffcf7a',
 }
 
 const LoadingFallback = () => (
   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 200 }}>
-    <div style={{ width: 24, height: 24, border: '2px solid rgba(255,255,255,.1)', borderTopColor: '#3fdcc0', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
+    <div style={{ width: 24, height: 24, border: '2px solid rgba(255,255,255,.1)', borderTopColor: '#ffcf7a', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
     <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
   </div>
 )
@@ -49,14 +50,13 @@ export default function IELTSMasterclassLayout() {
     <div
       dir="rtl"
       style={{
-        ...INSTRUMENT_TOKENS,
-        minHeight: '100vh',
-        background: '#090b0e',
+        ...DAWN_TOKENS,
+        minHeight: '100dvh',
+        background: '#0d0812',
         backgroundImage:
-          'radial-gradient(120% 70% at 88% -12%, rgba(63,220,192,.05), transparent 55%),' +
-          'linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),' +
-          'linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px)',
-        backgroundSize: 'auto, 48px 48px, 48px 48px',
+          'radial-gradient(130% 62% at 50% 118%, rgba(246,180,90,.16), rgba(233,123,116,.06) 34%, transparent 62%),' +
+          'radial-gradient(90% 46% at 50% -8%, rgba(255,207,122,.06), transparent 55%),' +
+          'linear-gradient(180deg, #0d0812 0%, #160e22 52%, #1d1332 100%)',
         color: 'var(--ds-text-primary)',
         fontFamily: "'Tajawal', sans-serif",
         position: 'relative',
@@ -70,8 +70,8 @@ export default function IELTSMasterclassLayout() {
           zIndex: 10,
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
-          background: 'color-mix(in srgb, #0d1114 84%, transparent)',
-          borderBottom: '1px solid rgba(255,255,255,.07)',
+          background: 'color-mix(in srgb, #140c1e 82%, transparent)',
+          borderBottom: '1px solid rgba(246,180,90,.10)',
         }}
       >
         <div
@@ -103,8 +103,8 @@ export default function IELTSMasterclassLayout() {
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
             <span aria-hidden="true" style={{
               width: 28, height: 28, borderRadius: 8, flexShrink: 0,
-              background: 'rgba(63,220,192,.13)', border: '1px solid rgba(63,220,192,.4)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3fdcc0', fontWeight: 800, fontSize: 15,
+              background: 'rgba(255,207,122,.14)', border: '1px solid rgba(255,207,122,.42)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffcf7a', fontWeight: 800, fontSize: 15,
             }}>ط</span>
             <Link to="/student/ielts-atelier" style={{ fontSize: 15, fontWeight: 800, color: 'var(--ds-text-primary)', textDecoration: 'none', letterSpacing: '-.01em' }}>طلاقة</Link>
             <span style={{ color: 'var(--ds-text-tertiary)', fontSize: 12, fontFamily: "'SF Mono', ui-monospace, monospace", letterSpacing: '.06em' }} aria-hidden="true">/ IELTS</span>
