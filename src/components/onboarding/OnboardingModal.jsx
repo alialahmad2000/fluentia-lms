@@ -27,7 +27,7 @@ export default function OnboardingModal() {
   const alreadyOnboarded = profile?.id
     ? localStorage.getItem(`${ONBOARDED_KEY}_${profile.id}`)
     : true // treat as onboarded while profile is loading to avoid flash
-  const needsOnboarding = isStudent && !alreadyOnboarded && !dismissed && !impersonation
+  const needsOnboarding = isStudent && studentData?.uses_pro_desk !== true && !alreadyOnboarded && !dismissed && !impersonation
 
   if (!needsOnboarding) return null
 

@@ -309,3 +309,33 @@
   content: "قريباً"; font-size: 8px; font-weight: 700;
   color: var(--brass); opacity: 0.9;
 }
+
+/* ══ boot reveal (DeskBoot) — "systems online", once per session ══ */
+.desk-boot {
+  position: fixed; inset: 0; z-index: 60;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(120% 90% at 63% 46%, rgba(120,210,224,0.06), transparent 55%),
+    #05070d;
+  animation: deskBootIn .3s ease both;
+}
+.desk-boot.is-leaving { animation: deskBootOut .42s ease forwards; }
+@keyframes deskBootIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes deskBootOut { to { opacity: 0; visibility: hidden; } }
+.desk-boot-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.desk-boot-mark { width: 64px; height: 64px; font-size: 26px; animation: deskBootPulse 1.5s cubic-bezier(.16,1,.3,1) both; }
+@keyframes deskBootPulse {
+  0%   { transform: scale(0.82); opacity: 0; }
+  45%  { opacity: 1; }
+  100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 1px rgba(201,162,92,0.35) inset, 0 8px 44px -6px rgba(201,162,92,0.6); }
+}
+.desk-boot-title { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 20px; color: var(--cream); letter-spacing: 0.04em; }
+.desk-boot-track { width: 210px; height: 3px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,0.07); }
+.desk-boot-fill {
+  display: block; height: 100%; width: 0; border-radius: 3px;
+  background: linear-gradient(90deg,#c9a25c,#efd299);
+  box-shadow: 0 0 12px rgba(201,162,92,0.6);
+  animation: deskBootFill 1.35s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes deskBootFill { to { width: 100%; } }
+.desk-boot-status { font-family: 'Tajawal', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--brass); min-height: 16px; transition: color .3s ease; }

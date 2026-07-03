@@ -9,6 +9,7 @@ import { ArrowLeft } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { DESK_NAV } from '@/config/deskNavigation'
 import NocBackdrop from './NocBackdrop'
+import DeskBoot from './DeskBoot'
 import '../../pages/desk/desk.css'
 
 export default function DeskShell() {
@@ -36,6 +37,7 @@ export default function DeskShell() {
 
   return (
     <div className="desk-root">
+      <DeskBoot />
       <NocBackdrop />
       <div className="desk-scrim" />
 
