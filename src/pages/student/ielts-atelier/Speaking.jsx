@@ -317,6 +317,7 @@ export default function Speaking() {
   const recTimerRef   = useRef(null)
   const prepTimerRef  = useRef(null)
   const blobUrlsRef   = useRef([])       // for revokeObjectURL on unmount
+  const recStartRef   = useRef(0)        // wall-clock start of the current recording (for real duration)
 
   // ── 3. useQuery ───────────────────────────────────────────────────────────
   const questionsQ = usePublishedQuestions(selectedPart)
@@ -394,11 +395,13 @@ export default function Speaking() {
         }
         const url = URL.createObjectURL(blob)
         blobUrlsRef.current.push(url)
-        setCurrentBlob({ blob, url, mimeType: mime, ext: getExt(mime) })
+        const duration = recStartRef.current ? Math.max(1, Math.round((Date.now() - recStartRef.current) / 1000)) : 0
+        setCurrentBlob({ blob, url, mimeType: mime, ext: getExt(mime), duration })
         setRecState('preview')
         stopStream()
       }
       recorder.start(1000)
+      recStartRef.current = Date.now()
       recorderRef.current = recorder
       setRecState('recording')
     } catch (e) {
@@ -484,7 +487,7 @@ export default function Speaking() {
         question_type: `part_${selectedRow.part}`,
         source_id: selectedRow.id,
         band_score: band,
-        duration_seconds: Object.values(recordings).reduce((s, r) => s, 0),
+        duration_seconds: Object.values(recordings).reduce((s, r) => s + (Number(r?.duration) || 0), 0),
         started_at: startedAt,
         completed_at: now,
         session_data: {
