@@ -6,6 +6,8 @@ import { Headphones, Clock, VolumeX, Heart, ArrowLeft } from 'lucide-react'
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
 import TrainerPresence from '@/design-system/components/masterclass/TrainerPresence'
 import { useDiagnosticStateV2 } from '@/hooks/ielts/useDiagnosticStateV2'
+import { useStudentId } from './_helpers/resolveStudentId'
+import { createDiagnosticAttempt } from './_helpers/diagnostic'
 import { useG } from '@/i18n/gender'
 
 const CHECKLIST_ITEMS = [
@@ -24,7 +26,10 @@ const NARRATIVE_LINES = [
 export default function Diagnostic() {
   const navigate = useNavigate()
   const g = useG()
-  const { loading, state, latestOverallBand } = useDiagnosticStateV2()
+  const studentId = useStudentId()
+  const { loading, state, attemptId, latestOverallBand } = useDiagnosticStateV2()
+  const [starting, setStarting] = useState(false)
+  const [startError, setStartError] = useState(null)
 
   // Gender-aware copies of the module-level constants (resolved at render).
   const checklistItems = CHECKLIST_ITEMS.map((item) =>
@@ -51,8 +56,22 @@ export default function Diagnostic() {
     setChecked((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
-  function handleStart() {
-    navigate('/student/ielts/diagnostic')
+  async function handleStart() {
+    if (starting) return
+    // Resume an in-progress diagnostic instead of starting a new one.
+    if (state === 'in_progress' && attemptId) {
+      navigate(`/student/ielts-atelier/diagnostic/session/${attemptId}`)
+      return
+    }
+    setStarting(true)
+    setStartError(null)
+    try {
+      const id = await createDiagnosticAttempt(studentId)
+      navigate(`/student/ielts-atelier/diagnostic/session/${id}`)
+    } catch (e) {
+      setStartError('تعذّر بدء التشخيص — تأكدي من اتصالك وحاولي مرة أخرى.')
+      setStarting(false)
+    }
   }
 
   return (
@@ -250,10 +269,10 @@ export default function Diagnostic() {
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}
       >
         <motion.button
-          onClick={allChecked ? handleStart : undefined}
-          disabled={!allChecked}
-          whileHover={allChecked ? { scale: 1.02 } : undefined}
-          whileTap={allChecked ? { scale: 0.98 } : undefined}
+          onClick={allChecked && !starting ? handleStart : undefined}
+          disabled={!allChecked || starting}
+          whileHover={allChecked && !starting ? { scale: 1.02 } : undefined}
+          whileTap={allChecked && !starting ? { scale: 0.98 } : undefined}
           style={{
             width: '100%',
             maxWidth: 480,
@@ -267,23 +286,25 @@ export default function Diagnostic() {
             fontSize: 17,
             fontWeight: 900,
             fontFamily: "'Tajawal', sans-serif",
-            cursor: allChecked ? 'pointer' : 'not-allowed',
+            cursor: allChecked && !starting ? 'pointer' : 'not-allowed',
             opacity: allChecked ? 1 : 0.5,
             transition: 'all 0.25s',
             backdropFilter: 'blur(var(--ds-blur-sm, 8px))',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
           }}
         >
-          {g('أنا جاهز، لنبدأ', 'أنا جاهزة، لنبدأ')}
+          {starting && <span style={{ width: 16, height: 16, borderRadius: '50%', border: '2px solid currentColor', borderTopColor: 'transparent', animation: 'spin 1s linear infinite', display: 'inline-block' }} />}
+          <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+          {starting ? 'جاري التجهيز…' : (state === 'in_progress' ? g('تابع من حيث توقفت', 'تابعي من حيث توقفتِ') : g('أنا جاهز، لنبدأ', 'أنا جاهزة، لنبدأ'))}
         </motion.button>
 
-        <p style={{
-          fontSize: 11,
-          color: 'var(--ds-text-muted)',
-          textAlign: 'center',
-          margin: 0,
-        }}>
-          {g('ستنتقل للاختبار الفعلي — نحن نعمل على تحسين هذه المرحلة', 'ستنتقلين للاختبار الفعلي — نحن نعمل على تحسين هذه المرحلة')}
-        </p>
+        {startError ? (
+          <p style={{ fontSize: 12, color: '#f87171', textAlign: 'center', margin: 0, fontFamily: "'Tajawal', sans-serif" }}>{startError}</p>
+        ) : (
+          <p style={{ fontSize: 11, color: 'var(--ds-text-muted)', textAlign: 'center', margin: 0, fontFamily: "'Tajawal', sans-serif" }}>
+            {g('قراءة · استماع · كتابة · محادثة — نحو ٣٠ دقيقة، بلا ضغط.', 'قراءة · استماع · كتابة · محادثة — نحو ٣٠ دقيقة، بلا ضغط.')}
+          </p>
+        )}
       </motion.section>
 
       {/* ========== 5. RESUME / ALREADY-TAKEN BRANCH ========== */}
@@ -306,7 +327,7 @@ export default function Diagnostic() {
                 {g('لديك اختبار لم يكتمل — يمكنك إتمامه.', 'لديكِ اختبار لم يكتمل — يمكنكِ إتمامه.')}
               </p>
               <button
-                onClick={() => navigate('/student/ielts/diagnostic')}
+                onClick={() => attemptId && navigate(`/student/ielts-atelier/diagnostic/session/${attemptId}`)}
                 style={{
                   padding: '10px 24px',
                   borderRadius: 12,

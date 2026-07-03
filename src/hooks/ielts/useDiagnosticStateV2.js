@@ -66,6 +66,7 @@ export function useDiagnosticStateV2() {
     loading: mockLoading || attemptLoading,
     error,
     state,
+    attemptId: attempt?.id ?? null,
     latestOverallBand: resultBand ?? null,
   }
 }

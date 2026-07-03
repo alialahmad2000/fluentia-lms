@@ -168,6 +168,7 @@ const IELTSGuard = lazyRetry(() => import('./components/ielts/IELTSGuard'))
 const IELTSMasterclassLayout = lazyRetry(() => import('./pages/student/ielts-atelier/_layout/IELTSMasterclassLayout'))
 const IELTSAtelierHome           = lazyRetry(() => import('./pages/student/ielts-atelier/Home'))
 const IELTSAtelierDiagnostic        = lazyRetry(() => import('./pages/student/ielts-atelier/Diagnostic'))
+const IELTSAtelierDiagnosticSession = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticSession'))
 const IELTSAtelierDiagnosticResults = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticResults'))
 const IELTSAtelierReading           = lazyRetry(() => import('./pages/student/ielts-atelier/Reading'))
 const IELTSAtelierListening      = lazyRetry(() => import('./pages/student/ielts-atelier/Listening'))
@@ -846,6 +847,7 @@ export default function App() {
                 <Route element={<IELTSMasterclassLayout />}>
                   <Route index element={<IELTSAtelierHome />} />
                   <Route path="diagnostic" element={<IELTSAtelierDiagnostic />} />
+                  <Route path="diagnostic/session/:attemptId" element={<IELTSAtelierDiagnosticSession />} />
                   <Route path="diagnostic/results" element={<IELTSAtelierDiagnosticResults />} />
                   <Route path="reading"    element={<IELTSAtelierReading />} />
                   <Route path="listening"  element={<IELTSAtelierListening />} />

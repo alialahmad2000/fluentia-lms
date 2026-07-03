@@ -26,9 +26,12 @@ async function evalWithRetry(taskType, text, onAttempt) {
 }
 
 export default function MockWriting({ attemptId, answers, content, startedAt, onComplete }) {
+  const w = content.writing || {}
+  const hasTask1 = !!w.task1Id
+  const hasTask2 = !!w.task2Id
   const [task1, setTask1] = useState(null)
   const [task2, setTask2] = useState(null)
-  const [tab, setTab] = useState('task1')
+  const [tab, setTab] = useState(hasTask1 ? 'task1' : 'task2')
   const [draft1, setDraft1] = useState(answers.task1_text || '')
   const [draft2, setDraft2] = useState(answers.task2_text || '')
   const [secsLeft, setSecsLeft] = useState(() => getRemainingSeconds(startedAt, LIMIT))
@@ -141,12 +144,14 @@ export default function MockWriting({ attemptId, answers, content, startedAt, on
         <button onClick={handleSubmit} disabled={submitting} style={{ padding: '7px 18px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--sunset-orange) 35%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: submitting ? 'not-allowed' : 'pointer' }}>إرسال للتقييم</button>
       </div>
 
-      {/* Task tabs */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-        {[['task1', `المهمة الأولى (${wc1}/${150}+w)`], ['task2', `المهمة الثانية (${wc2}/${250}+w)`]].map(([k, label]) => (
-          <button key={k} onClick={() => { doSave(); setTab(k) }} style={{ flex: 1, padding: '8px 12px', borderRadius: 10, border: `1px solid ${tab === k ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 50%, transparent)'}`, background: tab === k ? 'color-mix(in srgb, var(--sunset-orange) 12%, transparent)' : 'transparent', color: tab === k ? 'var(--ds-text)' : 'var(--ds-text-muted)', fontSize: 12, fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: tab === k ? 700 : 500, cursor: 'pointer' }}>{label}</button>
-        ))}
-      </div>
+      {/* Task tabs — only when both tasks are present (diagnostic runs Task 2 alone) */}
+      {hasTask1 && hasTask2 && (
+        <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+          {[['task1', `المهمة الأولى (${wc1}/${150}+w)`], ['task2', `المهمة الثانية (${wc2}/${250}+w)`]].map(([k, label]) => (
+            <button key={k} onClick={() => { doSave(); setTab(k) }} style={{ flex: 1, padding: '8px 12px', borderRadius: 10, border: `1px solid ${tab === k ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 50%, transparent)'}`, background: tab === k ? 'color-mix(in srgb, var(--sunset-orange) 12%, transparent)' : 'transparent', color: tab === k ? 'var(--ds-text)' : 'var(--ds-text-muted)', fontSize: 12, fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: tab === k ? 700 : 500, cursor: 'pointer' }}>{label}</button>
+          ))}
+        </div>
+      )}
 
       {/* Two-column */}
       <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth > 768 ? '1fr 1.2fr' : '1fr', gap: 20 }}>

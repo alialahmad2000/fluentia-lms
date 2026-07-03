@@ -67,7 +67,9 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
   const prepTimer   = useRef(null)
   const globalTimer = useRef(null)
 
-  const PARTS = [1, 2, 3]
+  // Diagnostic runs Part 1 alone; the full mock runs all three. Derive from content.
+  const availableParts = [1, 2, 3].filter((p) => (content.speaking || {})[`part${p}Id`])
+  const PARTS = availableParts.length ? availableParts : [1, 2, 3]
   const currentPart = PARTS[partIdx]
   const meta = PART_META[currentPart]
   const currentRow = rows[`part${currentPart}`]
@@ -164,7 +166,7 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
     setRecElapsed(0)
     if (qIdx < questions.length - 1) {
       setQIdx(q => q + 1)
-    } else if (partIdx < 2) {
+    } else if (partIdx < PARTS.length - 1) {
       setPartIdx(p => p + 1)
       setQIdx(0)
     } else {
@@ -192,7 +194,7 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
 
     // Evaluate each part
     let overallBand = null, feedback = {}
-    for (let pi = 0; pi < 3; pi++) {
+    for (let pi = 0; pi < PARTS.length; pi++) {
       const partNum = PARTS[pi]
       const partRow = rows[`part${partNum}`]
       if (!partRow) continue
@@ -299,12 +301,12 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
             <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", textAlign: 'center' }}>
               {qIdx < questions.length - 1
                 ? g('انتقل للسؤال التالي', 'انتقلي للسؤال التالي')
-                : partIdx < 2
+                : partIdx < PARTS.length - 1
                   ? g('انتقل للجزء التالي', 'انتقلي للجزء التالي')
                   : g('أرسل للتقييم', 'أرسلي للتقييم')}
             </p>
             <button onClick={handleNextQuestion} style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
-              {qIdx < questions.length - 1 ? 'السؤال التالي ›' : partIdx < 2 ? 'الجزء التالي ›' : 'إرسال للتقييم'}
+              {qIdx < questions.length - 1 ? 'السؤال التالي ›' : partIdx < PARTS.length - 1 ? 'الجزء التالي ›' : 'إرسال للتقييم'}
             </button>
           </div>
         )}
