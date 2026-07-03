@@ -9,6 +9,7 @@ import { useStudentId } from '../_helpers/resolveStudentId'
 import { useMockHistory, useCreateAttempt } from './useMockSession'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
+import { Icon } from '../_ui/primitives'
 
 const NARRATIVE_LINES = [
   'محاكاة الاختبار.',
@@ -41,7 +42,7 @@ function ModeCard({ icon, title, subtitle, timeLabel, onClick, disabled }) {
       onMouseEnter={e => { if (!disabled) e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)' }}
       onMouseLeave={e => { e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-amber) 22%, transparent)' }}
     >
-      <span style={{ fontSize: 32 }}>{icon}</span>
+      <span style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{icon}</span>
       <h3 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>{title}</h3>
       <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7 }}>{subtitle}</p>
       <span style={{ fontSize: 12, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700 }}>{timeLabel}</span>
@@ -87,11 +88,11 @@ export default function MockHub() {
 
   return (
     <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 32 }}>
-      {!narrativeDone && (
-        <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ paddingTop: 32 }}>
-          <NarrativeReveal lines={NARRATIVE_LINES} delayBetweenLines={700} pauseAfterLast={400} onComplete={() => setNarrativeDone(true)} />
-        </motion.section>
-      )}
+      <div style={{ paddingTop: 2 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>الاختبار الكامل</div>
+        <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>محاكاة تحت ظروف الاختبار</h1>
+        <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '52ch' }}>اختبر نفسك في ظروف حقيقية موقّتة — نطاق (Band) لكل مهارة يُغذّي مسار تقدّمك.</p>
+      </div>
 
       {best != null && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{ display: 'flex', gap: 12 }}>
@@ -111,7 +112,7 @@ export default function MockHub() {
         <p style={{ margin: '0 0 14px', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>{g('اختر نوع المحاكاة', 'اختاري نوع المحاكاة')}</p>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
           <ModeCard
-            icon="🎯"
+            icon={<Icon.mock size={22} />}
             title="محاكاة كاملة"
             subtitle="استماع → قراءة → كتابة → محادثة. لا توقف، لا إعادة تشغيل."
             timeLabel="~٣ ساعات"
@@ -119,7 +120,7 @@ export default function MockHub() {
             disabled={creating}
           />
           <ModeCard
-            icon="⚡"
+            icon={<Icon.readiness size={22} />}
             title="محاكاة جزء واحد"
             subtitle={g('اختر مهارة واحدة في ظروف الاختبار الحقيقي.', 'اختاري مهارة واحدة في ظروف الاختبار الحقيقي.')}
             timeLabel="٣٠–٦٠ دقيقة"
