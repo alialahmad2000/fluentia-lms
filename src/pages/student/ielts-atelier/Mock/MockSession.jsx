@@ -1,8 +1,9 @@
 // IELTS V3 Phase 4 — Mock Session Orchestrator
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
+import { invokeWithRetry } from '@/lib/invokeWithRetry'
 import { useMockAttempt, useUpdateAttempt, saveSegmentResult, SKILLS_ORDER, getRemainingSeconds } from './useMockSession'
 import MockListening from './segments/MockListening'
 import MockReading   from './segments/MockReading'
@@ -48,11 +49,24 @@ export default function MockSession() {
 
   const [currentSkill, setCurrentSkill] = useState(null)
   const [transitioning, setTransitioning] = useState(false)
+  const finalizeGuard = useRef(false)
 
   const attempt = attemptQ.data
   const answers = attempt?.answers || {}
   const mode    = answers.mode
   const skills  = mode === 'single' ? [answers.single_skill] : SKILLS_ORDER
+
+  // Score the mock into ielts_student_results + progress (feeds the home / readiness).
+  // Idempotent server-side; failure never blocks the student from seeing results.
+  const finalizeMock = useCallback(async () => {
+    if (finalizeGuard.current) return
+    finalizeGuard.current = true
+    try {
+      await invokeWithRetry('complete-ielts-mock', { body: { attempt_id: attemptId } }, { timeoutMs: 120000, retries: 1 })
+    } catch (e) {
+      console.warn('[MockSession] finalize failed (non-fatal):', e?.message || e)
+    }
+  }, [attemptId])
 
   // Determine current segment on mount and after updates
   useEffect(() => {
@@ -60,8 +74,8 @@ export default function MockSession() {
     // Find first skill not done
     const pending = skills.find(s => !answers[s]?.done)
     if (!pending) {
-      // All done → go to results
-      navigate(`/student/ielts-atelier/mock/${attemptId}/results`, { replace: true })
+      // All done → score then go to results
+      finalizeMock().finally(() => navigate(`/student/ielts-atelier/mock/${attemptId}/results`, { replace: true }))
       return
     }
     setCurrentSkill(pending)
@@ -89,12 +103,13 @@ export default function MockSession() {
         )
         setCurrentSkill(nextSkill)
       } else {
+        await finalizeMock()
         navigate(`/student/ielts-atelier/mock/${attemptId}/results`, { replace: true })
       }
     } finally {
       setTransitioning(false)
     }
-  }, [attemptId, skills, navigate, attemptQ])
+  }, [attemptId, skills, navigate, attemptQ, finalizeMock])
 
   // Start current segment (write started_at if not set)
   useEffect(() => {
