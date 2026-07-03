@@ -10,6 +10,7 @@ import { useSubmitReadingSession, useRecentReadingSessions } from '@/hooks/ielts
 import { gradeQuestions } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
+import { Card, SectionHeader, Icon as UI } from './_ui/primitives'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -442,47 +443,35 @@ export default function Reading() {
     const passages = passagesQ.data || []
 
     return (
-      <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 36 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2, maxWidth: 900 }}>
 
-        {/* Narrative opening — only first mount */}
-        {!narrativeDoneRef.current && (
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            style={{ paddingTop: 32 }}
-          >
-            <NarrativeReveal
-              lines={NARRATIVE_LINES}
-              delayBetweenLines={700}
-              pauseAfterLast={400}
-              onComplete={() => { narrativeDoneRef.current = true }}
-            />
-          </motion.section>
-        )}
+        {/* Header */}
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>التدريب · القراءة</div>
+          <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>القراءة</h1>
+          <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '54ch' }}>
+            نصوص أكاديمية بأنواع أسئلة الآيلتس. اختر نصّاً وابدأ تدريباً مُوقّتاً — تصحيح فوري وشرح لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
+          </p>
+        </div>
 
         {/* Stats strip — only if sessions exist */}
         {recentSessions.length > 0 && (
-          <motion.section
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.4 }}
-            style={{ display: 'flex', gap: 12 }}
-          >
-            <StatCard label="جلسات مكتملة" value={recentSessions.length} />
+          <div style={{ display: 'flex', gap: 12 }}>
+            <Card style={{ padding: '14px 18px', flex: '0 0 auto' }}>
+              <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 4 }}>جلسات مكتملة</div>
+              <div className="iel-serif" style={{ fontSize: 24, fontWeight: 600, color: 'var(--iel-ink)' }}>{recentSessions.length}</div>
+            </Card>
             {bestBand != null && (
-              <StatCard label="أفضل Band" value={bestBand.toFixed(1)} accent="var(--sunset-orange)" />
+              <Card style={{ padding: '14px 18px', flex: '0 0 auto' }}>
+                <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 4 }}>أفضل Band</div>
+                <div className="iel-serif" style={{ fontSize: 24, fontWeight: 600, color: 'var(--iel-accent)' }}>{bestBand.toFixed(1)}</div>
+              </Card>
             )}
-          </motion.section>
+          </div>
         )}
 
         {/* Filter pills + count */}
-        <motion.section
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.4 }}
-          style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}
-        >
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
           {FILTER_OPTIONS.map(o => {
             const active = diffFilter === o.key
             return (
@@ -507,11 +496,11 @@ export default function Reading() {
             )
           })}
           {!passagesQ.isLoading && (
-            <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", marginRight: 'auto' }}>
+            <span style={{ fontSize: 12, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", marginInlineStart: 'auto', fontWeight: 600 }}>
               {passages.length} نص متاح
             </span>
           )}
-        </motion.section>
+        </div>
 
         {/* Passage grid */}
         {passagesQ.isLoading ? (

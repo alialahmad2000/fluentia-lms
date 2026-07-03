@@ -24,6 +24,10 @@
   --sunset-amber:var(--iel-accent); --sunset-orange:var(--iel-accent); --sunset-bronze:var(--iel-gold);
   --sunset-cream:var(--iel-ink); --sunset-gold:var(--iel-gold);
   --ds-accent-primary:var(--iel-accent); --ds-accent-gold:var(--iel-gold);
+  --ds-surface:var(--iel-surface); --ds-surface-1:var(--iel-surface); --ds-bg-elevated:var(--iel-surface);
+  --ds-border:var(--iel-border); --ds-border-subtle:var(--iel-border); --ds-border-strong:var(--iel-border-strong);
+  --ds-text:var(--iel-ink); --ds-text-primary:var(--iel-ink); --ds-text-secondary:var(--iel-ink-2);
+  --ds-text-muted:var(--iel-ink-3); --ds-text-tertiary:var(--iel-ink-3);
 
   background:var(--iel-ground); color:var(--iel-ink); font-family:var(--iel-sans);
   min-height:100dvh;
