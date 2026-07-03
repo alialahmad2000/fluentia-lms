@@ -171,7 +171,7 @@ function QuestionItem({ q, answer, onChange }) {
     ? ['Yes', 'No', 'Not Given']
     : ['True', 'False', 'Not Given']
   const hasMCQ = !isTFNG && Array.isArray(q.options) && q.options.length > 0
-  const text = q.question_text || q.statement || `السؤال ${q.question_number}`
+  const text = q.question_text || q.statement || q.incomplete_sentence || q.question || `السؤال ${q.question_number}`
   const answered = !!answer
 
   return (

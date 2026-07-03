@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import { TEACHER_NAV } from '@/config/teacherNavigation'
+import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 
 /** Pending-grading badge: writing rows awaiting trainer grade + speaking rows
  *  awaiting review. RLS already lets a trainer read both (staff_read_progress,
@@ -34,6 +35,12 @@ export default function TeacherSidebar() {
     staleTime: 30000,
   })
 
+  // Only show the IELTS entry to trainers who actually have IELTS-track students.
+  const { data: ieltsRoster = [] } = useIELTSRoster()
+  const navItems = TEACHER_NAV.filter(
+    (i) => i.visibleWhen !== 'ielts-students' || ieltsRoster.length > 0
+  )
+
   const name = profile?.display_name || profile?.full_name || 'المدرّب'
   const initial = (name || 'م').trim().charAt(0)
 
@@ -46,7 +53,7 @@ export default function TeacherSidebar() {
       </div>
 
       <ul className="tea-nav" role="list">
-        {TEACHER_NAV.map((item) => {
+        {navItems.map((item) => {
           const Icon = item.icon
           const badge = item.badgeKey ? badges[item.badgeKey] : 0
           return (

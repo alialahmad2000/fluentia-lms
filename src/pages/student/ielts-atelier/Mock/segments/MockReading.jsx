@@ -19,7 +19,7 @@ function parseOption(opt) {
 function QuestionBlock({ q, answer, onChange }) {
   const hasOptions = Array.isArray(q.options) && q.options.length > 0
   const hasLabel = Array.isArray(q.options) && q.options.some(o => /^[A-Z]:/.test(String(o)))
-  const text = q.question_text || q.statement || `Question ${q.question_number}`
+  const text = q.question_text || q.statement || q.incomplete_sentence || q.question || `Question ${q.question_number}`
   return (
     <div style={{ padding: '12px 14px', borderRadius: 12, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: `1px solid ${answer ? 'color-mix(in srgb, var(--sunset-orange) 22%, transparent)' : 'color-mix(in srgb, var(--ds-border) 40%, transparent)'}`, display: 'flex', flexDirection: 'column', gap: 8 }}>
       <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", lineHeight: 1.6, direction: 'ltr', textAlign: 'left' }}>
@@ -58,7 +58,7 @@ export default function MockReading({ attemptId, answers, content, startedAt, on
     const ids = content.reading || []
     if (!ids.length) return
     supabase.from('ielts_reading_passages')
-      .select('id, title, passage_text, questions, answer_key, difficulty_band')
+      .select('id, title, content, questions, answer_key, difficulty_band')
       .in('id', ids)
       .then(({ data }) => setPassages(data || []))
   }, [content.reading])
@@ -144,7 +144,7 @@ export default function MockReading({ attemptId, answers, content, startedAt, on
           {/* Passage text */}
           <div style={{ padding: '18px 20px', borderRadius: 16, background: 'color-mix(in srgb, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 14%, transparent)', maxHeight: '70vh', overflowY: 'auto' }}>
             <p style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif" }}>Passage {tabIdx + 1}: {p.title}</p>
-            <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Georgia', serif", lineHeight: 1.9, whiteSpace: 'pre-wrap', direction: 'ltr', textAlign: 'left' }}>{p.passage_text}</p>
+            <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Georgia', serif", lineHeight: 1.9, whiteSpace: 'pre-wrap', direction: 'ltr', textAlign: 'left' }}>{p.content}</p>
           </div>
           {/* Questions */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>

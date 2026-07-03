@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
+import { hasIELTSAccess } from '@/lib/packageAccess'
 
 const STALE = 60_000
 
@@ -28,10 +29,8 @@ export function useIELTSRoster() {
         .in('group_id', groupIds)
       if (sErr) throw sErr
 
-      const ieltsStudents = (rows || []).filter(s =>
-        s.package === 'ielts' ||
-        (Array.isArray(s.custom_access) && s.custom_access.includes('ielts'))
-      )
+      // Match the student-side gate exactly (package ielts OR tamayuz OR custom_access ielts).
+      const ieltsStudents = (rows || []).filter(hasIELTSAccess)
       if (ieltsStudents.length === 0) return []
 
       const studentIds = ieltsStudents.map(s => s.id)

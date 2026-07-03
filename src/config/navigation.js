@@ -28,8 +28,9 @@ export const STUDENT_NAV = {
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
         { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
+        { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
-        //   ielts-atelier, progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
+        //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
         //   level-journey(خريطة رحلتك), competition(المسابقة), competition-rules, leaderboard, duels.
         // Re-hidden 2026-06-09: commit 80e76b2 ("add Library") was based off a pre-c72640a tree and
         // silently re-added these. RULE: if you add/remove an item here, mirror it in drawerSections
@@ -81,6 +82,7 @@ export const STUDENT_NAV = {
         { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
         { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
         { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
+        { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
       ],
     },
     {

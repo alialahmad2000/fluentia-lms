@@ -23,7 +23,7 @@ export default function RosterRow({ student }) {
 
   return (
     <tr
-      onClick={() => navigate(`/trainer/student/${id}/progress?tab=ielts`)}
+      onClick={() => navigate(`/trainer/ielts/${id}`)}
       style={{
         cursor: 'pointer',
         background: needs_attention ? 'rgba(245,158,11,0.04)' : 'transparent',

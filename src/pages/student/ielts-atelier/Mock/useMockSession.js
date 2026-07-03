@@ -76,7 +76,7 @@ export async function assembleContent(mode, singleSkill) {
   if (skills.includes('reading')) {
     const { data } = await supabase
       .from('ielts_reading_passages')
-      .select('id, title, passage_text, questions, answer_key, difficulty_band')
+      .select('id, title, content, questions, answer_key, difficulty_band')
       .eq('is_published', true)
       .limit(3)
     content.reading = (data || []).map(r => r.id)

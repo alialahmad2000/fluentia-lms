@@ -203,6 +203,7 @@ const StudentSpeakingHubDetail = lazyRetry(() => import('./pages/student/Student
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
 const StudentActivityReport = lazyRetry(() => import('./pages/shared/StudentActivityReport'))
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
+const IELTSStudentDetail = lazyRetry(() => import('./pages/trainer/IELTSStudentDetail'))
 
 // ── Teacher app (ground-up rebuild — replaces the legacy trainer surface) ──
 const TeacherHome = lazyRetry(() => import('./pages/teacher/TeacherHome'))
@@ -888,6 +889,10 @@ export default function App() {
               <Route path="/trainer/curriculum/unit/:unitId" element={<Page><TeacherCurriculumPreview><UnitContentRouter /></TeacherCurriculumPreview></Page>} />
               <Route path="/trainer/settings" element={<Page><TeacherSettings /></Page>} />
 
+              {/* IELTS trainer surface — roster of IELTS students + per-student detail (mocks/plan/errors/sessions) */}
+              <Route path="/trainer/ielts" element={<Page><IELTSOverview /></Page>} />
+              <Route path="/trainer/ielts/:studentId" element={<Page><IELTSStudentDetail /></Page>} />
+
               {/* ── Back-compat: old singular /trainer/student/:id deep links ── */}
               <Route path="/trainer/student/:studentId" element={<Page><TeacherStudentProfile /></Page>} />
               <Route path="/trainer/student/:studentId/answers" element={<Page><TeacherStudentAnswers /></Page>} />
@@ -904,7 +909,7 @@ export default function App() {
               <Route path="/trainer/debrief/:summaryId" element={<Navigate to="/trainer" replace />} />
               <Route path="/trainer/progress-reports/:id/review" element={<Navigate to="/trainer" replace />} />
               <Route path="/trainer/nabih/:conversationId" element={<Navigate to="/trainer" replace />} />
-              {['/trainer/help', '/trainer/ielts', '/trainer/prep', '/trainer/live', '/trainer/competition',
+              {['/trainer/help', '/trainer/prep', '/trainer/live', '/trainer/competition',
                 '/trainer/my-growth', '/trainer/nabih', '/trainer/ai-assistant', '/trainer/notes', '/trainer/library',
                 '/trainer/points', '/trainer/chat', '/trainer/messages', '/trainer/my-notes', '/trainer/weekly-report',
                 '/trainer/attendance', '/trainer/lesson-planner', '/trainer/quiz', '/trainer/teams', '/trainer/reports',
