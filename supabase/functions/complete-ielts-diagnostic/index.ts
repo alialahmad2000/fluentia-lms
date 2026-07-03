@@ -117,7 +117,7 @@ serve(async (req) => {
 
     const { data: attempt, error: attemptErr } = await supabase
       .from('ielts_mock_attempts')
-      .select('id, student_id, answers, test_variant, status, result_id')
+      .select('id, student_id, answers, status, result_id')
       .eq('id', attempt_id)
       .single()
     if (attemptErr || !attempt) return jsonResponse({ error: 'Attempt not found' }, 404)
@@ -145,7 +145,7 @@ serve(async (req) => {
     const answers = (attempt.answers || {}) as Record<string, any>
     const content = (answers.content || {}) as Record<string, any>
     const studentId = attempt.student_id
-    const variant = attempt.test_variant || 'academic'
+    const variant = 'academic'
 
     // ── Per-skill bands ──────────────────────────────────────────────────────
     const bands: Record<Skill, number | null> = { listening: null, reading: null, writing: null, speaking: null }

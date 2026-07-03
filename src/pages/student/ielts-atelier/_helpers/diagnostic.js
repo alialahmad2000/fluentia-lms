@@ -52,7 +52,6 @@ export async function createDiagnosticAttempt(studentId) {
     .insert({
       student_id: studentId,
       mock_test_id: diagMock?.id || null,
-      test_variant: 'academic',
       status: 'in_progress',
       started_at: new Date().toISOString(),
       answers,
