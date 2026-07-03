@@ -19,7 +19,7 @@
   --iel-sans:"Tajawal","Readex Pro",system-ui,sans-serif;
   --iel-serif:"Source Serif 4","Newsreader",Georgia,serif;
 
-  /* Bridge: un-rebuilt screens still consume --sunset-*/--ds-* → keep them coherent */
+  /* Bridge: un-rebuilt screens still read the old sunset and ds tokens — keep them coherent */
   --sunset-base-deep:var(--iel-ground); --sunset-base-mid:var(--iel-panel); --sunset-base-warm:var(--iel-surface-2);
   --sunset-amber:var(--iel-accent); --sunset-orange:var(--iel-accent); --sunset-bronze:var(--iel-gold);
   --sunset-cream:var(--iel-ink); --sunset-gold:var(--iel-gold);
