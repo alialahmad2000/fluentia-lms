@@ -313,6 +313,12 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-07-03 — HOTFIX: restore individual-track focused nav (LayoutShell clobber I caused)
+- What: My Fardi commit `1255426` (2026-07-02) committed `LayoutShell.jsx` from the far-diverged local branch, which silently reverted two things on main: (1) `getNavForUser(role, studentData)` → `getNavForRole(role)` — so **individual** (`study_mode='individual'`) students like سلطان lost their focused 5-item `INDIVIDUAL_NAV` and saw the FULL student nav (the "shows everything" in Ali's screenshot); (2) re-introduced a competition mobile-bar item the owner had deliberately hidden 2026-06-08. Restored `LayoutShell` to `b88d027`'s content (true prior main: `getNavForUser`, no competition injection) + re-applied ONLY the intended `data-track="fardi"` effect. Individual accounts get the minimal profession-first nav again; Fardi purple accent preserved. esbuild parse green.
+- Files: `src/components/layout/LayoutShell.jsx`. No DB/schema change. Committed to main via Git Data API.
+- Lesson (important): committing to main via Trees API from the far-diverged local branch clobbers unrelated main changes in any SHARED file. ALWAYS base shared-file edits on `git show origin/main:<file>`, never the local diverged copy.
+
+
 ### 2026-07-02 — Sara's July plan → premium Arabic Atelier PDF
 - What: Rendered Sara's July plan as a premium Arabic PDF in the Fluentia **Atelier** style — a bespoke reassurance piece for Ali to send her before her first session (Sat 4 Jul). A4, RTL, **6 pages**. Palette cream `#FBF6EC` / emerald `#15604B` / gold `#A9842A` / rust `#9C4324`; Arabic in `.arx` spans (**Readex Pro**, letter-spacing 0), a Cormorant-Garamond Latin flourish, Space Grotesk numerals. Gold page frame + corner ticks + folio per page; emerald headings with a gold diamond mark + hairline rule.
 - Content rendered VERBATIM (feminine address, no paraphrase): cover (أكاديمية طلاقة · خطتك للشهر · إنجليزية المهنة — مسارٌ مبنيٌّ عليكِ · سارة علي الأسمري · يوليو ٢٠٢٦) → ترحيب → هدفك بوضوح → كيف نوصل (5 gold-numeral pillars) → محرّك كل حصة → رحلة الأربع أسابيع → جدول ١٢ حصة (عبر Google Meet) → قبل حصتك الأولى (checklist) → كلمة أخيرة + د. علي signature.
