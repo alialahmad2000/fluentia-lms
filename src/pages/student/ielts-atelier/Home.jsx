@@ -1,476 +1,247 @@
-import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, Headphones, PenLine, Mic, Target, MessageCircle } from 'lucide-react';
+import React, { useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuthStore } from '@/stores/authStore'
+import { useAdaptivePlan, useLatestResult, useSkillProgress, useMockAttempts, useErrorBankCount } from '@/hooks/ielts/useIELTSHub'
+import { useStudentId } from './_helpers/resolveStudentId'
+import { useIELTSPreview } from '@/pages/admin/ielts-preview/IELTSPreviewContext'
 
-import { useAuthStore } from '@/stores/authStore';
-import { useAdaptivePlan, useLatestResult, useSkillProgress } from '@/hooks/ielts/useIELTSHub';
-import { useStudentId } from './_helpers/resolveStudentId';
-import { useIELTSPreview } from '@/pages/admin/ielts-preview/IELTSPreviewContext';
-import { getPhaseForWeek, getWeekLabel } from './_helpers/weekPhase';
-import { deriveTodayFocus } from './_helpers/todayFocus';
-import { generatePlan } from '@/lib/ielts/plan-generator';
-
-import BandDisplay from '@/design-system/components/masterclass/BandDisplay';
-import TrainerPresence from '@/design-system/components/masterclass/TrainerPresence';
+// ── Instrument palette ──
+const C = {
+  fg: '#eceff1', dim: '#9aa4ae', faint: '#616a73',
+  accent: '#3fdcc0', accentSoft: 'rgba(63,220,192,.13)',
+  panel: 'linear-gradient(180deg,#111519,#0d1114)', panel2: '#0d1114', bezel: '#0c1013',
+  line: 'rgba(255,255,255,.07)', line2: 'rgba(255,255,255,.13)',
+  ok: '#63d693', warn: '#e0a83e',
+}
+const MONO = "'SF Mono', ui-monospace, Menlo, monospace"
 
 const SKILLS = [
-  { id: 'reading',   icon: BookOpen,   title: 'القراءة',   english: 'Reading',   color: '#fbbf24', scoreField: 'reading_score' },
-  { id: 'listening', icon: Headphones, title: 'الاستماع',  english: 'Listening', color: '#f97316', scoreField: 'listening_score' },
-  { id: 'writing',   icon: PenLine,    title: 'الكتابة',   english: 'Writing',   color: '#fb923c', scoreField: 'writing_score' },
-  { id: 'speaking',  icon: Mic,        title: 'المحادثة',  english: 'Speaking',  color: '#f59e0b', scoreField: 'speaking_score' },
-];
+  { id: 'reading',   title: 'القراءة',  code: 'R', field: 'reading_score',   path: 'reading' },
+  { id: 'listening', title: 'الاستماع', code: 'L', field: 'listening_score', path: 'listening' },
+  { id: 'writing',   title: 'الكتابة',  code: 'W', field: 'writing_score',   path: 'writing' },
+  { id: 'speaking',  title: 'المحادثة', code: 'S', field: 'speaking_score',  path: 'speaking' },
+]
 
-function SkillCard({ skill, bandScore, lastUpdated, targetBand }) {
-  const Icon = skill.icon;
-  const pct = bandScore && targetBand ? Math.min(100, (bandScore / targetBand) * 100) : 0;
-  const hasData = bandScore != null;
+// band (0–9) → position on a 4→9 ruler, clamped 0–100%
+const pos = (b) => `${Math.max(0, Math.min(100, ((Number(b) - 4) / 5) * 100))}%`
+const fmt = (b) => (b == null ? '—' : Number(b).toFixed(1))
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      style={{
-        padding: '20px 20px 22px',
-        borderRadius: 16,
-        background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 72%, transparent)',
-        border: `1px solid color-mix(in srgb, ${skill.color} 18%, transparent)`,
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 10,
-            background: `color-mix(in srgb, ${skill.color} 20%, transparent)`,
-            color: skill.color,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Icon size={18} strokeWidth={1.8} />
-        </div>
-        <div>
-          <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--ds-text)' }}>{skill.title}</div>
-          <div style={{ fontSize: 10, color: 'var(--ds-text-muted)', letterSpacing: 1 }}>{skill.english}</div>
-        </div>
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 10 }}>
-        <div style={{ fontSize: 32, fontWeight: 900, color: hasData ? skill.color : 'var(--ds-text-muted)' }}>
-          {hasData ? bandScore.toFixed(1) : '—'}
-        </div>
-        {hasData && targetBand && (
-          <div style={{ fontSize: 11, color: 'var(--ds-text-muted)' }}>/ {targetBand.toFixed(1)}</div>
-        )}
-      </div>
-
-      {hasData ? (
-        <>
-          <div
-            style={{
-              height: 4,
-              borderRadius: 999,
-              background: 'color-mix(in srgb, #000 30%, transparent)',
-              overflow: 'hidden',
-            }}
-          >
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${pct}%` }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              style={{
-                height: '100%',
-                background: `linear-gradient(90deg, ${skill.color}, color-mix(in srgb, ${skill.color} 70%, #fff))`,
-                borderRadius: 999,
-              }}
-            />
-          </div>
-          {lastUpdated && (
-            <div style={{ fontSize: 10, color: 'var(--ds-text-muted)', marginTop: 8 }}>
-              آخر قياس: {new Date(lastUpdated).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}
-            </div>
-          )}
-        </>
-      ) : (
-        <div style={{ fontSize: 11, color: 'var(--ds-text-muted)' }}>
-          بحاجة لتشخيص أولي
-        </div>
-      )}
-    </motion.div>
-  );
+function relTime(iso) {
+  if (!iso) return null
+  const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000)
+  if (d <= 0) return 'اليوم'
+  if (d === 1) return 'أمس'
+  if (d < 7) return `قبل ${d} أيام`
+  if (d < 14) return 'قبل أسبوع'
+  return `قبل ${Math.floor(d / 7)} أسابيع`
 }
 
-function FocusCard({ item, index }) {
-  const Icon = item.icon;
+function SkillMeter({ s, band, target, measuredAt, index }) {
+  const has = band != null
+  const delta = has ? (target - band) : null
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -12 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.1 + index * 0.08 }}
-    >
-      <Link
-        to={item.path}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
-          padding: '18px 20px',
-          borderRadius: 16,
-          background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 60%, transparent)',
-          border: `1px solid color-mix(in srgb, ${item.skillColor} 22%, transparent)`,
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          textDecoration: 'none',
-          color: 'inherit',
-          transition: 'transform 0.2s, border-color 0.2s',
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = item.skillColor; }}
-        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = `color-mix(in srgb, ${item.skillColor} 22%, transparent)`; }}
-      >
-        <div
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: 12,
-            background: `color-mix(in srgb, ${item.skillColor} 18%, transparent)`,
-            color: item.skillColor,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
-          <Icon size={20} strokeWidth={1.8} />
-        </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--ds-text)' }}>{item.title}</div>
-          {item.subtitle && (
-            <div style={{ fontSize: 12, color: 'var(--ds-text-muted)', marginTop: 2 }}>{item.subtitle}</div>
-          )}
-          {item.duration && (
-            <div style={{ fontSize: 11, color: item.skillColor, marginTop: 4, fontWeight: 600 }}>{item.duration}</div>
-          )}
-        </div>
-        <div style={{ color: item.skillColor, flexShrink: 0 }}>
-          <ArrowLeft size={16} />
-        </div>
-      </Link>
-    </motion.div>
-  );
+    <div style={{
+      background: C.panel, border: `1px solid ${C.line}`, borderRadius: 14, padding: '20px 18px 18px',
+      position: 'relative', overflow: 'hidden',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,.04), 0 12px 34px -20px rgba(0,0,0,.9)',
+    }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent)' }} />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: C.fg }}>{s.title}</span>
+        <span style={{ fontFamily: MONO, fontSize: 11, color: C.faint, border: `1px solid ${C.line}`, borderRadius: 5, padding: '1px 6px' }}>{s.code}</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 9, margin: '12px 0 4px' }}>
+        <span style={{ fontFamily: MONO, fontWeight: 600, fontSize: 33, letterSpacing: '-.02em', fontVariantNumeric: 'tabular-nums', color: has ? C.fg : C.faint }}>{fmt(band)}</span>
+        {has && delta > 0 && <span style={{ fontFamily: MONO, fontSize: 12, color: C.faint, paddingBottom: 4 }}>▾ {delta.toFixed(1)}</span>}
+        {has && delta <= 0 && <span style={{ fontFamily: MONO, fontSize: 12, color: C.ok, paddingBottom: 4 }}>✓</span>}
+      </div>
+      <div style={{ direction: 'ltr', position: 'relative', height: 18, marginTop: 8 }}>
+        <div style={{ position: 'absolute', top: 8, left: 0, right: 0, height: 2, background: C.line2 }} />
+        {has && <div style={{ position: 'absolute', top: 8, left: 0, height: 2, background: C.accent, width: pos(band) }} />}
+        {has && <div style={{ position: 'absolute', top: 4, width: 9, height: 9, borderRadius: '50%', background: C.fg, border: '2px solid #111519', left: pos(band), transform: 'translateX(-50%)' }} />}
+        <div style={{ position: 'absolute', top: 1, width: 1, height: 15, background: C.accent, left: pos(target), transform: 'translateX(-50%)' }} />
+      </div>
+      <div style={{ fontFamily: MONO, fontSize: 11, color: C.faint, marginTop: 12 }}>
+        {has ? (measuredAt ? `آخر قياس · ${measuredAt}` : 'مُقاس') : 'لم يُقَس بعد'}
+      </div>
+    </div>
+  )
 }
 
 export default function Home() {
-  // ========== ALL HOOKS TOP ==========
-  const profile = useAuthStore((s) => s.profile);
-  const preview = useIELTSPreview();
-  const studentId = useStudentId();
+  // ===== ALL HOOKS TOP =====
+  const profile = useAuthStore((s) => s.profile)
+  const preview = useIELTSPreview()
+  const studentId = useStudentId()
+  const { data: planRow } = useAdaptivePlan(studentId)
+  const { data: latestResult } = useLatestResult(studentId)
+  const { data: skillProgress } = useSkillProgress(studentId)
+  const { data: mocks } = useMockAttempts(studentId)
+  const { data: errorsLeft } = useErrorBankCount(studentId)
 
-  const { data: planRow, isLoading: planLoading } = useAdaptivePlan(studentId);
-  const { data: latestResult } = useLatestResult(studentId);
-  const { data: skillProgress } = useSkillProgress(studentId);
+  const targetBand = planRow?.target_band || preview?.mockStudent?.target_band || 7.0
+  const measuredAt = relTime(latestResult?.created_at)
 
-  // Generate fallback plan client-side when no DB row (< 50ms, no API)
-  const plan = useMemo(() => {
-    if (planRow) return planRow;
-    if (preview?.previewMode) {
-      try { return generatePlan({ studentId: 'preview', targetBand: 7.0 }); } catch { return null; }
-    }
-    if (studentId && !planLoading) {
-      try { return generatePlan({ studentId, targetBand: 7.0 }); } catch { return null; }
-    }
-    return null;
-  }, [planRow, preview, studentId, planLoading]);
+  const skillBands = useMemo(() => {
+    const out = {}
+    for (const s of SKILLS) out[s.id] = skillProgress?.[s.id]?.band ?? latestResult?.[s.field] ?? null
+    return out
+  }, [skillProgress, latestResult])
 
-  const currentWeek = planRow?.current_week || preview?.mockStudent?.current_week || 1;
-  const targetBand = planRow?.target_band || preview?.mockStudent?.target_band || 7.0;
-  const phase = getPhaseForWeek(currentWeek);
-  const todayFocus = useMemo(() => deriveTodayFocus(plan), [plan]);
+  const known = SKILLS.map((s) => skillBands[s.id]).filter((b) => b != null)
+  const overallNow = latestResult?.overall_band ?? (known.length ? Math.round((known.reduce((a, b) => a + b, 0) / known.length) * 2) / 2 : null)
+  const hasData = overallNow != null
+  const gap = hasData ? Math.max(0, targetBand - overallNow) : null
 
-  const displayName = preview?.previewMode
-    ? 'طالب المعاينة'
-    : (profile?.full_name?.split(' ')[0] || 'يا مُتعلّم');
+  // weakest skill drives the next action
+  const weakest = useMemo(() => {
+    const withBand = SKILLS.filter((s) => skillBands[s.id] != null).sort((a, b) => skillBands[a.id] - skillBands[b.id])
+    return withBand[0] || null
+  }, [skillBands])
 
-  const hasAnyResults = !!latestResult;
+  // readiness signals
+  const diagnosticDone = !!latestResult
+  const mockDone = (mocks?.completed?.length || 0) > 0
+  const examDate = planRow?.target_exam_date || preview?.mockStudent?.target_exam_date || preview?.mockStudent?.exam_date
+  const examDays = examDate ? Math.max(0, Math.ceil((new Date(examDate).getTime() - Date.now()) / 86400000)) : null
 
   return (
-    <div style={{ maxWidth: 1100, margin: '0 auto', paddingBottom: 80 }}>
+    <div dir="rtl" style={{ display: 'flex', flexDirection: 'column', gap: 34, paddingBottom: 30 }}>
 
-      {/* ========== 1. HERO GREETING ========== */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          gap: 32,
-          padding: '24px 0 40px',
-          flexWrap: 'wrap',
-        }}
-      >
-        <div style={{ flex: '1 1 400px', minWidth: 0 }}>
-          <div
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              color: 'var(--sunset-orange, #fbbf24)',
-              letterSpacing: 2,
-              marginBottom: 10,
-            }}
-          >
-            IELTS MASTERCLASS
-          </div>
-          <h1
-            style={{
-              fontSize: 'clamp(30px, 4vw, 46px)',
-              fontWeight: 900,
-              color: 'var(--ds-text)',
-              margin: 0,
-              marginBottom: 14,
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            السلام عليكم،{' '}
-            <span style={{ color: 'var(--sunset-orange, #fbbf24)' }}>{displayName}</span>
-          </h1>
-          <p style={{ fontSize: 17, color: 'var(--ds-text-muted)', lineHeight: 1.7, margin: 0, maxWidth: 560 }}>
-            {hasAnyResults ? (
-              <>
-                أنت في{' '}
-                <strong style={{ color: 'var(--ds-text)' }}>{getWeekLabel(currentWeek)}</strong>
-                {' '}— مرحلة{' '}
-                <strong style={{ color: 'var(--sunset-orange, #fbbf24)' }}>{phase.title}</strong>.
-              </>
-            ) : (
-              <>مستعد للبداية؟ لنبدأ بتشخيص بسيط — ثم نرسم خطتك.</>
-            )}
-          </p>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          style={{ flex: '0 0 auto' }}
-        >
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 10, color: 'var(--ds-text-muted)', letterSpacing: 1.5, marginBottom: 6 }}>
-              هدفك
+      {/* ===== HERO BEZEL — the measurement ===== */}
+      <section style={{
+        border: `1px solid ${C.line2}`, borderRadius: 20, padding: '28px 30px 30px',
+        background: `linear-gradient(180deg,#0d1114,${C.bezel})`,
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,.05), 0 24px 60px -34px rgba(0,0,0,.9)',
+      }}>
+        {hasData ? (
+          <>
+            <div style={{ fontSize: 12, color: C.dim, marginBottom: 18 }}>القياس الحالي <span style={{ color: C.faint, fontFamily: MONO }}>·</span> المجموع</div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 20 }}>
+                <div>
+                  <div style={{ fontSize: 12, color: C.dim, marginBottom: 5 }}>الآن</div>
+                  <div style={{ fontFamily: MONO, fontWeight: 600, fontSize: 'clamp(60px,10vw,82px)', lineHeight: .8, letterSpacing: '-.03em', fontVariantNumeric: 'tabular-nums' }}>{fmt(overallNow)}</div>
+                </div>
+                <div style={{ color: C.accent, fontFamily: MONO, fontSize: 30, paddingBottom: 16 }}>←</div>
+                <div>
+                  <div style={{ fontSize: 12, color: C.dim, marginBottom: 5 }}>الهدف</div>
+                  <div style={{ fontFamily: MONO, fontWeight: 600, fontSize: 'clamp(42px,7vw,54px)', lineHeight: .8, color: C.accent, fontVariantNumeric: 'tabular-nums', paddingBottom: 2 }}>{fmt(targetBand)}</div>
+                </div>
+              </div>
+              <div style={{ paddingBottom: 8 }}>
+                <span style={{ fontFamily: MONO, fontSize: 14, color: C.fg, border: `1px solid ${C.line2}`, background: 'rgba(255,255,255,.03)', borderRadius: 8, padding: '5px 12px' }}>
+                  الفجوة <b style={{ color: C.accent, fontWeight: 600 }}>{gap.toFixed(1)}</b> نطاق
+                </span>
+                <div style={{ fontSize: 12, color: C.faint, marginTop: 8 }}>{gap <= 0 ? 'بلغت هدفك' : `على بُعد ${Math.round(gap / 0.5)} قياس${gap === 0.5 ? '' : 'ات'} من هدفك`}</div>
+              </div>
             </div>
-            <BandDisplay band={targetBand} size="md" />
-          </div>
-        </motion.div>
-      </motion.section>
-
-      {/* ========== 2. TODAY'S FOCUS ========== */}
-      <section style={{ marginBottom: 56 }}>
-        <div style={{ marginBottom: 20 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
-            اليوم —{' '}
-            {todayFocus.length === 1 ? 'خطوة' : `${todayFocus.length} خطوات`}
-          </h2>
-          <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0 }}>
-            {hasAnyResults ? 'ابدأ بما تشعر به أكثر استعداداً.' : 'الخطوة الأولى في رحلتك.'}
-          </p>
-        </div>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: todayFocus.length === 1 ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 12,
-          }}
-        >
-          {todayFocus.map((item, i) => <FocusCard key={item.id} item={item} index={i} />)}
-        </div>
-      </section>
-
-      {/* ========== 3. CURRENT STANDING ========== */}
-      <section style={{ marginBottom: 56 }}>
-        <div style={{ marginBottom: 20 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
-            مستواك الحالي
-          </h2>
-          <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0 }}>
-            {hasAnyResults
-              ? <>
-                  {`آخر تحديث: نتيجة ${latestResult?.result_type === 'diagnostic' ? 'تشخيصي' : 'اختبار'}`}
-                  {' · '}
-                  <Link to="/student/ielts-atelier/diagnostic/results" style={{ color: 'var(--sunset-orange, #fbbf24)', textDecoration: 'none', fontWeight: 700 }}>شاهد نتيجتك الأخيرة</Link>
-                </>
-              : 'ستظهر درجاتك هنا بعد أول تشخيص.'}
-          </p>
-        </div>
-
-        {!hasAnyResults ? (
-          <Link
-            to="/student/ielts-atelier/diagnostic"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 10,
-              padding: '28px 32px',
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, color-mix(in srgb, var(--sunset-orange, #fbbf24) 18%, transparent), color-mix(in srgb, var(--sunset-amber, #f97316) 12%, transparent))',
-              border: '1px solid color-mix(in srgb, var(--sunset-orange, #fbbf24) 35%, transparent)',
-              textDecoration: 'none',
-              color: 'var(--ds-text)',
-              fontSize: 16,
-              fontWeight: 800,
-            }}
-          >
-            <Target size={20} style={{ color: 'var(--sunset-orange, #fbbf24)' }} />
-            ابدأ الاختبار التشخيصي
-            <ArrowLeft size={16} />
-          </Link>
+            {/* ruler */}
+            <div style={{ direction: 'ltr', position: 'relative', height: 60, marginTop: 30 }}>
+              {[0, 20, 40, 60, 80, 100].map((p, i) => (
+                <div key={p} style={{ position: 'absolute', top: 30, width: 1, height: 16, background: C.line, left: `${p}%` }}>
+                  <b style={{ position: 'absolute', top: 20, left: '50%', transform: 'translateX(-50%)', fontFamily: MONO, fontSize: 12, color: C.faint, fontWeight: 500 }}>{4 + i}</b>
+                </div>
+              ))}
+              <div style={{ position: 'absolute', top: 38, left: 0, right: 0, height: 2, background: C.line2 }} />
+              <div style={{ position: 'absolute', top: 38, left: pos(overallNow), height: 2, width: `calc(${pos(targetBand)} - ${pos(overallNow)})`, background: 'linear-gradient(90deg,#3fdcc0,rgba(63,220,192,.4))', boxShadow: '0 0 14px rgba(63,220,192,.55)' }} />
+              <div style={{ position: 'absolute', top: 31, left: pos(overallNow), width: 15, height: 15, borderRadius: '50%', background: C.fg, border: `3px solid ${C.bezel}`, boxShadow: `0 0 0 2px ${C.fg}`, transform: 'translateX(-50%)' }}>
+                <b style={{ position: 'absolute', bottom: 22, left: '50%', transform: 'translateX(-50%)', fontFamily: "'Tajawal',sans-serif", fontSize: 11, color: C.dim, whiteSpace: 'nowrap' }}>أنت · {fmt(overallNow)}</b>
+              </div>
+              <div style={{ position: 'absolute', top: 27, left: pos(targetBand), transform: 'translateX(-50%)' }}>
+                <b style={{ position: 'absolute', bottom: 26, left: '50%', transform: 'translateX(-50%)', fontFamily: MONO, fontSize: 11, color: C.accent, whiteSpace: 'nowrap' }}>الهدف {fmt(targetBand)}</b>
+                <i style={{ display: 'block', width: 2, height: 22, background: C.accent, margin: '0 auto', boxShadow: `0 0 8px ${C.accent}` }} />
+              </div>
+            </div>
+          </>
         ) : (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: 14,
-            }}
-          >
-            {SKILLS.map((skill) => {
-              const skillData = skillProgress?.[skill.id];
-              const bandScore = skillData?.band ?? (latestResult?.[skill.scoreField] ?? null);
-              const lastUpdated = latestResult?.created_at || null;
-              return (
-                <SkillCard
-                  key={skill.id}
-                  skill={skill}
-                  bandScore={bandScore}
-                  lastUpdated={lastUpdated}
-                  targetBand={targetBand}
-                />
-              );
-            })}
+          /* ---- empty state: first measurement ---- */
+          <div>
+            <div style={{ fontFamily: MONO, fontSize: 11, color: C.accent, marginBottom: 12 }}>أول قياس</div>
+            <h2 style={{ fontSize: 'clamp(26px,4vw,38px)', fontWeight: 800, letterSpacing: '-.02em', margin: '0 0 12px', lineHeight: 1.2 }}>لنقِس مستواك بدقّة.</h2>
+            <p style={{ fontSize: 15, color: C.dim, margin: '0 0 22px', maxWidth: 52 + 'ch' }}>التشخيص يحدّد نطاقك الحالي في المهارات الأربع، ثم يرسم خطّتك نحو <b style={{ color: C.accent, fontWeight: 600, fontFamily: MONO }}>{fmt(targetBand)}</b>. حوالي ٤٥ دقيقة.</p>
+            <Link to="/student/ielts-atelier/diagnostic" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 9, background: C.accent, color: '#04140f',
+              textDecoration: 'none', fontWeight: 800, fontSize: 15, padding: '13px 26px', borderRadius: 11,
+              boxShadow: '0 10px 28px -12px rgba(63,220,192,.6)',
+            }}>بدء التشخيص <span style={{ fontFamily: MONO }}>←</span></Link>
+            {/* aspirational ruler: just the target */}
+            <div style={{ direction: 'ltr', position: 'relative', height: 44, marginTop: 30, opacity: .9 }}>
+              {[0, 20, 40, 60, 80, 100].map((p, i) => (
+                <div key={p} style={{ position: 'absolute', top: 14, width: 1, height: 16, background: C.line, left: `${p}%` }}>
+                  <b style={{ position: 'absolute', top: 20, left: '50%', transform: 'translateX(-50%)', fontFamily: MONO, fontSize: 12, color: C.faint }}>{4 + i}</b>
+                </div>
+              ))}
+              <div style={{ position: 'absolute', top: 22, left: 0, right: 0, height: 2, background: C.line2 }} />
+              <div style={{ position: 'absolute', top: 11, left: pos(targetBand), transform: 'translateX(-50%)' }}>
+                <b style={{ position: 'absolute', bottom: 22, left: '50%', transform: 'translateX(-50%)', fontFamily: MONO, fontSize: 11, color: C.accent, whiteSpace: 'nowrap' }}>الهدف {fmt(targetBand)}</b>
+                <i style={{ display: 'block', width: 2, height: 22, background: C.accent, margin: '0 auto', boxShadow: `0 0 8px ${C.accent}` }} />
+              </div>
+            </div>
           </div>
         )}
       </section>
 
-      {/* ========== 4. THIS WEEK ========== */}
-      <section style={{ marginBottom: 56 }}>
-        <div style={{ marginBottom: 20 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
-            هذا الأسبوع
-          </h2>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{
-            padding: '28px 28px 24px',
-            borderRadius: 20,
-            background: 'linear-gradient(135deg, color-mix(in srgb, var(--sunset-base-mid, #2b1810) 70%, transparent), color-mix(in srgb, var(--sunset-base-deep, #1a0f08) 85%, transparent))',
-            border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 22%, transparent)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <div
-              style={{
-                padding: '4px 12px',
-                borderRadius: 999,
-                background: 'color-mix(in srgb, var(--sunset-orange, #fbbf24) 16%, transparent)',
-                color: 'var(--sunset-orange, #fbbf24)',
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: 1.5,
-              }}
-            >
-              {phase.subtitle.toUpperCase()}
-            </div>
-          </div>
-          <h3 style={{ fontSize: 24, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 8 }}>
-            {getWeekLabel(currentWeek)} — {phase.title}
-          </h3>
-          <p style={{ fontSize: 14, color: 'var(--ds-text-muted)', lineHeight: 1.7, margin: 0, marginBottom: 18 }}>
-            {phase.description}
-          </p>
-          <Link
-            to="/student/ielts-atelier/journey"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              fontSize: 13,
-              fontWeight: 700,
-              color: 'var(--sunset-orange, #fbbf24)',
-              textDecoration: 'none',
-            }}
-          >
-            افتح رحلتك الكاملة
-            <ArrowLeft size={14} />
-          </Link>
-        </motion.div>
-      </section>
+      {/* ===== skill instruments ===== */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: 12 }}>
+        {SKILLS.map((s, i) => (
+          <SkillMeter key={s.id} s={s} band={skillBands[s.id]} target={targetBand} measuredAt={measuredAt} index={i} />
+        ))}
+      </div>
 
-      {/* ========== 5. TRAINER PRESENCE ========== */}
-      <section>
-        <div style={{ marginBottom: 16 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
-            نحن معك في كل خطوة.
-          </h2>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 16,
-            padding: '20px 24px',
-            borderRadius: 16,
-            background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 55%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 18%, transparent)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            flexWrap: 'wrap',
-          }}
-        >
-          <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <TrainerPresence trainerName="د. علي" size="md" />
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ds-text)' }}>د. علي</div>
-                <div style={{ fontSize: 11, color: 'var(--ds-text-muted)' }}>مدرب IELTS</div>
-              </div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <TrainerPresence trainerName="د. محمد" size="md" />
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ds-text)' }}>د. محمد</div>
-                <div style={{ fontSize: 11, color: 'var(--ds-text-muted)' }}>مدرب IELTS</div>
-              </div>
-            </div>
+      {/* ===== next action (only when there's data to prioritise from) ===== */}
+      {hasData && weakest && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'linear-gradient(180deg,#0f1418,#0c1013)', border: `1px solid ${C.line2}`, borderRadius: 16, padding: '22px 24px', flexWrap: 'wrap' }}>
+          <div>
+            <div style={{ fontFamily: MONO, fontSize: 11, color: C.accent }}>الأولوية</div>
+            <h3 style={{ margin: '6px 0 4px', fontSize: 19, fontWeight: 800, letterSpacing: '-.01em' }}>{weakest.title} — أبعد مهاراتك عن الهدف</h3>
+            <p style={{ margin: 0, fontSize: 13, color: C.dim }}>الفجوة {(targetBand - skillBands[weakest.id]).toFixed(1)} نطاق، وأسرعها تحسّناً بالتدريب المركّز.</p>
           </div>
-          <Link
-            to="/student/ielts-atelier/trainer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              fontSize: 13,
-              fontWeight: 700,
-              color: 'var(--sunset-orange, #fbbf24)',
-              textDecoration: 'none',
-            }}
-          >
-            <MessageCircle size={14} />
-            افتح غرفة المدرب
-            <ArrowLeft size={14} />
-          </Link>
+          <div style={{ marginInlineStart: 'auto' }}>
+            <Link to={`/student/ielts-atelier/${weakest.path}`} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 9, background: 'transparent', color: C.accent,
+              textDecoration: 'none', fontWeight: 700, fontSize: 14, padding: '12px 22px', borderRadius: 11, border: `1px solid ${C.accent}`,
+            }}>فتح مختبر {weakest.title} <span style={{ fontFamily: MONO }}>←</span></Link>
+          </div>
         </div>
-      </section>
+      )}
 
+      {/* ===== readiness strip ===== */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12 }}>
+        <Ready label="التشخيص" tone={diagnosticDone ? 'done' : 'wait'} value={diagnosticDone ? 'مكتمل ✓' : 'لم يبدأ'} />
+        <Ready label="محاكاة كاملة" tone={mockDone ? 'done' : 'wait'} value={mockDone ? 'مكتملة ✓' : 'لم تبدأ'} />
+        <Ready label="بنك الدروس" tone={(errorsLeft ?? 0) > 0 ? 'open' : 'wait'} value={(errorsLeft ?? 0) > 0 ? `${errorsLeft} مستحقة` : '—'} />
+        <Ready label="موعد الاختبار" tone={examDays != null ? 'open' : 'wait'} value={examDays != null ? `بعد ${examDays} يوم` : 'لم يُحدَّد'} />
+      </div>
+
+      {/* ===== trainer line ===== */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '17px 20px', borderRadius: 14, background: C.panel2, border: `1px solid ${C.line}`, boxShadow: '0 8px 24px -20px rgba(0,0,0,.8)', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={avStyle}>ع</span>
+          <span style={{ ...avStyle, marginInlineStart: -9 }}>م</span>
+        </div>
+        <div style={{ fontSize: 13.5, color: C.dim, flex: 1, minWidth: 200 }}>
+          <b style={{ color: C.fg, fontWeight: 600 }}>د. علي</b> و<b style={{ color: C.fg, fontWeight: 600 }}>د. محمد</b> يراجعان كتابتك ومحادثتك بأنفسهما — لا الذكاء الاصطناعي وحده.
+        </div>
+        <Link to="/student/ielts-atelier/trainer" style={{ marginInlineStart: 'auto', fontFamily: MONO, fontSize: 11.5, color: C.accent, textDecoration: 'none', whiteSpace: 'nowrap' }}>غرفة المدرب ←</Link>
+      </div>
     </div>
-  );
+  )
+}
+
+const avStyle = {
+  width: 34, height: 34, borderRadius: '50%', background: '#1b232b', border: '2px solid #0d1114',
+  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: '#9aa4ae',
+}
+
+function Ready({ label, value, tone }) {
+  const dot = tone === 'done' ? { background: C.ok, boxShadow: `0 0 7px ${C.ok}` } : tone === 'open' ? { background: C.warn } : { background: C.faint }
+  return (
+    <div style={{ background: C.panel2, border: `1px solid ${C.line}`, borderRadius: 12, padding: '16px', boxShadow: '0 8px 24px -20px rgba(0,0,0,.8)' }}>
+      <div style={{ fontSize: 12, color: C.dim, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ width: 7, height: 7, borderRadius: '50%', flexShrink: 0, ...dot }} />{label}
+      </div>
+      <div style={{ fontFamily: MONO, fontSize: 15, marginTop: 8, fontVariantNumeric: 'tabular-nums' }}>{value}</div>
+    </div>
+  )
 }
