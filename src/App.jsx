@@ -535,6 +535,14 @@ function TrainerOnboardingGuard({ children }) {
   return children
 }
 
+// ─── Pro Desk home guard — a uses_pro_desk student NEVER sees the normal /student home.
+//     Bounces to /desk no matter how they arrived (impersonation, bookmark, nav). ─────────
+function StudentHome() {
+  const studentData = useAuthStore((s) => s.studentData)
+  if (studentData?.uses_pro_desk === true) return <Navigate to="/desk" replace />
+  return <StudentDashboard />
+}
+
 // ─── Role-Based Redirect ─────────────────────────────────────
 function RoleRedirect() {
   const user = useAuthStore((s) => s.user)
@@ -725,7 +733,7 @@ export default function App() {
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
             <Route element={<StudentStatusGuard />}>
             <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
-              <Route path="/student" element={<Page><StudentDashboard /></Page>} />
+              <Route path="/student" element={<Page><StudentHome /></Page>} />
               {/* Individual (1-on-1) professional track */}
               <Route path="/student/track" element={<Page><IndividualTrackHome /></Page>} />
               <Route path="/student/track/:moduleId" element={<Page><IndividualModulePage /></Page>} />
