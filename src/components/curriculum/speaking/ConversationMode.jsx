@@ -272,7 +272,7 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
     }
     setEvaluation(parsed.evaluation); setYourWords(parsed.your_words || []); setPhase('result')
     try { safeCelebrate('speaking_uploaded') } catch {}
-    onComplete?.()
+    onComplete?.({ conversationId, evaluation: parsed.evaluation })
   }, [conversationId, onComplete])
 
   const restart = useCallback(() => {

@@ -7,6 +7,9 @@ import { supabase } from './lib/supabase'
 import { queryClient } from './lib/queryClient'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
+// Pro Desk shell + guard are layout elements (like LayoutShell) → eager; its pages are lazy below.
+import DeskShell from './components/desk/DeskShell'
+import DeskGuard from './components/desk/DeskGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
@@ -44,6 +47,10 @@ const AdminTeam = lazyRetry(() => import('./pages/admin/AdminTeam'))
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
+// Pro Desk pages (gated /desk/* surface)
+const DeskToday = lazyRetry(() => import('./pages/desk/DeskToday'))
+const DeskScenarios = lazyRetry(() => import('./pages/desk/DeskScenarios'))
+const DeskScenarioPlayer = lazyRetry(() => import('./pages/desk/DeskScenarioPlayer'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
 const IndividualModulePage = lazyRetry(() => import('./pages/student/individual/ModulePage'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -532,6 +539,7 @@ function TrainerOnboardingGuard({ children }) {
 function RoleRedirect() {
   const user = useAuthStore((s) => s.user)
   const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
   const loading = useAuthStore((s) => s.loading)
 
   if (loading) return <LoadingSkeleton />
@@ -539,7 +547,8 @@ function RoleRedirect() {
 
   switch (profile?.role) {
     case 'student':
-      return <Navigate to="/student" replace />
+      // Pro Desk students land on their professional surface; everyone else on /student.
+      return <Navigate to={studentData?.uses_pro_desk === true ? '/desk' : '/student'} replace />
     case 'trainer':
       return <Navigate to="/trainer" replace />
     case 'admin':
@@ -869,6 +878,20 @@ export default function App() {
               <Route path="/student/ielts-v2" element={<Navigate to="/student/ielts-atelier" replace />} />
               <Route path="/student/ielts-v2/*" element={<Navigate to="/student/ielts-atelier" replace />} />
             </Route>
+            </Route>
+          </Route>
+
+          {/* Pro Desk — gated professional-English surface (/desk/*). Its own shell + guard;
+              never opens the shared student pages, so it can't regress any other student. */}
+          <Route element={<ProtectedRoute allowedRoles={['student','trainer','admin']} />}>
+            <Route element={<StudentStatusGuard />}>
+              <Route element={<DeskGuard />}>
+                <Route element={<ErrorBoundary><DeskShell /></ErrorBoundary>}>
+                  <Route path="/desk" element={<Page><DeskToday /></Page>} />
+                  <Route path="/desk/scenarios" element={<Page><DeskScenarios /></Page>} />
+                  <Route path="/desk/scenarios/:moduleId" element={<Page><DeskScenarioPlayer /></Page>} />
+                </Route>
+              </Route>
             </Route>
           </Route>
 

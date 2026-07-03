@@ -51,6 +51,13 @@
   --accent-individual-glow:   rgba(168, 85, 247, 0.18);
   --accent-individual-strong: #c084fc;
 
+  /* Pro Desk accent — brass on obsidian ("Operations Room"). The professional's
+     instrument, not a student app. Applied only within a [data-track="desk"] subtree. */
+  --accent-desk:              #c9a25c;
+  --accent-desk-dim:          #4a3a1a;
+  --accent-desk-glow:         rgba(201, 162, 92, 0.18);
+  --accent-desk-strong:       #efd299;
+
   --accent-gold:         #fbbf24;
   --accent-gold-dim:     #713f12;
   --accent-gold-glow:    rgba(251, 191, 36, 0.12);
@@ -635,4 +642,27 @@ html[data-track="fardi"] {
   --ds-accent-primary:      var(--accent-individual);
   --ds-accent-primary-glow: var(--accent-individual-glow);
   --ds-sky:                 var(--accent-individual-strong);
+}
+
+/* ══════════════════════════════════════════════════════════════════════ *
+ * PRO DESK ACCENT (scoped) — the reimagined professional-English surface
+ * (/desk/*) reads brass-on-obsidian ("Operations Room"). Set on <html> via
+ * data-track="desk" (DeskShell, gated on students.uses_pro_desk), so it reaches
+ * the Desk sidebar/header/buttons WITHOUT touching any other student's palette
+ * (the fardi purple and the default sky are both untouched). Same specificity
+ * trick as the fardi block — html[...] (0,1,1) beats :root / [data-theme] (0,1,0).
+ * ══════════════════════════════════════════════════════════════════════ */
+html[data-track="desk"] {
+  --accent-sky:            var(--accent-desk);
+  --accent-sky-strong:     var(--accent-desk-strong);
+  --accent-sky-glow:       var(--accent-desk-glow);
+  --accent-sky-dim:        var(--accent-desk-dim);
+  --text-link:             var(--accent-desk-strong);
+  --info:                  var(--accent-desk);
+  --sidebar-active-border: var(--accent-desk);
+  --sidebar-icon-active:   var(--accent-desk);
+
+  --ds-accent-primary:      var(--accent-desk);
+  --ds-accent-primary-glow: var(--accent-desk-glow);
+  --ds-sky:                 var(--accent-desk-strong);
 }

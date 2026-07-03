@@ -1,0 +1,183 @@
+/* Pro Desk — scoped chrome + the Operations Room atmosphere.
+   All of this lives ONLY inside the /desk route space (DeskShell). Nothing here
+   leaks to any other student surface. Brass-on-obsidian, RTL. */
+
+.desk-root {
+  --brass: var(--accent-desk, #c9a25c);
+  --brass-hi: var(--accent-desk-strong, #efd299);
+  --ink: #05070d;
+  --cream: #f3eee2;
+  min-height: 100dvh;
+  background: var(--ink);
+  color: var(--cream);
+  direction: rtl;
+}
+
+/* the receding data-centre canvas + a directional scrim for text legibility */
+.desk-noc {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.desk-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Gentle vignette only — the clear zone sits over the vanishing point so the room
+     glows through; edges are grounded just enough for the chrome to read. */
+  background:
+    radial-gradient(135% 115% at 63% 50%, rgba(7,10,18,0) 0%, rgba(7,10,18,0) 40%, rgba(7,10,18,0.42) 78%, rgba(7,10,18,0.62) 100%),
+    linear-gradient(180deg, rgba(7,10,18,0.20) 0%, rgba(7,10,18,0) 38%, rgba(7,10,18,0.28) 100%);
+}
+
+/* content sits above the atmosphere */
+.desk-stage { position: relative; z-index: 2; }
+
+/* ── glass surfaces ── (top-lit, real elevation over the room) */
+.desk-glass {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.006)),
+    linear-gradient(180deg, rgba(18,22,32,0.72), rgba(10,13,20,0.82));
+  border: 1px solid rgba(201,162,92,0.16);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255,255,255,0.06),
+    0 1px 2px rgba(0,0,0,0.4),
+    0 12px 30px -12px rgba(0,0,0,0.55),
+    0 34px 68px -34px rgba(0,0,0,0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.desk-hair { border-top: 1px solid rgba(201,162,92,0.14); }
+/* gradient hairline that fades top+bottom (for column dividers) */
+.desk-divider-v { width: 1px; background: linear-gradient(180deg, transparent, rgba(201,162,92,0.28), transparent); }
+
+/* ── crafted brass CTA (an emitter, not a blurry outer glow) ── */
+.desk-cta {
+  background: linear-gradient(180deg, var(--brass-hi, #efd299), var(--brass, #c9a25c));
+  color: #1a130a;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    0 0 0 1px rgba(201,162,92,0.3),
+    0 2px 8px rgba(0,0,0,0.4),
+    0 12px 26px -8px rgba(201,162,92,0.5);
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+}
+.desk-cta:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 0 1px rgba(201,162,92,0.4), 0 4px 10px rgba(0,0,0,0.4), 0 16px 34px -8px rgba(201,162,92,0.6); }
+
+/* ghost circular icon button (scenario card affordance) */
+.desk-ghost-btn {
+  width: 30px; height: 30px; border-radius: 999px;
+  display: grid; place-items: center;
+  color: var(--brass, #c9a25c);
+  border: 1px solid rgba(201,162,92,0.22);
+  background: rgba(201,162,92,0.05);
+  transition: background .16s ease, color .16s ease, border-color .16s ease;
+}
+.group:hover .desk-ghost-btn { background: rgba(201,162,92,0.16); color: var(--brass-hi, #efd299); border-color: rgba(201,162,92,0.4); }
+
+/* ── sidebar ── */
+.desk-side-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 13px;
+  color: rgba(243,238,226,0.62);
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  transition: color .18s ease, background .18s ease;
+}
+.desk-side-link:hover { color: var(--cream); background: rgba(201,162,92,0.06); }
+.desk-side-link.is-active {
+  color: var(--brass-hi);
+  background: linear-gradient(90deg, rgba(201,162,92,0.16), rgba(201,162,92,0.03));
+}
+.desk-side-link.is-active::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--brass-hi), var(--brass));
+  box-shadow: 0 0 12px -1px var(--brass);
+}
+.desk-side-link.is-soon { opacity: 0.5; cursor: default; }
+.desk-side-link.is-soon:hover { background: transparent; color: rgba(243,238,226,0.5); }
+.desk-soon-chip {
+  margin-inline-start: auto;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: var(--brass);
+  background: rgba(201,162,92,0.10);
+  border: 1px solid rgba(201,162,92,0.22);
+}
+
+/* brand medallion */
+.desk-brand-mark {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  background: radial-gradient(circle at 34% 28%, rgba(239,210,153,0.9), rgba(201,162,92,0.5) 60%, rgba(74,58,26,0.5));
+  box-shadow: 0 0 0 1px rgba(201,162,92,0.35) inset, 0 8px 24px -8px rgba(201,162,92,0.55);
+  color: #1a130a;
+  font-weight: 900;
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* status dot */
+.desk-live-dot { animation: deskPulse 2.4s ease-in-out infinite; }
+@keyframes deskPulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* soft appear */
+@keyframes deskRise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.desk-rise { animation: deskRise .5s cubic-bezier(.16,1,.3,1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .desk-live-dot, .desk-rise { animation: none !important; }
+}
+
+/* mobile bottom bar */
+.desk-mobilebar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 40;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  background: rgba(8,11,18,0.9);
+  border-top: 1px solid rgba(201,162,92,0.16);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+/* top scrim so scrolled content fades before it reaches the bar (no bleed-through) */
+.desk-mobilebar::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -24px; height: 24px;
+  background: linear-gradient(180deg, rgba(8,11,18,0), rgba(8,11,18,0.7));
+  pointer-events: none;
+}
+.desk-mobilebar a, .desk-mobilebar .desk-mob-soon {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 9px 0;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 11px; font-weight: 700;
+  color: rgba(243,238,226,0.55);
+}
+.desk-mobilebar a.is-active { color: var(--brass-hi); }
+.desk-mobilebar .desk-mob-soon { opacity: 0.42; }
+.desk-mobilebar .desk-mob-soon::after {
+  content: "قريباً"; font-size: 8px; font-weight: 700;
+  color: var(--brass); opacity: 0.9;
+}
