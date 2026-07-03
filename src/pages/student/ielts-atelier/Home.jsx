@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useLatestResult, useSkillProgress, useAdaptivePlan, useErrorBankCount } from '@/hooks/ielts/useIELTSHub'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
 import { Card, SectionHeader, Chip, BandTrack, SkillCard, TaskRow, Icon, PrimaryButton } from './_ui/primitives'
+import GoalModal from './_ui/GoalModal'
 
 const BASE = '/student/ielts-atelier'
 const SKILLS = ['reading', 'listening', 'writing', 'speaking']
@@ -26,6 +27,7 @@ export default function Home() {
   const { data: skillsData } = useSkillProgress(studentId)
   const { data: plan } = useAdaptivePlan(studentId)
   const { data: errCount } = useErrorBankCount(studentId)
+  const [showGoal, setShowGoal] = useState(false)
 
   const name = (profile?.display_name || profile?.full_name || '').split(' ')[0] || ''
   const overall = result?.overall_band != null ? Number(result.overall_band) : null
@@ -60,13 +62,16 @@ export default function Home() {
             <p style={{ fontSize: 15.5, color: 'var(--iel-ink-2)', lineHeight: 1.9, margin: '0 0 22px', maxWidth: '42ch' }}>
               اختبار تشخيصي قصير يقيس مهاراتك الأربع، ثم يرسم خطّتك نحو هدفك — نحو ٣٥ دقيقة، بلا ضغط.
             </p>
-            <PrimaryButton onClick={() => go('diagnostic')}>{g('ابدأ الاختبار التشخيصي', 'ابدئي الاختبار التشخيصي')} <Icon.chevron size={17} sw={2.4} /></PrimaryButton>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+              <PrimaryButton onClick={() => go('diagnostic')}>{g('ابدأ الاختبار التشخيصي', 'ابدئي الاختبار التشخيصي')} <Icon.chevron size={17} sw={2.4} /></PrimaryButton>
+              <button onClick={() => setShowGoal(true)} style={{ background: 'none', border: 0, color: 'var(--iel-accent)', fontSize: 13.5, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>حدّد هدفك ومعادك أولاً</button>
+            </div>
           </div>
-          <div style={{ background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 14, padding: '18px 20px' }}>
+          <button onClick={() => setShowGoal(true)} style={{ textAlign: 'start', cursor: 'pointer', background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 14, padding: '18px 20px', fontFamily: "'Tajawal', sans-serif" }}>
             <div style={{ fontSize: 12, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 6 }}>هدفك</div>
             <div className="iel-serif" style={{ fontSize: 40, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: 1 }}>{target != null ? target.toFixed(1) : '7.0'}</div>
             <BandTrack current={null} target={target ?? 7} />
-          </div>
+          </button>
         </Card>
         <div>
           <SectionHeader title="مهاراتك الأربع" />
@@ -76,6 +81,7 @@ export default function Home() {
             ))}
           </div>
         </div>
+        <GoalModal open={showGoal} onClose={() => setShowGoal(false)} studentId={studentId} initial={plan} />
       </div>
     )
   }
@@ -121,7 +127,7 @@ export default function Home() {
           ) : (
             <>
               <div style={{ fontSize: 14, color: 'var(--iel-ink-2)', fontWeight: 700, marginBottom: 10, lineHeight: 1.7 }}>حدّد موعد اختبارك<br />لنبني خطّتك الزمنية</div>
-              <button onClick={() => go('journey')} style={{ background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: 0, borderRadius: 10, padding: '9px 16px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>تحديد الموعد</button>
+              <button onClick={() => setShowGoal(true)} style={{ background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: 0, borderRadius: 10, padding: '9px 16px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>تحديد الموعد</button>
             </>
           )}
         </div>
@@ -144,6 +150,8 @@ export default function Home() {
           <TaskRow key={i} first={i === 0} tag={t.tag} title={t.title} sub={t.sub} onClick={() => go(t.to)} />
         ))}
       </Card>
+
+      <GoalModal open={showGoal} onClose={() => setShowGoal(false)} studentId={studentId} initial={plan} />
     </div>
   )
 }
