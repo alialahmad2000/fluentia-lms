@@ -166,6 +166,7 @@ export default function LayoutShell() {
 
       {/* Main content area */}
       <div
+        data-content-shell
         className={`relative z-[1] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isClassMode ? '' : collapsed ? 'lg:mr-[76px]' : 'lg:mr-[264px]'
         }`}

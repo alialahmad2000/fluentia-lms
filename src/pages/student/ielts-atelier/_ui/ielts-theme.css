@@ -1,0 +1,85 @@
+/* ============================================================================
+   طلاقة IELTS — one design system, two finishes.
+   Tokens live on .iel-root. Dark is the default; the bright/exam-board finish
+   activates under the app's light theme (html.light / [data-theme="minimal"]).
+   Every IELTS screen styles through these --iel-* tokens — no per-screen palettes.
+   ========================================================================== */
+
+.iel-root{
+  /* — Dark (confident, refined) — default — */
+  --iel-ground:#0e1013; --iel-panel:#131720; --iel-surface:#171b22; --iel-surface-2:#1c212a;
+  --iel-border:rgba(255,255,255,.08); --iel-border-strong:rgba(255,255,255,.15);
+  --iel-ink:#eef1f5; --iel-ink-2:#a6afba; --iel-ink-3:#6a7480;
+  --iel-accent:#2fb89a; --iel-accent-ink:#7fe6cf; --iel-accent-soft:rgba(47,184,154,.12);
+  --iel-gold:#d7a94c; --iel-good:#2fb89a; --iel-warn:#e0a94e; --iel-bad:#e06a58;
+  --iel-nav-active:#7fe6cf; --iel-nav-active-bg:rgba(47,184,154,.12);
+  --iel-track:rgba(255,255,255,.08);
+  --iel-shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  --iel-shadow:0 1px 2px rgba(0,0,0,.3), 0 14px 40px -18px rgba(0,0,0,.6);
+  --iel-sans:"Tajawal","Readex Pro",system-ui,sans-serif;
+  --iel-serif:"Source Serif 4","Newsreader",Georgia,serif;
+
+  /* Bridge: un-rebuilt screens still consume --sunset-*/--ds-* → keep them coherent */
+  --sunset-base-deep:var(--iel-ground); --sunset-base-mid:var(--iel-panel); --sunset-base-warm:var(--iel-surface-2);
+  --sunset-amber:var(--iel-accent); --sunset-orange:var(--iel-accent); --sunset-bronze:var(--iel-gold);
+  --sunset-cream:var(--iel-ink); --sunset-gold:var(--iel-gold);
+  --ds-accent-primary:var(--iel-accent); --ds-accent-gold:var(--iel-gold);
+
+  background:var(--iel-ground); color:var(--iel-ink); font-family:var(--iel-sans);
+  min-height:100dvh;
+}
+
+/* — Bright (clean, authoritative exam-board) — under the app's light theme — */
+html.light .iel-root,
+:root[data-theme="minimal"] .iel-root{
+  --iel-ground:#f4f1ea; --iel-panel:#efe9de; --iel-surface:#ffffff; --iel-surface-2:#faf8f3;
+  --iel-border:#e7e1d5; --iel-border-strong:#d8d0c0;
+  --iel-ink:#201c15; --iel-ink-2:#6d6456; --iel-ink-3:#9a9082;
+  --iel-accent:#0f6f5f; --iel-accent-ink:#0a5749; --iel-accent-soft:#e4efec;
+  --iel-gold:#a17a20; --iel-good:#0f6f5f; --iel-warn:#b0761d; --iel-bad:#b5533a;
+  --iel-nav-active:#0f6f5f; --iel-nav-active-bg:#e6efec;
+  --iel-track:#eae4d8;
+  --iel-shadow-sm:0 1px 2px rgba(40,30,15,.05);
+  --iel-shadow:0 1px 2px rgba(40,30,15,.05), 0 10px 30px -14px rgba(40,30,15,.16);
+}
+
+.iel-serif{font-family:var(--iel-serif);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* Full-screen focus: the IELTS section provides its OWN shell, so hide the
+   global LayoutShell chrome and reclaim its space while mounted. */
+body.ielts-app aside[data-sidebar-root],
+body.ielts-app [data-app-header],
+body.ielts-app .mobile-bottom-nav{ display:none !important; }
+body.ielts-app [data-content-shell]{ margin:0 !important; }
+body.ielts-app #main-content{ max-width:none !important; margin:0 !important; padding:0 !important; }
+
+@keyframes iel-spin{to{transform:rotate(360deg)}}
+
+/* ── Shell layout (RTL: nav right, content fills left) ─────────────────────── */
+.iel-shell{display:flex;min-height:100dvh}
+.iel-nav{width:264px;flex:none;align-self:flex-start;position:sticky;top:0;height:100dvh;overflow-y:auto;
+  background:var(--iel-panel);border-inline-start:1px solid var(--iel-border);
+  display:flex;flex-direction:column;padding:22px 16px;gap:3px}
+.iel-nav-label{font-size:11px;font-weight:700;color:var(--iel-ink-3);letter-spacing:.13em;padding:14px 10px 6px}
+.iel-brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px}
+.iel-brand .mark{width:34px;height:34px;border-radius:9px;background:var(--iel-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex:none}
+.iel-brand .wm{font-weight:800;font-size:17px;color:var(--iel-ink);line-height:1.1}
+.iel-brand .wm small{display:block;font-size:11px;font-weight:600;color:var(--iel-ink-3);letter-spacing:.14em}
+.iel-navfoot{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 10px 2px;border-top:1px solid var(--iel-border)}
+.iel-navfoot .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#5b8def,#8b5bef);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.iel-navfoot .who{font-size:13px;font-weight:700;color:var(--iel-ink)}
+.iel-navfoot .who small{display:block;font-size:11px;color:var(--iel-ink-3);font-weight:600}
+.iel-main{flex:1;min-width:0;padding:26px 34px 60px}
+.iel-content{max-width:960px;margin:0 auto}
+
+@media (max-width:900px){
+  .iel-shell{flex-direction:column}
+  .iel-nav{width:auto;height:auto;position:sticky;top:0;z-index:20;flex-direction:row;overflow-x:auto;gap:6px;
+    padding:10px 12px;border-inline-start:0;border-bottom:1px solid var(--iel-border);align-items:center;scrollbar-width:none}
+  .iel-nav::-webkit-scrollbar{display:none}
+  .iel-nav .iel-nav-label,.iel-nav .iel-navfoot{display:none}
+  .iel-brand{padding:0 4px 0 6px;flex:none}
+  .iel-brand .wm small{display:none}
+  .iel-nav button{white-space:nowrap;flex:none}
+  .iel-main{padding:18px 15px 64px}
+}
