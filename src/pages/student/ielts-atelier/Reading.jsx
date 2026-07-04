@@ -11,6 +11,7 @@ import { gradeQuestions } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
 import { Card, SectionHeader, Icon as UI } from './_ui/primitives'
+import QuestionTypesSection from './_ui/QuestionTypesSection'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -453,6 +454,8 @@ export default function Reading() {
             نصوص أكاديمية بأنواع أسئلة الآيلتس. اختر نصّاً وابدأ تدريباً مُوقّتاً — تصحيح فوري وشرح لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
           </p>
         </div>
+
+        <QuestionTypesSection />
 
         {/* Stats strip — only if sessions exist */}
         {recentSessions.length > 0 && (
