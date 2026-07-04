@@ -1,11 +1,12 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import AnimatedNumber from '../../components/ui/AnimatedNumber'
-import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain, Sparkles, ListChecks, FileText, Zap, Activity, Smartphone } from 'lucide-react'
+import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Calendar, ArrowUpRight, ArrowDownRight, Brain, Activity, Smartphone, ChevronLeft, ShieldCheck, Wallet } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting } from '../../utils/dateHelpers'
-import { STUDENT_STATUS, PACKAGES } from '../../lib/constants'
+import { PACKAGES } from '../../lib/constants'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link } from 'react-router-dom'
 import UserAvatar from '../../components/common/UserAvatar'
@@ -15,6 +16,34 @@ import DeviceInstallStatusWidget from '../../components/admin/DeviceInstallStatu
 import EvaluationHealthWidget from '../../components/admin/EvaluationHealthWidget'
 import PlacementQueueWidget from './PlacementQueueWidget'
 import AtelierLauncher from './atelier-preview/AtelierLauncher'
+import './adminDashboard.css'
+
+const EASE = [0.16, 1, 0.3, 1]
+const sectionReveal = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5, ease: EASE },
+}
+const staggerContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.05, delayChildren: 0.08 } },
+}
+const staggerItem = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
+}
+
+function Eyebrow({ label, hint }) {
+  return (
+    <div className="adx-eyebrow">
+      <span className="adx-eyebrow__spark" />
+      <span className="adx-eyebrow__label">{label}</span>
+      {hint && <span className="adx-eyebrow__hint">{hint}</span>}
+      <span className="adx-eyebrow__rule" />
+    </div>
+  )
+}
 
 export default function AdminDashboard() {
   const profile = useAuthStore((s) => s.profile)
@@ -84,12 +113,13 @@ export default function AdminDashboard() {
     queryFn: async () => {
       const { data } = await supabase
         .from('students')
-        .select('id, status, package, xp_total, profiles(full_name, avatar_url)')
+        .select('id, status, package, xp_total, profiles(full_name, avatar_url, is_test_account)')
         .eq('status', 'active')
         .is('deleted_at', null)
         .order('enrollment_date', { ascending: false })
-        .limit(6)
-      return data || []
+        .limit(12)
+      // the owner's bridge shouldn't look like staging — hide test/demo accounts
+      return (data || []).filter(s => !s.profiles?.is_test_account).slice(0, 6)
     },
   })
 
@@ -167,7 +197,6 @@ export default function AdminDashboard() {
     queryKey: ['admin-upcoming-renewals'],
     queryFn: async () => {
       const today = new Date()
-      const dayOfMonth = today.getDate()
       // Get students whose payment_day is within the next 7 days
       const days = []
       for (let i = 0; i < 7; i++) {
@@ -183,6 +212,23 @@ export default function AdminDashboard() {
         .in('payment_day', days)
       return data || []
     },
+  })
+
+  // Students who entered today (live ops pulse for the hero)
+  const { data: activeToday } = useQuery({
+    queryKey: ['admin-active-today-count'],
+    queryFn: async () => {
+      const todayStart = new Date()
+      todayStart.setHours(0, 0, 0, 0)
+      const { count } = await supabase
+        .from('students')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'active')
+        .is('deleted_at', null)
+        .gte('last_active_at', todayStart.toISOString())
+      return count || 0
+    },
+    refetchInterval: 2 * 60 * 1000,
   })
 
   // PWA install stats
@@ -207,355 +253,508 @@ export default function AdminDashboard() {
   const isInitialLoading = !profile
   if (isInitialLoading) return <DashboardSkeleton />
 
-  const cards = [
-    { label: 'إجمالي الطلاب', value: studentStats?.total ?? '—', sub: `${studentStats?.active ?? 0} نشط`, icon: Users, color: 'sky' },
-    { label: 'المجموعات', value: groupCount ?? '—', sub: 'مجموعة نشطة', icon: Layers, color: 'gold' },
-    { label: 'مدفوعات معلقة', value: paymentStats?.count ?? '—', sub: paymentStats?.total ? `${paymentStats.total} ر.س` : '', icon: CreditCard, color: 'sky' },
-    { label: 'أخطاء النظام', value: recentErrors?.length ?? 0, sub: 'آخر الأخطاء', icon: AlertCircle, color: recentErrors?.length > 0 ? 'red' : 'gold' },
-  ]
+  const todayLine = new Intl.DateTimeFormat('ar-u-ca-gregory-nu-latn', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+  }).format(new Date())
+
+  // ── Attention items (merged quick-actions + alerts) ──────────────
+  const attentionItems = [
+    paymentStats?.count > 0 && {
+      to: '/admin/packages',
+      title: `${paymentStats.count} دفعة معلقة`,
+      sub: paymentStats.total ? `بقيمة ${paymentStats.total.toLocaleString()} ر.س` : 'بانتظار التحصيل',
+      icon: CreditCard,
+      tint: { bg: 'rgba(245,158,11,0.12)', fg: '#fbbf24' },
+    },
+    recentErrors?.length > 0 && {
+      to: '/admin/settings',
+      title: `${recentErrors.length} خطأ في النظام`,
+      sub: recentErrors[0]?.service ? `آخرها في ${recentErrors[0].service}` : 'راجع التفاصيل',
+      icon: AlertCircle,
+      tint: { bg: 'rgba(239,68,68,0.12)', fg: '#f87171' },
+    },
+    upcomingRenewals?.length > 0 && {
+      to: '/admin/packages',
+      title: `${upcomingRenewals.length} تجديد خلال ٧ أيام`,
+      sub: 'جهّز رسائل التذكير',
+      icon: Calendar,
+      tint: { bg: 'rgba(52,211,153,0.12)', fg: '#34d399' },
+    },
+    pwaStats?.total > 0 && (pwaStats.total - pwaStats.installed) > 0 && {
+      to: '/admin/students',
+      title: `${pwaStats.total - pwaStats.installed} طالب بدون التطبيق`,
+      sub: 'لم يثبّتوا التطبيق بعد',
+      icon: Smartphone,
+      tint: { bg: 'rgba(56,189,248,0.12)', fg: '#38bdf8' },
+    },
+  ].filter(Boolean)
+
+  const allClear = attentionItems.length === 0
+
+  // Data-aware pulse chips: never lead the hero with a dead zero.
+  const seatsAvailable = groupSeats?.reduce((sum, g) => sum + g.empty, 0) ?? 0
+  const revenueAlive = (revenueStats?.thisMonth || 0) > 0 || (revenueStats?.lastMonth || 0) > 0
+  const pulseChips = [
+    revenueAlive && {
+      label: 'إيرادات هذا الشهر',
+      value: revenueStats?.thisMonth ?? 0,
+      unit: 'ر.س',
+      icon: Wallet,
+      tint: { bg: 'rgba(251,191,36,0.13)', fg: '#fbbf24' },
+      delta: revenueStats && revenueStats.growth !== 0 ? revenueStats.growth : null,
+    },
+    {
+      label: `${studentStats?.active ?? 0} نشط الآن`,
+      value: studentStats?.total ?? 0,
+      unit: 'طالب',
+      icon: Users,
+      tint: { bg: 'rgba(251,191,36,0.13)', fg: '#fbbf24' },
+    },
+    {
+      label: 'مجموعة نشطة',
+      value: groupCount ?? 0,
+      unit: '',
+      icon: Layers,
+      tint: { bg: 'rgba(167,139,250,0.13)', fg: '#a78bfa' },
+    },
+    seatsAvailable > 0 && {
+      label: 'مقعد متاح للتسجيل',
+      value: seatsAvailable,
+      unit: '',
+      icon: UserCheck,
+      tint: { bg: 'rgba(52,211,153,0.13)', fg: '#34d399' },
+    },
+    (activeToday ?? 0) > 0 && {
+      label: 'دخلوا المنصة اليوم',
+      value: activeToday,
+      unit: 'طالب',
+      icon: Activity,
+      tint: { bg: 'rgba(56,189,248,0.13)', fg: '#38bdf8' },
+    },
+    // only when everyone installed (otherwise the attention rail already carries this fact)
+    pwaStats?.total > 0 && pwaStats.installed === pwaStats.total && {
+      label: 'ثبّتوا التطبيق — الجميع',
+      value: pwaStats.installed,
+      unit: `من ${pwaStats.total}`,
+      icon: Smartphone,
+      tint: { bg: 'rgba(56,189,248,0.13)', fg: '#38bdf8' },
+    },
+    revenueAlive && {
+      label: 'معدل التحصيل',
+      value: revenueStats?.collectionRate ?? 0,
+      unit: '%',
+      icon: TrendingUp,
+      tint: { bg: 'rgba(52,211,153,0.13)', fg: '#34d399' },
+    },
+  ].filter(Boolean).slice(0, 4)
 
   return (
-    <div className="space-y-8">
-      {/* Greeting */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title">
-          {getGreeting()}، <span className="text-gradient">{firstName}</span>
-        </h1>
-        <p className="text-[15px] mt-2.5" style={{ color: 'var(--text-tertiary)' }}>لوحة تحكم الإدارة</p>
-      </motion.div>
-
-      {/* Atelier identity preview */}
-      <AtelierLauncher />
-
-      {/* Push notifications opt-in */}
-      <EnableNotificationsPrompt />
-
-      {/* Evaluation system health — Layer 6 */}
-      <EvaluationHealthWidget />
-
-      {/* Placement test queue */}
-      <PlacementQueueWidget />
-
-      {/* PWA install + notification status per student */}
-      <DeviceInstallStatusWidget />
-
-      {/* Quick summary tip */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="flex items-start gap-3 px-5 py-4 rounded-xl"
-        style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-      >
-        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'var(--accent-sky-glow)' }}>
-          <Sparkles size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
-        </div>
-        <div className="text-[13px]" style={{ color: 'var(--text-secondary)' }}>
-          {paymentStats?.count > 0 && <span className="font-semibold" style={{ color: 'var(--accent-gold)' }}>{paymentStats.count} دفعة معلقة</span>}
-          {paymentStats?.count > 0 && recentErrors?.length > 0 && ' · '}
-          {recentErrors?.length > 0 && <span className="font-semibold" style={{ color: 'var(--accent-rose, #ef4444)' }}>{recentErrors.length} خطأ نظام</span>}
-          {!paymentStats?.count && !recentErrors?.length && <span>كل شيء يعمل بسلاسة! الأمور تحت السيطرة.</span>}
-        </div>
-      </motion.div>
-
-      {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {cards.map((card, i) => {
-          const variant = card.color === 'gold' ? 'amber' : card.color === 'red' ? 'sky' : 'sky'
-          return (
-            <motion.div
-              key={card.label}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className={`fl-stat-card ${variant}`}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[13px] tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.label}</span>
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                  card.color === 'gold' ? 'bg-gold-500/10 text-gold-400'
-                  : card.color === 'red' ? 'bg-red-500/10 text-red-400'
-                  : 'bg-sky-500/10 text-sky-400'
-                }`}>
-                  <card.icon size={20} strokeWidth={1.5} />
-                </div>
-              </div>
-              <p className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}><AnimatedNumber value={typeof card.value === 'number' ? card.value : 0} duration={0.7} /></p>
-              {card.sub && <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>{card.sub}</p>}
-            </motion.div>
-          )
-        })}
+    <div className="adx-root">
+      {/* atmosphere */}
+      <div className="adx-atmo" aria-hidden="true">
+        <div className="adx-atmo__beam" />
+        <div className="adx-atmo__blob adx-atmo__blob--gold" />
+        <div className="adx-atmo__blob adx-atmo__blob--steel" />
+        <div className="adx-atmo__grain" />
       </div>
 
-      {/* Curriculum Activity Card */}
-      <CurriculumActivityCard studentIds={allStudentIds} groups={allGroups} mode="admin" delay={0.32} />
-
-      {/* PWA Install Stats */}
-      {pwaStats && pwaStats.total > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
+      <div className="adx-content">
+        {/* ── Hero ─────────────────────────────────────────────── */}
+        <motion.section
+          className="adx-hero"
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.34 }}
-          className="fl-card p-5"
+          transition={{ duration: 0.55, ease: EASE }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center">
-              <Smartphone size={16} className="text-sky-400" />
-            </div>
-            <div>
-              <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>تثبيت التطبيق</h3>
-              <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                {pwaStats.installed}/{pwaStats.total} طالب ثبّتوا التطبيق
-              </p>
-            </div>
-          </div>
-          <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
-            <div
-              className="h-full rounded-full bg-sky-500 transition-all duration-500"
-              style={{ width: `${Math.round((pwaStats.installed / pwaStats.total) * 100)}%` }}
-            />
-          </div>
-          <p className="text-[11px] mt-2" style={{ color: 'var(--text-tertiary)' }}>
-            {Math.round((pwaStats.installed / pwaStats.total) * 100)}% — {pwaStats.total - pwaStats.installed} طالب لم يثبّتوا بعد
+          <div className="adx-hero__eyebrow">غرفة عمليات الأكاديمية</div>
+          <h1 className="adx-hero__title">
+            {getGreeting()}، <span className="adx-name">{firstName}</span>
+          </h1>
+          <p className="adx-hero__date">{todayLine}</p>
+          <p className="adx-hero__status">
+            <span className={`adx-dot ${allClear ? '' : 'warn'}`} />
+            {allClear
+              ? 'كل شيء يعمل بسلاسة — لا شيء عاجل اليوم'
+              : `${attentionItems.length} ${attentionItems.length === 1 ? 'أمر يحتاج' : 'أمور تحتاج'} انتباهك اليوم`}
           </p>
-        </motion.div>
-      )}
 
-      {/* Pending Actions — Quick Access */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <h3 className="text-[15px] font-bold mb-3" style={{ color: 'var(--text-primary)' }}>إجراءات معلقة</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {[
-            paymentStats?.count > 0 && { to: '/admin/packages', label: `${paymentStats.count} دفعة معلقة`, icon: CreditCard, color: 'bg-amber-500/10 text-amber-400' },
-            { to: '/admin/weekly-tasks', label: 'توليد المهام', icon: ListChecks, color: 'bg-sky-500/10 text-sky-400' },
-            recentErrors?.length > 0 && { to: '/admin/settings', label: `${recentErrors.length} خطأ نظام`, icon: AlertCircle, color: 'bg-red-500/10 text-red-400' },
-            upcomingRenewals?.length > 0 && { to: '/admin/packages', label: `${upcomingRenewals.length} تجديد قادم`, icon: Calendar, color: 'bg-emerald-500/10 text-emerald-400' },
-          ].filter(Boolean).map((action) => (
-            <Link key={action.to + action.label} to={action.to} className="fl-card-static p-4 flex items-center gap-3 hover:translate-y-[-1px] transition-all duration-200">
-              <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${action.color}`}>
-                <action.icon size={16} strokeWidth={1.5} />
-              </div>
-              <span className="text-[12px] font-medium" style={{ color: 'var(--text-primary)' }}>{action.label}</span>
-            </Link>
-          ))}
+          <motion.div className="adx-pulse" variants={staggerContainer} initial="hidden" animate="show">
+            {pulseChips.map((c) => (
+              <motion.div key={c.label} className="adx-pulse__chip" variants={staggerItem}>
+                <div className="adx-pulse__icon" style={{ background: c.tint.bg }}>
+                  <c.icon size={17} strokeWidth={1.8} style={{ color: c.tint.fg }} />
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <p className="adx-pulse__value" dir="auto">
+                    <AnimatedNumber value={typeof c.value === 'number' ? c.value : 0} duration={0.9} />
+                    {c.unit && <small>{c.unit}</small>}
+                    {c.delta != null && (
+                      <span className="adx-chip" style={{
+                        marginInlineStart: 8,
+                        background: c.delta > 0 ? 'rgba(52,211,153,0.12)' : 'rgba(239,68,68,0.12)',
+                        color: c.delta > 0 ? '#34d399' : '#f87171',
+                      }}>
+                        {c.delta > 0 ? <ArrowUpRight size={11} /> : <ArrowDownRight size={11} />}
+                        {Math.abs(c.delta)}%
+                      </span>
+                    )}
+                  </p>
+                  <p className="adx-pulse__label">{c.label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.section>
+
+        <div style={{ marginTop: 20 }}>
+          <EnableNotificationsPrompt />
         </div>
-      </motion.div>
 
-      {/* Revenue + Collection (high priority — shown first) */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
-          className="fl-card p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <CreditCard size={18} className="text-emerald-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الإيرادات</h3>
-          </div>
-          <div className="grid grid-cols-2 gap-5">
-            <div>
-              <p className="text-sm text-muted mb-1">هذا الشهر</p>
-              <p className="text-2xl font-bold text-[var(--text-primary)]">{(revenueStats?.thisMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
-            </div>
-            <div>
-              <p className="text-sm text-muted mb-1">الشهر الماضي</p>
-              <p className="text-2xl font-bold text-[var(--text-primary)]">{(revenueStats?.lastMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
-            </div>
-          </div>
-          {revenueStats && revenueStats.growth !== 0 && (
-            <div className={`flex items-center gap-1 mt-3 text-xs ${revenueStats?.growth > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-              {revenueStats?.growth > 0 ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-              <span>{Math.abs(revenueStats?.growth || 0)}% {revenueStats?.growth > 0 ? 'نمو' : 'انخفاض'}</span>
-            </div>
-          )}
-          <div className="mt-5">
-            <div className="flex items-center justify-between text-sm mb-1.5">
-              <span className="text-muted">معدل التحصيل</span>
-              <span className="text-[var(--text-primary)] font-semibold">{revenueStats?.collectionRate || 0}%</span>
-            </div>
-            <div className="fl-progress-track" style={{ height: '8px' }}>
-              <div
-                className="h-full rounded-full transition-all"
-                style={{
-                  width: `${revenueStats?.collectionRate || 0}%`,
-                  background: (revenueStats?.collectionRate || 0) >= 80 ? 'var(--accent-emerald)' : (revenueStats?.collectionRate || 0) >= 50 ? 'var(--accent-amber)' : 'var(--accent-rose)',
-                }}
-              />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Empty seats */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="fl-card p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Layers size={18} className="text-amber-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>المقاعد المتاحة</h3>
-          </div>
-          {groupSeats?.length > 0 ? (
-            <div className="space-y-2">
-              {groupSeats.map((g) => (
-                <div key={g.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
-                  <div>
-                    <p className="text-sm text-[var(--text-primary)]">{g.name || g.code}</p>
-                    <p className="text-xs text-muted">المستوى {g.level}</p>
-                  </div>
-                  <div className="text-center">
-                    <span className={`text-lg font-bold ${g.empty >= 3 ? 'text-emerald-400' : g.empty >= 1 ? 'text-amber-400' : 'text-red-400'}`}>
-                      {g.empty}
-                    </span>
-                    <p className="text-xs text-muted">من {g.max_students || 7}</p>
-                  </div>
+        {/* ── يحتاج انتباهك ─────────────────────────────────────── */}
+        <motion.section className="adx-section" {...sectionReveal}>
+          <Eyebrow
+            label={allClear ? 'يحتاج انتباهك' : `يحتاج انتباهك · ${attentionItems.length}`}
+            hint="أولويات اليوم"
+          />
+          <div className="space-y-4">
+            {allClear ? (
+              <div className="adx-clear">
+                <div className="adx-attn__icon" style={{ background: 'rgba(74,222,128,0.12)' }}>
+                  <ShieldCheck size={19} style={{ color: '#4ade80' }} />
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-muted text-sm">جميع المجموعات مكتملة</p>
-          )}
-        </motion.div>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Package distribution */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="fl-card p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <TrendingUp size={18} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>توزيع الباقات</h3>
-          </div>
-          <div className="space-y-3">
-            {Object.entries(PACKAGES).map(([key, pkg]) => {
-              const count = studentStats?.byPackage?.[key] || 0
-              const total = studentStats?.total || 0
-              const pct = total > 0 ? Math.round((count / total) * 100) : 0
-              return (
-                <div key={key}>
-                  <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="text-[var(--text-primary)]">{pkg.name_ar}</span>
-                    <span className="text-muted">{count} طالب ({pct}%)</span>
-                  </div>
-                  <div className="fl-progress-track" style={{ height: '8px' }}>
-                    <div
-                      className="fl-progress-fill"
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
+                <div>
+                  <p className="adx-attn__title">كل شيء تحت السيطرة</p>
+                  <p className="adx-attn__sub">لا مدفوعات معلقة، لا أخطاء، لا تجديدات وشيكة</p>
                 </div>
-              )
-            })}
+              </div>
+            ) : (
+              <div className="adx-attn">
+                {attentionItems.map((a) => (
+                  <Link key={a.title} to={a.to} className="adx-attn__item">
+                    <div className="adx-attn__icon" style={{ background: a.tint.bg }}>
+                      <a.icon size={19} strokeWidth={1.8} style={{ color: a.tint.fg }} />
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <p className="adx-attn__title">{a.title}</p>
+                      <p className="adx-attn__sub">{a.sub}</p>
+                    </div>
+                    <ChevronLeft size={15} className="adx-attn__arrow" />
+                  </Link>
+                ))}
+              </div>
+            )}
+            <EvaluationHealthWidget />
+            <PlacementQueueWidget />
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Active students */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="fl-card p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <UserCheck size={18} className="text-gold-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الطلاب النشطين</h3>
+        {/* ── نبض الأكاديمية ────────────────────────────────────── */}
+        <motion.section className="adx-section" {...sectionReveal}>
+          <Eyebrow label="نبض الأكاديمية" hint="نشاط الطلاب لحظة بلحظة" />
+          <div className="space-y-5">
+            <AdminActivityWidget />
+            <CurriculumActivityCard studentIds={allStudentIds} groups={allGroups} mode="admin" delay={0} />
           </div>
-          {recentStudents?.length > 0 ? (
-            <div className="space-y-2">
-              {recentStudents.map((s) => {
-                const pkgInfo = PACKAGES[s.package]
-                const statusInfo = STUDENT_STATUS[s.status]
-                return (
-                  <div key={s.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
-                    <div className="flex items-center gap-3">
-                      <UserAvatar user={s.profiles} size={32} rounded="full" gradient="linear-gradient(135deg, rgba(56,189,248,0.3), rgba(56,189,248,0.1))" />
-                      <div>
-                        <p className="text-sm text-[var(--text-primary)]">{s.profiles?.full_name}</p>
-                        <p className="text-xs text-muted">{pkgInfo?.name_ar} &middot; {s.xp_total} XP</p>
+        </motion.section>
+
+        {/* ── المالية ──────────────────────────────────────────── */}
+        <motion.section className="adx-section" {...sectionReveal}>
+          <Eyebrow label="المالية" hint="الإيرادات والتحصيل" />
+          <div className="grid lg:grid-cols-2 gap-5 items-start">
+            {/* Revenue */}
+            <div className="adx-card adx-card--pad">
+              {!revenueAlive ? (
+                <>
+                  <p className="adx-tile__label" style={{ marginBottom: 14 }}>إيرادات هذا الشهر</p>
+                  <div className="adx-clear" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div className="adx-attn__icon" style={{ background: 'rgba(251,191,36,0.1)' }}>
+                      <Wallet size={18} style={{ color: 'var(--ds-accent-gold, #fbbf24)' }} />
+                    </div>
+                    <div>
+                      <p className="adx-attn__title">لا مدفوعات مسجلة هذا الشهر</p>
+                      <p className="adx-attn__sub">المدفوعات تُدار حالياً خارج المنصة — سجّلها من صفحة المالية لتظهر هنا</p>
+                    </div>
+                  </div>
+                  {paymentStats?.count > 0 && (
+                    <p className="adx-tile__sub" dir="auto" style={{ marginTop: 14 }}>
+                      {paymentStats.count} دفعة معلقة بقيمة {paymentStats.total.toLocaleString()} ر.س
+                    </p>
+                  )}
+                </>
+              ) : (
+                <RevenueBody revenueStats={revenueStats} paymentStats={paymentStats} />
+              )}
+            </div>
+
+            {/* Package distribution */}
+            <div className="adx-card adx-card--pad">
+              <div className="flex items-center justify-between mb-5">
+                <p className="adx-tile__label">توزيع الباقات</p>
+                <TrendingUp size={16} style={{ color: 'var(--ds-text-tertiary, #64748b)' }} />
+              </div>
+              <div className="space-y-4">
+                {Object.entries(PACKAGES).map(([key, pkg]) => {
+                  const count = studentStats?.byPackage?.[key] || 0
+                  const total = studentStats?.total || 0
+                  const pct = total > 0 ? Math.round((count / total) * 100) : 0
+                  return (
+                    <div key={key}>
+                      <div className="flex items-center justify-between text-sm mb-1.5">
+                        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ds-text-primary, #f8fafc)' }}>{pkg.name_ar}</span>
+                        <span style={{ fontSize: 12, color: 'var(--ds-text-tertiary, #64748b)' }} dir="auto">{count} طالب ({pct}%)</span>
+                      </div>
+                      <div className="adx-meter">
+                        <div className="adx-meter__fill" style={{ width: `${pct}%`, background: 'linear-gradient(to left, #fde68a, #d9a13c)' }} />
                       </div>
                     </div>
-                    <span className={`badge-${statusInfo?.color || 'blue'}`}>
-                      {statusInfo?.label_ar || s.status}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-          ) : (
-            <p className="text-muted text-sm">لا يوجد طلاب حتى الآن</p>
-          )}
-        </motion.div>
-      </div>
-
-      {/* Student Activity Today (All Groups) */}
-      <AdminActivityWidget />
-
-      {/* AI Profiles Overview */}
-      <AIOverviewCard />
-
-      {/* Upcoming renewals */}
-      {upcomingRenewals?.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="fl-card p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Calendar size={18} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تجديدات قادمة (٧ أيام)</h3>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {upcomingRenewals.map((s) => {
-              const pkgInfo = PACKAGES[s.package]
-              const amount = s.custom_price || pkgInfo?.price || 0
-              return (
-                <div key={s.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
-                  <div>
-                    <p className="text-sm text-[var(--text-primary)]">{s.profiles?.full_name}</p>
-                    <p className="text-xs text-muted">يوم {s.payment_day} من الشهر</p>
-                  </div>
-                  <span className="text-sm font-bold text-sky-400">{amount} ر.س</span>
-                </div>
-              )
-            })}
-          </div>
-        </motion.div>
-      )}
-
-      {/* System errors (if any) */}
-      {recentErrors?.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.65 }}
-          className="fl-card-static p-6" style={{ borderColor: 'rgba(239, 68, 68, 0.2)' }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <AlertCircle size={18} className="text-red-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>أخطاء النظام الأخيرة</h3>
-          </div>
-          <div className="space-y-2.5">
-            {recentErrors.map((e) => (
-              <div key={e.id} className="text-xs bg-red-500/5 rounded-lg p-2 border border-red-500/10">
-                <div className="flex items-center justify-between">
-                  <span className="text-red-400 font-medium">{e.service}</span>
-                  <span className="text-muted">{e.error_type}</span>
-                </div>
-                <p className="text-muted mt-1 truncate">{e.error_message}</p>
+                  )
+                })}
               </div>
-            ))}
+            </div>
           </div>
+
+          {/* Upcoming renewals */}
+          {upcomingRenewals?.length > 0 && (
+            <div className="adx-card adx-card--pad" style={{ marginTop: 20 }}>
+              <div className="flex items-center gap-2.5 mb-4">
+                <Calendar size={16} style={{ color: 'var(--ds-accent-gold, #fbbf24)' }} />
+                <p className="adx-tile__label" style={{ color: 'var(--ds-text-primary, #f8fafc)', fontSize: 13, fontWeight: 700 }}>تجديدات قادمة (٧ أيام)</p>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {upcomingRenewals.map((s) => {
+                  const pkgInfo = PACKAGES[s.package]
+                  const amount = s.custom_price || pkgInfo?.price || 0
+                  return (
+                    <div key={s.id} className="adx-row">
+                      <div>
+                        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ds-text-primary, #f8fafc)' }}>{s.profiles?.full_name}</p>
+                        <p className="adx-tile__sub" dir="auto">يوم {s.payment_day} من الشهر</p>
+                      </div>
+                      <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--ds-accent-gold, #fbbf24)' }} dir="auto">{amount} ر.س</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </motion.section>
+
+        {/* ── الطلاب ───────────────────────────────────────────── */}
+        <motion.section className="adx-section" {...sectionReveal}>
+          <Eyebrow label="الطلاب والمجموعات" hint="آخر المنضمّين والمقاعد" />
+          <div className="grid lg:grid-cols-2 gap-5 items-start">
+            {/* Active students */}
+            <div className="adx-card adx-card--pad">
+              <div className="flex items-center gap-2.5 mb-4">
+                <UserCheck size={16} style={{ color: 'var(--ds-accent-gold, #fbbf24)' }} />
+                <p className="adx-tile__label" style={{ color: 'var(--ds-text-primary, #f8fafc)', fontSize: 13, fontWeight: 700 }}>أحدث الطلاب النشطين</p>
+              </div>
+              {recentStudents?.length > 0 ? (
+                <div className="space-y-2">
+                  {recentStudents.map((s) => {
+                    const pkgInfo = PACKAGES[s.package]
+                    return (
+                      <div key={s.id} className="adx-row">
+                        <div className="flex items-center gap-3" style={{ minWidth: 0 }}>
+                          <UserAvatar user={s.profiles} size={34} rounded="full" gradient="linear-gradient(135deg, rgba(251,191,36,0.3), rgba(56,189,248,0.15))" />
+                          <div style={{ minWidth: 0 }}>
+                            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ds-text-primary, #f8fafc)' }} className="truncate">{s.profiles?.full_name}</p>
+                            <p className="adx-tile__sub">{pkgInfo?.name_ar || 'بدون باقة'}</p>
+                          </div>
+                        </div>
+                        <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--ds-accent-gold, #fbbf24)', fontVariantNumeric: 'tabular-nums', flexShrink: 0 }} dir="auto">
+                          {(s.xp_total || 0).toLocaleString()} XP
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <p className="adx-tile__sub">لا يوجد طلاب حتى الآن</p>
+              )}
+            </div>
+
+            {/* Empty seats */}
+            <div className="adx-card adx-card--pad">
+              <div className="flex items-center gap-2.5 mb-4">
+                <Layers size={16} style={{ color: '#f59e0b' }} />
+                <p className="adx-tile__label" style={{ color: 'var(--ds-text-primary, #f8fafc)', fontSize: 13, fontWeight: 700 }}>المقاعد المتاحة</p>
+              </div>
+              {groupSeats?.length > 0 ? (
+                <div className="space-y-3">
+                  {groupSeats.map((g) => {
+                    const max = g.max_students || 7
+                    const occupancy = Math.round((g.students / max) * 100)
+                    return (
+                      <div key={g.id} className="adx-row" style={{ display: 'block' }}>
+                        <div className="flex items-center justify-between gap-3">
+                          <div>
+                            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ds-text-primary, #f8fafc)' }}>{g.name || g.code}</p>
+                            <p className="adx-tile__sub" dir="auto">المستوى {g.level} · {g.students} من {max} طلاب</p>
+                          </div>
+                          <span style={{
+                            fontSize: 15, fontWeight: 800, flexShrink: 0, fontVariantNumeric: 'tabular-nums',
+                            color: g.empty >= 3 ? '#34d399' : g.empty >= 1 ? '#fbbf24' : '#f87171',
+                          }} dir="auto">
+                            {g.empty} {g.empty === 1 ? 'مقعد' : 'مقاعد'}
+                          </span>
+                        </div>
+                        <div className="adx-meter" style={{ marginTop: 10, height: 5 }}>
+                          <div className="adx-meter__fill" style={{ width: `${occupancy}%`, background: 'linear-gradient(to left, #fde68a, #d9a13c)' }} />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <p className="adx-tile__sub">جميع المجموعات مكتملة</p>
+              )}
+            </div>
+          </div>
+
+          {/* Device install status — collapsed behind a designed summary */}
+          <DeviceStatusDisclosure pwaStats={pwaStats} />
+        </motion.section>
+
+        {/* ── النظام ───────────────────────────────────────────── */}
+        <motion.section className="adx-section" style={{ paddingBottom: 8 }} {...sectionReveal}>
+          <Eyebrow label="النظام والذكاء الاصطناعي" hint="صحة المنصة" />
+          <div className="space-y-5">
+            <AIOverviewCard />
+
+            {recentErrors?.length > 0 && (
+              <div className="adx-card adx-card--pad" style={{ borderColor: 'rgba(239, 68, 68, 0.22)' }}>
+                <div className="flex items-center gap-2.5 mb-4">
+                  <AlertCircle size={16} style={{ color: '#f87171' }} />
+                  <p className="adx-tile__label" style={{ color: 'var(--ds-text-primary, #f8fafc)', fontSize: 13, fontWeight: 700 }}>أخطاء النظام الأخيرة</p>
+                </div>
+                <div className="space-y-2.5">
+                  {recentErrors.map((e) => (
+                    <div key={e.id} style={{
+                      fontSize: 12, borderRadius: 12, padding: '10px 12px',
+                      background: 'rgba(239,68,68,0.05)', border: '1px solid rgba(239,68,68,0.12)',
+                    }}>
+                      <div className="flex items-center justify-between">
+                        <span style={{ color: '#f87171', fontWeight: 600 }}>{e.service}</span>
+                        <span className="adx-tile__sub">{e.error_type}</span>
+                      </div>
+                      <p className="adx-tile__sub truncate" style={{ marginTop: 4 }}>{e.error_message}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <AtelierLauncher />
+          </div>
+        </motion.section>
+      </div>
+    </div>
+  )
+}
+
+function RevenueBody({ revenueStats, paymentStats }) {
+  return (
+    <>
+      <p className="adx-tile__label" style={{ marginBottom: 10 }}>إيرادات هذا الشهر</p>
+      <div className="flex items-end gap-3 flex-wrap">
+        <p className="adx-money" dir="auto">
+          {(revenueStats?.thisMonth || 0).toLocaleString()} <small>ر.س</small>
+        </p>
+        {revenueStats && revenueStats.growth !== 0 && (
+          <span className="adx-chip" style={{
+            marginBottom: 6,
+            background: revenueStats.growth > 0 ? 'rgba(52,211,153,0.12)' : 'rgba(239,68,68,0.12)',
+            color: revenueStats.growth > 0 ? '#34d399' : '#f87171',
+          }}>
+            {revenueStats.growth > 0 ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
+            {Math.abs(revenueStats.growth)}% عن الشهر الماضي
+          </span>
+        )}
+      </div>
+      <p className="adx-tile__sub" dir="auto" style={{ marginTop: 8 }}>
+        الشهر الماضي: {(revenueStats?.lastMonth || 0).toLocaleString()} ر.س
+      </p>
+
+      <div style={{ marginTop: 24 }}>
+        <div className="flex items-center justify-between mb-2">
+          <span className="adx-tile__label">معدل التحصيل</span>
+          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--ds-text-primary, #f8fafc)' }} dir="auto">
+            {revenueStats?.collectionRate || 0}%
+          </span>
+        </div>
+        <div className="adx-meter">
+          <div
+            className="adx-meter__fill"
+            style={{
+              width: `${revenueStats?.collectionRate || 0}%`,
+              background: (revenueStats?.collectionRate || 0) >= 80
+                ? 'linear-gradient(to left, #34d399, #10b981)'
+                : (revenueStats?.collectionRate || 0) >= 50
+                  ? 'linear-gradient(to left, #fbbf24, #f59e0b)'
+                  : 'linear-gradient(to left, #f87171, #ef4444)',
+            }}
+          />
+        </div>
+        {paymentStats?.count > 0 && (
+          <p className="adx-tile__sub" dir="auto" style={{ marginTop: 10 }}>
+            {paymentStats.count} دفعة معلقة بقيمة {paymentStats.total.toLocaleString()} ر.س
+          </p>
+        )}
+      </div>
+    </>
+  )
+}
+
+function DeviceStatusDisclosure({ pwaStats }) {
+  const [open, setOpen] = useState(false)
+  if (!pwaStats || pwaStats.total === 0) return null
+  const pct = Math.round((pwaStats.installed / pwaStats.total) * 100)
+  const missing = pwaStats.total - pwaStats.installed
+
+  return (
+    <div className="adx-card" style={{ marginTop: 20, overflow: 'hidden' }}>
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className="w-full text-start"
+        style={{ padding: 26, background: 'transparent', border: 'none', cursor: 'pointer' }}
+      >
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-2.5">
+            <Smartphone size={16} style={{ color: 'var(--ds-text-tertiary, #64748b)' }} />
+            <p className="adx-tile__label" style={{ color: 'var(--ds-text-primary, #f8fafc)', fontSize: 13, fontWeight: 700 }}>
+              تثبيت التطبيق والإشعارات
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <p className="adx-tile__sub" dir="auto" style={{ margin: 0 }}>
+              {pwaStats.installed} من {pwaStats.total} ثبّتوا ({pct}%){missing > 0 ? ` · ${missing} بدون التطبيق` : ''}
+            </p>
+            <span
+              className="adx-chip"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--ds-text-secondary, #cbd5e1)' }}
+            >
+              {open ? 'إخفاء التفاصيل' : 'عرض التفاصيل'}
+              <ChevronLeft size={12} style={{ transform: open ? 'rotate(-90deg)' : 'none', transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1)' }} />
+            </span>
+          </div>
+        </div>
+        <div className="adx-meter" style={{ marginTop: 14 }}>
+          <div
+            className="adx-meter__fill"
+            style={{ width: `${pct}%`, background: 'linear-gradient(to left, #fde68a, #d9a13c)' }}
+          />
+        </div>
+      </button>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: EASE }}
+          style={{ padding: '0 18px 18px' }}
+        >
+          <DeviceInstallStatusWidget />
         </motion.div>
       )}
     </div>
@@ -625,47 +824,68 @@ function AdminActivityWidget() {
     },
   })
 
-  const STATUS_DOT = { active: '🟢', idle: '🟡', inactive: '🔴' }
+  const STATUS_TINT = {
+    active:   { dot: '#4ade80', ring: 'rgba(74,222,128,0.2)' },
+    idle:     { dot: '#fbbf24', ring: 'rgba(251,191,36,0.2)' },
+    inactive: { dot: '#64748b', ring: 'rgba(100,116,139,0.2)' },
+  }
+
+  const withSignal = (activityData || []).filter(s => s.status === 'active' || s.timeToday > 0 || s.tasksToday > 0)
+  const quiet = (activityData || []).filter(s => !withSignal.includes(s))
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.53 }}
-      className="fl-card-static p-7"
-    >
-      <div className="flex items-center gap-3 mb-6">
-        <Activity size={18} className="text-emerald-400" />
-        <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>نشاط الطلاب اليوم</h3>
+    <div className="adx-card adx-card--pad">
+      <div className="flex items-center gap-2.5 mb-4">
+        <Activity size={16} style={{ color: '#34d399' }} />
+        <p className="adx-tile__label" style={{ color: 'var(--ds-text-primary, #f8fafc)', fontSize: 13, fontWeight: 700 }}>نشاط الطلاب اليوم</p>
       </div>
       {isLoading ? (
         <div className="space-y-3">
           {[...Array(4)].map((_, i) => <div key={i} className="skeleton h-12 rounded-xl" />)}
         </div>
       ) : !activityData?.length ? (
-        <p className="text-muted text-sm text-center py-4">لا يوجد طلاب</p>
+        <p className="adx-tile__sub text-center py-4">لا يوجد طلاب</p>
+      ) : withSignal.length === 0 ? (
+        <div className="adx-clear" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
+          <div className="adx-attn__icon" style={{ background: 'rgba(100,116,139,0.12)' }}>
+            <Activity size={18} style={{ color: '#94a3b8' }} />
+          </div>
+          <div>
+            <p className="adx-attn__title">هدوء حتى الآن</p>
+            <p className="adx-attn__sub">لم يدخل أحد اليوم بعد — عادةً يبدأ النشاط مساءً</p>
+          </div>
+        </div>
       ) : (
-        <div className="space-y-2">
-          {activityData.map(s => (
-            <Link
-              key={s.id}
-              to={`/admin/student/${s.id}/progress`}
-              className="flex items-center gap-3 rounded-xl p-3 transition-all duration-200 hover:translate-y-[-1px]"
-              style={{ background: 'var(--surface-raised)' }}
-            >
-              <UserAvatar user={{ display_name: s.name, avatar_url: s.avatar_url }} size={32} rounded="full" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{s.name}</p>
-                <p className="text-xs text-muted">
-                  {s.groupName && `${s.groupName} · `}{s.timeToday > 0 ? `${s.timeToday} د` : 'لم يدخل'} · {s.tasksToday > 0 ? `${s.tasksToday} مهمة` : 'لا مهام'}
-                </p>
-              </div>
-              <span className="text-sm">{STATUS_DOT[s.status]}</span>
-            </Link>
-          ))}
+        <div className="grid sm:grid-cols-2 gap-2">
+          {withSignal.map(s => {
+            const tint = STATUS_TINT[s.status]
+            return (
+              <Link key={s.id} to={`/admin/student/${s.id}/progress`} className="adx-row" style={{ justifyContent: 'flex-start' }}>
+                <span style={{ position: 'relative', flexShrink: 0, display: 'inline-flex' }}>
+                  <UserAvatar user={{ display_name: s.name, avatar_url: s.avatar_url }} size={34} rounded="full" />
+                  <span style={{
+                    position: 'absolute', bottom: -1, insetInlineStart: -1,
+                    width: 10, height: 10, borderRadius: '50%',
+                    background: tint.dot, border: '2px solid var(--ds-bg-elevated, #0b0f18)',
+                  }} />
+                </span>
+                <div style={{ minWidth: 0 }}>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ds-text-primary, #f8fafc)' }} className="truncate">{s.name}</p>
+                  <p className="adx-tile__sub" dir="auto">
+                    {s.groupName && `${s.groupName} · `}{s.timeToday > 0 ? `${s.timeToday} دقيقة اليوم` : 'دخل اليوم'}{s.tasksToday > 0 ? ` · ${s.tasksToday} مهمة` : ''}
+                  </p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       )}
-    </motion.div>
+      {!isLoading && withSignal.length > 0 && quiet.length > 0 && (
+        <p className="adx-tile__sub" dir="auto" style={{ marginTop: 12 }}>
+          و{quiet.length} {quiet.length === 1 ? 'طالب لم يدخل' : 'طلاب لم يدخلوا'} اليوم بعد
+        </p>
+      )}
+    </div>
   )
 }
 
@@ -687,36 +907,31 @@ function AIOverviewCard() {
 
   if (!aiStats) return null
 
+  const cells = [
+    { value: aiStats.analyzed, label: 'ملفات محللة', color: 'var(--ds-text-primary, #f8fafc)' },
+    { value: aiStats.total, label: 'إجمالي الطلاب', color: 'var(--ds-text-primary, #f8fafc)' },
+    { value: `${aiStats.totalCost}`, label: 'تكلفة AI (ر.س)', color: 'var(--ds-accent-gold, #fbbf24)' },
+  ]
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.57 }}
-      className="fl-card-static p-7"
-    >
-      <div className="flex items-center gap-3 mb-6">
-        <Brain size={18} className="text-violet-400" />
-        <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الذكاء الاصطناعي</h3>
+    <div className="adx-card adx-card--pad">
+      <div className="flex items-center gap-2.5 mb-4">
+        <Brain size={16} style={{ color: '#a78bfa' }} />
+        <p className="adx-tile__label" style={{ color: 'var(--ds-text-primary, #f8fafc)', fontSize: 13, fontWeight: 700 }}>الذكاء الاصطناعي</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--surface-raised)' }}>
-          <p className="text-2xl font-bold text-violet-400">{aiStats.analyzed}</p>
-          <p className="text-xs text-muted mt-1">ملفات محللة</p>
-        </div>
-        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--surface-raised)' }}>
-          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{aiStats.total}</p>
-          <p className="text-xs text-muted mt-1">إجمالي الطلاب</p>
-        </div>
-        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--surface-raised)' }}>
-          <p className="text-2xl font-bold text-amber-400">{aiStats.totalCost} <span className="text-sm font-normal">ر.س</span></p>
-          <p className="text-xs text-muted mt-1">تكلفة AI</p>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {cells.map((c) => (
+          <div key={c.label} className="adx-row" style={{ justifyContent: 'center', flexDirection: 'column', gap: 4, padding: '16px 12px' }}>
+            <p style={{ fontSize: 24, fontWeight: 800, color: c.color, fontVariantNumeric: 'tabular-nums' }} dir="auto">{c.value}</p>
+            <p className="adx-tile__sub">{c.label}</p>
+          </div>
+        ))}
       </div>
       {aiStats.analyzed < aiStats.total && (
-        <p className="text-xs text-muted text-center mt-3">
-          {aiStats.total - aiStats.analyzed} طالب لم يتم تحليلهم بعد — افتح صفحة الطالب من "الطلاب" لتحليل ملفه
+        <p className="adx-tile__sub text-center" style={{ marginTop: 12 }} dir="auto">
+          {aiStats.total - aiStats.analyzed} طالب لم يتم تحليلهم بعد — افتح صفحة الطالب من &quot;الطلاب&quot; لتحليل ملفه
         </p>
       )}
-    </motion.div>
+    </div>
   )
 }

@@ -51,8 +51,8 @@ export default function EvaluationHealthWidget() {
   const c = statusColors[statusColor]
 
   const lastCheck = log?.check_at
-    ? new Date(log.check_at).toLocaleString('ar-SA', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' })
-    : '—'
+    ? `آخر فحص: ${new Date(log.check_at).toLocaleString('ar-SA', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' })}`
+    : 'لم يُفحص بعد'
 
   if (isLoading) return null
 
@@ -61,7 +61,11 @@ export default function EvaluationHealthWidget() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       className="rounded-2xl p-5 space-y-4"
-      style={{ background: c.bg, border: `1px solid ${c.border}` }}
+      style={{
+        background: 'linear-gradient(170deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012) 60%)',
+        border: '1px solid rgba(255,255,255,0.07)',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.3), 0 10px 28px -14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05)',
+      }}
     >
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -71,7 +75,7 @@ export default function EvaluationHealthWidget() {
           </div>
           <div>
             <h3 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>صحة نظام التقييم</h3>
-            <p className="text-[11px] font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>آخر فحص: {lastCheck}</p>
+            <p className="text-[11px] font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>{lastCheck}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -130,31 +134,34 @@ function HealthCard({ label, stuck, manual, completed }) {
       style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
     >
       <p className="text-xs font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>{label}</p>
-      <div className="space-y-1">
-        <div className="flex items-center justify-between text-[11px]">
-          <span className="flex items-center gap-1 font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>
-            <CheckCircle size={10} style={{ color: '#22c55e' }} /> مكتمل
-          </span>
+      <div className="flex items-center gap-2 flex-wrap">
+        <span
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-['Tajawal']"
+          style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.15)', color: 'var(--text-secondary)' }}
+        >
+          <CheckCircle size={10} style={{ color: '#22c55e' }} /> مكتمل
           <span className="font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>{completed}</span>
-        </div>
+        </span>
         {stuck > 0 && (
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="flex items-center gap-1 font-['Tajawal']" style={{ color: '#f59e0b' }}>
-              <AlertTriangle size={10} /> معلق
-            </span>
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-['Tajawal']"
+            style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.18)', color: '#f59e0b' }}
+          >
+            <AlertTriangle size={10} /> معلق
             <span className="font-bold tabular-nums text-amber-400">{stuck}</span>
-          </div>
+          </span>
         )}
         {manual > 0 && (
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="flex items-center gap-1 font-['Tajawal']" style={{ color: '#ef4444' }}>
-              <XCircle size={10} /> يحتاج مراجعة
-            </span>
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-['Tajawal']"
+            style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.18)', color: '#ef4444' }}
+          >
+            <XCircle size={10} /> يحتاج مراجعة
             <span className="font-bold tabular-nums text-red-400">{manual}</span>
-          </div>
+          </span>
         )}
         {!hasIssue && (
-          <p className="text-[10px] font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>لا توجد مشكلات</p>
+          <span className="text-[10px] font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>لا توجد مشكلات</span>
         )}
       </div>
     </div>
