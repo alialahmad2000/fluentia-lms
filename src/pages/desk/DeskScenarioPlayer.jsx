@@ -29,6 +29,9 @@ export default function DeskScenarioPlayer() {
   const qc = useQueryClient()
   const { data, isLoading } = useDeskModules()
   const [tab, setTab] = useState('brief')
+  const [report, setReport] = useState('')
+  const [savingReport, setSavingReport] = useState(false)
+  const [savedReport, setSavedReport] = useState(false)
 
   const module = useMemo(() => data?.modules?.find((m) => m.id === moduleId) || null, [data, moduleId])
 
@@ -37,6 +40,12 @@ export default function DeskScenarioPlayer() {
     if (!moduleId) return
     supabase.rpc('desk_start_scenario', { p_module_id: moduleId }).then(() => {}, () => {})
   }, [moduleId])
+
+  // Seed the report editor from any previously-saved draft (once the module loads).
+  useEffect(() => {
+    const saved = module?.progress?.stage_state?.report
+    if (typeof saved === 'string' && saved) { setReport(saved); setSavedReport(true) }
+  }, [module?.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) return <div className="flex items-center justify-center py-24"><Loader2 className="animate-spin" style={{ color: 'var(--brass)' }} /></div>
   if (!module) {
@@ -62,6 +71,15 @@ export default function DeskScenarioPlayer() {
       await supabase.rpc('desk_mark_roleplay', { p_module_id: moduleId, p_conversation_id: conversationId }).then(() => {}, () => {})
       qc.invalidateQueries({ queryKey: ['desk-modules'] })
     }
+  }
+
+  const wordCount = report.trim() ? report.trim().split(/\s+/).length : 0
+  const saveReport = async () => {
+    if (!report.trim() || savingReport) return
+    setSavingReport(true)
+    const { error } = await supabase.rpc('desk_complete_stage', { p_module_id: moduleId, p_stage: 'writing', p_payload: { report: report.trim() } })
+    setSavingReport(false)
+    if (!error) { setSavedReport(true); qc.invalidateQueries({ queryKey: ['desk-modules'] }) }
   }
 
   return (
@@ -198,7 +216,35 @@ export default function DeskScenarioPlayer() {
                   </ul>
                 </div>
               )}
-              <p className="font-['Tajawal'] text-[11px] mt-4" style={{ color: 'rgba(243,238,226,0.4)' }}>سيتوفّر تسليم التقرير المكتوب قريباً.</p>
+
+              {/* report editor — draft in English, saved to her scenario record */}
+              <div className="mt-5 pt-4 desk-hair">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="font-['Tajawal'] text-[12px] font-bold" style={{ color: 'rgba(243,238,226,0.7)' }}>تقريرك</label>
+                  <span className="font-['Inter'] text-[11px] tabular-nums" style={{ color: wordCount ? 'var(--brass-hi)' : 'rgba(243,238,226,0.35)' }}>{wordCount} {wordCount === 1 ? 'word' : 'words'}</span>
+                </div>
+                <textarea
+                  value={report}
+                  onChange={(e) => { setReport(e.target.value); setSavedReport(false) }}
+                  placeholder="اكتبي تقريرك بالإنجليزي هنا…"
+                  dir="ltr" rows={7}
+                  className="w-full rounded-xl p-3.5 font-['Inter'] text-[14px] leading-relaxed outline-none resize-y transition-colors"
+                  style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(201,162,92,0.16)', color: 'var(--cream)' }}
+                  onFocus={(e) => { e.target.style.borderColor = 'rgba(201,162,92,0.4)' }}
+                  onBlur={(e) => { e.target.style.borderColor = 'rgba(201,162,92,0.16)' }}
+                />
+                <div className="flex items-center gap-3 mt-3">
+                  <button onClick={saveReport} disabled={!report.trim() || savingReport}
+                    className="desk-cta inline-flex items-center gap-2 px-5 h-11 rounded-xl font-['Tajawal'] font-bold text-[13px]"
+                    style={(!report.trim() || savingReport) ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}>
+                    {savingReport ? <Loader2 size={15} className="animate-spin" /> : savedReport ? <CheckCircle2 size={15} /> : <PenLine size={15} />}
+                    {savingReport ? 'جارٍ الحفظ…' : savedReport ? 'تم الحفظ' : 'احفظي التقرير'}
+                  </button>
+                  {savedReport && !savingReport && (
+                    <span className="font-['Tajawal'] text-[12px]" style={{ color: '#6ee7b7' }}>محفوظ — يقدر مدرّبك يطّلع عليه</span>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
