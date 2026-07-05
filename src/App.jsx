@@ -559,8 +559,11 @@ function RoleRedirect() {
 
   switch (profile?.role) {
     case 'student':
-      // Pro Desk students land on their professional surface; everyone else on /student.
-      return <Navigate to={studentData?.uses_pro_desk === true ? '/desk' : '/student'} replace />
+      // Pro Desk students → their pro surface; IELTS-first students → the IELTS world
+      // is their whole account; everyone else → the normal student home.
+      if (studentData?.uses_pro_desk === true) return <Navigate to="/desk" replace />
+      if (studentData?.uses_ielts_home === true) return <Navigate to="/student/ielts-atelier" replace />
+      return <Navigate to="/student" replace />
     case 'trainer':
       return <Navigate to="/trainer" replace />
     case 'admin':
@@ -574,6 +577,22 @@ function RoleRedirect() {
     default:
       return <Navigate to="/login" replace />
   }
+}
+
+// ─── IELTS-first account bounce ──────────────────────────────
+// For students whose whole account is the IELTS world (students.uses_ielts_home),
+// the general student home is not their surface — send them into the Atelier.
+// Staff (incl. admins viewing directly) keep normal /student access.
+function IELTSHomeBounce({ children }) {
+  const studentData = useAuthStore((s) => s.studentData)
+  const profile = useAuthStore((s) => s.profile)
+  const loading = useAuthStore((s) => s.loading)
+  if (loading) return null
+  const isStaff = profile?.role === 'admin' || profile?.role === 'trainer'
+  if (!isStaff && studentData?.uses_ielts_home === true) {
+    return <Navigate to="/student/ielts-atelier" replace />
+  }
+  return children
 }
 
 // ─── App ─────────────────────────────────────────────────────
@@ -737,7 +756,7 @@ export default function App() {
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
             <Route element={<StudentStatusGuard />}>
             <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
-              <Route path="/student" element={<Page><StudentHome /></Page>} />
+              <Route path="/student" element={<IELTSHomeBounce><Page><StudentHome /></Page></IELTSHomeBounce>} />
               {/* Individual (1-on-1) professional track */}
               <Route path="/student/track" element={<Page><IndividualTrackHome /></Page>} />
               <Route path="/student/track/:moduleId" element={<Page><IndividualModulePage /></Page>} />

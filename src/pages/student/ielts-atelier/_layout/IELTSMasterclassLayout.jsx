@@ -1,5 +1,6 @@
 import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { LogOut } from 'lucide-react'
 import '../_ui/ielts-theme.css'
 import { Icon, NavItem } from '../_ui/primitives'
 import { useStudentId } from '../_helpers/resolveStudentId'
@@ -21,6 +22,8 @@ export default function IELTSMasterclassLayout() {
   const navigate = useNavigate()
   const studentId = useStudentId()
   const profile = useAuthStore((s) => s.profile)
+  const signOut = useAuthStore((s) => s.signOut)
+  const isImpersonating = useAuthStore((s) => !!s.impersonation)
   const { data: skills } = useSkillProgress(studentId)
   const { data: errCount } = useErrorBankCount(studentId)
   const { data: plan } = useAdaptivePlan(studentId)
@@ -37,6 +40,10 @@ export default function IELTSMasterclassLayout() {
     return pathname === full || pathname.startsWith(`${full}/`)
   }
   const go = (path) => navigate(path ? `${BASE}/${path}` : BASE)
+  const handleLogout = async () => {
+    try { await signOut?.() } catch { /* ignore */ }
+    navigate('/login', { replace: true })
+  }
   const bandOf = (s) => {
     const b = skills?.[s]?.band
     return b != null ? Number(b).toFixed(1) : ''
@@ -71,7 +78,13 @@ export default function IELTSMasterclassLayout() {
 
           <div className="iel-navfoot">
             <div className="av">{name.trim().charAt(0)}</div>
-            <div className="who">{name}<small>{target}</small></div>
+            <div className="who" style={{ minWidth: 0 }}>{name}<small>{target}</small></div>
+            {!isImpersonating && (
+              <button onClick={handleLogout} title="تسجيل الخروج" aria-label="تسجيل الخروج"
+                style={{ marginInlineStart: 'auto', flex: 'none', width: 34, height: 34, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-3)' }}>
+                <LogOut size={15} />
+              </button>
+            )}
           </div>
         </aside>
 
