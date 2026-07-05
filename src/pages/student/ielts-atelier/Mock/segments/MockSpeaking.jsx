@@ -1,29 +1,30 @@
-// Mock Speaking Segment — strict mode (Parts 1→2→3 sequential, no rerecord, no prep skip)
+// Mock/Diagnostic Speaking segment — authentic IELTS exam UI: full-screen shell,
+// Parts 1→2→3 sequential recording (cue card + prep timer), AI evaluation preserved.
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Mic, Square, Loader2 } from 'lucide-react'
+import { Mic, Square } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { invokeWithRetry } from '@/lib/invokeWithRetry'
 import { getRemainingSeconds, SKILL_LIMITS } from '../useMockSession'
 import { useG } from '@/i18n/gender'
+import { ExamShell } from '../../_ui/ExamShell'
 
-const LIMIT  = SKILL_LIMITS.speaking
+const LIMIT = SKILL_LIMITS.speaking
 const BUCKET = 'ielts-speaking-submissions'
+const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 const MIME_CANDIDATES = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/wav']
 const RETRY_DELAYS = [2000, 4000, 8000, 16000, 32000]
-
-function formatTime(s) { const v = Math.max(0, Math.floor(s)); return `${Math.floor(v/60)}:${String(v%60).padStart(2,'0')}` }
+function fmt(s) { const v = Math.max(0, Math.floor(s || 0)); return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')}` }
 function getExt(m) { return m?.includes('mp4') ? 'mp4' : m?.includes('wav') ? 'wav' : 'webm' }
 
 async function uploadBlob(blob, path, mimeType) {
   for (let i = 0; i < 3; i++) {
     const { error } = await supabase.storage.from(BUCKET).upload(path, blob, { contentType: mimeType, upsert: false })
     if (!error) return path
-    if (i < 2) await new Promise(r => setTimeout(r, 2000 * (i + 1)))
+    if (i < 2) await new Promise((r) => setTimeout(r, 2000 * (i + 1)))
   }
   return null
 }
-
 async function evalWithRetry(payload, onAttempt) {
   for (let i = 0; i < 5; i++) {
     onAttempt(i + 1)
@@ -33,26 +34,25 @@ async function evalWithRetry(payload, onAttempt) {
       if (!data?.overall_band) throw new Error('No band score')
       return { ok: true, data }
     } catch (e) {
-      if (i < 4) await new Promise(r => setTimeout(r, RETRY_DELAYS[i]))
+      if (i < 4) await new Promise((r) => setTimeout(r, RETRY_DELAYS[i]))
       else return { ok: false, error: e.message }
     }
   }
 }
 
-// Per-part configs
 const PART_META = {
-  1: { label: 'الجزء الأول', maxRecSec: 40,  prepSec: 0 },
+  1: { label: 'الجزء الأول', maxRecSec: 40, prepSec: 0 },
   2: { label: 'الجزء الثاني', maxRecSec: 120, prepSec: 60 },
-  3: { label: 'الجزء الثالث', maxRecSec: 60,  prepSec: 0 },
+  3: { label: 'الجزء الثالث', maxRecSec: 60, prepSec: 0 },
 }
 
 export default function MockSpeaking({ attemptId, answers, content, startedAt, onComplete }) {
   const g = useG()
   const [rows, setRows] = useState({ part1: null, part2: null, part3: null })
-  const [partIdx, setPartIdx] = useState(0)  // 0=part1, 1=part2, 2=part3
+  const [partIdx, setPartIdx] = useState(0)
   const [qIdx, setQIdx] = useState(0)
-  const [recordings, setRecordings] = useState({})  // `${partIdx}_${qIdx}` → { blob, mimeType, ext }
-  const [recState, setRecState] = useState('idle')   // idle | prep | recording | done-q
+  const [recordings, setRecordings] = useState({})
+  const [recState, setRecState] = useState('idle')
   const [prepLeft, setPrepLeft] = useState(0)
   const [recElapsed, setRecElapsed] = useState(0)
   const [secsLeft, setSecsLeft] = useState(() => getRemainingSeconds(startedAt, LIMIT))
@@ -60,14 +60,9 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
   const [micError, setMicError] = useState(null)
   const [processing, setProcessing] = useState(false)
   const [evalAttempt, setEvalAttempt] = useState(0)
-  const recorderRef = useRef(null)
-  const streamRef   = useRef(null)
-  const chunksRef   = useRef([])
-  const recTimer    = useRef(null)
-  const prepTimer   = useRef(null)
-  const globalTimer = useRef(null)
+  const recorderRef = useRef(null), streamRef = useRef(null), chunksRef = useRef([])
+  const recTimer = useRef(null), prepTimer = useRef(null), globalTimer = useRef(null)
 
-  // Diagnostic runs Part 1 alone; the full mock runs all three. Derive from content.
   const availableParts = [1, 2, 3].filter((p) => (content.speaking || {})[`part${p}Id`])
   const PARTS = availableParts.length ? availableParts : [1, 2, 3]
   const currentPart = PARTS[partIdx]
@@ -77,240 +72,168 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
   const cueCard = currentRow?.cue_card || null
   const currentQ = questions[qIdx] || ''
 
-  // Load speaking question rows
   useEffect(() => {
     const spk = content.speaking || {}
-    const load = async () => {
-      const ids = [spk.part1Id, spk.part2Id, spk.part3Id].filter(Boolean)
-      if (!ids.length) return
-      const { data } = await supabase.from('ielts_speaking_questions')
-        .select('id, part, topic, questions, cue_card').in('id', ids)
+    const ids = [spk.part1Id, spk.part2Id, spk.part3Id].filter(Boolean)
+    if (!ids.length) return
+    supabase.from('ielts_speaking_questions').select('id, part, topic, questions, cue_card').in('id', ids).then(({ data }) => {
       if (!data) return
-      const map = {}
-      for (const r of data) map[`part${r.part}`] = r
-      setRows(map)
-    }
-    load()
+      const map = {}; for (const r of data) map[`part${r.part}`] = r; setRows(map)
+    })
   }, [content.speaking])
 
-  // Global timer
+  const handleFinalSubmit = useCallback(async () => {
+    if (processing) return
+    clearInterval(globalTimer.current)
+    setProcessing(true); setEvalAttempt(0)
+    const ts = Date.now(); const allPaths = {}
+    for (const [key, rec] of Object.entries(recordings)) {
+      if (!rec?.blob) continue
+      const [pi, qi] = key.split('_'); const partNum = PARTS[Number(pi)]
+      const uploaded = await uploadBlob(rec.blob, `mock_${ts}_p${partNum}_q${qi}.${rec.ext}`, rec.mimeType)
+      if (uploaded) allPaths[key] = uploaded
+    }
+    let overallBand = null, feedback = {}
+    for (let pi = 0; pi < PARTS.length; pi++) {
+      const partNum = PARTS[pi]; const partRow = rows[`part${partNum}`]
+      if (!partRow) continue
+      const partPaths = Object.entries(allPaths).filter(([k]) => k.startsWith(`${pi}_`)).map(([, v]) => v)
+      if (!partPaths.length) continue
+      const res = await evalWithRetry({ audio_paths: partPaths, part_num: partNum, questions: partRow.questions || [], cue_card: partRow.cue_card || null }, setEvalAttempt)
+      if (res?.ok) { const band = Number(res.data.overall_band); overallBand = overallBand == null ? band : (overallBand + band) / 2; feedback = res.data }
+    }
+    const band = overallBand != null ? Math.round(overallBand * 2) / 2 : null
+    onComplete({ audio_paths: Object.values(allPaths), feedback, band, queued: !band, started_at: startedAt })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recordings, rows, onComplete, startedAt, processing])
+
   useEffect(() => {
     if (secsLeft <= 0) { handleFinalSubmit(); return }
-    globalTimer.current = setInterval(() => setSecsLeft(s => { if (s <= 1) { handleFinalSubmit(); return 0 } return s - 1 }), 1000)
+    globalTimer.current = setInterval(() => setSecsLeft((s) => { if (s <= 1) { clearInterval(globalTimer.current); handleFinalSubmit(); return 0 } return s - 1 }), 1000)
     return () => clearInterval(globalTimer.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Recording timer
   useEffect(() => {
     if (recState !== 'recording') { clearInterval(recTimer.current); setRecElapsed(0); return }
-    recTimer.current = setInterval(() => setRecElapsed(e => {
-      if (e + 1 >= meta.maxRecSec) { stopRecording(); return meta.maxRecSec }
-      return e + 1
-    }), 1000)
+    recTimer.current = setInterval(() => setRecElapsed((e) => { if (e + 1 >= meta.maxRecSec) { stopRecording(); return meta.maxRecSec } return e + 1 }), 1000)
     return () => clearInterval(recTimer.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recState])
 
-  // Prep timer (Part 2 only)
   useEffect(() => {
     if (recState !== 'prep') { clearInterval(prepTimer.current); return }
     setPrepLeft(meta.prepSec)
-    prepTimer.current = setInterval(() => setPrepLeft(p => {
-      if (p <= 1) { clearInterval(prepTimer.current); setRecState('idle'); return 0 }
-      return p - 1
-    }), 1000)
+    prepTimer.current = setInterval(() => setPrepLeft((p) => { if (p <= 1) { clearInterval(prepTimer.current); setRecState('idle'); return 0 } return p - 1 }), 1000)
     return () => clearInterval(prepTimer.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recState])
 
-  function stopStream() { streamRef.current?.getTracks().forEach(t => t.stop()); streamRef.current = null }
-
+  function stopStream() { streamRef.current?.getTracks().forEach((t) => t.stop()); streamRef.current = null }
   const startRecording = useCallback(async () => {
     setMicError(null)
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       streamRef.current = stream
-      const mime = MIME_CANDIDATES.find(m => { try { return MediaRecorder.isTypeSupported(m) } catch { return false } }) || 'audio/webm'
+      const mime = MIME_CANDIDATES.find((m) => { try { return MediaRecorder.isTypeSupported(m) } catch { return false } }) || 'audio/webm'
       setMimeType(mime)
       const recorder = new MediaRecorder(stream, { mimeType: mime })
       chunksRef.current = []
-      recorder.ondataavailable = e => { if (e.data?.size > 0) chunksRef.current.push(e.data) }
-      recorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: mime })
-        const key = `${partIdx}_${qIdx}`
-        setRecordings(prev => ({ ...prev, [key]: { blob, mimeType: mime, ext: getExt(mime) } }))
-        stopStream()
-        setRecState('done-q')
-      }
-      recorder.start(1000)
-      recorderRef.current = recorder
-      setRecState('recording')
+      recorder.ondataavailable = (e) => { if (e.data?.size > 0) chunksRef.current.push(e.data) }
+      recorder.onstop = () => { const blob = new Blob(chunksRef.current, { type: mime }); setRecordings((prev) => ({ ...prev, [`${partIdx}_${qIdx}`]: { blob, mimeType: mime, ext: getExt(mime) } })); stopStream(); setRecState('done-q') }
+      recorder.start(1000); recorderRef.current = recorder; setRecState('recording')
     } catch (e) {
       setMicError(e.name === 'NotAllowedError' ? 'لم يتم السماح بالوصول للميكروفون.' : e.name === 'NotFoundError' ? 'لم نجد ميكروفوناً.' : `خطأ: ${e.message}`)
     }
-  }, [partIdx, qIdx, stopStream])
-
+  }, [partIdx, qIdx])
   function stopRecording() { recorderRef.current?.stop(); clearInterval(recTimer.current) }
-
-  function handleStartQuestion() {
-    if (currentPart === 2 && meta.prepSec > 0) {
-      setRecState('prep') // Start prep timer first
-    } else {
-      startRecording()
-    }
-  }
-
+  function handleStartQuestion() { if (currentPart === 2 && meta.prepSec > 0) setRecState('prep'); else startRecording() }
   function handleNextQuestion() {
-    setRecState('idle')
-    setRecElapsed(0)
-    if (qIdx < questions.length - 1) {
-      setQIdx(q => q + 1)
-    } else if (partIdx < PARTS.length - 1) {
-      setPartIdx(p => p + 1)
-      setQIdx(0)
-    } else {
-      handleFinalSubmit()
-    }
+    setRecState('idle'); setRecElapsed(0)
+    if (qIdx < questions.length - 1) setQIdx((q) => q + 1)
+    else if (partIdx < PARTS.length - 1) { setPartIdx((p) => p + 1); setQIdx(0) }
+    else handleFinalSubmit()
   }
-
-  async function handleFinalSubmit() {
-    if (processing) return
-    clearInterval(globalTimer.current)
-    setProcessing(true)
-    setEvalAttempt(0)
-
-    // Upload all recordings
-    const ts = Date.now()
-    const allPaths = {}
-    for (const [key, rec] of Object.entries(recordings)) {
-      if (!rec?.blob) continue
-      const [pi, qi] = key.split('_')
-      const partNum = PARTS[Number(pi)]
-      const path = `mock_${ts}_p${partNum}_q${qi}.${rec.ext}`
-      const uploaded = await uploadBlob(rec.blob, path, rec.mimeType)
-      if (uploaded) allPaths[key] = uploaded
-    }
-
-    // Evaluate each part
-    let overallBand = null, feedback = {}
-    for (let pi = 0; pi < PARTS.length; pi++) {
-      const partNum = PARTS[pi]
-      const partRow = rows[`part${partNum}`]
-      if (!partRow) continue
-      const partPaths = Object.entries(allPaths).filter(([k]) => k.startsWith(`${pi}_`)).map(([,v]) => v)
-      if (!partPaths.length) continue
-      const qs = partRow.questions || []
-      const res = await evalWithRetry({
-        audio_paths: partPaths,
-        part_num: partNum,
-        questions: qs,
-        cue_card: partRow.cue_card || null,
-      }, setEvalAttempt)
-      if (res?.ok) {
-        const band = Number(res.data.overall_band)
-        overallBand = overallBand == null ? band : (overallBand + band) / 2
-        feedback = res.data  // Use last part's feedback for summary
-      }
-    }
-
-    const band = overallBand != null ? Math.round(overallBand * 2) / 2 : null
-    onComplete({ audio_paths: Object.values(allPaths), feedback, band, queued: !band, started_at: startedAt })
-  }
-
-  const recordedCount = Object.keys(recordings).length
-  const totalQ = PARTS.reduce((sum, p) => sum + ((rows[`part${p}`]?.questions?.length) || 0), 0)
-  const isUrgent = secsLeft < 180, isCritical = secsLeft < 60
 
   if (processing) {
     return (
-      <div dir="rtl" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '50vh', gap: 16 }}>
-        <div style={{ width: 48, height: 48, borderRadius: '50%', border: '3px solid var(--sunset-orange)', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
-        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
-        <p style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>جاري تحليل المحادثة…</p>
-        <p style={{ margin: 0, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>{evalAttempt > 1 ? `المحاولة ${evalAttempt}/5` : '~٢ دقيقة'}</p>
+      <div className="iel-root" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
+        <div style={{ width: 46, height: 46, borderRadius: '50%', border: '2px solid var(--iel-border)', borderTopColor: 'var(--iel-accent)', animation: 'iel-spin .8s linear infinite' }} />
+        <p style={{ margin: 0, fontSize: 17, fontWeight: 800, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>جارٍ تحليل محادثتك…</p>
+        <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>{evalAttempt > 1 ? `المحاولة ${evalAttempt}/5` : 'قد يستغرق نحو دقيقتين'}</p>
       </div>
     )
   }
 
-  return (
-    <div dir="rtl" style={{ maxWidth: 900, margin: '0 auto', paddingBottom: 60 }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0 16px', borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', marginBottom: 20, gap: 12, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif" }}>{meta.label}</span>
-        <span style={{ fontSize: 16, fontWeight: 900, color: isCritical ? '#f87171' : isUrgent ? 'var(--sunset-amber)' : 'var(--ds-text)', fontFamily: "'IBM Plex Mono', monospace" }}>{formatTime(secsLeft)}</span>
-        <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>سؤال {qIdx + 1}/{questions.length}</span>
-      </div>
-
-      {/* Part progress dots */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 20, justifyContent: 'flex-end' }}>
-        {PARTS.map((p, i) => (
-          <span key={p} style={{ padding: '4px 12px', borderRadius: 20, fontSize: 11, fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: i === partIdx ? 700 : 500, background: i < partIdx ? 'color-mix(in srgb, #4ade80 12%, transparent)' : i === partIdx ? 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)' : 'transparent', border: `1px solid ${i < partIdx ? 'rgba(74,222,128,0.3)' : i === partIdx ? 'color-mix(in srgb, var(--sunset-orange) 35%, transparent)' : 'color-mix(in srgb, var(--ds-border) 40%, transparent)'}`, color: i < partIdx ? '#4ade80' : i === partIdx ? 'var(--ds-text)' : 'var(--ds-text-muted)' }}>
-            {i < partIdx ? '✓' : ''} Part {p}
-          </span>
-        ))}
-      </div>
-
-      {/* Question / cue card */}
-      <div style={{ padding: '18px 20px', borderRadius: 16, marginBottom: 20, background: 'color-mix(in srgb, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 14%, transparent)' }}>
-        {currentPart === 2 && cueCard ? (
-          <>
-            <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>Cue Card</p>
-            <p style={{ margin: '0 0 10px', fontSize: 14, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", direction: 'ltr', textAlign: 'left', lineHeight: 1.7 }}>{cueCard.prompt}</p>
-            <ul style={{ margin: 0, paddingInlineStart: 20 }}>
-              {(cueCard.bullet_points || []).map((b, i) => <li key={i} style={{ fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", direction: 'ltr', textAlign: 'left', lineHeight: 1.7 }}>{b}</li>)}
-            </ul>
-          </>
-        ) : (
-          <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", direction: 'ltr', textAlign: 'left', lineHeight: 1.8 }}>{currentQ}</p>
-        )}
-      </div>
-
-      {/* Prep timer (Part 2) */}
-      {recState === 'prep' && (
-        <div style={{ padding: '14px 18px', borderRadius: 12, marginBottom: 16, background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>وقت التحضير</span>
-          <span style={{ fontSize: 20, fontWeight: 900, color: 'var(--sunset-amber)', fontFamily: "'IBM Plex Mono', monospace" }}>{formatTime(prepLeft)}</span>
-        </div>
-      )}
-
-      {micError && <p style={{ margin: '0 0 14px', fontSize: 13, color: '#f87171', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>{micError}</p>}
-
-      {/* Recording controls */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-        {recState === 'idle' && (
-          <motion.button onClick={handleStartQuestion} whileHover={{ scale: 1.02 }} style={{ padding: '14px 32px', borderRadius: 16, border: '1px solid color-mix(in srgb, var(--sunset-orange) 40%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 16, fontWeight: 900, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Mic size={20} /> {currentPart === 2 ? 'ابدأ التحضير' : 'سجّل الإجابة'}
-          </motion.button>
-        )}
-
-        {recState === 'recording' && (
-          <>
-            <p style={{ margin: 0, fontSize: 24, fontWeight: 900, color: '#f87171', fontFamily: "'IBM Plex Mono', monospace" }}>{formatTime(recElapsed)}</p>
-            <motion.button onClick={stopRecording} animate={{ boxShadow: ['0 0 0 0px rgba(239,68,68,0.4)', '0 0 0 14px rgba(239,68,68,0)'] }} transition={{ duration: 1.2, repeat: Infinity }}
-              style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid #f87171', background: 'color-mix(in srgb, #f87171 18%, transparent)', color: '#f87171', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-              <Square size={26} />
-            </motion.button>
-            <p style={{ margin: 0, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>الحد الأقصى: {formatTime(meta.maxRecSec)}</p>
-          </>
-        )}
-
-        {recState === 'done-q' && (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-            <p style={{ margin: 0, fontSize: 15, fontWeight: 700, color: '#4ade80', fontFamily: "'Tajawal', sans-serif" }}>✓ تم التسجيل</p>
-            <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", textAlign: 'center' }}>
-              {qIdx < questions.length - 1
-                ? g('انتقل للسؤال التالي', 'انتقلي للسؤال التالي')
-                : partIdx < PARTS.length - 1
-                  ? g('انتقل للجزء التالي', 'انتقلي للجزء التالي')
-                  : g('أرسل للتقييم', 'أرسلي للتقييم')}
-            </p>
-            <button onClick={handleNextQuestion} style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
-              {qIdx < questions.length - 1 ? 'السؤال التالي ›' : partIdx < PARTS.length - 1 ? 'الجزء التالي ›' : 'إرسال للتقييم'}
-            </button>
-          </div>
-        )}
-      </div>
+  const footer = (
+    <div style={{ display: 'flex', gap: 8, width: '100%', justifyContent: 'center' }}>
+      {PARTS.map((p, i) => (
+        <span key={p} style={{ padding: '5px 14px', borderRadius: 999, fontSize: 12, fontFamily: SANS, fontWeight: i === partIdx ? 700 : 500,
+          background: i < partIdx ? 'color-mix(in srgb, var(--iel-good) 12%, transparent)' : i === partIdx ? 'var(--iel-accent-soft)' : 'transparent',
+          border: `1px solid ${i < partIdx ? 'color-mix(in srgb, var(--iel-good) 34%, transparent)' : i === partIdx ? 'color-mix(in srgb, var(--iel-accent) 35%, var(--iel-border))' : 'var(--iel-border)'}`,
+          color: i < partIdx ? 'var(--iel-good)' : i === partIdx ? 'var(--iel-accent-ink)' : 'var(--iel-ink-3)' }}>{i < partIdx ? '✓ ' : ''}Part {p}</span>
+      ))}
     </div>
+  )
+
+  return (
+    <ExamShell sectionLabel="المحادثة" partLabel={`Speaking Part ${currentPart} · Q${qIdx + 1}/${questions.length || 1}`} secsLeft={secsLeft} onSubmit={handleFinalSubmit} submitting={processing} footer={footer}>
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px 20px', gap: 24 }}>
+        <div style={{ width: '100%', maxWidth: 640 }}>
+          {/* Question / cue card */}
+          <div style={{ padding: '20px 24px', borderRadius: 16, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', boxShadow: 'var(--iel-shadow-sm)', direction: 'ltr' }}>
+            {currentPart === 2 && cueCard ? (
+              <>
+                <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', fontFamily: SANS, letterSpacing: '.06em' }}>CUE CARD</p>
+                <p style={{ margin: '0 0 12px', fontSize: 16, fontWeight: 600, color: 'var(--iel-ink)', fontFamily: SANS, textAlign: 'left', lineHeight: 1.6 }}>{cueCard.prompt}</p>
+                <ul style={{ margin: 0, paddingInlineStart: 22 }}>
+                  {(cueCard.bullet_points || []).map((b, i) => <li key={i} style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', fontFamily: SANS, textAlign: 'left', lineHeight: 1.8 }}>{b}</li>)}
+                </ul>
+              </>
+            ) : (
+              <>
+                <p style={{ margin: '0 0 8px', fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', fontFamily: SANS, letterSpacing: '.06em' }}>QUESTION {qIdx + 1}</p>
+                <p style={{ margin: 0, fontSize: 17, color: 'var(--iel-ink)', fontFamily: SANS, textAlign: 'left', lineHeight: 1.7 }}>{currentQ}</p>
+              </>
+            )}
+          </div>
+
+          {recState === 'prep' && (
+            <div style={{ marginTop: 16, padding: '14px 18px', borderRadius: 12, background: 'color-mix(in srgb, var(--iel-warn) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-warn) 26%, transparent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>وقت التحضير — دوّن أفكارك</span>
+              <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--iel-warn)', fontFamily: "'IBM Plex Mono', monospace" }}>{fmt(prepLeft)}</span>
+            </div>
+          )}
+          {micError && <p style={{ margin: '14px 0 0', fontSize: 13, color: 'var(--iel-bad)', fontFamily: "'Tajawal', sans-serif", textAlign: 'center' }}>{micError}</p>}
+        </div>
+
+        {/* Recording controls */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          {recState === 'idle' && (
+            <button onClick={handleStartQuestion} style={{ padding: '14px 34px', borderRadius: 14, border: 0, background: 'var(--iel-accent)', color: '#fff', fontSize: 15.5, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10 }}>
+              <Mic size={19} /> {currentPart === 2 ? g('ابدأ التحضير', 'ابدئي التحضير') : g('سجّل إجابتك', 'سجّلي إجابتك')}
+            </button>
+          )}
+          {recState === 'recording' && (
+            <>
+              <p style={{ margin: 0, fontSize: 28, fontWeight: 800, color: 'var(--iel-bad)', fontFamily: "'IBM Plex Mono', monospace" }}>{fmt(recElapsed)}</p>
+              <motion.button onClick={stopRecording} animate={{ boxShadow: ['0 0 0 0px rgba(224,106,88,0.4)', '0 0 0 16px rgba(224,106,88,0)'] }} transition={{ duration: 1.2, repeat: Infinity }}
+                style={{ width: 76, height: 76, borderRadius: '50%', border: '2px solid var(--iel-bad)', background: 'color-mix(in srgb, var(--iel-bad) 15%, transparent)', color: 'var(--iel-bad)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                <Square size={26} />
+              </motion.button>
+              <p style={{ margin: 0, fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>الحد الأقصى {fmt(meta.maxRecSec)} — اضغط للإيقاف</p>
+            </>
+          )}
+          {recState === 'done-q' && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+              <p style={{ margin: 0, fontSize: 15.5, fontWeight: 700, color: 'var(--iel-good)', fontFamily: "'Tajawal', sans-serif" }}>✓ تم تسجيل إجابتك</p>
+              <button onClick={handleNextQuestion} style={{ padding: '12px 30px', borderRadius: 12, border: 0, background: 'var(--iel-accent)', color: '#fff', fontSize: 14.5, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+                {qIdx < questions.length - 1 ? g('السؤال التالي ›', 'السؤال التالي ›') : partIdx < PARTS.length - 1 ? 'الجزء التالي ›' : g('إرسال للتقييم', 'إرسال للتقييم')}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </ExamShell>
   )
 }
