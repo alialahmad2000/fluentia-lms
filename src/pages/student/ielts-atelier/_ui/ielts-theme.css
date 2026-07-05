@@ -57,6 +57,11 @@ body.ielts-app .mobile-bottom-nav{ display:none !important; }
 body.ielts-app [data-content-shell]{ margin:0 !important; }
 body.ielts-app #main-content{ max-width:none !important; margin:0 !important; padding:0 !important; }
 
+/* Full-screen exam takeover: hide the global floating buttons over the exam */
+body.ielts-exam .z-\[998\], body.ielts-exam .z-\[997\]{ display:none !important; }
+/* Mobile exam header: drop the timer label + part label so the section title never clips */
+@media (max-width:560px){ .iel-exam-tlabel, .iel-exam-part{ display:none } }
+
 @keyframes iel-spin{to{transform:rotate(360deg)}}
 
 /* ── Shell layout (RTL: nav right, content fills left) ─────────────────────── */

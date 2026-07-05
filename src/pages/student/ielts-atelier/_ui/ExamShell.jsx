@@ -15,6 +15,10 @@ function fmt(s) {
 export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children }) {
   const urgent = secsLeft != null && secsLeft < 600
   const critical = secsLeft != null && secsLeft < 120
+  React.useEffect(() => {
+    document.body.classList.add('ielts-exam')
+    return () => document.body.classList.remove('ielts-exam')
+  }, [])
   return (
     <div className="iel-root" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column' }}>
       {/* Top bar */}
@@ -22,13 +26,13 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
           <div style={{ width: 30, height: 30, borderRadius: 8, background: 'var(--iel-accent)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 15, flex: 'none' }}>ط</div>
           <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.1 }}>{sectionLabel}</div>
-            {partLabel && <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600, direction: 'ltr', textAlign: 'right' }}>{partLabel}</div>}
+            <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.1, whiteSpace: 'nowrap' }}>{sectionLabel}</div>
+            {partLabel && <div className="iel-exam-part" style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600, direction: 'ltr', textAlign: 'right' }}>{partLabel}</div>}
           </div>
         </div>
         {secsLeft != null && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 10, background: critical ? 'color-mix(in srgb, var(--iel-bad) 16%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 14%, transparent)' : 'var(--iel-surface)', border: `1px solid ${critical ? 'color-mix(in srgb, var(--iel-bad) 40%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 34%, transparent)' : 'var(--iel-border)'}` }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--iel-ink-3)' }}>الوقت المتبقّي</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 10, flexShrink: 0, background: critical ? 'color-mix(in srgb, var(--iel-bad) 16%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 14%, transparent)' : 'var(--iel-surface)', border: `1px solid ${critical ? 'color-mix(in srgb, var(--iel-bad) 40%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 34%, transparent)' : 'var(--iel-border)'}` }}>
+            <span className="iel-exam-tlabel" style={{ fontSize: 11, fontWeight: 700, color: 'var(--iel-ink-3)', whiteSpace: 'nowrap' }}>الوقت المتبقّي</span>
             <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
           </div>
         )}

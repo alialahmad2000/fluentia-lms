@@ -7,6 +7,7 @@ import { ExamShell, QuestionPalette } from '../../_ui/ExamShell'
 import { ExamQuestion } from '../../_ui/ExamQuestions'
 
 const LIMIT = SKILL_LIMITS.reading
+const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 
 function useIsWide(bp = 900) {
   const [w, setW] = useState(() => typeof window !== 'undefined' && window.innerWidth > bp)
@@ -115,12 +116,11 @@ export default function MockReading({ attemptId, answers, content, startedAt, on
   const groups = useMemo(() => passages.map((pp) => ({ label: `Passage ${passages.indexOf(pp) + 1}`, numbers: (Array.isArray(pp.questions) ? pp.questions : []).map((q) => q.question_number) })), [passages])
 
   const PassagePane = (
-    <div style={{ padding: isWide ? '22px 26px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.06em', marginBottom: 4, direction: 'rtl', textAlign: 'right' }}>القطعة {tabIdx + 1}</div>
-      <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--iel-ink)', margin: '0 0 16px', fontFamily: "'Source Serif 4', Georgia, serif", textAlign: 'left' }}>{p?.title}</h2>
+    <div style={{ padding: isWide ? '24px 30px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
+      <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 18px', fontFamily: SANS, textAlign: 'left', lineHeight: 1.3 }}>{p?.title}</h2>
       {paras.map((para, i) => (
-        <p key={i} style={{ display: 'flex', gap: 12, margin: '0 0 14px', fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: "'Source Serif 4', Georgia, serif", lineHeight: 1.9, textAlign: 'left' }}>
-          <span style={{ flex: 'none', fontWeight: 800, color: 'var(--iel-ink-3)', fontFamily: "'IBM Plex Sans', system-ui, sans-serif", fontSize: 13 }}>{String.fromCharCode(65 + i)}</span>
+        <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 12, margin: '0 0 15px', fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
+          <span style={{ flex: 'none', width: 16, fontWeight: 800, color: 'var(--iel-ink-2)', fontFamily: SANS, fontSize: 14 }}>{String.fromCharCode(65 + i)}</span>
           <span>{para}</span>
         </p>
       ))}
