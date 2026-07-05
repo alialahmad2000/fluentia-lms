@@ -12,6 +12,13 @@ import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
 import { Card, SectionHeader, Icon as UI } from './_ui/primitives'
 import QuestionTypesSection from './_ui/QuestionTypesSection'
+import { ExamShell, QuestionPalette } from './_ui/ExamShell'
+import { ExamQuestion } from './_ui/ExamQuestions'
+
+const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+function splitParagraphs(content) {
+  return String(content || '').split(/\n{2,}/).map((s) => s.trim()).filter(Boolean)
+}
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -375,9 +382,12 @@ export default function Reading() {
   const [timeLeft, setTimeLeft] = useState(0)
   const [gradeResult, setGradeResult] = useState(null)
   const [showReview, setShowReview] = useState(false)
+  const [current, setCurrent] = useState(null)
+  const [mobilePane, setMobilePane] = useState('passage')
 
   const passagesQ = usePublishedPassages(diffFilter)
   const timerRef = useRef(null)
+  const qScrollRef = useRef(null)
   const narrativeDoneRef = useRef(false)
 
   // Keep submit logic in a ref so the timer can call it safely
@@ -425,11 +435,23 @@ export default function Reading() {
     setTimeLeft((p.time_limit_minutes || 20) * 60)
     setGradeResult(null)
     setShowReview(false)
+    setMobilePane('passage')
+    const firstQ = p?.questions?.[0]?.question_number
+    setCurrent(firstQ != null ? `0_${firstQ}` : null)
     setAct('session')
   }
 
   function handleAnswerChange(qNum, val) {
     setAnswers(prev => ({ ...prev, [String(qNum)]: val }))
+    setCurrent(`0_${qNum}`)
+  }
+  function jumpToQuestion(n) {
+    setCurrent(`0_${n}`)
+    setMobilePane('questions')
+    setTimeout(() => {
+      const el = (qScrollRef.current || document).querySelector(`[data-q="${n}"]`)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 0)
   }
 
   const answeredCount = Object.keys(answers).length
@@ -552,205 +574,64 @@ export default function Reading() {
 
   // ── ACT 2: SESSION ──────────────────────────────────────────────────────────
   if (act === 'session' && passage) {
-    const urgent = timeLeft > 0 && timeLeft < 120
+    const paras = splitParagraphs(passage.content)
+    const paraLetters = paras.map((_, i) => String.fromCharCode(65 + i))
+    const qs = Array.isArray(passage.questions) ? passage.questions : []
+    const answeredSet = new Set(
+      qs.filter(q => answers[String(q.question_number)] != null && answers[String(q.question_number)] !== '')
+        .map(q => `0_${q.question_number}`)
+    )
+    const groups = [{ label: 'Passage 1', numbers: qs.map(q => q.question_number) }]
 
-    return (
-      <div dir="rtl" style={{ maxWidth: 1140, margin: '0 auto', paddingBottom: 60 }}>
+    const PassagePane = (
+      <div style={{ padding: isWide ? '24px 30px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
+        <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 18px', fontFamily: SANS, textAlign: 'left', lineHeight: 1.3 }}>{passage.title}</h2>
+        {paras.map((para, i) => (
+          <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 12, margin: '0 0 15px', fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
+            <span style={{ flex: 'none', width: 16, fontWeight: 800, color: 'var(--iel-ink-2)', fontFamily: SANS, fontSize: 14 }}>{paraLetters[i]}</span>
+            <span>{para}</span>
+          </p>
+        ))}
+      </div>
+    )
 
-        {/* Session header */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '14px 0 16px',
-          marginBottom: 20,
-          borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)',
-          gap: 12,
-          flexWrap: 'wrap',
-        }}>
-          <button
-            onClick={() => { clearInterval(timerRef.current); setAct('library') }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '6px 12px',
-              borderRadius: 8,
-              border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)',
-              background: 'transparent',
-              color: 'var(--ds-text-muted)',
-              fontSize: 13,
-              fontFamily: "'Tajawal', sans-serif",
-              cursor: 'pointer',
-            }}
-          >
-            <ChevronLeft size={13} />
-            المكتبة
-          </button>
-
-          <h2 style={{
-            margin: 0,
-            flex: 1,
-            textAlign: 'center',
-            fontSize: 15,
-            fontWeight: 700,
-            color: 'var(--ds-text)',
-            fontFamily: "'Tajawal', sans-serif",
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}>
-            {passage.title}
-          </h2>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif" }}>
-              {answeredCount}/{totalQ}
-            </span>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '5px 12px',
-              borderRadius: 20,
-              background: urgent
-                ? 'color-mix(in srgb, #f87171 11%, transparent)'
-                : 'color-mix(in srgb, var(--ds-surface) 55%, transparent)',
-              border: `1px solid ${urgent ? 'rgba(248,113,113,0.3)' : 'color-mix(in srgb, var(--ds-border) 40%, transparent)'}`,
-              transition: 'all 0.3s',
-            }}>
-              <Clock size={13} color={urgent ? '#f87171' : 'var(--ds-text-muted)'} />
-              <span style={{
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: 14,
-                fontWeight: 700,
-                color: urgent ? '#f87171' : 'var(--ds-text)',
-                minWidth: 40,
-              }}>
-                {formatTime(timeLeft)}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Two-column body */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isWide ? 'minmax(0, 1.1fr) minmax(0, 0.9fr)' : '1fr',
-          gap: 20,
-          alignItems: 'start',
-        }}>
-          {/* ── Passage panel ── */}
-          <div style={{
-            borderRadius: 20,
-            background: 'color-mix(in srgb, var(--sunset-base-mid) 38%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--sunset-amber) 16%, transparent)',
-            backdropFilter: 'blur(8px)',
-            overflow: 'hidden',
-          }}>
-            <div style={{
-              padding: '12px 20px',
-              borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 28%, transparent)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-              <DiffBadge band={passage.difficulty_band} />
-              <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                  {passage.topic_category}
-                </span>
-                <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                  {passage.word_count} كلمة
-                </span>
-              </div>
-            </div>
-            <div style={{
-              padding: '22px 26px',
-              maxHeight: isWide ? '68vh' : '40vh',
-              overflowY: 'auto',
-              lineHeight: 2.1,
-              fontSize: 14.5,
-              color: 'var(--ds-text)',
-              whiteSpace: 'pre-wrap',
-              fontFamily: "'Georgia', serif",
-              direction: 'ltr',
-              textAlign: 'left',
-              letterSpacing: '0.01em',
-            }}>
-              {passage.content}
-            </div>
-          </div>
-
-          {/* ── Questions panel ── */}
-          <div style={{
-            position: isWide ? 'sticky' : 'static',
-            top: 20,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 10,
-          }}>
-            <div style={{
-              maxHeight: isWide ? '72vh' : 'none',
-              overflowY: isWide ? 'auto' : 'visible',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 10,
-              paddingLeft: 2,
-              paddingBottom: 4,
-            }}>
-              {(passage.questions || []).map(q => (
-                <QuestionItem
-                  key={q.question_number}
-                  q={q}
-                  answer={answers[String(q.question_number)]}
-                  onChange={handleAnswerChange}
-                />
-              ))}
-            </div>
-
-            {/* Progress bar */}
-            <div style={{
-              height: 3,
-              borderRadius: 99,
-              background: 'color-mix(in srgb, var(--ds-border) 35%, transparent)',
-              overflow: 'hidden',
-            }}>
-              <motion.div
-                animate={{ width: `${totalQ > 0 ? (answeredCount / totalQ) * 100 : 0}%` }}
-                transition={{ duration: 0.3 }}
-                style={{ height: '100%', borderRadius: 99, background: 'var(--sunset-orange)' }}
-              />
-            </div>
-
-            {/* Submit button */}
-            <motion.button
-              onClick={() => submitRef.current()}
-              disabled={answeredCount === 0}
-              whileHover={answeredCount > 0 ? { scale: 1.01 } : undefined}
-              whileTap={answeredCount > 0 ? { scale: 0.99 } : undefined}
-              style={{
-                width: '100%',
-                padding: '14px',
-                borderRadius: 14,
-                border: `1px solid color-mix(in srgb, var(--sunset-orange) ${answeredCount > 0 ? 45 : 18}%, transparent)`,
-                background: answeredCount > 0
-                  ? 'color-mix(in srgb, var(--sunset-orange) 18%, var(--sunset-base-mid))'
-                  : 'color-mix(in srgb, var(--ds-surface) 35%, transparent)',
-                color: answeredCount > 0 ? 'var(--ds-text)' : 'var(--ds-text-muted)',
-                fontSize: 16,
-                fontWeight: 900,
-                fontFamily: "'Tajawal', sans-serif",
-                cursor: answeredCount > 0 ? 'pointer' : 'not-allowed',
-                opacity: answeredCount > 0 ? 1 : 0.5,
-                transition: 'all 0.2s',
-              }}
-            >
-              تسليم الإجابات ({answeredCount}/{totalQ})
-            </motion.button>
-          </div>
+    const QuestionsPane = (
+      <div ref={qScrollRef} style={{ padding: isWide ? '22px 24px' : '18px 16px', overflowY: 'auto', height: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
+          {qs.map(q => (
+            <ExamQuestion key={q.question_number} q={q} value={answers[String(q.question_number)]} onChange={(v) => handleAnswerChange(q.question_number, v)} paragraphLetters={paraLetters} />
+          ))}
         </div>
       </div>
+    )
+
+    return (
+      <ExamShell
+        sectionLabel="القراءة"
+        partLabel={passage.title}
+        secsLeft={timeLeft}
+        onSubmit={() => submitRef.current()}
+        submitting={submitSession.isPending}
+        submitLabel="تسليم الإجابات"
+        onExit={() => { clearInterval(timerRef.current); setAct('library') }}
+        footer={<QuestionPalette groups={groups} answered={answeredSet} current={current} onJump={(gi, n) => jumpToQuestion(n)} />}
+      >
+        {isWide ? (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: '100%', minHeight: 0 }}>
+            <div style={{ minHeight: 0, borderInlineStart: '1px solid var(--iel-border)', order: 2 }}>{PassagePane}</div>
+            <div style={{ minHeight: 0, order: 1 }}>{QuestionsPane}</div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+            <div style={{ flex: 'none', display: 'flex', gap: 8, padding: '10px 16px', borderBottom: '1px solid var(--iel-border)' }}>
+              {[['passage', 'النص'], ['questions', 'الأسئلة']].map(([k, l]) => (
+                <button key={k} onClick={() => setMobilePane(k)} style={{ flex: 1, padding: '9px', borderRadius: 9, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 13.5, fontWeight: 700, border: `1.5px solid ${mobilePane === k ? 'var(--iel-accent)' : 'var(--iel-border)'}`, background: mobilePane === k ? 'var(--iel-accent-soft)' : 'transparent', color: mobilePane === k ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)' }}>{l}</button>
+              ))}
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>{mobilePane === 'passage' ? PassagePane : QuestionsPane}</div>
+          </div>
+        )}
+      </ExamShell>
     )
   }
 

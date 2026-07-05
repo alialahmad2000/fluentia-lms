@@ -12,7 +12,7 @@ function fmt(s) {
   return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')}`
 }
 
-export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children, submitLabel = 'إنهاء القسم', showSubmit = true }) {
+export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children, submitLabel = 'إنهاء القسم', showSubmit = true, onExit }) {
   const urgent = secsLeft != null && secsLeft < 600
   const critical = secsLeft != null && secsLeft < 120
   const [confirming, setConfirming] = React.useState(false)
@@ -31,12 +31,17 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
             {partLabel && <div className="iel-exam-part" style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600, direction: 'ltr', textAlign: 'right' }}>{partLabel}</div>}
           </div>
         </div>
-        {secsLeft != null && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 10, flexShrink: 0, background: critical ? 'color-mix(in srgb, var(--iel-bad) 16%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 14%, transparent)' : 'var(--iel-surface)', border: `1px solid ${critical ? 'color-mix(in srgb, var(--iel-bad) 40%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 34%, transparent)' : 'var(--iel-border)'}` }}>
-            <span className="iel-exam-tlabel" style={{ fontSize: 11, fontWeight: 700, color: 'var(--iel-ink-3)', whiteSpace: 'nowrap' }}>الوقت المتبقّي</span>
-            <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
-          </div>
-        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+          {secsLeft != null && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 10, background: critical ? 'color-mix(in srgb, var(--iel-bad) 16%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 14%, transparent)' : 'var(--iel-surface)', border: `1px solid ${critical ? 'color-mix(in srgb, var(--iel-bad) 40%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 34%, transparent)' : 'var(--iel-border)'}` }}>
+              <span className="iel-exam-tlabel" style={{ fontSize: 11, fontWeight: 700, color: 'var(--iel-ink-3)', whiteSpace: 'nowrap' }}>الوقت المتبقّي</span>
+              <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
+            </div>
+          )}
+          {onExit && (
+            <button onClick={onExit} title="خروج" aria-label="خروج" style={{ flex: 'none', width: 36, height: 36, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-3)', fontSize: 18, lineHeight: 1 }}>✕</button>
+          )}
+        </div>
       </div>
 
       {/* Body */}
