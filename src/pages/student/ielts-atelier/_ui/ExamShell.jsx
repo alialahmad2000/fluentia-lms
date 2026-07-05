@@ -12,7 +12,7 @@ function fmt(s) {
   return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')}`
 }
 
-export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children }) {
+export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children, submitLabel = 'إنهاء القسم', showSubmit = true }) {
   const urgent = secsLeft != null && secsLeft < 600
   const critical = secsLeft != null && secsLeft < 120
   const [confirming, setConfirming] = React.useState(false)
@@ -21,7 +21,7 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
     return () => document.body.classList.remove('ielts-exam')
   }, [])
   return (
-    <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column' }}>
+    <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 10050, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column' }}>
       {/* Top bar */}
       <div style={{ flex: 'none', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, padding: '0 20px', background: 'var(--iel-panel)', borderBottom: '1px solid var(--iel-border)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
@@ -37,7 +37,6 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
             <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
           </div>
         )}
-        <button onClick={() => setConfirming(true)} disabled={submitting} style={{ flex: 'none', padding: '9px 18px', borderRadius: 10, border: '1.5px solid var(--iel-border-strong)', background: 'transparent', color: 'var(--iel-ink-2)', fontSize: 13.5, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.6 : 1 }}>{submitting ? 'جارٍ…' : 'إنهاء القسم'}</button>
       </div>
 
       {/* Body */}
@@ -57,10 +56,15 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
         </div>
       )}
 
-      {/* Bottom palette */}
-      {footer && (
-        <div style={{ flex: 'none', minHeight: 56, display: 'flex', alignItems: 'center', gap: 12, padding: '9px 20px', background: 'var(--iel-panel)', borderTop: '1px solid var(--iel-border)', overflowX: 'auto' }}>
-          {footer}
+      {/* Bottom bar: palette (scrolls) + the always-visible primary forward action */}
+      {(footer || onSubmit) && (
+        <div style={{ flex: 'none', minHeight: 62, display: 'flex', alignItems: 'center', gap: 14, padding: '9px 20px', background: 'var(--iel-panel)', borderTop: '1px solid var(--iel-border)' }}>
+          <div style={{ flex: 1, minWidth: 0, overflowX: 'auto' }}>{footer}</div>
+          {onSubmit && showSubmit && (
+            <button onClick={() => setConfirming(true)} disabled={submitting} style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', borderRadius: 11, border: 0, background: submitting ? 'var(--iel-ink-3)' : 'var(--iel-accent)', color: '#fff', fontSize: 14.5, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: submitting ? 'not-allowed' : 'pointer', boxShadow: submitting ? 'none' : 'var(--iel-shadow-sm)', whiteSpace: 'nowrap' }}>
+              {submitting ? 'جارٍ…' : <>{submitLabel} <span style={{ fontSize: 16, lineHeight: 1 }}>←</span></>}
+            </button>
+          )}
         </div>
       )}
     </div>
