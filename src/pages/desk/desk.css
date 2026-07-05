@@ -70,9 +70,9 @@
 }
 .desk-cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 0 1px rgba(201,162,92,0.4), 0 4px 10px rgba(0,0,0,0.4), 0 16px 34px -8px rgba(201,162,92,0.6); }
 
-/* ghost circular icon button (scenario card affordance) — 40px tap target */
+/* ghost circular icon button (scenario card affordance) — 44px tap target */
 .desk-ghost-btn {
-  width: 40px; height: 40px; border-radius: 999px;
+  width: 44px; height: 44px; border-radius: 999px;
   display: grid; place-items: center;
   color: var(--brass, #c9a25c);
   border: 1px solid rgba(255,255,255,0.09);
@@ -147,6 +147,36 @@
 @media (prefers-reduced-motion: reduce) {
   .desk-live-dot, .desk-rise { animation: none !important; }
 }
+
+/* ══ boot reveal (DeskBoot) — "systems online", once per session ══ */
+.desk-boot {
+  position: fixed; inset: 0; z-index: 60;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(120% 90% at 63% 46%, rgba(120,210,224,0.06), transparent 55%),
+    #05070d;
+  animation: deskBootIn .3s ease both;
+}
+.desk-boot.is-leaving { animation: deskBootOut .42s ease forwards; }
+@keyframes deskBootIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes deskBootOut { to { opacity: 0; visibility: hidden; } }
+.desk-boot-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.desk-boot-mark { width: 64px; height: 64px; font-size: 26px; animation: deskBootPulse 1.5s cubic-bezier(.16,1,.3,1) both; }
+@keyframes deskBootPulse {
+  0%   { transform: scale(0.82); opacity: 0; }
+  45%  { opacity: 1; }
+  100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 1px rgba(201,162,92,0.35) inset, 0 8px 44px -6px rgba(201,162,92,0.6); }
+}
+.desk-boot-title { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 20px; color: var(--cream); letter-spacing: 0.04em; }
+.desk-boot-track { width: 210px; height: 3px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,0.07); }
+.desk-boot-fill {
+  display: block; height: 100%; width: 0; border-radius: 3px;
+  background: linear-gradient(90deg,#c9a25c,#efd299);
+  box-shadow: 0 0 12px rgba(201,162,92,0.6);
+  animation: deskBootFill 1.35s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes deskBootFill { to { width: 100%; } }
+.desk-boot-status { font-family: 'Tajawal', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--brass); min-height: 16px; transition: color .3s ease; }
 
 /* ══ the incoming-call experience (DeskCallInterface) ══ */
 .desk-call-panel {
@@ -296,7 +326,7 @@
   background: linear-gradient(180deg, rgba(8,11,18,0), rgba(8,11,18,0.7));
   pointer-events: none;
 }
-.desk-mobilebar a, .desk-mobilebar .desk-mob-soon {
+.desk-mobilebar a, .desk-mobilebar button, .desk-mobilebar .desk-mob-soon {
   flex: 1;
   min-width: 0;
   display: flex; flex-direction: column; align-items: center; gap: 3px;
@@ -304,47 +334,41 @@
   font-family: 'Tajawal', sans-serif;
   font-size: 10.5px; font-weight: 700;
   color: rgba(243,238,226,0.55);
+  background: transparent;
 }
-.desk-mobilebar a span, .desk-mobilebar .desk-mob-soon span {
+.desk-mobilebar a span, .desk-mobilebar button span, .desk-mobilebar .desk-mob-soon span {
   max-width: 100%;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.desk-mobilebar a.is-active { color: var(--brass-hi); }
+.desk-mobilebar a.is-active, .desk-mobilebar button.is-active { color: var(--brass-hi); }
+
+/* «المزيد» sheet */
+.desk-more-backdrop {
+  position: fixed; inset: 0; z-index: 44;
+  background: rgba(4,6,10,0.55);
+  backdrop-filter: blur(2px);
+}
+.desk-more-sheet {
+  position: fixed; z-index: 45;
+  left: 0; right: 0;
+  bottom: calc(var(--bottom-nav-height, 58px) + env(safe-area-inset-bottom, 0px));
+  margin: 0 10px;
+  padding: 16px 14px calc(14px + env(safe-area-inset-bottom, 0px));
+  border-radius: 20px 20px 0 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.006)),
+    linear-gradient(180deg, rgba(18,22,32,0.94), rgba(10,13,20,0.97));
+  border: 1px solid rgba(201,162,92,0.16);
+  border-bottom: none;
+  box-shadow: 0 -18px 44px -18px rgba(0,0,0,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
 .desk-mobilebar .desk-mob-soon { opacity: 0.42; }
 .desk-mobilebar .desk-mob-soon::after {
   content: "قريباً"; font-size: 8px; font-weight: 700;
   color: var(--brass); opacity: 0.9;
 }
-
-/* ══ boot reveal (DeskBoot) — "systems online", once per session ══ */
-.desk-boot {
-  position: fixed; inset: 0; z-index: 60;
-  display: grid; place-items: center;
-  background:
-    radial-gradient(120% 90% at 63% 46%, rgba(120,210,224,0.06), transparent 55%),
-    #05070d;
-  animation: deskBootIn .3s ease both;
-}
-.desk-boot.is-leaving { animation: deskBootOut .42s ease forwards; }
-@keyframes deskBootIn  { from { opacity: 0; } to { opacity: 1; } }
-@keyframes deskBootOut { to { opacity: 0; visibility: hidden; } }
-.desk-boot-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.desk-boot-mark { width: 64px; height: 64px; font-size: 26px; animation: deskBootPulse 1.5s cubic-bezier(.16,1,.3,1) both; }
-@keyframes deskBootPulse {
-  0%   { transform: scale(0.82); opacity: 0; }
-  45%  { opacity: 1; }
-  100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 1px rgba(201,162,92,0.35) inset, 0 8px 44px -6px rgba(201,162,92,0.6); }
-}
-.desk-boot-title { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 20px; color: var(--cream); letter-spacing: 0.04em; }
-.desk-boot-track { width: 210px; height: 3px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,0.07); }
-.desk-boot-fill {
-  display: block; height: 100%; width: 0; border-radius: 3px;
-  background: linear-gradient(90deg,#c9a25c,#efd299);
-  box-shadow: 0 0 12px rgba(201,162,92,0.6);
-  animation: deskBootFill 1.35s cubic-bezier(.16,1,.3,1) forwards;
-}
-@keyframes deskBootFill { to { width: 100%; } }
-.desk-boot-status { font-family: 'Tajawal', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--brass); min-height: 16px; transition: color .3s ease; }
 
 /* ══════════════════════════════════════════════════════════════════
    المسار — curriculum map (DeskTrack) + lesson reader (DeskLesson)
@@ -591,4 +615,103 @@
 
 @media (prefers-reduced-motion: reduce) {
   .desk-lesson-node.is-current, .desk-lesson-row, .desk-pop { animation: none !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   حصصي — class debrief list (DeskClasses) + reader (DeskClass)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* class card hover lift (match the track's lesson cards) */
+.desk-class-card { transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+.desk-class-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201,162,92,0.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 34px -16px rgba(0,0,0,0.72);
+}
+
+/* class-card number rail (leads on the inline-start side = right in RTL) */
+.desk-class-rail {
+  flex-shrink: 0;
+  width: 66px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  color: #1a130a;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,0.28), transparent 50%),
+    linear-gradient(160deg, #e6cd91 0%, #c9a25c 60%, #86682f 100%);
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.15);
+}
+
+/* recap example row */
+.desk-eg-row {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ladder */
+.desk-ladder-base {
+  padding: 13px 15px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(201,162,92,0.10), rgba(201,162,92,0.02));
+  border: 1px solid rgba(201,162,92,0.22);
+}
+.desk-rung {
+  padding: 12px 14px;
+  border-radius: 13px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color .16s ease, background .16s ease;
+}
+.desk-rung.is-open { border-color: rgba(201,162,92,0.24); background: rgba(201,162,92,0.03); }
+.desk-rung-num {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center;
+  font-family: 'Inter', sans-serif; font-weight: 800; font-size: 11px;
+  color: #1a130a; background: linear-gradient(135deg,#efd299,#c9a25c);
+}
+
+/* reveal pill — 44px tap target (the core drill control) */
+.desk-reveal-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 16px; min-height: 44px; border-radius: 999px;
+  font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 12.5px;
+  color: var(--brass-hi);
+  background: rgba(201,162,92,0.08);
+  border: 1px solid rgba(201,162,92,0.28);
+  transition: background .16s ease, border-color .16s ease;
+}
+.desk-reveal-btn:hover { background: rgba(201,162,92,0.16); border-color: rgba(201,162,92,0.45); }
+
+/* fix / translate row */
+.desk-fix-row {
+  padding: 13px 15px;
+  border-radius: 13px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* irregular flip card */
+.desk-flip {
+  display: flex; align-items: center; width: 100%;
+  min-height: 62px;
+  padding: 12px 15px;
+  border-radius: 13px;
+  background: rgba(24,29,40,0.55);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color .16s ease, background .16s ease, transform .12s ease;
+  cursor: pointer;
+}
+.desk-flip:hover { border-color: rgba(201,162,92,0.3); }
+.desk-flip.is-flipped { background: linear-gradient(180deg, rgba(201,162,92,0.08), rgba(201,162,92,0.02)); border-color: rgba(201,162,92,0.28); }
+
+/* golden takeaway dot */
+.desk-gold-dot {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  display: grid; place-items: center;
+  font-family: 'Inter', sans-serif; font-weight: 800; font-size: 12px;
+  color: #1a130a;
+  background: radial-gradient(circle at 40% 30%, #f2dca6, #c9a25c 68%, #86682f);
+  box-shadow: 0 3px 10px -3px rgba(201,162,92,0.5);
 }

@@ -10,6 +10,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { DESK_NAV } from '@/config/deskNavigation'
 import NocBackdrop from './NocBackdrop'
 import DeskBoot from './DeskBoot'
+import DeskMobileBar from './DeskMobileBar'
 import '../../pages/desk/desk.css'
 
 export default function DeskShell() {
@@ -33,7 +34,6 @@ export default function DeskShell() {
   useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
 
   const displayName = profile?.display_name || profile?.full_name || ''
-  const mobileItems = DESK_NAV.filter((item) => !item.soon) // all live surfaces reach the mobile bar
 
   return (
     <div className="desk-root">
@@ -107,26 +107,8 @@ export default function DeskShell() {
         </main>
       </div>
 
-      {/* ── Mobile bottom bar ── */}
-      <nav className="desk-mobilebar lg:hidden">
-        {mobileItems.map((item) => {
-          const Icon = item.icon
-          if (item.soon) {
-            return (
-              <div key={item.id} className="desk-mob-soon" aria-disabled>
-                <Icon size={19} strokeWidth={2} />
-                <span>{item.ar}</span>
-              </div>
-            )
-          }
-          return (
-            <NavLink key={item.id} to={item.to} end={item.to === '/desk'} className={({ isActive }) => (isActive ? 'is-active' : '')}>
-              <Icon size={19} strokeWidth={2} />
-              <span>{item.ar}</span>
-            </NavLink>
-          )
-        })}
-      </nav>
+      {/* ── Mobile bottom bar (+ «المزيد» sheet) ── */}
+      <DeskMobileBar />
     </div>
   )
 }
