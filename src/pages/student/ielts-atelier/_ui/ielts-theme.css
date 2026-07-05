@@ -59,12 +59,19 @@ body.ielts-app #main-content{ max-width:none !important; margin:0 !important; pa
 
 /* Full-screen exam takeover: hide the global floating buttons over the exam */
 body.ielts-exam .z-\[998\], body.ielts-exam .z-\[997\]{ display:none !important; }
-/* Clinical exam surface — the light finish becomes a cool near-white like the real
-   computer-delivered IELTS test (not the warm brand cream). Dark stays comfortable. */
-html.light .iel-exam-clinical, :root[data-theme="minimal"] .iel-exam-clinical{
+/* Clinical exam surface — FORCED in every theme (Ali 2026-07-05): the real
+   computer-delivered IELTS is always a cool near-white screen, so the exam looks
+   like the actual test regardless of the student's app theme. Self-contained
+   tokens (accent + semantics too) so contrast holds even in a dark-theme session.
+   Selector uses html + doubled class → specificity (0,2,1) beats both the default
+   dark `.iel-root` and the light `html.light .iel-root`, in all themes. */
+html .iel-exam-clinical.iel-exam-clinical,
+:root .iel-exam-clinical.iel-exam-clinical{
   --iel-ground:#f3f5f7; --iel-panel:#ffffff; --iel-surface:#ffffff; --iel-surface-2:#f5f7f9;
   --iel-border:#dde2e8; --iel-border-strong:#c6ccd4;
   --iel-ink:#1b2129; --iel-ink-2:#4a5460; --iel-ink-3:#8b95a1;
+  --iel-accent:#0f6f5f; --iel-accent-ink:#0a5749; --iel-accent-soft:#e4efec;
+  --iel-good:#0f6f5f; --iel-warn:#b0761d; --iel-bad:#b5533a;
   --iel-track:#e5e9ee;
   --iel-shadow-sm:0 1px 2px rgba(20,30,45,.06);
   --iel-shadow:0 1px 2px rgba(20,30,45,.06), 0 10px 30px -14px rgba(20,30,45,.14);
