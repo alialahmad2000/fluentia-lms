@@ -2,12 +2,14 @@
 // is the showpiece (a live "incident" hero), with track progress and a jump into the library.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Loader2, Radio, ArrowLeft, Headset, CheckCircle2, Clock, Compass } from 'lucide-react'
+import { Loader2, Radio, ArrowLeft, Headset, CheckCircle2, Clock, Compass, GraduationCap } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
 import { useDeskModules } from './useDeskModules'
 import { useCurriculumProgress } from './useCurriculumProgress'
+import { useClassProgress } from './useClassProgress'
 import { ALL_LESSONS } from '@/data/desk/curriculum'
+import { ALL_CLASSES } from '@/data/desk/classes'
 import './desk.css'
 
 export default function DeskToday() {
@@ -16,7 +18,9 @@ export default function DeskToday() {
   const rm = useReducedMotion()
   const { data, isLoading } = useDeskModules()
   const { overall: track, currentLessonId } = useCurriculumProgress()
+  const { isDone: isClassDone } = useClassProgress()
   const currentLesson = currentLessonId ? ALL_LESSONS.find((l) => l.id === currentLessonId) : null
+  const latestClass = ALL_CLASSES[0] || null
   const firstName = (profile?.display_name || profile?.full_name || '').split(' ')[0]
 
   if (isLoading) return <div className="flex items-center justify-center py-24"><Loader2 className="animate-spin" style={{ color: 'var(--brass)' }} /></div>
@@ -45,6 +49,29 @@ export default function DeskToday() {
           {current ? g('مهمتك القادمة جاهزة. جرّبها قبل مكالمتك الحقيقية.', 'مهمتك القادمة جاهزة. جرّبيها قبل مكالمتك الحقيقية.') : g('أنجزت كل السيناريوهات المتاحة — عمل رائع.', 'أنجزتِ كل السيناريوهات المتاحة — عمل رائع.')}
         </p>
       </div>
+
+      {/* review your latest class — the loop right after a live session */}
+      {latestClass && (
+        <motion.div initial={rm ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ease: [0.16, 1, 0.3, 1], delay: 0.02 }}>
+          <Link to={`/desk/classes/${latestClass.id}`} className="group desk-glass flex items-center gap-4 p-5" style={{ borderColor: isClassDone(latestClass.id) ? undefined : 'rgba(201,162,92,0.24)' }}>
+            <div className="desk-apply-mark" style={{ borderRadius: 14 }}><GraduationCap size={20} /></div>
+            <div className="min-w-0 flex-1">
+              <p className="font-['Tajawal'] text-[11px] font-bold mb-0.5" style={{ color: 'var(--brass)' }}>
+                {isClassDone(latestClass.id) ? g('راجعت حصتك — راجعها مرة ثانية', 'راجعتِ حصتك — راجعيها مرة ثانية') : g('راجع حصتك الأخيرة', 'راجعي حصتك الأخيرة')}
+              </p>
+              <h3 className="font-['Tajawal'] font-extrabold text-[15px] leading-tight truncate" style={{ color: 'var(--cream)' }}>
+                {g('الحصة', 'الحصة')} {latestClass.number} · {latestClass.title_ar}
+              </h3>
+              <p className="font-['Tajawal'] text-[12px] mt-1 truncate" style={{ color: 'rgba(243,238,226,0.5)' }}>
+                {g('خلاصة + تمارين على اللي أخذته', 'خلاصة + تمارين على اللي أخذتيه')}
+              </p>
+            </div>
+            {isClassDone(latestClass.id)
+              ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} />
+              : <ArrowLeft size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
+          </Link>
+        </motion.div>
+      )}
 
       {/* your track — learn, then apply live */}
       <motion.div initial={rm ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ease: [0.16, 1, 0.3, 1], delay: 0.04 }}>
