@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase'
 import { getRemainingSeconds, SKILL_LIMITS } from '../useMockSession'
 import { useG } from '@/i18n/gender'
 import { ExamShell, QuestionPalette } from '../../_ui/ExamShell'
-import { ExamQuestion } from '../../_ui/ExamQuestions'
+import { ExamQuestion, QuestionGroupInstruction } from '../../_ui/ExamQuestions'
 
 const LIMIT = SKILL_LIMITS.listening
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
@@ -37,6 +37,14 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
       .in('id', ids).order('section_number')
       .then(({ data }) => setSections(data || []))
   }, [content.listening])
+
+  // Highlight the first question as "current" on load so the palette shows state
+  useEffect(() => {
+    if (!sections.length || current) return
+    const firstQ = (Array.isArray(sections[0]?.questions) ? sections[0].questions : [])[0]?.number
+    if (firstQ != null) setCurrent(`0_${firstQ}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sections])
 
   const handleSubmit = useCallback(() => {
     setSubmitting(true)
@@ -87,6 +95,7 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
 
   const cs = sections[sectionIdx]
   const qs = Array.isArray(cs?.questions) ? cs.questions : []
+  const sharedInstr = qs.find((q) => q.instruction)?.instruction || ''
   const answered = useMemo(() => {
     const s = new Set()
     sections.forEach((sec, si) => (Array.isArray(sec.questions) ? sec.questions : []).forEach((q) => {
@@ -126,10 +135,11 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
           )}
           {/* Questions */}
           <div ref={qScrollRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '18px 18px 30px' }}>
-            {cs?.title && <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 14px', fontFamily: SANS, direction: 'ltr', textAlign: 'left' }}>{cs.title}</h3>}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {cs?.title && <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 12px', fontFamily: SANS, direction: 'ltr', textAlign: 'left' }}>{cs.title}</h3>}
+            {sharedInstr && <QuestionGroupInstruction>{sharedInstr}</QuestionGroupInstruction>}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {qs.map((q) => (
-                <ExamQuestion key={q.number} q={{ ...q, question_number: q.number }} value={userAnswers[`${sectionIdx}_${q.number}`]} onChange={(v) => setAnswer(sectionIdx, q.number, v)} />
+                <ExamQuestion key={q.number} q={{ ...q, question_number: q.number }} value={userAnswers[`${sectionIdx}_${q.number}`]} onChange={(v) => setAnswer(sectionIdx, q.number, v)} showInstruction={q.instruction !== sharedInstr} />
               ))}
             </div>
           </div>

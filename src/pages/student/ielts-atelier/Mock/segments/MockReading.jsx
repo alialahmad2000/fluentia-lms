@@ -50,6 +50,14 @@ export default function MockReading({ attemptId, answers, content, startedAt, on
       })
   }, [content.reading])
 
+  // Highlight the first question as "current" on load so the palette shows state
+  useEffect(() => {
+    if (!passages.length || current) return
+    const firstQ = passages[0]?.questions?.[0]?.question_number
+    if (firstQ != null) setCurrent(`0_${firstQ}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [passages])
+
   const handleSubmit = useCallback(() => {
     setSubmitting(true)
     clearInterval(timerRef.current); clearInterval(saveRef.current)

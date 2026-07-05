@@ -15,12 +15,13 @@ function fmt(s) {
 export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children }) {
   const urgent = secsLeft != null && secsLeft < 600
   const critical = secsLeft != null && secsLeft < 120
+  const [confirming, setConfirming] = React.useState(false)
   React.useEffect(() => {
     document.body.classList.add('ielts-exam')
     return () => document.body.classList.remove('ielts-exam')
   }, [])
   return (
-    <div className="iel-root" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column' }}>
+    <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column' }}>
       {/* Top bar */}
       <div style={{ flex: 'none', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, padding: '0 20px', background: 'var(--iel-panel)', borderBottom: '1px solid var(--iel-border)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
@@ -36,11 +37,25 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
             <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
           </div>
         )}
-        <button onClick={onSubmit} disabled={submitting} style={{ flex: 'none', padding: '9px 20px', borderRadius: 10, border: 0, background: 'var(--iel-accent)', color: '#fff', fontSize: 13.5, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.6 : 1 }}>{submitting ? 'جارٍ…' : 'إنهاء القسم'}</button>
+        <button onClick={() => setConfirming(true)} disabled={submitting} style={{ flex: 'none', padding: '9px 18px', borderRadius: 10, border: '1.5px solid var(--iel-border-strong)', background: 'transparent', color: 'var(--iel-ink-2)', fontSize: 13.5, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.6 : 1 }}>{submitting ? 'جارٍ…' : 'إنهاء القسم'}</button>
       </div>
 
       {/* Body */}
       <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>{children}</div>
+
+      {/* Confirm end */}
+      {confirming && (
+        <div onClick={() => setConfirming(false)} style={{ position: 'absolute', inset: 0, zIndex: 20, background: 'rgba(0,0,0,.45)', backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', borderRadius: 16, boxShadow: 'var(--iel-shadow)', padding: '24px 26px', maxWidth: 400, width: '100%', textAlign: 'center' }}>
+            <h3 style={{ fontSize: 17, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 8px' }}>إنهاء هذا القسم؟</h3>
+            <p style={{ fontSize: 13.5, color: 'var(--iel-ink-3)', margin: '0 0 20px', lineHeight: 1.7 }}>لن تتمكن من العودة إليه بعد الإنهاء.</p>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
+              <button onClick={() => setConfirming(false)} style={{ padding: '11px 22px', borderRadius: 10, border: '1.5px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-2)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>متابعة الحلّ</button>
+              <button onClick={() => { setConfirming(false); onSubmit?.() }} style={{ padding: '11px 22px', borderRadius: 10, border: 0, background: 'var(--iel-accent)', color: '#fff', fontSize: 14, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>إنهاء القسم</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Bottom palette */}
       {footer && (

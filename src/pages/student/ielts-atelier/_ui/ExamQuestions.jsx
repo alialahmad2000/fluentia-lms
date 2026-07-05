@@ -77,7 +77,7 @@ function GapInput({ value, onChange, placeholder = 'Type your answer' }) {
   )
 }
 
-export function ExamQuestion({ q, value, onChange, paragraphLetters = [] }) {
+export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showInstruction = true }) {
   const type = normType(q.type)
   const num = q.question_number ?? q.number
   const stem = stemText(q)
@@ -87,16 +87,16 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [] }) {
   const isGap = gapTypes.includes(type)
 
   const wrap = {
-    display: 'flex', gap: 12, padding: '15px 17px', borderRadius: 12, scrollMarginTop: 90, direction: 'ltr',
+    display: 'flex', flexDirection: 'column', gap: (instr && showInstruction) ? 8 : 0, padding: '15px 17px', borderRadius: 12, scrollMarginTop: 90, direction: 'ltr',
     border: `1px solid ${value ? 'color-mix(in srgb, var(--iel-accent) 38%, var(--iel-border))' : 'var(--iel-border)'}`,
     background: 'var(--iel-surface)', boxShadow: 'var(--iel-shadow-sm)',
   }
   const body = (extra) => (
     <>
-      <span style={NUM}>{num}</span>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        {instr && <p style={INSTR}>{instr}</p>}
-        {extra}
+      {instr && showInstruction && <p style={INSTR}>{instr}</p>}
+      <div style={{ display: 'flex', gap: 12, alignItems: isGap ? 'baseline' : 'flex-start' }}>
+        <span style={NUM}>{num}</span>
+        <div style={{ flex: 1, minWidth: 0 }}>{extra}</div>
       </div>
     </>
   )

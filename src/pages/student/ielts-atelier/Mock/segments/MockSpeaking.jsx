@@ -157,7 +157,7 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
 
   if (processing) {
     return (
-      <div className="iel-root" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
+      <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
         <div style={{ width: 46, height: 46, borderRadius: '50%', border: '2px solid var(--iel-border)', borderTopColor: 'var(--iel-accent)', animation: 'iel-spin .8s linear infinite' }} />
         <p style={{ margin: 0, fontSize: 17, fontWeight: 800, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>جارٍ تحليل محادثتك…</p>
         <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>{evalAttempt > 1 ? `المحاولة ${evalAttempt}/5` : 'قد يستغرق نحو دقيقتين'}</p>

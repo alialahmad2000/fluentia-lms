@@ -98,7 +98,7 @@ export default function MockWriting({ attemptId, answers, content, startedAt, on
 
   if (evaluating) {
     return (
-      <div className="iel-root" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
+      <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 130, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
         <div style={{ width: 46, height: 46, borderRadius: '50%', border: '2px solid var(--iel-border)', borderTopColor: 'var(--iel-accent)', animation: 'iel-spin .8s linear infinite' }} />
         <p style={{ margin: 0, fontSize: 17, fontWeight: 800, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>جارٍ تقييم كتابتك…</p>
         <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>{evalAttempt > 1 ? `المحاولة ${evalAttempt}/5` : 'قد يستغرق نحو ٣٠ ثانية'}</p>
@@ -123,7 +123,13 @@ export default function MockWriting({ attemptId, answers, content, startedAt, on
   const PromptPane = (
     <div style={{ padding: isWide ? '24px 28px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
       <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.05em', marginBottom: 10, fontFamily: SANS }}>{tab === 'task1' ? 'WRITING TASK 1' : 'WRITING TASK 2'} · {minW}+ words</div>
-      {currentTask?.image_url && <img src={currentTask.image_url} alt="task" style={{ width: '100%', borderRadius: 10, objectFit: 'contain', maxHeight: 240, marginBottom: 16, background: 'var(--iel-surface-2)' }} />}
+      {currentTask?.image_url ? (
+        <img src={currentTask.image_url} alt="task" style={{ width: '100%', borderRadius: 10, objectFit: 'contain', maxHeight: 240, marginBottom: 16, background: 'var(--iel-surface-2)' }} />
+      ) : tab === 'task1' ? (
+        <div style={{ marginBottom: 16, padding: '11px 14px', borderRadius: 10, border: '1px dashed var(--iel-border-strong)', background: 'var(--iel-surface-2)', fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: SANS, lineHeight: 1.6, direction: 'ltr', textAlign: 'left' }}>
+          The visual data for this task is described in the prompt below.
+        </div>
+      ) : null}
       <p style={{ margin: 0, fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left', whiteSpace: 'pre-line' }}>{currentTask?.prompt || 'Loading…'}</p>
     </div>
   )
