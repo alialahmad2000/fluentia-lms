@@ -1,48 +1,25 @@
-// Mock Reading Segment — strict mode (3 passages, 60-min global timer, free tab navigation)
-import { useState, useEffect, useRef } from 'react'
+// Mock/Diagnostic Reading segment — authentic IELTS exam UI: full-screen shell,
+// split passage/questions, real per-type question controls, question palette.
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
-import { gradeQuestions } from '@/lib/ielts/grading'
 import { getRemainingSeconds, SKILL_LIMITS } from '../useMockSession'
+import { ExamShell, QuestionPalette } from '../../_ui/ExamShell'
+import { ExamQuestion } from '../../_ui/ExamQuestions'
 
 const LIMIT = SKILL_LIMITS.reading
 
-function formatTime(s) {
-  const v = Math.max(0, Math.floor(s))
-  return `${Math.floor(v/60)}:${String(v%60).padStart(2,'0')}`
+function useIsWide(bp = 900) {
+  const [w, setW] = useState(() => typeof window !== 'undefined' && window.innerWidth > bp)
+  useEffect(() => {
+    const on = () => setW(window.innerWidth > bp)
+    window.addEventListener('resize', on)
+    return () => window.removeEventListener('resize', on)
+  }, [bp])
+  return w
 }
 
-function parseOption(opt) {
-  const m = String(opt).match(/^([A-Z]):\s*(.+)$/)
-  return m ? { key: m[1], text: m[2] } : { key: opt, text: opt }
-}
-
-function QuestionBlock({ q, answer, onChange }) {
-  const hasOptions = Array.isArray(q.options) && q.options.length > 0
-  const hasLabel = Array.isArray(q.options) && q.options.some(o => /^[A-Z]:/.test(String(o)))
-  const text = q.question_text || q.statement || q.incomplete_sentence || q.question || `Question ${q.question_number}`
-  return (
-    <div style={{ padding: '12px 14px', borderRadius: 12, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: `1px solid ${answer ? 'color-mix(in srgb, var(--sunset-orange) 22%, transparent)' : 'color-mix(in srgb, var(--ds-border) 40%, transparent)'}`, display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", lineHeight: 1.6, direction: 'ltr', textAlign: 'left' }}>
-        <strong>{q.question_number}.</strong> {text}
-      </p>
-      {hasOptions ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {q.options.map(opt => {
-            const parsed = hasLabel ? parseOption(opt) : { key: opt, text: opt }
-            const selected = answer === parsed.key
-            return (
-              <button key={parsed.key} onClick={() => onChange(q.question_number, parsed.key)}
-                style={{ padding: '7px 12px', borderRadius: 8, border: `1px solid ${selected ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 50%, transparent)'}`, background: selected ? 'color-mix(in srgb, var(--sunset-orange) 12%, transparent)' : 'transparent', color: selected ? 'var(--ds-text)' : 'var(--ds-text-muted)', fontSize: 12.5, fontFamily: "'IBM Plex Sans', sans-serif", cursor: 'pointer', textAlign: 'left', direction: 'ltr' }}>
-                <strong>{parsed.key}</strong>{parsed.text !== parsed.key ? ` — ${parsed.text}` : ''}
-              </button>
-            )
-          })}
-        </div>
-      ) : (
-        <input type="text" value={answer || ''} onChange={e => onChange(q.question_number, e.target.value)} placeholder="Answer..." dir="ltr" style={{ width: '100%', padding: '7px 10px', borderRadius: 8, border: `1px solid ${answer ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 50%, transparent)'}`, background: 'color-mix(in srgb, var(--ds-surface) 60%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontFamily: "'IBM Plex Mono', monospace", outline: 'none', boxSizing: 'border-box' }} />
-      )}
-    </div>
-  )
+function splitParagraphs(content) {
+  return String(content || '').split(/\n{2,}/).map((s) => s.trim()).filter(Boolean)
 }
 
 export default function MockReading({ attemptId, answers, content, startedAt, onComplete }) {
@@ -51,8 +28,14 @@ export default function MockReading({ attemptId, answers, content, startedAt, on
   const [userAnswers, setUserAnswers] = useState(answers.answers || {})
   const [secsLeft, setSecsLeft] = useState(() => getRemainingSeconds(startedAt, LIMIT))
   const [submitting, setSubmitting] = useState(false)
-  const timerRef   = useRef(null)
-  const saveRef    = useRef(null)
+  const [current, setCurrent] = useState(null)
+  const [mobilePane, setMobilePane] = useState('passage') // passage | questions
+  const isWide = useIsWide()
+  const timerRef = useRef(null)
+  const saveRef = useRef(null)
+  const answersRef = useRef(userAnswers)
+  const qScrollRef = useRef(null)
+  useEffect(() => { answersRef.current = userAnswers }, [userAnswers])
 
   useEffect(() => {
     const ids = content.reading || []
@@ -60,104 +43,120 @@ export default function MockReading({ attemptId, answers, content, startedAt, on
     supabase.from('ielts_reading_passages')
       .select('id, title, content, questions, answer_key, difficulty_band')
       .in('id', ids)
-      .then(({ data }) => setPassages(data || []))
+      .then(({ data }) => {
+        const order = new Map(ids.map((id, i) => [id, i]))
+        setPassages((data || []).sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0)))
+      })
   }, [content.reading])
+
+  const handleSubmit = useCallback(() => {
+    setSubmitting(true)
+    clearInterval(timerRef.current); clearInterval(saveRef.current)
+    const ua = answersRef.current
+    let correct = 0, total = 0
+    passages.forEach((p, pi) => {
+      const qs = Array.isArray(p.questions) ? p.questions : []
+      const key = Array.isArray(p.answer_key) ? p.answer_key : []
+      qs.forEach((q) => {
+        const expected = q.correct_answer ?? key.find((k) => k.question_number === q.question_number)?.correct_answer
+        const given = ua[`${pi}_${q.question_number}`]
+        total++
+        if (expected != null && given != null && String(given).trim().toLowerCase() === String(expected).trim().toLowerCase()) correct++
+      })
+    })
+    const scaled = total > 0 ? Math.round((correct / total) * 40) : 0
+    const bandTable = [[39, 9], [37, 8.5], [35, 8], [33, 7.5], [30, 7], [27, 6.5], [23, 6], [19, 5.5], [15, 5], [13, 4.5], [10, 4], [8, 3.5], [6, 3], [0, 2.5]]
+    const band = bandTable.find(([t]) => scaled >= t)?.[1] ?? 2.5
+    onComplete({ answers: ua, correct, total, band, started_at: startedAt })
+  }, [passages, onComplete, startedAt])
 
   // Timer
   useEffect(() => {
     if (secsLeft <= 0) { handleSubmit(); return }
-    timerRef.current = setInterval(() => setSecsLeft(s => { if (s <= 1) { handleSubmit(); return 0 } return s - 1 }), 1000)
+    timerRef.current = setInterval(() => setSecsLeft((s) => { if (s <= 1) { clearInterval(timerRef.current); handleSubmit(); return 0 } return s - 1 }), 1000)
     return () => clearInterval(timerRef.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [passages.length])
 
-  // Auto-save every 5s
+  // Autosave every 5s
   useEffect(() => {
+    if (!attemptId) return
     saveRef.current = setInterval(async () => {
-      if (!attemptId) return
-      const { data: cur } = await import('@/lib/supabase').then(m => m.supabase.from('ielts_mock_attempts').select('answers').eq('id', attemptId).single())
-      const updated = { ...(cur?.answers || {}), reading: { ...(cur?.answers?.reading || {}), answers: userAnswers } }
-      await import('@/lib/supabase').then(m => m.supabase.from('ielts_mock_attempts').update({ answers: updated }).eq('id', attemptId))
+      const { data: cur } = await supabase.from('ielts_mock_attempts').select('answers').eq('id', attemptId).single()
+      const updated = { ...(cur?.answers || {}), reading: { ...(cur?.answers?.reading || {}), answers: answersRef.current } }
+      await supabase.from('ielts_mock_attempts').update({ answers: updated }).eq('id', attemptId)
     }, 5000)
     return () => clearInterval(saveRef.current)
-  }, [attemptId, userAnswers])
+  }, [attemptId])
 
-  function handleAnswerChange(passageIdx, qNum, val) {
-    setUserAnswers(prev => ({ ...prev, [`${passageIdx}_${qNum}`]: val }))
+  function setAnswer(pi, qNum, val) {
+    setUserAnswers((prev) => ({ ...prev, [`${pi}_${qNum}`]: val }))
+    setCurrent(`${pi}_${qNum}`)
   }
 
-  async function handleSubmit() {
-    if (submitting) return
-    setSubmitting(true)
-    clearInterval(timerRef.current)
-    clearInterval(saveRef.current)
-
-    let correct = 0, total = 0
-    for (let pi = 0; pi < passages.length; pi++) {
-      const p = passages[pi]
-      const qs = Array.isArray(p.questions) ? p.questions : []
-      const key = Array.isArray(p.answer_key) ? p.answer_key : []
-      for (const q of qs) {
-        const expected = key.find(k => k.question_number === q.question_number)?.correct_answer
-        const given    = userAnswers[`${pi}_${q.question_number}`]
-        total++
-        if (expected && given && String(given).trim().toLowerCase() === String(expected).trim().toLowerCase()) correct++
-      }
-    }
-    const scaled = total > 0 ? Math.round((correct / total) * 40) : 0
-    const bandTable = [[39,9],[37,8.5],[35,8],[33,7.5],[30,7],[27,6.5],[23,6],[19,5.5],[15,5],[13,4.5],[10,4],[8,3.5],[6,3],[0,2.5]]
-    const band = bandTable.find(([t]) => scaled >= t)?.[1] ?? 2.5
-
-    onComplete({ answers: userAnswers, correct, total, band, started_at: startedAt })
+  function jump(gi, n) {
+    if (gi !== tabIdx) { setTabIdx(gi); setMobilePane('questions') }
+    setCurrent(`${gi}_${n}`)
+    setTimeout(() => {
+      const el = (qScrollRef.current || document).querySelector(`[data-q="${n}"]`)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, gi !== tabIdx ? 120 : 0)
   }
 
   const p = passages[tabIdx]
-  const qs = p ? (Array.isArray(p.questions) ? p.questions : []) : []
-  const answeredInTab = qs.filter(q => userAnswers[`${tabIdx}_${q.question_number}`]).length
-  const isUrgent = secsLeft < 600; const isCritical = secsLeft < 120
+  const paras = useMemo(() => splitParagraphs(p?.content), [p])
+  const answered = useMemo(() => {
+    const s = new Set()
+    passages.forEach((pp, pi) => (Array.isArray(pp.questions) ? pp.questions : []).forEach((q) => {
+      if (userAnswers[`${pi}_${q.question_number}`] != null && userAnswers[`${pi}_${q.question_number}`] !== '') s.add(`${pi}_${q.question_number}`)
+    }))
+    return s
+  }, [passages, userAnswers])
+  const groups = useMemo(() => passages.map((pp) => ({ label: `Passage ${passages.indexOf(pp) + 1}`, numbers: (Array.isArray(pp.questions) ? pp.questions : []).map((q) => q.question_number) })), [passages])
+
+  const PassagePane = (
+    <div style={{ padding: isWide ? '22px 26px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.06em', marginBottom: 4, direction: 'rtl', textAlign: 'right' }}>القطعة {tabIdx + 1}</div>
+      <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--iel-ink)', margin: '0 0 16px', fontFamily: "'Source Serif 4', Georgia, serif", textAlign: 'left' }}>{p?.title}</h2>
+      {paras.map((para, i) => (
+        <p key={i} style={{ display: 'flex', gap: 12, margin: '0 0 14px', fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: "'Source Serif 4', Georgia, serif", lineHeight: 1.9, textAlign: 'left' }}>
+          <span style={{ flex: 'none', fontWeight: 800, color: 'var(--iel-ink-3)', fontFamily: "'IBM Plex Sans', system-ui, sans-serif", fontSize: 13 }}>{String.fromCharCode(65 + i)}</span>
+          <span>{para}</span>
+        </p>
+      ))}
+    </div>
+  )
+
+  const QuestionsPane = (
+    <div ref={qScrollRef} style={{ padding: isWide ? '22px 24px' : '18px 16px', overflowY: 'auto', height: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
+        {(Array.isArray(p?.questions) ? p.questions : []).map((q) => (
+          <ExamQuestion key={q.question_number} q={q} value={userAnswers[`${tabIdx}_${q.question_number}`]} onChange={(v) => setAnswer(tabIdx, q.question_number, v)} paragraphLetters={paras.map((_, i) => String.fromCharCode(65 + i))} />
+        ))}
+      </div>
+    </div>
+  )
 
   return (
-    <div dir="rtl" style={{ maxWidth: 1100, margin: '0 auto', paddingBottom: 60 }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0 16px', borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>القراءة</span>
-        <span style={{ fontSize: 16, fontWeight: 900, color: isCritical ? '#f87171' : isUrgent ? 'var(--sunset-amber)' : 'var(--ds-text)', fontFamily: "'IBM Plex Mono', monospace" }}>{formatTime(secsLeft)}</span>
-        <button onClick={handleSubmit} disabled={submitting} style={{ padding: '7px 18px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--sunset-orange) 35%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: submitting ? 'not-allowed' : 'pointer' }}>إنهاء القسم</button>
-      </div>
-
-      {/* Passage tabs */}
-      <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
-        {passages.map((pass, i) => {
-          const pQs = Array.isArray(pass.questions) ? pass.questions : []
-          const done = pQs.filter(q => userAnswers[`${i}_${q.question_number}`]).length
-          const active = i === tabIdx
-          return (
-            <button key={pass.id} onClick={() => setTabIdx(i)} style={{ padding: '6px 14px', borderRadius: 20, fontSize: 12, fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: active ? 700 : 500, border: `1px solid ${active ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 50%, transparent)'}`, background: active ? 'color-mix(in srgb, var(--sunset-orange) 12%, transparent)' : 'transparent', color: active ? 'var(--ds-text)' : 'var(--ds-text-muted)', cursor: 'pointer' }}>
-              Passage {i + 1} ({done}/{pQs.length})
-            </button>
-          )
-        })}
-      </div>
-
-      {p && (
-        <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr', gap: 20, alignItems: 'start' }}>
-          {/* Passage text */}
-          <div style={{ padding: '18px 20px', borderRadius: 16, background: 'color-mix(in srgb, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 14%, transparent)', maxHeight: '70vh', overflowY: 'auto' }}>
-            <p style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif" }}>Passage {tabIdx + 1}: {p.title}</p>
-            <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Georgia', serif", lineHeight: 1.9, whiteSpace: 'pre-wrap', direction: 'ltr', textAlign: 'left' }}>{p.content}</p>
-          </div>
-          {/* Questions */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {qs.map(q => (
-              <QuestionBlock key={q.question_number} q={q} answer={userAnswers[`${tabIdx}_${q.question_number}`]} onChange={(qNum, val) => handleAnswerChange(tabIdx, qNum, val)} />
+    <ExamShell sectionLabel="القراءة" partLabel={p ? `Reading Passage ${tabIdx + 1}` : ''} secsLeft={secsLeft} onSubmit={handleSubmit} submitting={submitting}
+      footer={<QuestionPalette groups={groups} answered={answered} current={current} onJump={jump} />}>
+      {!passages.length ? (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>جارٍ تحميل النصوص…</div>
+      ) : isWide ? (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: '100%', minHeight: 0 }}>
+          <div style={{ minHeight: 0, borderInlineStart: '1px solid var(--iel-border)', order: 2 }}>{PassagePane}</div>
+          <div style={{ minHeight: 0, order: 1 }}>{QuestionsPane}</div>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+          <div style={{ flex: 'none', display: 'flex', gap: 8, padding: '10px 16px', borderBottom: '1px solid var(--iel-border)' }}>
+            {[['passage', 'النص'], ['questions', 'الأسئلة']].map(([k, l]) => (
+              <button key={k} onClick={() => setMobilePane(k)} style={{ flex: 1, padding: '9px', borderRadius: 9, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 13.5, fontWeight: 700, border: `1.5px solid ${mobilePane === k ? 'var(--iel-accent)' : 'var(--iel-border)'}`, background: mobilePane === k ? 'var(--iel-accent-soft)' : 'transparent', color: mobilePane === k ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)' }}>{l}</button>
             ))}
           </div>
+          <div style={{ flex: 1, minHeight: 0 }}>{mobilePane === 'passage' ? PassagePane : QuestionsPane}</div>
         </div>
       )}
-
-      {!passages.length && (
-        <div style={{ textAlign: 'center', color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", padding: '40px 0' }}>جاري تحميل النصوص…</div>
-      )}
-    </div>
+    </ExamShell>
   )
 }
