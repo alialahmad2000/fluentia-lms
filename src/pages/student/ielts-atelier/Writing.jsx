@@ -11,6 +11,9 @@ import NarrativeReveal from '@/design-system/components/masterclass/NarrativeRev
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useG } from '@/i18n/gender'
+import { ExamShell } from './_ui/ExamShell'
+
+const WSANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 
 // Semantic feedback colors (consistent with Reading/Listening labs)
 const SUCCESS = '#4ade80'
@@ -376,6 +379,7 @@ export default function Writing() {
   const [task2Result, setTask2Result]     = useState(null)
   const [evalQueued, setEvalQueued]       = useState(false)
   const [confirmSubmit, setConfirmSubmit] = useState(false)
+  const [mobilePane, setMobilePane] = useState('prompt')
   const [narrativeDone, setNarrativeDone] = useState(false)
 
   // ── 2. useRef ──────────────────────────────────────────────────────────────
@@ -602,9 +606,12 @@ export default function Writing() {
         {/* Narrative */}
         {!narrativeDone && (
           <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} style={{ paddingTop: 32 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>التدريب · الكتابة</div>
-            <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>الكتابة</h1>
-            <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '54ch' }}>مهام كتابية بمعايير الآيلتس الأربعة. اكتب واحصل على تقييم فوري بالنطاق (Band) وملاحظات مفصّلة على كتابتك.</p>
+            <NarrativeReveal
+              lines={NARRATIVE_LINES}
+              delayBetweenLines={700}
+              pauseAfterLast={400}
+              onComplete={() => setNarrativeDone(true)}
+            />
           </motion.section>
         )}
 
@@ -687,7 +694,7 @@ export default function Writing() {
   // ── ACT 2: EVALUATING ──────────────────────────────────────────────────────
   if (act === 'evaluating') {
     return (
-      <div dir="rtl" style={{ padding: '20px 0' }}>
+      <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 10050, background: 'var(--iel-ground)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <EvalSpinner attempt={evalAttempt} />
       </div>
     )
@@ -702,155 +709,58 @@ export default function Writing() {
     const activeDraftChange = mode === 'full' && fullTab === 'task2' ? handleTask2DraftChange : handleDraftChange
     const activeMin = mode === 'full' ? (fullTab === 'task1' ? 150 : 250) : minWords
     const activeWc = mode === 'full' && fullTab === 'task2' ? wordCount2 : wordCount
+    const secsLeft = Math.max(0, timeLimit * 60 - sessionElapsed)
+    const wcColor = activeWc >= activeMin ? 'var(--iel-good)' : 'var(--iel-ink-3)'
 
-    return (
-      <div dir="rtl" style={{ maxWidth: 1100, margin: '0 auto', paddingBottom: 60 }}>
-
-        {/* Header */}
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '14px 0 16px', marginBottom: 20,
-          borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)',
-          gap: 12, flexWrap: 'wrap',
-        }}>
-          <button
-            onClick={handleBackToStudio}
-            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
-          >
-            <ChevronLeft size={13} />
-            الاستوديو
-          </button>
-
-          <h2 style={{ margin: 0, flex: 1, textAlign: 'center', fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'" }}>
-            {activeTask?.title || '...'}
-          </h2>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <AutoSaveIndicator state={autoSaveState} />
-            <TimerDisplay elapsed={sessionElapsed} timeLimit={timeLimit} />
-            <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
-              {totalWords}w
-            </span>
-          </div>
-        </div>
-
-        {/* Full mode tab strip */}
-        {mode === 'full' && (
-          <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-            {[['task1', 'المهمة الأولى'], ['task2', 'المهمة الثانية']].map(([k, label]) => (
-              <button
-                key={k}
-                onClick={() => { triggerAutoSave(); setFullTab(k) }}
-                style={{
-                  padding: '7px 18px', borderRadius: 10,
-                  border: `1px solid ${fullTab === k ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 50%, transparent)'}`,
-                  background: fullTab === k ? 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)' : 'transparent',
-                  color: fullTab === k ? 'var(--ds-text)' : 'var(--ds-text-muted)',
-                  fontSize: 13, fontWeight: fullTab === k ? 700 : 500,
-                  fontFamily: "'Tajawal', sans-serif", cursor: 'pointer',
-                }}
-              >
-                {label}
-              </button>
+    const footer = (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', gap: 12 }}>
+        {mode === 'full' ? (
+          <div style={{ display: 'flex', gap: 8 }}>
+            {[['task1', 'المهمة 1'], ['task2', 'المهمة 2']].map(([k, l]) => (
+              <button key={k} onClick={() => { triggerAutoSave(); setFullTab(k) }} style={{ padding: '7px 15px', borderRadius: 9, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 12.5, fontWeight: 700, border: `1.5px solid ${fullTab === k ? 'var(--iel-accent)' : 'var(--iel-border)'}`, background: fullTab === k ? 'var(--iel-accent-soft)' : 'transparent', color: fullTab === k ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)' }}>{l}</button>
             ))}
           </div>
-        )}
-
-        {/* Two-column layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: isWide ? '1fr 1.2fr' : '1fr', gap: 20, alignItems: 'start' }}>
-
-          {/* Prompt panel */}
-          <div style={{
-            position: isWide ? 'sticky' : 'static', top: 20,
-            padding: '20px 22px', borderRadius: 18,
-            background: 'color-mix(in srgb, var(--sunset-base-mid) 38%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--sunset-amber) 16%, transparent)',
-            backdropFilter: 'blur(8px)',
-            display: 'flex', flexDirection: 'column', gap: 14,
-          }}>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                {activeTask?.task_type === 'task1' ? 'Task 1' : 'Task 2'}
-              </span>
-              <span style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif" }}>
-                · {activeMin}+ كلمة · {mode === 'full' ? (fullTab === 'task1' ? 20 : 40) : timeLimit} دق
-              </span>
-            </div>
-            {activeTask?.image_url && (
-              <img src={activeTask.image_url} alt="task chart" style={{ width: '100%', borderRadius: 12, objectFit: 'contain', maxHeight: 200 }} />
-            )}
-            <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8, textAlign: 'right', whiteSpace: 'pre-line' }}>
-              {activeTask?.prompt}
-            </p>
-          </div>
-
-          {/* Editor panel */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <textarea
-              ref={textareaRef}
-              dir="ltr"
-              value={activeDraft}
-              onChange={e => activeDraftChange(e.target.value)}
-              onBlur={() => triggerAutoSave()}
-              placeholder="Start writing here..."
-              style={{
-                width: '100%', minHeight: isWide ? '60vh' : '40vh',
-                padding: '18px 20px', borderRadius: 16, resize: 'vertical',
-                border: `1px solid color-mix(in srgb, var(--sunset-amber) ${activeDraft.length > 10 ? 22 : 14}%, transparent)`,
-                background: 'color-mix(in srgb, var(--ds-surface) 55%, transparent)',
-                color: 'var(--ds-text)', fontSize: 16, fontFamily: "'Georgia', serif",
-                lineHeight: 1.8, outline: 'none', boxSizing: 'border-box',
-                transition: 'border-color 0.2s',
-              }}
-            />
-            <WordCounter wordCount={activeWc} target={activeMin} />
-
-            {/* Submit area */}
-            <AnimatePresence mode="wait">
-              {confirmSubmit && totalWords < minWords ? (
-                <motion.div key="confirm" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                  style={{ padding: '14px 16px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-amber) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 28%, transparent)', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>
-                    كتبت {totalWords} كلمة من أصل {minWords} المطلوبة. {g('هل تريد الإرسال الآن؟', 'هل تريدين الإرسال الآن؟')}
-                  </p>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    <button onClick={() => setConfirmSubmit(false)}
-                      style={{ flex: 1, padding: '8px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
-                      تراجع
-                    </button>
-                    <button onClick={handleSubmit}
-                      style={{ flex: 1, padding: '8px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--sunset-orange) 40%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 15%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
-                      إرسال
-                    </button>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.button key="submit" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  onClick={() => {
-                    if (!answeredEnough) return
-                    if (totalWords < minWords) { setConfirmSubmit(true); return }
-                    handleSubmit()
-                  }}
-                  disabled={!answeredEnough}
-                  whileHover={answeredEnough ? { scale: 1.01 } : undefined}
-                  whileTap={answeredEnough ? { scale: 0.99 } : undefined}
-                  style={{
-                    width: '100%', padding: '14px', borderRadius: 14,
-                    border: `1px solid color-mix(in srgb, var(--sunset-orange) ${answeredEnough ? 45 : 18}%, transparent)`,
-                    background: answeredEnough ? 'color-mix(in srgb, var(--sunset-orange) 18%, var(--sunset-base-mid))' : 'color-mix(in srgb, var(--ds-surface) 35%, transparent)',
-                    color: answeredEnough ? 'var(--ds-text)' : 'var(--ds-text-muted)',
-                    fontSize: 16, fontWeight: 900, fontFamily: "'Tajawal', sans-serif",
-                    cursor: answeredEnough ? 'pointer' : 'not-allowed',
-                    opacity: answeredEnough ? 1 : 0.5, transition: 'all 0.2s',
-                  }}
-                >
-                  تسليم للتقييم ({totalWords} كلمة)
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+        ) : <span style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', fontWeight: 700 }}>{activeTask?.task_type === 'task1' ? 'Task 1' : 'Task 2'}</span>}
+        <span style={{ fontSize: 13, fontWeight: 800, color: wcColor, fontFamily: "'IBM Plex Mono', monospace" }}>{activeWc} / {activeMin}+ كلمة</span>
       </div>
+    )
+
+    const PromptPane = (
+      <div style={{ padding: isWide ? '24px 28px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
+        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.05em', marginBottom: 10, fontFamily: WSANS }}>{activeTask?.task_type === 'task1' ? 'WRITING TASK 1' : 'WRITING TASK 2'} · {activeMin}+ words</div>
+        {activeTask?.image_url ? (
+          <img src={activeTask.image_url} alt="task" style={{ width: '100%', borderRadius: 10, objectFit: 'contain', maxHeight: 240, marginBottom: 16, background: 'var(--iel-surface-2)' }} />
+        ) : activeTask?.task_type === 'task1' ? (
+          <div style={{ marginBottom: 16, padding: '11px 14px', borderRadius: 10, border: '1px dashed var(--iel-border-strong)', background: 'var(--iel-surface-2)', fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: WSANS, lineHeight: 1.6, direction: 'ltr', textAlign: 'left' }}>The visual data for this task is described in the prompt below.</div>
+        ) : null}
+        <p style={{ margin: 0, fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: WSANS, lineHeight: 1.75, textAlign: 'left', whiteSpace: 'pre-line' }}>{activeTask?.prompt || 'Loading…'}</p>
+      </div>
+    )
+    const EditorPane = (
+      <div style={{ padding: isWide ? '20px 22px' : '16px 16px', height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <textarea ref={textareaRef} dir="ltr" value={activeDraft} onChange={e => activeDraftChange(e.target.value)} onBlur={() => triggerAutoSave()} placeholder="Start writing your answer here…"
+          style={{ flex: 1, width: '100%', minHeight: 0, padding: '16px 18px', borderRadius: 12, resize: 'none', boxSizing: 'border-box', border: `1px solid ${activeDraft.length > 10 ? 'color-mix(in srgb, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`, background: 'var(--iel-surface)', color: 'var(--iel-ink)', fontSize: 15.5, fontFamily: WSANS, lineHeight: 1.7, outline: 'none' }} />
+      </div>
+    )
+
+    return (
+      <ExamShell sectionLabel="الكتابة" partLabel={activeTask?.title || ''} secsLeft={secsLeft} onSubmit={handleSubmit} submitting={false} submitLabel="تسليم للتقييم" onExit={handleBackToStudio} footer={footer}>
+        {isWide ? (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', height: '100%', minHeight: 0 }}>
+            <div style={{ minHeight: 0, borderInlineEnd: '1px solid var(--iel-border)' }}>{PromptPane}</div>
+            <div style={{ minHeight: 0 }}>{EditorPane}</div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+            <div style={{ flex: 'none', display: 'flex', gap: 8, padding: '10px 16px', borderBottom: '1px solid var(--iel-border)' }}>
+              {[['prompt', 'المهمة'], ['editor', 'الكتابة']].map(([k, l]) => (
+                <button key={k} onClick={() => setMobilePane(k)} style={{ flex: 1, padding: '9px', borderRadius: 9, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 13.5, fontWeight: 700, border: `1.5px solid ${mobilePane === k ? 'var(--iel-accent)' : 'var(--iel-border)'}`, background: mobilePane === k ? 'var(--iel-accent-soft)' : 'transparent', color: mobilePane === k ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)' }}>{l}</button>
+              ))}
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>{mobilePane === 'prompt' ? PromptPane : EditorPane}</div>
+          </div>
+        )}
+      </ExamShell>
     )
   }
 
