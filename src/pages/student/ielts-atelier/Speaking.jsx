@@ -11,6 +11,9 @@ import NarrativeReveal from '@/design-system/components/masterclass/NarrativeRev
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useG } from '@/i18n/gender'
+import { ExamShell } from './_ui/ExamShell'
+
+const SSANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -317,7 +320,6 @@ export default function Speaking() {
   const recTimerRef   = useRef(null)
   const prepTimerRef  = useRef(null)
   const blobUrlsRef   = useRef([])       // for revokeObjectURL on unmount
-  const recStartRef   = useRef(0)        // wall-clock start of the current recording (for real duration)
 
   // ── 3. useQuery ───────────────────────────────────────────────────────────
   const questionsQ = usePublishedQuestions(selectedPart)
@@ -395,13 +397,11 @@ export default function Speaking() {
         }
         const url = URL.createObjectURL(blob)
         blobUrlsRef.current.push(url)
-        const duration = recStartRef.current ? Math.max(1, Math.round((Date.now() - recStartRef.current) / 1000)) : 0
-        setCurrentBlob({ blob, url, mimeType: mime, ext: getExt(mime), duration })
+        setCurrentBlob({ blob, url, mimeType: mime, ext: getExt(mime) })
         setRecState('preview')
         stopStream()
       }
       recorder.start(1000)
-      recStartRef.current = Date.now()
       recorderRef.current = recorder
       setRecState('recording')
     } catch (e) {
@@ -487,7 +487,7 @@ export default function Speaking() {
         question_type: `part_${selectedRow.part}`,
         source_id: selectedRow.id,
         band_score: band,
-        duration_seconds: Object.values(recordings).reduce((s, r) => s + (Number(r?.duration) || 0), 0),
+        duration_seconds: Object.values(recordings).reduce((s, r) => s, 0),
         started_at: startedAt,
         completed_at: now,
         session_data: {
@@ -586,9 +586,7 @@ export default function Speaking() {
       <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 32 }}>
         {!narrativeDone && (
           <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} style={{ paddingTop: 32 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>التدريب · المحادثة</div>
-            <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>المحادثة</h1>
-            <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '54ch' }}>أسئلة محادثة بأجزاء الآيلتس. سجّل إجابتك صوتياً واحصل على تقييم بالنطاق (Band) وملاحظات على الطلاقة واللغة والنطق.</p>
+            <NarrativeReveal lines={NARRATIVE_LINES} delayBetweenLines={700} pauseAfterLast={400} onComplete={() => setNarrativeDone(true)} />
           </motion.section>
         )}
 
@@ -647,7 +645,11 @@ export default function Speaking() {
 
   // ── ACT 2: PROCESSING ──────────────────────────────────────────────────────
   if (act === 'processing') {
-    return <div dir="rtl" style={{ padding: '20px 0' }}><ProcessingScreen stage={procStage} attempt={evalAttempt} /></div>
+    return (
+      <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 10050, background: 'var(--iel-ground)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <ProcessingScreen stage={procStage} attempt={evalAttempt} />
+      </div>
+    )
   }
 
   // ── ACT 2: SESSION ─────────────────────────────────────────────────────────
@@ -658,143 +660,93 @@ export default function Speaking() {
     const prepRemaining = Math.max(0, 60 - prepElapsed)
 
     return (
-      <div dir="rtl" style={{ maxWidth: 900, margin: '0 auto', paddingBottom: 60 }}>
-
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 0 16px', marginBottom: 20, borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', gap: 12, flexWrap: 'wrap' }}>
-          <button onClick={handleBackToBooth}
-            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
-            <ChevronLeft size={13} /> الكابينة
-          </button>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>
-              {meta.label}
-            </span>
-            <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-              {selectedRow?.topic}
-            </span>
-          </div>
-          <motion.button
-            onClick={handleSubmit}
-            disabled={!allDone}
-            whileHover={allDone ? { scale: 1.02 } : undefined}
-            style={{
-              padding: '7px 18px', borderRadius: 10, fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: allDone ? 'pointer' : 'not-allowed',
-              border: `1px solid ${allDone ? 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)' : 'color-mix(in srgb, var(--ds-border) 40%, transparent)'}`,
-              background: allDone ? 'color-mix(in srgb, var(--sunset-orange) 16%, transparent)' : 'transparent',
-              color: allDone ? 'var(--ds-text)' : 'var(--ds-text-muted)', opacity: allDone ? 1 : 0.5,
-            }}>
-            إنهاء ({doneCount}/{qCount})
-          </motion.button>
-        </div>
-
-        {/* Question nav (Part 1/3) */}
-        {!isPart2 && <div style={{ marginBottom: 16 }}><QuestionNav questions={questions} currentIdx={currentQIdx} recordings={recordings} /></div>}
-
-        {/* Prep panel (Part 2 only) */}
-        {isPart2 && inPrep && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            style={{ padding: '20px 24px', borderRadius: 18, marginBottom: 16, background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 22%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-            <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>
-              وقت التحضير: {formatTime(prepRemaining)}
-            </p>
-            <button onClick={() => { clearInterval(prepTimerRef.current); setPrepDone(true) }}
-              style={{ padding: '6px 16px', borderRadius: 8, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 12, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
-              تخطي التحضير
+      <ExamShell
+        sectionLabel="المحادثة"
+        partLabel={`${meta.label}${selectedRow?.topic ? ' · ' + selectedRow.topic : ''}`}
+        onExit={handleBackToBooth}
+        showSubmit={false}
+        footer={
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', gap: 12 }}>
+            <div style={{ flex: 1, minWidth: 0, overflowX: 'auto' }}>
+              {!isPart2 && <QuestionNav questions={questions} currentIdx={currentQIdx} recordings={recordings} />}
+            </div>
+            <button onClick={handleSubmit} disabled={!allDone}
+              style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 22px', borderRadius: 11, border: 0, background: allDone ? 'var(--iel-accent)' : 'var(--iel-track)', color: allDone ? '#fff' : 'var(--iel-ink-3)', fontSize: 14, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: allDone ? 'pointer' : 'not-allowed', whiteSpace: 'nowrap' }}>
+              إنهاء التسجيل ({doneCount}/{qCount}) <span style={{ fontSize: 15, lineHeight: 1 }}>←</span>
             </button>
-          </motion.div>
-        )}
-
-        {/* Two-column layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: isWide && !isPart2 ? '1fr 1fr' : '1fr', gap: 20 }}>
-
-          {/* Question / cue card panel */}
-          <div style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in srgb, var(--sunset-base-mid) 38%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 16%, transparent)', backdropFilter: 'blur(8px)' }}>
-            {isPart2 && selectedRow?.cue_card ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <p style={{ margin: 0, fontSize: 11, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>Cue Card</p>
-                <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", lineHeight: 1.7, direction: 'ltr', textAlign: 'left' }}>
-                  {selectedRow.cue_card.prompt}
-                </p>
-                <ul style={{ margin: 0, paddingInlineStart: 20, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  {(selectedRow.cue_card.bullet_points || []).map((b, i) => (
-                    <li key={i} style={{ fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", direction: 'ltr', textAlign: 'left' }}>{b}</li>
-                  ))}
-                </ul>
-                {selectedRow.cue_card.preparation_tips_ar && (
-                  <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7, textAlign: 'right' }}>
-                    💡 {selectedRow.cue_card.preparation_tips_ar}
-                  </p>
-                )}
-              </div>
-            ) : (
-              <div>
-                <p style={{ margin: '0 0 6px', fontSize: 11, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  السؤال {qCount > 1 ? `${currentQIdx + 1} / ${qCount}` : ''}
-                </p>
-                <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", lineHeight: 1.8, direction: 'ltr', textAlign: 'left' }}>
-                  {currentQ}
-                </p>
-              </div>
-            )}
           </div>
+        }
+      >
+        <div style={{ overflowY: 'auto', height: '100%', padding: isWide ? '22px 24px 30px' : '18px 16px 30px', maxWidth: 880, width: '100%', margin: '0 auto' }}>
+          {/* Prep panel (Part 2 only) */}
+          {isPart2 && inPrep && (
+            <div style={{ padding: '16px 20px', borderRadius: 12, marginBottom: 16, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+              <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>وقت التحضير: {formatTime(prepRemaining)}</p>
+              <button onClick={() => { clearInterval(prepTimerRef.current); setPrepDone(true) }}
+                style={{ padding: '7px 16px', borderRadius: 9, border: '1px solid var(--iel-border-strong)', background: 'transparent', color: 'var(--iel-ink-2)', fontSize: 12.5, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>تخطي التحضير</button>
+            </div>
+          )}
 
-          {/* Recording panel */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '24px', borderRadius: 18, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)' }}>
-
-            {micError && (
-              <div style={{ padding: '10px 14px', borderRadius: 10, background: `color-mix(in srgb, ${DANGER} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${DANGER} 22%, transparent)`, width: '100%' }}>
-                <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>{micError}</p>
-              </div>
-            )}
-
-            {/* State: idle / recording */}
-            {recState !== 'preview' && (
-              <>
-                {recState === 'recording' && (
-                  <p style={{ margin: 0, fontSize: 22, fontWeight: 900, color: DANGER, fontFamily: "'IBM Plex Mono', monospace" }}>
-                    {formatTime(recElapsed)}
-                  </p>
-                )}
-                <MicButton
-                  state={inPrep ? 'disabled' : recState}
-                  onStart={!inPrep ? startRecording : undefined}
-                  onStop={stopRecording}
-                />
-                {recState === 'idle' && !inPrep && (
-                  <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                    {recordings[currentQIdx]
-                      ? g('سجّلت بالفعل — اضغط للتسجيل مجدداً', 'سجّلت بالفعل — اضغطي للتسجيل مجدداً')
-                      : g('اضغط للتسجيل', 'اضغطي للتسجيل')}
-                  </p>
-                )}
-                {inPrep && (
-                  <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                    {g('أكمل التحضير أو اضغط "تخطي"', 'أكملي التحضير أو اضغطي "تخطي"')}
-                  </p>
-                )}
-              </>
-            )}
-
-            {/* State: preview */}
-            {recState === 'preview' && currentBlob && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 14, width: '100%', alignItems: 'center' }}>
-                <audio controls src={currentBlob.url} style={{ width: '100%', borderRadius: 8 }} />
-                <div style={{ display: 'flex', gap: 10, width: '100%' }}>
-                  <button onClick={rerecord}
-                    style={{ flex: 1, padding: '10px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-                    <RotateCcw size={13} /> إعادة
-                  </button>
-                  <button onClick={commitRecording}
-                    style={{ flex: 1, padding: '10px', borderRadius: 10, border: `1px solid color-mix(in srgb, ${SUCCESS} 35%, transparent)`, background: `color-mix(in srgb, ${SUCCESS} 12%, transparent)`, color: 'var(--ds-text)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
-                    موافق ✓
-                  </button>
+          <div style={{ display: 'grid', gridTemplateColumns: isWide && !isPart2 ? '1fr 1fr' : '1fr', gap: 18 }}>
+            {/* Question / cue card */}
+            <div style={{ padding: '20px 22px', borderRadius: 14, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', boxShadow: 'var(--iel-shadow-sm)' }}>
+              {isPart2 && selectedRow?.cue_card ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <p style={{ margin: 0, fontSize: 11, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.05em', textTransform: 'uppercase', fontFamily: SSANS }}>Cue Card</p>
+                  <p style={{ margin: 0, fontSize: 15, color: 'var(--iel-ink)', fontFamily: SSANS, lineHeight: 1.7, direction: 'ltr', textAlign: 'left' }}>{selectedRow.cue_card.prompt}</p>
+                  <ul style={{ margin: 0, paddingInlineStart: 20, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    {(selectedRow.cue_card.bullet_points || []).map((b, i) => (
+                      <li key={i} style={{ fontSize: 13.5, color: 'var(--iel-ink-2)', fontFamily: SSANS, direction: 'ltr', textAlign: 'left' }}>{b}</li>
+                    ))}
+                  </ul>
+                  {selectedRow.cue_card.preparation_tips_ar && (
+                    <p style={{ margin: '4px 0 0', fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7, textAlign: 'right' }}>💡 {selectedRow.cue_card.preparation_tips_ar}</p>
+                  )}
                 </div>
-              </div>
-            )}
+              ) : (
+                <div>
+                  <p style={{ margin: '0 0 6px', fontSize: 11, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.05em', textTransform: 'uppercase', fontFamily: SSANS }}>{qCount > 1 ? `Question ${currentQIdx + 1} / ${qCount}` : 'Question'}</p>
+                  <p style={{ margin: 0, fontSize: 16, color: 'var(--iel-ink)', fontFamily: SSANS, lineHeight: 1.8, direction: 'ltr', textAlign: 'left' }}>{currentQ}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Recording panel */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: 24, borderRadius: 14, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)' }}>
+              {micError && (
+                <div style={{ padding: '10px 14px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-bad) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-bad) 26%, transparent)', width: '100%' }}>
+                  <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>{micError}</p>
+                </div>
+              )}
+              {recState !== 'preview' && (
+                <>
+                  {recState === 'recording' && (
+                    <p style={{ margin: 0, fontSize: 22, fontWeight: 900, color: 'var(--iel-bad)', fontFamily: "'IBM Plex Mono', monospace" }}>{formatTime(recElapsed)}</p>
+                  )}
+                  <MicButton state={inPrep ? 'disabled' : recState} onStart={!inPrep ? startRecording : undefined} onStop={stopRecording} />
+                  {recState === 'idle' && !inPrep && (
+                    <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>
+                      {recordings[currentQIdx] ? g('سجّلت بالفعل — اضغط للتسجيل مجدداً', 'سجّلت بالفعل — اضغطي للتسجيل مجدداً') : g('اضغط للتسجيل', 'اضغطي للتسجيل')}
+                    </p>
+                  )}
+                  {inPrep && (
+                    <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>{g('أكمل التحضير أو اضغط "تخطي"', 'أكملي التحضير أو اضغطي "تخطي"')}</p>
+                  )}
+                </>
+              )}
+              {recState === 'preview' && currentBlob && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14, width: '100%', alignItems: 'center' }}>
+                  <audio controls src={currentBlob.url} style={{ width: '100%' }} />
+                  <div style={{ display: 'flex', gap: 10, width: '100%' }}>
+                    <button onClick={rerecord} style={{ flex: 1, padding: '11px', borderRadius: 10, border: '1px solid var(--iel-border-strong)', background: 'transparent', color: 'var(--iel-ink-2)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}><RotateCcw size={13} /> إعادة</button>
+                    <button onClick={commitRecording} style={{ flex: 1, padding: '11px', borderRadius: 10, border: 0, background: 'var(--iel-accent)', color: '#fff', fontSize: 13, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>موافق ✓</button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </ExamShell>
     )
   }
 
