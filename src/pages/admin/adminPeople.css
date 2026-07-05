@@ -1,0 +1,405 @@
+/* ══════════════════════════════════════════════════════════════════
+   ADMIN PEOPLE HUB — الطلاب والفريق (/admin/users + groups + trainers)
+   Scoped .adp-* — companions to the .adx-* Operations Bridge system
+   (adminDashboard.css). Same obsidian + single-gold-accent contract.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Hub tab bar ────────────────────────────────────────────────── */
+.adp-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 18px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012) 60%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.adp-tabs::-webkit-scrollbar { display: none; }
+.adp-tab {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  border-radius: 13px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13.5px; font-weight: 700;
+  color: var(--ds-text-tertiary, #64748b);
+  white-space: nowrap;
+  transition: color 0.2s var(--adx-ease, ease), background 0.2s var(--adx-ease, ease);
+  flex-shrink: 0;
+  min-height: 44px;
+}
+.adp-tab:hover { color: var(--ds-text-primary, #f8fafc); background: rgba(255, 255, 255, 0.04); }
+.adp-tab.is-active { color: var(--adx-gold, #fbbf24); }
+.adp-tab__pill {
+  position: absolute; inset: 0;
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.16), rgba(251, 191, 36, 0.05));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(251, 191, 36, 0.22);
+}
+.adp-tab > * { position: relative; z-index: 1; }
+.adp-tab__count {
+  font-size: 12px; font-weight: 800;
+  padding: 1px 7px; border-radius: 99px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ds-text-tertiary, #64748b);
+  font-variant-numeric: tabular-nums;
+}
+.adp-tab.is-active .adp-tab__count {
+  background: rgba(251, 191, 36, 0.16);
+  color: var(--adx-gold, #fbbf24);
+}
+
+/* ── Status filter strip (chips double as filters) ──────────────── */
+.adp-seg {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.adp-seg__chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px;
+  border-radius: 99px;
+  font-size: 12.5px; font-weight: 700;
+  font-family: 'Tajawal', sans-serif;
+  color: var(--ds-text-secondary, #cbd5e1);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: transform 0.2s var(--adx-ease, ease), border-color 0.2s var(--adx-ease, ease), background 0.2s var(--adx-ease, ease);
+  min-height: 36px;
+}
+.adp-seg__chip:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.14); }
+.adp-seg__chip .n {
+  font-variant-numeric: tabular-nums; font-weight: 800; font-size: 12px;
+  padding: 0 7px; border-radius: 99px;
+  background: rgba(255, 255, 255, 0.07);
+}
+.adp-seg__chip.is-active {
+  color: var(--adp-seg-c, var(--adx-gold, #fbbf24));
+  border-color: color-mix(in srgb, var(--adp-seg-c, #fbbf24) 40%, transparent);
+  background: color-mix(in srgb, var(--adp-seg-c, #fbbf24) 12%, transparent);
+}
+.adp-seg__chip.is-active .n { background: color-mix(in srgb, var(--adp-seg-c, #fbbf24) 18%, transparent); }
+
+/* ── Toolbar ────────────────────────────────────────────────────── */
+.adp-toolbar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012) 60%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.adp-search {
+  position: relative;
+  flex: 1; min-width: 220px;
+}
+.adp-search input {
+  width: 100%;
+  height: 44px;
+  padding-inline: 40px 14px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--ds-text-primary, #f8fafc);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13.5px;
+  transition: border-color 0.2s var(--adx-ease, ease), box-shadow 0.2s var(--adx-ease, ease);
+}
+.adp-search input::placeholder { color: var(--ds-text-tertiary, #64748b); }
+.adp-search input:focus {
+  outline: none;
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.12);
+}
+.adp-search .adp-search__icon {
+  position: absolute; top: 50%; inset-inline-start: 14px;
+  transform: translateY(-50%);
+  color: var(--ds-text-tertiary, #64748b);
+  pointer-events: none;
+}
+.adp-select {
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--ds-text-secondary, #cbd5e1);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+}
+.adp-select:focus {
+  outline: none;
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.12);
+}
+.adp-select option { background: #0b0f18; color: #f8fafc; }
+
+/* toggle chip (e.g. hide test accounts) */
+.adp-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 14px;
+  border-radius: 13px;
+  font-size: 12.5px; font-weight: 700;
+  font-family: 'Tajawal', sans-serif;
+  color: var(--ds-text-tertiary, #64748b);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: color 0.2s var(--adx-ease, ease), border-color 0.2s var(--adx-ease, ease);
+  white-space: nowrap;
+}
+.adp-toggle.is-on {
+  color: var(--adx-gold, #fbbf24);
+  border-color: rgba(251, 191, 36, 0.32);
+  background: rgba(251, 191, 36, 0.08);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.adp-btn-gold {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 20px;
+  border-radius: 13px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13.5px; font-weight: 800;
+  color: #0b0f18;
+  background: linear-gradient(135deg, #fde68a, var(--adx-gold, #fbbf24) 55%, #d9a13c);
+  box-shadow: 0 8px 20px -8px rgba(251, 191, 36, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s var(--adx-ease, ease), box-shadow 0.2s var(--adx-ease, ease);
+  white-space: nowrap;
+}
+.adp-btn-gold:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(251, 191, 36, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+.adp-btn-gold:disabled { opacity: 0.5; transform: none; }
+.adp-btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 16px;
+  border-radius: 13px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--ds-text-secondary, #cbd5e1);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: color 0.2s var(--adx-ease, ease), border-color 0.2s var(--adx-ease, ease);
+  white-space: nowrap;
+}
+.adp-btn-ghost:hover:not(:disabled) { color: var(--ds-text-primary, #f8fafc); border-color: rgba(255, 255, 255, 0.16); }
+.adp-btn-ghost:disabled { opacity: 0.45; }
+
+/* icon action in table rows */
+.adp-act {
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  color: var(--ds-text-tertiary, #64748b);
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.adp-act:hover { color: var(--ds-text-primary, #f8fafc); background: rgba(255, 255, 255, 0.07); }
+.adp-act.gold:hover { color: var(--adx-gold, #fbbf24); background: rgba(251, 191, 36, 0.1); }
+.adp-act.danger:hover { color: #f87171; background: rgba(248, 113, 113, 0.1); }
+
+/* ── Roster table ───────────────────────────────────────────────── */
+.adp-tablewrap {
+  border-radius: 20px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012) 60%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+.adp-tablewrap .scroller { overflow-x: auto; }
+.adp-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  font-family: 'Tajawal', sans-serif;
+}
+.adp-table thead th {
+  text-align: start;
+  font-size: 12px; font-weight: 700;
+  color: var(--ds-text-tertiary, #64748b);
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+.adp-table tbody td {
+  padding: 13px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+.adp-table tbody tr { transition: background 0.18s ease; }
+.adp-table tbody tr:hover { background: rgba(255, 255, 255, 0.028); }
+.adp-table tbody tr:last-child td { border-bottom: none; }
+
+/* name cell */
+.adp-who { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.adp-who__name {
+  font-size: 13.5px; font-weight: 700;
+  color: var(--ds-text-primary, #f8fafc);
+  transition: color 0.18s ease;
+  text-align: right;
+}
+button.adp-who__name:hover { color: var(--adx-gold, #fbbf24); }
+.adp-who__mail {
+  font-size: 12px; color: var(--ds-text-tertiary, #64748b);
+  direction: ltr; text-align: right;
+  max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* status pills */
+.adp-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 11px; border-radius: 99px;
+  font-size: 12px; font-weight: 700;
+  white-space: nowrap;
+}
+.adp-pill::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.adp-pill--active    { color: #4ade80; background: rgba(74, 222, 128, 0.1);  border: 1px solid rgba(74, 222, 128, 0.22); }
+.adp-pill--paused    { color: #fbbf24; background: rgba(251, 191, 36, 0.1);  border: 1px solid rgba(251, 191, 36, 0.22); }
+.adp-pill--graduated { color: #7dd3fc; background: rgba(125, 211, 252, 0.1); border: 1px solid rgba(125, 211, 252, 0.22); }
+.adp-pill--withdrawn { color: #f87171; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.22); }
+.adp-pill--muted     { color: var(--ds-text-tertiary, #64748b); background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); }
+
+/* small neutral chip (group code, etc.) */
+.adp-code {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 8px;
+  font-size: 12px; font-weight: 700;
+  color: var(--ds-text-secondary, #cbd5e1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  white-space: nowrap;
+}
+.adp-code.gold {
+  color: var(--adx-gold, #fbbf24);
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.22);
+}
+
+/* ── Modal shell ────────────────────────────────────────────────── */
+.adp-modal {
+  width: 100%;
+  border-radius: 22px;
+  background: linear-gradient(170deg, #131826, #0d111c 70%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 24px 64px -20px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  max-height: 90dvh;
+  overflow-y: auto;
+  position: relative;
+}
+.adp-modal::before {
+  content: "";
+  position: absolute; top: 0; inset-inline: 0; height: 1px;
+  background: linear-gradient(to left, transparent, rgba(251, 191, 36, 0.5) 35%, rgba(255, 255, 255, 0.2) 70%, transparent);
+}
+.adp-modal__head {
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px 16px;
+  background: linear-gradient(180deg, #131826 65%, rgba(19, 24, 38, 0));
+}
+.adp-modal__title {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 17px; font-weight: 800;
+  color: var(--ds-text-primary, #f8fafc);
+}
+.adp-modal__body { padding: 4px 24px 24px; }
+.adp-modal__foot {
+  position: sticky; bottom: -24px; z-index: 2;
+  margin: 8px -4px -4px;
+  padding: 14px 4px 8px;
+  background: linear-gradient(0deg, #0d111c 62%, rgba(13, 17, 28, 0));
+}
+.adp-modal input[type="checkbox"] {
+  accent-color: var(--adx-gold, #fbbf24);
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+}
+
+/* mini section header inside long forms */
+.adp-formsec {
+  display: flex; align-items: center; gap: 10px;
+  margin: 22px 0 12px;
+}
+.adp-formsec:first-child { margin-top: 4px; }
+.adp-formsec__label {
+  font-size: 12px; font-weight: 800;
+  color: var(--adx-gold, #fbbf24);
+  white-space: nowrap;
+}
+.adp-formsec__rule { flex: 1; height: 1px; background: linear-gradient(to left, rgba(255, 255, 255, 0.08), transparent); }
+
+/* ── Group / trainer cards ──────────────────────────────────────── */
+.adp-gcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 22px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012) 65%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 26px -14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: transform 0.25s var(--adx-ease, ease), border-color 0.25s var(--adx-ease, ease);
+}
+.adp-gcard:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.13); }
+.adp-gcard::after {
+  content: "";
+  position: absolute; top: 0; inset-inline: 14px; height: 1px;
+  background: linear-gradient(to left, transparent, var(--adp-accent, rgba(251, 191, 36, 0.5)), transparent);
+  opacity: 0.7;
+}
+.adp-gcard.is-muted { opacity: 0.55; }
+.adp-gcard__row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12.5px;
+  padding: 7px 0;
+}
+.adp-gcard__row .k { color: var(--ds-text-tertiary, #64748b); }
+.adp-gcard__row .v { color: var(--ds-text-primary, #f8fafc); font-weight: 600; }
+
+/* mobile roster cards (the table is hidden below 640px) */
+.adp-mcard {
+  border-radius: 18px;
+  padding: 16px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012) 65%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.adp-mcard__meta {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 10px;
+}
+.adp-mcard__actions {
+  display: flex; align-items: center; gap: 4px;
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* fade the cut edge of the scrolling table so it never looks cropped */
+  .adp-tablewrap .scroller {
+    -webkit-mask-image: linear-gradient(to left, #000 0, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to left, #000 0, #000 calc(100% - 28px), transparent);
+  }
+  .adp-tablewrap .scroller { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+  .adp-tablewrap .scroller::-webkit-scrollbar { height: 4px; }
+  .adp-tablewrap .scroller::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+}
+@media (max-width: 640px) {
+  .adp-tabs {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 14px), transparent);
+    mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 14px), transparent);
+  }
+}
+@media (pointer: coarse) {
+  .adp-act { width: 44px; height: 44px; }
+}
+@media (max-width: 560px) {
+  .adp-toolbar { padding: 12px; }
+  .adp-search { min-width: 100%; }
+  .adp-tab { padding: 9px 13px; font-size: 12.5px; }
+  .adp-modal__head { padding: 16px 18px 12px; }
+  .adp-modal__body { padding: 4px 18px 18px; }
+}

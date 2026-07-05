@@ -1,48 +1,133 @@
 import { useState, useEffect, Suspense } from 'react'
 import lazyRetry from '../../utils/lazyRetry'
+import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff, Mail, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Users, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff, Mail, CheckCircle2, AlertCircle, GraduationCap, UserCog, BarChart3, FlaskConical } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { ACADEMIC_LEVELS, PACKAGES, STUDENT_STATUS } from '../../lib/constants'
-import { formatDateAr } from '../../utils/dateHelpers'
+import { ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { exportToCSV } from '../../utils/exportData'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
-import SubTabs from '../../components/common/SubTabs'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
 import ImpersonateButton from '../../components/ImpersonateButton'
+import UserAvatar from '../../components/common/UserAvatar'
+import './adminDashboard.css'
+import './adminPeople.css'
 
 const AdminGroups = lazyRetry(() => import('./AdminGroups'))
 const AdminTrainers = lazyRetry(() => import('./AdminTrainers'))
 
 const TABS = [
-  { key: 'students', label: 'الطلاب', icon: Users },
-  { key: 'emails', label: 'تحديث البيانات', icon: Mail },
+  { key: 'students', label: 'الطلاب', icon: GraduationCap },
   { key: 'groups', label: 'المجموعات', icon: Users },
-  { key: 'trainers', label: 'المدربين', icon: Briefcase },
+  { key: 'trainers', label: 'المدربون', icon: UserCog },
+  { key: 'emails', label: 'تحديث البيانات', icon: Mail },
 ]
+
+const STATUS_LABELS = { active: 'نشط', paused: 'متوقف', graduated: 'متخرج', withdrawn: 'منسحب' }
+const STATUS_COLORS = { active: '#4ade80', paused: '#fbbf24', graduated: '#7dd3fc', withdrawn: '#f87171' }
+
+/* relative "last seen" — western digits, matching the dashboard convention;
+   Arabic plurals: يومين (dual), 3-10 أيام, 11+ يومًا */
+function lastSeen(ts) {
+  if (!ts) return { text: '—', tone: 'muted' }
+  const days = Math.floor((Date.now() - new Date(ts).getTime()) / 86_400_000)
+  if (days <= 0) return { text: 'اليوم', tone: 'good' }
+  if (days === 1) return { text: 'أمس', tone: 'ok' }
+  if (days === 2) return { text: 'منذ يومين', tone: 'ok' }
+  if (days <= 10) return { text: `منذ ${days} أيام`, tone: days > 7 ? 'cold' : 'ok' }
+  return { text: `منذ ${days} يومًا`, tone: 'cold' }
+}
+// cold = churn-risk → rose, NOT amber (amber reads as the gold accent and
+// breaks the one-gold-datum-per-row contract)
+const SEEN_TONES = { good: '#4ade80', ok: 'var(--ds-text-secondary, #cbd5e1)', cold: 'rgba(248,113,113,0.85)', muted: 'var(--ds-text-tertiary, #64748b)' }
+
+/* neutral glass avatar — the roster stays obsidian+gold, no legacy sky/violet */
+const AVATAR_GLASS = 'linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03))'
 
 export default function AdminStudents() {
   const [activeTab, setActiveTab] = useState('students')
+
+  // light counts for the tab bar — one head-count each
+  const { data: tabCounts } = useQuery({
+    queryKey: ['admin-people-tab-counts'],
+    queryFn: async () => {
+      const [st, gr, tr] = await Promise.all([
+        // exclude test accounts so the tab count matches the roster's default view
+        supabase.from('students').select('id, profiles!inner(is_test_account)', { count: 'exact', head: true }).is('deleted_at', null).eq('status', 'active').eq('profiles.is_test_account', false),
+        supabase.from('groups').select('id', { count: 'exact', head: true }).eq('is_active', true),
+        supabase.from('profiles').select('id', { count: 'exact', head: true }).in('role', ['trainer', 'admin']),
+      ])
+      return { students: st.count || 0, groups: gr.count || 0, trainers: tr.count || 0 }
+    },
+    staleTime: 60_000,
+  })
+
   return (
-    <div className="space-y-8">
-      <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} accent="gold" />
-      <Suspense fallback={<div className="skeleton h-96 w-full" />}>
-        {activeTab === 'students' && <StudentsContent />}
-        {activeTab === 'emails' && <BulkEmailUpdate />}
-        {activeTab === 'groups' && <AdminGroups />}
-        {activeTab === 'trainers' && <AdminTrainers />}
-      </Suspense>
+    <div className="adx-root">
+      {/* shared operations-bridge atmosphere */}
+      <div className="adx-atmo" aria-hidden="true">
+        <div className="adx-atmo__beam" />
+        <div className="adx-atmo__blob adx-atmo__blob--gold" />
+        <div className="adx-atmo__blob adx-atmo__blob--steel" />
+        <div className="adx-atmo__grain" />
+      </div>
+
+      <div className="adx-content space-y-6">
+        <div className="adx-eyebrow" style={{ marginBottom: 0 }}>
+          <span className="adx-eyebrow__spark" />
+          <span className="adx-eyebrow__label">الطلاب والفريق</span>
+          <span className="adx-eyebrow__hint">إدارة شؤون الطلاب والمجموعات والمدربين</span>
+          <span className="adx-eyebrow__rule" />
+        </div>
+
+        <div className="adp-tabs" role="tablist">
+          {TABS.map((t) => {
+            const Icon = t.icon
+            const count = t.key === 'students' ? tabCounts?.students : t.key === 'groups' ? tabCounts?.groups : t.key === 'trainers' ? tabCounts?.trainers : null
+            return (
+              <button
+                key={t.key}
+                role="tab"
+                aria-selected={activeTab === t.key}
+                onClick={() => setActiveTab(t.key)}
+                className={`adp-tab ${activeTab === t.key ? 'is-active' : ''}`}
+              >
+                {activeTab === t.key && (
+                  <motion.span
+                    layoutId="adp-tab-pill"
+                    className="adp-tab__pill"
+                    style={{ zIndex: 0 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
+                <Icon size={16} strokeWidth={2} />
+                <span>{t.label}</span>
+                {count != null && <span className="adp-tab__count">{count}</span>}
+              </button>
+            )
+          })}
+        </div>
+
+        <Suspense fallback={<div className="skeleton h-96 w-full rounded-[20px]" />}>
+          {activeTab === 'students' && <StudentsContent />}
+          {activeTab === 'emails' && <BulkEmailUpdate />}
+          {activeTab === 'groups' && <AdminGroups embedded />}
+          {activeTab === 'trainers' && <AdminTrainers embedded />}
+        </Suspense>
+      </div>
     </div>
   )
 }
 
 function StudentsContent() {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [filterGroup, setFilterGroup] = useState('')
   const [filterStatus, setFilterStatus] = useState('active')
+  const [hideTest, setHideTest] = useState(true)
   const [editStudent, setEditStudent] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
@@ -56,29 +141,30 @@ function StudentsContent() {
     },
   })
 
-  // Students
+  // Students — one fetch, all filtering client-side (the roster is small; filters become instant)
   const { data: students, isLoading } = useQuery({
-    queryKey: ['admin-students', filterGroup, filterStatus],
+    queryKey: ['admin-students'],
     queryFn: async () => {
-      let query = supabase
+      const { data } = await supabase
         .from('students')
-        .select('id, academic_level, package, group_id, xp_total, current_streak, status, enrollment_date, custom_price, payment_day, profiles(full_name, display_name, email, phone), groups(name, code)')
+        .select('id, academic_level, package, group_id, xp_total, current_streak, status, enrollment_date, custom_price, payment_day, last_active_at, study_mode, profiles(full_name, display_name, email, phone, avatar_url, is_test_account), groups(name, code)')
         .is('deleted_at', null)
         .order('enrollment_date', { ascending: false })
-
-      if (filterGroup) query = query.eq('group_id', filterGroup)
-      if (filterStatus) query = query.eq('status', filterStatus)
-
-      const { data } = await query
       return data || []
     },
   })
 
-  const filtered = students?.filter(s => {
-    if (!search) return true
-    const name = s.profiles?.full_name || s.profiles?.display_name || ''
-    const email = s.profiles?.email || ''
-    return name.includes(search) || email.includes(search)
+  const base = (students || []).filter(s => !hideTest || !s.profiles?.is_test_account)
+  const statusCounts = base.reduce((acc, s) => { acc[s.status] = (acc[s.status] || 0) + 1; return acc }, {})
+  const filtered = base.filter(s => {
+    if (filterStatus && s.status !== filterStatus) return false
+    if (filterGroup && s.group_id !== filterGroup) return false
+    if (search) {
+      const name = s.profiles?.full_name || s.profiles?.display_name || ''
+      const email = s.profiles?.email || ''
+      if (!name.includes(search) && !email.includes(search)) return false
+    }
+    return true
   })
 
   // Update student
@@ -112,6 +198,7 @@ function StudentsContent() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-students'] })
+      queryClient.invalidateQueries({ queryKey: ['admin-people-tab-counts'] })
     },
     onError: (err) => {
       console.error('Delete student error:', err)
@@ -131,131 +218,254 @@ function StudentsContent() {
       { key: (s) => s.groups?.code || '', label: 'المجموعة' },
       { key: (s) => PACKAGES[s.package]?.name_ar || s.package, label: 'الباقة' },
       { key: (s) => s.custom_price || PACKAGES[s.package]?.price || '', label: 'السعر' },
-      { key: (s) => statusLabels[s.status] || s.status, label: 'الحالة' },
+      { key: (s) => STATUS_LABELS[s.status] || s.status, label: 'الحالة' },
       { key: 'xp_total', label: 'XP' },
       { key: 'current_streak', label: 'السلسلة' },
+      { key: (s) => s.last_active_at ? new Date(s.last_active_at).toISOString().slice(0, 10) : '', label: 'آخر دخول' },
     ]
     exportToCSV(filtered, 'students', columns)
   }
 
-  const statusBadge = {
-    active: 'badge-green',
-    paused: 'badge-yellow',
-    graduated: 'badge-blue',
-    withdrawn: 'badge-red',
-  }
-  const statusLabels = { active: 'نشط', paused: 'متوقف', graduated: 'متخرج', withdrawn: 'منسحب' }
+  const SEG = [
+    { key: '', label: 'الكل', color: '#cbd5e1', count: base.length },
+    { key: 'active', label: 'نشط', color: STATUS_COLORS.active, count: statusCounts.active || 0 },
+    { key: 'paused', label: 'متوقف', color: STATUS_COLORS.paused, count: statusCounts.paused || 0 },
+    { key: 'graduated', label: 'متخرج', color: STATUS_COLORS.graduated, count: statusCounts.graduated || 0 },
+    { key: 'withdrawn', label: 'منسحب', color: STATUS_COLORS.withdrawn, count: statusCounts.withdrawn || 0 },
+  ]
 
   return (
-    <div className="space-y-12">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <Users size={22} className="text-sky-400" strokeWidth={1.5} />
-          </div>
-          <div>
-            <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>إدارة الطلاب</h1>
-            <p className="text-muted text-sm mt-1">{filtered?.length || 0} طالب</p>
-          </div>
+    <div className="space-y-5">
+      {/* title row */}
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-[22px] font-bold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>سجلّ الطلاب</h1>
+          <p className="text-xs mt-1" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+            {filtered.length} طالب في العرض الحالي
+          </p>
         </div>
-        <button onClick={() => setShowAddModal(true)} className="btn-primary text-sm py-2 flex items-center gap-2">
+        <button onClick={() => setShowAddModal(true)} className="adp-btn-gold">
           <UserPlus size={16} /> إضافة طالب
         </button>
       </div>
 
-      {/* Filters */}
-      <div className="fl-card-static p-7">
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="relative flex-1 min-w-[200px]">
-            <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted" />
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="بحث بالاسم أو الإيميل..."
-              className="input-field pr-10 py-2 text-sm"
-            />
-          </div>
-          <select value={filterGroup} onChange={(e) => setFilterGroup(e.target.value)} className="input-field py-2 px-3 text-sm w-auto">
-            <option value="">كل المجموعات</option>
-            {groups?.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
-          </select>
-          <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="input-field py-2 px-3 text-sm w-auto">
-            <option value="">كل الحالات</option>
-            <option value="active">نشط</option>
-            <option value="paused">متوقف</option>
-            <option value="graduated">متخرج</option>
-            <option value="withdrawn">منسحب</option>
-          </select>
+      {/* status strip = the filter */}
+      <div className="adp-seg" role="group" aria-label="تصفية حسب الحالة">
+        {SEG.map((c) => (
           <button
-            onClick={handleExportCSV}
-            disabled={!filtered?.length}
-            className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap"
+            key={c.key || 'all'}
+            onClick={() => setFilterStatus(c.key)}
+            className={`adp-seg__chip ${filterStatus === c.key ? 'is-active' : ''}`}
+            style={{ '--adp-seg-c': c.color }}
           >
-            <Download size={16} /> تصدير CSV
+            {c.label}
+            <span className="n">{c.count}</span>
           </button>
-        </div>
+        ))}
       </div>
 
-      {/* Student table */}
+      {/* toolbar */}
+      <div className="adp-toolbar">
+        <div className="adp-search">
+          <Search size={15} className="adp-search__icon" />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="بحث بالاسم أو الإيميل…"
+          />
+        </div>
+        <select value={filterGroup} onChange={(e) => setFilterGroup(e.target.value)} className="adp-select">
+          <option value="">كل المجموعات</option>
+          {groups?.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
+        </select>
+        <button
+          onClick={() => setHideTest(v => !v)}
+          className={`adp-toggle ${hideTest ? 'is-on' : ''}`}
+          title="الحسابات التجريبية مخفية افتراضياً"
+        >
+          <FlaskConical size={14} />
+          {hideTest ? 'التجريبية مخفية' : 'التجريبية ظاهرة'}
+        </button>
+        <button onClick={handleExportCSV} disabled={!filtered?.length} className="adp-btn-ghost">
+          <Download size={15} /> CSV
+        </button>
+      </div>
+
+      {/* roster — table on ≥640px, cards on phones */}
       {isLoading ? (
         <ListSkeleton />
       ) : (
-        <div className="fl-card-static overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="data-table">
+        <>
+        <div className="adp-tablewrap hidden sm:block">
+          <div className="scroller">
+            <table className="adp-table">
               <thead>
                 <tr>
-                  <th className="text-right">الطالب</th>
-                  <th className="text-right">المجموعة</th>
-                  <th className="text-right">المستوى</th>
-                  <th className="text-right">الباقة</th>
-                  <th className="text-right">XP</th>
-                  <th className="text-right">الحالة</th>
-                  <th className="text-right">إجراءات</th>
+                  <th>الطالب</th>
+                  <th>المجموعة</th>
+                  <th>المستوى</th>
+                  <th>الباقة</th>
+                  <th>XP</th>
+                  <th>آخر دخول</th>
+                  {!filterStatus && <th>الحالة</th>}
+                  <th>إجراءات</th>
                 </tr>
               </thead>
               <tbody>
-                {filtered?.map(s => (
-                  <tr key={s.id}>
-                    <td>
-                      <p className="text-[var(--text-primary)] font-medium">{getStudentName(s)}</p>
-                      <p className="text-xs text-muted">{s.profiles?.email}</p>
-                    </td>
-                    <td className="text-muted">{s.groups?.code || '—'}</td>
-                    <td className="text-muted">{ACADEMIC_LEVELS[s.academic_level]?.cefr || s.academic_level}</td>
-                    <td className="text-muted">{PACKAGES[s.package]?.name_ar || s.package}</td>
-                    <td className="text-gold-400 font-medium">{s.xp_total}</td>
-                    <td>
-                      <span className={statusBadge[s.status] || 'badge-muted'}>
-                        {statusLabels[s.status] || s.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="flex items-center gap-2">
-                        <ImpersonateButton userId={s.id} role="student" name={getStudentName(s)} />
-                        <button onClick={() => { setEditStudent(s); setShowForm(true) }} className="btn-icon w-8 h-8 text-muted hover:text-sky-400 transition-all duration-200">
-                          <Edit3 size={14} />
-                        </button>
-                        <button
-                          onClick={() => {
-                            if (confirm('هل تريد حذف هذا الطالب؟')) deleteMutation.mutate(s.id)
-                          }}
-                          className="btn-icon w-8 h-8 text-muted hover:text-red-400 transition-all duration-200"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                {filtered.map(s => {
+                  const seen = lastSeen(s.last_active_at)
+                  const price = s.custom_price || PACKAGES[s.package]?.price
+                  return (
+                    <tr key={s.id}>
+                      <td>
+                        <div className="adp-who">
+                          <UserAvatar user={s.profiles ? { ...s.profiles, id: s.id } : { id: s.id }} size={36} rounded="xl" gradient={AVATAR_GLASS} />
+                          <div className="min-w-0">
+                            <button
+                              onClick={() => navigate(`/admin/student/${s.id}/progress`)}
+                              className="adp-who__name"
+                              title="فتح ملف التقدّم"
+                            >
+                              {getStudentName(s)}
+                            </button>
+                            <div className="adp-who__mail">{s.profiles?.email}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        {s.study_mode === 'individual' ? (
+                          <span className="adp-code gold"><Briefcase size={11} /> فردي ١:١</span>
+                        ) : s.groups?.code ? (
+                          <span className="adp-code">{s.groups.code}</span>
+                        ) : (
+                          <span style={{ color: 'var(--ds-text-tertiary)' }}>—</span>
+                        )}
+                      </td>
+                      <td>
+                        <div className="text-[13px] font-bold" style={{ color: 'var(--ds-text-primary)' }}>
+                          {ACADEMIC_LEVELS[s.academic_level]?.cefr || s.academic_level}
+                        </div>
+                        <div className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
+                          {ACADEMIC_LEVELS[s.academic_level]?.name_ar || ''}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="text-[12.5px] font-semibold" style={{ color: 'var(--ds-text-secondary)' }}>
+                          {PACKAGES[s.package]?.name_ar || s.package}
+                        </div>
+                        {price && (
+                          <div className="text-xs font-semibold tabular-nums" style={{ color: 'var(--ds-text-tertiary)' }}>
+                            {price} ر.س{s.custom_price ? ' · مخصص' : ''}
+                          </div>
+                        )}
+                      </td>
+                      <td>
+                        {/* the ONE gold datum per row */}
+                        <div className="text-[13px] font-bold tabular-nums" style={{ color: 'var(--adx-gold, #fbbf24)' }}>
+                          {(s.xp_total || 0).toLocaleString('en-US')}
+                        </div>
+                        {s.current_streak > 0 && (
+                          <div className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>🔥 {s.current_streak} يوم</div>
+                        )}
+                      </td>
+                      <td>
+                        <span className="text-xs font-semibold" style={{ color: SEEN_TONES[seen.tone] }}>{seen.text}</span>
+                      </td>
+                      {!filterStatus && (
+                        <td>
+                          <span className={`adp-pill adp-pill--${s.status}`}>{STATUS_LABELS[s.status] || s.status}</span>
+                        </td>
+                      )}
+                      <td>
+                        <div className="flex items-center gap-1">
+                          <ImpersonateButton userId={s.id} role="student" name={getStudentName(s)} />
+                          <button
+                            onClick={() => navigate(`/admin/student/${s.id}/report`)}
+                            className="adp-act gold"
+                            title="تقرير النشاط التفصيلي"
+                          >
+                            <BarChart3 size={14} />
+                          </button>
+                          <button onClick={() => { setEditStudent(s); setShowForm(true) }} className="adp-act" title="تعديل">
+                            <Edit3 size={14} />
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (confirm('هل تريد حذف هذا الطالب؟')) deleteMutation.mutate(s.id)
+                            }}
+                            className="adp-act danger"
+                            title="حذف"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
-            {filtered?.length === 0 && (
+            {filtered.length === 0 && (
               <EmptyState icon={Users} title="لا يوجد طلاب" description="لم يتم العثور على طلاب مطابقين لمعايير البحث" />
             )}
           </div>
         </div>
+
+        {/* phone roster — no sideways-scrolling table on a 390px screen */}
+        <div className="sm:hidden space-y-3">
+          {filtered.length === 0 && (
+            <EmptyState icon={Users} title="لا يوجد طلاب" description="لم يتم العثور على طلاب مطابقين لمعايير البحث" />
+          )}
+          {filtered.map(s => {
+            const seen = lastSeen(s.last_active_at)
+            return (
+              <div key={s.id} className="adp-mcard">
+                <div className="adp-who">
+                  <UserAvatar user={s.profiles ? { ...s.profiles, id: s.id } : { id: s.id }} size={40} rounded="xl" gradient={AVATAR_GLASS} />
+                  <div className="min-w-0 flex-1">
+                    <button
+                      onClick={() => navigate(`/admin/student/${s.id}/progress`)}
+                      className="adp-who__name"
+                    >
+                      {getStudentName(s)}
+                    </button>
+                    <div className="adp-who__mail">{s.profiles?.email}</div>
+                  </div>
+                  {!filterStatus && (
+                    <span className={`adp-pill adp-pill--${s.status} shrink-0`}>{STATUS_LABELS[s.status] || s.status}</span>
+                  )}
+                </div>
+                <div className="adp-mcard__meta">
+                  {s.study_mode === 'individual' ? (
+                    <span className="adp-code gold"><Briefcase size={11} /> فردي ١:١</span>
+                  ) : s.groups?.code ? (
+                    <span className="adp-code">{s.groups.code}</span>
+                  ) : null}
+                  <span className="adp-code">{ACADEMIC_LEVELS[s.academic_level]?.cefr || s.academic_level}</span>
+                  <span className="adp-code" style={{ color: 'var(--adx-gold, #fbbf24)' }}>{(s.xp_total || 0).toLocaleString('en-US')} XP</span>
+                  <span className="adp-code" style={{ color: SEEN_TONES[seen.tone] }}>{seen.text}</span>
+                </div>
+                <div className="adp-mcard__actions">
+                  <ImpersonateButton userId={s.id} role="student" name={getStudentName(s)} />
+                  <button onClick={() => navigate(`/admin/student/${s.id}/report`)} className="adp-act gold" title="تقرير النشاط">
+                    <BarChart3 size={15} />
+                  </button>
+                  <button onClick={() => { setEditStudent(s); setShowForm(true) }} className="adp-act" title="تعديل">
+                    <Edit3 size={15} />
+                  </button>
+                  <button
+                    onClick={() => { if (confirm('هل تريد حذف هذا الطالب؟')) deleteMutation.mutate(s.id) }}
+                    className="adp-act danger"
+                    title="حذف"
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        </>
       )}
 
       {/* Edit Modal */}
@@ -278,10 +488,23 @@ function StudentsContent() {
           <AddStudentModal
             groups={groups}
             onClose={() => setShowAddModal(false)}
-            onSuccess={() => { setShowAddModal(false); queryClient.invalidateQueries({ queryKey: ['admin-students'] }) }}
+            onSuccess={() => {
+              setShowAddModal(false)
+              queryClient.invalidateQueries({ queryKey: ['admin-students'] })
+              queryClient.invalidateQueries({ queryKey: ['admin-people-tab-counts'] })
+            }}
           />
         )}
       </AnimatePresence>
+    </div>
+  )
+}
+
+function FormSection({ label }) {
+  return (
+    <div className="adp-formsec">
+      <span className="adp-formsec__label">{label}</span>
+      <span className="adp-formsec__rule" />
     </div>
   )
 }
@@ -432,27 +655,41 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.95, y: 20 }}
+        initial={{ scale: 0.96, y: 16 }}
         animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.95, y: 20 }}
+        exit={{ scale: 0.96, y: 16 }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg fl-card-static p-6 max-h-[90vh] overflow-y-auto"
+        className="adp-modal max-w-lg"
       >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تعديل بيانات الطالب</h2>
-          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
+        <div className="adp-modal__head">
+          <h2 className="adp-modal__title">تعديل بيانات الطالب</h2>
+          <button onClick={onClose} className="adp-act" aria-label="إغلاق"><X size={18} /></button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="adp-modal__body space-y-4">
+          <FormSection label="البيانات الأساسية" />
           <div>
             <label className="input-label">الاسم الكامل</label>
             <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="input-field" required />
           </div>
-          <div>
-            <label className="input-label">الهاتف</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-field" dir="ltr" />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="input-label">الهاتف</label>
+              <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-field" dir="ltr" />
+            </div>
+            <div>
+              {/* Grammatical gender — drives the Arabic male/female tone the student sees */}
+              <label className="input-label">الجنس (نبرة الخطاب)</label>
+              <select value={gender} onChange={(e) => setGender(e.target.value)} className="input-field">
+                <option value="female">أنثى</option>
+                <option value="male">ذكر</option>
+              </select>
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-6">
+
+          <FormSection label="الدراسة والمستوى" />
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="input-label">المجموعة</label>
               <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="input-field">
@@ -494,7 +731,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
                 type="button"
                 onClick={handlePromoteLevel}
                 disabled={promoting || parseInt(academicLevel) >= 5}
-                className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap"
+                className="adp-btn-ghost text-sm"
               >
                 {promoting ? <Loader2 size={16} className="animate-spin" /> : <ArrowUpCircle size={16} />}
                 ترقية للمستوى التالي
@@ -504,7 +741,8 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
                 type="button"
                 onClick={() => setShowOverrideConfirm(true)}
                 disabled={promoting || parseInt(academicLevel) >= 5}
-                className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap text-amber-400 border-amber-500/30"
+                className="adp-btn-ghost text-sm"
+                style={{ color: '#fbbf24', borderColor: 'rgba(251,191,36,0.3)' }}
               >
                 {promoting ? <Loader2 size={16} className="animate-spin" /> : <ArrowUpCircle size={16} />}
                 ترقية يدوياً (تخطي الشرط)
@@ -550,7 +788,8 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
             )}
           </AnimatePresence>
 
-          <div className="grid grid-cols-2 gap-6">
+          <FormSection label="الاشتراك والدفع" />
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="input-label">الباقة</label>
               <select value={pkg} onChange={(e) => setPkg(e.target.value)} className="input-field">
@@ -568,16 +807,8 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
                 <option value="withdrawn">منسحب</option>
               </select>
             </div>
-            <div>
-              {/* Grammatical gender — drives the Arabic male/female tone the student sees */}
-              <label className="input-label">الجنس (نبرة الخطاب)</label>
-              <select value={gender} onChange={(e) => setGender(e.target.value)} className="input-field">
-                <option value="female">أنثى</option>
-                <option value="male">ذكر</option>
-              </select>
-            </div>
           </div>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="input-label">سعر مخصص (ريال)</label>
               <input type="number" value={customPrice} onChange={(e) => setCustomPrice(e.target.value)} className="input-field" dir="ltr" placeholder="اختياري" />
@@ -588,12 +819,13 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
             </div>
           </div>
 
+          <FormSection label="الصلاحيات والأدوات" />
           {/* Player Tier Preference */}
           {playerPref && playerPref.preferred_tier > 1 && (
             <div className="flex items-center justify-between py-3 px-4 rounded-xl" style={{ background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)' }}>
               <div>
-                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>مشغل الفيديو</p>
-                <p className="text-xs text-muted">
+                <p className="text-sm font-medium" style={{ color: 'var(--ds-text-primary)' }}>مشغل الفيديو</p>
+                <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
                   المشغل المفضل: Tier {playerPref.preferred_tier} · إخفاقات متتالية: {playerPref.consecutive_tier1_failures}
                 </p>
               </div>
@@ -602,7 +834,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
                 onClick={handleResetPlayerTier}
                 disabled={resettingTier}
                 className="text-xs px-3 py-1.5 rounded-lg font-medium transition-all"
-                style={{ background: 'rgba(56,189,248,0.1)', color: 'var(--accent-sky)', border: '1px solid rgba(56,189,248,0.2)' }}
+                style={{ background: 'rgba(251,191,36,0.1)', color: 'var(--adx-gold, #fbbf24)', border: '1px solid rgba(251,191,36,0.2)' }}
               >
                 {resettingTier ? <Loader2 size={12} className="animate-spin" /> : 'أعد ضبط للمشغل الكامل'}
               </button>
@@ -611,27 +843,27 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
 
           {/* IELTS Writing Access Toggle */}
           {pkg !== 'ielts' && (
-            <div className="flex items-center justify-between py-3 px-4 rounded-xl" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+            <div className="flex items-center justify-between py-3 px-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
               <div>
-                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>صلاحية كتابة آيلتس</p>
-                <p className="text-xs text-muted">منح الطالب صلاحية الوصول لتدريبات كتابة آيلتس</p>
+                <p className="text-sm font-medium" style={{ color: 'var(--ds-text-primary)' }}>صلاحية كتابة آيلتس</p>
+                <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>منح الطالب صلاحية الوصول لتدريبات كتابة آيلتس</p>
               </div>
               <button
                 type="button"
                 onClick={() => setIeltsWriting(!ieltsWriting)}
-                className={`relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer ${ieltsWriting ? 'bg-sky-500' : 'bg-gray-600'}`}
+                className={`relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer ${ieltsWriting ? 'bg-amber-500' : 'bg-gray-600'}`}
               >
                 <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 ${ieltsWriting ? 'translate-x-0.5' : 'translate-x-[22px]'}`} />
               </button>
             </div>
           )}
 
-          <div className="flex items-center gap-3 pt-3">
-            <button type="submit" disabled={saving} className="btn-primary text-sm py-2 flex items-center gap-2">
+          <div className="adp-modal__foot flex items-center gap-3">
+            <button type="submit" disabled={saving} className="adp-btn-gold text-sm">
               {saving ? <Loader2 size={16} className="animate-spin" /> : <Edit3 size={16} />}
               حفظ التعديلات
             </button>
-            <button type="button" onClick={onClose} className="btn-ghost text-sm py-2">إلغاء</button>
+            <button type="button" onClick={onClose} className="adp-btn-ghost text-sm">إلغاء</button>
           </div>
         </form>
       </motion.div>
@@ -799,35 +1031,36 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
+        initial={{ scale: 0.96, y: 16 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.96, y: 16 }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg fl-card-static p-6 max-h-[90vh] overflow-y-auto"
+        className="adp-modal max-w-lg"
       >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>إضافة طالب جديد</h2>
-          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
+        <div className="adp-modal__head">
+          <h2 className="adp-modal__title">إضافة طالب جديد</h2>
+          <button onClick={onClose} className="adp-act" aria-label="إغلاق"><X size={18} /></button>
         </div>
 
         {createdStudent ? (
-          <div className="space-y-5">
+          <div className="adp-modal__body space-y-5">
             <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
               <p className="text-emerald-400 font-medium mb-3">تم إنشاء الحساب بنجاح!</p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted">الاسم</span>
-                  <span style={{ color: 'var(--text-primary)' }}>{createdStudent.name}</span>
+                  <span style={{ color: 'var(--ds-text-tertiary)' }}>الاسم</span>
+                  <span style={{ color: 'var(--ds-text-primary)' }}>{createdStudent.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted">الإيميل</span>
-                  <span style={{ color: 'var(--text-primary)' }} dir="ltr">{createdStudent.email}</span>
+                  <span style={{ color: 'var(--ds-text-tertiary)' }}>الإيميل</span>
+                  <span style={{ color: 'var(--ds-text-primary)' }} dir="ltr">{createdStudent.email}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-muted">كلمة المرور</span>
+                  <span style={{ color: 'var(--ds-text-tertiary)' }}>كلمة المرور</span>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono" style={{ color: 'var(--text-primary)' }} dir="ltr">
+                    <span className="font-mono" style={{ color: 'var(--ds-text-primary)' }} dir="ltr">
                       {showPassword ? createdStudent.password : '••••••••'}
                     </span>
-                    <button onClick={() => setShowPassword(!showPassword)} className="text-muted hover:text-sky-400">
+                    <button onClick={() => setShowPassword(!showPassword)} className="adp-act" style={{ width: 26, height: 26 }}>
                       {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                     </button>
                   </div>
@@ -835,26 +1068,39 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={copyWhatsAppMessage} className="btn-primary text-sm py-2 flex items-center gap-2">
+              <button onClick={copyWhatsAppMessage} className="adp-btn-gold text-sm">
                 <Copy size={14} /> نسخ رسالة واتساب
               </button>
-              <button onClick={onSuccess} className="btn-ghost text-sm py-2">إغلاق</button>
+              <button onClick={onSuccess} className="adp-btn-ghost text-sm">إغلاق</button>
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="adp-modal__body space-y-4">
+            <FormSection label="البيانات الأساسية" />
             <div>
               <label className="input-label">الاسم الكامل</label>
               <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="input-field" required />
             </div>
-            <div>
-              <label className="input-label">البريد الإلكتروني</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-field" dir="ltr" required />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="input-label">البريد الإلكتروني</label>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-field" dir="ltr" required />
+              </div>
+              <div>
+                <label className="input-label">الهاتف (اختياري)</label>
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-field" dir="ltr" />
+              </div>
             </div>
             <div>
-              <label className="input-label">الهاتف (اختياري)</label>
-              <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-field" dir="ltr" />
+              {/* Grammatical gender — drives the Arabic male/female tone the student sees */}
+              <label className="input-label">الجنس (نبرة الخطاب)</label>
+              <select value={gender} onChange={(e) => setGender(e.target.value)} className="input-field">
+                <option value="female">أنثى</option>
+                <option value="male">ذكر</option>
+              </select>
             </div>
+
+            <FormSection label="نوع الدراسة" />
             <div>
               <label className="input-label">نوع الحساب</label>
               <div className="grid grid-cols-2 gap-2">
@@ -863,8 +1109,8 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
                   onClick={() => setStudyMode('group')}
                   className="input-field text-sm font-bold"
                   style={studyMode === 'group'
-                    ? { borderColor: 'var(--accent-sky)', color: 'var(--accent-sky)', background: 'var(--accent-sky-glow)' }
-                    : { color: 'var(--text-secondary)' }}
+                    ? { borderColor: 'var(--adx-gold, #fbbf24)', color: 'var(--adx-gold, #fbbf24)', background: 'rgba(251,191,36,0.08)' }
+                    : { color: 'var(--ds-text-secondary)' }}
                 >
                   طالب مجموعات
                 </button>
@@ -873,8 +1119,8 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
                   onClick={() => setStudyMode('individual')}
                   className="input-field text-sm font-bold"
                   style={studyMode === 'individual'
-                    ? { borderColor: 'var(--accent-gold)', color: 'var(--accent-gold)', background: 'var(--accent-gold-glow)' }
-                    : { color: 'var(--text-secondary)' }}
+                    ? { borderColor: 'var(--adx-gold, #fbbf24)', color: 'var(--adx-gold, #fbbf24)', background: 'rgba(251,191,36,0.08)' }
+                    : { color: 'var(--ds-text-secondary)' }}
                 >
                   فردي ١:١ — مسار مهني
                 </button>
@@ -887,7 +1133,7 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
                   <option value="">— اختيار التخصص —</option>
                   {specializations.map(s => <option key={s.id} value={s.id}>{s.title_ar} — {s.title_en}</option>)}
                 </select>
-                <p className="text-xs text-muted mt-1.5">يحدد التخصصُ المسارَ المهني الذي يظهر للطالب بدل منهج المجموعات</p>
+                <p className="text-xs mt-1.5" style={{ color: 'var(--ds-text-tertiary)' }}>يحدد التخصصُ المسارَ المهني الذي يظهر للطالب بدل منهج المجموعات</p>
               </div>
             )}
             <div className="grid grid-cols-2 gap-4">
@@ -909,6 +1155,8 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
                 </select>
               </div>
             </div>
+
+            <FormSection label="الاشتراك" />
             <div>
               <label className="input-label">الباقة</label>
               <select value={pkg} onChange={(e) => setPkg(e.target.value)} className="input-field">
@@ -917,21 +1165,13 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
                 ))}
               </select>
             </div>
-            <div>
-              {/* Grammatical gender — drives the Arabic male/female tone the student sees */}
-              <label className="input-label">الجنس (نبرة الخطاب)</label>
-              <select value={gender} onChange={(e) => setGender(e.target.value)} className="input-field">
-                <option value="female">أنثى</option>
-                <option value="male">ذكر</option>
-              </select>
-            </div>
-            <div className="fl-card-static p-3">
-              <p className="text-xs text-muted">كلمة المرور المؤقتة: <span className="font-mono text-sky-400" dir="ltr">{tempPassword}</span></p>
-              <p className="text-xs text-muted mt-1">سيُطلب من الطالب تغييرها عند أول تسجيل دخول</p>
+            <div className="rounded-xl p-3" style={{ background: 'rgba(251,191,36,0.05)', border: '1px solid rgba(251,191,36,0.14)' }}>
+              <p className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>كلمة المرور المؤقتة: <span className="font-mono font-bold" style={{ color: 'var(--adx-gold, #fbbf24)' }} dir="ltr">{tempPassword}</span></p>
+              <p className="text-xs mt-1" style={{ color: 'var(--ds-text-tertiary)' }}>سيُطلب من الطالب تغييرها عند أول تسجيل دخول</p>
             </div>
             <div>
               <label className="input-label">
-                كود الإحالة <span className="text-muted text-xs">(اختياري)</span>
+                كود الإحالة <span className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>(اختياري)</span>
               </label>
               <input
                 type="text"
@@ -949,12 +1189,12 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
               )}
             </div>
             {error && <p className="text-red-400 text-sm">{error}</p>}
-            <div className="flex items-center gap-3 pt-2">
-              <button type="submit" disabled={saving} className="btn-primary text-sm py-2 flex items-center gap-2">
+            <div className="adp-modal__foot flex items-center gap-3">
+              <button type="submit" disabled={saving} className="adp-btn-gold text-sm">
                 {saving ? <Loader2 size={16} className="animate-spin" /> : <UserPlus size={16} />}
                 إنشاء الحساب
               </button>
-              <button type="button" onClick={onClose} className="btn-ghost text-sm py-2">إلغاء</button>
+              <button type="button" onClick={onClose} className="adp-btn-ghost text-sm">إلغاء</button>
             </div>
           </form>
         )}
@@ -976,10 +1216,12 @@ function BulkEmailUpdate() {
     queryFn: async () => {
       const { data } = await supabase
         .from('students')
-        .select('id, profiles(full_name, display_name, email), groups(code)')
+        .select('id, profiles(full_name, display_name, email, is_test_account), groups(code)')
         .is('deleted_at', null)
         .order('enrollment_date', { ascending: false })
-      return data || []
+      // real students first — editing a demo account's email here has real
+      // consequences, so test accounts sink to the bottom, dimmed + chipped
+      return (data || []).sort((a, b) => (a.profiles?.is_test_account ? 1 : 0) - (b.profiles?.is_test_account ? 1 : 0))
     },
   })
 
@@ -995,7 +1237,7 @@ function BulkEmailUpdate() {
     const newResults = {}
 
     for (const [studentId, newEmail] of pendingUpdates) {
-      const { data, error } = await invokeWithRetry('update-student-email', {
+      const { error } = await invokeWithRetry('update-student-email', {
         body: { student_id: studentId, new_email: newEmail.trim() },
       })
 
@@ -1019,23 +1261,18 @@ function BulkEmailUpdate() {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center">
-            <Mail size={22} className="text-violet-400" strokeWidth={1.5} />
-          </div>
-          <div>
-            <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>تحديث بيانات الطلاب</h1>
-            <p className="text-muted text-sm mt-1">تحديث البريد الإلكتروني للطلاب بشكل جماعي</p>
-          </div>
+    <div className="space-y-5">
+      {/* title row */}
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-[22px] font-bold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>تحديث بيانات الطلاب</h1>
+          <p className="text-xs mt-1" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>تحديث البريد الإلكتروني للطلاب بشكل جماعي</p>
         </div>
         {pendingUpdates.length > 0 && (
           <button
             onClick={() => setShowConfirm(true)}
             disabled={updating}
-            className="btn-primary text-sm py-2.5 px-5 flex items-center gap-2"
+            className="adp-btn-gold text-sm"
           >
             {updating ? <Loader2 size={16} className="animate-spin" /> : <Mail size={16} />}
             تحديث الكل ({pendingUpdates.length})
@@ -1047,30 +1284,34 @@ function BulkEmailUpdate() {
       {isLoading ? (
         <ListSkeleton />
       ) : (
-        <div className="fl-card-static overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="data-table">
+        <div className="adp-tablewrap">
+          <div className="scroller">
+            <table className="adp-table">
               <thead>
                 <tr>
-                  <th className="text-right">الطالب</th>
-                  <th className="text-right">المجموعة</th>
-                  <th className="text-right">الإيميل الحالي</th>
-                  <th className="text-right min-w-[280px]">الإيميل الجديد</th>
-                  <th className="text-right">الحالة</th>
+                  <th>الطالب</th>
+                  <th>المجموعة</th>
+                  <th>الإيميل الحالي</th>
+                  <th className="min-w-[280px]">الإيميل الجديد</th>
+                  <th>الحالة</th>
                 </tr>
               </thead>
               <tbody>
                 {students?.map(s => {
                   const status = getStatus(s.id)
+                  const isTest = s.profiles?.is_test_account === true
                   return (
-                    <tr key={s.id}>
+                    <tr key={s.id} style={isTest ? { opacity: 0.5 } : undefined}>
                       <td>
-                        <p className="text-[var(--text-primary)] font-medium">
-                          {s.profiles?.full_name || s.profiles?.display_name || 'طالب'}
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-[13.5px] font-bold" style={{ color: 'var(--ds-text-primary)' }}>
+                            {s.profiles?.full_name || s.profiles?.display_name || 'طالب'}
+                          </p>
+                          {isTest && <span className="adp-code">تجريبي</span>}
+                        </div>
                       </td>
-                      <td className="text-muted">{s.groups?.code || '—'}</td>
-                      <td className="text-muted text-sm" dir="ltr">{s.profiles?.email}</td>
+                      <td>{s.groups?.code ? <span className="adp-code">{s.groups.code}</span> : <span style={{ color: 'var(--ds-text-tertiary)' }}>—</span>}</td>
+                      <td><span className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }} dir="ltr">{s.profiles?.email}</span></td>
                       <td>
                         <input
                           type="email"
@@ -1117,39 +1358,42 @@ function BulkEmailUpdate() {
             onClick={() => setShowConfirm(false)}
           >
             <motion.div
-              initial={{ scale: 0.95, y: 20 }}
+              initial={{ scale: 0.96, y: 16 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
+              exit={{ scale: 0.96, y: 16 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md fl-card-static p-6"
+              className="adp-modal max-w-md"
             >
-              <div className="text-center mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle size={28} className="text-amber-400" />
+              <div className="adp-modal__body pt-6">
+                <div className="text-center mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
+                    <AlertCircle size={28} className="text-amber-400" />
+                  </div>
+                  <h3 className="text-lg font-bold" style={{ color: 'var(--ds-text-primary)' }}>تأكيد تحديث البيانات</h3>
+                  <p className="text-sm mt-2" style={{ color: 'var(--ds-text-tertiary)' }}>
+                    سيتم تحديث إيميلات {pendingUpdates.length} طلاب — هل أنت متأكد؟
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>تأكيد تحديث البيانات</h3>
-                <p className="text-muted text-sm mt-2">
-                  سيتم تحديث إيميلات {pendingUpdates.length} طلاب — هل أنت متأكد؟
-                </p>
-              </div>
-              <div className="max-h-48 overflow-y-auto mb-6 space-y-2">
-                {pendingUpdates.map(([id, email]) => {
-                  const student = students?.find(s => s.id === id)
-                  return (
-                    <div key={id} className="flex items-center justify-between text-sm py-2 px-3 rounded-lg" style={{ background: 'var(--surface-raised)' }}>
-                      <span style={{ color: 'var(--text-primary)' }}>{student?.profiles?.full_name || student?.profiles?.display_name}</span>
-                      <span className="text-muted" dir="ltr">{email}</span>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className="flex items-center gap-3 justify-center">
-                <button onClick={handleBulkUpdate} className="btn-primary text-sm py-2.5 px-6">
-                  تأكيد التحديث
-                </button>
-                <button onClick={() => setShowConfirm(false)} className="btn-ghost text-sm py-2.5">
-                  إلغاء
-                </button>
+                <div className="max-h-48 overflow-y-auto mb-6 space-y-2">
+                  {pendingUpdates.map(([id, email]) => {
+                    const student = students?.find(s => s.id === id)
+                    return (
+                      <div key={id} className="flex items-center justify-between text-sm py-2 px-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                        <span style={{ color: 'var(--ds-text-primary)' }}>{student?.profiles?.full_name || student?.profiles?.display_name}</span>
+                        <span style={{ color: 'var(--ds-text-tertiary)' }} dir="ltr">{email}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="flex items-center gap-3 justify-center pb-2">
+                  <button onClick={handleBulkUpdate} className="adp-btn-gold text-sm">
+                    تأكيد التحديث
+                  </button>
+                  <button onClick={() => setShowConfirm(false)} className="adp-btn-ghost text-sm">
+                    إلغاء
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
