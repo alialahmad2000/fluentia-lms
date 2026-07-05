@@ -102,12 +102,38 @@ export default function MobileDrawer({ open, onClose, nav }) {
                 if (visibleItems.length === 0) return null
                 return (
                 <div key={section.id}>
-                  <div
-                    className="px-3 mb-2 text-[11px] font-semibold"
-                    style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))', letterSpacing: '0.05em' }}
-                  >
-                    {section.label}
-                  </div>
+                  {role === 'admin' ? (
+                    /* admin: same gold spark + hairline eyebrow as the desktop operations rail */
+                    <div className="flex items-center gap-2 px-3 mb-2">
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0"
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: 1.5,
+                          transform: 'rotate(45deg)',
+                          background: 'linear-gradient(135deg, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 55%, transparent))',
+                          boxShadow: '0 0 8px var(--ds-accent-primary-glow)',
+                        }}
+                      />
+                      <span className="text-xs font-bold shrink-0 font-['Tajawal']" style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))' }}>
+                        {section.label}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="flex-1"
+                        style={{ height: 1, background: 'linear-gradient(to left, var(--ds-border-subtle, rgba(255,255,255,0.06)), transparent)' }}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="px-3 mb-2 text-[11px] font-semibold"
+                      style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))', letterSpacing: '0.05em' }}
+                    >
+                      {section.label}
+                    </div>
+                  )}
                   <div className="space-y-0.5">
                     {visibleItems.map((item) => {
                       if (!item || !item.to || !item.icon) return null

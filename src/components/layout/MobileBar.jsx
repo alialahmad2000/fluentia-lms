@@ -6,6 +6,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { motion } from 'framer-motion'
 import { MoreHorizontal } from 'lucide-react'
 import { useChatUnread } from '../../features/chat/queries/useDM'
+import { toArabicNum } from '../../lib/vocabFormat'
 
 function MobileBar({ nav, onMoreClick, role }) {
   const { t } = useTranslation()
@@ -15,6 +16,11 @@ function MobileBar({ nav, onMoreClick, role }) {
   const chatUnread = useChatUnread()
   // When chat is a primary tab in the bar, show its unread badge on that tab (not on "More").
   const hasChatTab = (nav.mobileBar || []).some((i) => i && i.badgeSource === 'chat-unread')
+  // Admin's mobile bar matches the gold operations rail (one accent system, Arabic-Indic count).
+  const badgeStyle = role === 'admin'
+    ? { background: 'var(--ds-accent-primary, #e9b949)', color: 'var(--ds-text-inverse, #0b0f18)' }
+    : { background: 'var(--ds-accent-danger, #ef4444)', color: '#fff' }
+  const badgeText = (n) => (n > 99 ? '٩٩+' : role === 'admin' ? toArabicNum(n) : String(n))
 
   return (
     <nav
@@ -43,8 +49,8 @@ function MobileBar({ nav, onMoreClick, role }) {
                 <MoreHorizontal size={22} />
                 {chatUnread > 0 && !hasChatTab && (
                   <span className="absolute flex items-center justify-center tabular-nums" aria-label={`${chatUnread} رسائل غير مقروءة`}
-                    style={{ top: 4, insetInlineEnd: 10, minWidth: 16, height: 16, padding: '0 4px', borderRadius: 9999, fontSize: 9.5, fontWeight: 700, background: 'var(--ds-accent-danger, #ef4444)', color: '#fff', boxShadow: '0 0 0 2px var(--ds-bg-base)' }}>
-                    {chatUnread > 99 ? '99+' : chatUnread}
+                    style={{ top: 4, insetInlineEnd: 10, minWidth: 16, height: 16, padding: '0 4px', borderRadius: 9999, fontSize: 10, fontWeight: 700, boxShadow: '0 0 0 2px var(--ds-bg-base)', ...badgeStyle }}>
+                    {badgeText(chatUnread)}
                   </span>
                 )}
                 <span className="text-[10px] font-medium font-['Tajawal']">{item.labelKey ? t(item.labelKey) : item.label}</span>
@@ -91,8 +97,8 @@ function MobileBar({ nav, onMoreClick, role }) {
               />
               {item.badgeSource === 'chat-unread' && chatUnread > 0 && (
                 <span className="absolute flex items-center justify-center tabular-nums" aria-label={`${chatUnread} رسائل غير مقروءة`}
-                  style={{ top: 4, insetInlineEnd: 10, minWidth: 16, height: 16, padding: '0 4px', borderRadius: 9999, fontSize: 9.5, fontWeight: 700, background: 'var(--ds-accent-danger, #ef4444)', color: '#fff', boxShadow: '0 0 0 2px var(--ds-bg-base)' }}>
-                  {chatUnread > 99 ? '99+' : chatUnread}
+                  style={{ top: 4, insetInlineEnd: 10, minWidth: 16, height: 16, padding: '0 4px', borderRadius: 9999, fontSize: 10, fontWeight: 700, boxShadow: '0 0 0 2px var(--ds-bg-base)', ...badgeStyle }}>
+                  {badgeText(chatUnread)}
                 </span>
               )}
               <span className="text-[10px] font-medium font-['Tajawal']">{item.labelKey ? t(item.labelKey) : item.label}</span>

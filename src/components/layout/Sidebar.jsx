@@ -15,12 +15,16 @@ import { useChatUnread } from '@/features/chat/queries/useDM'
 import { supabase } from '@/lib/supabase'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin', agent: '/team', coordinator: '/coordinator' }
+const STAFF_ROLE_LABELS = { admin: 'إدارة الأكاديمية', trainer: 'مدرب', agent: 'خدمة العملاء', coordinator: 'تنسيق الحصص' }
 
 function Sidebar({ nav, collapsed, onToggle }) {
   const profile = useAuthStore((s) => s.profile)
   const profileId = profile?.id
   const studentData = useAuthStore((s) => s.studentData)
   const role = profile?.role || 'student'
+  // Admin gets the compact "operations rail" treatment (28 destinations need
+  // density); students keep the roomier rail exactly as approved.
+  const dense = role === 'admin'
 
   const { data: ieltsRoster } = useIELTSRoster()
   const hasIELTSStudents = Array.isArray(ieltsRoster) && ieltsRoster.length > 0
@@ -102,7 +106,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
       className="pd-rail hidden lg:flex flex-col fixed right-0 z-30 transition-all duration-300"
       style={{
         top: 'var(--impersonation-banner-height, 0px)',
-        height: 'calc(100vh - var(--impersonation-banner-height, 0px))',
+        height: 'calc(100dvh - var(--impersonation-banner-height, 0px))',
         width: collapsed ? 76 : 264,
         background: 'var(--ds-bg-elevated, #0b0f18)',
         borderLeft: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.06))',
@@ -161,17 +165,30 @@ function Sidebar({ nav, collapsed, onToggle }) {
           ط
         </span>
         {!collapsed && (
-          <span
-            className="text-[19px] font-bold leading-none"
-            style={{ color: 'var(--ds-text-primary, #faf5e6)', fontFamily: "'Tajawal', sans-serif", letterSpacing: '-0.01em' }}
-          >
-            طلاقة
+          <span className="flex flex-col" style={{ gap: 3 }}>
+            <span
+              className="text-[19px] font-bold leading-none"
+              style={{ color: 'var(--ds-text-primary, #faf5e6)', fontFamily: "'Tajawal', sans-serif" }}
+            >
+              طلاقة
+            </span>
+            {dense && (
+              <span
+                className="text-xs font-bold leading-none font-['Tajawal']"
+                style={{ color: 'var(--ds-accent-primary)', opacity: 0.85 }}
+              >
+                غرفة العمليات
+              </span>
+            )}
           </span>
         )}
       </div>
 
       {/* Sections */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 space-y-5 relative" style={{ zIndex: 1 }}>
+      <div
+        className={`pd-rail-scroll flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 relative ${dense ? 'space-y-4 pd-rail-scroll--fade' : 'space-y-5'}`}
+        style={{ zIndex: 1 }}
+      >
         {nav.sections.map((section) => {
           const visibleItems = section.items.filter(item => {
             if (item.visibleWhen === 'hard-words-count' && hardWordsCount <= 0) return false
@@ -184,7 +201,46 @@ function Sidebar({ nav, collapsed, onToggle }) {
           if (visibleItems.length === 0) return null
           return (
             <div key={section.id}>
-              {!collapsed && (
+              {/* collapsed admin rail: keep section structure visible with a hairline */}
+              {collapsed && dense && section.id !== nav.sections[0]?.id && (
+                <div
+                  aria-hidden="true"
+                  className="mx-auto"
+                  style={{ width: 24, height: 1, background: 'rgba(255,255,255,0.14)', marginBottom: 10 }}
+                />
+              )}
+              {!collapsed && (dense ? (
+                /* admin eyebrow — gold spark + label + hairline rule, matching the
+                   dashboard's adx-eyebrow system */
+                <div className="flex items-center gap-2 px-3 mb-2">
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: 1.5,
+                      transform: 'rotate(45deg)',
+                      background: 'linear-gradient(135deg, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 55%, transparent))',
+                      boxShadow: '0 0 8px var(--ds-accent-primary-glow)',
+                    }}
+                  />
+                  <span
+                    className="text-xs font-bold shrink-0 font-['Tajawal']"
+                    style={{ color: 'var(--ds-text-tertiary)' }}
+                  >
+                    {section.label}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="flex-1"
+                    style={{
+                      height: 1,
+                      background: 'linear-gradient(to left, var(--ds-border-subtle), transparent)',
+                    }}
+                  />
+                </div>
+              ) : (
                 <div className="flex items-center gap-2 px-3 mb-2.5">
                   <span
                     aria-hidden="true"
@@ -197,7 +253,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
                     {section.label}
                   </span>
                 </div>
-              )}
+              ))}
               <div className="space-y-1">
                 {visibleItems.map((item) => {
                   if (!item || !item.to || !item.icon) return null
@@ -218,14 +274,16 @@ function Sidebar({ nav, collapsed, onToggle }) {
                           toast({ type: 'error', title: 'هذي الميزة لباقة IELTS فقط 🔒' })
                         }
                       }}
-                      className={`pd-rail-item relative flex items-center rounded-[14px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--ds-accent-primary)] ${active ? 'is-active' : ''}`}
+                      className={`pd-rail-item relative flex items-center outline-none focus-visible:ring-2 focus-visible:ring-[var(--ds-accent-primary)] ${dense ? 'rounded-[12px]' : 'rounded-[14px]'} ${active ? 'is-active' : ''}`}
                       style={{
-                        height: 46,
-                        gap: 12,
+                        height: dense ? 40 : 46,
+                        gap: dense ? 10 : 12,
                         padding: collapsed ? '0' : '0 12px',
                         justifyContent: collapsed ? 'center' : 'flex-start',
                         background: active
-                          ? 'linear-gradient(90deg, color-mix(in srgb, var(--ds-accent-primary) 16%, transparent), color-mix(in srgb, var(--ds-accent-primary) 4%, transparent))'
+                          // `to left` anchors the strongest gold at the leading (icon/indicator)
+                          // edge in this RTL rail; 90deg put it on the trailing edge
+                          ? 'linear-gradient(to left, color-mix(in srgb, var(--ds-accent-primary) 16%, transparent), color-mix(in srgb, var(--ds-accent-primary) 4%, transparent))'
                           : 'transparent',
                         color: active ? 'var(--ds-accent-primary)' : 'var(--ds-text-secondary)',
                       }}
@@ -247,9 +305,9 @@ function Sidebar({ nav, collapsed, onToggle }) {
                       <span
                         className="pd-rail-ico flex items-center justify-center shrink-0"
                         style={{
-                          width: 36,
-                          height: 36,
-                          borderRadius: 11,
+                          width: dense ? 30 : 36,
+                          height: dense ? 30 : 36,
+                          borderRadius: dense ? 9 : 11,
                           background: active
                             ? 'linear-gradient(135deg, color-mix(in srgb, var(--ds-accent-primary) 30%, transparent), color-mix(in srgb, var(--ds-accent-primary) 10%, transparent))'
                             : 'transparent',
@@ -258,13 +316,13 @@ function Sidebar({ nav, collapsed, onToggle }) {
                         }}
                       >
                         <Icon
-                          size={20}
+                          size={dense ? 17 : 20}
                           strokeWidth={active ? 2 : 1.75}
                           style={active ? { filter: 'drop-shadow(0 0 8px var(--ds-accent-primary-glow))' } : undefined}
                         />
                       </span>
                       {!collapsed && (
-                        <span className={`text-[14px] truncate font-['Tajawal'] flex-1 min-w-0 ${active ? 'font-bold' : 'font-medium'}`}>
+                        <span className={`${dense ? 'text-[13px]' : 'text-[14px]'} truncate font-['Tajawal'] flex-1 min-w-0 ${active ? 'font-bold' : 'font-medium'}`}>
                           {item.label}
                         </span>
                       )}
@@ -274,16 +332,25 @@ function Sidebar({ nav, collapsed, onToggle }) {
                         (collapsed ? (
                           <span
                             className="absolute top-2 right-2 w-2 h-2 rounded-full"
-                            style={{ background: '#818cf8', boxShadow: '0 0 6px rgba(129,140,248,0.7)' }}
+                            style={dense
+                              ? { background: 'var(--ds-accent-primary)', boxShadow: '0 0 6px var(--ds-accent-primary-glow)' }
+                              : { background: '#818cf8', boxShadow: '0 0 6px rgba(129,140,248,0.7)' }}
                           />
                         ) : (
                           <span
-                            className="shrink-0 min-w-[20px] h-5 px-1.5 rounded-full text-[11px] font-bold flex items-center justify-center tabular-nums"
-                            style={{
-                              background: 'rgba(129,140,248,0.16)',
-                              color: '#a5b4fc',
-                              border: '1px solid rgba(129,140,248,0.32)',
-                            }}
+                            className={`shrink-0 min-w-[20px] h-5 px-1.5 rounded-full ${dense ? 'text-xs' : 'text-[11px]'} font-bold flex items-center justify-center tabular-nums`}
+                            style={dense
+                              // admin rail is a single-accent gold system — no stray indigo
+                              ? {
+                                  background: 'color-mix(in srgb, var(--ds-accent-primary) 14%, transparent)',
+                                  color: 'var(--ds-accent-primary)',
+                                  border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 35%, transparent)',
+                                }
+                              : {
+                                  background: 'rgba(129,140,248,0.16)',
+                                  color: '#a5b4fc',
+                                  border: '1px solid rgba(129,140,248,0.32)',
+                                }}
                           >
                             {badgeCounts[item.badgeSource] > 99 ? '٩٩+' : toArabicNum(badgeCounts[item.badgeSource])}
                           </span>
@@ -313,15 +380,21 @@ function Sidebar({ nav, collapsed, onToggle }) {
               <div className="text-[13px] font-semibold truncate font-['Tajawal']" style={{ color: 'var(--ds-text-primary)' }}>
                 {displayName}
               </div>
-              <div className="text-[11px] truncate font-data" style={{ color: 'var(--ds-text-tertiary)' }}>
-                {level != null ? `المستوى ${level}` : ''}{level != null && xp > 0 ? ' · ' : ''}{xp > 0 ? `${xp.toLocaleString('en-US')} XP` : ''}
-              </div>
+              {role === 'student' ? (
+                <div className="text-[11px] truncate font-data" style={{ color: 'var(--ds-text-tertiary)' }}>
+                  {level != null ? `المستوى ${level}` : ''}{level != null && xp > 0 ? ' · ' : ''}{xp > 0 ? `${xp.toLocaleString('en-US')} XP` : ''}
+                </div>
+              ) : (
+                <div className="text-xs truncate font-['Tajawal'] font-medium" style={{ color: 'var(--ds-accent-primary)', opacity: 0.9 }}>
+                  {STAFF_ROLE_LABELS[role] || ''}
+                </div>
+              )}
             </div>
           )}
           {!collapsed && (
             <button
               onClick={(e) => { e.stopPropagation(); navigate(role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/my-students' : role === 'agent' ? '/team' : role === 'coordinator' ? '/coordinator' : '/student/profile') }}
-              className="shrink-0 p-1.5 rounded-lg transition-colors duration-200"
+              className="pd-rail-gear shrink-0 p-1.5 rounded-lg transition-colors duration-200"
               style={{ color: 'var(--ds-text-tertiary)' }}
               aria-label="الإعدادات"
             >
@@ -347,9 +420,19 @@ function Sidebar({ nav, collapsed, onToggle }) {
       </button>
 
       <style>{`
-        .pd-rail-item { transition: background var(--motion-base,240ms) var(--ease-out,ease), color var(--motion-base,240ms) var(--ease-out,ease); }
-        .pd-rail-item:not(.is-active):hover { background: var(--ds-surface-1) !important; color: var(--ds-text-primary) !important; }
+        .pd-rail-item { transition: background 170ms var(--ease-out,ease), color 170ms var(--ease-out,ease), box-shadow 170ms var(--ease-out,ease); }
+        .pd-rail-item:not(.is-active):hover { background: var(--ds-surface-1) !important; color: var(--ds-text-primary) !important; box-shadow: inset 0 0 0 1px var(--ds-border-subtle); }
         .pd-rail-item:not(.is-active):hover .pd-rail-ico { background: var(--ds-surface-2); }
+        .pd-rail-gear:hover { color: var(--ds-text-primary); background: var(--ds-surface-2); }
+        .pd-rail-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.10) transparent; }
+        .pd-rail-scroll::-webkit-scrollbar { width: 4px; }
+        .pd-rail-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 999px; }
+        .pd-rail-scroll::-webkit-scrollbar-track { background: transparent; }
+        /* long admin list: fade content at the scroll edges so the cut never looks abrupt */
+        .pd-rail-scroll--fade {
+          -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16px, #000 calc(100% - 22px), transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 16px, #000 calc(100% - 22px), transparent 100%);
+        }
       `}</style>
     </aside>
   )

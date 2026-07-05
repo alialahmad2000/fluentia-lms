@@ -8,7 +8,7 @@ import {
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
   MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
-  Bug, Sparkles,
+  Bug, Sparkles, Handshake, Layers, Eye, Star,
 } from 'lucide-react'
 
 
@@ -198,6 +198,10 @@ export const TRAINER_NAV = {
   ],
 }
 
+/* ADMIN_NAV — "Operations Bridge" order (2026-07-05): sections mirror how the owner
+   actually runs the academy, most-used first. ALL destinations are preserved — this
+   is a regroup, never a removal (hide-don't-delete rule). The mobile "More" drawer
+   reads `sections` directly (no drawerSections here), so this order IS the drawer. */
 export const ADMIN_NAV = {
   sections: [
     {
@@ -211,44 +215,56 @@ export const ADMIN_NAV = {
     },
     {
       id: 'people',
-      label: 'الأشخاص',
+      label: 'الطلاب والفريق',
       items: [
         { id: 'students',    label: 'الطلاب',       icon: GraduationCap, to: '/admin/users' },
         { id: 'groups',      label: 'المجموعات',    icon: Users,         to: '/admin/groups' },
         { id: 'trainers',    label: 'المدربون',     icon: UserCog,       to: '/admin/trainers' },
         // HR hub (was reachable only by direct URL — Ali couldn't find it, 2026-06-11)
-        { id: 'team',        label: 'الموظفون',     icon: ClipboardList, to: '/admin/team' },
+        { id: 'team',        label: 'الموظفون',     icon: Briefcase,     to: '/admin/team' },
         { id: 'coordination', label: 'تنسيق الحصص', icon: CalendarClock, to: '/coordinator' },
       ],
     },
     {
-      id: 'operations',
-      label: 'العمليات',
+      id: 'finance',
+      label: 'المالية والنمو',
       items: [
-        { id: 'content',     label: 'المحتوى',      icon: BookOpen,      to: '/admin/content' },
-        { id: 'library',     label: 'المكتبة',      icon: BookMarked,    to: '/library' },
-        { id: 'curriculum',  label: 'المنهج',       icon: FileText,      to: '/admin/curriculum' },
-        { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: BookOpen, to: '/admin/student-curriculum' },
-        { id: 'ielts-atelier-preview',   label: 'معاينة منهج IELTS',  icon: Target,   to: '/admin/ielts-atelier-preview' },
-        { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: BookOpen, to: '/admin/interactive-curriculum' },
         { id: 'payments',    label: 'المالية',      icon: CreditCard,    to: '/admin/packages' },
         { id: 'marketing',   label: 'التسويق',      icon: Megaphone,     to: '/admin/announcements' },
-        { id: 'affiliates',  label: 'الشركاء',      icon: Users,         to: '/admin/affiliates' },
-        { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,        to: '/admin/competition' },
+        { id: 'affiliates',  label: 'الشركاء',      icon: Handshake,     to: '/admin/affiliates' },
+        { id: 'monthly-rewards', label: 'مكافآت الشهر', icon: Gift,      to: '/admin/monthly-rewards' },
+      ],
+    },
+    {
+      id: 'curriculum',
+      label: 'المنهج والمحتوى',
+      items: [
+        { id: 'curriculum',  label: 'المنهج',       icon: FileText,      to: '/admin/curriculum' },
+        { id: 'content',     label: 'المحتوى',      icon: BookOpen,      to: '/admin/content' },
+        { id: 'student-curriculum', label: 'معاينة كطالب', icon: Eye, to: '/admin/student-curriculum' },
+        { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: Layers, to: '/admin/interactive-curriculum' },
         { id: 'ielts',       label: 'IELTS',         icon: Target,        to: '/admin/curriculum/ielts' },
-        { id: 'speaking-hubs', label: 'نادي المحادثة', icon: MessageCircle, to: '/admin/speaking-hubs' },
+        { id: 'ielts-atelier-preview',   label: 'معاينة IELTS',  icon: Award,   to: '/admin/ielts-atelier-preview' },
+        { id: 'library',     label: 'المكتبة',      icon: BookMarked,    to: '/library' },
+      ],
+    },
+    {
+      id: 'community',
+      label: 'التواصل والمجتمع',
+      items: [
         { id: 'chat',          label: 'المحادثة',      icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+        { id: 'speaking-hubs', label: 'نادي المحادثة', icon: MessageCircle, to: '/admin/speaking-hubs' },
+        { id: 'competition', label: 'المسابقة',  icon: Swords,        to: '/admin/competition' },
       ],
     },
     {
       id: 'system',
-      label: 'النظام',
+      label: 'الجودة والنظام',
       items: [
         { id: 'bug-reports', label: 'بلاغات المشاكل', icon: Bug,           to: '/admin/bug-reports' },
-        { id: 'library-feedback', label: 'آراء المكتبة', icon: BookMarked,  to: '/admin/library-feedback' },
-        { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'curriculum-quality', label: 'جودة المنهج', icon: ShieldAlert,   to: '/admin/curriculum-quality' },
-        { id: 'monthly-rewards', label: 'مكافآت الشهر', icon: Gift,          to: '/admin/monthly-rewards' },
+        { id: 'library-feedback', label: 'آراء المكتبة', icon: Star,        to: '/admin/library-feedback' },
+        { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
         { id: 'system-diagnostics', label: 'تشخيص النظام', icon: Activity,   to: '/admin/system' },
         { id: 'settings',    label: 'الإعدادات',    icon: Settings,      to: '/admin/settings' },
       ],
@@ -257,7 +273,7 @@ export const ADMIN_NAV = {
   mobileBar: [
     { id: 'dashboard', label: 'الرئيسية', icon: Home,          to: '/admin' },
     { id: 'students',  label: 'الطلاب',   icon: GraduationCap, to: '/admin/users' },
-    { id: 'groups',    label: 'المجموعات', icon: Users,         to: '/admin/groups' },
+    { id: 'payments',  label: 'المالية',   icon: CreditCard,    to: '/admin/packages' },
     { id: 'reports',   label: 'التقارير',  icon: BarChart3,     to: '/admin/reports' },
     { id: 'more',      label: 'المزيد',    icon: 'more',        to: null },
   ],
