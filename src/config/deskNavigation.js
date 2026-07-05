@@ -3,10 +3,11 @@
 // DeskShell (not the shared Sidebar), so it never touches any other student's nav.
 // `soon: true` items are part of the vision (later stages) — shown, but not yet live.
 
-import { Radar, Headset, PhoneCall, Languages, NotebookPen, TrendingUp } from 'lucide-react'
+import { Radar, Headset, PhoneCall, Languages, NotebookPen, TrendingUp, Compass } from 'lucide-react'
 
 export const DESK_NAV = [
   { id: 'today',      ar: 'اليوم',            en: 'Today',            icon: Radar,      to: '/desk' },
+  { id: 'track',      ar: 'المسار',           en: 'Track',            icon: Compass,    to: '/desk/track' },
   { id: 'scenarios',  ar: 'السيناريوهات',     en: 'Scenarios',        icon: Headset,    to: '/desk/scenarios' },
   { id: 'phrasebank', ar: 'دفتري',            en: 'My Phrasebook',    icon: NotebookPen, to: '/desk/phrasebank' },
   { id: 'growth',     ar: 'تقدّمي',           en: 'Growth',           icon: TrendingUp, to: '/desk/growth' },

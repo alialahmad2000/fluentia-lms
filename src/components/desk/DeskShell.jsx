@@ -33,7 +33,7 @@ export default function DeskShell() {
   useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
 
   const displayName = profile?.display_name || profile?.full_name || ''
-  const mobileItems = DESK_NAV.slice(0, 4) // 2 live + 2 upcoming (shown disabled)
+  const mobileItems = DESK_NAV.filter((item) => !item.soon) // all live surfaces reach the mobile bar
 
   return (
     <div className="desk-root">

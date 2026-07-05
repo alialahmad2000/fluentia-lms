@@ -51,6 +51,8 @@ const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboar
 const DeskToday = lazyRetry(() => import('./pages/desk/DeskToday'))
 const DeskScenarios = lazyRetry(() => import('./pages/desk/DeskScenarios'))
 const DeskScenarioPlayer = lazyRetry(() => import('./pages/desk/DeskScenarioPlayer'))
+const DeskTrack = lazyRetry(() => import('./pages/desk/DeskTrack'))
+const DeskLesson = lazyRetry(() => import('./pages/desk/DeskLesson'))
 const DeskPhrasebook = lazyRetry(() => import('./pages/desk/DeskPhrasebook'))
 const DeskGrowth = lazyRetry(() => import('./pages/desk/DeskGrowth'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
@@ -898,6 +900,8 @@ export default function App() {
               <Route element={<DeskGuard />}>
                 <Route element={<ErrorBoundary><DeskShell /></ErrorBoundary>}>
                   <Route path="/desk" element={<Page><DeskToday /></Page>} />
+                  <Route path="/desk/track" element={<Page><DeskTrack /></Page>} />
+                  <Route path="/desk/track/:lessonId" element={<Page><DeskLesson /></Page>} />
                   <Route path="/desk/scenarios" element={<Page><DeskScenarios /></Page>} />
                   <Route path="/desk/scenarios/:moduleId" element={<Page><DeskScenarioPlayer /></Page>} />
                   <Route path="/desk/phrasebank" element={<Page><DeskPhrasebook /></Page>} />

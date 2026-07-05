@@ -1,17 +1,22 @@
 // DeskToday — the cockpit. Not a dashboard of lessons: what to do now. The current scenario
 // is the showpiece (a live "incident" hero), with track progress and a jump into the library.
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { Loader2, Radio, ArrowLeft, Headset, CheckCircle2, Clock } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { Loader2, Radio, ArrowLeft, Headset, CheckCircle2, Clock, Compass } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
 import { useDeskModules } from './useDeskModules'
+import { useCurriculumProgress } from './useCurriculumProgress'
+import { ALL_LESSONS } from '@/data/desk/curriculum'
 import './desk.css'
 
 export default function DeskToday() {
   const profile = useAuthStore((s) => s.profile)
   const g = useG()
+  const rm = useReducedMotion()
   const { data, isLoading } = useDeskModules()
+  const { overall: track, currentLessonId } = useCurriculumProgress()
+  const currentLesson = currentLessonId ? ALL_LESSONS.find((l) => l.id === currentLessonId) : null
   const firstName = (profile?.display_name || profile?.full_name || '').split(' ')[0]
 
   if (isLoading) return <div className="flex items-center justify-center py-24"><Loader2 className="animate-spin" style={{ color: 'var(--brass)' }} /></div>
@@ -40,6 +45,28 @@ export default function DeskToday() {
           {current ? g('مهمتك القادمة جاهزة. جرّبها قبل مكالمتك الحقيقية.', 'مهمتك القادمة جاهزة. جرّبيها قبل مكالمتك الحقيقية.') : g('أنجزت كل السيناريوهات المتاحة — عمل رائع.', 'أنجزتِ كل السيناريوهات المتاحة — عمل رائع.')}
         </p>
       </div>
+
+      {/* your track — learn, then apply live */}
+      <motion.div initial={rm ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ease: [0.16, 1, 0.3, 1], delay: 0.04 }}>
+        <Link to={currentLesson ? `/desk/track/${currentLesson.id}` : '/desk/track'} className="group desk-glass flex items-center gap-4 p-5">
+          <div className="desk-apply-mark" style={{ borderRadius: 14 }}><Compass size={20} /></div>
+          <div className="min-w-0 flex-1">
+            <p className="font-['Tajawal'] text-[11px] font-bold mb-0.5" style={{ color: 'var(--brass)' }}>
+              {track.done === 0 ? g('ابدأ مسارك المهني', 'ابدئي مسارك المهني') : currentLesson ? g('تابع المسار', 'تابعي المسار') : g('أتممت المسار', 'أتممتِ المسار')}
+            </p>
+            <h3 className="font-['Tajawal'] font-extrabold text-[15px] leading-tight truncate" style={{ color: 'var(--cream)' }}>
+              {currentLesson ? currentLesson.ar : g('كل الدروس مكتملة — عمل رائع', 'كل الدروس مكتملة — عمل رائع')}
+            </h3>
+            <div className="flex items-center gap-2.5 mt-1.5">
+              <div className="w-24 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
+                <div className="h-full rounded-full" style={{ width: `${track.pct}%`, background: 'linear-gradient(90deg,#c9a25c,#efd299)' }} />
+              </div>
+              <span className="font-['Tajawal'] text-[11px] font-bold tabular-nums" style={{ color: 'var(--brass-hi)' }}>{track.done}/{track.total}</span>
+            </div>
+          </div>
+          <ArrowLeft size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />
+        </Link>
+      </motion.div>
 
       {/* current-scenario hero */}
       {current ? (
