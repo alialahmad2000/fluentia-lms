@@ -10,6 +10,8 @@ import { useListeningSection, useSubmitListeningSession, useRecentListeningSessi
 import { gradeQuestions } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
+import { ExamShell, QuestionPalette } from './_ui/ExamShell'
+import { ExamQuestion, QuestionGroupInstruction } from './_ui/ExamQuestions'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -576,9 +578,11 @@ export default function Listening() {
   const [audioStarted, setAudioStarted] = useState(false)
   const [sessionElapsed, setSessionElapsed] = useState(0)
   const [confirmSubmit, setConfirmSubmit] = useState(false)
+  const [current, setCurrent] = useState(null)
 
   // ── 2. useRef ──────────────────────────────────────────────────────────────
   const audioRef = useRef(null)
+  const qScrollRef = useRef(null)
   const elapsedTimerRef = useRef(null)
   const narrativeDoneRef = useRef(false)
   const submitRef = useRef(null)
@@ -605,6 +609,13 @@ export default function Listening() {
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = playbackSpeed
   }, [playbackSpeed])
+
+  // Highlight the first question as "current" once the section's questions load
+  useEffect(() => {
+    if (act !== 'session' || current) return
+    const firstQ = (sectionQ.data?.questions || [])[0]?.number
+    if (firstQ != null) setCurrent(`0_${firstQ}`)
+  }, [act, sectionQ.data, current])
 
   // Audio event listeners — re-attach whenever act or section data changes
   useEffect(() => {
@@ -688,6 +699,14 @@ export default function Listening() {
   function handleAnswerChange(qNum, val) {
     setAnswers(prev => ({ ...prev, [String(qNum)]: val }))
     setConfirmSubmit(false)
+    setCurrent(`0_${qNum}`)
+  }
+  function jumpToQuestion(n) {
+    setCurrent(`0_${n}`)
+    setTimeout(() => {
+      const el = (qScrollRef.current || document).querySelector(`[data-q="${n}"]`)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 0)
   }
 
   function handleSelectSection(s) {
@@ -702,6 +721,7 @@ export default function Listening() {
     setPlaybackSpeed(1)
     setSessionElapsed(0)
     setConfirmSubmit(false)
+    setCurrent(null)
     setAct('session')
   }
 
@@ -736,9 +756,12 @@ export default function Listening() {
             transition={{ duration: 0.6 }}
             style={{ paddingTop: 32 }}
           >
-            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>التدريب · الاستماع</div>
-            <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>الاستماع</h1>
-            <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '54ch' }}>مقاطع صوتية بأنواع أسئلة الآيلتس. استمع، أجب، واحصل على تصحيح فوري وشرح لكل إجابة.</p>
+            <NarrativeReveal
+              lines={NARRATIVE_LINES}
+              delayBetweenLines={700}
+              pauseAfterLast={400}
+              onComplete={() => { narrativeDoneRef.current = true }}
+            />
           </motion.section>
         )}
 
@@ -841,134 +864,31 @@ export default function Listening() {
 
   // ── ACT 2: SESSION ─────────────────────────────────────────────────────────
   if (act === 'session') {
+    const qs = Array.isArray(questions) ? questions : []
+    const sharedInstr = qs.find(q => q.instruction)?.instruction || ''
+    const answeredSet = new Set(
+      qs.filter(q => answers[String(q.number)] != null && answers[String(q.number)] !== '')
+        .map(q => `0_${q.number}`)
+    )
+    const groups = [{ label: SECTION_LABELS[section?.section_number] || 'Section', numbers: qs.map(q => q.number) }]
+
     return (
-      <div dir="rtl" style={{ maxWidth: 1100, margin: '0 auto', paddingBottom: 60 }}>
-
-        {/* Hidden audio element — rendered when section data is loaded */}
-        {section?.audio_url && (
-          <audio ref={audioRef} src={section.audio_url} preload="metadata" />
-        )}
-
-        {/* Session header */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '14px 0 16px',
-          marginBottom: 20,
-          borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)',
-          gap: 12,
-          flexWrap: 'wrap',
-        }}>
-          <button
-            onClick={handleBackToHall}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '6px 12px',
-              borderRadius: 8,
-              border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)',
-              background: 'transparent',
-              color: 'var(--ds-text-muted)',
-              fontSize: 13,
-              fontFamily: "'Tajawal', sans-serif",
-              cursor: 'pointer',
-            }}
-          >
-            <ChevronLeft size={13} />
-            القاعة
-          </button>
-
-          <h2 style={{
-            margin: 0,
-            flex: 1,
-            textAlign: 'center',
-            fontSize: 15,
-            fontWeight: 700,
-            color: 'var(--ds-text)',
-            fontFamily: "'Tajawal', sans-serif",
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}>
-            {section?.title || selectedSection?.title || '...'}
-          </h2>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif" }}>
-              {answeredCount}/{totalQ}
-            </span>
-            <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
-              {formatTime(sessionElapsed)}
-            </span>
-          </div>
-        </div>
-
-        {/* Loading skeleton */}
+      <ExamShell
+        sectionLabel="الاستماع"
+        partLabel={section?.title || selectedSection?.title || ''}
+        onSubmit={() => submitRef.current()}
+        submitting={submitMut.isPending}
+        submitLabel="تسليم الإجابات"
+        onExit={handleBackToHall}
+        footer={<QuestionPalette groups={groups} answered={answeredSet} current={current} onJump={(gi, n) => jumpToQuestion(n)} />}
+      >
+        {section?.audio_url && <audio ref={audioRef} src={section.audio_url} preload="metadata" />}
         {sectionQ.isLoading ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {[200, 120, 180, 120].map((h, i) => (
-              <div key={i} style={{
-                height: h,
-                borderRadius: 18,
-                background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)',
-                border: '1px solid color-mix(in srgb, var(--ds-border) 30%, transparent)',
-              }} />
-            ))}
-          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>جارٍ التحميل…</div>
         ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isWide ? '320px 1fr' : '1fr',
-            gap: 20,
-            alignItems: 'start',
-          }}>
-            {/* ── Left: Audio panel ── */}
-            <div style={{
-              position: isWide ? 'sticky' : 'static',
-              top: 20,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 14,
-            }}>
-              {/* Section info card */}
-              <div style={{
-                padding: '16px 18px',
-                borderRadius: 16,
-                background: 'color-mix(in srgb, var(--sunset-base-mid) 38%, transparent)',
-                border: '1px solid color-mix(in srgb, var(--sunset-amber) 16%, transparent)',
-                backdropFilter: 'blur(8px)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontSize: 18 }}>{SECTION_ICONS[section?.section_number] || '🎧'}</span>
-                  <span style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: 'var(--sunset-orange)',
-                    fontFamily: "'IBM Plex Sans', sans-serif",
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}>
-                    {SECTION_LABELS[section?.section_number]}
-                  </span>
-                  {section?.accent && <AccentBadge accent={section.accent} />}
-                </div>
-                {section?.context_description && (
-                  <p style={{
-                    margin: 0,
-                    fontSize: 13,
-                    color: 'var(--ds-text-muted)',
-                    fontFamily: "'Tajawal', sans-serif",
-                    lineHeight: 1.6,
-                    textAlign: 'right',
-                  }}>
-                    {section.context_description}
-                  </p>
-                )}
-              </div>
-
-              {/* Audio player */}
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, maxWidth: 820, width: '100%', margin: '0 auto' }}>
+            {/* Audio bar */}
+            <div style={{ flex: 'none', padding: '14px 18px', borderBottom: '1px solid var(--iel-border)' }}>
               <AudioPlayer
                 audioRef={audioRef}
                 isPlaying={isPlaying}
@@ -982,112 +902,20 @@ export default function Listening() {
                 onReplay={handleReplay}
                 onSpeedChange={speed => setPlaybackSpeed(speed)}
               />
-
-              {/* Answer progress */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                    الإجابات
-                  </span>
-                  <span style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif" }}>
-                    {answeredCount} / {totalQ}
-                  </span>
-                </div>
-                <div style={{ height: 3, borderRadius: 99, background: 'color-mix(in srgb, var(--ds-border) 35%, transparent)', overflow: 'hidden' }}>
-                  <motion.div
-                    animate={{ width: `${totalQ > 0 ? (answeredCount / totalQ) * 100 : 0}%` }}
-                    transition={{ duration: 0.3 }}
-                    style={{ height: '100%', borderRadius: 99, background: 'var(--sunset-orange)' }}
-                  />
-                </div>
-              </div>
-
-              {/* Submit — with inline confirmation when partial */}
-              <AnimatePresence mode="wait">
-                {confirmSubmit && answeredCount < totalQ ? (
-                  <motion.div
-                    key="confirm"
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    style={{
-                      padding: '14px 16px',
-                      borderRadius: 14,
-                      background: 'color-mix(in srgb, var(--sunset-amber) 10%, transparent)',
-                      border: '1px solid color-mix(in srgb, var(--sunset-amber) 28%, transparent)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 10,
-                    }}
-                  >
-                    <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>
-                      {totalQ - answeredCount} سؤال بلا إجابة — {g('هل تريد الإرسال الآن؟', 'هل تريدين الإرسال الآن؟')}
-                    </p>
-                    <div style={{ display: 'flex', gap: 8 }}>
-                      <button
-                        onClick={() => setConfirmSubmit(false)}
-                        style={{ flex: 1, padding: '8px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
-                      >
-                        تراجع
-                      </button>
-                      <button
-                        onClick={() => submitRef.current()}
-                        style={{ flex: 1, padding: '8px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--sunset-orange) 40%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 15%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
-                      >
-                        إرسال
-                      </button>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.button
-                    key="submit"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    onClick={() => {
-                      if (answeredCount === 0) return
-                      if (answeredCount < totalQ) { setConfirmSubmit(true); return }
-                      submitRef.current()
-                    }}
-                    disabled={answeredCount === 0}
-                    whileHover={answeredCount > 0 ? { scale: 1.01 } : undefined}
-                    whileTap={answeredCount > 0 ? { scale: 0.99 } : undefined}
-                    style={{
-                      width: '100%',
-                      padding: '14px',
-                      borderRadius: 14,
-                      border: `1px solid color-mix(in srgb, var(--sunset-orange) ${answeredCount > 0 ? 45 : 18}%, transparent)`,
-                      background: answeredCount > 0
-                        ? 'color-mix(in srgb, var(--sunset-orange) 18%, var(--sunset-base-mid))'
-                        : 'color-mix(in srgb, var(--ds-surface) 35%, transparent)',
-                      color: answeredCount > 0 ? 'var(--ds-text)' : 'var(--ds-text-muted)',
-                      fontSize: 16,
-                      fontWeight: 900,
-                      fontFamily: "'Tajawal', sans-serif",
-                      cursor: answeredCount > 0 ? 'pointer' : 'not-allowed',
-                      opacity: answeredCount > 0 ? 1 : 0.5,
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    تسليم الإجابات ({answeredCount}/{totalQ})
-                  </motion.button>
-                )}
-              </AnimatePresence>
             </div>
-
-            {/* ── Right: Questions panel ── */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {questions.map(q => (
-                <QuestionItem
-                  key={q.number}
-                  q={q}
-                  answer={answers[String(q.number)]}
-                  onChange={handleAnswerChange}
-                />
-              ))}
+            {/* Questions — one continuous form */}
+            <div ref={qScrollRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '18px 18px 30px' }}>
+              {section?.context_description && <QuestionGroupInstruction>{section.context_description}</QuestionGroupInstruction>}
+              {sharedInstr && <QuestionGroupInstruction>{sharedInstr}</QuestionGroupInstruction>}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {qs.map(q => (
+                  <ExamQuestion key={q.number} q={{ ...q, question_number: q.number }} value={answers[String(q.number)]} onChange={(v) => handleAnswerChange(q.number, v)} showInstruction={q.instruction !== sharedInstr} />
+                ))}
+              </div>
             </div>
           </div>
         )}
-      </div>
+      </ExamShell>
     )
   }
 
