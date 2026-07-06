@@ -14,6 +14,9 @@ import { useG } from '@/i18n/gender'
 import { ExamShell } from './_ui/ExamShell'
 
 const SSANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+// Speaking questions are objects {q, sample} — extract the prompt so React never
+// renders a raw object as a child (which crashes the whole section).
+function qText(x) { return typeof x === 'string' ? x : (x?.q || x?.question || x?.text || x?.prompt || '') }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -655,7 +658,7 @@ export default function Speaking() {
   // ── ACT 2: SESSION ─────────────────────────────────────────────────────────
   if (act === 'session') {
     const isPart2 = selectedRow?.part === 2
-    const currentQ = questions[currentQIdx] || ''
+    const currentQ = qText(questions[currentQIdx])
     const inPrep = isPart2 && !prepDone
     const prepRemaining = Math.max(0, 60 - prepElapsed)
 
@@ -819,7 +822,7 @@ export default function Speaking() {
                 {questions.map((q, i) => (
                   <div key={i} style={{ padding: '14px 16px', borderRadius: 14, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', display: 'flex', flexDirection: 'column', gap: 10 }}>
                     <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", direction: 'ltr', textAlign: 'left', lineHeight: 1.6 }}>
-                      <strong>Q{i + 1}:</strong> {q}
+                      <strong>Q{i + 1}:</strong> {qText(q)}
                     </p>
                     {playbackUrls[i] && <audio controls src={playbackUrls[i]} style={{ width: '100%', borderRadius: 8 }} />}
                     {d.transcripts?.[i] && (

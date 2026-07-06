@@ -16,6 +16,9 @@ const MIME_CANDIDATES = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'a
 const RETRY_DELAYS = [2000, 4000, 8000, 16000, 32000]
 function fmt(s) { const v = Math.max(0, Math.floor(s || 0)); return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')}` }
 function getExt(m) { return m?.includes('mp4') ? 'mp4' : m?.includes('wav') ? 'wav' : 'webm' }
+// Speaking questions are stored as objects {q, sample} (Part 1/3) — extract the
+// prompt text so React never tries to render a raw object as a child (crash).
+function qText(x) { return typeof x === 'string' ? x : (x?.q || x?.question || x?.text || x?.prompt || '') }
 
 async function uploadBlob(blob, path, mimeType) {
   for (let i = 0; i < 3; i++) {
@@ -70,7 +73,7 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
   const currentRow = rows[`part${currentPart}`]
   const questions = currentRow?.questions || []
   const cueCard = currentRow?.cue_card || null
-  const currentQ = questions[qIdx] || ''
+  const currentQ = qText(questions[qIdx])
 
   useEffect(() => {
     const spk = content.speaking || {}
