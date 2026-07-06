@@ -47,7 +47,7 @@ export default function TeacherSidebar() {
   return (
     <nav className="tea-sidebar" aria-label="القائمة الرئيسية">
       <div className="tea-brand">
-        <span className="tea-brand__dot" aria-hidden="true" />
+        <img src="/brand/fluentia-mark.svg" alt="" width={20} height={25} style={{ display: 'block', objectFit: 'contain', flexShrink: 0 }} />
         <span className="tea-brand__name">طلاقة</span>
         <span className="tea-brand__role">مساحة المدرّب</span>
       </div>

@@ -154,15 +154,13 @@ function Sidebar({ nav, collapsed, onToggle }) {
             width: 40,
             height: 40,
             borderRadius: 13,
-            background: 'linear-gradient(135deg, var(--ds-accent-primary), var(--ds-accent-gold, var(--ds-accent-primary)))',
-            color: 'var(--ds-text-inverse, #0b0f18)',
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 24,
-            fontWeight: 900,
-            boxShadow: '0 8px 20px -8px var(--ds-accent-primary-glow), inset 0 1px 0 rgba(255,255,255,0.35)',
+            background: 'linear-gradient(150deg, rgba(56,189,248,0.14), rgba(56,189,248,0.03))',
+            border: '1px solid rgba(56,189,248,0.28)',
+            boxShadow: '0 8px 20px -8px var(--ds-accent-primary-glow), inset 0 1px 0 rgba(255,255,255,0.12)',
           }}
         >
-          ط
+          {/* Official Fluentia F-mark (brand PDF) — replaces the old placeholder letter */}
+          <img src="/brand/fluentia-mark.svg" alt="" width={24} height={30} style={{ display: 'block', objectFit: 'contain' }} />
         </span>
         {!collapsed && (
           <span className="flex flex-col" style={{ gap: 3 }}>

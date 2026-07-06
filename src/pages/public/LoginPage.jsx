@@ -107,6 +107,14 @@ export default function LoginPage() {
             transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center gap-3.5"
           >
+            {/* Official Fluentia F-mark (brand PDF) */}
+            <img
+              src="/brand/fluentia-mark.svg"
+              alt=""
+              width={52}
+              height={65}
+              style={{ display: 'block', objectFit: 'contain', filter: 'drop-shadow(0 6px 28px rgba(56,189,248,0.35))' }}
+            />
             {/* English eyebrow with hairline rules */}
             <div className="flex items-center gap-3" style={{ color: 'var(--text-tertiary)' }} dir="ltr">
               <span className="h-px w-8" style={{ background: 'linear-gradient(to right, transparent, currentColor)' }} />

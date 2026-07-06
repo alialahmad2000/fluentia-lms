@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => ({
       // the SINGLE updater — it applies the new build only at a navigation
       // boundary, never mid-page.
       registerType: 'prompt',
-      includeAssets: ['logo-icon-dark.png', 'logo-icon-light.png', 'logo-full-dark.png', 'logo-full-light.png'],
+      includeAssets: ['logo-icon-dark.png', 'logo-icon-light.png', 'logo-full-dark.png', 'logo-full-light.png', 'brand/fluentia-mark.svg', 'brand/icon-192.png', 'brand/icon-512.png', 'brand/apple-touch-icon.png'],
       manifest: {
         name: 'Fluentia | طلاقة',
         short_name: 'Fluentia',
@@ -52,9 +52,9 @@ export default defineConfig(({ mode }) => ({
         start_url: '/',
         scope: '/',
         icons: [
-          { src: '/logo-icon-dark.png', sizes: '192x192', type: 'image/png' },
-          { src: '/logo-icon-dark.png', sizes: '512x512', type: 'image/png' },
-          { src: '/logo-icon-dark.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: '/brand/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/brand/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: '/brand/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
