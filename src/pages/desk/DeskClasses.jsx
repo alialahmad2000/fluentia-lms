@@ -2,7 +2,7 @@
 // distilled + drillable. Newest first, over the Operations Room. Creditless.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { GraduationCap, ArrowLeft, Clock, Check, ChevronLeft, CalendarDays } from 'lucide-react'
+import { GraduationCap, ArrowLeft, Layers, Check, ChevronLeft, CalendarDays } from 'lucide-react'
 import { useG } from '@/i18n/gender'
 import { ALL_CLASSES } from '@/data/desk/classes'
 import { useClassProgress } from './useClassProgress'
@@ -19,7 +19,7 @@ function fmtDate(d) {
 export default function DeskClasses() {
   const g = useG()
   const rm = useReducedMotion()
-  const { isDone, done, total } = useClassProgress()
+  const { isClassDone, classProgress, done, total } = useClassProgress()
 
   return (
     <div className="space-y-8">
@@ -44,7 +44,8 @@ export default function DeskClasses() {
       {/* class list */}
       <div className="space-y-4">
         {ALL_CLASSES.map((c, i) => {
-          const reviewed = isDone(c.id)
+          const reviewed = isClassDone(c.id)
+          const cp = classProgress(c)
           return (
             <motion.div key={c.id} initial={rm ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
               transition={{ ease: [0.16, 1, 0.3, 1], delay: Math.min(i * 0.05, 0.3) }}>
@@ -69,8 +70,16 @@ export default function DeskClasses() {
                     <p className="font-['Tajawal'] text-[12.5px] leading-relaxed line-clamp-2" style={{ color: 'rgba(243,238,226,0.55)' }}>{c.tagline_ar}</p>
                     <div className="flex items-center gap-3.5 mt-3">
                       <span className="inline-flex items-center gap-1.5 font-['Tajawal'] text-[11.5px]" style={{ color: 'rgba(243,238,226,0.42)' }}><CalendarDays size={12} /> {fmtDate(c.date)}</span>
-                      <span className="inline-flex items-center gap-1.5 font-['Tajawal'] text-[11.5px]" style={{ color: 'rgba(243,238,226,0.42)' }}><Clock size={12} /> {c.minutes} {g('دقيقة مراجعة', 'دقيقة مراجعة')}</span>
+                      <span className="inline-flex items-center gap-1.5 font-['Tajawal'] text-[11.5px]" style={{ color: 'rgba(243,238,226,0.42)' }}><Layers size={12} /> {c.chapters.length} {g('محطة', 'محطة')}</span>
                     </div>
+                    {cp.done > 0 && !reviewed && (
+                      <div className="flex items-center gap-2.5 mt-2.5">
+                        <div dir="ltr" className="flex-1 h-1.5 rounded-full overflow-hidden max-w-[180px]" style={{ background: 'rgba(255,255,255,0.07)' }}>
+                          <div className="h-full rounded-full" style={{ width: `${cp.pct}%`, background: 'linear-gradient(90deg,#c9a25c,#efd299)' }} />
+                        </div>
+                        <span className="font-['Tajawal'] text-[11px] font-bold tabular-nums" style={{ color: 'var(--brass-hi)' }}>{cp.done}/{cp.total}</span>
+                      </div>
+                    )}
                   </div>
                   <ChevronLeft size={20} className="desk-lesson-chev flex-shrink-0" />
                 </div>

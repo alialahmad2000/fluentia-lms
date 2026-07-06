@@ -18,7 +18,7 @@ export default function DeskToday() {
   const rm = useReducedMotion()
   const { data, isLoading } = useDeskModules()
   const { overall: track, currentLessonId } = useCurriculumProgress()
-  const { isDone: isClassDone } = useClassProgress()
+  const { isClassDone } = useClassProgress()
   const currentLesson = currentLessonId ? ALL_LESSONS.find((l) => l.id === currentLessonId) : null
   const latestClass = ALL_CLASSES[0] || null
   const firstName = (profile?.display_name || profile?.full_name || '').split(' ')[0]

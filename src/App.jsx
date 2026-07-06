@@ -55,6 +55,7 @@ const DeskTrack = lazyRetry(() => import('./pages/desk/DeskTrack'))
 const DeskLesson = lazyRetry(() => import('./pages/desk/DeskLesson'))
 const DeskClasses = lazyRetry(() => import('./pages/desk/DeskClasses'))
 const DeskClass = lazyRetry(() => import('./pages/desk/DeskClass'))
+const DeskClassChapter = lazyRetry(() => import('./pages/desk/DeskClassChapter'))
 const DeskPhrasebook = lazyRetry(() => import('./pages/desk/DeskPhrasebook'))
 const DeskGrowth = lazyRetry(() => import('./pages/desk/DeskGrowth'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
@@ -923,6 +924,7 @@ export default function App() {
                   <Route path="/desk" element={<Page><DeskToday /></Page>} />
                   <Route path="/desk/classes" element={<Page><DeskClasses /></Page>} />
                   <Route path="/desk/classes/:classId" element={<Page><DeskClass /></Page>} />
+                  <Route path="/desk/classes/:classId/:chapterId" element={<Page><DeskClassChapter /></Page>} />
                   <Route path="/desk/track" element={<Page><DeskTrack /></Page>} />
                   <Route path="/desk/track/:lessonId" element={<Page><DeskLesson /></Page>} />
                   <Route path="/desk/scenarios" element={<Page><DeskScenarios /></Page>} />
