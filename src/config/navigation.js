@@ -14,27 +14,43 @@ import {
 
 export const STUDENT_NAV = {
   sections: [
+    /* Reorganized 2026-07-06 ("one journey" IA): the old 11-item التعلّم wall is
+       now 3 purposeful groups — رحلة التعلّم (the path) / التدريب اليومي (daily
+       practice rituals) / عالم طلاقة (the immersive world + community). */
     {
-      id: 'learning',
-      label: 'التعلّم',
+      id: 'journey',
+      label: 'رحلة التعلّم',
       items: [
         { id: 'dashboard',   label: 'الرئيسية',    icon: Home,       to: '/student' },
-        { id: 'srs',         label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
-        { id: 'hard-words',  label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         { id: 'everyday-english', label: 'إنجليزي يومي', icon: Sparkles, to: '/student/everyday-english' },
-        { id: 'library',     label: 'المكتبة',      icon: BookMarked, to: '/library' },
-        { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
-        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
-        { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
-        { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
         //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
         //   level-journey(خريطة رحلتك), competition(المسابقة), competition-rules, leaderboard, duels.
-        // Re-hidden 2026-06-09: commit 80e76b2 ("add Library") was based off a pre-c72640a tree and
-        // silently re-added these. RULE: if you add/remove an item here, mirror it in drawerSections
+        // RULE: if you add/remove an item here, mirror it in drawerSections
         // below — the mobile "More" drawer reads that SEPARATE list, or the item shows on phones.
+      ],
+    },
+    {
+      id: 'daily-practice',
+      label: 'التدريب اليومي',
+      items: [
+        { id: 'srs',         label: 'المراجعة اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
+        { id: 'hard-words',  label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
+        { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
+        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
+        { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
+      ],
+    },
+    {
+      id: 'world',
+      label: 'عالم طلاقة',
+      items: [
+        { id: 'library',     label: 'المكتبة',      icon: BookMarked, to: '/library' },
+        { id: 'speaking-hub', label: 'نادي التحدث', icon: MessageCircle, to: '/student/speaking-hub' },
+        { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+        // OWNER-HIDDEN (routes kept): leaderboard(لوحة الشرف), duels(المبارزات), competition, competition-rules.
       ],
     },
     {
@@ -45,18 +61,10 @@ export const STUDENT_NAV = {
       ],
     },
     {
-      id: 'community',
-      label: 'المجتمع',
-      items: [
-        { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-        // OWNER-HIDDEN (routes kept): leaderboard(لوحة الشرف), duels(المبارزات), competition, competition-rules.
-      ],
-    },
-    {
       id: 'account',
       label: 'حسابي',
       items: [
-        { id: 'profile',     label: 'ملفي',         icon: User,       to: '/student/profile' },
+        { id: 'profile',     label: 'رحلتي وملفي',   icon: User,       to: '/student/profile' },
       ],
     },
   ],
@@ -69,26 +77,32 @@ export const STUDENT_NAV = {
      competition(المسابقة), competition-rules(قواعد المسابقة). */
   drawerSections: [
     {
-      id: 'learning',
-      label: 'التعلّم',
+      id: 'journey',
+      label: 'رحلة التعلّم',
       items: [
         { id: 'dashboard',    label: 'الرئيسية',    icon: Home,          to: '/student' },
-        { id: 'srs',          label: 'مراجعة المفردات اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
-        { id: 'hard-words',   label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'everyday-english', label: 'إنجليزي يومي', icon: Sparkles,  to: '/student/everyday-english' },
-        { id: 'library',      label: 'المكتبة',      icon: BookMarked,   to: '/library' },
-        { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
-        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
-        { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
-        { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
       ],
     },
     {
-      id: 'community',
-      label: 'المجتمع',
+      id: 'daily-practice',
+      label: 'التدريب اليومي',
       items: [
+        { id: 'srs',          label: 'المراجعة اليومية', icon: BookOpenCheck, to: '/student/srs', showBadge: true, badgeSource: 'srs-due' },
+        { id: 'hard-words',   label: 'تدريب الكلمات الصعبة', icon: Dumbbell, to: '/student/hard-words', showBadge: true, badgeSource: 'hard-words-count', visibleWhen: 'hard-words-count' },
+        { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
+        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
+        { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
+      ],
+    },
+    {
+      id: 'world',
+      label: 'عالم طلاقة',
+      items: [
+        { id: 'library',      label: 'المكتبة',      icon: BookMarked,   to: '/library' },
+        { id: 'speaking-hub', label: 'نادي التحدث', icon: MessageCircle, to: '/student/speaking-hub' },
         { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
       ],
     },
@@ -96,7 +110,7 @@ export const STUDENT_NAV = {
       id: 'account',
       label: 'حسابي',
       items: [
-        { id: 'profile',     label: 'ملفي',         icon: User,       to: '/student/profile' },
+        { id: 'profile',     label: 'رحلتي وملفي',   icon: User,       to: '/student/profile' },
       ],
     },
   ],

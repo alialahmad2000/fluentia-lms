@@ -1,0 +1,383 @@
+/* ══════════════════════════════════════════════════════════════════
+   STUDENT JOURNEY — «رحلتي» (/student/profile)
+   Scoped .sj-* — the student's identity surface, in the same warm
+   gold-on-obsidian world as the Atlas home and the Library.
+   Performance contract: transform/opacity only; decorative motion is
+   reduced-motion gated and trimmed on coarse pointers.
+   ══════════════════════════════════════════════════════════════════ */
+
+.sj-root {
+  position: relative;
+  --sj-gold: var(--ds-accent-gold, #fbbf24);
+  --sj-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* reused shared controls (toggles etc.) inherit the gold world inside this page */
+  --accent-sky: var(--sj-gold);
+}
+
+/* ── Atmosphere ─────────────────────────────────────────────────── */
+.sj-atmo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+.sj-atmo__beam {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(85% 60% at 50% -12%, rgba(251, 191, 36, 0.10), transparent 60%),
+    radial-gradient(60% 45% at 10% 100%, rgba(120, 80, 40, 0.14), transparent 65%);
+}
+.sj-atmo__blob {
+  position: absolute;
+  width: 54vmax; height: 54vmax;
+  top: -24vmax; inset-inline-start: 50%;
+  margin-inline-start: -27vmax;
+  border-radius: 50%;
+  filter: blur(75px);
+  mix-blend-mode: screen;
+  background: radial-gradient(circle, rgba(201, 162, 76, 0.45) 0%, transparent 60%);
+  opacity: 0.14;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  animation: sj-drift 58s ease-in-out infinite;
+}
+@keyframes sj-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(4%, 3%, 0) scale(1.07); }
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .sj-atmo__blob { animation: none; }
+}
+.sj-content { position: relative; z-index: 1; }
+
+/* ── Identity hero ──────────────────────────────────────────────── */
+.sj-hero {
+  position: relative;
+  border-radius: 26px;
+  padding: 30px 30px 26px;
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.014) 58%);
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 16px 40px -16px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+.sj-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(70% 130% at 50% -35%, rgba(251, 191, 36, 0.14), transparent 60%);
+  pointer-events: none;
+}
+.sj-hero::after {
+  content: "";
+  position: absolute; top: 0; inset-inline: 0; height: 1px;
+  background: linear-gradient(to left, transparent, rgba(251, 191, 36, 0.6) 35%, rgba(255, 255, 255, 0.28) 65%, transparent);
+}
+.sj-hero__grid {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+/* avatar with gold halo + camera affordance */
+.sj-ava {
+  position: relative;
+  flex-shrink: 0;
+}
+.sj-ava__frame {
+  width: 92px; height: 92px;
+  border-radius: 28px;
+  padding: 3px;
+  background: linear-gradient(140deg, #fde68a, var(--sj-gold) 45%, #b97a1e);
+  box-shadow: 0 10px 30px -10px rgba(251, 191, 36, 0.45);
+  cursor: pointer;
+}
+.sj-ava__img {
+  width: 100%; height: 100%;
+  border-radius: 25px;
+  object-fit: cover;
+  display: block;
+  background: #0b0f18;
+}
+.sj-ava__fallback {
+  width: 100%; height: 100%;
+  border-radius: 25px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #1a2033, #0d111c);
+  color: var(--sj-gold);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 34px; font-weight: 800;
+}
+.sj-ava__cam {
+  position: absolute;
+  bottom: -6px; inset-inline-end: -6px;
+  width: 32px; height: 32px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: #131826;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: var(--sj-gold);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s var(--sj-ease);
+}
+.sj-ava__cam::after { content: ""; position: absolute; inset: -7px; }
+.sj-ava__cam:hover { transform: translateY(-1px); }
+
+.sj-hero__who { flex: 1; min-width: 220px; }
+.sj-hero__name {
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ds-text-primary, #f8fafc);
+}
+.sj-hero__mail {
+  font-size: 12.5px;
+  color: var(--ds-text-tertiary, #64748b);
+  margin-top: 2px;
+  direction: ltr;
+  text-align: end;
+}
+[dir="rtl"] .sj-hero__mail { text-align: right; }
+.sj-hero__chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 12px;
+}
+.sj-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px; font-weight: 700;
+  color: var(--ds-text-secondary, #cbd5e1);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.sj-chip.gold {
+  color: var(--sj-gold);
+  background: rgba(251, 191, 36, 0.09);
+  border-color: rgba(251, 191, 36, 0.25);
+}
+
+/* XP ring */
+.sj-ring {
+  position: relative;
+  width: 128px; height: 128px;
+  flex-shrink: 0;
+}
+.sj-ring svg { transform: rotate(-90deg); }
+.sj-ring__center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.sj-ring__num {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 30px; font-weight: 800; line-height: 1;
+  color: var(--ds-text-primary, #f8fafc);
+  font-variant-numeric: tabular-nums;
+}
+.sj-ring__cap {
+  font-size: 12px; font-weight: 700;
+  color: var(--sj-gold);
+  margin-top: 3px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* stat gems row */
+.sj-gems {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  position: relative;
+}
+.sj-gem {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  min-width: 0;
+}
+.sj-gem__icon {
+  width: 36px; height: 36px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.sj-gem__value {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 17.5px; font-weight: 800;
+  color: var(--ds-text-primary, #f8fafc);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.sj-gem__label {
+  font-size: 12px;
+  color: var(--ds-text-tertiary, #64748b);
+  margin-top: 1px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+@media (max-width: 640px) {
+  .sj-gems { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sj-gems > .sj-gem:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+/* ── Chapter tabs ───────────────────────────────────────────────── */
+.sj-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  margin-top: 20px;
+  border-radius: 18px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012) 60%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sj-tabs::-webkit-scrollbar { display: none; }
+@media (max-width: 640px) {
+  .sj-tabs {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 14px), transparent);
+    mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 14px), transparent);
+  }
+}
+.sj-tab {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 15px;
+  border-radius: 13px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--ds-text-tertiary, #64748b);
+  white-space: nowrap;
+  transition: color 0.2s var(--sj-ease);
+  flex-shrink: 0;
+  min-height: 44px;
+}
+.sj-tab:hover { color: var(--ds-text-primary, #f8fafc); }
+.sj-tab.is-active { color: var(--sj-gold); }
+.sj-tab__pill {
+  position: absolute; inset: 0;
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.16), rgba(251, 191, 36, 0.05));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(251, 191, 36, 0.22);
+}
+.sj-tab > * { position: relative; z-index: 1; }
+@media (min-width: 1024px) {
+  .sj-tab { flex: 1; justify-content: center; }
+}
+
+/* ── Section eyebrow + cards ────────────────────────────────────── */
+.sj-eyebrow {
+  display: flex; align-items: center; gap: 11px;
+  margin: 48px 0 16px;
+}
+.sj-eyebrow__spark {
+  width: 7px; height: 7px; border-radius: 2.5px;
+  background: linear-gradient(135deg, #fde68a, var(--sj-gold));
+  box-shadow: 0 0 9px rgba(251, 191, 36, 0.45);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+.sj-eyebrow__label {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13.5px; font-weight: 800;
+  color: var(--ds-text-primary, #f8fafc);
+  white-space: nowrap;
+}
+.sj-eyebrow__rule {
+  flex: 1; height: 1px;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.1), transparent);
+}
+.sj-card {
+  border-radius: 20px;
+  padding: 26px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012) 60%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* achievements medallions */
+.sj-medal {
+  border-radius: 16px;
+  padding: 14px 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s var(--sj-ease), border-color 0.2s var(--sj-ease);
+}
+.sj-medal.is-earned {
+  background: linear-gradient(160deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.03));
+  border-color: rgba(251, 191, 36, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.sj-medal.is-earned:hover { transform: translateY(-2px); }
+.sj-medal:not(.is-earned) { opacity: 0.42; filter: grayscale(0.5); }
+
+/* collapsed disclosure (wraps heavy reused components like notification prefs) */
+.sj-disclose__head {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%;
+  cursor: pointer;
+}
+.sj-disclose__chev {
+  margin-inline-start: auto;
+  color: var(--ds-text-tertiary, #64748b);
+  transition: transform 0.25s var(--sj-ease);
+}
+.sj-disclose.is-open .sj-disclose__chev { transform: rotate(-90deg); }
+
+/* xp history rows */
+.sj-tx {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 13px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.028);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .sj-hero { padding: 22px 18px 20px; border-radius: 22px; }
+  .sj-hero__grid { gap: 16px; }
+  .sj-ava__frame { width: 76px; height: 76px; border-radius: 24px; }
+  .sj-ava__img, .sj-ava__fallback { border-radius: 21px; }
+  .sj-ring { width: 104px; height: 104px; margin-inline: auto; }
+  .sj-ring__num { font-size: 24px; }
+  .sj-gems { gap: 9px; margin-top: 18px; }
+  .sj-gem { padding: 11px 12px; }
+  .sj-gem__value { font-size: 15px; }
+}
+
+/* ── "الحد الأدنى" light theme survival ─────────────────────────── */
+[data-theme="minimal"] .sj-atmo { display: none; }
+[data-theme="minimal"] .sj-hero,
+[data-theme="minimal"] .sj-card,
+[data-theme="minimal"] .sj-tabs {
+  background: #ffffff;
+  border-color: rgba(120, 72, 20, 0.12);
+  box-shadow: 0 1px 2px rgba(120, 72, 20, 0.06), 0 10px 28px -18px rgba(120, 72, 20, 0.18);
+}
+[data-theme="minimal"] .sj-gem,
+[data-theme="minimal"] .sj-chip,
+[data-theme="minimal"] .sj-tx,
+[data-theme="minimal"] .sj-medal {
+  background: rgba(120, 72, 20, 0.04);
+  border-color: rgba(120, 72, 20, 0.1);
+}
+[data-theme="minimal"] .sj-ava__fallback { background: #f2ead9; color: #a16207; }
+[data-theme="minimal"] .sj-eyebrow__rule { background: linear-gradient(to left, rgba(120, 72, 20, 0.18), transparent); }

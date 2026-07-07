@@ -5,7 +5,7 @@ import lazyRetry from '../../utils/lazyRetry'
 // import InterestsSettingsSection from '../../components/personalization/InterestsSettingsSection'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon, Trash2 } from 'lucide-react'
+import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon, Trash2, ChevronDown, Bell } from 'lucide-react'
 import { useAuthStore, useAuthUser } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { tracker } from '../../services/activityTracker'
@@ -16,6 +16,7 @@ import ImmersionToggle from '../../components/ImmersionToggle'
 import SubTabs from '../../components/common/SubTabs'
 import StudentAIProfile from '../../components/ai/StudentAIProfile'
 import { useG } from '@/i18n/gender'
+import './profile/profileJourney.css'
 
 // Lazy-load sub-tab content
 const StudentAvatar = lazyRetry(() => import('./StudentAvatar'))
@@ -23,14 +24,16 @@ const StudentBilling = lazyRetry(() => import('./StudentBilling'))
 const StudentReferral = lazyRetry(() => import('./StudentReferral'))
 const StudentCertificate = lazyRetry(() => import('./StudentCertificate'))
 
+/* chapter order tells the student's story: who I am → how the AI sees me →
+   what I earned → how I look → my subscription */
 const TABS = [
-  { key: 'profile', label: 'الملف الشخصي', icon: User },
+  { key: 'profile', label: 'ملفي', icon: User },
   { key: 'ai-profile', label: 'ملفي الذكي', icon: Trophy },
-  { key: 'avatar', label: 'تخصيص الأفاتار', icon: Palette },
+  { key: 'certificates', label: 'شهاداتي', icon: GraduationCap },
+  { key: 'avatar', label: 'الأفاتار', icon: Palette },
+  { key: 'appearance', label: 'المظهر', icon: SwatchBook },
   { key: 'billing', label: 'الفواتير', icon: CreditCard },
   { key: 'referral', label: 'دعوة صديق', icon: Gift },
-  { key: 'certificates', label: 'شهاداتي', icon: GraduationCap },
-  { key: 'appearance', label: 'المظهر', icon: SwatchBook },
 ]
 
 function getLevel(xp) {
@@ -53,68 +56,109 @@ export default function StudentProfile() {
   const [activeTab, setActiveTab] = useState('profile')
 
   return (
-    <div className="space-y-8">
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <User size={20} className="text-sky-400" strokeWidth={1.5} />
-          </div>
-          حسابي
-        </h1>
-        <p className="text-muted text-sm mt-1">ملفك الشخصي وإعداداتك</p>
-      </motion.div>
+    <div className="sj-root">
+      {/* warm gold atmosphere — same world as the Atlas home and the Library */}
+      <div className="sj-atmo" aria-hidden="true">
+        <div className="sj-atmo__beam" />
+        <div className="sj-atmo__blob" />
+      </div>
 
-      <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
+      <div className="sj-content">
+        <IdentityHero />
 
-      <Suspense fallback={<TabFallback />}>
-        {activeTab === 'profile' && <ProfileContent />}
-        {activeTab === 'ai-profile' && <StudentAIProfile studentId={useAuthStore.getState().profile?.id} />}
-        {activeTab === 'avatar' && <StudentAvatar />}
-        {activeTab === 'billing' && <StudentBilling />}
-        {activeTab === 'referral' && <StudentReferral />}
-        {activeTab === 'certificates' && <StudentCertificate />}
-        {activeTab === 'appearance' && <AppearanceContent />}
-      </Suspense>
+        <div className="sj-tabs" role="tablist">
+          {TABS.map((t) => {
+            const Icon = t.icon
+            return (
+              <button
+                key={t.key}
+                role="tab"
+                aria-selected={activeTab === t.key}
+                onClick={() => setActiveTab(t.key)}
+                className={`sj-tab ${activeTab === t.key ? 'is-active' : ''}`}
+              >
+                {activeTab === t.key && (
+                  <motion.span
+                    layoutId="sj-tab-pill"
+                    className="sj-tab__pill"
+                    style={{ zIndex: 0 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
+                <Icon size={15} strokeWidth={2} />
+                <span>{t.label}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="mt-6">
+          <Suspense fallback={<TabFallback />}>
+            {activeTab === 'profile' && <ProfileContent />}
+            {activeTab === 'ai-profile' && <StudentAIProfile studentId={useAuthStore.getState().profile?.id} />}
+            {activeTab === 'avatar' && <StudentAvatar />}
+            {activeTab === 'billing' && <StudentBilling />}
+            {activeTab === 'referral' && <StudentReferral />}
+            {activeTab === 'certificates' && <StudentCertificate />}
+            {activeTab === 'appearance' && <AppearanceContent />}
+          </Suspense>
+        </div>
+      </div>
     </div>
   )
 }
 
-function transliterateArabic(str) {
-  const map = { 'ا':'a','أ':'a','إ':'e','آ':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'h','خ':'kh','د':'d','ذ':'dh','ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'z','ع':'a','غ':'gh','ف':'f','ق':'q','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'w','ي':'y','ى':'a','ة':'a','ء':'','ئ':'y','ؤ':'w' }
-  return str.split('').map(c => map[c] ?? c).join('')
-}
-
-function generateUsername(displayName) {
-  const base = transliterateArabic(displayName || '').replace(/[^a-zA-Z0-9_]/g, '').toLowerCase()
-  const digits = Math.floor(100 + Math.random() * 900)
-  return (base || 'user') + digits
-}
-
-function ProfileContent() {
+/* ── Identity hero — the student's face, level ring, and story stats ── */
+function IdentityHero() {
   const { profile, studentData, fetchProfile, user } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData, fetchProfile: s.fetchProfile, user: s.user })))
-  const queryClient = useQueryClient()
-  const [displayName, setDisplayName] = useState(profile?.display_name || '')
-  const [editing, setEditing] = useState(false)
+  const g = useG()
 
-  // Avatar upload state
+  const xp = studentData?.xp_total || 0
+  const streak = studentData?.current_streak || 0
+  const currentLevel = getLevel(xp)
+  const nextLevel = getNextLevel(xp)
+  const xpRange = nextLevel ? (nextLevel.xp - currentLevel.xp) : 0
+  const xpProgress = nextLevel && xpRange > 0 ? ((xp - currentLevel.xp) / xpRange) * 100 : 100
+  const academicLevel = ACADEMIC_LEVELS[studentData?.academic_level] || ACADEMIC_LEVELS[1]
+  const pkg = PACKAGES[studentData?.package] || PACKAGES.asas
+
+  const { data: classRank } = useQuery({
+    queryKey: ['student-class-rank', profile?.id],
+    queryFn: async () => {
+      const groupId = studentData?.group_id
+      if (!groupId) return null
+      const { data } = await supabase
+        .from('students')
+        .select('id, xp_total')
+        .eq('group_id', groupId)
+        .eq('is_active', true)
+        .order('xp_total', { ascending: false })
+      if (!data) return null
+      const rank = data.findIndex(s => s.id === profile?.id) + 1
+      return { rank, total: data.length }
+    },
+    enabled: !!profile?.id && !!studentData?.group_id,
+  })
+
+  // Avatar upload (moved here from the old profile body — identity lives in the hero)
   const [uploadingPhoto, setUploadingPhoto] = useState(false)
   const [photoMsg, setPhotoMsg] = useState(null)
   const [showPhotoSheet, setShowPhotoSheet] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deletingPhoto, setDeletingPhoto] = useState(false)
 
   async function handlePhotoUpload(file) {
     if (!file || !profile?.id) return
     setUploadingPhoto(true)
     setPhotoMsg(null)
     try {
-      // Compress image client-side
       const blob = await new Promise((resolve) => {
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
         const img = new Image()
         img.onload = () => {
           const maxSize = 800
-          let w = img.width, h = img.height
-          // Square crop from center
+          const w = img.width, h = img.height
           const side = Math.min(w, h)
           const sx = (w - side) / 2
           const sy = (h - side) / 2
@@ -148,21 +192,17 @@ function ProfileContent() {
       setTimeout(() => setPhotoMsg(null), 3000)
     } catch (err) {
       console.error('Avatar upload error:', err)
-      setPhotoMsg({ type: 'error', text: 'فشل في رفع الصورة — حاول مرة أخرى' })
+      setPhotoMsg({ type: 'error', text: g('فشل في رفع الصورة — حاول مرة أخرى', 'فشل في رفع الصورة — حاولي مرة أخرى') })
       setTimeout(() => setPhotoMsg(null), 4000)
     } finally {
       setUploadingPhoto(false)
     }
   }
 
-  const [confirmDelete, setConfirmDelete] = useState(false)
-  const [deletingPhoto, setDeletingPhoto] = useState(false)
-
   async function handleDeletePhoto() {
     if (!profile?.id || !profile?.avatar_url) return
     setDeletingPhoto(true)
     try {
-      // Extract the file path from the URL (everything after /avatars/)
       const url = profile.avatar_url
       const match = url.match(/\/avatars\/(.+)$/)
       if (match) {
@@ -186,6 +226,268 @@ function ProfileContent() {
       setDeletingPhoto(false)
     }
   }
+
+  const R = 56
+  const CIRC = 2 * Math.PI * R
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="sj-hero"
+    >
+      <div className="sj-hero__grid">
+        {/* avatar */}
+        <div className="sj-ava">
+          <div className="sj-ava__frame" onClick={() => setShowPhotoSheet(true)} title="تغيير الصورة">
+            {profile?.avatar_url ? (
+              <img src={profile.avatar_url} alt="" className="sj-ava__img" />
+            ) : (
+              <div className="sj-ava__fallback">{(profile?.full_name || profile?.display_name)?.[0] || '؟'}</div>
+            )}
+          </div>
+          <button className="sj-ava__cam" onClick={() => setShowPhotoSheet(true)} aria-label="تغيير الصورة">
+            {uploadingPhoto ? <Loader2 size={14} className="animate-spin" /> : <Camera size={14} />}
+          </button>
+          {photoMsg && (
+            <p className={`absolute -bottom-6 start-0 text-xs whitespace-nowrap ${photoMsg.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
+              {photoMsg.text}
+            </p>
+          )}
+        </div>
+
+        {/* who */}
+        <div className="sj-hero__who">
+          <h1 className="sj-hero__name">{profile?.display_name || profile?.full_name}</h1>
+          {user?.email && <div className="sj-hero__mail">{user.email}</div>}
+          <div className="sj-hero__chips">
+            <span className="sj-chip gold">{academicLevel.cefr} · {academicLevel.name_ar}</span>
+            <span className="sj-chip">{pkg.name_ar}</span>
+            {studentData?.created_at && (
+              <span className="sj-chip">
+                <CalendarDays size={12} strokeWidth={1.75} />
+                {g('انضم', 'انضمت')} {timeAgo(studentData.created_at)}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* XP ring toward the next gamification level */}
+        <div className="sj-ring" aria-label={`المستوى ${currentLevel.level}`}>
+          <svg width="128" height="128" viewBox="0 0 128 128">
+            <circle cx="64" cy="64" r={R} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="7" />
+            <motion.circle
+              cx="64" cy="64" r={R} fill="none"
+              stroke="url(#sjRingGrad)" strokeWidth="7" strokeLinecap="round"
+              strokeDasharray={CIRC}
+              initial={{ strokeDashoffset: CIRC }}
+              animate={{ strokeDashoffset: CIRC - (CIRC * Math.min(xpProgress, 100)) / 100 }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            />
+            <defs>
+              <linearGradient id="sjRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#fde68a" />
+                <stop offset="55%" stopColor="#fbbf24" />
+                <stop offset="100%" stopColor="#d97706" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div className="sj-ring__center">
+            <span className="sj-ring__num">{currentLevel.level}</span>
+            <span className="sj-ring__cap">{currentLevel.title_ar}</span>
+            {nextLevel && (
+              <span className="text-xs mt-0.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+                باقي {nextLevel.xp - xp} XP
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* story stats */}
+      <div className="sj-gems">
+        {(() => {
+          const xpGem = { label: 'نقاط الخبرة', value: xp.toLocaleString('en-US'), icon: Zap, c: '#fbbf24', bg: 'rgba(251,191,36,0.12)' }
+          const streakGem = { label: 'أيام متواصلة', value: streak > 0 ? `${streak} 🔥` : g('ابدأ سلسلتك اليوم', 'ابدئي سلسلتك اليوم'), cta: streak === 0, icon: Flame, c: '#fb923c', bg: 'rgba(251,146,60,0.12)' }
+          const rankGem = classRank ? { label: 'ترتيبي في مجموعتي', value: `${classRank.rank} من ${classRank.total}`, icon: Medal, c: '#4ade80', bg: 'rgba(74,222,128,0.12)' } : null
+          const levelGem = { label: 'مستواي الدراسي', value: academicLevel.cefr, icon: GraduationCap, c: '#7dd3fc', bg: 'rgba(125,211,252,0.12)' }
+          // with no rank (3 gems), streak goes last so the odd-item full-width
+          // slot on mobile lands on the gem that earns the emphasis
+          return rankGem ? [xpGem, streakGem, rankGem, levelGem] : [xpGem, levelGem, streakGem]
+        })().map((s7, i) => (
+          <motion.div
+            key={s7.label}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+            className="sj-gem"
+          >
+            <div className="sj-gem__icon" style={{ background: s7.bg, color: s7.c }}>
+              <s7.icon size={17} strokeWidth={2} />
+            </div>
+            <div className="min-w-0">
+              <div className="sj-gem__value" style={s7.cta ? { fontSize: 13, color: '#fbbf24', whiteSpace: 'normal' } : undefined}>{s7.value}</div>
+              <div className="sj-gem__label">{s7.label}</div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Photo sheet */}
+      <AnimatePresence>
+        {showPhotoSheet && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={() => setShowPhotoSheet(false)}
+          >
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 60, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="w-full max-w-sm rounded-2xl p-6 space-y-3"
+              style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="font-semibold text-center mb-4" style={{ color: 'var(--text-primary)' }}>
+                تغيير الصورة الشخصية
+              </h3>
+
+              <label className="flex items-center gap-3 p-4 rounded-xl cursor-pointer hover:bg-white/[0.03] transition-colors" style={{ border: '1px solid var(--border-subtle)' }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(251,191,36,0.1)' }}>
+                  <ImageIcon size={18} style={{ color: '#fbbf24' }} />
+                </div>
+                <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{g('اختر من المعرض', 'اختاري من المعرض')}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => e.target.files?.[0] && handlePhotoUpload(e.target.files[0])}
+                />
+              </label>
+
+              <label className="flex items-center gap-3 p-4 rounded-xl cursor-pointer hover:bg-white/[0.03] transition-colors" style={{ border: '1px solid var(--border-subtle)' }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                  <Camera size={18} style={{ color: 'var(--text-secondary)' }} />
+                </div>
+                <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{g('التقط صورة', 'التقطي صورة')}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="user"
+                  className="hidden"
+                  onChange={(e) => e.target.files?.[0] && handlePhotoUpload(e.target.files[0])}
+                />
+              </label>
+
+              {profile?.avatar_url && !confirmDelete && (
+                <button
+                  onClick={() => setConfirmDelete(true)}
+                  className="flex items-center gap-3 p-4 rounded-xl w-full hover:bg-red-500/[0.05] transition-colors text-start"
+                  style={{ border: '1px solid rgba(239,68,68,0.15)' }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+                    <Trash2 size={18} className="text-red-400" />
+                  </div>
+                  <span className="text-sm font-medium text-red-400">حذف الصورة</span>
+                </button>
+              )}
+
+              {confirmDelete && (
+                <div className="rounded-xl p-4 space-y-3" style={{ border: '1px solid rgba(239,68,68,0.2)', background: 'rgba(239,68,68,0.05)' }}>
+                  <p className="text-sm text-center font-medium" style={{ color: 'var(--text-primary)' }}>
+                    هل {g('تريد', 'تريدين')} حذف صورة الملف الشخصي؟
+                  </p>
+                  <div className="flex items-center gap-2 justify-center">
+                    <button
+                      onClick={handleDeletePhoto}
+                      disabled={deletingPhoto}
+                      className="px-5 py-2 rounded-xl text-sm font-bold bg-red-500/15 text-red-400 border border-red-500/30 hover:bg-red-500/25 transition-colors flex items-center gap-1.5"
+                    >
+                      {deletingPhoto ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
+                      حذف
+                    </button>
+                    <button
+                      onClick={() => setConfirmDelete(false)}
+                      className="px-5 py-2 rounded-xl text-sm font-medium transition-colors"
+                      style={{ color: 'var(--text-muted)' }}
+                    >
+                      إلغاء
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={() => { setShowPhotoSheet(false); setConfirmDelete(false) }}
+                className="w-full py-3 rounded-xl text-sm text-muted hover:text-[var(--text-primary)] transition-colors text-center"
+              >
+                إلغاء
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.section>
+  )
+}
+
+function transliterateArabic(str) {
+  const map = { 'ا':'a','أ':'a','إ':'e','آ':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'h','خ':'kh','د':'d','ذ':'dh','ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'z','ع':'a','غ':'gh','ف':'f','ق':'q','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'w','ي':'y','ى':'a','ة':'a','ء':'','ئ':'y','ؤ':'w' }
+  return str.split('').map(c => map[c] ?? c).join('')
+}
+
+function generateUsername(displayName) {
+  const base = transliterateArabic(displayName || '').replace(/[^a-zA-Z0-9_]/g, '').toLowerCase()
+  const digits = Math.floor(100 + Math.random() * 900)
+  return (base || 'user') + digits
+}
+
+/* the notification category list is long — keep it one calm collapsed card */
+function NotificationDisclosure() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className={`sj-card sj-disclose ${open ? 'is-open' : ''}`}>
+      <button className="sj-disclose__head" onClick={() => setOpen(v => !v)} aria-expanded={open}>
+        <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(251,191,36,0.1)' }}>
+          <Bell size={16} style={{ color: '#fbbf24' }} strokeWidth={1.75} />
+        </div>
+        <div className="text-start">
+          <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>إعدادات الإشعارات</p>
+          <p className="text-xs" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>تحكم في أنواع الإشعارات التي تصلك</p>
+        </div>
+        <ChevronDown size={16} className="sj-disclose__chev" />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="pt-4">
+              <NotificationSettings />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function ProfileContent() {
+  const { profile, studentData, fetchProfile, user } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData, fetchProfile: s.fetchProfile, user: s.user })))
+  const queryClient = useQueryClient()
+  const [displayName, setDisplayName] = useState(profile?.display_name || '')
+  const [editing, setEditing] = useState(false)
+
+  // (avatar upload moved to IdentityHero — identity lives in the hero now)
 
   // Username state
   const [usernameValue, setUsernameValue] = useState(profile?.username || '')
@@ -239,15 +541,6 @@ function ProfileContent() {
     setTimeout(() => setCopiedUsername(false), 2000)
   }
 
-  const xp = studentData?.xp_total || 0
-  const streak = studentData?.current_streak || 0
-  const currentLevel = getLevel(xp)
-  const nextLevel = getNextLevel(xp)
-  const xpRange = nextLevel ? (nextLevel.xp - currentLevel.xp) : 0
-  const xpProgress = nextLevel && xpRange > 0 ? ((xp - currentLevel.xp) / xpRange) * 100 : 100
-  const academicLevel = ACADEMIC_LEVELS[studentData?.academic_level] || ACADEMIC_LEVELS[1]
-  const pkg = PACKAGES[studentData?.package] || PACKAGES.asas
-
   const { data: xpHistory } = useQuery({
     queryKey: ['student-xp-history'],
     queryFn: async () => {
@@ -283,25 +576,7 @@ function ProfileContent() {
     enabled: !!profile?.id,
   })
 
-  const { data: classRank } = useQuery({
-    queryKey: ['student-class-rank', profile?.id],
-    queryFn: async () => {
-      // Get all students in same group, ordered by XP descending
-      const groupId = studentData?.group_id
-      if (!groupId) return null
-      const { data } = await supabase
-        .from('students')
-        .select('id, xp_total')
-        .eq('group_id', groupId)
-        .eq('is_active', true)
-        .order('xp_total', { ascending: false })
-      if (!data) return null
-      const rank = data.findIndex(s => s.id === profile?.id) + 1
-      return { rank, total: data.length }
-    },
-    enabled: !!profile?.id && !!studentData?.group_id,
-  })
-
+  const [showAllMedals, setShowAllMedals] = useState(false)
   const [changingPassword, setChangingPassword] = useState(false)
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -373,157 +648,21 @@ function ProfileContent() {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Profile Header */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7" style={{ borderColor: 'var(--border-glow)' }}>
-        <div className="flex items-start gap-4">
-          {/* Avatar with photo upload */}
-          <div className="relative shrink-0">
-            <div
-              onClick={() => setShowPhotoSheet(true)}
-              className="w-16 h-16 rounded-2xl overflow-hidden cursor-pointer group"
-            >
-              {profile?.avatar_url ? (
-                <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold">
-                  {(profile?.full_name || profile?.display_name)?.[0] || '?'}
-                </div>
-              )}
-              <div className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                {uploadingPhoto ? (
-                  <Loader2 size={18} className="text-white animate-spin" />
-                ) : (
-                  <Camera size={18} className="text-white" />
-                )}
+    <div className="space-y-6">
+      {/* بيانات الحساب — الاسم المعروض واسم المستخدم */}
+      <div className="sj-eyebrow" style={{ marginTop: 4 }}>
+        <span className="sj-eyebrow__spark" />
+        <span className="sj-eyebrow__label">بيانات الحساب</span>
+        <span className="sj-eyebrow__rule" />
+      </div>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="sj-card">
+        <div className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+          <div className="min-w-0">
+            <div>
+              <div className="flex items-center gap-1.5 text-sm mb-2">
+                <User size={13} strokeWidth={1.75} style={{ color: '#fbbf24' }} />
+                <span style={{ color: 'var(--text-secondary)' }}>الاسم المعروض</span>
               </div>
-            </div>
-            {photoMsg && (
-              <p className={`absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] whitespace-nowrap ${photoMsg.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
-                {photoMsg.text}
-              </p>
-            )}
-
-            {/* Photo upload bottom sheet */}
-            <AnimatePresence>
-              {showPhotoSheet && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-                  onClick={() => setShowPhotoSheet(false)}
-                >
-                  <motion.div
-                    initial={{ y: 60, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 60, opacity: 0 }}
-                    transition={{ type: 'spring', damping: 25 }}
-                    className="w-full max-w-sm rounded-2xl p-6 space-y-3"
-                    style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <h3 className="font-semibold text-center mb-4" style={{ color: 'var(--text-primary)' }}>
-                      تغيير الصورة الشخصية
-                    </h3>
-
-                    <label className="flex items-center gap-3 p-4 rounded-xl cursor-pointer hover:bg-white/[0.03] transition-colors" style={{ border: '1px solid var(--border-subtle)' }}>
-                      <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-                        <ImageIcon size={18} className="text-sky-400" />
-                      </div>
-                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>اختر من المعرض</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => e.target.files?.[0] && handlePhotoUpload(e.target.files[0])}
-                      />
-                    </label>
-
-                    <label className="flex items-center gap-3 p-4 rounded-xl cursor-pointer hover:bg-white/[0.03] transition-colors" style={{ border: '1px solid var(--border-subtle)' }}>
-                      <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-                        <Camera size={18} className="text-violet-400" />
-                      </div>
-                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>التقط صورة</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        capture="user"
-                        className="hidden"
-                        onChange={(e) => e.target.files?.[0] && handlePhotoUpload(e.target.files[0])}
-                      />
-                    </label>
-
-                    {/* Delete photo */}
-                    {profile?.avatar_url && !confirmDelete && (
-                      <button
-                        onClick={() => setConfirmDelete(true)}
-                        className="flex items-center gap-3 p-4 rounded-xl w-full hover:bg-red-500/[0.05] transition-colors text-left"
-                        style={{ border: '1px solid rgba(239,68,68,0.15)' }}
-                      >
-                        <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
-                          <Trash2 size={18} className="text-red-400" />
-                        </div>
-                        <span className="text-sm font-medium text-red-400">حذف الصورة</span>
-                      </button>
-                    )}
-
-                    {/* Delete confirm */}
-                    {confirmDelete && (
-                      <div className="rounded-xl p-4 space-y-3" style={{ border: '1px solid rgba(239,68,68,0.2)', background: 'rgba(239,68,68,0.05)' }}>
-                        <p className="text-sm text-center font-medium" style={{ color: 'var(--text-primary)' }}>
-                          هل تريد حذف صورة الملف الشخصي؟
-                        </p>
-                        <div className="flex items-center gap-2 justify-center">
-                          <button
-                            onClick={handleDeletePhoto}
-                            disabled={deletingPhoto}
-                            className="px-5 py-2 rounded-xl text-sm font-bold bg-red-500/15 text-red-400 border border-red-500/30 hover:bg-red-500/25 transition-colors flex items-center gap-1.5"
-                          >
-                            {deletingPhoto ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
-                            حذف
-                          </button>
-                          <button
-                            onClick={() => setConfirmDelete(false)}
-                            className="px-5 py-2 rounded-xl text-sm font-medium transition-colors"
-                            style={{ color: 'var(--text-muted)' }}
-                          >
-                            إلغاء
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    <button
-                      onClick={() => { setShowPhotoSheet(false); setConfirmDelete(false) }}
-                      className="w-full py-3 rounded-xl text-sm text-muted hover:text-[var(--text-primary)] transition-colors text-center"
-                    >
-                      إلغاء
-                    </button>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{profile?.full_name}</h2>
-            {user?.email && (
-              <div className="flex items-center gap-1.5 text-sm text-muted mt-0.5">
-                <Mail size={13} className="text-muted" strokeWidth={1.5} />
-                <span>{user.email}</span>
-              </div>
-            )}
-            <div className="flex items-center gap-3 text-sm text-muted mt-1.5 flex-wrap">
-              <span className="badge-blue">{pkg.name_ar}</span>
-              <span className="badge-muted">{academicLevel.name_ar} ({academicLevel.cefr})</span>
-              {studentData?.created_at && (
-                <span className="flex items-center gap-1 text-xs text-muted">
-                  <CalendarDays size={12} strokeWidth={1.5} />
-                  انضم {timeAgo(studentData.created_at)}
-                </span>
-              )}
-            </div>
-            <div className="mt-3">
               {editing ? (
                 <div className="flex items-center gap-2">
                   <input className="input-field text-sm py-1.5 flex-1" value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="الاسم المعروض..." />
@@ -534,16 +673,21 @@ function ProfileContent() {
                   <button onClick={() => { setEditing(false); setDisplayName(profile?.display_name || '') }} className="btn-ghost text-xs">إلغاء</button>
                 </div>
               ) : (
-                <button onClick={() => setEditing(true)} className="text-xs text-sky-400 hover:text-sky-300 transition-all duration-200">
-                  تعديل الاسم المعروض: {profile?.display_name || 'لم يُحدد'}
-                </button>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{profile?.display_name || 'لم يُحدد'}</span>
+                  <button onClick={() => setEditing(true)} className="text-xs font-bold transition-colors" style={{ color: '#fbbf24' }}>
+                    تعديل
+                  </button>
+                </div>
               )}
             </div>
 
-            {/* Username */}
-            <div className="mt-3 pt-3" style={{ borderTop: '1px solid var(--border-default)' }}>
+          </div>
+          {/* Username — second column */}
+          <div className="min-w-0">
+            <div>
               <div className="flex items-center gap-1.5 text-sm mb-2">
-                <AtSign size={13} className="text-violet-400" strokeWidth={1.5} />
+                <AtSign size={13} strokeWidth={1.75} style={{ color: '#fbbf24' }} />
                 <span style={{ color: 'var(--text-secondary)' }}>اسم المستخدم</span>
               </div>
               {editingUsername ? (
@@ -576,12 +720,12 @@ function ProfileContent() {
                   <button onClick={handleCopyUsername} className="btn-ghost text-xs p-1" title="نسخ">
                     {copiedUsername ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
                   </button>
-                  <button onClick={() => { setEditingUsername(true); setUsernameValue(profile.username) }} className="text-xs text-sky-400 hover:text-sky-300 transition-colors">
+                  <button onClick={() => { setEditingUsername(true); setUsernameValue(profile.username) }} className="text-xs font-bold transition-colors" style={{ color: '#fbbf24' }}>
                     تعديل
                   </button>
                 </div>
               ) : (
-                <button onClick={() => { setEditingUsername(true); setUsernameValue(generateUsername(profile?.display_name)) }} className="text-xs text-sky-400 hover:text-sky-300 transition-all duration-200">
+                <button onClick={() => { setEditingUsername(true); setUsernameValue(generateUsername(profile?.display_name)) }} className="text-xs font-bold transition-colors" style={{ color: '#fbbf24' }}>
                   إضافة اسم مستخدم
                 </button>
               )}
@@ -595,42 +739,26 @@ function ProfileContent() {
         </div>
       </motion.div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {[
-          { label: 'XP', value: xp, icon: Zap, variant: 'sky' },
-          { label: 'السلسلة', value: `${streak} يوم`, icon: Flame, variant: 'amber' },
-          { label: 'المستوى', value: currentLevel.level, icon: Trophy, variant: 'violet' },
-          { label: 'الترتيب', value: classRank ? `${classRank.rank}/${classRank.total}` : '—', icon: Medal, variant: 'emerald' },
-        ].map((stat, i) => (
-          <motion.div key={stat.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className={`fl-stat-card ${stat.variant}`}>
-            <stat.icon size={22} className={`mb-2 ${stat.variant === 'sky' ? 'text-sky-400' : stat.variant === 'amber' ? 'text-amber-400' : stat.variant === 'emerald' ? 'text-emerald-400' : 'text-violet-400'}`} strokeWidth={1.5} />
-            <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{stat.value}</p>
-            <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>{stat.label}</p>
-          </motion.div>
-        ))}
+      {/* التفضيلات */}
+      <div className="sj-eyebrow">
+        <span className="sj-eyebrow__spark" />
+        <span className="sj-eyebrow__label">التفضيلات</span>
+        <span className="sj-eyebrow__rule" />
       </div>
-
-      {/* Level Progress */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="fl-card-static p-6">
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>المستوى {currentLevel.level} — <span className="text-gradient">{currentLevel.title_ar}</span></p>
-          {nextLevel && <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{nextLevel.xp - xp} XP للتالي</p>}
-        </div>
-        <div className="fl-progress-track" style={{ height: '10px' }}>
-          <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(xpProgress, 100)}%` }} transition={{ delay: 0.4, duration: 0.8 }} className="fl-progress-fill" />
-        </div>
-      </motion.div>
-
       <ImmersionToggle />
-      <NotificationSettings />
+      <NotificationDisclosure />
 
       {/* PERSONALIZATION-REVERT 2026-05-19: hidden from default flow.
           Canonical curriculum is the single default for every student. */}
       {/* <InterestsSettingsSection /> */}
 
-      {/* Change Password */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="fl-card-static p-6">
+      {/* الأمان */}
+      <div className="sj-eyebrow">
+        <span className="sj-eyebrow__spark" />
+        <span className="sj-eyebrow__label">الأمان</span>
+        <span className="sj-eyebrow__rule" />
+      </div>
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="sj-card">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl bg-rose-500/10 flex items-center justify-center">
             <KeyRound size={16} className="text-rose-400" strokeWidth={1.5} />
@@ -679,7 +807,7 @@ function ProfileContent() {
         ) : (
           <button onClick={() => setChangingPassword(true)} className="btn-ghost text-sm flex items-center gap-2">
             <KeyRound size={14} />
-            تغيير كلمة المرور
+            تحديث الآن
           </button>
         )}
         {passwordMsg && (
@@ -689,45 +817,82 @@ function ProfileContent() {
         )}
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      {/* سجل الرحلة */}
+      <div className="sj-eyebrow">
+        <span className="sj-eyebrow__spark" />
+        <span className="sj-eyebrow__label">سجل الرحلة</span>
+        <span className="sj-eyebrow__rule" />
+      </div>
+      <div className="grid lg:grid-cols-2 gap-5 items-start">
         {/* Achievements */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="fl-card-static p-6">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="sj-card">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
-              <Award size={16} className="text-gold-400" strokeWidth={1.5} />
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'rgba(251,191,36,0.1)' }}>
+              <Award size={16} style={{ color: '#fbbf24' }} strokeWidth={1.5} />
             </div>
             <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الإنجازات</h3>
-            <span className="badge-muted text-xs">{achievements?.earned?.length || 0}/{achievements?.all?.length || 0}</span>
+            <span className="sj-chip gold" style={{ padding: '2px 10px' }}>{achievements?.earned?.length || 0} من {achievements?.all?.length || 0}</span>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {achievements?.all?.map((a) => (
-              <div key={a.id} className={`rounded-xl p-3 text-center ${a.isEarned ? 'bg-gold-500/10 border border-gold-500/20' : 'border border-border-subtle opacity-40'}`}>
-                <span className="text-2xl">{a.icon}</span>
-                <p className="text-xs font-medium mt-1" style={{ color: 'var(--text-primary)' }}>{a.name_ar}</p>
-                <p className="text-xs text-muted mt-0.5">{a.description_ar}</p>
-              </div>
-            ))}
-          </div>
-          {(!achievements?.all?.length) && <p className="text-muted text-sm text-center">لا توجد إنجازات</p>}
+          {(() => {
+            const medals = achievements?.all || []
+            const earnedCount = achievements?.earned?.length || 0
+            // a brand-new student shouldn't face a 20-tile locked graveyard —
+            // show the nearest goal + a small taste, expandable
+            const collapsed = earnedCount === 0 && !showAllMedals
+            const visible = collapsed ? medals.slice(0, 6) : medals
+            return (
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {visible.map((a, i) => {
+                    const isNearest = earnedCount === 0 && i === 0
+                    return (
+                      <div
+                        key={a.id}
+                        className={`sj-medal ${a.isEarned ? 'is-earned' : ''}`}
+                        style={isNearest ? { opacity: 1, filter: 'none', borderColor: 'rgba(251,191,36,0.4)', background: 'linear-gradient(160deg, rgba(251,191,36,0.12), rgba(251,191,36,0.03))' } : undefined}
+                      >
+                        {isNearest && (
+                          <span className="block text-[12px] font-bold mb-1" style={{ color: '#fbbf24' }}>أقرب إنجاز لك ✦</span>
+                        )}
+                        <span className="text-2xl">{a.icon}</span>
+                        <p className="text-xs font-bold mt-1.5" style={{ color: 'var(--text-primary)' }}>{a.name_ar}</p>
+                        <p className="text-xs mt-0.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>{a.description_ar}</p>
+                      </div>
+                    )
+                  })}
+                </div>
+                {earnedCount === 0 && medals.length > 6 && (
+                  <button
+                    onClick={() => setShowAllMedals(v => !v)}
+                    className="mt-3 text-xs font-bold transition-colors"
+                    style={{ color: '#fbbf24' }}
+                  >
+                    {showAllMedals ? 'عرض أقل' : `عرض كل الإنجازات (${medals.length})`}
+                  </button>
+                )}
+                {!medals.length && <p className="text-muted text-sm text-center">لا توجد إنجازات</p>}
+              </>
+            )
+          })()}
         </motion.div>
 
         {/* XP History */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="fl-card-static p-6">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }} className="sj-card">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
-              <Clock size={16} className="text-sky-400" strokeWidth={1.5} />
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
+              <Clock size={16} style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }} strokeWidth={1.5} />
             </div>
             <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>سجل النقاط</h3>
           </div>
           {xpHistory?.length > 0 ? (
             <div className="space-y-2 max-h-[400px] overflow-y-auto">
               {xpHistory.map((tx) => (
-                <div key={tx.id} className="flex items-center justify-between rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
+                <div key={tx.id} className="sj-tx">
                   <div>
-                    <p className="text-xs" style={{ color: 'var(--text-primary)' }}>{XP_REASON_LABELS[tx.reason] || tx.reason}</p>
-                    <p className="text-xs text-muted">{timeAgo(tx.created_at)}</p>
+                    <p className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{XP_REASON_LABELS[tx.reason] || tx.reason}</p>
+                    <p className="text-xs" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>{timeAgo(tx.created_at)}</p>
                   </div>
-                  <span className={`text-sm font-bold ${tx.amount > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                  <span className="text-sm font-bold tabular-nums" style={{ color: tx.amount > 0 ? '#fbbf24' : '#f87171' }}>
                     {tx.amount > 0 ? '+' : ''}{tx.amount}
                   </span>
                 </div>
@@ -859,7 +1024,7 @@ function AppearanceContent() {
               <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{t.description}</p>
 
               {isActive && (
-                <span className="mt-2 inline-block text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: `${t.accent}20`, color: t.accent }}>
+                <span className="mt-2 inline-block text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: `${t.accent}20`, color: t.accent }}>
                   مفعّل
                 </span>
               )}
