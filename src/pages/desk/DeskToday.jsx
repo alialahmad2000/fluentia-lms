@@ -3,7 +3,7 @@
 // and the practice call sits below. Calm premium — no incident/on-call cosplay.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Loader2, ArrowLeft, PhoneCall, CheckCircle2, Compass, GraduationCap, Flame, BookOpen, Sparkles } from 'lucide-react'
+import { Loader2, ArrowRight, PhoneCall, CheckCircle2, Compass, GraduationCap, Flame, BookOpen, Sparkles } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { useDeskModules } from './useDeskModules'
 import { useCurriculumProgress } from './useCurriculumProgress'
@@ -84,7 +84,7 @@ export default function DeskToday() {
                   {currentLesson.label && <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(201,162,92,0.7)' }}>· {currentLesson.label}</span>}
                 </p>
               )}
-              <span className="desk-cta inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px] mt-4" dir="ltr">{track.done === 0 ? 'Start' : 'Continue'} <ArrowLeft size={16} /></span>
+              <span className="desk-cta inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px] mt-4" dir="ltr">{track.done === 0 ? 'Start' : 'Continue'} <ArrowRight size={16} /></span>
             </div>
           </div>
           {/* track rail */}
@@ -110,7 +110,7 @@ export default function DeskToday() {
           <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
             {todayCount ? `${todayCount} words to review` : 'Words reviewed'}{grammarToday ? ` · ${todayGrammarDone ? 'grammar done' : 'a grammar rule'}` : ''}
           </p>
-          <span className="mt-auto pt-3 inline-flex items-center gap-1.5 font-['Inter'] text-[12.5px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Open your day <ArrowLeft size={14} /></span>
+          <span className="mt-auto pt-3 inline-flex items-center gap-1.5 font-['Inter'] text-[12.5px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Open your day <ArrowRight size={14} /></span>
         </Link>
 
         {/* reading — its own clear entry */}
@@ -121,7 +121,7 @@ export default function DeskToday() {
           <p className="font-['Inter'] text-[11px] font-bold tracking-[0.14em] mb-0.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>READING</p>
           <h3 className="font-['Inter'] font-extrabold text-[16px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>Read in your field</h3>
           <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>Short IT passages — build professional reading & vocabulary.</p>
-          <span className="mt-auto pt-3 inline-flex items-center gap-1.5 font-['Inter'] text-[12.5px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Open reading <ArrowLeft size={14} /></span>
+          <span className="mt-auto pt-3 inline-flex items-center gap-1.5 font-['Inter'] text-[12.5px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Open reading <ArrowRight size={14} /></span>
         </Link>
       </motion.div>
 
@@ -143,7 +143,7 @@ export default function DeskToday() {
         <motion.div {...rise(0.07)} className="desk-glass p-7 text-center">
           <CheckCircle2 size={28} className="mx-auto mb-2.5" style={{ color: '#8fd6b4' }} />
           <p className="font-['Inter'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>You've practised every call — great work</p>
-          <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 mt-2 font-['Inter'] text-sm" dir="ltr" style={{ color: 'var(--brass)' }}>Review them again <ArrowLeft size={14} /></Link>
+          <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 mt-2 font-['Inter'] text-sm" dir="ltr" style={{ color: 'var(--brass)' }}>Review them again <ArrowRight size={14} /></Link>
         </motion.div>
       )}
 
@@ -156,7 +156,7 @@ export default function DeskToday() {
               <p className="font-['Inter'] text-[11px] font-bold mb-0.5 tracking-[0.14em]" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>{isClassDone(latestClass.id) ? 'REVIEWED · OPEN AGAIN' : 'REVIEW YOUR LAST CLASS'}</p>
               <h3 className="font-['Inter'] font-bold text-[15px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>Class {latestClass.number} · {latestClass.title_en || latestClass.title_ar}</h3>
             </div>
-            {isClassDone(latestClass.id) ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} /> : <ArrowLeft size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
+            {isClassDone(latestClass.id) ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} /> : <ArrowRight size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
           </Link>
         </motion.div>
       )}

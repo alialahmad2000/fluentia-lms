@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, ArrowLeft, Volume2, Check, CheckCircle2, RotateCcw, Clock, BookOpen, Sparkles, Lightbulb, HelpCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Volume2, Check, CheckCircle2, RotateCcw, Clock, BookOpen, Sparkles, Lightbulb, HelpCircle } from 'lucide-react'
 import { DESK_READING, getReading } from '@/data/desk/reading'
 import { useReadingProgress } from './useReadingProgress'
 import './desk.css'
@@ -30,7 +30,7 @@ export default function DeskReadingPassage() {
 
   return (
     <div className="space-y-10 max-w-[720px] mx-auto">
-      <Link to="/desk/reading" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowRight size={15} /> Reading</Link>
+      <Link to="/desk/reading" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowLeft size={15} /> Reading</Link>
 
       {/* masthead */}
       <div className="desk-glass desk-station-head p-6 lg:p-7 desk-rise">
@@ -105,8 +105,8 @@ export default function DeskReadingPassage() {
           <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.1)', border: '1px solid rgba(201,162,92,0.26)' }}><CheckCircle2 size={17} /> You've read this passage</div>
         )}
         <div className="flex items-center justify-between gap-3 mt-4">
-          <Link to="/desk/reading" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowRight size={15} /> Library</Link>
-          {next && <Link to={`/desk/reading/${next.id}`} onClick={() => markDone(r.id, score)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.title}</span> <ArrowLeft size={15} className="flex-shrink-0" /></Link>}
+          <Link to="/desk/reading" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowLeft size={15} /> Library</Link>
+          {next && <Link to={`/desk/reading/${next.id}`} onClick={() => markDone(r.id, score)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.title}</span> <ArrowRight size={15} className="flex-shrink-0" /></Link>}
         </div>
       </div>
     </div>

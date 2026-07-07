@@ -5,7 +5,7 @@
 // brass-on-obsidian, RTL. Creditless (authored).
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Compass, ArrowLeft, Clock, Check, Headset, Zap, PenLine, Cpu, HeartHandshake, ChevronLeft } from 'lucide-react'
+import { Compass, ArrowRight, Clock, Check, Headset, Zap, PenLine, Cpu, HeartHandshake, ChevronRight } from 'lucide-react'
 import { CURRICULUM_TRACKS, ALL_LESSONS } from '@/data/desk/curriculum'
 import { useCurriculumProgress } from './useCurriculumProgress'
 import './desk.css'
@@ -55,7 +55,7 @@ export default function DeskTrack() {
               <p className="font-['Tajawal'] text-[12.5px] mt-0.5 truncate" style={{ color: 'rgba(243,238,226,0.5)' }}>{current.ar}</p>
             </div>
             <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">
-              Start <ArrowLeft size={16} />
+              Start <ArrowRight size={16} />
             </span>
           </Link>
         </motion.div>
@@ -122,7 +122,7 @@ export default function DeskTrack() {
                           <span className="inline-flex items-center gap-1 font-['Inter'] text-[11px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>
                             <Clock size={11} /> {lesson.minutes} min
                           </span>
-                          <ChevronLeft size={17} className="desk-lesson-chev" />
+                          <ChevronRight size={17} className="desk-lesson-chev" />
                         </div>
                       </div>
                     </Link>
@@ -142,7 +142,7 @@ export default function DeskTrack() {
         </div>
         <Link to="/desk/scenarios" className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 h-10 rounded-xl font-['Inter'] font-bold text-[13px]" dir="ltr"
           style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.10)', border: '1px solid rgba(201,162,92,0.24)' }}>
-          Scenarios <ArrowLeft size={15} />
+          Scenarios <ArrowRight size={15} />
         </Link>
       </div>
     </div>

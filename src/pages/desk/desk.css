@@ -12,7 +12,9 @@
      glows over it instead of getting lost. The .desk-atmo layers add the light. */
   background: #0a0e16;
   color: var(--cream);
-  direction: rtl;
+  /* LTR — the Desk is an English-primary account, so it reads left-to-right (sidebar
+     on the left). This is an isolated exception; the rest of طلاقة stays RTL. */
+  direction: ltr;
 }
 
 /* ── Atmosphere v2 (2026-07-07): calm luminous studio, replaces the server-tunnel ── */

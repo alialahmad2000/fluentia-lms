@@ -2,7 +2,7 @@
 // distilled + drillable. Newest first, over the Operations Room. Creditless.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { GraduationCap, ArrowLeft, Layers, Check, ChevronLeft, CalendarDays } from 'lucide-react'
+import { GraduationCap, ArrowRight, Layers, Check, ChevronRight, CalendarDays } from 'lucide-react'
 import { ALL_CLASSES } from '@/data/desk/classes'
 import { useClassProgress } from './useClassProgress'
 import './desk.css'
@@ -78,7 +78,7 @@ export default function DeskClasses() {
                       </div>
                     )}
                   </div>
-                  <ChevronLeft size={20} className="desk-lesson-chev flex-shrink-0" />
+                  <ChevronRight size={20} className="desk-lesson-chev flex-shrink-0" />
                 </div>
               </Link>
             </motion.div>
@@ -102,7 +102,7 @@ export default function DeskClasses() {
         </div>
         <Link to="/desk/track" className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 h-10 rounded-xl font-['Inter'] font-bold text-[13px]" dir="ltr"
           style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.10)', border: '1px solid rgba(201,162,92,0.24)' }}>
-          Track <ArrowLeft size={15} />
+          Track <ArrowRight size={15} />
         </Link>
       </div>
     </div>

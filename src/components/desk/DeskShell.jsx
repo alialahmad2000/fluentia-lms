@@ -5,7 +5,7 @@
 // cleaned up on unmount.
 import { useEffect } from 'react'
 import { Outlet, NavLink, useLocation, Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { DESK_NAV } from '@/config/deskNavigation'
 import NocBackdrop from './NocBackdrop'
@@ -41,17 +41,17 @@ export default function DeskShell() {
       <NocBackdrop />
       <div className="desk-scrim" />
 
-      {/* ── Desktop sidebar (RTL → right) ── */}
+      {/* ── Desktop sidebar (LTR → left) ── */}
       <aside
-        className="hidden lg:flex fixed inset-y-0 right-0 w-[264px] flex-col z-30 px-4 py-5"
-        style={{ background: 'linear-gradient(180deg, rgba(8,11,18,0.72), rgba(6,8,14,0.82))', borderInlineStart: '1px solid rgba(201,162,92,0.14)', backdropFilter: 'blur(16px)' }}
+        className="hidden lg:flex fixed inset-y-0 left-0 w-[264px] flex-col z-30 px-4 py-5"
+        style={{ background: 'linear-gradient(180deg, rgba(8,11,18,0.72), rgba(6,8,14,0.82))', borderInlineEnd: '1px solid rgba(201,162,92,0.14)', backdropFilter: 'blur(16px)' }}
       >
         {/* brand */}
         <div className="flex items-center gap-3 px-1 pb-6">
           <div className="desk-brand-mark">ط</div>
           <div className="leading-tight">
             <p className="font-['Inter'] font-extrabold text-[15px]" dir="ltr" style={{ color: 'var(--cream)' }}>Fluentia</p>
-            <p className="font-['Inter'] text-[10.5px] tracking-[0.18em] uppercase" dir="ltr" style={{ color: 'var(--brass)' }}>Operations Room</p>
+            <p className="font-['Inter'] text-[10.5px] tracking-[0.18em] uppercase" dir="ltr" style={{ color: 'var(--brass)' }}>Pro Desk</p>
           </div>
         </div>
 
@@ -96,12 +96,12 @@ export default function DeskShell() {
       <header className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 py-3" style={{ background: 'rgba(8,11,18,0.8)', borderBottom: '1px solid rgba(201,162,92,0.12)', backdropFilter: 'blur(14px)' }}>
         <div className="desk-brand-mark" style={{ width: 32, height: 32, fontSize: 14 }}>ط</div>
         <div className="leading-tight">
-          <p className="font-['Inter'] font-extrabold text-[13px]" dir="ltr" style={{ color: 'var(--cream)' }}>Fluentia · Operations Room</p>
+          <p className="font-['Inter'] font-extrabold text-[13px]" dir="ltr" style={{ color: 'var(--cream)' }}>Fluentia · Pro Desk</p>
         </div>
       </header>
 
       {/* ── Content ── */}
-      <div className="lg:mr-[264px] relative z-[2]">
+      <div className="lg:ml-[264px] relative z-[2]">
         <main className="desk-stage px-4 py-6 lg:px-10 lg:py-9 pb-28 lg:pb-12" style={{ maxWidth: 1180, margin: '0 auto' }}>
           <Outlet />
         </main>

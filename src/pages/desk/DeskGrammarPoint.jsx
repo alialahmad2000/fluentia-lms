@@ -2,7 +2,7 @@
 // → Check (a quick check) → "Got it". English-primary, Arabic kept as small glosses.
 import { useState } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
-import { ArrowRight, ArrowLeft, Volume2, Check, CheckCircle2, RotateCcw, Sparkles, Lightbulb, HelpCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Volume2, Check, CheckCircle2, RotateCcw, Sparkles, Lightbulb, HelpCircle } from 'lucide-react'
 import { DESK_GRAMMAR, getPoint } from '@/data/desk/grammar'
 import { useDailyProgress } from './useDailyProgress'
 import './desk.css'
@@ -53,7 +53,7 @@ export default function DeskGrammarPoint() {
 
   return (
     <div className="space-y-11 max-w-[680px] mx-auto">
-      <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowRight size={15} /> Grammar bank</Link>
+      <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowLeft size={15} /> Grammar bank</Link>
 
       <div className="desk-glass desk-station-head p-6 lg:p-7 desk-rise">
         <div className="flex items-center gap-2 mb-2.5 flex-wrap">
@@ -105,8 +105,8 @@ export default function DeskGrammarPoint() {
           <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.1)', border: '1px solid rgba(201,162,92,0.26)' }}><CheckCircle2 size={17} /> You’ve reviewed this rule</div>
         )}
         <div className="flex items-center justify-between gap-3 mt-4">
-          <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowRight size={15} /> Bank</Link>
-          {next && <Link to={`/desk/daily/grammar/${next.id}`} onClick={() => markGrammarDone(pt.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.en}</span> <ArrowLeft size={15} className="flex-shrink-0" /></Link>}
+          <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowLeft size={15} /> Bank</Link>
+          {next && <Link to={`/desk/daily/grammar/${next.id}`} onClick={() => markGrammarDone(pt.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.en}</span> <ArrowRight size={15} className="flex-shrink-0" /></Link>}
         </div>
       </div>
     </div>

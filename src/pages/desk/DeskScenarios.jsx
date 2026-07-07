@@ -2,7 +2,7 @@
 // live, in-character workplace roleplays. Each card opens the scenario player.
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Headset, Clock, BookOpen, CheckCircle2, Circle, Loader2, ArrowLeft } from 'lucide-react'
+import { Headset, Clock, BookOpen, CheckCircle2, Circle, Loader2, ArrowRight } from 'lucide-react'
 import { useDeskModules } from './useDeskModules'
 import './desk.css'
 
@@ -73,7 +73,7 @@ export default function DeskScenarios() {
                     </span>
                     {m.id === currentId && <span className="font-['Inter'] text-[10px] font-bold" style={{ color: 'var(--brass)' }}>· Current</span>}
                   </div>
-                  <span className="desk-ghost-btn"><ArrowLeft size={15} /></span>
+                  <span className="desk-ghost-btn"><ArrowRight size={15} /></span>
                 </div>
                 <h3 className="font-['Inter'] font-bold text-[16px] leading-snug mb-1" dir="ltr" style={{ color: 'var(--cream)' }}>{m.title_en}</h3>
                 <p className="font-['Tajawal'] text-[12px] mb-2" style={{ color: 'rgba(243,238,226,0.5)' }}>{m.title_ar}</p>

@@ -5,7 +5,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Loader2, NotebookPen, Volume2, Search, ArrowLeft, PhoneCall } from 'lucide-react'
+import { Loader2, NotebookPen, Volume2, Search, ArrowRight, PhoneCall } from 'lucide-react'
 import { useDeskModules } from './useDeskModules'
 import { useDeskInsights } from './useDeskInsights'
 import './desk.css'
@@ -134,7 +134,7 @@ export default function DeskPhrasebook() {
       {!nothing && groups.length === 0 && betterF.length === 0 && (
         <div className="desk-glass p-8 text-center desk-rise">
           <p className="font-['Inter'] font-bold" dir="ltr" style={{ color: 'var(--cream)' }}>Your phrasebook fills up with every scenario</p>
-          <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 mt-2 font-['Inter'] text-sm" style={{ color: 'var(--brass)' }}>Start from scenarios <ArrowLeft size={14} /></Link>
+          <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 mt-2 font-['Inter'] text-sm" style={{ color: 'var(--brass)' }}>Start from scenarios <ArrowRight size={14} /></Link>
         </div>
       )}
     </div>

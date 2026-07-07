@@ -7,7 +7,7 @@
 import { useMemo, useState } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, ArrowLeft, Volume2, Clock, Check, Lightbulb, MessageSquareQuote, Headset, Sparkles, RotateCcw, CheckCircle2, Cpu } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Volume2, Clock, Check, Lightbulb, MessageSquareQuote, Headset, Sparkles, RotateCcw, CheckCircle2, Cpu } from 'lucide-react'
 import { getLesson, getNextLesson, getPrevLesson } from '@/data/desk/curriculum'
 import { useDeskModules } from './useDeskModules'
 import { useCurriculumProgress } from './useCurriculumProgress'
@@ -195,7 +195,7 @@ export default function DeskLesson() {
     <div className="space-y-10 max-w-[720px] mx-auto">
       {/* back */}
       <Link to="/desk/track" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
-        <ArrowRight size={15} /> The Track
+        <ArrowLeft size={15} /> The Track
       </Link>
 
       {/* masthead */}
@@ -330,7 +330,7 @@ export default function DeskLesson() {
               {scenarioModule.title_en && scenarioModule.title_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5 truncate" style={{ color: 'rgba(243,238,226,0.5)' }}>{scenarioModule.title_ar}</p>}
             </div>
             <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">
-              Try it <ArrowLeft size={16} />
+              Try it <ArrowRight size={16} />
             </span>
           </Link>
         </motion.div>
@@ -354,16 +354,16 @@ export default function DeskLesson() {
         <div className="flex items-center justify-between gap-3 mt-4">
           {prev ? (
             <Link to={`/desk/track/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}>
-              <ArrowRight size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span>
+              <ArrowLeft size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span>
             </Link>
           ) : <span />}
           {next ? (
             <Link to={`/desk/track/${next.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}>
-              <span className="truncate">{next.en}</span> <ArrowLeft size={15} className="flex-shrink-0" />
+              <span className="truncate">{next.en}</span> <ArrowRight size={15} className="flex-shrink-0" />
             </Link>
           ) : (
             <Link to="/desk/track" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold" dir="ltr" style={{ color: 'var(--brass-hi)' }}>
-              Back to the Track <ArrowLeft size={15} />
+              Back to the Track <ArrowRight size={15} />
             </Link>
           )}
         </div>

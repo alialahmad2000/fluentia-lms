@@ -4,7 +4,7 @@
 // golden takeaways. Distinct from the Track — this reads like her class syllabus.
 import { useParams, Navigate, Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { GraduationCap, ArrowRight, ArrowLeft, Clock, Check, ChevronLeft, Award, Lightbulb, HelpCircle, Dumbbell, AlignRight, UserRound, Activity, History, Wrench, Sparkles } from 'lucide-react'
+import { GraduationCap, ArrowLeft, ArrowRight, Clock, Check, ChevronRight, Award, Lightbulb, HelpCircle, Dumbbell, AlignRight, UserRound, Activity, History, Wrench, Sparkles } from 'lucide-react'
 import { getClass, chapterParts } from '@/data/desk/classes'
 import { useClassProgress } from './useClassProgress'
 import './desk.css'
@@ -45,7 +45,7 @@ export default function DeskClass() {
   return (
     <div className="space-y-12 max-w-[720px] mx-auto">
       <Link to="/desk/classes" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" style={{ color: 'rgba(243,238,226,0.5)' }}>
-        <ArrowRight size={15} /> My Classes
+        <ArrowLeft size={15} /> My Classes
       </Link>
 
       {/* hero — progress ring + class title */}
@@ -68,7 +68,7 @@ export default function DeskClass() {
       {/* continue button */}
       {prog.current && (
         <Link to={`/desk/classes/${cls.id}/${prog.current.id}`} className="desk-cta -mt-3 w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px] desk-rise" dir="ltr">
-          {prog.done === 0 ? 'Start review' : 'Continue here'} <ArrowLeft size={16} />
+          {prog.done === 0 ? 'Start review' : 'Continue here'} <ArrowRight size={16} />
         </Link>
       )}
 
@@ -110,7 +110,7 @@ export default function DeskClass() {
                   </div>
                   <div className="flex flex-col items-end justify-between self-stretch gap-2 flex-shrink-0">
                     <span className="inline-flex items-center gap-1 font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}><Clock size={12} /> {ch.minutes} min</span>
-                    <ChevronLeft size={18} className="desk-lesson-chev" />
+                    <ChevronRight size={18} className="desk-lesson-chev" />
                   </div>
                 </div>
               </Link>

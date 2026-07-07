@@ -4,7 +4,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { ArrowRight, ArrowLeft, Volume2, Check, RotateCcw, Sparkles, Layers, Search, CheckCircle2, Flame } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Volume2, Check, RotateCcw, Sparkles, Layers, Search, CheckCircle2, Flame } from 'lucide-react'
 import { DESK_VOCAB, getWord } from '@/data/desk/vocab'
 import { useDailyProgress } from './useDailyProgress'
 import './desk.css'
@@ -43,7 +43,7 @@ function Session({ rm }) {
           </div>
         )}
         <p className="font-['Inter'] text-[13px] mt-4" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}>Come back tomorrow to lock in what you learned.</p>
-        <Link to="/desk/daily" className="inline-flex items-center gap-1.5 mt-4 font-['Inter'] text-[13px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Back to Daily <ArrowLeft size={14} /></Link>
+        <Link to="/desk/daily" className="inline-flex items-center gap-1.5 mt-4 font-['Inter'] text-[13px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Back to Daily <ArrowRight size={14} /></Link>
       </div>
     )
   }
@@ -141,7 +141,7 @@ export default function DeskVocab() {
 
   return (
     <div className="space-y-7 max-w-[640px] mx-auto">
-      <Link to="/desk/daily" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowRight size={15} /> Daily</Link>
+      <Link to="/desk/daily" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowLeft size={15} /> Daily</Link>
 
       <div className="desk-rise">
         <div className="flex items-center gap-2 mb-1.5"><Layers size={14} style={{ color: 'var(--brass)' }} /><span className="font-['Inter'] text-[12px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>VOCABULARY</span></div>

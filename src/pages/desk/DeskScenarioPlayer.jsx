@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useQueryClient } from '@tanstack/react-query'
-import { ArrowRight, Loader2, Target, BookOpen, MessageSquareQuote, Headset, PenLine, CheckCircle2, Radio } from 'lucide-react'
+import { ArrowLeft, Loader2, Target, BookOpen, MessageSquareQuote, Headset, PenLine, CheckCircle2, Radio } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 import DeskCallInterface from '@/components/desk/DeskCallInterface'
@@ -51,7 +51,7 @@ export default function DeskScenarioPlayer() {
       <div className="desk-glass p-8 text-center desk-rise">
         <p className="font-['Inter'] font-bold" dir="ltr">Scenario not found</p>
         <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 mt-3 font-['Inter'] text-sm" style={{ color: 'var(--brass)' }}>
-          Back to scenarios <ArrowRight size={14} />
+          Back to scenarios <ArrowLeft size={14} />
         </Link>
       </div>
     )
@@ -85,7 +85,7 @@ export default function DeskScenarioPlayer() {
       {/* back + status */}
       <div className="flex items-center justify-between desk-rise">
         <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" style={{ color: 'rgba(243,238,226,0.55)' }}>
-          <ArrowRight size={15} /> Scenarios
+          <ArrowLeft size={15} /> Scenarios
         </Link>
         {isDone && (
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold font-['Inter']" style={{ color: '#6ee7b7', background: 'rgba(110,231,183,0.12)', border: '1px solid rgba(110,231,183,0.28)' }}>

@@ -2,7 +2,7 @@
 // of high-value points, each with a mastery state. English-primary, Arabic gloss.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, BookText, Check, ChevronLeft, Star } from 'lucide-react'
+import { ArrowLeft, BookText, Check, ChevronRight, Star } from 'lucide-react'
 import { DESK_GRAMMAR } from '@/data/desk/grammar'
 import { useDailyProgress } from './useDailyProgress'
 import './desk.css'
@@ -13,7 +13,7 @@ export default function DeskGrammar() {
 
   return (
     <div className="space-y-7 max-w-[680px] mx-auto">
-      <Link to="/desk/daily" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowRight size={15} /> Daily</Link>
+      <Link to="/desk/daily" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><ArrowLeft size={15} /> Daily</Link>
 
       <div className="desk-rise">
         <div className="flex items-center gap-2 mb-1.5"><BookText size={14} style={{ color: 'var(--brass)' }} /><span className="font-['Inter'] text-[12px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>GRAMMAR</span></div>
@@ -32,7 +32,7 @@ export default function DeskGrammar() {
               <h3 className="font-['Inter'] font-extrabold text-[16px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{grammarToday.en}</h3>
               <p className="font-['Tajawal'] text-[12px] mt-0.5 truncate" style={{ color: 'rgba(243,238,226,0.45)' }}>{grammarToday.ar}</p>
             </div>
-            <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">Start <ArrowLeft size={16} /></span>
+            <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">Start <ArrowRight size={16} /></span>
           </Link>
         </motion.div>
       )}
@@ -50,7 +50,7 @@ export default function DeskGrammar() {
                   <h3 className="font-['Inter'] font-bold text-[15px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{pt.en}</h3>
                   <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(243,238,226,0.45)' }}>{pt.ar}</p>
                 </div>
-                <ChevronLeft size={17} className="desk-lesson-chev flex-shrink-0" />
+                <ChevronRight size={17} className="desk-lesson-chev flex-shrink-0" />
               </Link>
             )
           })}

@@ -4,7 +4,7 @@
 import { useMemo, useState } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, ArrowLeft, Volume2, Check, CheckCircle2, RotateCcw, Eye, Wrench, Repeat, Lightbulb, HelpCircle, Dumbbell, Sparkles, Blocks, PencilLine, LayoutGrid, ListOrdered, Languages, Flag } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Volume2, Check, CheckCircle2, RotateCcw, Eye, Wrench, Repeat, Lightbulb, HelpCircle, Dumbbell, Sparkles, Blocks, PencilLine, LayoutGrid, ListOrdered, Languages, Flag } from 'lucide-react'
 import { getChapter, chapterParts } from '@/data/desk/classes'
 import { useClassProgress } from './useClassProgress'
 import './desk.css'
@@ -390,7 +390,7 @@ export default function DeskClassChapter() {
   return (
     <div className="space-y-14 max-w-[720px] mx-auto">
       <Link to={`/desk/classes/${cls.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
-        <ArrowRight size={15} /> {cls.title_en}
+        <ArrowLeft size={15} /> {cls.title_en}
       </Link>
 
       {/* station masthead — a lit panel, so the station page has real presence */}
@@ -471,11 +471,11 @@ export default function DeskClassChapter() {
         )}
         <div className="flex items-center justify-between gap-3 mt-4">
           {prev
-            ? <Link to={`/desk/classes/${cls.id}/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowRight size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span></Link>
-            : <Link to={`/desk/classes/${cls.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowRight size={15} /> Map</Link>}
+            ? <Link to={`/desk/classes/${cls.id}/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowLeft size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span></Link>
+            : <Link to={`/desk/classes/${cls.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowLeft size={15} /> Map</Link>}
           {next
-            ? <Link to={`/desk/classes/${cls.id}/${next.id}`} onClick={() => markChapterDone(cls.id, chapter.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.en}</span> <ArrowLeft size={15} className="flex-shrink-0" /></Link>
-            : <Link to={`/desk/classes/${cls.id}`} onClick={() => markChapterDone(cls.id, chapter.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold" dir="ltr" style={{ color: 'var(--brass-hi)' }}>Finish review <ArrowLeft size={15} /></Link>}
+            ? <Link to={`/desk/classes/${cls.id}/${next.id}`} onClick={() => markChapterDone(cls.id, chapter.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.en}</span> <ArrowRight size={15} className="flex-shrink-0" /></Link>
+            : <Link to={`/desk/classes/${cls.id}`} onClick={() => markChapterDone(cls.id, chapter.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold" dir="ltr" style={{ color: 'var(--brass-hi)' }}>Finish review <ArrowRight size={15} /></Link>}
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
 // and a ledger of every call she's taken.
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Loader2, TrendingUp, Target, ArrowLeft, CheckCircle2, Radio } from 'lucide-react'
+import { Loader2, TrendingUp, Target, ArrowRight, CheckCircle2, Radio } from 'lucide-react'
 import { useDeskModules } from './useDeskModules'
 import { useDeskInsights } from './useDeskInsights'
 import './desk.css'
@@ -94,7 +94,7 @@ export default function DeskGrowth() {
             Finish your first scenario and we&apos;ll build a clear picture here — your grammar, vocabulary, fluency, and the points that need work.
           </p>
           <Link to="/desk/scenarios" className="desk-cta inline-flex items-center gap-2 px-6 h-12 rounded-2xl font-['Inter'] font-bold text-[14px] mt-5">
-            Start your first scenario <ArrowLeft size={16} />
+            Start your first scenario <ArrowRight size={16} />
           </Link>
         </div>
       ) : (

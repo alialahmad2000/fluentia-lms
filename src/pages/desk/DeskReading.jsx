@@ -2,7 +2,7 @@
 // build professional reading + vocabulary. English-primary, Arabic small glosses.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { BookOpen, Clock, Check, ChevronLeft, ArrowLeft } from 'lucide-react'
+import { BookOpen, Clock, Check, ChevronRight, ArrowRight } from 'lucide-react'
 import { DESK_READING } from '@/data/desk/reading'
 import { useReadingProgress } from './useReadingProgress'
 import './desk.css'
@@ -32,7 +32,7 @@ export default function DeskReading() {
               <h3 className="font-['Inter'] font-extrabold text-[16px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{next.title}</h3>
               <p className="font-['Inter'] text-[12px] mt-0.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>{next.level} · {next.minutes} min · {next.topic}</p>
             </div>
-            <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">Read <ArrowLeft size={16} /></span>
+            <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">Read <ArrowRight size={16} /></span>
           </Link>
         </motion.div>
       )}
@@ -54,7 +54,7 @@ export default function DeskReading() {
                     <span>· {r.topic}</span>
                   </div>
                 </div>
-                <ChevronLeft size={17} className="desk-lesson-chev flex-shrink-0" />
+                <ChevronRight size={17} className="desk-lesson-chev flex-shrink-0" />
               </Link>
             )
           })}

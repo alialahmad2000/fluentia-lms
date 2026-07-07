@@ -3,7 +3,7 @@
 // English-primary, Arabic kept as small glosses.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Flame, Sunrise, ArrowLeft, Check, CheckCircle2, Layers, BookText, BookOpen, ChevronLeft } from 'lucide-react'
+import { Flame, Sunrise, ArrowRight, Check, CheckCircle2, Layers, BookText, BookOpen, ChevronRight } from 'lucide-react'
 import { useDailyProgress } from './useDailyProgress'
 import { useReadingProgress } from './useReadingProgress'
 import './desk.css'
@@ -51,7 +51,7 @@ export default function DeskDaily() {
               </h3>
               <p className="font-['Inter'] text-[12px] mt-0.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>Flashcards — I knew it or remind me</p>
             </div>
-            {todayVocabDone ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} /> : <ArrowLeft size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
+            {todayVocabDone ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} /> : <ArrowRight size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
           </Link>
           {/* grammar */}
           {grammarToday && (
@@ -62,7 +62,7 @@ export default function DeskDaily() {
                 <h3 className="font-['Inter'] font-extrabold text-[16px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{grammarToday.en}</h3>
                 <p className="font-['Tajawal'] text-[11.5px] mt-0.5 truncate" style={{ color: 'rgba(243,238,226,0.45)' }}>{grammarToday.ar}</p>
               </div>
-              {todayGrammarDone ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} /> : <ArrowLeft size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
+              {todayGrammarDone ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} /> : <ArrowRight size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
             </Link>
           )}
           {/* reading */}
@@ -74,7 +74,7 @@ export default function DeskDaily() {
                 <h3 className="font-['Inter'] font-extrabold text-[16px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{nextReading.title}</h3>
                 <p className="font-['Inter'] text-[11.5px] mt-0.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>{nextReading.level} · {nextReading.minutes} min · {nextReading.topic}</p>
               </div>
-              <ArrowLeft size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />
+              <ArrowRight size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />
             </Link>
           )}
         </div>
@@ -87,19 +87,19 @@ export default function DeskDaily() {
           <Link to="/desk/daily/vocab" className="group desk-glass p-4 flex items-center gap-3">
             <div className="desk-mini-mark"><Layers size={16} /></div>
             <div className="min-w-0 flex-1"><p className="font-['Inter'] font-bold text-[14px] whitespace-nowrap" dir="ltr" style={{ color: 'var(--cream)' }}>Word vault</p><p className="font-['Inter'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>{vocab.total} words</p></div>
-            <ChevronLeft size={17} className="desk-lesson-chev" />
+            <ChevronRight size={17} className="desk-lesson-chev" />
           </Link>
           <Link to="/desk/daily/grammar" className="group desk-glass p-4 flex items-center gap-3">
             <div className="desk-mini-mark"><BookText size={16} /></div>
             <div className="min-w-0 flex-1"><p className="font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>Grammar bank</p><p className="font-['Inter'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>{grammar.total} rules</p></div>
-            <ChevronLeft size={17} className="desk-lesson-chev" />
+            <ChevronRight size={17} className="desk-lesson-chev" />
           </Link>
         </div>
         {/* reading — live */}
         <Link to="/desk/reading" className="group desk-glass p-4 flex items-center gap-3 mt-3">
           <div className="desk-mini-mark"><BookOpen size={16} /></div>
           <div className="min-w-0 flex-1"><p className="font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>Reading in your field</p><p className="font-['Inter'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>{readingTotal} IT passages{readingDone ? ` · ${readingDone} read` : ''}</p></div>
-          <ChevronLeft size={17} className="desk-lesson-chev" />
+          <ChevronRight size={17} className="desk-lesson-chev" />
         </Link>
       </div>
     </div>
