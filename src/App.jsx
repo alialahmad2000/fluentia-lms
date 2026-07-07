@@ -56,6 +56,10 @@ const DeskLesson = lazyRetry(() => import('./pages/desk/DeskLesson'))
 const DeskClasses = lazyRetry(() => import('./pages/desk/DeskClasses'))
 const DeskClass = lazyRetry(() => import('./pages/desk/DeskClass'))
 const DeskClassChapter = lazyRetry(() => import('./pages/desk/DeskClassChapter'))
+const DeskDaily = lazyRetry(() => import('./pages/desk/DeskDaily'))
+const DeskVocab = lazyRetry(() => import('./pages/desk/DeskVocab'))
+const DeskGrammar = lazyRetry(() => import('./pages/desk/DeskGrammar'))
+const DeskGrammarPoint = lazyRetry(() => import('./pages/desk/DeskGrammarPoint'))
 const DeskPhrasebook = lazyRetry(() => import('./pages/desk/DeskPhrasebook'))
 const DeskGrowth = lazyRetry(() => import('./pages/desk/DeskGrowth'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
@@ -922,6 +926,10 @@ export default function App() {
               <Route element={<DeskGuard />}>
                 <Route element={<ErrorBoundary><DeskShell /></ErrorBoundary>}>
                   <Route path="/desk" element={<Page><DeskToday /></Page>} />
+                  <Route path="/desk/daily" element={<Page><DeskDaily /></Page>} />
+                  <Route path="/desk/daily/vocab" element={<Page><DeskVocab /></Page>} />
+                  <Route path="/desk/daily/grammar" element={<Page><DeskGrammar /></Page>} />
+                  <Route path="/desk/daily/grammar/:pointId" element={<Page><DeskGrammarPoint /></Page>} />
                   <Route path="/desk/classes" element={<Page><DeskClasses /></Page>} />
                   <Route path="/desk/classes/:classId" element={<Page><DeskClass /></Page>} />
                   <Route path="/desk/classes/:classId/:chapterId" element={<Page><DeskClassChapter /></Page>} />

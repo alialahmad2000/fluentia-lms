@@ -27,8 +27,8 @@ export default function DeskMobileBar() {
             <motion.div className="desk-more-sheet lg:hidden"
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.32 }}>
               <div className="flex items-center justify-between px-1 pb-3">
-                <span className="font-['Tajawal'] font-bold text-[14px]" style={{ color: 'var(--cream)' }}>المزيد</span>
-                <button onClick={() => setOpen(false)} className="desk-ghost-btn" aria-label="إغلاق"><X size={16} /></button>
+                <span className="font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>More</span>
+                <button onClick={() => setOpen(false)} className="desk-ghost-btn" aria-label="Close"><X size={16} /></button>
               </div>
               <div className="space-y-1.5">
                 {overflow.map((item) => {
@@ -37,7 +37,7 @@ export default function DeskMobileBar() {
                     <NavLink key={item.id} to={item.to} onClick={() => setOpen(false)}
                       className={({ isActive }) => `desk-side-link ${isActive ? 'is-active' : ''}`}>
                       <Icon size={18} strokeWidth={2} />
-                      <span>{item.ar}</span>
+                      <span>{item.en}</span>
                     </NavLink>
                   )
                 })}
@@ -46,8 +46,8 @@ export default function DeskMobileBar() {
                   return (
                     <div key={item.id} className="desk-side-link is-soon" aria-disabled>
                       <Icon size={18} strokeWidth={2} />
-                      <span>{item.ar}</span>
-                      <span className="desk-soon-chip">قريباً</span>
+                      <span>{item.en}</span>
+                      <span className="desk-soon-chip">Soon</span>
                     </div>
                   )
                 })}
@@ -65,14 +65,14 @@ export default function DeskMobileBar() {
             <NavLink key={item.id} to={item.to} end={item.to === '/desk'}
               className={({ isActive }) => (isActive ? 'is-active' : '')}>
               <Icon size={19} strokeWidth={2} />
-              <span>{item.ar}</span>
+              <span>{item.en}</span>
             </NavLink>
           )
         })}
         {hasMore && (
-          <button className={open ? 'is-active' : ''} onClick={() => setOpen((o) => !o)} aria-label="المزيد">
+          <button className={open ? 'is-active' : ''} onClick={() => setOpen((o) => !o)} aria-label="More">
             <MoreHorizontal size={19} strokeWidth={2} />
-            <span>المزيد</span>
+            <span>More</span>
           </button>
         )}
       </nav>

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/stores/authStore'
 
 const KEY = 'desk_booted_v1'
-const STATUS = ['تهيئة الأنظمة…', 'الاتصال بالغرفة…', 'جاهز']
+const STATUS = ['Booting systems…', 'Connecting to the room…', 'Ready']
 
 export default function DeskBoot() {
   const profileId = useAuthStore((s) => s.profile?.id)
@@ -35,9 +35,9 @@ export default function DeskBoot() {
     <div className={`desk-boot ${leaving ? 'is-leaving' : ''}`} onClick={skip} role="presentation" aria-hidden="true">
       <div className="desk-boot-inner">
         <div className="desk-brand-mark desk-boot-mark">ط</div>
-        <p className="desk-boot-title">مركز العمليات</p>
+        <p className="desk-boot-title" dir="ltr">Fluentia · Operations Room</p>
         <div className="desk-boot-track"><span className="desk-boot-fill" /></div>
-        <p className="desk-boot-status" style={statusIdx === 2 ? { color: '#6ee7b7' } : undefined}>{STATUS[statusIdx]}</p>
+        <p className="desk-boot-status" dir="ltr" style={statusIdx === 2 ? { color: '#6ee7b7' } : undefined}>{STATUS[statusIdx]}</p>
       </div>
     </div>
   )

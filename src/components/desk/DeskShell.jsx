@@ -50,8 +50,8 @@ export default function DeskShell() {
         <div className="flex items-center gap-3 px-1 pb-6">
           <div className="desk-brand-mark">ط</div>
           <div className="leading-tight">
-            <p className="font-['Tajawal'] font-extrabold text-[15px]" style={{ color: 'var(--cream)' }}>طلاقة</p>
-            <p className="font-['Tajawal'] text-[11px] tracking-wide" style={{ color: 'var(--brass)' }}>مركز العمليات</p>
+            <p className="font-['Inter'] font-extrabold text-[15px]" dir="ltr" style={{ color: 'var(--cream)' }}>Fluentia</p>
+            <p className="font-['Inter'] text-[10.5px] tracking-[0.18em] uppercase" dir="ltr" style={{ color: 'var(--brass)' }}>Operations Room</p>
           </div>
         </div>
 
@@ -62,8 +62,8 @@ export default function DeskShell() {
               return (
                 <div key={item.id} className="desk-side-link is-soon" aria-disabled>
                   <Icon size={18} strokeWidth={2} />
-                  <span>{item.ar}</span>
-                  <span className="desk-soon-chip">قريباً</span>
+                  <span dir="ltr">{item.en}</span>
+                  <span className="desk-soon-chip" style={{ marginInlineStart: 'auto' }}>Soon</span>
                 </div>
               )
             }
@@ -75,7 +75,7 @@ export default function DeskShell() {
                 className={({ isActive }) => `desk-side-link ${isActive ? 'is-active' : ''}`}
               >
                 <Icon size={18} strokeWidth={2} />
-                <span>{item.ar}</span>
+                <span dir="ltr">{item.en}</span>
               </NavLink>
             )
           })}
@@ -86,8 +86,8 @@ export default function DeskShell() {
           {displayName && (
             <p className="px-1 pb-2 font-['Tajawal'] text-[12px]" style={{ color: 'rgba(243,238,226,0.55)' }}>{displayName}</p>
           )}
-          <Link to="/student" className="flex items-center gap-2 px-2 py-2 rounded-lg font-['Tajawal'] text-[12px] transition-colors" style={{ color: 'rgba(243,238,226,0.4)' }}>
-            <ArrowLeft size={14} /> الحساب العادي
+          <Link to="/student" className="flex items-center gap-2 px-2 py-2 rounded-lg font-['Inter'] text-[12px] transition-colors" dir="ltr" style={{ color: 'rgba(243,238,226,0.4)' }}>
+            <ArrowLeft size={14} /> Standard account
           </Link>
         </div>
       </aside>
@@ -96,7 +96,7 @@ export default function DeskShell() {
       <header className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 py-3" style={{ background: 'rgba(8,11,18,0.8)', borderBottom: '1px solid rgba(201,162,92,0.12)', backdropFilter: 'blur(14px)' }}>
         <div className="desk-brand-mark" style={{ width: 32, height: 32, fontSize: 14 }}>ط</div>
         <div className="leading-tight">
-          <p className="font-['Tajawal'] font-extrabold text-[13px]" style={{ color: 'var(--cream)' }}>طلاقة · مركز العمليات</p>
+          <p className="font-['Inter'] font-extrabold text-[13px]" dir="ltr" style={{ color: 'var(--cream)' }}>Fluentia · Operations Room</p>
         </div>
       </header>
 

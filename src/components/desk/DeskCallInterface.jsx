@@ -6,11 +6,10 @@
 // engine is the shared ConversationMode, mounted only once the line is "connected".
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Phone, PhoneOff, PhoneIncoming, PhoneCall, Loader2, MapPin } from 'lucide-react'
-import { useG } from '@/i18n/gender'
 import ConversationMode from '@/components/curriculum/speaking/ConversationMode'
 
 // Pull a human caller out of the persona instruction (rp.ai_role).
-function callerFrom(rp = {}, fallbackName = 'الطرف الآخر') {
+function callerFrom(rp = {}, fallbackName = 'Caller') {
   const role = rp.ai_role || ''
   const q = role.match(/['"“”‘’]([A-Z][a-zA-Z]+)['"“”‘’]/)
   const named = role.match(/\b(?:named|called)\s+([A-Z][a-zA-Z]+)/)
@@ -28,7 +27,6 @@ function callerFrom(rp = {}, fallbackName = 'الطرف الآخر') {
 const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`
 
 export default function DeskCallInterface({ module, moduleId, studentId, phrases = [], onComplete }) {
-  const g = useG()
   const rp = module?.roleplay || {}
   const caller = useMemo(() => callerFrom(rp), [rp])
   const [phase, setPhase] = useState('incoming')      // incoming | connecting | connected | declined
@@ -66,8 +64,8 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
       <div className="desk-glass desk-call-panel p-8 text-center desk-rise" style={{ borderColor: 'rgba(201,162,92,0.24)' }}>
         <div className="flex items-center justify-center gap-2 mb-6">
           <span className="w-2 h-2 rounded-full desk-live-dot" style={{ background: declined ? '#94a3b8' : '#e2694e', boxShadow: declined ? 'none' : '0 0 10px 1px rgba(226,105,78,0.6)' }} />
-          <span className="font-['Tajawal'] font-bold text-[12px] tracking-[0.14em]" style={{ color: declined ? 'rgba(243,238,226,0.42)' : 'var(--brass-hi)' }}>
-            {declined ? 'انتهت المكالمة' : 'مكالمة واردة'}
+          <span className="font-['Inter'] font-bold text-[12px] tracking-[0.14em]" dir="ltr" style={{ color: declined ? 'rgba(243,238,226,0.42)' : 'var(--brass-hi)' }}>
+            {declined ? 'Call ended' : 'Incoming call'}
           </span>
         </div>
 
@@ -83,7 +81,7 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
           </div>
         </div>
 
-        <h3 className="font-['Inter'] font-extrabold text-[28px] tracking-tight mt-6 mb-1 leading-none" style={{ color: 'var(--cream)' }} dir="ltr">{caller.name}</h3>
+        <h3 className="font-['Inter'] font-extrabold text-[28px] tracking-tight mt-6 mb-1 leading-none" dir="ltr" style={{ color: 'var(--cream)' }}>{caller.name}</h3>
         {caller.desc && <p className="font-['Inter'] text-[12px] leading-relaxed max-w-xs mx-auto" dir="ltr" style={{ color: 'rgba(201,162,92,0.75)' }}>{caller.desc}</p>}
         {caller.loc && (
           <span className="inline-flex items-center gap-1 mt-3 px-2.5 py-1 rounded-full font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(201,162,92,0.14)' }}>
@@ -96,21 +94,21 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
             <div className="flex items-center justify-center gap-1 mt-5 desk-call-dots" aria-hidden><span/><span/><span/></div>
             <div className="flex items-center justify-center gap-10 mt-7">
               <div className="flex flex-col items-center gap-2">
-                <button onClick={decline} className="desk-call-btn desk-call-decline" aria-label="رفض المكالمة"><PhoneOff size={22} /></button>
-                <span className="font-['Tajawal'] text-[12px]" style={{ color: 'rgba(243,238,226,0.45)' }}>لاحقاً</span>
+                <button onClick={decline} className="desk-call-btn desk-call-decline" aria-label="Decline call"><PhoneOff size={22} /></button>
+                <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.45)' }}>Later</span>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <button onClick={answer} className="desk-call-btn desk-call-answer desk-call-answer-breathe" aria-label="الرد على المكالمة"><Phone size={24} /></button>
-                <span className="font-['Tajawal'] text-[12px] font-bold" style={{ color: '#6ee7b7' }}>{g('رُد', 'ردّي')}</span>
+                <button onClick={answer} className="desk-call-btn desk-call-answer desk-call-answer-breathe" aria-label="Answer call"><Phone size={24} /></button>
+                <span className="font-['Inter'] text-[12px] font-bold" dir="ltr" style={{ color: '#6ee7b7' }}>Answer</span>
               </div>
             </div>
-            <p className="font-['Tajawal'] text-[12px] leading-relaxed max-w-sm mx-auto mt-7" style={{ color: 'rgba(243,238,226,0.5)' }}>
-              {g('تكلّم بثقة. تقدر تطلب التوضيح أو الإعادة بأي وقت — مثل مكالمة عمل حقيقية.', 'تكلّمي بثقة. تقدرين تطلبين التوضيح أو الإعادة بأي وقت — مثل مكالمة عمل حقيقية.')}
+            <p className="font-['Inter'] text-[12px] leading-relaxed max-w-sm mx-auto mt-7" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
+              Speak with confidence. You can ask for clarification or a repeat anytime — just like a real work call.
             </p>
           </>
         ) : (
-          <button onClick={redial} className="desk-cta inline-flex items-center gap-2 px-6 h-12 rounded-2xl font-['Tajawal'] font-bold text-[14px] mt-7">
-            <PhoneCall size={17} /> {g('معاودة الاتصال', 'معاودة الاتصال')}
+          <button onClick={redial} className="desk-cta inline-flex items-center gap-2 px-6 h-12 rounded-2xl font-['Inter'] font-bold text-[14px] mt-7">
+            <PhoneCall size={17} /> Call again
           </button>
         )}
       </div>
@@ -127,7 +125,7 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
             <Loader2 size={30} className="animate-spin" style={{ color: '#1a130a' }} />
           </div>
         </div>
-        <h3 className="font-['Tajawal'] font-bold text-[18px] mt-6" style={{ color: 'var(--cream)' }}>{g('جارٍ الاتصال…', 'جارٍ الاتصال…')}</h3>
+        <h3 className="font-['Inter'] font-bold text-[18px] mt-6" dir="ltr" style={{ color: 'var(--cream)' }}>Connecting…</h3>
         <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(201,162,92,0.7)' }}>connecting to {caller.name}</p>
         <div className="desk-signal mx-auto mt-5" aria-hidden><span/><span/><span/><span/><span/></div>
       </div>
@@ -143,10 +141,10 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
           <span className="font-['Inter'] font-black text-[15px]" dir="ltr">{caller.initial}</span>
         </div>
         <div className="min-w-0 flex-1">
-          <p className="font-['Tajawal'] font-bold text-[14px] truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{caller.name}</p>
+          <p className="font-['Inter'] font-bold text-[14px] truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{caller.name}</p>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: ended ? '#94a3b8' : '#6ee7b7', boxShadow: ended ? 'none' : '0 0 6px 1px rgba(110,231,183,0.7)' }} />
-            <span className="font-['Tajawal'] font-bold text-[12px]" style={{ color: ended ? 'rgba(243,238,226,0.5)' : '#6ee7b7' }}>{ended ? 'انتهت المكالمة' : 'متّصل'}</span>
+            <span className="font-['Inter'] font-bold text-[12px]" dir="ltr" style={{ color: ended ? 'rgba(243,238,226,0.5)' : '#6ee7b7' }}>{ended ? 'Call ended' : 'Connected'}</span>
           </div>
         </div>
         {!ended && <div className="desk-signal desk-signal-sm desk-signal-steady" aria-hidden><span/><span/><span/><span/></div>}
