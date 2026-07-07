@@ -3,7 +3,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PenLine, ChevronLeft, RotateCcw, Loader2, CheckCircle, XCircle, AlertTriangle } from 'lucide-react'
+import { PenLine, ChevronLeft, RotateCcw, Loader2, CheckCircle, XCircle, AlertTriangle, Clock } from 'lucide-react'
+import { GalleryCard, MetaChip, LabHeader } from './_ui/primitives'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { invokeWithRetry } from '@/lib/invokeWithRetry'
@@ -165,66 +166,30 @@ function ModeButton({ mode, active, onClick }) {
 function TaskCard({ task, onSelect }) {
   const isTask1 = task.task_type === 'task1'
   return (
-    <motion.button
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      onClick={() => onSelect(task)}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-        padding: '18px 20px',
-        borderRadius: 18,
-        border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)',
-        background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)',
-        backdropFilter: 'blur(8px)',
-        cursor: 'pointer',
-        textAlign: 'right',
-        width: '100%',
-        transition: 'border-color 0.2s',
-      }}
-      onMouseEnter={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)')}
-      onMouseLeave={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-amber) 18%, transparent)')}
-    >
+    <GalleryCard onClick={() => onSelect(task)}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-        <div style={{ display: 'flex', gap: 6 }}>
-          <span style={{
-            fontSize: 11, fontWeight: 700, fontFamily: "'IBM Plex Sans', sans-serif",
-            color: 'var(--sunset-orange)', textTransform: 'uppercase', letterSpacing: '0.05em',
-          }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{ fontSize: 11, fontWeight: 800, fontFamily: "'IBM Plex Sans', sans-serif", color: 'var(--iel-accent)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             {isTask1 ? 'Task 1' : 'Task 2'}
           </span>
           {task.difficulty_band && (
-            <span style={{
-              fontSize: 11, padding: '1px 7px', borderRadius: 5,
-              background: 'color-mix(in srgb, var(--ds-surface) 60%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)',
-              color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif",
-            }}>
+            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink-2)', fontWeight: 700, fontFamily: "'IBM Plex Sans', sans-serif" }}>
               Band {task.difficulty_band}
             </span>
           )}
         </div>
-        <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif" }}>
-          🕐 {task.time_limit_minutes || (isTask1 ? 20 : 40)} دق
-        </span>
+        <MetaChip icon={Clock}>{task.time_limit_minutes || (isTask1 ? 20 : 40)} دق</MetaChip>
       </div>
-      <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.5, textAlign: 'right' }}>
+      <h3 style={{ margin: '2px 0 0', fontSize: 16, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.45, textAlign: 'start', letterSpacing: '-.01em' }}>
         {task.title}
       </h3>
-      <p style={{
-        margin: 0, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif",
-        lineHeight: 1.6, textAlign: 'right',
-        display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
-      }}>
+      <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', lineHeight: 1.7, textAlign: 'start', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
         {task.prompt?.split('\n')[0]}
       </p>
-      <div style={{ display: 'flex', gap: 12 }}>
-        <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          ✏️ {task.word_count_target || (isTask1 ? 150 : 250)}+ كلمة
-        </span>
+      <div style={{ display: 'flex', gap: 8, marginTop: 3 }}>
+        <MetaChip icon={PenLine}>{task.word_count_target || (isTask1 ? 150 : 250)}+ كلمة</MetaChip>
       </div>
-    </motion.button>
+    </GalleryCard>
   )
 }
 
@@ -603,17 +568,10 @@ export default function Writing() {
     return (
       <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 32 }}>
 
-        {/* Narrative */}
-        {!narrativeDone && (
-          <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} style={{ paddingTop: 32 }}>
-            <NarrativeReveal
-              lines={NARRATIVE_LINES}
-              delayBetweenLines={700}
-              pauseAfterLast={400}
-              onComplete={() => setNarrativeDone(true)}
-            />
-          </motion.section>
-        )}
+        {/* Header */}
+        <LabHeader eyebrow="التدريب · الكتابة" title="الكتابة">
+          مهام كتابة IELTS حقيقية (Task 1 و Task 2). اختر مهمّة واكتب في بيئة الاختبار — عدّاد كلمات مباشر وتقييم ذكي مفصّل بالباند.
+        </LabHeader>
 
         {/* Stats */}
         {recent.length > 0 && (

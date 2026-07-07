@@ -12,6 +12,7 @@ import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useG } from '@/i18n/gender'
 import { ExamShell } from './_ui/ExamShell'
+import { GalleryCard, MetaChip, LabHeader } from './_ui/primitives'
 
 const SSANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 // Speaking questions are objects {q, sample} — extract the prompt so React never
@@ -152,37 +153,20 @@ function BoothCard({ row, onSelect }) {
   const meta = PART_META[row.part]
   const qCount = Array.isArray(row.questions) ? row.questions.length : 0
   return (
-    <motion.button
-      whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-      onClick={() => onSelect(row)}
-      style={{
-        display: 'flex', flexDirection: 'column', gap: 10,
-        padding: '18px 20px', borderRadius: 18, width: '100%',
-        border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)',
-        background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)',
-        backdropFilter: 'blur(8px)', cursor: 'pointer', textAlign: 'right', transition: 'border-color 0.2s',
-      }}
-      onMouseEnter={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)')}
-      onMouseLeave={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-amber) 18%, transparent)')}
-    >
+    <GalleryCard onClick={() => onSelect(row)}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 18 }}>{meta.icon}</span>
-          <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            {meta.label}
-          </span>
-        </div>
-        <span style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          🎙️ {qCount} سؤال
+        <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--iel-accent)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {meta.label}
         </span>
+        <MetaChip icon={Mic}>{qCount} سؤال</MetaChip>
       </div>
-      <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.5, textAlign: 'right' }}>
+      <h3 style={{ margin: '2px 0 0', fontSize: 16, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.45, textAlign: 'start', letterSpacing: '-.01em' }}>
         {row.topic}
       </h3>
-      <p style={{ margin: 0, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
+      <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', textAlign: 'start' }}>
         {meta.desc}
       </p>
-    </motion.button>
+    </GalleryCard>
   )
 }
 
@@ -587,11 +571,9 @@ export default function Speaking() {
 
     return (
       <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 32 }}>
-        {!narrativeDone && (
-          <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} style={{ paddingTop: 32 }}>
-            <NarrativeReveal lines={NARRATIVE_LINES} delayBetweenLines={700} pauseAfterLast={400} onComplete={() => setNarrativeDone(true)} />
-          </motion.section>
-        )}
+        <LabHeader eyebrow="التدريب · المحادثة" title="المحادثة">
+          مواضيع محادثة IELTS بأجزائها الثلاثة. اختر موضوعاً وسجّل إجابتك صوتياً — تحليل ذكي مفصّل لطلاقتك ونطقك ومفرداتك بالباند.
+        </LabHeader>
 
         {recent.length > 0 && (
           <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{ display: 'flex', gap: 12 }}>

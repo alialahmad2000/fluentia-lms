@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Headphones, ChevronLeft, Play, Pause, RotateCcw, CheckCircle, XCircle } from 'lucide-react'
+import { Headphones, ChevronLeft, Play, Pause, RotateCcw, CheckCircle, XCircle, Clock, FileText, Users } from 'lucide-react'
+import { GalleryCard, MetaChip, LabHeader } from './_ui/primitives'
 import { useQuery } from '@tanstack/react-query'
 
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
@@ -129,93 +130,34 @@ function SectionCard({ section, onSelect }) {
     : null
 
   return (
-    <motion.button
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      onClick={() => onSelect(section)}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-        padding: '18px 20px',
-        borderRadius: 18,
-        border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)',
-        background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)',
-        backdropFilter: 'blur(8px)',
-        cursor: 'pointer',
-        textAlign: 'right',
-        width: '100%',
-        transition: 'border-color 0.2s',
-      }}
-      onMouseEnter={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)')}
-      onMouseLeave={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-amber) 18%, transparent)')}
-    >
+    <GalleryCard onClick={() => onSelect(section)}>
       {/* Top row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 18 }}>{SECTION_ICONS[num] || '🎧'}</span>
-          <span style={{
-            fontSize: 11,
-            fontWeight: 700,
-            fontFamily: "'IBM Plex Sans', sans-serif",
-            color: 'var(--sunset-orange)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}>
-            {SECTION_LABELS[num] || `Section ${num}`}
-          </span>
-        </div>
+        <span style={{ fontSize: 11.5, fontWeight: 800, fontFamily: "'IBM Plex Sans', sans-serif", color: 'var(--iel-accent)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {SECTION_LABELS[num] || `Section ${num}`}
+        </span>
         <AccentBadge accent={section.accent} />
       </div>
 
       {/* Title */}
-      <h3 style={{
-        margin: 0,
-        fontSize: 15,
-        fontWeight: 700,
-        color: 'var(--ds-text)',
-        fontFamily: "'Tajawal', sans-serif",
-        lineHeight: 1.5,
-        textAlign: 'right',
-      }}>
+      <h3 style={{ margin: '2px 0 0', fontSize: 16.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.45, textAlign: 'start', letterSpacing: '-.01em' }}>
         {section.title}
       </h3>
 
       {/* Context */}
       {section.context_description && (
-        <p style={{
-          margin: 0,
-          fontSize: 12,
-          color: 'var(--ds-text-muted)',
-          fontFamily: "'Tajawal', sans-serif",
-          lineHeight: 1.6,
-          textAlign: 'right',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
-        }}>
+        <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink-3)', lineHeight: 1.7, textAlign: 'start', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
           {section.context_description}
         </p>
       )}
 
       {/* Stats */}
-      <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
-        {durationMins && (
-          <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-            🕐 {durationMins} دق
-          </span>
-        )}
-        <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          📝 {section.questionCount} سؤال
-        </span>
-        {section.speaker_count > 1 && (
-          <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-            👥 {section.speaker_count} متحدثين
-          </span>
-        )}
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 3 }}>
+        {durationMins && <MetaChip icon={Clock}>{durationMins} دق</MetaChip>}
+        <MetaChip icon={FileText}>{section.questionCount} سؤال</MetaChip>
+        {section.speaker_count > 1 && <MetaChip icon={Users}>{section.speaker_count} متحدثين</MetaChip>}
       </div>
-    </motion.button>
+    </GalleryCard>
   )
 }
 
@@ -748,22 +690,10 @@ export default function Listening() {
     return (
       <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 36 }}>
 
-        {/* Narrative — only on first mount */}
-        {!narrativeDoneRef.current && (
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            style={{ paddingTop: 32 }}
-          >
-            <NarrativeReveal
-              lines={NARRATIVE_LINES}
-              delayBetweenLines={700}
-              pauseAfterLast={400}
-              onComplete={() => { narrativeDoneRef.current = true }}
-            />
-          </motion.section>
-        )}
+        {/* Header */}
+        <LabHeader eyebrow="التدريب · الاستماع" title="الاستماع">
+          أقسام استماع أصيلة بلكنات متنوّعة. اختر قسماً واستمع مرّة — أسئلة مُوقّتة، تصحيح فوري، وتُضاف أخطاؤك إلى بنك المراجعة.
+        </LabHeader>
 
         {/* Stats strip */}
         {recentSessions.length > 0 && (

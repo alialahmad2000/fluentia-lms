@@ -105,18 +105,15 @@ export default function QuestionTypesSection() {
       <p style={{ fontSize: 13.5, color: 'var(--iel-ink-3)', margin: '-6px 0 14px', fontWeight: 500, lineHeight: 1.7 }}>لكل نوع سؤال طريقة تعامل مختلفة. اضغط أي نوع لتعرف خطوات حلّه، الأخطاء الشائعة، ومثالاً محلولاً.</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 11 }}>
         {skills.map((s) => (
-          <button key={s.question_type} onClick={() => setActive(s)} style={{
-            textAlign: 'start', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif",
-            background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', borderRadius: 13, padding: '14px 16px',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, transition: 'border-color .15s',
-          }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--iel-accent) 40%, var(--iel-border))' }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--iel-border)' }}>
+          <button key={s.question_type} onClick={() => setActive(s)} className="iel-gcard" style={{
+            textAlign: 'start', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", padding: '15px 17px',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
+          }}>
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--iel-ink)' }}>{s.name_ar}</div>
-              <div style={{ fontSize: 11, color: 'var(--iel-ink-3)', fontWeight: 600, marginTop: 2, direction: 'ltr', textAlign: 'start' }}>{s.name_en}</div>
+              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', letterSpacing: '-.01em' }}>{s.name_ar}</div>
+              <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600, marginTop: 3, direction: 'ltr', textAlign: 'start' }}>{s.name_en}</div>
             </div>
-            <span style={{ color: 'var(--iel-ink-3)', flex: 'none', display: 'flex' }}><Icon.chevron size={16} sw={2} /></span>
+            <span style={{ color: 'var(--iel-accent)', flex: 'none', display: 'flex' }}><Icon.chevron size={16} sw={2.2} /></span>
           </button>
         ))}
       </div>

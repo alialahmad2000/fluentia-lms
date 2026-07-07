@@ -10,7 +10,7 @@ import { useSubmitReadingSession, useRecentReadingSessions } from '@/hooks/ielts
 import { gradeQuestions } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
-import { Card, SectionHeader, Icon as UI } from './_ui/primitives'
+import { Card, SectionHeader, Icon as UI, GalleryCard, MetaChip, LabHeader } from './_ui/primitives'
 import QuestionTypesSection from './_ui/QuestionTypesSection'
 import { ExamShell, QuestionPalette } from './_ui/ExamShell'
 import { ExamQuestion } from './_ui/ExamQuestions'
@@ -116,61 +116,22 @@ function DiffBadge({ band }) {
 function PassageCard({ passage, onSelect }) {
   const qCount = passage.questions?.length || 0
   return (
-    <motion.button
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      onClick={() => onSelect(passage)}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-        padding: '18px 20px',
-        borderRadius: 18,
-        border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)',
-        background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)',
-        backdropFilter: 'blur(8px)',
-        cursor: 'pointer',
-        textAlign: 'right',
-        width: '100%',
-        transition: 'border-color 0.2s',
-      }}
-      onMouseEnter={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)')}
-      onMouseLeave={e => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-amber) 18%, transparent)')}
-    >
+    <GalleryCard onClick={() => onSelect(passage)}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
         <DiffBadge band={passage.difficulty_band} />
-        <span style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
+        <span style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, letterSpacing: '.02em', textTransform: 'capitalize' }}>
           {passage.topic_category}
         </span>
       </div>
-
-      <h3 style={{
-        margin: 0,
-        fontSize: 15,
-        fontWeight: 700,
-        color: 'var(--ds-text)',
-        fontFamily: "'Tajawal', sans-serif",
-        lineHeight: 1.5,
-        textAlign: 'right',
-      }}>
+      <h3 style={{ margin: '2px 0 0', fontSize: 16.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.45, textAlign: 'start', letterSpacing: '-.01em' }}>
         {passage.title}
       </h3>
-
-      <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          <Clock size={11} />
-          {passage.time_limit_minutes} دق
-        </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          <AlignLeft size={11} />
-          {passage.word_count} كلمة
-        </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-          <FileText size={11} />
-          {qCount} سؤال
-        </span>
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 3 }}>
+        <MetaChip icon={Clock}>{passage.time_limit_minutes} دق</MetaChip>
+        <MetaChip icon={AlignLeft}>{passage.word_count} كلمة</MetaChip>
+        <MetaChip icon={FileText}>{qCount} سؤال</MetaChip>
       </div>
-    </motion.button>
+    </GalleryCard>
   )
 }
 
@@ -469,13 +430,9 @@ export default function Reading() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2, maxWidth: 900 }}>
 
         {/* Header */}
-        <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>التدريب · القراءة</div>
-          <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>القراءة</h1>
-          <p style={{ fontSize: 14.5, color: 'var(--iel-ink-2)', margin: '8px 0 0', lineHeight: 1.8, maxWidth: '54ch' }}>
-            نصوص أكاديمية بأنواع أسئلة الآيلتس. اختر نصّاً وابدأ تدريباً مُوقّتاً — تصحيح فوري وشرح لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
-          </p>
-        </div>
+        <LabHeader eyebrow="التدريب · القراءة" title="القراءة">
+          نصوص أكاديمية بأنواع أسئلة الآيلتس. اختر نصّاً وابدأ تدريباً مُوقّتاً — تصحيح فوري وشرح لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
+        </LabHeader>
 
         <QuestionTypesSection />
 

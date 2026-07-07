@@ -36,6 +36,36 @@ export function Card({ children, style, focus, ...p }) {
   )
 }
 
+// ── Premium gallery card (labs) — depth + leading accent + hover lift (CSS) ──
+export function GalleryCard({ children, onClick, style }) {
+  return (
+    <button type="button" onClick={onClick} className="iel-gcard" style={{
+      display: 'flex', flexDirection: 'column', gap: 11, padding: '18px 20px', width: '100%',
+      cursor: 'pointer', textAlign: 'start', fontFamily: "'Tajawal', sans-serif",
+      background: 'var(--iel-surface)', ...style,
+    }}>{children}</button>
+  )
+}
+
+// ── Meta pill (icon + value) — replaces bare gray meta text ──────────────────
+export function MetaChip({ icon: I, children }) {
+  return (
+    <span className="iel-metachip">{I ? <I size={12} /> : null}{children}</span>
+  )
+}
+
+// ── Premium lab header (eyebrow + title + lede + hairline accent rule) ────────
+export function LabHeader({ eyebrow, title, children }) {
+  return (
+    <div className="iel-labhead" dir="rtl">
+      {eyebrow && <div className="eyebrow">{eyebrow}</div>}
+      <h1>{title}</h1>
+      {children && <p>{children}</p>}
+      <div className="rule" />
+    </div>
+  )
+}
+
 // ── Section header ────────────────────────────────────────────────────────
 export function SectionHeader({ title, actionLabel, onAction, style }) {
   return (

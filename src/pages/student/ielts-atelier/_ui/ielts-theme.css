@@ -81,6 +81,64 @@ html .iel-exam-clinical.iel-exam-clinical,
 
 @keyframes iel-spin{to{transform:rotate(360deg)}}
 
+/* ── Premium gallery cards (labs: reading passages, listening sections, writing
+      tasks, speaking topics, question-type tiles) — depth + a leading accent +
+      a real hover lift/glow so the "browse & pick" surfaces feel as crafted as
+      the exam, not flat rectangles. ─────────────────────────────────────────── */
+.iel-gcard{
+  position:relative; background:var(--iel-surface); border:1px solid var(--iel-border);
+  border-radius:16px; box-shadow:var(--iel-shadow-sm); overflow:hidden;
+  transition:transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease, border-color .2s ease;
+}
+/* leading accent bar (RTL start = right edge) */
+.iel-gcard::before{
+  content:''; position:absolute; inset-inline-start:0; top:0; bottom:0; width:3px;
+  background:linear-gradient(180deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 35%, transparent));
+  opacity:.5; transition:opacity .2s ease;
+}
+/* soft interior top-light so the surface isn't a flat fill */
+.iel-gcard::after{
+  content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:linear-gradient(180deg, color-mix(in srgb, var(--iel-ink) 5%, transparent), transparent 42%);
+  opacity:.5;
+}
+.iel-gcard:hover{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb, var(--iel-accent) 42%, var(--iel-border));
+  box-shadow:var(--iel-shadow), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 20%, transparent),
+    0 20px 44px -20px color-mix(in srgb, var(--iel-accent) 45%, #000);
+}
+.iel-gcard:hover::before{ opacity:1; }
+.iel-gcard:active{ transform:translateY(-1px); }
+.iel-gcard > *{ position:relative; z-index:1; }
+
+/* meta pill — replaces bare gray "12 كلمة" text */
+.iel-metachip{
+  display:inline-flex; align-items:center; gap:5px; padding:5px 11px; border-radius:9px;
+  background:var(--iel-surface-2); border:1px solid var(--iel-border);
+  font-size:12px; font-weight:700; color:var(--iel-ink-2); font-family:'Tajawal',sans-serif;
+  white-space:nowrap;
+}
+.iel-metachip svg{ opacity:.7 }
+
+/* premium lab header: eyebrow + big title + lede + hairline accent rule */
+.iel-labhead{ margin:0 0 22px }
+.iel-labhead .eyebrow{ font-size:12px; font-weight:800; color:var(--iel-accent); letter-spacing:.08em; margin:0 0 9px }
+.iel-labhead h1{ font-size:27px; font-weight:800; color:var(--iel-ink); margin:0; letter-spacing:-.02em; line-height:1.1 }
+.iel-labhead p{ font-size:14.5px; color:var(--iel-ink-2); margin:10px 0 0; line-height:1.8; max-width:56ch }
+.iel-labhead .rule{ height:1px; margin-top:18px; background:linear-gradient(90deg,
+  color-mix(in srgb, var(--iel-accent) 55%, transparent), var(--iel-border) 40%, transparent); }
+
+/* subtle atmosphere so the gallery isn't flat black */
+.iel-lab-atmo{ position:relative }
+.iel-lab-atmo::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(120% 60% at 82% -8%, color-mix(in srgb, var(--iel-accent) 12%, transparent), transparent 60%),
+    radial-gradient(90% 50% at 8% 4%, color-mix(in srgb, var(--iel-gold) 7%, transparent), transparent 55%);
+}
+@media (prefers-reduced-motion: reduce){ .iel-gcard{ transition:none } .iel-gcard:hover{ transform:none } }
+
 /* ── Shell layout (RTL: nav right, content fills left) ─────────────────────── */
 .iel-shell{display:flex;min-height:100dvh}
 .iel-nav{width:264px;flex:none;align-self:flex-start;position:sticky;top:0;height:100dvh;overflow-y:auto;
