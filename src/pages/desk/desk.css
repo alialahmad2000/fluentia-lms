@@ -5,13 +5,62 @@
 .desk-root {
   --brass: var(--accent-desk, #c9a25c);
   --brass-hi: var(--accent-desk-strong, #efd299);
-  --ink: #05070d;
-  --cream: #f3eee2;
+  --ink: #090c13;
+  --cream: #f4efe4;
   min-height: 100dvh;
-  background: var(--ink);
+  /* warm-obsidian base — richer + more luminous than the old near-black so content
+     glows over it instead of getting lost. The .desk-atmo layers add the light. */
+  background: #0a0e16;
   color: var(--cream);
   direction: rtl;
 }
+
+/* ── Atmosphere v2 (2026-07-07): calm luminous studio, replaces the server-tunnel ── */
+.desk-atmo { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.desk-atmo-base {
+  position: absolute; inset: 0;
+  background: radial-gradient(125% 85% at 50% -12%, #16233a 0%, #0e1522 42%, #090d15 100%);
+}
+/* warm brass dawn-glow, high + right (elliptical, off-centre — reads as light) */
+.desk-atmo-warm {
+  position: absolute; inset: -12%;
+  background: radial-gradient(58% 42% at 66% 2%, rgba(216,172,98,0.24), rgba(216,172,98,0) 64%);
+  mix-blend-mode: screen;
+  animation: deskDriftWarm 28s ease-in-out infinite;
+}
+/* cool counter-tone, low-left — depth */
+.desk-atmo-cool {
+  position: absolute; inset: -12%;
+  background: radial-gradient(52% 46% at 14% 98%, rgba(58,116,158,0.20), rgba(58,116,158,0) 60%);
+  mix-blend-mode: screen;
+  animation: deskDriftCool 36s ease-in-out infinite;
+}
+/* a broad warm lift low-centre — wraps the scroll so the light doesn't die at the fold */
+.desk-atmo-lift {
+  position: absolute; inset: 0;
+  background: radial-gradient(70% 55% at 54% 82%, rgba(201,162,92,0.08), rgba(201,162,92,0) 68%);
+  mix-blend-mode: screen;
+}
+/* a soft diagonal light-beam (window light) — quiet structure, not a gimmick */
+.desk-atmo-beam {
+  position: absolute; inset: -20%;
+  background: linear-gradient(102deg, transparent 34%, rgba(239,210,153,0.055) 50%, transparent 66%);
+  animation: deskBeam 44s ease-in-out infinite;
+}
+/* fine film-grain — matte, tactile surface + kills gradient banding (the luxury-per-line win) */
+.desk-atmo-grain {
+  position: absolute; inset: 0; opacity: 0.07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+.desk-atmo-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(135% 115% at 50% 40%, transparent 50%, rgba(4,6,11,0.55) 100%);
+}
+@keyframes deskDriftWarm { 0%,100% { transform: translate3d(0,0,0) } 50% { transform: translate3d(-2.2%,2.4%,0) } }
+@keyframes deskDriftCool { 0%,100% { transform: translate3d(0,0,0) } 50% { transform: translate3d(3%,-2%,0) } }
+@keyframes deskBeam { 0%,100% { opacity: .45; transform: translateX(-4%) } 50% { opacity: .9; transform: translateX(5%) } }
+@media (prefers-reduced-motion: reduce) { .desk-atmo-warm, .desk-atmo-cool, .desk-atmo-beam { animation: none !important } }
 
 /* the receding data-centre canvas + a directional scrim for text legibility */
 .desk-noc {
@@ -22,34 +71,28 @@
   z-index: 0;
   pointer-events: none;
 }
-.desk-scrim {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  /* Gentle vignette only — the clear zone sits over the vanishing point so the room
-     glows through; edges are grounded just enough for the chrome to read. */
-  background:
-    radial-gradient(135% 115% at 63% 50%, rgba(7,10,18,0) 0%, rgba(7,10,18,0) 40%, rgba(7,10,18,0.42) 78%, rgba(7,10,18,0.62) 100%),
-    linear-gradient(180deg, rgba(7,10,18,0.20) 0%, rgba(7,10,18,0) 38%, rgba(7,10,18,0.28) 100%);
-}
+/* legacy scrim — the new .desk-atmo layers now handle grounding; kept inert so the
+   DeskShell <div.desk-scrim> mount can't double-darken the luminous atmosphere. */
+.desk-scrim { display: none; }
 
 /* content sits above the atmosphere */
 .desk-stage { position: relative; z-index: 2; }
 
 /* ── glass surfaces ── (top-lit, real elevation over the room) */
 .desk-glass {
+  /* lit glass — a brighter top-light catch + a slightly lifted fill so cards read as
+     elevated glass over the luminous atmosphere (was muddy near-black on near-black). */
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.006)),
-    linear-gradient(180deg, rgba(18,22,32,0.72), rgba(10,13,20,0.82));
+    linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.014)),
+    linear-gradient(180deg, rgba(27,34,48,0.80), rgba(15,20,30,0.86));
   /* neutral resting hairline — brass is reserved for state + CTA, not every edge */
-  border: 1px solid rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 20px;
   box-shadow:
-    inset 0 1px 0 0 rgba(255,255,255,0.06),
+    inset 0 1px 0 0 rgba(255,255,255,0.08),
     0 1px 2px rgba(0,0,0,0.4),
-    0 12px 30px -12px rgba(0,0,0,0.55),
-    0 34px 68px -34px rgba(0,0,0,0.7);
+    0 14px 34px -14px rgba(0,0,0,0.55),
+    0 40px 76px -38px rgba(0,0,0,0.72);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -61,11 +104,12 @@
 .desk-cta {
   background: linear-gradient(180deg, var(--brass-hi, #efd299), var(--brass, #c9a25c));
   color: #1a130a;
+  /* material sheen, not a halo — a light-catching top lip + a tight contact shadow */
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.45),
-    0 0 0 1px rgba(201,162,92,0.3),
-    0 2px 8px rgba(0,0,0,0.4),
-    0 12px 26px -8px rgba(201,162,92,0.5);
+    inset 0 1px 0 rgba(255,255,255,0.42),
+    0 1px 0 rgba(201,162,92,0.22),
+    0 2px 6px rgba(0,0,0,0.35),
+    0 8px 18px -8px rgba(201,162,92,0.34);
   transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
 }
 .desk-cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 0 1px rgba(201,162,92,0.4), 0 4px 10px rgba(0,0,0,0.4), 0 16px 34px -8px rgba(201,162,92,0.6); }
@@ -989,4 +1033,24 @@
   color: #1a130a;
   background: radial-gradient(circle at 40% 30%, #f2dca6, #c9a25c 68%, #86682f);
   box-shadow: 0 3px 10px -3px rgba(201,162,92,0.5);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Redesign v2 (2026-07-07) — raised hero tier + neutral eyebrows
+   ══════════════════════════════════════════════════════════════════ */
+/* the curriculum hero sits a tier above the rest: warmer/lighter fill, a deeper
+   multi-stop shadow, and a brighter inset rim-light so it reads elevated, not just big */
+.desk-hero {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.02)),
+    linear-gradient(180deg, rgba(33,41,57,0.86), rgba(18,24,36,0.9));
+  border: 1px solid rgba(201,162,92,0.24);
+  border-radius: 22px;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255,255,255,0.10),
+    0 2px 4px rgba(0,0,0,0.4),
+    0 22px 48px -20px rgba(0,0,0,0.62),
+    0 60px 110px -50px rgba(0,0,0,0.7);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
