@@ -2,7 +2,7 @@
 // of high-value points, each with a mastery state. English-primary, Arabic gloss.
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowLeft, BookText, Check, ChevronRight, Star } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookText, Check, ChevronRight, Star } from 'lucide-react'
 import { DESK_GRAMMAR } from '@/data/desk/grammar'
 import { useDailyProgress } from './useDailyProgress'
 import './desk.css'

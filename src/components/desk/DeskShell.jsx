@@ -5,7 +5,7 @@
 // cleaned up on unmount.
 import { useEffect } from 'react'
 import { Outlet, NavLink, useLocation, Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { DESK_NAV } from '@/config/deskNavigation'
 import NocBackdrop from './NocBackdrop'
