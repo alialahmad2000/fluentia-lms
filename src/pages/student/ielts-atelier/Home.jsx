@@ -4,7 +4,7 @@ import { useStudentId } from './_helpers/resolveStudentId'
 import { useLatestResult, useSkillProgress, useAdaptivePlan, useErrorBankCount } from '@/hooks/ielts/useIELTSHub'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
-import { Card, SectionHeader, Chip, BandTrack, SkillCard, TaskRow, Icon, PrimaryButton } from './_ui/primitives'
+import { Card, SectionHeader, Chip, BandTrack, BandGauge, SkillCard, TaskRow, Icon, PrimaryButton } from './_ui/primitives'
 import GoalModal from './_ui/GoalModal'
 
 const BASE = '/student/ielts-atelier'
@@ -67,10 +67,9 @@ export default function Home() {
               <button onClick={() => setShowGoal(true)} style={{ background: 'none', border: 0, color: 'var(--iel-accent)', fontSize: 13.5, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>حدّد هدفك ومعادك أولاً</button>
             </div>
           </div>
-          <button onClick={() => setShowGoal(true)} style={{ textAlign: 'start', cursor: 'pointer', background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 14, padding: '18px 20px', fontFamily: "'Tajawal', sans-serif" }}>
-            <div style={{ fontSize: 12, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 6 }}>هدفك</div>
-            <div className="iel-serif" style={{ fontSize: 40, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: 1 }}>{target != null ? target.toFixed(1) : '7.0'}</div>
-            <BandTrack current={null} target={target ?? 7} />
+          <button onClick={() => setShowGoal(true)} style={{ cursor: 'pointer', background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 16, padding: '16px 12px', fontFamily: "'Tajawal', sans-serif", backdropFilter: 'blur(8px)' }}>
+            <div style={{ fontSize: 12, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 4, textAlign: 'center' }}>هدفك</div>
+            <BandGauge current={null} target={target ?? 7} size={176} label="لم يُقس بعد" />
           </button>
         </Card>
         <div>
@@ -106,32 +105,42 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Hero */}
-      <Card style={{ padding: '24px 26px', display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 26, alignItems: 'center' }}>
-        <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 10 }}>مستواك الحالي</div>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 14 }}>
-            <div className="iel-serif" style={{ fontSize: 50, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: .9 }}>{overall.toFixed(1)}</div>
-            <div style={{ fontSize: 13, color: 'var(--iel-ink-2)', fontWeight: 600, paddingBottom: 6 }}>
-              النطاق العام{target != null && <><br />الهدف <b style={{ color: 'var(--iel-ink)', fontWeight: 800 }}>{target.toFixed(1)}</b> — تبقّى <b style={{ color: 'var(--iel-ink)', fontWeight: 800 }}>{Math.max(0, target - overall).toFixed(1)}</b></>}
-            </div>
-          </div>
-          <BandTrack current={overall} target={target} />
+      {/* Hero — cinematic showpiece: band gauge + trajectory + countdown */}
+      <div className="iel-hero">
+        <div className="iel-hero-glow" aria-hidden />
+        <div className="iel-hero-gauge">
+          <BandGauge current={overall} target={target} />
         </div>
-        <div style={{ background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 14, padding: 16, textAlign: 'center' }}>
+        <div className="iel-hero-body">
+          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>مستواك الحالي</div>
+          <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 6px', lineHeight: 1.35 }}>
+            {target != null && target - overall > 0
+              ? <>تبقّى <span style={{ color: 'var(--iel-gold-ink, var(--iel-gold))' }}>{Math.max(0, target - overall).toFixed(1)}</span> نطاق للوصول إلى هدفك</>
+              : target != null ? 'بلغت هدفك — لنثبّت مستواك' : 'رحلتك نحو الآيلتس مستمرة'}
+          </h2>
+          <p style={{ fontSize: 13.5, color: 'var(--iel-ink-2)', margin: '0 0 16px', lineHeight: 1.8, maxWidth: '44ch' }}>
+            {weakest ? <>أكبر فرصة للتقدّم اليوم في <b style={{ color: 'var(--iel-ink)' }}>{SKILL_LABEL[weakest]}</b> — جلسة قصيرة مستهدفة تقرّبك خطوة.</> : 'واصل التدريب المنتظم، ودع النطاق يرتفع.'}
+          </p>
+          <BandTrack current={overall} target={target} />
+          <div style={{ marginTop: 18 }}>
+            <PrimaryButton onClick={() => go(weakest || 'reading')}>{g('ابدأ جلسة اليوم', 'ابدئي جلسة اليوم')} <Icon.chevron size={17} sw={2.4} /></PrimaryButton>
+          </div>
+        </div>
+        <div className="iel-hero-count">
           {days != null ? (
             <>
-              <div className="iel-serif" style={{ fontSize: 42, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: 1 }}>{days}</div>
-              <div style={{ fontSize: 13, color: 'var(--iel-ink-2)', fontWeight: 700, marginTop: 4 }}>يوماً حتى الاختبار</div>
+              <div className="iel-serif" style={{ fontSize: 44, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: 1 }}>{days}</div>
+              <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', fontWeight: 700, marginTop: 5 }}>يوماً حتى الاختبار</div>
+              {target != null && <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginTop: 10 }}>الهدف · Band {target.toFixed(1)}</div>}
             </>
           ) : (
             <>
-              <div style={{ fontSize: 14, color: 'var(--iel-ink-2)', fontWeight: 700, marginBottom: 10, lineHeight: 1.7 }}>حدّد موعد اختبارك<br />لنبني خطّتك الزمنية</div>
+              <div style={{ fontSize: 13.5, color: 'var(--iel-ink-2)', fontWeight: 700, marginBottom: 12, lineHeight: 1.7 }}>حدّد موعد اختبارك<br />لنبني خطّتك الزمنية</div>
               <button onClick={() => setShowGoal(true)} style={{ background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: 0, borderRadius: 10, padding: '9px 16px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>تحديد الموعد</button>
             </>
           )}
         </div>
-      </Card>
+      </div>
 
       {/* Skills */}
       <div>

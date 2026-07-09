@@ -53,6 +53,10 @@ export default function IELTSMasterclassLayout() {
 
   return (
     <div dir="rtl" className="iel-root">
+      <div className="iel-atmo" aria-hidden="true">
+        <div className="iel-atmo-grain" />
+        <div className="iel-atmo-vig" />
+      </div>
       <div className="iel-shell">
         <aside className="iel-nav">
           <div className="iel-brand">
@@ -89,7 +93,7 @@ export default function IELTSMasterclassLayout() {
         </aside>
 
         <main className="iel-main">
-          <div className="iel-content">
+          <div className="iel-content" key={pathname}>
             <Suspense fallback={<LoadingFallback />}>
               <Outlet />
             </Suspense>

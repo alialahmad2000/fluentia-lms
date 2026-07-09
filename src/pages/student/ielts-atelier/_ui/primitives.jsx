@@ -31,6 +31,7 @@ export function Card({ children, style, focus, ...p }) {
     <div style={{
       background: 'var(--iel-surface)', borderRadius: 16,
       border: `1px solid ${focus ? 'color-mix(in srgb, var(--iel-gold) 55%, var(--iel-border))' : 'var(--iel-border)'}`,
+      backdropFilter: 'blur(16px) saturate(1.15)', WebkitBackdropFilter: 'blur(16px) saturate(1.15)',
       boxShadow: 'var(--iel-shadow)', ...style,
     }} {...p}>{children}</div>
   )
@@ -85,6 +86,55 @@ export function Chip({ children, dot, muted }) {
       fontSize: 13, fontWeight: 700, color: muted ? 'var(--iel-ink-2)' : 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>
       {dot && <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--iel-accent)' }} />}
       {children}
+    </div>
+  )
+}
+
+// ── Band gauge (cinematic radial arc — the Overview showpiece) ─────────────
+// 270° sweep over the 4.0–9.0 band scale; teal→gold progress, gold target tick,
+// big serif band number at the heart. Pure SVG, no deps.
+export function BandGauge({ current, target, min = 4, max = 9, size = 208, label = 'النطاق العام' }) {
+  const r = size / 2 - 16
+  const c = 2 * Math.PI * r
+  const sweep = 0.75            // 270° of the full circle
+  const has = current != null
+  const frac = (b) => Math.max(0, Math.min(1, (Number(b) - min) / (max - min)))
+  const progLen = has ? frac(current) * sweep * c : 0
+  const trackLen = sweep * c
+  const tAngle = target != null ? (135 + frac(target) * 270) * (Math.PI / 180) : null
+  const tx = tAngle != null ? size / 2 + r * Math.cos(tAngle) : 0
+  const ty = tAngle != null ? size / 2 + r * Math.sin(tAngle) : 0
+  const gid = `bg-${Math.round(size)}`
+  return (
+    <div style={{ position: 'relative', width: size, height: size, margin: '0 auto' }}>
+      {/* soft glow bed */}
+      <div aria-hidden style={{ position: 'absolute', inset: '14%', borderRadius: '50%',
+        background: 'radial-gradient(circle, color-mix(in srgb, var(--iel-accent) 26%, transparent), transparent 68%)', filter: 'blur(10px)' }} />
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ position: 'relative' }}>
+        <defs>
+          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="var(--iel-accent)" />
+            <stop offset="100%" stopColor="var(--iel-gold)" />
+          </linearGradient>
+        </defs>
+        <g transform={`rotate(135 ${size / 2} ${size / 2})`}>
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--iel-track)" strokeWidth={11}
+            strokeLinecap="round" strokeDasharray={`${trackLen} ${c}`} />
+          {has && (
+            <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={`url(#${gid})`} strokeWidth={11}
+              strokeLinecap="round" strokeDasharray={`${progLen} ${c}`}
+              style={{ transition: 'stroke-dasharray .9s cubic-bezier(.22,1,.36,1)' }} />
+          )}
+        </g>
+        {tAngle != null && (
+          <circle cx={tx} cy={ty} r={4.5} fill="var(--iel-gold)" stroke="var(--iel-ground)" strokeWidth={2} />
+        )}
+      </svg>
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+        <div className="iel-serif" style={{ fontSize: size * 0.3, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: .9 }}>{has ? Number(current).toFixed(1) : '—'}</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-ink-3)' }}>{label}</div>
+        {target != null && <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--iel-gold-ink, var(--iel-gold))' }}>الهدف {Number(target).toFixed(1)}</div>}
+      </div>
     </div>
   )
 }
@@ -148,15 +198,17 @@ export function TaskRow({ tag, title, sub, time, first, onClick }) {
 export function NavItem({ icon: I, label, badge, active, onClick }) {
   return (
     <button onClick={onClick} style={{
-      display: 'flex', alignItems: 'center', gap: 11, padding: '9px 12px', borderRadius: 10, width: '100%',
-      border: 0, cursor: 'pointer', textAlign: 'start', fontFamily: "'Tajawal', sans-serif", fontSize: 14, fontWeight: 600,
+      position: 'relative', display: 'flex', alignItems: 'center', gap: 11, padding: '9px 12px', borderRadius: 10, width: '100%',
+      border: 0, cursor: 'pointer', textAlign: 'start', fontFamily: "'Tajawal', sans-serif", fontSize: 14, fontWeight: active ? 700 : 600,
       color: active ? 'var(--iel-nav-active)' : 'var(--iel-ink-2)',
       background: active ? 'var(--iel-nav-active-bg)' : 'transparent',
+      boxShadow: active ? 'inset 0 0 0 1px color-mix(in srgb, var(--iel-accent) 26%, transparent), 0 6px 18px -12px color-mix(in srgb, var(--iel-accent) 90%, #000)' : 'none',
       transition: 'background .15s, color .15s',
     }}
       onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = 'var(--iel-surface-2)'; e.currentTarget.style.color = 'var(--iel-ink)' } }}
       onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--iel-ink-2)' } }}
     >
+      {active && <span aria-hidden style={{ position: 'absolute', insetInlineStart: 0, top: 8, bottom: 8, width: 3, borderRadius: 3, background: 'linear-gradient(180deg, var(--iel-accent-ink), var(--iel-accent))', boxShadow: '0 0 8px color-mix(in srgb, var(--iel-accent) 70%, transparent)' }} />}
       <span style={{ display: 'flex', flex: 'none' }}><I size={18} /></span>
       {label}
       {badge != null && badge !== '' && (
@@ -168,10 +220,12 @@ export function NavItem({ icon: I, label, badge, active, onClick }) {
 
 export function PrimaryButton({ children, onClick, disabled, style }) {
   return (
-    <button onClick={onClick} disabled={disabled} style={{
+    <button onClick={onClick} disabled={disabled} className={disabled ? undefined : 'iel-primary'} style={{
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '12px 22px', borderRadius: 12,
       border: 0, cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 15, fontWeight: 700,
-      color: disabled ? 'var(--iel-ink-3)' : '#fff', background: disabled ? 'var(--iel-surface-2)' : 'var(--iel-accent)',
+      color: disabled ? 'var(--iel-ink-3)' : '#fff', position: 'relative', overflow: 'hidden',
+      background: disabled ? 'var(--iel-surface-2)' : 'linear-gradient(135deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 62%, var(--iel-gold)))',
+      boxShadow: disabled ? 'none' : '0 8px 22px -10px color-mix(in srgb, var(--iel-accent) 75%, #000), inset 0 1px 0 rgba(255,255,255,.22)',
       opacity: disabled ? 0.7 : 1, ...style,
     }}>{children}</button>
   )
