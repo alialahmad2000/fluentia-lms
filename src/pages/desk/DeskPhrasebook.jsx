@@ -55,13 +55,13 @@ export default function DeskPhrasebook() {
           <span className="font-['Inter'] text-[11px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>MY PHRASEBOOK</span>
         </div>
         <h1 className="font-['Inter'] font-extrabold text-2xl lg:text-[30px]" dir="ltr" style={{ color: 'var(--cream)' }}>My Phrasebook</h1>
-        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(243,238,226,0.5)' }}>دفتري</p>
-        <p className="font-['Inter'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}>Your professional lines — from your own calls and your track, in one place. Tap 🔊 to hear them.</p>
+        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(238, 243, 251,0.5)' }}>دفتري</p>
+        <p className="font-['Inter'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}>Your professional lines — from your own calls and your track, in one place. Tap 🔊 to hear them.</p>
       </div>
 
       {/* search */}
       <div className="desk-glass flex items-center gap-2.5 px-4 h-12">
-        <Search size={16} style={{ color: 'rgba(243,238,226,0.4)' }} />
+        <Search size={16} style={{ color: 'rgba(238, 243, 251,0.4)' }} />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search your lines…"
           className="flex-1 bg-transparent outline-none font-['Inter'] text-[14px]"
           style={{ color: 'var(--cream)' }} />
@@ -80,7 +80,7 @@ export default function DeskPhrasebook() {
           <div className="flex items-center gap-2 mb-3">
             <PhoneCall size={15} style={{ color: 'var(--brass)' }} />
             <h2 className="font-['Inter'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>From your calls</h2>
-            <span className="font-['Tajawal'] text-[11px] px-2 py-0.5 rounded-full" style={{ color: 'var(--brass)', background: 'rgba(201,162,92,0.10)' }}>{betterF.length}</span>
+            <span className="font-['Tajawal'] text-[11px] px-2 py-0.5 rounded-full" style={{ color: 'var(--brass)', background: 'rgba(56, 189, 248,0.10)' }}>{betterF.length}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {betterF.map((b, i) => (
@@ -92,7 +92,7 @@ export default function DeskPhrasebook() {
                   </div>
                   <PlayBtn text={b.natural} />
                 </div>
-                {b.context && <p className="font-['Tajawal'] text-[11px] mt-2 pt-2 desk-hair" style={{ color: 'rgba(201,162,92,0.7)' }}>{b.context}</p>}
+                {b.context && <p className="font-['Tajawal'] text-[11px] mt-2 pt-2 desk-hair" style={{ color: 'rgba(56, 189, 248,0.7)' }}>{b.context}</p>}
               </motion.div>
             ))}
           </div>
@@ -105,21 +105,21 @@ export default function DeskPhrasebook() {
           <div className="flex items-center gap-2">
             <NotebookPen size={15} style={{ color: 'var(--brass)' }} />
             <h2 className="font-['Inter'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>Track phrases</h2>
-            {!query && <span className="font-['Inter'] text-[11px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.4)' }}>{totalPhrases} phrases</span>}
+            {!query && <span className="font-['Inter'] text-[11px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.4)' }}>{totalPhrases} phrases</span>}
           </div>
           {groups.map((g) => (
             <div key={g.id}>
               <div className="flex items-center gap-2 mb-2">
-                <span className="font-['Inter'] font-black text-[10px] w-6 h-6 grid place-items-center rounded-md" style={{ color: '#1a130a', background: 'linear-gradient(135deg,#efd299,#c9a25c)' }}>{String(g.number).padStart(2, '0')}</span>
-                <h3 className="font-['Inter'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.72)' }}>{g.title}</h3>
+                <span className="font-['Inter'] font-black text-[10px] w-6 h-6 grid place-items-center rounded-md" style={{ color: '#052033', background: 'linear-gradient(135deg,#7dd3fc,#38bdf8)' }}>{String(g.number).padStart(2, '0')}</span>
+                <h3 className="font-['Inter'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.72)' }}>{g.title}</h3>
               </div>
               <div className="space-y-2">
                 {g.phrases.map((p, i) => (
                   <div key={i} className="desk-glass p-3.5 flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <p className="font-['Inter'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{p.en}</p>
-                      <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(243,238,226,0.55)' }}>{p.ar}</p>
-                      {p.context_ar && <p className="font-['Tajawal'] text-[11px] mt-1" style={{ color: 'rgba(201,162,92,0.65)' }}><span className="font-['Inter']" dir="ltr">When?</span> {p.context_ar}</p>}
+                      <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{p.ar}</p>
+                      {p.context_ar && <p className="font-['Tajawal'] text-[11px] mt-1" style={{ color: 'rgba(56, 189, 248,0.65)' }}><span className="font-['Inter']" dir="ltr">When?</span> {p.context_ar}</p>}
                     </div>
                     <PlayBtn text={p.en} />
                   </div>

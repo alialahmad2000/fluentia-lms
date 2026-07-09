@@ -31,7 +31,7 @@ const BeatHead = ({ eyebrow, title, icon: Icon }) => (
   <div className="flex items-center gap-2.5 mb-4">
     <span className="desk-lesson-sec-mark"><Icon size={16} /></span>
     <div>
-      <p className="font-['Inter'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(201,162,92,0.62)' }}>{eyebrow}</p>
+      <p className="font-['Inter'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(190, 214, 236,0.5)' }}>{eyebrow}</p>
       <h2 className="font-['Inter'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>{title}</h2>
     </div>
   </div>
@@ -42,8 +42,8 @@ const ExampleGloss = ({ ar, note }) => {
   if (!ar && !note) return null
   return (
     <p className="text-[12px] mt-0.5">
-      {ar && <span className="font-['Tajawal']" style={{ color: 'rgba(243,238,226,0.55)' }}>{ar}</span>}
-      {note && <span className="font-['Inter']" dir="ltr" style={{ color: 'rgba(201,162,92,0.72)' }}>{ar ? ' · ' : ''}{note}</span>}
+      {ar && <span className="font-['Tajawal']" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{ar}</span>}
+      {note && <span className="font-['Inter']" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.72)' }}>{ar ? ' · ' : ''}{note}</span>}
     </p>
   )
 }
@@ -53,8 +53,8 @@ function ConceptCard({ c }) {
   return (
     <div className="desk-glass p-6">
       {c.en && <h3 className="font-['Inter'] font-extrabold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>{c.en}</h3>}
-      {c.ar && <p className="font-['Tajawal'] text-[12.5px] mb-2 mt-0.5" style={{ color: 'rgba(243,238,226,0.5)' }}>{c.ar}</p>}
-      <p className={`font-['Inter'] text-[14.5px] leading-[1.9] ${c.en && !c.ar ? 'mt-2' : ''}`} dir="ltr" style={{ color: 'rgba(243,238,226,0.82)' }}>{c.body_en}</p>
+      {c.ar && <p className="font-['Tajawal'] text-[12.5px] mb-2 mt-0.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{c.ar}</p>}
+      <p className={`font-['Inter'] text-[14.5px] leading-[1.9] ${c.en && !c.ar ? 'mt-2' : ''}`} dir="ltr" style={{ color: 'rgba(238, 243, 251,0.82)' }}>{c.body_en}</p>
       {c.model_en && (
         <div className="desk-model-callout mt-4">
           <Sparkles size={15} style={{ color: 'var(--brass-hi)' }} className="flex-shrink-0 mt-0.5" />
@@ -76,8 +76,8 @@ function ConceptCard({ c }) {
       )}
       {c.rule_en && (
         <div className="flex items-start gap-2 mt-4 pt-3 desk-hair">
-          <Flag size={13} className="flex-shrink-0 mt-0.5" style={{ color: 'rgba(201,162,92,0.8)' }} />
-          <p className="font-['Inter'] text-[12.5px]" dir="ltr" style={{ color: 'rgba(201,162,92,0.8)' }}>{c.rule_en}</p>
+          <Flag size={13} className="flex-shrink-0 mt-0.5" style={{ color: 'rgba(56, 189, 248,0.8)' }} />
+          <p className="font-['Inter'] text-[12.5px]" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.8)' }}>{c.rule_en}</p>
         </div>
       )}
     </div>
@@ -90,8 +90,8 @@ function MCQ({ q_en, q_ar, options }) {
   const chosen = picked != null ? options[picked] : null
   return (
     <div className="desk-glass p-6">
-      {q_en && <p className="font-['Inter'] text-[14px] font-bold leading-relaxed" dir="ltr" style={{ color: 'rgba(243,238,226,0.9)' }}>{q_en}</p>}
-      {q_ar && <p className="font-['Tajawal'] text-[12.5px] mb-3.5 mt-1" style={{ color: 'rgba(243,238,226,0.5)' }}>{q_ar}</p>}
+      {q_en && <p className="font-['Inter'] text-[14px] font-bold leading-relaxed" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.9)' }}>{q_en}</p>}
+      {q_ar && <p className="font-['Tajawal'] text-[12.5px] mb-3.5 mt-1" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{q_ar}</p>}
       <div className={`space-y-2.5 ${q_en && !q_ar ? 'mt-3.5' : ''}`}>
         {options.map((opt, i) => {
           const state = picked == null ? 'idle' : opt.correct ? 'correct' : picked === i ? 'wrong' : 'dim'
@@ -100,7 +100,7 @@ function MCQ({ q_en, q_ar, options }) {
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 text-start">
                   {opt.en && <p className="font-['Inter'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{opt.en}</p>}
-                  {opt.ar && <p className={`font-['Tajawal'] text-[13px] ${opt.en ? 'mt-0.5' : ''}`} style={{ color: opt.en ? 'rgba(243,238,226,0.55)' : 'var(--cream)' }}>{opt.ar}</p>}
+                  {opt.ar && <p className={`font-['Tajawal'] text-[13px] ${opt.en ? 'mt-0.5' : ''}`} style={{ color: opt.en ? 'rgba(238, 243, 251,0.55)' : 'var(--cream)' }}>{opt.ar}</p>}
                 </div>
                 {state === 'correct' && <CheckCircle2 size={18} className="flex-shrink-0 desk-pop" style={{ color: '#6ee7b7' }} />}
               </div>
@@ -125,8 +125,8 @@ function Fill({ p }) {
   const shown = done ? p.options[picked].en : '_____'
   return (
     <div className="desk-glass p-6">
-      {p.prompt_en && <p className="font-['Inter'] text-[13.5px] font-bold" dir="ltr" style={{ color: 'rgba(243,238,226,0.85)' }}>{p.prompt_en}</p>}
-      {p.prompt_ar && <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(243,238,226,0.5)' }}>{p.prompt_ar}</p>}
+      {p.prompt_en && <p className="font-['Inter'] text-[13.5px] font-bold" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.85)' }}>{p.prompt_en}</p>}
+      {p.prompt_ar && <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{p.prompt_ar}</p>}
       <div className="desk-fill-sentence mt-3.5" dir="ltr">
         {p.before ? <span>{p.before} </span> : null}
         <span className={`desk-fill-gap ${done ? 'is-filled' : ''}`}>{shown}</span>
@@ -164,17 +164,17 @@ function Build({ p, seed }) {
   const reset = () => { setPicked([]); setChecked(false) }
   return (
     <div className="desk-glass p-6">
-      {p.prompt_en && <p className="font-['Inter'] text-[13.5px] font-bold" dir="ltr" style={{ color: 'rgba(243,238,226,0.85)' }}>{p.prompt_en}</p>}
-      {p.prompt_ar && <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(243,238,226,0.5)' }}>{p.prompt_ar}</p>}
+      {p.prompt_en && <p className="font-['Inter'] text-[13.5px] font-bold" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.85)' }}>{p.prompt_en}</p>}
+      {p.prompt_ar && <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{p.prompt_ar}</p>}
       {p.ar && (
         <p className="text-[12.5px] mt-1.5">
-          <span className="font-['Inter']" dir="ltr" style={{ color: 'rgba(201,162,92,0.75)' }}>Meaning: </span>
-          <span className="font-['Tajawal']" style={{ color: 'rgba(201,162,92,0.75)' }}>{p.ar}</span>
+          <span className="font-['Inter']" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.75)' }}>Meaning: </span>
+          <span className="font-['Tajawal']" style={{ color: 'rgba(56, 189, 248,0.75)' }}>{p.ar}</span>
         </p>
       )}
       {/* answer tray */}
       <div className="desk-build-tray mt-3.5" dir="ltr">
-        {picked.length === 0 && <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.4)' }}>Tap the words in order</span>}
+        {picked.length === 0 && <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.4)' }}>Tap the words in order</span>}
         {picked.map((wi, pos) => {
           const ok = checked && wi === pos, bad = checked && wi !== pos
           return (
@@ -219,12 +219,12 @@ function Classify({ p }) {
   }
   return (
     <div className="desk-glass p-6">
-      {p.prompt_en && <p className="font-['Inter'] text-[13.5px] font-bold" dir="ltr" style={{ color: 'rgba(243,238,226,0.85)' }}>{p.prompt_en}</p>}
-      {p.prompt_ar && <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(243,238,226,0.5)' }}>{p.prompt_ar}</p>}
+      {p.prompt_en && <p className="font-['Inter'] text-[13.5px] font-bold" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.85)' }}>{p.prompt_en}</p>}
+      {p.prompt_ar && <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{p.prompt_ar}</p>}
       {/* bank of unsorted sentences */}
       {bank.length > 0 && (
         <>
-          <p className="font-['Inter'] text-[12px] mt-2 mb-2.5" dir="ltr" style={{ color: 'rgba(201,162,92,0.75)' }}>Pick a sentence, then drop it in its place</p>
+          <p className="font-['Inter'] text-[12px] mt-2 mb-2.5" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.75)' }}>Pick a sentence, then drop it in its place</p>
           <div className="desk-sort-bank">
             {bank.map((i) => (
               <button key={i} onClick={() => setSelected((s) => (s === i ? null : i))} className={`desk-sort-item ${selected === i ? 'is-selected' : ''}`} dir="ltr">{p.items[i].en}</button>
@@ -243,7 +243,7 @@ function Classify({ p }) {
               className={`desk-lane ${canDrop ? 'can-drop' : ''} ${wrong === bk.id ? 'flash-wrong' : ''}`}>
               <span className="desk-lane-label" dir="ltr">
                 {bk.label_en}
-                {bk.label_ar && <span className="font-['Tajawal'] text-[11px] ms-2" style={{ color: 'rgba(243,238,226,0.4)' }}>{bk.label_ar}</span>}
+                {bk.label_ar && <span className="font-['Tajawal'] text-[11px] ms-2" style={{ color: 'rgba(238, 243, 251,0.4)' }}>{bk.label_ar}</span>}
               </span>
               <div className="desk-lane-items">
                 {items.length === 0 && <span className="desk-lane-empty" dir="ltr">{canDrop ? 'Drop it here' : '—'}</span>}
@@ -263,11 +263,11 @@ function Classify({ p }) {
 function Ladder({ p }) {
   return (
     <div className="desk-glass p-6">
-      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(243,238,226,0.7)' }}>{p.intro_en}</p>}
+      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.7)' }}>{p.intro_en}</p>}
       <div className="desk-ladder-base">
         <span className="font-['Inter'] text-[11px] font-bold tracking-[0.14em] uppercase" dir="ltr" style={{ color: 'var(--brass)' }}>Base sentence</span>
         <div className="flex items-center justify-between gap-3 mt-1">
-          <div><p className="font-['Inter'] text-[16px] font-semibold" dir="ltr" style={{ color: 'var(--cream)' }}>{p.base.en}</p>{p.base.ar && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(243,238,226,0.55)' }}>{p.base.ar}</p>}</div>
+          <div><p className="font-['Inter'] text-[16px] font-semibold" dir="ltr" style={{ color: 'var(--cream)' }}>{p.base.en}</p>{p.base.ar && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{p.base.ar}</p>}</div>
           <PlayBtn text={p.base.en} />
         </div>
       </div>
@@ -283,14 +283,14 @@ function LadderRung({ r, n }) {
         <span className="desk-rung-num">{n}</span>
         <div className="flex-1 min-w-0">
           <p className="font-['Inter'] text-[13.5px] font-bold" dir="ltr" style={{ color: 'var(--cream)' }}>{r.task_en}</p>
-          {r.task_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(243,238,226,0.5)' }}>{r.task_ar}</p>}
+          {r.task_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{r.task_ar}</p>}
         </div>
         {!open && <button onClick={() => setOpen(true)} className="desk-reveal-btn" dir="ltr"><Eye size={13} /> Reveal</button>}
       </div>
       {open && (
         <motion.div initial={rm ? false : { opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden">
           <div className="flex items-start justify-between gap-3 mt-2.5 pt-2.5 desk-hair">
-            <div className="min-w-0"><p className="font-['Inter'] text-[14.5px] font-semibold leading-snug" dir="ltr" style={{ color: '#a9e7c9' }}>{r.en}</p>{r.why_en && <p className="font-['Inter'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.6)' }}>{r.why_en}</p>}</div>
+            <div className="min-w-0"><p className="font-['Inter'] text-[14.5px] font-semibold leading-snug" dir="ltr" style={{ color: '#a9e7c9' }}>{r.en}</p>{r.why_en && <p className="font-['Inter'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.6)' }}>{r.why_en}</p>}</div>
             <PlayBtn text={r.en} />
           </div>
         </motion.div>
@@ -301,7 +301,7 @@ function LadderRung({ r, n }) {
 function FixIt({ p }) {
   return (
     <div className="desk-glass p-6">
-      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(243,238,226,0.7)' }}>{p.intro_en}</p>}
+      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.7)' }}>{p.intro_en}</p>}
       <div className="space-y-3">{p.items.map((it, i) => <FixRow key={i} it={it} />)}</div>
     </div>
   )
@@ -317,7 +317,7 @@ function FixRow({ it }) {
       {open && (
         <motion.div initial={rm ? false : { opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-start justify-between gap-3 mt-2.5 pt-2.5 desk-hair">
-            <div className="min-w-0"><p className="font-['Inter'] text-[14.5px] font-semibold leading-snug desk-pop" dir="ltr" style={{ color: '#a9e7c9' }}>{it.right}</p>{it.why_en && <p className="font-['Inter'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.6)' }}>{it.why_en}</p>}</div>
+            <div className="min-w-0"><p className="font-['Inter'] text-[14.5px] font-semibold leading-snug desk-pop" dir="ltr" style={{ color: '#a9e7c9' }}>{it.right}</p>{it.why_en && <p className="font-['Inter'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.6)' }}>{it.why_en}</p>}</div>
             <PlayBtn text={it.right} />
           </div>
         </motion.div>
@@ -328,7 +328,7 @@ function FixRow({ it }) {
 function Irregular({ p }) {
   return (
     <div className="desk-glass p-6">
-      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(243,238,226,0.7)' }}>{p.intro_en}</p>}
+      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.7)' }}>{p.intro_en}</p>}
       <div className="grid sm:grid-cols-2 gap-2.5">{p.verbs.map((v, i) => <IrregularCard key={i} v={v} />)}</div>
     </div>
   )
@@ -338,9 +338,9 @@ function IrregularCard({ v }) {
   return (
     <button onClick={() => setFlipped((f) => !f)} className={`desk-flip ${flipped ? 'is-flipped' : ''}`}>
       {!flipped ? (
-        <div className="flex items-center justify-between w-full gap-2"><div className="text-start"><p className="font-['Inter'] text-[17px] font-bold" dir="ltr" style={{ color: 'var(--cream)' }}>{v.base}</p>{v.ar && <p className="font-['Tajawal'] text-[12px]" style={{ color: 'rgba(243,238,226,0.5)' }}>{v.ar}</p>}</div><Repeat size={15} style={{ color: 'rgba(201,162,92,0.6)' }} /></div>
+        <div className="flex items-center justify-between w-full gap-2"><div className="text-start"><p className="font-['Inter'] text-[17px] font-bold" dir="ltr" style={{ color: 'var(--cream)' }}>{v.base}</p>{v.ar && <p className="font-['Tajawal'] text-[12px]" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{v.ar}</p>}</div><Repeat size={15} style={{ color: 'rgba(56, 189, 248,0.6)' }} /></div>
       ) : (
-        <div className="flex items-center justify-between w-full gap-2"><div className="text-start" dir="ltr"><p className="font-['Inter'] text-[14.5px] font-semibold desk-pop" style={{ color: 'var(--brass-hi)' }}>{v.base} · {v.past} · {v.pp}</p><p className="font-['Inter'] text-[12px] mt-0.5" style={{ color: 'rgba(243,238,226,0.5)' }}>base · past · past participle</p></div><button onClick={(e) => { e.stopPropagation(); speakEn(`${v.base}, ${v.past}, ${v.pp}`) }} className="desk-ghost-btn flex-shrink-0"><Volume2 size={13} /></button></div>
+        <div className="flex items-center justify-between w-full gap-2"><div className="text-start" dir="ltr"><p className="font-['Inter'] text-[14.5px] font-semibold desk-pop" style={{ color: 'var(--brass-hi)' }}>{v.base} · {v.past} · {v.pp}</p><p className="font-['Inter'] text-[12px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>base · past · past participle</p></div><button onClick={(e) => { e.stopPropagation(); speakEn(`${v.base}, ${v.past}, ${v.pp}`) }} className="desk-ghost-btn flex-shrink-0"><Volume2 size={13} /></button></div>
       )}
     </button>
   )
@@ -348,7 +348,7 @@ function IrregularCard({ v }) {
 function Translate({ p }) {
   return (
     <div className="desk-glass p-6">
-      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(243,238,226,0.7)' }}>{p.intro_en}</p>}
+      {p.intro_en && <p className="font-['Inter'] text-[13px] leading-relaxed mb-4" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.7)' }}>{p.intro_en}</p>}
       <div className="space-y-3">{p.items.map((it, i) => <TranslateRow key={i} it={it} />)}</div>
     </div>
   )
@@ -364,7 +364,7 @@ function TranslateRow({ it }) {
       {open && (
         <motion.div initial={rm ? false : { opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-start justify-between gap-3 mt-2.5 pt-2.5 desk-hair">
-            <div className="min-w-0"><p className="font-['Inter'] text-[14.5px] font-semibold leading-snug desk-pop" dir="ltr" style={{ color: '#a9e7c9' }}>{it.en}</p>{it.alt_en && <p className="font-['Inter'] text-[13px] mt-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>or: {it.alt_en}</p>}</div>
+            <div className="min-w-0"><p className="font-['Inter'] text-[14.5px] font-semibold leading-snug desk-pop" dir="ltr" style={{ color: '#a9e7c9' }}>{it.en}</p>{it.alt_en && <p className="font-['Inter'] text-[13px] mt-1" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>or: {it.alt_en}</p>}</div>
             <PlayBtn text={it.en} />
           </div>
         </motion.div>
@@ -389,18 +389,18 @@ export default function DeskClassChapter() {
 
   return (
     <div className="space-y-14 max-w-[720px] mx-auto">
-      <Link to={`/desk/classes/${cls.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
+      <Link to={`/desk/classes/${cls.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>
         <ArrowLeft size={15} /> {cls.title_en}
       </Link>
 
       {/* station masthead — a lit panel, so the station page has real presence */}
       <div className="desk-glass desk-station-head p-6 lg:p-7 desk-rise">
         <div className="flex items-center gap-2 mb-2.5 flex-wrap">
-          <span className="font-['Inter'] font-extrabold text-[12px] px-3 h-6 inline-flex items-center rounded-lg" dir="ltr" style={{ color: '#1a130a', background: 'linear-gradient(135deg,#efd299,#c9a25c)' }}>Station {index + 1} of {cls.chapters.length}</span>
-          {done && <span className="inline-flex items-center gap-1 font-['Inter'] text-[12px] px-2.5 py-0.5 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.12)', border: '1px solid rgba(201,162,92,0.3)' }}><Check size={12} strokeWidth={3} /> Done</span>}
+          <span className="font-['Inter'] font-extrabold text-[12px] px-3 h-6 inline-flex items-center rounded-lg" dir="ltr" style={{ color: '#052033', background: 'linear-gradient(135deg,#7dd3fc,#38bdf8)' }}>Station {index + 1} of {cls.chapters.length}</span>
+          {done && <span className="inline-flex items-center gap-1 font-['Inter'] text-[12px] px-2.5 py-0.5 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.12)', border: '1px solid rgba(56, 189, 248,0.3)' }}><Check size={12} strokeWidth={3} /> Done</span>}
         </div>
         <h1 className="font-['Inter'] font-extrabold text-2xl lg:text-[30px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{chapter.en}</h1>
-        {chapter.ar && <p className="font-['Tajawal'] text-[14px] mt-1.5" style={{ color: 'rgba(243,238,226,0.5)' }}>{chapter.ar}</p>}
+        {chapter.ar && <p className="font-['Tajawal'] text-[14px] mt-1.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{chapter.ar}</p>}
         {chapter.goal_en && <p className="desk-goal-chip mt-4 font-['Inter'] text-[13px]" dir="ltr">You'll master: {chapter.goal_en}</p>}
 
         {/* 3-beat stepper */}
@@ -440,7 +440,7 @@ export default function DeskClassChapter() {
                     <div className="flex items-center gap-2 mb-2.5 px-1">
                       <Icon size={15} style={{ color: 'var(--brass)' }} />
                       <h3 className="font-['Inter'] font-bold text-[15px]" dir="ltr" style={{ color: 'var(--cream)' }}>{p.title_en}</h3>
-                      {p.title_ar && <span className="font-['Tajawal'] text-[12px]" style={{ color: 'rgba(243,238,226,0.4)' }}>{p.title_ar}</span>}
+                      {p.title_ar && <span className="font-['Tajawal'] text-[12px]" style={{ color: 'rgba(238, 243, 251,0.4)' }}>{p.title_ar}</span>}
                     </div>
                   )}
                   {p.type === 'choose' && <MCQ q_en={p.prompt_en} q_ar={p.prompt_ar} options={p.options} />}
@@ -465,14 +465,14 @@ export default function DeskClassChapter() {
             <Check size={17} /> {next ? 'Done — next station' : 'Mark station done'}
           </button>
         ) : (
-          <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.1)', border: '1px solid rgba(201,162,92,0.26)' }}>
+          <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.1)', border: '1px solid rgba(56, 189, 248,0.26)' }}>
             <CheckCircle2 size={17} /> You finished this station
           </div>
         )}
         <div className="flex items-center justify-between gap-3 mt-4">
           {prev
-            ? <Link to={`/desk/classes/${cls.id}/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowLeft size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span></Link>
-            : <Link to={`/desk/classes/${cls.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}><ArrowLeft size={15} /> Map</Link>}
+            ? <Link to={`/desk/classes/${cls.id}/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}><ArrowLeft size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span></Link>
+            : <Link to={`/desk/classes/${cls.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}><ArrowLeft size={15} /> Map</Link>}
           {next
             ? <Link to={`/desk/classes/${cls.id}/${next.id}`} onClick={() => markChapterDone(cls.id, chapter.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.en}</span> <ArrowRight size={15} className="flex-shrink-0" /></Link>
             : <Link to={`/desk/classes/${cls.id}`} onClick={() => markChapterDone(cls.id, chapter.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold" dir="ltr" style={{ color: 'var(--brass-hi)' }}>Finish review <ArrowRight size={15} /></Link>}

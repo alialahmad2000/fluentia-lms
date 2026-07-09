@@ -44,9 +44,9 @@ const SectionHead = ({ eyebrow, title, gloss, icon: Icon }) => (
   <div className="flex items-center gap-2.5 mb-4">
     <span className="desk-lesson-sec-mark"><Icon size={16} /></span>
     <div>
-      <p className="font-['Inter'] text-[11px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(201,162,92,0.62)' }}>{eyebrow}</p>
+      <p className="font-['Inter'] text-[11px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(190, 214, 236,0.5)' }}>{eyebrow}</p>
       <h2 className="font-['Inter'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>{title}</h2>
-      {gloss && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(243,238,226,0.42)' }}>{gloss}</p>}
+      {gloss && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.42)' }}>{gloss}</p>}
     </div>
   </div>
 )
@@ -57,7 +57,7 @@ function ChoosePractice({ practice, onSolved }) {
   const chosen = picked != null ? practice.options[picked] : null
   return (
     <div className="space-y-2.5">
-      <p className="font-['Inter'] text-[14px] font-bold mb-3" dir="ltr" style={{ color: 'rgba(243,238,226,0.85)' }}>{practice.prompt}</p>
+      <p className="font-['Inter'] text-[14px] font-bold mb-3" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.85)' }}>{practice.prompt}</p>
       {practice.options.map((opt, i) => {
         const isPicked = picked === i
         const state = picked == null ? 'idle' : opt.correct ? 'correct' : isPicked ? 'wrong' : 'dim'
@@ -68,7 +68,7 @@ function ChoosePractice({ practice, onSolved }) {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 text-start">
                 <p className="font-['Inter'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{opt.en}</p>
-                <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(243,238,226,0.55)' }}>{opt.ar}</p>
+                <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{opt.ar}</p>
               </div>
               {state === 'correct' && <CheckCircle2 size={18} className="flex-shrink-0 desk-pop" style={{ color: '#6ee7b7' }} />}
             </div>
@@ -103,11 +103,11 @@ function OrderPractice({ practice, lessonId, onSolved }) {
 
   return (
     <div className="space-y-3">
-      <p className="font-['Inter'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(243,238,226,0.85)' }}>{practice.prompt}</p>
+      <p className="font-['Inter'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.85)' }}>{practice.prompt}</p>
 
       {/* your order */}
       <div className="desk-order-tray">
-        {picked.length === 0 && <p className="font-['Inter'] text-[12px] py-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.4)' }}>Tap the sentences in the right order</p>}
+        {picked.length === 0 && <p className="font-['Inter'] text-[12px] py-1" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.4)' }}>Tap the sentences in the right order</p>}
         {picked.map((oi, pos) => {
           const ok = checked && oi === pos
           const bad = checked && oi !== pos
@@ -159,15 +159,15 @@ function ReflectPractice({ practice, onSolved }) {
   const words = text.trim() ? text.trim().split(/\s+/).length : 0
   return (
     <div className="space-y-3">
-      <p className="font-['Inter'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(243,238,226,0.85)' }}>{practice.prompt}</p>
+      <p className="font-['Inter'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.85)' }}>{practice.prompt}</p>
       {practice.hint && (
-        <p className="font-['Inter'] text-[12px] px-3 py-2 rounded-lg" dir="ltr" style={{ color: 'rgba(201,162,92,0.85)', background: 'rgba(201,162,92,0.07)', border: '1px solid rgba(201,162,92,0.14)' }}>💡 {practice.hint}</p>
+        <p className="font-['Inter'] text-[12px] px-3 py-2 rounded-lg" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.85)', background: 'rgba(56, 189, 248,0.07)', border: '1px solid rgba(56, 189, 248,0.14)' }}>💡 {practice.hint}</p>
       )}
       <textarea value={text} onChange={(e) => { setText(e.target.value); if (e.target.value.trim().split(/\s+/).length >= 6) onSolved?.() }}
         dir="ltr" rows={3} placeholder="Write your version in English…"
         className="w-full rounded-xl px-4 py-3 font-['Inter'] text-[14px] resize-none outline-none"
-        style={{ background: 'rgba(10,13,20,0.6)', border: '1px solid rgba(201,162,92,0.18)', color: 'var(--cream)' }} />
-      <p className="font-['Inter'] text-[11px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.4)' }}>{words} words · This one's for you — it isn't graded, it just gets you writing.</p>
+        style={{ background: 'rgba(10,13,20,0.6)', border: '1px solid rgba(56, 189, 248,0.18)', color: 'var(--cream)' }} />
+      <p className="font-['Inter'] text-[11px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.4)' }}>{words} words · This one's for you — it isn't graded, it just gets you writing.</p>
     </div>
   )
 }
@@ -194,21 +194,21 @@ export default function DeskLesson() {
   return (
     <div className="space-y-10 max-w-[720px] mx-auto">
       {/* back */}
-      <Link to="/desk/track" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
+      <Link to="/desk/track" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>
         <ArrowLeft size={15} /> The Track
       </Link>
 
       {/* masthead */}
       <div className="desk-rise">
         <div className="flex items-center gap-2 mb-2 flex-wrap">
-          <span className="font-['Inter'] font-black text-[12px] px-2 h-6 grid place-items-center rounded-lg" dir="ltr" style={{ color: '#1a130a', background: 'linear-gradient(135deg,#efd299,#c9a25c)' }}>{lesson.label}</span>
+          <span className="font-['Inter'] font-black text-[12px] px-2 h-6 grid place-items-center rounded-lg" dir="ltr" style={{ color: '#052033', background: 'linear-gradient(135deg,#7dd3fc,#38bdf8)' }}>{lesson.label}</span>
           <span className="font-['Inter'] text-[12px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>{lesson.trackEn}</span>
-          {done && <span className="inline-flex items-center gap-1 font-['Inter'] text-[11.5px] px-2.5 py-0.5 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.12)', border: '1px solid rgba(201,162,92,0.3)' }}><Check size={12} strokeWidth={3} /> Done</span>}
+          {done && <span className="inline-flex items-center gap-1 font-['Inter'] text-[11.5px] px-2.5 py-0.5 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.12)', border: '1px solid rgba(56, 189, 248,0.3)' }}><Check size={12} strokeWidth={3} /> Done</span>}
         </div>
         <h1 className="font-['Inter'] font-extrabold text-2xl lg:text-[30px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{lesson.en}</h1>
-        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(243,238,226,0.5)' }}>{lesson.ar}</p>
+        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{lesson.ar}</p>
         <div className="mt-3 flex items-center gap-3 flex-wrap">
-          <span className="inline-flex items-center gap-1.5 font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><Clock size={13} /> {lesson.minutes} min</span>
+          <span className="inline-flex items-center gap-1.5 font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}><Clock size={13} /> {lesson.minutes} min</span>
           <span className="desk-lesson-outcome font-['Inter'] text-[12.5px]" dir="ltr">By the end: {lesson.outcome}</span>
         </div>
       </div>
@@ -217,13 +217,13 @@ export default function DeskLesson() {
       {lesson.idea && (
         <section className="desk-glass p-5 lg:p-6 desk-rise">
           <SectionHead eyebrow="THE IDEA" title="The core idea" gloss="الفكرة" icon={Lightbulb} />
-          <p className="font-['Inter'] text-[14.5px] leading-[1.85]" dir="ltr" style={{ color: 'rgba(243,238,226,0.82)' }}>{lesson.idea.body}</p>
+          <p className="font-['Inter'] text-[14.5px] leading-[1.85]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.82)' }}>{lesson.idea.body}</p>
           {lesson.idea.model && (
             <div className="desk-model-callout mt-4">
               <Sparkles size={15} style={{ color: 'var(--brass-hi)' }} className="flex-shrink-0 mt-0.5" />
               <div>
                 <p className="font-['Inter'] text-[13.5px] font-bold leading-relaxed" dir="ltr" style={{ color: 'var(--brass-hi)' }}>{lesson.idea.model}</p>
-                {lesson.idea.model_ar && <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(243,238,226,0.45)' }}>{lesson.idea.model_ar}</p>}
+                {lesson.idea.model_ar && <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(238, 243, 251,0.45)' }}>{lesson.idea.model_ar}</p>}
               </div>
             </div>
           )}
@@ -239,8 +239,8 @@ export default function DeskLesson() {
               <div key={i} className="desk-glass p-5 flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="font-['Inter'] text-[18px] leading-snug font-semibold" dir="ltr" style={{ color: 'var(--cream)' }}>{p.en}</p>
-                  <p className="font-['Tajawal'] text-[12.5px] mt-1.5" style={{ color: 'rgba(243,238,226,0.6)' }}>{p.ar}</p>
-                  {p.when && <p className="font-['Inter'] text-[12px] mt-2 inline-flex items-center gap-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}><span style={{ color: 'rgba(201,162,92,0.7)' }}>When:</span> {p.when}</p>}
+                  <p className="font-['Tajawal'] text-[12.5px] mt-1.5" style={{ color: 'rgba(238, 243, 251,0.6)' }}>{p.ar}</p>
+                  {p.when && <p className="font-['Inter'] text-[12px] mt-2 inline-flex items-center gap-1" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}><span style={{ color: 'rgba(56, 189, 248,0.7)' }}>When:</span> {p.when}</p>}
                 </div>
                 <PlayBtn text={p.en} />
               </div>
@@ -261,8 +261,8 @@ export default function DeskLesson() {
                   <PlayBtn text={t.term} />
                 </div>
                 <p className="font-['Tajawal'] text-[13px] mt-0.5" style={{ color: 'var(--cream)' }}>{t.ar}</p>
-                <p className="font-['Inter'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.62)' }}>{t.def_en}</p>
-                {t.example && <p className="font-['Inter'] text-[12px] mt-1 italic" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>“{t.example}”</p>}
+                <p className="font-['Inter'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.62)' }}>{t.def_en}</p>
+                {t.example && <p className="font-['Inter'] text-[12px] mt-1 italic" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>“{t.example}”</p>}
               </div>
             ))}
           </div>
@@ -274,7 +274,7 @@ export default function DeskLesson() {
         <section className="desk-rise">
           <SectionHead eyebrow="IN ACTION" title="See it in action" gloss="مثال حيّ" icon={Headset} />
           <div className="desk-glass p-5">
-            {lesson.example.setting && <p className="font-['Inter'] text-[12px] mb-3 pb-3 desk-hair" dir="ltr" style={{ color: 'rgba(201,162,92,0.72)' }}>{lesson.example.setting}</p>}
+            {lesson.example.setting && <p className="font-['Inter'] text-[12px] mb-3 pb-3 desk-hair" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.72)' }}>{lesson.example.setting}</p>}
             <div className="space-y-3">
               {lesson.example.lines.map((ln, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -284,7 +284,7 @@ export default function DeskLesson() {
                       <p className="font-['Inter'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{ln.en}</p>
                       <PlayBtn text={ln.en} />
                     </div>
-                    <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(243,238,226,0.5)' }}>{ln.ar}</p>
+                    <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{ln.ar}</p>
                   </div>
                 </div>
               ))}
@@ -311,9 +311,9 @@ export default function DeskLesson() {
           <div className="desk-takeaway">
             <span className="desk-takeaway-mark">✦</span>
             <div>
-              <p className="font-['Inter'] text-[11px] tracking-[0.18em] mb-1" dir="ltr" style={{ color: 'rgba(201,162,92,0.7)' }}>TAKEAWAY</p>
+              <p className="font-['Inter'] text-[11px] tracking-[0.18em] mb-1" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.7)' }}>TAKEAWAY</p>
               <p className="font-['Inter'] font-extrabold text-[16px] leading-relaxed" dir="ltr" style={{ color: 'var(--cream)' }}>{lesson.takeaway}</p>
-              {lesson.takeaway_ar && <p className="font-['Tajawal'] text-[12.5px] mt-1" style={{ color: 'rgba(243,238,226,0.45)' }}>{lesson.takeaway_ar}</p>}
+              {lesson.takeaway_ar && <p className="font-['Tajawal'] text-[12.5px] mt-1" style={{ color: 'rgba(238, 243, 251,0.45)' }}>{lesson.takeaway_ar}</p>}
             </div>
           </div>
         </section>
@@ -321,13 +321,13 @@ export default function DeskLesson() {
 
       {/* apply live — the scenario deep-link */}
       {scenarioModule && (
-        <motion.div initial={rm ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="desk-glass overflow-hidden desk-rise" style={{ borderColor: 'rgba(201,162,92,0.24)' }}>
+        <motion.div initial={rm ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="desk-glass overflow-hidden desk-rise" style={{ borderColor: 'rgba(56, 189, 248,0.24)' }}>
           <Link to={`/desk/scenarios/${scenarioModule.id}`} onClick={() => markComplete(lesson.id)} className="group flex items-center gap-4 p-5">
             <div className="desk-apply-mark"><Headset size={20} /></div>
             <div className="min-w-0 flex-1">
               <p className="font-['Inter'] text-[11px] font-bold mb-0.5 uppercase tracking-wider" dir="ltr" style={{ color: 'var(--brass)' }}>Apply it live</p>
               <h3 className="font-['Inter'] font-extrabold text-[15px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{scenarioModule.title_en || scenarioModule.title_ar}</h3>
-              {scenarioModule.title_en && scenarioModule.title_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5 truncate" style={{ color: 'rgba(243,238,226,0.5)' }}>{scenarioModule.title_ar}</p>}
+              {scenarioModule.title_en && scenarioModule.title_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5 truncate" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{scenarioModule.title_ar}</p>}
             </div>
             <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">
               Try it <ArrowRight size={16} />
@@ -342,18 +342,18 @@ export default function DeskLesson() {
           <button onClick={() => markComplete(lesson.id)}
             className={`w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px] transition ${practiceSolved ? 'desk-cta' : ''}`}
             dir="ltr"
-            style={practiceSolved ? undefined : { color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.10)', border: '1px solid rgba(201,162,92,0.28)' }}>
+            style={practiceSolved ? undefined : { color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.10)', border: '1px solid rgba(56, 189, 248,0.28)' }}>
             <Check size={17} /> Mark lesson complete
           </button>
         ) : (
-          <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.1)', border: '1px solid rgba(201,162,92,0.26)' }}>
+          <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.1)', border: '1px solid rgba(56, 189, 248,0.26)' }}>
             <CheckCircle2 size={17} /> You've completed this lesson
           </div>
         )}
 
         <div className="flex items-center justify-between gap-3 mt-4">
           {prev ? (
-            <Link to={`/desk/track/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)' }}>
+            <Link to={`/desk/track/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}>
               <ArrowLeft size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span>
             </Link>
           ) : <span />}

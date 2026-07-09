@@ -44,11 +44,11 @@ export default function DeskShell() {
       {/* ── Desktop sidebar (LTR → left) ── */}
       <aside
         className="hidden lg:flex fixed inset-y-0 left-0 w-[264px] flex-col z-30 px-4 py-5"
-        style={{ background: 'linear-gradient(180deg, rgba(8,11,18,0.72), rgba(6,8,14,0.82))', borderInlineEnd: '1px solid rgba(201,162,92,0.14)', backdropFilter: 'blur(16px)' }}
+        style={{ background: 'linear-gradient(180deg, rgba(8,11,18,0.72), rgba(6,8,14,0.82))', borderInlineEnd: '1px solid rgba(56, 189, 248,0.14)', backdropFilter: 'blur(16px)' }}
       >
         {/* brand */}
         <div className="flex items-center gap-3 px-1 pb-6">
-          <div className="desk-brand-mark">ط</div>
+          <div className="desk-brand-mark"><img src="/brand/fluentia-mark.svg" alt="" /></div>
           <div className="leading-tight">
             <p className="font-['Inter'] font-extrabold text-[15px]" dir="ltr" style={{ color: 'var(--cream)' }}>Fluentia</p>
             <p className="font-['Inter'] text-[10.5px] tracking-[0.18em] uppercase" dir="ltr" style={{ color: 'var(--brass)' }}>Pro Desk</p>
@@ -84,17 +84,17 @@ export default function DeskShell() {
         {/* footer — identity + escape hatch to the classic account */}
         <div className="pt-4 desk-hair">
           {displayName && (
-            <p className="px-1 pb-2 font-['Tajawal'] text-[12px]" style={{ color: 'rgba(243,238,226,0.55)' }}>{displayName}</p>
+            <p className="px-1 pb-2 font-['Tajawal'] text-[12px]" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{displayName}</p>
           )}
-          <Link to="/student" className="flex items-center gap-2 px-2 py-2 rounded-lg font-['Inter'] text-[12px] transition-colors" dir="ltr" style={{ color: 'rgba(243,238,226,0.4)' }}>
+          <Link to="/student" className="flex items-center gap-2 px-2 py-2 rounded-lg font-['Inter'] text-[12px] transition-colors" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.4)' }}>
             <ArrowLeft size={14} /> Standard account
           </Link>
         </div>
       </aside>
 
       {/* ── Mobile top header ── */}
-      <header className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 py-3" style={{ background: 'rgba(8,11,18,0.8)', borderBottom: '1px solid rgba(201,162,92,0.12)', backdropFilter: 'blur(14px)' }}>
-        <div className="desk-brand-mark" style={{ width: 32, height: 32, fontSize: 14 }}>ط</div>
+      <header className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 py-3" style={{ background: 'rgba(8,11,18,0.8)', borderBottom: '1px solid rgba(56, 189, 248,0.12)', backdropFilter: 'blur(14px)' }}>
+        <div className="desk-brand-mark" style={{ width: 32, height: 32 }}><img src="/brand/fluentia-mark.svg" alt="" /></div>
         <div className="leading-tight">
           <p className="font-['Inter'] font-extrabold text-[13px]" dir="ltr" style={{ color: 'var(--cream)' }}>Fluentia · Pro Desk</p>
         </div>

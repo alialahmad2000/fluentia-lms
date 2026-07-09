@@ -34,8 +34,8 @@ export default function DeskBoot() {
   return (
     <div className={`desk-boot ${leaving ? 'is-leaving' : ''}`} onClick={skip} role="presentation" aria-hidden="true">
       <div className="desk-boot-inner">
-        <div className="desk-brand-mark desk-boot-mark">ط</div>
-        <p className="desk-boot-title" dir="ltr">Fluentia · Operations Room</p>
+        <div className="desk-brand-mark desk-boot-mark"><img src="/brand/fluentia-mark.svg" alt="" /></div>
+        <p className="desk-boot-title" dir="ltr">Fluentia · Pro Desk</p>
         <div className="desk-boot-track"><span className="desk-boot-fill" /></div>
         <p className="desk-boot-status" dir="ltr" style={statusIdx === 2 ? { color: '#6ee7b7' } : undefined}>{STATUS[statusIdx]}</p>
       </div>

@@ -61,10 +61,10 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
   if (phase === 'incoming' || phase === 'declined') {
     const declined = phase === 'declined'
     return (
-      <div className="desk-glass desk-call-panel p-8 text-center desk-rise" style={{ borderColor: 'rgba(201,162,92,0.24)' }}>
+      <div className="desk-glass desk-call-panel p-8 text-center desk-rise" style={{ borderColor: 'rgba(56, 189, 248,0.24)' }}>
         <div className="flex items-center justify-center gap-2 mb-6">
           <span className="w-2 h-2 rounded-full desk-live-dot" style={{ background: declined ? '#94a3b8' : '#e2694e', boxShadow: declined ? 'none' : '0 0 10px 1px rgba(226,105,78,0.6)' }} />
-          <span className="font-['Inter'] font-bold text-[12px] tracking-[0.14em]" dir="ltr" style={{ color: declined ? 'rgba(243,238,226,0.42)' : 'var(--brass-hi)' }}>
+          <span className="font-['Inter'] font-bold text-[12px] tracking-[0.14em]" dir="ltr" style={{ color: declined ? 'rgba(238, 243, 251,0.42)' : 'var(--brass-hi)' }}>
             {declined ? 'Call ended' : 'Incoming call'}
           </span>
         </div>
@@ -82,9 +82,9 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
         </div>
 
         <h3 className="font-['Inter'] font-extrabold text-[28px] tracking-tight mt-6 mb-1 leading-none" dir="ltr" style={{ color: 'var(--cream)' }}>{caller.name}</h3>
-        {caller.desc && <p className="font-['Inter'] text-[12px] leading-relaxed max-w-xs mx-auto" dir="ltr" style={{ color: 'rgba(201,162,92,0.75)' }}>{caller.desc}</p>}
+        {caller.desc && <p className="font-['Inter'] text-[12px] leading-relaxed max-w-xs mx-auto" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.75)' }}>{caller.desc}</p>}
         {caller.loc && (
-          <span className="inline-flex items-center gap-1 mt-3 px-2.5 py-1 rounded-full font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.55)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(201,162,92,0.14)' }}>
+          <span className="inline-flex items-center gap-1 mt-3 px-2.5 py-1 rounded-full font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(56, 189, 248,0.14)' }}>
             <MapPin size={12} /> {caller.loc} · support
           </span>
         )}
@@ -95,14 +95,14 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
             <div className="flex items-center justify-center gap-10 mt-7">
               <div className="flex flex-col items-center gap-2">
                 <button onClick={decline} className="desk-call-btn desk-call-decline" aria-label="Decline call"><PhoneOff size={22} /></button>
-                <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.45)' }}>Later</span>
+                <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.45)' }}>Later</span>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <button onClick={answer} className="desk-call-btn desk-call-answer desk-call-answer-breathe" aria-label="Answer call"><Phone size={24} /></button>
                 <span className="font-['Inter'] text-[12px] font-bold" dir="ltr" style={{ color: '#6ee7b7' }}>Answer</span>
               </div>
             </div>
-            <p className="font-['Inter'] text-[12px] leading-relaxed max-w-sm mx-auto mt-7" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
+            <p className="font-['Inter'] text-[12px] leading-relaxed max-w-sm mx-auto mt-7" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>
               Speak with confidence. You can ask for clarification or a repeat anytime — just like a real work call.
             </p>
           </>
@@ -122,11 +122,11 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
         <div className="desk-call-avatar-wrap">
           <span className="desk-call-ring desk-call-ring-in" />
           <div className="desk-call-avatar">
-            <Loader2 size={30} className="animate-spin" style={{ color: '#1a130a' }} />
+            <Loader2 size={30} className="animate-spin" style={{ color: '#052033' }} />
           </div>
         </div>
         <h3 className="font-['Inter'] font-bold text-[18px] mt-6" dir="ltr" style={{ color: 'var(--cream)' }}>Connecting…</h3>
-        <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(201,162,92,0.7)' }}>connecting to {caller.name}</p>
+        <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.7)' }}>connecting to {caller.name}</p>
         <div className="desk-signal mx-auto mt-5" aria-hidden><span/><span/><span/><span/><span/></div>
       </div>
     )
@@ -144,11 +144,11 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
           <p className="font-['Inter'] font-bold text-[14px] truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{caller.name}</p>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: ended ? '#94a3b8' : '#6ee7b7', boxShadow: ended ? 'none' : '0 0 6px 1px rgba(110,231,183,0.7)' }} />
-            <span className="font-['Inter'] font-bold text-[12px]" dir="ltr" style={{ color: ended ? 'rgba(243,238,226,0.5)' : '#6ee7b7' }}>{ended ? 'Call ended' : 'Connected'}</span>
+            <span className="font-['Inter'] font-bold text-[12px]" dir="ltr" style={{ color: ended ? 'rgba(238, 243, 251,0.5)' : '#6ee7b7' }}>{ended ? 'Call ended' : 'Connected'}</span>
           </div>
         </div>
         {!ended && <div className="desk-signal desk-signal-sm desk-signal-steady" aria-hidden><span/><span/><span/><span/></div>}
-        <span className="font-['Inter'] text-[13px] tabular-nums px-2.5 py-1 rounded-lg" dir="ltr" style={{ color: ended ? 'rgba(243,238,226,0.5)' : 'var(--brass-hi)', background: 'rgba(0,0,0,0.25)' }}>{fmt(seconds)}</span>
+        <span className="font-['Inter'] text-[13px] tabular-nums px-2.5 py-1 rounded-lg" dir="ltr" style={{ color: ended ? 'rgba(238, 243, 251,0.5)' : 'var(--brass-hi)', background: 'rgba(0,0,0,0.25)' }}>{fmt(seconds)}</span>
       </div>
 
       {/* the live roleplay — auto-starts so answering feels seamless */}

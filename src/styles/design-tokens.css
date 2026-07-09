@@ -53,10 +53,10 @@
 
   /* Pro Desk accent — brass on obsidian ("Operations Room"). The professional's
      instrument, not a student app. Applied only within a [data-track="desk"] subtree. */
-  --accent-desk:              #c9a25c;
-  --accent-desk-dim:          #4a3a1a;
-  --accent-desk-glow:         rgba(201, 162, 92, 0.18);
-  --accent-desk-strong:       #efd299;
+  --accent-desk:              #38bdf8;
+  --accent-desk-dim:          #0a3049;
+  --accent-desk-glow:         rgba(56, 189, 248, 0.18);
+  --accent-desk-strong:       #7dd3fc;
 
   --accent-gold:         #fbbf24;
   --accent-gold-dim:     #713f12;

@@ -21,10 +21,10 @@ function Ring({ pct, done, total, size = 76 }) {
         <circle cx={cx} cy={cx} r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={sw} />
         <circle cx={cx} cy={cx} r={R} fill="none" stroke="url(#deskRing)" strokeWidth={sw} strokeLinecap="round"
           strokeDasharray={C} strokeDashoffset={C - (C * pct) / 100} />
-        <defs><linearGradient id="deskRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#c9a25c" /><stop offset="1" stopColor="#efd299" /></linearGradient></defs>
+        <defs><linearGradient id="deskRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#38bdf8" /><stop offset="1" stopColor="#7dd3fc" /></linearGradient></defs>
       </svg>
       <div className="absolute inset-0 grid place-items-center leading-none">
-        <span className="font-['Inter'] font-extrabold tabular-nums" style={{ color: 'var(--cream)', fontSize: size >= 88 ? 20 : 17 }}>{done}<span style={{ color: 'rgba(243,238,226,0.4)', fontSize: size >= 88 ? 13 : 12 }}>/{total}</span></span>
+        <span className="font-['Inter'] font-extrabold tabular-nums" style={{ color: 'var(--cream)', fontSize: size >= 88 ? 20 : 17 }}>{done}<span style={{ color: 'rgba(238, 243, 251,0.4)', fontSize: size >= 88 ? 13 : 12 }}>/{total}</span></span>
       </div>
     </div>
   )
@@ -58,7 +58,7 @@ export default function DeskToday() {
         <h1 className="font-['Inter'] font-extrabold text-2xl lg:text-[30px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>
           {firstName ? `Welcome back, ${firstName}` : 'Welcome back'}
         </h1>
-        <p className="font-['Inter'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.62)' }}>Pick up your curriculum, keep your daily streak, then practise a real call.</p>
+        <p className="font-['Inter'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.62)' }}>Pick up your curriculum, keep your daily streak, then practise a real call.</p>
       </div>
 
       {/* CURRICULUM HERO — the centre of gravity (raised tier) */}
@@ -67,12 +67,12 @@ export default function DeskToday() {
           <div className="flex items-center gap-2 mb-5">
             <Compass size={15} style={{ color: 'var(--brass)' }} />
             <span className="font-['Inter'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'var(--brass)' }}>YOUR CURRICULUM</span>
-            <span className="font-['Tajawal'] text-[12px]" style={{ color: 'rgba(243,238,226,0.4)' }}>· المسار</span>
+            <span className="font-['Tajawal'] text-[12px]" style={{ color: 'rgba(238, 243, 251,0.4)' }}>· المسار</span>
           </div>
           <div className="flex items-start gap-5">
             <Ring pct={track.pct} done={track.done} total={track.total} size={88} />
             <div className="min-w-0 flex-1">
-              <p className="font-['Inter'] text-[11px] font-bold tracking-[0.16em] mb-1.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>
+              <p className="font-['Inter'] text-[11px] font-bold tracking-[0.16em] mb-1.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.42)' }}>
                 {track.done === 0 ? 'START HERE' : currentLesson ? 'CONTINUE' : 'PATH COMPLETE'}
               </p>
               <h2 className="font-['Inter'] font-extrabold text-[20px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>
@@ -80,8 +80,8 @@ export default function DeskToday() {
               </h2>
               {currentLesson && (
                 <p className="mt-1 flex items-center gap-2 flex-wrap">
-                  <span className="font-['Tajawal'] text-[13px]" style={{ color: 'rgba(243,238,226,0.55)' }}>{currentLesson.ar}</span>
-                  {currentLesson.label && <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(201,162,92,0.7)' }}>· {currentLesson.label}</span>}
+                  <span className="font-['Tajawal'] text-[13px]" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{currentLesson.ar}</span>
+                  {currentLesson.label && <span className="font-['Inter'] text-[12px]" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.7)' }}>· {currentLesson.label}</span>}
                 </p>
               )}
               <span className="desk-cta inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px] mt-4" dir="ltr">{track.done === 0 ? 'Start' : 'Continue'} <ArrowRight size={16} /></span>
@@ -90,9 +90,9 @@ export default function DeskToday() {
           {/* track rail */}
           <div className="mt-6 pt-4 desk-hair flex items-center gap-3">
             <div dir="ltr" className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
-              <div className="h-full rounded-full" style={{ width: `${track.pct}%`, background: 'linear-gradient(90deg,#c9a25c,#efd299)' }} />
+              <div className="h-full rounded-full" style={{ width: `${track.pct}%`, background: 'linear-gradient(90deg,#38bdf8,#7dd3fc)' }} />
             </div>
-            <span className="font-['Inter'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>{track.done} of {track.total} lessons · full path</span>
+            <span className="font-['Inter'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{track.done} of {track.total} lessons · full path</span>
           </div>
         </Link>
       </motion.div>
@@ -100,14 +100,14 @@ export default function DeskToday() {
       {/* your day + reading — the two daily-ish entries, side by side */}
       <motion.div {...rise(0.05)} className="grid sm:grid-cols-2 gap-4">
         {/* your day (Daily hub) */}
-        <Link to="/desk/daily" className="group desk-glass p-5 flex flex-col" style={{ borderColor: dailyLeft ? 'rgba(201,162,92,0.2)' : undefined }}>
+        <Link to="/desk/daily" className="group desk-glass p-5 flex flex-col" style={{ borderColor: dailyLeft ? 'rgba(56, 189, 248,0.2)' : undefined }}>
           <div className="flex items-center justify-between mb-3">
-            <div className="desk-mini-mark" style={streak > 0 ? { color: '#e0a44a' } : undefined}><Flame size={16} /></div>
-            {streak > 0 && <span className="inline-flex items-center gap-1 font-['Inter'] text-[11.5px] font-bold px-2.5 py-1 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(201,162,92,0.12)', border: '1px solid rgba(201,162,92,0.28)' }}>{streak}-day streak</span>}
+            <div className="desk-mini-mark" style={streak > 0 ? { color: '#2aa8ea' } : undefined}><Flame size={16} /></div>
+            {streak > 0 && <span className="inline-flex items-center gap-1 font-['Inter'] text-[11.5px] font-bold px-2.5 py-1 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.12)', border: '1px solid rgba(56, 189, 248,0.28)' }}>{streak}-day streak</span>}
           </div>
-          <p className="font-['Inter'] text-[11px] font-bold tracking-[0.16em] mb-0.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>YOUR DAY</p>
+          <p className="font-['Inter'] text-[11px] font-bold tracking-[0.16em] mb-0.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.42)' }}>YOUR DAY</p>
           <h3 className="font-['Inter'] font-extrabold text-[16px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{dailyLeft ? `${dailyLeft === 2 ? 'Vocab + grammar' : 'Almost done'} today` : 'Daily done ✓'}</h3>
-          <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>
+          <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>
             {todayCount ? `${todayCount} words to review` : 'Words reviewed'}{grammarToday ? ` · ${todayGrammarDone ? 'grammar done' : 'a grammar rule'}` : ''}
           </p>
           <span className="mt-auto pt-3 inline-flex items-center gap-1.5 font-['Inter'] text-[12.5px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Open your day <ArrowRight size={14} /></span>
@@ -118,23 +118,23 @@ export default function DeskToday() {
           <div className="flex items-center justify-between mb-3">
             <div className="desk-mini-mark"><BookOpen size={16} /></div>
           </div>
-          <p className="font-['Inter'] text-[11px] font-bold tracking-[0.14em] mb-0.5" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>READING</p>
+          <p className="font-['Inter'] text-[11px] font-bold tracking-[0.14em] mb-0.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.42)' }}>READING</p>
           <h3 className="font-['Inter'] font-extrabold text-[16px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>Read in your field</h3>
-          <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.5)' }}>Short IT passages — build professional reading & vocabulary.</p>
+          <p className="font-['Inter'] text-[12px] mt-1" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}>Short IT passages — build professional reading & vocabulary.</p>
           <span className="mt-auto pt-3 inline-flex items-center gap-1.5 font-['Inter'] text-[12.5px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Open reading <ArrowRight size={14} /></span>
         </Link>
       </motion.div>
 
       {/* practice a real call — the scenario, de-cosplayed */}
       {current ? (
-        <motion.div {...rise(0.07)} className="desk-glass p-6 lg:p-7" style={{ borderColor: 'rgba(201,162,92,0.18)' }}>
+        <motion.div {...rise(0.07)} className="desk-glass p-6 lg:p-7" style={{ borderColor: 'rgba(56, 189, 248,0.18)' }}>
           <div className="flex items-start gap-4">
             <div className="desk-apply-mark flex-shrink-0" style={{ borderRadius: 14 }}><PhoneCall size={20} /></div>
             <div className="min-w-0 flex-1">
-              <p className="font-['Inter'] text-[11px] font-bold tracking-[0.14em] mb-1" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>PRACTISE A REAL CALL</p>
+              <p className="font-['Inter'] text-[11px] font-bold tracking-[0.14em] mb-1" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.42)' }}>PRACTISE A REAL CALL</p>
               <h2 className="font-['Inter'] font-extrabold text-[19px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{current.title_en || current.title_ar}</h2>
-              <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(201,162,92,0.72)' }}>{current.title_ar}</p>
-              <p className="font-['Inter'] text-[13.5px] leading-relaxed mt-3 line-clamp-2" dir="ltr" style={{ color: 'rgba(243,238,226,0.58)' }}>Rehearse it here before the real thing — the AI plays the other person, then gives you feedback.</p>
+              <p className="font-['Tajawal'] text-[12.5px] mt-0.5" style={{ color: 'rgba(56, 189, 248,0.72)' }}>{current.title_ar}</p>
+              <p className="font-['Inter'] text-[13.5px] leading-relaxed mt-3 line-clamp-2" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.58)' }}>Rehearse it here before the real thing — the AI plays the other person, then gives you feedback.</p>
               <Link to={`/desk/scenarios/${current.id}`} className="desk-cta inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13.5px] mt-4"><Sparkles size={16} /> Start the call</Link>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function DeskToday() {
           <Link to={`/desk/classes/${latestClass.id}`} className="group desk-glass flex items-center gap-4 p-5">
             <div className="desk-mini-mark flex-shrink-0"><GraduationCap size={17} /></div>
             <div className="min-w-0 flex-1">
-              <p className="font-['Inter'] text-[11px] font-bold mb-0.5 tracking-[0.14em]" dir="ltr" style={{ color: 'rgba(243,238,226,0.42)' }}>{isClassDone(latestClass.id) ? 'REVIEWED · OPEN AGAIN' : 'REVIEW YOUR LAST CLASS'}</p>
+              <p className="font-['Inter'] text-[11px] font-bold mb-0.5 tracking-[0.14em]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.42)' }}>{isClassDone(latestClass.id) ? 'REVIEWED · OPEN AGAIN' : 'REVIEW YOUR LAST CLASS'}</p>
               <h3 className="font-['Inter'] font-bold text-[15px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>Class {latestClass.number} · {latestClass.title_en || latestClass.title_ar}</h3>
             </div>
             {isClassDone(latestClass.id) ? <CheckCircle2 size={18} className="flex-shrink-0" style={{ color: 'var(--brass-hi)' }} /> : <ArrowRight size={18} className="flex-shrink-0" style={{ color: 'var(--brass)' }} />}
