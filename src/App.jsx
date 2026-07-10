@@ -591,6 +591,9 @@ function RoleRedirect() {
 // ─── IELTS-first account bounce ──────────────────────────────
 // For students whose whole account is the IELTS world (students.uses_ielts_home),
 // the general student home is not their surface — send them into the Atelier.
+// EXCEPTION: returning students with students.keep_academy_access keep BOTH —
+// IELTS is their landing (RoleRedirect), but their old curriculum/level stays
+// reachable at /student (a nav item in the Atelier links back). Nothing hidden.
 // Staff (incl. admins viewing directly) keep normal /student access.
 function IELTSHomeBounce({ children }) {
   const studentData = useAuthStore((s) => s.studentData)
@@ -598,7 +601,7 @@ function IELTSHomeBounce({ children }) {
   const loading = useAuthStore((s) => s.loading)
   if (loading) return null
   const isStaff = profile?.role === 'admin' || profile?.role === 'trainer'
-  if (!isStaff && studentData?.uses_ielts_home === true) {
+  if (!isStaff && studentData?.uses_ielts_home === true && studentData?.keep_academy_access !== true) {
     return <Navigate to="/student/ielts-atelier" replace />
   }
   return children

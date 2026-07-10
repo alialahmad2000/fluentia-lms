@@ -22,6 +22,7 @@ export default function IELTSMasterclassLayout() {
   const navigate = useNavigate()
   const studentId = useStudentId()
   const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
   const signOut = useAuthStore((s) => s.signOut)
   const isImpersonating = useAuthStore((s) => !!s.impersonation)
   const { data: skills } = useSkillProgress(studentId)
@@ -79,6 +80,13 @@ export default function IELTSMasterclassLayout() {
           <NavItem icon={Icon.mock} label="الاختبار الكامل" active={isActive('mock')} onClick={() => go('mock')} />
           <NavItem icon={Icon.readiness} label="الجاهزية" active={isActive('readiness')} onClick={() => go('readiness')} />
           <NavItem icon={Icon.coach} label="مدرّبك" active={isActive('trainer')} onClick={() => go('trainer')} />
+
+          {studentData?.keep_academy_access === true && (
+            <>
+              <div className="iel-nav-label">حسابي في الأكاديمية</div>
+              <NavItem icon={Icon.home} label="منهجي ودروسي" onClick={() => navigate('/student')} />
+            </>
+          )}
 
           <div className="iel-navfoot">
             <div className="av">{name.trim().charAt(0)}</div>
