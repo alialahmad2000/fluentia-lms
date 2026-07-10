@@ -52,25 +52,25 @@ export default function DeskPhrasebook() {
       <div className="desk-rise">
         <div className="flex items-center gap-2 mb-1.5">
           <NotebookPen size={14} style={{ color: 'var(--brass)' }} />
-          <span className="font-['Inter'] text-[11px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>MY PHRASEBOOK</span>
+          <span className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>MY PHRASEBOOK</span>
         </div>
-        <h1 className="font-['Inter'] font-extrabold text-2xl lg:text-[30px]" dir="ltr" style={{ color: 'var(--cream)' }}>My Phrasebook</h1>
-        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(238, 243, 251,0.5)' }}>دفتري</p>
-        <p className="font-['Inter'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}>Your professional lines — from your own calls and your track, in one place. Tap 🔊 to hear them.</p>
+        <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[30px]" dir="ltr" style={{ color: 'var(--cream)' }}>My Phrasebook</h1>
+        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(42, 33, 64,0.5)' }}>دفتري</p>
+        <p className="font-['Hanken_Grotesk'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>Your professional lines — from your own calls and your track, in one place. Tap 🔊 to hear them.</p>
       </div>
 
       {/* search */}
       <div className="desk-glass flex items-center gap-2.5 px-4 h-12">
-        <Search size={16} style={{ color: 'rgba(238, 243, 251,0.4)' }} />
+        <Search size={16} style={{ color: 'rgba(42, 33, 64,0.4)' }} />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search your lines…"
-          className="flex-1 bg-transparent outline-none font-['Inter'] text-[14px]"
+          className="flex-1 bg-transparent outline-none font-['Hanken_Grotesk'] text-[14px]"
           style={{ color: 'var(--cream)' }} />
       </div>
 
       {nothing && (
         <div className="desk-glass p-8 text-center desk-rise">
-          <p className="font-['Inter'] font-bold text-[15px]" dir="ltr" style={{ color: 'var(--cream)' }}>No results for “{q}”</p>
-          <button onClick={() => setQ('')} className="font-['Inter'] text-[13px] mt-2" style={{ color: 'var(--brass)' }}>Clear search</button>
+          <p className="font-['Hanken_Grotesk'] font-bold text-[15px]" dir="ltr" style={{ color: 'var(--cream)' }}>No results for “{q}”</p>
+          <button onClick={() => setQ('')} className="font-['Hanken_Grotesk'] text-[13px] mt-2" style={{ color: 'var(--brass)' }}>Clear search</button>
         </div>
       )}
 
@@ -79,20 +79,20 @@ export default function DeskPhrasebook() {
         <div className="desk-rise">
           <div className="flex items-center gap-2 mb-3">
             <PhoneCall size={15} style={{ color: 'var(--brass)' }} />
-            <h2 className="font-['Inter'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>From your calls</h2>
-            <span className="font-['Tajawal'] text-[11px] px-2 py-0.5 rounded-full" style={{ color: 'var(--brass)', background: 'rgba(56, 189, 248,0.10)' }}>{betterF.length}</span>
+            <h2 className="font-['Hanken_Grotesk'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>From your calls</h2>
+            <span className="font-['Tajawal'] text-[11px] px-2 py-0.5 rounded-full" style={{ color: 'var(--brass)', background: 'rgba(239, 106, 67,0.10)' }}>{betterF.length}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {betterF.map((b, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.03, 0.3) }} className="desk-glass p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0" dir="ltr">
-                    <p className="font-['Inter'] text-[12px] line-through" style={{ color: 'rgba(255,180,164,0.65)' }}>{b.basic}</p>
-                    <p className="font-['Inter'] text-[15px] font-semibold leading-snug mt-1" style={{ color: 'var(--cream)' }}>{b.natural}</p>
+                    <p className="font-['Hanken_Grotesk'] text-[12px] line-through" style={{ color: 'rgba(255,180,164,0.65)' }}>{b.basic}</p>
+                    <p className="font-['Hanken_Grotesk'] text-[15px] font-semibold leading-snug mt-1" style={{ color: 'var(--cream)' }}>{b.natural}</p>
                   </div>
                   <PlayBtn text={b.natural} />
                 </div>
-                {b.context && <p className="font-['Tajawal'] text-[11px] mt-2 pt-2 desk-hair" style={{ color: 'rgba(56, 189, 248,0.7)' }}>{b.context}</p>}
+                {b.context && <p className="font-['Tajawal'] text-[11px] mt-2 pt-2 desk-hair" style={{ color: 'rgba(239, 106, 67,0.7)' }}>{b.context}</p>}
               </motion.div>
             ))}
           </div>
@@ -104,22 +104,22 @@ export default function DeskPhrasebook() {
         <div className="desk-rise space-y-5">
           <div className="flex items-center gap-2">
             <NotebookPen size={15} style={{ color: 'var(--brass)' }} />
-            <h2 className="font-['Inter'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>Track phrases</h2>
-            {!query && <span className="font-['Inter'] text-[11px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.4)' }}>{totalPhrases} phrases</span>}
+            <h2 className="font-['Hanken_Grotesk'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>Track phrases</h2>
+            {!query && <span className="font-['Hanken_Grotesk'] text-[11px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.4)' }}>{totalPhrases} phrases</span>}
           </div>
           {groups.map((g) => (
             <div key={g.id}>
               <div className="flex items-center gap-2 mb-2">
-                <span className="font-['Inter'] font-black text-[10px] w-6 h-6 grid place-items-center rounded-md" style={{ color: '#052033', background: 'linear-gradient(135deg,#7dd3fc,#38bdf8)' }}>{String(g.number).padStart(2, '0')}</span>
-                <h3 className="font-['Inter'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.72)' }}>{g.title}</h3>
+                <span className="font-['Hanken_Grotesk'] font-black text-[10px] w-6 h-6 grid place-items-center rounded-md" style={{ color: '#fff3ee', background: 'linear-gradient(135deg,#ef6a43,#cf4a1c)' }}>{String(g.number).padStart(2, '0')}</span>
+                <h3 className="font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.72)' }}>{g.title}</h3>
               </div>
               <div className="space-y-2">
                 {g.phrases.map((p, i) => (
                   <div key={i} className="desk-glass p-3.5 flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="font-['Inter'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{p.en}</p>
-                      <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{p.ar}</p>
-                      {p.context_ar && <p className="font-['Tajawal'] text-[11px] mt-1" style={{ color: 'rgba(56, 189, 248,0.65)' }}><span className="font-['Inter']" dir="ltr">When?</span> {p.context_ar}</p>}
+                      <p className="font-['Hanken_Grotesk'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{p.en}</p>
+                      <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{p.ar}</p>
+                      {p.context_ar && <p className="font-['Tajawal'] text-[11px] mt-1" style={{ color: 'rgba(239, 106, 67,0.65)' }}><span className="font-['Hanken_Grotesk']" dir="ltr">When?</span> {p.context_ar}</p>}
                     </div>
                     <PlayBtn text={p.en} />
                   </div>
@@ -133,8 +133,8 @@ export default function DeskPhrasebook() {
       {/* truly empty (no scenarios assigned yet) */}
       {!nothing && groups.length === 0 && betterF.length === 0 && (
         <div className="desk-glass p-8 text-center desk-rise">
-          <p className="font-['Inter'] font-bold" dir="ltr" style={{ color: 'var(--cream)' }}>Your phrasebook fills up with every scenario</p>
-          <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 mt-2 font-['Inter'] text-sm" style={{ color: 'var(--brass)' }}>Start from scenarios <ArrowRight size={14} /></Link>
+          <p className="font-['Hanken_Grotesk'] font-bold" dir="ltr" style={{ color: 'var(--cream)' }}>Your phrasebook fills up with every scenario</p>
+          <Link to="/desk/scenarios" className="inline-flex items-center gap-1.5 mt-2 font-['Hanken_Grotesk'] text-sm" style={{ color: 'var(--brass)' }}>Start from scenarios <ArrowRight size={14} /></Link>
         </div>
       )}
     </div>

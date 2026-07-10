@@ -27,7 +27,7 @@ export default function DeskMobileBar() {
             <motion.div className="desk-more-sheet lg:hidden"
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.32 }}>
               <div className="flex items-center justify-between px-1 pb-3">
-                <span className="font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>More</span>
+                <span className="font-['Hanken_Grotesk'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>More</span>
                 <button onClick={() => setOpen(false)} className="desk-ghost-btn" aria-label="Close"><X size={16} /></button>
               </div>
               <div className="space-y-1.5">

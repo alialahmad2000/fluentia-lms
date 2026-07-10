@@ -15,7 +15,7 @@ function MCQ({ q, options }) {
   const chosen = picked != null ? options[picked] : null
   return (
     <div className="desk-glass p-6">
-      {q && <p className="font-['Inter'] text-[14.5px] font-semibold mb-3.5 leading-relaxed" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.9)' }}>{q}</p>}
+      {q && <p className="font-['Hanken_Grotesk'] text-[14.5px] font-semibold mb-3.5 leading-relaxed" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.9)' }}>{q}</p>}
       <div className="space-y-2.5">
         {options.map((opt, i) => {
           const state = picked == null ? 'idle' : opt.correct ? 'correct' : picked === i ? 'wrong' : 'dim'
@@ -23,19 +23,19 @@ function MCQ({ q, options }) {
             <button key={i} disabled={picked != null && opt.correct} onClick={() => { if (picked == null) setPicked(i) }} className={`desk-choose-opt ${state}`}>
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 text-start">
-                  <p className="font-['Inter'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{opt.en}</p>
+                  <p className="font-['Hanken_Grotesk'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{opt.en}</p>
                 </div>
                 {state === 'correct' && <CheckCircle2 size={18} className="flex-shrink-0 desk-pop" style={{ color: '#6ee7b7' }} />}
               </div>
               {picked != null && (state === 'correct' || state === 'wrong') && (
-                <p className="font-['Inter'] text-[12.5px] mt-2 pt-2 desk-hair leading-relaxed text-start" dir="ltr" style={{ color: state === 'correct' ? 'rgba(110,231,183,0.9)' : 'rgba(255,180,164,0.85)' }}>{opt.why}</p>
+                <p className="font-['Hanken_Grotesk'] text-[12.5px] mt-2 pt-2 desk-hair leading-relaxed text-start" dir="ltr" style={{ color: state === 'correct' ? 'rgba(110,231,183,0.9)' : 'rgba(255,180,164,0.85)' }}>{opt.why}</p>
               )}
             </button>
           )
         })}
       </div>
       {picked != null && !chosen?.correct && (
-        <button onClick={() => setPicked(null)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[12.5px] mt-2.5" dir="ltr" style={{ color: 'var(--brass)' }}><RotateCcw size={13} /> Try again</button>
+        <button onClick={() => setPicked(null)} className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[12.5px] mt-2.5" dir="ltr" style={{ color: 'var(--brass)' }}><RotateCcw size={13} /> Try again</button>
       )}
     </div>
   )
@@ -53,33 +53,33 @@ export default function DeskGrammarPoint() {
 
   return (
     <div className="space-y-11 max-w-[680px] mx-auto">
-      <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.5)' }}><ArrowLeft size={15} /> Grammar bank</Link>
+      <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}><ArrowLeft size={15} /> Grammar bank</Link>
 
       <div className="desk-glass desk-station-head p-6 lg:p-7 desk-rise">
         <div className="flex items-center gap-2 mb-2.5 flex-wrap">
-          <span className="font-['Inter'] font-extrabold text-[12px] px-3 h-6 inline-flex items-center rounded-lg" dir="ltr" style={{ color: '#052033', background: 'linear-gradient(135deg,#7dd3fc,#38bdf8)' }}>Rule {i + 1}</span>
-          {done && <span className="inline-flex items-center gap-1 font-['Inter'] text-[12px] px-2.5 py-0.5 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.12)', border: '1px solid rgba(56, 189, 248,0.3)' }}><Check size={12} strokeWidth={3} /> Reviewed</span>}
+          <span className="font-['Hanken_Grotesk'] font-extrabold text-[12px] px-3 h-6 inline-flex items-center rounded-lg" dir="ltr" style={{ color: '#fff3ee', background: 'linear-gradient(135deg,#ef6a43,#cf4a1c)' }}>Rule {i + 1}</span>
+          {done && <span className="inline-flex items-center gap-1 font-['Hanken_Grotesk'] text-[12px] px-2.5 py-0.5 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(239, 106, 67,0.12)', border: '1px solid rgba(239, 106, 67,0.3)' }}><Check size={12} strokeWidth={3} /> Reviewed</span>}
         </div>
-        <h1 className="font-['Inter'] font-extrabold text-2xl lg:text-[28px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{pt.en}</h1>
-        <p className="font-['Tajawal'] text-[14px] mt-1" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{pt.ar}</p>
+        <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[28px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{pt.en}</h1>
+        <p className="font-['Tajawal'] text-[14px] mt-1" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{pt.ar}</p>
       </div>
 
       {/* The rule */}
       <section className="desk-rise">
-        <div className="flex items-center gap-2.5 mb-4"><span className="desk-lesson-sec-mark"><Lightbulb size={16} /></span><div><p className="font-['Inter'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(190, 214, 236,0.5)' }}>THE RULE</p><h2 className="font-['Inter'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>How to use it</h2></div></div>
+        <div className="flex items-center gap-2.5 mb-4"><span className="desk-lesson-sec-mark"><Lightbulb size={16} /></span><div><p className="font-['Hanken_Grotesk'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.46)' }}>THE RULE</p><h2 className="font-['Hanken_Grotesk'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>How to use it</h2></div></div>
         <div className="desk-glass p-6">
-          <p className="font-['Inter'] text-[14.5px] leading-[1.85]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.85)' }}>{pt.rule}</p>
-          {pt.rule_ar && <p className="font-['Tajawal'] text-[12.5px] mt-2 leading-relaxed" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{pt.rule_ar}</p>}
+          <p className="font-['Hanken_Grotesk'] text-[14.5px] leading-[1.85]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.85)' }}>{pt.rule}</p>
+          {pt.rule_ar && <p className="font-['Tajawal'] text-[12.5px] mt-2 leading-relaxed" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{pt.rule_ar}</p>}
           {pt.model && (
-            <div className="desk-model-callout mt-4"><Sparkles size={15} style={{ color: 'var(--brass-hi)' }} className="flex-shrink-0 mt-0.5" /><div className="min-w-0"><p className="font-['Inter'] text-[13.5px] font-bold leading-relaxed" dir="ltr" style={{ color: 'var(--brass-hi)' }}>{pt.model}</p>{pt.model_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(56, 189, 248,0.7)' }}>{pt.model_ar}</p>}</div></div>
+            <div className="desk-model-callout mt-4"><Sparkles size={15} style={{ color: 'var(--brass-hi)' }} className="flex-shrink-0 mt-0.5" /><div className="min-w-0"><p className="font-['Hanken_Grotesk'] text-[13.5px] font-bold leading-relaxed" dir="ltr" style={{ color: 'var(--brass-hi)' }}>{pt.model}</p>{pt.model_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(239, 106, 67,0.7)' }}>{pt.model_ar}</p>}</div></div>
           )}
           {pt.examples?.length > 0 && (
             <div className="mt-4 space-y-2">
               {pt.examples.map((ex, k) => (
                 <div key={k} className="desk-eg-row">
                   <div className="min-w-0 flex-1">
-                    <p className="font-['Inter'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{ex.en}</p>
-                    <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{ex.ar}{ex.note ? <span className="font-['Inter']" dir="ltr" style={{ color: 'rgba(56, 189, 248,0.7)' }}> · {ex.note}</span> : ''}</p>
+                    <p className="font-['Hanken_Grotesk'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{ex.en}</p>
+                    <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{ex.ar}{ex.note ? <span className="font-['Hanken_Grotesk']" dir="ltr" style={{ color: 'rgba(239, 106, 67,0.7)' }}> · {ex.note}</span> : ''}</p>
                   </div>
                   <PlayBtn text={ex.en} />
                 </div>
@@ -92,7 +92,7 @@ export default function DeskGrammarPoint() {
       {/* Check */}
       {pt.check?.length > 0 && (
         <section className="desk-rise">
-          <div className="flex items-center gap-2.5 mb-4"><span className="desk-lesson-sec-mark"><HelpCircle size={16} /></span><div><p className="font-['Inter'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(190, 214, 236,0.5)' }}>CHECK</p><h2 className="font-['Inter'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>Check yourself</h2></div></div>
+          <div className="flex items-center gap-2.5 mb-4"><span className="desk-lesson-sec-mark"><HelpCircle size={16} /></span><div><p className="font-['Hanken_Grotesk'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.46)' }}>CHECK</p><h2 className="font-['Hanken_Grotesk'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>Check yourself</h2></div></div>
           <div className="space-y-3">{pt.check.map((c, k) => <MCQ key={k} q={c.q} options={c.options} />)}</div>
         </section>
       )}
@@ -100,13 +100,13 @@ export default function DeskGrammarPoint() {
       {/* footer */}
       <div className="pt-1 desk-rise">
         {!done ? (
-          <button onClick={() => markGrammarDone(pt.id)} className="desk-cta w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr"><Check size={17} /> Got it</button>
+          <button onClick={() => markGrammarDone(pt.id)} className="desk-cta w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Hanken_Grotesk'] font-bold text-[14px]" dir="ltr"><Check size={17} /> Got it</button>
         ) : (
-          <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.1)', border: '1px solid rgba(56, 189, 248,0.26)' }}><CheckCircle2 size={17} /> You’ve reviewed this rule</div>
+          <div className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl font-['Hanken_Grotesk'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(239, 106, 67,0.1)', border: '1px solid rgba(239, 106, 67,0.26)' }}><CheckCircle2 size={17} /> You’ve reviewed this rule</div>
         )}
         <div className="flex items-center justify-between gap-3 mt-4">
-          <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}><ArrowLeft size={15} /> Bank</Link>
-          {next && <Link to={`/desk/daily/grammar/${next.id}`} onClick={() => markGrammarDone(pt.id)} className="inline-flex items-center gap-1.5 font-['Inter'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.en}</span> <ArrowRight size={15} className="flex-shrink-0" /></Link>}
+          <Link to="/desk/daily/grammar" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}><ArrowLeft size={15} /> Bank</Link>
+          {next && <Link to={`/desk/daily/grammar/${next.id}`} onClick={() => markGrammarDone(pt.id)} className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] font-bold min-w-0 justify-end" dir="ltr" style={{ color: 'var(--brass-hi)' }}><span className="truncate">{next.en}</span> <ArrowRight size={15} className="flex-shrink-0" /></Link>}
         </div>
       </div>
     </div>

@@ -23,11 +23,11 @@ export default function DeskTrack() {
       <div className="desk-rise">
         <div className="flex items-center gap-2 mb-1.5">
           <Compass size={14} style={{ color: 'var(--brass)' }} />
-          <span className="font-['Inter'] text-[11px] tracking-[0.22em]" dir="ltr" style={{ color: 'var(--brass)' }}>PROFESSIONAL TRACK</span>
+          <span className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.22em]" dir="ltr" style={{ color: 'var(--brass)' }}>PROFESSIONAL TRACK</span>
         </div>
-        <h1 className="font-['Inter'] font-extrabold text-2xl lg:text-[32px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>Your Track</h1>
-        <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(238, 243, 251,0.5)' }}>المسار</p>
-        <p className="font-['Inter'] text-[14px] mt-2.5 max-w-[560px] leading-relaxed" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.6)' }}>
+        <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[32px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>Your Track</h1>
+        <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(42, 33, 64,0.5)' }}>المسار</p>
+        <p className="font-['Hanken_Grotesk'] text-[14px] mt-2.5 max-w-[560px] leading-relaxed" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.6)' }}>
           Your professional curriculum — not generic lessons, but the skills you actually need on calls, in meetings, and in writing. Every lesson you apply straight away in a scenario.
         </p>
 
@@ -35,9 +35,9 @@ export default function DeskTrack() {
         <div className="mt-5 flex items-center gap-4 max-w-[520px]">
           <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
             <motion.div className="h-full rounded-full" initial={rm ? false : { width: 0 }} animate={{ width: `${overall.pct}%` }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              style={{ background: 'linear-gradient(90deg,#38bdf8,#7dd3fc)' }} />
+              style={{ background: 'linear-gradient(90deg,#cf4a1c,#ef6a43)' }} />
           </div>
-          <span className="font-['Inter'] text-[13px] font-bold tabular-nums whitespace-nowrap" dir="ltr" style={{ color: 'var(--brass-hi)' }}>
+          <span className="font-['Hanken_Grotesk'] text-[13px] font-bold tabular-nums whitespace-nowrap" dir="ltr" style={{ color: 'var(--brass-hi)' }}>
             {overall.done} / {overall.total} lessons
           </span>
         </div>
@@ -46,15 +46,15 @@ export default function DeskTrack() {
       {/* ── continue card ── */}
       {current && (
         <motion.div initial={rm ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ease: [0.16, 1, 0.3, 1] }}
-          className="desk-glass overflow-hidden" style={{ borderColor: 'rgba(56, 189, 248,0.24)' }}>
+          className="desk-glass overflow-hidden" style={{ borderColor: 'rgba(239, 106, 67,0.24)' }}>
           <Link to={`/desk/track/${current.id}`} className="group flex items-center gap-5 p-5 lg:p-6">
             <div className="desk-track-cont-mark">{current.label}</div>
             <div className="min-w-0 flex-1">
-              <p className="font-['Inter'] text-[11px] font-bold mb-1 uppercase tracking-wider" dir="ltr" style={{ color: 'var(--brass)' }}>Continue here · {current.trackEn}</p>
-              <h2 className="font-['Inter'] font-extrabold text-lg lg:text-xl leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{current.en}</h2>
-              <p className="font-['Tajawal'] text-[12.5px] mt-0.5 truncate" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{current.ar}</p>
+              <p className="font-['Hanken_Grotesk'] text-[11px] font-bold mb-1 uppercase tracking-wider" dir="ltr" style={{ color: 'var(--brass)' }}>Continue here · {current.trackEn}</p>
+              <h2 className="font-['Hanken_Grotesk'] font-extrabold text-lg lg:text-xl leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{current.en}</h2>
+              <p className="font-['Tajawal'] text-[12.5px] mt-0.5 truncate" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{current.ar}</p>
             </div>
-            <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Inter'] font-bold text-[13px]" dir="ltr">
+            <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr">
               Start <ArrowRight size={16} />
             </span>
           </Link>
@@ -76,15 +76,15 @@ export default function DeskTrack() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-2.5 flex-wrap">
-                    <h2 className="font-['Inter'] font-extrabold text-xl lg:text-[22px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>
-                      <span className="font-['Inter'] font-black text-[13px] align-middle me-1.5" style={{ color: 'var(--brass)' }} dir="ltr">{ti + 1}</span>
+                    <h2 className="font-['Hanken_Grotesk'] font-extrabold text-xl lg:text-[22px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>
+                      <span className="font-['Hanken_Grotesk'] font-black text-[13px] align-middle me-1.5" style={{ color: 'var(--brass)' }} dir="ltr">{ti + 1}</span>
                       {track.en}
                     </h2>
-                    <span className="font-['Tajawal'] text-[13px]" style={{ color: 'rgba(238, 243, 251,0.45)' }}>{track.ar}</span>
+                    <span className="font-['Tajawal'] text-[13px]" style={{ color: 'rgba(42, 33, 64,0.45)' }}>{track.ar}</span>
                   </div>
-                  <p className="font-['Inter'] text-[13px] mt-1 leading-relaxed" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{track.tagline}</p>
+                  <p className="font-['Hanken_Grotesk'] text-[13px] mt-1 leading-relaxed" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{track.tagline}</p>
                 </div>
-                <span className="flex-shrink-0 font-['Inter'] text-[12px] font-bold tabular-nums mt-1.5" dir="ltr" style={{ color: trackDone ? 'var(--brass-hi)' : 'rgba(238, 243, 251,0.5)' }}>
+                <span className="flex-shrink-0 font-['Hanken_Grotesk'] text-[12px] font-bold tabular-nums mt-1.5" dir="ltr" style={{ color: trackDone ? 'var(--brass-hi)' : 'rgba(42, 33, 64,0.5)' }}>
                   {prog.done}/{prog.total}
                 </span>
               </div>
@@ -110,16 +110,16 @@ export default function DeskTrack() {
                       <div className="desk-lesson-card">
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                            <h3 className="font-['Inter'] font-bold text-[15px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{lesson.en}</h3>
+                            <h3 className="font-['Hanken_Grotesk'] font-bold text-[15px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{lesson.en}</h3>
                             {lesson.scenarioModuleNumber && (
                               <span className="desk-lesson-tag" dir="ltr"><Headset size={11} /> With scenario</span>
                             )}
                           </div>
-                          <p className="font-['Tajawal'] text-[12.5px] mb-1.5" style={{ color: 'rgba(238, 243, 251,0.5)' }}>{lesson.ar}</p>
-                          <p className="font-['Inter'] text-[12.5px] leading-relaxed line-clamp-2" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}>{lesson.outcome}</p>
+                          <p className="font-['Tajawal'] text-[12.5px] mb-1.5" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{lesson.ar}</p>
+                          <p className="font-['Hanken_Grotesk'] text-[12.5px] leading-relaxed line-clamp-2" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{lesson.outcome}</p>
                         </div>
                         <div className="flex flex-col items-end justify-between self-stretch gap-2 flex-shrink-0">
-                          <span className="inline-flex items-center gap-1 font-['Inter'] text-[11px]" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.42)' }}>
+                          <span className="inline-flex items-center gap-1 font-['Hanken_Grotesk'] text-[11px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.42)' }}>
                             <Clock size={11} /> {lesson.minutes} min
                           </span>
                           <ChevronRight size={17} className="desk-lesson-chev" />
@@ -137,11 +137,11 @@ export default function DeskTrack() {
       {/* footer — tie to scenarios */}
       <div className="desk-glass p-5 flex items-center justify-between gap-4 desk-rise">
         <div className="min-w-0">
-          <p className="font-['Inter'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>Ready to apply it?</p>
-          <p className="font-['Inter'] text-[12.5px] mt-0.5" dir="ltr" style={{ color: 'rgba(238, 243, 251,0.55)' }}>Every skill you learn, try it live in a scenario call.</p>
+          <p className="font-['Hanken_Grotesk'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>Ready to apply it?</p>
+          <p className="font-['Hanken_Grotesk'] text-[12.5px] mt-0.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>Every skill you learn, try it live in a scenario call.</p>
         </div>
-        <Link to="/desk/scenarios" className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 h-10 rounded-xl font-['Inter'] font-bold text-[13px]" dir="ltr"
-          style={{ color: 'var(--brass-hi)', background: 'rgba(56, 189, 248,0.10)', border: '1px solid rgba(56, 189, 248,0.24)' }}>
+        <Link to="/desk/scenarios" className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 h-10 rounded-xl font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr"
+          style={{ color: 'var(--brass-hi)', background: 'rgba(239, 106, 67,0.10)', border: '1px solid rgba(239, 106, 67,0.24)' }}>
           Scenarios <ArrowRight size={15} />
         </Link>
       </div>
