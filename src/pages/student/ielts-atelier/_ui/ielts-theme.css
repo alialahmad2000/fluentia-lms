@@ -132,6 +132,40 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-gcard:active{ transform:translateY(-1px); }
 .iel-gcard > *{ position:relative; z-index:1; }
 
+/* ── Coach Directive — the "do this now" heartbeat ───────────────────────── */
+.iel-coach{
+  position:relative; overflow:hidden; border-radius:18px; padding:22px 24px;
+  background:linear-gradient(135deg, color-mix(in srgb, var(--iel-accent) 12%, var(--iel-surface)), var(--iel-surface));
+  border:1px solid color-mix(in srgb, var(--iel-accent) 34%, var(--iel-border));
+  backdrop-filter:blur(18px) saturate(1.2); -webkit-backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:var(--iel-shadow), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 14%, transparent);
+}
+.iel-coach::before{ content:''; position:absolute; inset-inline-start:0; top:0; bottom:0; width:4px;
+  background:linear-gradient(180deg, var(--iel-accent-ink), var(--iel-accent), var(--iel-gold));
+  box-shadow:0 0 14px color-mix(in srgb, var(--iel-accent) 60%, transparent); }
+.iel-coach-glow{ position:absolute; inset:-40% -20% auto auto; width:60%; height:150%; pointer-events:none;
+  background:radial-gradient(50% 50% at 80% 20%, color-mix(in srgb, var(--iel-accent) 22%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 95% 80%, color-mix(in srgb, var(--iel-gold) 16%, transparent), transparent 70%); }
+
+/* ── Journey stations — the "you are here" roadmap arc ───────────────────── */
+.iel-stations{ display:flex; align-items:flex-start; gap:0; }
+.iel-station{ flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; text-align:center; position:relative; }
+.iel-station .dot{ width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--iel-border); background:var(--iel-surface-2); color:var(--iel-ink-3); position:relative; z-index:1;
+  transition:transform .2s ease; }
+.iel-station .lbl{ font-size:11.5px; font-weight:700; color:var(--iel-ink-3); margin-top:8px; line-height:1.3; }
+.iel-station .sub{ font-size:10px; font-weight:600; color:var(--iel-ink-3); opacity:.7; margin-top:2px; }
+/* connector line to the NEXT station (RTL: extends toward the start/right) */
+.iel-station:not(:last-child)::after{ content:''; position:absolute; top:17px; height:2px;
+  inset-inline-start:-50%; width:100%; background:var(--iel-border); z-index:0; }
+.iel-station.done .dot{ background:color-mix(in srgb, var(--iel-accent) 20%, var(--iel-surface-2)); border-color:color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border)); color:var(--iel-accent-ink); }
+.iel-station.done:not(:last-child)::after{ background:linear-gradient(90deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border))); }
+.iel-station.done .lbl{ color:var(--iel-ink-2); }
+.iel-station.active .dot{ background:linear-gradient(140deg, var(--iel-accent), var(--iel-gold)); border-color:transparent; color:#fff;
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--iel-accent) 18%, transparent), 0 8px 20px -8px color-mix(in srgb, var(--iel-accent) 80%, #000); transform:scale(1.12); }
+.iel-station.active .lbl{ color:var(--iel-ink); font-weight:800; }
+.iel-station.active .sub{ color:var(--iel-accent); opacity:1; }
+
 /* ── Overview hero (cinematic showpiece) ─────────────────────────────────── */
 .iel-hero{
   position:relative; overflow:hidden; border-radius:20px;

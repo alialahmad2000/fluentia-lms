@@ -5,6 +5,8 @@ import { useAdaptivePlan, useLatestResult } from '@/hooks/ielts/useIELTSHub'
 import { generatePlan } from '@/lib/ielts/plan-generator'
 import { useG } from '@/i18n/gender'
 import { Card, SectionHeader, Chip, Icon } from './_ui/primitives'
+import JourneyStations from './_ui/JourneyStations'
+import CoachHelps from './_ui/CoachHelps'
 import GoalModal from './_ui/GoalModal'
 
 const BASE = '/student/ielts-atelier'
@@ -70,13 +72,23 @@ export default function Journey() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2, maxWidth: 900 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
         <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>خطة الدراسة</div>
-          <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>خطّتك الأسبوعية نحو الهدف</h1>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>طريقك إلى الهدف</div>
+          <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>رحلتك الكاملة نحو النطاق</h1>
         </div>
         {days != null
           ? <Chip><span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>الاختبار بعد</span> {days} يوماً</Chip>
           : <button onClick={() => setShowGoal(true)} style={{ background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: 0, borderRadius: 11, padding: '9px 15px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>حدّد هدفك وموعدك</button>}
       </div>
+
+      {/* You are here — the journey arc */}
+      <Card style={{ padding: '18px 22px' }}>
+        <JourneyStations hasResult={result?.overall_band != null} daysLeft={days} />
+      </Card>
+
+      {/* How the plan is built — the method, in one line */}
+      <p style={{ margin: 0, fontSize: 13.5, color: 'var(--iel-ink-2)', lineHeight: 1.85, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 12, padding: '13px 16px', backdropFilter: 'blur(8px)' }}>
+        خطّتك تلمس المهارات الأربع كل أسبوع حتى لا تبرد أيّ مهارة، وتعطي مهارتك الأضعف تركيزاً مضاعفاً. تابع خطة اليوم، ولك الحرية أن تتدرّب على أي شيء متى شئت.
+      </p>
 
       {/* Today */}
       <Card style={{ padding: '20px 22px' }}>
@@ -111,6 +123,11 @@ export default function Journey() {
             </Card>
           ))}
         </div>
+      </div>
+
+      {/* How your coach helps — the framing */}
+      <div style={{ marginTop: 4 }}>
+        <CoachHelps />
       </div>
 
       <GoalModal open={showGoal} onClose={() => setShowGoal(false)} studentId={studentId} initial={planRow} />

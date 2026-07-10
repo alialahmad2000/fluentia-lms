@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useLatestResult, useSkillProgress, useAdaptivePlan, useErrorBankCount } from '@/hooks/ielts/useIELTSHub'
+import { generatePlan } from '@/lib/ielts/plan-generator'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
-import { Card, SectionHeader, Chip, BandTrack, BandGauge, SkillCard, TaskRow, Icon, PrimaryButton } from './_ui/primitives'
+import { Card, SectionHeader, Chip, BandTrack, BandGauge, SkillCard, Icon, PrimaryButton } from './_ui/primitives'
+import CoachDirective from './_ui/CoachDirective'
+import JourneyStations from './_ui/JourneyStations'
+import CoachHelps from './_ui/CoachHelps'
 import GoalModal from './_ui/GoalModal'
 
 const BASE = '/student/ielts-atelier'
 const SKILLS = ['reading', 'listening', 'writing', 'speaking']
 const SKILL_LABEL = { reading: 'القراءة', listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة' }
+const DAY_KEYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
 function daysUntil(dateStr) {
   if (!dateStr) return null
@@ -45,6 +50,23 @@ export default function Home() {
   const skillBands = Object.fromEntries(SKILLS.map((s) => [s, bandOf(s)]))
   const rated = SKILLS.filter((s) => skillBands[s] != null)
   const weakest = rated.length ? rated.reduce((a, b) => (skillBands[a] <= skillBands[b] ? a : b)) : null
+  const weakestBand = weakest ? skillBands[weakest] : null
+
+  // The guide's brain: the single "do this now" directive + today's balanced rotation.
+  const guidePlan = useMemo(() => {
+    try {
+      return generatePlan({
+        studentId: studentId || 'x',
+        currentBand: overall,
+        targetBand: target ?? 7,
+        examDate,
+        weakAreas: weakest ? [{ skill: weakest, band: weakestBand }] : [],
+        errorSummary: { total: errCount || 0, due: errCount || 0, hotspots: [] },
+        hasDiagnostic: hasResult,
+      })
+    } catch { return null }
+  }, [studentId, overall, target, examDate, weakest, weakestBand, errCount, hasResult])
+  const todayTasks = guidePlan?.weekly_schedule?.[DAY_KEYS[new Date().getDay()]] || []
 
   const go = (p) => navigate(p ? `${BASE}/${p}` : BASE)
 
@@ -53,8 +75,11 @@ export default function Home() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 22, paddingTop: 6 }}>
         <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>
-          {name ? `مرحباً ${name}` : 'مرحباً بك'} <span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>— لنبدأ رحلتك في الآيلتس</span>
+          {name ? `مرحباً ${name}` : 'مرحباً بك'} <span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>— هذا حسابك للآيلتس، وهذي رحلتك</span>
         </h1>
+        <Card style={{ padding: '16px 20px' }}>
+          <JourneyStations hasResult={false} daysLeft={days} onOpen={() => go('journey')} />
+        </Card>
         <Card style={{ padding: '30px', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 28, alignItems: 'center' }}>
           <div>
             <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 12 }}>الخطوة الأولى</div>
@@ -72,6 +97,7 @@ export default function Home() {
             <BandGauge current={null} target={target ?? 7} size={176} label="لم يُقس بعد" />
           </button>
         </Card>
+        <CoachHelps />
         <div>
           <SectionHeader title="مهاراتك الأربع" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 13 }}>
@@ -86,11 +112,6 @@ export default function Home() {
   }
 
   // ── Full overview ─────────────────────────────────────────────────────────
-  const nextSteps = []
-  if (weakest) nextSteps.push({ tag: SKILL_LABEL[weakest], title: `تدرّب على ${SKILL_LABEL[weakest]}`, sub: 'أكبر فجوة نحو هدفك — جلسة مستهدفة', to: weakest })
-  if (errCount > 0) nextSteps.push({ tag: 'مراجعة', title: `راجع ${errCount} خطأً مستحقّاً`, sub: 'بنك الأخطاء — مراجعة متباعدة', to: 'errors' })
-  nextSteps.push({ tag: 'محاكاة', title: 'محاكاة كاملة تحت ظروف الاختبار', sub: 'أربعة أقسام — قياس شامل لجاهزيتك', to: 'mock' })
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
@@ -104,6 +125,9 @@ export default function Home() {
           {target != null && <Chip dot>الهدف Band {target.toFixed(1)}</Chip>}
         </div>
       </div>
+
+      {/* Coach Directive — the one thing to do right now */}
+      <CoachDirective action={guidePlan?.next_recommended_action} todayTasks={todayTasks} weakest={weakest} onGo={go} />
 
       {/* Hero — cinematic showpiece: band gauge + trajectory + countdown */}
       <div className="iel-hero">
@@ -142,6 +166,12 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Journey — you are here */}
+      <Card style={{ padding: '18px 22px' }}>
+        <SectionHeader title="رحلتك" actionLabel="الخطة الكاملة" onAction={() => go('journey')} />
+        <JourneyStations hasResult={hasResult} daysLeft={days} onOpen={() => go('journey')} />
+      </Card>
+
       {/* Skills */}
       <div>
         <SectionHeader title="مهاراتك الأربع" actionLabel="التفاصيل" onAction={() => go(weakest || 'reading')} />
@@ -151,14 +181,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
-      {/* Next steps */}
-      <Card style={{ padding: '20px 22px' }}>
-        <SectionHeader title="خطوتك القادمة" actionLabel="الخطة الكاملة" onAction={() => go('journey')} />
-        {nextSteps.map((t, i) => (
-          <TaskRow key={i} first={i === 0} tag={t.tag} title={t.title} sub={t.sub} onClick={() => go(t.to)} />
-        ))}
-      </Card>
 
       <GoalModal open={showGoal} onClose={() => setShowGoal(false)} studentId={studentId} initial={plan} />
     </div>
