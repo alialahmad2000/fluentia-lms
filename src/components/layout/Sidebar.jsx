@@ -66,6 +66,19 @@ function Sidebar({ nav, collapsed, onToggle }) {
     staleTime: 60_000,
   })
 
+  // Conditional "مفردات مقرّراتي" nav visibility — only students with university-course vocab tracks.
+  const { data: courseVocabCount = 0 } = useQuery({
+    queryKey: ['course-vocab', 'count', profileId],
+    queryFn: async () => {
+      const { count } = await supabase
+        .from('vocab_cards').select('id', { count: 'exact', head: true })
+        .eq('student_id', profileId).like('source', 'uni:%')
+      return count || 0
+    },
+    enabled: !!profileId && role === 'student',
+    staleTime: 300_000,
+  })
+
   // "X words due" daily-return badge — same unified count the review surface shows.
   const { data: vocabDueCount = 0 } = useQuery({
     queryKey: ['vocab-due-badge', profileId],
@@ -190,6 +203,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
         {nav.sections.map((section) => {
           const visibleItems = section.items.filter(item => {
             if (item.visibleWhen === 'hard-words-count' && hardWordsCount <= 0) return false
+            if (item.visibleWhen === 'course-vocab-count' && courseVocabCount <= 0) return false
             if (item.requiresIELTSStudents) return hasIELTSStudents
             if (item.requiresMockExamAccess) return canSeeMockExam
             if (!item.requiresPackage) return true

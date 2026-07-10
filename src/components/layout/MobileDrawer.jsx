@@ -1,10 +1,12 @@
 import { useEffect, useCallback } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useQuery } from '@tanstack/react-query'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, LogOut, Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
+import { supabase } from '@/lib/supabase'
 import UserAvatar from '@/components/common/UserAvatar'
 import { hasIELTSAccess } from '@/lib/packageAccess'
 
@@ -21,6 +23,19 @@ export default function MobileDrawer({ open, onClose, nav }) {
   const location = useLocation()
   const role = profile?.role || 'student'
   const displayName = profile?.display_name || profile?.full_name || t('common.user')
+
+  // Gate "مفردات مقرّراتي" — only students with university-course vocab tracks (visibleWhen: course-vocab-count).
+  const { data: courseVocabCount = 0 } = useQuery({
+    queryKey: ['course-vocab', 'count', profileId],
+    queryFn: async () => {
+      const { count } = await supabase
+        .from('vocab_cards').select('id', { count: 'exact', head: true })
+        .eq('student_id', profileId).like('source', 'uni:%')
+      return count || 0
+    },
+    enabled: !!profileId && role === 'student',
+    staleTime: 300_000,
+  })
 
   // Close on route change
   useEffect(() => { onClose() }, [location.pathname])
@@ -95,6 +110,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
             <div className="px-3 py-4 space-y-5">
               {(nav.drawerSections || nav.sections).map((section) => {
                 const visibleItems = section.items.filter(item => {
+                  if (item.visibleWhen === 'course-vocab-count' && courseVocabCount <= 0) return false
                   if (!item.requiresPackage) return true
                   if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
                   return true
