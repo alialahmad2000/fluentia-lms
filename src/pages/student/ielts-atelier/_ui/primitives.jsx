@@ -98,7 +98,12 @@ export function BandGauge({ current, target, min = 4, max = 9, size = 208, label
   const c = 2 * Math.PI * r
   const sweep = 0.75            // 270° of the full circle
   const has = current != null
-  const frac = (b) => Math.max(0, Math.min(1, (Number(b) - min) / (max - min)))
+  // Adaptive floor: a beginner (band 2.5, target 3.5) must still sit ON the arc,
+  // never clamped to an empty gauge. The scale drops below the default 4.0 min
+  // just enough to contain the student's real numbers.
+  const _vals = [current, target].filter((v) => v != null).map(Number)
+  const lo = _vals.length ? Math.max(0, Math.min(min, Math.floor(Math.min(..._vals) - 0.5))) : min
+  const frac = (b) => Math.max(0, Math.min(1, (Number(b) - lo) / (max - lo)))
   const progLen = has ? frac(current) * sweep * c : 0
   const trackLen = sweep * c
   const tAngle = target != null ? (135 + frac(target) * 270) * (Math.PI / 180) : null
@@ -141,16 +146,23 @@ export function BandGauge({ current, target, min = 4, max = 9, size = 208, label
 
 // ── Band track (current → target on the 4–9 scale) ────────────────────────
 export function BandTrack({ current, target, min = 4, max = 9, height = 8 }) {
-  const pos = (b) => `${Math.max(0, Math.min(100, ((Number(b) - min) / (max - min)) * 100))}%`
+  const _vals = [current, target].filter((v) => v != null).map(Number)
+  const lo = _vals.length ? Math.max(0, Math.min(min, Math.floor(Math.min(..._vals) - 0.5))) : min
+  const pos = (b) => `${Math.max(0, Math.min(100, ((Number(b) - lo) / (max - lo)) * 100))}%`
   const has = current != null
   return (
     <div>
-      <div style={{ height, borderRadius: 20, background: 'var(--iel-track)', position: 'relative', marginTop: 14 }}>
+      <div style={{ height, borderRadius: 20, background: 'var(--iel-track)', position: 'relative', marginTop: 22 }}>
         {has && <div style={{ position: 'absolute', top: 0, bottom: 0, insetInlineStart: 0, width: pos(current), borderRadius: 20, background: 'linear-gradient(90deg, var(--iel-good), var(--iel-accent))' }} />}
-        {target != null && <div style={{ position: 'absolute', top: -4, insetInlineStart: pos(target), width: 2, height: height + 8, background: 'var(--iel-gold)', borderRadius: 2 }} />}
+        {target != null && (
+          <div style={{ position: 'absolute', top: -20, insetInlineStart: pos(target), display: 'flex', flexDirection: 'column', alignItems: 'center', transform: 'translateX(50%)' }}>
+            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--iel-gold-ink, var(--iel-gold))', whiteSpace: 'nowrap', marginBottom: 3 }}>الهدف {Number(target).toFixed(1)}</span>
+            <span style={{ width: 2, height: height + 8, background: 'var(--iel-gold)', borderRadius: 2 }} />
+          </div>
+        )}
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--iel-ink-3)', marginTop: 7, fontWeight: 600 }}>
-        <span>{min}.0</span>{target != null && <span>الهدف {Number(target).toFixed(1)}</span>}<span>{max}.0</span>
+        <span>{lo.toFixed(1)}</span><span>{Number(max).toFixed(1)}</span>
       </div>
     </div>
   )
@@ -224,7 +236,7 @@ export function PrimaryButton({ children, onClick, disabled, style }) {
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '12px 22px', borderRadius: 12,
       border: 0, cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 15, fontWeight: 700,
       color: disabled ? 'var(--iel-ink-3)' : '#fff', position: 'relative', overflow: 'hidden',
-      background: disabled ? 'var(--iel-surface-2)' : 'linear-gradient(135deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 62%, var(--iel-gold)))',
+      background: disabled ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))',
       boxShadow: disabled ? 'none' : '0 8px 22px -10px color-mix(in srgb, var(--iel-accent) 75%, #000), inset 0 1px 0 rgba(255,255,255,.22)',
       opacity: disabled ? 0.7 : 1, ...style,
     }}>{children}</button>

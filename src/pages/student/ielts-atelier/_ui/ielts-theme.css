@@ -155,9 +155,12 @@ html .iel-exam-clinical.iel-exam-clinical,
   transition:transform .2s ease; }
 .iel-station .lbl{ font-size:11.5px; font-weight:700; color:var(--iel-ink-3); margin-top:8px; line-height:1.3; }
 .iel-station .sub{ font-size:10px; font-weight:600; color:var(--iel-ink-3); opacity:.7; margin-top:2px; }
-/* connector line to the NEXT station (RTL: extends toward the start/right) */
+/* connector to the NEXT station — spans the gap from this dot's centre toward
+   the next dot (RTL-safe): inset-inline-start:50% anchors it at the dot centre
+   and it extends one station-width toward the following station. No stray
+   segment past the first/last station. */
 .iel-station:not(:last-child)::after{ content:''; position:absolute; top:17px; height:2px;
-  inset-inline-start:-50%; width:100%; background:var(--iel-border); z-index:0; }
+  inset-inline-start:50%; width:100%; background:var(--iel-border); z-index:0; }
 .iel-station.done .dot{ background:color-mix(in srgb, var(--iel-accent) 20%, var(--iel-surface-2)); border-color:color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border)); color:var(--iel-accent-ink); }
 .iel-station.done:not(:last-child)::after{ background:linear-gradient(90deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border))); }
 .iel-station.done .lbl{ color:var(--iel-ink-2); }
