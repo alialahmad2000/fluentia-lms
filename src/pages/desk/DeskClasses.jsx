@@ -50,7 +50,7 @@ export default function DeskClasses() {
                 {/* number rail */}
                 <div className="desk-class-rail">
                   <span className="font-['Hanken_Grotesk'] font-black text-[15px]" dir="ltr">{String(c.number).padStart(2, '0')}</span>
-                  <span className="font-['Hanken_Grotesk'] text-[10px] tracking-[0.14em] uppercase" dir="ltr" style={{ color: 'rgba(26,19,8,0.62)' }}>Class</span>
+                  <span className="font-['Hanken_Grotesk'] text-[10px] tracking-[0.14em] uppercase" dir="ltr" style={{ color: 'rgba(255,243,238,0.78)' }}>Class</span>
                 </div>
                 {/* body */}
                 <div className="flex-1 min-w-0 p-6 flex items-center gap-4">

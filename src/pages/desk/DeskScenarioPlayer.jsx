@@ -227,7 +227,7 @@ export default function DeskScenarioPlayer() {
                   placeholder="Write your report in English here…"
                   dir="ltr" rows={7}
                   className="w-full rounded-xl p-3.5 font-['Hanken_Grotesk'] text-[14px] leading-relaxed outline-none resize-y transition-colors"
-                  style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(239, 106, 67,0.16)', color: 'var(--cream)' }}
+                  style={{ background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(58,42,84,0.14)', color: 'var(--ink)' }}
                   onFocus={(e) => { e.target.style.borderColor = 'rgba(239, 106, 67,0.4)' }}
                   onBlur={(e) => { e.target.style.borderColor = 'rgba(239, 106, 67,0.16)' }}
                 />

@@ -166,7 +166,7 @@ function ReflectPractice({ practice, onSolved }) {
       <textarea value={text} onChange={(e) => { setText(e.target.value); if (e.target.value.trim().split(/\s+/).length >= 6) onSolved?.() }}
         dir="ltr" rows={3} placeholder="Write your version in English…"
         className="w-full rounded-xl px-4 py-3 font-['Hanken_Grotesk'] text-[14px] resize-none outline-none"
-        style={{ background: 'rgba(10,13,20,0.6)', border: '1px solid rgba(239, 106, 67,0.18)', color: 'var(--cream)' }} />
+        style={{ background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(58,42,84,0.14)', color: 'var(--ink)' }} />
       <p className="font-['Hanken_Grotesk'] text-[11px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.4)' }}>{words} words · This one's for you — it isn't graded, it just gets you writing.</p>
     </div>
   )

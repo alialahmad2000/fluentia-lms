@@ -148,7 +148,7 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
           </div>
         </div>
         {!ended && <div className="desk-signal desk-signal-sm desk-signal-steady" aria-hidden><span/><span/><span/><span/></div>}
-        <span className="font-['Hanken_Grotesk'] text-[13px] tabular-nums px-2.5 py-1 rounded-lg" dir="ltr" style={{ color: ended ? 'rgba(42, 33, 64,0.5)' : 'var(--brass-hi)', background: 'rgba(0,0,0,0.25)' }}>{fmt(seconds)}</span>
+        <span className="desk-mono text-[13px] tabular-nums px-2.5 py-1 rounded-lg" dir="ltr" style={{ color: ended ? 'rgba(42, 33, 64,0.5)' : 'var(--coral-deep,#cf4a1c)', background: 'rgba(58,42,84,0.07)' }}>{fmt(seconds)}</span>
       </div>
 
       {/* the live roleplay — auto-starts so answering feels seamless */}
