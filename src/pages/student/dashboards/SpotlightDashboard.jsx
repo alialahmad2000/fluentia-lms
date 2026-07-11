@@ -22,6 +22,7 @@ import {
   MapPin,
   BookMarked,
   Sparkles,
+  Headphones,
 } from 'lucide-react'
 
 import { useAuthStore } from '../../../stores/authStore'
@@ -369,91 +370,109 @@ function Section({ title, icon: Icon, defaultOpen = false, hue = 'var(--ds-accen
 /* ── FARDI HERO — goal-framed home for a custom-curriculum student ──
    Leads with her mission, then track progress (X of N), then her next 1:1
    session; XP/streak/level demoted to a small meta row. Own hooks at top. */
-function FardiHero({ studentId, greeting, firstName, mission, completedUnits, totalUnits, xp, streak, level, heroTo, allDone, reduced, g }) {
+/* Eastern-Arabic numerals — this surface is fully native-Arabic so digits match. */
+const toAr = (n) => String(n ?? 0).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[+d])
+
+function FardiHero({ studentId, greeting, firstName, mission, heroTitle, heroTitleEn, heroUnitNumber, units = [], completedUnits, totalUnits, xp, streak, level, heroTo, allDone, reduced, g }) {
   const { data: sessions = [] } = useUpcomingPrivateSessions(studentId, true, 1)
   const next = sessions[0] || null
-  const pct = totalUnits > 0 ? Math.round((completedUnits / totalUnits) * 100) : 0
   const rise = reduced ? {} : { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 } }
 
+  const titleParts = allDone ? [g('أحسنت — رحلة مكتملة', 'أحسنتِ — رحلة مكتملة')] : String(heroTitle || '').split('·')
+  const titleMain = (titleParts[0] || '').trim()
+  const titleSub = (titleParts[1] || '').trim()
+
+  // 12-segment journey ring: dim pips for all, the current stop glows.
+  const R = 38, C = 2 * Math.PI * R, seg = C / 12 - 5, segP = C / 12
+  const curIdx = Math.min(Math.max(completedUnits, 0), 11)
+
   return (
-    <>
-      <motion.p {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE }} className="atlas-sub" style={{ margin: 0 }}>
-        {greeting}
-        {firstName ? <span style={{ color: '#fff', fontWeight: 700 }}>{` · ${firstName}`}</span> : null}
-      </motion.p>
+    <div className="fardi2">
+      <motion.div className="fardi2__main" {...rise} transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE }}>
+        <p className="atlas-sub" style={{ margin: 0 }}>
+          {greeting}{firstName ? <span style={{ color: '#fff', fontWeight: 700 }}>{` · ${firstName}`}</span> : null}
+        </p>
+        <p className="fardi-eyebrow f2-eyebrow">
+          <Sparkles size={13} strokeWidth={2.4} aria-hidden="true" />
+          {allDone ? g('أتممت مسارك', 'أتممتِ مساركِ') : <>{g('وحدتك الحالية', 'وحدتكِ الحالية')} · الوحدة {toAr(heroUnitNumber)}</>}
+        </p>
+        <h1 className="f2-title">{titleMain}</h1>
+        {titleSub ? <div className="f2-subtitle">{titleSub}</div> : null}
+        {heroTitleEn ? <div className="f2-en"><span className="ltr" dir="ltr">{heroTitleEn}</span></div> : null}
+        {mission ? <div className="f2-quote"><p>{mission}</p></div> : null}
+        <div className="f2-cta-row">
+          <Link to={heroTo} className="atlas-cta">
+            <Play size={18} strokeWidth={2.4} fill="currentColor" />
+            <span style={{ position: 'relative', zIndex: 1 }}>{allDone ? g('راجع وحداتك', 'راجعي وحداتكِ') : g('ابدأ اليوم', 'ابدئي اليوم')}</span>
+          </Link>
+          <Link to={heroTo} className="f2-cta2">
+            <Headphones size={18} strokeWidth={2.1} aria-hidden="true" />
+            دقيقة قبل الدرس
+          </Link>
+        </div>
+      </motion.div>
 
-      <motion.p {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.05 }} className="fardi-eyebrow" style={{ marginTop: 'clamp(12px,3vw,18px)' }}>
-        <Sparkles size={13} strokeWidth={2.4} aria-hidden="true" />
-        {g('مهمتك', 'مهمتكِ')}
-      </motion.p>
+      <motion.div className="f2-panel-wrap" {...rise} transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE, delay: 0.08 }}>
+        <div className="f2-panel">
+          <div className="f2-ring">
+            <div className="f2-ring__wrap">
+              <svg className="f2-ring__svg" viewBox="0 0 88 88" aria-hidden="true">
+                <circle cx="44" cy="44" r={R} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${seg.toFixed(2)} 5`} />
+                <circle className="f2-ring__cur" cx="44" cy="44" r={R} fill="none" stroke="url(#f2pg)" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${seg.toFixed(2)} ${(C - seg).toFixed(2)}`} strokeDashoffset={-curIdx * segP} />
+                <defs><linearGradient id="f2pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#a855f7" /><stop offset="1" stopColor="#e0b3ff" /></linearGradient></defs>
+              </svg>
+              <div className="f2-ring__cx"><div className="f2-ring__num">{toAr(heroUnitNumber)}</div><div className="f2-ring__lab">من {toAr(totalUnits)}</div></div>
+            </div>
+            <div className="f2-ring__meta">
+              <div className="k">{g('مسارك المهني', 'مساركِ المهني')}</div>
+              <div className="s">{toAr(totalUnits)} وحدة {g('على قياس تخصصك', 'على قياس تخصصكِ')}</div>
+            </div>
+          </div>
 
-      <motion.h1 {...rise} transition={reduced ? undefined : { duration: 0.6, ease: APPLE_EASE, delay: 0.08 }} className="fardi-mission">
-        {mission}
-      </motion.h1>
+          <div className="f2-stats">
+            <div className="f2-stat"><span className="ic ic--p"><GraduationCap size={16} strokeWidth={2} /></span><span className="num">{toAr(level)}</span><span className="lab">المستوى</span></div>
+            <div className="f2-stat"><span className="ic ic--p2"><Zap size={16} strokeWidth={2} /></span><span className="num">{toAr(xp)}<small>XP</small></span><span className="lab">الخبرة</span></div>
+            <div className="f2-stat"><span className="ic ic--g"><Flame size={16} strokeWidth={2} className={streak >= 3 ? 'fire-pulse' : ''} /></span><span className="num">{toAr(streak)}</span><span className="lab">أيام متتالية</span></div>
+          </div>
+
+          <div className="f2-session">
+            <span className="ic"><CalendarClock size={18} strokeWidth={2} /></span>
+            <div className="min-w-0">
+              {next ? (
+                <>
+                  <div className="lab">{g('حصتك القادمة', 'حصتكِ القادمة')}</div>
+                  <div className="when">{formatSessionWhen(next.date, next.start_time)}</div>
+                </>
+              ) : (
+                <>
+                  <div className="lab">{g('حصصك الخاصة', 'حصصكِ الخاصة')}</div>
+                  <div className="when">{g('سنحدّد موعدك القادم قريباً', 'سنحدّد موعدكِ القادم قريباً')}</div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       {totalUnits > 0 ? (
-        <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.12 }} className="fardi-progress">
-          <div className="fardi-progress__head">
-            <span className="fardi-progress__label">{g('مسارك المهني', 'مساركِ المهني')}</span>
-            <span className="fardi-progress__count">
-              <b>{completedUnits}</b> من {totalUnits} {totalUnits === 1 ? 'وحدة' : 'وحدات'}
-            </span>
+        <motion.section className="f2-film-sec" {...rise} transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE, delay: 0.14 }}>
+          <div className="f2-film__head">
+            <span className="bar" aria-hidden="true" />
+            <span className="t">{g('مسارك على قياس تخصصك', 'مساركِ على قياس تخصصكِ')}</span>
+            <span className="s">{toAr(totalUnits)} وحدة</span>
           </div>
-          <div className="fardi-progress__track">
-            <motion.div
-              className="fardi-progress__fill"
-              initial={{ width: 0 }}
-              animate={{ width: `${pct}%` }}
-              transition={reduced ? { duration: 0 } : { duration: 1, delay: 0.3, ease: 'easeOut' }}
-            />
+          <div className="f2-film">
+            {units.map((u) => (
+              <Link key={u.id} to={u.to || heroTo} className={`f2-chip${u.isCurrent ? ' is-cur' : ''}`}>
+                <span className="f2-chip__art" style={u.cover_image_url ? { backgroundImage: `url(${u.cover_image_url})` } : undefined} />
+                <span className="f2-chip__no">{u.isCurrent ? 'الآن' : <>الوحدة {toAr(u.unit_number)}</>}</span>
+                <span className="f2-chip__t">{String(u.theme_ar || u.theme_en || '').split('·')[0].trim()}</span>
+              </Link>
+            ))}
           </div>
-        </motion.div>
+        </motion.section>
       ) : null}
-
-      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.16 }}>
-        {next ? (
-          <div className="fardi-session">
-            <span className="fardi-session__icon"><CalendarClock size={18} strokeWidth={2} /></span>
-            <div className="min-w-0">
-              <div className="fardi-session__label">{g('حصتك القادمة', 'حصتكِ القادمة')}</div>
-              <div className="fardi-session__when">{formatSessionWhen(next.date, next.start_time)}</div>
-              {next.notes ? <div className="fardi-session__note">{next.notes}</div> : null}
-            </div>
-          </div>
-        ) : (
-          <div className="fardi-session fardi-session--empty">
-            <span className="fardi-session__icon"><CalendarClock size={18} strokeWidth={2} /></span>
-            <div className="min-w-0">
-              <div className="fardi-session__label">{g('حصصك الخاصة', 'حصصكِ الخاصة')}</div>
-              <div className="fardi-session__when" style={{ fontSize: 13.5, fontWeight: 600, color: 'rgba(255,255,255,0.75)' }}>
-                {g('سنحدّد موعدك القادم قريباً', 'سنحدّد موعدكِ القادم قريباً')}
-              </div>
-            </div>
-          </div>
-        )}
-      </motion.div>
-
-      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.2 }} className="fardi-meta">
-        <span className="fardi-meta__item">
-          <GraduationCap size={14} strokeWidth={2} style={{ color: 'var(--accent-individual-strong,#c084fc)' }} /> المستوى <b>{level}</b>
-        </span>
-        <span className="fardi-meta__dot" aria-hidden="true" />
-        <span className="fardi-meta__item">
-          <Zap size={14} strokeWidth={2} style={{ color: 'var(--accent-individual-strong,#c084fc)' }} /> <b>{xp.toLocaleString('en-US')}</b> XP
-        </span>
-        <span className="fardi-meta__dot" aria-hidden="true" />
-        <span className="fardi-meta__item">
-          <Flame size={14} strokeWidth={2} className={streak >= 3 ? 'fire-pulse' : ''} style={{ color: '#fbbf24' }} /> <b>{streak}</b> يوم
-        </span>
-      </motion.div>
-
-      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.24 }} style={{ marginTop: 'clamp(20px,4vw,30px)' }}>
-        <Link to={heroTo} className="atlas-cta">
-          <Play size={18} strokeWidth={2.4} fill="currentColor" />
-          <span style={{ position: 'relative', zIndex: 1 }}>{allDone ? g('راجع وحداتك', 'راجعي وحداتكِ') : g('ابدأ اليوم', 'ابدئي اليوم')}</span>
-        </Link>
-      </motion.div>
-    </>
+    </div>
   )
 }
 
@@ -539,6 +558,7 @@ export default function SpotlightDashboard() {
 
   const heroCover = current?.cover_image_url || null
   const heroTitle = current?.theme_ar || g('تابع رحلتك', 'تابعي رحلتكِ')
+  const heroTitleEn = current?.theme_en || ''
   const heroUnitNumber = current?.unit_number
   const heroTo = current?.to || '/student/curriculum'
 
@@ -561,6 +581,10 @@ export default function SpotlightDashboard() {
               greeting={getGreeting()}
               firstName={firstName}
               mission={mission}
+              heroTitle={heroTitle}
+              heroTitleEn={heroTitleEn}
+              heroUnitNumber={heroUnitNumber}
+              units={units}
               completedUnits={completedUnits}
               totalUnits={totalUnits}
               xp={xp}
@@ -679,7 +703,8 @@ export default function SpotlightDashboard() {
         </header>
 
         {/* ════════ 2 · JOURNEY FILMSTRIP — the level, floating in the world ════════ */}
-        {totalUnits > 0 ? (
+        {/* Fardi students get their own sovereign filmstrip inside FardiHero — skip this generic one. */}
+        {!isFardi && totalUnits > 0 ? (
           <motion.div {...rise} transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE, delay: 0.05 }}>
             <AtlasLabel hint={journey.level?.name_ar ? `${journey.level.name_ar} · ${journey.level.cefr}` : undefined}>
               {g('رحلتك في هذا المستوى', 'رحلتكِ في هذا المستوى')}
