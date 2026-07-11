@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
@@ -23,10 +23,13 @@ import {
   BookMarked,
   Sparkles,
   Headphones,
+  Pause,
+  X,
 } from 'lucide-react'
 
 import { useAuthStore } from '../../../stores/authStore'
 import { useG } from '../../../i18n/gender'
+import { supabase } from '../../../lib/supabase'
 import StudentDashboardSkeleton from '../../../components/skeletons/StudentDashboardSkeleton'
 
 import { APPLE_EASE } from './_premiumShell'
@@ -373,10 +376,88 @@ function Section({ title, icon: Icon, defaultOpen = false, hue = 'var(--ds-accen
 /* Eastern-Arabic numerals — this surface is fully native-Arabic so digits match. */
 const toAr = (n) => String(n ?? 0).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[+d])
 
+/* "دقيقة قبل الدرس" — plays the current unit's bilingual audio primer right on the
+   home (no navigation): tap → listen for a minute → close → start. */
+function FardiPrimerSheet({ primer, onClose, g }) {
+  const audioRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const [pct, setPct] = useState(0)
+  const [showText, setShowText] = useState(false)
+
+  useEffect(() => {
+    const a = audioRef.current
+    if (!a) return
+    const onTime = () => setPct(a.duration ? (a.currentTime / a.duration) * 100 : 0)
+    const onEnd = () => { setPlaying(false); setPct(0) }
+    const onPlay = () => setPlaying(true)
+    const onPause = () => setPlaying(false)
+    a.addEventListener('timeupdate', onTime)
+    a.addEventListener('ended', onEnd)
+    a.addEventListener('play', onPlay)
+    a.addEventListener('pause', onPause)
+    return () => { a.removeEventListener('timeupdate', onTime); a.removeEventListener('ended', onEnd); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause) }
+  }, [primer])
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+  }, [onClose])
+
+  const toggle = () => { const a = audioRef.current; if (!a) return; if (a.paused) a.play().catch(() => {}); else a.pause() }
+
+  return createPortal(
+    <div className="f2-primer-back" onMouseDown={onClose} dir="rtl">
+      <div className="f2-primer" onMouseDown={(e) => e.stopPropagation()}>
+        <button type="button" className="f2-primer__x" onClick={onClose} aria-label="إغلاق"><X size={18} strokeWidth={2.4} /></button>
+        <div className="f2-primer__eyebrow"><Headphones size={14} strokeWidth={2.2} /> دقيقة قبل الدرس</div>
+        {primer == null || primer === 'loading' ? (
+          <div className="f2-primer__load">…</div>
+        ) : !primer.url ? (
+          <div className="f2-primer__load">{g('لا يوجد تمهيد لهذه الوحدة بعد', 'لا يوجد تمهيد لهذه الوحدة بعد')}</div>
+        ) : (
+          <>
+            <div className="f2-primer__row">
+              <button type="button" className="f2-primer__play" onClick={toggle} aria-label={playing ? 'إيقاف' : 'تشغيل'}>
+                {playing ? <Pause size={26} fill="#1a1204" /> : <Play size={26} fill="#1a1204" style={{ marginInlineStart: 3 }} />}
+              </button>
+              <div className="min-w-0" style={{ flex: 1 }}>
+                <div className="f2-primer__t">{g('اسمع الكلمات المفتاحية قبل ما تبدأ', 'اسمعي الكلمات المفتاحية قبل ما تبدئي')}</div>
+                <div className="f2-primer__s">{g('بالعربي والإنجليزي، على مهلك', 'بالعربي والإنجليزي، على مهلكِ')}</div>
+                <div className="f2-primer__bar"><div className="f2-primer__fill" style={{ width: `${pct}%` }} /></div>
+              </div>
+            </div>
+            {primer.text ? (
+              <>
+                <button type="button" className="f2-primer__toggle" onClick={() => setShowText((v) => !v)}>{showText ? 'إخفاء النص' : g('اعرض النص', 'اعرضي النص')}</button>
+                {showText ? <p className="f2-primer__text" style={{ unicodeBidi: 'plaintext' }}>{primer.text}</p> : null}
+              </>
+            ) : null}
+            <audio ref={audioRef} src={primer.url} preload="none" playsInline style={{ display: 'none' }} />
+          </>
+        )}
+      </div>
+    </div>,
+    document.body,
+  )
+}
+
 function FardiHero({ studentId, greeting, firstName, mission, heroTitle, heroTitleEn, heroUnitNumber, units = [], completedUnits, totalUnits, xp, streak, level, heroTo, allDone, reduced, g }) {
   const { data: sessions = [] } = useUpcomingPrivateSessions(studentId, true, 1)
   const next = sessions[0] || null
   const rise = reduced ? {} : { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 } }
+
+  const curUnit = units.find((u) => u.isCurrent) || units[0] || null
+  const [primerOpen, setPrimerOpen] = useState(false)
+  const [primer, setPrimer] = useState(null)
+  const openPrimer = async () => {
+    setPrimerOpen(true)
+    if (primer || !curUnit?.id) return
+    setPrimer('loading')
+    const { data } = await supabase.from('curriculum_units').select('primer_audio_url, primer_text').eq('id', curUnit.id).maybeSingle()
+    setPrimer({ url: data?.primer_audio_url || null, text: data?.primer_text || null })
+  }
 
   const titleParts = allDone ? [g('أحسنت — رحلة مكتملة', 'أحسنتِ — رحلة مكتملة')] : String(heroTitle || '').split('·')
   const titleMain = (titleParts[0] || '').trim()
@@ -405,10 +486,10 @@ function FardiHero({ studentId, greeting, firstName, mission, heroTitle, heroTit
             <Play size={18} strokeWidth={2.4} fill="currentColor" />
             <span style={{ position: 'relative', zIndex: 1 }}>{allDone ? g('راجع وحداتك', 'راجعي وحداتكِ') : g('ابدأ اليوم', 'ابدئي اليوم')}</span>
           </Link>
-          <Link to={heroTo} className="f2-cta2">
+          <button type="button" onClick={openPrimer} className="f2-cta2">
             <Headphones size={18} strokeWidth={2.1} aria-hidden="true" />
             دقيقة قبل الدرس
-          </Link>
+          </button>
         </div>
       </motion.div>
 
@@ -472,6 +553,8 @@ function FardiHero({ studentId, greeting, firstName, mission, heroTitle, heroTit
           </div>
         </motion.section>
       ) : null}
+
+      {primerOpen ? <FardiPrimerSheet primer={primer} onClose={() => setPrimerOpen(false)} g={g} /> : null}
     </div>
   )
 }
