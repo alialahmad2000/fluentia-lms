@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useUnitBriefData } from './hooks/useUnitBriefData'
 import { useAuthStore } from '../../../../stores/authStore'
 import BriefHero from './components/brief/BriefHero'
+import BriefPrimer from './components/brief/BriefPrimer'
 import BriefPromise from './components/brief/BriefPromise'
 import BriefGainsGrid from './components/brief/BriefGainsGrid'
 import BriefWhyMatters from './components/brief/BriefWhyMatters'
@@ -78,6 +79,12 @@ export default function UnitBrief({ unitId, onStart, onSkip, mode = 'first-visit
         <Fade delay={0} reduced={prefersReducedMotion}>
           <BriefHero unit={unit} level={level} prefersReducedMotion={prefersReducedMotion} />
         </Fade>
+
+        {unit.primer_audio_url && (
+          <Fade delay={0.1} reduced={prefersReducedMotion}>
+            <BriefPrimer unit={unit} />
+          </Fade>
+        )}
 
         <Fade delay={0.15} reduced={prefersReducedMotion}>
           <BriefGainsGrid stats={stats} unit={unit} prefersReducedMotion={prefersReducedMotion} />

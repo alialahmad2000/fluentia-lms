@@ -16,6 +16,7 @@ export function useUnitBriefData(unitId) {
           id, unit_number, theme_ar, theme_en, description_ar, description_en,
           cover_image_url, estimated_minutes,
           why_matters, outcomes, brief_questions, brief_generated_at,
+          primer_audio_url, primer_text,
           curriculum_levels!inner(id, level_number, cefr, name_ar)
         `)
         .eq('id', unitId)
