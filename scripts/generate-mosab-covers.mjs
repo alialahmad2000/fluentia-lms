@@ -6,7 +6,7 @@
 import { chromium } from 'playwright';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Rocket, Truck, HeartPulse, HeartHandshake, Briefcase } from 'lucide-react';
+import { Rocket, Truck, HeartPulse, HeartHandshake, Briefcase, Megaphone, Headphones, Wallet, Users, Mail, Presentation, TrendingUp } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -23,6 +23,13 @@ const COURSES = [
   { sort: 3, code: 'HCM 345', name_en: 'Healthcare Management',   accent: '#34d399', glyph: icon(HeartPulse) },
   { sort: 4, code: 'NPF 323', name_en: 'Nonprofit Management',    accent: '#fb7185', glyph: icon(HeartHandshake) },
   { sort: 5, code: 'MGT 303', name_en: 'Professional Skills',     accent: '#a78bfa', glyph: icon(Briefcase) },
+  { sort: 6, code: 'MKT',     name_en: 'Marketing Basics',        accent: '#fb923c', glyph: icon(Megaphone) },
+  { sort: 7, code: 'SRV',     name_en: 'Customer Service',        accent: '#22d3ee', glyph: icon(Headphones) },
+  { sort: 8, code: 'FIN',     name_en: 'Money & Budgeting',       accent: '#eab308', glyph: icon(Wallet) },
+  { sort: 9, code: 'TEAM',    name_en: 'Working in a Team',       accent: '#818cf8', glyph: icon(Users) },
+  { sort: 10, code: 'COMM',   name_en: 'Communication at Work',   accent: '#2dd4bf', glyph: icon(Mail) },
+  { sort: 11, code: 'PRES',   name_en: 'Giving a Presentation',   accent: '#f472b6', glyph: icon(Presentation) },
+  { sort: 12, code: 'GROW',   name_en: 'Growing in Your Career',  accent: '#a3e635', glyph: icon(TrendingUp) },
 ];
 
 const html = (c) => `<!doctype html><html><head><meta charset="utf-8">
@@ -87,10 +94,16 @@ const html = (c) => `<!doctype html><html><head><meta charset="utf-8">
 </div></body></html>`;
 
 async function main() {
+  // skip units that already have a cover (idempotent — re-run only fills new units)
+  const { data: existing } = await supabase.from('curriculum_units')
+    .select('custom_sort, cover_image_url').eq('owner_student_id', MOSAB_ID);
+  const covered = new Set((existing || []).filter((u) => u.cover_image_url).map((u) => u.custom_sort));
+
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
 
   for (const c of COURSES) {
+    if (covered.has(c.sort)) { console.log(`  ⏭️  ${c.code} (sort ${c.sort}) already has a cover — skipping`); continue; }
     await page.setContent(html(c), { waitUntil: 'networkidle' });
     await page.waitForTimeout(150);
     const buf = await page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: W, height: H } });

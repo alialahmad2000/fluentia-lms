@@ -1,0 +1,164 @@
+{
+  "kind": "unit",
+  "custom_sort": 10,
+  "theme_en": "Communication at Work",
+  "theme_ar": "التواصل في العمل · الإيميل والاتصال",
+  "desc_ar": "إنجليزي بسيط عن التواصل في العمل: الإيميل، المكالمة، والرسالة.",
+  "why_ar": "لتتعلّم كلمات الإنجليزي التي تستخدمها لترسل إيميل وتردّ على مكالمة في العمل.",
+  "outcomes": [
+    "تقرأ نصاً بسيطاً عن التواصل في العمل",
+    "تتعلّم كلمات: email, message, meeting, reply",
+    "تتعلّم زمن المستقبل will و going to",
+    "تكتب إيميل عمل قصير ومهذّب"
+  ],
+  "warmup": [
+    "كم إيميل ترسل في اليوم؟",
+    "من آخر شخص كلّمته في الهاتف؟"
+  ],
+  "grammar": {
+    "en": "Future: will / going to",
+    "ar": "المستقبل: will / going to",
+    "explain_ar": "نستخدم will للقرارات السريعة والعروض التي تقررها في نفس اللحظة. ونستخدم be going to للخطط التي رتّبتها من قبل. تذكّر: will + الفعل الأساسي، و am/is/are going to + الفعل الأساسي.",
+    "explain_en_html": "<b>will</b> for a quick decision or an offer you make now.<br><i>The phone is ringing. I <b>will</b> answer it.</i><br><br><b>going to</b> for a plan you decided before.<br><i>We <b>are going to</b> have a meeting tomorrow.</i>",
+    "formula": "will + verb  ·  am/is/are going to + verb",
+    "examples": [
+      {"sentence": "I will send the email now.", "highlight": "will send", "translation_ar": "سأرسل الإيميل الآن."},
+      {"sentence": "We are going to have a meeting tomorrow.", "highlight": "are going to have", "translation_ar": "سنعقد اجتماعاً غداً."},
+      {"sentence": "The phone is ringing. I will answer it.", "highlight": "will answer", "translation_ar": "الهاتف يرن. سأردّ عليه."}
+    ],
+    "mistakes": [
+      {"wrong": "I will to send the email.", "correct": "I will send the email.", "explanation_ar": "بعد will يأتي الفعل الأساسي مباشرة بدون to."},
+      {"wrong": "We will going to have a meeting.", "correct": "We are going to have a meeting.", "explanation_ar": "لا نجمع will مع going to. اختر واحداً فقط."}
+    ],
+    "exercises": [
+      {"instruction_ar": "اختر الصيغة الصحيحة", "items": [
+        {"question": "The phone is ringing. I ___ answer it.", "options": ["will", "am going to"], "correct_answer": "will", "explanation_ar": "قرار سريع في نفس اللحظة، لذلك نستخدم will."},
+        {"question": "We ___ have a big meeting next Monday. It is on the calendar.", "options": ["will", "are going to"], "correct_answer": "are going to", "explanation_ar": "خطة رتّبناها من قبل، لذلك نستخدم are going to."},
+        {"question": "That bag looks heavy. I ___ help you.", "options": ["will", "am going to"], "correct_answer": "will", "explanation_ar": "عرض مساعدة الآن، لذلك نستخدم will."}
+      ]}
+    ]
+  },
+  "readings": [
+    {
+      "label": "A",
+      "title_en": "A Work Email",
+      "title_ar": "إيميل عمل",
+      "skill_en": "Finding the main idea",
+      "skill_ar": "إيجاد الفكرة الرئيسية",
+      "paragraphs": [
+        "Omar works in a small office in the city. Today he must write an important *email* to a client. He opens his computer and starts to type. First, he writes a polite *greeting* at the top. Then he explains the *problem* with the last order. Omar is careful because a good *message* helps the company look professional.",
+        "His manager says, 'I will *check* your email before you send it.' Omar smiles and says thank you. He knows a clear email is very important at *work*. He reads it again and fixes two small mistakes. Then he adds a friendly *reply* line at the end. He also writes his phone number under his name.",
+        "Finally, Omar clicks *send*. The client will get the email in one minute. Tomorrow they are going to have a short *meeting* about the new plan. Omar feels happy and *confident*. He is going to write more emails next week."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage mainly about?", "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+         "choices": ["Omar writes an important work email", "Omar buys a new computer", "Omar goes on a holiday", "Omar plays a game"],
+         "correct_answer": "Omar writes an important work email", "explanation_ar": "النص كله عن كتابة عمر لإيميل عمل مهم."},
+        {"question_type": "detail", "question_en": "Who will check Omar's email before he sends it?", "question_ar": "من سيراجع إيميل عمر قبل أن يرسله؟",
+         "choices": ["His manager", "His friend", "The client", "His brother"],
+         "correct_answer": "His manager", "explanation_ar": "المدير قال إنه سيراجع الإيميل قبل الإرسال."},
+        {"question_type": "sequence", "question_en": "What does Omar write first in the email?", "question_ar": "ما أول شيء يكتبه عمر في الإيميل؟",
+         "choices": ["A polite greeting", "His phone number", "The word send", "A long story"],
+         "correct_answer": "A polite greeting", "explanation_ar": "كتب أولاً تحية مهذّبة في الأعلى."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'confident' mean?", "question_ar": "ما معنى كلمة confident؟",
+         "choices": ["Sure of yourself", "Very tired", "Angry", "Hungry"],
+         "correct_answer": "Sure of yourself", "explanation_ar": "confident تعني واثق من نفسك."},
+        {"question_type": "cause_effect", "question_en": "Why is Omar careful with his email?", "question_ar": "لماذا يكون عمر حريصاً في إيميله؟",
+         "choices": ["Because a good message helps the company", "Because he wants to sleep", "Because he is hungry", "Because the office is cold"],
+         "correct_answer": "Because a good message helps the company", "explanation_ar": "لأن الرسالة الجيدة تساعد الشركة وتجعلها تبدو محترفة."},
+        {"question_type": "inference", "question_en": "What can we guess about Omar?", "question_ar": "ماذا نستنتج عن عمر؟",
+         "choices": ["He takes his work seriously", "He hates his job", "He never uses a computer", "He is a teacher"],
+         "correct_answer": "He takes his work seriously", "explanation_ar": "يراجع الإيميل ويصلح الأخطاء، فهو يهتم بعمله."},
+        {"question_type": "detail", "question_en": "When are they going to have a short meeting?", "question_ar": "متى سيعقدون اجتماعاً قصيراً؟",
+         "choices": ["Tomorrow", "Next year", "Last week", "Never"],
+         "correct_answer": "Tomorrow", "explanation_ar": "قال النص إنهم سيجتمعون غداً."}
+      ],
+      "vocab": [
+        ["email", "a message you send on a computer", "بريد إلكتروني / إيميل", "He sends an email to the client.", "noun", true],
+        ["greeting", "polite words you say at the start", "تحية", "She writes a warm greeting.", "noun", true],
+        ["problem", "something that is wrong or hard", "مشكلة", "There is a small problem with the order.", "noun", true],
+        ["message", "words you send to someone", "رسالة", "A clear message helps the company.", "noun", true],
+        ["check", "to look at something to see if it is right", "يتحقّق / يراجع", "The manager will check the email.", "verb", true],
+        ["work", "a job or the place you do your job", "عمل", "Email is important at work.", "noun", true],
+        ["reply", "an answer to a message", "ردّ", "He adds a friendly reply line.", "noun", true],
+        ["send", "to make something go to another person", "يرسل", "He clicks send.", "verb", true],
+        ["meeting", "when people come together to talk", "اجتماع", "They will have a short meeting.", "noun", true],
+        ["confident", "sure of yourself", "واثق", "Omar feels happy and confident.", "adjective", true]
+      ]
+    },
+    {
+      "label": "B",
+      "title_en": "Answering the Phone",
+      "title_ar": "الردّ على الهاتف",
+      "skill_en": "Reading for detail",
+      "skill_ar": "القراءة لالتقاط التفاصيل",
+      "paragraphs": [
+        "Sara works at the front desk of a busy company. Her main job is to answer the *phone*. When it rings, she picks it up quickly and says a warm *hello*. She is always *polite* to every *caller*. Today a man calls and asks about a delivery. Sara listens with care and writes a short *note*.",
+        "The man wants to speak to the manager. Sara says, 'One moment, please. I will *transfer* your call now.' But the manager is not free. So Sara offers help. 'He is in a meeting. I am going to take a *message* for you,' she says. The man gives his name and *number*. Sara promises the manager will call back soon.",
+        "Sara ends the call in a kind way. She says, 'Thank you for calling. Have a nice day.' A good phone *voice* makes clients feel happy. Sara knows this skill is very useful at work. Next month she is going to teach a new worker how to answer *calls*."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is Sara's main job in the passage?", "question_ar": "ما عمل سارة الرئيسي في النص؟",
+         "choices": ["Answering the phone politely", "Cleaning the office", "Driving a car", "Cooking food"],
+         "correct_answer": "Answering the phone politely", "explanation_ar": "عملها الرئيسي هو الردّ على الهاتف بأدب."},
+        {"question_type": "detail", "question_en": "What does Sara do when the phone rings?", "question_ar": "ماذا تفعل سارة عندما يرنّ الهاتف؟",
+         "choices": ["She picks it up quickly and says hello", "She turns it off", "She leaves the room", "She waits one hour"],
+         "correct_answer": "She picks it up quickly and says hello", "explanation_ar": "ترفع السماعة بسرعة وتقول مرحباً."},
+        {"question_type": "cause_effect", "question_en": "Why does Sara take a message?", "question_ar": "لماذا تأخذ سارة رسالة؟",
+         "choices": ["Because the manager is in a meeting", "Because the phone is broken", "Because she is tired", "Because the man is angry"],
+         "correct_answer": "Because the manager is in a meeting", "explanation_ar": "المدير مشغول في اجتماع، لذلك تأخذ رسالة."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'polite' mean?", "question_ar": "ما معنى كلمة polite؟",
+         "choices": ["Kind and respectful", "Loud and rude", "Fast and busy", "Sad and quiet"],
+         "correct_answer": "Kind and respectful", "explanation_ar": "polite تعني مهذّب ومحترم."},
+        {"question_type": "detail", "question_en": "What does the man give Sara?", "question_ar": "ماذا يعطي الرجل سارة؟",
+         "choices": ["His name and number", "His car keys", "A cup of coffee", "A new phone"],
+         "correct_answer": "His name and number", "explanation_ar": "أعطاها اسمه ورقمه."},
+        {"question_type": "sequence", "question_en": "What does Sara say at the end of the call?", "question_ar": "ماذا تقول سارة في نهاية المكالمة؟",
+         "choices": ["Thank you for calling", "Go away now", "Call me never", "I am busy"],
+         "correct_answer": "Thank you for calling", "explanation_ar": "تنهي المكالمة بلطف وتقول شكراً لاتصالك."},
+        {"question_type": "inference", "question_en": "What can we guess about Sara's phone skill?", "question_ar": "ماذا نستنتج عن مهارة سارة في الهاتف؟",
+         "choices": ["It is useful and she can teach it", "It is useless", "She hates it", "She cannot speak"],
+         "correct_answer": "It is useful and she can teach it", "explanation_ar": "المهارة مفيدة وستعلّمها لموظف جديد."}
+      ],
+      "vocab": [
+        ["phone", "a machine you use to call people", "هاتف / تلفون", "Her job is to answer the phone.", "noun", true],
+        ["hello", "a word you say to greet someone", "مرحباً / أهلاً", "She says a warm hello.", "noun", true],
+        ["polite", "kind and respectful", "مهذّب", "Sara is always polite.", "adjective", true],
+        ["caller", "a person who is calling on the phone", "المتّصِل", "She is polite to every caller.", "noun", true],
+        ["note", "a short piece of writing to remember", "ملاحظة / مذكّرة", "She writes a short note.", "noun", true],
+        ["transfer", "to move a call to another person", "يحوّل المكالمة", "I will transfer your call.", "verb", true],
+        ["message", "words you leave for someone", "رسالة", "I am going to take a message.", "noun", true],
+        ["number", "the digits of a phone", "رقم", "The man gives his number.", "noun", true],
+        ["voice", "the sound you make when you speak", "صوت", "A good phone voice helps clients.", "noun", true],
+        ["calls", "times when people phone you", "مكالمات", "She will teach a worker to answer calls.", "noun", true]
+      ]
+    }
+  ],
+  "listening": {
+    "title_en": "My Work Morning",
+    "title_ar": "صباحي في العمل",
+    "transcript": "Hi, I'm Khalid. I work in an office. This morning I will write three emails to our clients. First, I am going to answer the phone calls. My boss says a polite message is very important. In the afternoon, we are going to have a short meeting. I love my job because I talk to people every day.",
+    "exercises": [
+      {"question_en": "Where does Khalid work?", "question_type": "detail", "options": ["In a shop", "In an office", "In a school", "In a hospital"], "correct_answer_index": 1, "difficulty": 1, "explanation_ar": "قال إنه يعمل في مكتب (office)."},
+      {"question_en": "How many emails will Khalid write this morning?", "question_type": "detail", "options": ["Two", "Five", "Three", "Four"], "correct_answer_index": 2, "difficulty": 2, "explanation_ar": "سيكتب ثلاثة إيميلات (three)."},
+      {"question_en": "What is Khalid mostly talking about?", "question_type": "main_idea", "options": ["His holiday", "His family", "His work day", "His new car"], "correct_answer_index": 2, "difficulty": 2, "explanation_ar": "النص عن يومه في العمل."},
+      {"question_en": "What are they going to have in the afternoon?", "question_type": "detail", "options": ["A party", "A short meeting", "A long lunch", "A test"], "correct_answer_index": 1, "difficulty": 3, "explanation_ar": "بعد الظهر سيعقدون اجتماعاً قصيراً."},
+      {"question_en": "Why does Khalid love his job?", "question_type": "inference", "options": ["He works alone", "He sleeps a lot", "He talks to people every day", "He never works"], "correct_answer_index": 2, "difficulty": 4, "explanation_ar": "يحب عمله لأنه يتحدث مع الناس كل يوم."},
+      {"question_en": "What does Khalid's boss say is important?", "question_type": "vocabulary", "options": ["A fast car", "A big desk", "A long lunch", "A polite message"], "correct_answer_index": 3, "difficulty": 5, "explanation_ar": "قال المدير إن الرسالة المهذّبة مهمة جداً."}
+    ]
+  },
+  "writing": {
+    "title_en": "Write a short work email",
+    "prompt_en": "Write a short work email to a client. Say hello, give one clear message, and end in a polite way.",
+    "prompt_ar": "اكتب إيميل عمل قصير إلى زبون. سلّم عليه، أعطِ رسالة واحدة واضحة، وأنهِ الإيميل بطريقة مهذّبة.",
+    "hints": ["Dear Mr Ali,", "I am writing about...", "I will send... / We are going to...", "Best regards,"],
+    "min": 40, "max": 90
+  },
+  "speaking": {
+    "title_en": "Talk about your work communication",
+    "prompt_en": "Talk about how you communicate at work or school. Do you write emails? Do you answer calls?",
+    "prompt_ar": "تحدث عن كيف تتواصل في العمل أو الدراسة. هل تكتب إيميلات؟ هل تردّ على المكالمات؟",
+    "prep": ["فكّر في طريقة تواصلك اليومية", "حضّر كلمات: email, call, message, meeting", "رتّب: ماذا تفعل أولاً وماذا بعده"],
+    "phrases": ["I will send an email", "I am going to call", "a polite message", "answer the phone", "have a meeting"]
+  }
+}

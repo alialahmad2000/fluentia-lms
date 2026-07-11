@@ -1,0 +1,165 @@
+{
+  "kind": "unit",
+  "custom_sort": 12,
+  "theme_en": "Growing in Your Career",
+  "theme_ar": "النمو المهني · نطوّر أنفسنا",
+  "desc_ar": "إنجليزي بسيط عن النمو المهني: التعلّم، المهارات، الخبرة، والترقية.",
+  "why_ar": "لتتعلّم كلمات الإنجليزي التي تصف كيف يتطوّر الإنسان في عمله ويحقّق أهدافه.",
+  "outcomes": [
+    "تقرأ نصاً بسيطاً عن النمو المهني",
+    "تتعلّم كلمات: skill, goal, promotion, experience",
+    "تستخدم المضارع التام لوصف خبرتك في العمل",
+    "تكتب عن أهدافك في العمل"
+  ],
+  "warmup": [
+    "ما المهارة التي تعلّمتها مؤخراً؟",
+    "ما هو هدفك في عملك أو دراستك؟"
+  ],
+  "grammar": {
+    "en": "Present Perfect (Intro)",
+    "ar": "المضارع التام",
+    "explain_ar": "نستخدم المضارع التام للكلام عن خبرة في الحياة (شيء حدث في وقتٍ ما، بدون تحديد الوقت بالضبط). الصيغة: have/has + التصريف الثالث للفعل (past participle). نستخدم has مع he/she/it، و have مع I/you/we/they.",
+    "explain_en_html": "<b>Present Perfect</b><br><br>We use it for life experience — something that happened at some time, without saying exactly when.<br>Form: <b>have/has</b> + past participle.<br><i>I <b>have worked</b> in a shop.</i><br><i>She <b>has learned</b> a new skill.</i>",
+    "formula": "Subject + have/has + <b>past participle</b>",
+    "examples": [
+      {"sentence": "I have worked in an office.", "highlight": "have worked", "translation_ar": "عملتُ في مكتب (لديّ هذه الخبرة)."},
+      {"sentence": "She has learned many new skills.", "highlight": "has learned", "translation_ar": "تعلّمت مهاراتٍ جديدة كثيرة."},
+      {"sentence": "We have reached our goal.", "highlight": "have reached", "translation_ar": "وصلنا إلى هدفنا."}
+    ],
+    "mistakes": [
+      {"wrong": "She have learned a new skill.", "correct": "She has learned a new skill.", "explanation_ar": "مع she نستخدم has وليس have."},
+      {"wrong": "He has work here for two years.", "correct": "He has worked here for two years.", "explanation_ar": "بعد has نحتاج التصريف الثالث worked وليس work."}
+    ],
+    "exercises": [
+      {"instruction_ar": "اختر الصيغة الصحيحة", "items": [
+        {"question": "I ___ in a big company for three years.", "options": ["have worked", "has worked"], "correct_answer": "have worked", "explanation_ar": "مع I نستخدم have مع worked."},
+        {"question": "She ___ many new skills at her job.", "options": ["has learned", "have learned"], "correct_answer": "has learned", "explanation_ar": "مع she نستخدم has مع learned."},
+        {"question": "They ___ their big goal this year.", "options": ["have reached", "has reached"], "correct_answer": "have reached", "explanation_ar": "مع they نستخدم have مع reached."}
+      ]}
+    ]
+  },
+  "readings": [
+    {
+      "label": "A",
+      "title_en": "Omar Learns New Skills",
+      "title_ar": "عمر يتعلّم مهارات جديدة",
+      "skill_en": "Finding the main idea",
+      "skill_ar": "إيجاد الفكرة الرئيسية",
+      "paragraphs": [
+        "Omar works in a small shop. Two years ago, he did not know much. He wanted to *learn* many new things. Every day, he asked his *manager* questions. He learned how to help the *customers* and how to count the money. Slowly, his *skills* got better.",
+        "Omar likes his *job*. He wants to *grow* and do more. His big *goal* is to become a team leader. He works hard every day to reach it. He *practices* his English too, because many customers speak English. He knows that good skills help him grow.",
+        "Last month, something good happened. His manager gave him more *experience*. Omar now *trains* the new workers. He shows them how to do the job. He feels happy and proud. He has learned a lot, and he is still learning today."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage mainly about?", "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+         "choices": ["A worker who learns and grows at his job", "A man who buys a new shop", "A student who fails his exam", "A customer who is angry"],
+         "correct_answer": "A worker who learns and grows at his job", "explanation_ar": "النص عن عاملٍ يتعلّم وينمو في عمله."},
+        {"question_type": "detail", "question_en": "Where does Omar work?", "question_ar": "أين يعمل عمر؟",
+         "choices": ["In a small shop", "In a big hospital", "In a school", "In a bank"],
+         "correct_answer": "In a small shop", "explanation_ar": "قال النص إن عمر يعمل في محلٍّ صغير."},
+        {"question_type": "vocabulary", "question_en": "In the passage, what does the word 'goal' mean?", "question_ar": "ماذا تعني كلمة 'goal' في النص؟",
+         "choices": ["A thing you want to reach", "A kind of money", "A new shop", "A customer"],
+         "correct_answer": "A thing you want to reach", "explanation_ar": "'goal' تعني هدفاً تريد الوصول إليه."},
+        {"question_type": "cause_effect", "question_en": "Why does Omar practice English?", "question_ar": "لماذا يتمرّن عمر على الإنجليزية؟",
+         "choices": ["Because many customers speak English", "Because he wants to leave his job", "Because his manager is angry", "Because the shop is closed"],
+         "correct_answer": "Because many customers speak English", "explanation_ar": "يتمرّن لأنّ كثيراً من الزبائن يتحدثون الإنجليزية."},
+        {"question_type": "inference", "question_en": "What can we understand about Omar?", "question_ar": "ماذا نفهم عن عمر؟",
+         "choices": ["He is hard-working and wants to grow", "He does not like his job", "He never asks questions", "He wants to stop learning"],
+         "correct_answer": "He is hard-working and wants to grow", "explanation_ar": "نفهم أنه مجتهد ويريد أن ينمو."},
+        {"question_type": "sequence", "question_en": "What happened last month?", "question_ar": "ماذا حدث الشهر الماضي؟",
+         "choices": ["His manager gave him more experience", "He started to work in the shop", "He learned to count money", "He asked his first question"],
+         "correct_answer": "His manager gave him more experience", "explanation_ar": "في الشهر الماضي أعطاه مديره خبرة أكثر."},
+        {"question_type": "detail", "question_en": "What does Omar do now with the new workers?", "question_ar": "ماذا يفعل عمر الآن مع العمال الجدد؟",
+         "choices": ["He trains them", "He sends them home", "He buys from them", "He counts their money"],
+         "correct_answer": "He trains them", "explanation_ar": "الآن يُدرّب عمر العمال الجدد."}
+      ],
+      "vocab": [
+        ["learn", "to get new knowledge or a skill", "يتعلّم", "He wants to learn English.", "verb", true],
+        ["manager", "the person who leads a team or shop", "مدير", "The manager helps the workers.", "noun", true],
+        ["customer", "a person who buys something", "زبون / عميل", "The shop has many customers.", "noun", true],
+        ["skill", "a thing you can do well", "مهارة", "Good skills help you get a job.", "noun", true],
+        ["job", "the work a person does for money", "وظيفة / عمل", "He likes his new job.", "noun", true],
+        ["grow", "to become bigger or better", "ينمو / يتطوّر", "He wants to grow in his career.", "verb", true],
+        ["goal", "a thing you want to reach", "هدف", "My goal is to speak English well.", "noun", true],
+        ["experience", "the things you learn by doing work", "خبرة", "She has ten years of experience.", "noun", true],
+        ["train", "to teach a person how to do something", "يُدرّب", "He trains the new workers.", "verb", true],
+        ["practice", "to do something many times to get better", "يتمرّن / يمارس", "He practices English every day.", "verb", true]
+      ]
+    },
+    {
+      "label": "B",
+      "title_en": "From Helper to Manager",
+      "title_ar": "من مساعِدة إلى مديرة",
+      "skill_en": "Reading for detail",
+      "skill_ar": "القراءة لالتقاط التفاصيل",
+      "paragraphs": [
+        "Sara started her *career* five years ago. Her first job was a small one. She was a helper in a big office. She made coffee and cleaned the desks. But Sara had a big dream. She wanted to *improve* and do more important work.",
+        "Every week, Sara learned a new *skill*. She read books at night. She asked for help from her *boss*. After two years, she got a *promotion*. Now she worked with the team. She got more *experience* and more money. Her hard work started to help her *career*.",
+        "Today, Sara is a manager. She has reached her big *goal*. She trains young helpers, just like she was before. She tells them, 'You can *grow* too.' Sara has learned one thing: hard work and new *skill* can change your life."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the main idea of the passage?", "question_ar": "ما الفكرة الرئيسية للنص؟",
+         "choices": ["Sara grew from a helper to a manager", "Sara opened her own office", "Sara stopped working after one year", "Sara did not like her boss"],
+         "correct_answer": "Sara grew from a helper to a manager", "explanation_ar": "الفكرة أن سارة تطوّرت من مساعِدة إلى مديرة."},
+        {"question_type": "detail", "question_en": "What was Sara's first job?", "question_ar": "ما كانت أول وظيفة لسارة؟",
+         "choices": ["She was a helper in an office", "She was a manager", "She was a teacher", "She was a shop owner"],
+         "correct_answer": "She was a helper in an office", "explanation_ar": "كانت مساعِدة في مكتب."},
+        {"question_type": "sequence", "question_en": "What happened after two years?", "question_ar": "ماذا حدث بعد سنتين؟",
+         "choices": ["She got a promotion", "She started her first job", "She left the company", "She made coffee for the team"],
+         "correct_answer": "She got a promotion", "explanation_ar": "بعد سنتين حصلت على ترقية."},
+        {"question_type": "vocabulary", "question_en": "In the passage, what does 'improve' mean?", "question_ar": "ماذا تعني 'improve' في النص؟",
+         "choices": ["To make something better", "To make coffee", "To go home", "To buy a book"],
+         "correct_answer": "To make something better", "explanation_ar": "'improve' تعني أن تجعل الشيء أفضل."},
+        {"question_type": "cause_effect", "question_en": "Why did Sara's career start to grow?", "question_ar": "لماذا بدأت مسيرة سارة المهنية في النمو؟",
+         "choices": ["Because of her hard work and new skills", "Because she was lucky", "Because she changed the office", "Because her boss left"],
+         "correct_answer": "Because of her hard work and new skills", "explanation_ar": "بدأت تنمو بسبب عملها المجتهد ومهاراتها الجديدة."},
+        {"question_type": "inference", "question_en": "What does Sara believe about work?", "question_ar": "بماذا تؤمن سارة بخصوص العمل؟",
+         "choices": ["Hard work and new skills can change your life", "Only money is important", "It is better to stay a helper", "Skills are not useful"],
+         "correct_answer": "Hard work and new skills can change your life", "explanation_ar": "تؤمن أن العمل المجتهد والمهارات الجديدة يغيّران حياتك."},
+        {"question_type": "detail", "question_en": "What does Sara do for young helpers now?", "question_ar": "ماذا تفعل سارة الآن للمساعِدين الشباب؟",
+         "choices": ["She trains them", "She sends them away", "She buys them coffee", "She cleans their desks"],
+         "correct_answer": "She trains them", "explanation_ar": "الآن تُدرّب سارة المساعِدين الشباب."}
+      ],
+      "vocab": [
+        ["career", "the jobs a person does over many years", "مسيرة مهنية / مهنة", "She has a long career in business.", "noun", true],
+        ["improve", "to make something better", "يُحسّن / يتحسّن", "He wants to improve his English.", "verb", true],
+        ["boss", "the person you work for", "المدير / رب العمل", "Her boss gave her a promotion.", "noun", true],
+        ["promotion", "a move to a better, higher job", "ترقية", "She got a promotion after two years.", "noun", true],
+        ["experience", "the things you learn by doing work", "خبرة", "He has good work experience.", "noun", true],
+        ["goal", "a thing you want to reach", "هدف", "Her goal is to be a manager.", "noun", true],
+        ["skill", "a thing you can do well", "مهارة", "She learned a new skill.", "noun", true],
+        ["grow", "to become bigger or better", "ينمو / يتطوّر", "You can grow at your job.", "verb", true],
+        ["helper", "a person who helps at work", "مساعد", "She was a helper in the office.", "noun", false],
+        ["office", "a place where people work at desks", "مكتب", "She works in a big office.", "noun", false]
+      ]
+    }
+  ],
+  "listening": {
+    "title_en": "My First Years at Work",
+    "title_ar": "سنواتي الأولى في العمل",
+    "transcript": "Hi, I'm Khalid. I work in a company. I started three years ago as a new worker. I have learned many skills since then. Last month, I got a promotion. Now I train the new people. My goal is to become a manager one day. I love my job because I grow every year.",
+    "exercises": [
+      {"question_en": "What is the speaker's name?", "question_type": "detail", "options": ["Sami", "Khalid", "Omar", "Sara"], "correct_answer_index": 1, "difficulty": 1, "explanation_ar": "قال إن اسمه خالد."},
+      {"question_en": "When did Khalid start his job?", "question_type": "detail", "options": ["Last week", "Ten years ago", "Three years ago", "One month ago"], "correct_answer_index": 2, "difficulty": 2, "explanation_ar": "بدأ قبل ثلاث سنوات."},
+      {"question_en": "What happened last month?", "question_type": "detail", "options": ["He got a promotion", "He started his job", "He left the company", "He went on a trip"], "correct_answer_index": 0, "difficulty": 3, "explanation_ar": "الشهر الماضي حصل على ترقية."},
+      {"question_en": "What does Khalid do now?", "question_type": "detail", "options": ["He cleans the office", "He trains the new people", "He buys the products", "He drives a car"], "correct_answer_index": 1, "difficulty": 4, "explanation_ar": "الآن يُدرّب الموظفين الجدد."},
+      {"question_en": "What is Khalid's goal?", "question_type": "inference", "options": ["To leave his job", "To open a shop", "To become a manager", "To stop working"], "correct_answer_index": 2, "difficulty": 5, "explanation_ar": "هدفه أن يصبح مديراً يوماً ما."},
+      {"question_en": "Why does Khalid love his job?", "question_type": "inference", "options": ["Because he grows every year", "Because it is easy", "Because he has no boss", "Because he works few hours"], "correct_answer_index": 0, "difficulty": 5, "explanation_ar": "يحب عمله لأنه ينمو كل سنة."}
+    ]
+  },
+  "writing": {
+    "title_en": "Write about your goals at work",
+    "prompt_en": "Write about your goals. What job do you want? What skills do you want to learn? How will you grow?",
+    "prompt_ar": "اكتب عن أهدافك. أيّ وظيفة تريد؟ ما المهارات التي تريد تعلّمها؟ كيف ستنمو؟",
+    "hints": ["My goal is...", "I want to learn...", "I have worked...", "I want to grow because..."],
+    "min": 40,
+    "max": 90
+  },
+  "speaking": {
+    "title_en": "Talk about a skill you want to learn",
+    "prompt_en": "Talk about a skill you want to learn for your career. Why is it important? How will it help you grow?",
+    "prompt_ar": "تحدث عن مهارة تريد تعلّمها لمسيرتك المهنية. لماذا هي مهمة؟ كيف ستساعدك على النمو؟",
+    "prep": ["فكّر في مهارة تريد تعلّمها", "حضّر كلمات: skill, learn, goal, grow", "رتّب: ما هي المهارة، ولماذا هي مهمة"],
+    "phrases": ["skill", "learn", "goal", "grow", "I want to learn because"]
+  }
+}

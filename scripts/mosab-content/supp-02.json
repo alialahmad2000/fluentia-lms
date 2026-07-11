@@ -1,0 +1,176 @@
+{
+  "kind": "supplement",
+  "custom_sort": 2,
+  "reading": {
+    "label": "B",
+    "title_en": "Fresh Flour for the Bakery",
+    "title_ar": "دقيق طازج للمخبز",
+    "skill_en": "Reading for detail",
+    "skill_ar": "القراءة لالتقاط التفاصيل",
+    "paragraphs": [
+      "Omar works at a small *bakery* in the city. Every morning he makes bread for many customers. But the bakery needs *fresh* *flour* first. So Omar sends an *order* to his *supplier* by phone. He asks for twenty boxes of flour. The supplier says, \"No problem. We can *deliver* today.\"",
+      "The supplier has a big *warehouse* near the city. Workers keep a lot of flour in the warehouse. First, they check the *stock* on the computer. They see there is enough flour for the order. Then a *driver* puts the heavy boxes on a *truck*.",
+      "The truck leaves early in the morning. The driver goes fast because Omar needs the flour. Soon the truck arrives at the bakery. Omar takes the boxes inside and says thank you. Now he can make fresh bread, and his customers are happy."
+    ],
+    "questions": [
+      {
+        "question_type": "main_idea",
+        "question_en": "What is the passage mainly about?",
+        "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+        "choices": [
+          "How a bakery gets flour to make bread",
+          "How a man buys a new car",
+          "How to bake a cake at home",
+          "A long trip to another city"
+        ],
+        "correct_answer": "How a bakery gets flour to make bread",
+        "explanation_ar": "النص يشرح كيف يصل الدقيق إلى المخبز لصنع الخبز."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "How does Omar send his order?",
+        "question_ar": "كيف يرسل عمر طلبه؟",
+        "choices": [
+          "By phone",
+          "By email",
+          "By letter",
+          "In person"
+        ],
+        "correct_answer": "By phone",
+        "explanation_ar": "قال النص إن عمر يرسل الطلب للمورّد عبر الهاتف."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "How many boxes of flour does Omar ask for?",
+        "question_ar": "كم صندوقًا من الدقيق يطلب عمر؟",
+        "choices": [
+          "Twenty",
+          "Ten",
+          "Thirty",
+          "Twelve"
+        ],
+        "correct_answer": "Twenty",
+        "explanation_ar": "طلب عمر عشرين صندوقًا من الدقيق."
+      },
+      {
+        "question_type": "vocabulary",
+        "question_en": "What does the word \"warehouse\" mean?",
+        "question_ar": "ما معنى كلمة \"warehouse\"؟",
+        "choices": [
+          "A big place to keep things",
+          "A small shop",
+          "A fast truck",
+          "A hot kitchen"
+        ],
+        "correct_answer": "A big place to keep things",
+        "explanation_ar": "المستودع (warehouse) مكان كبير لحفظ البضائع."
+      },
+      {
+        "question_type": "sequence",
+        "question_en": "What does the driver do after the workers check the stock?",
+        "question_ar": "ماذا يفعل السائق بعد أن يفحص العمال المخزون؟",
+        "choices": [
+          "He puts the boxes on a truck",
+          "He makes the bread",
+          "He calls Omar",
+          "He opens the bakery"
+        ],
+        "correct_answer": "He puts the boxes on a truck",
+        "explanation_ar": "بعد فحص المخزون، يضع السائق الصناديق على الشاحنة."
+      },
+      {
+        "question_type": "cause_effect",
+        "question_en": "Why does the driver go fast?",
+        "question_ar": "لماذا يقود السائق بسرعة؟",
+        "choices": [
+          "Because Omar needs the flour",
+          "Because the truck is very old",
+          "Because the city is far away",
+          "Because he is late for lunch"
+        ],
+        "correct_answer": "Because Omar needs the flour",
+        "explanation_ar": "السائق يسرع لأن عمر بحاجة إلى الدقيق."
+      },
+      {
+        "question_type": "inference",
+        "question_en": "Why are Omar's customers happy at the end?",
+        "question_ar": "لماذا يكون زبائن عمر سعداء في النهاية؟",
+        "choices": [
+          "Because they can buy fresh bread",
+          "Because the bread is free",
+          "Because the bakery is new",
+          "Because Omar drives the truck"
+        ],
+        "correct_answer": "Because they can buy fresh bread",
+        "explanation_ar": "الزبائن سعداء لأن الدقيق وصل فصار عمر يصنع خبزًا طازجًا."
+      }
+    ],
+    "vocab": [
+      ["bakery", "a shop that makes and sells bread", "مخبز", "Omar works at a small bakery.", "noun", true],
+      ["supplier", "a person or company that sends goods to a shop", "مورّد", "The supplier sends flour to the bakery.", "noun", true],
+      ["order", "a request to buy or send goods", "طلب / طلبية", "Omar sends an order for flour.", "noun", true],
+      ["deliver", "to take goods to a place", "يوصّل / يسلّم", "The truck can deliver the flour today.", "verb", true],
+      ["warehouse", "a big building for keeping goods", "مستودع", "They keep the flour in a big warehouse.", "noun", true],
+      ["stock", "the goods that a shop or store keeps", "مخزون", "They check the stock on the computer.", "noun", true],
+      ["driver", "a person who drives a car or truck", "سائق", "The driver puts the boxes on the truck.", "noun", true],
+      ["truck", "a big vehicle for carrying goods", "شاحنة", "The flour comes on a big truck.", "noun", true],
+      ["flour", "a soft powder used to make bread", "دقيق / طحين", "The bakery needs fresh flour.", "noun", true],
+      ["fresh", "new and not old", "طازج", "Omar makes fresh bread every day.", "adjective", true]
+    ]
+  },
+  "listening": {
+    "title_en": "A Truck Driver's Day",
+    "title_ar": "يوم سائق شاحنة",
+    "transcript": "Hi, I'm Khalid. I am a truck driver. Every day I take boxes from a big warehouse to many shops. This morning I have flour for a bakery in the city. The supplier gives me the order, and I put the boxes on my truck. I drive fast so the shop gets fresh flour early.",
+    "exercises": [
+      {
+        "question_en": "What is Khalid's job?",
+        "question_type": "detail",
+        "options": ["A cook", "A truck driver", "A teacher", "A doctor"],
+        "correct_answer_index": 1,
+        "difficulty": 1,
+        "explanation_ar": "قال خالد إنه سائق شاحنة."
+      },
+      {
+        "question_en": "What is in the boxes this morning?",
+        "question_type": "main_idea",
+        "options": ["Books", "Fruit", "Flour", "Clothes"],
+        "correct_answer_index": 2,
+        "difficulty": 2,
+        "explanation_ar": "الصناديق فيها دقيق للمخبز."
+      },
+      {
+        "question_en": "Where does Khalid take the flour?",
+        "question_type": "detail",
+        "options": ["To a school", "To a bakery", "To a hospital", "To his home"],
+        "correct_answer_index": 1,
+        "difficulty": 2,
+        "explanation_ar": "يأخذ خالد الدقيق إلى مخبز في المدينة."
+      },
+      {
+        "question_en": "Where do the boxes come from?",
+        "question_type": "detail",
+        "options": ["A big warehouse", "A small shop", "A farm", "A house"],
+        "correct_answer_index": 0,
+        "difficulty": 3,
+        "explanation_ar": "تأتي الصناديق من مستودع كبير."
+      },
+      {
+        "question_en": "Why does Khalid drive fast?",
+        "question_type": "cause_effect",
+        "options": ["Because he is late", "So the shop gets fresh flour early", "Because the truck is small", "Because the road is empty"],
+        "correct_answer_index": 1,
+        "difficulty": 4,
+        "explanation_ar": "يسرع خالد ليصل الدقيق الطازج إلى المحل مبكرًا."
+      },
+      {
+        "question_en": "Who gives Khalid the order?",
+        "question_type": "inference",
+        "options": ["The customer", "The teacher", "The supplier", "The cook"],
+        "correct_answer_index": 2,
+        "difficulty": 3,
+        "explanation_ar": "المورّد هو من يعطي خالد الطلب."
+      }
+    ]
+  }
+}

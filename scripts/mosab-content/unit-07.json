@@ -1,0 +1,156 @@
+{
+  "kind": "unit",
+  "custom_sort": 7,
+  "theme_en": "Customer Service",
+  "theme_ar": "خدمة العملاء · مساعدة الزبون",
+  "desc_ar": "إنجليزي بسيط عن خدمة العملاء: مشكلة الزبون، والحل، والعبارات المهذبة على الهاتف وفي المحل.",
+  "why_ar": "لتتعلّم كلمات الإنجليزي التي تساعدك على فهم الزبون وحل مشكلته بأدب.",
+  "outcomes": ["تقرأ نصاً بسيطاً عن خدمة العملاء", "تتعلّم كلمات: customer, problem, service", "تستخدم أفعال الماضي غير المنتظمة مثل went و said و bought", "تكتب قصة قصيرة عن مساعدة زبون"],
+  "warmup": ["هل ساعدت زبوناً في مشكلة من قبل؟", "ما آخر مرة اشتكيت فيها من منتج أو خدمة؟"],
+  "grammar": {
+    "en": "Past Simple — Irregular Verbs",
+    "ar": "الماضي البسيط — الأفعال غير المنتظمة",
+    "explain_ar": "نستخدم الماضي البسيط لشيء حدث وانتهى في الماضي. الأفعال المنتظمة نضيف لها ed. لكن الأفعال غير المنتظمة لها صيغة خاصة ولا نضيف لها ed. مثال: go تصبح went، و buy تصبح bought، و say تصبح said. تذكّر هذه الأفعال المهمة: went, said, bought, gave, came, took, made.",
+    "explain_en_html": "<b>Past Simple — Irregular Verbs</b><br><br>We use the past simple for a finished action in the past. Regular verbs add <b>-ed</b> (help → helped). But <b>irregular</b> verbs change their form and do <b>not</b> add -ed:<br><i>go → went, say → said, buy → bought, give → gave, come → came, take → took, make → made</i>.<br><br><i>A customer <b>came</b> to the shop. The worker <b>gave</b> him a refund.</i>",
+    "formula": "Subject + irregular past verb (go → <b>went</b>, buy → <b>bought</b>)",
+    "examples": [
+      {"sentence": "A customer came to the shop yesterday.", "highlight": "came", "translation_ar": "جاء زبون إلى المحل أمس."},
+      {"sentence": "The worker gave him a new phone.", "highlight": "gave", "translation_ar": "أعطاه الموظف هاتفاً جديداً."},
+      {"sentence": "She bought a red bag last week.", "highlight": "bought", "translation_ar": "اشترت حقيبة حمراء الأسبوع الماضي."}
+    ],
+    "mistakes": [
+      {"wrong": "He goed home happy.", "correct": "He went home happy.", "explanation_ar": "فعل go غير منتظم، ماضيه went وليس goed."},
+      {"wrong": "She buyed a new phone.", "correct": "She bought a new phone.", "explanation_ar": "فعل buy غير منتظم، ماضيه bought وليس buyed."}
+    ],
+    "exercises": [
+      {"instruction_ar": "اختر صيغة الماضي الصحيحة للفعل غير المنتظم", "items": [
+        {"question": "The customer ___ to the shop yesterday.", "options": ["came", "comed"], "correct_answer": "came", "explanation_ar": "ماضي come هو came، فعل غير منتظم."},
+        {"question": "The worker ___ him a refund.", "options": ["gived", "gave"], "correct_answer": "gave", "explanation_ar": "ماضي give هو gave، فعل غير منتظم."},
+        {"question": "She ___ a new bag last week.", "options": ["bought", "buyed"], "correct_answer": "bought", "explanation_ar": "ماضي buy هو bought، فعل غير منتظم."}
+      ]}
+    ]
+  },
+  "readings": [
+    {
+      "label": "A",
+      "title_en": "A Broken Phone",
+      "title_ar": "هاتف معطّل",
+      "skill_en": "Finding the main idea",
+      "skill_ar": "إيجاد الفكرة الرئيسية",
+      "paragraphs": [
+        "Last week, a *customer* *came* to a small phone shop. He *bought* a new phone two days before. But the phone did not work. The man was not happy. He *said*, 'This phone is broken.'",
+        "Omar was the *worker* in the shop. He was calm and kind. He said, 'I am sorry. Let me help you.' Omar took the phone and looked at it. The screen was black. Omar made a quick check. Then he knew the *problem*.",
+        "Omar *gave* the man a new phone. He also gave him a small *gift*. The customer was happy again. He said, 'Thank you very much.' Then he *went* home with a smile. Good *service* makes customers happy. A good worker listens to the customer. This is why people come back to the shop."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage mainly about?", "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+         "choices": ["A man buys a car", "A worker helps a customer with a problem", "A school lesson about phones", "A trip to a new city"],
+         "correct_answer": "A worker helps a customer with a problem", "explanation_ar": "النص عن موظف يساعد زبوناً في حل مشكلة هاتفه."},
+        {"question_type": "detail", "question_en": "What did the customer buy?", "question_ar": "ماذا اشترى الزبون؟",
+         "choices": ["A new phone", "A red bag", "A watch", "A gift"],
+         "correct_answer": "A new phone", "explanation_ar": "قال النص إن الرجل اشترى هاتفاً جديداً."},
+        {"question_type": "detail", "question_en": "What did Omar give the man?", "question_ar": "ماذا أعطى عمر الرجل؟",
+         "choices": ["Only money", "A new phone and a small gift", "A broken phone", "Nothing"],
+         "correct_answer": "A new phone and a small gift", "explanation_ar": "أعطاه عمر هاتفاً جديداً وهدية صغيرة."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'problem' mean?", "question_ar": "ماذا تعني كلمة 'problem'؟",
+         "choices": ["something that is wrong or hard", "a happy day", "a new phone", "a kind worker"],
+         "correct_answer": "something that is wrong or hard", "explanation_ar": "كلمة problem تعني مشكلة، أي شيء خاطئ أو صعب."},
+        {"question_type": "cause_effect", "question_en": "Why was the man not happy at first?", "question_ar": "لماذا لم يكن الرجل سعيداً في البداية؟",
+         "choices": ["Because the shop was closed", "Because his new phone did not work", "Because the worker was rude", "Because he lost his money"],
+         "correct_answer": "Because his new phone did not work", "explanation_ar": "لم يكن سعيداً لأن هاتفه الجديد لم يعمل."},
+        {"question_type": "sequence", "question_en": "What did Omar do first?", "question_ar": "ماذا فعل عمر أولاً؟",
+         "choices": ["He gave a gift", "He went home", "He took the phone and looked at it", "He closed the shop"],
+         "correct_answer": "He took the phone and looked at it", "explanation_ar": "أولاً أخذ عمر الهاتف ونظر إليه."},
+        {"question_type": "inference", "question_en": "Why do people come back to the shop?", "question_ar": "لماذا يعود الناس إلى المحل؟",
+         "choices": ["Because the phones are cheap", "Because the service is good", "Because the shop is big", "Because it is near"],
+         "correct_answer": "Because the service is good", "explanation_ar": "يعودون لأن الخدمة جيدة، كما يشير النص."}
+      ],
+      "vocab": [
+        ["customer", "a person who buys something", "زبون / عميل", "The shop has many customers.", "noun", true],
+        ["came", "past of come; moved to a place", "أتى / جاء", "A man came to the shop.", "verb", true],
+        ["bought", "past of buy; paid money for something", "اشترى", "He bought a new phone.", "verb", true],
+        ["said", "past of say; spoke words", "قال", "He said thank you.", "verb", true],
+        ["worker", "a person who works in a place", "عامل / موظف", "The worker helped the man.", "noun", true],
+        ["problem", "something that is wrong or hard", "مشكلة", "He fixed the problem fast.", "noun", true],
+        ["gave", "past of give; handed something to someone", "أعطى", "He gave the man a refund.", "verb", true],
+        ["gift", "a thing you give to someone for free", "هدية", "The shop gave a small gift.", "noun", true],
+        ["went", "past of go; moved away", "ذهب", "He went home happy.", "verb", true],
+        ["service", "the help you give to customers", "خدمة", "Good service helps the shop.", "noun", true]
+      ]
+    },
+    {
+      "label": "B",
+      "title_en": "A Late Order",
+      "title_ar": "طلبية متأخرة",
+      "skill_en": "Reading for detail",
+      "skill_ar": "القراءة لالتقاط التفاصيل",
+      "paragraphs": [
+        "Sara bought a red bag from an online shop. The shop said the bag would come in three days. But five days went by, and the bag did not come. Sara was worried.",
+        "Sara *called* the shop. A kind *worker* named Ali answered the *phone*. She *told* him about the *late* *order*. Ali said, 'I am very sorry for the wait.' He looked at his computer. He *found* the problem fast. The bag was at the wrong *address*.",
+        "Ali made a new order for Sara. He *sent* the red bag to her home. He also gave her free *delivery*. Sara felt happy again. Two days later, the bag came to Sara's door. She was very glad. She called the shop and said, 'Thank you for your help.' Good service on the phone kept Sara as a customer."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage mainly about?", "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+         "choices": ["A worker helps a customer with a late order", "A woman cooks dinner", "A trip to a new shop", "A lesson about bags"],
+         "correct_answer": "A worker helps a customer with a late order", "explanation_ar": "النص عن موظف يساعد زبونة في مشكلة طلبية متأخرة."},
+        {"question_type": "detail", "question_en": "What did Sara buy?", "question_ar": "ماذا اشترت سارة؟",
+         "choices": ["A red bag", "A new phone", "A watch", "A gift"],
+         "correct_answer": "A red bag", "explanation_ar": "اشترت سارة حقيبة حمراء من محل على الإنترنت."},
+        {"question_type": "cause_effect", "question_en": "Why did the bag not come on time?", "question_ar": "لماذا لم تصل الحقيبة في الوقت؟",
+         "choices": ["The shop was closed", "It went to the wrong address", "Sara was not home", "The bag was broken"],
+         "correct_answer": "It went to the wrong address", "explanation_ar": "لم تصل في الوقت لأنها ذهبت إلى العنوان الخطأ."},
+        {"question_type": "detail", "question_en": "What did Ali give Sara for free?", "question_ar": "ماذا أعطى علي سارة مجاناً؟",
+         "choices": ["A new bag", "Free delivery", "A gift card", "A phone"],
+         "correct_answer": "Free delivery", "explanation_ar": "أعطاها توصيلاً مجانياً."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'late' mean?", "question_ar": "ماذا تعني كلمة 'late'؟",
+         "choices": ["very fast", "not on time", "very cheap", "very big"],
+         "correct_answer": "not on time", "explanation_ar": "كلمة late تعني متأخر، أي ليس في الوقت المحدد."},
+        {"question_type": "sequence", "question_en": "What did Sara do after the bag did not come?", "question_ar": "ماذا فعلت سارة بعد أن لم تصل الحقيبة؟",
+         "choices": ["She went to the shop", "She called the shop", "She bought another bag", "She waited more days"],
+         "correct_answer": "She called the shop", "explanation_ar": "بعد أن تأخرت الحقيبة، اتصلت سارة بالمحل."},
+        {"question_type": "inference", "question_en": "Why did Sara stay a customer of the shop?", "question_ar": "لماذا بقيت سارة زبونة للمحل؟",
+         "choices": ["Because the bag was cheap", "Because the service was good", "Because the shop was near", "Because she had no choice"],
+         "correct_answer": "Because the service was good", "explanation_ar": "بقيت زبونة لأن الخدمة على الهاتف كانت جيدة."}
+      ],
+      "vocab": [
+        ["called", "past of call; phoned someone", "اتصل", "She called the shop for help.", "verb", true],
+        ["worker", "a person who works in a place", "عامل / موظف", "A kind worker answered.", "noun", true],
+        ["phone", "a thing you use to talk to people far away", "هاتف / تلفون", "He answered the phone.", "noun", true],
+        ["told", "past of tell; gave information to someone", "أخبر", "She told him the problem.", "verb", true],
+        ["late", "not on time", "متأخر", "The order was late.", "adjective", true],
+        ["order", "a thing you ask a shop to send you", "طلب / طلبية", "He made a new order.", "noun", true],
+        ["found", "past of find; saw where a thing is", "وجد", "He found the problem fast.", "verb", true],
+        ["address", "the place where a house or shop is", "عنوان", "The bag went to the wrong address.", "noun", true],
+        ["sent", "past of send; made a thing go to a place", "أرسل", "He sent the bag to her home.", "verb", true],
+        ["delivery", "bringing a thing to your home", "توصيل", "The shop gave free delivery.", "noun", true]
+      ]
+    }
+  ],
+  "listening": {
+    "title_en": "A Day at the Shop",
+    "title_ar": "يوم في المحل",
+    "transcript": "Hi, I'm Khalid. I work in a shop. Yesterday a customer came with a broken watch. He was not happy. I said sorry and I took the watch. I gave him a new one and a small gift. He said thank you and went home happy. I love my job because I help people every day.",
+    "exercises": [
+      {"question_en": "Where does Khalid work?", "question_type": "detail", "options": ["In a school", "In a shop", "In a bank", "In a hospital"], "correct_answer_index": 1, "difficulty": 1, "explanation_ar": "قال خالد إنه يعمل في محل."},
+      {"question_en": "What did the customer bring?", "question_type": "detail", "options": ["A broken watch", "A new phone", "A red bag", "A car"], "correct_answer_index": 0, "difficulty": 2, "explanation_ar": "جاء الزبون بساعة معطّلة."},
+      {"question_en": "What is Khalid's job about?", "question_type": "main_idea", "options": ["Cooking food", "Driving a bus", "Helping customers", "Teaching English"], "correct_answer_index": 2, "difficulty": 2, "explanation_ar": "عمل خالد هو مساعدة الزبائن."},
+      {"question_en": "What did Khalid give the customer?", "question_type": "detail", "options": ["Only money", "A new watch and a gift", "A broken watch", "Nothing"], "correct_answer_index": 1, "difficulty": 3, "explanation_ar": "أعطى خالد الزبون ساعة جديدة وهدية صغيرة."},
+      {"question_en": "How did the customer feel at the end?", "question_type": "inference", "options": ["Angry", "Sad", "Tired", "Happy"], "correct_answer_index": 3, "difficulty": 4, "explanation_ar": "شعر الزبون بالسعادة وذهب إلى بيته سعيداً."},
+      {"question_en": "Why does Khalid love his job?", "question_type": "cause_effect", "options": ["Because he helps people every day", "Because he gets many gifts", "Because the shop is big", "Because he works few hours"], "correct_answer_index": 0, "difficulty": 5, "explanation_ar": "يحب عمله لأنه يساعد الناس كل يوم."}
+    ]
+  },
+  "writing": {
+    "title_en": "Write a short customer story",
+    "prompt_en": "Write a short story about a customer with a problem. What was the problem? How did the worker help? Use past verbs like came, said, and gave.",
+    "prompt_ar": "اكتب قصة قصيرة عن زبون لديه مشكلة. ما هي المشكلة؟ كيف ساعده الموظف؟ استخدم أفعال الماضي مثل came و said و gave.",
+    "hints": ["A customer came to the shop.", "He said, 'I have a problem.'", "The worker took the item and helped.", "He gave a new one.", "The customer went home happy."],
+    "min": 40, "max": 90
+  },
+  "speaking": {
+    "title_en": "Talk about helping a customer",
+    "prompt_en": "Talk about a time you helped a customer or a friend with a problem. What was the problem? What did you do?",
+    "prompt_ar": "تحدث عن مرة ساعدت فيها زبوناً أو صديقاً في مشكلة. ما هي المشكلة؟ وماذا فعلت؟",
+    "prep": ["فكّر في مشكلة ساعدت في حلّها", "حضّر أفعال الماضي: came, said, gave, helped", "رتّب كلامك: ما المشكلة، ثم كيف ساعدت"],
+    "phrases": ["a customer came", "I said sorry", "I helped him", "I gave him a new one", "he was happy"]
+  }
+}

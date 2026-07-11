@@ -1,0 +1,141 @@
+{
+  "kind": "supplement",
+  "custom_sort": 3,
+  "reading": {
+    "label": "B",
+    "title_en": "A Visit to the Hospital",
+    "title_ar": "زيارة إلى المستشفى",
+    "skill_en": "Reading for detail",
+    "skill_ar": "القراءة لالتقاط التفاصيل",
+    "paragraphs": [
+      "Omar is a young man. Today he feels very sick. He has a high *fever* and a bad cough. He goes to the *hospital* near his house. At the front desk, a friendly *receptionist* helps him. She takes his name and asks him to wait. Omar sits on a chair as a new *patient*.",
+      "Soon, a *nurse* calls his name. She checks his temperature and asks about his pain. Then Omar sees the *doctor*. The doctor listens to his chest and looks at his throat. \"You have a small infection,\" the doctor says. He writes some *medicine* for Omar.",
+      "The doctor tells Omar to rest and drink water. He also books an *appointment* for next week. Omar thanks the doctor and the nurse. He feels happy because the *treatment* is easy. Now he wants to be *healthy* again. He goes home to sleep."
+    ],
+    "questions": [
+      {
+        "question_type": "main_idea",
+        "question_en": "What is the passage mainly about?",
+        "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+        "choices": ["A patient visits a hospital", "A doctor buys a car", "A nurse cooks dinner", "A man plays football"],
+        "correct_answer": "A patient visits a hospital",
+        "explanation_ar": "النص يحكي عن مريض يزور المستشفى ليرى الطبيب."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "How does Omar feel at the start of the day?",
+        "question_ar": "كيف يشعر عمر في بداية اليوم؟",
+        "choices": ["Very sick", "Very happy", "Very hungry", "Very strong"],
+        "correct_answer": "Very sick",
+        "explanation_ar": "في البداية يشعر عمر بأنه مريض جداً، عنده حُمّى وسعال."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "Who helps Omar at the front desk?",
+        "question_ar": "من الذي يساعد عمر عند مكتب الاستقبال؟",
+        "choices": ["A receptionist", "A teacher", "A driver", "A cook"],
+        "correct_answer": "A receptionist",
+        "explanation_ar": "موظف الاستقبال (receptionist) هو من يساعده ويأخذ اسمه."
+      },
+      {
+        "question_type": "vocabulary",
+        "question_en": "What does the word \"fever\" mean?",
+        "question_ar": "ما معنى كلمة \"fever\"؟",
+        "choices": ["A high body temperature", "A big house", "A cold drink", "A new car"],
+        "correct_answer": "A high body temperature",
+        "explanation_ar": "كلمة fever تعني الحُمّى، أي ارتفاع حرارة الجسم."
+      },
+      {
+        "question_type": "cause_effect",
+        "question_en": "Why is Omar happy at the end?",
+        "question_ar": "لماذا يشعر عمر بالسعادة في النهاية؟",
+        "choices": ["Because the treatment is easy", "Because he wins a game", "Because he buys food", "Because he sees his friend"],
+        "correct_answer": "Because the treatment is easy",
+        "explanation_ar": "عمر سعيد لأن العلاج (treatment) كان سهلاً."
+      },
+      {
+        "question_type": "inference",
+        "question_en": "What will Omar probably do next week?",
+        "question_ar": "ماذا سيفعل عمر على الأرجح الأسبوع القادم؟",
+        "choices": ["Go to his appointment", "Travel to another country", "Start a new job", "Buy a hospital"],
+        "correct_answer": "Go to his appointment",
+        "explanation_ar": "الطبيب حجز له موعداً (appointment)، فمن المتوقع أن يذهب إليه."
+      },
+      {
+        "question_type": "sequence",
+        "question_en": "What happens right after the nurse calls Omar's name?",
+        "question_ar": "ماذا يحدث مباشرة بعد أن تنادي الممرّضة اسم عمر؟",
+        "choices": ["She checks his temperature", "He goes home to sleep", "He pays the receptionist", "The doctor writes medicine"],
+        "correct_answer": "She checks his temperature",
+        "explanation_ar": "بعد أن تناديه الممرّضة، تفحص حرارته وتسأله عن ألمه."
+      }
+    ],
+    "vocab": [
+      ["patient", "a sick person who sees a doctor", "مريض", "The patient waits for the doctor.", "noun", true],
+      ["hospital", "a place where sick people get help", "مستشفى", "He goes to the hospital.", "noun", true],
+      ["doctor", "a person who helps sick people", "طبيب / دكتور", "The doctor looks at his throat.", "noun", true],
+      ["nurse", "a person who cares for patients", "ممرّض / ممرّضة", "The nurse checks his temperature.", "noun", true],
+      ["fever", "a high body temperature", "حُمّى / سخونة", "He has a high fever.", "noun", true],
+      ["medicine", "something you take to feel better", "دواء", "The doctor writes some medicine.", "noun", true],
+      ["appointment", "a set time to meet the doctor", "موعد", "He books an appointment for next week.", "noun", true],
+      ["treatment", "the care a doctor gives you", "علاج", "The treatment is easy.", "noun", true],
+      ["healthy", "not sick; feeling well", "صحّي / بصحة جيدة", "He wants to be healthy again.", "adjective", true],
+      ["receptionist", "a person at the front desk", "موظف الاستقبال", "The receptionist takes his name.", "noun", true]
+    ]
+  },
+  "listening": {
+    "title_en": "A Receptionist's Day",
+    "title_ar": "يوم موظف الاستقبال",
+    "transcript": "Hello, I'm Sara. I work as a receptionist at a small hospital. Every morning, many patients come to see the doctor. I write their names and give them a number. I answer the phone and book appointments. When a patient feels worried, I speak in a kind voice. I love my job because I help sick people every day.",
+    "exercises": [
+      {
+        "question_en": "Where does Sara work?",
+        "question_type": "detail",
+        "options": ["At a small hospital", "At a big school", "At a shop", "At a bank"],
+        "correct_answer_index": 0,
+        "difficulty": 1,
+        "explanation_ar": "قالت سارة إنها تعمل في مستشفى صغير."
+      },
+      {
+        "question_en": "What is Sara's job?",
+        "question_type": "detail",
+        "options": ["A doctor", "A receptionist", "A nurse", "A teacher"],
+        "correct_answer_index": 1,
+        "difficulty": 2,
+        "explanation_ar": "سارة تعمل موظفة استقبال (receptionist)."
+      },
+      {
+        "question_en": "What does Sara give the patients?",
+        "question_type": "detail",
+        "options": ["A number", "A book", "A cake", "A car"],
+        "correct_answer_index": 0,
+        "difficulty": 2,
+        "explanation_ar": "تكتب أسماءهم وتعطيهم رقماً (number)."
+      },
+      {
+        "question_en": "What is the talk mainly about?",
+        "question_type": "main_idea",
+        "options": ["A receptionist's work at a hospital", "A trip to the sea", "A cooking lesson", "A football match"],
+        "correct_answer_index": 0,
+        "difficulty": 3,
+        "explanation_ar": "الحديث كله عن عمل موظفة الاستقبال في المستشفى."
+      },
+      {
+        "question_en": "Why does Sara speak in a kind voice to a worried patient?",
+        "question_type": "inference",
+        "options": ["To help the patient feel calm", "To sell a phone", "To start a game", "To clean the room"],
+        "correct_answer_index": 0,
+        "difficulty": 4,
+        "explanation_ar": "تتحدث بصوت لطيف لتساعد المريض القلق على الهدوء."
+      },
+      {
+        "question_en": "Why does Sara love her job?",
+        "question_type": "cause_effect",
+        "options": ["Because she helps sick people", "Because she earns a car", "Because she travels far", "Because she sleeps all day"],
+        "correct_answer_index": 0,
+        "difficulty": 5,
+        "explanation_ar": "تحب عملها لأنها تساعد المرضى كل يوم."
+      }
+    ]
+  }
+}

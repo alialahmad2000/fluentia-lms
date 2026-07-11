@@ -1,0 +1,154 @@
+{
+  "kind": "unit",
+  "custom_sort": 8,
+  "theme_en": "Money & Budgeting",
+  "theme_ar": "المال والميزانية · إدارة المصروف",
+  "desc_ar": "إنجليزي بسيط عن المال والميزانية: كيف نوفّر، نصرف، ونخطّط للمصروف في محل صغير.",
+  "why_ar": "لتتعلّم كلمات الإنجليزي التي تصف المال، السعر، والتوفير في العمل والحياة اليومية.",
+  "outcomes": ["تقرأ نصاً بسيطاً عن الميزانية والمال", "تتعلّم كلمات: save, spend, budget, price", "تكتب عن خطة توفير المال"],
+  "warmup": ["هل تحب توفّر أو تصرف فلوسك؟", "وش آخر شيء اشتريته؟"],
+  "grammar": {
+    "en": "Countable / Uncountable Nouns + much / many",
+    "ar": "الأسماء المعدودة وغير المعدودة + much / many",
+    "explain_ar": "نستخدم many مع الأسماء المعدودة (نقدر نعدّها: customer/customers، shop/shops). ونستخدم much مع الأسماء غير المعدودة (ما نقدر نعدّها: money، time). ونقدر نستخدم some و a lot of مع النوعين.",
+    "explain_en_html": "<b>Countable / Uncountable + much / many</b><br><br>We use <b>many</b> with things we can count (many customers, many shops).<br>We use <b>much</b> with things we cannot count (much money, much time).<br>Use <b>some</b> and <b>a lot of</b> with both.<br><i>The shop has <b>many</b> customers, but not <b>much</b> money.</i>",
+    "formula": "many + countable (customers) · much + uncountable (money) · some / a lot of + both",
+    "examples": [
+      {"sentence": "The shop has many customers today.", "highlight": "many customers", "translation_ar": "المحل عنده زبائن كثيرين اليوم."},
+      {"sentence": "Omar does not have much money this month.", "highlight": "much money", "translation_ar": "عمر ما عنده فلوس كثيرة هذا الشهر."},
+      {"sentence": "We sell a lot of coffee every day.", "highlight": "a lot of coffee", "translation_ar": "نبيع قهوة كثيرة كل يوم."}
+    ],
+    "mistakes": [
+      {"wrong": "The shop has much customers.", "correct": "The shop has many customers.", "explanation_ar": "customers معدودة، فنستخدم many مو much."},
+      {"wrong": "I don't have many money.", "correct": "I don't have much money.", "explanation_ar": "money غير معدودة، فنستخدم much مو many."}
+    ],
+    "exercises": [
+      {"instruction_ar": "اختر much أو many", "items": [
+        {"question": "How ___ money do you have?", "options": ["much", "many"], "correct_answer": "much", "explanation_ar": "money غير معدودة، فنستخدم much."},
+        {"question": "The market has ___ shops.", "options": ["much", "many"], "correct_answer": "many", "explanation_ar": "shops معدودة، فنستخدم many."},
+        {"question": "We don't have ___ time before the shop opens.", "options": ["much", "many"], "correct_answer": "much", "explanation_ar": "time غير معدودة، فنستخدم much."}
+      ]}
+    ]
+  },
+  "readings": [
+    {
+      "label": "A",
+      "title_en": "A Budget for the Shop",
+      "title_ar": "ميزانية للمحل",
+      "skill_en": "Finding the main idea",
+      "skill_ar": "إيجاد الفكرة الرئيسية",
+      "paragraphs": [
+        "Omar has a small *shop* in the city. He sells tea, coffee, and sweets. Every month, Omar makes a *budget*. A budget is a simple plan for money. He writes how much money comes in from the shop. Then he writes how much money goes out. Rent, tea, coffee, and bags all *cost* money. Omar wants to know the total *cost* before the month starts.",
+        "Omar likes to *save* money. He does not *spend* it all. He checks the *price* of every thing he buys. Some cups are *cheap*, and some cups are *expensive*. Omar buys the cheap cups for his customers. He looks for a good *deal* on coffee too. When the *price* is high, he waits. At the end of the month, Omar has some money left in the box. He puts it in the bank. A good budget helps him *save* a little money every month. Slowly, his shop grows."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage about?", "question_ar": "عمّ يتحدث النص؟",
+         "choices": ["A man makes a budget for his shop", "A boy plays a game", "A trip to the sea", "A school lesson"],
+         "correct_answer": "A man makes a budget for his shop", "explanation_ar": "النص عن عمر وميزانيته للمحل."},
+        {"question_type": "detail", "question_en": "What does Omar sell in his shop?", "question_ar": "ماذا يبيع عمر في محله؟",
+         "choices": ["Cars and bikes", "Tea, coffee, and sweets", "Books and pens", "Shoes"],
+         "correct_answer": "Tea, coffee, and sweets", "explanation_ar": "قال النص إنه يبيع الشاي والقهوة والحلويات."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'cheap' mean?", "question_ar": "ماذا تعني كلمة 'cheap'؟",
+         "choices": ["Costs a lot of money", "Not expensive; low price", "Very big", "Very old"],
+         "correct_answer": "Not expensive; low price", "explanation_ar": "cheap تعني رخيص، أي سعره منخفض."},
+        {"question_type": "detail", "question_en": "What does Omar do with the money left at the end of the month?", "question_ar": "ماذا يفعل عمر بالمال المتبقي في نهاية الشهر؟",
+         "choices": ["He puts it in the bank", "He gives it away", "He buys a car", "He spends it all"],
+         "correct_answer": "He puts it in the bank", "explanation_ar": "قال النص إنه يضع المال المتبقي في البنك."},
+        {"question_type": "cause_effect", "question_en": "Why does Omar buy the cheap cups?", "question_ar": "لماذا يشتري عمر الأكواب الرخيصة؟",
+         "choices": ["To keep the cost low", "Because they are big", "Because they are new", "To give them away"],
+         "correct_answer": "To keep the cost low", "explanation_ar": "يشتري الرخيص عشان التكلفة تبقى منخفضة."},
+        {"question_type": "inference", "question_en": "What kind of person is Omar with money?", "question_ar": "أي نوع من الأشخاص هو عمر مع المال؟",
+         "choices": ["He is careful with money", "He wastes money", "He does not like money", "He never buys anything"],
+         "correct_answer": "He is careful with money", "explanation_ar": "نفهم من النص إنه حريص، يخطط ويوفّر."},
+        {"question_type": "sequence", "question_en": "What does Omar do first when he makes a budget?", "question_ar": "ماذا يفعل عمر أولاً عندما يعمل الميزانية؟",
+         "choices": ["He writes how much money comes in", "He closes the shop", "He buys a new box", "He goes to the bank"],
+         "correct_answer": "He writes how much money comes in", "explanation_ar": "أول شيء يكتب كم فلوس تدخل، ثم كم تخرج."}
+      ],
+      "vocab": [
+        ["shop", "a place where you buy things", "محل / متجر", "Omar has a small shop.", "noun", true],
+        ["budget", "a plan for your money", "ميزانية", "He makes a budget every month.", "noun", true],
+        ["cost", "the money you pay for something", "تكلفة / يكلّف", "The bags cost money.", "noun", true],
+        ["save", "to keep money and not spend it", "يوفّر / يدّخر", "Omar likes to save money.", "verb", true],
+        ["spend", "to use money to buy things", "يصرف / ينفق", "He does not spend it all.", "verb", true],
+        ["price", "how much money something costs", "سعر", "He checks the price of the cups.", "noun", true],
+        ["cheap", "not expensive; low price", "رخيص", "The cups are cheap.", "adjective", true],
+        ["expensive", "costs a lot of money", "غالي / مكلف", "Some cups are expensive.", "adjective", true],
+        ["deal", "a good price on something", "صفقة / عرض جيد", "He looks for a good deal.", "noun", true],
+        ["cash", "money in coins and notes", "نقد / كاش", "He pays with cash.", "noun", false]
+      ]
+    },
+    {
+      "label": "B",
+      "title_en": "Khalid Saves Money",
+      "title_ar": "خالد يوفّر المال",
+      "skill_en": "Reading for detail",
+      "skill_ar": "القراءة لالتقاط التفاصيل",
+      "paragraphs": [
+        "Khalid works in a big *market*. He gets his money at the end of the week. Khalid wants to *buy* a new bike. A good bike is *expensive*, so he must *save* money. His friend Sami likes to *spend* money fast. Sami buys food, games, and drinks every day.",
+        "Khalid has a plan. He does not *waste* money on small things. He brings food from home. He does not buy many drinks. Every week, he puts some money in a small box. This is his *savings*. After two months, Khalid has enough money. He goes to the *market* and finds a good *deal* on a bike. The *price* is low this week. Khalid is happy because his plan worked. Now Sami wants to *save* money too. He asks Khalid for help. Khalid smiles and says, 'A little money every week is a big help.'"
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the main idea of the passage?", "question_ar": "ما الفكرة الرئيسية للنص؟",
+         "choices": ["Khalid saves money to buy a bike", "Khalid buys a new car", "Sami opens a shop", "A trip to the market fails"],
+         "correct_answer": "Khalid saves money to buy a bike", "explanation_ar": "النص عن خالد الذي يوفّر ليشتري دراجة."},
+        {"question_type": "detail", "question_en": "Where does Khalid work?", "question_ar": "أين يعمل خالد؟",
+         "choices": ["In a big market", "In a school", "In a hospital", "At home"],
+         "correct_answer": "In a big market", "explanation_ar": "قال النص إنه يعمل في سوق كبير."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'waste' mean here?", "question_ar": "ماذا تعني كلمة 'waste' هنا؟",
+         "choices": ["To save money well", "To use money in a bad way", "To count money", "To find money"],
+         "correct_answer": "To use money in a bad way", "explanation_ar": "waste تعني يهدر المال، أي يستخدمه بطريقة سيئة."},
+        {"question_type": "cause_effect", "question_en": "Why must Khalid save money?", "question_ar": "لماذا يجب أن يوفّر خالد المال؟",
+         "choices": ["Because a good bike is expensive", "Because he lost his money", "Because the market is closed", "Because Sami told him to"],
+         "correct_answer": "Because a good bike is expensive", "explanation_ar": "يوفّر لأن الدراجة الجيدة غالية."},
+        {"question_type": "detail", "question_en": "How does Khalid not waste money?", "question_ar": "كيف لا يهدر خالد المال؟",
+         "choices": ["He brings food from home", "He buys many drinks", "He eats out every day", "He buys new games"],
+         "correct_answer": "He brings food from home", "explanation_ar": "يجيب أكله من البيت وما يشتري مشروبات كثيرة."},
+        {"question_type": "sequence", "question_en": "What happens after two months?", "question_ar": "ماذا يحدث بعد شهرين؟",
+         "choices": ["Khalid has enough money for a bike", "Khalid loses his job", "Sami buys a bike", "The market closes"],
+         "correct_answer": "Khalid has enough money for a bike", "explanation_ar": "بعد شهرين صار عنده فلوس كافية للدراجة."},
+        {"question_type": "inference", "question_en": "What can we learn from Khalid?", "question_ar": "ماذا نتعلّم من خالد؟",
+         "choices": ["Saving a little every week helps a lot", "Spending fast is best", "Bikes are not good", "Money is not important"],
+         "correct_answer": "Saving a little every week helps a lot", "explanation_ar": "نتعلّم أن توفير القليل كل أسبوع يساعد كثيراً."}
+      ],
+      "vocab": [
+        ["market", "a place with many shops", "سوق", "Khalid works in a big market.", "noun", true],
+        ["buy", "to get something with money", "يشتري", "He wants to buy a bike.", "verb", true],
+        ["expensive", "costs a lot of money", "غالي / مكلف", "A good bike is expensive.", "adjective", true],
+        ["save", "to keep money and not spend it", "يوفّر / يدّخر", "He must save money.", "verb", true],
+        ["spend", "to use money to buy things", "يصرف / ينفق", "Sami likes to spend money.", "verb", true],
+        ["waste", "to use money in a bad way", "يهدر / يبذّر", "He does not waste money.", "verb", true],
+        ["savings", "money you keep for later", "مدّخرات", "The box is his savings.", "noun", true],
+        ["deal", "a good price on something", "صفقة / عرض جيد", "He finds a good deal.", "noun", true],
+        ["price", "how much money something costs", "سعر", "The price is low this week.", "noun", true],
+        ["earn", "to get money for work", "يكسب / يربح", "He earns money at the market.", "verb", false]
+      ]
+    }
+  ],
+  "listening": {
+    "title_en": "My Shop Budget",
+    "title_ar": "ميزانية محلي",
+    "transcript": "Hi, I'm Nasser. I have a small shop. Every month, I make a budget for my money. I don't spend much money on new things. I save some money every week. When the price is cheap, I buy more coffee. I have many customers, but not much money yet. My budget helps me a lot.",
+    "exercises": [
+      {"question_en": "What does Nasser have?", "question_type": "detail", "options": ["A big company", "A small shop", "A school", "A bank"], "correct_answer_index": 1, "difficulty": 1, "explanation_ar": "قال ناصر إنه عنده محل صغير."},
+      {"question_en": "What does Nasser make every month?", "question_type": "main_idea", "options": ["A cake", "A budget", "A new shop", "A phone"], "correct_answer_index": 1, "difficulty": 2, "explanation_ar": "يعمل ميزانية كل شهر."},
+      {"question_en": "How many customers does Nasser have?", "question_type": "detail", "options": ["Many customers", "No customers", "Two customers", "One customer"], "correct_answer_index": 0, "difficulty": 2, "explanation_ar": "قال إن عنده زبائن كثيرين."},
+      {"question_en": "When does Nasser buy more coffee?", "question_type": "detail", "options": ["When the price is cheap", "When the shop is closed", "When it rains", "Every hour"], "correct_answer_index": 0, "difficulty": 3, "explanation_ar": "يشتري قهوة أكثر لما السعر رخيص."},
+      {"question_en": "Does Nasser spend a lot of money on new things?", "question_type": "inference", "options": ["Yes, a lot", "No, not much", "Only on cars", "Every day"], "correct_answer_index": 1, "difficulty": 3, "explanation_ar": "قال إنه ما يصرف فلوس كثيرة على أشياء جديدة."},
+      {"question_en": "Why is the budget good for Nasser?", "question_type": "inference", "options": ["It helps him a lot", "It costs money", "It is heavy", "It is a game"], "correct_answer_index": 0, "difficulty": 4, "explanation_ar": "الميزانية تساعده كثير في تنظيم فلوسه."}
+    ]
+  },
+  "writing": {
+    "title_en": "Write about your money plan",
+    "prompt_en": "Write about how you save money. What do you save for? How do you not spend too much?",
+    "prompt_ar": "اكتب عن كيف توفّر فلوسك. لأي شيء توفّر؟ كيف ما تصرف كثير؟",
+    "hints": ["I want to save for...", "I do not spend much money on...", "Every week I save...", "My budget helps me..."],
+    "min": 40, "max": 90
+  },
+  "speaking": {
+    "title_en": "Talk about saving and spending",
+    "prompt_en": "Talk about money. Do you like to save or spend? What do you want to buy?",
+    "prompt_ar": "تحدث عن الفلوس. تحب توفّر أو تصرف؟ وش تبي تشتري؟",
+    "prep": ["فكّر في شيء تبي تشتريه", "حضّر كلمات: save, spend, budget, price", "رتّب: هل توفّر أو تصرف، وليش"],
+    "phrases": ["save", "spend", "budget", "price", "I want to buy", "I save money for"]
+  }
+}

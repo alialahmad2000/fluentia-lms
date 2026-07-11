@@ -1,0 +1,157 @@
+{
+  "kind": "unit",
+  "custom_sort": 11,
+  "theme_en": "Giving a Presentation",
+  "theme_ar": "العروض التقديمية · تقديم أمام الناس",
+  "desc_ar": "إنجليزي بسيط عن العروض التقديمية: كيف تجهّز، وتتكلّم بوضوح، وتقف أمام الناس بثقة.",
+  "why_ar": "لتتعلّم كلمات الإنجليزي التي تحتاجها عندما تجهّز عرضاً وتقدّمه في الجامعة أو العمل.",
+  "outcomes": ["تقرأ نصاً بسيطاً عن تجهيز عرض تقديمي", "تتعلّم كلمات: present, slides, audience, notes", "تتعلّم متى تستخدم should و have to", "تكتب خطة قصيرة لعرضك"],
+  "warmup": ["هل قدّمت عرضاً أمام الناس من قبل؟", "ما الذي يجعل العرض جيداً في رأيك؟"],
+  "grammar": {
+    "en": "should / have to",
+    "ar": "should و have to",
+    "explain_ar": "نستخدم should للنصيحة (فكرة جيدة)، ونستخدم have to للواجب (لازم). بعد كليهما يأتي الفعل بدون to. مثال: You should practice. / You have to be on time.",
+    "explain_en_html": "<b>should / have to</b><br><br>We use <b>should</b> to give advice — it is a good idea.<br><i>You <b>should</b> practice before the meeting.</i><br><br>We use <b>have to</b> for an obligation — you must do it, it is a rule.<br><i>You <b>have to</b> be on time.</i><br><br>After <b>should</b> and <b>have to</b> we use the base verb (no <i>to</i>).",
+    "formula": "Subject + <b>should</b> / <b>have to</b> + base verb",
+    "examples": [
+      {"sentence": "You should practice your presentation at home.", "highlight": "should practice", "translation_ar": "من الأفضل أن تتدرّب على عرضك في البيت."},
+      {"sentence": "You have to be on time for the meeting.", "highlight": "have to be", "translation_ar": "لازم تكون في الوقت للاجتماع."},
+      {"sentence": "She has to send the slides today.", "highlight": "has to send", "translation_ar": "لازم هي ترسل الشرائح اليوم."}
+    ],
+    "mistakes": [
+      {"wrong": "You should to practice.", "correct": "You should practice.", "explanation_ar": "بعد should نستخدم الفعل بدون to."},
+      {"wrong": "He have to be on time.", "correct": "He has to be on time.", "explanation_ar": "مع he/she/it نستخدم has to وليس have to."}
+    ],
+    "exercises": [
+      {"instruction_ar": "اختر الصيغة الصحيحة", "items": [
+        {"question": "You ___ practice before the presentation. (advice)", "options": ["should", "have to be"], "correct_answer": "should", "explanation_ar": "نصيحة (فكرة جيدة) → should."},
+        {"question": "You ___ be on time for the meeting. (rule)", "options": ["have to", "should to"], "correct_answer": "have to", "explanation_ar": "واجب/قاعدة → have to + الفعل الأساسي."},
+        {"question": "She ___ send the slides today. (rule)", "options": ["has to", "have to"], "correct_answer": "has to", "explanation_ar": "مع she نستخدم has to."}
+      ]}
+    ]
+  },
+  "readings": [
+    {
+      "label": "A",
+      "title_en": "Sami Prepares a Presentation",
+      "title_ar": "سامي يجهّز عرضاً",
+      "skill_en": "Finding the main idea",
+      "skill_ar": "إيجاد الفكرة الرئيسية",
+      "paragraphs": [
+        "Sami is a student. On Monday he has to give a short *presentation* at his university. He is a little worried. His teacher says, \"You should *prepare* well. A good *speaker* is always ready.\" Sami wants to do a good job, so he starts early. He makes a plan and writes his ideas on a small card.",
+        "First, Sami makes his *slides* on the computer. He puts one big *idea* on each slide. He does not put too many words. Then he writes some short *notes* to help him remember. \"You should *practice* many times,\" his friend says. \"And you have to speak *clearly*, not too fast.\"",
+        "On Sunday night, Sami *practices* in his room. He stands up and talks to the wall. He speaks slowly and clearly. Now he feels calm. He is ready for his *audience*. Tomorrow he will stand in front of the class and give his presentation."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage mainly about?", "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+         "choices": ["A student gets ready for a presentation", "A student buys a new computer", "A teacher gives a long lesson", "A friend travels to another city"],
+         "correct_answer": "A student gets ready for a presentation", "explanation_ar": "النص كله عن سامي وهو يجهّز عرضه التقديمي."},
+        {"question_type": "detail", "question_en": "When does Sami have to give his presentation?", "question_ar": "متى يجب على سامي أن يقدّم عرضه؟",
+         "choices": ["On Monday", "On Friday", "On Sunday morning", "Next month"],
+         "correct_answer": "On Monday", "explanation_ar": "قال النص إنه يجب أن يقدّم العرض يوم الاثنين."},
+        {"question_type": "detail", "question_en": "How many ideas does Sami put on each slide?", "question_ar": "كم فكرة يضع سامي في كل شريحة؟",
+         "choices": ["One big idea", "Ten ideas", "No ideas", "Many long words"],
+         "correct_answer": "One big idea", "explanation_ar": "قال النص إنه يضع فكرة كبيرة واحدة في كل شريحة."},
+        {"question_type": "vocabulary", "question_en": "In the passage, what does \"clearly\" mean?", "question_ar": "ماذا تعني كلمة \"clearly\" في النص؟",
+         "choices": ["In a way that is easy to understand", "In a very loud voice", "In a fast way", "In a sad way"],
+         "correct_answer": "In a way that is easy to understand", "explanation_ar": "يتكلّم بوضوح أي بطريقة سهلة الفهم، ببطء وليس بسرعة."},
+        {"question_type": "cause_effect", "question_en": "Why does Sami feel calm on Sunday night?", "question_ar": "لماذا يشعر سامي بالهدوء ليلة الأحد؟",
+         "choices": ["Because he practiced his presentation", "Because the class was cancelled", "Because he bought new slides", "Because his teacher was absent"],
+         "correct_answer": "Because he practiced his presentation", "explanation_ar": "شعر بالهدوء لأنه تدرّب في غرفته وأصبح جاهزاً."},
+        {"question_type": "inference", "question_en": "What kind of student is Sami?", "question_ar": "أي نوع من الطلاب هو سامي؟",
+         "choices": ["He works hard and prepares", "He is lazy and never studies", "He does not care about school", "He always arrives late"],
+         "correct_answer": "He works hard and prepares", "explanation_ar": "نفهم أنه مجتهد لأنه بدأ مبكراً وتدرّب كثيراً."},
+        {"question_type": "sequence", "question_en": "What does Sami do first?", "question_ar": "ما الذي يفعله سامي أولاً؟",
+         "choices": ["He makes a plan and writes his ideas", "He stands in front of the class", "He talks to the wall", "He feels calm and sleeps"],
+         "correct_answer": "He makes a plan and writes his ideas", "explanation_ar": "في البداية عمل خطة وكتب أفكاره على بطاقة صغيرة."}
+      ],
+      "vocab": [
+        ["presentation", "a talk you give in front of people", "عرض تقديمي", "He gave a short presentation at work.", "noun", true],
+        ["prepare", "to get ready for something", "يجهّز / يستعدّ", "You should prepare before the meeting.", "verb", true],
+        ["speaker", "a person who talks to people", "متحدّث", "A good speaker is always ready.", "noun", true],
+        ["slides", "computer pages you show on a screen", "شرائح العرض", "He made ten slides for his talk.", "noun", true],
+        ["idea", "a thought in your mind", "فكرة", "He put one big idea on each slide.", "noun", true],
+        ["notes", "short words you write to help you remember", "ملاحظات", "She reads her notes before she speaks.", "noun", true],
+        ["practice", "to do something many times to get better", "يتمرّن / يتدرّب", "You should practice your presentation.", "verb", true],
+        ["clearly", "in a way that is easy to understand", "بوضوح", "Please speak clearly, not too fast.", "adverb", true],
+        ["audience", "the people who watch and listen", "الجمهور / الحضور", "The audience listened to the speaker.", "noun", true],
+        ["worried", "not calm because you think of a problem", "قلق", "He was a little worried before the talk.", "adjective", false]
+      ]
+    },
+    {
+      "label": "B",
+      "title_en": "Layla's First Work Presentation",
+      "title_ar": "أول عرض لليلى في العمل",
+      "skill_en": "Reading for detail",
+      "skill_ar": "القراءة لالتقاط التفاصيل",
+      "paragraphs": [
+        "Layla works at a small company. This week her *manager* asks her to give a *presentation* about a new plan. It is her first time. She has to speak in front of ten people. She feels a little afraid, but she wants to do well. \"You should not be afraid,\" her manager says. \"You know the plan very well.\"",
+        "Layla starts to *prepare* on Tuesday. She makes clean *slides* with big words and simple pictures. She writes her *goal* at the top: \"Help the team save time.\" Then she makes short *notes* on a card. Her friend Nora helps her. \"You have to *practice*,\" Nora says. \"And you should look at the *audience*, not only at your slides.\"",
+        "On the day of the presentation, Layla stands up and speaks *slowly* and clearly. She looks at the people and *smiles*. She does not read every word from the card. The team likes her plan. Her manager says, \"Good job! You were ready.\" Layla feels happy and *proud*."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage mainly about?", "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+         "choices": ["Layla gives her first presentation at work", "Layla looks for a new job", "Layla goes on a long trip", "Layla buys a new computer for the office"],
+         "correct_answer": "Layla gives her first presentation at work", "explanation_ar": "النص كله عن أول عرض تقديمي لليلى في العمل."},
+        {"question_type": "detail", "question_en": "How many people does Layla have to speak in front of?", "question_ar": "أمام كم شخص يجب أن تتحدّث ليلى؟",
+         "choices": ["Ten people", "Two people", "One hundred people", "No people"],
+         "correct_answer": "Ten people", "explanation_ar": "قال النص إنها يجب أن تتحدّث أمام عشرة أشخاص."},
+        {"question_type": "detail", "question_en": "What does Layla write at the top of her slides?", "question_ar": "ماذا تكتب ليلى في أعلى شرائحها؟",
+         "choices": ["Her goal: help the team save time", "Her phone number", "The name of her manager", "A long story about her day"],
+         "correct_answer": "Her goal: help the team save time", "explanation_ar": "كتبت هدفها في الأعلى: مساعدة الفريق على توفير الوقت."},
+        {"question_type": "cause_effect", "question_en": "Why does the team like Layla's presentation?", "question_ar": "لماذا أعجب الفريق عرض ليلى؟",
+         "choices": ["Because she was ready and spoke clearly", "Because the presentation was very long", "Because she gave everyone a gift", "Because she did not use any slides"],
+         "correct_answer": "Because she was ready and spoke clearly", "explanation_ar": "أعجبهم لأنها كانت جاهزة وتحدّثت بوضوح وببطء."},
+        {"question_type": "vocabulary", "question_en": "In the passage, what does \"proud\" mean?", "question_ar": "ماذا تعني كلمة \"proud\" في النص؟",
+         "choices": ["Happy because you did something well", "Tired after a long day", "Angry with a friend", "Afraid of a test"],
+         "correct_answer": "Happy because you did something well", "explanation_ar": "شعرت بالفخر أي سعيدة لأنها أدّت عملها بشكل جيد."},
+        {"question_type": "inference", "question_en": "How does Layla probably feel at the start of the week?", "question_ar": "كيف تشعر ليلى غالباً في بداية الأسبوع؟",
+         "choices": ["Nervous but ready to try", "Bored and sleepy", "Angry with her manager", "Sure she will fail"],
+         "correct_answer": "Nervous but ready to try", "explanation_ar": "نفهم أنها متوترة قليلاً لكنها تريد أن تنجح وتبدأ التجهيز."},
+        {"question_type": "sequence", "question_en": "What does Layla do on the day of the presentation?", "question_ar": "ماذا تفعل ليلى في يوم العرض؟",
+         "choices": ["She speaks slowly and looks at the people", "She starts to make her slides", "She asks Nora for help", "She writes her goal on a card"],
+         "correct_answer": "She speaks slowly and looks at the people", "explanation_ar": "في يوم العرض وقفت وتحدّثت ببطء ونظرت إلى الناس."}
+      ],
+      "vocab": [
+        ["manager", "the person who leads a team at work", "مدير", "Her manager asked her to give a talk.", "noun", true],
+        ["presentation", "a talk you give in front of people", "عرض تقديمي", "She gave a presentation about a new plan.", "noun", true],
+        ["prepare", "to get ready for something", "يجهّز / يستعدّ", "Layla started to prepare on Tuesday.", "verb", true],
+        ["slides", "computer pages you show on a screen", "شرائح العرض", "She made clean slides with big words.", "noun", true],
+        ["goal", "the thing you want to reach", "هدف", "Her goal was to help the team save time.", "noun", true],
+        ["notes", "short words you write to help you remember", "ملاحظات", "She made short notes on a card.", "noun", true],
+        ["practice", "to do something many times to get better", "يتمرّن / يتدرّب", "You have to practice before the talk.", "verb", true],
+        ["audience", "the people who watch and listen", "الجمهور / الحضور", "Look at the audience when you speak.", "noun", true],
+        ["slowly", "not fast", "ببطء", "She spoke slowly and clearly.", "adverb", true],
+        ["proud", "happy because you did something well", "فخور", "Layla felt happy and proud after the talk.", "adjective", true]
+      ]
+    }
+  ],
+  "listening": {
+    "title_en": "Getting Ready to Present",
+    "title_ar": "الاستعداد لتقديم العرض",
+    "transcript": "Hi, I'm Omar. On Wednesday I have to give a presentation at work. I feel a little worried, so I prepare early. First, I make simple slides with big words. Then I write short notes on a card. My friend says I should practice many times and speak clearly. Tonight I will practice in my room. I want to be ready for my audience.",
+    "exercises": [
+      {"question_en": "When does Omar have to give his presentation?", "question_type": "detail", "options": ["On Monday", "On Wednesday", "On Friday", "On Sunday"], "correct_answer_index": 1, "difficulty": 1, "explanation_ar": "قال عمر إنه يجب أن يقدّم عرضه يوم الأربعاء."},
+      {"question_en": "Where does Omar have to give his presentation?", "question_type": "detail", "options": ["At school", "At home", "At work", "At the airport"], "correct_answer_index": 2, "difficulty": 2, "explanation_ar": "قال إنه يجب أن يقدّم العرض في العمل."},
+      {"question_en": "What does Omar put on his slides?", "question_type": "detail", "options": ["Big words", "Long stories", "Many photos", "No words"], "correct_answer_index": 0, "difficulty": 2, "explanation_ar": "يصنع شرائح بسيطة بكلمات كبيرة."},
+      {"question_en": "What does Omar's friend say he should do?", "question_type": "detail", "options": ["Sleep early", "Practice and speak clearly", "Buy a new computer", "Ask for help"], "correct_answer_index": 1, "difficulty": 3, "explanation_ar": "قال صديقه إنه يجب أن يتدرّب كثيراً ويتكلّم بوضوح."},
+      {"question_en": "Why does Omar prepare early?", "question_type": "inference", "options": ["Because he feels a little worried", "Because he has no work", "Because his friend is sick", "Because the slides are ready"], "correct_answer_index": 0, "difficulty": 4, "explanation_ar": "يجهّز مبكراً لأنه يشعر بالقلق قليلاً."},
+      {"question_en": "What is the main idea of the talk?", "question_type": "main_idea", "options": ["Omar is getting ready for a presentation", "Omar is going on a trip", "Omar is buying a new phone", "Omar is looking for a job"], "correct_answer_index": 0, "difficulty": 5, "explanation_ar": "الفكرة الرئيسية أن عمر يستعدّ لتقديم عرض."}
+    ]
+  },
+  "writing": {
+    "title_en": "Write a short plan for your presentation",
+    "prompt_en": "Write a short plan for a presentation. What is your topic? What should you do to prepare? Use should and have to.",
+    "prompt_ar": "اكتب خطة قصيرة لعرض تقديمي. ما هو موضوعك؟ ماذا يجب أن تفعل للاستعداد؟ استخدم should و have to.",
+    "hints": ["My topic is...", "First, I should...", "I have to practice...", "I should speak clearly and look at the audience."],
+    "min": 40,
+    "max": 90
+  },
+  "speaking": {
+    "title_en": "Talk about giving a presentation",
+    "prompt_en": "Talk about a presentation. What is your topic? What should you do to prepare? What do you have to remember?",
+    "prompt_ar": "تحدّث عن عرض تقديمي. ما هو موضوعك؟ ماذا يجب أن تفعل للاستعداد؟ ماذا يجب أن تتذكّر؟",
+    "prep": ["فكّر في موضوع بسيط لعرضك", "حضّر كلمات: present, slides, audience, practice", "رتّب أفكارك: الموضوع، التجهيز، ثم النصيحة"],
+    "phrases": ["present", "slides", "audience", "I should practice", "I have to be ready"]
+  }
+}

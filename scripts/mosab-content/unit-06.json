@@ -1,0 +1,394 @@
+{
+  "kind": "unit",
+  "custom_sort": 6,
+  "theme_en": "Marketing Basics",
+  "theme_ar": "التسويق · كيف نصل إلى الزبائن",
+  "desc_ar": "إنجليزي بسيط عن التسويق: الإعلان، العلامة، والزبائن، والبيع على الإنترنت.",
+  "why_ar": "لتتعلّم كلمات الإنجليزي التي تصف كيف تصل الشركات إلى زبائنها وتبيع منتجاتها.",
+  "outcomes": [
+    "تقرأ نصاً بسيطاً عن التسويق",
+    "تتعلّم كلمات: advert, brand, customer, product",
+    "تستخدم المضارع المستمر لوصف ما يحدث الآن",
+    "تكتب إعلاناً قصيراً لمحل"
+  ],
+  "warmup": [
+    "ما آخر إعلان أعجبك؟",
+    "كيف تعرف الشركات الجديدة؟",
+    "هل اشتريت شيئاً من الإنترنت من قبل؟"
+  ],
+  "grammar": {
+    "en": "Present Continuous",
+    "ar": "المضارع المستمر",
+    "explain_ar": "نستخدم المضارع المستمر لشيء يحدث الآن، في هذه اللحظة. الصيغة: am/is/are + الفعل+ing. نستخدم am مع I، و is مع he/she/it، و are مع you/we/they.",
+    "explain_en_html": "<b>Present Continuous</b><br><br>We use it for actions happening <b>now</b>: am/is/are + verb-<b>ing</b>.<br><br>I <b>am</b> working. He/She/It <b>is</b> working. You/We/They <b>are</b> working.<br><br><i>The company <b>is launching</b> a new product.</i><br><i>Customers <b>are buying</b> the new phone today.</i>",
+    "formula": "Subject + am/is/are + verb-<b>ing</b>",
+    "examples": [
+      {
+        "sentence": "The team is planning a new advert.",
+        "highlight": "is planning",
+        "translation_ar": "الفريق يخطط لإعلان جديد."
+      },
+      {
+        "sentence": "Customers are buying the new product.",
+        "highlight": "are buying",
+        "translation_ar": "الزبائن يشترون المنتج الجديد."
+      },
+      {
+        "sentence": "I am writing the words for the advert now.",
+        "highlight": "am writing",
+        "translation_ar": "أنا أكتب كلمات الإعلان الآن."
+      },
+      {
+        "sentence": "The shop is selling shoes online this week.",
+        "highlight": "is selling",
+        "translation_ar": "المحل يبيع أحذية على الإنترنت هذا الأسبوع."
+      }
+    ],
+    "mistakes": [
+      {
+        "wrong": "The team planning now.",
+        "correct": "The team is planning now.",
+        "explanation_ar": "نحتاج is قبل الفعل+ing. لا نحذف فعل be."
+      },
+      {
+        "wrong": "Customers is buying the product.",
+        "correct": "Customers are buying the product.",
+        "explanation_ar": "مع الجمع (customers) نستخدم are، وليس is."
+      },
+      {
+        "wrong": "He is work now.",
+        "correct": "He is working now.",
+        "explanation_ar": "بعد is نضيف ing إلى الفعل: work → working."
+      }
+    ],
+    "exercises": [
+      {
+        "instruction_ar": "اختر الصيغة الصحيحة",
+        "items": [
+          {
+            "question": "The company ___ a new advert now.",
+            "options": ["is making", "make"],
+            "correct_answer": "is making",
+            "explanation_ar": "حدث الآن، والفاعل مفرد: is + making."
+          },
+          {
+            "question": "Customers ___ the product online today.",
+            "options": ["are buying", "buys"],
+            "correct_answer": "are buying",
+            "explanation_ar": "الآن، والفاعل جمع: are + buying."
+          },
+          {
+            "question": "He ___ to a customer right now.",
+            "options": ["is talking", "talk"],
+            "correct_answer": "is talking",
+            "explanation_ar": "الآن، والفاعل he: is + talking."
+          }
+        ]
+      }
+    ]
+  },
+  "readings": [
+    {
+      "label": "A",
+      "title_en": "A New Advert",
+      "title_ar": "إعلان جديد",
+      "skill_en": "Finding the main idea",
+      "skill_ar": "إيجاد الفكرة الرئيسية",
+      "paragraphs": [
+        "Omar works in a small *company*. The company sells nice bags. Omar wants more *customers*, so this week the team is making a new *advert*. They want people on the internet to see it. Omar is choosing the pictures. His friend Sara is writing the words. \"Our bags are strong and cheap,\" she says. \"Customers will love them.\"",
+        "The team wants the *brand* to look friendly. They pick a soft blue color and a small, happy logo. Omar is happy because the *product* looks good in the pictures. \"A good advert helps people trust our *brand*,\" he says. Tomorrow they will put the advert *online*. Omar hopes many customers will *buy* the bags and tell their friends. He knows a small company can *grow* with a good advert. Good words and nice pictures bring new customers every day."
+      ],
+      "questions": [
+        {
+          "question_type": "main_idea",
+          "question_en": "What is the passage about?",
+          "question_ar": "عمّ يتحدث النص؟",
+          "choices": [
+            "A team is making a new advert for their bags",
+            "A man is buying a new car",
+            "A school English lesson",
+            "A family trip to the sea"
+          ],
+          "correct_answer": "A team is making a new advert for their bags",
+          "explanation_ar": "النص عن فريق يصنع إعلاناً جديداً لحقائبهم."
+        },
+        {
+          "question_type": "detail",
+          "question_en": "What does the company sell?",
+          "question_ar": "ماذا تبيع الشركة؟",
+          "choices": ["Bags", "Cars", "Shoes", "Food"],
+          "correct_answer": "Bags",
+          "explanation_ar": "قال النص إن الشركة تبيع حقائب."
+        },
+        {
+          "question_type": "detail",
+          "question_en": "Who is writing the words for the advert?",
+          "question_ar": "من يكتب كلمات الإعلان؟",
+          "choices": ["Sara", "Omar", "The customer", "The teacher"],
+          "correct_answer": "Sara",
+          "explanation_ar": "صديقة عمر، سارة، تكتب الكلمات."
+        },
+        {
+          "question_type": "vocabulary",
+          "question_en": "What does the word \"customers\" mean?",
+          "question_ar": "ماذا تعني كلمة \"customers\"؟",
+          "choices": [
+            "People who buy things",
+            "People who teach",
+            "People who cook",
+            "People who drive"
+          ],
+          "correct_answer": "People who buy things",
+          "explanation_ar": "الزبائن هم الناس الذين يشترون الأشياء."
+        },
+        {
+          "question_type": "cause_effect",
+          "question_en": "Why is Omar happy?",
+          "question_ar": "لماذا عمر سعيد؟",
+          "choices": [
+            "Because the product looks good in the pictures",
+            "Because he is going home",
+            "Because the shop is closed",
+            "Because he found money"
+          ],
+          "correct_answer": "Because the product looks good in the pictures",
+          "explanation_ar": "عمر سعيد لأن المنتج يبدو جيداً في الصور."
+        },
+        {
+          "question_type": "inference",
+          "question_en": "What does the team hope will happen?",
+          "question_ar": "ماذا يأمل الفريق أن يحدث؟",
+          "choices": [
+            "Many customers will buy the bags",
+            "The bags will get old",
+            "The company will close",
+            "People will forget the brand"
+          ],
+          "correct_answer": "Many customers will buy the bags",
+          "explanation_ar": "يأمل الفريق أن يشتري كثير من الزبائن الحقائب."
+        },
+        {
+          "question_type": "sequence",
+          "question_en": "When will the team put the advert online?",
+          "question_ar": "متى سيضع الفريق الإعلان على الإنترنت؟",
+          "choices": ["Tomorrow", "Last year", "Yesterday", "Never"],
+          "correct_answer": "Tomorrow",
+          "explanation_ar": "قال عمر إنهم سيضعون الإعلان على الإنترنت غداً."
+        }
+      ],
+      "vocab": [
+        ["company", "a group of people who work and sell something", "شركة", "Omar works in a small company.", "noun", true],
+        ["customer", "a person who buys something", "زبون / عميل", "The shop has many customers.", "noun", true],
+        ["advert", "a message that helps sell something", "إعلان", "They are making a new advert.", "noun", true],
+        ["brand", "the name and look of a company's product", "علامة تجارية", "People trust this brand.", "noun", true],
+        ["product", "a thing a company makes and sells", "منتج", "The product looks good.", "noun", true],
+        ["online", "on the internet", "على الإنترنت", "They will put the advert online.", "adverb", true],
+        ["buy", "to pay money to get something", "يشتري", "Customers will buy the bags.", "verb", true],
+        ["grow", "to get bigger", "ينمو / يكبر", "A small company can grow.", "verb", true],
+        ["logo", "a small picture or sign for a brand", "شعار", "The company has a happy logo.", "noun", false]
+      ]
+    },
+    {
+      "label": "B",
+      "title_en": "Selling Online",
+      "title_ar": "البيع على الإنترنت",
+      "skill_en": "Reading for detail",
+      "skill_ar": "القراءة لالتقاط التفاصيل",
+      "paragraphs": [
+        "Layla has a small *shop*. She sells nice cups and plates. Last year, only people from her town came to the shop. Now Layla is *selling* her cups *online* too. \"More *customers* can find me now,\" she says. Every morning she takes photos of the cups. She writes a short *advert* for each one. She puts a good *price* under every photo.",
+        "Today Layla is busy. Two customers are *sending* messages. One customer wants three blue cups. Another wants a big plate. Layla is *packing* the cups in a box now. She is happy because her small *business* is growing fast this year. \"The internet helps me *reach* new customers,\" she says. \"People from other cities buy my cups. A good photo and a fair *price* bring more customers every week.\""
+      ],
+      "questions": [
+        {
+          "question_type": "main_idea",
+          "question_en": "What is the passage mainly about?",
+          "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+          "choices": [
+            "A woman selling her cups online",
+            "A woman cooking dinner",
+            "A big car company",
+            "A trip to another city"
+          ],
+          "correct_answer": "A woman selling her cups online",
+          "explanation_ar": "النص عن امرأة تبيع أكوابها على الإنترنت."
+        },
+        {
+          "question_type": "detail",
+          "question_en": "What does Layla sell?",
+          "question_ar": "ماذا تبيع ليلى؟",
+          "choices": ["Cups and plates", "Bags and shoes", "Cars", "Books"],
+          "correct_answer": "Cups and plates",
+          "explanation_ar": "ليلى تبيع أكواباً وأطباقاً."
+        },
+        {
+          "question_type": "detail",
+          "question_en": "What does Layla put under every photo?",
+          "question_ar": "ماذا تضع ليلى تحت كل صورة؟",
+          "choices": ["A good price", "Her phone number", "A big box", "A blue cup"],
+          "correct_answer": "A good price",
+          "explanation_ar": "تضع ليلى سعراً جيداً تحت كل صورة."
+        },
+        {
+          "question_type": "vocabulary",
+          "question_en": "What does the word \"business\" mean here?",
+          "question_ar": "ماذا تعني كلمة \"business\" هنا؟",
+          "choices": [
+            "A shop or company that sells things",
+            "A school class",
+            "A long road",
+            "A big meal"
+          ],
+          "correct_answer": "A shop or company that sells things",
+          "explanation_ar": "الـ business هنا محل أو شركة تبيع أشياء."
+        },
+        {
+          "question_type": "cause_effect",
+          "question_en": "Why is Layla happy?",
+          "question_ar": "لماذا ليلى سعيدة؟",
+          "choices": [
+            "Because her small business is growing",
+            "Because the shop is closed",
+            "Because she is on holiday",
+            "Because she broke a cup"
+          ],
+          "correct_answer": "Because her small business is growing",
+          "explanation_ar": "ليلى سعيدة لأن عملها الصغير ينمو."
+        },
+        {
+          "question_type": "inference",
+          "question_en": "How does selling online help Layla?",
+          "question_ar": "كيف يساعد البيعُ على الإنترنت ليلى؟",
+          "choices": [
+            "It brings customers from other cities",
+            "It makes her cups smaller",
+            "It closes her shop",
+            "It stops her photos"
+          ],
+          "correct_answer": "It brings customers from other cities",
+          "explanation_ar": "البيع على الإنترنت يجلب زبائن من مدن أخرى."
+        },
+        {
+          "question_type": "sequence",
+          "question_en": "What is Layla doing now?",
+          "question_ar": "ماذا تفعل ليلى الآن؟",
+          "choices": [
+            "She is packing the cups in a box",
+            "She is sleeping",
+            "She is closing her shop for a year",
+            "She is buying a car"
+          ],
+          "correct_answer": "She is packing the cups in a box",
+          "explanation_ar": "ليلى تضع الأكواب في صندوق الآن."
+        }
+      ],
+      "vocab": [
+        ["shop", "a small place where people buy things", "محل / متجر", "Layla has a small shop.", "noun", true],
+        ["sell", "to give something for money", "يبيع", "She is selling her cups online.", "verb", true],
+        ["price", "how much money something costs", "سعر", "She puts a good price under every photo.", "noun", true],
+        ["business", "a shop or company that sells things", "عمل تجاري / نشاط", "Her small business is growing.", "noun", true],
+        ["send", "to make something go to someone", "يرسل", "Customers are sending messages.", "verb", true],
+        ["pack", "to put things in a box to send", "يعبّئ / يحزم", "She is packing the cups in a box.", "verb", true],
+        ["reach", "to get to new people", "يصل إلى", "The internet helps me reach new customers.", "verb", true],
+        ["message", "a short note you send to someone", "رسالة", "Two customers are sending messages.", "noun", false],
+        ["fair", "good and honest, not too high", "عادل / منصف", "A fair price brings more customers.", "adjective", false]
+      ]
+    }
+  ],
+  "listening": {
+    "title_en": "Talking About an Advert",
+    "title_ar": "الحديث عن إعلان",
+    "transcript": "Hi, I'm Sami. I work in a small company. This week we are making a new advert for the internet. We want more customers to know our products. My job is to choose the pictures and the words. Today I am writing a short message about our new bag. I love my work because every day is different.",
+    "exercises": [
+      {
+        "question_en": "Where does Sami work?",
+        "question_type": "detail",
+        "options": ["A big hospital", "A small company", "A school", "A bank"],
+        "correct_answer_index": 1,
+        "difficulty": 1,
+        "explanation_ar": "قال سامي إنه يعمل في شركة صغيرة."
+      },
+      {
+        "question_en": "What is the team making this week?",
+        "question_type": "main_idea",
+        "options": ["A car", "A new advert", "A cake", "A house"],
+        "correct_answer_index": 1,
+        "difficulty": 2,
+        "explanation_ar": "يصنعون إعلاناً جديداً هذا الأسبوع."
+      },
+      {
+        "question_en": "Where will the advert go?",
+        "question_type": "detail",
+        "options": ["On the internet", "On the radio", "In a book", "On a wall"],
+        "correct_answer_index": 0,
+        "difficulty": 3,
+        "explanation_ar": "الإعلان سيكون على الإنترنت."
+      },
+      {
+        "question_en": "What is Sami's job?",
+        "question_type": "detail",
+        "options": [
+          "To cook food",
+          "To drive a bus",
+          "To choose the pictures and the words",
+          "To clean the office"
+        ],
+        "correct_answer_index": 2,
+        "difficulty": 3,
+        "explanation_ar": "عمل سامي هو اختيار الصور والكلمات."
+      },
+      {
+        "question_en": "Why does Sami love his work?",
+        "question_type": "inference",
+        "options": [
+          "Because every day is different",
+          "Because the work is easy",
+          "Because he sleeps a lot",
+          "Because he has no boss"
+        ],
+        "correct_answer_index": 0,
+        "difficulty": 4,
+        "explanation_ar": "يحب سامي عمله لأن كل يوم مختلف."
+      },
+      {
+        "question_en": "What is Sami writing about today?",
+        "question_type": "detail",
+        "options": ["A new bag", "A new car", "A big house", "An old book"],
+        "correct_answer_index": 0,
+        "difficulty": 5,
+        "explanation_ar": "يكتب سامي اليوم رسالة قصيرة عن الحقيبة الجديدة."
+      }
+    ]
+  },
+  "writing": {
+    "title_en": "Write a short advert",
+    "prompt_en": "Write a short advert for a small shop. What does it sell? Why should customers come? Use the present continuous (for example: We are selling...).",
+    "prompt_ar": "اكتب إعلاناً قصيراً لمحل صغير. ماذا يبيع؟ لماذا يأتي الزبائن؟ استخدم المضارع المستمر (مثال: We are selling...).",
+    "hints": [
+      "Come to our shop!",
+      "We are selling...",
+      "Our prices are good.",
+      "Customers love our products.",
+      "Buy online today!"
+    ],
+    "min": 40,
+    "max": 90
+  },
+  "speaking": {
+    "title_en": "Talk about an advert you like",
+    "prompt_en": "Talk about an advert you like. What is it for? Why do you like it? Say what the company is selling.",
+    "prompt_ar": "تحدث عن إعلان يعجبك. لأي شيء هو؟ لماذا يعجبك؟ قل ماذا تبيع الشركة.",
+    "prep": [
+      "فكّر في إعلان شاهدته",
+      "حضّر كلمات: advert, product, customer, brand",
+      "رتّب: ما هو الإعلان، ولماذا يعجبك"
+    ],
+    "phrases": [
+      "advert",
+      "product",
+      "customer",
+      "brand",
+      "I like it because",
+      "it is for"
+    ]
+  }
+}

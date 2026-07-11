@@ -1,0 +1,141 @@
+{
+  "kind": "supplement",
+  "custom_sort": 1,
+  "reading": {
+    "label": "B",
+    "title_en": "Sara Sells Bags Online",
+    "title_ar": "سارة تبيع الحقائب عبر الإنترنت",
+    "skill_en": "Reading for detail",
+    "skill_ar": "القراءة لالتقاط التفاصيل",
+    "paragraphs": [
+      "Sara has a small *business*. She makes bags at home. She sews them by hand. Every bag is different and pretty. Sara wants to sell her bags. She does not have a *shop*. So she sells them on the *internet*. She takes photos of each bag. Then she puts them on a website with a *price*.",
+      "At first, Sara had only one *customer* a week. She felt sad. But she did not stop. She made better photos. She wrote a nice *advert* for each bag. Slowly, more people came. Now she sells ten bags a week. She makes a small *profit* from every bag. Sara saves this money in the bank.",
+      "Sara knows that a business has some *risk*. Maybe a bag does not sell. Maybe a customer is not happy. But Sara is not afraid. She likes her small *idea*. She loves to make bags and meet new people online. Her dream is to open a real shop one day."
+    ],
+    "questions": [
+      {
+        "question_type": "main_idea",
+        "question_en": "What is the passage mainly about?",
+        "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+        "choices": ["A woman who sells handmade bags online", "A man who opens a coffee shop", "A big shop in the city", "A trip to another country"],
+        "correct_answer": "A woman who sells handmade bags online",
+        "explanation_ar": "النص عن سارة التي تبيع حقائب يدوية الصنع عبر الإنترنت."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "Where does Sara sell her bags?",
+        "question_ar": "أين تبيع سارة حقائبها؟",
+        "choices": ["In a big shop", "On the internet", "At a school", "In the street"],
+        "correct_answer": "On the internet",
+        "explanation_ar": "قال النص إنها تبيع حقائبها على الإنترنت لأنها لا تملك محلاً."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "How many bags does Sara sell now each week?",
+        "question_ar": "كم حقيبة تبيع سارة الآن كل أسبوع؟",
+        "choices": ["One bag", "Five bags", "Ten bags", "Twenty bags"],
+        "correct_answer": "Ten bags",
+        "explanation_ar": "قال النص إنها الآن تبيع عشر حقائب في الأسبوع."
+      },
+      {
+        "question_type": "vocabulary",
+        "question_en": "In the passage, what does the word \"profit\" mean?",
+        "question_ar": "ما معنى كلمة \"profit\" في النص؟",
+        "choices": ["The money you keep after costs", "The name of a bag", "A kind of shop", "A photo of a bag"],
+        "correct_answer": "The money you keep after costs",
+        "explanation_ar": "كلمة profit تعني الربح، أي المال الذي يبقى بعد دفع التكاليف."
+      },
+      {
+        "question_type": "inference",
+        "question_en": "What can we understand about Sara?",
+        "question_ar": "ماذا نفهم عن سارة من النص؟",
+        "choices": ["She works hard and does not give up", "She is lazy and stops quickly", "She hates making bags", "She only wants to travel"],
+        "correct_answer": "She works hard and does not give up",
+        "explanation_ar": "رغم أن البداية كانت صعبة، لم تتوقف سارة بل عملت بجد، فنفهم أنها لا تستسلم."
+      },
+      {
+        "question_type": "cause_effect",
+        "question_en": "What happened after Sara made better photos and wrote nice adverts?",
+        "question_ar": "ماذا حدث بعد أن صنعت سارة صوراً أفضل وكتبت إعلانات جميلة؟",
+        "choices": ["More people came to buy", "She closed her business", "She lost all her money", "Her bags became ugly"],
+        "correct_answer": "More people came to buy",
+        "explanation_ar": "بسبب الصور الأفضل والإعلانات الجميلة، جاء المزيد من الناس للشراء."
+      },
+      {
+        "question_type": "sequence",
+        "question_en": "What does Sara do first with each bag?",
+        "question_ar": "ما أول شيء تفعله سارة مع كل حقيبة؟",
+        "choices": ["She takes photos of it", "She saves money in the bank", "She opens a real shop", "She meets a customer"],
+        "correct_answer": "She takes photos of it",
+        "explanation_ar": "قبل أن تبيع الحقيبة، تلتقط سارة صوراً لها ثم تضعها على الموقع بسعر."
+      }
+    ],
+    "vocab": [
+      ["business", "the work of making, buying, or selling things", "عمل تجاري / مشروع", "She started a small business at home.", "noun", true],
+      ["shop", "a place where you buy things", "متجر / محل", "He wants to open a shop.", "noun", true],
+      ["internet", "the system that links computers around the world", "الإنترنت", "She sells bags on the internet.", "noun", true],
+      ["price", "how much money something costs", "السعر", "The price of the bag is low.", "noun", true],
+      ["customer", "a person who buys something", "زبون / عميل", "Every customer likes the bags.", "noun", true],
+      ["advert", "a message that helps sell something", "إعلان", "She wrote a short advert for each bag.", "noun", true],
+      ["profit", "the money you keep after you pay costs", "الربح", "She makes a small profit from every bag.", "noun", true],
+      ["risk", "the chance that something bad can happen", "مخاطرة / خطر", "Every business has some risk.", "noun", true],
+      ["idea", "a plan or thought in your mind", "فكرة", "Sara likes her small idea.", "noun", true],
+      ["handmade", "made by hand, not by a machine", "مصنوع يدوياً", "Her bags are handmade and pretty.", "adjective", false]
+    ]
+  },
+  "listening": {
+    "title_en": "Omar's Food Cart",
+    "title_ar": "عربة عمر للطعام",
+    "transcript": "Hi, I'm Omar. I have a small food cart near the university. I sell hot sandwiches and juice. I make everything fresh every morning. My prices are low, so students love my cart. I have many customers now. I make a small profit each day. One day, I want to open a real restaurant.",
+    "exercises": [
+      {
+        "question_en": "What is the speaker's name?",
+        "question_type": "detail",
+        "options": ["Sami", "Omar", "Ali", "Khalid"],
+        "correct_answer_index": 1,
+        "difficulty": 1,
+        "explanation_ar": "قال إن اسمه عمر."
+      },
+      {
+        "question_en": "Where is Omar's food cart?",
+        "question_type": "detail",
+        "options": ["Near the university", "In a big mall", "At the airport", "Near the sea"],
+        "correct_answer_index": 0,
+        "difficulty": 2,
+        "explanation_ar": "قال إن عربته قرب الجامعة."
+      },
+      {
+        "question_en": "What does Omar sell?",
+        "question_type": "detail",
+        "options": ["Books and pens", "Hot sandwiches and juice", "Bags and shoes", "Cars"],
+        "correct_answer_index": 1,
+        "difficulty": 2,
+        "explanation_ar": "يبيع سندويتشات ساخنة وعصيراً."
+      },
+      {
+        "question_en": "Why do students love Omar's cart?",
+        "question_type": "cause_effect",
+        "options": ["Because his prices are low", "Because it is far away", "Because he sells cars", "Because he is a teacher"],
+        "correct_answer_index": 0,
+        "difficulty": 3,
+        "explanation_ar": "الطلاب يحبون عربته لأن أسعاره منخفضة."
+      },
+      {
+        "question_en": "What is Omar's dream?",
+        "question_type": "main_idea",
+        "options": ["To sell his cart", "To open a real restaurant", "To leave the city", "To stop working"],
+        "correct_answer_index": 1,
+        "difficulty": 4,
+        "explanation_ar": "يحلم بأن يفتح مطعماً حقيقياً يوماً ما."
+      },
+      {
+        "question_en": "What can we understand about Omar's business?",
+        "question_type": "inference",
+        "options": ["It is doing well", "It has no customers", "It is closing soon", "It loses money every day"],
+        "correct_answer_index": 0,
+        "difficulty": 5,
+        "explanation_ar": "لديه زبائن كثيرون ويحقق ربحاً صغيراً كل يوم، لذلك نفهم أن مشروعه يسير بشكل جيد."
+      }
+    ]
+  }
+}

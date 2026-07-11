@@ -1,0 +1,176 @@
+{
+  "kind": "supplement",
+  "custom_sort": 4,
+  "reading": {
+    "label": "B",
+    "title_en": "Reading Friends",
+    "title_ar": "أصدقاء القراءة",
+    "skill_en": "Reading for detail",
+    "skill_ar": "القراءة لالتقاط التفاصيل",
+    "paragraphs": [
+      "Every Saturday, a group of *volunteers* meets at a small *community* center. They come to *help* young children learn to read. The *charity* is called Reading Friends. It is a *nonprofit* group, so nobody works for money.",
+      "Omar is one of the volunteers. He is a student at the university. He reads easy English books with the children. When a child reads a full page, everyone claps. Last month, the group had a special *event*. They asked people to *donate* old books, and many families brought boxes to the center. Now the small *library* has more than two hundred books.",
+      "The children love the new books, and they feel *proud* when they read. Omar feels happy too. He says, 'When we *support* our community, everybody wins.' The volunteers plan to open a second center next year."
+    ],
+    "questions": [
+      {
+        "question_type": "main_idea",
+        "question_en": "What is the passage mainly about?",
+        "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+        "choices": [
+          "Volunteers who help children read",
+          "A man who buys books at a shop",
+          "A big sports event in a city",
+          "A school English exam"
+        ],
+        "correct_answer": "Volunteers who help children read",
+        "explanation_ar": "النص عن متطوّعين يساعدون الأطفال على القراءة."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "When do the volunteers meet?",
+        "question_ar": "متى يجتمع المتطوّعون؟",
+        "choices": [
+          "Every Monday",
+          "Every Saturday",
+          "Every night",
+          "Once a year"
+        ],
+        "correct_answer": "Every Saturday",
+        "explanation_ar": "قال النص إنهم يجتمعون كل يوم سبت (every Saturday)."
+      },
+      {
+        "question_type": "vocabulary",
+        "question_en": "What does 'nonprofit' mean in the passage?",
+        "question_ar": "ماذا تعني كلمة nonprofit في النص؟",
+        "choices": [
+          "A group that sells many books",
+          "A big and rich company",
+          "A group that does not work for money",
+          "A group that helps only adults"
+        ],
+        "correct_answer": "A group that does not work for money",
+        "explanation_ar": "nonprofit تعني مجموعة لا تعمل من أجل المال."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "What did people donate at the special event?",
+        "question_ar": "بماذا تبرّع الناس في الفعالية الخاصة؟",
+        "choices": [
+          "New computers",
+          "Food and drinks",
+          "Old books",
+          "Toys for children"
+        ],
+        "correct_answer": "Old books",
+        "explanation_ar": "طلب المتطوّعون من الناس التبرّع بالكتب القديمة."
+      },
+      {
+        "question_type": "cause_effect",
+        "question_en": "Why does Omar feel happy?",
+        "question_ar": "لماذا يشعر عمر بالسعادة؟",
+        "choices": [
+          "Because he gets a lot of money",
+          "Because he helps his community",
+          "Because he sells many books",
+          "Because the center is closed"
+        ],
+        "correct_answer": "Because he helps his community",
+        "explanation_ar": "عمر سعيد لأنه يساعد مجتمعه."
+      },
+      {
+        "question_type": "inference",
+        "question_en": "How do the children probably feel about the volunteers?",
+        "question_ar": "كيف يشعر الأطفال تجاه المتطوّعين على الأرجح؟",
+        "choices": [
+          "They are thankful and happy",
+          "They are angry and sad",
+          "They are bored and tired",
+          "They are afraid of them"
+        ],
+        "correct_answer": "They are thankful and happy",
+        "explanation_ar": "الأطفال يحبّون الكتب ويشعرون بالفخر، فمن المرجّح أنهم ممتنّون وسعداء."
+      },
+      {
+        "question_type": "sequence",
+        "question_en": "What happened AFTER people donated books?",
+        "question_ar": "ماذا حدث بعد أن تبرّع الناس بالكتب؟",
+        "choices": [
+          "The center closed forever",
+          "The volunteers stopped helping",
+          "The library got more than two hundred books",
+          "The children left the group"
+        ],
+        "correct_answer": "The library got more than two hundred books",
+        "explanation_ar": "بعد التبرّع، أصبح في المكتبة أكثر من مئتي كتاب."
+      }
+    ],
+    "vocab": [
+      ["volunteer", "a person who works to help and gets no money", "متطوّع", "The volunteer helps at the center.", "noun", true],
+      ["community", "all the people who live in one area", "المجتمع / الحي", "He wants to help his community.", "noun", true],
+      ["charity", "a group that helps people for free", "جمعية خيرية", "The charity gives food to families.", "noun", true],
+      ["nonprofit", "a group that does not work for money", "غير هادف للربح", "It is a nonprofit group.", "adjective", true],
+      ["donate", "to give something to help others", "يتبرّع", "People donate old books to the center.", "verb", true],
+      ["support", "to help someone", "يدعم / يساند", "We support the young children.", "verb", true],
+      ["event", "something planned that happens", "فعالية / حدث", "The group had a special event.", "noun", true],
+      ["proud", "happy about something good you did", "فخور", "The child feels proud when he reads.", "adjective", true],
+      ["help", "to make something easier for someone", "يساعد", "They help children learn to read.", "verb", true],
+      ["library", "a place with many books to read", "مكتبة", "The library has many new books.", "noun", true]
+    ]
+  },
+  "listening": {
+    "title_en": "Sara the Food Volunteer",
+    "title_ar": "سارة متطوّعة الطعام",
+    "transcript": "Hi, I'm Sara. On weekends I volunteer at a food charity in my city. We're a small nonprofit group. My job is to pack boxes of rice and bread for poor families. Last week, many people came to donate food. I love this work because I help my community, and every family leaves with a big smile.",
+    "exercises": [
+      {
+        "question_en": "Where does Sara volunteer?",
+        "question_type": "detail",
+        "options": ["At a hospital", "At a food charity", "At a school", "At a shop"],
+        "correct_answer_index": 1,
+        "difficulty": 1,
+        "explanation_ar": "قالت سارة إنها تتطوّع في جمعية خيرية للطعام."
+      },
+      {
+        "question_en": "When does Sara volunteer?",
+        "question_type": "detail",
+        "options": ["On weekends", "On Monday morning", "Every night", "Once a year"],
+        "correct_answer_index": 0,
+        "difficulty": 2,
+        "explanation_ar": "قالت إنها تتطوّع في عطلات نهاية الأسبوع (on weekends)."
+      },
+      {
+        "question_en": "What is Sara's job at the charity?",
+        "question_type": "main_idea",
+        "options": ["To drive a bus", "To teach English", "To pack boxes of food", "To sell books"],
+        "correct_answer_index": 2,
+        "difficulty": 3,
+        "explanation_ar": "مهمّتها تعبئة صناديق الأرز والخبز للعائلات الفقيرة."
+      },
+      {
+        "question_en": "What did many people do last week?",
+        "question_type": "detail",
+        "options": ["They played sports", "They cleaned a park", "They sold rice", "They donated food"],
+        "correct_answer_index": 3,
+        "difficulty": 3,
+        "explanation_ar": "جاء كثير من الناس ليتبرّعوا بالطعام الأسبوع الماضي."
+      },
+      {
+        "question_en": "Why does Sara love this work?",
+        "question_type": "cause_effect",
+        "options": ["Because she earns a lot of money", "Because she helps her community", "Because it is easy and short", "Because she gets free food"],
+        "correct_answer_index": 1,
+        "difficulty": 4,
+        "explanation_ar": "قالت إنها تحب العمل لأنها تساعد مجتمعها."
+      },
+      {
+        "question_en": "What kind of group does Sara work with?",
+        "question_type": "vocabulary",
+        "options": ["A big company", "A school class", "A small nonprofit group", "A sports team"],
+        "correct_answer_index": 2,
+        "difficulty": 5,
+        "explanation_ar": "وصفت مجموعتها بأنها مجموعة صغيرة غير هادفة للربح (nonprofit)."
+      }
+    ]
+  }
+}

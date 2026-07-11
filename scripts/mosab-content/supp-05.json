@@ -1,0 +1,141 @@
+{
+  "kind": "supplement",
+  "custom_sort": 5,
+  "reading": {
+    "label": "B",
+    "title_en": "Omar's First Day at Work",
+    "title_ar": "أول يوم لعمر في العمل",
+    "skill_en": "Reading for detail",
+    "skill_ar": "القراءة لالتقاط التفاصيل",
+    "paragraphs": [
+      "Today is Omar's first day at his new *job*. He works at a big shop in the city. He wakes up early and wears a clean *uniform*. He feels happy but a little nervous. He wants to do good work and make his *manager* happy.",
+      "At the shop, a kind *colleague* named Sami says hello. Sami shows Omar the *office* and the shelves. He gives Omar his first *task*: to help the customers find things. Omar learns fast because he has good *skills*. He listens well and asks questions.",
+      "After three hours, Omar takes a short *break*. He drinks tea and talks with the *team*. Everyone is friendly. At the end of the day, the manager says, 'Good job, Omar!' Omar smiles. He is happy in his new *career*. He knows that with hard work, he can learn more every day."
+    ],
+    "questions": [
+      {
+        "question_type": "main_idea",
+        "question_en": "What is the passage mainly about?",
+        "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+        "choices": ["Omar's first day at a new job", "Omar buys a new shop", "Omar goes on a holiday", "Omar teaches a class"],
+        "correct_answer": "Omar's first day at a new job",
+        "explanation_ar": "النص كله عن أول يوم لعمر في وظيفته الجديدة."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "What does Omar wear to work?",
+        "question_ar": "ماذا يلبس عمر إلى العمل؟",
+        "choices": ["A clean uniform", "A blue hat", "Old clothes", "A jacket"],
+        "correct_answer": "A clean uniform",
+        "explanation_ar": "قال النص إنه يلبس زيّاً نظيفاً (uniform)."
+      },
+      {
+        "question_type": "detail",
+        "question_en": "Who says hello to Omar at the shop?",
+        "question_ar": "من الذي يُلقي التحية على عمر في المحل؟",
+        "choices": ["A colleague named Sami", "His manager", "A customer", "His brother"],
+        "correct_answer": "A colleague named Sami",
+        "explanation_ar": "زميله في العمل (colleague) سامي هو من رحّب به."
+      },
+      {
+        "question_type": "vocabulary",
+        "question_en": "What does the word 'task' mean?",
+        "question_ar": "ماذا تعني كلمة 'task'؟",
+        "choices": ["A job or piece of work to do", "A kind of food", "A break time", "A shop"],
+        "correct_answer": "A job or piece of work to do",
+        "explanation_ar": "كلمة task تعني مهمة أو شغل يجب أن تعمله."
+      },
+      {
+        "question_type": "cause_effect",
+        "question_en": "Why does Omar learn fast?",
+        "question_ar": "لماذا يتعلّم عمر بسرعة؟",
+        "choices": ["Because he has good skills", "Because the shop is small", "Because he is tired", "Because Sami is angry"],
+        "correct_answer": "Because he has good skills",
+        "explanation_ar": "تعلّم بسرعة لأن عنده مهارات جيدة (skills) — يستمع ويسأل."
+      },
+      {
+        "question_type": "sequence",
+        "question_en": "What does Omar do after three hours?",
+        "question_ar": "ماذا يفعل عمر بعد ثلاث ساعات؟",
+        "choices": ["He takes a short break", "He goes home", "He starts his first task", "He wears his uniform"],
+        "correct_answer": "He takes a short break",
+        "explanation_ar": "بعد ثلاث ساعات أخذ استراحة قصيرة (break)."
+      },
+      {
+        "question_type": "inference",
+        "question_en": "How does Omar feel at the end of the day?",
+        "question_ar": "بماذا يشعر عمر في نهاية اليوم؟",
+        "choices": ["Happy in his new career", "Sad and angry", "Bored and tired", "Afraid of the manager"],
+        "correct_answer": "Happy in his new career",
+        "explanation_ar": "في النهاية ابتسم وشعر بالسعادة في مهنته الجديدة (career)."
+      }
+    ],
+    "vocab": [
+      ["job", "the work a person does to earn money", "وظيفة / عمل", "Omar started his new job today.", "noun", true],
+      ["uniform", "special clothes you wear for work", "زيّ موحّد / لباس العمل", "He wears a clean uniform at the shop.", "noun", true],
+      ["manager", "the person who leads the workers", "مدير", "The manager said good job to Omar.", "noun", true],
+      ["colleague", "a person you work with", "زميل في العمل", "Sami is a kind colleague.", "noun", true],
+      ["office", "a room where people work", "مكتب", "Sami shows Omar the office.", "noun", true],
+      ["task", "a piece of work you must do", "مهمة", "Omar's first task is to help customers.", "noun", true],
+      ["skills", "things you can do well", "مهارات", "Omar has good skills.", "noun", true],
+      ["break", "a short rest from work", "استراحة", "Omar takes a short break.", "noun", true],
+      ["team", "a group of people who work together", "فريق", "He talks with the team.", "noun", true],
+      ["career", "the work you do for many years", "مسيرة مهنية / مهنة", "Omar is happy in his new career.", "noun", true]
+    ]
+  },
+  "listening": {
+    "title_en": "A Manager Talks About Her Job",
+    "title_ar": "مديرة تتحدث عن وظيفتها",
+    "transcript": "Hi, I'm Nora. I work in an office in the city. I am a manager. Every morning I say hello to my team. I give them their tasks for the day. I like my job because I help new workers learn. My best skill is talking to people. I feel happy in my career.",
+    "exercises": [
+      {
+        "question_en": "Where does Nora work?",
+        "question_type": "detail",
+        "options": ["In a hospital", "In an office", "In a school", "In a shop"],
+        "correct_answer_index": 1,
+        "difficulty": 1,
+        "explanation_ar": "قالت نورة إنها تعمل في مكتب (office) في المدينة."
+      },
+      {
+        "question_en": "What is Nora's job?",
+        "question_type": "detail",
+        "options": ["A driver", "A teacher", "A manager", "A doctor"],
+        "correct_answer_index": 2,
+        "difficulty": 2,
+        "explanation_ar": "قالت إنها مديرة (manager)."
+      },
+      {
+        "question_en": "What does Nora do every morning?",
+        "question_type": "detail",
+        "options": ["She says hello to her team", "She cleans the office", "She cooks food", "She goes home"],
+        "correct_answer_index": 0,
+        "difficulty": 2,
+        "explanation_ar": "كل صباح تُلقي التحية على فريقها (team)."
+      },
+      {
+        "question_en": "What does she give her team?",
+        "question_type": "main_idea",
+        "options": ["Money", "Food", "Their tasks", "New clothes"],
+        "correct_answer_index": 2,
+        "difficulty": 3,
+        "explanation_ar": "تعطي فريقها مهامهم (tasks) لليوم."
+      },
+      {
+        "question_en": "Why does Nora like her job?",
+        "question_type": "cause_effect",
+        "options": ["Because she helps new workers learn", "Because the office is big", "Because she works alone", "Because she has short days"],
+        "correct_answer_index": 0,
+        "difficulty": 4,
+        "explanation_ar": "تحب وظيفتها لأنها تساعد العمال الجدد على التعلّم."
+      },
+      {
+        "question_en": "What is Nora's best skill?",
+        "question_type": "detail",
+        "options": ["Cooking", "Driving", "Talking to people", "Fixing cars"],
+        "correct_answer_index": 2,
+        "difficulty": 3,
+        "explanation_ar": "أفضل مهارة (skill) عندها هي التحدّث مع الناس."
+      }
+    ]
+  }
+}

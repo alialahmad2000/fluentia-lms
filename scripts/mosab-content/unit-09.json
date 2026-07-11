@@ -1,0 +1,156 @@
+{
+  "kind": "unit",
+  "custom_sort": 9,
+  "theme_en": "Working in a Team",
+  "theme_ar": "العمل ضمن فريق · نتعاون معاً",
+  "desc_ar": "إنجليزي بسيط عن العمل ضمن فريق: كيف نتعاون، نتقاسم المهام، ونجتمع معاً.",
+  "why_ar": "لتتعلّم كلمات الإنجليزي التي تصف العمل الجماعي والتعاون، وكيف تقارن بين الأشياء بصيغة المقارنة.",
+  "outcomes": ["تقرأ نصاً بسيطاً عن فريق يعمل معاً", "تتعلّم كلمات: team, meeting, leader, share, help", "تتعلّم صيغة المقارنة (bigger, faster, better, easier)", "تكتب عن فريق تعمل أو تدرس معه"],
+  "warmup": ["هل تحب العمل مع الآخرين أم بمفردك؟", "من هو أفضل قائد فريق عرفته؟"],
+  "grammar": {
+    "en": "Comparatives",
+    "ar": "صيغة المقارنة",
+    "explain_ar": "نستخدم صيغة المقارنة (Comparatives) لنقارن بين شيئين. للصفات القصيرة نضيف -er (big → bigger، fast → faster). للصفات التي تنتهي بحرف y نحوّلها إلى -ier (easy → easier). للصفات الطويلة نضع more قبل الصفة (useful → more useful). وبعد المقارنة نستخدم than.",
+    "explain_en_html": "<b>Comparatives</b><br><br>We use comparatives to compare two things.<br>Short adjectives: add <b>-er</b> (big → big<b>ger</b>, fast → fast<b>er</b>).<br>Adjectives ending in <b>y</b>: change to <b>-ier</b> (easy → eas<b>ier</b>).<br>Long adjectives: use <b>more</b> (more useful, more expensive).<br>Use <b>than</b> after the comparative.<br><i>A bigger team is <b>better than</b> one person.</i>",
+    "formula": "Subject + is + adjective+<b>er</b> / <b>more</b> + adjective + <b>than</b> ...",
+    "examples": [
+      {"sentence": "A bigger team is faster than one person.", "highlight": "faster than", "translation_ar": "الفريق الأكبر أسرع من شخص واحد."},
+      {"sentence": "This plan is more useful than the old plan.", "highlight": "more useful than", "translation_ar": "هذه الخطة أكثر فائدة من الخطة القديمة."},
+      {"sentence": "Working together is easier than working alone.", "highlight": "easier than", "translation_ar": "العمل معاً أسهل من العمل بمفردك."}
+    ],
+    "mistakes": [
+      {"wrong": "A team is more big than one person.", "correct": "A team is bigger than one person.", "explanation_ar": "الصفة القصيرة big تأخذ -er، ولا نستخدم more معها."},
+      {"wrong": "This plan is useful than the old one.", "correct": "This plan is more useful than the old one.", "explanation_ar": "الصفة الطويلة useful تحتاج more قبلها."}
+    ],
+    "exercises": [
+      {"instruction_ar": "اختر الصيغة الصحيحة", "items": [
+        {"question": "A big team is ___ than one person.", "options": ["bigger", "more big"], "correct_answer": "bigger", "explanation_ar": "big صفة قصيرة → bigger."},
+        {"question": "This plan is ___ than the old plan.", "options": ["more useful", "usefuller"], "correct_answer": "more useful", "explanation_ar": "useful صفة طويلة → more useful."},
+        {"question": "Working in a team is ___ than working alone.", "options": ["easier", "more easy"], "correct_answer": "easier", "explanation_ar": "easy تنتهي بحرف y → easier."}
+      ]}
+    ]
+  },
+  "readings": [
+    {
+      "label": "A",
+      "title_en": "A Good Team",
+      "title_ar": "فريق جيّد",
+      "skill_en": "Finding the main idea",
+      "skill_ar": "إيجاد الفكرة الرئيسية",
+      "paragraphs": [
+        "Omar works in a small office. He is part of a *team* of five people. Every morning, the team has a short *meeting*. They talk about the work for the day. The *leader* is a kind man named Ali. He helps everyone. Omar likes his job because the team is friendly.",
+        "The team has a big *task* this week. They must finish a new plan for a customer. It is a lot of work for one person. So the team *share* the work. Omar writes the words. Sara makes the pictures. They *help* each other every day.",
+        "On Friday, the team finish the plan. Everyone is happy. The leader says, 'You did a great job. A good team is *better* than one person.' They all *agree*. Omar knows that working together is *easier* and more fun."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the passage mainly about?", "question_ar": "عمّ يتحدث النص بشكل رئيسي؟",
+         "choices": ["A team that works together on a task", "A man who buys a new car", "A school English lesson", "A trip to another country"],
+         "correct_answer": "A team that works together on a task", "explanation_ar": "النص عن فريق يعمل معاً لإنجاز مهمّة."},
+        {"question_type": "detail", "question_en": "How many people are on Omar's team?", "question_ar": "كم عدد أفراد فريق عمر؟",
+         "choices": ["Three", "Four", "Five", "Six"],
+         "correct_answer": "Five", "explanation_ar": "الفريق مكوّن من خمسة أشخاص."},
+        {"question_type": "detail", "question_en": "When does the team have a meeting?", "question_ar": "متى يعقد الفريق اجتماعه؟",
+         "choices": ["Every morning", "Every night", "On Friday only", "Once a month"],
+         "correct_answer": "Every morning", "explanation_ar": "يعقدون اجتماعاً قصيراً كل صباح."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'share' mean in the passage?", "question_ar": "ماذا تعني كلمة 'share' في النص؟",
+         "choices": ["To divide the work between people", "To finish the work fast", "To stop the work", "To sell the work"],
+         "correct_answer": "To divide the work between people", "explanation_ar": "تعني تقاسم العمل بين الأشخاص."},
+        {"question_type": "cause_effect", "question_en": "Why does the team share the work?", "question_ar": "لماذا يتقاسم الفريق العمل؟",
+         "choices": ["Because it is too much for one person", "Because they are tired", "Because the leader is away", "Because it is a holiday"],
+         "correct_answer": "Because it is too much for one person", "explanation_ar": "لأن العمل كثير على شخص واحد."},
+        {"question_type": "inference", "question_en": "How does Omar feel about his team?", "question_ar": "كيف يشعر عمر تجاه فريقه؟",
+         "choices": ["He enjoys working with them", "He wants to leave them", "He is afraid of them", "He does not know them"],
+         "correct_answer": "He enjoys working with them", "explanation_ar": "عمر يحب فريقه ويستمتع بالعمل معهم."},
+        {"question_type": "sequence", "question_en": "What happens on Friday?", "question_ar": "ماذا يحدث يوم الجمعة؟",
+         "choices": ["The team finishes the plan", "The team starts the plan", "The leader leaves", "A new customer comes"],
+         "correct_answer": "The team finishes the plan", "explanation_ar": "ينهي الفريق الخطة يوم الجمعة."}
+      ],
+      "vocab": [
+        ["team", "a group of people who work together", "فريق", "Our team has five people.", "noun", true],
+        ["meeting", "a time when people come together to talk", "اجتماع", "We have a meeting every morning.", "noun", true],
+        ["leader", "the person who guides a team", "قائد", "The leader helps everyone.", "noun", true],
+        ["task", "a piece of work you must do", "مهمّة", "This task is big.", "noun", true],
+        ["share", "to divide something between people", "يتقاسم / يشارك", "They share the work.", "verb", true],
+        ["help", "to do something useful for someone", "يساعد", "We help each other.", "verb", true],
+        ["better", "more good than something else", "أفضل", "A team is better than one person.", "adjective", true],
+        ["agree", "to have the same idea as someone", "يوافق", "They all agree.", "verb", true],
+        ["easier", "less hard than something else", "أسهل", "The work is easier together.", "adjective", true]
+      ]
+    },
+    {
+      "label": "B",
+      "title_en": "A Bigger Team",
+      "title_ar": "فريق أكبر",
+      "skill_en": "Reading for detail",
+      "skill_ar": "القراءة لالتقاط التفاصيل",
+      "paragraphs": [
+        "Fatima has a small shop. She sells nice bags and hats. Last year, she worked alone. It was very *difficult*. She had too many jobs every day. She was always tired. So this year, she made a small *team*. Now three good people work with her.",
+        "A *bigger* team is a big help. One person cleans the shop. One person talks to the *customers*. Fatima counts the money. The work is now much *faster* than before. The shop is also more *tidy* and clean.",
+        "Fatima and her team have a *meeting* every week. They think of *better* ideas together. Last month, they made a new plan. The plan was *cheaper* and brought more customers to the shop. Fatima is very happy. She says a good team makes a shop *stronger* and more useful."
+      ],
+      "questions": [
+        {"question_type": "main_idea", "question_en": "What is the main idea of the passage?", "question_ar": "ما الفكرة الرئيسية للنص؟",
+         "choices": ["A team makes Fatima's shop better", "Fatima closes her shop", "Fatima sells only hats", "A customer opens a shop"],
+         "correct_answer": "A team makes Fatima's shop better", "explanation_ar": "الفكرة أن الفريق جعل محل فاطمة أفضل."},
+        {"question_type": "detail", "question_en": "How did Fatima work last year?", "question_ar": "كيف كانت فاطمة تعمل العام الماضي؟",
+         "choices": ["Alone", "With three people", "With her family", "With ten people"],
+         "correct_answer": "Alone", "explanation_ar": "كانت تعمل بمفردها العام الماضي."},
+        {"question_type": "detail", "question_en": "How many people work with Fatima now?", "question_ar": "كم شخصاً يعمل مع فاطمة الآن؟",
+         "choices": ["One", "Two", "Three", "Four"],
+         "correct_answer": "Three", "explanation_ar": "يعمل معها الآن ثلاثة أشخاص."},
+        {"question_type": "vocabulary", "question_en": "What does the word 'faster' mean?", "question_ar": "ماذا تعني كلمة 'faster'؟",
+         "choices": ["More quick; takes less time", "More slow", "More expensive", "More difficult"],
+         "correct_answer": "More quick; takes less time", "explanation_ar": "تعني أسرع؛ يأخذ وقتاً أقل."},
+        {"question_type": "cause_effect", "question_en": "Why did Fatima make a team?", "question_ar": "لماذا كوّنت فاطمة فريقاً؟",
+         "choices": ["Because the work was too difficult alone", "Because she had a lot of money", "Because her shop was empty", "Because she wanted a holiday"],
+         "correct_answer": "Because the work was too difficult alone", "explanation_ar": "لأن العمل كان صعباً عليها بمفردها."},
+        {"question_type": "inference", "question_en": "What do Fatima and her team do in the weekly meeting?", "question_ar": "ماذا تفعل فاطمة وفريقها في الاجتماع الأسبوعي؟",
+         "choices": ["They think of better ideas", "They clean the street", "They close the shop", "They go home early"],
+         "correct_answer": "They think of better ideas", "explanation_ar": "يفكّرون في أفكار أفضل."},
+        {"question_type": "detail", "question_en": "What happened after they made the new plan?", "question_ar": "ماذا حدث بعد أن وضعوا الخطة الجديدة؟",
+         "choices": ["More customers came to the shop", "The shop closed", "The team left", "The plan was more expensive"],
+         "correct_answer": "More customers came to the shop", "explanation_ar": "جاء المزيد من الزبائن إلى المحل."}
+      ],
+      "vocab": [
+        ["difficult", "not easy; hard to do", "صعب", "The work was difficult alone.", "adjective", true],
+        ["team", "a group of people who work together", "فريق", "She made a small team.", "noun", true],
+        ["bigger", "larger in size", "أكبر", "A bigger team is a big help.", "adjective", true],
+        ["customer", "a person who buys something", "زبون / عميل", "One person talks to the customers.", "noun", true],
+        ["faster", "more quick; takes less time", "أسرع", "The work is now faster.", "adjective", true],
+        ["tidy", "clean and in good order", "مرتّب", "The shop is more tidy.", "adjective", true],
+        ["meeting", "a time when people come together to talk", "اجتماع", "They have a meeting every week.", "noun", true],
+        ["better", "more good than something else", "أفضل", "They think of better ideas.", "adjective", true],
+        ["cheaper", "less expensive; costs less money", "أرخص", "The new plan was cheaper.", "adjective", true],
+        ["stronger", "more strong; more powerful", "أقوى", "A good team makes a shop stronger.", "adjective", true]
+      ]
+    }
+  ],
+  "listening": {
+    "title_en": "My Team at Work",
+    "title_ar": "فريقي في العمل",
+    "transcript": "Hi, I'm Khalid. I work in a small team of four people. We help each other every day. This week we have a big task for a new customer. It is a lot of work, so we share the jobs. A team is faster and better than one person. I love my team because the work is easier together.",
+    "exercises": [
+      {"question_en": "Where does Khalid work?", "question_type": "detail", "options": ["In a big factory", "In a small team", "In a school", "In a bank"], "correct_answer_index": 1, "difficulty": 1, "explanation_ar": "قال خالد إنه يعمل في فريق صغير."},
+      {"question_en": "How many people are in the team?", "question_type": "detail", "options": ["Two", "Three", "Four", "Five"], "correct_answer_index": 2, "difficulty": 2, "explanation_ar": "الفريق مكوّن من أربعة أشخاص."},
+      {"question_en": "What does the team have this week?", "question_type": "main_idea", "options": ["A holiday", "A big task", "A party", "A test"], "correct_answer_index": 1, "difficulty": 2, "explanation_ar": "لديهم مهمّة كبيرة لزبون جديد."},
+      {"question_en": "Why do they share the jobs?", "question_type": "cause_effect", "options": ["Because they are bored", "Because it is a lot of work", "Because they are tired", "Because the boss said so"], "correct_answer_index": 1, "difficulty": 3, "explanation_ar": "يتقاسمون العمل لأنه كثير."},
+      {"question_en": "What does Khalid say about a team?", "question_type": "detail", "options": ["It is slower than one person", "It is faster and better than one person", "It is more difficult", "It is more expensive"], "correct_answer_index": 1, "difficulty": 4, "explanation_ar": "قال إن الفريق أسرع وأفضل من شخص واحد."},
+      {"question_en": "Why does Khalid love his team?", "question_type": "inference", "options": ["Because the work is easier together", "Because they give him money", "Because he is the leader", "Because they never work"], "correct_answer_index": 0, "difficulty": 5, "explanation_ar": "يحبّ فريقه لأن العمل أسهل عندما يعملون معاً."}
+    ]
+  },
+  "writing": {
+    "title_en": "Write about your team",
+    "prompt_en": "Write about a team you work in or study with. How many people are in it? How do you help each other?",
+    "prompt_ar": "اكتب عن فريق تعمل أو تدرس معه. كم عدد أفراده؟ كيف تساعدون بعضكم؟",
+    "hints": ["My team has ... people.", "We help each other by ...", "A team is better than ...", "I like my team because ..."],
+    "min": 40,
+    "max": 90
+  },
+  "speaking": {
+    "title_en": "Talk about working in a team",
+    "prompt_en": "Talk about working in a team. Do you like it? Why is a team better than working alone?",
+    "prompt_ar": "تحدث عن العمل ضمن فريق. هل يعجبك؟ لماذا الفريق أفضل من العمل بمفردك؟",
+    "prep": ["فكّر في فريق تعرفه", "حضّر كلمات: team, help, share, better", "رتّب: من هم، وكيف يتعاونون"],
+    "phrases": ["team", "help each other", "share the work", "better than", "a good leader"]
+  }
+}
