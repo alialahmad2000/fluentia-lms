@@ -527,3 +527,123 @@ html[data-track="fardi"] .atlas-cta {
 .f2-primer__fill { height: 100%; border-radius: 6px; background: var(--accent-individual-strong, #c084fc); transition: width 0.15s linear; }
 .f2-primer__toggle { margin-top: 18px; background: none; border: none; cursor: pointer; color: var(--accent-individual-strong, #c084fc); font-size: 12.5px; font-weight: 700; font-family: 'Tajawal', sans-serif; padding: 0; }
 .f2-primer__text { margin: 12px 0 0; padding-top: 14px; border-top: 1px solid rgba(192, 132, 252, 0.16); font-size: 14px; line-height: 1.95; color: rgba(255, 255, 255, 0.82); }
+
+/* ══════════════════════════════════════════════════════════════════════ *
+ * STUDIO HERO — a marketing leader's private "campaign board". Distinct from
+ * FARDI: her 10 units read as a CAMPAIGN PIPELINE of stages, and everything wears
+ * a warm metallic copper/amber from the html[data-track="studio"] token remap.
+ * Only mounts for the one student whose theme_key = 'studio'.
+ * ══════════════════════════════════════════════════════════════════════ */
+
+/* copper CTA for her space (the base .atlas-cta gold gradient is hardcoded) */
+html[data-track="studio"] .atlas-cta {
+  color: #fff;
+  background: linear-gradient(160deg, var(--accent-studio-strong) 0%, var(--accent-studio) 48%, #a85a24 100%);
+  box-shadow:
+    0 1px 2px rgba(48, 26, 8, 0.5),
+    0 20px 44px -16px rgba(207, 125, 67, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.studio-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 800; /* Arabic eyebrow: no Latin tracking/uppercase (keeps letter-joining) */
+  color: var(--accent-studio-strong, #eaa864);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* the mission — the focal headline */
+.studio-mission {
+  font-size: clamp(24px, 5.6vw, 40px);
+  font-weight: 800; letter-spacing: -0.025em; line-height: 1.24; color: #fff;
+  margin: 12px 0 0; max-width: 20ch;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 2px 14px rgba(0, 0, 0, 0.82), 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+/* the campaign pipeline — her units as segmented stages (not a single bar) */
+.studio-pipeline { margin-top: clamp(18px, 4vw, 26px); max-width: 480px; }
+.studio-pipeline__head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px;
+}
+.studio-pipeline__label {
+  font-size: 13.5px; font-weight: 700; color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+.studio-pipeline__count {
+  font-size: 13px; font-weight: 800; color: #fff; white-space: nowrap;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+.studio-pipeline__count b { color: var(--accent-studio-strong, #eaa864); }
+.studio-pipeline__track { display: flex; align-items: stretch; gap: 5px; }
+.studio-stage {
+  flex: 1 1 0; height: 12px; border-radius: 4px; transform-origin: bottom;
+  background: rgba(255, 255, 255, 0.13);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.studio-stage.is-done {
+  background: linear-gradient(180deg, var(--accent-studio-strong), var(--accent-studio));
+  box-shadow: 0 0 12px rgba(207, 125, 67, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.studio-stage.is-current {
+  background: linear-gradient(180deg, rgba(234, 167, 100, 0.55), rgba(207, 125, 67, 0.32));
+  box-shadow: 0 0 16px rgba(234, 167, 100, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  animation: studio-stage-breathe 2.6s ease-in-out infinite;
+}
+@keyframes studio-stage-breathe {
+  0%, 100% { box-shadow: 0 0 14px rgba(234, 167, 100, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+  50%      { box-shadow: 0 0 22px rgba(234, 167, 100, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-stage.is-current { animation: none; }
+}
+
+/* "you are here" — current stage name, so the pipeline reads as a real campaign board */
+.studio-pipeline__now {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 11px; font-size: 12.5px; font-weight: 700;
+  color: rgba(255, 255, 255, 0.74); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+.studio-pipeline__now b { color: #fff; font-weight: 800; }
+.studio-pipeline__now-dot {
+  width: 7px; height: 7px; border-radius: 999px; flex-shrink: 0;
+  background: var(--accent-studio-strong, #eaa864);
+  box-shadow: 0 0 10px rgba(234, 167, 100, 0.9);
+}
+
+/* next 1:1 session — a floating frosted line */
+.studio-session {
+  display: inline-flex; align-items: center; gap: 11px;
+  margin-top: clamp(16px, 3.5vw, 22px);
+  padding-block: 11px; padding-inline: 14px 17px; border-radius: 16px;
+  background: rgba(22, 14, 8, 0.46);
+  border: 1px solid rgba(207, 125, 67, 0.36);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px -14px rgba(168, 90, 36, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.studio-session__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 11px; flex-shrink: 0;
+  background: rgba(207, 125, 67, 0.2); border: 1px solid rgba(207, 125, 67, 0.42);
+  color: var(--accent-studio-strong, #eaa864);
+}
+.studio-session__label {
+  font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.6);
+}
+.studio-session__when { font-size: 14.5px; font-weight: 800; color: #fff; line-height: 1.3; margin-top: 1px; }
+.studio-session__note { font-size: 12px; color: rgba(255, 255, 255, 0.6); font-weight: 500; margin-top: 1px; }
+.studio-session--empty { border-color: rgba(255, 255, 255, 0.12); }
+.studio-session--empty .studio-session__icon {
+  background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.6);
+}
+
+/* demoted meta row — XP · streak · level, small and secondary */
+.studio-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: clamp(18px, 4vw, 26px);
+}
+.studio-meta__item {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 700; color: rgba(255, 255, 255, 0.72);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+.studio-meta__item b { color: #fff; font-weight: 800; }
+.studio-meta__dot { width: 3px; height: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.3); }

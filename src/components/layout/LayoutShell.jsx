@@ -54,20 +54,24 @@ export default function LayoutShell() {
   const pointsGiven = useClassMode((s) => s.pointsGiven)
   const dismissSummary = useClassMode((s) => s.dismissSummary)
 
-  // Fardi (custom-curriculum) students get a purple accent scoped to their whole
-  // space via <html data-track="fardi"> (remap in design-tokens.css). Gated on
-  // studentData.uses_custom_curriculum — impersonation-safe, and no other
-  // student's palette is touched. Cleaned up on unmount / student switch.
+  // Custom / individual students get a scoped accent on <html data-track="..."> (remap
+  // in design-tokens.css). Driven by students.theme_key (e.g. 'studio'), falling back to
+  // 'fardi' for legacy custom students without a key — so no existing student's palette
+  // changes. Reads studentData (the EFFECTIVE student → impersonation-safe). Only manages
+  // the custom tracks (fardi/studio); the 'desk' track is owned by DeskShell, never touched
+  // here. Cleaned up on unmount / student switch.
+  const themeKey =
+    studentData?.theme_key || (studentData?.uses_custom_curriculum === true ? 'fardi' : null)
   useEffect(() => {
+    const CUSTOM_TRACKS = ['fardi', 'studio']
     const el = document.documentElement
-    if (studentData?.uses_custom_curriculum === true) el.setAttribute('data-track', 'fardi')
-    else if (el.getAttribute('data-track') === 'fardi') el.removeAttribute('data-track')
+    if (themeKey) el.setAttribute('data-track', themeKey)
+    else if (CUSTOM_TRACKS.includes(el.getAttribute('data-track'))) el.removeAttribute('data-track')
     return () => {
-      if (document.documentElement.getAttribute('data-track') === 'fardi') {
-        document.documentElement.removeAttribute('data-track')
-      }
+      const cur = document.documentElement.getAttribute('data-track')
+      if (CUSTOM_TRACKS.includes(cur)) document.documentElement.removeAttribute('data-track')
     }
-  }, [studentData?.uses_custom_curriculum])
+  }, [themeKey])
 
   const role = profile?.role || 'student'
   // SIDEBAR-HIDDEN 2026-06-08 (owner): competition is fully hidden from the nav, so the previous

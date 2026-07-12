@@ -58,6 +58,14 @@
   --accent-desk-glow:         rgba(56, 189, 248, 0.18);
   --accent-desk-strong:       #7dd3fc;
 
+  /* Studio accent — a creative director's private studio: warm metallic copper/amber.
+     Deliberately distinct from the fardi purple and the default sky at a glance.
+     Applied only within a [data-track="studio"] subtree (a single custom student). */
+  --accent-studio:            #cf7d43;
+  --accent-studio-dim:        #43260f;
+  --accent-studio-glow:       rgba(207, 125, 67, 0.20);
+  --accent-studio-strong:     #eaa864;
+
   --accent-gold:         #fbbf24;
   --accent-gold-dim:     #713f12;
   --accent-gold-glow:    rgba(251, 191, 36, 0.12);
@@ -665,4 +673,29 @@ html[data-track="desk"] {
   --ds-accent-primary:      var(--accent-desk);
   --ds-accent-primary-glow: var(--accent-desk-glow);
   --ds-sky:                 var(--accent-desk-strong);
+}
+
+/* ══════════════════════════════════════════════════════════════════════ *
+ * STUDIO ACCENT (scoped) — Malak Al-Kendi's "campaign studio" reads warm
+ * copper/amber instead of purple or sky. Set on <html> via data-track="studio"
+ * (LayoutShell, driven by students.theme_key='studio'), so it reaches the
+ * sidebar, the portaled home world, buttons and progress — WITHOUT touching any
+ * other student's palette (fardi purple, desk sky, and default sky are all
+ * untouched). Same specificity trick as the fardi/desk blocks — html[...] (0,1,1)
+ * beats :root / [data-theme] (0,1,0). Remaps BOTH the legacy (--accent-*) and
+ * design-system (--ds-*) primary-accent tokens to the one --accent-studio token.
+ * ══════════════════════════════════════════════════════════════════════ */
+html[data-track="studio"] {
+  --accent-sky:            var(--accent-studio);
+  --accent-sky-strong:     var(--accent-studio-strong);
+  --accent-sky-glow:       var(--accent-studio-glow);
+  --accent-sky-dim:        var(--accent-studio-dim);
+  --text-link:             var(--accent-studio-strong);
+  --info:                  var(--accent-studio);
+  --sidebar-active-border: var(--accent-studio);
+  --sidebar-icon-active:   var(--accent-studio);
+
+  --ds-accent-primary:      var(--accent-studio);
+  --ds-accent-primary-glow: var(--accent-studio-glow);
+  --ds-sky:                 var(--accent-studio-strong);
 }

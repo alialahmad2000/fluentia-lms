@@ -606,6 +606,109 @@ function FardiNextSessions({ studentId, g }) {
   )
 }
 
+/* ── STUDIO HERO — a marketing leader's private "campaign board" ──
+   Her own identity (do NOT reuse FardiHero): mission as the headline, her 10 units
+   rendered as a CAMPAIGN PIPELINE of stages («٣ من ١٠ مراحل»), her next private
+   session, XP demoted to a small meta row. Copper/amber accent comes from the scoped
+   html[data-track="studio"] token remap. Own hooks at top. */
+function StudioHero({ studentId, greeting, firstName, mission, units, completedUnits, totalUnits, xp, streak, level, heroTo, allDone, reduced, g }) {
+  const { data: sessions = [] } = useUpcomingPrivateSessions(studentId, true, 1)
+  const next = sessions[0] || null
+  const rise = reduced ? {} : { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 } }
+  const stages = (units || []).slice(0, totalUnits)
+  const currentUnit = allDone ? null : (stages[completedUnits] || null)
+  const copper = 'var(--accent-studio-strong,#eaa864)'
+
+  return (
+    <>
+      <motion.p {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE }} className="atlas-sub" style={{ margin: 0 }}>
+        {greeting}
+        {firstName ? <span style={{ color: '#fff', fontWeight: 700 }}>{` · ${firstName}`}</span> : null}
+      </motion.p>
+
+      <motion.p {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.05 }} className="studio-eyebrow" style={{ marginTop: 'clamp(12px,3vw,18px)' }}>
+        <Sparkles size={13} strokeWidth={2.4} aria-hidden="true" />
+        {g('لوحة حملتك', 'لوحة حملتكِ')}
+      </motion.p>
+
+      <motion.h1 {...rise} transition={reduced ? undefined : { duration: 0.6, ease: APPLE_EASE, delay: 0.08 }} className="studio-mission">
+        {mission}
+      </motion.h1>
+
+      {totalUnits > 0 ? (
+        <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.12 }} className="studio-pipeline">
+          <div className="studio-pipeline__head">
+            <span className="studio-pipeline__label">{g('خطّ حملتك', 'خطّ حملتكِ')}</span>
+            <span className="studio-pipeline__count"><b>{completedUnits}</b> من {totalUnits} مراحل</span>
+          </div>
+          <div className="studio-pipeline__track" role="progressbar" aria-valuenow={completedUnits} aria-valuemin={0} aria-valuemax={totalUnits}>
+            {stages.map((u, i) => (
+              <motion.span
+                key={u?.id || i}
+                className={`studio-stage${i < completedUnits ? ' is-done' : i === completedUnits ? ' is-current' : ''}`}
+                title={u?.theme_ar || undefined}
+                initial={reduced ? undefined : { opacity: 0, scaleY: 0.4 }}
+                animate={reduced ? undefined : { opacity: 1, scaleY: 1 }}
+                transition={reduced ? undefined : { duration: 0.4, delay: 0.3 + i * 0.04, ease: 'easeOut' }}
+              />
+            ))}
+          </div>
+          {currentUnit?.theme_ar ? (
+            <div className="studio-pipeline__now">
+              <span className="studio-pipeline__now-dot" aria-hidden="true" />
+              {g('مرحلتك الحالية', 'مرحلتكِ الحالية')} · <b>{currentUnit.theme_ar}</b>
+            </div>
+          ) : null}
+        </motion.div>
+      ) : null}
+
+      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.16 }}>
+        {next ? (
+          <div className="studio-session">
+            <span className="studio-session__icon"><CalendarClock size={18} strokeWidth={2} /></span>
+            <div className="min-w-0">
+              <div className="studio-session__label">{g('حصتك القادمة', 'حصتكِ القادمة')}</div>
+              <div className="studio-session__when">{formatSessionWhen(next.date, next.start_time)}</div>
+              {next.notes ? <div className="studio-session__note">{next.notes}</div> : null}
+            </div>
+          </div>
+        ) : (
+          <div className="studio-session studio-session--empty">
+            <span className="studio-session__icon"><CalendarClock size={18} strokeWidth={2} /></span>
+            <div className="min-w-0">
+              <div className="studio-session__label">{g('حصصك الخاصة', 'حصصكِ الخاصة')}</div>
+              <div className="studio-session__when" style={{ fontSize: 13.5, fontWeight: 600, color: 'rgba(255,255,255,0.75)' }}>
+                {g('سنحدّد موعدك القادم قريباً', 'سنحدّد موعدكِ القادم قريباً')}
+              </div>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.2 }} className="studio-meta">
+        <span className="studio-meta__item">
+          <GraduationCap size={14} strokeWidth={2} style={{ color: copper }} /> المستوى <b>{level}</b>
+        </span>
+        <span className="studio-meta__dot" aria-hidden="true" />
+        <span className="studio-meta__item">
+          <Zap size={14} strokeWidth={2} style={{ color: copper }} /> <b>{xp.toLocaleString('en-US')}</b> XP
+        </span>
+        <span className="studio-meta__dot" aria-hidden="true" />
+        <span className="studio-meta__item">
+          <Flame size={14} strokeWidth={2} className={streak >= 3 ? 'fire-pulse' : ''} style={{ color: '#fbbf24' }} /> <b>{streak}</b> يوم
+        </span>
+      </motion.div>
+
+      <motion.div {...rise} transition={reduced ? undefined : { duration: 0.5, ease: APPLE_EASE, delay: 0.24 }} style={{ marginTop: 'clamp(20px,4vw,30px)' }}>
+        <Link to={heroTo} className="atlas-cta">
+          <Play size={18} strokeWidth={2.4} fill="currentColor" />
+          <span style={{ position: 'relative', zIndex: 1 }}>{allDone ? g('راجع مراحلك', 'راجعي مراحلكِ') : g('ابدأ مرحلتك', 'ابدئي مرحلتكِ')}</span>
+        </Link>
+      </motion.div>
+    </>
+  )
+}
+
 export default function SpotlightDashboard() {
   /* ── ALL HOOKS AT TOP (React #310 safe) ── */
   const reduced = useReducedMotion()
@@ -637,7 +740,10 @@ export default function SpotlightDashboard() {
   const allDone = totalUnits > 0 && completedUnits === totalUnits
 
   const mission = studentData?.custom_mission_ar
-  const isFardi = useCustomCurriculum && !!mission
+  // theme_key drives which bespoke hero renders (fallback: legacy custom students → fardi).
+  const themeKey = studentData?.theme_key || (useCustomCurriculum ? 'fardi' : null)
+  const isStudio = themeKey === 'studio' && !!mission
+  const isFardi = themeKey === 'fardi' && !!mission
 
   const heroCover = current?.cover_image_url || null
   const heroTitle = current?.theme_ar || g('تابع رحلتك', 'تابعي رحلتكِ')
@@ -658,7 +764,24 @@ export default function SpotlightDashboard() {
       <div className="atlas-stage space-y-10" style={{ maxWidth: 1180, margin: '0 auto' }}>
         {/* ════════ 1 · FLOATING HERO — the mission, lit by its own world ════════ */}
         <header className="atlas-hero">
-          {isFardi ? (
+          {isStudio ? (
+            <StudioHero
+              studentId={profile.id}
+              greeting={getGreeting()}
+              firstName={firstName}
+              mission={mission}
+              units={units}
+              completedUnits={completedUnits}
+              totalUnits={totalUnits}
+              xp={xp}
+              streak={streak}
+              level={currentLevel.level}
+              heroTo={heroTo}
+              allDone={allDone}
+              reduced={reduced}
+              g={g}
+            />
+          ) : isFardi ? (
             <FardiHero
               studentId={profile.id}
               greeting={getGreeting()}
@@ -787,7 +910,7 @@ export default function SpotlightDashboard() {
 
         {/* ════════ 2 · JOURNEY FILMSTRIP — the level, floating in the world ════════ */}
         {/* Fardi students get their own sovereign filmstrip inside FardiHero — skip this generic one. */}
-        {!isFardi && totalUnits > 0 ? (
+        {!isFardi && !isStudio && totalUnits > 0 ? (
           <motion.div {...rise} transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE, delay: 0.05 }}>
             <AtlasLabel hint={journey.level?.name_ar ? `${journey.level.name_ar} · ${journey.level.cefr}` : undefined}>
               {g('رحلتك في هذا المستوى', 'رحلتكِ في هذا المستوى')}
@@ -884,7 +1007,7 @@ export default function SpotlightDashboard() {
             </Section>
 
             <Section title="حصّتك القادمة" icon={CalendarClock} hue="#34d399" soft="rgba(52,211,153,0.13)">
-              {isFardi ? <FardiNextSessions studentId={profile.id} g={g} /> : <NextClassWidget group={group} schedule={schedule} />}
+              {(isFardi || isStudio) ? <FardiNextSessions studentId={profile.id} g={g} /> : <NextClassWidget group={group} schedule={schedule} />}
             </Section>
 
             <Section title="نبض الأكاديمية" icon={Radio} hue="#22d3ee" soft="rgba(34,211,238,0.13)">
