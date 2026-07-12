@@ -311,13 +311,14 @@ export function CinematicBg({ coverUrl }) {
     <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} aria-hidden>
       <div style={{ position: 'absolute', inset: 0, background: CINEMATIC_TOKENS.bg }} />
       {coverUrl && (
-        <div style={{
+        <div className="curr-kenburns" style={{
           position: 'absolute', inset: 0,
           backgroundImage: `url(${coverUrl})`, backgroundSize: 'cover', backgroundPosition: 'center',
           filter: 'blur(40px) brightness(0.35) saturate(1.3)', transform: 'scale(1.1)',
-          willChange: 'transform',
         }} />
       )}
+      {/* breathing warm bloom — gentle ambient life */}
+      <div className="curr-breathe" aria-hidden style={{ position: 'absolute', inset: 0, background: 'radial-gradient(58% 42% at 50% 6%, rgba(251,191,36,0.10), transparent 60%)', mixBlendMode: 'screen' }} />
       <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at center, transparent 0%, ${CINEMATIC_TOKENS.overlaySoft} 50%, ${CINEMATIC_TOKENS.overlay} 100%)` }} />
       {/* Film grain */}
       <div style={{ position: 'absolute', inset: 0, opacity: CINEMATIC_TOKENS.filmGrainOpacity, mixBlendMode: 'overlay', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />

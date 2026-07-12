@@ -20,12 +20,13 @@ export default function LevelUnits() {
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} aria-hidden>
         <div style={{ position: 'absolute', inset: 0, background: V1.bg }} />
         {level.cover_image_url && (
-          <div style={{
+          <div className="curr-kenburns" style={{
             position: 'absolute', inset: 0,
             backgroundImage: `url(${level.cover_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center',
-            filter: 'blur(40px) brightness(0.35) saturate(1.3)', transform: 'scale(1.1)', willChange: 'transform',
+            filter: 'blur(40px) brightness(0.35) saturate(1.3)', transform: 'scale(1.1)',
           }} />
         )}
+        <div className="curr-breathe" aria-hidden style={{ position: 'absolute', inset: 0, background: 'radial-gradient(58% 42% at 50% 6%, rgba(251,191,36,0.10), transparent 60%)', mixBlendMode: 'screen' }} />
         <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at center, transparent 0%, ${V1.overlaySoft} 50%, ${V1.overlay} 100%)` }} />
         <div style={{ position: 'absolute', inset: 0, opacity: V1.filmGrainOpacity, mixBlendMode: 'overlay', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
         <div style={{ position: 'absolute', top: '20%', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${V1.accentGoldSoft}, transparent)` }} />

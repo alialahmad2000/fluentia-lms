@@ -401,3 +401,22 @@
   @keyframes slideUp    { from { opacity:0 } to { opacity:1 } }
   @keyframes fadeScaleIn { from { opacity:0 } to { opacity:1 } }
 }
+
+/* === Curriculum ambient life — brings CinematicBg (level + unit pages) to
+   life like the Atlas home. Restrained per the LMS motion rule; transform/
+   opacity only; reduced-motion gated. === */
+@keyframes curr-kenburns {
+  0%   { transform: scale(1.1)  translate3d(0, 0, 0); }
+  50%  { transform: scale(1.16) translate3d(-1.5%, 1%, 0); }
+  100% { transform: scale(1.1)  translate3d(0, 0, 0); }
+}
+@keyframes curr-breathe {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.07); }
+}
+.curr-kenburns { animation: curr-kenburns 46s ease-in-out infinite; will-change: transform; }
+.curr-breathe  { animation: curr-breathe 15s ease-in-out infinite; will-change: opacity, transform; transform: translateZ(0); }
+@media (prefers-reduced-motion: reduce) {
+  .curr-kenburns { animation: none; }
+  .curr-breathe  { animation: none; opacity: 0.6; }
+}
