@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { NotebookPen, Play, Pause, Mic, Sparkles, ArrowLeft } from 'lucide-react'
+import { NotebookPen, Play, Pause, Mic, Sparkles, ArrowLeft, Volume2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
+import './phrasebook/phrasebook.css'
 
 // ── دفتر عباراتي — the personal phrasebook ──────────────────────────────────
 // Mined automatically from the student's own speaking recordings: what they
@@ -14,10 +15,10 @@ import { useG } from '@/i18n/gender'
 // student action needed beyond doing speaking tasks.
 
 const CATEGORY_META = {
-  grammar:       { label: 'قواعد',        cls: 'text-amber-300 bg-amber-500/10 border-amber-500/25' },
-  word_choice:   { label: 'اختيار كلمة', cls: 'text-sky-300 bg-sky-500/10 border-sky-500/25' },
-  expression:    { label: 'تعبير',        cls: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/25' },
-  pronunciation: { label: 'نطق',          cls: 'text-violet-300 bg-violet-500/10 border-violet-500/25' },
+  grammar:       { label: 'قواعد' },
+  word_choice:   { label: 'اختيار كلمة' },
+  expression:    { label: 'تعبير' },
+  pronunciation: { label: 'نطق' },
 }
 
 function fmtDateAr(s) {
@@ -45,6 +46,8 @@ export default function StudentPhrasebook() {
     },
   })
 
+  const voicedCount = entries.filter((e) => e.audio_url).length
+
   const togglePlay = (entry) => {
     if (!entry.audio_url) return
     if (playingId === entry.id) {
@@ -61,107 +64,136 @@ export default function StudentPhrasebook() {
   }
 
   return (
-    <div dir="rtl" className="max-w-2xl mx-auto space-y-6 p-4 sm:p-6" style={{ fontFamily: 'Tajawal, sans-serif' }}>
-      <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center shrink-0">
-          <NotebookPen className="w-5 h-5 text-sky-300" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold text-white">دفتر عباراتي</h1>
-          <p className="text-sm text-slate-400 leading-relaxed">
-            {g(
-              'لفتات من تسجيلاتك الصوتية: ما قلته، وكيف يقولها المتحدث الأصلي — بصوت مدرّبك',
-              'لفتات من تسجيلاتكِ الصوتية: ما قلتِه، وكيف يقولها المتحدث الأصلي — بصوت مدرّبكِ',
-            )}
-          </p>
-        </div>
+    <div dir="rtl" className="pbx-root" style={{ fontFamily: 'Tajawal, sans-serif' }}>
+      {/* atmosphere */}
+      <div className="pbx-atmo" aria-hidden="true">
+        <div className="pbx-atmo__beam" />
+        <div className="pbx-atmo__blob" />
       </div>
 
-      {isLoading ? (
-        <div className="space-y-3">
-          {[...Array(3)].map((_, i) => (
-            <div key={i} className="rounded-2xl h-32 bg-white/[0.03] border border-white/[0.06] animate-pulse" />
-          ))}
-        </div>
-      ) : entries.length === 0 ? (
-        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] py-14 px-6 text-center">
-          <Mic className="w-10 h-10 mx-auto mb-4 text-slate-500" />
-          <p className="text-slate-300 font-medium mb-1.5">
-            {g('دفترك ينتظر صوتك', 'دفتركِ ينتظر صوتكِ')}
-          </p>
-          <p className="text-sm text-slate-400 leading-relaxed max-w-sm mx-auto">
-            {g(
-              'أكمل تمارين المحادثة في وحداتك، وكل أسبوع نلتقط من تسجيلاتك عبارات تستحق الحفظ — مع الصياغة الأصلية بصوت مدرّبك.',
-              'أكملي تمارين المحادثة في وحداتكِ، وكل أسبوع نلتقط من تسجيلاتكِ عبارات تستحق الحفظ — مع الصياغة الأصلية بصوت مدرّبكِ.',
-            )}
-          </p>
-          <Link
-            to="/student/curriculum"
-            className="inline-flex items-center gap-2 mt-5 px-4 h-11 rounded-xl text-sm font-bold"
-            style={{ background: 'rgba(56,189,248,0.14)', color: '#38bdf8', border: '1px solid rgba(56,189,248,0.35)' }}
+      <div className="pbx-content max-w-2xl mx-auto space-y-6 p-4 sm:p-6">
+        {/* Hero */}
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="pbx-hero"
+        >
+          <div className="pbx-hero__row">
+            <div className="pbx-hero__crest"><NotebookPen size={25} strokeWidth={2.1} /></div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h1 className="pbx-hero__title">دفتر عباراتي</h1>
+              <p className="pbx-hero__sub">
+                {g(
+                  'لفتات من تسجيلاتك الصوتية: ما قلته، وكيف يقولها المتحدث الأصلي — بصوت مدرّبك.',
+                  'لفتات من تسجيلاتكِ الصوتية: ما قلتِه، وكيف يقولها المتحدث الأصلي — بصوت مدرّبكِ.',
+                )}
+              </p>
+            </div>
+          </div>
+
+          {entries.length > 0 && (
+            <div className="pbx-hero__stats">
+              <span className="pbx-stat">
+                <Sparkles size={15} className="pbx-stat__ic" />
+                <span><span className="pbx-stat__n">{entries.length}</span> <span className="pbx-stat__l">{entries.length >= 3 && entries.length <= 10 ? 'عبارات محفوظة' : 'عبارة محفوظة'}</span></span>
+              </span>
+              {voicedCount > 0 && (
+                <span className="pbx-stat">
+                  <Volume2 size={15} className="pbx-stat__ic" />
+                  <span><span className="pbx-stat__n">{voicedCount}</span> <span className="pbx-stat__l">بصوت مدرّبك</span></span>
+                </span>
+              )}
+            </div>
+          )}
+        </motion.section>
+
+        {isLoading ? (
+          <div className="pbx-list">
+            {[...Array(3)].map((_, i) => <div key={i} className="pbx-skel" />)}
+          </div>
+        ) : entries.length === 0 ? (
+          <motion.section
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="pbx-empty"
           >
-            إلى المنهج <ArrowLeft size={15} />
-          </Link>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          <AnimatePresence initial={false}>
-            {entries.map((e, i) => {
-              const cat = CATEGORY_META[e.category] || CATEGORY_META.expression
-              return (
-                <motion.div
-                  key={e.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(i * 0.04, 0.3), duration: 0.3, ease: 'easeOut' }}
-                  className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-4 sm:p-5"
-                >
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${cat.cls}`}>{cat.label}</span>
-                    <span className="text-[11px] text-slate-500">{fmtDateAr(e.created_at)}</span>
-                  </div>
+            <div className="pbx-empty__orb"><Mic size={28} strokeWidth={2} /></div>
+            <p className="pbx-empty__t">{g('دفترك ينتظر صوتك', 'دفتركِ ينتظر صوتكِ')}</p>
+            <p className="pbx-empty__d">
+              {g(
+                'أكمل تمارين المحادثة في وحداتك، وكل أسبوع نلتقط من تسجيلاتك عبارات تستحق الحفظ — مع الصياغة الأصلية بصوت مدرّبك.',
+                'أكملي تمارين المحادثة في وحداتكِ، وكل أسبوع نلتقط من تسجيلاتكِ عبارات تستحق الحفظ — مع الصياغة الأصلية بصوت مدرّبكِ.',
+              )}
+            </p>
+            <Link to="/student/curriculum" className="pbx-empty__cta">
+              إلى المنهج <ArrowLeft size={16} />
+            </Link>
+          </motion.section>
+        ) : (
+          <div>
+            <div className="pbx-eyebrow">
+              <span className="pbx-eyebrow__spark" />
+              <span className="pbx-eyebrow__label">عباراتك</span>
+              <span className="pbx-eyebrow__rule" />
+              <span className="pbx-eyebrow__count">{entries.length}</span>
+            </div>
 
-                  <div className="space-y-2.5">
-                    <div className="flex items-start gap-2.5">
-                      <span className="text-[11px] font-bold text-slate-500 mt-0.5 shrink-0 w-12">{g('قلتَ', 'قلتِ')}</span>
-                      <p className="text-[15px] text-slate-400 leading-relaxed" dir="ltr" style={{ textAlign: 'left' }}>
-                        {e.said_text}
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-2.5">
-                      <span className="text-[11px] font-bold text-sky-400 mt-1 shrink-0 w-12">الأصح</span>
-                      <div className="flex-1 flex items-start gap-2.5">
-                        <p className="flex-1 text-[16px] text-white font-medium leading-relaxed" dir="ltr" style={{ textAlign: 'left' }}>
-                          {e.native_text}
-                        </p>
-                        {e.audio_url && (
-                          <button
-                            onClick={() => togglePlay(e)}
-                            aria-label={g('استمع بصوت المدرب', 'استمعي بصوت المدرب')}
-                            className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-colors"
-                            style={playingId === e.id
-                              ? { background: 'rgba(56,189,248,0.25)', color: '#7dd3fc', border: '1px solid rgba(56,189,248,0.5)' }
-                              : { background: 'rgba(56,189,248,0.12)', color: '#38bdf8', border: '1px solid rgba(56,189,248,0.3)' }}
-                          >
-                            {playingId === e.id ? <Pause size={17} /> : <Play size={17} style={{ marginInlineStart: 2 }} />}
-                          </button>
-                        )}
+            <div className="pbx-list">
+              <AnimatePresence initial={false}>
+                {entries.map((e, i) => {
+                  const cat = CATEGORY_META[e.category] || CATEGORY_META.expression
+                  const catKey = CATEGORY_META[e.category] ? e.category : 'expression'
+                  return (
+                    <motion.div
+                      key={e.id}
+                      data-cat={catKey}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: Math.min(i * 0.04, 0.3), duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="pbx-card"
+                    >
+                      <div className="pbx-card__top">
+                        <span className={`pbx-cat pbx-cat--${catKey}`}>{cat.label}</span>
+                        <span className="pbx-card__date">{fmtDateAr(e.created_at)}</span>
                       </div>
-                    </div>
-                  </div>
 
-                  {e.note_ar && (
-                    <div className="mt-3 pt-3 border-t border-white/[0.06] flex items-start gap-2">
-                      <Sparkles size={13} className="text-amber-300/80 mt-0.5 shrink-0" />
-                      <p className="text-[13px] text-slate-300 leading-relaxed">{e.note_ar}</p>
-                    </div>
-                  )}
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
-        </div>
-      )}
+                      <div className="pbx-line">
+                        <span className="pbx-line__tag pbx-line__tag--said">{g('قلتَ', 'قلتِ')}</span>
+                        <p className="pbx-line__said" dir="ltr" style={{ textAlign: 'left' }}>{e.said_text}</p>
+                      </div>
+                      <div className="pbx-line">
+                        <span className="pbx-line__tag pbx-line__tag--right">الأصح</span>
+                        <div className="pbx-right-wrap">
+                          <p className="pbx-line__right" dir="ltr" style={{ textAlign: 'left' }}>{e.native_text}</p>
+                          {e.audio_url && (
+                            <button
+                              onClick={() => togglePlay(e)}
+                              aria-label={g('استمع بصوت المدرب', 'استمعي بصوت المدرب')}
+                              className="pbx-play"
+                              data-playing={playingId === e.id}
+                            >
+                              {playingId === e.id ? <Pause size={16} /> : <Play size={16} style={{ marginInlineStart: 2 }} />}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {e.note_ar && (
+                        <div className="pbx-note">
+                          <Sparkles size={13} className="pbx-note__ic" />
+                          <p className="pbx-note__t">{e.note_ar}</p>
+                        </div>
+                      )}
+                    </motion.div>
+                  )
+                })}
+              </AnimatePresence>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
