@@ -245,13 +245,17 @@ export default function CurriculumBrowser() {
           >
             {levels.map((level, i) => {
               const isCurrent = level.level_number === currentLevel
-              const isCompleted = level.level_number < currentLevel
+              // A below-level granted for revisit is NOT "done" — show it as a cyan
+              // revisit node, never a gold completed check (would contradict its 0% card).
+              const isRevisit = hasExtra && level.level_number !== currentLevel && extraLevels.includes(level.level_number)
+              const isDone = level.level_number < currentLevel && !isRevisit
+              const isCyan = isCurrent || isRevisit
               return (
                 <div key={level.id} className="flex items-center">
                   {i > 0 && (
                     <div style={{
                       width: '40px', height: '2px',
-                      background: isCompleted ? V1.accentGold : V1.bgElevated,
+                      background: isDone ? V1.accentGold : V1.bgElevated,
                     }} />
                   )}
                   <div
@@ -263,15 +267,15 @@ export default function CurriculumBrowser() {
                       fontSize: isCurrent ? V1.type.bodySm : V1.type.bodyXs,
                       fontWeight: 700,
                       fontFamily: "'Inter Tight', sans-serif",
-                      border: `2px solid ${isCompleted ? V1.accentGold : isCurrent ? V1.accentCyan : V1.border}`,
-                      background: isCompleted ? V1.accentGoldSoft : isCurrent ? V1.accentCyanSoft : 'transparent',
-                      color: isCompleted ? V1.accentGold : isCurrent ? V1.accentCyan : V1.textDim,
+                      border: `2px solid ${isDone ? V1.accentGold : isCyan ? V1.accentCyan : V1.border}`,
+                      background: isDone ? V1.accentGoldSoft : isCyan ? V1.accentCyanSoft : 'transparent',
+                      color: isDone ? V1.accentGold : isCyan ? V1.accentCyan : V1.textDim,
                       boxShadow: isCurrent ? V1.glowCyan : 'none',
                       transition: `all ${V1.duration.fast}`,
                     }}
                     title={level.name_ar}
                   >
-                    {isCompleted ? <CheckCircle size={12} /> : level.level_number}
+                    {isDone ? <CheckCircle size={12} /> : level.level_number}
                   </div>
                 </div>
               )
@@ -291,6 +295,10 @@ export default function CurriculumBrowser() {
             // framed as a revisit path, NOT as "completed" — she hasn't finished it.
             const isExtra = hasExtra && !isCurrent && extraLevels.includes(level.level_number)
             const isCompleted = level.level_number < currentLevel && !isExtra
+            // Two-curriculum view: the current level is a true HERO (more mass), the
+            // revisit level is visibly demoted — so hierarchy reads by size, not just trim.
+            const heroSize = hasExtra && isCurrent
+            const demote = hasExtra && isExtra
             const totalUnits = unitCounts?.[level.id] || 0
             const completedUnits = progressData?.[level.id] || 0
             const progress = totalUnits > 0 ? Math.round((completedUnits / totalUnits) * 100) : 0
@@ -314,7 +322,7 @@ export default function CurriculumBrowser() {
                   borderRadius: '20px',
                   border: `1px solid ${isCurrent ? V1.accentGoldStrong : V1.border}`,
                   background: V1.bgLayer,
-                  minHeight: '260px',
+                  minHeight: heroSize ? '304px' : demote ? '212px' : '260px',
                   display: 'grid',
                   gridTemplateColumns: level.cover_image_url ? '55% 45%' : '1fr',
                   transition: `border-color ${V1.duration.fast}, box-shadow ${V1.duration.fast}, transform ${V1.duration.fast}`,
@@ -374,7 +382,7 @@ export default function CurriculumBrowser() {
                     fontSize: V1.type.massive, fontWeight: 800, fontFamily: "'Inter Tight', sans-serif", lineHeight: 1,
                     background: V1.goldGradient,
                     WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
-                    opacity: isCurrent ? 0.25 : 0.1,
+                    opacity: heroSize ? 0.32 : demote ? 0.07 : isCurrent ? 0.25 : 0.1,
                   }} dir="ltr">
                     {level.cefr}
                   </span>
