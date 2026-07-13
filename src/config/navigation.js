@@ -24,6 +24,7 @@ export const STUDENT_NAV = {
         { id: 'dashboard',   label: 'الرئيسية',    icon: Home,       to: '/student' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         { id: 'everyday-english', label: 'إنجليزي يومي', icon: Sparkles, to: '/student/everyday-english' },
+        { id: 'sentence-builder', label: 'بناء الجُمل', icon: Layers, to: '/student/sentence-builder' },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
         //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
@@ -84,6 +85,7 @@ export const STUDENT_NAV = {
         { id: 'dashboard',    label: 'الرئيسية',    icon: Home,          to: '/student' },
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'everyday-english', label: 'إنجليزي يومي', icon: Sparkles,  to: '/student/everyday-english' },
+        { id: 'sentence-builder', label: 'بناء الجُمل', icon: Layers, to: '/student/sentence-builder' },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
       ],
     },
