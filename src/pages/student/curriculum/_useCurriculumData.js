@@ -39,14 +39,19 @@ export function useCurriculumData() {
   const levelNum = parseInt(levelNumber)
   // Teacher-preview accounts may enter levels BELOW their academic_level.
   const canAccessLower = studentData?.can_access_lower_levels === true
+  // Precise per-student extra levels (e.g. a B1 student granted revisit access to A2).
+  const extraLevels = Array.isArray(studentData?.extra_curriculum_levels) ? studentData.extra_curriculum_levels : []
+  const extraKey = extraLevels.join(',')
 
   useEffect(() => {
     const isCurrent = levelNum === currentLevel
     const isAllowedLower = canAccessLower && levelNum < currentLevel
-    if (!canSeeAllLevels && !isNaN(levelNum) && !isCurrent && !isAllowedLower) {
+    const isExtraGranted = extraLevels.includes(levelNum)
+    if (!canSeeAllLevels && !isNaN(levelNum) && !isCurrent && !isAllowedLower && !isExtraGranted) {
       navigate(basePath || '/student/curriculum', { replace: true })
     }
-  }, [levelNum, currentLevel, canAccessLower, navigate, canSeeAllLevels, basePath])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [levelNum, currentLevel, canAccessLower, extraKey, navigate, canSeeAllLevels, basePath])
 
   const { data: level, isLoading: loadingLevel } = useQuery({
     queryKey: ['curriculum-level', levelNum],

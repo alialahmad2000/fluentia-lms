@@ -3,7 +3,7 @@ import { useShallow } from 'zustand/react/shallow'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Lock, ChevronLeft, CheckCircle, RefreshCw } from 'lucide-react'
+import { Lock, ChevronLeft, CheckCircle, RefreshCw, Sparkles } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
@@ -19,17 +19,23 @@ export default function CurriculumBrowser() {
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
   // Teacher-preview accounts browse the full grid (don't auto-jump to one level).
   const canAccessLower = studentData?.can_access_lower_levels === true
+  // Precise per-student extra levels (e.g. a B1 student granted revisit access to A2).
+  const extraLevels = Array.isArray(studentData?.extra_curriculum_levels) ? studentData.extra_curriculum_levels : []
+  const hasExtra = extraLevels.length > 0
+  const extraKey = extraLevels.join(',')
   const [autoNavDone, setAutoNavDone] = useState(false)
   const m = useCinematicMotion()
 
-  // Auto-navigate students to their current level (skip in preview mode + for
-  // teacher-preview accounts, who need the grid to reach lower levels).
+  // Auto-navigate students to their current level (skip in preview mode, for
+  // teacher-preview accounts, and for students with an extra-level grant — all of
+  // whom need the grid to reach more than one curriculum).
   useEffect(() => {
-    if (!canSeeAllLevels && !canAccessLower && profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
+    if (!canSeeAllLevels && !canAccessLower && !hasExtra && profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
       setAutoNavDone(true)
       navigate(`${basePath}/level/${currentLevel}`, { replace: true })
     }
-  }, [profile?.role, currentLevel, canAccessLower, autoNavDone, navigate, canSeeAllLevels, basePath])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile?.role, currentLevel, canAccessLower, extraKey, autoNavDone, navigate, canSeeAllLevels, basePath])
 
   // Fetch all active levels
   const { data: levels, isLoading: loadingLevels, error: levelsError, refetch } = useQuery({
@@ -113,9 +119,31 @@ export default function CurriculumBrowser() {
     return { totalUnits: total, completedUnits: completed }
   })()
 
-  // Split levels into unlocked & locked groups
-  const unlockedLevels = (levels || []).filter(l => l.level_number <= currentLevel)
-  const lockedLevels = (levels || []).filter(l => l.level_number > currentLevel)
+  // Which levels this account may enter. Behaviour is preserved for staff-preview
+  // (all levels) and teacher-preview (all lower), and for normal students (their level
+  // and below — they auto-jump so never see the grid). Students with an explicit
+  // extra-level grant see ONLY their current level + the granted extras (e.g. B1 + A2),
+  // so "previous + current" is surfaced precisely, without opening every lower level.
+  const isAccessible = (lvlNum) => {
+    if (canSeeAllLevels) return true
+    if (canAccessLower) return lvlNum <= currentLevel
+    if (hasExtra) return lvlNum === currentLevel || extraLevels.includes(lvlNum)
+    return lvlNum <= currentLevel
+  }
+  let unlockedLevels = (levels || []).filter(l => isAccessible(l.level_number))
+  // Extra-grant view: the current level leads as the hero, granted revisit levels
+  // follow (closest first). Staff/normal ordering (ascending) is left untouched.
+  if (hasExtra) {
+    unlockedLevels = [...unlockedLevels].sort((a, b) => {
+      if (a.level_number === currentLevel) return -1
+      if (b.level_number === currentLevel) return 1
+      return b.level_number - a.level_number
+    })
+  }
+  // "Next on the path" shows only levels genuinely AHEAD. A below-level granted for
+  // revisit already appears above; below-and-not-granted levels stay hidden entirely
+  // (never labelled "next"). Harmless for staff/normal (their locked set is all higher).
+  const lockedLevels = (levels || []).filter(l => !isAccessible(l.level_number) && l.level_number > currentLevel)
 
   // Error state
   if (levelsError) {
@@ -259,7 +287,10 @@ export default function CurriculumBrowser() {
         >
           {unlockedLevels.map(level => {
             const isCurrent = level.level_number === currentLevel
-            const isCompleted = level.level_number < currentLevel
+            // A level opened via an explicit extra grant (e.g. A2 for a B1 student):
+            // framed as a revisit path, NOT as "completed" — she hasn't finished it.
+            const isExtra = hasExtra && !isCurrent && extraLevels.includes(level.level_number)
+            const isCompleted = level.level_number < currentLevel && !isExtra
             const totalUnits = unitCounts?.[level.id] || 0
             const completedUnits = progressData?.[level.id] || 0
             const progress = totalUnits > 0 ? Math.round((completedUnits / totalUnits) * 100) : 0
@@ -326,6 +357,16 @@ export default function CurriculumBrowser() {
                     }} className="inline-flex items-center gap-1">
                       <CheckCircle size={12} />
                       مكتمل
+                    </span>
+                  )}
+                  {isExtra && (
+                    <span style={{
+                      position: 'absolute', top: '16px', left: '16px',
+                      fontSize: V1.type.bodyXs, fontWeight: 700, padding: '4px 12px', borderRadius: '999px',
+                      background: V1.accentCyanSoft, color: V1.accentCyan, border: `1px solid ${V1.accentCyan}`,
+                    }} className="inline-flex items-center gap-1">
+                      <Sparkles size={12} />
+                      للمراجعة والتقوية
                     </span>
                   )}
 
