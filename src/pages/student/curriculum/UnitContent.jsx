@@ -5,7 +5,8 @@ import lazyRetry from '../../../utils/lazyRetry'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Check, BookOpen, Mic } from 'lucide-react'
+import { ArrowRight, Check, BookOpen } from 'lucide-react'
+import ClassRecordingEntryCard from '../../../components/curriculum/ClassRecordingEntryCard'
 import ContextRibbon from '../../../components/curriculum/ContextRibbon'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
@@ -533,51 +534,8 @@ export default function UnitContent() {
             <MissionGrid activities={unitData.activities} onSelect={handleActivitySelect} unit={unit} />
           </div>
 
-          {/* Supplementary recording — optional, below main missions */}
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => handleActivitySelect('recording')}
-            onKeyDown={(e) => e.key === 'Enter' && handleActivitySelect('recording')}
-            style={{
-              marginTop: '16px',
-              padding: '14px 20px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: '12px',
-              cursor: 'pointer',
-              transition: 'border-color 0.15s, background 0.15s',
-              direction: 'rtl',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.055)'
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.13)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)'
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
-            }}
-          >
-            <div style={{
-              width: '36px', height: '36px', borderRadius: '10px', flexShrink: 0,
-              background: 'rgba(251,146,60,0.12)', border: '1px solid rgba(251,146,60,0.2)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <Mic size={16} color="#fb923c" />
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', lineHeight: 1.3 }}>
-                سجّل أداءك
-              </div>
-              <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginTop: '2px' }}>
-                تسجيل صوتي اختياري
-              </div>
-            </div>
-            <ArrowRight size={14} color="rgba(255,255,255,0.25)" style={{ transform: 'rotate(180deg)' }} />
-          </div>
+          {/* تسجيل الحصة — the recorded CLASS for this unit (staff upload, students watch) */}
+          <ClassRecordingEntryCard unitId={unitId} onOpen={() => handleActivitySelect('recording')} />
         </div>
 
         {/* Activity panes — lazy-mount-once: rendered after first visit, toggled by CSS */}
