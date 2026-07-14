@@ -56,6 +56,7 @@ export const GAMIFICATION_LEVELS = [
 
 // ─── Academic Level Info ───────────────────────────────────
 export const ACADEMIC_LEVELS = {
+  0: { cefr: 'Pre-A1', name_ar: 'تأسيس', name_en: 'Pre-Foundation', track: 'foundation', book: 'Explorer Starter', months: 4 },
   1: { cefr: 'A1', name_ar: 'الخطوة الأولى', name_en: 'First Step', track: 'foundation', book: 'Explorer Foundation', months: 4 },
   2: { cefr: 'A2', name_ar: 'بداية الثقة',   name_en: 'Building Confidence', track: 'foundation', book: 'Explorer 1', months: 4 },
   3: { cefr: 'B1', name_ar: 'صار يتكلم',     name_en: 'Finding Voice', track: 'development', book: 'Explorer 2', months: 4 },

@@ -70,28 +70,38 @@ export default function PlacementQueuePage() {
   })
 
   const assignMutation = useMutation({
-    mutationFn: async ({ resultId, studentId, groupId }) => {
-      // Update placement result
-      await supabase
+    mutationFn: async ({ resultId, studentId, groupId, level }) => {
+      // 1. Set the student's ACADEMIC LEVEL (and group, if one is chosen) on the
+      //    real students table. This is what actually gives her the right curriculum.
+      //    (active_students is a read-only view — the level was never being written before.)
+      const studentUpdate = {}
+      if (Number.isInteger(level)) studentUpdate.academic_level = level
+      if (groupId) studentUpdate.group_id = groupId
+      if (Object.keys(studentUpdate).length > 0) {
+        const { data: updated, error: sErr } = await supabase
+          .from('students')
+          .update(studentUpdate)
+          .eq('id', studentId)
+          .select('id')
+        if (sErr) throw sErr
+        if (!updated || updated.length === 0) {
+          throw new Error('تعذّر تحديث مستوى الطالبة (لم يُحدَّث أي صف — تحقّقي من الصلاحيات).')
+        }
+      }
+
+      // 2. Mark the placement result as assigned
+      const { error: rErr } = await supabase
         .from('placement_results')
-        .update({
-          admin_action: 'assigned',
-          admin_reviewed: true,
-        })
+        .update({ admin_action: 'assigned', admin_reviewed: true })
         .eq('id', resultId)
+      if (rErr) throw rErr
 
-      // Update active_students group
-      await supabase
-        .from('active_students')
-        .update({ group_id: groupId })
-        .eq('student_id', studentId)
-
-      // Create notification
+      // 3. Notify the student
       await supabase.from('notifications').insert({
         user_id: studentId,
         type: 'placement_assigned',
-        title: 'تم تسكينكِ في قروب',
-        body: 'تم تحديد مجموعتكِ بناءً على نتيجة اختبار تحديد المستوى',
+        title: 'تم تحديد مستواكِ',
+        body: 'حدّد لكِ مدرّبكِ مستواكِ الدراسي بناءً على نتيجة اختبار تحديد المستوى. بالتوفيق في رحلتكِ!',
       })
     },
     onSuccess: () => {
@@ -248,7 +258,7 @@ export default function PlacementQueuePage() {
                       }}
                       defaultValue={r.recommended_group_id || ''}
                     >
-                      <option value="">اختاري قروب...</option>
+                      <option value="">— بدون قروب حالياً —</option>
                       {groups.map(g => (
                         <option key={g.id} value={g.id}>
                           {g.name} (L{g.level}, max {g.max_students})
@@ -258,13 +268,14 @@ export default function PlacementQueuePage() {
                     <button
                       onClick={() => {
                         const groupId = document.getElementById(`group-${r.id}`)?.value
-                        if (!groupId) return
                         assignMutation.mutate({
                           resultId: r.id,
                           studentId: r.student_id,
-                          groupId,
+                          groupId: groupId || null,
+                          level: r.recommended_level,
                         })
                       }}
+                      disabled={assignMutation.isPending}
                       className="px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-1.5"
                       style={{
                         background: 'rgba(34,197,94,0.15)',
@@ -273,7 +284,8 @@ export default function PlacementQueuePage() {
                       }}
                     >
                       <Check size={15} />
-                      تسكين
+                      اعتماد المستوى{' '}
+                      {CEFR_MAP[r.recommended_level] ? `(${CEFR_MAP[r.recommended_level]})` : ''}
                     </button>
                     <button
                       onClick={() => dismissMutation.mutate({ resultId: r.id })}

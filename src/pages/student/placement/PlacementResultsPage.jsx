@@ -90,11 +90,6 @@ export default function PlacementResultsPage() {
     value: Math.round((breakdown[key] || 0) * 100),
   }))
 
-  // WhatsApp message
-  const whatsappMsg = encodeURIComponent(
-    `مرحباً، أنا ${profile.full_name || 'طالبة'}. أكملت اختبار تحديد المستوى في فلونتيا والنتيجة: ${level.cefr} (${level.ar}). أرغب في التسجيل.`
-  )
-
   return (
     <div className="fixed inset-0 overflow-y-auto" style={{ background: 'var(--ds-bg-base, #060e1c)' }}>
       <AuroraBackground />
@@ -269,32 +264,29 @@ export default function PlacementResultsPage() {
               </div>
             )}
 
-            {/* CTAs */}
+            {/* CTA — she is already enrolled, so guide her forward (no registration prompt) */}
             <div className="flex flex-col gap-3 pt-2">
-              <a
-                href={`https://wa.me/966500000000?text=${whatsappMsg}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <div
+                className="rounded-xl p-4 text-center"
+                style={{
+                  background: 'var(--ds-surface-1, rgba(255,255,255,0.04))',
+                  border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.08))',
+                }}
+              >
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
+                  تم تحديد مستواكِ المبدئي. سيعتمده مدربكِ ويسكّنكِ في مجموعتكِ المناسبة قريباً — ثم تبدئين رحلتكِ ✨
+                </p>
+              </div>
+              <button
+                onClick={() => navigate('/student')}
                 className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold transition-all"
                 style={{
                   background: 'var(--ds-accent-primary, #38bdf8)',
                   color: '#060e1c',
                 }}
               >
-                <MessageCircle size={18} />
-                تواصلي مع الإدارة لتفعيل التسجيل
-              </a>
-              <button
-                onClick={() => navigate('/student')}
-                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium transition-all"
-                style={{
-                  background: 'var(--ds-surface-2, rgba(255,255,255,0.06))',
-                  color: 'var(--ds-text-secondary, #cbd5e1)',
-                  border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.1))',
-                }}
-              >
-                العودة للداشبورد
-                <ArrowRight size={16} />
+                ابدئي رحلتكِ
+                <ArrowRight size={18} />
               </button>
             </div>
           </motion.div>

@@ -2,8 +2,9 @@ import { useState, useMemo, useCallback } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Volume2, ChevronDown, GraduationCap, Rocket, Truck, HeartPulse, HeartHandshake, Briefcase, BookOpen } from 'lucide-react'
+import { Volume2, ChevronDown, GraduationCap, Rocket, Truck, HeartPulse, HeartHandshake, Briefcase, BookOpen, Code2, Cpu, Globe, Database } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { useG } from '../../i18n/gender'
 import { supabase } from '../../lib/supabase'
 import { pronounceWord, stopPronunciation } from '../../lib/audio/pronounceWord'
 import AuroraBackground from '../../design-system/components/AuroraBackground'
@@ -18,6 +19,11 @@ const COURSE_CATALOG = [
   { source: 'uni:HCM345', code: 'HCM 345', name_ar: 'مقدمة في إدارة الرعاية الصحية',         accent: '#34d399', Icon: HeartPulse },
   { source: 'uni:NPF323', code: 'NPF 323', name_ar: 'إدارة المنظمات غير الهادفة للربح',      accent: '#fb7185', Icon: HeartHandshake },
   { source: 'uni:MGT303', code: 'MGT 303', name_ar: 'مهارات التأهيل المهني في إدارة الأعمال', accent: '#a78bfa', Icon: Briefcase },
+  // IT / Computer-Science collections (تقنية المعلومات وعلوم الحاسب)
+  { source: 'uni:CS-PROG', code: 'PROGRAMMING', name_ar: 'أساسيات البرمجة',            accent: '#38bdf8', Icon: Code2 },
+  { source: 'uni:CS-COMP', code: 'HARDWARE',    name_ar: 'الحاسب ومكوّناته',           accent: '#a78bfa', Icon: Cpu },
+  { source: 'uni:CS-WEB',  code: 'INTERNET',    name_ar: 'الإنترنت والويب',             accent: '#34d399', Icon: Globe },
+  { source: 'uni:CS-DATA', code: 'DATA & AI',   name_ar: 'البيانات والذكاء الاصطناعي',  accent: '#f5b942', Icon: Database },
 ]
 
 const MASTERY = {
@@ -171,6 +177,7 @@ function CollectionCard({ course, cards, studentId, index, playing, onPlay }) {
 export default function CourseVocabulary() {
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const profileId = profile?.id
+  const g = useG()
   const [playing, setPlaying] = useState(null)
   const reduce = useReducedMotion()
 
@@ -237,7 +244,7 @@ export default function CourseVocabulary() {
             </span>
             <div>
               <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: '0.1em', color: 'var(--ds-accent-primary)', margin: 0, textTransform: 'uppercase' }}>
-                مساراتك الجامعية
+                {g('مساراتك الجامعية', 'مساراتكِ الجامعية')}
               </p>
               <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.2rem)', fontWeight: 800, color: 'var(--ds-text-primary)', fontFamily: "'Tajawal', sans-serif", margin: '2px 0 0', lineHeight: 1.2 }}>
                 مفردات مقرّراتي
@@ -245,8 +252,10 @@ export default function CourseVocabulary() {
             </div>
           </div>
           <p style={{ fontSize: 15, color: 'var(--ds-text-secondary)', lineHeight: 1.7, maxWidth: 640, margin: 0 }}>
-            مفردات إنجليزية بسيطة مرتبطة بمقرّراتك في إدارة الأعمال. الهدف تطوير إنجليزيّتك،
-            ومقرّراتك هي السياق. اضغط <Volume2 size={13} style={{ display: 'inline', verticalAlign: 'middle' }} /> لسماع نطق أي كلمة.
+            {g(
+              'مفردات إنجليزية بسيطة مرتبطة بمجالك ومقرّراتك. الهدف تطوير إنجليزيّتك، ومجالك هو السياق. اضغط',
+              'مفردات إنجليزية بسيطة مرتبطة بمجالكِ ومقرّراتكِ. الهدف تطوير إنجليزيّتكِ، ومجالكِ هو السياق. اضغطي'
+            )} <Volume2 size={13} style={{ display: 'inline', verticalAlign: 'middle' }} /> لسماع نطق أي كلمة.
           </p>
 
           {/* stat strip */}
@@ -280,7 +289,7 @@ export default function CourseVocabulary() {
             </span>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--ds-text-primary)', margin: '0 0 6px' }}>لا توجد مسارات بعد</h3>
             <p style={{ fontSize: 14, color: 'var(--ds-text-secondary)', margin: 0 }}>
-              مفردات مقرّراتك الجامعية ستظهر هنا فور إضافتها لحسابك.
+              {g('مفردات مقرّراتك الجامعية ستظهر هنا فور إضافتها لحسابك.', 'مفردات مقرّراتكِ الجامعية ستظهر هنا فور إضافتها لحسابكِ.')}
             </p>
           </GlassPanel>
         ) : (

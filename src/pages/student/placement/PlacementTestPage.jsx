@@ -290,7 +290,7 @@ export default function PlacementTestPage() {
 
             {/* Options */}
             <div className="space-y-3">
-              {question.options.map((option) => {
+              {question.options.map((option, idx) => {
                 const isSelected = selected === option.id
                 let optionBg = 'var(--ds-surface-1, rgba(255,255,255,0.04))'
                 let optionBorder = 'var(--ds-border-subtle, rgba(255,255,255,0.08))'
@@ -329,7 +329,7 @@ export default function PlacementTestPage() {
                         color: isSelected ? '#060e1c' : 'var(--ds-text-secondary, #cbd5e1)',
                       }}
                     >
-                      {option.id.toUpperCase()}
+                      {String.fromCharCode(65 + idx)}
                     </span>
                     <span className="text-base leading-snug">{option.text}</span>
                   </motion.button>
