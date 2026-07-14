@@ -313,6 +313,11 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-07-13 — Multi-level access: DIRECT per-level sidebar entries (Ali follow-up)
+- What: Ali — نادية should see & reach BOTH her levels directly from the SIDEBAR (not only inside the المنهج grid). getNavForUser now, for a student with students.extra_curriculum_levels, REPLACES the single «المنهج» item with one direct entry per accessible level: «منهج B1» (current, BookOpen → /student/curriculum/level/3) + «مراجعة A2» (revisit, BookOpenCheck → /student/curriculum/level/2), in the desktop sidebar AND the mobile "More" drawer. Mobile bottom bar keeps «المنهج» → the grid (which already shows both levels) so it never overflows. Everyone else (incl. individual/Fardi) is unchanged. Verified via node: multi-level → منهج B1 + مراجعة A2; normal → still «المنهج»; individual → INDIVIDUAL_NAV.
+- Files: src/config/navigation.js (LEVEL_CEFR + buildLevelNavItems + injectLevelNav + getNavForUser). Builds on [[project-fluentia-multilevel-access]] — the level pages/units already open (per-level guard honors the allowlist).
+- Status: complete — shipped to main via Trees API.
+
 ### 2026-07-13 — «بناء الجُمَل» (Sentence Building): creditless full-sentence trainer for group students
 - What: Ali — نادية (B1) has the vocab but her mind isn't trained to make FULL sentences when speaking; this month = focus her speaking. Built a premium, CREDITLESS trainer that turns words into complete sentences (the exact reflex speaking needs). Works TODAY regardless of Anthropic being at $0 (no runtime AI). Surfaced to all group students (broadly useful — the same fragment-speaking gap showed up in other students' real recordings).
 - Route /student/sentence-builder (SentenceBuilder.jsx) + nav «بناء الجُمل» (Layers) in STUDENT_NAV journey (sidebar + drawer). Content authored in src/data/speaking/sentenceBuilder.js.

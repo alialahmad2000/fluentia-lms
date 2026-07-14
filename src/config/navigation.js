@@ -332,9 +332,57 @@ export function getNavForRole(role) {
   return STUDENT_NAV
 }
 
+// CEFR label per curriculum level_number (== students.academic_level).
+const LEVEL_CEFR = { 0: 'Pre-A1', 1: 'A1', 2: 'A2', 3: 'B1', 4: 'B2', 5: 'C1' }
+
+/** For a student granted extra_curriculum_levels, build one sidebar item per level
+    she can reach — her current level first («منهج B1»), then each granted revisit
+    level («مراجعة A2»). Returns null for everyone else (nav unchanged). */
+function buildLevelNavItems(studentData) {
+  const cur = studentData?.academic_level
+  const extras = Array.isArray(studentData?.extra_curriculum_levels) ? studentData.extra_curriculum_levels : []
+  if (cur == null || extras.length === 0) return null
+  const uniqExtras = [...new Set(extras.filter((n) => n !== cur))].sort((a, b) => b - a)
+  return [cur, ...uniqExtras].map((n) => {
+    const isCurrent = n === cur
+    const cefr = LEVEL_CEFR[n] || `مستوى ${n}`
+    return {
+      id: `curriculum-level-${n}`,
+      label: isCurrent ? `منهج ${cefr}` : `مراجعة ${cefr}`,
+      icon: isCurrent ? BookOpen : BookOpenCheck,
+      to: `/student/curriculum/level/${n}`,
+    }
+  })
+}
+
+// Replace the single «المنهج» item with the per-level items in the desktop sidebar
+// + the mobile "More" drawer. The mobile bottom bar keeps «المنهج» → the grid (which
+// itself shows both levels), so the bar never overflows.
+function injectLevelNav(nav, items) {
+  const swap = (list) => {
+    if (!Array.isArray(list)) return list
+    const out = []
+    for (const it of list) {
+      if (it && it.id === 'curriculum') out.push(...items)
+      else out.push(it)
+    }
+    return out
+  }
+  return {
+    ...nav,
+    sections: Array.isArray(nav.sections) ? nav.sections.map((s) => ({ ...s, items: swap(s.items) })) : nav.sections,
+    drawerSections: Array.isArray(nav.drawerSections) ? nav.drawerSections.map((s) => ({ ...s, items: swap(s.items) })) : nav.drawerSections,
+  }
+}
+
 /** Account-aware nav: individual (1-on-1) students get INDIVIDUAL_NAV.
+    Students with an extra-curriculum-level grant get per-level sidebar items.
     Works under impersonation too — studentData is the swapped student row. */
 export function getNavForUser(role, studentData) {
   if ((role === 'student' || !role) && studentData?.study_mode === 'individual') return INDIVIDUAL_NAV
+  if (role === 'student' || !role) {
+    const levelItems = buildLevelNavItems(studentData)
+    if (levelItems) return injectLevelNav(STUDENT_NAV, levelItems)
+  }
   return getNavForRole(role)
 }
