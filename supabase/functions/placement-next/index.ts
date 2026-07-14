@@ -547,6 +547,15 @@ async function serveQuestion(
     text: o.text,
   }));
 
+  // Unbias answer position: the bank stores the correct answer first (id "a").
+  // Shuffle the display order so the correct answer isn't always shown first.
+  // Grading compares selected_option_id === correct_option_id by ID, so the id
+  // stays glued to its text — shuffling the array is safe.
+  for (let i = safeOptions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [safeOptions[i], safeOptions[j]] = [safeOptions[j], safeOptions[i]];
+  }
+
   return new Response(
     JSON.stringify({
       done: false,
