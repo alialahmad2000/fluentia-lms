@@ -53,6 +53,7 @@ const DeskToday = lazyRetry(() => import('./pages/desk/DeskToday'))
 const DeskScenarios = lazyRetry(() => import('./pages/desk/DeskScenarios'))
 const DeskScenarioPlayer = lazyRetry(() => import('./pages/desk/DeskScenarioPlayer'))
 const DeskTrack = lazyRetry(() => import('./pages/desk/DeskTrack'))
+const DeskReview = lazyRetry(() => import('./pages/desk/DeskReview'))
 const DeskLesson = lazyRetry(() => import('./pages/desk/DeskLesson'))
 const DeskClasses = lazyRetry(() => import('./pages/desk/DeskClasses'))
 const DeskClass = lazyRetry(() => import('./pages/desk/DeskClass'))
@@ -956,6 +957,7 @@ export default function App() {
                   <Route path="/desk/classes/:classId" element={<Page><DeskClass /></Page>} />
                   <Route path="/desk/classes/:classId/:chapterId" element={<Page><DeskClassChapter /></Page>} />
                   <Route path="/desk/track" element={<Page><DeskTrack /></Page>} />
+                  <Route path="/desk/review" element={<Page><DeskReview /></Page>} />
                   <Route path="/desk/track/:lessonId" element={<Page><DeskLesson /></Page>} />
                   <Route path="/desk/scenarios" element={<Page><DeskScenarios /></Page>} />
                   <Route path="/desk/scenarios/:moduleId" element={<Page><DeskScenarioPlayer /></Page>} />

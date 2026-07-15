@@ -1,22 +1,20 @@
-// Pro Desk navigation — a COMPLETELY different sidebar from STUDENT_NAV. This is a
-// professional's instrument, not a student's course menu. Rendered by the bespoke
-// DeskShell (not the shared Sidebar), so it never touches any other student's nav.
-// English-primary (نورة prefers English). `soon: true` items are shown, not yet live.
+// Pro Desk navigation — a professional's instrument, not a course menu. Rendered by the
+// bespoke DeskShell (never touches any other student's nav). English-primary.
 //
-// Order puts the CURRICULUM second (right after Today) so the learning path is obviously
-// central — Daily is the habit, Reading is its own clear section.
-
-import { Radar, GraduationCap, Compass, Headset, TrendingUp, NotebookPen, PhoneCall, Languages, Flame, BookOpen } from 'lucide-react'
+// Decluttered to FOUR clear destinations so the account reads as ONE guided program,
+// not a pile of tabs:
+//   Today   — what to do right now (next step + today's session)
+//   My Plan — the 4-stage journey (the curriculum, sequenced)
+//   Practice— rehearse a real call (apply it live)
+//   Review  — the reinforce hub (daily habit · reading · classes · growth · phrasebook)
+// The folded surfaces keep their routes (reachable from Review) — nothing was removed.
+import { Radar, Compass, Headset, Layers, PhoneCall, Languages } from 'lucide-react'
 
 export const DESK_NAV = [
-  { id: 'today',      ar: 'اليوم',            en: 'Today',            icon: Radar,         to: '/desk' },
-  { id: 'track',      ar: 'المسار',           en: 'Curriculum',       icon: Compass,       to: '/desk/track' },
-  { id: 'daily',      ar: 'يومي',             en: 'Daily',            icon: Flame,         to: '/desk/daily' },
-  { id: 'reading',    ar: 'القراءة',          en: 'Reading',          icon: BookOpen,      to: '/desk/reading' },
-  { id: 'classes',    ar: 'حصصي',             en: 'My Classes',       icon: GraduationCap, to: '/desk/classes' },
-  { id: 'scenarios',  ar: 'السيناريوهات',     en: 'Practice',         icon: Headset,       to: '/desk/scenarios' },
-  { id: 'growth',     ar: 'تقدّمي',           en: 'Growth',           icon: TrendingUp,    to: '/desk/growth' },
-  { id: 'phrasebank', ar: 'دفتري',            en: 'My Phrasebook',    icon: NotebookPen,   to: '/desk/phrasebank' },
-  { id: 'rehearse',   ar: 'تدريب مكالمة',     en: 'Rehearse a call',  icon: PhoneCall,     to: '/desk/rehearse',   soon: true },
-  { id: 'sayit',      ar: 'قوليها بالإنجليزي', en: 'Say it in English', icon: Languages,    to: '/desk/say-it',     soon: true },
+  { id: 'today',     ar: 'اليوم',            en: 'Today',            icon: Radar,   to: '/desk' },
+  { id: 'track',     ar: 'خطتي',             en: 'My Plan',          icon: Compass, to: '/desk/track' },
+  { id: 'scenarios', ar: 'التطبيق',          en: 'Practice',         icon: Headset, to: '/desk/scenarios' },
+  { id: 'review',    ar: 'المراجعة',         en: 'Review',           icon: Layers,  to: '/desk/review' },
+  { id: 'rehearse',  ar: 'تدريب مكالمة',     en: 'Rehearse a call',  icon: PhoneCall, to: '/desk/rehearse', soon: true },
+  { id: 'sayit',     ar: 'قوليها بالإنجليزي', en: 'Say it in English', icon: Languages, to: '/desk/say-it',  soon: true },
 ]
