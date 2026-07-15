@@ -1,0 +1,177 @@
+/* scene.css — the "Scene" unit overview for custom-curriculum students.
+   Theme-adaptive: default palette derives from the app's accent + cinematic tokens;
+   under Malak's Studio theme (html[data-track="studio"]) it becomes the warm
+   obsidian + copper identity. All values flow through --sc-* custom properties so
+   the component styles never hardcode a hue. No color-mix() — explicit rgba only
+   (iOS Safari < 16.4 safe; the userbase is on iPhones). */
+
+.scene-root{
+  /* defaults — accent-driven, works on any custom theme */
+  --sc-accent: var(--accent-sky, #38bdf8);
+  --sc-accent-bright: var(--accent-sky-strong, var(--accent-sky, #7dd3fc));
+  --sc-accent-deep: var(--accent-sky-dim, #1e5f7a);
+  --sc-glow: var(--accent-sky-glow, rgba(56,189,248,0.30));
+  --sc-panel: var(--cinematic-bg-elevated, #141b2e);
+  --sc-panel-2: var(--cinematic-bg-layer, #0f1626);
+  --sc-ink: var(--cinematic-text-primary, #f6ede2);
+  --sc-ink-2: var(--cinematic-text-secondary, #cbd5e1);
+  --sc-ink-3: var(--cinematic-text-dim, #94a3b8);
+  --sc-ink-4: var(--cinematic-text-faint, #64748b);
+  --sc-hair: var(--cinematic-border, rgba(255,255,255,0.08));
+  --sc-hair-soft: rgba(255,255,255,0.06);
+  --sc-ok: var(--cinematic-accent-gold, #d0a94f);
+  --sc-ok-soft: var(--cinematic-accent-gold-soft, rgba(208,169,79,0.15));
+  --sc-ok-border: rgba(208,169,79,0.55);
+  /* accent alpha variants (default = sky) */
+  --sc-accent-a12: rgba(125,211,250,0.12);
+  --sc-accent-a16: rgba(125,211,250,0.16);
+  --sc-accent-a18: rgba(125,211,250,0.18);
+  --sc-accent-a35: rgba(125,211,250,0.35);
+  --sc-accent-a40: rgba(125,211,250,0.40);
+  --sc-accent-a50: rgba(125,211,250,0.50);
+  --sc-cap-earned-bg: linear-gradient(155deg, #17293b, #0f1626);
+
+  --sc-node: 33px;
+  --sc-node-center: 23px;
+
+  position: relative;
+  direction: rtl;
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* Malak's Studio — warm obsidian + copper (matches the approved design) */
+html[data-track="studio"] .scene-root{
+  --sc-accent: #cf7d43;
+  --sc-accent-bright: #eaa864;
+  --sc-accent-deep: #8a4e24;
+  --sc-glow: rgba(207,125,67,0.32);
+  --sc-panel: #1c150d;
+  --sc-panel-2: #141009;
+  --sc-ink: #f6ede2;
+  --sc-ink-2: #d9c6b2;
+  --sc-ink-3: #9c8a76;
+  --sc-ink-4: #6f6152;
+  --sc-hair: rgba(234,168,100,0.16);
+  --sc-hair-soft: rgba(234,168,100,0.08);
+  --sc-ok: #d0a94f;
+  --sc-ok-soft: rgba(208,169,79,0.15);
+  --sc-ok-border: rgba(208,169,79,0.55);
+  --sc-accent-a12: rgba(234,168,100,0.12);
+  --sc-accent-a16: rgba(234,168,100,0.16);
+  --sc-accent-a18: rgba(234,168,100,0.18);
+  --sc-accent-a35: rgba(234,168,100,0.35);
+  --sc-accent-a40: rgba(234,168,100,0.40);
+  --sc-accent-a50: rgba(234,168,100,0.50);
+  --sc-cap-earned-bg: linear-gradient(155deg, #3a2412, #141009);
+}
+
+/* ── OUTCOME SLATE ─────────────────────────────── */
+.scene-slate{
+  position: relative;
+  border-radius: 22px;
+  padding: 26px 26px 22px;
+  background:
+    radial-gradient(120% 140% at 92% -10%, var(--sc-glow), transparent 55%),
+    linear-gradient(155deg, var(--sc-panel) 0%, var(--sc-panel-2) 100%);
+  border: 1px solid var(--sc-hair);
+  box-shadow: 0 22px 60px -28px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+.scene-slate::before{
+  content: ""; position: absolute; top: 18px; bottom: 18px; right: 0; width: 3px; border-radius: 3px;
+  background: linear-gradient(var(--sc-accent-bright), var(--sc-accent-deep));
+  box-shadow: 0 0 18px var(--sc-glow);
+}
+.scene-eyebrow{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 12.5px; letter-spacing: .04em; color: var(--sc-accent-bright); margin-bottom: 12px;
+}
+.scene-eyebrow .d{ width: 5px; height: 5px; border-radius: 50%; background: var(--sc-accent-bright); box-shadow: 0 0 8px var(--sc-glow); }
+.scene-eyebrow .num{ color: var(--sc-ink-4); font-variant-numeric: tabular-nums; }
+.scene-title{
+  font-weight: 800; font-size: clamp(24px, 6vw, 34px); line-height: 1.24; color: var(--sc-ink);
+  margin: 0 0 10px; letter-spacing: -.01em; text-wrap: balance;
+}
+.scene-outcome{ font-size: 15px; line-height: 1.72; color: var(--sc-ink-2); max-width: 48ch; margin: 0; }
+.scene-outcome b{ color: var(--sc-accent-bright); font-weight: 700; }
+.scene-foot{ display: flex; align-items: center; gap: 14px; margin-top: 20px; }
+.scene-bar{ flex: 1; height: 6px; border-radius: 6px; background: rgba(255,255,255,0.07); overflow: hidden; }
+.scene-bar > i{ display: block; height: 100%; border-radius: 6px;
+  background: linear-gradient(90deg, var(--sc-accent-deep), var(--sc-ok)); box-shadow: 0 0 12px var(--sc-glow);
+  transition: width .5s ease; }
+.scene-steps{ font-size: 12.5px; font-weight: 700; color: var(--sc-ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ── PATH ──────────────────────────────────────── */
+.scene-path{ position: relative; margin-top: 22px; padding-right: 38px; }
+.scene-spine{ position: absolute; top: 16px; bottom: 24px; right: calc(var(--sc-node-center) - 1px); width: 2px; border-radius: 2px; background: var(--sc-hair-soft); }
+.scene-spine > i{ position: absolute; top: 0; right: 0; width: 100%; border-radius: 2px;
+  background: linear-gradient(var(--sc-ok), var(--sc-accent-bright)); transition: height .5s ease; }
+.scene-spine > i::after{ content: ""; position: absolute; bottom: -3px; right: -2px; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--sc-accent-bright); box-shadow: 0 0 10px 2px var(--sc-glow); }
+
+.scene-beat{ position: relative; margin-bottom: 20px; }
+.scene-node{ position: absolute; top: 22px; width: var(--sc-node); height: var(--sc-node); border-radius: 50%;
+  right: calc(-1 * (38px - var(--sc-node-center) + var(--sc-node) / 2));
+  display: grid; place-items: center; font-weight: 800; font-size: 13px; font-variant-numeric: tabular-nums;
+  background: var(--sc-panel-2); border: 1.5px solid var(--sc-hair); color: var(--sc-ink-3); z-index: 2; }
+.scene-beat.done .scene-node{ background: var(--sc-ok-soft); border-color: var(--sc-ok-border); color: var(--sc-ok); }
+.scene-beat.live .scene-node{ background: var(--sc-accent-a18); border-color: var(--sc-accent-bright); color: var(--sc-accent-bright);
+  box-shadow: 0 0 0 4px var(--sc-accent-a12), 0 0 16px var(--sc-glow); }
+
+.scene-card{ display: block; width: 100%; text-align: right; border-radius: 16px; padding: 18px 18px; cursor: pointer; font-family: inherit;
+  background: linear-gradient(160deg, var(--sc-panel), var(--sc-panel-2)); border: 1px solid var(--sc-hair-soft);
+  box-shadow: 0 8px 26px -18px rgba(0,0,0,0.8); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.scene-card:hover{ transform: translateY(-2px); border-color: var(--sc-hair); }
+.scene-card:focus-visible{ outline: 2px solid var(--sc-accent-bright); outline-offset: 2px; }
+.scene-beat.done .scene-card{ opacity: .86; }
+.scene-beat.live .scene-card{ border-color: var(--sc-accent-a50);
+  box-shadow: 0 16px 40px -20px var(--sc-glow), inset 0 1px 0 rgba(255,255,255,0.05); }
+.scene-card-top{ display: flex; align-items: center; gap: 12px; }
+.scene-ic{ width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0;
+  background: radial-gradient(circle at 50% 40%, var(--sc-glow), transparent 72%); border: 1px solid var(--sc-hair-soft); color: var(--sc-accent-bright); }
+.scene-beat.live .scene-ic{ border-color: var(--sc-accent-a35); }
+.scene-role{ flex: 1; min-width: 0; }
+.scene-role .r1{ font-weight: 700; font-size: 16px; color: var(--sc-ink); line-height: 1.3; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.scene-role .r2{ font-size: 12px; color: var(--sc-ink-4); margin-top: 3px; }
+.scene-chip{ font-size: 12px; font-weight: 700; padding: 4px 11px; border-radius: 20px; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.scene-chip.c-done{ background: var(--sc-ok-soft); color: var(--sc-ok); }
+.scene-chip.c-live{ background: var(--sc-accent-a16); color: var(--sc-accent-bright); }
+.scene-chip.c-todo{ background: rgba(255,255,255,0.05); color: var(--sc-ink-4); }
+.scene-chip .pulse{ width: 6px; height: 6px; border-radius: 50%; background: var(--sc-accent-bright); }
+@media (prefers-reduced-motion: no-preference){ .scene-chip .pulse{ animation: scenePulse 1.5s ease-in-out infinite; } }
+@keyframes scenePulse{ 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: .35; transform: scale(.7); } }
+.scene-why{ margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--sc-hair-soft); font-size: 12.5px; line-height: 1.62; color: var(--sc-ink-3); }
+.scene-here{ font-size: 12px; font-weight: 800; color: #1a0f07; background: var(--sc-accent-bright); border-radius: 20px; padding: 2px 10px; white-space: nowrap; }
+.scene-go{ margin-top: 13px; display: inline-flex; align-items: center; gap: 7px; color: var(--sc-accent-bright); font-weight: 800; font-size: 13px; }
+
+/* ── CAPSTONE ──────────────────────────────────── */
+.scene-capstone{ margin: 24px 0; }
+.scene-capstone .scene-node{ width: 40px; height: 40px; top: 24px; flex-direction: column; gap: 1px; line-height: 1;
+  right: calc(-1 * (38px - var(--sc-node-center) + 40px / 2)); }
+.scene-capstone .scene-node .star{ display: grid; place-items: center; }
+.scene-capstone .scene-node .n5{ font-size: 8.5px; color: var(--sc-ink-4); font-weight: 700; }
+.scene-cap{ display: block; width: 100%; text-align: right; position: relative; border-radius: 20px; padding: 20px 20px 18px; overflow: hidden; cursor: pointer; font-family: inherit;
+  background: linear-gradient(155deg, var(--sc-panel), var(--sc-panel-2)); border: 1px solid var(--sc-hair);
+  box-shadow: 0 14px 40px -24px rgba(0,0,0,0.8); }
+.scene-cap:focus-visible{ outline: 2px solid var(--sc-accent-bright); outline-offset: 2px; }
+.scene-cap-tag{ display: inline-flex; align-items: center; gap: 7px; font-weight: 700; font-size: 12px; letter-spacing: .03em; color: var(--sc-ink-3); margin-bottom: 9px; position: relative; }
+.scene-cap-title{ position: relative; font-weight: 800; font-size: 20px; color: var(--sc-ink-2); line-height: 1.3; margin-bottom: 6px; }
+.scene-cap-sub{ position: relative; font-size: 13.5px; line-height: 1.62; color: var(--sc-ink-3); max-width: 45ch; }
+.scene-cap-cta{ position: relative; display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; min-height: 44px; padding: 0 18px;
+  background: transparent; border: 1px solid var(--sc-accent-deep); color: var(--sc-ink-3); font-weight: 700; font-size: 13px; border-radius: 12px; }
+
+/* ignited (prerequisites done) */
+.scene-capstone.earned .scene-node{ background: radial-gradient(circle, var(--sc-accent-bright), var(--sc-accent-deep)); border: none; color: #1a0f07;
+  box-shadow: 0 0 0 5px var(--sc-accent-a12), 0 0 22px var(--sc-glow); }
+.scene-capstone.earned .scene-node .n5{ color: rgba(26,15,7,.6); }
+.scene-capstone.earned .scene-cap{ background: var(--sc-cap-earned-bg);
+  border-color: var(--sc-accent-a40); box-shadow: 0 24px 64px -26px var(--sc-glow), inset 0 1px 0 rgba(255,255,255,0.06); }
+.scene-capstone.earned .scene-cap::before{ content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(80% 120% at 92% 0%, var(--sc-glow), transparent 60%); }
+.scene-capstone.earned .scene-cap-tag{ color: var(--sc-accent-bright); }
+.scene-capstone.earned .scene-cap-title{ color: var(--sc-ink); }
+.scene-capstone.earned .scene-cap-sub{ color: var(--sc-ink-2); }
+.scene-capstone.earned .scene-cap-cta{ background: linear-gradient(90deg, var(--sc-accent-bright), var(--sc-accent)); border: none; color: #1a0f07; font-weight: 800;
+  box-shadow: 0 10px 24px -8px var(--sc-glow); }
+
+.scene-foot-note{ text-align: center; margin-top: 24px; font-size: 12px; color: var(--sc-ink-4); line-height: 1.7; }

@@ -46,6 +46,7 @@ import {
   useUnitTheme,
 } from './unit-v2'
 import UnitBrief from './unit-v2/UnitBrief'
+import SceneOverview from './unit-v2/scene/SceneOverview'
 import UnitDebrief from './unit-v2/components/debrief/UnitDebrief'
 import { useUnitSkillSnapshot } from './unit-v2/hooks/useUnitSkillSnapshot'
 
@@ -78,6 +79,9 @@ export default function UnitContent() {
   const [searchParams, setSearchParams] = useSearchParams()
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
+  // Custom-curriculum students (e.g. Malak/Studio) get the "Scene" unit overview
+  // instead of the 6-card mission grid. Everyone else is byte-identical to before.
+  const isCustom = studentData?.uses_custom_curriculum === true
   const { canSeeAllLevels, basePath } = useCurriculumPreview()
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
   const isStudent = profile?.role === 'student' && !canSeeAllLevels
@@ -529,10 +533,20 @@ export default function UnitContent() {
               <UnitMasteryCard unitId={unitId} studentId={studentData.id} />
             </motion.div>
           )}
-          <SmartNextStepCTA nextStep={nextStep} onNavigate={handleActivitySelect} />
-          <div style={{ marginTop: '24px' }}>
-            <MissionGrid activities={unitData.activities} onSelect={handleActivitySelect} unit={unit} />
-          </div>
+          {isCustom ? (
+            <SceneOverview
+              activities={unitData.activities}
+              unit={unit}
+              onSelect={handleActivitySelect}
+            />
+          ) : (
+            <>
+              <SmartNextStepCTA nextStep={nextStep} onNavigate={handleActivitySelect} />
+              <div style={{ marginTop: '24px' }}>
+                <MissionGrid activities={unitData.activities} onSelect={handleActivitySelect} unit={unit} />
+              </div>
+            </>
+          )}
 
           {/* تسجيل الحصة — the recorded CLASS for this unit (staff upload, students watch) */}
           <ClassRecordingEntryCard unitId={unitId} onOpen={() => handleActivitySelect('recording')} />
