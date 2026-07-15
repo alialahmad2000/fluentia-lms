@@ -1,5 +1,6 @@
 // «مسار التقنية» — the premium roadmap: 10 stages, each a set of lesson stations, with
 // progress + a "continue here" pointer to the next unfinished lesson.
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import {
@@ -15,12 +16,14 @@ const ICONS = { Cpu, MonitorSmartphone, Globe, Code2, Database, ShieldCheck, Bot
 function Ring({ done, total, accent }) {
   const r = 30, c = 2 * Math.PI * r
   const pct = total ? done / total : 0
+  const [shown, setShown] = useState(0)
+  useEffect(() => { const t = setTimeout(() => setShown(pct), 140); return () => clearTimeout(t) }, [pct])
   return (
     <svg className="tt-ring" viewBox="0 0 72 72">
       <circle cx="36" cy="36" r={r} fill="none" stroke="var(--ds-border-subtle, rgba(255,255,255,0.12))" strokeWidth="6" />
       <circle cx="36" cy="36" r={r} fill="none" stroke={accent} strokeWidth="6" strokeLinecap="round"
-        strokeDasharray={c} strokeDashoffset={c * (1 - pct)}
-        style={{ transform: 'rotate(-90deg)', transformOrigin: 'center', transition: 'stroke-dashoffset .6s ease' }} />
+        strokeDasharray={c} strokeDashoffset={c * (1 - shown)}
+        style={{ transform: 'rotate(-90deg)', transformOrigin: 'center', transition: 'stroke-dashoffset .9s cubic-bezier(.22,1,.36,1)' }} />
       <text x="36" y="33" textAnchor="middle" fontSize="16" fontWeight="800">{done}</text>
       <text x="36" y="48" textAnchor="middle" fontSize="10" fill="var(--ds-text-tertiary, #64748b)">/{total}</text>
     </svg>
@@ -48,7 +51,7 @@ export default function TechTrackHome() {
           <div className="tt-hero-foot">
             <Ring done={doneLessons} total={totalLessons || 30} accent={heroAccent} />
             {nextLesson ? (
-              <Link to={`/tech/${nextLesson.slug}`} className="tt-continue" style={{ background: heroAccent, color: '#050b16' }}>
+              <Link to={`/tech/${nextLesson.slug}`} className="tt-continue" style={{ background: heroAccent, color: '#050b16', boxShadow: `0 12px 30px -10px ${heroAccent}99` }}>
                 {doneLessons > 0 ? 'أكملي من هنا' : 'ابدئي الرحلة'}
                 <ArrowLeft size={18} />
               </Link>
@@ -97,7 +100,7 @@ export default function TechTrackHome() {
                         <h3 className="tt-lesson-title">{l.title_ar}</h3>
                         <div className="tt-lesson-en">{l.title_en}{l.done && l.score != null ? ` · ${l.score}%` : ''}</div>
                       </div>
-                      {isNext && <span style={{ fontSize: 11, fontWeight: 800, color: accent, marginInlineEnd: 4 }}>ابدئي</span>}
+                      {isNext && <span style={{ fontSize: 12, fontWeight: 800, color: accent, marginInlineEnd: 4 }}>ابدئي</span>}
                       <ChevronLeft className="tt-lesson-chev" size={18} />
                     </Link>
                   )

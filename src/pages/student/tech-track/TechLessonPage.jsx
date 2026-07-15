@@ -108,7 +108,7 @@ export default function TechLessonPage() {
             {c.key_phrases.map((p, i) => (
               <div className="tt-phrase" key={i}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <button className="tt-listen" style={{ width: 32, height: 32, borderColor: `${accent}66`, color: accent, background: `${accent}1a` }} onClick={() => speak(p.en)} aria-label="listen">
+                  <button className="tt-listen" style={{ borderColor: `${accent}66`, color: accent, background: `${accent}1a` }} onClick={() => speak(p.en)} aria-label="listen">
                     <Volume2 size={15} />
                   </button>
                   <span className="tt-phrase-en">{p.en}</span>
@@ -148,11 +148,11 @@ export default function TechLessonPage() {
       {/* Complete */}
       <div className="tt-section">
         {isDone ? (
-          <Link to="/tech" className="tt-btn" style={{ background: accent, textDecoration: 'none' }}>
+          <Link to="/tech" className="tt-btn" style={{ background: accent, textDecoration: 'none', boxShadow: `0 12px 30px -10px ${accent}99` }}>
             العودة إلى المسار <ArrowRight size={18} />
           </Link>
         ) : (
-          <button className="tt-btn" style={{ background: accent }} onClick={handleComplete} disabled={complete.isPending}>
+          <button className="tt-btn" style={{ background: accent, boxShadow: `0 12px 30px -10px ${accent}99` }} onClick={handleComplete} disabled={complete.isPending}>
             {complete.isPending ? <Loader2 className="animate-spin" size={18} /> : <Check size={18} />}
             إتمام الدرس
           </button>
