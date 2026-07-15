@@ -7,9 +7,9 @@ import { useDeskModules } from './useDeskModules'
 import './desk.css'
 
 const STATUS = {
-  completed:   { label: 'Completed',   color: '#6ee7b7', bg: 'rgba(110,231,183,0.12)', bd: 'rgba(110,231,183,0.28)' },
+  completed:   { label: 'Completed',   color: '#8fd6a0', bg: 'rgba(148,214,157,0.12)', bd: 'rgba(148,214,157,0.28)' },
   in_progress: { label: 'In progress', color: '#ef6a43', bg: 'rgba(239, 106, 67,0.12)',  bd: 'rgba(239, 106, 67,0.30)' },
-  new:         { label: 'New',         color: 'rgba(42, 33, 64,0.6)', bg: 'rgba(255,255,255,0.04)', bd: 'rgba(255,255,255,0.10)' },
+  new:         { label: 'New',         color: 'rgba(240, 234, 224,0.68)', bg: 'rgba(255,255,255,0.04)', bd: 'rgba(255,255,255,0.10)' },
 }
 
 export default function DeskScenarios() {
@@ -23,7 +23,7 @@ export default function DeskScenarios() {
       <div className="desk-glass p-8 text-center desk-rise">
         <Headset size={28} className="mx-auto mb-3" style={{ color: 'var(--brass)' }} />
         <p className="font-['Hanken_Grotesk'] font-bold text-lg" dir="ltr">No scenarios yet</p>
-        <p className="font-['Hanken_Grotesk'] text-sm mt-1" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>Your career track will be assigned soon.</p>
+        <p className="font-['Hanken_Grotesk'] text-sm mt-1" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>Your career track will be assigned soon.</p>
       </div>
     )
   }
@@ -42,10 +42,10 @@ export default function DeskScenarios() {
           Your career track
         </h1>
         {spec?.title_ar && (
-          <p className="font-['Tajawal'] text-sm mt-1" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{spec.title_ar}</p>
+          <p className="font-['Tajawal'] text-sm mt-1" style={{ color: 'rgba(240, 234, 224,0.65)' }}>{spec.title_ar}</p>
         )}
         {spec?.tagline_ar && (
-          <p className="font-['Tajawal'] text-sm mt-2 max-w-2xl leading-relaxed" style={{ color: 'rgba(42, 33, 64,0.6)' }}>{spec.tagline_ar}</p>
+          <p className="font-['Tajawal'] text-sm mt-2 max-w-2xl leading-relaxed" style={{ color: 'rgba(240, 234, 224,0.68)' }}>{spec.tagline_ar}</p>
         )}
         {/* progress */}
         <div className="flex items-center gap-3 mt-4 max-w-md">
@@ -76,11 +76,11 @@ export default function DeskScenarios() {
                   <span className="desk-ghost-btn"><ArrowRight size={15} /></span>
                 </div>
                 <h3 className="font-['Hanken_Grotesk'] font-bold text-[16px] leading-snug mb-1" dir="ltr" style={{ color: 'var(--cream)' }}>{m.title_en}</h3>
-                <p className="font-['Tajawal'] text-[12px] mb-2" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{m.title_ar}</p>
-                <p className="font-['Tajawal'] text-[13px] leading-relaxed line-clamp-2" style={{ color: 'rgba(42, 33, 64,0.58)' }}>{m.scenario_ar}</p>
+                <p className="font-['Tajawal'] text-[12px] mb-2" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{m.title_ar}</p>
+                <p className="font-['Tajawal'] text-[13px] leading-relaxed line-clamp-2" style={{ color: 'rgba(240, 234, 224,0.58)' }}>{m.scenario_ar}</p>
                 <div className="flex items-center gap-4 mt-3 pt-3 desk-hair">
-                  <span className="flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11px]" style={{ color: 'rgba(42, 33, 64,0.45)' }}><Clock size={12} /> {m.estimated_minutes || 25} min</span>
-                  <span className="flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11px]" style={{ color: 'rgba(42, 33, 64,0.45)' }}><BookOpen size={12} /> {m.vocab_count || (Array.isArray(m.vocabulary) ? m.vocabulary.length : 0)} terms</span>
+                  <span className="flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11px]" style={{ color: 'rgba(240, 234, 224,0.56)' }}><Clock size={12} /> {m.estimated_minutes || 25} min</span>
+                  <span className="flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11px]" style={{ color: 'rgba(240, 234, 224,0.56)' }}><BookOpen size={12} /> {m.vocab_count || (Array.isArray(m.vocabulary) ? m.vocabulary.length : 0)} terms</span>
                 </div>
               </Link>
             </motion.div>

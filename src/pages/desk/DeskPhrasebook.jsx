@@ -55,13 +55,13 @@ export default function DeskPhrasebook() {
           <span className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>MY PHRASEBOOK</span>
         </div>
         <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[30px]" dir="ltr" style={{ color: 'var(--cream)' }}>My Phrasebook</h1>
-        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(42, 33, 64,0.5)' }}>دفتري</p>
-        <p className="font-['Hanken_Grotesk'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>Your professional lines — from your own calls and your track, in one place. Tap 🔊 to hear them.</p>
+        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(240, 234, 224,0.62)' }}>دفتري</p>
+        <p className="font-['Hanken_Grotesk'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>Your professional lines — from your own calls and your track, in one place. Tap 🔊 to hear them.</p>
       </div>
 
       {/* search */}
       <div className="desk-glass flex items-center gap-2.5 px-4 h-12">
-        <Search size={16} style={{ color: 'rgba(42, 33, 64,0.4)' }} />
+        <Search size={16} style={{ color: 'rgba(240, 234, 224,0.52)' }} />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search your lines…"
           className="flex-1 bg-transparent outline-none font-['Hanken_Grotesk'] text-[14px]"
           style={{ color: 'var(--cream)' }} />
@@ -105,20 +105,20 @@ export default function DeskPhrasebook() {
           <div className="flex items-center gap-2">
             <NotebookPen size={15} style={{ color: 'var(--brass)' }} />
             <h2 className="font-['Hanken_Grotesk'] font-bold text-[16px]" dir="ltr" style={{ color: 'var(--cream)' }}>Track phrases</h2>
-            {!query && <span className="font-['Hanken_Grotesk'] text-[11px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.4)' }}>{totalPhrases} phrases</span>}
+            {!query && <span className="font-['Hanken_Grotesk'] text-[11px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.52)' }}>{totalPhrases} phrases</span>}
           </div>
           {groups.map((g) => (
             <div key={g.id}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="font-['Hanken_Grotesk'] font-black text-[10px] w-6 h-6 grid place-items-center rounded-md" style={{ color: '#fff3ee', background: 'linear-gradient(135deg,#ef6a43,#cf4a1c)' }}>{String(g.number).padStart(2, '0')}</span>
-                <h3 className="font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.72)' }}>{g.title}</h3>
+                <h3 className="font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.72)' }}>{g.title}</h3>
               </div>
               <div className="space-y-2">
                 {g.phrases.map((p, i) => (
                   <div key={i} className="desk-glass p-3.5 flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <p className="font-['Hanken_Grotesk'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{p.en}</p>
-                      <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{p.ar}</p>
+                      <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(240, 234, 224,0.65)' }}>{p.ar}</p>
                       {p.context_ar && <p className="font-['Tajawal'] text-[11px] mt-1" style={{ color: 'rgba(239, 106, 67,0.65)' }}><span className="font-['Hanken_Grotesk']" dir="ltr">When?</span> {p.context_ar}</p>}
                     </div>
                     <PlayBtn text={p.en} />

@@ -27,7 +27,7 @@ function ProgressRing({ pct, done, total, allDone }) {
       <div className="absolute inset-0 grid place-items-center">
         {allDone
           ? <Award size={30} style={{ color: 'var(--brass-hi)' }} />
-          : <div className="text-center leading-none"><span className="font-['Hanken_Grotesk'] font-black text-[22px]" style={{ color: 'var(--cream)' }}>{done}</span><span className="font-['Hanken_Grotesk'] text-[13px]" style={{ color: 'rgba(42, 33, 64,0.5)' }}>/{total}</span></div>}
+          : <div className="text-center leading-none"><span className="font-['Hanken_Grotesk'] font-black text-[22px]" style={{ color: 'var(--cream)' }}>{done}</span><span className="font-['Hanken_Grotesk'] text-[13px]" style={{ color: 'rgba(240, 234, 224,0.62)' }}>/{total}</span></div>}
       </div>
     </div>
   )
@@ -44,7 +44,7 @@ export default function DeskClass() {
 
   return (
     <div className="space-y-12 max-w-[720px] mx-auto">
-      <Link to="/desk/classes" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] desk-rise" style={{ color: 'rgba(42, 33, 64,0.5)' }}>
+      <Link to="/desk/classes" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] desk-rise" style={{ color: 'rgba(240, 234, 224,0.62)' }}>
         <ArrowLeft size={15} /> My Classes
       </Link>
 
@@ -58,8 +58,8 @@ export default function DeskClass() {
             <span className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.18em] uppercase" dir="ltr" style={{ color: 'var(--brass)' }}>Class {cls.number}</span>
           </div>
           <h1 className="font-['Hanken_Grotesk'] font-extrabold text-[22px] lg:text-[26px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{cls.title_en}</h1>
-          {cls.title_ar && <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(42, 33, 64,0.42)' }}>{cls.title_ar}</p>}
-          <p className="font-['Hanken_Grotesk'] text-[13px] mt-2 leading-relaxed" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>
+          {cls.title_ar && <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(240, 234, 224,0.54)' }}>{cls.title_ar}</p>}
+          <p className="font-['Hanken_Grotesk'] text-[13px] mt-2 leading-relaxed" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>
             {prog.allDone ? 'You have finished reviewing this class — great work.' : prog.current ? `Continue from: ${prog.current.en}` : cls.tagline_en}
           </p>
         </div>
@@ -99,8 +99,8 @@ export default function DeskClass() {
                       </h3>
                       {isCurrent && <span className="font-['Hanken_Grotesk'] text-[12px] font-bold px-2.5 py-1 rounded-full" dir="ltr" style={{ color: '#fff3ee', background: 'linear-gradient(135deg,#ef6a43,#cf4a1c)' }}>Continue here</span>}
                     </div>
-                    {ch.ar && <p className="font-['Tajawal'] text-[12px] mt-0.5 mb-2" style={{ color: 'rgba(42, 33, 64,0.42)' }}>{ch.ar}</p>}
-                    <p className="font-['Hanken_Grotesk'] text-[12.5px] leading-relaxed line-clamp-2" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.6)' }}>{ch.goal_en}</p>
+                    {ch.ar && <p className="font-['Tajawal'] text-[12px] mt-0.5 mb-2" style={{ color: 'rgba(240, 234, 224,0.54)' }}>{ch.ar}</p>}
+                    <p className="font-['Hanken_Grotesk'] text-[12.5px] leading-relaxed line-clamp-2" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.68)' }}>{ch.goal_en}</p>
                     {/* the three beats */}
                     <div className="flex items-center gap-3.5 mt-3">
                       <span className={`desk-beatdot ${done ? 'lit' : ''}`} dir="ltr"><Lightbulb size={12} /> Understand</span>
@@ -109,7 +109,7 @@ export default function DeskClass() {
                     </div>
                   </div>
                   <div className="flex flex-col items-end justify-between self-stretch gap-2 flex-shrink-0">
-                    <span className="inline-flex items-center gap-1 font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.42)' }}><Clock size={12} /> {ch.minutes} min</span>
+                    <span className="inline-flex items-center gap-1 font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.54)' }}><Clock size={12} /> {ch.minutes} min</span>
                     <ChevronRight size={18} className="desk-lesson-chev" />
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export default function DeskClass() {
           <div className="flex items-center gap-2.5 mb-4">
             <span className="desk-lesson-sec-mark"><Award size={16} /></span>
             <div>
-              <p className="font-['Hanken_Grotesk'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.46)' }}>GOLDEN TAKEAWAYS</p>
+              <p className="font-['Hanken_Grotesk'] text-[12px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.56)' }}>GOLDEN TAKEAWAYS</p>
               <h2 className="font-['Hanken_Grotesk'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>Key takeaways</h2>
             </div>
           </div>

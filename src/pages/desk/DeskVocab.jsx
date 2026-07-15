@@ -42,7 +42,7 @@ function Session({ rm }) {
             <span className="font-['Hanken_Grotesk'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--brass-hi)' }}>{streak}-day streak</span>
           </div>
         )}
-        <p className="font-['Hanken_Grotesk'] text-[13px] mt-4" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>Come back tomorrow to lock in what you learned.</p>
+        <p className="font-['Hanken_Grotesk'] text-[13px] mt-4" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>Come back tomorrow to lock in what you learned.</p>
         <Link to="/desk/daily" className="inline-flex items-center gap-1.5 mt-4 font-['Hanken_Grotesk'] text-[13px] font-bold" dir="ltr" style={{ color: 'var(--brass)' }}>Back to Daily <ArrowRight size={14} /></Link>
       </div>
     )
@@ -66,7 +66,7 @@ function Session({ rm }) {
               <p className="font-['Hanken_Grotesk'] font-bold text-[30px] leading-none" dir="ltr" style={{ color: 'var(--cream)' }}>{w.word}</p>
               <p className="font-['Hanken_Grotesk'] text-[13px]" dir="ltr" style={{ color: 'rgba(239, 106, 67,0.7)' }}>/{w.ipa}/ · {w.pos}</p>
               <PlayBtn text={w.word} size={16} />
-              <p className="font-['Hanken_Grotesk'] text-[12px] mt-2" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.4)' }}>Tap to see the meaning</p>
+              <p className="font-['Hanken_Grotesk'] text-[12px] mt-2" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.52)' }}>Tap to see the meaning</p>
             </motion.div>
           ) : (
             <motion.div key="back" initial={rm ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }} className="flex flex-col items-center gap-2.5 py-2 text-center">
@@ -76,7 +76,7 @@ function Session({ rm }) {
                   <p className="font-['Hanken_Grotesk'] text-[15.5px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{w.example}</p>
                   <PlayBtn text={w.example} />
                 </div>
-                <p className="font-['Tajawal'] text-[12.5px] mt-1.5" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{w.example_ar}</p>
+                <p className="font-['Tajawal'] text-[12.5px] mt-1.5" style={{ color: 'rgba(240, 234, 224,0.65)' }}>{w.example_ar}</p>
               </div>
             </motion.div>
           )}
@@ -104,14 +104,14 @@ function Vault() {
   const list = useMemo(() => DESK_VOCAB.filter((w) => !query || w.word.toLowerCase().includes(query) || (w.ar || '').includes(q.trim())), [query, q])
   const badge = (w) => {
     const st = wordState(w.id)
-    if (!st?.seen) return { t: 'New', c: 'rgba(42, 33, 64,0.45)', b: 'rgba(255,255,255,0.06)' }
+    if (!st?.seen) return { t: 'New', c: 'rgba(240, 234, 224,0.56)', b: 'rgba(255,255,255,0.06)' }
     if ((st.box || 0) >= 4) return { t: 'Mastered', c: 'var(--brass-hi)', b: 'rgba(239, 106, 67,0.14)' }
-    return { t: 'Learning', c: 'rgba(169,231,201,0.9)', b: 'rgba(110,231,183,0.1)' }
+    return { t: 'Learning', c: 'rgba(169,231,201,0.9)', b: 'rgba(148,214,157,0.1)' }
   }
   return (
     <div className="space-y-3">
       <div className="desk-glass flex items-center gap-2.5 px-4 h-12">
-        <Search size={16} style={{ color: 'rgba(42, 33, 64,0.4)' }} />
+        <Search size={16} style={{ color: 'rgba(240, 234, 224,0.52)' }} />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search your words…" dir="ltr" className="flex-1 bg-transparent outline-none font-['Hanken_Grotesk'] text-[14px] text-start" style={{ color: 'var(--cream)' }} />
       </div>
       {list.map((w) => {
@@ -124,7 +124,7 @@ function Vault() {
                 <span className="font-['Hanken_Grotesk'] text-[10.5px] font-bold px-2 py-0.5 rounded-full" dir="ltr" style={{ color: bd.c, background: bd.b }}>{bd.t}</span>
               </div>
               <p className="font-['Tajawal'] text-[13px] mt-0.5" style={{ color: 'var(--brass-hi)' }}>{w.ar}</p>
-              <p className="font-['Hanken_Grotesk'] text-[12.5px] mt-1.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{w.example}</p>
+              <p className="font-['Hanken_Grotesk'] text-[12.5px] mt-1.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{w.example}</p>
             </div>
             <PlayBtn text={w.word} />
           </div>
@@ -141,13 +141,13 @@ export default function DeskVocab() {
 
   return (
     <div className="space-y-7 max-w-[640px] mx-auto">
-      <Link to="/desk/daily" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}><ArrowLeft size={15} /> Daily</Link>
+      <Link to="/desk/daily" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}><ArrowLeft size={15} /> Daily</Link>
 
       <div className="desk-rise">
         <div className="flex items-center gap-2 mb-1.5"><Layers size={14} style={{ color: 'var(--brass)' }} /><span className="font-['Hanken_Grotesk'] text-[12px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>VOCABULARY</span></div>
         <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[30px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>Vocabulary</h1>
-        <p className="font-['Hanken_Grotesk'] text-[13.5px] mt-1.5 leading-relaxed" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>Review with spaced repetition — each word comes back at just the right time so it sticks.</p>
-        <div className="flex items-center gap-4 mt-3 font-['Hanken_Grotesk'] text-[12.5px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>
+        <p className="font-['Hanken_Grotesk'] text-[13.5px] mt-1.5 leading-relaxed" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>Review with spaced repetition — each word comes back at just the right time so it sticks.</p>
+        <div className="flex items-center gap-4 mt-3 font-['Hanken_Grotesk'] text-[12.5px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>
           <span><span style={{ color: 'var(--brass-hi)', fontWeight: 700 }}>{vocab.mastered}</span> mastered</span>
           <span><span style={{ color: 'rgba(169,231,201,0.9)', fontWeight: 700 }}>{vocab.learning}</span> learning</span>
           <span><span style={{ fontWeight: 700 }}>{vocab.total}</span> total</span>

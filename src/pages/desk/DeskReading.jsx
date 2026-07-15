@@ -17,8 +17,8 @@ export default function DeskReading() {
       <div className="desk-rise">
         <div className="flex items-center gap-2 mb-1.5"><BookOpen size={14} style={{ color: 'var(--brass)' }} /><span className="font-['Hanken_Grotesk'] text-[12px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>READING</span></div>
         <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[30px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>Reading in your field</h1>
-        <p className="font-['Hanken_Grotesk'] text-[13.5px] mt-1.5 leading-relaxed max-w-[560px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.58)' }}>Short passages from real IT work — incidents, on-call, deploys, cloud, security. Read, learn the key terms, then check yourself.</p>
-        <p className="font-['Tajawal'] text-[12.5px] mt-1" style={{ color: 'rgba(42, 33, 64,0.42)' }}>القراءة في مجالك — نصوص تقنية قصيرة</p>
+        <p className="font-['Hanken_Grotesk'] text-[13.5px] mt-1.5 leading-relaxed max-w-[560px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.58)' }}>Short passages from real IT work — incidents, on-call, deploys, cloud, security. Read, learn the key terms, then check yourself.</p>
+        <p className="font-['Tajawal'] text-[12.5px] mt-1" style={{ color: 'rgba(240, 234, 224,0.54)' }}>القراءة في مجالك — نصوص تقنية قصيرة</p>
         <p className="font-['Hanken_Grotesk'] text-[12.5px] mt-3" dir="ltr" style={{ color: 'var(--brass-hi)' }}>{done} of {total} read</p>
       </div>
 
@@ -30,7 +30,7 @@ export default function DeskReading() {
             <div className="min-w-0 flex-1">
               <p className="font-['Hanken_Grotesk'] text-[11px] font-bold tracking-[0.14em] mb-0.5" dir="ltr" style={{ color: 'var(--brass)' }}>{done === 0 ? 'START READING' : 'READ NEXT'}</p>
               <h3 className="font-['Hanken_Grotesk'] font-extrabold text-[16px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{next.title}</h3>
-              <p className="font-['Hanken_Grotesk'] text-[12px] mt-0.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{next.level} · {next.minutes} min · {next.topic}</p>
+              <p className="font-['Hanken_Grotesk'] text-[12px] mt-0.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{next.level} · {next.minutes} min · {next.topic}</p>
             </div>
             <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr">Read <ArrowRight size={16} /></span>
           </Link>
@@ -48,7 +48,7 @@ export default function DeskReading() {
                 <span className={`desk-gnum ${dn ? 'done' : ''}`}>{dn ? <Check size={14} strokeWidth={3} /> : r.order}</span>
                 <div className="min-w-0 flex-1">
                   <h3 className="font-['Hanken_Grotesk'] font-bold text-[15px] leading-snug truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{r.title}</h3>
-                  <div className="flex items-center gap-2 mt-0.5 font-['Hanken_Grotesk'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.45)' }}>
+                  <div className="flex items-center gap-2 mt-0.5 font-['Hanken_Grotesk'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.56)' }}>
                     <span className="px-1.5 rounded" style={{ color: 'var(--brass-hi)', background: 'rgba(239, 106, 67,0.12)' }}>{r.level}</span>
                     <span className="inline-flex items-center gap-1"><Clock size={11} /> {r.minutes} min</span>
                     <span>· {r.topic}</span>

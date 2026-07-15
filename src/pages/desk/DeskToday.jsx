@@ -14,17 +14,17 @@ import { ALL_CLASSES } from '@/data/desk/classes'
 import './desk.css'
 
 function Ring({ pct, done, total, size = 88 }) {
-  const cx = size / 2, R = cx - 8, C = 2 * Math.PI * R, sw = size >= 88 ? 6 : 5
+  const cx = size / 2, R = cx - 8, C = 2 * Math.PI * R, sw = size >= 88 ? 8 : 6
   return (
     <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
-        <circle cx={cx} cy={cx} r={R} fill="none" stroke="rgba(58,42,84,0.12)" strokeWidth={sw} />
+        <circle cx={cx} cy={cx} r={R} fill="none" stroke="rgba(255, 255, 255,0.12)" strokeWidth={sw} />
         <circle cx={cx} cy={cx} r={R} fill="none" stroke="url(#deskRing)" strokeWidth={sw} strokeLinecap="round"
-          strokeDasharray={C} strokeDashoffset={C - (C * pct) / 100} />
+          strokeDasharray={C} strokeDashoffset={C - (C * pct) / 100} style={{ filter: 'drop-shadow(0 0 6px rgba(240,118,79,0.55))' }} />
         <defs><linearGradient id="deskRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#5b3f7a" /><stop offset="1" stopColor="#ef6a43" /></linearGradient></defs>
       </svg>
       <div className="absolute inset-0 grid place-items-center leading-none">
-        <span className="font-['Fraunces'] font-bold tabular-nums" style={{ color: 'var(--ink)', fontSize: size >= 88 ? 22 : 18 }}>{done}<span style={{ color: 'rgba(42,33,64,0.4)', fontSize: size >= 88 ? 13 : 12 }}>/{total}</span></span>
+        <span className="font-['Fraunces'] font-bold tabular-nums" style={{ color: 'var(--ink)', fontSize: size >= 88 ? 22 : 18 }}>{done}<span style={{ color: 'rgba(240, 234, 224,0.52)', fontSize: size >= 88 ? 13 : 12 }}>/{total}</span></span>
       </div>
     </div>
   )
@@ -32,6 +32,9 @@ function Ring({ pct, done, total, size = 88 }) {
 
 function greetingWord() {
   try { const h = new Date().getHours(); if (h < 12) return 'Good morning'; if (h < 18) return 'Good afternoon'; return 'Good evening' } catch { return 'Welcome back' }
+}
+function greetingWordAr() {
+  try { const h = new Date().getHours(); if (h < 12) return 'صباحكِ خير'; return 'مساؤكِ خير' } catch { return 'أهلاً بكِ' }
 }
 
 export default function DeskToday() {
@@ -64,7 +67,7 @@ export default function DeskToday() {
           {greetingWord()}{firstName ? <>, <span style={{ fontStyle: 'italic', color: 'var(--coral-deep,#cf4a1c)' }}>{firstName}</span></> : ''}
         </h1>
         <p className="font-['Hanken_Grotesk'] text-[14.5px] mt-2 leading-relaxed" dir="ltr" style={{ color: 'var(--ink-2)' }}>
-          Pick up your path, keep your daily streak, then rehearse a real call. <span className="font-['Tajawal']" style={{ color: 'var(--ink-3)' }}>مساؤك خير</span>
+          Pick up your path, keep your daily streak, then rehearse a real call. <span className="font-['Tajawal']" style={{ color: 'var(--ink-3)' }}>{greetingWordAr()}</span>
         </p>
       </div>
 
@@ -95,7 +98,7 @@ export default function DeskToday() {
               </div>
             </div>
             <div className="mt-6 pt-4 desk-hair flex items-center gap-3">
-              <div dir="ltr" className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(58,42,84,0.09)' }}>
+              <div dir="ltr" className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255, 255, 255,0.09)' }}>
                 <div className="h-full rounded-full" style={{ width: `${track.pct}%`, background: 'linear-gradient(90deg,#5b3f7a,#ef6a43)' }} />
               </div>
               <span className="desk-mono text-[11px]" dir="ltr" style={{ color: 'var(--ink-3)' }}>{track.done}/{track.total} · full path</span>
@@ -124,7 +127,7 @@ export default function DeskToday() {
             </p>
             <Link to={`/desk/scenarios/${current.id}`} className="mt-auto pt-5">
               <span className="inline-flex items-center gap-2 px-5 h-12 rounded-2xl font-['Hanken_Grotesk'] font-bold text-[14px] w-full justify-center" dir="ltr"
-                style={{ color: '#fff5ef', background: 'linear-gradient(135deg,#ef6a43,#cf4a1c)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.32), 0 12px 26px -12px rgba(207,74,28,0.6)' }}>
+                style={{ color: '#fff5ef', background: 'linear-gradient(180deg,#f5885f 0%,#e0561f 58%,#cf4a1c 100%)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.42), 0 2px 8px rgba(224,86,31,0.32), 0 16px 36px -10px rgba(224,86,31,0.68)' }}>
                 <PhoneCall size={17} /> Prep the call
               </span>
             </Link>

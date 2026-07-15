@@ -37,7 +37,7 @@ export default function DeskBoot() {
         <div className="desk-brand-mark desk-boot-mark"><img src="/brand/fluentia-mark.svg" alt="" /></div>
         <p className="desk-boot-title" dir="ltr">Fluentia · Pro Desk</p>
         <div className="desk-boot-track"><span className="desk-boot-fill" /></div>
-        <p className="desk-boot-status" dir="ltr" style={statusIdx === 2 ? { color: '#6ee7b7' } : undefined}>{STATUS[statusIdx]}</p>
+        <p className="desk-boot-status" dir="ltr" style={statusIdx === 2 ? { color: '#8fd6a0' } : undefined}>{STATUS[statusIdx]}</p>
       </div>
     </div>
   )

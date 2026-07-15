@@ -44,9 +44,9 @@ const SectionHead = ({ eyebrow, title, gloss, icon: Icon }) => (
   <div className="flex items-center gap-2.5 mb-4">
     <span className="desk-lesson-sec-mark"><Icon size={16} /></span>
     <div>
-      <p className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.46)' }}>{eyebrow}</p>
+      <p className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.18em]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.56)' }}>{eyebrow}</p>
       <h2 className="font-['Hanken_Grotesk'] font-extrabold text-[20px] leading-tight mt-0.5" dir="ltr" style={{ color: 'var(--cream)' }}>{title}</h2>
-      {gloss && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(42, 33, 64,0.42)' }}>{gloss}</p>}
+      {gloss && <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(240, 234, 224,0.54)' }}>{gloss}</p>}
     </div>
   </div>
 )
@@ -57,7 +57,7 @@ function ChoosePractice({ practice, onSolved }) {
   const chosen = picked != null ? practice.options[picked] : null
   return (
     <div className="space-y-2.5">
-      <p className="font-['Hanken_Grotesk'] text-[14px] font-bold mb-3" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.85)' }}>{practice.prompt}</p>
+      <p className="font-['Hanken_Grotesk'] text-[14px] font-bold mb-3" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.85)' }}>{practice.prompt}</p>
       {practice.options.map((opt, i) => {
         const isPicked = picked === i
         const state = picked == null ? 'idle' : opt.correct ? 'correct' : isPicked ? 'wrong' : 'dim'
@@ -68,12 +68,12 @@ function ChoosePractice({ practice, onSolved }) {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 text-start">
                 <p className="font-['Hanken_Grotesk'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{opt.en}</p>
-                <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{opt.ar}</p>
+                <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(240, 234, 224,0.65)' }}>{opt.ar}</p>
               </div>
-              {state === 'correct' && <CheckCircle2 size={18} className="flex-shrink-0 desk-pop" style={{ color: '#6ee7b7' }} />}
+              {state === 'correct' && <CheckCircle2 size={18} className="flex-shrink-0 desk-pop" style={{ color: '#8fd6a0' }} />}
             </div>
             {picked != null && (state === 'correct' || state === 'wrong') && (
-              <p className="font-['Hanken_Grotesk'] text-[12px] mt-2 pt-2 desk-hair" dir="ltr" style={{ color: state === 'correct' ? 'rgba(110,231,183,0.9)' : 'rgba(255,180,164,0.85)' }}>{opt.why}</p>
+              <p className="font-['Hanken_Grotesk'] text-[12px] mt-2 pt-2 desk-hair" dir="ltr" style={{ color: state === 'correct' ? 'rgba(148,214,157,0.9)' : 'rgba(255,180,164,0.85)' }}>{opt.why}</p>
             )}
           </button>
         )
@@ -103,11 +103,11 @@ function OrderPractice({ practice, lessonId, onSolved }) {
 
   return (
     <div className="space-y-3">
-      <p className="font-['Hanken_Grotesk'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.85)' }}>{practice.prompt}</p>
+      <p className="font-['Hanken_Grotesk'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.85)' }}>{practice.prompt}</p>
 
       {/* your order */}
       <div className="desk-order-tray">
-        {picked.length === 0 && <p className="font-['Hanken_Grotesk'] text-[12px] py-1" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.4)' }}>Tap the sentences in the right order</p>}
+        {picked.length === 0 && <p className="font-['Hanken_Grotesk'] text-[12px] py-1" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.52)' }}>Tap the sentences in the right order</p>}
         {picked.map((oi, pos) => {
           const ok = checked && oi === pos
           const bad = checked && oi !== pos
@@ -140,7 +140,7 @@ function OrderPractice({ practice, lessonId, onSolved }) {
         )}
         {checked && (
           <>
-            <span className="font-['Hanken_Grotesk'] text-[13px] font-bold" dir="ltr" style={{ color: correct ? '#6ee7b7' : 'rgba(255,180,164,0.9)' }}>
+            <span className="font-['Hanken_Grotesk'] text-[13px] font-bold" dir="ltr" style={{ color: correct ? '#8fd6a0' : 'rgba(255,180,164,0.9)' }}>
               {correct ? 'Correct order ✓' : 'Check the order'}
             </span>
             <button onClick={reset} className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'var(--brass)' }}>
@@ -159,15 +159,15 @@ function ReflectPractice({ practice, onSolved }) {
   const words = text.trim() ? text.trim().split(/\s+/).length : 0
   return (
     <div className="space-y-3">
-      <p className="font-['Hanken_Grotesk'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.85)' }}>{practice.prompt}</p>
+      <p className="font-['Hanken_Grotesk'] text-[14px] font-bold" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.85)' }}>{practice.prompt}</p>
       {practice.hint && (
         <p className="font-['Hanken_Grotesk'] text-[12px] px-3 py-2 rounded-lg" dir="ltr" style={{ color: 'rgba(239, 106, 67,0.85)', background: 'rgba(239, 106, 67,0.07)', border: '1px solid rgba(239, 106, 67,0.14)' }}>💡 {practice.hint}</p>
       )}
       <textarea value={text} onChange={(e) => { setText(e.target.value); if (e.target.value.trim().split(/\s+/).length >= 6) onSolved?.() }}
         dir="ltr" rows={3} placeholder="Write your version in English…"
         className="w-full rounded-xl px-4 py-3 font-['Hanken_Grotesk'] text-[14px] resize-none outline-none"
-        style={{ background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(58,42,84,0.14)', color: 'var(--ink)' }} />
-      <p className="font-['Hanken_Grotesk'] text-[11px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.4)' }}>{words} words · This one's for you — it isn't graded, it just gets you writing.</p>
+        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255, 255, 255,0.14)', color: 'var(--ink)' }} />
+      <p className="font-['Hanken_Grotesk'] text-[11px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.52)' }}>{words} words · This one's for you — it isn't graded, it just gets you writing.</p>
     </div>
   )
 }
@@ -194,7 +194,7 @@ export default function DeskLesson() {
   return (
     <div className="space-y-10 max-w-[720px] mx-auto">
       {/* back */}
-      <Link to="/desk/track" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>
+      <Link to="/desk/track" className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] desk-rise" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>
         <ArrowLeft size={15} /> The Track
       </Link>
 
@@ -206,9 +206,9 @@ export default function DeskLesson() {
           {done && <span className="inline-flex items-center gap-1 font-['Hanken_Grotesk'] text-[11.5px] px-2.5 py-0.5 rounded-full" dir="ltr" style={{ color: 'var(--brass-hi)', background: 'rgba(239, 106, 67,0.12)', border: '1px solid rgba(239, 106, 67,0.3)' }}><Check size={12} strokeWidth={3} /> Done</span>}
         </div>
         <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[30px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>{lesson.en}</h1>
-        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{lesson.ar}</p>
+        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{lesson.ar}</p>
         <div className="mt-3 flex items-center gap-3 flex-wrap">
-          <span className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}><Clock size={13} /> {lesson.minutes} min</span>
+          <span className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}><Clock size={13} /> {lesson.minutes} min</span>
           <span className="desk-lesson-outcome font-['Hanken_Grotesk'] text-[12.5px]" dir="ltr">By the end: {lesson.outcome}</span>
         </div>
       </div>
@@ -217,13 +217,13 @@ export default function DeskLesson() {
       {lesson.idea && (
         <section className="desk-glass p-5 lg:p-6 desk-rise">
           <SectionHead eyebrow="THE IDEA" title="The core idea" gloss="الفكرة" icon={Lightbulb} />
-          <p className="font-['Hanken_Grotesk'] text-[14.5px] leading-[1.85]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.82)' }}>{lesson.idea.body}</p>
+          <p className="font-['Hanken_Grotesk'] text-[14.5px] leading-[1.85]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.82)' }}>{lesson.idea.body}</p>
           {lesson.idea.model && (
             <div className="desk-model-callout mt-4">
               <Sparkles size={15} style={{ color: 'var(--brass-hi)' }} className="flex-shrink-0 mt-0.5" />
               <div>
                 <p className="font-['Hanken_Grotesk'] text-[13.5px] font-bold leading-relaxed" dir="ltr" style={{ color: 'var(--brass-hi)' }}>{lesson.idea.model}</p>
-                {lesson.idea.model_ar && <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(42, 33, 64,0.45)' }}>{lesson.idea.model_ar}</p>}
+                {lesson.idea.model_ar && <p className="font-['Tajawal'] text-[12px] mt-1" style={{ color: 'rgba(240, 234, 224,0.56)' }}>{lesson.idea.model_ar}</p>}
               </div>
             </div>
           )}
@@ -239,8 +239,8 @@ export default function DeskLesson() {
               <div key={i} className="desk-glass p-5 flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="font-['Hanken_Grotesk'] text-[18px] leading-snug font-semibold" dir="ltr" style={{ color: 'var(--cream)' }}>{p.en}</p>
-                  <p className="font-['Tajawal'] text-[12.5px] mt-1.5" style={{ color: 'rgba(42, 33, 64,0.6)' }}>{p.ar}</p>
-                  {p.when && <p className="font-['Hanken_Grotesk'] text-[12px] mt-2 inline-flex items-center gap-1" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}><span style={{ color: 'rgba(239, 106, 67,0.7)' }}>When:</span> {p.when}</p>}
+                  <p className="font-['Tajawal'] text-[12.5px] mt-1.5" style={{ color: 'rgba(240, 234, 224,0.68)' }}>{p.ar}</p>
+                  {p.when && <p className="font-['Hanken_Grotesk'] text-[12px] mt-2 inline-flex items-center gap-1" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}><span style={{ color: 'rgba(239, 106, 67,0.7)' }}>When:</span> {p.when}</p>}
                 </div>
                 <PlayBtn text={p.en} />
               </div>
@@ -261,8 +261,8 @@ export default function DeskLesson() {
                   <PlayBtn text={t.term} />
                 </div>
                 <p className="font-['Tajawal'] text-[13px] mt-0.5" style={{ color: 'var(--cream)' }}>{t.ar}</p>
-                <p className="font-['Hanken_Grotesk'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.62)' }}>{t.def_en}</p>
-                {t.example && <p className="font-['Hanken_Grotesk'] text-[12px] mt-1 italic" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>“{t.example}”</p>}
+                <p className="font-['Hanken_Grotesk'] text-[12px] mt-1.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{t.def_en}</p>
+                {t.example && <p className="font-['Hanken_Grotesk'] text-[12px] mt-1 italic" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>“{t.example}”</p>}
               </div>
             ))}
           </div>
@@ -284,7 +284,7 @@ export default function DeskLesson() {
                       <p className="font-['Hanken_Grotesk'] text-[14px] leading-snug" dir="ltr" style={{ color: 'var(--cream)' }}>{ln.en}</p>
                       <PlayBtn text={ln.en} />
                     </div>
-                    <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{ln.ar}</p>
+                    <p className="font-['Tajawal'] text-[12px] mt-0.5" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{ln.ar}</p>
                   </div>
                 </div>
               ))}
@@ -313,7 +313,7 @@ export default function DeskLesson() {
             <div>
               <p className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.18em] mb-1" dir="ltr" style={{ color: 'rgba(239, 106, 67,0.7)' }}>TAKEAWAY</p>
               <p className="font-['Hanken_Grotesk'] font-extrabold text-[16px] leading-relaxed" dir="ltr" style={{ color: 'var(--cream)' }}>{lesson.takeaway}</p>
-              {lesson.takeaway_ar && <p className="font-['Tajawal'] text-[12.5px] mt-1" style={{ color: 'rgba(42, 33, 64,0.45)' }}>{lesson.takeaway_ar}</p>}
+              {lesson.takeaway_ar && <p className="font-['Tajawal'] text-[12.5px] mt-1" style={{ color: 'rgba(240, 234, 224,0.56)' }}>{lesson.takeaway_ar}</p>}
             </div>
           </div>
         </section>
@@ -327,7 +327,7 @@ export default function DeskLesson() {
             <div className="min-w-0 flex-1">
               <p className="font-['Hanken_Grotesk'] text-[11px] font-bold mb-0.5 uppercase tracking-wider" dir="ltr" style={{ color: 'var(--brass)' }}>Apply it live</p>
               <h3 className="font-['Hanken_Grotesk'] font-extrabold text-[15px] leading-tight truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{scenarioModule.title_en || scenarioModule.title_ar}</h3>
-              {scenarioModule.title_en && scenarioModule.title_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5 truncate" style={{ color: 'rgba(42, 33, 64,0.5)' }}>{scenarioModule.title_ar}</p>}
+              {scenarioModule.title_en && scenarioModule.title_ar && <p className="font-['Tajawal'] text-[12px] mt-0.5 truncate" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{scenarioModule.title_ar}</p>}
             </div>
             <span className="desk-cta flex-shrink-0 inline-flex items-center gap-2 px-5 h-11 rounded-2xl font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr">
               Try it <ArrowRight size={16} />
@@ -353,7 +353,7 @@ export default function DeskLesson() {
 
         <div className="flex items-center justify-between gap-3 mt-4">
           {prev ? (
-            <Link to={`/desk/track/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>
+            <Link to={`/desk/track/${prev.id}`} className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[13px] min-w-0" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>
               <ArrowLeft size={15} className="flex-shrink-0" /> <span className="truncate">{prev.en}</span>
             </Link>
           ) : <span />}

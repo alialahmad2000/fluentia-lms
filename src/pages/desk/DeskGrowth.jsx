@@ -17,10 +17,10 @@ const COMPS = [
 ]
 
 const band = (pct) =>
-  pct >= 85 ? { en: 'Job-ready', c: '#6ee7b7' }
+  pct >= 85 ? { en: 'Job-ready', c: '#8fd6a0' }
   : pct >= 65 ? { en: 'Strong', c: '#ef6a43' }
   : pct >= 40 ? { en: 'Progressing', c: '#cf4a1c' }
-  : { en: 'Getting started', c: 'rgba(42, 33, 64,0.6)' }
+  : { en: 'Getting started', c: 'rgba(240, 234, 224,0.68)' }
 
 function ReadinessRing({ pct }) {
   const R = 66, C = 2 * Math.PI * R
@@ -40,7 +40,7 @@ function ReadinessRing({ pct }) {
         </defs>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-['Hanken_Grotesk'] font-black text-[38px] leading-none tabular-nums" style={{ color: 'var(--cream)' }}>{pct}<span className="text-[18px]" style={{ color: 'rgba(42, 33, 64,0.5)' }}>%</span></span>
+        <span className="font-['Hanken_Grotesk'] font-black text-[38px] leading-none tabular-nums" style={{ color: 'var(--cream)' }}>{pct}<span className="text-[18px]" style={{ color: 'rgba(240, 234, 224,0.62)' }}>%</span></span>
         <span className="font-['Hanken_Grotesk'] text-[12px] font-bold mt-1" dir="ltr" style={{ color: b.c }}>{b.en}</span>
       </div>
     </div>
@@ -52,8 +52,8 @@ function Meter({ label, score }) {
   return (
     <div className="desk-glass p-4">
       <div className="flex items-center justify-between mb-2.5">
-        <span className="font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.8)' }}>{label}</span>
-        <span className="font-['Hanken_Grotesk'] text-[12px] tabular-nums font-semibold" style={{ color: pct === null ? 'rgba(42, 33, 64,0.35)' : 'var(--brass-hi)' }}>{pct === null ? '—' : `${(score).toFixed(1)}/10`}</span>
+        <span className="font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.8)' }}>{label}</span>
+        <span className="font-['Hanken_Grotesk'] text-[12px] tabular-nums font-semibold" style={{ color: pct === null ? 'rgba(240, 234, 224,0.35)' : 'var(--brass-hi)' }}>{pct === null ? '—' : `${(score).toFixed(1)}/10`}</span>
       </div>
       <div dir="ltr" className="h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
         <motion.div className="h-full rounded-full" initial={{ width: 0 }} animate={{ width: `${pct || 0}%` }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
@@ -82,15 +82,15 @@ export default function DeskGrowth() {
           <span className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.2em]" dir="ltr" style={{ color: 'var(--brass)' }}>GROWTH</span>
         </div>
         <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[30px]" dir="ltr" style={{ color: 'var(--cream)' }}>Your readiness</h1>
-        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(42, 33, 64,0.5)' }}>تقدّمي</p>
-        <p className="font-['Hanken_Grotesk'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>How ready you are for English work calls — built from every call you practice.</p>
+        <p className="font-['Tajawal'] text-[13px] mt-1" style={{ color: 'rgba(240, 234, 224,0.62)' }}>تقدّمي</p>
+        <p className="font-['Hanken_Grotesk'] text-[14px] mt-1.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>How ready you are for English work calls — built from every call you practice.</p>
       </div>
 
       {attempts === 0 ? (
         <div className="desk-glass p-9 text-center desk-rise">
           <Radio size={28} className="mx-auto mb-3 desk-live-dot" style={{ color: 'var(--brass)' }} />
           <p className="font-['Hanken_Grotesk'] font-bold text-lg" dir="ltr" style={{ color: 'var(--cream)' }}>You haven&apos;t taken your first call yet</p>
-          <p className="font-['Hanken_Grotesk'] text-[13px] max-w-sm mx-auto mt-2 leading-relaxed" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.6)' }}>
+          <p className="font-['Hanken_Grotesk'] text-[13px] max-w-sm mx-auto mt-2 leading-relaxed" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.68)' }}>
             Finish your first scenario and we&apos;ll build a clear picture here — your grammar, vocabulary, fluency, and the points that need work.
           </p>
           <Link to="/desk/scenarios" className="desk-cta inline-flex items-center gap-2 px-6 h-12 rounded-2xl font-['Hanken_Grotesk'] font-bold text-[14px] mt-5">
@@ -105,7 +105,7 @@ export default function DeskGrowth() {
               className="desk-glass p-6 flex flex-col items-center" style={{ borderColor: 'rgba(239, 106, 67,0.24)' }}>
               <p className="font-['Hanken_Grotesk'] font-bold text-[13px] mb-3" dir="ltr" style={{ color: 'var(--brass)' }}>Call readiness</p>
               <ReadinessRing pct={readinessPct} />
-              <p className="font-['Hanken_Grotesk'] text-[11px] mt-3" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.45)' }}>Averaged from {attempts} graded {attempts === 1 ? 'call' : 'calls'}</p>
+              <p className="font-['Hanken_Grotesk'] text-[11px] mt-3" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.56)' }}>Averaged from {attempts} graded {attempts === 1 ? 'call' : 'calls'}</p>
             </motion.div>
 
             <div className="grid sm:grid-cols-2 gap-3">
@@ -125,16 +125,16 @@ export default function DeskGrowth() {
                   <div key={i} className="desk-glass p-4">
                     <div className="flex items-baseline gap-2 flex-wrap" dir="ltr">
                       {e.spoken && <span className="font-['Hanken_Grotesk'] text-[13px] line-through" style={{ color: 'rgba(255,180,164,0.7)' }}>{e.spoken}</span>}
-                      {e.corrected && <span className="font-['Hanken_Grotesk'] text-[14px] font-semibold" style={{ color: '#6ee7b7' }}>{e.corrected}</span>}
+                      {e.corrected && <span className="font-['Hanken_Grotesk'] text-[14px] font-semibold" style={{ color: '#8fd6a0' }}>{e.corrected}</span>}
                     </div>
-                    {e.rule && <p className="font-['Tajawal'] text-[12px] mt-2 leading-relaxed" style={{ color: 'rgba(42, 33, 64,0.62)' }}>{e.rule}</p>}
+                    {e.rule && <p className="font-['Tajawal'] text-[12px] mt-2 leading-relaxed" style={{ color: 'rgba(240, 234, 224,0.62)' }}>{e.rule}</p>}
                   </div>
                 ))}
               </div>
               {ins?.tip && (
                 <div className="desk-glass p-4 mt-3 flex items-start gap-2.5" style={{ borderColor: 'rgba(239, 106, 67,0.24)' }}>
                   <span className="mt-0.5 flex-shrink-0" style={{ color: 'var(--brass-hi)' }}>◆</span>
-                  <p className="font-['Tajawal'] text-[13px] leading-relaxed" style={{ color: 'rgba(42, 33, 64,0.78)' }}>{ins.tip}</p>
+                  <p className="font-['Tajawal'] text-[13px] leading-relaxed" style={{ color: 'rgba(240, 234, 224,0.78)' }}>{ins.tip}</p>
                 </div>
               )}
             </div>
@@ -158,12 +158,12 @@ export default function DeskGrowth() {
                           <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'linear-gradient(90deg,#cf4a1c,#ef6a43)' }} />
                         </div>
                       ) : (
-                        <p className="font-['Hanken_Grotesk'] text-[11px] mt-0.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.4)' }}>Not graded yet</p>
+                        <p className="font-['Hanken_Grotesk'] text-[11px] mt-0.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.52)' }}>Not graded yet</p>
                       )}
                     </div>
                     {done
-                      ? <CheckCircle2 size={16} className="flex-shrink-0" style={{ color: '#6ee7b7' }} />
-                      : <span className="font-['Hanken_Grotesk'] text-[12px] tabular-nums font-semibold flex-shrink-0" style={{ color: pct === null ? 'rgba(42, 33, 64,0.3)' : 'var(--brass-hi)' }}>{pct === null ? '' : `${pct}%`}</span>}
+                      ? <CheckCircle2 size={16} className="flex-shrink-0" style={{ color: '#8fd6a0' }} />
+                      : <span className="font-['Hanken_Grotesk'] text-[12px] tabular-nums font-semibold flex-shrink-0" style={{ color: pct === null ? 'rgba(240, 234, 224,0.3)' : 'var(--brass-hi)' }}>{pct === null ? '' : `${pct}%`}</span>}
                   </div>
                 )
               })}

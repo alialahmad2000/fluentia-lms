@@ -64,7 +64,7 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
       <div className="desk-glass desk-call-panel p-8 text-center desk-rise" style={{ borderColor: 'rgba(239, 106, 67,0.24)' }}>
         <div className="flex items-center justify-center gap-2 mb-6">
           <span className="w-2 h-2 rounded-full desk-live-dot" style={{ background: declined ? '#94a3b8' : '#e2694e', boxShadow: declined ? 'none' : '0 0 10px 1px rgba(226,105,78,0.6)' }} />
-          <span className="font-['Hanken_Grotesk'] font-bold text-[12px] tracking-[0.14em]" dir="ltr" style={{ color: declined ? 'rgba(42, 33, 64,0.42)' : 'var(--brass-hi)' }}>
+          <span className="font-['Hanken_Grotesk'] font-bold text-[12px] tracking-[0.14em]" dir="ltr" style={{ color: declined ? 'rgba(240, 234, 224,0.54)' : 'var(--brass-hi)' }}>
             {declined ? 'Call ended' : 'Incoming call'}
           </span>
         </div>
@@ -84,7 +84,7 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
         <h3 className="font-['Hanken_Grotesk'] font-extrabold text-[28px] tracking-tight mt-6 mb-1 leading-none" dir="ltr" style={{ color: 'var(--cream)' }}>{caller.name}</h3>
         {caller.desc && <p className="font-['Hanken_Grotesk'] text-[12px] leading-relaxed max-w-xs mx-auto" dir="ltr" style={{ color: 'rgba(239, 106, 67,0.75)' }}>{caller.desc}</p>}
         {caller.loc && (
-          <span className="inline-flex items-center gap-1 mt-3 px-2.5 py-1 rounded-full font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(239, 106, 67,0.14)' }}>
+          <span className="inline-flex items-center gap-1 mt-3 px-2.5 py-1 rounded-full font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(239, 106, 67,0.14)' }}>
             <MapPin size={12} /> {caller.loc} · support
           </span>
         )}
@@ -95,14 +95,14 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
             <div className="flex items-center justify-center gap-10 mt-7">
               <div className="flex flex-col items-center gap-2">
                 <button onClick={decline} className="desk-call-btn desk-call-decline" aria-label="Decline call"><PhoneOff size={22} /></button>
-                <span className="font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.45)' }}>Later</span>
+                <span className="font-['Hanken_Grotesk'] text-[12px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.56)' }}>Later</span>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <button onClick={answer} className="desk-call-btn desk-call-answer desk-call-answer-breathe" aria-label="Answer call"><Phone size={24} /></button>
-                <span className="font-['Hanken_Grotesk'] text-[12px] font-bold" dir="ltr" style={{ color: '#6ee7b7' }}>Answer</span>
+                <span className="font-['Hanken_Grotesk'] text-[12px] font-bold" dir="ltr" style={{ color: '#8fd6a0' }}>Answer</span>
               </div>
             </div>
-            <p className="font-['Hanken_Grotesk'] text-[12px] leading-relaxed max-w-sm mx-auto mt-7" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>
+            <p className="font-['Hanken_Grotesk'] text-[12px] leading-relaxed max-w-sm mx-auto mt-7" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>
               Speak with confidence. You can ask for clarification or a repeat anytime — just like a real work call.
             </p>
           </>
@@ -136,19 +136,19 @@ export default function DeskCallInterface({ module, moduleId, studentId, phrases
   return (
     <div className="space-y-4">
       {/* live-call HUD header */}
-      <div className="desk-glass desk-call-hud flex items-center gap-3 px-4 py-3" style={{ borderColor: ended ? 'rgba(148,163,184,0.2)' : 'rgba(110,231,183,0.28)' }}>
+      <div className="desk-glass desk-call-hud flex items-center gap-3 px-4 py-3" style={{ borderColor: ended ? 'rgba(148,163,184,0.2)' : 'rgba(148,214,157,0.28)' }}>
         <div className="desk-call-hud-avatar" style={ended ? { filter: 'grayscale(0.6)' } : undefined}>
           <span className="font-['Hanken_Grotesk'] font-black text-[15px]" dir="ltr">{caller.initial}</span>
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-['Hanken_Grotesk'] font-bold text-[14px] truncate" dir="ltr" style={{ color: 'var(--cream)' }}>{caller.name}</p>
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: ended ? '#94a3b8' : '#6ee7b7', boxShadow: ended ? 'none' : '0 0 6px 1px rgba(110,231,183,0.7)' }} />
-            <span className="font-['Hanken_Grotesk'] font-bold text-[12px]" dir="ltr" style={{ color: ended ? 'rgba(42, 33, 64,0.5)' : '#6ee7b7' }}>{ended ? 'Call ended' : 'Connected'}</span>
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: ended ? '#94a3b8' : '#8fd6a0', boxShadow: ended ? 'none' : '0 0 6px 1px rgba(148,214,157,0.7)' }} />
+            <span className="font-['Hanken_Grotesk'] font-bold text-[12px]" dir="ltr" style={{ color: ended ? 'rgba(240, 234, 224,0.62)' : '#8fd6a0' }}>{ended ? 'Call ended' : 'Connected'}</span>
           </div>
         </div>
         {!ended && <div className="desk-signal desk-signal-sm desk-signal-steady" aria-hidden><span/><span/><span/><span/></div>}
-        <span className="desk-mono text-[13px] tabular-nums px-2.5 py-1 rounded-lg" dir="ltr" style={{ color: ended ? 'rgba(42, 33, 64,0.5)' : 'var(--coral-deep,#cf4a1c)', background: 'rgba(58,42,84,0.07)' }}>{fmt(seconds)}</span>
+        <span className="desk-mono text-[13px] tabular-nums px-2.5 py-1 rounded-lg" dir="ltr" style={{ color: ended ? 'rgba(240, 234, 224,0.62)' : 'var(--coral-deep,#cf4a1c)', background: 'rgba(255, 255, 255,0.07)' }}>{fmt(seconds)}</span>
       </div>
 
       {/* the live roleplay — auto-starts so answering feels seamless */}

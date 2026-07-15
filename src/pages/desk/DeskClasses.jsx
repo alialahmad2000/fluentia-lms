@@ -28,7 +28,7 @@ export default function DeskClasses() {
           <span className="font-['Hanken_Grotesk'] text-[11px] tracking-[0.22em]" dir="ltr" style={{ color: 'var(--brass)' }}>MY CLASSES</span>
         </div>
         <h1 className="font-['Hanken_Grotesk'] font-extrabold text-2xl lg:text-[32px] leading-tight" dir="ltr" style={{ color: 'var(--cream)' }}>My Classes</h1>
-        <p className="font-['Hanken_Grotesk'] text-[14px] mt-2 max-w-[560px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.58)' }}>
+        <p className="font-['Hanken_Grotesk'] text-[14px] mt-2 max-w-[560px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.58)' }}>
           Every class with your trainer, saved and organised — review it, check that it stuck, and practise what you took away.
         </p>
         {total > 0 && (
@@ -63,11 +63,11 @@ export default function DeskClasses() {
                         </span>
                       )}
                     </div>
-                    {c.title_ar && <p className="font-['Tajawal'] text-[12px] mb-2" style={{ color: 'rgba(42, 33, 64,0.45)' }}>{c.title_ar}</p>}
-                    <p className="font-['Hanken_Grotesk'] text-[12.5px] leading-relaxed line-clamp-2" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.55)' }}>{c.tagline_en}</p>
+                    {c.title_ar && <p className="font-['Tajawal'] text-[12px] mb-2" style={{ color: 'rgba(240, 234, 224,0.56)' }}>{c.title_ar}</p>}
+                    <p className="font-['Hanken_Grotesk'] text-[12.5px] leading-relaxed line-clamp-2" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.65)' }}>{c.tagline_en}</p>
                     <div className="flex items-center gap-3.5 mt-3">
-                      <span className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.42)' }}><CalendarDays size={12} /> {fmtDate(c.date)}</span>
-                      <span className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.42)' }}><Layers size={12} /> {c.chapters.length} {c.chapters.length === 1 ? 'station' : 'stations'}</span>
+                      <span className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.54)' }}><CalendarDays size={12} /> {fmtDate(c.date)}</span>
+                      <span className="inline-flex items-center gap-1.5 font-['Hanken_Grotesk'] text-[11.5px]" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.54)' }}><Layers size={12} /> {c.chapters.length} {c.chapters.length === 1 ? 'station' : 'stations'}</span>
                     </div>
                     {cp.done > 0 && !reviewed && (
                       <div className="flex items-center gap-2.5 mt-2.5">
@@ -90,7 +90,7 @@ export default function DeskClasses() {
         <div className="desk-glass p-8 text-center desk-rise">
           <GraduationCap size={28} className="mx-auto mb-3" style={{ color: 'var(--brass)' }} />
           <p className="font-['Hanken_Grotesk'] font-bold text-[15px]" dir="ltr" style={{ color: 'var(--cream)' }}>Your first class will appear here</p>
-          <p className="font-['Hanken_Grotesk'] text-[13px] mt-1.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>After each class, we'll drop its summary and exercises right here.</p>
+          <p className="font-['Hanken_Grotesk'] text-[13px] mt-1.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>After each class, we'll drop its summary and exercises right here.</p>
         </div>
       )}
 
@@ -98,7 +98,7 @@ export default function DeskClasses() {
       <div className="desk-glass p-6 flex items-center justify-between gap-4 desk-rise">
         <div className="min-w-0">
           <p className="font-['Hanken_Grotesk'] font-bold text-[14px]" dir="ltr" style={{ color: 'var(--cream)' }}>Want to go further?</p>
-          <p className="font-['Hanken_Grotesk'] text-[12.5px] mt-0.5" dir="ltr" style={{ color: 'rgba(42, 33, 64,0.5)' }}>Your career track has lessons that build on top of your classes.</p>
+          <p className="font-['Hanken_Grotesk'] text-[12.5px] mt-0.5" dir="ltr" style={{ color: 'rgba(240, 234, 224,0.62)' }}>Your career track has lessons that build on top of your classes.</p>
         </div>
         <Link to="/desk/track" className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 h-10 rounded-xl font-['Hanken_Grotesk'] font-bold text-[13px]" dir="ltr"
           style={{ color: 'var(--brass-hi)', background: 'rgba(239, 106, 67,0.10)', border: '1px solid rgba(239, 106, 67,0.24)' }}>
