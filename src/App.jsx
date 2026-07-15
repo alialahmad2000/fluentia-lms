@@ -78,6 +78,7 @@ const StudentSpeaking = lazyRetry(() => import('./pages/student/StudentSpeaking'
 const StudentLibrary = lazyRetry(() => import('./pages/student/StudentLibrary'))
 const StudentEverydayEnglish = lazyRetry(() => import('./pages/student/EverydayEnglish'))
 const StudentSentenceBuilder = lazyRetry(() => import('./pages/student/SentenceBuilder'))
+const StudentSpeakingTrack = lazyRetry(() => import('./pages/student/SpeakingTrack'))
 const StudentLeaderboard = lazyRetry(() => import('./pages/student/StudentLeaderboard'))
 const StudentPeerRecognition = lazyRetry(() => import('./pages/student/StudentPeerRecognition'))
 const StudentActivityFeed = lazyRetry(() => import('./pages/student/StudentActivityFeed'))
@@ -791,6 +792,7 @@ export default function App() {
               <Route path="/student/library" element={<Page><StudentLibrary /></Page>} />
               <Route path="/student/everyday-english" element={<Page><StudentEverydayEnglish /></Page>} />
               <Route path="/student/sentence-builder" element={<Page><StudentSentenceBuilder /></Page>} />
+              <Route path="/student/speaking-track" element={<Page><StudentSpeakingTrack /></Page>} />
               <Route path="/student/leaderboard" element={<Page><StudentLeaderboard /></Page>} />
               <Route path="/student/recognition" element={<Page><StudentPeerRecognition /></Page>} />
               <Route path="/student/activity" element={<Page><StudentActivityFeed /></Page>} />
