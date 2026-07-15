@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Volume2, ChevronDown, GraduationCap, Rocket, Truck, HeartPulse, HeartHandshake, Briefcase, BookOpen, Code2, Cpu, Globe, Database } from 'lucide-react'
+import { Volume2, ChevronDown, GraduationCap, Rocket, Truck, HeartPulse, HeartHandshake, Briefcase, BookOpen, Code2, Cpu, Globe, Database, Library, Sparkles, Smile, HelpCircle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useG } from '../../i18n/gender'
 import { supabase } from '../../lib/supabase'
@@ -24,6 +24,11 @@ const COURSE_CATALOG = [
   { source: 'uni:CS-COMP', code: 'HARDWARE',    name_ar: 'الحاسب ومكوّناته',           accent: '#a78bfa', Icon: Cpu },
   { source: 'uni:CS-WEB',  code: 'INTERNET',    name_ar: 'الإنترنت والويب',             accent: '#34d399', Icon: Globe },
   { source: 'uni:CS-DATA', code: 'DATA & AI',   name_ar: 'البيانات والذكاء الاصطناعي',  accent: '#f5b942', Icon: Database },
+  // School-library collections (مكتبة مدرسية) — أنوار
+  { source: 'uni:LIB-DESK',  code: 'LIBRARY',   name_ar: 'مكتبتي واستعارة الكتب',      accent: '#f5b942', Icon: Library },
+  { source: 'uni:LIB-STORY', code: 'STORIES',   name_ar: 'قصص وحكايات',                 accent: '#fb7185', Icon: Sparkles },
+  { source: 'uni:LIB-FEEL',  code: 'FEELINGS',  name_ar: 'مشاعر وشخصيات',               accent: '#eab308', Icon: Smile },
+  { source: 'uni:LIB-ASK',   code: 'QUESTIONS', name_ar: 'أسئلة الطالبات',              accent: '#a78bfa', Icon: HelpCircle },
 ]
 
 const MASTERY = {
