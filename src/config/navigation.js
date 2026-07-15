@@ -8,7 +8,7 @@ import {
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
   MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
-  Bug, Sparkles, Handshake, Layers, Eye, Star,
+  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu,
 } from 'lucide-react'
 
 
@@ -375,14 +375,40 @@ function injectLevelNav(nav, items) {
   }
 }
 
+// A student granted the Tech Track (students.uses_tech_track) gets «مسار التقنية»
+// injected right after «الرئيسية» in the رحلة التعلّم section — a dedicated major-track
+// surface ALONGSIDE her normal curriculum (nothing is replaced).
+const TECH_TRACK_ITEM = { id: 'tech-track', label: 'مسار التقنية', icon: Cpu, to: '/tech' }
+function injectTechTrack(nav) {
+  const addTo = (list) => {
+    if (!Array.isArray(list)) return list
+    return list.map((sec) => {
+      if (sec.id !== 'journey' || !Array.isArray(sec.items)) return sec
+      const items = []
+      let inserted = false
+      for (const it of sec.items) {
+        items.push(it)
+        if (!inserted && it && it.id === 'dashboard') { items.push(TECH_TRACK_ITEM); inserted = true }
+      }
+      if (!inserted) items.push(TECH_TRACK_ITEM)
+      return { ...sec, items }
+    })
+  }
+  return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
+}
+
 /** Account-aware nav: individual (1-on-1) students get INDIVIDUAL_NAV.
     Students with an extra-curriculum-level grant get per-level sidebar items.
+    Students with the Tech Track flag get «مسار التقنية» injected (composes with the above).
     Works under impersonation too — studentData is the swapped student row. */
 export function getNavForUser(role, studentData) {
   if ((role === 'student' || !role) && studentData?.study_mode === 'individual') return INDIVIDUAL_NAV
   if (role === 'student' || !role) {
+    let nav = STUDENT_NAV
     const levelItems = buildLevelNavItems(studentData)
-    if (levelItems) return injectLevelNav(STUDENT_NAV, levelItems)
+    if (levelItems) nav = injectLevelNav(nav, levelItems)
+    if (studentData?.uses_tech_track === true) nav = injectTechTrack(nav)
+    if (nav !== STUDENT_NAV) return nav
   }
   return getNavForRole(role)
 }

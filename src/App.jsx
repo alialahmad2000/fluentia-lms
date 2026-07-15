@@ -10,6 +10,7 @@ import LayoutShell from './components/layout/LayoutShell'
 // Pro Desk shell + guard are layout elements (like LayoutShell) → eager; its pages are lazy below.
 import DeskShell from './components/desk/DeskShell'
 import DeskGuard from './components/desk/DeskGuard'
+import TechTrackGuard from './components/tech-track/TechTrackGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
@@ -64,6 +65,9 @@ const DeskGrammar = lazyRetry(() => import('./pages/desk/DeskGrammar'))
 const DeskGrammarPoint = lazyRetry(() => import('./pages/desk/DeskGrammarPoint'))
 const DeskPhrasebook = lazyRetry(() => import('./pages/desk/DeskPhrasebook'))
 const DeskGrowth = lazyRetry(() => import('./pages/desk/DeskGrowth'))
+// Tech Track «مسار التقنية» (gated IT/CS English course, alongside the normal curriculum)
+const TechTrackHome = lazyRetry(() => import('./pages/student/tech-track/TechTrackHome'))
+const TechLessonPage = lazyRetry(() => import('./pages/student/tech-track/TechLessonPage'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
 const IndividualModulePage = lazyRetry(() => import('./pages/student/individual/ModulePage'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -762,6 +766,11 @@ export default function App() {
                 <Route path="/library" element={<Page><LibraryHome /></Page>} />
                 <Route path="/library/:bookId" element={<Page><LibraryBook /></Page>} />
                 <Route path="/library/:bookId/read/:chapterId" element={<Page><LibraryReader /></Page>} />
+                {/* مسار التقنية — gated IT/CS English track (uses_tech_track), alongside the normal curriculum. Staff can preview. */}
+                <Route element={<TechTrackGuard />}>
+                  <Route path="/tech" element={<Page><TechTrackHome /></Page>} />
+                  <Route path="/tech/:lessonSlug" element={<Page><TechLessonPage /></Page>} />
+                </Route>
               </Route>
             </Route>
           </Route>
