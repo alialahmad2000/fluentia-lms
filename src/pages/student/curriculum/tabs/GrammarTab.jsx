@@ -13,6 +13,7 @@ import DialectExplanationCard from '../../../../components/dialect/DialectExplan
 import CommonMistakesCard from '../../../../components/grammar/CommonMistakesCard'
 import ExceptionsCard from '../../../../components/grammar/ExceptionsCard'
 import ExerciseSection from '../../../../components/grammar/ExerciseSection'
+import GrammarMapPanel from '../../../../components/grammar/GrammarMapPanel'
 
 // ─── Main Component ─────────────────────────────────
 export default function GrammarTab({ unitId }) {
@@ -52,6 +53,7 @@ export default function GrammarTab({ unitId }) {
 
   return (
     <div className="space-y-6">
+      <GrammarMapPanel unitId={unitId} />
       {topics.map((topic) => (
         <GrammarTopic
           key={topic.id}

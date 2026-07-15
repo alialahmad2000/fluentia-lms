@@ -1,0 +1,370 @@
+{
+  "units": [
+    {
+      "custom_sort": 7,
+      "topic_name_en": "Question Forms + Polite Disagreement",
+      "topic_name_ar": "صيغ الأسئلة والاختلاف المهذّب",
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the information question with the correct auxiliary.",
+          "instructions_ar": "ضعي أداة السؤال الصحيحة",
+          "item": {
+            "options": [],
+            "question": "On the call, you ask the client: 'How much ______ the autumn campaign cost?' (future)",
+            "correct_answer": "will",
+            "accepted_answers": [
+              "will"
+            ],
+            "explanation_ar": "سؤال معلومة عن المستقبل ← أداة الاستفهام + will + الفاعل + الفعل المجرّد.",
+            "instruction_ar": "ضعي أداة السؤال الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the yes/no question with the correct auxiliary.",
+          "instructions_ar": "ضعي أداة السؤال الصحيحة",
+          "item": {
+            "options": [],
+            "question": "______ the client want to see the softer version too? (present)",
+            "correct_answer": "Does",
+            "accepted_answers": [
+              "Does",
+              "does"
+            ],
+            "explanation_ar": "الفاعل مفرد (the client) ← Does، وبعدها الفعل يرجع مجرّد (want).",
+            "instruction_ar": "ضعي أداة السؤال الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the polite-disagreement phrase.",
+          "instructions_ar": "أكملي عبارة الاختلاف المهذّب",
+          "item": {
+            "options": [],
+            "question": "That's a fair point, ______ our research shows bold ideas perform well. (polite contrast)",
+            "correct_answer": "but",
+            "accepted_answers": [
+              "but",
+              "however"
+            ],
+            "explanation_ar": "تعترفين بوجهة نظره أول، بعدين تخالفينه بلطف ← but (تناقض مهذّب).",
+            "instruction_ar": "أكملي عبارة الاختلاف المهذّب"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option to form the negative question.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": [
+              "Don't will",
+              "Won't",
+              "Will not the",
+              "Aren't"
+            ],
+            "question": "The client pushes back: '______ the bright colors hurt our brand image?'",
+            "correct_answer": "Won't",
+            "accepted_answers": [
+              "Won't"
+            ],
+            "explanation_ar": "سؤال سالب للاعتراض ← Won't + الفاعل + الفعل. «Don't will» فيها أداتان، و«Will not the» ترتيبها غلط.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": [
+              "therefore",
+              "moreover",
+              "however",
+              "because"
+            ],
+            "question": "I see what you mean; ______, these colors still follow the brand guidelines.",
+            "correct_answer": "however",
+            "accepted_answers": [
+              "however"
+            ],
+            "explanation_ar": "علاقة تناقض مهذّب ← however. therefore نتيجة، moreover إضافة، because سبب.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite the blunt reply as a polite disagreement.",
+          "instructions_ar": "حوّليها إلى ردّ مهذّب",
+          "item": {
+            "options": [],
+            "question": "Rewrite this reply to disagree politely: 'No, you're wrong. The concept is not too bold.'",
+            "correct_answer": "That's a fair point, but the concept is not too bold for our audience.",
+            "accepted_answers": [
+              "That's a fair point, but the concept is not too bold for our audience.",
+              "I see what you mean, however the concept is not too bold for our audience.",
+              "I understand your concern, but the concept is not too bold for our audience."
+            ],
+            "explanation_ar": "بدل الرفض المباشر: اعترفي (That's a fair point) ثم خالفي بلطف بـ but.",
+            "instruction_ar": "حوّليها إلى ردّ مهذّب"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite as a polite question that offers an alternative.",
+          "instructions_ar": "حوّليها إلى سؤال يطرح بديلاً",
+          "item": {
+            "options": [],
+            "question": "Rewrite as a polite alternative offer (a question): (we / deliver / the first phase / in two weeks)",
+            "correct_answer": "What if we delivered the first phase in two weeks?",
+            "accepted_answers": [
+              "What if we delivered the first phase in two weeks?",
+              "Could we deliver the first phase in two weeks?",
+              "Would it help if we delivered the first phase in two weeks?"
+            ],
+            "explanation_ar": "طرح بديل بلطف ← What if + الفاعل + الفعل بالماضي (delivered).",
+            "instruction_ar": "حوّليها إلى سؤال يطرح بديلاً"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'How much this proposal will cost?'",
+            "correct_answer": "How much will this proposal cost?",
+            "accepted_answers": [
+              "How much will this proposal cost?"
+            ],
+            "explanation_ar": "سؤال معلومة: أداة الاستفهام + will + الفاعل + الفعل، مو ترتيب الجملة الخبرية.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'I understand your concern, moreover a rushed timeline could affect the quality.'",
+            "correct_answer": "I understand your concern, however a rushed timeline could affect the quality.",
+            "accepted_answers": [
+              "I understand your concern, however a rushed timeline could affect the quality.",
+              "I understand your concern, but a rushed timeline could affect the quality."
+            ],
+            "explanation_ar": "العلاقة تناقض مو إضافة ← however/but، مو moreover.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": [
+              "showed",
+              "if",
+              "help",
+              "Would",
+              "two",
+              "you",
+              "it",
+              "examples",
+              "I"
+            ],
+            "question": "Put the words in order: showed / if / help / Would / two / you / it / examples / I",
+            "correct_answer": "Would it help if I showed you two examples?",
+            "accepted_answers": [
+              "Would it help if I showed you two examples?"
+            ],
+            "explanation_ar": "عرض حل بلطف على شكل سؤال ← Would it help if + الفاعل + الفعل بالماضي (showed).",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    },
+    {
+      "custom_sort": 8,
+      "topic_name_en": "Linking Words + Formal Register",
+      "topic_name_ar": "كلمات الربط والأسلوب الرسمي",
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the ordering linking word.",
+          "instructions_ar": "أكملي كلمة الربط الصحيحة",
+          "item": {
+            "options": [],
+            "question": "Firstly, our team will prepare the concept. ______, we will share a detailed proposal. (ordering)",
+            "correct_answer": "Secondly",
+            "accepted_answers": [
+              "Secondly"
+            ],
+            "explanation_ar": "بعد Firstly تجي النقطة الثانية بالترتيب ← Secondly.",
+            "instruction_ar": "أكملي كلمة الربط الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the addition linking word.",
+          "instructions_ar": "أكملي كلمة الربط الصحيحة",
+          "item": {
+            "options": [],
+            "question": "In addition, we will suggest three influencers. ______, we will share the budget. (addition)",
+            "correct_answer": "Moreover",
+            "accepted_answers": [
+              "Moreover"
+            ],
+            "explanation_ar": "إضافة نقطة جديدة للنقاط السابقة ← Moreover.",
+            "instruction_ar": "أكملي كلمة الربط الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the phrase in a formal register (no contraction).",
+          "instructions_ar": "أكملي بالصيغة الرسمية",
+          "item": {
+            "options": [],
+            "question": "Please ______ hesitate to contact me. (formal — no contraction)",
+            "correct_answer": "do not",
+            "accepted_answers": [
+              "do not"
+            ],
+            "explanation_ar": "الإيميل الرسمي بدون اختصار ← do not، مو don't.",
+            "instruction_ar": "أكملي بالصيغة الرسمية"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": [
+              "Moreover",
+              "Although",
+              "Therefore",
+              "So"
+            ],
+            "question": "______ the campaign runs for six weeks, we will send a weekly report.",
+            "correct_answer": "Although",
+            "accepted_answers": [
+              "Although"
+            ],
+            "explanation_ar": "علاقة تناقض في بداية الجملة ← Although. Moreover إضافة و Therefore نتيجة.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": [
+              "moreover",
+              "although",
+              "therefore",
+              "so that"
+            ],
+            "question": "We will send weekly reports ______ you can follow the progress.",
+            "correct_answer": "so that",
+            "accepted_answers": [
+              "so that"
+            ],
+            "explanation_ar": "علاقة غرض (عشان) ← so that. therefore نتيجة، مو غرض.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite in a formal register with no contractions.",
+          "instructions_ar": "حوّليها إلى أسلوب رسمي",
+          "item": {
+            "options": [],
+            "question": "Rewrite in a formal register (no contractions): 'Thanks! Don't hesitate to contact me.'",
+            "correct_answer": "Thank you. Please do not hesitate to contact me.",
+            "accepted_answers": [
+              "Thank you. Please do not hesitate to contact me.",
+              "Thank you. Do not hesitate to contact me."
+            ],
+            "explanation_ar": "أسلوب رسمي: Thanks تصير Thank you، و Don't تصير do not.",
+            "instruction_ar": "حوّليها إلى أسلوب رسمي"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Join the two sentences with a linking word that shows contrast.",
+          "instructions_ar": "اربطي الجملتين بكلمة تدل على التناقض",
+          "item": {
+            "options": [],
+            "question": "Join into one sentence showing contrast: 'The campaign runs for six weeks. We will send a report every week.'",
+            "correct_answer": "Although the campaign runs for six weeks, we will send a report every week.",
+            "accepted_answers": [
+              "Although the campaign runs for six weeks, we will send a report every week.",
+              "The campaign runs for six weeks, but we will send a report every week."
+            ],
+            "explanation_ar": "علاقة تناقض ← Although + الجملة الأولى، فاصلة، ثم الجملة الثانية.",
+            "instruction_ar": "اربطي الجملتين بكلمة تدل على التناقض"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'The results were strong, moreover we launched a second phase.'",
+            "correct_answer": "The results were strong, therefore we launched a second phase.",
+            "accepted_answers": [
+              "The results were strong, therefore we launched a second phase.",
+              "The results were strong, so we launched a second phase."
+            ],
+            "explanation_ar": "النتيجة تحتاج therefore، مو moreover اللي معناها إضافة.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'Although the campaign runs for six weeks, but we send weekly reports.'",
+            "correct_answer": "Although the campaign runs for six weeks, we send weekly reports.",
+            "accepted_answers": [
+              "Although the campaign runs for six weeks, we send weekly reports."
+            ],
+            "explanation_ar": "لا نجمع Although و but في الجملة نفسها — نحذف but.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": [
+              "writing",
+              "Following",
+              "the",
+              "I",
+              "confirm",
+              "meeting",
+              "to",
+              "am",
+              "next",
+              "our",
+              "steps"
+            ],
+            "question": "Put the words in order: writing / Following / the / I / confirm / meeting / to / am / next / our / steps",
+            "correct_answer": "Following our meeting, I am writing to confirm the next steps.",
+            "accepted_answers": [
+              "Following our meeting, I am writing to confirm the next steps."
+            ],
+            "explanation_ar": "افتتاحية رسمية بعد الاجتماع ← Following our meeting, I am writing to confirm…",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    }
+  ]
+}

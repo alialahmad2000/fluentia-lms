@@ -1,0 +1,362 @@
+{
+  "units": [
+    {
+      "custom_sort": 5,
+      "topic_name_en": "Comparatives + Softening Language",
+      "topic_name_ar": "المقارنة وكلمات التلطيف",
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the adjective in the comparative form.",
+          "instructions_ar": "ضعي الصفة في صيغة المقارنة",
+          "item": {
+            "options": [],
+            "question": "This new draft is ______ (polished) than the version we sent last week.",
+            "correct_answer": "more polished",
+            "accepted_answers": [
+              "more polished"
+            ],
+            "explanation_ar": "صفة طويلة ← more + الصفة، مو -er.",
+            "instruction_ar": "ضعي الصفة في صيغة المقارنة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the adjective in the comparative form.",
+          "instructions_ar": "ضعي الصفة في صيغة المقارنة",
+          "item": {
+            "options": [],
+            "question": "The colours are ______ (bright) than our usual brand tones.",
+            "correct_answer": "brighter",
+            "accepted_answers": [
+              "brighter"
+            ],
+            "explanation_ar": "صفة قصيرة ← -er + than.",
+            "instruction_ar": "ضعي الصفة في صيغة المقارنة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the adjective in the comparative form.",
+          "instructions_ar": "ضعي الصفة في صيغة المقارنة",
+          "item": {
+            "options": [],
+            "question": "The pacing in this cut is ______ (good) than in the first one.",
+            "correct_answer": "better",
+            "accepted_answers": [
+              "better"
+            ],
+            "explanation_ar": "صيغة شاذّة ← good تصير better.",
+            "instruction_ar": "ضعي الصفة في صيغة المقارنة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": [
+              "more clear",
+              "clearer",
+              "clear",
+              "more clearer"
+            ],
+            "question": "Overall, this version is ______ than the last cut.",
+            "correct_answer": "clearer",
+            "accepted_answers": [
+              "clearer"
+            ],
+            "explanation_ar": "صفة قصيرة تأخذ -er ← clearer، مو more clear ولا more clearer.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct comparative form.",
+          "instructions_ar": "اختاري صيغة المقارنة الصحيحة",
+          "item": {
+            "options": [
+              "more bright",
+              "bright",
+              "brighter",
+              "brightest"
+            ],
+            "question": "The colours in the video are ______ than the brand palette.",
+            "correct_answer": "brighter",
+            "accepted_answers": [
+              "brighter"
+            ],
+            "explanation_ar": "صفة قصيرة تأخذ -er قبل than، وليس more ← brighter.",
+            "instruction_ar": "اختاري صيغة المقارنة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite using a comparative with 'than'.",
+          "instructions_ar": "حوّلي الجملة إلى مقارنة باستخدام than",
+          "item": {
+            "options": [],
+            "question": "Rewrite using a comparative with 'than': The new banner is eye-catching. The old one was less eye-catching.",
+            "correct_answer": "The new banner is more eye-catching than the old one.",
+            "accepted_answers": [
+              "The new banner is more eye-catching than the old one.",
+              "The new banner is more eye-catching than the old banner."
+            ],
+            "explanation_ar": "صفة طويلة ← more eye-catching + than للمقارنة.",
+            "instruction_ar": "حوّلي الجملة إلى مقارنة باستخدام than"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite the blunt note as a gentle suggestion using 'Could we...?'.",
+          "instructions_ar": "حوّلي الملاحظة الحادة إلى اقتراح لطيف باستخدام Could we...?",
+          "item": {
+            "options": [],
+            "question": "Rewrite as a gentle suggestion using 'Could we...?': Make the logo appear earlier.",
+            "correct_answer": "Could we make the logo appear earlier?",
+            "accepted_answers": [
+              "Could we make the logo appear earlier?",
+              "Could we make the logo appear a little earlier?"
+            ],
+            "explanation_ar": "طرح الحل كسؤال (Could we...?) يوصل النقد بلطف بدل الأمر.",
+            "instruction_ar": "حوّلي الملاحظة الحادة إلى اقتراح لطيف باستخدام Could we...?"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'Honestly, this version is more clearer than the last cut.'",
+            "correct_answer": "Honestly, this version is clearer than the last cut.",
+            "accepted_answers": [
+              "Honestly, this version is clearer than the last cut."
+            ],
+            "explanation_ar": "ما نجمع more مع -er ← clearer بس.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'Right now the soundtrack is louder the voiceover, so the words get lost.'",
+            "correct_answer": "Right now the soundtrack is louder than the voiceover, so the words get lost.",
+            "accepted_answers": [
+              "Right now the soundtrack is louder than the voiceover, so the words get lost."
+            ],
+            "explanation_ar": "المقارنة تحتاج than بعد الصفة ← louder than.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": [
+              "This",
+              "version",
+              "is",
+              "slightly",
+              "more",
+              "polished",
+              "than",
+              "the",
+              "last",
+              "one"
+            ],
+            "question": "Put the words in order: This / version / is / slightly / more / polished / than / the / last / one",
+            "correct_answer": "This version is slightly more polished than the last one.",
+            "accepted_answers": [
+              "This version is slightly more polished than the last one."
+            ],
+            "explanation_ar": "تلطيف (slightly) + مقارنة صفة طويلة (more polished) + than.",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    },
+    {
+      "custom_sort": 6,
+      "topic_name_en": "Present Continuous vs Present Simple + Time Expressions",
+      "topic_name_ar": "المضارع المستمر والمضارع البسيط وتعابير الوقت",
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the present continuous or the present simple.",
+          "instructions_ar": "ضعي الفعل في المضارع المستمر أو البسيط",
+          "item": {
+            "options": [],
+            "question": "This afternoon, the editor ______ (add) subtitles to the video.",
+            "correct_answer": "is adding",
+            "accepted_answers": [
+              "is adding"
+            ],
+            "explanation_ar": "this afternoon ← يصير الحين ← مضارع مستمر.",
+            "instruction_ar": "ضعي الفعل في المضارع المستمر أو البسيط"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the present continuous or the present simple.",
+          "instructions_ar": "ضعي الفعل في المضارع المستمر أو البسيط",
+          "item": {
+            "options": [],
+            "question": "We normally ______ (test) our ads for three days before we scale.",
+            "correct_answer": "test",
+            "accepted_answers": [
+              "test"
+            ],
+            "explanation_ar": "normally ← عادة ثابتة ← مضارع بسيط.",
+            "instruction_ar": "ضعي الفعل في المضارع المستمر أو البسيط"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the present continuous or the present simple.",
+          "instructions_ar": "ضعي الفعل في المضارع المستمر أو البسيط",
+          "item": {
+            "options": [],
+            "question": "This week we ______ (move) the launch to Tuesday because of the holiday.",
+            "correct_answer": "are moving",
+            "accepted_answers": [
+              "are moving"
+            ],
+            "explanation_ar": "this week + تغيير مؤقّت ← مضارع مستمر.",
+            "instruction_ar": "ضعي الفعل في المضارع المستمر أو البسيط"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": [
+              "review",
+              "reviews",
+              "are reviewing",
+              "reviewing"
+            ],
+            "question": "At the moment, the copywriters ______ the new captions.",
+            "correct_answer": "are reviewing",
+            "accepted_answers": [
+              "are reviewing"
+            ],
+            "explanation_ar": "at the moment ← يصير الحين ← are reviewing.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": [
+              "are always sending",
+              "always send",
+              "always sends",
+              "is always sending"
+            ],
+            "question": "We ______ a reminder two days before every deadline.",
+            "correct_answer": "always send",
+            "accepted_answers": [
+              "always send"
+            ],
+            "explanation_ar": "عادة ثابتة ← مضارع بسيط، و«we» تأخذ send.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite in the present continuous to show it is happening now.",
+          "instructions_ar": "حوّلي الجملة إلى المضارع المستمر لتدل على ما يحدث الآن",
+          "item": {
+            "options": [],
+            "question": "Rewrite in the present continuous (happening now): The design team finishes the banners.",
+            "correct_answer": "The design team is finishing the banners.",
+            "accepted_answers": [
+              "The design team is finishing the banners.",
+              "The design team's finishing the banners."
+            ],
+            "explanation_ar": "الحدث يصير الحين ← is finishing.",
+            "instruction_ar": "حوّلي الجملة إلى المضارع المستمر لتدل على ما يحدث الآن"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite in the present simple as a weekly routine, starting with 'Every week'.",
+          "instructions_ar": "حوّلي الجملة إلى المضارع البسيط كعادة أسبوعية تبدأ بـ Every week",
+          "item": {
+            "options": [],
+            "question": "Rewrite in the present simple, starting with 'Every week': We are checking the metrics on Monday.",
+            "correct_answer": "Every week we check the metrics on Monday.",
+            "accepted_answers": [
+              "Every week we check the metrics on Monday.",
+              "Every week, we check the metrics on Monday."
+            ],
+            "explanation_ar": "every week ← روتين ثابت ← مضارع بسيط (check).",
+            "instruction_ar": "حوّلي الجملة إلى المضارع البسيط كعادة أسبوعية تبدأ بـ Every week"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'Right now I wait for the client's approval on the final visuals.'",
+            "correct_answer": "Right now I am waiting for the client's approval on the final visuals.",
+            "accepted_answers": [
+              "Right now I am waiting for the client's approval on the final visuals."
+            ],
+            "explanation_ar": "right now ← يصير الحين ← am waiting مو wait.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'We are usually publishing on Sundays.'",
+            "correct_answer": "We usually publish on Sundays.",
+            "accepted_answers": [
+              "We usually publish on Sundays."
+            ],
+            "explanation_ar": "usually ← عادة ثابتة ← مضارع بسيط (publish).",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": [
+              "The",
+              "influencer",
+              "is",
+              "posting",
+              "her",
+              "first",
+              "reel",
+              "tonight"
+            ],
+            "question": "Put the words in order: The / influencer / is / posting / her / first / reel / tonight",
+            "correct_answer": "The influencer is posting her first reel tonight.",
+            "accepted_answers": [
+              "The influencer is posting her first reel tonight."
+            ],
+            "explanation_ar": "ترتيب مؤكّد قريب (tonight) ← مضارع مستمر.",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    }
+  ]
+}

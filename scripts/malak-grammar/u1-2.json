@@ -1,0 +1,294 @@
+{
+  "units": [
+    {
+      "custom_sort": 1,
+      "topic_name_en": "Future Forms: will / going to / present continuous",
+      "topic_name_ar": "صيغ المستقبل: will و going to والمضارع المستمر للخطط",
+      "explanation_sections": [
+        {
+          "content_ar": "● القاعدة\nعندك ثلاث صيغ للمستقبل، وكل وحدة لها شغلة:\n• going to = خطة قرّرتيها من قبل. مثال: We are going to focus on three channels.\n• المضارع المستمر (am/is/are + فعل+ing) = ترتيب مؤكّد بموعد أو مكان محدّد. مثال: I am meeting the design team on Sunday.\n• will = قرار في نفس اللحظة، أو توقّع، أو نتيجة شرط. مثال: If the results are strong, we will launch a second phase.\nلاحظي إن الفرق مو في الزمن بس، الفرق في نوع الكلام: خطة، أو موعد مثبّت، أو توقّع. جرّبي تسألين نفسك «هذي خطة قرّرتها؟ ولا موعد محجوز؟ ولا مجرّد توقّع؟» وبتعرفين وش تستخدمين.",
+          "content_en": "<b>Future forms — three ways to talk about what's next:</b><br><br>• <b>going to</b> = a plan you already decided: <b>We are going to focus on three channels.</b><br>• <b>present continuous</b> (am/is/are + verb-ing) = a fixed arrangement with a set time or place: <b>I am meeting the design team on Sunday.</b><br>• <b>will</b> = an on-the-spot decision, a prediction, or the result of a condition: <b>If the results are strong, we will launch a second phase.</b><br><br>The choice depends on the <b>type</b> of statement — a plan, a booked arrangement, or a prediction — not just the timing."
+        },
+        {
+          "content_ar": "● من مشهدك\nهذي جمل من عرض استراتيجيتك «Everyday Glow»، شوفي كيف كل صيغة جت في مكانها:\n• We are going to test two versions of each ad. (خطة قرّرتيها مع الفريق)\n• I am presenting the full plan to the client next week. (موعد مثبّت في تقويمك)\n• By the end of May, we will reach two million people. (رقم متوقّع)",
+          "content_en": "<b>From your Everyday Glow strategy:</b><br>• <b>We are going to test two versions of each ad.</b> (a decided plan)<br>• <b>I am presenting the full plan to the client next week.</b> (a fixed arrangement)<br>• <b>By the end of May, we will reach two million people.</b> (a prediction)"
+        },
+        {
+          "content_ar": "● أخطاء شائعة\n• ✗ We are going to launched a second phase. ✓ We are going to launch a second phase. — بعد going to يجي المصدر (launch) مو الماضي.\n• ✗ I am meet the design team on Sunday. ✓ I am meeting the design team on Sunday. — المضارع المستمر لازم فعل+ing (meeting).\n• ✗ Tomorrow I will to send the brief. ✓ Tomorrow I will send the brief. — بعد will يجي المصدر بدون to.",
+          "content_en": "<b>Watch out for these:</b><br>• ✗ <i>We are going to launched a second phase.</i> → ✓ <b>We are going to launch a second phase.</b> — after <i>going to</i>, use the base verb.<br>• ✗ <i>I am meet the design team on Sunday.</i> → ✓ <b>I am meeting the design team on Sunday.</b> — the present continuous needs verb + -ing.<br>• ✗ <i>Tomorrow I will to send the brief.</i> → ✓ <b>Tomorrow I will send the brief.</b> — after <i>will</i>, use the base verb with no <i>to</i>."
+        },
+        {
+          "content_ar": "● متى تستخدمينها\nوأنتِ تعرضين، خلي القاعدة بسيطة:\n• going to للخطط اللي قرّرتيها مع فريقك (الاستراتيجية، القنوات، المراحل).\n• المضارع المستمر للمواعيد المثبّتة في تقويمك (اجتماع العميل، لقاء فريق التصميم).\n• will للأرقام المتوقّعة والوعود ونتائج الشروط (الوصول المتوقّع، «لو النتايج قوية…»).\nنصيحة نبرة: going to و will الاثنين مناسبين للعرض الرسمي؛ بس لا تستخدمين will لكل شي — لو كل خططك «will» بيحسّ العميل إنها لسا مو مؤكّدة.",
+          "content_en": "<b>Choosing in a pitch:</b><br>• Use <b>going to</b> for plans you and your team decided (the strategy, the channels, the phases).<br>• Use the <b>present continuous</b> for arrangements already in your calendar (the client meeting, the design review).<br>• Use <b>will</b> for expected numbers, promises, and results of conditions (projected reach, <i>if the results are strong…</i>).<br><br><b>Register tip:</b> both <i>going to</i> and <i>will</i> suit a formal pitch — but if every plan is <i>will</i>, it can sound less settled. Reserve <i>will</i> for predictions and promises."
+        }
+      ],
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the correct future form.",
+          "instructions_ar": "ضعي الفعل في صيغة المستقبل الصحيحة",
+          "item": {
+            "options": [],
+            "question": "We've already decided our approach: we ______ (run) the influencer teasers before the official launch.",
+            "correct_answer": "are going to run",
+            "explanation_ar": "قرار قرّرتيه من قبل مع الفريق ← going to + مصدر.",
+            "instruction_ar": "ضعي الفعل في صيغة المستقبل الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the correct future form.",
+          "instructions_ar": "ضعي الفعل في صيغة المستقبل الصحيحة",
+          "item": {
+            "options": [],
+            "question": "It's fixed in my calendar — I ______ (pitch) the campaign to the client at 10 on Sunday.",
+            "correct_answer": "am pitching",
+            "explanation_ar": "موعد مثبّت في التقويم ← المضارع المستمر (am + -ing).",
+            "instruction_ar": "ضعي الفعل في صيغة المستقبل الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the correct future form.",
+          "instructions_ar": "ضعي الفعل في صيغة المستقبل الصحيحة",
+          "item": {
+            "options": [],
+            "question": "If the reach is high enough, the client ______ (approve) the summer budget.",
+            "correct_answer": "will approve",
+            "explanation_ar": "نتيجة مبنية على شرط ← will + مصدر.",
+            "instruction_ar": "ضعي الفعل في صيغة المستقبل الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["will meet", "meet", "am meeting", "will meeting"],
+            "question": "I can't make it later — I ______ the design team at noon; it's already booked.",
+            "correct_answer": "am meeting",
+            "explanation_ar": "موعد محجوز بوقت محدّد ← المضارع المستمر (am meeting).",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["are launching", "are going to launch", "launch", "will launch"],
+            "question": "Don't worry about the second phase now — if sales grow, we ______ it in the summer.",
+            "correct_answer": "will launch",
+            "explanation_ar": "نتيجة شرط غير مؤكّد، مو خطة مثبّتة ← will launch.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite the sentence as instructed.",
+          "instructions_ar": "حوّلي الجملة حسب المطلوب",
+          "item": {
+            "options": [],
+            "question": "Rewrite using 'going to': We plan to test two versions of each ad.",
+            "correct_answer": "We are going to test two versions of each ad.",
+            "explanation_ar": "خطة مقرّرة ← be going to + مصدر.",
+            "instruction_ar": "حوّلي الجملة حسب المطلوب"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite the sentence as instructed.",
+          "instructions_ar": "حوّلي الجملة حسب المطلوب",
+          "item": {
+            "options": [],
+            "question": "Rewrite as a present continuous arrangement: I have a meeting with the client next Tuesday.",
+            "correct_answer": "I am meeting the client next Tuesday.",
+            "explanation_ar": "ترتيب مثبّت بموعد ← المضارع المستمر.",
+            "instruction_ar": "حوّلي الجملة حسب المطلوب"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'We are going to scaling the version with the higher engagement.'",
+            "correct_answer": "We are going to scale the version with the higher engagement.",
+            "explanation_ar": "بعد going to نستخدم المصدر ← scale.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'By the end of May, we will reaching two million people.'",
+            "correct_answer": "By the end of May, we will reach two million people.",
+            "explanation_ar": "بعد will نستخدم المصدر بدون ing ← reach.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": ["client", "We", "presenting", "the", "are", "strategy", "to", "the", "next", "week"],
+            "question": "Put the words in order: client / We / presenting / the / are / strategy / to / the / next / week",
+            "correct_answer": "We are presenting the strategy to the client next week.",
+            "explanation_ar": "ترتيب مثبّت قريب ← المضارع المستمر.",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    },
+    {
+      "custom_sort": 2,
+      "topic_name_en": "Modals of Obligation: must / have to / should / need to",
+      "topic_name_ar": "أفعال الإلزام: must و have to و should و need to",
+      "explanation_sections": [
+        {
+          "content_ar": "● القاعدة\nلما تمرّرين موجز، فرّقي بين درجات الإلزام:\n• must / have to = إلزام قوي، «لازم». مثال: Everyone must read the guidelines.\n• need to = ضرورة عملية عشان الشغل يمشي. مثال: We need to deliver the drafts by Thursday.\n• should = نصيحة أو الخيار الأنسب، مو إلزام. مثال: The tone should be warm.\n• don't have to = مو لازم، اختياري. مثال: We don't have to translate everything.\n• shouldn't = يُفضَّل تتجنّبينه. مثال: They shouldn't use other shades.\nلاحظي: بعد must و should و shouldn't يجي المصدر بدون to (must read، should be)، أما have to و need to أصلاً فيهم to.",
+          "content_en": "<b>Levels of obligation in a brief:</b><br>• <b>must / have to</b> = strong obligation (you have no choice): <b>Everyone must read the guidelines.</b><br>• <b>need to</b> = practical necessity to get the work done: <b>We need to deliver the drafts by Thursday.</b><br>• <b>should</b> = advice or the better choice, not a rule: <b>The tone should be warm.</b><br>• <b>don't have to</b> = optional, no obligation: <b>We don't have to translate everything.</b><br>• <b>shouldn't</b> = advised against: <b>They shouldn't use other shades.</b><br><br>After <i>must / should / shouldn't</i> use the base verb (no <i>to</i>); <i>have to</i> and <i>need to</i> already contain <i>to</i>."
+        },
+        {
+          "content_ar": "● من مشهدك\nمن موجز حملة «Moms' Time»، شوفي كيف تفرّق النبرة بين لازم واختياري:\n• The designers must follow the brand colors exactly. (إلزام)\n• Copywriters need to write short captions — under twenty words. (ضرورة عملية)\n• We don't have to translate everything, but the slogan has to work in both languages. (اختياري + إلزام في نفس الجملة)",
+          "content_en": "<b>From your Moms' Time brief:</b><br>• <b>The designers must follow the brand colors exactly.</b> (obligation)<br>• <b>Copywriters need to write short captions — under twenty words.</b> (practical necessity)<br>• <b>We don't have to translate everything, but the slogan has to work in both languages.</b> (optional + obligation in one line)"
+        },
+        {
+          "content_ar": "● أخطاء شائعة\n• ✗ Everyone must to read the guidelines. ✓ Everyone must read the guidelines. — بعد must يجي المصدر بدون to.\n• ✗ The designer must follows the brand colors. ✓ The designer must follow the brand colors. — بعد الفعل الناقص ما نحط s، نستخدم المصدر.\n• ✗ We don't must translate everything. ✓ We don't have to translate everything. — «مو لازم» تجي don't have to، مو «don't must».",
+          "content_en": "<b>Watch out for these:</b><br>• ✗ <i>Everyone must to read the guidelines.</i> → ✓ <b>Everyone must read the guidelines.</b> — after <i>must</i>, use the base verb with no <i>to</i>.<br>• ✗ <i>The designer must follows the brand colors.</i> → ✓ <b>The designer must follow the brand colors.</b> — no <i>-s</i> after a modal; use the base verb.<br>• ✗ <i>We don't must translate everything.</i> → ✓ <b>We don't have to translate everything.</b> — for 'not necessary' use <i>don't have to</i>, never 'don't must'."
+        },
+        {
+          "content_ar": "● متى تستخدمينها\nعشان فريقك يعرف الأولويات من أول نظرة:\n• استخدمي must / have to / need to للأشياء اللي ما فيها تفاوض (رسالة العميل، الموعد النهائي، ألوان البراند).\n• استخدمي should للتوجيه والذوق (النبرة، طول التعليق) — تعطينهم مساحة بدون ما تفرضين.\n• استخدمي don't have to عشان تريحينهم من شي يظنّونه إلزامي (مثلاً الترجمة الكاملة).\nفرق النبرة: must أقوى وأرسمية، have to أقرب للكلام اليومي، need to ألطف وتحسّها تعاون. مع فريقك، need to و should يخلّون التوجيه حازم وودود في نفس الوقت.",
+          "content_en": "<b>So your team sees the priorities at a glance:</b><br>• Use <b>must / have to / need to</b> for the non-negotiables (the client's message, the deadline, the brand colors).<br>• Use <b>should</b> for guidance and taste (tone, caption length) — it gives room without forcing.<br>• Use <b>don't have to</b> to lift a burden they assume is required (like full translation).<br><br><b>Register:</b> <i>must</i> is the strongest and most formal, <i>have to</i> is more everyday, and <i>need to</i> feels softer and collaborative. With your team, <i>need to</i> and <i>should</i> keep your direction firm yet warm."
+        }
+      ],
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Fill in the correct modal plus the verb in brackets.",
+          "instructions_ar": "ضعي الفعل الناقص المناسب مع الفعل بين القوسين حسب المعنى",
+          "item": {
+            "options": [],
+            "question": "Everyone ______ (read) the client's guidelines before we start — this is non-negotiable. (strong obligation)",
+            "correct_answer": "must read",
+            "explanation_ar": "إلزام قوي بدون تفاوض ← must + مصدر بدون to.",
+            "instruction_ar": "ضعي الفعل الناقص المناسب مع الفعل بين القوسين حسب المعنى"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Fill in the correct modal plus the verb in brackets.",
+          "instructions_ar": "ضعي الفعل الناقص المناسب مع الفعل بين القوسين حسب المعنى",
+          "item": {
+            "options": [],
+            "question": "We ______ (deliver) the first drafts by Thursday, so plan your week carefully. (practical necessity)",
+            "correct_answer": "need to deliver",
+            "explanation_ar": "ضرورة عملية عشان الشغل يمشي ← need to + مصدر.",
+            "instruction_ar": "ضعي الفعل الناقص المناسب مع الفعل بين القوسين حسب المعنى"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Fill in the correct modal plus the verb in brackets.",
+          "instructions_ar": "ضعي الفعل الناقص المناسب مع الفعل بين القوسين حسب المعنى",
+          "item": {
+            "options": [],
+            "question": "You ______ (translate) every caption into English — it's optional this time. (no obligation)",
+            "correct_answer": "don't have to translate",
+            "explanation_ar": "اختياري مو إلزامي ← don't have to + مصدر.",
+            "instruction_ar": "ضعي الفعل الناقص المناسب مع الفعل بين القوسين حسب المعنى"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["must", "should", "has to", "need to"],
+            "question": "The tone ______ be warm and friendly, not formal — that's my advice, not a rule.",
+            "correct_answer": "should",
+            "explanation_ar": "نصيحة مو إلزام ← should.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["should", "doesn't have to", "shouldn't", "has to"],
+            "question": "The main slogan ______ work in both Arabic and English — the client requires it.",
+            "correct_answer": "has to",
+            "explanation_ar": "إلزام من العميل ← has to.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite the sentence as instructed.",
+          "instructions_ar": "حوّلي الجملة حسب المطلوب",
+          "item": {
+            "options": [],
+            "question": "Rewrite so it means it is NOT necessary: You have to translate the whole campaign.",
+            "correct_answer": "You don't have to translate the whole campaign.",
+            "explanation_ar": "نفي الإلزام (مو لازم) ← don't have to.",
+            "instruction_ar": "حوّلي الجملة حسب المطلوب"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite the sentence as instructed.",
+          "instructions_ar": "حوّلي الجملة حسب المطلوب",
+          "item": {
+            "options": [],
+            "question": "Rewrite as advice using 'should': It's a good idea to ask me about the scope today.",
+            "correct_answer": "You should ask me about the scope today.",
+            "explanation_ar": "نصيحة ← should + مصدر.",
+            "instruction_ar": "حوّلي الجملة حسب المطلوب"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'Everyone must to read the client's feedback before the meeting.'",
+            "correct_answer": "Everyone must read the client's feedback before the meeting.",
+            "explanation_ar": "بعد must نستخدم المصدر بدون to ← read.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'The designers must follows the brand colors exactly.'",
+            "correct_answer": "The designers must follow the brand colors exactly.",
+            "explanation_ar": "بعد الفعل الناقص لا نضيف s ← follow.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": ["message", "You", "to", "keep", "have", "the", "in", "caption", "every"],
+            "question": "Put the words in order: message / You / to / keep / have / the / in / caption / every",
+            "correct_answer": "You have to keep the message in every caption.",
+            "explanation_ar": "إلزام ← have to + مصدر، وبعدها بقية الجملة.",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    }
+  ]
+}

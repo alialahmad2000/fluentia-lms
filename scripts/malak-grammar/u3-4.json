@@ -1,0 +1,294 @@
+{
+  "units": [
+    {
+      "custom_sort": 3,
+      "topic_name_en": "Past Simple vs Present Perfect",
+      "topic_name_ar": "الماضي البسيط والمضارع التام",
+      "explanation_sections": [
+        {
+          "content_ar": "● القاعدة\nأنتِ عندك زمنين تفرّقين بينهم في تقرير نتائجك:\n• الماضي البسيط = حدث خلص في وقت محدّد ومعروف. لو فيه إشارة وقت زي (last week, on the first of April, in April) استخدمي الماضي البسيط: launched, ran, spent.\n• المضارع التام = النتيجة مهمة الحين، أو الوقت لسّه مفتوح. لو شفتِ (already, yet, so far, since, this year) اطلعي على المضارع التام: have + التصريف الثالث، زي have gained و have grown.\nلاحظي القاعدة: وقت محدّد ← ماضٍ بسيط، وأثر مستمر أو وقت مفتوح ← مضارع تام. جرّبي تسألين نفسك «هل الوقت خلص ولا لسّه؟» وبتعرفين وش تختارين.",
+          "content_en": "<b>Past Simple vs Present Perfect</b><br><br>• <b>Past simple</b> = a finished action at a known past time. Time markers: <i>last week, on the first of April, in April</i>.<br>Example: <b>We launched the campaign on the first of April.</b><br><br>• <b>Present perfect</b> = the result matters now, or the time is still open. Markers: <i>already, yet, so far, since, this year</i>.<br>Example: <b>We have gained 24,000 new followers.</b><br><br>Rule of thumb: a specific finished time gives past simple; an open or ongoing time gives present perfect."
+        },
+        {
+          "content_ar": "● من مشهدك\nهذي جمل من تقريرك أنتِ:\n• «We launched it on the first of April.» — تاريخ محدّد، فالفعل ماضٍ بسيط.\n• «We have gained 24,000 new followers.» — رقم توّه يكبر، فالفعل مضارع تام.\n• «Sales have grown by 31% since the campaign started.» — كلمة since تبيّن إن الأثر مستمر من وقت الإطلاق لين الحين.\nلاحظي كيف نفس التقرير يجمع الزمنين: اللي خلص بوقته، واللي نتيجته لسّه تكبر معنا.",
+          "content_en": "<b>From your report</b><br><br>• <b>We launched it on the first of April.</b> — a fixed date, so past simple.<br>• <b>We have gained 24,000 new followers.</b> — a number still growing, so present perfect.<br>• <b>Sales have grown by 31% since the campaign started.</b> — <i>since</i> shows the result continues up to now.<br><br>One report, both tenses: what finished on its date, and what is still growing."
+        },
+        {
+          "content_ar": "● أخطاء شائعة\n✗ We have launched the campaign last week. ✓ We launched the campaign last week. — مع وقت محدّد (last week) لازم ماضٍ بسيط، مو مضارع تام.\n✗ We didn't finish the analysis yet. ✓ We haven't finished the analysis yet. — كلمة yet تنادي المضارع التام.\n✗ Since April, sales grew by 31%. ✓ Since April, sales have grown by 31%. — since معناها الأثر ماشي لين الحين، فالمضارع التام.",
+          "content_en": "<b>Common mistakes</b><br><br>✗ <i>We have launched the campaign last week.</i><br>✓ <b>We launched the campaign last week.</b> — a specific past time (last week) needs past simple.<br><br>✗ <i>We didn't finish the analysis yet.</i><br>✓ <b>We haven't finished the analysis yet.</b> — <i>yet</i> takes present perfect.<br><br>✗ <i>Since April, sales grew by 31%.</i><br>✓ <b>Since April, sales have grown by 31%.</b> — <i>since</i> means the effect continues, so present perfect."
+        },
+        {
+          "content_ar": "● متى تستخدمينها\nفي اجتماع النتائج، رتّبيها كذا:\n• للأحداث اللي سوّيتيها وخلّصتيها: ماضٍ بسيط — «We launched…, we ran…, we spent…».\n• للأرقام اللي لسّه تكبر أو النتيجة الحاضرة: مضارع تام — «We have reached…, sales have grown…, the client has approved…».\nالفكرة إن الماضي البسيط يسرد القصة، والمضارع التام يوصّل قيمتك الحين. لو بدأتِ جملتك بـ so far أو since أو this year، اطلعي على المضارع التام على طول.",
+          "content_en": "<b>When to use each</b><br><br>In the results meeting, order it like this:<br>• For actions you did and finished: past simple — <b>We launched…, we ran…, we spent…</b><br>• For numbers still growing or the present result: present perfect — <b>We have reached…, sales have grown…, the client has approved…</b><br><br>Past simple tells the story; present perfect delivers your value now. If your sentence starts with <i>so far, since,</i> or <i>this year</i>, reach for the present perfect."
+        }
+      ],
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the past simple or the present perfect.",
+          "instructions_ar": "ضعي الفعل في الماضي البسيط أو المضارع التام",
+          "item": {
+            "options": [],
+            "question": "In total, we ______ (spend) 55,000 riyals last month, slightly under budget.",
+            "correct_answer": "spent",
+            "explanation_ar": "وقت محدّد (last month) ← ماضٍ بسيط.",
+            "instruction_ar": "ضعي الفعل في الزمن الصحيح"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the past simple or the present perfect.",
+          "instructions_ar": "ضعي الفعل في الماضي البسيط أو المضارع التام",
+          "item": {
+            "options": [],
+            "question": "Since the campaign ended, three influencers ______ (contact) us to work again.",
+            "correct_answer": "have contacted",
+            "explanation_ar": "since ونتيجة مستمرة ← مضارع تام.",
+            "instruction_ar": "ضعي الفعل في الزمن الصحيح"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the past simple or the present perfect.",
+          "instructions_ar": "ضعي الفعل في الماضي البسيط أو المضارع التام",
+          "item": {
+            "options": [],
+            "question": "We ______ (not finish) the final analysis yet, but the early numbers are strong.",
+            "correct_answer": "have not finished",
+            "explanation_ar": "كلمة yet تنادي المضارع التام.",
+            "instruction_ar": "ضعي الفعل في الزمن الصحيح"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["reached", "have reached", "has reached", "reach"],
+            "question": "During those six weeks, the campaign ______ 2.3 million people.",
+            "correct_answer": "reached",
+            "explanation_ar": "فترة خلصت ومحدّدة (those six weeks) ← ماضٍ بسيط.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["grew", "has grown", "have grown", "is growing"],
+            "question": "Compared to last quarter, sales ______ by 31% so far.",
+            "correct_answer": "have grown",
+            "explanation_ar": "so far ونتيجة مستمرة + sales جمع ← have grown.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite the sentence in the present perfect.",
+          "instructions_ar": "حوّلي الجملة إلى المضارع التام",
+          "item": {
+            "options": [],
+            "question": "Rewrite in the present perfect: The campaign gained us 24,000 new followers.",
+            "correct_answer": "The campaign has gained us 24,000 new followers.",
+            "explanation_ar": "نتيجة توّها حاضرة ← has + التصريف الثالث.",
+            "instruction_ar": "حوّلي الجملة إلى المضارع التام"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite in the past simple, adding the time marker in brackets.",
+          "instructions_ar": "حوّلي الجملة إلى الماضي البسيط مع إضافة إشارة الوقت",
+          "item": {
+            "options": [],
+            "question": "Rewrite in the past simple: We have spent the whole budget. (last month)",
+            "correct_answer": "We spent the whole budget last month.",
+            "explanation_ar": "وقت محدّد (last month) يفرض الماضي البسيط ويشيل have.",
+            "instruction_ar": "حوّلي الجملة إلى الماضي البسيط"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'Last week, the client has approved a second phase.'",
+            "correct_answer": "Last week, the client approved a second phase.",
+            "explanation_ar": "مع last week نستخدم الماضي البسيط، مو المضارع التام.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'We didn't finish the results report yet.'",
+            "correct_answer": "We haven't finished the results report yet.",
+            "explanation_ar": "كلمة yet تبي المضارع التام (haven't finished).",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": ["been", "this", "The", "our", "performance", "campaign", "has", "best", "year"],
+            "question": "Put the words in order: been / this / The / our / performance / campaign / has / best / year",
+            "correct_answer": "The campaign has been our best performance this year.",
+            "explanation_ar": "this year وقت لسّه مفتوح ← مضارع تام (has been).",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    },
+    {
+      "custom_sort": 4,
+      "topic_name_en": "First & Second Conditionals",
+      "topic_name_ar": "الشرط الأول والشرط الثاني",
+      "explanation_sections": [
+        {
+          "content_ar": "● القاعدة\nعندك نوعين من الشرط تستخدمينهم في التفاوض:\n• الشرط الأول (واقعي ووارد): if + مضارع بسيط ← will / can. مثال: «If you post three reels, we WILL PAY 8,000.» تستخدمينه للعروض اللي أنتِ جاهزة تلتزمين فيها.\n• الشرط الثاني (افتراضي وألطف): if + ماضٍ بسيط ← would / could. مثال: «If you increased the fee, I WOULD INCLUDE an extra reel.» تستخدمينه عشان تطرحين احتمال بلطف بدون التزام.\nلاحظي: بعد if ما نحطّ will أبداً، والشرط الثاني ما يعني ماضي حقيقي — هو بس طريقة مؤدّبة تطرحين فيها فكرة.",
+          "content_en": "<b>First &amp; Second Conditionals</b><br><br>• <b>First conditional</b> (real / likely): if + present simple → <b>will / can</b>.<br><b>If you post three reels, we will pay 8,000.</b> — for firm offers you are ready to commit to.<br><br>• <b>Second conditional</b> (hypothetical / softer): if + past simple → <b>would / could</b>.<br><b>If you increased the fee, I would include an extra reel.</b> — to float an idea politely with no commitment.<br><br>Never put <i>will</i> after <i>if</i>. The second conditional is not real past — it is just a polite way to suggest something."
+        },
+        {
+          "content_ar": "● من مشهدك\nهذي من مراسلتك مع المؤثرة:\n• «If you post three reels and two stories, we will pay 8,000 riyals.» — عرض أكيد، فالشرط الأول.\n• «If you increased the fee to 10,000, I would include an extra reel.» — احتمال تطرحينه بلطف، فالشرط الثاني.\n• «If the reels get strong engagement, we will extend the collaboration.» — شرط أول يفتح باب لمرحلة جاية.\nلاحظي كيف الأول يثبّت العرض، والثاني يفاوض بمرونة.",
+          "content_en": "<b>From your scene</b><br><br>From your influencer thread:<br>• <b>If you post three reels and two stories, we will pay 8,000 riyals.</b> — a firm offer, so first conditional.<br>• <b>If you increased the fee to 10,000, I would include an extra reel.</b> — a polite possibility, so second conditional.<br>• <b>If the reels get strong engagement, we will extend the collaboration.</b> — a first conditional that opens the next stage.<br><br>The first locks the offer; the second negotiates with flexibility."
+        },
+        {
+          "content_ar": "● أخطاء شائعة\n✗ If you will post three reels, we will pay 8,000. ✓ If you post three reels, we will pay 8,000. — بعد if نحطّ مضارع بسيط، مو will.\n✗ If you increased the fee, I will include an extra reel. ✓ If you increased the fee, I would include an extra reel. — if + ماضٍ يبي would، مو will.\n✗ If you would give me more freedom, the content would feel natural. ✓ If you gave me more freedom, the content would feel natural. — would ما تجي داخل جملة if.",
+          "content_en": "<b>Common mistakes</b><br><br>✗ <i>If you will post three reels, we will pay 8,000.</i><br>✓ <b>If you post three reels, we will pay 8,000.</b> — use present simple after <i>if</i>, not <i>will</i>.<br><br>✗ <i>If you increased the fee, I will include an extra reel.</i><br>✓ <b>If you increased the fee, I would include an extra reel.</b> — if + past needs <i>would</i>, not <i>will</i>.<br><br>✗ <i>If you would give me more freedom, the content would feel natural.</i><br>✓ <b>If you gave me more freedom, the content would feel natural.</b> — <i>would</i> never goes inside the if-clause."
+        },
+        {
+          "content_ar": "● متى تستخدمينها\nفي التفاوض، اختاري حسب هدفك:\n• الشرط الأول للعروض اللي أنتِ ملتزمة فيها: «If you accept today, we will send the brief tomorrow.» يعطي إحساس بالثقة والجدية.\n• الشرط الثاني عشان تطرحين احتمال بلطف أو تردّين على طلب بدون ما تلتزمين: «If you gave us a longer deadline, we could add a bonus.» يخلّي الباب مفتوح للنقاش.\nخليكِ ودودة وواضحة — الأول يبني الصفقة، والثاني يبقي العلاقة مرنة.",
+          "content_en": "<b>When to use each</b><br><br>In a negotiation, choose by your goal:<br>• <b>First conditional</b> for offers you commit to: <b>If you accept today, we will send the brief tomorrow.</b> — it sounds confident and serious.<br>• <b>Second conditional</b> to float a possibility or answer a request without committing: <b>If you gave us a longer deadline, we could add a bonus.</b> — it keeps the door open.<br><br>Stay warm and clear — the first builds the deal, the second keeps the relationship flexible."
+        }
+      ],
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the correct conditional form.",
+          "instructions_ar": "ضعي الفعل في صيغة الشرط الصحيحة",
+          "item": {
+            "options": [],
+            "question": "If you accept the offer today, we ______ (send) you the brief tomorrow.",
+            "correct_answer": "will send",
+            "explanation_ar": "شرط أول واقعي: if + مضارع ← will.",
+            "instruction_ar": "ضعي الفعل في صيغة الشرط الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the correct conditional form.",
+          "instructions_ar": "ضعي الفعل في صيغة الشرط الصحيحة",
+          "item": {
+            "options": [],
+            "question": "If you gave me more creative freedom, the content ______ (feel) more natural to my audience.",
+            "correct_answer": "would feel",
+            "explanation_ar": "شرط ثاني افتراضي: if + ماضٍ ← would.",
+            "instruction_ar": "ضعي الفعل في صيغة الشرط الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the correct conditional form.",
+          "instructions_ar": "ضعي الفعل في صيغة الشرط الصحيحة",
+          "item": {
+            "options": [],
+            "question": "If the reels ______ (get) strong engagement, we can extend the collaboration into autumn.",
+            "correct_answer": "get",
+            "explanation_ar": "جملة if في الشرط الأول تاخذ مضارع بسيط ← get.",
+            "instruction_ar": "ضعي الفعل في صيغة الشرط الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["would include", "will include", "included", "include"],
+            "question": "If you increased the fee to 10,000, I ______ an extra reel for free.",
+            "correct_answer": "would include",
+            "explanation_ar": "شرط ثاني: if + ماضٍ (increased) ← would + مصدر.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["will agree", "agree", "would agree", "agreed"],
+            "question": "If we ______ on these terms today, I could start filming next week.",
+            "correct_answer": "agreed",
+            "explanation_ar": "مع could في الجواب، جملة if تاخذ ماضٍ بسيط ← agreed (شرط ثاني).",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite as a second conditional to make the offer softer.",
+          "instructions_ar": "حوّلي الجملة إلى الشرط الثاني لتلطيف العرض",
+          "item": {
+            "options": [],
+            "question": "Rewrite as a second conditional: If you post three reels, we will pay 8,000.",
+            "correct_answer": "If you posted three reels, we would pay 8,000.",
+            "explanation_ar": "الشرط الثاني: if + ماضٍ (posted) ← would pay.",
+            "instruction_ar": "حوّلي الجملة إلى الشرط الثاني"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite as a first conditional (a firm, real offer).",
+          "instructions_ar": "حوّلي الجملة إلى الشرط الأول (عرض مؤكد)",
+          "item": {
+            "options": [],
+            "question": "Rewrite as a first conditional: If you accepted today, we would send the brief tomorrow.",
+            "correct_answer": "If you accept today, we will send the brief tomorrow.",
+            "explanation_ar": "الشرط الأول: if + مضارع (accept) ← will send.",
+            "instruction_ar": "حوّلي الجملة إلى الشرط الأول"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'If you will post three reels, we will pay 8,000 riyals.'",
+            "correct_answer": "If you post three reels, we will pay 8,000 riyals.",
+            "explanation_ar": "بعد if نحطّ مضارع بسيط، ما نحطّ will.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'If you increased the fee, I will include an extra reel.'",
+            "correct_answer": "If you increased the fee, I would include an extra reel.",
+            "explanation_ar": "if + ماضٍ (increased) يبي would، مو will.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in the correct order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": ["will", "If", "week", "this", "agree", "a", "we", "add", "you", "bonus"],
+            "question": "Put the words in order: will / If / week / this / agree / a / we / add / you / bonus",
+            "correct_answer": "If you agree this week we will add a bonus.",
+            "explanation_ar": "شرط أول: if + مضارع (agree) ← will add.",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    }
+  ]
+}

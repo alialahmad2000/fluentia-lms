@@ -1,0 +1,278 @@
+{
+  "units": [
+    {
+      "custom_sort": 9,
+      "topic_name_en": "Passive Voice",
+      "topic_name_ar": "المبني للمجهول",
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the passive voice.",
+          "instructions_ar": "ضعي الفعل في المبني للمجهول",
+          "item": {
+            "options": [],
+            "question": "A confirmation email ______ (send) to the customer the moment an order is placed.",
+            "correct_answer": "is sent",
+            "accepted_answers": ["is sent"],
+            "explanation_ar": "مضارع مبني للمجهول والفاعل مفرد ← is + التصريف الثالث (sent).",
+            "instruction_ar": "ضعي الفعل في المبني للمجهول"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the passive voice.",
+          "instructions_ar": "ضعي الفعل في المبني للمجهول",
+          "item": {
+            "options": [],
+            "question": "The new online store ______ (launch) at the start of next month.",
+            "correct_answer": "will be launched",
+            "accepted_answers": ["will be launched"],
+            "explanation_ar": "مستقبل مبني للمجهول ← will be + التصريف الثالث (launched).",
+            "instruction_ar": "ضعي الفعل في المبني للمجهول"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Put the verb in the passive voice.",
+          "instructions_ar": "ضعي الفعل في المبني للمجهول",
+          "item": {
+            "options": [],
+            "question": "Every step of the funnel ______ (plan) carefully, so nothing is left to chance.",
+            "correct_answer": "has been planned",
+            "accepted_answers": ["has been planned"],
+            "explanation_ar": "مضارع تام مبني للمجهول والفاعل مفرد ← has been + التصريف الثالث (planned).",
+            "instruction_ar": "ضعي الفعل في المبني للمجهول"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["is testing", "is being tested", "tests", "being tested"],
+            "question": "The website ______ this week, and any bugs are fixed before the launch.",
+            "correct_answer": "is being tested",
+            "accepted_answers": ["is being tested"],
+            "explanation_ar": "شيء يصير الحين ومبني للمجهول ← is being + التصريف الثالث.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["is protect", "protects", "is protected", "protected"],
+            "question": "Customer data ______ by a secure payment system at every step.",
+            "correct_answer": "is protected",
+            "accepted_answers": ["is protected"],
+            "explanation_ar": "مبني للمجهول لازم فعل be ← is + التصريف الثالث (protected).",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite in the passive voice.",
+          "instructions_ar": "حوّلي الجملة إلى المبني للمجهول",
+          "item": {
+            "options": [],
+            "question": "Rewrite in the passive: A secure system handles all customer payments.",
+            "correct_answer": "All customer payments are handled by a secure system.",
+            "accepted_answers": ["All customer payments are handled by a secure system.", "Customer payments are handled by a secure system."],
+            "explanation_ar": "المفعول (payments) يصير فاعل، والفعل ← are + التصريف الثالث + by للفاعل.",
+            "instruction_ar": "حوّلي الجملة إلى المبني للمجهول"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Rewrite in the passive voice.",
+          "instructions_ar": "حوّلي الجملة إلى المبني للمجهول",
+          "item": {
+            "options": [],
+            "question": "Rewrite in the passive: We sent the confirmation email automatically.",
+            "correct_answer": "The confirmation email was sent automatically.",
+            "accepted_answers": ["The confirmation email was sent automatically.", "The confirmation email was sent automatically by us."],
+            "explanation_ar": "ماضي مبني للمجهول ← was + التصريف الثالث (sent).",
+            "instruction_ar": "حوّلي الجملة إلى المبني للمجهول"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'The new store will launched next month, right on schedule.'",
+            "correct_answer": "The new store will be launched next month, right on schedule.",
+            "accepted_answers": ["The new store will be launched next month, right on schedule."],
+            "explanation_ar": "المبني للمجهول بعد will لازم be ← will be launched.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'All the product photos is edited by the design team before launch.'",
+            "correct_answer": "All the product photos are edited by the design team before launch.",
+            "accepted_answers": ["All the product photos are edited by the design team before launch."],
+            "explanation_ar": "الفاعل جمع (photos) ← are مو is.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": ["tested", "is", "The website", "this", "week", "being"],
+            "question": "Put the words in order: tested / is / The website / this / week / being",
+            "correct_answer": "The website is being tested this week.",
+            "accepted_answers": ["The website is being tested this week."],
+            "explanation_ar": "المضارع المستمر المبني للمجهول ← is being + التصريف الثالث.",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    },
+    {
+      "custom_sort": 10,
+      "topic_name_en": "Purpose & Persuasion: so that / in order to / which means",
+      "topic_name_ar": "الهدف والإقناع: so that و in order to و which means",
+      "exercises": [
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the purpose phrase with the verb.",
+          "instructions_ar": "أكملي عبارة الهدف بالفعل المناسب",
+          "item": {
+            "options": [],
+            "question": "We'll feature real customers in the videos ______ (build) trust with new buyers.",
+            "correct_answer": "in order to build",
+            "accepted_answers": ["in order to build"],
+            "explanation_ar": "للهدف نستخدم in order to + الفعل في المصدر (build).",
+            "instruction_ar": "أكملي عبارة الهدف بالفعل المناسب"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the purpose phrase.",
+          "instructions_ar": "أكملي عبارة الهدف",
+          "item": {
+            "options": [],
+            "question": "We'll post one story each week ______ our audience stays engaged all winter.",
+            "correct_answer": "so that",
+            "accepted_answers": ["so that"],
+            "explanation_ar": "so that تجي قبل جملة كاملة (فاعل + فعل) للتعبير عن الهدف.",
+            "instruction_ar": "أكملي عبارة الهدف"
+          }
+        },
+        {
+          "exercise_type": "fill_blank",
+          "instructions_en": "Complete the persuasion phrase.",
+          "instructions_ar": "أكملي عبارة الإقناع",
+          "item": {
+            "options": [],
+            "question": "We'll work with micro-influencers, ______ we reach a loyal audience at a lower cost.",
+            "correct_answer": "which means",
+            "accepted_answers": ["which means"],
+            "explanation_ar": "which means تربط النقطة بفائدتها والنتيجة اللي تجي منها.",
+            "instruction_ar": "أكملي عبارة الإقناع"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["so that", "in order to", "which means", "so as"],
+            "question": "We're creating a video series ______ build trust with new customers.",
+            "correct_answer": "in order to",
+            "accepted_answers": ["in order to"],
+            "explanation_ar": "قبل فعل في المصدر (build) نستخدم in order to؛ so that لازم بعدها جملة كاملة.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "choose",
+          "instructions_en": "Choose the correct option.",
+          "instructions_ar": "اختاري الإجابة الصحيحة",
+          "item": {
+            "options": ["which mean", "which meaning", "which means", "that means"],
+            "question": "We'll partner with three micro-influencers, ______ we reach a loyal audience at a lower cost.",
+            "correct_answer": "which means",
+            "accepted_answers": ["which means"],
+            "explanation_ar": "الصيغة الصحيحة which means؛ الفعل يجي means مع which.",
+            "instruction_ar": "اختاري الإجابة الصحيحة"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Join with 'so that'.",
+          "instructions_ar": "اربطي الجملتين بـ so that",
+          "item": {
+            "options": [],
+            "question": "Join with 'so that': We'll add a simple hashtag. + Customers can share their own stories.",
+            "correct_answer": "We'll add a simple hashtag so that customers can share their own stories.",
+            "accepted_answers": ["We'll add a simple hashtag so that customers can share their own stories.", "We will add a simple hashtag so that customers can share their own stories."],
+            "explanation_ar": "so that تربط الفعل بهدفه وتجي قبل جملة كاملة.",
+            "instruction_ar": "اربطي الجملتين بـ so that"
+          }
+        },
+        {
+          "exercise_type": "transform",
+          "instructions_en": "Join with 'which means'.",
+          "instructions_ar": "اربطي الجملتين بـ which means",
+          "item": {
+            "options": [],
+            "question": "Join with 'which means': Real stories are more memorable than polished ads. + People remember our brand longer.",
+            "correct_answer": "Real stories are more memorable than polished ads, which means people remember our brand longer.",
+            "accepted_answers": ["Real stories are more memorable than polished ads, which means people remember our brand longer."],
+            "explanation_ar": "which means تشرح الفائدة الناتجة عن النقطة.",
+            "instruction_ar": "اربطي الجملتين بـ which means"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'We'll release one video each week in order to keeping the momentum going.'",
+            "correct_answer": "We'll release one video each week in order to keep the momentum going.",
+            "accepted_answers": ["We'll release one video each week in order to keep the momentum going.", "We will release one video each week in order to keep the momentum going."],
+            "explanation_ar": "بعد in order to الفعل يجي في المصدر (keep) مو -ing.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "error_correction",
+          "instructions_en": "Find and correct the error.",
+          "instructions_ar": "صحّحي الخطأ في الجملة",
+          "item": {
+            "options": [],
+            "question": "Find and correct the error: 'Each video tells one honest story so that viewers to feel a real connection.'",
+            "correct_answer": "Each video tells one honest story so that viewers feel a real connection.",
+            "accepted_answers": ["Each video tells one honest story so that viewers feel a real connection."],
+            "explanation_ar": "بعد so that تجي جملة كاملة بدون to ← viewers feel.",
+            "instruction_ar": "صحّحي الخطأ في الجملة"
+          }
+        },
+        {
+          "exercise_type": "reorder",
+          "instructions_en": "Put the words in order.",
+          "instructions_ar": "رتّبي الكلمات لتكوين جملة صحيحة",
+          "item": {
+            "options": ["build", "in order to", "We", "trust", "real stories", "use"],
+            "question": "Put the words in order: build / in order to / We / trust / real stories / use",
+            "correct_answer": "We use real stories in order to build trust.",
+            "accepted_answers": ["We use real stories in order to build trust."],
+            "explanation_ar": "in order to + فعل في المصدر (build) للتعبير عن الهدف.",
+            "instruction_ar": "رتّبي الكلمات لتكوين جملة صحيحة"
+          }
+        }
+      ]
+    }
+  ]
+}
