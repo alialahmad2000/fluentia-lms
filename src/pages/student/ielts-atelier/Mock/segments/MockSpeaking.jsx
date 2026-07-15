@@ -110,9 +110,17 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recordings, rows, onComplete, startedAt, processing])
 
+  // Keep a LIVE ref to the latest submit handler. The section-timer effect below
+  // is mounted once with [] deps, so a direct `handleFinalSubmit()` call from it
+  // would fire the FIRST-render closure — the one captured while `recordings`
+  // was still empty — silently discarding every recorded answer on timer expiry.
+  // Routing the timer through this ref makes it always submit the latest recordings.
+  const finalSubmitRef = useRef(handleFinalSubmit)
+  useEffect(() => { finalSubmitRef.current = handleFinalSubmit }, [handleFinalSubmit])
+
   useEffect(() => {
-    if (secsLeft <= 0) { handleFinalSubmit(); return }
-    globalTimer.current = setInterval(() => setSecsLeft((s) => { if (s <= 1) { clearInterval(globalTimer.current); handleFinalSubmit(); return 0 } return s - 1 }), 1000)
+    if (secsLeft <= 0) { finalSubmitRef.current(); return }
+    globalTimer.current = setInterval(() => setSecsLeft((s) => { if (s <= 1) { clearInterval(globalTimer.current); finalSubmitRef.current(); return 0 } return s - 1 }), 1000)
     return () => clearInterval(globalTimer.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
