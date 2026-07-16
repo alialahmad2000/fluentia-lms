@@ -1,0 +1,264 @@
+{
+  "stage": {
+    "slug": "reading-the-real-world",
+    "sort_order": 10,
+    "title_en": "Reading the Real World",
+    "title_ar": "قراءة العالم التقني",
+    "subtitle_ar": "محطّتكِ الأخيرة: تقرئين الأخبار والتوثيق التقني بالإنجليزية، وتتحدّثين عن التقنية برأيٍ واضحٍ وواثق.",
+    "cefr": "B2",
+    "accent": "#4ade80",
+    "icon": "Newspaper"
+  },
+  "lessons": [
+    {
+      "slug": "tech-news",
+      "sort_order": 1,
+      "title_en": "Reading Tech News",
+      "title_ar": "قراءة الأخبار والمقالات التقنية",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "التقنية تتحرّك كلّ يوم، ومهندسة المستقبل تتابع مجالها من مصادره الأصلية بالإنجليزية. في هذا الدرس ستتعلّمين كيف تقرئين خبرًا تقنيًّا بذكاء: تفهمين العنوان، وتقيّمين المصدر، وتميّزين الحقيقة من الإشاعة. هذه المهارة ستجعل قراءتكِ أسرع وثقتكِ أكبر.",
+        "vocab": [
+          { "word": "headline", "ipa": "/ˈhedlaɪn/", "meaning_ar": "عنوان رئيسي", "meaning_en": "the title of a news story, in large letters", "example": "The headline said a new phone was coming." },
+          { "word": "article", "ipa": "/ˈɑːrtɪkl/", "meaning_ar": "مقال", "meaning_en": "a piece of writing about one topic", "example": "I read a long article about artificial intelligence." },
+          { "word": "source", "ipa": "/sɔːrs/", "meaning_ar": "مصدر", "meaning_en": "the place where information comes from", "example": "Always check the source of the news." },
+          { "word": "update", "ipa": "/ˈʌpdeɪt/", "meaning_ar": "تحديث", "meaning_en": "a newer version with changes or fixes", "example": "The company released a security update." },
+          { "word": "release", "ipa": "/rɪˈliːs/", "meaning_ar": "إصدار / إطلاق", "meaning_en": "when a product is made available to people", "example": "The release of the new app is next week." },
+          { "word": "feature", "ipa": "/ˈfiːtʃər/", "meaning_ar": "ميزة / خاصية", "meaning_en": "something a product can do", "example": "My favourite feature is the dark mode." },
+          { "word": "announce", "ipa": "/əˈnaʊns/", "meaning_ar": "يُعلن", "meaning_en": "to tell people about something officially", "example": "They will announce the price tomorrow." },
+          { "word": "rumor", "ipa": "/ˈruːmər/", "meaning_ar": "إشاعة", "meaning_en": "a story that people share but may not be true", "example": "That is just a rumor, not a fact." },
+          { "word": "reliable", "ipa": "/rɪˈlaɪəbl/", "meaning_ar": "موثوق", "meaning_en": "something you can trust to be correct", "example": "This website is a reliable source." },
+          { "word": "trend", "ipa": "/trend/", "meaning_ar": "اتجاه / رائج", "meaning_en": "something that is popular right now", "example": "Cloud computing is a big trend this year." },
+          { "word": "summary", "ipa": "/ˈsʌməri/", "meaning_ar": "ملخّص", "meaning_en": "a short version that gives the main points", "example": "Read the summary before the full text." },
+          { "word": "claim", "ipa": "/kleɪm/", "meaning_ar": "يزعم / ادّعاء", "meaning_en": "to say something is true without full proof", "example": "They claim it is the fastest laptop ever." }
+        ],
+        "reading": {
+          "title_en": "How to Read Tech News",
+          "title_ar": "كيف تقرئين الأخبار التقنية",
+          "paragraphs": [
+            "Every day, thousands of tech articles appear online. A good headline tells you the main idea in a few words, but it can also be a trick to make you click. Smart readers do not stop at the headline; they read the full article and think about the source. Is the website reliable, or does it just repeat a rumor?",
+            "Tech news often talks about a new release. A company may announce an update to its software or launch a phone with a new feature. Reporters explain what changed and why it matters. When a headline says a product is 'the best ever,' ask for proof. A reliable article shows real numbers and quotes experts, not just a claim from an anonymous person.",
+            "To save time, many readers start with a short summary at the top of the page. This gives the key points before the details. It also helps to follow a current trend, so you understand what people in tech are talking about this week. However, one source is never enough. If two or three reliable websites report the same news, you can trust it more.",
+            "Reading tech news in English is great practice. You learn new words, you follow your future field, and you slowly build the confidence to tell a fact from a rumor."
+          ]
+        },
+        "key_phrases": [
+          { "en": "According to a reliable source, the update is free.", "ar": "وفقًا لمصدرٍ موثوق، التحديث مجّاني." },
+          { "en": "The company announced a new feature today.", "ar": "أعلنت الشركة عن ميزةٍ جديدةٍ اليوم." },
+          { "en": "This is just a rumor, not a confirmed fact.", "ar": "هذه مجرّد إشاعة، وليست حقيقةً مؤكّدة." },
+          { "en": "Let me read the full article before I decide.", "ar": "دعيني أقرأ المقال كاملًا قبل أن أقرّر." },
+          { "en": "What is the source of this news?", "ar": "ما مصدر هذا الخبر؟" }
+        ],
+        "comprehension": [
+          {
+            "question": "What does a good headline do?",
+            "options": ["Gives the main idea in a few words", "Writes the whole article for you", "Hides the news completely", "Replaces the source"],
+            "correct": "Gives the main idea in a few words",
+            "explanation_ar": "العنوان الجيّد يلخّص الفكرة الرئيسية بكلماتٍ قليلة."
+          },
+          {
+            "question": "Why should you not trust the headline alone?",
+            "options": ["Because headlines are always false", "Because it can be a trick to make you click", "Because it is too long to read", "Because it never mentions technology"],
+            "correct": "Because it can be a trick to make you click",
+            "explanation_ar": "أحيانًا يكون العنوان مصمّمًا لإغرائكِ بالنقر فقط، فاقرئي المقال كاملًا."
+          },
+          {
+            "question": "What makes an article more reliable?",
+            "options": ["A funny title", "An anonymous claim", "Real numbers and quotes from experts", "A single rumor"],
+            "correct": "Real numbers and quotes from experts",
+            "explanation_ar": "المقال الموثوق يقدّم أرقامًا حقيقية ويقتبس من خبراء، لا مجرّد ادّعاء."
+          },
+          {
+            "question": "According to the text, what helps you save time?",
+            "options": ["Reading only the comments", "Ignoring the source", "Reading a hundred articles at once", "Starting with a short summary"],
+            "correct": "Starting with a short summary",
+            "explanation_ar": "البدء بملخّصٍ قصير يعطيكِ النقاط الأساسية بسرعة."
+          },
+          {
+            "question": "When can you trust a piece of news more?",
+            "options": ["When several reliable websites report the same news", "When only one person claims it", "When it has the biggest headline", "When it is a popular rumor"],
+            "correct": "When several reliable websites report the same news",
+            "explanation_ar": "تأكيد الخبر من عدّة مصادر موثوقة يزيد من ثقتكِ به."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Find one short tech headline online. Write 3–4 sentences: what it says, who the source is, and whether you think it is reliable.",
+          "prompt_ar": "ابحثي عن عنوانٍ تقنيٍّ قصير على الإنترنت، ثم اكتبي ٣–٤ جُمل: ماذا يقول، ومن هو مصدره، وهل تظنّينه موثوقًا.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: source، reliable، rumor، update."
+        }
+      }
+    },
+    {
+      "slug": "documentation",
+      "sort_order": 2,
+      "title_en": "Understanding Documentation",
+      "title_ar": "فهم التوثيق Documentation",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "لا يحفظ أيّ مبرمجٍ كلّ شيء؛ لهذا يعود المحترفون دائمًا إلى «التوثيق» (the docs). في هذا الدرس ستتعلّمين كيف تقرئين صفحة توثيقٍ بالإنجليزية بثقة: تفهمين الدالة ومعاملاتها والقيمة التي تُرجِعها، وتلتقطين التحذيرات مثل «مهجور» و«القيمة الافتراضية». إتقان هذه القراءة سيوفّر عليكِ ساعاتٍ من العمل.",
+        "vocab": [
+          { "word": "documentation", "ipa": "/ˌdɒkjumenˈteɪʃn/", "meaning_ar": "التوثيق / الوثائق", "meaning_en": "the official written text that explains how a tool works", "example": "The documentation explains every function." },
+          { "word": "reference", "ipa": "/ˈrefrəns/", "meaning_ar": "مرجع", "meaning_en": "a detailed part of the docs you look things up in", "example": "Check the reference for the exact name." },
+          { "word": "parameter", "ipa": "/pəˈræmɪtər/", "meaning_ar": "معامل / وسيط", "meaning_en": "a value you give to a function so it can work", "example": "This function takes two parameters." },
+          { "word": "function", "ipa": "/ˈfʌŋkʃn/", "meaning_ar": "دالة", "meaning_en": "a named piece of code that does one job", "example": "I wrote a function to add two numbers." },
+          { "word": "syntax", "ipa": "/ˈsɪntæks/", "meaning_ar": "الصياغة / بنية الكود", "meaning_en": "the correct way to write the code", "example": "A small syntax error can break the program." },
+          { "word": "example", "ipa": "/ɪɡˈzɑːmpl/", "meaning_ar": "مثال", "meaning_en": "a short piece of real code that shows how to use something", "example": "Copy the example and run it." },
+          { "word": "install", "ipa": "/ɪnˈstɔːl/", "meaning_ar": "يُثبّت", "meaning_en": "to add a program or library to your system", "example": "First, install the library." },
+          { "word": "guide", "ipa": "/ɡaɪd/", "meaning_ar": "دليل", "meaning_en": "a text that teaches you step by step", "example": "The 'Getting Started' guide is very clear." },
+          { "word": "return", "ipa": "/rɪˈtɜːrn/", "meaning_ar": "يُرجِع / القيمة المُرجَعة", "meaning_en": "the value a function gives back after it runs", "example": "This function returns the total." },
+          { "word": "deprecated", "ipa": "/ˈdeprəkeɪtɪd/", "meaning_ar": "مهجور / موقوف الاستخدام", "meaning_en": "no longer recommended and may be removed later", "example": "That method is deprecated now." },
+          { "word": "default", "ipa": "/dɪˈfɔːlt/", "meaning_ar": "القيمة الافتراضية", "meaning_en": "the value used automatically if you choose nothing", "example": "The default color is blue." },
+          { "word": "section", "ipa": "/ˈsekʃn/", "meaning_ar": "قسم", "meaning_en": "one part of a longer document", "example": "The examples are in this section." }
+        ],
+        "reading": {
+          "title_en": "Reading the Documentation",
+          "title_ar": "قراءة التوثيق",
+          "paragraphs": [
+            "Every serious tool, library, or programming language comes with documentation, often called 'the docs.' Developers rarely remember everything, so they read the docs to learn how something works. Good documentation is well organized: it usually starts with a 'Getting Started' guide, then a detailed reference for every function. Learning to read it quickly is one of the most valuable skills in tech.",
+            "A typical reference page describes one function at a time. It tells you the name, the parameters it accepts, and the value it will return. It also shows the correct syntax, so you know exactly how to write the code. Most pages include a short example, because seeing real code is often clearer than a long explanation. When you are stuck, copy the example, run it, and change it step by step.",
+            "Documentation also warns you about problems. If a feature is deprecated, it means the developers no longer recommend it and may remove it in the future, so you should avoid it in new projects. The docs also mention the default value of each parameter — the value the tool uses when you do not choose one yourself. Reading these details carefully saves hours of debugging.",
+            "Before you install a new library, it is wise to skim the whole documentation. Read the main sections, check the requirements, and look for a quick example. In English, the docs use the same words again and again, so the more you read, the faster and more confident you become."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Let me check the documentation first.", "ar": "دعيني أراجع التوثيق أولًا." },
+          { "en": "This function takes two parameters and returns a value.", "ar": "هذه الدالة تأخذ معاملَين وتُرجِع قيمة." },
+          { "en": "What is the default value of this parameter?", "ar": "ما القيمة الافتراضية لهذا المعامل؟" },
+          { "en": "This method is deprecated; use the new one instead.", "ar": "هذه الطريقة مهجورة؛ استخدمي الطريقة الجديدة بدلًا منها." },
+          { "en": "There is a helpful example in this section.", "ar": "يوجد مثالٌ مفيد في هذا القسم." }
+        ],
+        "comprehension": [
+          {
+            "question": "What is 'the docs' short for?",
+            "options": ["The doctors", "The documentation", "The developers", "The domains"],
+            "correct": "The documentation",
+            "explanation_ar": "«the docs» اختصارٌ شائع لكلمة documentation، أي التوثيق."
+          },
+          {
+            "question": "What does a reference page usually describe?",
+            "options": ["The company history", "One function, its parameters, and its return value", "The price of the tool", "The weather forecast"],
+            "correct": "One function, its parameters, and its return value",
+            "explanation_ar": "صفحة المرجع تصف دالةً واحدة: اسمها، ومعاملاتها، والقيمة التي تُرجِعها."
+          },
+          {
+            "question": "What does 'deprecated' mean?",
+            "options": ["It is the fastest option", "It is recommended for new projects", "The developers no longer recommend it and may remove it", "It is completely free"],
+            "correct": "The developers no longer recommend it and may remove it",
+            "explanation_ar": "«deprecated» تعني مهجور: لم يعد يُنصح به وقد يُحذف مستقبلًا."
+          },
+          {
+            "question": "What is a 'default value'?",
+            "options": ["The value the tool uses when you do not choose one", "A broken value", "The most expensive option", "A value you must always type"],
+            "correct": "The value the tool uses when you do not choose one",
+            "explanation_ar": "القيمة الافتراضية هي ما تستخدمه الأداة تلقائيًّا عندما لا تختارين قيمة."
+          },
+          {
+            "question": "Why do many pages include an example?",
+            "options": ["To make the page longer", "Because seeing real code is often clearer than a long explanation", "To hide the syntax", "Because the law requires it"],
+            "correct": "Because seeing real code is often clearer than a long explanation",
+            "explanation_ar": "رؤية كودٍ حقيقي غالبًا أوضح من شرحٍ طويل، لذلك تضع الصفحات مثالًا."
+          },
+          {
+            "question": "What is wise to do before you install a new library?",
+            "options": ["Delete your old projects", "Ignore the requirements", "Skim the whole documentation", "Buy a new computer"],
+            "correct": "Skim the whole documentation",
+            "explanation_ar": "من الحكمة تصفّح التوثيق كاملًا بسرعة قبل تثبيت أيّ مكتبةٍ جديدة."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Choose one simple function you know (or imagine one). Write a short documentation entry: its name, its parameters, what it returns, and one example line.",
+          "prompt_ar": "اختاري دالةً بسيطةً تعرفينها (أو تخيّلي واحدة)، ثم اكتبي مدخلًا مختصرًا في التوثيق: اسمها، ومعاملاتها، وما الذي تُرجِعه، وسطرَ مثالٍ واحد.",
+          "guidance_ar": "استخدمي كلماتٍ مثل: function، parameter، return، example، default."
+        }
+      }
+    },
+    {
+      "slug": "talking-about-tech",
+      "sort_order": 3,
+      "title_en": "Talking About Technology",
+      "title_ar": "الحديث عن التقنية",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "قراءة التقنية نصف المهارة؛ نصفها الآخر أن تتحدّثي عنها. في الصف أو العمل أو المقابلة، سيُطلب منكِ أن تشرحي رأيكِ وتقارني بين الأدوات وتوصي بحلّ. في هذا الدرس ستتعلّمين عباراتٍ إنجليزية تجعل حديثكِ التقني واضحًا ومحترمًا وواثقًا، مبنيًّا على أسبابٍ لا على كلماتٍ صعبة.",
+        "vocab": [
+          { "word": "opinion", "ipa": "/əˈpɪnjən/", "meaning_ar": "رأي", "meaning_en": "what you think about something", "example": "In my opinion, this tool is better." },
+          { "word": "explain", "ipa": "/ɪkˈspleɪn/", "meaning_ar": "يشرح", "meaning_en": "to make an idea clear to someone", "example": "Can you explain how it works?" },
+          { "word": "compare", "ipa": "/kəmˈpeər/", "meaning_ar": "يقارن", "meaning_en": "to look at two things and show how they differ", "example": "Let us compare the two frameworks." },
+          { "word": "advantage", "ipa": "/ədˈvæntɪdʒ/", "meaning_ar": "ميزة / نقطة قوّة", "meaning_en": "a good point about something", "example": "One advantage is its speed." },
+          { "word": "drawback", "ipa": "/ˈdrɔːbæk/", "meaning_ar": "عيب / نقطة ضعف", "meaning_en": "a weak point or disadvantage", "example": "The main drawback is the price." },
+          { "word": "recommend", "ipa": "/ˌrekəˈmend/", "meaning_ar": "يوصي / ينصح", "meaning_en": "to suggest something as a good choice", "example": "I recommend this library to beginners." },
+          { "word": "reliable", "ipa": "/rɪˈlaɪəbl/", "meaning_ar": "موثوق", "meaning_en": "something you can depend on", "example": "This server is very reliable." },
+          { "word": "efficient", "ipa": "/ɪˈfɪʃnt/", "meaning_ar": "فعّال / كفؤ", "meaning_en": "getting good results without wasting time or power", "example": "The new code is more efficient." },
+          { "word": "issue", "ipa": "/ˈɪʃuː/", "meaning_ar": "مشكلة / مسألة", "meaning_en": "a problem that needs attention", "example": "We found an issue in the login page." },
+          { "word": "solution", "ipa": "/səˈluːʃn/", "meaning_ar": "حل", "meaning_en": "a way to fix a problem", "example": "I have a simple solution for that." },
+          { "word": "agree", "ipa": "/əˈɡriː/", "meaning_ar": "يوافق", "meaning_en": "to have the same opinion as someone", "example": "I agree with your idea." },
+          { "word": "trade-off", "ipa": "/ˈtreɪdɒf/", "meaning_ar": "مقايضة / موازنة", "meaning_en": "when you gain one thing but lose another", "example": "Speed and cost are a trade-off." }
+        ],
+        "reading": {
+          "title_en": "Talking About Technology",
+          "title_ar": "الحديث عن التقنية",
+          "paragraphs": [
+            "Learning to read tech content is only half of the skill; you also need to talk about it. In class, at work, or in an interview, you will be asked to share your opinion and to explain your ideas clearly. People will not simply want to know what a tool does — they will want to know what you think of it and why.",
+            "A common task is to compare two technologies. When you compare, you describe the advantages and the drawbacks of each one. For example, one framework may be very fast and efficient, while another is easier to learn but a little slower. Almost every real choice in tech is a trade-off, and a good engineer can explain that balance in plain English instead of hiding behind difficult words.",
+            "When someone reports an issue, the discussion moves toward a solution. You might say, 'I recommend this library because it is reliable and well documented.' Others may agree with you, or they may disagree politely and suggest a different approach. Good technical conversation is respectful: you give reasons, you listen, and you accept a better idea when you hear one.",
+            "To sound natural, learn a few useful patterns. Phrases like 'In my opinion,' 'One advantage is,' and 'The main drawback is' help you organize your thoughts. The goal is not to memorize hard words, but to speak with confidence and to make your reasoning easy for others to follow."
+          ]
+        },
+        "key_phrases": [
+          { "en": "In my opinion, this is the better choice.", "ar": "في رأيي، هذا هو الخيار الأفضل." },
+          { "en": "One advantage is speed; the main drawback is cost.", "ar": "من مزاياه السرعة، وأبرز عيوبه التكلفة." },
+          { "en": "I recommend this tool because it is reliable.", "ar": "أوصي بهذه الأداة لأنها موثوقة." },
+          { "en": "Every choice is a trade-off.", "ar": "كلّ خيارٍ هو مقايضة." },
+          { "en": "I agree with you, but I would add one point.", "ar": "أتّفق معكِ، لكنّني أضيف نقطةً واحدة." },
+          { "en": "Let me explain the issue and suggest a solution.", "ar": "دعيني أشرح المشكلة وأقترح حلًّا." }
+        ],
+        "comprehension": [
+          {
+            "question": "According to the text, reading tech content is:",
+            "options": ["The whole skill", "Only half of the skill", "Not important at all", "Only useful in interviews"],
+            "correct": "Only half of the skill",
+            "explanation_ar": "القراءة نصف المهارة فقط؛ نصفها الآخر أن تتحدّثي عن التقنية."
+          },
+          {
+            "question": "What do you do when you 'compare' two technologies?",
+            "options": ["You describe the advantages and drawbacks of each", "You ignore all the drawbacks", "You choose one at random", "You use only difficult words"],
+            "correct": "You describe the advantages and drawbacks of each",
+            "explanation_ar": "المقارنة تعني ذكر مزايا وعيوب كلّ خيار."
+          },
+          {
+            "question": "What is a 'trade-off'?",
+            "options": ["A tool that has no drawbacks", "A perfect solution with no cost", "A balance where you gain something and lose something", "A type of job interview"],
+            "correct": "A balance where you gain something and lose something",
+            "explanation_ar": "المقايضة (trade-off) هي موازنة: تكسبين شيئًا وتخسرين آخر."
+          },
+          {
+            "question": "According to the text, good technical conversation is:",
+            "options": ["Loud and very fast", "Full of difficult words", "Only about winning the argument", "Respectful — you give reasons and listen"],
+            "correct": "Respectful — you give reasons and listen",
+            "explanation_ar": "الحوار التقني الجيّد محترم: تقدّمين الأسباب، وتستمعين، وتقبلين الفكرة الأفضل."
+          },
+          {
+            "question": "Which phrase helps you share your view?",
+            "options": ["'In my opinion,'", "'Turn it off,'", "'Install the file,'", "'Close the page,'"],
+            "correct": "'In my opinion,'",
+            "explanation_ar": "عبارة «In my opinion» تمهّد لعرض رأيكِ بوضوح."
+          },
+          {
+            "question": "What is the real goal, according to the last paragraph?",
+            "options": ["To memorize hard words", "To speak with confidence and clear reasoning", "To talk as fast as possible", "To avoid every question"],
+            "correct": "To speak with confidence and clear reasoning",
+            "explanation_ar": "الهدف ليس حفظ الكلمات الصعبة، بل التحدّث بثقة وبأسبابٍ واضحة."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Choose two apps or tools you use. Speak for one minute: compare them, give one advantage and one drawback of each, and say which you recommend and why.",
+          "prompt_ar": "اختاري تطبيقَين أو أداتَين تستخدمينهما، ثم تحدّثي لمدّة دقيقة: قارني بينهما، واذكري ميزةً وعيبًا لكلٍّ منهما، وقولي أيّهما توصين به ولماذا.",
+          "guidance_ar": "استخدمي عباراتٍ مثل: In my opinion، One advantage is، The main drawback is، I recommend."
+        }
+      }
+    }
+  ]
+}

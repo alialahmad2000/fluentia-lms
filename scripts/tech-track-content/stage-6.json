@@ -1,0 +1,175 @@
+{
+  "stage": {
+    "slug": "networks-and-security",
+    "sort_order": 6,
+    "title_en": "Networks & Security",
+    "title_ar": "الشبكات والأمن",
+    "subtitle_ar": "اكتشفي كيف تتحدّث الأجهزة معًا عبر الشبكات والسحابة، وكيف نحمي بياناتنا في عالمٍ متّصل.",
+    "cefr": "B1",
+    "accent": "#fb7185",
+    "icon": "ShieldCheck"
+  },
+  "lessons": [
+    {
+      "slug": "networks-and-servers",
+      "sort_order": 1,
+      "title_en": "Networks & Servers",
+      "title_ar": "الشبكات والخوادم",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "لا يعمل أي تطبيق أو موقع بمفرده؛ فخلف كل شاشة تجري محادثة بين أجهزة كثيرة عبر الشبكة. في هذا الدرس ستتعلّمين كيف يطلب جهازكِ المعلومات من خادم، وكيف تسافر البيانات من مكان إلى آخر. هذه الأساسيات ستفتح لكِ باب فهم الإنترنت كما يراه المهندسون.",
+        "vocab": [
+          { "word": "network", "ipa": "/ˈnetwɜːrk/", "meaning_ar": "شبكة", "meaning_en": "a group of computers connected together to share data", "example": "Every phone in the office is on the same network." },
+          { "word": "server", "ipa": "/ˈsɜːrvər/", "meaning_ar": "خادم", "meaning_en": "a powerful computer that stores data and answers requests", "example": "The website runs on a server in another country." },
+          { "word": "client", "ipa": "/ˈklaɪənt/", "meaning_ar": "عميل (جهاز العميل)", "meaning_en": "a computer or app that asks a server for information", "example": "Your browser is the client that asks for the page." },
+          { "word": "router", "ipa": "/ˈruːtər/", "meaning_ar": "موجّه", "meaning_en": "a device that sends data to the right place in a network", "example": "The router at home connects all our devices." },
+          { "word": "connection", "ipa": "/kəˈnekʃən/", "meaning_ar": "اتصال", "meaning_en": "a link that lets two devices exchange data", "example": "A slow connection makes videos stop and start." },
+          { "word": "request", "ipa": "/rɪˈkwest/", "meaning_ar": "طلب", "meaning_en": "a message asking a server for something", "example": "When you open a page, the browser sends a request." },
+          { "word": "response", "ipa": "/rɪˈspɒns/", "meaning_ar": "استجابة", "meaning_en": "the answer a server sends back to a client", "example": "The server's response was the whole web page." },
+          { "word": "protocol", "ipa": "/ˈprəʊtəkɒl/", "meaning_ar": "بروتوكول", "meaning_en": "a set of rules that lets devices talk to each other", "example": "The web uses a protocol called HTTP." },
+          { "word": "IP address", "ipa": "/ˌaɪ ˈpiː əˈdres/", "meaning_ar": "عنوان IP", "meaning_en": "a unique number that identifies a device on a network", "example": "Every device online has its own IP address." },
+          { "word": "bandwidth", "ipa": "/ˈbændwɪdθ/", "meaning_ar": "عرض النطاق الترددي", "meaning_en": "how much data a connection can carry in a moment", "example": "High bandwidth lets many people stream at once." },
+          { "word": "wireless", "ipa": "/ˈwaɪələs/", "meaning_ar": "لاسلكي", "meaning_en": "using radio signals instead of cables", "example": "Most homes now use a wireless network." },
+          { "word": "data", "ipa": "/ˈdeɪtə/", "meaning_ar": "بيانات", "meaning_en": "information that computers store and move", "example": "The network moves data between the devices." }
+        ],
+        "reading": {
+          "title_en": "How Networks Connect Us",
+          "title_ar": "كيف تربطنا الشبكات",
+          "paragraphs": [
+            "When you send a message or open a website, your device becomes part of a network. A network is a group of computers that are connected so they can share data. Some networks use cables, so we call them wired. Others use radio signals, so we call them wireless. A small device called a router sits in the middle and sends the data to the right place.",
+            "In many networks, one computer acts as a server. A server is a powerful computer that stores information and waits for other computers to ask for it. The computer that asks is called a client — for example, your laptop or your phone. The client sends a request, and the server sends back a response. This exchange happens millions of times every second all around the world.",
+            "For all of this to work, the computers must follow the same rules. These rules are called a protocol. Every device on the internet also has an IP address, which works like a home address so the data knows where to go. When the connection is fast and the bandwidth is high, pages load quickly and videos do not stop."
+          ]
+        },
+        "key_phrases": [
+          { "en": "The client sends a request to the server.", "ar": "يرسل العميل طلبًا إلى الخادم." },
+          { "en": "This network uses a wireless connection.", "ar": "تستخدم هذه الشبكة اتصالًا لاسلكيًا." },
+          { "en": "Every device has its own IP address.", "ar": "لكل جهاز عنوان IP خاص به." },
+          { "en": "The server sends back a response.", "ar": "يرسل الخادم استجابة." },
+          { "en": "A router connects all the devices in the network.", "ar": "يربط الموجّه جميع الأجهزة في الشبكة." }
+        ],
+        "comprehension": [
+          { "question": "What is a network?", "options": ["A single very fast computer", "A type of web browser", "A group of computers connected to share data", "A program that writes code"], "correct": "A group of computers connected to share data", "explanation_ar": "الشبكة مجموعة من الحواسيب المتّصلة لتتشارك البيانات." },
+          { "question": "What does a server do?", "options": ["Stores information and answers requests from other computers", "Cleans the data on your phone", "Draws the pictures on a website", "Charges the battery of the router"], "correct": "Stores information and answers requests from other computers", "explanation_ar": "الخادم يخزّن المعلومات ويستجيب لطلبات الأجهزة الأخرى." },
+          { "question": "In the reading, what is the client?", "options": ["The cable between two buildings", "The rules that devices follow", "A radio signal in the air", "The computer that asks for information"], "correct": "The computer that asks for information", "explanation_ar": "العميل هو الجهاز الذي يطلب المعلومات، مثل حاسوبكِ أو هاتفكِ." },
+          { "question": "What is an IP address like?", "options": ["The speed of the internet", "A home address for data", "A password for the router", "A kind of wireless signal"], "correct": "A home address for data", "explanation_ar": "عنوان IP يشبه عنوان المنزل، فيعرف مسار البيانات وجهتها." },
+          { "question": "When bandwidth is high, what happens?", "options": ["The server stops working", "Devices lose their IP address", "Pages load quickly and videos do not stop", "The network becomes wired"], "correct": "Pages load quickly and videos do not stop", "explanation_ar": "عندما يكون عرض النطاق عاليًا تُحمَّل الصفحات بسرعة ولا تتوقف المقاطع." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences describing the network you use at home. What connects your devices, and what do you do on it?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل تصفين فيها الشبكة التي تستخدمينها في المنزل. ما الذي يربط أجهزتك، وماذا تفعلين عليها؟",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس مثل network وrouter وconnection وwireless."
+        }
+      }
+    },
+    {
+      "slug": "the-cloud",
+      "sort_order": 2,
+      "title_en": "The Cloud",
+      "title_ar": "الحوسبة السحابية",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "كلما حفظتِ صورة أو فتحتِ تطبيقًا، من المرجّح أنكِ تستخدمين «السحابة» دون أن تشعري. في هذا الدرس ستفهمين ما هي الحوسبة السحابية حقًّا، ولماذا تعتمد عليها كل الشركات الحديثة تقريبًا. هذا المفهوم أساسي لأي تخصّص في تقنية المعلومات.",
+        "vocab": [
+          { "word": "cloud", "ipa": "/klaʊd/", "meaning_ar": "السحابة (الحوسبة السحابية)", "meaning_en": "using computers and storage over the internet, not your own machine", "example": "I keep all my photos in the cloud." },
+          { "word": "storage", "ipa": "/ˈstɔːrɪdʒ/", "meaning_ar": "تخزين", "meaning_en": "space where data is kept", "example": "My phone is out of storage again." },
+          { "word": "backup", "ipa": "/ˈbækʌp/", "meaning_ar": "نسخة احتياطية", "meaning_en": "a second copy of data kept in case the first is lost", "example": "The app makes a backup every night." },
+          { "word": "data center", "ipa": "/ˈdeɪtə ˌsentər/", "meaning_ar": "مركز بيانات", "meaning_en": "a large building full of servers", "example": "The photo is stored in a data center." },
+          { "word": "remote", "ipa": "/rɪˈməʊt/", "meaning_ar": "بعيد / عن بُعد", "meaning_en": "far away, reached over the internet", "example": "She has remote access to her files." },
+          { "word": "upload", "ipa": "/ˈʌpləʊd/", "meaning_ar": "رفع", "meaning_en": "to send data from your device to a server", "example": "Please upload the report to the cloud." },
+          { "word": "download", "ipa": "/ˈdaʊnləʊd/", "meaning_ar": "تنزيل", "meaning_en": "to bring data from a server to your device", "example": "You can download the file to any device." },
+          { "word": "provider", "ipa": "/prəˈvaɪdər/", "meaning_ar": "مزوّد الخدمة", "meaning_en": "a company that offers cloud services", "example": "The provider keeps our servers running." },
+          { "word": "access", "ipa": "/ˈækses/", "meaning_ar": "الوصول", "meaning_en": "the ability to reach and use data or a service", "example": "I have access to the files from home." },
+          { "word": "service", "ipa": "/ˈsɜːrvɪs/", "meaning_ar": "خدمة", "meaning_en": "something the cloud offers, like storage or email", "example": "Email is a service that runs in the cloud." },
+          { "word": "scalable", "ipa": "/ˈskeɪləbl/", "meaning_ar": "قابل للتوسّع", "meaning_en": "able to grow easily when more people use it", "example": "A scalable system handles more users with ease." },
+          { "word": "on-demand", "ipa": "/ˌɒn dɪˈmɑːnd/", "meaning_ar": "عند الطلب", "meaning_en": "available whenever you need it", "example": "Cloud storage is available on-demand." }
+        ],
+        "reading": {
+          "title_en": "What Is the Cloud?",
+          "title_ar": "ما هي السحابة؟",
+          "paragraphs": [
+            "When people talk about \"the cloud,\" they do not mean the sky. The cloud is a way of using computers and storage over the internet instead of on your own machine. When you save a photo to the cloud, you actually upload it to a large building full of servers called a data center. Later, you can download the same photo to any device you like.",
+            "The company that owns these servers is called a cloud provider. It offers storage and other services on-demand, which means you use only what you need and pay only for that. If your app suddenly gets many more users, a good system is scalable, so it can grow quickly without buying new machines by hand.",
+            "One of the best things about the cloud is remote access. Because your files live on the internet, you can reach them from home, from school, or from your phone. Many companies also keep a backup in the cloud, so if a laptop is lost or broken, the important data is still safe. This is why almost every modern app today depends on the cloud in some way."
+          ]
+        },
+        "key_phrases": [
+          { "en": "I saved my files to the cloud.", "ar": "حفظتُ ملفّاتي في السحابة." },
+          { "en": "You can access your data from anywhere.", "ar": "يمكنكِ الوصول إلى بياناتك من أي مكان." },
+          { "en": "Please upload the photo to the server.", "ar": "ارفعي الصورة إلى الخادم من فضلك." },
+          { "en": "The cloud provider keeps a backup of the data.", "ar": "يحتفظ مزوّد الخدمة بنسخة احتياطية من البيانات." },
+          { "en": "The system is scalable, so it can grow easily.", "ar": "النظام قابل للتوسّع، لذا يمكنه النموّ بسهولة." }
+        ],
+        "comprehension": [
+          { "question": "What does \"the cloud\" really mean?", "options": ["Water in the sky above us", "Using computers and storage over the internet", "A very small phone battery", "A cable between two routers"], "correct": "Using computers and storage over the internet", "explanation_ar": "السحابة تعني استخدام الحواسيب والتخزين عبر الإنترنت بدلًا من جهازكِ وحده." },
+          { "question": "What is a data center?", "options": ["A single home computer", "A kind of wireless signal", "A phone app for photos", "A large building full of servers"], "correct": "A large building full of servers", "explanation_ar": "مركز البيانات مبنى كبير مليء بالخوادم." },
+          { "question": "What does \"on-demand\" mean in the reading?", "options": ["You use and pay only for what you need", "You must buy new machines yourself", "The service works only at night", "You lose your files after one week"], "correct": "You use and pay only for what you need", "explanation_ar": "«عند الطلب» تعني أنكِ تستخدمين وتدفعين مقابل ما تحتاجينه فقط." },
+          { "question": "Why do many companies keep a backup in the cloud?", "options": ["To make their internet faster", "To hide their IP address", "So the data is safe if a device is lost or broken", "To turn a wired network into a wireless one"], "correct": "So the data is safe if a device is lost or broken", "explanation_ar": "تحتفظ الشركات بنسخة احتياطية كي تبقى البيانات آمنة إذا فُقد جهاز أو تعطّل." },
+          { "question": "What does remote access let you do?", "options": ["Charge your laptop faster", "Delete the whole data center", "Build a new router at home", "Reach your files from almost anywhere"], "correct": "Reach your files from almost anywhere", "explanation_ar": "الوصول عن بُعد يتيح لكِ فتح ملفّاتك من أي مكان تقريبًا عبر الإنترنت." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about how you use the cloud. What do you upload or store, and why is it useful for you?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن كيفية استخدامك للسحابة. ماذا ترفعين أو تخزّنين، ولماذا هي مفيدة لكِ؟",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس مثل cloud وstorage وupload وbackup."
+        }
+      }
+    },
+    {
+      "slug": "cybersecurity",
+      "sort_order": 3,
+      "title_en": "Cybersecurity Basics",
+      "title_ar": "أساسيات الأمن السيبراني",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "نحمل اليوم صورنا ورسائلنا وحتى أموالنا على أجهزتنا، لذا صار حفظها من أهمّ مهارات أي متخصّصة في التقنية. في هذا الدرس ستتعرّفين على أشهر التهديدات على الإنترنت، وعلى طرق بسيطة لحماية نفسك وبياناتك. الوعي وحده يجعلك أقوى من كثير من المهاجمين.",
+        "vocab": [
+          { "word": "security", "ipa": "/sɪˈkjʊərəti/", "meaning_ar": "الأمن", "meaning_en": "keeping computers and data safe from harm", "example": "Good security protects your accounts." },
+          { "word": "password", "ipa": "/ˈpɑːswɜːrd/", "meaning_ar": "كلمة المرور", "meaning_en": "a secret word that lets only you into an account", "example": "Choose a long, strong password." },
+          { "word": "hacker", "ipa": "/ˈhækər/", "meaning_ar": "مخترِق", "meaning_en": "a person who tries to break into computers", "example": "A hacker tried to enter the system." },
+          { "word": "malware", "ipa": "/ˈmælweər/", "meaning_ar": "برمجية خبيثة", "meaning_en": "harmful software made to damage or steal", "example": "The email carried dangerous malware." },
+          { "word": "virus", "ipa": "/ˈvaɪrəs/", "meaning_ar": "فيروس", "meaning_en": "a type of malware that spreads from file to file", "example": "A virus can copy itself across a network." },
+          { "word": "phishing", "ipa": "/ˈfɪʃɪŋ/", "meaning_ar": "التصيّد الاحتيالي", "meaning_en": "a fake message that tries to steal your details", "example": "That phishing email asked for my password." },
+          { "word": "encryption", "ipa": "/ɪnˈkrɪpʃən/", "meaning_ar": "التشفير", "meaning_en": "changing data into a secret code others cannot read", "example": "Encryption keeps your messages private." },
+          { "word": "firewall", "ipa": "/ˈfaɪərwɔːl/", "meaning_ar": "جدار الحماية", "meaning_en": "a system that blocks unsafe traffic on a network", "example": "The firewall stopped the attack." },
+          { "word": "threat", "ipa": "/θret/", "meaning_ar": "تهديد", "meaning_en": "something that could cause harm to a system", "example": "The team watches for every new threat." },
+          { "word": "protect", "ipa": "/prəˈtekt/", "meaning_ar": "يحمي", "meaning_en": "to keep something safe from harm", "example": "A strong password helps protect your account." },
+          { "word": "update", "ipa": "/ˈʌpdeɪt/", "meaning_ar": "تحديث", "meaning_en": "new software that fixes problems or weak points", "example": "Install the security update today." },
+          { "word": "breach", "ipa": "/briːtʃ/", "meaning_ar": "اختراق / خرق", "meaning_en": "a moment when an attacker gets in", "example": "The company reported a data breach." }
+        ],
+        "reading": {
+          "title_en": "Staying Safe Online",
+          "title_ar": "البقاء آمنة على الإنترنت",
+          "paragraphs": [
+            "Every day, we keep photos, messages, and even money on our devices, so we must protect them. Cybersecurity is the practice of keeping computers and data safe from attacks. The people who try to break in are called hackers. Some of them use malware — harmful software such as a virus — to steal information or to damage a system.",
+            "One common trick is phishing. In a phishing attack, someone sends a fake email or message that looks real and asks for your password. If you type it, the attacker can enter your account. This is why you should never share a password, and you should always check who is really asking before you reply.",
+            "Luckily, there are strong ways to stay safe. A firewall watches the traffic that comes into a network and blocks any threat it does not trust. Encryption changes your data into a secret code, so even if someone steals it, they cannot read it. You can also protect yourself with simple habits: use a long password, and install every security update quickly, because updates fix the weak points that can lead to a breach."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Choose a strong password for every account.", "ar": "اختاري كلمة مرور قوية لكل حساب." },
+          { "en": "Never click a link in a phishing email.", "ar": "لا تنقري على أي رابط في رسالة تصيّد احتيالي." },
+          { "en": "A firewall protects the network from attacks.", "ar": "يحمي جدار الحماية الشبكة من الهجمات." },
+          { "en": "Please install the latest security update.", "ar": "ثبّتي آخر تحديث أمني من فضلك." },
+          { "en": "Encryption keeps your data safe.", "ar": "يحافظ التشفير على أمان بياناتك." },
+          { "en": "Report any threat to the security team.", "ar": "أبلغي فريق الأمن عن أي تهديد." }
+        ],
+        "comprehension": [
+          { "question": "What is cybersecurity?", "options": ["Keeping computers and data safe from attacks", "A faster kind of internet connection", "A building full of servers", "A tool for editing photos"], "correct": "Keeping computers and data safe from attacks", "explanation_ar": "الأمن السيبراني هو حماية الحواسيب والبيانات من الهجمات." },
+          { "question": "What is malware?", "options": ["A strong new password", "A helpful software update", "Harmful software that can steal or damage data", "A company that provides cloud storage"], "correct": "Harmful software that can steal or damage data", "explanation_ar": "البرمجية الخبيثة برنامج ضار يسرق البيانات أو يتلفها، مثل الفيروس." },
+          { "question": "In a phishing attack, what does the attacker want?", "options": ["To make your device faster", "Your password or personal details", "To give you a free update", "To build a new firewall"], "correct": "Your password or personal details", "explanation_ar": "في هجوم التصيّد يريد المهاجم كلمة مرورك أو معلوماتك الشخصية." },
+          { "question": "What does a firewall do?", "options": ["It stores your photos in the cloud", "It speeds up your download", "It writes your passwords for you", "It blocks unsafe traffic coming into the network"], "correct": "It blocks unsafe traffic coming into the network", "explanation_ar": "جدار الحماية يراقب حركة البيانات ويمنع أي تهديد غير موثوق." },
+          { "question": "Why is encryption useful?", "options": ["It turns data into a secret code others cannot read", "It makes your battery last longer", "It removes every password from your phone", "It sends a backup to a hacker"], "correct": "It turns data into a secret code others cannot read", "explanation_ar": "التشفير يحوّل البيانات إلى شيفرة سرّية لا يستطيع الآخرون قراءتها حتى لو سرقوها." },
+          { "question": "Why should you install security updates quickly?", "options": ["They make websites more colorful", "They add more storage to the cloud", "They fix weak points that could lead to a breach", "They change your IP address every day"], "correct": "They fix weak points that could lead to a breach", "explanation_ar": "التحديثات تُصلح نقاط الضعف التي قد تؤدي إلى اختراق." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about how you keep your accounts safe online. What habits protect you, and what would you tell a friend to avoid?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن كيفية حمايتك لحساباتك على الإنترنت. ما العادات التي تحميك، وبماذا تنصحين صديقتك لتتجنّبه؟",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس مثل password وphishing وfirewall وupdate."
+        }
+      }
+    }
+  ]
+}

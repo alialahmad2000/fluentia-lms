@@ -1,0 +1,592 @@
+{
+  "stage": {
+    "slug": "customer-service",
+    "sort_order": 4,
+    "title_en": "Customer Service",
+    "title_ar": "خدمة العملاء",
+    "subtitle_ar": "عميلك هو رأس مالك — هنا تتعلّم كيف تستقبله، وتشرح له الإصلاح والتكلفة، وتكسب رضاه بالإنجليزية.",
+    "cefr": "B1",
+    "accent": "#22d3ee",
+    "icon": "HeartHandshake"
+  },
+  "lessons": [
+    {
+      "slug": "welcoming-customers",
+      "sort_order": 1,
+      "title_en": "Welcoming Customers",
+      "title_ar": "استقبال العميل",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "العميل الذي يشعر بالترحيب يعود مرة أخرى — وهذه قاعدة تعرفها في عملك جيدًا. في هذا الدرس ستتعلم كيف تستقبل عميلك بالإنجليزية من أول ثانية: التحية، والسؤال عن حاجته، وتنظيم الموعد. جمل قصيرة وبسيطة، لكنها تصنع انطباعًا يبقى.",
+        "vocab": [
+          {
+            "word": "customer",
+            "ipa": "/ˈkʌstəmər/",
+            "meaning_ar": "عميل",
+            "meaning_en": "a person who buys a product or service",
+            "example": "The customer is waiting at the counter."
+          },
+          {
+            "word": "welcome",
+            "ipa": "/ˈwelkəm/",
+            "meaning_ar": "ترحيب، أهلًا وسهلًا",
+            "meaning_en": "a friendly greeting when someone arrives",
+            "example": "Welcome to our workshop!"
+          },
+          {
+            "word": "greet",
+            "ipa": "/ɡriːt/",
+            "meaning_ar": "يُحيّي، يرحّب بـ",
+            "meaning_en": "to say hello in a friendly way",
+            "example": "I greet every customer with a smile."
+          },
+          {
+            "word": "appointment",
+            "ipa": "/əˈpɔɪntmənt/",
+            "meaning_ar": "موعد",
+            "meaning_en": "a fixed time to meet or get a service",
+            "example": "Your appointment is at nine o'clock."
+          },
+          {
+            "word": "counter",
+            "ipa": "/ˈkaʊntər/",
+            "meaning_ar": "طاولة الاستقبال",
+            "meaning_en": "the desk where you serve customers",
+            "example": "Please pay at the counter."
+          },
+          {
+            "word": "help",
+            "ipa": "/help/",
+            "meaning_ar": "يساعد، مساعدة",
+            "meaning_en": "to do something useful for someone",
+            "example": "How can I help you today?"
+          },
+          {
+            "word": "wait",
+            "ipa": "/weɪt/",
+            "meaning_ar": "ينتظر",
+            "meaning_en": "to stay until something happens",
+            "example": "Please wait five minutes."
+          },
+          {
+            "word": "ready",
+            "ipa": "/ˈredi/",
+            "meaning_ar": "جاهز",
+            "meaning_en": "finished and prepared",
+            "example": "Your car is ready now."
+          },
+          {
+            "word": "polite",
+            "ipa": "/pəˈlaɪt/",
+            "meaning_ar": "مهذّب",
+            "meaning_en": "kind and respectful",
+            "example": "Our team is always polite."
+          },
+          {
+            "word": "smile",
+            "ipa": "/smaɪl/",
+            "meaning_ar": "ابتسامة",
+            "meaning_en": "a happy look on your face",
+            "example": "A smile makes customers feel welcome."
+          },
+          {
+            "word": "visit",
+            "ipa": "/ˈvɪzɪt/",
+            "meaning_ar": "زيارة",
+            "meaning_en": "the time when someone comes to a place",
+            "example": "Thank you for your visit."
+          }
+        ],
+        "reading": {
+          "title_en": "A Good Morning at the Workshop",
+          "title_ar": "صباح جميل في الورشة",
+          "paragraphs": [
+            "Dhafer opens his workshop at eight o'clock. The first customer of the day is at the counter. Dhafer smiles and says, \"Good morning! Welcome to our workshop. How can I help you?\" A warm welcome is the start of good service.",
+            "The customer has an appointment for an oil change. Dhafer checks the name and the phone number in his book. \"Yes, Mr. Salem, your appointment is at 8:15. Please wait here. We have coffee and water.\" The customer sits and waits. He is happy because the place is clean and the team is polite.",
+            "A second customer comes without an appointment. Dhafer greets him too. \"Welcome! Today we are busy, but we can see your car at eleven o'clock.\" The man agrees. Dhafer writes his name and phone number and says, \"Your car will be ready at one o'clock.\"",
+            "At the end of the visit, Dhafer gives the keys back with a smile. \"Thank you for your visit. See you next time!\" Happy customers come back, and they tell their friends about the good service."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Good morning! Welcome to our workshop.",
+            "ar": "صباح الخير! أهلًا بك في ورشتنا."
+          },
+          {
+            "en": "How can I help you today?",
+            "ar": "كيف أقدر أساعدك اليوم؟"
+          },
+          {
+            "en": "Do you have an appointment?",
+            "ar": "هل لديك موعد؟"
+          },
+          {
+            "en": "Please have a seat. It will take ten minutes.",
+            "ar": "تفضّل بالجلوس. سيستغرق الأمر عشر دقائق."
+          },
+          {
+            "en": "Your car will be ready at five o'clock.",
+            "ar": "سيارتك ستكون جاهزة الساعة الخامسة."
+          },
+          {
+            "en": "Thank you for your visit. See you next time!",
+            "ar": "شكرًا لزيارتك. نراك في المرة القادمة!"
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What is the first thing Dhafer does when a customer arrives?",
+            "options": [
+              "He asks for money",
+              "He greets the customer with a smile",
+              "He starts repairing the car",
+              "He asks the customer to leave"
+            ],
+            "correct": "He greets the customer with a smile",
+            "explanation_ar": "الترحيب بالعميل بابتسامة هو أول خطوة في الخدمة الجيدة، كما في بداية القراءة."
+          },
+          {
+            "question": "Why does the first customer come to the workshop?",
+            "options": [
+              "He has an appointment for an oil change",
+              "He wants to buy a new car",
+              "He wants to work at the workshop",
+              "He needs new tires"
+            ],
+            "correct": "He has an appointment for an oil change",
+            "explanation_ar": "النص يذكر أن العميل الأول لديه موعد لتغيير الزيت."
+          },
+          {
+            "question": "What does Dhafer offer customers while they wait?",
+            "options": [
+              "Free repairs",
+              "A new car",
+              "Tea and dates",
+              "Coffee and water"
+            ],
+            "correct": "Coffee and water",
+            "explanation_ar": "ظافر يقول للعميل: انتظر هنا، لدينا قهوة وماء."
+          },
+          {
+            "question": "The second customer has no appointment. What does Dhafer do?",
+            "options": [
+              "He tells him to go to another workshop",
+              "He repairs the car immediately",
+              "He gives him a time at eleven o'clock",
+              "He asks him to come next week"
+            ],
+            "correct": "He gives him a time at eleven o'clock",
+            "explanation_ar": "الورشة مشغولة، لكن ظافر لا يرفض العميل — بل يعطيه موعدًا في الساعة الحادية عشرة."
+          },
+          {
+            "question": "What does the word \"polite\" mean?",
+            "options": [
+              "Angry and loud",
+              "Kind and respectful in behavior",
+              "Very expensive",
+              "Fast and strong"
+            ],
+            "correct": "Kind and respectful in behavior",
+            "explanation_ar": "كلمة polite تعني مهذّبًا — لطيفًا ومحترمًا في التعامل."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "A customer walks into your workshop at 8 a.m. Greet him, ask how you can help, and tell him when his car will be ready. Speak for 30–60 seconds.",
+          "prompt_ar": "عميل يدخل ورشتك الساعة الثامنة صباحًا. رحّب به، واسأله كيف تساعده، وأخبره متى ستكون سيارته جاهزة. تحدّث لمدة ٣٠–٦٠ ثانية.",
+          "guidance_ar": "ابدأ بتحية واضحة، واستخدم ٣ كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    },
+    {
+      "slug": "explaining-repairs",
+      "sort_order": 2,
+      "title_en": "Explaining Repairs and Costs",
+      "title_ar": "شرح الإصلاح والتكلفة",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "شرح الإصلاح والتكلفة بوضوح هو الفرق بين عميل متردد وعميل يوافق بثقة. في هذا الدرس ستتعلم كيف تشرح نتيجة الفحص بالإنجليزية، وتقدّم عرض السعر (قطع الغيار وأجرة العمل)، وتعرض الخيارات والضمان. تحدّث بلغة بسيطة، ودَع الوضوح يبيع عنك.",
+        "vocab": [
+          {
+            "word": "repair",
+            "ipa": "/rɪˈper/",
+            "meaning_ar": "إصلاح",
+            "meaning_en": "the work of fixing something broken",
+            "example": "The repair will take two hours."
+          },
+          {
+            "word": "inspection",
+            "ipa": "/ɪnˈspekʃən/",
+            "meaning_ar": "فحص",
+            "meaning_en": "a careful check of something",
+            "example": "We start with a full inspection."
+          },
+          {
+            "word": "estimate",
+            "ipa": "/ˈestɪmət/",
+            "meaning_ar": "عرض سعر تقديري",
+            "meaning_en": "a calculation of what something will cost",
+            "example": "I will send you the estimate before we start."
+          },
+          {
+            "word": "spare part",
+            "ipa": "/ˌsper ˈpɑːrt/",
+            "meaning_ar": "قطعة غيار",
+            "meaning_en": "a piece used to replace a broken one",
+            "example": "This spare part is original."
+          },
+          {
+            "word": "labor",
+            "ipa": "/ˈleɪbər/",
+            "meaning_ar": "أجرة العمل",
+            "meaning_en": "the cost of the work people do",
+            "example": "The price includes parts and labor."
+          },
+          {
+            "word": "replace",
+            "ipa": "/rɪˈpleɪs/",
+            "meaning_ar": "يستبدل",
+            "meaning_en": "to change something old for a new one",
+            "example": "We need to replace the battery."
+          },
+          {
+            "word": "brake pads",
+            "ipa": "/ˈbreɪk pædz/",
+            "meaning_ar": "فحمات الفرامل",
+            "meaning_en": "the parts that press to stop the car",
+            "example": "Your brake pads are worn."
+          },
+          {
+            "word": "warranty",
+            "ipa": "/ˈwɔːrənti/",
+            "meaning_ar": "ضمان",
+            "meaning_en": "a promise to fix or replace a product",
+            "example": "The part has a one-year warranty."
+          },
+          {
+            "word": "approval",
+            "ipa": "/əˈpruːvəl/",
+            "meaning_ar": "موافقة",
+            "meaning_en": "saying yes to a plan or a price",
+            "example": "We wait for your approval before any repair."
+          },
+          {
+            "word": "recommend",
+            "ipa": "/ˌrekəˈmend/",
+            "meaning_ar": "يوصي بـ",
+            "meaning_en": "to say that something is a good choice",
+            "example": "I recommend the original parts."
+          },
+          {
+            "word": "total",
+            "ipa": "/ˈtoʊtl/",
+            "meaning_ar": "الإجمالي",
+            "meaning_en": "the full amount after adding everything",
+            "example": "The total is 650 riyals."
+          },
+          {
+            "word": "option",
+            "ipa": "/ˈɑːpʃən/",
+            "meaning_ar": "خيار",
+            "meaning_en": "one of the things you can choose",
+            "example": "You have two options for the parts."
+          }
+        ],
+        "reading": {
+          "title_en": "The Estimate: Explaining Repairs Clearly",
+          "title_ar": "عرض السعر: كيف تشرح الإصلاح بوضوح",
+          "paragraphs": [
+            "When a car arrives at the workshop, the first step is a careful inspection. The technician checks the engine, the brakes, and the tires. After the inspection, Dhafer calls the customer to explain the problem in simple words. He never uses difficult technical language, because a customer who understands is a customer who trusts.",
+            "Today, the problem is the brake pads. They are worn and must be replaced. Dhafer prepares an estimate: the spare parts cost 450 riyals, and the labor costs 200 riyals. The total is 650 riyals. He also gives the customer two options: original parts with a one-year warranty, or cheaper parts with a six-month warranty.",
+            "Dhafer explains why he recommends the original parts: \"They last longer, and the warranty protects you.\" Then he waits for the customer's approval. This is an important rule in his workshop — no repair starts before the customer approves the estimate. When the customer says yes, the team starts the work immediately.",
+            "At the end, Dhafer sends a message with the final cost and a photo of the old parts. Customers love this, because they can see what was replaced. A clear estimate, honest options, and a real warranty — this is how a small workshop builds a big name."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "After the inspection, we found a problem with the brakes.",
+            "ar": "بعد الفحص، وجدنا مشكلة في الفرامل."
+          },
+          {
+            "en": "The total estimate is 650 riyals — parts and labor.",
+            "ar": "إجمالي عرض السعر ٦٥٠ ريالًا — القطع وأجرة العمل."
+          },
+          {
+            "en": "I recommend replacing the brake pads today.",
+            "ar": "أنصح باستبدال فحمات الفرامل اليوم."
+          },
+          {
+            "en": "We will not start any repair before your approval.",
+            "ar": "لن نبدأ أي إصلاح قبل موافقتك."
+          },
+          {
+            "en": "You have two options: original parts or cheaper ones.",
+            "ar": "أمامك خياران: قطع أصلية أو قطع أرخص."
+          },
+          {
+            "en": "The new part comes with a one-year warranty.",
+            "ar": "القطعة الجديدة معها ضمان لمدة سنة."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What is the first step when a car arrives at the workshop?",
+            "options": [
+              "Writing the invoice",
+              "Calling the supplier",
+              "A careful inspection",
+              "Replacing the brake pads"
+            ],
+            "correct": "A careful inspection",
+            "explanation_ar": "النص يقول إن أول خطوة عند وصول السيارة هي الفحص الدقيق."
+          },
+          {
+            "question": "How much is the total estimate for the brake repair?",
+            "options": [
+              "450 riyals",
+              "650 riyals",
+              "200 riyals",
+              "850 riyals"
+            ],
+            "correct": "650 riyals",
+            "explanation_ar": "القطع ٤٥٠ ريالًا وأجرة العمل ٢٠٠ ريال، فالإجمالي ٦٥٠ ريالًا."
+          },
+          {
+            "question": "Why does Dhafer recommend the original parts?",
+            "options": [
+              "They last longer and the warranty protects the customer",
+              "They are cheaper than other parts",
+              "They arrive faster from the supplier",
+              "They come in more colors"
+            ],
+            "correct": "They last longer and the warranty protects the customer",
+            "explanation_ar": "ظافر يشرح أن القطع الأصلية تدوم أطول والضمان يحمي العميل."
+          },
+          {
+            "question": "When does the team start the repair?",
+            "options": [
+              "Before the inspection",
+              "As soon as the car arrives",
+              "At the end of the day",
+              "After the customer approves the estimate"
+            ],
+            "correct": "After the customer approves the estimate",
+            "explanation_ar": "القاعدة في الورشة: لا يبدأ أي إصلاح قبل موافقة العميل على عرض السعر."
+          },
+          {
+            "question": "What does \"labor\" mean in an estimate?",
+            "options": [
+              "The price of the spare parts",
+              "The tax on the invoice",
+              "The cost of the work done by the team",
+              "The warranty period"
+            ],
+            "correct": "The cost of the work done by the team",
+            "explanation_ar": "كلمة labor في عرض السعر تعني أجرة العمل — تكلفة الجهد الذي يبذله الفريق."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences explaining a repair estimate to a customer: the problem, the cost of parts and labor, and the warranty.",
+          "prompt_ar": "اكتب ٤–٥ جُمل تشرح فيها عرض سعر لإصلاح: المشكلة، وتكلفة القطع وأجرة العمل، والضمان.",
+          "guidance_ar": "اذكر السعر بالريال، واستخدم ٤ كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    },
+    {
+      "slug": "handling-complaints",
+      "sort_order": 3,
+      "title_en": "Handling Complaints",
+      "title_ar": "التعامل مع الشكاوى",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الشكوى ليست نهاية العلاقة مع العميل — بل فرصة لكسب ثقته إذا تعاملت معها باحتراف. في هذا الدرس ستتعلم كيف تستمع بهدوء، وتعتذر بشكل صحيح، وتقدّم حلًا عمليًا بالإنجليزية. هذه المهارة وحدها تحمي سمعة عملك.",
+        "vocab": [
+          {
+            "word": "complaint",
+            "ipa": "/kəmˈpleɪnt/",
+            "meaning_ar": "شكوى",
+            "meaning_en": "when a customer says something is wrong",
+            "example": "We take every complaint seriously."
+          },
+          {
+            "word": "upset",
+            "ipa": "/ʌpˈset/",
+            "meaning_ar": "منزعج",
+            "meaning_en": "unhappy or angry about something",
+            "example": "The customer was upset about the delay."
+          },
+          {
+            "word": "calm",
+            "ipa": "/kɑːm/",
+            "meaning_ar": "هادئ",
+            "meaning_en": "relaxed, not angry or nervous",
+            "example": "Stay calm and listen first."
+          },
+          {
+            "word": "apologize",
+            "ipa": "/əˈpɑːlədʒaɪz/",
+            "meaning_ar": "يعتذر",
+            "meaning_en": "to say you are sorry",
+            "example": "I apologize for the mistake."
+          },
+          {
+            "word": "mistake",
+            "ipa": "/mɪˈsteɪk/",
+            "meaning_ar": "خطأ",
+            "meaning_en": "something done wrong",
+            "example": "It was our mistake, and we will fix it."
+          },
+          {
+            "word": "solution",
+            "ipa": "/səˈluːʃən/",
+            "meaning_ar": "حل",
+            "meaning_en": "a way to fix a problem",
+            "example": "We found a quick solution."
+          },
+          {
+            "word": "offer",
+            "ipa": "/ˈɔːfər/",
+            "meaning_ar": "يعرض",
+            "meaning_en": "to say you will give or do something",
+            "example": "We offer a free check this week."
+          },
+          {
+            "word": "refund",
+            "ipa": "/ˈriːfʌnd/",
+            "meaning_ar": "استرداد المبلغ",
+            "meaning_en": "money given back to the customer",
+            "example": "He asked for a full refund."
+          },
+          {
+            "word": "promise",
+            "ipa": "/ˈprɑːmɪs/",
+            "meaning_ar": "وعد، يَعِد",
+            "meaning_en": "to say you will surely do something",
+            "example": "I promise it will be ready today."
+          },
+          {
+            "word": "satisfied",
+            "ipa": "/ˈsætɪsfaɪd/",
+            "meaning_ar": "راضٍ",
+            "meaning_en": "happy with a service or product",
+            "example": "The customer left satisfied."
+          },
+          {
+            "word": "trust",
+            "ipa": "/trʌst/",
+            "meaning_ar": "ثقة",
+            "meaning_en": "believing that someone is honest",
+            "example": "Good service builds trust."
+          },
+          {
+            "word": "follow up",
+            "ipa": "/ˌfɑːloʊ ˈʌp/",
+            "meaning_ar": "يتابع",
+            "meaning_en": "to check again after a service",
+            "example": "I always follow up after a big repair."
+          }
+        ],
+        "reading": {
+          "title_en": "Turning an Angry Customer into a Loyal One",
+          "title_ar": "كيف تحوّل عميلًا غاضبًا إلى عميل دائم",
+          "paragraphs": [
+            "Last Thursday, a customer came back to the workshop very upset. His air conditioner had stopped working again, only one week after the repair. He spoke loudly in front of other customers. Dhafer stayed calm. He knows that the first minutes of a complaint are the most important.",
+            "First, he listened without interrupting. Then he apologized clearly: \"I am sorry about this. You are right to be upset.\" He did not blame the customer or make excuses. A mistake had happened in the workshop, and he accepted it. Saying sorry does not make you weak — it shows the customer that you respect him.",
+            "Next, Dhafer offered a fast solution: \"We will check the car now, and we will fix the problem today, free of charge.\" He also offered the customer a ride home, so he did not have to wait. Two hours later, the problem was fixed, and the team had found the real cause — a small electrical fault the first repair had missed.",
+            "The next day, Dhafer called the customer to follow up: \"Is the air conditioner working well?\" The customer was surprised and satisfied. He did not ask for a refund; instead, he promised to come back. A complaint that is handled well can build more trust than a normal visit. Angry customers do not want a fight — they want someone who listens and keeps his promise."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "I am sorry about this. Let me check it right away.",
+            "ar": "أعتذر عن هذا. دعني أفحصها فورًا."
+          },
+          {
+            "en": "I understand why you are upset.",
+            "ar": "أتفهّم سبب انزعاجك."
+          },
+          {
+            "en": "We will fix it today, free of charge.",
+            "ar": "سنصلحها اليوم، بدون أي تكلفة."
+          },
+          {
+            "en": "Thank you for telling us about the problem.",
+            "ar": "شكرًا لأنك أخبرتنا بالمشكلة."
+          },
+          {
+            "en": "If anything happens again, call me directly.",
+            "ar": "إذا تكرّر أي شيء، اتصل بي مباشرة."
+          },
+          {
+            "en": "Your trust is important to us.",
+            "ar": "ثقتك مهمة لنا."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "Why was the customer upset?",
+            "options": [
+              "The workshop was closed",
+              "The price was too high",
+              "Dhafer did not answer his call",
+              "His air conditioner stopped working again after the repair"
+            ],
+            "correct": "His air conditioner stopped working again after the repair",
+            "explanation_ar": "المكيّف توقف عن العمل مرة أخرى بعد أسبوع واحد فقط من الإصلاح."
+          },
+          {
+            "question": "What did Dhafer do first when he heard the complaint?",
+            "options": [
+              "He listened without interrupting",
+              "He asked for more money",
+              "He blamed the customer",
+              "He called the police"
+            ],
+            "correct": "He listened without interrupting",
+            "explanation_ar": "الخطوة الأولى في التعامل مع الشكوى: الاستماع الكامل دون مقاطعة."
+          },
+          {
+            "question": "What solution did Dhafer offer?",
+            "options": [
+              "A discount on a new car",
+              "A refund of half the price",
+              "Fixing the problem the same day, free of charge",
+              "An appointment next month"
+            ],
+            "correct": "Fixing the problem the same day, free of charge",
+            "explanation_ar": "عرض ظافر إصلاح المشكلة في اليوم نفسه وبدون أي تكلفة على العميل."
+          },
+          {
+            "question": "What did Dhafer do the next day?",
+            "options": [
+              "He sent a new invoice",
+              "He called the customer to follow up",
+              "He closed the workshop",
+              "He replaced the whole engine"
+            ],
+            "correct": "He called the customer to follow up",
+            "explanation_ar": "اتصل ظافر بالعميل في اليوم التالي ليتابع ويطمئن أن المكيّف يعمل جيدًا."
+          },
+          {
+            "question": "What does the reading say about complaints?",
+            "options": [
+              "A complaint always means losing the customer",
+              "Customers who complain want a refund only",
+              "A complaint handled well can build more trust",
+              "It is better to ignore complaints"
+            ],
+            "correct": "A complaint handled well can build more trust",
+            "explanation_ar": "الشكوى التي تُعالج باحتراف قد تبني ثقة أكبر من زيارة عادية."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "An upset customer says: \"My car has the same problem again!\" Respond: apologize, offer a solution, and promise to follow up. Speak for 45–60 seconds.",
+          "prompt_ar": "عميل منزعج يقول لك: «سيارتي فيها نفس المشكلة مرة ثانية!». رُدّ عليه: اعتذر، واعرض حلًا، وعِده بالمتابعة. تحدّث لمدة ٤٥–٦٠ ثانية.",
+          "guidance_ar": "ابدأ بالاعتذار، وحافظ على نبرة هادئة، واستخدم ٣ كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    }
+  ]
+}

@@ -399,6 +399,28 @@ function injectTechTrack(nav) {
   return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
 }
 
+// A student granted the Business Track (students.uses_biz_track) gets «مسار الأعمال»
+// injected right after «الرئيسية» — same pattern as the Tech Track (automotive business,
+// finance & business-growth English alongside the normal curriculum).
+const BIZ_TRACK_ITEM = { id: 'biz-track', label: 'مسار الأعمال', icon: Briefcase, to: '/biz' }
+function injectBizTrack(nav) {
+  const addTo = (list) => {
+    if (!Array.isArray(list)) return list
+    return list.map((sec) => {
+      if (sec.id !== 'journey' || !Array.isArray(sec.items)) return sec
+      const items = []
+      let inserted = false
+      for (const it of sec.items) {
+        items.push(it)
+        if (!inserted && it && it.id === 'dashboard') { items.push(BIZ_TRACK_ITEM); inserted = true }
+      }
+      if (!inserted) items.push(BIZ_TRACK_ITEM)
+      return { ...sec, items }
+    })
+  }
+  return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
+}
+
 /** Account-aware nav: individual (1-on-1) students get INDIVIDUAL_NAV.
     Students with an extra-curriculum-level grant get per-level sidebar items.
     Students with the Tech Track flag get «مسار التقنية» injected (composes with the above).
@@ -410,6 +432,7 @@ export function getNavForUser(role, studentData) {
     const levelItems = buildLevelNavItems(studentData)
     if (levelItems) nav = injectLevelNav(nav, levelItems)
     if (studentData?.uses_tech_track === true) nav = injectTechTrack(nav)
+    if (studentData?.uses_biz_track === true) nav = injectBizTrack(nav)
     if (nav !== STUDENT_NAV) return nav
   }
   return getNavForRole(role)

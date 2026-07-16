@@ -1,0 +1,176 @@
+{
+  "stage": {
+    "slug": "ai-and-modern-tech",
+    "sort_order": 7,
+    "title_en": "AI and Modern Technology",
+    "title_ar": "الذكاء الاصطناعي والتقنيات الحديثة",
+    "subtitle_ar": "افهمي بلغتكِ الإنجليزية ما هو الذكاء الاصطناعي حقًّا، وكيف تتعلّم الآلة، وأين يلمس حياتنا كل يوم.",
+    "cefr": "B1",
+    "accent": "#f472b6",
+    "icon": "Bot"
+  },
+  "lessons": [
+    {
+      "slug": "what-is-ai",
+      "sort_order": 1,
+      "title_en": "What Is Artificial Intelligence?",
+      "title_ar": "ما هو الذكاء الاصطناعي؟",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الذكاء الاصطناعي هو أحد أهمّ مجالات تخصّصكِ في علوم الحاسب، وستسمعين عنه في كل مكان تقريبًا. في هذا الدرس ستتعرّفين على معناه الحقيقي بعيدًا عن المبالغات، وكيف تتعلّم الآلة من البيانات لتؤدّي مهامًّا كانت حكرًا على البشر. تخيّلي أنكِ بعد سنوات قليلة تبنين هذه الأنظمة بنفسكِ.",
+        "vocab": [
+          { "word": "artificial intelligence", "ipa": "/ˌɑːtɪˈfɪʃəl ɪnˈtelɪdʒəns/", "meaning_ar": "الذكاء الاصطناعي", "meaning_en": "technology that lets machines do tasks that usually need human thinking", "example": "Artificial intelligence can understand human speech." },
+          { "word": "machine", "ipa": "/məˈʃiːn/", "meaning_ar": "آلة", "meaning_en": "a device that does work for us", "example": "This machine can read text from a photo." },
+          { "word": "task", "ipa": "/tɑːsk/", "meaning_ar": "مهمّة", "meaning_en": "a piece of work that you have to do", "example": "The program finishes the task in one second." },
+          { "word": "data", "ipa": "/ˈdeɪtə/", "meaning_ar": "بيانات", "meaning_en": "facts and information that a computer can use", "example": "The system learns from a lot of data." },
+          { "word": "algorithm", "ipa": "/ˈælɡərɪðəm/", "meaning_ar": "خوارزمية", "meaning_en": "a clear set of steps a computer follows to solve a problem", "example": "The algorithm sorts the names very fast." },
+          { "word": "intelligent", "ipa": "/ɪnˈtelɪdʒənt/", "meaning_ar": "ذكي", "meaning_en": "able to learn, understand, and make good choices", "example": "A smart phone can feel intelligent when it answers you." },
+          { "word": "recognize", "ipa": "/ˈrekəɡnaɪz/", "meaning_ar": "يتعرّف على", "meaning_en": "to know something because you have seen it before", "example": "The app can recognize your face." },
+          { "word": "predict", "ipa": "/prɪˈdɪkt/", "meaning_ar": "يتنبّأ بـ", "meaning_en": "to say what will probably happen in the future", "example": "The model can predict tomorrow's weather." },
+          { "word": "pattern", "ipa": "/ˈpætən/", "meaning_ar": "نمط", "meaning_en": "something that repeats in a regular way", "example": "The computer finds a pattern in the numbers." },
+          { "word": "decision", "ipa": "/dɪˈsɪʒən/", "meaning_ar": "قرار", "meaning_en": "a choice that you make", "example": "The system makes a fast decision." },
+          { "word": "human", "ipa": "/ˈhjuːmən/", "meaning_ar": "إنسان / بشري", "meaning_en": "a person, or belonging to people", "example": "AI is a tool, not a human." },
+          { "word": "solve", "ipa": "/sɒlv/", "meaning_ar": "يحلّ", "meaning_en": "to find the answer to a problem", "example": "Engineers use AI to solve hard problems." }
+        ],
+        "reading": {
+          "title_en": "What Is Artificial Intelligence?",
+          "title_ar": "ما هو الذكاء الاصطناعي؟",
+          "paragraphs": [
+            "Artificial intelligence, or AI, is technology that lets a machine do tasks that usually need human thinking. A normal program follows fixed steps, but an AI system can learn from data and get better over time. When you ask your phone a question and it understands you, that is a simple kind of artificial intelligence.",
+            "How does it work? An AI system looks at a large amount of data and searches for a pattern. From these patterns, it can recognize a face in a photo, translate a sentence, or predict which film you might like. To do this, the machine follows an algorithm, which is a clear set of steps that solve a problem. The more good data the system sees, the more intelligent its answers become.",
+            "It is important to remember that AI is a tool, not a real human. It can make a fast decision and handle boring tasks, but it does not feel or truly understand the world like a person. Sometimes it makes mistakes, especially when the data is poor. As a future computer scientist, you will learn how to build these systems, test them, and use them in a safe and fair way."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Artificial intelligence helps machines do human tasks.", "ar": "الذكاء الاصطناعي يساعد الآلات على أداء مهام البشر." },
+          { "en": "The system learns from data.", "ar": "يتعلّم النظام من البيانات." },
+          { "en": "AI can recognize patterns.", "ar": "يستطيع الذكاء الاصطناعي التعرّف على الأنماط." },
+          { "en": "This is a tool, not a person.", "ar": "هذه أداة وليست إنسانًا." },
+          { "en": "The model can predict the result.", "ar": "يستطيع النموذج التنبّؤ بالنتيجة." },
+          { "en": "AI sometimes makes mistakes.", "ar": "يرتكب الذكاء الاصطناعي أخطاءً أحيانًا." }
+        ],
+        "comprehension": [
+          { "question": "What is artificial intelligence?", "options": ["Technology that lets machines do tasks that need human thinking", "A type of computer keyboard", "A game for children", "A kind of food"], "correct": "Technology that lets machines do tasks that need human thinking", "explanation_ar": "الذكاء الاصطناعي تقنية تجعل الآلات تؤدّي مهامًّا تحتاج عادةً إلى تفكير بشري." },
+          { "question": "How does an AI system get better over time?", "options": ["By sleeping", "By learning from data", "By becoming heavier", "By changing its color"], "correct": "By learning from data", "explanation_ar": "يتحسّن النظام لأنّه يتعلّم من البيانات." },
+          { "question": "What does an algorithm give the machine?", "options": ["A cup of coffee", "A new screen", "A clear set of steps to solve a problem", "A phone number"], "correct": "A clear set of steps to solve a problem", "explanation_ar": "الخوارزمية مجموعة خطوات واضحة لحلّ مشكلة." },
+          { "question": "According to the reading, AI is best described as...", "options": ["A real human being", "A living animal", "A magic power", "A tool, not a real human"], "correct": "A tool, not a real human", "explanation_ar": "الذكاء الاصطناعي أداة وليس إنسانًا حقيقيًّا." },
+          { "question": "When is AI more likely to make mistakes?", "options": ["When the data is poor", "When the room is dark", "When the machine is new", "When the user is happy"], "correct": "When the data is poor", "explanation_ar": "يرتكب النظام أخطاءً أكثر عندما تكون البيانات ضعيفة." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about one way you use AI, or would like to use it, in your daily life.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن طريقة تستخدمين بها الذكاء الاصطناعي، أو تودّين استخدامه، في حياتكِ اليومية.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: data و pattern و predict."
+        }
+      }
+    },
+    {
+      "slug": "machine-learning",
+      "sort_order": 2,
+      "title_en": "Machine Learning and Models",
+      "title_ar": "تعلّم الآلة والنماذج",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "في الدرس السابق عرفتِ ما هو الذكاء الاصطناعي، والآن سنفتح صندوقه لنرى كيف «يتعلّم» فعلًا. تعلّم الآلة هو القلب النابض لمعظم أنظمة الذكاء الاصطناعي الحديثة، وفهمكِ له سيمنحكِ أساسًا قويًّا في تخصّصكِ. سنستخدم مثالًا بسيطًا: كيف يتعلّم الحاسوب أن يفرّق بين صورة قطّة وصورة كلب.",
+        "vocab": [
+          { "word": "machine learning", "ipa": "/məˈʃiːn ˈlɜːnɪŋ/", "meaning_ar": "تعلّم الآلة", "meaning_en": "a part of AI where a computer learns from examples instead of fixed rules", "example": "Machine learning helps the app get smarter." },
+          { "word": "model", "ipa": "/ˈmɒdl/", "meaning_ar": "نموذج", "meaning_en": "the thing a machine builds after it learns from data", "example": "The model can tell a cat from a dog." },
+          { "word": "train", "ipa": "/treɪn/", "meaning_ar": "يدرّب", "meaning_en": "to teach a model by showing it many examples", "example": "We train the model on thousands of photos." },
+          { "word": "example", "ipa": "/ɪɡˈzɑːmpl/", "meaning_ar": "مثال", "meaning_en": "one piece of data used for learning", "example": "Each example shows one photo to the model." },
+          { "word": "label", "ipa": "/ˈleɪbl/", "meaning_ar": "تسمية / وسم", "meaning_en": "the correct answer given together with an example", "example": "This photo has the label 'cat'." },
+          { "word": "dataset", "ipa": "/ˈdeɪtəset/", "meaning_ar": "مجموعة بيانات", "meaning_en": "a large collection of data used to train a model", "example": "A big dataset gives better results." },
+          { "word": "feature", "ipa": "/ˈfiːtʃə/", "meaning_ar": "سِمة / خاصيّة", "meaning_en": "one detail in the data that the model looks at", "example": "The shape of the ears is a useful feature." },
+          { "word": "accurate", "ipa": "/ˈækjərət/", "meaning_ar": "دقيق", "meaning_en": "correct, with few or no mistakes", "example": "The model became more accurate after training." },
+          { "word": "improve", "ipa": "/ɪmˈpruːv/", "meaning_ar": "يتحسّن / يحسّن", "meaning_en": "to become better, or to make something better", "example": "The results improve with more data." },
+          { "word": "prediction", "ipa": "/prɪˈdɪkʃən/", "meaning_ar": "تنبّؤ", "meaning_en": "an answer a model gives about new data", "example": "The model made a correct prediction." },
+          { "word": "error", "ipa": "/ˈerə/", "meaning_ar": "خطأ", "meaning_en": "a difference between the answer and the correct answer", "example": "At first the model made many errors." },
+          { "word": "learn", "ipa": "/lɜːn/", "meaning_ar": "يتعلّم", "meaning_en": "to gain knowledge or skill from examples", "example": "The computer can learn from its mistakes." }
+        ],
+        "reading": {
+          "title_en": "How Machines Learn",
+          "title_ar": "كيف تتعلّم الآلة",
+          "paragraphs": [
+            "Machine learning is a part of AI where a computer learns from examples instead of following fixed rules. Instead of telling the machine every step, we show it a large dataset and let it find the patterns by itself. After it studies the data, it builds a model, a kind of \"brain\" that can make a prediction about new information.",
+            "Imagine you want a program that can tell a cat from a dog. You collect thousands of photos and give each one a label, \"cat\" or \"dog\". Then you train the model on these examples. The model looks at features such as the shape of the ears or the color of the fur. At first it makes many errors, but with each round it can improve and become more accurate.",
+            "Not all learning needs labels. Sometimes a model groups similar data on its own, without any answers from a human. Either way, the quality of the result depends on the quality of the dataset. If the data is small or unfair, the model will learn the wrong thing. This is why good engineers spend a lot of time cleaning their data before they train any model."
+          ]
+        },
+        "key_phrases": [
+          { "en": "We train the model on many examples.", "ar": "ندرّب النموذج على أمثلة كثيرة." },
+          { "en": "Each example has a label.", "ar": "لكلّ مثال تسمية." },
+          { "en": "The model makes a prediction.", "ar": "يقدّم النموذج تنبّؤًا." },
+          { "en": "The dataset must be clean and fair.", "ar": "يجب أن تكون مجموعة البيانات نظيفة وعادلة." },
+          { "en": "The model becomes more accurate over time.", "ar": "يصبح النموذج أكثر دقّة مع الوقت." },
+          { "en": "A good model learns from its errors.", "ar": "يتعلّم النموذج الجيّد من أخطائه." }
+        ],
+        "comprehension": [
+          { "question": "What is machine learning?", "options": ["A part of AI where a computer learns from examples", "A way to clean a keyboard", "A type of internet cable", "A new video game"], "correct": "A part of AI where a computer learns from examples", "explanation_ar": "تعلّم الآلة فرعٌ من الذكاء الاصطناعي يتعلّم فيه الحاسوب من الأمثلة." },
+          { "question": "What does the computer build after it learns from data?", "options": ["A website", "A model", "A robot arm", "A password"], "correct": "A model", "explanation_ar": "يبني الحاسوب نموذجًا بعد أن يتعلّم من البيانات." },
+          { "question": "In the cat-and-dog example, what is a \"label\"?", "options": ["The price of the photo", "The size of the screen", "The correct answer given with each example", "The name of the camera"], "correct": "The correct answer given with each example", "explanation_ar": "التسمية هي الإجابة الصحيحة المرفقة بكل مثال." },
+          { "question": "Why do engineers clean their data carefully?", "options": ["To make the file colorful", "To save electricity", "To make the computer lighter", "Because a bad dataset makes the model learn the wrong thing"], "correct": "Because a bad dataset makes the model learn the wrong thing", "explanation_ar": "لأنّ البيانات السيّئة تجعل النموذج يتعلّم الشيء الخطأ." },
+          { "question": "What happens to a good model as it trains on more data?", "options": ["It becomes more accurate", "It forgets everything", "It gets slower forever", "It stops working"], "correct": "It becomes more accurate", "explanation_ar": "يصبح النموذج الجيّد أكثر دقّة كلّما تدرّب على بيانات أكثر." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Explain in 3–4 sentences how you would train a model to know if an email is spam or not.",
+          "prompt_ar": "اشرحي في ٣–٤ جُمل كيف تدرّبين نموذجًا ليعرف إن كان البريد الإلكتروني مزعجًا (spam) أم لا.",
+          "guidance_ar": "استخدمي كلمات مثل: dataset و label و train و prediction."
+        }
+      }
+    },
+    {
+      "slug": "ai-everyday",
+      "sort_order": 3,
+      "title_en": "AI in Everyday Life",
+      "title_ar": "الذكاء الاصطناعي في حياتنا",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الذكاء الاصطناعي لم يعد فكرة في المختبرات، بل هو معكِ في هاتفكِ طوال اليوم. في هذا الدرس سنرى أين يختبئ في التطبيقات التي تستخدمينها، وكيف يوفّر وقتكِ، ولماذا علينا أيضًا أن ننتبه لأمورٍ مثل الخصوصية والتحيّز. بصفتكِ مهندسة المستقبل، مسؤوليّتكِ أن تجعليه مفيدًا وعادلًا للناس.",
+        "vocab": [
+          { "word": "assistant", "ipa": "/əˈsɪstənt/", "meaning_ar": "مساعد", "meaning_en": "a program that helps you do tasks by voice or text", "example": "A voice assistant can set an alarm for you." },
+          { "word": "recommend", "ipa": "/ˌrekəˈmend/", "meaning_ar": "يوصي / يقترح", "meaning_en": "to suggest something you might like", "example": "The app can recommend a new song." },
+          { "word": "translate", "ipa": "/trænzˈleɪt/", "meaning_ar": "يترجم", "meaning_en": "to change words from one language into another", "example": "The app can translate a menu for you." },
+          { "word": "voice", "ipa": "/vɔɪs/", "meaning_ar": "صوت", "meaning_en": "the sound a person makes when they speak", "example": "The phone understands your voice." },
+          { "word": "feature", "ipa": "/ˈfiːtʃə/", "meaning_ar": "ميزة", "meaning_en": "a useful part of an app or a device", "example": "My favorite feature is automatic translation." },
+          { "word": "automatic", "ipa": "/ˌɔːtəˈmætɪk/", "meaning_ar": "تلقائي", "meaning_en": "working by itself, without a person", "example": "The filter is automatic." },
+          { "word": "filter", "ipa": "/ˈfɪltə/", "meaning_ar": "يُرشِّح / مُرشِّح", "meaning_en": "to remove the things you do not want", "example": "The email app can filter spam." },
+          { "word": "suggestion", "ipa": "/səˈdʒestʃən/", "meaning_ar": "اقتراح", "meaning_en": "an idea offered to help you choose", "example": "The site gives a helpful suggestion." },
+          { "word": "privacy", "ipa": "/ˈprɪvəsi/", "meaning_ar": "الخصوصية", "meaning_en": "keeping your personal information safe", "example": "We must protect our privacy online." },
+          { "word": "bias", "ipa": "/ˈbaɪəs/", "meaning_ar": "تحيّز", "meaning_en": "an unfair result in a system", "example": "A model can show bias if the data is unfair." },
+          { "word": "convenient", "ipa": "/kənˈviːniənt/", "meaning_ar": "مريح / عملي", "meaning_en": "easy to use and saving you time", "example": "This feature is very convenient." },
+          { "word": "rely", "ipa": "/rɪˈlaɪ/", "meaning_ar": "يعتمد على", "meaning_en": "to depend on someone or something", "example": "Do not rely on AI for everything." }
+        ],
+        "reading": {
+          "title_en": "AI in Everyday Life",
+          "title_ar": "الذكاء الاصطناعي في حياتنا اليومية",
+          "paragraphs": [
+            "You may not notice it, but you use artificial intelligence many times every day. When a music app plays a song you love, it used AI to recommend it. When your phone understands your voice, or an app can translate a menu in another language, that is AI too. These features have become so common and convenient that we often forget how clever they are.",
+            "Behind the screen, these systems study your choices and learn what you like. A shopping site remembers what you looked at and offers a suggestion. An email app can filter spam automatically and keep your inbox clean. A voice assistant can set an alarm, answer a question, or control the lights in your home. Bit by bit, AI makes many small tasks faster.",
+            "But we must also think carefully. These systems collect a lot of personal data, so privacy is a real concern. A model can also show bias if it learned from unfair data, and it may give a wrong answer with full confidence. It is not wise to rely on AI for everything. As a future engineer, your job is not only to build useful tools, but also to make them fair, honest, and safe for people."
+          ]
+        },
+        "key_phrases": [
+          { "en": "The app recommends songs I like.", "ar": "يقترح التطبيق أغانيَ تعجبني." },
+          { "en": "A voice assistant can set an alarm.", "ar": "يستطيع المساعد الصوتي ضبط منبّه." },
+          { "en": "This feature is very convenient.", "ar": "هذه الميزة مريحة جدًّا." },
+          { "en": "We must protect our privacy.", "ar": "علينا حماية خصوصيّتنا." },
+          { "en": "A model can show bias.", "ar": "قد يُظهر النموذج تحيّزًا." },
+          { "en": "Do not rely on AI for everything.", "ar": "لا تعتمدي على الذكاء الاصطناعي في كل شيء." }
+        ],
+        "comprehension": [
+          { "question": "How does a music app choose a song for you?", "options": ["It asks your neighbor", "It recommends one using AI", "It plays a random noise", "It calls the singer"], "correct": "It recommends one using AI", "explanation_ar": "يستخدم التطبيق الذكاء الاصطناعي ليقترح أغنية تناسب ذوقكِ." },
+          { "question": "According to the reading, what can an email app do automatically?", "options": ["Cook your dinner", "Wash your car", "Filter spam", "Paint the wall"], "correct": "Filter spam", "explanation_ar": "يستطيع تطبيق البريد ترشيح الرسائل المزعجة تلقائيًّا." },
+          { "question": "Why is privacy a real concern with AI systems?", "options": ["They collect a lot of personal data", "They are too quiet", "They use no electricity", "They are made of paper"], "correct": "They collect a lot of personal data", "explanation_ar": "لأنّ هذه الأنظمة تجمع كمّية كبيرة من البيانات الشخصية." },
+          { "question": "What can happen if a model learns from unfair data?", "options": ["It becomes faster", "It shows bias", "It turns off", "It cleans itself"], "correct": "It shows bias", "explanation_ar": "قد يُظهر النموذج تحيّزًا إذا تعلّم من بيانات غير عادلة." },
+          { "question": "What is the writer's main advice about AI?", "options": ["Use it for absolutely everything", "Never use it at all", "Do not rely on it for everything, and make it fair and safe", "Hide it from everyone"], "correct": "Do not rely on it for everything, and make it fair and safe", "explanation_ar": "لا تعتمدي عليه في كل شيء، واحرصي على جعله عادلًا وآمنًا." }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Talk for about one minute about your favorite AI feature and one thing you would change to make it safer.",
+          "prompt_ar": "تحدّثي لمدة دقيقة تقريبًا عن ميزتكِ المفضّلة في الذكاء الاصطناعي، وشيءٍ واحد تغيّرينه لجعلها أكثر أمانًا.",
+          "guidance_ar": "استخدمي كلمات مثل: recommend و convenient و privacy و rely."
+        }
+      }
+    }
+  ]
+}

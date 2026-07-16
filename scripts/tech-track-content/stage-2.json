@@ -1,0 +1,177 @@
+{
+  "stage": {
+    "slug": "using-computers",
+    "sort_order": 2,
+    "title_en": "Using Computers",
+    "title_ar": "استخدام الحاسب",
+    "subtitle_ar": "خطواتك الأولى الواثقة مع الحاسوب: الملفات والمجلّدات، نظام التشغيل، والمهام اليومية التي ستحتاجينها كل يوم في تخصّصك.",
+    "cefr": "A2",
+    "accent": "#22d3ee",
+    "icon": "MonitorSmartphone"
+  },
+  "lessons": [
+    {
+      "slug": "files-and-folders",
+      "sort_order": 1,
+      "title_en": "Files and Folders",
+      "title_ar": "الملفات والمجلّدات",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "في تخصّص التقنية ستتعاملين يوميًا مع عشرات الملفات: أكواد، وصور، ومستندات. تنظيمها داخل مجلّدات مهارة أساسية توفّر عليك وقتًا كبيرًا وتجعل عملك مرتّبًا. في هذا الدرس ستتعلّمين الكلمات الإنجليزية التي تصف الملفات والمجلّدات، وكيف تحفظينها وتنقلينها وتحذفينها بثقة.",
+        "vocab": [
+          { "word": "file", "ipa": "/faɪl/", "meaning_ar": "ملف", "meaning_en": "a set of data saved on a computer", "example": "I save my work in a file." },
+          { "word": "folder", "ipa": "/ˈfoʊldər/", "meaning_ar": "مجلّد", "meaning_en": "a place that holds files", "example": "My photos are in one folder." },
+          { "word": "save", "ipa": "/seɪv/", "meaning_ar": "يحفظ", "meaning_en": "to keep your work on the computer", "example": "Save the file before you close it." },
+          { "word": "open", "ipa": "/ˈoʊpən/", "meaning_ar": "يفتح", "meaning_en": "to look inside a file", "example": "Open the file to read it." },
+          { "word": "name", "ipa": "/neɪm/", "meaning_ar": "اسم", "meaning_en": "the word you give to a file", "example": "Give the file a clear name." },
+          { "word": "document", "ipa": "/ˈdɑːkjumənt/", "meaning_ar": "مستند", "meaning_en": "a file with text", "example": "I write my homework in a document." },
+          { "word": "image", "ipa": "/ˈɪmɪdʒ/", "meaning_ar": "صورة", "meaning_en": "a picture file", "example": "This image shows my project." },
+          { "word": "delete", "ipa": "/dɪˈliːt/", "meaning_ar": "يحذف", "meaning_en": "to remove a file from the computer", "example": "Delete the old file." },
+          { "word": "copy", "ipa": "/ˈkɑːpi/", "meaning_ar": "ينسخ", "meaning_en": "to make another one that is the same", "example": "Copy the file to a new folder." },
+          { "word": "move", "ipa": "/muːv/", "meaning_ar": "ينقل", "meaning_en": "to put a file in a new place", "example": "Move the file to the folder." },
+          { "word": "desktop", "ipa": "/ˈdesktɑːp/", "meaning_ar": "سطح المكتب", "meaning_en": "the main screen with icons", "example": "The file is on my desktop." },
+          { "word": "download", "ipa": "/ˈdaʊnloʊd/", "meaning_ar": "يُنزّل", "meaning_en": "to get a file from the internet", "example": "I download a file from the internet." }
+        ],
+        "reading": {
+          "title_en": "My Files and Folders",
+          "title_ar": "ملفاتي ومجلّداتي",
+          "paragraphs": [
+            "On a computer, we keep our work in files. A file can be a document with text, or an image with a picture. Every file has a name. A good name is clear and short.",
+            "A folder is a place for files. We put many files in one folder. This keeps our work clean and easy to find. For example, I have one folder for school and one folder for photos.",
+            "We can do many things with a file. We open a file to read it. We save a file to keep our work. We can copy a file or move it to a new folder. We can also delete a file we do not need. Sometimes we download a file from the internet, and it goes to our computer.",
+            "My files are on my desktop and in my folders. When my work is clean, I feel happy. Good habits with files help me every day."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Save the file.", "ar": "احفظي الملف." },
+          { "en": "Open the folder.", "ar": "افتحي المجلّد." },
+          { "en": "Give the file a name.", "ar": "أعطي الملف اسمًا." },
+          { "en": "Move the file to a folder.", "ar": "انقلي الملف إلى مجلّد." },
+          { "en": "Delete the old file.", "ar": "احذفي الملف القديم." }
+        ],
+        "comprehension": [
+          { "question": "What is a folder?", "options": ["A place for files", "A kind of text", "A picture file", "A name for the computer"], "correct": "A place for files", "explanation_ar": "المجلّد مكان نضع فيه الملفات." },
+          { "question": "What do we do to keep our work?", "options": ["Delete the file", "Save the file", "Close the computer", "Move the folder"], "correct": "Save the file", "explanation_ar": "نحفظ الملف كي نبقي عملنا." },
+          { "question": "A document is a file with...", "options": ["A picture", "Music", "Text", "A folder"], "correct": "Text", "explanation_ar": "المستند ملف يحتوي على نص." },
+          { "question": "What does \"delete\" mean?", "options": ["To open a file", "To copy a file", "To save a file", "To remove a file"], "correct": "To remove a file", "explanation_ar": "الحذف يعني إزالة الملف." },
+          { "question": "How do we get a file from the internet?", "options": ["We download it", "We delete it", "We name it", "We open the desktop"], "correct": "We download it", "explanation_ar": "نُنزّل الملف من الإنترنت." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about how you keep your files. Where do you save them?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن كيفية حفظ ملفاتك. أين تحفظينها؟",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل: file، folder، save."
+        }
+      }
+    },
+    {
+      "slug": "operating-system",
+      "sort_order": 2,
+      "title_en": "The Operating System",
+      "title_ar": "نظام التشغيل وسطح المكتب",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "نظام التشغيل هو قلب أي حاسوب، ومعرفتك بمصطلحاته بالإنجليزية ستفيدك كثيرًا في دراستك التقنية. في هذا الدرس ستتعرّفين على سطح المكتب والأيقونات والنوافذ والإعدادات بالإنجليزية، لتتنقّلي في أي حاسوب بثقة وتفهمي التعليمات التقنية بسهولة.",
+        "vocab": [
+          { "word": "operating system", "ipa": "/ˈɑːpəreɪtɪŋ ˈsɪstəm/", "meaning_ar": "نظام التشغيل", "meaning_en": "the main software that runs the computer", "example": "The operating system runs all your programs." },
+          { "word": "Windows", "ipa": "/ˈwɪndoʊz/", "meaning_ar": "ويندوز", "meaning_en": "a popular operating system from Microsoft", "example": "Many computers use Windows." },
+          { "word": "desktop", "ipa": "/ˈdesktɑːp/", "meaning_ar": "سطح المكتب", "meaning_en": "the main screen you see first", "example": "My files are on the desktop." },
+          { "word": "icon", "ipa": "/ˈaɪkɑːn/", "meaning_ar": "أيقونة", "meaning_en": "a small picture you click to open something", "example": "Click the icon to open the program." },
+          { "word": "taskbar", "ipa": "/ˈtæskbɑːr/", "meaning_ar": "شريط المهام", "meaning_en": "a bar that shows the open programs", "example": "The taskbar is at the bottom of the screen." },
+          { "word": "window", "ipa": "/ˈwɪndoʊ/", "meaning_ar": "نافذة", "meaning_en": "a box on the screen for a program", "example": "I have three windows open now." },
+          { "word": "menu", "ipa": "/ˈmenjuː/", "meaning_ar": "قائمة", "meaning_en": "a list of choices", "example": "Open the menu to see the options." },
+          { "word": "settings", "ipa": "/ˈsetɪŋz/", "meaning_ar": "الإعدادات", "meaning_en": "where you change how the computer works", "example": "Change the language in the settings." },
+          { "word": "mouse", "ipa": "/maʊs/", "meaning_ar": "الفأرة", "meaning_en": "a device to move the pointer and click", "example": "Use the mouse to point and click." },
+          { "word": "keyboard", "ipa": "/ˈkiːbɔːrd/", "meaning_ar": "لوحة المفاتيح", "meaning_en": "the part you use to type letters and numbers", "example": "I type my name on the keyboard." },
+          { "word": "screen", "ipa": "/skriːn/", "meaning_ar": "الشاشة", "meaning_en": "the part that shows pictures and text", "example": "The screen shows my desktop." },
+          { "word": "click", "ipa": "/klɪk/", "meaning_ar": "ينقر", "meaning_en": "to press the mouse button", "example": "Click the icon two times to open it." }
+        ],
+        "reading": {
+          "title_en": "The Operating System",
+          "title_ar": "نظام التشغيل",
+          "paragraphs": [
+            "Every computer needs an operating system. It is the main software that makes the computer work. Windows is one popular operating system, and there are others like macOS and Linux. Without it, the machine cannot run your programs.",
+            "When you turn on the computer, you see the desktop. The desktop is the main screen. It has small pictures called icons. When you click an icon with the mouse, a program opens in a window. You can have many windows open at the same time.",
+            "At the bottom of the screen, there is a taskbar. It shows the programs that are open. Many programs have a menu, which is a list of choices. You use the keyboard to type and the mouse to point and click.",
+            "If you want to change something, you open the settings. There you can change the language, the time, or the background. Learning the operating system helps you use any computer with confidence."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Open the settings.", "ar": "افتحي الإعدادات." },
+          { "en": "Click the icon.", "ar": "انقري الأيقونة." },
+          { "en": "Close the window.", "ar": "أغلقي النافذة." },
+          { "en": "Windows is an operating system.", "ar": "ويندوز نظام تشغيل." },
+          { "en": "Use the keyboard to type.", "ar": "استخدمي لوحة المفاتيح للكتابة." }
+        ],
+        "comprehension": [
+          { "question": "What is an operating system?", "options": ["A kind of mouse", "The main software that runs the computer", "A small picture on the screen", "A list of choices"], "correct": "The main software that runs the computer", "explanation_ar": "نظام التشغيل هو البرنامج الرئيسي الذي يُشغّل الحاسوب." },
+          { "question": "What do you see when you turn on the computer?", "options": ["The desktop", "The keyboard", "A file", "The internet"], "correct": "The desktop", "explanation_ar": "عند تشغيل الحاسوب ترين سطح المكتب أولًا." },
+          { "question": "What is an icon?", "options": ["A big screen", "A type of menu", "A small picture you click", "A list of programs"], "correct": "A small picture you click", "explanation_ar": "الأيقونة صورة صغيرة تنقرين عليها لفتح برنامج." },
+          { "question": "Where can you change the language or the time?", "options": ["In the taskbar", "On the mouse", "In a window", "In the settings"], "correct": "In the settings", "explanation_ar": "يمكنك تغيير اللغة أو الوقت من الإعدادات." },
+          { "question": "What does the taskbar show?", "options": ["The programs that are open", "The letters on the keyboard", "Your files only", "The internet"], "correct": "The programs that are open", "explanation_ar": "شريط المهام يعرض البرامج المفتوحة." }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Describe your computer's desktop. What icons do you see? Which operating system do you use?",
+          "prompt_ar": "صِفي سطح مكتب حاسوبك. ما الأيقونات التي ترينها؟ وما نظام التشغيل الذي تستخدمينه؟",
+          "guidance_ar": "تحدّثي لنحو نصف دقيقة، واستخدمي ٣ كلمات على الأقل من كلمات الدرس مثل: desktop، icon، settings."
+        }
+      }
+    },
+    {
+      "slug": "everyday-tasks",
+      "sort_order": 3,
+      "title_en": "Everyday Tasks",
+      "title_ar": "مهام يومية على الحاسب",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "كل يوم نؤدّي مهامّ صغيرة على الحاسوب: تسجيل الدخول، وكتابة رسالة، والبحث عن معلومة. إتقانك لهذه المهام بالإنجليزية سيجعلك أسرع وأكثر ثقة في دراستك التقنية وعملك المستقبلي. في هذا الدرس ستتعلّمين مفردات وعبارات هذه المهام اليومية وتتدرّبين عليها.",
+        "vocab": [
+          { "word": "type", "ipa": "/taɪp/", "meaning_ar": "يكتب على لوحة المفاتيح", "meaning_en": "to write using the keyboard", "example": "I type my report on the keyboard." },
+          { "word": "print", "ipa": "/prɪnt/", "meaning_ar": "يطبع", "meaning_en": "to put text or images on paper", "example": "Please print this document." },
+          { "word": "install", "ipa": "/ɪnˈstɔːl/", "meaning_ar": "يُثبّت", "meaning_en": "to add a new program to the computer", "example": "I install a new program to edit photos." },
+          { "word": "update", "ipa": "/ˈʌpdeɪt/", "meaning_ar": "يُحدّث", "meaning_en": "to make a program newer and better", "example": "The computer asks me to update the app." },
+          { "word": "password", "ipa": "/ˈpæswɜːrd/", "meaning_ar": "كلمة المرور", "meaning_en": "a secret word you use to log in", "example": "Keep your password safe and secret." },
+          { "word": "log in", "ipa": "/lɔːɡ ɪn/", "meaning_ar": "يسجّل الدخول", "meaning_en": "to enter your account", "example": "I log in with my name and password." },
+          { "word": "browser", "ipa": "/ˈbraʊzər/", "meaning_ar": "متصفّح", "meaning_en": "a program that opens websites", "example": "I open a browser to read the news." },
+          { "word": "email", "ipa": "/ˈiːmeɪl/", "meaning_ar": "بريد إلكتروني", "meaning_en": "a message you send on the internet", "example": "I send an email to my teacher." },
+          { "word": "attach", "ipa": "/əˈtætʃ/", "meaning_ar": "يُرفق", "meaning_en": "to add a file to an email", "example": "Attach the file to the email." },
+          { "word": "search", "ipa": "/sɜːrtʃ/", "meaning_ar": "يبحث", "meaning_en": "to look for something", "example": "I search for information online." },
+          { "word": "shortcut", "ipa": "/ˈʃɔːrtkʌt/", "meaning_ar": "اختصار", "meaning_en": "a fast way to do a task", "example": "This shortcut saves the file quickly." },
+          { "word": "restart", "ipa": "/ˌriːˈstɑːrt/", "meaning_ar": "يُعيد التشغيل", "meaning_en": "to turn the computer off and on again", "example": "Restart the computer if it is slow." }
+        ],
+        "reading": {
+          "title_en": "Everyday Tasks on a Computer",
+          "title_ar": "مهام يومية على الحاسب",
+          "paragraphs": [
+            "We use a computer for many small tasks every day. First, we log in with a username and a password. The password is secret, so we keep it safe and never share it.",
+            "After we log in, we can start our work. We type reports on the keyboard and print them on paper. We open a browser to visit websites and search for information. We also send an email to friends or teachers, and we can attach a file to it.",
+            "Sometimes the computer asks us to update a program to a newer version. We may also install a new program that we need. A good tip is to learn a shortcut, which is a fast way to do a task. For example, one shortcut can save a file quickly.",
+            "If the computer is slow or a program stops, we can restart it. These small tasks are simple, but they are very useful. When you know them well in English, you can help other people too."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Enter your password.", "ar": "أدخلي كلمة المرور." },
+          { "en": "Log in to your account.", "ar": "سجّلي الدخول إلى حسابك." },
+          { "en": "Attach the file to the email.", "ar": "أرفقي الملف بالبريد." },
+          { "en": "Update the program.", "ar": "حدّثي البرنامج." },
+          { "en": "Restart the computer.", "ar": "أعيدي تشغيل الحاسوب." }
+        ],
+        "comprehension": [
+          { "question": "What do we use to log in?", "options": ["A printer", "A username and a password", "A shortcut", "An email"], "correct": "A username and a password", "explanation_ar": "نسجّل الدخول باسم المستخدم وكلمة المرور." },
+          { "question": "What does \"attach\" mean in an email?", "options": ["To add a file to the email", "To delete the email", "To print the email", "To restart the computer"], "correct": "To add a file to the email", "explanation_ar": "الإرفاق يعني إضافة ملف إلى البريد." },
+          { "question": "Why do we keep a password safe?", "options": ["Because it is slow", "Because it is on paper", "Because it is secret", "Because it is a shortcut"], "correct": "Because it is secret", "explanation_ar": "نحافظ على كلمة المرور لأنها سرّية." },
+          { "question": "What can we do if a program stops?", "options": ["Print it", "Attach it", "Search it", "Restart the computer"], "correct": "Restart the computer", "explanation_ar": "إذا توقّف برنامج يمكننا إعادة تشغيل الحاسوب." },
+          { "question": "What is a shortcut?", "options": ["A fast way to do a task", "A secret word", "A kind of email", "A program you print"], "correct": "A fast way to do a task", "explanation_ar": "الاختصار طريقة سريعة لأداء مهمة." },
+          { "question": "What do we use a browser for?", "options": ["To type reports", "To visit websites", "To restart the computer", "To keep passwords"], "correct": "To visit websites", "explanation_ar": "نستخدم المتصفّح لزيارة المواقع." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about the tasks you do on a computer every day.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن المهام التي تقومين بها على الحاسوب كل يوم.",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل: log in، email، search."
+        }
+      }
+    }
+  ]
+}

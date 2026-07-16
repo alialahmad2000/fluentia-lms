@@ -11,6 +11,7 @@ import LayoutShell from './components/layout/LayoutShell'
 import DeskShell from './components/desk/DeskShell'
 import DeskGuard from './components/desk/DeskGuard'
 import TechTrackGuard from './components/tech-track/TechTrackGuard'
+import BizTrackGuard from './components/biz-track/BizTrackGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
@@ -69,6 +70,8 @@ const DeskGrowth = lazyRetry(() => import('./pages/desk/DeskGrowth'))
 // Tech Track «مسار التقنية» (gated IT/CS English course, alongside the normal curriculum)
 const TechTrackHome = lazyRetry(() => import('./pages/student/tech-track/TechTrackHome'))
 const TechLessonPage = lazyRetry(() => import('./pages/student/tech-track/TechLessonPage'))
+const BizTrackHome = lazyRetry(() => import('./pages/student/biz-track/BizTrackHome'))
+const BizLessonPage = lazyRetry(() => import('./pages/student/biz-track/BizLessonPage'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
 const IndividualModulePage = lazyRetry(() => import('./pages/student/individual/ModulePage'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -772,6 +775,10 @@ export default function App() {
                 <Route element={<TechTrackGuard />}>
                   <Route path="/tech" element={<Page><TechTrackHome /></Page>} />
                   <Route path="/tech/:lessonSlug" element={<Page><TechLessonPage /></Page>} />
+                </Route>
+                <Route element={<BizTrackGuard />}>
+                  <Route path="/biz" element={<Page><BizTrackHome /></Page>} />
+                  <Route path="/biz/:lessonSlug" element={<Page><BizLessonPage /></Page>} />
                 </Route>
               </Route>
             </Route>

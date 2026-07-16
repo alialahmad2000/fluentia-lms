@@ -1,0 +1,515 @@
+{
+  "stage": {
+    "slug": "the-car",
+    "sort_order": 2,
+    "title_en": "The Car",
+    "title_ar": "السيارة وأجزاؤها",
+    "subtitle_ar": "هنا تتحدث الإنجليزية عن أقرب شيء إلى عملك: السيارة وأجزاؤها وأنواعها، وكيف تصفها لعميلك بثقة.",
+    "cefr": "A2",
+    "accent": "#38bdf8",
+    "icon": "Car"
+  },
+  "lessons": [
+    {
+      "slug": "car-parts",
+      "sort_order": 1,
+      "title_en": "Car Parts",
+      "title_ar": "أجزاء السيارة",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "أنت تعرف السيارة من الداخل والخارج أفضل من كثيرين، والجديد اليوم هو أسماؤها بالإنجليزية. في هذا الدرس ستتعلم كلمات مثل engine وbrake وtire — كلمات ستستخدمها كل يوم في الورشة ومع العملاء والمورّدين. ابدأ بالمفردات، ثم اقرأ النص وستجد الكلمات نفسها أمامك في موقف حقيقي.",
+        "vocab": [
+          {
+            "word": "engine",
+            "ipa": "/ˈendʒɪn/",
+            "meaning_ar": "محرّك",
+            "meaning_en": "the part that makes the car move",
+            "example": "I check the engine every morning."
+          },
+          {
+            "word": "wheel",
+            "ipa": "/wiːl/",
+            "meaning_ar": "عجلة",
+            "meaning_en": "the round part that turns under the car",
+            "example": "The car has four wheels."
+          },
+          {
+            "word": "tire",
+            "ipa": "/ˈtaɪər/",
+            "meaning_ar": "إطار (كفر)",
+            "meaning_en": "the rubber part around the wheel",
+            "example": "This tire is new."
+          },
+          {
+            "word": "brake",
+            "ipa": "/breɪk/",
+            "meaning_ar": "مكبح (فرامل)",
+            "meaning_en": "the part that stops the car",
+            "example": "The brakes stop the car."
+          },
+          {
+            "word": "battery",
+            "ipa": "/ˈbætəri/",
+            "meaning_ar": "بطارية",
+            "meaning_en": "the part that gives electric power",
+            "example": "The battery is weak."
+          },
+          {
+            "word": "oil",
+            "ipa": "/ɔɪl/",
+            "meaning_ar": "زيت",
+            "meaning_en": "liquid that keeps the engine smooth",
+            "example": "The engine needs new oil."
+          },
+          {
+            "word": "hood",
+            "ipa": "/hʊd/",
+            "meaning_ar": "غطاء المحرّك (الكبوت)",
+            "meaning_en": "the cover over the engine",
+            "example": "Open the hood, please."
+          },
+          {
+            "word": "trunk",
+            "ipa": "/trʌŋk/",
+            "meaning_ar": "صندوق السيارة الخلفي (الشنطة)",
+            "meaning_en": "the space at the back for bags",
+            "example": "Put the bags in the trunk."
+          },
+          {
+            "word": "door",
+            "ipa": "/dɔːr/",
+            "meaning_ar": "باب",
+            "meaning_en": "you open it to get in the car",
+            "example": "Please close the door."
+          },
+          {
+            "word": "seat",
+            "ipa": "/siːt/",
+            "meaning_ar": "مقعد",
+            "meaning_en": "the place where you sit in the car",
+            "example": "The seats are clean."
+          },
+          {
+            "word": "mirror",
+            "ipa": "/ˈmɪrər/",
+            "meaning_ar": "مرآة",
+            "meaning_en": "glass that helps you see behind you",
+            "example": "Look in the mirror before you drive."
+          },
+          {
+            "word": "light",
+            "ipa": "/laɪt/",
+            "meaning_ar": "ضوء (مصباح)",
+            "meaning_en": "it helps you see at night",
+            "example": "Turn on the lights at night."
+          }
+        ],
+        "reading": {
+          "title_en": "A Day in the Workshop",
+          "title_ar": "يوم في الورشة",
+          "paragraphs": [
+            "I work in my workshop every day. My workshop is in the industrial area of the city. A customer comes with his car. First, I open the hood and look at the engine. The engine is the heart of the car. I check the oil too. Good oil keeps the engine strong.",
+            "Then I check the battery. Here the summer is very hot, and a weak battery is a big problem. I look at the four tires. One tire is old, so I change it. Now every wheel is safe. The new tire costs 300 riyals.",
+            "Inside the car, I test the brakes. The brakes must work well. I clean the seats and the mirrors. I also check the lights. At the end, I close the doors and the trunk. The car is ready, and the customer is happy."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "The engine needs new oil.",
+            "ar": "المحرّك يحتاج زيتًا جديدًا."
+          },
+          {
+            "en": "Your battery is weak.",
+            "ar": "بطاريتك ضعيفة."
+          },
+          {
+            "en": "This tire is old. You need a new one.",
+            "ar": "هذا الإطار قديم، تحتاج إلى إطار جديد."
+          },
+          {
+            "en": "The brakes work well now.",
+            "ar": "المكابح تعمل جيدًا الآن."
+          },
+          {
+            "en": "Your car is ready.",
+            "ar": "سيارتك جاهزة."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What is \"the heart of the car\" in the reading?",
+            "options": ["The trunk", "The engine", "The mirror", "The seat"],
+            "correct": "The engine",
+            "explanation_ar": "النص يقول: المحرّك هو قلب السيارة (The engine is the heart of the car)."
+          },
+          {
+            "question": "Why is a weak battery a big problem?",
+            "options": ["Because the summer is very hot", "Because the car is new", "Because the oil is good", "Because the doors are open"],
+            "correct": "Because the summer is very hot",
+            "explanation_ar": "النص يذكر أن الصيف هنا حار جدًا، لذلك البطارية الضعيفة مشكلة كبيرة."
+          },
+          {
+            "question": "How much does the new tire cost?",
+            "options": ["100 riyals", "500 riyals", "300 riyals", "200 riyals"],
+            "correct": "300 riyals",
+            "explanation_ar": "النص يقول إن الإطار الجديد يكلّف ٣٠٠ ريال (The new tire costs 300 riyals)."
+          },
+          {
+            "question": "What does the worker test inside the car?",
+            "options": ["The hood", "The engine", "The battery", "The brakes"],
+            "correct": "The brakes",
+            "explanation_ar": "داخل السيارة، يختبر العامل المكابح: I test the brakes."
+          },
+          {
+            "question": "What happens at the end of the day?",
+            "options": ["The customer buys a new car", "The car is ready", "The engine stops", "The tire is old"],
+            "correct": "The car is ready",
+            "explanation_ar": "في نهاية النص: السيارة جاهزة والعميل سعيد (The car is ready, and the customer is happy)."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about a car in your workshop. Name three parts and say if each one is good or old.",
+          "prompt_ar": "اكتب ٣–٤ جُمل عن سيارة في ورشتك. اذكر ثلاثة أجزاء منها، وقل إن كان كل جزء جيدًا أم قديمًا.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل engine وbrake وtire وbattery."
+        }
+      }
+    },
+    {
+      "slug": "types-of-cars",
+      "sort_order": 2,
+      "title_en": "Types of Cars",
+      "title_ar": "أنواع السيارات",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "في المعرض، كل عميل يبحث عن نوع مختلف من السيارات: عائلة تريد سيدان، وشركة تحتاج ڤان، وشاب يسأل عن سيارة كهربائية. في هذا الدرس ستتعلم أسماء أنواع السيارات بالإنجليزية لتتحدث عن كل نوع تبيعه بثقة، وتفهم طلب العميل من أول جملة.",
+        "vocab": [
+          {
+            "word": "sedan",
+            "ipa": "/sɪˈdæn/",
+            "meaning_ar": "سيارة سيدان (صالون)",
+            "meaning_en": "a normal car with four doors and a trunk",
+            "example": "A sedan is a good family car."
+          },
+          {
+            "word": "SUV",
+            "ipa": "/ˌes juː ˈviː/",
+            "meaning_ar": "سيارة دفع رباعي",
+            "meaning_en": "a big, tall car for families and long trips",
+            "example": "This SUV is perfect for desert trips."
+          },
+          {
+            "word": "pickup",
+            "ipa": "/ˈpɪkʌp/",
+            "meaning_ar": "سيارة بيك أب (وانيت)",
+            "meaning_en": "a car with an open back for carrying things",
+            "example": "The farmer bought a strong pickup."
+          },
+          {
+            "word": "van",
+            "ipa": "/væn/",
+            "meaning_ar": "سيارة ڤان (نقل صغيرة)",
+            "meaning_en": "a big car for carrying people or goods",
+            "example": "The company uses a van for its goods."
+          },
+          {
+            "word": "hybrid",
+            "ipa": "/ˈhaɪbrɪd/",
+            "meaning_ar": "سيارة هجينة",
+            "meaning_en": "a car that uses fuel and electricity",
+            "example": "A hybrid saves money on fuel."
+          },
+          {
+            "word": "electric",
+            "ipa": "/ɪˈlektrɪk/",
+            "meaning_ar": "كهربائي",
+            "meaning_en": "working with electricity, not fuel",
+            "example": "Electric cars are very quiet."
+          },
+          {
+            "word": "fuel",
+            "ipa": "/ˈfjuːəl/",
+            "meaning_ar": "وقود",
+            "meaning_en": "petrol or gas that a car needs to move",
+            "example": "Fuel prices went up this month."
+          },
+          {
+            "word": "model",
+            "ipa": "/ˈmɒdl/",
+            "meaning_ar": "طراز (موديل)",
+            "meaning_en": "one type of car from a company",
+            "example": "This model is new this year."
+          },
+          {
+            "word": "brand",
+            "ipa": "/brænd/",
+            "meaning_ar": "علامة تجارية (ماركة)",
+            "meaning_en": "the name of the company that makes the car",
+            "example": "Which brand do you like most?"
+          },
+          {
+            "word": "luxury",
+            "ipa": "/ˈlʌkʃəri/",
+            "meaning_ar": "فاخر",
+            "meaning_en": "very comfortable and expensive",
+            "example": "Luxury cars are beautiful but expensive."
+          },
+          {
+            "word": "economy",
+            "ipa": "/ɪˈkɒnəmi/",
+            "meaning_ar": "اقتصادي",
+            "meaning_en": "cheap to buy and cheap to use",
+            "example": "An economy car is good for daily work."
+          },
+          {
+            "word": "used",
+            "ipa": "/juːzd/",
+            "meaning_ar": "مستعمل",
+            "meaning_en": "not new; it had an owner before",
+            "example": "He bought a used car at a good price."
+          }
+        ],
+        "reading": {
+          "title_en": "Cars for Every Customer",
+          "title_ar": "سيارة لكل عميل",
+          "paragraphs": [
+            "In my showroom, I sell many types of cars. Families usually want a sedan or an SUV. A sedan is comfortable and easy to park, and its fuel cost is low. An SUV is bigger and stronger, so it is perfect for long trips and desert roads.",
+            "Businesses need different cars. A small company often buys a van to carry goods, and many workers choose a pickup because it is strong and simple. Last month, I sold five pickups to a farm near the city.",
+            "Today, more customers ask about hybrid and electric cars. A hybrid uses both fuel and electricity, so it saves money. An electric car needs no fuel at all, but it needs a charger at home.",
+            "Every customer asks the same questions: Which brand is best? Which model is new? Is a used car a good idea? My answer is simple: the best car is the car that fits your life and your budget. A luxury car is beautiful, but an economy car is a smart choice for daily work."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "What type of car are you looking for?",
+            "ar": "ما نوع السيارة التي تبحث عنها؟"
+          },
+          {
+            "en": "This model is very popular this year.",
+            "ar": "هذا الطراز مطلوب جدًا هذه السنة."
+          },
+          {
+            "en": "A hybrid saves fuel and money.",
+            "ar": "السيارة الهجينة توفّر الوقود والمال."
+          },
+          {
+            "en": "This used car is in excellent condition.",
+            "ar": "هذه السيارة المستعملة بحالة ممتازة."
+          },
+          {
+            "en": "It fits your budget.",
+            "ar": "إنها تناسب ميزانيتك."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "Why do families like a sedan?",
+            "options": ["It is comfortable and easy to park", "It needs no fuel", "It is good for carrying goods", "It is the most expensive car"],
+            "correct": "It is comfortable and easy to park",
+            "explanation_ar": "النص يقول إن السيدان مريحة وسهلة الركن، وتكلفة وقودها منخفضة."
+          },
+          {
+            "question": "Who bought five pickups last month?",
+            "options": ["A family", "A hospital", "A farm", "A school"],
+            "correct": "A farm",
+            "explanation_ar": "باع الكاتب خمس سيارات بيك أب لمزرعة قرب المدينة (a farm near the city)."
+          },
+          {
+            "question": "What does a hybrid car use?",
+            "options": ["Only electricity", "Only fuel", "Water and fuel", "Both fuel and electricity"],
+            "correct": "Both fuel and electricity",
+            "explanation_ar": "السيارة الهجينة تستخدم الوقود والكهرباء معًا، ولهذا توفّر المال."
+          },
+          {
+            "question": "What does an electric car need at home?",
+            "options": ["A driver", "A charger", "Extra fuel", "A new battery every week"],
+            "correct": "A charger",
+            "explanation_ar": "السيارة الكهربائية لا تحتاج وقودًا، لكنها تحتاج شاحنًا في المنزل (a charger at home)."
+          },
+          {
+            "question": "What is the seller's advice about the best car?",
+            "options": ["Always buy a luxury car", "Buy the newest model only", "Choose the car that fits your life and budget", "Never buy a used car"],
+            "correct": "Choose the car that fits your life and budget",
+            "explanation_ar": "نصيحة البائع: أفضل سيارة هي التي تناسب حياتك وميزانيتك."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Talk for one minute about the types of cars you sell or like. Which type do your customers want most, and why?",
+          "prompt_ar": "تحدّث لمدة دقيقة عن أنواع السيارات التي تبيعها أو تفضّلها. ما النوع الأكثر طلبًا عند عملائك؟ ولماذا؟",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل sedan وSUV وhybrid وfuel."
+        }
+      }
+    },
+    {
+      "slug": "describing-a-car",
+      "sort_order": 3,
+      "title_en": "Describing a Car",
+      "title_ar": "وصف السيارة وحالتها",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "بيع السيارة يبدأ بوصفٍ صادق يكسب ثقة العميل — وأنت تفعل هذا كل يوم بالعربية. في هذا الدرس ستتعلم كيف تصف حالة السيارة بالإنجليزية: الممشى، والطلاء، وناقل الحركة، والضمان. عبارات قصيرة ستستخدمها في المعرض مع كل عميل جديد.",
+        "vocab": [
+          {
+            "word": "condition",
+            "ipa": "/kənˈdɪʃn/",
+            "meaning_ar": "حالة",
+            "meaning_en": "how good or bad something is",
+            "example": "The car is in excellent condition."
+          },
+          {
+            "word": "mileage",
+            "ipa": "/ˈmaɪlɪdʒ/",
+            "meaning_ar": "الممشى (عدد الكيلومترات)",
+            "meaning_en": "how many kilometers a car has driven",
+            "example": "Low mileage means a better price."
+          },
+          {
+            "word": "automatic",
+            "ipa": "/ˌɔːtəˈmætɪk/",
+            "meaning_ar": "أوتوماتيكي (ناقل حركة آلي)",
+            "meaning_en": "the car changes gears by itself",
+            "example": "Most customers want an automatic car."
+          },
+          {
+            "word": "manual",
+            "ipa": "/ˈmænjuəl/",
+            "meaning_ar": "يدوي (جير عادي)",
+            "meaning_en": "the driver changes gears by hand",
+            "example": "He likes to drive a manual car."
+          },
+          {
+            "word": "spacious",
+            "ipa": "/ˈspeɪʃəs/",
+            "meaning_ar": "واسع",
+            "meaning_en": "with a lot of space inside",
+            "example": "The SUV is spacious inside."
+          },
+          {
+            "word": "powerful",
+            "ipa": "/ˈpaʊəfl/",
+            "meaning_ar": "قوي",
+            "meaning_en": "with a strong engine",
+            "example": "This engine is very powerful."
+          },
+          {
+            "word": "reliable",
+            "ipa": "/rɪˈlaɪəbl/",
+            "meaning_ar": "موثوق (يُعتمد عليه)",
+            "meaning_en": "it works well and does not break",
+            "example": "A reliable car saves you money."
+          },
+          {
+            "word": "comfortable",
+            "ipa": "/ˈkʌmftəbl/",
+            "meaning_ar": "مريح",
+            "meaning_en": "nice and easy to sit in",
+            "example": "The seats are very comfortable."
+          },
+          {
+            "word": "scratch",
+            "ipa": "/skrætʃ/",
+            "meaning_ar": "خدش",
+            "meaning_en": "a small thin mark on the paint",
+            "example": "There is a small scratch on the door."
+          },
+          {
+            "word": "dent",
+            "ipa": "/dent/",
+            "meaning_ar": "انبعاج (طعجة)",
+            "meaning_en": "a low place in the car body after a hit",
+            "example": "The dent is easy to repair."
+          },
+          {
+            "word": "paint",
+            "ipa": "/peɪnt/",
+            "meaning_ar": "طلاء (دهان)",
+            "meaning_en": "the color layer on the car body",
+            "example": "The paint still looks new."
+          },
+          {
+            "word": "warranty",
+            "ipa": "/ˈwɒrənti/",
+            "meaning_ar": "ضمان",
+            "meaning_en": "a promise to repair the car for free",
+            "example": "The car comes with a one-year warranty."
+          }
+        ],
+        "reading": {
+          "title_en": "A Good Car for a Good Price",
+          "title_ar": "سيارة جيدة بسعر جيد",
+          "paragraphs": [
+            "A customer came to my showroom yesterday. He wanted a family car in good condition, but not a new one. I showed him a used sedan, model 2022. \"This car is reliable,\" I told him. \"The mileage is low — only 45,000 kilometers.\"",
+            "The customer looked at the car slowly. The paint was clean, and there was only one small scratch on the back door. There was no dent in the body. Inside, the car was spacious and comfortable, with seats for the whole family.",
+            "\"Is it automatic or manual?\" he asked. \"Automatic,\" I said. \"The engine is powerful but quiet, and the fuel cost is low.\" Then I gave him the most important news: \"The car comes with a one-year warranty from my workshop.\"",
+            "He drove the car for ten minutes. Then he smiled and said, \"The condition is excellent. How much?\" We agreed on 52,000 riyals. A fair price for him, and a good sale for me."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "The car is in excellent condition.",
+            "ar": "السيارة بحالة ممتازة."
+          },
+          {
+            "en": "The mileage is low.",
+            "ar": "الممشى قليل."
+          },
+          {
+            "en": "It has a small scratch, but no dents.",
+            "ar": "فيها خدش صغير، لكن لا توجد انبعاجات."
+          },
+          {
+            "en": "It is spacious and comfortable for the family.",
+            "ar": "إنها واسعة ومريحة للعائلة."
+          },
+          {
+            "en": "The engine is powerful but quiet.",
+            "ar": "المحرّك قوي لكنه هادئ."
+          },
+          {
+            "en": "It comes with a one-year warranty.",
+            "ar": "تأتي مع ضمان لمدة سنة."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What kind of car did the customer want?",
+            "options": ["A new sports car", "A family car in good condition", "A pickup for his farm", "An electric car"],
+            "correct": "A family car in good condition",
+            "explanation_ar": "أراد العميل سيارة عائلية بحالة جيدة، وليست جديدة."
+          },
+          {
+            "question": "What was on the back door?",
+            "options": ["A big dent", "New paint", "A broken mirror", "One small scratch"],
+            "correct": "One small scratch",
+            "explanation_ar": "كان هناك خدش صغير واحد فقط على الباب الخلفي، ولا يوجد أي انبعاج في الهيكل."
+          },
+          {
+            "question": "What is the car's mileage?",
+            "options": ["45,000 kilometers", "52,000 kilometers", "10,000 kilometers", "100,000 kilometers"],
+            "correct": "45,000 kilometers",
+            "explanation_ar": "الممشى منخفض — ٤٥,٠٠٠ كيلومتر فقط."
+          },
+          {
+            "question": "What did the seller offer with the car?",
+            "options": ["Free fuel for a year", "A new battery", "A one-year warranty", "Free new seats"],
+            "correct": "A one-year warranty",
+            "explanation_ar": "قدّم البائع ضمانًا لمدة سنة من ورشته مع السيارة."
+          },
+          {
+            "question": "How much did they agree on?",
+            "options": ["45,000 riyals", "52,000 riyals", "42,000 riyals", "55,000 riyals"],
+            "correct": "52,000 riyals",
+            "explanation_ar": "اتفقا في النهاية على ٥٢,٠٠٠ ريال — سعر عادل للطرفين."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Describe one car from your business in 4–5 sentences. Write about its condition, its mileage, and why it is a good car.",
+          "prompt_ar": "صِف سيارة واحدة من عملك في ٤–٥ جُمل. اكتب عن حالتها وممشاها، ولماذا هي سيارة جيدة.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل condition وmileage وreliable وwarranty."
+        }
+      }
+    }
+  ]
+}

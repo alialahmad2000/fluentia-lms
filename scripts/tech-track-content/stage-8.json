@@ -1,0 +1,182 @@
+{
+  "stage": {
+    "slug": "software-teams",
+    "sort_order": 8,
+    "title_en": "Software Teams & Practices",
+    "title_ar": "فرق البرمجة وممارساتها",
+    "subtitle_ar": "تعلَّمي كيف يعمل المبرمجون معًا: التنسيق داخل الفريق، وإدارة الإصدارات عبر Git، ومراجعة الكود بأسلوب أجايل.",
+    "cefr": "B1",
+    "accent": "#60a5fa",
+    "icon": "GitBranch"
+  },
+  "lessons": [
+    {
+      "slug": "working-in-a-team",
+      "sort_order": 1,
+      "title_en": "Working in a Team",
+      "title_ar": "العمل ضمن فريق برمجي",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "في عالم البرمجة، نادرًا ما يبني شخص واحد التطبيق بمفرده؛ فالعمل الحقيقي يجري داخل فريق. في تخصّصكِ الجامعي ستكتبين الكود مع زملاء، وتتشاركين المهام، وتتواصلين معهم بالإنجليزية كل يوم. في هذا الدرس ستتعلّمين كلمات وعبارات الفريق البرمجي: الأدوار، والمهام، والمواعيد النهائية، والاجتماعات، والتغذية الراجعة.",
+        "vocab": [
+          { "word": "team", "ipa": "/tiːm/", "meaning_ar": "فريق", "meaning_en": "a group of people who work together toward the same goal", "example": "Our team builds a new app every semester." },
+          { "word": "developer", "ipa": "/dɪˈveləpər/", "meaning_ar": "مطوّر برمجيات", "meaning_en": "a person who writes and builds software", "example": "Each developer works on a different part of the app." },
+          { "word": "task", "ipa": "/tɑːsk/", "meaning_ar": "مهمّة", "meaning_en": "a piece of work that someone must do", "example": "My first task was to design the login page." },
+          { "word": "deadline", "ipa": "/ˈdedlaɪn/", "meaning_ar": "الموعد النهائي", "meaning_en": "the time by which a task must be finished", "example": "The deadline for the project is next Friday." },
+          { "word": "meeting", "ipa": "/ˈmiːtɪŋ/", "meaning_ar": "اجتماع", "meaning_en": "a time when people come together to talk about work", "example": "We have a short meeting every morning." },
+          { "word": "responsibility", "ipa": "/rɪˌspɒnsəˈbɪləti/", "meaning_ar": "مسؤولية", "meaning_en": "a duty or task that you must take care of", "example": "Testing the code is her responsibility." },
+          { "word": "communicate", "ipa": "/kəˈmjuːnɪkeɪt/", "meaning_ar": "يتواصل", "meaning_en": "to share information with other people", "example": "Good teams communicate clearly and often." },
+          { "word": "project", "ipa": "/ˈprɒdʒekt/", "meaning_ar": "مشروع", "meaning_en": "a planned piece of work with a clear goal", "example": "The whole project must be ready in three weeks." },
+          { "word": "teammate", "ipa": "/ˈtiːmmeɪt/", "meaning_ar": "زميل الفريق", "meaning_en": "another member of your team", "example": "I asked a teammate to help me fix the error." },
+          { "word": "progress", "ipa": "/ˈprəʊɡres/", "meaning_ar": "تقدّم", "meaning_en": "the movement toward finishing a goal", "example": "We check our progress at the end of the day." },
+          { "word": "role", "ipa": "/rəʊl/", "meaning_ar": "دور", "meaning_en": "the job or part that a person plays in a team", "example": "Her role is to design the user interface." },
+          { "word": "feedback", "ipa": "/ˈfiːdbæk/", "meaning_ar": "ملاحظات / تغذية راجعة", "meaning_en": "comments that help you improve your work", "example": "The feedback from my teammate made my code cleaner." }
+        ],
+        "reading": {
+          "title_en": "One Team, One Goal",
+          "title_ar": "فريق واحد، هدف واحد",
+          "paragraphs": [
+            "Software is almost never built by one person alone. Most programs are made by a team of developers who share the same goal. Each member has a clear role and a set of responsibilities. When everyone knows their part, the whole project moves forward more smoothly.",
+            "A big project is divided into smaller tasks. The team meets to decide who will do each task and to set a deadline for it. During a short meeting, teammates talk about what they finished and what they will do next. This helps everyone see the progress and notice problems early.",
+            "Good teams communicate clearly and often. If you are stuck, you should tell your teammates instead of staying silent for days. When someone reviews your work, they give feedback that helps you improve. Feedback is not an attack on you as a person; it is a normal part of building good software.",
+            "Working in a team also means being reliable. If you promise to finish a task by a certain deadline, others may be waiting for it before they can start their own work. When each developer keeps their promises and shares information, the team becomes stronger than any single person."
+          ]
+        },
+        "key_phrases": [
+          { "en": "I'll take care of this task.", "ar": "سأتولّى هذه المهمّة." },
+          { "en": "Can you help me with this part?", "ar": "هل بالإمكان مساعدتي في هذا الجزء؟" },
+          { "en": "I finished my task on time.", "ar": "أنهيتُ مهمّتي في الموعد المحدّد." },
+          { "en": "Let's discuss this in the meeting.", "ar": "لنناقش هذا في الاجتماع." },
+          { "en": "Thanks for the feedback.", "ar": "شكرًا على الملاحظات." },
+          { "en": "What's the deadline for this?", "ar": "ما الموعد النهائي لهذا؟" }
+        ],
+        "comprehension": [
+          { "question": "How is most software built?", "options": ["By one person alone", "By a team of developers", "By machines with no people", "Without any plan"], "correct": "By a team of developers", "explanation_ar": "أغلب البرامج يبنيها فريق من المطوّرين يتشاركون الهدف نفسه، لا شخص واحد بمفرده." },
+          { "question": "Why does a team divide a big project into smaller tasks?", "options": ["To make the work harder", "So one person does everything", "So members can share the work and set deadlines", "To avoid all meetings"], "correct": "So members can share the work and set deadlines", "explanation_ar": "تقسيم المشروع إلى مهام صغيرة يتيح توزيع العمل وتحديد موعد نهائي لكل مهمّة." },
+          { "question": "What is feedback in a good team?", "options": ["An attack on the person", "A normal part of building good software", "A reason to leave the team", "A type of deadline"], "correct": "A normal part of building good software", "explanation_ar": "التغذية الراجعة ليست هجومًا شخصيًا، بل جزء طبيعي يساعدكِ على تحسين عملكِ." },
+          { "question": "What should you do if you are stuck on a task?", "options": ["Stay silent for days", "Delete the project", "Tell your teammates", "Wait for the deadline to pass"], "correct": "Tell your teammates", "explanation_ar": "من الأفضل إخبار زملائكِ عندما تتعثّرين بدلًا من البقاء صامتة لأيام." },
+          { "question": "Why is being reliable important in a team?", "options": ["Because others may be waiting for your work", "Because deadlines are not real", "Because roles do not matter", "Because meetings are boring"], "correct": "Because others may be waiting for your work", "explanation_ar": "قد ينتظر بقية الفريق إنجازكِ لمهمّتكِ قبل أن يبدؤوا عملهم، لذلك الالتزام مهمّ." },
+          { "question": "What does a 'role' mean in a team?", "options": ["The salary of a developer", "The part or job a person plays", "The name of the project", "A type of computer"], "correct": "The part or job a person plays", "explanation_ar": "الدور هو الجزء أو المهمّة التي يؤدّيها الشخص داخل الفريق." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences about a time you worked in a team (at school or online). What was your role, and how did you communicate with the others?",
+          "prompt_ar": "اكتبي ٤–٥ جُمل عن مرّة عملتِ فيها ضمن فريق (في المدرسة أو عبر الإنترنت). ما كان دوركِ، وكيف تواصلتِ مع الآخرين؟",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل team وrole وfeedback."
+        }
+      }
+    },
+    {
+      "slug": "git-version-control",
+      "sort_order": 2,
+      "title_en": "Git & Version Control",
+      "title_ar": "Git وإدارة الإصدارات",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "عندما يكتب فريق كامل الكود معًا، يحتاجون إلى طريقة آمنة لحفظ عملهم ومشاركته دون أن يفسد أحدهم عمل الآخر. هنا يأتي دور Git، وهو الأداة التي يستخدمها كل مبرمج تقريبًا في العالم. في هذا الدرس ستتعرّفين على مصطلحات Git بالإنجليزية: المستودع، والإيداع، والفروع، والدمج، والرفع والسحب — وهي كلمات ستسمعينها كل يوم في مجال البرمجة.",
+        "vocab": [
+          { "word": "repository", "ipa": "/rɪˈpɒzɪtəri/", "meaning_ar": "مستودع", "meaning_en": "a place where all the files and history of a project are stored", "example": "All our code lives in one repository." },
+          { "word": "commit", "ipa": "/kəˈmɪt/", "meaning_ar": "إيداع (نقطة حفظ)", "meaning_en": "a saved change with a message that describes it", "example": "I made a commit after fixing the bug." },
+          { "word": "branch", "ipa": "/brɑːntʃ/", "meaning_ar": "فرع", "meaning_en": "a separate copy of the code where you can work safely", "example": "She created a branch for the new feature." },
+          { "word": "merge", "ipa": "/mɜːdʒ/", "meaning_ar": "دمج", "meaning_en": "to join two branches of code together", "example": "We merge the branch after the tests pass." },
+          { "word": "clone", "ipa": "/kləʊn/", "meaning_ar": "استنساخ / نسخ المستودع", "meaning_en": "to copy a repository onto your own computer", "example": "First, clone the repository to your laptop." },
+          { "word": "push", "ipa": "/pʊʃ/", "meaning_ar": "رفع (دفع التغييرات)", "meaning_en": "to send your commits to the shared repository", "example": "Don't forget to push your changes tonight." },
+          { "word": "pull", "ipa": "/pʊl/", "meaning_ar": "سحب (جلب التغييرات)", "meaning_en": "to bring the latest changes from the shared repository to your computer", "example": "I pull every morning before I start working." },
+          { "word": "version", "ipa": "/ˈvɜːʃn/", "meaning_ar": "إصدار / نسخة", "meaning_en": "one saved state of the code at a point in time", "example": "We went back to an older version of the app." },
+          { "word": "conflict", "ipa": "/ˈkɒnflɪkt/", "meaning_ar": "تعارض", "meaning_en": "when two changes touch the same line and Git cannot choose", "example": "We had a conflict because we edited the same line." },
+          { "word": "history", "ipa": "/ˈhɪstəri/", "meaning_ar": "سجلّ التغييرات", "meaning_en": "the full record of every change made to the code", "example": "The history shows who changed each file." },
+          { "word": "remote", "ipa": "/rɪˈməʊt/", "meaning_ar": "المستودع البعيد (المشترك)", "meaning_en": "the shared copy of the repository stored online", "example": "Everyone pushes their work to the remote." },
+          { "word": "backup", "ipa": "/ˈbækʌp/", "meaning_ar": "نسخة احتياطية", "meaning_en": "a safe extra copy of your work", "example": "Git also works as a backup of your code." }
+        ],
+        "reading": {
+          "title_en": "Git: A Time Machine for Code",
+          "title_ar": "Git: آلة الزمن للكود",
+          "paragraphs": [
+            "When a team writes code together, they need a safe way to save and share their work. This is why almost every software team uses Git. Git is a tool that keeps the full history of a project. Every time you save a change, you make a commit with a short message that explains what you did.",
+            "All the files and their history live in a repository. The shared copy that everyone uses is stored online and is called the remote. To start working, you clone the repository onto your own computer. When you finish some work, you push your commits to the remote so your teammates can see them. Before you start a new task, you pull the latest changes so your copy stays up to date.",
+            "To work safely, you create a branch. A branch is a separate copy of the code where you can try new ideas without breaking the main version. When your work is ready and tested, you merge your branch back into the main code. Sometimes two people change the same line, and Git cannot decide which change to keep. This is called a conflict, and the team must fix it by hand.",
+            "Because Git stores every version, it also works like a backup and a time machine. If a new change breaks the program, you can look at the history and go back to an earlier version. This makes teamwork safer and far less stressful."
+          ]
+        },
+        "key_phrases": [
+          { "en": "I'll commit my changes now.", "ar": "سأودِع تغييراتي الآن." },
+          { "en": "Did you push your code?", "ar": "هل رفعتَ الكود الخاص بك؟" },
+          { "en": "Let me pull the latest changes.", "ar": "دعني أسحب آخر التغييرات." },
+          { "en": "I created a new branch for this feature.", "ar": "أنشأتُ فرعًا جديدًا لهذه الميزة." },
+          { "en": "We have a merge conflict.", "ar": "لدينا تعارض في الدمج." },
+          { "en": "Can you review my changes?", "ar": "هل يمكنك مراجعة تغييراتي؟" }
+        ],
+        "comprehension": [
+          { "question": "What does Git keep for a project?", "options": ["Only the newest file", "The full history of changes", "The team's salaries", "Nothing at all"], "correct": "The full history of changes", "explanation_ar": "يحفظ Git السجلّ الكامل لكل تغيير جرى على الكود، وليس الملف الأحدث فقط." },
+          { "question": "What is a commit?", "options": ["A saved change with a short message", "A type of computer", "A broken file", "A team meeting"], "correct": "A saved change with a short message", "explanation_ar": "الإيداع (commit) هو تغيير محفوظ مرفق برسالة قصيرة تشرح ما فعلتِه." },
+          { "question": "What do you do to copy a repository onto your own computer?", "options": ["Merge it", "Push it", "Clone it", "Delete it"], "correct": "Clone it", "explanation_ar": "الاستنساخ (clone) هو نسخ المستودع إلى جهازكِ لتبدئي العمل عليه." },
+          { "question": "Why do developers create a branch?", "options": ["To break the main code on purpose", "To delete the whole history", "To close the project", "To work safely without breaking the main version"], "correct": "To work safely without breaking the main version", "explanation_ar": "الفرع (branch) نسخة منفصلة تتيح تجربة أفكار جديدة دون التأثير على النسخة الرئيسة." },
+          { "question": "What is a conflict in Git?", "options": ["A meeting that is too long", "When two changes touch the same line", "A backup file", "A new developer on the team"], "correct": "When two changes touch the same line", "explanation_ar": "يحدث التعارض عندما يعدّل شخصان السطر نفسه، فلا يستطيع Git اختيار أيّ التغييرين يبقى." },
+          { "question": "How is Git like a time machine?", "options": ["It predicts the future", "It makes code run faster", "It lets you go back to an earlier version", "It writes the code for you"], "correct": "It lets you go back to an earlier version", "explanation_ar": "لأن Git يحفظ كل إصدار، يمكنكِ الرجوع إلى نسخة سابقة إذا كسر تغييرٌ جديد البرنامج." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Imagine you are starting a small coding project with a friend. Write 4–5 sentences explaining how you would use Git to work together safely.",
+          "prompt_ar": "تخيّلي أنكِ تبدئين مشروعًا برمجيًا صغيرًا مع صديقة. اكتبي ٤–٥ جُمل تشرحين فيها كيف ستستخدمان Git للعمل معًا بأمان.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل repository وcommit وbranch."
+        }
+      }
+    },
+    {
+      "slug": "agile-and-code-review",
+      "sort_order": 3,
+      "title_en": "Agile & Code Review",
+      "title_ar": "أجايل ومراجعة الكود",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "لا تكتفي الفرق الحديثة بكتابة الكود؛ بل تتّبع طريقة عمل منظّمة تُسمّى «أجايل» (Agile)، وتراجع كود بعضها بعضًا قبل قبوله. هاتان الممارستان ستقابلينهما في أول وظيفة تقنية لكِ. في هذا الدرس ستتعلّمين مفردات السبرنت، والاجتماع اليومي، وقائمة المهام، وطلب الدمج، والمراجعة، والموافقة — وكلها تساعد الفريق على بناء برمجيات عالية الجودة بسرعة وأمان.",
+        "vocab": [
+          { "word": "agile", "ipa": "/ˈædʒaɪl/", "meaning_ar": "أجايل / مرن", "meaning_en": "a flexible way of building software in small, quick steps", "example": "Our team uses an agile way of working." },
+          { "word": "sprint", "ipa": "/sprɪnt/", "meaning_ar": "سبرنت (دورة عمل قصيرة)", "meaning_en": "a short period, often two weeks, to finish a set of tasks", "example": "We chose five tasks for this sprint." },
+          { "word": "review", "ipa": "/rɪˈvjuː/", "meaning_ar": "مراجعة", "meaning_en": "a careful check of someone's work before it is accepted", "example": "Every change gets a review before it is merged." },
+          { "word": "pull request", "ipa": "/pʊl rɪˈkwest/", "meaning_ar": "طلب دمج", "meaning_en": "a request to add your branch's changes into the main code", "example": "She opened a pull request for her new feature." },
+          { "word": "reviewer", "ipa": "/rɪˈvjuːər/", "meaning_ar": "المُراجِع", "meaning_en": "the person who reads and checks the code", "example": "The reviewer found a small mistake in my code." },
+          { "word": "comment", "ipa": "/ˈkɒment/", "meaning_ar": "تعليق", "meaning_en": "a note that explains code or suggests a change", "example": "He left a helpful comment on line ten." },
+          { "word": "approve", "ipa": "/əˈpruːv/", "meaning_ar": "يوافق / يعتمد", "meaning_en": "to accept the changes so they can be merged", "example": "Two people must approve the pull request." },
+          { "word": "standup", "ipa": "/ˈstændʌp/", "meaning_ar": "اجتماع يومي قصير", "meaning_en": "a short daily meeting where the team shares progress", "example": "Our standup takes only ten minutes." },
+          { "word": "backlog", "ipa": "/ˈbæklɒɡ/", "meaning_ar": "قائمة المهام المؤجّلة", "meaning_en": "the list of tasks and features still to be done", "example": "We added the new idea to the backlog." },
+          { "word": "iteration", "ipa": "/ˌɪtəˈreɪʃn/", "meaning_ar": "تكرار / دورة عمل", "meaning_en": "one full cycle of building, testing, and improving", "example": "Each iteration makes the product a little better." },
+          { "word": "quality", "ipa": "/ˈkwɒləti/", "meaning_ar": "جودة", "meaning_en": "how good and reliable the software is", "example": "Code review protects the quality of the app." },
+          { "word": "bug", "ipa": "/bʌɡ/", "meaning_ar": "خلل برمجي", "meaning_en": "a mistake in the code that makes it behave wrongly", "example": "The reviewer caught a bug before users saw it." }
+        ],
+        "reading": {
+          "title_en": "Agile and Code Review",
+          "title_ar": "أجايل ومراجعة الكود",
+          "paragraphs": [
+            "Software needs change quickly, so many teams work in a flexible way called agile. Instead of planning everything for a whole year, an agile team builds software in small steps. They keep a backlog, which is a list of all the tasks and features they still need to do. From this list, they choose the most important items for the next short period of work.",
+            "This short period is often two weeks long and is called a sprint. At the start of a sprint, the team picks a set of tasks it can finish in that time. Every morning they hold a standup, a short daily meeting where each person says what they did yesterday, what they will do today, and what is blocking them. Each sprint is one iteration: the team builds, tests, and improves the product, then starts again.",
+            "Before new code becomes part of the project, it usually goes through a code review. The developer opens a pull request to ask the team to add their branch into the main code. A reviewer reads the code carefully and leaves comments to explain problems or suggest better solutions. The goal is not to blame anyone, but to protect the quality of the product and to catch any bug early.",
+            "When the code is clean and correct, the reviewer will approve the pull request, and the change is merged. Agile and code review work together to help teams build good software quickly and safely."
+          ]
+        },
+        "key_phrases": [
+          { "en": "What will you work on today?", "ar": "على ماذا ستعمل اليوم؟" },
+          { "en": "I'm blocked on this task.", "ar": "أنا متوقّفة عند هذه المهمّة." },
+          { "en": "I left a few comments on your code.", "ar": "تركتُ بعض التعليقات على الكود الخاص بك." },
+          { "en": "This looks good to me. Approved!", "ar": "يبدو هذا جيدًا بالنسبة لي. تمّت الموافقة!" },
+          { "en": "Let's add this to the backlog.", "ar": "لنضِف هذا إلى قائمة المهام." },
+          { "en": "We'll finish this in the next sprint.", "ar": "سننهي هذا في السبرنت القادم." }
+        ],
+        "comprehension": [
+          { "question": "What is agile?", "options": ["A flexible way to build software in small steps", "A type of programming language", "A single long plan for one whole year", "A kind of computer"], "correct": "A flexible way to build software in small steps", "explanation_ar": "أجايل طريقة مرنة لبناء البرمجيات على خطوات صغيرة وسريعة بدل التخطيط لعام كامل مرّة واحدة." },
+          { "question": "What is a backlog?", "options": ["A finished product", "A list of tasks still to be done", "A daily meeting", "A broken branch"], "correct": "A list of tasks still to be done", "explanation_ar": "الـ backlog هو قائمة بكل المهام والميزات التي لم يُنجزها الفريق بعد." },
+          { "question": "What happens in a standup?", "options": ["The team writes all the code", "People approve pull requests", "Each person shares progress and blockers", "The sprint ends for good"], "correct": "Each person shares progress and blockers", "explanation_ar": "في الاجتماع اليومي القصير يشارك كل شخص ما أنجزه وما سيعمل عليه وما الذي يعيقه." },
+          { "question": "Why does a developer open a pull request?", "options": ["To delete the repository", "To ask the team to add their branch to the main code", "To start a new sprint", "To close a meeting"], "correct": "To ask the team to add their branch to the main code", "explanation_ar": "طلب الدمج (pull request) هو طلب لإضافة تغييرات فرعكِ إلى الكود الرئيس بعد مراجعتها." },
+          { "question": "What is the main goal of a code review?", "options": ["To blame the developer", "To make the code slower", "To protect the quality and catch bugs", "To end the project"], "correct": "To protect the quality and catch bugs", "explanation_ar": "هدف مراجعة الكود ليس لوم أحد، بل حماية جودة المنتج واكتشاف الأخطاء مبكرًا." },
+          { "question": "What does a reviewer do when the code is clean and correct?", "options": ["Deletes the branch", "Ignores the pull request", "Starts a conflict", "Approves the pull request"], "correct": "Approves the pull request", "explanation_ar": "عندما يكون الكود سليمًا، يوافق المُراجِع على طلب الدمج ليُدمَج التغيير في الكود الرئيس." }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Record a short standup update (about 30–45 seconds). Say what you did yesterday, what you will do today, and whether anything is blocking you.",
+          "prompt_ar": "سجّلي تحديثًا قصيرًا على طريقة الـ standup (حوالي ٣٠–٤٥ ثانية). قولي ما الذي أنجزتِه بالأمس، وما الذي ستعملين عليه اليوم، وهل هناك ما يعيقكِ.",
+          "guidance_ar": "استخدمي كلمات مثل sprint وtask وblocked، وتحدّثي بثقة وبجُمل قصيرة."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+{
+  "stage": {
+    "slug": "money-basics",
+    "sort_order": 6,
+    "title_en": "Money and Invoices",
+    "title_ar": "المال والفواتير",
+    "subtitle_ar": "من عرض السعر إلى تحصيل المبلغ — هنا تتقن لغة المال التي يقوم عليها عملك كل يوم.",
+    "cefr": "B1",
+    "accent": "#4ade80",
+    "icon": "Banknote"
+  },
+  "lessons": [
+    {
+      "slug": "quotes-and-invoices",
+      "sort_order": 1,
+      "title_en": "Quotes and Invoices",
+      "title_ar": "عروض الأسعار والفواتير",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "كل يوم في عملك تكتب عرض سعر لعميل أو ترسل فاتورة بعد إصلاح سيارة. في هذا الدرس تتعلّم الكلمات الإنجليزية الأساسية لعروض الأسعار والفواتير، وكيف توضّح للعميل ماذا سيدفع ولماذا. هذه مهارة تستخدمها في الورشة والمعرض كل أسبوع.",
+        "vocab": [
+          {
+            "word": "quote",
+            "ipa": "/kwoʊt/",
+            "meaning_ar": "عرض سعر",
+            "meaning_en": "a price you offer before the work starts",
+            "example": "I will send you a quote for the repair."
+          },
+          {
+            "word": "invoice",
+            "ipa": "/ˈɪnvɔɪs/",
+            "meaning_ar": "فاتورة",
+            "meaning_en": "a paper that shows what to pay",
+            "example": "The invoice shows the total price."
+          },
+          {
+            "word": "price",
+            "ipa": "/praɪs/",
+            "meaning_ar": "سعر",
+            "meaning_en": "the money you ask for something",
+            "example": "The price of the oil change is 150 riyals."
+          },
+          {
+            "word": "total",
+            "ipa": "/ˈtoʊtl/",
+            "meaning_ar": "الإجمالي / المجموع",
+            "meaning_en": "all the money together",
+            "example": "The total is 600 riyals."
+          },
+          {
+            "word": "discount",
+            "ipa": "/ˈdɪskaʊnt/",
+            "meaning_ar": "خصم",
+            "meaning_en": "money you take off the price",
+            "example": "I can give you a 10% discount."
+          },
+          {
+            "word": "tax",
+            "ipa": "/tæks/",
+            "meaning_ar": "ضريبة",
+            "meaning_en": "money you pay to the government",
+            "example": "The price includes 15% tax."
+          },
+          {
+            "word": "customer",
+            "ipa": "/ˈkʌstəmər/",
+            "meaning_ar": "عميل",
+            "meaning_en": "a person who buys from you",
+            "example": "The customer wants a quote first."
+          },
+          {
+            "word": "parts",
+            "ipa": "/pɑːrts/",
+            "meaning_ar": "قطع الغيار",
+            "meaning_en": "pieces you use to fix a car",
+            "example": "The parts cost 400 riyals."
+          },
+          {
+            "word": "labor",
+            "ipa": "/ˈleɪbər/",
+            "meaning_ar": "أجرة العمل",
+            "meaning_en": "the cost of the work, not the parts",
+            "example": "Labor for this job is 200 riyals."
+          },
+          {
+            "word": "due date",
+            "ipa": "/ˈduː deɪt/",
+            "meaning_ar": "تاريخ الاستحقاق",
+            "meaning_en": "the day the customer must pay",
+            "example": "The due date is on the invoice."
+          },
+          {
+            "word": "send",
+            "ipa": "/send/",
+            "meaning_ar": "يُرسل",
+            "meaning_en": "to make something go to a person",
+            "example": "I send the invoice by WhatsApp."
+          }
+        ],
+        "reading": {
+          "title_en": "A Quote for Mr. Salem",
+          "title_ar": "عرض سعر للأستاذ سالم",
+          "paragraphs": [
+            "Faisal has a workshop in the industrial area. Today a customer, Mr. Salem, comes with his car. The air conditioner does not work. Faisal checks the car and writes a quote. The quote shows the price of the parts and the labor.",
+            "The parts cost 400 riyals. The labor is 200 riyals. The total is 600 riyals, plus 15% tax. Mr. Salem asks, \"Can you give me a discount?\" Faisal says, \"Yes, I can give you 5% because you are an old customer.\"",
+            "Mr. Salem agrees, and Faisal fixes the car. In the evening, Faisal sends the invoice by WhatsApp. The invoice shows the parts, the labor, the discount, the tax, and the total. It also shows the due date. Mr. Salem pays the next day and says, \"Thank you, the invoice is very clear.\""
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "I will send you a quote today.",
+            "ar": "سأرسل لك عرض السعر اليوم."
+          },
+          {
+            "en": "The total is 600 riyals, including tax.",
+            "ar": "الإجمالي ٦٠٠ ريال شاملاً الضريبة."
+          },
+          {
+            "en": "This price includes parts and labor.",
+            "ar": "هذا السعر يشمل قطع الغيار وأجرة العمل."
+          },
+          {
+            "en": "Can I send the invoice by WhatsApp?",
+            "ar": "هل أرسل لك الفاتورة عبر واتساب؟"
+          },
+          {
+            "en": "The due date is on the invoice.",
+            "ar": "تاريخ الاستحقاق مذكور في الفاتورة."
+          },
+          {
+            "en": "I can give you a small discount.",
+            "ar": "أستطيع أن أمنحك خصماً بسيطاً."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What is wrong with Mr. Salem's car?",
+            "options": [
+              "The engine is old",
+              "The air conditioner does not work",
+              "The tires are flat",
+              "The lights are broken"
+            ],
+            "correct": "The air conditioner does not work",
+            "explanation_ar": "جاء سالم إلى الورشة لأن مكيّف السيارة لا يعمل."
+          },
+          {
+            "question": "What does the quote show?",
+            "options": [
+              "Only the tax",
+              "The customer's address",
+              "The price of the parts and the labor",
+              "The name of the workshop"
+            ],
+            "correct": "The price of the parts and the labor",
+            "explanation_ar": "عرض السعر يوضّح سعر قطع الغيار وأجرة العمل قبل بدء الإصلاح."
+          },
+          {
+            "question": "How much is the labor?",
+            "options": [
+              "200 riyals",
+              "400 riyals",
+              "600 riyals",
+              "150 riyals"
+            ],
+            "correct": "200 riyals",
+            "explanation_ar": "أجرة العمل ٢٠٠ ريال، وقطع الغيار ٤٠٠ ريال."
+          },
+          {
+            "question": "Why does Faisal give a discount?",
+            "options": [
+              "Because the parts are cheap",
+              "Because the work is easy",
+              "Because it is a holiday",
+              "Because Mr. Salem is an old customer"
+            ],
+            "correct": "Because Mr. Salem is an old customer",
+            "explanation_ar": "قال فيصل إنه يمنح الخصم لأن سالم عميل قديم."
+          },
+          {
+            "question": "When does Faisal send the invoice?",
+            "options": [
+              "Before he fixes the car",
+              "In the evening, after the work",
+              "The next week",
+              "After one month"
+            ],
+            "correct": "In the evening, after the work",
+            "explanation_ar": "أرسل فيصل الفاتورة عبر واتساب في المساء بعد إنهاء العمل."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short quote for a customer: name the repair, the price of the parts, the labor, and the total.",
+          "prompt_ar": "اكتب عرض سعر قصيراً لعميل: اذكر نوع الإصلاح، وسعر قطع الغيار، وأجرة العمل، والإجمالي.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، واكتب الأسعار بالريال السعودي."
+        }
+      }
+    },
+    {
+      "slug": "payments",
+      "sort_order": 2,
+      "title_en": "Payments",
+      "title_ar": "الدفع وطرق السداد",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "بعد أن يوافق العميل على الفاتورة تأتي الخطوة الأهم: تحصيل المبلغ. في هذا الدرس تتعلّم كيف تتحدّث بالإنجليزية عن طرق الدفع المختلفة — نقداً أو بالبطاقة أو بالتحويل البنكي — وكيف تتابع بأدب فاتورة تأخّر سدادها. لغة واضحة هنا تعني تدفقاً نقدياً أفضل لعملك.",
+        "vocab": [
+          {
+            "word": "payment",
+            "ipa": "/ˈpeɪmənt/",
+            "meaning_ar": "دفعة / سداد",
+            "meaning_en": "money paid for goods or work",
+            "example": "We received your payment this morning."
+          },
+          {
+            "word": "cash",
+            "ipa": "/kæʃ/",
+            "meaning_ar": "نقد / كاش",
+            "meaning_en": "physical money, notes and coins",
+            "example": "Some customers still prefer to pay in cash."
+          },
+          {
+            "word": "bank transfer",
+            "ipa": "/bæŋk ˈtrænsfɜːr/",
+            "meaning_ar": "تحويل بنكي",
+            "meaning_en": "sending money from one bank account to another",
+            "example": "You can pay by bank transfer to our account."
+          },
+          {
+            "word": "deposit",
+            "ipa": "/dɪˈpɑːzɪt/",
+            "meaning_ar": "عربون / دفعة مقدّمة",
+            "meaning_en": "part of the price paid before the work starts",
+            "example": "We ask for a 30% deposit before we order the parts."
+          },
+          {
+            "word": "installment",
+            "ipa": "/ɪnˈstɔːlmənt/",
+            "meaning_ar": "قسط",
+            "meaning_en": "one of several smaller payments over time",
+            "example": "He is paying for the car in twelve installments."
+          },
+          {
+            "word": "receipt",
+            "ipa": "/rɪˈsiːt/",
+            "meaning_ar": "إيصال",
+            "meaning_en": "a paper that proves you paid",
+            "example": "Always give the customer a receipt after payment."
+          },
+          {
+            "word": "balance",
+            "ipa": "/ˈbæləns/",
+            "meaning_ar": "المبلغ المتبقي",
+            "meaning_en": "the money that is still left to pay",
+            "example": "The balance is due when the car is ready."
+          },
+          {
+            "word": "overdue",
+            "ipa": "/ˌoʊvərˈduː/",
+            "meaning_ar": "متأخر السداد",
+            "meaning_en": "not paid by the due date",
+            "example": "This invoice is two weeks overdue."
+          },
+          {
+            "word": "refund",
+            "ipa": "/ˈriːfʌnd/",
+            "meaning_ar": "استرداد المبلغ",
+            "meaning_en": "money given back to the customer",
+            "example": "We gave him a full refund for the faulty part."
+          },
+          {
+            "word": "confirm",
+            "ipa": "/kənˈfɜːrm/",
+            "meaning_ar": "يؤكّد",
+            "meaning_en": "to say that something is certain or received",
+            "example": "Please confirm the payment when it arrives."
+          }
+        ],
+        "reading": {
+          "title_en": "How Faisal Gets Paid",
+          "title_ar": "كيف يحصّل فيصل مستحقاته",
+          "paragraphs": [
+            "Faisal's workshop accepts three ways of payment: cash, card, and bank transfer. Most customers pay by card at the counter, but companies usually prefer a bank transfer. For big jobs, such as an engine repair, Faisal asks for a 30% deposit before he orders the parts. The balance is paid when the car is ready.",
+            "Last month, a company with five delivery cars asked to pay in installments. Faisal agreed to three monthly payments, because the company has been a customer for years. After each payment, he sends a receipt and confirms that the money has arrived.",
+            "Sometimes a payment becomes overdue. Faisal does not get angry; he sends a short, polite message: \"Good morning. A friendly reminder that invoice 2141 is now overdue. Could you confirm the payment date?\" This polite style has worked well — most customers pay within a few days.",
+            "Refunds are rare, but they happen. When a new part failed after one week, Faisal replaced it and gave a partial refund. The customer was surprised and happy, and he later recommended the workshop to two friends. Clear payments and fair refunds build trust — and trust brings customers back."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "How would you like to pay — cash, card, or bank transfer?",
+            "ar": "كيف تفضّل الدفع — نقداً أم بالبطاقة أم بالتحويل البنكي؟"
+          },
+          {
+            "en": "We ask for a 30% deposit before we start.",
+            "ar": "نطلب عربوناً بنسبة ٣٠٪ قبل أن نبدأ."
+          },
+          {
+            "en": "The balance is due when the car is ready.",
+            "ar": "يُسدَّد المبلغ المتبقي عند جاهزية السيارة."
+          },
+          {
+            "en": "I will send you the receipt right away.",
+            "ar": "سأرسل لك الإيصال فوراً."
+          },
+          {
+            "en": "A friendly reminder: the invoice is now overdue.",
+            "ar": "تذكير ودّي: الفاتورة تجاوزت موعد السداد."
+          },
+          {
+            "en": "Could you confirm the payment date?",
+            "ar": "هل يمكنك تأكيد موعد السداد؟"
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "Which customers usually prefer a bank transfer?",
+            "options": [
+              "Companies",
+              "New customers",
+              "Customers who pay small amounts",
+              "Customers without a bank account"
+            ],
+            "correct": "Companies",
+            "explanation_ar": "الشركات عادةً تفضّل التحويل البنكي، بينما يدفع معظم الأفراد بالبطاقة."
+          },
+          {
+            "question": "When does Faisal ask for a deposit?",
+            "options": [
+              "After the car is ready",
+              "When the invoice is overdue",
+              "Before he orders parts for big jobs",
+              "Only from new customers"
+            ],
+            "correct": "Before he orders parts for big jobs",
+            "explanation_ar": "في الأعمال الكبيرة يطلب فيصل عربوناً بنسبة ٣٠٪ قبل طلب قطع الغيار."
+          },
+          {
+            "question": "Why did Faisal accept installments from the company?",
+            "options": [
+              "Because the job was small",
+              "Because it has been a customer for years",
+              "Because the invoice was overdue",
+              "Because it paid in cash"
+            ],
+            "correct": "Because it has been a customer for years",
+            "explanation_ar": "وافق فيصل على الأقساط لأن الشركة عميل قديم منذ سنوات."
+          },
+          {
+            "question": "What does Faisal do when an invoice is overdue?",
+            "options": [
+              "He cancels the work",
+              "He asks for the car back",
+              "He adds an extra fee",
+              "He sends a short, polite reminder"
+            ],
+            "correct": "He sends a short, polite reminder",
+            "explanation_ar": "يرسل فيصل رسالة تذكير قصيرة ومهذّبة، وهذا الأسلوب ينجح غالباً."
+          },
+          {
+            "question": "What happened after Faisal gave a partial refund?",
+            "options": [
+              "The customer recommended the workshop to friends",
+              "The customer asked for more money",
+              "The company stopped paying",
+              "The part failed again"
+            ],
+            "correct": "The customer recommended the workshop to friends",
+            "explanation_ar": "المبلغ المسترد وحسن التعامل جعلا العميل يرشّح الورشة لصديقين."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Record yourself explaining your payment options to a customer: the deposit, the balance, and how to pay.",
+          "prompt_ar": "سجّل نفسك وأنت تشرح لعميل خيارات الدفع لديك: العربون، والمبلغ المتبقي، وطرق السداد.",
+          "guidance_ar": "تحدّث لمدة ٣٠–٦٠ ثانية، واستخدم ٤ كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    },
+    {
+      "slug": "costs-and-pricing",
+      "sort_order": 3,
+      "title_en": "Costs and Pricing",
+      "title_ar": "التكاليف والتسعير",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "السعر الصحيح هو الفرق بين ورشة تربح وورشة تتعب بلا فائدة. في هذا الدرس تتعلّم بالإنجليزية الفرق بين التكاليف الثابتة والمتغيّرة، وكيف تحسب هامش الربح، وكيف تشرح سعرك بثقة عندما يقول العميل: «السعر مرتفع!». أنت تعرف هذه الحسابات في عملك — الآن ستتقنها بالإنجليزية.",
+        "vocab": [
+          {
+            "word": "cost",
+            "ipa": "/kɔːst/",
+            "meaning_ar": "تكلفة",
+            "meaning_en": "the money you spend to run your business",
+            "example": "The real cost of the job is higher than the parts alone."
+          },
+          {
+            "word": "fixed costs",
+            "ipa": "/fɪkst kɔːsts/",
+            "meaning_ar": "تكاليف ثابتة",
+            "meaning_en": "costs that stay the same every month, like rent",
+            "example": "Rent and salaries are fixed costs."
+          },
+          {
+            "word": "variable costs",
+            "ipa": "/ˈveriəbl kɔːsts/",
+            "meaning_ar": "تكاليف متغيّرة",
+            "meaning_en": "costs that change with the amount of work",
+            "example": "Parts and oil are variable costs."
+          },
+          {
+            "word": "rent",
+            "ipa": "/rent/",
+            "meaning_ar": "إيجار",
+            "meaning_en": "money paid to use a building",
+            "example": "The rent for the workshop is 12,000 riyals a month."
+          },
+          {
+            "word": "salary",
+            "ipa": "/ˈsæləri/",
+            "meaning_ar": "راتب",
+            "meaning_en": "money paid to a worker every month",
+            "example": "Each technician receives a monthly salary."
+          },
+          {
+            "word": "profit margin",
+            "ipa": "/ˈprɑːfɪt ˈmɑːrdʒɪn/",
+            "meaning_ar": "هامش الربح",
+            "meaning_en": "the difference between the price and the cost, as a percentage",
+            "example": "A 25% profit margin keeps the workshop healthy."
+          },
+          {
+            "word": "markup",
+            "ipa": "/ˈmɑːrkʌp/",
+            "meaning_ar": "هامش زيادة على التكلفة",
+            "meaning_en": "the amount you add to the cost to make the selling price",
+            "example": "He adds a 30% markup on spare parts."
+          },
+          {
+            "word": "break even",
+            "ipa": "/breɪk ˈiːvən/",
+            "meaning_ar": "يغطي التكاليف بلا ربح أو خسارة",
+            "meaning_en": "to earn just enough to cover your costs",
+            "example": "The workshop needs forty jobs a month to break even."
+          },
+          {
+            "word": "expenses",
+            "ipa": "/ɪkˈspensɪz/",
+            "meaning_ar": "مصروفات",
+            "meaning_en": "money spent to run the business",
+            "example": "Write down all your expenses every week."
+          },
+          {
+            "word": "competitor",
+            "ipa": "/kəmˈpetɪtər/",
+            "meaning_ar": "منافس",
+            "meaning_en": "another business that offers the same service",
+            "example": "A new competitor opened across the street."
+          },
+          {
+            "word": "value",
+            "ipa": "/ˈvæljuː/",
+            "meaning_ar": "قيمة",
+            "meaning_en": "what something is worth to the customer",
+            "example": "Customers pay for value, not only for a low price."
+          }
+        ],
+        "reading": {
+          "title_en": "What Should the Repair Cost?",
+          "title_ar": "كم يجب أن يكون سعر الإصلاح؟",
+          "paragraphs": [
+            "Many workshop owners set their prices by copying a competitor. Faisal used to do the same, until he studied his real costs. First, he wrote down his fixed costs: the rent, the salaries of his three technicians, insurance, and electricity. These expenses stay the same whether he repairs five cars a day or fifteen.",
+            "Next, he looked at his variable costs — parts, oil, and cleaning materials. These change with every job. When he added everything together, Faisal discovered that his workshop needs about 40,000 riyals a month just to break even. Below that number, he is losing money.",
+            "With these numbers, pricing became clearer. Faisal now adds a fair markup on parts and includes the cost of labor in every quote. He aims for a profit margin of around 20% on each job. When a customer says the price is high, he explains the value calmly: original parts, trained technicians, and a six-month guarantee.",
+            "A low price can bring customers once, but value brings them back. Since Faisal started pricing from his real costs, his profit has grown — and he no longer worries when a competitor cuts prices."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "The price includes parts, labor, and a six-month guarantee.",
+            "ar": "السعر يشمل قطع الغيار وأجرة العمل وضماناً لستة أشهر."
+          },
+          {
+            "en": "Our costs have gone up, so our prices changed this year.",
+            "ar": "ارتفعت تكاليفنا، لذلك تغيّرت أسعارنا هذا العام."
+          },
+          {
+            "en": "This is a fair price for original parts.",
+            "ar": "هذا سعر عادل مقابل قطع غيار أصلية."
+          },
+          {
+            "en": "We need to cover our costs and make a small profit.",
+            "ar": "نحتاج إلى تغطية تكاليفنا وتحقيق ربح بسيط."
+          },
+          {
+            "en": "You are paying for quality and value, not just the part.",
+            "ar": "أنت تدفع مقابل الجودة والقيمة، وليس مقابل القطعة فقط."
+          },
+          {
+            "en": "I can explain how we calculated this price.",
+            "ar": "أستطيع أن أشرح لك كيف حسبنا هذا السعر."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "How did Faisal set his prices in the past?",
+            "options": [
+              "By asking his customers",
+              "By copying a competitor",
+              "By using a pricing app",
+              "By guessing every morning"
+            ],
+            "correct": "By copying a competitor",
+            "explanation_ar": "كان فيصل يقلّد أسعار المنافس قبل أن يدرس تكاليفه الحقيقية."
+          },
+          {
+            "question": "Which of these is a fixed cost?",
+            "options": [
+              "Oil for each job",
+              "Cleaning materials",
+              "The workshop rent",
+              "Spare parts"
+            ],
+            "correct": "The workshop rent",
+            "explanation_ar": "الإيجار تكلفة ثابتة لا تتغيّر مع عدد السيارات، بعكس الزيت وقطع الغيار."
+          },
+          {
+            "question": "What does \"break even\" mean in the reading?",
+            "options": [
+              "To earn just enough to cover the costs",
+              "To make a very big profit",
+              "To close the workshop",
+              "To lower all the prices"
+            ],
+            "correct": "To earn just enough to cover the costs",
+            "explanation_ar": "نقطة التعادل تعني أن الدخل يغطي التكاليف فقط، بلا ربح ولا خسارة."
+          },
+          {
+            "question": "What profit margin does Faisal aim for on each job?",
+            "options": [
+              "5%",
+              "50%",
+              "80%",
+              "Around 20%"
+            ],
+            "correct": "Around 20%",
+            "explanation_ar": "يستهدف فيصل هامش ربح يقارب ٢٠٪ في كل عملية إصلاح."
+          },
+          {
+            "question": "According to the reading, what brings customers back?",
+            "options": [
+              "The lowest price in the city",
+              "Value",
+              "Free coffee",
+              "Big advertisements"
+            ],
+            "correct": "Value",
+            "explanation_ar": "السعر المنخفض قد يجذب العميل مرة واحدة، لكن القيمة تجعله يعود."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences explaining your price to a customer who says it is too expensive.",
+          "prompt_ar": "اكتب ٤–٥ جُمل تشرح فيها سعرك لعميل يقول إن السعر مرتفع.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، واذكر القيمة التي يحصل عليها العميل مقابل السعر."
+        }
+      }
+    }
+  ]
+}

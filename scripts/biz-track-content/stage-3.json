@@ -1,0 +1,478 @@
+{
+  "stage": {
+    "slug": "in-the-workshop",
+    "sort_order": 3,
+    "title_en": "In the Workshop",
+    "title_ar": "في الورشة",
+    "subtitle_ar": "هنا تتعلم لغة الورشة اليومية: أسماء الأدوات والمعدّات، ووصف الأعطال، وشرح خطوات الصيانة بالإنجليزية.",
+    "cefr": "A2",
+    "accent": "#34d399",
+    "icon": "Wrench"
+  },
+  "lessons": [
+    {
+      "slug": "tools-and-equipment",
+      "sort_order": 1,
+      "title_en": "Tools and Equipment",
+      "title_ar": "الأدوات والمعدّات",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "الورشة هي قلب عملك، وكل أداة فيها لها اسم بالإنجليزية يسمعه الفنيون والمورّدون كل يوم. في هذا الدرس ستتعلم أسماء الأدوات والمعدّات الأساسية حتى تطلبها وتتحدث عنها بثقة. تخيّل أنك تمشي في ورشتك وتسمّي كل ما تراه بالإنجليزية.",
+        "vocab": [
+          {
+            "word": "tool",
+            "ipa": "/tuːl/",
+            "meaning_ar": "أداة",
+            "meaning_en": "a thing you use to do work with your hands",
+            "example": "A mechanic needs good tools."
+          },
+          {
+            "word": "equipment",
+            "ipa": "/ɪˈkwɪpmənt/",
+            "meaning_ar": "معدّات",
+            "meaning_en": "the machines and things you need for a job",
+            "example": "The new equipment is in the workshop."
+          },
+          {
+            "word": "wrench",
+            "ipa": "/rentʃ/",
+            "meaning_ar": "مفتاح ربط",
+            "meaning_en": "a tool that turns bolts and nuts",
+            "example": "Use the wrench to open this bolt."
+          },
+          {
+            "word": "screwdriver",
+            "ipa": "/ˈskruːˌdraɪvər/",
+            "meaning_ar": "مفكّ",
+            "meaning_en": "a tool that turns screws",
+            "example": "I need a small screwdriver."
+          },
+          {
+            "word": "pliers",
+            "ipa": "/ˈplaɪərz/",
+            "meaning_ar": "كمّاشة (زرادية)",
+            "meaning_en": "a tool that holds and pulls small things",
+            "example": "Hold the wire with the pliers."
+          },
+          {
+            "word": "jack",
+            "ipa": "/dʒæk/",
+            "meaning_ar": "رافعة يدوية (جاك)",
+            "meaning_en": "a tool that lifts one side of a car",
+            "example": "Put the jack under the car."
+          },
+          {
+            "word": "lift",
+            "ipa": "/lɪft/",
+            "meaning_ar": "رافعة السيارات",
+            "meaning_en": "a big machine that raises the whole car",
+            "example": "The car is on the lift now."
+          },
+          {
+            "word": "toolbox",
+            "ipa": "/ˈtuːlbɒks/",
+            "meaning_ar": "صندوق العدة",
+            "meaning_en": "a box where you keep your tools",
+            "example": "Put the wrench back in the toolbox."
+          },
+          {
+            "word": "drill",
+            "ipa": "/drɪl/",
+            "meaning_ar": "مثقاب (دريل)",
+            "meaning_en": "a tool that makes holes",
+            "example": "The drill is very fast."
+          },
+          {
+            "word": "gloves",
+            "ipa": "/ɡlʌvz/",
+            "meaning_ar": "قفازات",
+            "meaning_en": "clothes for your hands",
+            "example": "Wear gloves to keep your hands safe."
+          }
+        ],
+        "reading": {
+          "title_en": "A Morning in the Workshop",
+          "title_ar": "صباح في الورشة",
+          "paragraphs": [
+            "Saad opens his workshop in the industrial area at eight in the morning. First, he checks the equipment. The lift is very important, because his team puts cars on it all day. A good lift keeps the workers safe.",
+            "Next, Saad looks at the tools. Every worker has a toolbox with a wrench, a screwdriver, and pliers. There is also a big drill and a jack for cars on the ground. When a tool is old or broken, Saad buys a new one. Good tools save time and money.",
+            "Safety is also part of the job. All workers wear gloves, and they put every tool back in the toolbox at the end of the day. Last month, Saad paid 900 riyals for new tools. He says, 'My equipment is my business. When I take care of it, it takes care of me.'"
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Please hand me the wrench.",
+            "ar": "ناولني مفتاح الربط من فضلك."
+          },
+          {
+            "en": "Put the car on the lift.",
+            "ar": "ارفع السيارة على الرافعة."
+          },
+          {
+            "en": "The tools go back in the toolbox at the end of the day.",
+            "ar": "تعود الأدوات إلى صندوق العدة في نهاية اليوم."
+          },
+          {
+            "en": "We need to buy new equipment for the workshop.",
+            "ar": "نحتاج إلى شراء معدّات جديدة للورشة."
+          },
+          {
+            "en": "Always wear gloves when you work.",
+            "ar": "البس القفازات دائمًا أثناء العمل."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What does Saad check first in the morning?",
+            "options": ["The tools", "The equipment", "The customers", "The invoices"],
+            "correct": "The equipment",
+            "explanation_ar": "أول شيء يفعله سعد في الصباح هو فحص المعدّات، وخاصة الرافعة."
+          },
+          {
+            "question": "Why is the lift important?",
+            "options": ["It makes the workshop bigger", "It is cheap", "It keeps the workers safe", "It is new"],
+            "correct": "It keeps the workers safe",
+            "explanation_ar": "الرافعة الجيدة تحافظ على سلامة العمّال أثناء العمل تحت السيارات."
+          },
+          {
+            "question": "What is inside every worker's toolbox?",
+            "options": ["A wrench, a screwdriver, and pliers", "A drill and a lift", "Gloves and lights", "Oil and filters"],
+            "correct": "A wrench, a screwdriver, and pliers",
+            "explanation_ar": "كل عامل لديه صندوق عدة فيه مفتاح ربط ومفكّ وكمّاشة."
+          },
+          {
+            "question": "What do the workers wear for safety?",
+            "options": ["Hats", "Glasses", "Boots", "Gloves"],
+            "correct": "Gloves",
+            "explanation_ar": "يلبس العمّال القفازات لحماية أيديهم أثناء العمل."
+          },
+          {
+            "question": "How much did Saad pay for new tools last month?",
+            "options": ["500 riyals", "900 riyals", "1,500 riyals", "300 riyals"],
+            "correct": "900 riyals",
+            "explanation_ar": "دفع سعد ٩٠٠ ريال ثمنًا للأدوات الجديدة الشهر الماضي."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about the tools and equipment in your workshop.",
+          "prompt_ar": "اكتب ٣–٤ جُمل عن الأدوات والمعدّات في ورشتك.",
+          "guidance_ar": "استخدم ٣ كلمات على الأقل من كلمات الدرس، مثل: wrench وtoolbox وequipment."
+        }
+      }
+    },
+    {
+      "slug": "describing-problems",
+      "sort_order": 2,
+      "title_en": "Describing Problems",
+      "title_ar": "وصف الأعطال",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "العميل يصف العطل بكلمات بسيطة: صوت غريب، تسريب، لمبة تحذير. عندما تفهم هذه الكلمات بالإنجليزية وتستخدمها بنفسك، تكسب ثقة عملائك ومورّديك. في هذا الدرس ستتعلم كيف تصف مشاكل السيارة وتسأل عنها بوضوح.",
+        "vocab": [
+          {
+            "word": "problem",
+            "ipa": "/ˈprɒbləm/",
+            "meaning_ar": "مشكلة (عطل)",
+            "meaning_en": "something that is wrong",
+            "example": "My car has a problem."
+          },
+          {
+            "word": "noise",
+            "ipa": "/nɔɪz/",
+            "meaning_ar": "صوت مزعج",
+            "meaning_en": "a sound that you do not want to hear",
+            "example": "I hear a noise from the engine."
+          },
+          {
+            "word": "leak",
+            "ipa": "/liːk/",
+            "meaning_ar": "تسريب",
+            "meaning_en": "when liquid comes out slowly",
+            "example": "There is an oil leak under the car."
+          },
+          {
+            "word": "brake",
+            "ipa": "/breɪk/",
+            "meaning_ar": "فرامل",
+            "meaning_en": "the part that stops the car",
+            "example": "The brakes are old."
+          },
+          {
+            "word": "battery",
+            "ipa": "/ˈbætəri/",
+            "meaning_ar": "بطارية",
+            "meaning_en": "the part that gives the car electric power",
+            "example": "The battery is weak in the morning."
+          },
+          {
+            "word": "smoke",
+            "ipa": "/sməʊk/",
+            "meaning_ar": "دخان",
+            "meaning_en": "gray or black air that comes from fire or heat",
+            "example": "Smoke is coming from the engine."
+          },
+          {
+            "word": "smell",
+            "ipa": "/smel/",
+            "meaning_ar": "رائحة",
+            "meaning_en": "something you feel with your nose",
+            "example": "There is a strange smell in the car."
+          },
+          {
+            "word": "warning light",
+            "ipa": "/ˈwɔːnɪŋ laɪt/",
+            "meaning_ar": "لمبة تحذير",
+            "meaning_en": "a small light that shows a problem",
+            "example": "The warning light is on."
+          },
+          {
+            "word": "flat tire",
+            "ipa": "/ˌflæt ˈtaɪər/",
+            "meaning_ar": "إطار مفرّغ من الهواء (بنشر)",
+            "meaning_en": "a tire without air",
+            "example": "He stopped because of a flat tire."
+          },
+          {
+            "word": "overheat",
+            "ipa": "/ˌəʊvəˈhiːt/",
+            "meaning_ar": "يسخن أكثر من اللازم",
+            "meaning_en": "to become too hot",
+            "example": "The engine can overheat in summer."
+          }
+        ],
+        "reading": {
+          "title_en": "The Car Tells You",
+          "title_ar": "السيارة تخبرك",
+          "paragraphs": [
+            "A car cannot talk, but it can tell you about a problem. Good mechanics listen, look, and smell. A strange noise from the engine, smoke from the front, or a bad smell — these are all signs.",
+            "On Monday, a customer came to Fahad's workshop. He said, 'There is a warning light on, and I hear a noise when I stop.' Fahad checked the car. The brakes were old, and there was a small oil leak under the engine. He said, 'Do not worry. We can fix it today.'",
+            "Some problems are easy, like a flat tire or a weak battery. Other problems are big. When an engine starts to overheat, the driver must stop quickly. Fahad always tells his customers: 'When you see or hear something new, come to the workshop. A small problem today is cheaper than a big problem next month.'"
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "What is the problem with the car?",
+            "ar": "ما مشكلة السيارة؟"
+          },
+          {
+            "en": "I hear a strange noise from the engine.",
+            "ar": "أسمع صوتًا غريبًا من المحرك."
+          },
+          {
+            "en": "There is an oil leak under the car.",
+            "ar": "يوجد تسريب زيت تحت السيارة."
+          },
+          {
+            "en": "The warning light is on.",
+            "ar": "لمبة التحذير مضاءة."
+          },
+          {
+            "en": "Let me check it for you.",
+            "ar": "دعني أفحصها لك."
+          },
+          {
+            "en": "Do not worry, we can fix it today.",
+            "ar": "لا تقلق، يمكننا إصلاحها اليوم."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "How can a car 'tell' you about a problem?",
+            "options": ["With a phone message", "With a letter", "With noises, smoke, and smells", "It cannot tell you anything"],
+            "correct": "With noises, smoke, and smells",
+            "explanation_ar": "السيارة «تخبرك» بالمشكلة عن طريق الأصوات الغريبة والدخان والروائح."
+          },
+          {
+            "question": "What did the customer hear when he stopped the car?",
+            "options": ["Music", "A noise", "Rain", "Nothing"],
+            "correct": "A noise",
+            "explanation_ar": "قال العميل إنه يسمع صوتًا عند التوقف، وكانت الفرامل قديمة."
+          },
+          {
+            "question": "What did Fahad find under the engine?",
+            "options": ["A flat tire", "A new battery", "A warning light", "A small oil leak"],
+            "correct": "A small oil leak",
+            "explanation_ar": "وجد فهد تسريب زيت صغيرًا تحت المحرك."
+          },
+          {
+            "question": "What must a driver do when the engine starts to overheat?",
+            "options": ["Stop quickly", "Drive faster", "Open the windows", "Wash the car"],
+            "correct": "Stop quickly",
+            "explanation_ar": "عندما يبدأ المحرك في السخونة الزائدة، يجب على السائق التوقف بسرعة."
+          },
+          {
+            "question": "Why should a customer come to the workshop with a small problem?",
+            "options": ["Small problems are not real", "The workshop is empty", "It is cheaper than a big problem later", "The customer gets a free car"],
+            "correct": "It is cheaper than a big problem later",
+            "explanation_ar": "إصلاح المشكلة الصغيرة اليوم أرخص من إصلاح مشكلة كبيرة بعد شهر."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "A customer's car has a problem. Describe two problems, for example a noise and a warning light. Speak for 30 seconds.",
+          "prompt_ar": "سيارة أحد العملاء فيها عطل. صِف مشكلتين، مثل صوت غريب ولمبة تحذير. تحدّث لمدة ٣٠ ثانية.",
+          "guidance_ar": "ابدأ بجملة: The car has a problem... واستخدم كلمات مثل noise وleak وwarning light."
+        }
+      }
+    },
+    {
+      "slug": "maintenance-steps",
+      "sort_order": 3,
+      "title_en": "Maintenance Steps",
+      "title_ar": "خطوات الصيانة",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "الصيانة الدورية هي أساس سمعة الورشة الجيدة. في هذا الدرس ستتعلم كيف تشرح خطوات الصيانة بالإنجليزية خطوة بخطوة: تغيير الزيت، فحص ضغط الإطارات، وجولة الاختبار. اشرح الخطوات لعميلك بالإنجليزية وسيشعر أن سيارته في أيدٍ أمينة.",
+        "vocab": [
+          {
+            "word": "maintenance",
+            "ipa": "/ˈmeɪntənəns/",
+            "meaning_ar": "صيانة",
+            "meaning_en": "the work that keeps a car in good condition",
+            "example": "Regular maintenance saves money."
+          },
+          {
+            "word": "service",
+            "ipa": "/ˈsɜːvɪs/",
+            "meaning_ar": "صيانة دورية",
+            "meaning_en": "a full check and small repairs for a car",
+            "example": "Your car needs a service."
+          },
+          {
+            "word": "step",
+            "ipa": "/step/",
+            "meaning_ar": "خطوة",
+            "meaning_en": "one part of a plan or a job",
+            "example": "The first step is the oil change."
+          },
+          {
+            "word": "oil change",
+            "ipa": "/ˈɔɪl tʃeɪndʒ/",
+            "meaning_ar": "تغيير الزيت",
+            "meaning_en": "putting new oil in the engine",
+            "example": "An oil change takes thirty minutes."
+          },
+          {
+            "word": "filter",
+            "ipa": "/ˈfɪltər/",
+            "meaning_ar": "فلتر",
+            "meaning_en": "a part that cleans oil or air",
+            "example": "We put in a new oil filter."
+          },
+          {
+            "word": "coolant",
+            "ipa": "/ˈkuːlənt/",
+            "meaning_ar": "سائل التبريد",
+            "meaning_en": "the liquid that keeps the engine cool",
+            "example": "Check the coolant before a long trip."
+          },
+          {
+            "word": "tire pressure",
+            "ipa": "/ˈtaɪər ˌpreʃər/",
+            "meaning_ar": "ضغط الإطارات",
+            "meaning_en": "the amount of air in a tire",
+            "example": "Low tire pressure is not safe."
+          },
+          {
+            "word": "replace",
+            "ipa": "/rɪˈpleɪs/",
+            "meaning_ar": "يستبدل",
+            "meaning_en": "to take an old thing out and put a new thing in",
+            "example": "We replace the old filter."
+          },
+          {
+            "word": "tighten",
+            "ipa": "/ˈtaɪtn/",
+            "meaning_ar": "يشدّ (يربط بإحكام)",
+            "meaning_en": "to make something firm and strong",
+            "example": "Tighten the bolts well."
+          },
+          {
+            "word": "inspect",
+            "ipa": "/ɪnˈspekt/",
+            "meaning_ar": "يفحص بدقة",
+            "meaning_en": "to look at something carefully",
+            "example": "The mechanic inspects the brakes."
+          },
+          {
+            "word": "test drive",
+            "ipa": "/ˈtest draɪv/",
+            "meaning_ar": "جولة اختبار",
+            "meaning_en": "a short drive to check the car",
+            "example": "We take every car for a test drive."
+          }
+        ],
+        "reading": {
+          "title_en": "Five Steps for a Good Service",
+          "title_ar": "خمس خطوات لصيانة ممتازة",
+          "paragraphs": [
+            "Regular maintenance keeps a car strong for many years. In Omar's workshop, every service follows five clear steps. The team writes each step on a card, so no one forgets anything.",
+            "First, the mechanic does the oil change and puts in a new oil filter. Second, he checks the coolant and adds more when it is low. Third, he checks the tire pressure on all four tires. Fourth, he inspects the brakes and tightens any loose parts. When a part is too old, he replaces it. Finally, he takes the car for a short test drive around the industrial area.",
+            "After the test drive, Omar looks at the card and signs it. Then the customer pays — a full service costs 350 riyals. Omar tells every customer: 'Come back after 10,000 kilometers. A car with regular maintenance saves you money.'"
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "First, we change the oil and the filter.",
+            "ar": "أولًا، نغيّر الزيت والفلتر."
+          },
+          {
+            "en": "Then we check the tire pressure.",
+            "ar": "ثم نفحص ضغط الإطارات."
+          },
+          {
+            "en": "We replace the old part with a new one.",
+            "ar": "نستبدل القطعة القديمة بأخرى جديدة."
+          },
+          {
+            "en": "Finally, we take the car for a test drive.",
+            "ar": "أخيرًا، نأخذ السيارة في جولة اختبار."
+          },
+          {
+            "en": "Your car needs a service every 10,000 kilometers.",
+            "ar": "تحتاج سيارتك إلى صيانة كل ١٠٬٠٠٠ كيلومتر."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What is the first step in Omar's service?",
+            "options": ["The test drive", "Checking the brakes", "The tire pressure", "The oil change"],
+            "correct": "The oil change",
+            "explanation_ar": "الخطوة الأولى في الصيانة هي تغيير الزيت ووضع فلتر زيت جديد."
+          },
+          {
+            "question": "When does the mechanic add coolant?",
+            "options": ["When it is low", "When it is hot", "When the customer asks", "After every test drive"],
+            "correct": "When it is low",
+            "explanation_ar": "يضيف الفني سائل التبريد عندما يكون مستواه منخفضًا."
+          },
+          {
+            "question": "How many tires does the mechanic check?",
+            "options": ["Two", "Three", "Four", "Five"],
+            "correct": "Four",
+            "explanation_ar": "يفحص الفني ضغط الإطارات في الإطارات الأربعة كلها."
+          },
+          {
+            "question": "What is the last step of the service?",
+            "options": ["The oil change", "A test drive", "Paying the invoice", "Adding coolant"],
+            "correct": "A test drive",
+            "explanation_ar": "آخر خطوة هي جولة اختبار قصيرة حول الحي الصناعي."
+          },
+          {
+            "question": "How much does a full service cost in Omar's workshop?",
+            "options": ["150 riyals", "10,000 riyals", "500 riyals", "350 riyals"],
+            "correct": "350 riyals",
+            "explanation_ar": "الصيانة الكاملة في ورشة عمر تكلّف ٣٥٠ ريالًا."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write the steps of a simple service in your workshop. Use First, Then, and Finally.",
+          "prompt_ar": "اكتب خطوات صيانة بسيطة في ورشتك. استخدم First وThen وFinally.",
+          "guidance_ar": "اكتب ٤ جُمل قصيرة على الأقل، واستخدم كلمات الدرس مثل oil change وtire pressure وtest drive."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,520 @@
+{
+  "stage": {
+    "slug": "business-basics",
+    "sort_order": 1,
+    "title_en": "Business Basics",
+    "title_ar": "أساسيات التواصل في العمل",
+    "subtitle_ar": "أساس كل عمل ناجح: تحية صادقة، وسعر واضح، وموعد مضبوط — ابدأ إنجليزيتك من هنا.",
+    "cefr": "A1",
+    "accent": "#f59e0b",
+    "icon": "Briefcase"
+  },
+  "lessons": [
+    {
+      "slug": "greetings-at-work",
+      "sort_order": 1,
+      "title_en": "Greetings at Work",
+      "title_ar": "التحية والتعارف في العمل",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "أول كلمة يسمعها العميل منك تصنع انطباعه عن عملك كله. في هذا الدرس تتعلم كيف تحيّي عملاءك وموظفيك بالإنجليزية، وكيف تقدّم نفسك بثقة كصاحب عمل. عبارات قصيرة وبسيطة، لكنها تفتح أبواباً كثيرة.",
+        "vocab": [
+          {
+            "word": "hello",
+            "ipa": "/həˈloʊ/",
+            "meaning_ar": "مرحباً",
+            "meaning_en": "a friendly word when you see someone",
+            "example": "Hello! Welcome to my workshop."
+          },
+          {
+            "word": "good morning",
+            "ipa": "/ˌɡʊd ˈmɔːrnɪŋ/",
+            "meaning_ar": "صباح الخير",
+            "meaning_en": "a greeting you say in the morning",
+            "example": "Good morning, Mr. Salem!"
+          },
+          {
+            "word": "welcome",
+            "ipa": "/ˈwelkəm/",
+            "meaning_ar": "أهلاً وسهلاً",
+            "meaning_en": "a warm word for a guest or a customer",
+            "example": "Welcome to our workshop."
+          },
+          {
+            "word": "customer",
+            "ipa": "/ˈkʌstəmər/",
+            "meaning_ar": "عميل",
+            "meaning_en": "a person who buys from you",
+            "example": "A new customer comes in the morning."
+          },
+          {
+            "word": "owner",
+            "ipa": "/ˈoʊnər/",
+            "meaning_ar": "مالك / صاحب العمل",
+            "meaning_en": "the person who has the business",
+            "example": "I am the owner of this workshop."
+          },
+          {
+            "word": "workshop",
+            "ipa": "/ˈwɜːrkʃɑːp/",
+            "meaning_ar": "ورشة",
+            "meaning_en": "a place where you fix cars",
+            "example": "My workshop opens at eight."
+          },
+          {
+            "word": "name",
+            "ipa": "/neɪm/",
+            "meaning_ar": "اسم",
+            "meaning_en": "what people call you",
+            "example": "My name is Dhafer."
+          },
+          {
+            "word": "meet",
+            "ipa": "/miːt/",
+            "meaning_ar": "يقابل / يلتقي",
+            "meaning_en": "to see someone for the first time",
+            "example": "Nice to meet you."
+          },
+          {
+            "word": "help",
+            "ipa": "/help/",
+            "meaning_ar": "يساعد",
+            "meaning_en": "to do something good for someone",
+            "example": "How can I help you?"
+          },
+          {
+            "word": "business",
+            "ipa": "/ˈbɪznəs/",
+            "meaning_ar": "عمل تجاري",
+            "meaning_en": "the work you do to make money",
+            "example": "My business is cars."
+          },
+          {
+            "word": "worker",
+            "ipa": "/ˈwɜːrkər/",
+            "meaning_ar": "عامل",
+            "meaning_en": "a person who works for you",
+            "example": "My workers start at eight."
+          },
+          {
+            "word": "thank you",
+            "ipa": "/ˈθæŋk juː/",
+            "meaning_ar": "شكراً لك",
+            "meaning_en": "kind words you say after help",
+            "example": "Thank you for your good work."
+          }
+        ],
+        "reading": {
+          "title_en": "A Morning at the Workshop",
+          "title_ar": "صباح في الورشة",
+          "paragraphs": [
+            "My name is Dhafer. I am the owner of a car workshop in the industrial area. Every morning, I open the workshop at eight. I say good morning to my workers. A good day starts with a warm hello.",
+            "At nine, a customer comes in. I smile and say, \"Good morning! Welcome to our workshop. How can I help you?\" The customer says his car makes a strange sound. I say, \"No problem. We can help you.\"",
+            "The customer's name is Mr. Salem. He is new here. I say, \"Nice to meet you, Mr. Salem.\" He is happy because we are friendly. In business, a warm welcome is very important. Happy customers come back.",
+            "At the end of the day, I thank my workers. I say, \"Thank you for your good work. See you tomorrow.\" Then I close the workshop and go home."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Good morning! Welcome to our workshop.",
+            "ar": "صباح الخير! أهلاً بك في ورشتنا."
+          },
+          {
+            "en": "How can I help you?",
+            "ar": "كيف يمكنني مساعدتك؟"
+          },
+          {
+            "en": "My name is Dhafer. I am the owner.",
+            "ar": "اسمي ظافر، أنا صاحب الورشة."
+          },
+          {
+            "en": "Nice to meet you.",
+            "ar": "تشرّفت بلقائك."
+          },
+          {
+            "en": "Thank you for coming. See you soon.",
+            "ar": "شكراً لزيارتك، أراك قريباً."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What does Dhafer open at eight?",
+            "options": ["His house", "The workshop", "A restaurant", "The school"],
+            "correct": "The workshop",
+            "explanation_ar": "تقول القصة: أفتح الورشة الساعة الثامنة كل صباح."
+          },
+          {
+            "question": "What does Dhafer say to the customer?",
+            "options": ["Go away", "The shop is closed", "How can I help you?", "The car is bad"],
+            "correct": "How can I help you?",
+            "explanation_ar": "يرحّب ظافر بالعميل ثم يسأله: How can I help you? — كيف يمكنني مساعدتك؟"
+          },
+          {
+            "question": "What is the customer's name?",
+            "options": ["Mr. Salem", "Mr. Ali", "Mr. Dhafer", "Mr. Khalid"],
+            "correct": "Mr. Salem",
+            "explanation_ar": "اسم العميل الجديد هو السيد سالم (Mr. Salem)."
+          },
+          {
+            "question": "Why is a warm welcome important in business?",
+            "options": ["Because it is cheap", "Because the workshop is big", "Because cars like it", "Because happy customers come back"],
+            "correct": "Because happy customers come back",
+            "explanation_ar": "الترحيب الحار مهم لأن العميل السعيد يعود إلى الورشة مرة أخرى."
+          },
+          {
+            "question": "When does Dhafer thank his workers?",
+            "options": ["In the morning", "At nine", "At the end of the day", "On Friday"],
+            "correct": "At the end of the day",
+            "explanation_ar": "في نهاية اليوم يشكر ظافر عمّاله على عملهم الجيد."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Introduce yourself in English: say your name, your work, and welcome a customer to your workshop.",
+          "prompt_ar": "قدّم نفسك بالإنجليزية: قل اسمك وعملك، ثم رحّب بعميل في ورشتك.",
+          "guidance_ar": "استخدم ٣ كلمات على الأقل من كلمات الدرس، وتحدّث بصوت واضح وهادئ."
+        }
+      }
+    },
+    {
+      "slug": "numbers-and-prices",
+      "sort_order": 2,
+      "title_en": "Numbers and Prices",
+      "title_ar": "الأرقام والأسعار",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "الأرقام والأسعار هي لغة يومك: فاتورة، وعرض سعر، وخصم لعميل دائم. في هذا الدرس تتعلم كيف تقول الأسعار بالريال بالإنجليزية، وكيف تجيب بثقة عندما يسألك العميل: How much?",
+        "vocab": [
+          {
+            "word": "number",
+            "ipa": "/ˈnʌmbər/",
+            "meaning_ar": "رقم",
+            "meaning_en": "a word like one, two, three",
+            "example": "My phone number is easy."
+          },
+          {
+            "word": "price",
+            "ipa": "/praɪs/",
+            "meaning_ar": "سعر",
+            "meaning_en": "the money you ask for something",
+            "example": "The price is good."
+          },
+          {
+            "word": "riyal",
+            "ipa": "/riˈjɑːl/",
+            "meaning_ar": "ريال",
+            "meaning_en": "the money of Saudi Arabia",
+            "example": "It costs fifty riyals."
+          },
+          {
+            "word": "cost",
+            "ipa": "/kɔːst/",
+            "meaning_ar": "يكلّف",
+            "meaning_en": "the money you pay for something",
+            "example": "How much does it cost?"
+          },
+          {
+            "word": "pay",
+            "ipa": "/peɪ/",
+            "meaning_ar": "يدفع",
+            "meaning_en": "to give money for something",
+            "example": "You can pay by card."
+          },
+          {
+            "word": "cheap",
+            "ipa": "/tʃiːp/",
+            "meaning_ar": "رخيص",
+            "meaning_en": "with a low price",
+            "example": "This oil is cheap."
+          },
+          {
+            "word": "expensive",
+            "ipa": "/ɪkˈspensɪv/",
+            "meaning_ar": "غالٍ",
+            "meaning_en": "with a high price",
+            "example": "A new engine is expensive."
+          },
+          {
+            "word": "total",
+            "ipa": "/ˈtoʊtl/",
+            "meaning_ar": "المجموع",
+            "meaning_en": "all the money together",
+            "example": "The total is four hundred riyals."
+          },
+          {
+            "word": "discount",
+            "ipa": "/ˈdɪskaʊnt/",
+            "meaning_ar": "خصم",
+            "meaning_en": "money you take off the price",
+            "example": "I give a small discount."
+          },
+          {
+            "word": "hundred",
+            "ipa": "/ˈhʌndrəd/",
+            "meaning_ar": "مئة",
+            "meaning_en": "the number 100",
+            "example": "Two hundred riyals, please."
+          },
+          {
+            "word": "oil change",
+            "ipa": "/ˈɔɪl tʃeɪndʒ/",
+            "meaning_ar": "تغيير الزيت",
+            "meaning_en": "putting new oil in the car",
+            "example": "The oil change takes one hour."
+          },
+          {
+            "word": "how much",
+            "ipa": "/ˌhaʊ ˈmʌtʃ/",
+            "meaning_ar": "بِكَم / كم الثمن",
+            "meaning_en": "a question about the price",
+            "example": "How much is this part?"
+          }
+        ],
+        "reading": {
+          "title_en": "A Fair Price",
+          "title_ar": "سعر عادل",
+          "paragraphs": [
+            "Numbers are very important in my work. Every day, customers ask me about prices. They say, \"How much is this?\" I always give a clear answer. A clear price makes the customer happy.",
+            "Today, a customer wants an oil change. He asks, \"How much does it cost?\" I say, \"The oil change is one hundred and fifty riyals.\" He says, \"That is not expensive. It is a good price.\" He is happy because it is cheap.",
+            "The customer also wants new brake pads. The pads cost three hundred riyals. So the total is four hundred and fifty riyals. I give him a small discount of fifty riyals. Now he pays four hundred riyals only.",
+            "The customer smiles and says, \"Thank you! This is a fair price.\" He pays with his card. Good prices and clear numbers bring customers back to my workshop."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "How much does it cost?",
+            "ar": "كم يكلّف؟"
+          },
+          {
+            "en": "The oil change is one hundred and fifty riyals.",
+            "ar": "تغيير الزيت بمئة وخمسين ريالاً."
+          },
+          {
+            "en": "The total is four hundred riyals.",
+            "ar": "المجموع أربعمئة ريال."
+          },
+          {
+            "en": "I can give you a small discount.",
+            "ar": "أستطيع أن أعطيك خصماً بسيطاً."
+          },
+          {
+            "en": "You can pay by cash or card.",
+            "ar": "يمكنك الدفع نقداً أو بالبطاقة."
+          },
+          {
+            "en": "That is a fair price.",
+            "ar": "هذا سعر عادل."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "How much is the oil change?",
+            "options": ["Fifty riyals", "Three hundred riyals", "One hundred and fifty riyals", "Four hundred riyals"],
+            "correct": "One hundred and fifty riyals",
+            "explanation_ar": "قال ظافر للعميل: تغيير الزيت بمئة وخمسين ريالاً."
+          },
+          {
+            "question": "What is the total before the discount?",
+            "options": ["Four hundred and fifty riyals", "Three hundred riyals", "One hundred and fifty riyals", "Five hundred riyals"],
+            "correct": "Four hundred and fifty riyals",
+            "explanation_ar": "تغيير الزيت ١٥٠ ريالاً + فحمات الفرامل ٣٠٠ ريال = المجموع ٤٥٠ ريالاً قبل الخصم."
+          },
+          {
+            "question": "How much is the discount?",
+            "options": ["One hundred riyals", "Fifty riyals", "Twenty riyals", "One hundred and fifty riyals"],
+            "correct": "Fifty riyals",
+            "explanation_ar": "أعطاه ظافر خصماً قدره خمسون ريالاً، فدفع ٤٠٠ ريال فقط."
+          },
+          {
+            "question": "How does the customer pay?",
+            "options": ["With cash", "With a check", "He does not pay", "With his card"],
+            "correct": "With his card",
+            "explanation_ar": "في نهاية القصة: He pays with his card — دفع العميل بالبطاقة."
+          },
+          {
+            "question": "What does \"cheap\" mean?",
+            "options": ["A high price", "A low price", "A new car", "A big workshop"],
+            "correct": "A low price",
+            "explanation_ar": "كلمة cheap تعني رخيصاً، أي أن السعر منخفض."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about prices in your workshop. Example: An oil change costs one hundred riyals.",
+          "prompt_ar": "اكتب ٣–٤ جُمل عن الأسعار في ورشتك. مثال: تغيير الزيت يكلّف مئة ريال.",
+          "guidance_ar": "اكتب الأرقام بالكلمات الإنجليزية، واستخدم ٣ كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    },
+    {
+      "slug": "days-and-appointments",
+      "sort_order": 3,
+      "title_en": "Days and Appointments",
+      "title_ar": "الأيام والمواعيد",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "«موعدك يوم الثلاثاء الساعة العاشرة» — جملة تقولها كل يوم في عملك. في هذا الدرس تتعلم أيام الأسبوع والمواعيد بالإنجليزية، حتى تحدد لعملائك متى تكون الورشة مفتوحة ومتى تكون سياراتهم جاهزة.",
+        "vocab": [
+          {
+            "word": "day",
+            "ipa": "/deɪ/",
+            "meaning_ar": "يوم",
+            "meaning_en": "24 hours, like Sunday or Monday",
+            "example": "Saturday is a work day."
+          },
+          {
+            "word": "week",
+            "ipa": "/wiːk/",
+            "meaning_ar": "أسبوع",
+            "meaning_en": "seven days together",
+            "example": "We work six days a week."
+          },
+          {
+            "word": "today",
+            "ipa": "/təˈdeɪ/",
+            "meaning_ar": "اليوم",
+            "meaning_en": "this day, now",
+            "example": "We are busy today."
+          },
+          {
+            "word": "tomorrow",
+            "ipa": "/təˈmɑːroʊ/",
+            "meaning_ar": "غداً",
+            "meaning_en": "the day after today",
+            "example": "Come tomorrow at ten."
+          },
+          {
+            "word": "appointment",
+            "ipa": "/əˈpɔɪntmənt/",
+            "meaning_ar": "موعد",
+            "meaning_en": "a fixed day and time to meet",
+            "example": "I need an appointment for my car."
+          },
+          {
+            "word": "open",
+            "ipa": "/ˈoʊpən/",
+            "meaning_ar": "مفتوح",
+            "meaning_en": "ready for work and customers",
+            "example": "The workshop is open now."
+          },
+          {
+            "word": "closed",
+            "ipa": "/kloʊzd/",
+            "meaning_ar": "مغلق",
+            "meaning_en": "not open",
+            "example": "We are closed on Friday."
+          },
+          {
+            "word": "ready",
+            "ipa": "/ˈredi/",
+            "meaning_ar": "جاهز",
+            "meaning_en": "finished and good to go",
+            "example": "Your car is ready."
+          },
+          {
+            "word": "busy",
+            "ipa": "/ˈbɪzi/",
+            "meaning_ar": "مشغول",
+            "meaning_en": "with a lot of work",
+            "example": "Sunday is a busy day."
+          },
+          {
+            "word": "time",
+            "ipa": "/taɪm/",
+            "meaning_ar": "وقت",
+            "meaning_en": "hours and minutes",
+            "example": "What time is it?"
+          },
+          {
+            "word": "Friday",
+            "ipa": "/ˈfraɪdeɪ/",
+            "meaning_ar": "يوم الجمعة",
+            "meaning_en": "a rest day in Saudi Arabia",
+            "example": "The workshop is closed on Friday."
+          },
+          {
+            "word": "o'clock",
+            "ipa": "/əˈklɑːk/",
+            "meaning_ar": "تمام الساعة",
+            "meaning_en": "the exact hour",
+            "example": "Come at ten o'clock."
+          }
+        ],
+        "reading": {
+          "title_en": "A Busy Week",
+          "title_ar": "أسبوع مشغول",
+          "paragraphs": [
+            "My workshop is open six days a week. We work from Saturday to Thursday. On Friday, the workshop is closed. Friday is a day for family and rest.",
+            "Today is Sunday, and we are very busy. A customer calls me. He says, \"I need an appointment for my car.\" I look at my book. I say, \"We are busy today. Can you come tomorrow at ten o'clock?\" He says, \"Yes, that time is good for me.\"",
+            "On Monday, the customer comes at ten o'clock. He is on time. We check his car. I tell him, \"Your car will be ready tomorrow at five o'clock.\" He says, \"Great! See you tomorrow.\"",
+            "Appointments help my business a lot. With a clear day and time, the customer is happy, and my team is not too busy. A good plan makes work easy."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Can you come tomorrow at ten o'clock?",
+            "ar": "هل تستطيع المجيء غداً الساعة العاشرة؟"
+          },
+          {
+            "en": "Your car will be ready at five o'clock.",
+            "ar": "سيارتك ستكون جاهزة الساعة الخامسة."
+          },
+          {
+            "en": "We are open from Saturday to Thursday.",
+            "ar": "نعمل من السبت إلى الخميس."
+          },
+          {
+            "en": "The workshop is closed on Friday.",
+            "ar": "الورشة مغلقة يوم الجمعة."
+          },
+          {
+            "en": "I am busy today, but tomorrow is good.",
+            "ar": "أنا مشغول اليوم، لكن غداً مناسب."
+          },
+          {
+            "en": "I need an appointment, please.",
+            "ar": "أحتاج إلى موعد من فضلك."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "When is the workshop closed?",
+            "options": ["On Sunday", "On Friday", "On Monday", "On Thursday"],
+            "correct": "On Friday",
+            "explanation_ar": "تقول القصة: الورشة مغلقة يوم الجمعة، فهو يوم للعائلة والراحة."
+          },
+          {
+            "question": "What does the customer need?",
+            "options": ["An appointment", "A new car", "A discount", "Coffee"],
+            "correct": "An appointment",
+            "explanation_ar": "اتصل العميل وقال: I need an appointment for my car — أحتاج موعداً لسيارتي."
+          },
+          {
+            "question": "When does the customer come to the workshop?",
+            "options": ["On Sunday at five", "On Friday at ten", "On Monday at ten o'clock", "On Thursday at nine"],
+            "correct": "On Monday at ten o'clock",
+            "explanation_ar": "اليوم الأحد، وطلب ظافر منه المجيء غداً — أي يوم الاثنين — الساعة العاشرة."
+          },
+          {
+            "question": "When will the car be ready?",
+            "options": ["Today at ten", "Next week", "On Friday", "Tomorrow at five o'clock"],
+            "correct": "Tomorrow at five o'clock",
+            "explanation_ar": "قال ظافر للعميل: سيارتك ستكون جاهزة غداً الساعة الخامسة."
+          },
+          {
+            "question": "Why do appointments help the business?",
+            "options": ["They make the cars faster", "They are expensive", "The customer is happy and the team is not too busy", "The workshop closes early"],
+            "correct": "The customer is happy and the team is not too busy",
+            "explanation_ar": "المواعيد الواضحة تجعل العميل سعيداً والفريق غير مضغوطٍ بالعمل."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about your work week. When are you open? When are you busy?",
+          "prompt_ar": "اكتب ٣–٤ جُمل عن أسبوع عملك: متى تفتح الورشة؟ ومتى تكون مشغولاً؟",
+          "guidance_ar": "استخدم أسماء الأيام بالإنجليزية، و٣ كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,585 @@
+{
+  "stage": {
+    "slug": "professional-business-english",
+    "sort_order": 10,
+    "title_en": "Professional Business English",
+    "title_ar": "إنجليزية الأعمال الاحترافية",
+    "subtitle_ar": "المرحلة الأخيرة: رسائل عمل تفتح الأبواب، ولغة تفاوض متقدّمة، وعرض تقديمي يليق بعملك أمام أي جهة.",
+    "cefr": "B2",
+    "accent": "#fb7185",
+    "icon": "Mail"
+  },
+  "lessons": [
+    {
+      "slug": "business-emails",
+      "sort_order": 1,
+      "title_en": "Business Emails",
+      "title_ar": "رسائل العمل",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "في عالم الأعمال اليوم، رسالة بريد واحدة مكتوبة بإتقان قد تفتح لك بابًا مع مورّد جديد أو عميل كبير. في هذا الدرس ستتعلّم كيف تكتب رسالة عمل احترافية بالإنجليزية: من سطر الموضوع إلى الخاتمة المهذّبة. تخيّل مورّدًا تريد التعامل معه، وستجد أن كل عبارة هنا قابلة للاستخدام غدًا صباحًا.",
+        "vocab": [
+          {
+            "word": "subject line",
+            "ipa": "/ˈsʌbdʒekt laɪn/",
+            "meaning_ar": "سطر الموضوع",
+            "meaning_en": "the title of an email",
+            "example": "Write a clear subject line before you send the email."
+          },
+          {
+            "word": "recipient",
+            "ipa": "/rɪˈsɪpiənt/",
+            "meaning_ar": "المُستلِم",
+            "meaning_en": "the person who receives a message",
+            "example": "Check the recipient's address before sending."
+          },
+          {
+            "word": "attachment",
+            "ipa": "/əˈtætʃmənt/",
+            "meaning_ar": "مُرفَق",
+            "meaning_en": "a file sent with an email",
+            "example": "The price list is in the attachment."
+          },
+          {
+            "word": "formal",
+            "ipa": "/ˈfɔːrməl/",
+            "meaning_ar": "رسمي",
+            "meaning_en": "official and polite in style",
+            "example": "A formal email starts with 'Dear Mr. Ahmed'."
+          },
+          {
+            "word": "inquiry",
+            "ipa": "/ɪnˈkwaɪəri/",
+            "meaning_ar": "استفسار",
+            "meaning_en": "a question asking for information",
+            "example": "I sent an inquiry about the new filters."
+          },
+          {
+            "word": "reply",
+            "ipa": "/rɪˈplaɪ/",
+            "meaning_ar": "ردّ / يردّ",
+            "meaning_en": "an answer to a message",
+            "example": "I received a reply from the supplier today."
+          },
+          {
+            "word": "confirm",
+            "ipa": "/kənˈfɜːrm/",
+            "meaning_ar": "يؤكّد",
+            "meaning_en": "to say that something is certain",
+            "example": "Please confirm the order before Thursday."
+          },
+          {
+            "word": "forward",
+            "ipa": "/ˈfɔːrwərd/",
+            "meaning_ar": "يُعيد إرسال",
+            "meaning_en": "to send a received message to someone else",
+            "example": "Forward the invoice to the accountant."
+          },
+          {
+            "word": "deadline",
+            "ipa": "/ˈdedlaɪn/",
+            "meaning_ar": "موعد نهائي",
+            "meaning_en": "the last time you can do something",
+            "example": "The deadline for payment is Sunday."
+          },
+          {
+            "word": "regards",
+            "ipa": "/rɪˈɡɑːrdz/",
+            "meaning_ar": "تحيات (في خاتمة الرسالة)",
+            "meaning_en": "a polite way to end an email",
+            "example": "He ended the email with 'Best regards'."
+          },
+          {
+            "word": "polite",
+            "ipa": "/pəˈlaɪt/",
+            "meaning_ar": "مهذّب",
+            "meaning_en": "showing good manners",
+            "example": "A polite email gets a faster answer."
+          }
+        ],
+        "reading": {
+          "title_en": "An Email That Opens Doors",
+          "title_ar": "رسالة تفتح الأبواب",
+          "paragraphs": [
+            "Last month, Dhafer needed a new supplier for brake pads. Instead of calling, he decided to send a formal email. He knew that a clear, polite email often gets a better answer than a long phone call, because the recipient can read it at a good time and reply with exact numbers.",
+            "His subject line was short and clear: 'Inquiry – Brake Pads for Toyota and Hyundai'. In the first line, he introduced his workshop in the industrial district. Then he asked three direct questions about price, quality, and delivery time. He added his current price list as an attachment, so the supplier could see what he already pays.",
+            "The reply came the next morning. The supplier offered a good price and asked Dhafer to confirm his order before Thursday, because the deadline for the next shipment was close. Dhafer wrote back, confirmed the quantity, and asked the supplier to forward the invoice to his accountant.",
+            "He ended every email the same way: a short thank you, then 'Best regards' and his full name. Six months later, this supplier gives him the best prices in the market. One polite, formal email — about 3,000 riyals saved every month."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "I am writing to inquire about your prices for brake pads.",
+            "ar": "أكتب إليكم للاستفسار عن أسعاركم لفحمات الفرامل."
+          },
+          {
+            "en": "Please find the price list attached.",
+            "ar": "تجدون قائمة الأسعار مرفقة."
+          },
+          {
+            "en": "Could you confirm the delivery date, please?",
+            "ar": "هل يمكنكم تأكيد موعد التسليم، من فضلكم؟"
+          },
+          {
+            "en": "Thank you for your quick reply.",
+            "ar": "شكرًا لردّكم السريع."
+          },
+          {
+            "en": "I look forward to hearing from you.",
+            "ar": "أتطلّع إلى ردّكم."
+          },
+          {
+            "en": "Best regards, Dhafer Al-Quhidan",
+            "ar": "مع أطيب التحيات، ظافر آل قهيدان"
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "Why did Dhafer choose email instead of a phone call?",
+            "options": [
+              "Phone calls are expensive",
+              "The recipient can read it at a good time and reply with exact numbers",
+              "He does not like talking",
+              "The supplier has no phone"
+            ],
+            "correct": "The recipient can read it at a good time and reply with exact numbers",
+            "explanation_ar": "ذكر النص أن الرسالة الواضحة المهذّبة تصل غالبًا إلى ردّ أفضل، لأن المستلم يقرؤها في وقت مناسب ويردّ بأرقام دقيقة."
+          },
+          {
+            "question": "What did Dhafer add as an attachment?",
+            "options": [
+              "His current price list",
+              "A photo of his workshop",
+              "A map of the industrial district",
+              "A copy of his ID"
+            ],
+            "correct": "His current price list",
+            "explanation_ar": "أرفق ظافر قائمة الأسعار الحالية ليطّلع المورّد على ما يدفعه الآن."
+          },
+          {
+            "question": "What did the supplier ask Dhafer to do before Thursday?",
+            "options": [
+              "Send a new inquiry",
+              "Visit the warehouse",
+              "Change the subject line",
+              "Confirm his order"
+            ],
+            "correct": "Confirm his order",
+            "explanation_ar": "طلب المورّد تأكيد الطلبية قبل يوم الخميس لأن الموعد النهائي للشحنة القادمة كان قريبًا."
+          },
+          {
+            "question": "Who received the forwarded invoice?",
+            "options": [
+              "The delivery driver",
+              "The bank",
+              "Dhafer's accountant",
+              "The workshop manager"
+            ],
+            "correct": "Dhafer's accountant",
+            "explanation_ar": "طلب ظافر من المورّد إعادة إرسال الفاتورة إلى محاسبه."
+          },
+          {
+            "question": "How does Dhafer end every email?",
+            "options": [
+              "With a question",
+              "With a thank you and 'Best regards'",
+              "With his phone number only",
+              "With a joke"
+            ],
+            "correct": "With a thank you and 'Best regards'",
+            "explanation_ar": "يختم ظافر كل رسالة بشكر قصير ثم عبارة 'Best regards' واسمه الكامل — وهذه خاتمة العمل المعتادة."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short formal email (4–6 sentences) to a parts supplier: introduce your business, ask about the price of one product, and end with a polite closing.",
+          "prompt_ar": "اكتب رسالة عمل قصيرة (٤–٦ جُمل) إلى مورّد قطع غيار: عرّف بعملك، واسأل عن سعر منتج واحد، واختم بخاتمة مهذّبة.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل subject line وattachment وconfirm وregards."
+        }
+      }
+    },
+    {
+      "slug": "negotiation-language",
+      "sort_order": 2,
+      "title_en": "Advanced Negotiation Language",
+      "title_ar": "لغة التفاوض المتقدّمة",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "أنت تتفاوض كل يوم: مع مورّد، مع عميل، مع صاحب عقار. في هذا الدرس سترتقي بلغة التفاوض عندك إلى المستوى الاحترافي: العرض المضادّ، والتنازل المحسوب، والحدّ الأدنى الذي لا تكشفه مبكرًا. هذه العبارات صُمّمت لتخدمك في صفقة حقيقية، لا في كتاب.",
+        "vocab": [
+          {
+            "word": "negotiation",
+            "ipa": "/nɪˌɡoʊʃiˈeɪʃn/",
+            "meaning_ar": "تفاوض",
+            "meaning_en": "a discussion to reach an agreement",
+            "example": "The negotiation with the supplier took ninety minutes."
+          },
+          {
+            "word": "counter-offer",
+            "ipa": "/ˈkaʊntər ˌɔːfər/",
+            "meaning_ar": "عرض مضادّ",
+            "meaning_en": "a new offer made in response to another offer",
+            "example": "He rejected their price and made a counter-offer."
+          },
+          {
+            "word": "concession",
+            "ipa": "/kənˈseʃn/",
+            "meaning_ar": "تنازل",
+            "meaning_en": "something you give up to reach an agreement",
+            "example": "Free delivery was a big concession from the supplier."
+          },
+          {
+            "word": "compromise",
+            "ipa": "/ˈkɑːmprəmaɪz/",
+            "meaning_ar": "حلّ وسط",
+            "meaning_en": "an agreement where each side gives something",
+            "example": "A fair compromise protects the relationship."
+          },
+          {
+            "word": "terms",
+            "ipa": "/tɜːrmz/",
+            "meaning_ar": "شروط",
+            "meaning_en": "the conditions of an agreement",
+            "example": "We improved the payment terms to sixty days."
+          },
+          {
+            "word": "leverage",
+            "ipa": "/ˈlevərɪdʒ/",
+            "meaning_ar": "قوة تفاوضية",
+            "meaning_en": "power that helps you get what you want",
+            "example": "Being a big customer gives you leverage."
+          },
+          {
+            "word": "bottom line",
+            "ipa": "/ˌbɑːtəm ˈlaɪn/",
+            "meaning_ar": "الحدّ الأدنى المقبول",
+            "meaning_en": "the minimum you can accept",
+            "example": "Never show your bottom line too early."
+          },
+          {
+            "word": "win-win",
+            "ipa": "/ˌwɪn ˈwɪn/",
+            "meaning_ar": "مكسب للطرفين",
+            "meaning_en": "good for both sides",
+            "example": "We reached a win-win agreement in the end."
+          },
+          {
+            "word": "flexible",
+            "ipa": "/ˈfleksəbl/",
+            "meaning_ar": "مرن",
+            "meaning_en": "ready to change or adapt",
+            "example": "Be flexible on small points, not on the big numbers."
+          },
+          {
+            "word": "commitment",
+            "ipa": "/kəˈmɪtmənt/",
+            "meaning_ar": "التزام",
+            "meaning_en": "a promise to do something",
+            "example": "He signed a commitment to buy oil for a full year."
+          },
+          {
+            "word": "long-term",
+            "ipa": "/ˌlɔːŋ ˈtɜːrm/",
+            "meaning_ar": "طويل الأمد",
+            "meaning_en": "continuing far into the future",
+            "example": "A long-term contract protects both businesses."
+          }
+        ],
+        "reading": {
+          "title_en": "The Annual Contract",
+          "title_ar": "عقد السنة",
+          "paragraphs": [
+            "Every year, Dhafer sits down with his main parts supplier to negotiate the annual contract. It is the most important negotiation in his calendar: filters, oil, and brake pads for twelve months. A one-riyal difference on a filter, multiplied by thousands of pieces, decides whether his year is comfortable or tight.",
+            "This year, the supplier opened with a five percent price increase. Dhafer did not argue immediately. He knew his leverage: his workshop had become one of the supplier's biggest customers in the industrial district. So he made a counter-offer — he would accept a two percent increase if the supplier improved the payment terms from thirty to sixty days.",
+            "The supplier hesitated, so Dhafer offered a concession of his own: a written commitment to buy oil exclusively from him for the whole year. In return, he asked for free delivery — his bottom line. Both sides gave something, both sides gained something. That is the meaning of a genuine compromise: not a victory for one side, but a win-win agreement that protects a long-term relationship.",
+            "They signed after ninety minutes. Dhafer's rule is simple: stay flexible on small points, stay firm on the numbers that really matter, and never let the other side guess your bottom line too early. A negotiation is not a battle — it is a conversation about the future of two businesses."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "I'm afraid we can't accept those terms as they stand.",
+            "ar": "أخشى أننا لا نستطيع قبول هذه الشروط كما هي."
+          },
+          {
+            "en": "Let me make a counter-offer.",
+            "ar": "اسمح لي أن أقدّم عرضًا مضادًّا."
+          },
+          {
+            "en": "If you improve the payment terms, we can commit to a larger order.",
+            "ar": "إذا حسّنتم شروط الدفع، يمكننا الالتزام بطلبية أكبر."
+          },
+          {
+            "en": "We are flexible on delivery, but firm on price.",
+            "ar": "نحن مرنون في موعد التسليم، لكننا ثابتون في السعر."
+          },
+          {
+            "en": "Let's meet in the middle.",
+            "ar": "لنلتقِ في منتصف الطريق."
+          },
+          {
+            "en": "We are looking for a win-win agreement.",
+            "ar": "نبحث عن اتفاق يكسب فيه الطرفان."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What did the supplier ask for at the start of the negotiation?",
+            "options": [
+              "Free delivery",
+              "A written commitment",
+              "A five percent price increase",
+              "A shorter contract"
+            ],
+            "correct": "A five percent price increase",
+            "explanation_ar": "افتتح المورّد التفاوض بطلب زيادة في الأسعار قدرها خمسة بالمئة."
+          },
+          {
+            "question": "What was Dhafer's counter-offer?",
+            "options": [
+              "A two percent increase in exchange for sixty-day payment terms",
+              "No increase at all",
+              "A bigger order of brake pads",
+              "Ending the contract"
+            ],
+            "correct": "A two percent increase in exchange for sixty-day payment terms",
+            "explanation_ar": "قبل ظافر زيادة اثنين بالمئة فقط مقابل تحسين شروط الدفع من ثلاثين إلى ستين يومًا — هذا هو العرض المضادّ."
+          },
+          {
+            "question": "What concession did Dhafer offer?",
+            "options": [
+              "Paying in cash",
+              "Buying oil exclusively from the supplier for a year",
+              "Accepting late deliveries",
+              "Closing his second branch"
+            ],
+            "correct": "Buying oil exclusively from the supplier for a year",
+            "explanation_ar": "قدّم ظافر تنازلًا من طرفه: التزام مكتوب بشراء الزيت حصريًا من هذا المورّد لمدة سنة كاملة."
+          },
+          {
+            "question": "What was Dhafer's bottom line in this negotiation?",
+            "options": [
+              "A new showroom",
+              "A longer contract",
+              "A discount on filters",
+              "Free delivery"
+            ],
+            "correct": "Free delivery",
+            "explanation_ar": "ذكر النص أن التوصيل المجاني كان حدّه الأدنى المقبول — الشرط الذي لا يتنازل عنه."
+          },
+          {
+            "question": "According to the reading, what is a negotiation?",
+            "options": [
+              "A battle you must win",
+              "A conversation about the future of two businesses",
+              "A way to trick the other side",
+              "A quick phone call"
+            ],
+            "correct": "A conversation about the future of two businesses",
+            "explanation_ar": "يختم النص بأن التفاوض ليس معركة، بل حوار حول مستقبل عملَين — علاقة طويلة الأمد لا انتصار لحظي."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Imagine your supplier wants to raise prices by five percent. Speak for one minute: make a counter-offer, and explain what you can give and what you need in return.",
+          "prompt_ar": "تخيّل أن مورّدك يريد رفع الأسعار خمسة بالمئة. تحدّث لمدة دقيقة: قدّم عرضًا مضادًّا، ووضّح ما يمكنك تقديمه وما تحتاجه في المقابل.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل counter-offer وterms وflexible وwin-win."
+        }
+      }
+    },
+    {
+      "slug": "presenting-your-business",
+      "sort_order": 3,
+      "title_en": "Presenting Your Business",
+      "title_ar": "تقديم عرض عن عملك",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "قد يأتي يوم تقف فيه أمام بنك أو مستثمر أو شريك محتمل لتعرض عملك في دقائق معدودة. في هذا الدرس ستتعلّم كيف تبني عرضًا تقديميًا واضحًا وواثقًا بالإنجليزية: نظرة عامة، وأرقام تُبرز إنجازاتك، وخاتمة تفتح باب الأسئلة. حضّر قصتك جيدًا — فأنت أعرف الناس بورشتك.",
+        "vocab": [
+          {
+            "word": "presentation",
+            "ipa": "/ˌprezənˈteɪʃn/",
+            "meaning_ar": "عرض تقديمي",
+            "meaning_en": "a talk that shows information to people",
+            "example": "His presentation to the bank lasted five minutes."
+          },
+          {
+            "word": "overview",
+            "ipa": "/ˈoʊvərvjuː/",
+            "meaning_ar": "نظرة عامة",
+            "meaning_en": "a short general description",
+            "example": "Start with an overview of your business."
+          },
+          {
+            "word": "audience",
+            "ipa": "/ˈɔːdiəns/",
+            "meaning_ar": "الجمهور / الحضور",
+            "meaning_en": "the people listening to you",
+            "example": "Look at your audience while you speak."
+          },
+          {
+            "word": "slide",
+            "ipa": "/slaɪd/",
+            "meaning_ar": "شريحة عرض",
+            "meaning_en": "one page of a presentation",
+            "example": "Put only one idea on each slide."
+          },
+          {
+            "word": "highlight",
+            "ipa": "/ˈhaɪlaɪt/",
+            "meaning_ar": "يُبرز",
+            "meaning_en": "to make something easy to notice",
+            "example": "Highlight your best numbers early in the talk."
+          },
+          {
+            "word": "achievement",
+            "ipa": "/əˈtʃiːvmənt/",
+            "meaning_ar": "إنجاز",
+            "meaning_en": "something good that you have done",
+            "example": "Growing for three years in a row is a real achievement."
+          },
+          {
+            "word": "revenue",
+            "ipa": "/ˈrevənuː/",
+            "meaning_ar": "الإيرادات",
+            "meaning_en": "the money a business receives",
+            "example": "Our revenue grew by twenty percent this year."
+          },
+          {
+            "word": "growth",
+            "ipa": "/ɡroʊθ/",
+            "meaning_ar": "نموّ",
+            "meaning_en": "an increase in size or amount",
+            "example": "The plan shows strong growth for next year."
+          },
+          {
+            "word": "competitive advantage",
+            "ipa": "/kəmˌpetətɪv ədˈvæntɪdʒ/",
+            "meaning_ar": "ميزة تنافسية",
+            "meaning_en": "what makes your business better than others",
+            "example": "Fast, honest service is our competitive advantage."
+          },
+          {
+            "word": "expand",
+            "ipa": "/ɪkˈspænd/",
+            "meaning_ar": "يتوسّع",
+            "meaning_en": "to grow bigger",
+            "example": "We plan to expand to a second branch."
+          },
+          {
+            "word": "confident",
+            "ipa": "/ˈkɑːnfɪdənt/",
+            "meaning_ar": "واثق",
+            "meaning_en": "sure of yourself",
+            "example": "Speak in a calm, confident voice."
+          },
+          {
+            "word": "summary",
+            "ipa": "/ˈsʌməri/",
+            "meaning_ar": "ملخّص",
+            "meaning_en": "a short statement of the main points",
+            "example": "End with a clear summary of the plan."
+          }
+        ],
+        "reading": {
+          "title_en": "Five Minutes That Changed the Workshop",
+          "title_ar": "خمس دقائق غيّرت الورشة",
+          "paragraphs": [
+            "When Dhafer decided to open a second branch, the bank asked him to present his business plan in person. He had run a successful workshop for fifteen years, yet standing in front of an audience with a laptop and slides felt harder than rebuilding an engine. So he prepared the presentation the way he prepares a car: piece by piece.",
+            "He started with a short overview: who he is, what the workshop does, and who his customers are. Then he used numbers to highlight his strongest achievements — revenue had grown by twenty percent for three years in a row, and seven out of ten customers came back. His competitive advantage was easy to explain: honest prices, fast service, and a name people trust in the neighborhood.",
+            "Near the end, he explained why he wanted to expand: the industrial district was full, demand kept rising, and his team was ready. He finished with a confident summary of the plan — the cost, the expected growth, and the date the new branch would open. Then he smiled and said, 'I would be happy to take your questions.'",
+            "The bank approved the loan within a week. Later, the manager told him the secret was not the slides — it was the clarity. A good presentation does not try to say everything; it makes the audience remember three things and believe the person saying them."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Thank you all for coming. Let me give you a quick overview of our business.",
+            "ar": "شكرًا لحضوركم جميعًا. اسمحوا لي أن أقدّم نظرة عامة سريعة عن عملنا."
+          },
+          {
+            "en": "Our revenue has grown by twenty percent this year.",
+            "ar": "نمت إيراداتنا بنسبة عشرين بالمئة هذا العام."
+          },
+          {
+            "en": "Our main competitive advantage is fast, honest service.",
+            "ar": "ميزتنا التنافسية الأساسية هي الخدمة السريعة والصادقة."
+          },
+          {
+            "en": "I would like to highlight three achievements.",
+            "ar": "أودّ أن أُبرز ثلاثة إنجازات."
+          },
+          {
+            "en": "To summarize, we are ready to expand.",
+            "ar": "باختصار، نحن جاهزون للتوسّع."
+          },
+          {
+            "en": "I would be happy to take your questions.",
+            "ar": "يسعدني أن أجيب عن أسئلتكم."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What did the bank ask Dhafer to do?",
+            "options": [
+              "Present his business plan in person",
+              "Sell his workshop",
+              "Hire a marketing agency",
+              "Close the industrial branch"
+            ],
+            "correct": "Present his business plan in person",
+            "explanation_ar": "طلب البنك من ظافر أن يقدّم خطة عمله بنفسه قبل الموافقة على تمويل الفرع الثاني."
+          },
+          {
+            "question": "How did Dhafer prove his workshop was strong?",
+            "options": [
+              "He showed photos of cars",
+              "He used numbers, like twenty percent revenue growth",
+              "He brought his customers to the bank",
+              "He promised to work more hours"
+            ],
+            "correct": "He used numbers, like twenty percent revenue growth",
+            "explanation_ar": "استخدم ظافر الأرقام ليُبرز إنجازاته: نموّ الإيرادات عشرين بالمئة لثلاث سنوات متتالية، وعودة سبعة من كل عشرة عملاء."
+          },
+          {
+            "question": "What was his competitive advantage?",
+            "options": [
+              "The cheapest parts in the city",
+              "A famous building",
+              "Honest prices, fast service, and a trusted name",
+              "A large team of engineers"
+            ],
+            "correct": "Honest prices, fast service, and a trusted name",
+            "explanation_ar": "لخّص النص ميزته التنافسية في ثلاثة أشياء: أسعار صادقة، وخدمة سريعة، واسم يثق به الناس في الحي."
+          },
+          {
+            "question": "What did Dhafer say at the end of his presentation?",
+            "options": [
+              "'The meeting is over'",
+              "'Please sign the contract now'",
+              "'I will lower my prices'",
+              "'I would be happy to take your questions'"
+            ],
+            "correct": "'I would be happy to take your questions'",
+            "explanation_ar": "ختم ظافر عرضه بابتسامة وعبارة فتح باب الأسئلة — وهي الخاتمة الاحترافية لأي عرض تقديمي."
+          },
+          {
+            "question": "According to the bank manager, what made the presentation successful?",
+            "options": [
+              "The beautiful slides",
+              "The length of the talk",
+              "The clarity",
+              "The expensive laptop"
+            ],
+            "correct": "The clarity",
+            "explanation_ar": "قال مدير البنك إن السرّ لم يكن في الشرائح بل في الوضوح: عرض جيد يجعل الحضور يتذكّرون ثلاثة أشياء ويصدّقون قائلها."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Present your business in five to six sentences: give an overview, mention one achievement with a number, state your competitive advantage, and explain why you want to grow.",
+          "prompt_ar": "قدّم عرضًا عن عملك في خمس إلى ست جُمل: نظرة عامة، وإنجاز واحد برقم، وميزتك التنافسية، وسبب رغبتك في النموّ.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، وتحدّث بصوت هادئ وواثق كأنك أمام البنك فعلًا."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "stage": {
+    "slug": "programming-basics",
+    "sort_order": 4,
+    "title_en": "Programming Basics",
+    "title_ar": "أساسيات البرمجة",
+    "subtitle_ar": "أوّل خطواتكِ نحو التفكير كمبرمِجة: متغيّرات وقيم، وحلقات ودوال، وكيف نصطاد الأخطاء ونصلحها بهدوء.",
+    "cefr": "B1",
+    "accent": "#a78bfa",
+    "icon": "Code2"
+  },
+  "lessons": [
+    {
+      "slug": "variables-and-values",
+      "sort_order": 1,
+      "title_en": "Variables and Values",
+      "title_ar": "المتغيّرات والقيم",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "المتغيّرات هي أوّل لبنة في كل برنامج، وستحتاجينها في كل سطر تكتبينه في تخصّصكِ التقني. في هذا الدرس ستتعرّفين على المتغيّر بوصفه «صندوقًا» له اسم يخزّن قيمة، وكيف تُسنِدين القيم وتغيّرينها. تعلّمي كلماتها بالإنجليزية، فهي مفاتيح ستقرئينها في كل كود تقريبًا.",
+        "vocab": [
+          { "word": "variable", "ipa": "/ˈveəriəbl/", "meaning_ar": "مُتغيّر", "meaning_en": "a named place in code that stores a value", "example": "A variable can hold your name or your age." },
+          { "word": "value", "ipa": "/ˈvæljuː/", "meaning_ar": "قيمة", "meaning_en": "the information that a variable holds", "example": "The value of the variable is 18." },
+          { "word": "store", "ipa": "/stɔːr/", "meaning_ar": "يُخزّن", "meaning_en": "to keep data so you can use it later", "example": "A variable can store a number." },
+          { "word": "name", "ipa": "/neɪm/", "meaning_ar": "اسم", "meaning_en": "the label you give to a variable", "example": "I give the variable a clear name." },
+          { "word": "number", "ipa": "/ˈnʌmbər/", "meaning_ar": "رقم / عدد", "meaning_en": "a value like 5 or 42", "example": "Ten is a number." },
+          { "word": "text", "ipa": "/tekst/", "meaning_ar": "نص", "meaning_en": "letters or words saved as a value", "example": "Her name is saved as text." },
+          { "word": "string", "ipa": "/strɪŋ/", "meaning_ar": "سلسلة نصّية", "meaning_en": "a value made of letters or words", "example": "\"Atyaf\" is a string." },
+          { "word": "assign", "ipa": "/əˈsaɪn/", "meaning_ar": "يُسنِد / يُعيّن", "meaning_en": "to give a value to a variable", "example": "We assign the number 5 to the variable." },
+          { "word": "change", "ipa": "/tʃeɪndʒ/", "meaning_ar": "يُغيّر", "meaning_en": "to give a variable a new value", "example": "You can change the value later." },
+          { "word": "code", "ipa": "/kəʊd/", "meaning_ar": "شيفرة / كود", "meaning_en": "the instructions we write for a computer", "example": "She writes code every day." },
+          { "word": "data", "ipa": "/ˈdeɪtə/", "meaning_ar": "بيانات", "meaning_en": "the information a program works with", "example": "The program saves the data." },
+          { "word": "box", "ipa": "/bɒks/", "meaning_ar": "صندوق", "meaning_en": "a simple picture of a variable", "example": "Think of a variable as a small box." }
+        ],
+        "reading": {
+          "title_en": "A Box with a Name",
+          "title_ar": "صندوق له اسم",
+          "paragraphs": [
+            "In code, a variable is like a small box. The box has a name, and it can store a value. The value can be a number, like 10, or text, like \"Atyaf\". When you write code, you give the box a name and you put data inside it.",
+            "To assign a value means to put it in the box. For example, you can write age = 18. Now the variable \"age\" has the value 18. Later, you can change this value. If you write age = 19, the box keeps the new number and forgets the old one.",
+            "Variables help the computer remember data. A program can store many values at the same time: your name, your score, or the time. Good names make code easy to read, so we use clear names like \"score\" and not just \"x\". A variable is a simple idea, but it is one of the first big ideas in programming."
+          ]
+        },
+        "key_phrases": [
+          { "en": "A variable stores a value.", "ar": "المتغيّر يخزّن قيمة." },
+          { "en": "Give the variable a clear name.", "ar": "أعطي المتغيّر اسمًا واضحًا." },
+          { "en": "Assign a value to the variable.", "ar": "أسنِدي قيمة إلى المتغيّر." },
+          { "en": "The value can be a number or text.", "ar": "القيمة قد تكون رقمًا أو نصًّا." },
+          { "en": "You can change the value later.", "ar": "يمكنكِ تغيير القيمة لاحقًا." },
+          { "en": "Use clear names, not just \"x\".", "ar": "استخدمي أسماء واضحة، لا مجرّد «x»." }
+        ],
+        "comprehension": [
+          { "question": "In the reading, what is a variable like?", "options": ["A small box with a name", "A big computer", "A type of internet", "A kind of website"], "correct": "A small box with a name", "explanation_ar": "شبّه الدرس المتغيّر بصندوق صغير له اسم يخزّن قيمة." },
+          { "question": "What can a value be?", "options": ["Only pictures", "A number or text", "Only sound", "Only a color"], "correct": "A number or text", "explanation_ar": "القيمة قد تكون رقمًا مثل 10 أو نصًّا مثل الاسم." },
+          { "question": "What does \"assign\" mean?", "options": ["To delete the code", "To turn off the computer", "To put a value in a variable", "To print on paper"], "correct": "To put a value in a variable", "explanation_ar": "الإسناد (assign) يعني وضع قيمة داخل المتغيّر." },
+          { "question": "After age = 19, what value does age have?", "options": ["18", "nothing", "the name", "19"], "correct": "19", "explanation_ar": "عند تغيير القيمة يحتفظ الصندوق بالرقم الجديد 19 وينسى القديم." },
+          { "question": "Why do we use clear names like \"score\"?", "options": ["To make code easy to read", "To make the computer faster", "To use less electricity", "To hide the code"], "correct": "To make code easy to read", "explanation_ar": "الأسماء الواضحة تجعل قراءة الكود أسهل." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about two variables you could use in a program. Give each one a name and a value.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن متغيّرين يمكنكِ استخدامهما في برنامج. أعطي كلًّا منهما اسمًا وقيمة.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل variable وvalue وstore."
+        }
+      }
+    },
+    {
+      "slug": "loops-and-functions",
+      "sort_order": 2,
+      "title_en": "Loops and Functions",
+      "title_ar": "الحلقات والدوال",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "بعد أن عرفتِ المتغيّرات، حان وقت جعل الحاسوب يعمل بدلًا عنكِ. في هذا الدرس ستتعلّمين الحلقات التي تكرّر العمل، والدوال التي تكتبينها مرّة وتعيدين استخدامها. هاتان الفكرتان يعتمد عليهما المبرمجون يوميًا، وستفتحان لكِ باب التفكير كمبرمِجة حقيقية.",
+        "vocab": [
+          { "word": "loop", "ipa": "/luːp/", "meaning_ar": "حلقة", "meaning_en": "a way to repeat code many times", "example": "A loop can print the numbers from 1 to 100." },
+          { "word": "repeat", "ipa": "/rɪˈpiːt/", "meaning_ar": "يُكرّر", "meaning_en": "to do the same action again", "example": "The loop repeats the same step." },
+          { "word": "function", "ipa": "/ˈfʌŋkʃn/", "meaning_ar": "دالة", "meaning_en": "a named block of code that does one job", "example": "This function adds two numbers." },
+          { "word": "call", "ipa": "/kɔːl/", "meaning_ar": "يستدعي", "meaning_en": "to run a function by its name", "example": "You can call the function whenever you need it." },
+          { "word": "input", "ipa": "/ˈɪnpʊt/", "meaning_ar": "مُدخَل", "meaning_en": "the data you give to a function", "example": "The function takes two numbers as input." },
+          { "word": "output", "ipa": "/ˈaʊtpʊt/", "meaning_ar": "مُخرَج", "meaning_en": "the result a function gives back", "example": "The output is the sum of the numbers." },
+          { "word": "parameter", "ipa": "/pəˈræmɪtər/", "meaning_ar": "مُعامِل", "meaning_en": "a named input that a function expects", "example": "The function has one parameter for the name." },
+          { "word": "return", "ipa": "/rɪˈtɜːn/", "meaning_ar": "يُرجِع", "meaning_en": "to send a result back from a function", "example": "The function returns the total." },
+          { "word": "reuse", "ipa": "/ˌriːˈjuːz/", "meaning_ar": "يعيد الاستخدام", "meaning_en": "to use the same code again", "example": "We reuse the function in many places." },
+          { "word": "block", "ipa": "/blɒk/", "meaning_ar": "كتلة", "meaning_en": "a group of lines that belong together", "example": "The loop runs one block of code." },
+          { "word": "condition", "ipa": "/kənˈdɪʃn/", "meaning_ar": "شرط", "meaning_en": "a test that is true or false", "example": "The loop stops when the condition is false." },
+          { "word": "step", "ipa": "/step/", "meaning_ar": "خطوة", "meaning_en": "one action in a set of instructions", "example": "The loop does one step at a time." }
+        ],
+        "reading": {
+          "title_en": "Do It Again, Write It Once",
+          "title_ar": "كرّرها، واكتبها مرّة",
+          "paragraphs": [
+            "Computers are very good at doing the same task many times without getting tired. When we want to repeat an action, we use a loop. A loop runs a block of code again and again until a condition becomes false. For example, if you want to print the numbers from 1 to 100, you do not write a hundred lines. Instead, you write one loop, and the computer repeats the step for you.",
+            "A function is a named block of code that does one clear job. You write it once, and then you can call it whenever you need it. This idea is called reuse, and it keeps programs short and clean. A function often takes an input through a parameter, does some work, and then returns an output. For instance, a function called \"add\" might take two numbers and return their sum.",
+            "Loops and functions are often used together. A function can contain a loop, and a loop can call a function on every step. Because the logic has been written in one place, the code is easier to read and to fix. Professional developers rely on these two ideas every day, so if you understand them well, you have taken a real step toward thinking like a programmer."
+          ]
+        },
+        "key_phrases": [
+          { "en": "A loop repeats a block of code.", "ar": "الحلقة تكرّر كتلة من الكود." },
+          { "en": "A function does one clear job.", "ar": "الدالة تؤدّي مهمّة واحدة واضحة." },
+          { "en": "Call the function when you need it.", "ar": "استدعي الدالة عندما تحتاجينها." },
+          { "en": "The function returns a result.", "ar": "الدالة تُرجِع نتيجة." },
+          { "en": "The loop runs until the condition is false.", "ar": "تعمل الحلقة حتى يصبح الشرط غير صحيح." },
+          { "en": "Write it once, then reuse it.", "ar": "اكتبيها مرّة، ثم أعيدي استخدامها." }
+        ],
+        "comprehension": [
+          { "question": "What does a loop do?", "options": ["Repeats a block of code", "Deletes the file", "Sends an email", "Turns off the screen"], "correct": "Repeats a block of code", "explanation_ar": "الحلقة تكرّر تنفيذ كتلة من الكود عدّة مرّات." },
+          { "question": "In the reading, when does a loop stop?", "options": ["After one hour", "When the condition becomes false", "When the screen is full", "It never stops"], "correct": "When the condition becomes false", "explanation_ar": "تتوقّف الحلقة عندما يصبح الشرط غير صحيح (false)." },
+          { "question": "Why do we use functions?", "options": ["To make the computer hot", "To use more lines", "To write code once and reuse it", "To hide the internet"], "correct": "To write code once and reuse it", "explanation_ar": "الدالة تُكتب مرّة ثم يُعاد استخدامها، ممّا يبقي الكود قصيرًا ونظيفًا." },
+          { "question": "What does a function give back?", "options": ["An output", "More electricity", "A new computer", "A password"], "correct": "An output", "explanation_ar": "الدالة تُرجِع نتيجة، وهي المُخرَج (output)." },
+          { "question": "How does a function usually receive its input?", "options": ["Through a printer", "Through a parameter", "Through the internet only", "Through the screen"], "correct": "Through a parameter", "explanation_ar": "تستقبل الدالة مُدخَلها عبر المُعامِل (parameter)." },
+          { "question": "How can loops and functions work together?", "options": ["They cannot work together", "A function can contain a loop", "They must be on different computers", "Only one can be used per program"], "correct": "A function can contain a loop", "explanation_ar": "يمكن أن تحتوي الدالة على حلقة، وأن تستدعي الحلقة دالة في كل خطوة." }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Explain in 4–5 sentences what a loop and a function are, and give one simple example of each.",
+          "prompt_ar": "اشرحي في ٤–٥ جُمل ما الحلقة وما الدالة، مع مثال بسيط لكلٍّ منهما.",
+          "guidance_ar": "استخدمي على الأقل ٤ كلمات من كلمات الدرس، مثل loop وfunction وcall وreturn."
+        }
+      }
+    },
+    {
+      "slug": "bugs-and-debugging",
+      "sort_order": 3,
+      "title_en": "Bugs and Debugging",
+      "title_ar": "الأخطاء وتصحيحها",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "لا يوجد مبرمج لا يقع في الأخطاء؛ الفرق أنّ المحترف يعرف كيف يصطادها ويصلحها. في هذا الدرس ستفهمين ما الـ bug، وكيف تقرئين رسالة الخطأ، وتتبّعين السبب حتى الوصول إلى الحلّ. تعلّمي أنّ الخطأ ليس فشلًا، بل خطوة طبيعية في طريق كل مبرمِجة ناجحة.",
+        "vocab": [
+          { "word": "bug", "ipa": "/bʌɡ/", "meaning_ar": "خلل / علّة برمجية", "meaning_en": "a mistake in code that makes it work wrong", "example": "There is a bug in my program." },
+          { "word": "debug", "ipa": "/ˌdiːˈbʌɡ/", "meaning_ar": "يُنقّح / يصحّح الأخطاء", "meaning_en": "to find and fix bugs in code", "example": "I need to debug this function." },
+          { "word": "error", "ipa": "/ˈerər/", "meaning_ar": "خطأ", "meaning_en": "a problem that stops the code from working right", "example": "The screen shows an error." },
+          { "word": "fix", "ipa": "/fɪks/", "meaning_ar": "يُصلِح", "meaning_en": "to repair the code so it works", "example": "She found the bug and fixed it." },
+          { "word": "test", "ipa": "/test/", "meaning_ar": "يختبر", "meaning_en": "to check whether the code works", "example": "Always test your code in small parts." },
+          { "word": "run", "ipa": "/rʌn/", "meaning_ar": "يُشغّل", "meaning_en": "to make a program work", "example": "Run the program to see the result." },
+          { "word": "crash", "ipa": "/kræʃ/", "meaning_ar": "يتعطّل / انهيار", "meaning_en": "when a program stops suddenly", "example": "The app crashed and closed." },
+          { "word": "message", "ipa": "/ˈmesɪdʒ/", "meaning_ar": "رسالة", "meaning_en": "text the computer shows about a problem", "example": "Read the error message carefully." },
+          { "word": "cause", "ipa": "/kɔːz/", "meaning_ar": "سبب", "meaning_en": "the reason for a problem", "example": "The cause was a wrong name." },
+          { "word": "solution", "ipa": "/səˈluːʃn/", "meaning_ar": "حلّ", "meaning_en": "the way to fix a problem", "example": "Once you know the cause, the solution is often small." },
+          { "word": "problem", "ipa": "/ˈprɒbləm/", "meaning_ar": "مشكلة", "meaning_en": "something that is not working", "example": "I have a small problem in my code." },
+          { "word": "line", "ipa": "/laɪn/", "meaning_ar": "سطر", "meaning_en": "one row of code", "example": "The error is on line 12." }
+        ],
+        "reading": {
+          "title_en": "Why Doesn't It Work?",
+          "title_ar": "لماذا لا يعمل؟",
+          "paragraphs": [
+            "Every programmer writes code that does not work at first. A mistake in the code is called a bug, and the process of finding and fixing it is called debugging. Bugs are completely normal; even expert developers create them every day. So when your program shows an error, do not feel bad, because it is simply part of the job.",
+            "When you run a program and it crashes, the computer often shows an error message. This message is a gift, not a punishment, because it usually tells you the line where the problem is. Read it slowly, and then try to find the cause: maybe a name is spelled wrong, or a value is missing. Once you understand the cause, the solution is often small.",
+            "A good way to debug is to test your code in small parts. Instead of writing a hundred lines and then running everything at once, run your program often. If you have added only a little new code and a bug appears, you already know where to look. Being patient and curious matters more than being fast. Debugging teaches you to think clearly, and it is one of the most useful skills you will build as a programmer."
+          ]
+        },
+        "key_phrases": [
+          { "en": "A bug is a mistake in the code.", "ar": "الـ bug خطأ في الكود." },
+          { "en": "Read the error message carefully.", "ar": "اقرئي رسالة الخطأ بعناية." },
+          { "en": "Find the cause before the fix.", "ar": "ابحثي عن السبب قبل الحلّ." },
+          { "en": "Test your code in small parts.", "ar": "اختبري كودكِ على أجزاء صغيرة." },
+          { "en": "Run the program often.", "ar": "شغّلي البرنامج كثيرًا." },
+          { "en": "Every programmer makes bugs.", "ar": "كل مبرمج يقع في الأخطاء." }
+        ],
+        "comprehension": [
+          { "question": "What is a bug?", "options": ["A mistake in the code", "A type of computer", "A fast internet", "A new function"], "correct": "A mistake in the code", "explanation_ar": "الـ bug هو خطأ في الكود يجعله يعمل بشكل غير صحيح." },
+          { "question": "What is debugging?", "options": ["Buying a new computer", "Finding and fixing bugs", "Turning off the screen", "Writing an email"], "correct": "Finding and fixing bugs", "explanation_ar": "التنقيح (debugging) هو عملية إيجاد الأخطاء وإصلاحها." },
+          { "question": "Why is an error message useful?", "options": ["It makes the code run faster", "It cleans the screen", "It often shows the line with the problem", "It sends data online"], "correct": "It often shows the line with the problem", "explanation_ar": "رسالة الخطأ مفيدة لأنّها غالبًا تدلّكِ على السطر الذي فيه المشكلة." },
+          { "question": "According to the reading, how should you feel when you see a bug?", "options": ["It is normal, not a reason to feel bad", "Very afraid", "Sure the computer is broken", "Ready to quit"], "correct": "It is normal, not a reason to feel bad", "explanation_ar": "الأخطاء طبيعية ويقع فيها حتى الخبراء، فلا داعي للشعور بالسوء." },
+          { "question": "What is a good way to debug?", "options": ["Write a hundred lines first", "Never run the program", "Test the code in small parts", "Delete all the code"], "correct": "Test the code in small parts", "explanation_ar": "من الأفضل اختبار الكود على أجزاء صغيرة وتشغيله كثيرًا." },
+          { "question": "What should you find before the solution?", "options": ["A new computer", "The cause of the problem", "A faster internet", "A new language"], "correct": "The cause of the problem", "explanation_ar": "افهمي سبب المشكلة أولًا، وعندها يصبح الحلّ غالبًا بسيطًا." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences about a time something did not work (a phone, an app, or code) and how you tried to fix it.",
+          "prompt_ar": "اكتبي ٤–٥ جُمل عن مرّة لم يعمل فيها شيء (هاتف أو تطبيق أو كود) وكيف حاولتِ إصلاحه.",
+          "guidance_ar": "استخدمي على الأقل ٤ كلمات من كلمات الدرس، مثل bug وerror وfix وtest."
+        }
+      }
+    }
+  ]
+}

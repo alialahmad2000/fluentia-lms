@@ -1,0 +1,568 @@
+{
+  "stage": {
+    "slug": "leading-the-team",
+    "sort_order": 9,
+    "title_en": "Leading the Team",
+    "title_ar": "إدارة الفريق والقيادة",
+    "subtitle_ar": "فريقك هو محرّك عملك الحقيقي — هنا تتعلّم لغة القيادة: توظيفًا وتدريبًا واجتماعات تصنع القرار.",
+    "cefr": "B2",
+    "accent": "#60a5fa",
+    "icon": "Users"
+  },
+  "lessons": [
+    {
+      "slug": "hiring",
+      "sort_order": 1,
+      "title_en": "Hiring & Interviews",
+      "title_ar": "التوظيف والمقابلات",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "فريقك هو نصف نجاح عملك، والتوظيف الصحيح يوفّر عليك سنوات من المشاكل. في هذا الدرس ستتعلّم كلمات وعبارات المقابلات الوظيفية بالإنجليزية: كيف تسأل عن الخبرة والمهارات، وكيف تتحدّث عن الراتب وفترة التجربة والعقد. تخيّل أنك تقابل ميكانيكيًا جديدًا لورشتك — هذا الدرس يعطيك اللغة التي تحتاجها.",
+        "vocab": [
+          {
+            "word": "hire",
+            "ipa": "/ˈhaɪə/",
+            "meaning_ar": "يوظّف",
+            "meaning_en": "to give someone a job",
+            "example": "I want to hire a new mechanic for the workshop."
+          },
+          {
+            "word": "employee",
+            "ipa": "/ɪmˈplɔɪiː/",
+            "meaning_ar": "موظّف",
+            "meaning_en": "a person who works for a company or business",
+            "example": "A good employee comes to work on time."
+          },
+          {
+            "word": "candidate",
+            "ipa": "/ˈkændɪdət/",
+            "meaning_ar": "مرشّح للوظيفة",
+            "meaning_en": "a person who wants to get a job",
+            "example": "We have five candidates for this job."
+          },
+          {
+            "word": "interview",
+            "ipa": "/ˈɪntəvjuː/",
+            "meaning_ar": "مقابلة عمل",
+            "meaning_en": "a meeting where you ask a candidate questions",
+            "example": "The interview will be at the workshop on Sunday."
+          },
+          {
+            "word": "experience",
+            "ipa": "/ɪkˈspɪəriəns/",
+            "meaning_ar": "خبرة",
+            "meaning_en": "knowledge and skill from past work",
+            "example": "He has ten years of experience with Japanese cars."
+          },
+          {
+            "word": "salary",
+            "ipa": "/ˈsæləri/",
+            "meaning_ar": "راتب",
+            "meaning_en": "the money a worker gets every month",
+            "example": "The salary is 4,500 riyals a month."
+          },
+          {
+            "word": "skills",
+            "ipa": "/skɪlz/",
+            "meaning_ar": "مهارات",
+            "meaning_en": "things a person can do well",
+            "example": "His electrical skills are very strong."
+          },
+          {
+            "word": "contract",
+            "ipa": "/ˈkɒntrækt/",
+            "meaning_ar": "عقد عمل",
+            "meaning_en": "a written work agreement between a boss and a worker",
+            "example": "We will sign the contract after the trial period."
+          },
+          {
+            "word": "reference",
+            "ipa": "/ˈrefrəns/",
+            "meaning_ar": "تزكية من جهة سابقة",
+            "meaning_en": "a person who can tell you about a worker's past jobs",
+            "example": "Can you give me a reference from your last job?"
+          },
+          {
+            "word": "apply",
+            "ipa": "/əˈplaɪ/",
+            "meaning_ar": "يتقدّم لوظيفة",
+            "meaning_en": "to ask for a job officially",
+            "example": "Eleven people applied for the job in one week."
+          },
+          {
+            "word": "trial period",
+            "ipa": "/ˈtraɪəl ˈpɪəriəd/",
+            "meaning_ar": "فترة تجربة",
+            "meaning_en": "a short time to test a new worker before a full contract",
+            "example": "We start with a three-month trial period."
+          }
+        ],
+        "reading": {
+          "title_en": "Hiring the Right Mechanic",
+          "title_ar": "توظيف الميكانيكي المناسب",
+          "paragraphs": [
+            "Saad owns a busy workshop in the industrial district. Last month, one of his best mechanics moved to another city, so Saad needed to hire a new employee quickly. He wrote a short job advertisement: \"Mechanic wanted. Three years of experience with Japanese cars. Good salary. Apply by phone or WhatsApp.\" In one week, eleven people applied for the job.",
+            "Saad chose the five best candidates and invited each one to an interview at the workshop. He did not only ask questions. He also gave each candidate a simple test: check a car that does not start and explain the problem. This test showed him more than any paper. One candidate had excellent skills but asked for a very high salary. Another had little experience but learned fast and asked smart questions.",
+            "Before making a decision, Saad called the references of his two favorite candidates. A reference can tell you how a person really works, not just how he talks in an interview. In the end, Saad offered the job to the fast learner. They agreed on a fair salary, a three-month trial period, and then a full contract. Six months later, this new employee has become one of the strongest members of the team."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Tell me about your experience with German cars.",
+            "ar": "حدّثني عن خبرتك مع السيارات الألمانية."
+          },
+          {
+            "en": "How many years have you worked as a mechanic?",
+            "ar": "كم سنة عملتَ ميكانيكيًا؟"
+          },
+          {
+            "en": "The salary is 4,500 riyals, plus a bonus for extra work.",
+            "ar": "الراتب ٤٥٠٠ ريال، مع مكافأة عن العمل الإضافي."
+          },
+          {
+            "en": "We start with a three-month trial period.",
+            "ar": "نبدأ بفترة تجربة لمدة ثلاثة أشهر."
+          },
+          {
+            "en": "Can you send me a reference from your last job?",
+            "ar": "هل يمكنك إرسال تزكية من عملك السابق؟"
+          },
+          {
+            "en": "When can you start?",
+            "ar": "متى تستطيع أن تبدأ؟"
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "Why did Saad need to hire a new employee?",
+            "options": [
+              "He opened a second workshop",
+              "One of his mechanics moved to another city",
+              "His workshop had too many customers",
+              "He wanted a younger team"
+            ],
+            "correct": "One of his mechanics moved to another city",
+            "explanation_ar": "انتقل أحد أفضل الميكانيكيين لديه إلى مدينة أخرى، فاحتاج إلى موظّف جديد بسرعة."
+          },
+          {
+            "question": "What extra step did Saad add to each interview?",
+            "options": [
+              "A practical test on a real car",
+              "A long written exam",
+              "A group discussion",
+              "An English language test"
+            ],
+            "correct": "A practical test on a real car",
+            "explanation_ar": "أعطى كل مرشّح اختبارًا عمليًا: فحص سيارة لا تعمل وشرح المشكلة — فالاختبار العملي يُظهر أكثر من أي ورقة."
+          },
+          {
+            "question": "What does the reading say a reference can show you?",
+            "options": [
+              "The candidate's salary history",
+              "The candidate's driving record",
+              "How the person really works",
+              "How many jobs the person applied for"
+            ],
+            "correct": "How the person really works",
+            "explanation_ar": "التزكية تخبرك كيف يعمل الشخص فعلًا، لا كيف يتحدّث في المقابلة فقط."
+          },
+          {
+            "question": "Who got the job in the end?",
+            "options": [
+              "The candidate with the highest salary request",
+              "Saad's cousin",
+              "The oldest candidate",
+              "The candidate who learned fast"
+            ],
+            "correct": "The candidate who learned fast",
+            "explanation_ar": "اختار سعد المرشّح الذي يتعلّم بسرعة ويسأل أسئلة ذكية، رغم قلة خبرته."
+          },
+          {
+            "question": "What did Saad and the new employee agree on before the full contract?",
+            "options": [
+              "A permanent contract from day one",
+              "A three-month trial period",
+              "A part-time schedule",
+              "A share of the profits"
+            ],
+            "correct": "A three-month trial period",
+            "explanation_ar": "اتفقا على راتب عادل وفترة تجربة ثلاثة أشهر، ثم عقد كامل بعدها."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 interview questions you would ask a new mechanic for your workshop.",
+          "prompt_ar": "اكتب ٤–٥ أسئلة مقابلة تسألها لميكانيكي جديد في ورشتك.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل experience وsalary وskills وreference."
+        }
+      }
+    },
+    {
+      "slug": "giving-instructions",
+      "sort_order": 2,
+      "title_en": "Giving Instructions & Training",
+      "title_ar": "إعطاء التعليمات والتدريب",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "أنت تعرف الشغل أكثر من أي أحد في ورشتك، لكن قوة المدير الحقيقية أن يجعل فريقه يعمل بمستواه نفسه. في هذا الدرس ستتعلّم كيف تعطي تعليمات واضحة بالإنجليزية، وكيف تدرّب موظفًا جديدًا خطوة بخطوة، وكيف تقدّم ملاحظات تصحّح الخطأ دون أن تكسر حماس العامل.",
+        "vocab": [
+          {
+            "word": "instructions",
+            "ipa": "/ɪnˈstrʌkʃənz/",
+            "meaning_ar": "تعليمات",
+            "meaning_en": "clear directions that tell someone how to do a task",
+            "example": "Give clear instructions before the work starts."
+          },
+          {
+            "word": "procedure",
+            "ipa": "/prəˈsiːdʒə/",
+            "meaning_ar": "إجراء عمل",
+            "meaning_en": "the official way to do a task, step by step",
+            "example": "We follow the same procedure for every oil change."
+          },
+          {
+            "word": "demonstrate",
+            "ipa": "/ˈdemənstreɪt/",
+            "meaning_ar": "يوضّح عمليًا",
+            "meaning_en": "to show someone how to do something by doing it yourself",
+            "example": "First, demonstrate the task, then let him try."
+          },
+          {
+            "word": "supervise",
+            "ipa": "/ˈsuːpəvaɪz/",
+            "meaning_ar": "يُشرف على",
+            "meaning_en": "to watch workers and make sure the work is done well",
+            "example": "I supervise the new technician during his first month."
+          },
+          {
+            "word": "checklist",
+            "ipa": "/ˈtʃeklɪst/",
+            "meaning_ar": "قائمة تحقّق",
+            "meaning_en": "a list of points to check before finishing a job",
+            "example": "Use the checklist before you return any car."
+          },
+          {
+            "word": "safety",
+            "ipa": "/ˈseɪfti/",
+            "meaning_ar": "السلامة",
+            "meaning_en": "being protected from danger at work",
+            "example": "Safety always comes first in the workshop."
+          },
+          {
+            "word": "feedback",
+            "ipa": "/ˈfiːdbæk/",
+            "meaning_ar": "ملاحظات تقييمية",
+            "meaning_en": "comments that help someone improve their work",
+            "example": "Give feedback the same day, not a week later."
+          },
+          {
+            "word": "mistake",
+            "ipa": "/mɪˈsteɪk/",
+            "meaning_ar": "خطأ",
+            "meaning_en": "something done in the wrong way",
+            "example": "A small mistake with brakes can be dangerous."
+          },
+          {
+            "word": "responsible",
+            "ipa": "/rɪˈspɒnsəbl/",
+            "meaning_ar": "مسؤول",
+            "meaning_en": "having the duty to make sure something is done well",
+            "example": "You are responsible for the final check."
+          },
+          {
+            "word": "train",
+            "ipa": "/treɪn/",
+            "meaning_ar": "يدرّب",
+            "meaning_en": "to teach someone the skills for a job",
+            "example": "It takes time to train a good technician."
+          },
+          {
+            "word": "step by step",
+            "meaning_ar": "خطوة بخطوة",
+            "meaning_en": "one step at a time, in the right order",
+            "example": "Explain the procedure step by step."
+          }
+        ],
+        "reading": {
+          "title_en": "Train Them Once, Trust Them for Years",
+          "title_ar": "درّبهم مرة، وثِق بهم لسنوات",
+          "paragraphs": [
+            "Many business owners believe that giving instructions is simple: you tell people what to do, and they do it. In a real workshop, however, unclear instructions are one of the most expensive problems. A technician who misunderstands one step can damage an engine, lose a customer, or get hurt. That is why strong leaders treat training as an investment, not as lost time.",
+            "When you train a new employee, follow a clear procedure. First, demonstrate the task yourself while he watches. Second, do it together and explain each step. Third, let him do it alone while you supervise. Finally, give him honest feedback: name one thing he did well and one thing to improve. This step-by-step method takes extra time at first, but it builds workers you can trust for years.",
+            "Two simple tools make this system stronger. The first is a checklist for every common job — oil change, brake service. When a worker follows the checklist, small details are never forgotten, and every car leaves the workshop at the same standard. The second tool is a clear safety rule: anyone who is not sure about a step must stop and ask. A question costs one minute; a serious mistake can cost thousands of riyals.",
+            "Finally, remember that people repeat what gets noticed. When a technician follows the procedure exactly, praise him in front of the team. As the owner, you are responsible for the standard of your workshop — and that standard is simply the behavior you accept and the behavior you praise."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Let me show you how to do it first.",
+            "ar": "دعني أوضّح لك طريقة العمل أولًا."
+          },
+          {
+            "en": "Follow the checklist before you close any job.",
+            "ar": "اتّبع قائمة التحقّق قبل إغلاق أي عمل."
+          },
+          {
+            "en": "Safety first — put your gloves on.",
+            "ar": "السلامة أولًا — البس قفازاتك."
+          },
+          {
+            "en": "You are responsible for the final check.",
+            "ar": "أنت مسؤول عن الفحص الأخير."
+          },
+          {
+            "en": "Good work. Next time, tighten it a little more.",
+            "ar": "عمل ممتاز. في المرة القادمة، اربطه أكثر قليلًا."
+          },
+          {
+            "en": "If you are not sure, stop and ask me.",
+            "ar": "إذا لم تكن متأكدًا، توقّف واسألني."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "According to the reading, why are unclear instructions expensive?",
+            "options": [
+              "They make meetings longer",
+              "They increase the workshop's rent",
+              "A misunderstood step can damage cars or hurt people",
+              "Workers ask for higher salaries"
+            ],
+            "correct": "A misunderstood step can damage cars or hurt people",
+            "explanation_ar": "الفني الذي يفهم خطوة واحدة بشكل خاطئ قد يتلف محركًا أو يخسر عميلًا أو يتعرّض للإصابة."
+          },
+          {
+            "question": "What is the FIRST step when training a new employee?",
+            "options": [
+              "Demonstrate the task yourself while he watches",
+              "Let him work alone immediately",
+              "Give him a written exam",
+              "Ask him to watch training videos at home"
+            ],
+            "correct": "Demonstrate the task yourself while he watches",
+            "explanation_ar": "الخطوة الأولى أن توضّح العمل بنفسك عمليًا بينما يشاهدك الموظف الجديد."
+          },
+          {
+            "question": "What is the purpose of a checklist?",
+            "options": [
+              "To record workers' salaries",
+              "To make training days shorter",
+              "To test new candidates",
+              "To make sure small details are never forgotten"
+            ],
+            "correct": "To make sure small details are never forgotten",
+            "explanation_ar": "عندما يتبع العامل قائمة التحقّق، لا تُنسى التفاصيل الصغيرة، وتخرج كل سيارة بالمستوى نفسه."
+          },
+          {
+            "question": "What must a worker do if he is not sure about a step?",
+            "options": [
+              "Continue slowly and carefully",
+              "Stop and ask",
+              "Wait until the end of the day",
+              "Check the internet"
+            ],
+            "correct": "Stop and ask",
+            "explanation_ar": "قاعدة السلامة واضحة: من لم يتأكد من خطوة يتوقف ويسأل — السؤال يكلّف دقيقة، والخطأ قد يكلّف آلاف الريالات."
+          },
+          {
+            "question": "What should you do when a technician follows the procedure exactly?",
+            "options": [
+              "Praise him in front of the team",
+              "Give him a harder task the same day",
+              "Say nothing so he stays humble",
+              "Move him to another branch"
+            ],
+            "correct": "Praise him in front of the team",
+            "explanation_ar": "الناس يكرّرون ما يُلاحَظ، فالمدح أمام الفريق يثبّت السلوك الصحيح ويرفع المستوى العام."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Choose one job in your workshop (for example, an oil change). Explain it to a new worker step by step, in English.",
+          "prompt_ar": "اختر عملًا واحدًا في ورشتك (مثل تغيير الزيت)، واشرحه لعامل جديد خطوة بخطوة بالإنجليزية.",
+          "guidance_ar": "استخدم First وSecond وFinally في الشرح، وثلاث كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    },
+    {
+      "slug": "meetings",
+      "sort_order": 3,
+      "title_en": "Running Meetings",
+      "title_ar": "إدارة الاجتماعات",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "الاجتماع الجيد قرارات واضحة في وقت قصير، والاجتماع السيّئ ساعة ضائعة من عمر فريقك. في هذا الدرس ستتعلّم لغة إدارة الاجتماعات بالإنجليزية: كيف تفتتح الاجتماع بجدول أعمال، وكيف تدير النقاش وتوقف المقاطعات بأدب، وكيف تختم بمهام محددة ومواعيد نهائية واضحة.",
+        "vocab": [
+          {
+            "word": "agenda",
+            "ipa": "/əˈdʒendə/",
+            "meaning_ar": "جدول الأعمال",
+            "meaning_en": "a list of points to discuss in a meeting",
+            "example": "I send the agenda one day before the meeting."
+          },
+          {
+            "word": "attend",
+            "ipa": "/əˈtend/",
+            "meaning_ar": "يحضر",
+            "meaning_en": "to be present at a meeting or event",
+            "example": "All supervisors must attend the weekly meeting."
+          },
+          {
+            "word": "discuss",
+            "ipa": "/dɪˈskʌs/",
+            "meaning_ar": "يناقش",
+            "meaning_en": "to talk about a subject seriously",
+            "example": "Today we will discuss the delay in spare parts."
+          },
+          {
+            "word": "decision",
+            "ipa": "/dɪˈsɪʒən/",
+            "meaning_ar": "قرار",
+            "meaning_en": "a choice made after thinking or discussion",
+            "example": "We need a final decision on the new prices."
+          },
+          {
+            "word": "minutes",
+            "ipa": "/ˈmɪnɪts/",
+            "meaning_ar": "محضر الاجتماع",
+            "meaning_en": "the written record of what was said and decided in a meeting",
+            "example": "Ahmed writes the minutes of every meeting."
+          },
+          {
+            "word": "deadline",
+            "ipa": "/ˈdedlaɪn/",
+            "meaning_ar": "موعد نهائي",
+            "meaning_en": "the last date or time to finish a task",
+            "example": "The deadline for the report is Thursday."
+          },
+          {
+            "word": "summarize",
+            "ipa": "/ˈsʌməraɪz/",
+            "meaning_ar": "يلخّص",
+            "meaning_en": "to repeat the main points in a short way",
+            "example": "Let me summarize what we agreed on."
+          },
+          {
+            "word": "interrupt",
+            "ipa": "/ˌɪntəˈrʌpt/",
+            "meaning_ar": "يقاطع",
+            "meaning_en": "to stop someone while they are speaking",
+            "example": "Please do not interrupt him; let him finish."
+          },
+          {
+            "word": "action item",
+            "ipa": "/ˈækʃən ˈaɪtəm/",
+            "meaning_ar": "مهمة متّفق عليها",
+            "meaning_en": "a task that someone agrees to do after a meeting",
+            "example": "Every action item needs an owner and a deadline."
+          },
+          {
+            "word": "postpone",
+            "ipa": "/pəˈspəʊn/",
+            "meaning_ar": "يؤجّل",
+            "meaning_en": "to move something to a later time",
+            "example": "We had to postpone the meeting until Sunday."
+          }
+        ],
+        "reading": {
+          "title_en": "The Thirty-Minute Meeting",
+          "title_ar": "اجتماع الثلاثين دقيقة",
+          "paragraphs": [
+            "Every Saturday morning, Fahad holds a team meeting at his car showroom before the doors open. In the past, these meetings were long and tiring: people arrived late, jumped from one subject to another, and left without clear results. Today, the same meeting takes half an hour and produces real decisions. What changed was not the team — it was the way Fahad runs the meeting.",
+            "Fahad's system is simple. Before the meeting, he sends a short agenda with three points at most — for example: last week's sales, a delay from a spare-parts supplier, and the new offer for the summer. Everyone who attends knows exactly what the team will discuss. During the meeting, Fahad protects the time: when someone goes off the subject, he says politely, \"Good point — let's discuss it after the meeting.\" And when two people interrupt each other, he stops them and gives each one his turn.",
+            "The end of the meeting is the most important part. Fahad summarizes every decision and turns it into an action item with a name and a deadline: \"Khalid will call the supplier today. Salem will prepare the summer offer — the deadline is Wednesday.\" His assistant writes the minutes and sends them to the team the same day. If a point needs more information, Fahad does not let it eat the meeting time; he postpones it to next week with a clear question to answer."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Let's start — we have three points on the agenda today.",
+            "ar": "لنبدأ — لدينا ثلاث نقاط في جدول الأعمال اليوم."
+          },
+          {
+            "en": "What's your opinion on this, Khalid?",
+            "ar": "ما رأيك في هذا يا خالد؟"
+          },
+          {
+            "en": "Good point — let's discuss it after the meeting.",
+            "ar": "نقطة جيدة — لنناقشها بعد الاجتماع."
+          },
+          {
+            "en": "To summarize, we agreed on two decisions.",
+            "ar": "للتلخيص، اتفقنا على قرارين."
+          },
+          {
+            "en": "Salem, this action item is yours. The deadline is Wednesday.",
+            "ar": "يا سالم، هذه المهمة عليك، والموعد النهائي يوم الأربعاء."
+          },
+          {
+            "en": "Sorry to interrupt, but we are short on time.",
+            "ar": "عذرًا على المقاطعة، لكن وقتنا ضيّق."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "How were Fahad's meetings in the past?",
+            "options": [
+              "Short but with no attendance",
+              "Fun and popular with the team",
+              "Well organized but too early",
+              "Long and without clear results"
+            ],
+            "correct": "Long and without clear results",
+            "explanation_ar": "كانت الاجتماعات طويلة ومرهقة: تأخّر في الحضور، وقفز بين المواضيع، وخروج بلا نتائج واضحة."
+          },
+          {
+            "question": "What does Fahad send before every meeting?",
+            "options": [
+              "The minutes of the last meeting",
+              "A short agenda with three points at most",
+              "A list of salaries",
+              "An invitation to lunch"
+            ],
+            "correct": "A short agenda with three points at most",
+            "explanation_ar": "يرسل فهد جدول أعمال قصيرًا بثلاث نقاط كحد أقصى، فيعرف كل من يحضر ما الذي سيُناقش بالضبط."
+          },
+          {
+            "question": "What does Fahad say when someone goes off the subject?",
+            "options": [
+              "Good point — let's discuss it after the meeting",
+              "Please leave the room",
+              "We will cancel the meeting",
+              "Write it in the minutes"
+            ],
+            "correct": "Good point — let's discuss it after the meeting",
+            "explanation_ar": "يحمي فهد وقت الاجتماع بأدب: يقدّر الفكرة لكنه يؤجّل نقاشها إلى ما بعد الاجتماع."
+          },
+          {
+            "question": "What does every action item need?",
+            "options": [
+              "A budget and a manager",
+              "A vote from the team",
+              "A name and a deadline",
+              "Approval from the supplier"
+            ],
+            "correct": "A name and a deadline",
+            "explanation_ar": "يحوّل فهد كل قرار إلى مهمة لها مسؤول باسمه وموعد نهائي واضح."
+          },
+          {
+            "question": "What happens to a point that needs more information?",
+            "options": [
+              "It is deleted from the agenda forever",
+              "It is postponed to next week with a clear question",
+              "The assistant decides it alone",
+              "The team votes on it immediately"
+            ],
+            "correct": "It is postponed to next week with a clear question",
+            "explanation_ar": "لا يترك فهد النقطة الناقصة تأكل وقت الاجتماع؛ يؤجّلها إلى الأسبوع القادم مع سؤال محدد تجب الإجابة عنه."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short agenda (3 points) for your next team meeting, then add one action item with a name and a deadline.",
+          "prompt_ar": "اكتب جدول أعمال قصيرًا (٣ نقاط) لاجتماع فريقك القادم، ثم أضف مهمة واحدة مع اسم المسؤول عنها وموعدها النهائي.",
+          "guidance_ar": "اكتب بالإنجليزية، واستخدم ٣ كلمات على الأقل من كلمات الدرس مثل agenda وdeadline وaction item."
+        }
+      }
+    }
+  ]
+}

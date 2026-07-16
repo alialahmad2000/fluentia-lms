@@ -1,0 +1,573 @@
+{
+  "stage": {
+    "slug": "parts-and-suppliers",
+    "sort_order": 5,
+    "title_en": "Parts & Suppliers",
+    "title_ar": "قطع الغيار والمورّدون",
+    "subtitle_ar": "هنا تتقن لغة التعامل مع المورّدين: تطلب القطعة الصحيحة، وتدير مخزونك بذكاء، وتفاوض على أفضل صفقة.",
+    "cefr": "B1",
+    "accent": "#a78bfa",
+    "icon": "Package"
+  },
+  "lessons": [
+    {
+      "slug": "ordering-parts",
+      "sort_order": 1,
+      "title_en": "Ordering Parts",
+      "title_ar": "طلب قطع الغيار",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "طلب قطع الغيار جزء يومي من عملك: قطعة ناقصة تعني سيارة واقفة وعميلًا ينتظر. في هذا الدرس ستتعلّم الكلمات والجمل التي تحتاجها لتطلب القطع من المورّد بالإنجليزية بوضوح وثقة. تخيّل نفسك تتصل بالمورّد وتسأل عن التوفّر والسعر والتوصيل — هذا بالضبط ما ستتدرّب عليه.",
+        "vocab": [
+          {
+            "word": "part",
+            "ipa": "/pɑːrt/",
+            "meaning_ar": "قطعة غيار",
+            "meaning_en": "one piece of a car or machine",
+            "example": "I need a new part for this car."
+          },
+          {
+            "word": "order",
+            "ipa": "/ˈɔːrdər/",
+            "meaning_ar": "يطلب (بضاعة)",
+            "meaning_en": "to ask a company to send you something",
+            "example": "I order parts from Riyadh every week."
+          },
+          {
+            "word": "supplier",
+            "ipa": "/səˈplaɪər/",
+            "meaning_ar": "مورّد",
+            "meaning_en": "a company that sells you the things you need",
+            "example": "My supplier has a big shop in the industrial area."
+          },
+          {
+            "word": "brake pads",
+            "ipa": "/ˈbreɪk pædz/",
+            "meaning_ar": "فحمات الفرامل (التيل)",
+            "meaning_en": "the parts that press on the wheels to stop the car",
+            "example": "These brake pads are old and weak."
+          },
+          {
+            "word": "oil filter",
+            "ipa": "/ˈɔɪl ˈfɪltər/",
+            "meaning_ar": "فلتر الزيت",
+            "meaning_en": "the part that cleans the engine oil",
+            "example": "Change the oil filter with every service."
+          },
+          {
+            "word": "spare",
+            "ipa": "/spɛər/",
+            "meaning_ar": "احتياطي",
+            "meaning_en": "extra, kept to use later",
+            "example": "Keep a spare battery in the workshop."
+          },
+          {
+            "word": "delivery",
+            "ipa": "/dɪˈlɪvəri/",
+            "meaning_ar": "توصيل",
+            "meaning_en": "bringing goods to your place",
+            "example": "Delivery from this shop takes two hours."
+          },
+          {
+            "word": "price list",
+            "ipa": "/ˈpraɪs lɪst/",
+            "meaning_ar": "قائمة الأسعار",
+            "meaning_en": "a paper or file that shows the prices of all items",
+            "example": "Please send me your new price list."
+          },
+          {
+            "word": "in stock",
+            "ipa": "/ɪn ˈstɒk/",
+            "meaning_ar": "متوفّر في المخزون",
+            "meaning_en": "available in the shop now",
+            "example": "Is this part in stock today?"
+          },
+          {
+            "word": "original",
+            "ipa": "/əˈrɪdʒənl/",
+            "meaning_ar": "أصلي",
+            "meaning_en": "made by the car's own company, not a copy",
+            "example": "The customer wants an original part only."
+          }
+        ],
+        "reading": {
+          "title_en": "A Morning Order",
+          "title_ar": "طلبية الصباح",
+          "paragraphs": [
+            "Sameer has a workshop in the industrial area. Every morning, he checks the cars in the workshop. Today, a white Camry needs new brake pads and an oil filter. Sameer does not have these parts, so he calls his supplier.",
+            "The supplier's name is Abu Khalid. His shop is big, and his delivery is fast. Sameer asks, 'Are the brake pads for a 2020 Camry in stock?' Abu Khalid says, 'Yes, we have original brake pads. The price is 260 riyals.' Sameer also orders an oil filter and a spare battery.",
+            "Abu Khalid sends the new price list to Sameer's phone. The delivery arrives after two hours. Sameer checks every part before he pays. The parts are original, and the price is correct. Now the Camry is ready for work, and the customer is happy."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Is this part in stock?",
+            "ar": "هل هذه القطعة متوفّرة في المخزون؟"
+          },
+          {
+            "en": "I need brake pads for a 2020 Camry.",
+            "ar": "أحتاج فحمات فرامل لكامري ٢٠٢٠."
+          },
+          {
+            "en": "How much is the original one?",
+            "ar": "كم سعر القطعة الأصلية؟"
+          },
+          {
+            "en": "Can you deliver it today?",
+            "ar": "هل يمكنك توصيلها اليوم؟"
+          },
+          {
+            "en": "Please send me your price list.",
+            "ar": "من فضلك أرسل لي قائمة الأسعار."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What does the white Camry need?",
+            "options": [
+              "A new battery and tires",
+              "Brake pads and an oil filter",
+              "A new engine",
+              "New windows"
+            ],
+            "correct": "Brake pads and an oil filter",
+            "explanation_ar": "يذكر النص أن الكامري تحتاج إلى فحمات فرامل جديدة وفلتر زيت."
+          },
+          {
+            "question": "Who is Abu Khalid?",
+            "options": [
+              "The customer",
+              "A driver",
+              "The supplier",
+              "A mechanic in the workshop"
+            ],
+            "correct": "The supplier",
+            "explanation_ar": "أبو خالد هو المورّد الذي يتصل به سمير لطلب القطع."
+          },
+          {
+            "question": "How much are the brake pads?",
+            "options": [
+              "260 riyals",
+              "62 riyals",
+              "620 riyals",
+              "26 riyals"
+            ],
+            "correct": "260 riyals",
+            "explanation_ar": "قال أبو خالد إن سعر فحمات الفرامل الأصلية ٢٦٠ ريالًا."
+          },
+          {
+            "question": "When does the delivery arrive?",
+            "options": [
+              "After two days",
+              "After one week",
+              "In the evening",
+              "After two hours"
+            ],
+            "correct": "After two hours",
+            "explanation_ar": "وصلت الطلبية بعد ساعتين من الاتصال."
+          },
+          {
+            "question": "What does Sameer do before he pays?",
+            "options": [
+              "He washes the car",
+              "He checks every part",
+              "He calls the customer",
+              "He closes the workshop"
+            ],
+            "correct": "He checks every part",
+            "explanation_ar": "يتحقق سمير من كل قطعة قبل أن يدفع، ليتأكد أنها أصلية وسليمة."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about the parts you often order for your business. Who is your supplier, and how fast is the delivery?",
+          "prompt_ar": "اكتب ٣–٤ جُمل عن القطع التي تطلبها كثيرًا لعملك. من هو مورّدك؟ وكم يستغرق التوصيل؟",
+          "guidance_ar": "استخدم ٣ كلمات على الأقل من كلمات الدرس، مثل: supplier، in stock، delivery."
+        }
+      }
+    },
+    {
+      "slug": "inventory",
+      "sort_order": 2,
+      "title_en": "Inventory & Availability",
+      "title_ar": "المخزون والتوفّر",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "المخزون هو رأس مالك النائم على الرفوف: إذا زاد عن حاجتك جمّد أموالك، وإذا نقص أوقف شغلك. في هذا الدرس ستتعلّم كيف تتحدّث بالإنجليزية عن المخزون والتوفّر وإعادة الطلب، وهي لغة ستحتاجها مع المورّدين ومع فريقك في الورشة. حاول وأنت تقرأ أن تربط كل مصطلح بواقع مستودعك أنت.",
+        "vocab": [
+          {
+            "word": "inventory",
+            "ipa": "/ˈɪnvəntɔːri/",
+            "meaning_ar": "المخزون / جرد المخزون",
+            "meaning_en": "all the goods a business keeps, or the list of them",
+            "example": "We check our inventory at the end of every month."
+          },
+          {
+            "word": "stock",
+            "ipa": "/stɒk/",
+            "meaning_ar": "البضاعة المخزّنة",
+            "meaning_en": "the goods you have ready to sell or use",
+            "example": "Our stock of oil filters is getting low."
+          },
+          {
+            "word": "run out of",
+            "ipa": "/rʌn aʊt əv/",
+            "meaning_ar": "ينفد من",
+            "meaning_en": "to have no more of something",
+            "example": "We have run out of brake pads again."
+          },
+          {
+            "word": "shelf",
+            "ipa": "/ʃelf/",
+            "meaning_ar": "رفّ",
+            "meaning_en": "a flat board where you store items",
+            "example": "Put the new filters on the top shelf."
+          },
+          {
+            "word": "barcode",
+            "ipa": "/ˈbɑːrkoʊd/",
+            "meaning_ar": "باركود (رمز شريطي)",
+            "meaning_en": "lines on a product that a machine can read",
+            "example": "Scan the barcode when a part leaves the store."
+          },
+          {
+            "word": "record",
+            "ipa": "/ˈrekərd/",
+            "meaning_ar": "سجلّ",
+            "meaning_en": "written information that you keep about something",
+            "example": "Keep a record of every part you use."
+          },
+          {
+            "word": "demand",
+            "ipa": "/dɪˈmænd/",
+            "meaning_ar": "الطلب (على البضاعة)",
+            "meaning_en": "how much customers want something",
+            "example": "Demand for batteries is high in summer."
+          },
+          {
+            "word": "slow-moving",
+            "ipa": "/ˌsloʊ ˈmuːvɪŋ/",
+            "meaning_ar": "بطيء الحركة (قليل الطلب)",
+            "meaning_en": "selling very slowly",
+            "example": "These old lamps are slow-moving items."
+          },
+          {
+            "word": "reorder point",
+            "ipa": "/riːˈɔːrdər pɔɪnt/",
+            "meaning_ar": "حدّ إعادة الطلب",
+            "meaning_en": "the stock level at which you order more",
+            "example": "The reorder point for oil filters is ten."
+          },
+          {
+            "word": "count",
+            "ipa": "/kaʊnt/",
+            "meaning_ar": "يجرد / يعدّ",
+            "meaning_en": "to check how many items you have",
+            "example": "We count the stock every Thursday."
+          },
+          {
+            "word": "storeroom",
+            "ipa": "/ˈstɔːruːm/",
+            "meaning_ar": "المستودع / غرفة التخزين",
+            "meaning_en": "a room where you keep parts and goods",
+            "example": "The storeroom must stay clean and organized."
+          }
+        ],
+        "reading": {
+          "title_en": "Know What Is on Your Shelves",
+          "title_ar": "اعرف ما لديك على الرفوف",
+          "paragraphs": [
+            "Many workshop owners lose money without knowing it. A car arrives, the mechanic needs a filter, and suddenly everyone discovers that the storeroom is empty. The job stops, the customer waits, and the part is bought quickly from another shop at a higher price. Good inventory control solves this problem before it happens.",
+            "Start with a simple record of your stock. Give every part a clear place on a shelf, and count your items on the same day every week. Many businesses now scan a barcode when a part enters or leaves the storeroom, so the numbers are always up to date. When you know your real numbers, you stop guessing.",
+            "Next, set a reorder point for your fast-moving parts. For example, if you usually use ten oil filters a week, order more when only fifteen are left. This way, you never run out of the parts that customers need most. Demand also changes with the seasons — batteries die in the hot summer, so smart owners increase their stock in May.",
+            "Finally, watch your slow-moving items. Parts that sit on the shelf for a year are money sleeping in your storeroom. Sell them at a discount, or stop ordering them. Your goal is simple: the right part, in the right place, at the right time."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Let me check if we have it in stock.",
+            "ar": "دعني أتحقق إن كانت متوفّرة في المخزون."
+          },
+          {
+            "en": "We are running low on oil filters.",
+            "ar": "مخزوننا من فلاتر الزيت بدأ ينفد."
+          },
+          {
+            "en": "We need to reorder before the weekend.",
+            "ar": "نحتاج إلى إعادة الطلب قبل نهاية الأسبوع."
+          },
+          {
+            "en": "This item has been on the shelf for months.",
+            "ar": "هذا الصنف على الرف منذ شهور."
+          },
+          {
+            "en": "Demand goes up in the summer.",
+            "ar": "يرتفع الطلب في الصيف."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What problem does good inventory control solve?",
+            "options": [
+              "Slow internet in the workshop",
+              "High salaries for mechanics",
+              "Running out of parts during a job",
+              "Angry suppliers"
+            ],
+            "correct": "Running out of parts during a job",
+            "explanation_ar": "ضبط المخزون الجيد يمنع توقّف العمل بسبب نفاد القطع في منتصف الإصلاح."
+          },
+          {
+            "question": "Why do many businesses scan a barcode?",
+            "options": [
+              "To keep stock numbers up to date",
+              "To make the storeroom look modern",
+              "To pay employees faster",
+              "To advertise on social media"
+            ],
+            "correct": "To keep stock numbers up to date",
+            "explanation_ar": "مسح الباركود عند دخول القطعة أو خروجها يجعل الأرقام محدّثة دائمًا."
+          },
+          {
+            "question": "In the example, when should you order more oil filters?",
+            "options": [
+              "When the storeroom is empty",
+              "When only fifteen are left",
+              "At the end of the year",
+              "When the supplier calls you"
+            ],
+            "correct": "When only fifteen are left",
+            "explanation_ar": "المثال في النص: إذا كنت تستهلك عشرة فلاتر أسبوعيًا فاطلب المزيد عندما يتبقى خمسة عشر فقط."
+          },
+          {
+            "question": "What happens to the demand for batteries in summer?",
+            "options": [
+              "It stays the same",
+              "It disappears",
+              "It goes down",
+              "It goes up"
+            ],
+            "correct": "It goes up",
+            "explanation_ar": "يرتفع الطلب على البطاريات في الصيف الحار، لذلك يزيد أصحاب الورش مخزونهم قبله."
+          },
+          {
+            "question": "What does the writer say about slow-moving items?",
+            "options": [
+              "They are money sleeping in your storeroom",
+              "They are the best parts to buy more of",
+              "They should be given to customers for free",
+              "They never lose value"
+            ],
+            "correct": "They are money sleeping in your storeroom",
+            "explanation_ar": "يصف النص القطع بطيئة الحركة بأنها أموال نائمة في المستودع."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences about how you organize the parts in your business. Which parts run out fastest, and when do you reorder them?",
+          "prompt_ar": "اكتب ٤–٥ جُمل عن طريقتك في تنظيم القطع في عملك. أي القطع ينفد مخزونها أسرع؟ ومتى تعيد طلبها؟",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل: stock، reorder point، storeroom، demand."
+        }
+      }
+    },
+    {
+      "slug": "negotiating-with-suppliers",
+      "sort_order": 3,
+      "title_en": "Negotiating with Suppliers",
+      "title_ar": "التفاوض مع المورّدين",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "أنت تفاوض في سوق السيارات منذ سنوات، وتعرف قواعد اللعبة بالعربية — الجديد هنا أن تديرها بالإنجليزية بنفس الثقة. في هذا الدرس ستتعلّم لغة التفاوض مع المورّدين: طلب الخصم، وشروط الدفع، والضمان، والوصول إلى صفقة تكسب فيها أنت والمورّد معًا.",
+        "vocab": [
+          {
+            "word": "negotiate",
+            "ipa": "/nɪˈɡoʊʃieɪt/",
+            "meaning_ar": "يفاوض",
+            "meaning_en": "to discuss until you reach an agreement",
+            "example": "I always negotiate before I sign a deal."
+          },
+          {
+            "word": "discount",
+            "ipa": "/ˈdɪskaʊnt/",
+            "meaning_ar": "خصم",
+            "meaning_en": "a lower price than usual",
+            "example": "He gave me a 10% discount on the full order."
+          },
+          {
+            "word": "quotation",
+            "ipa": "/kwoʊˈteɪʃn/",
+            "meaning_ar": "عرض سعر",
+            "meaning_en": "a written offer that shows the prices",
+            "example": "Please send me a quotation for these parts."
+          },
+          {
+            "word": "terms",
+            "ipa": "/tɜːrmz/",
+            "meaning_ar": "شروط الاتفاق",
+            "meaning_en": "the conditions of a deal, like price and payment time",
+            "example": "We agreed on the terms after a long call."
+          },
+          {
+            "word": "bulk",
+            "ipa": "/bʌlk/",
+            "meaning_ar": "كمية كبيرة (بالجملة)",
+            "meaning_en": "a large amount bought at one time",
+            "example": "Buying in bulk is usually cheaper."
+          },
+          {
+            "word": "deadline",
+            "ipa": "/ˈdedlaɪn/",
+            "meaning_ar": "موعد نهائي",
+            "meaning_en": "the last day or time to do something",
+            "example": "The delivery deadline is Thursday morning."
+          },
+          {
+            "word": "compromise",
+            "ipa": "/ˈkɑːmprəmaɪz/",
+            "meaning_ar": "حلّ وسط",
+            "meaning_en": "an agreement where each side accepts a little less",
+            "example": "A good compromise keeps both sides happy."
+          },
+          {
+            "word": "long-term",
+            "ipa": "/ˌlɔːŋ ˈtɜːrm/",
+            "meaning_ar": "طويل الأمد",
+            "meaning_en": "continuing for a long time",
+            "example": "I want a long-term relationship with my supplier."
+          },
+          {
+            "word": "warranty",
+            "ipa": "/ˈwɔːrənti/",
+            "meaning_ar": "ضمان",
+            "meaning_en": "a promise to repair or replace a product if it fails",
+            "example": "These parts come with a one-year warranty."
+          },
+          {
+            "word": "deal",
+            "ipa": "/diːl/",
+            "meaning_ar": "صفقة",
+            "meaning_en": "a business agreement",
+            "example": "We closed the deal in one meeting."
+          },
+          {
+            "word": "win-win",
+            "ipa": "/ˌwɪn ˈwɪn/",
+            "meaning_ar": "مكسب للطرفين",
+            "meaning_en": "good for both sides",
+            "example": "A win-win deal makes both businesses stronger."
+          }
+        ],
+        "reading": {
+          "title_en": "The Art of a Good Deal",
+          "title_ar": "فنّ الصفقة الرابحة",
+          "paragraphs": [
+            "Negotiating with suppliers is not a war; it is a conversation between two businesses that need each other. You need good parts at a fair price, and the supplier needs a customer who orders regularly and pays on time. When both sides understand this, the deal becomes much easier.",
+            "Before you call, prepare your numbers. Ask two or three companies for a quotation, so you know the real market price. Decide how much you will order — suppliers give a better discount when you buy in bulk. If you have bought from the same company for years, remind them: a loyal, long-term customer deserves special terms.",
+            "During the negotiation, talk about more than the price. Ask about the warranty on the parts, the delivery deadline, and the payment terms. Sometimes a supplier cannot lower the price, but he can offer free delivery or thirty days to pay. That is a compromise that saves you real money.",
+            "Finally, remember that the best deal is a win-win. If you push the supplier too hard, he may agree today and disappear tomorrow, or send you weaker parts. Be firm about your needs, be respectful about his, and build a relationship that serves your business for years."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Can you give me a better price on a bulk order?",
+            "ar": "هل يمكنك إعطائي سعرًا أفضل على طلب كمية كبيرة؟"
+          },
+          {
+            "en": "What are your payment terms?",
+            "ar": "ما شروط الدفع لديكم؟"
+          },
+          {
+            "en": "Does this part come with a warranty?",
+            "ar": "هل تأتي هذه القطعة مع ضمان؟"
+          },
+          {
+            "en": "I have been a loyal customer for five years.",
+            "ar": "أنا عميل وفيّ لكم منذ خمس سنوات."
+          },
+          {
+            "en": "Let's meet in the middle.",
+            "ar": "لنلتقِ في منتصف الطريق."
+          },
+          {
+            "en": "I will confirm the order today if we agree on delivery.",
+            "ar": "سأؤكد الطلب اليوم إذا اتفقنا على التوصيل."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "According to the text, what is negotiation?",
+            "options": [
+              "A war between two companies",
+              "A conversation between two businesses that need each other",
+              "A way to trick the supplier",
+              "A test of who talks louder"
+            ],
+            "correct": "A conversation between two businesses that need each other",
+            "explanation_ar": "يقول النص إن التفاوض حوار بين طرفين يحتاج كلٌّ منهما الآخر، وليس حربًا."
+          },
+          {
+            "question": "Why should you ask several companies for a quotation?",
+            "options": [
+              "To waste the suppliers' time",
+              "To make your supplier angry",
+              "To know the real market price",
+              "Because it is required by law"
+            ],
+            "correct": "To know the real market price",
+            "explanation_ar": "طلب عروض أسعار من أكثر من شركة يجعلك تعرف السعر الحقيقي في السوق."
+          },
+          {
+            "question": "What can a supplier offer if he cannot lower the price?",
+            "options": [
+              "Free delivery or thirty days to pay",
+              "A new car",
+              "Nothing at all",
+              "A bigger invoice"
+            ],
+            "correct": "Free delivery or thirty days to pay",
+            "explanation_ar": "قد يعرض المورّد توصيلًا مجانيًا أو مهلة دفع ثلاثين يومًا كحلّ وسط."
+          },
+          {
+            "question": "When do suppliers usually give a better discount?",
+            "options": [
+              "When you pay late",
+              "When you complain a lot",
+              "When you are a new customer",
+              "When you buy in bulk"
+            ],
+            "correct": "When you buy in bulk",
+            "explanation_ar": "يمنح المورّدون خصمًا أفضل عادةً عند الشراء بكميات كبيرة."
+          },
+          {
+            "question": "What may happen if you push the supplier too hard?",
+            "options": [
+              "He will always lower the price",
+              "He may send you weaker parts",
+              "He will offer a longer warranty",
+              "He will buy your workshop"
+            ],
+            "correct": "He may send you weaker parts",
+            "explanation_ar": "الضغط الزائد على المورّد قد يدفعه لإرسال قطع أضعف أو التوقف عن التعامل معك."
+          },
+          {
+            "question": "What kind of deal does the writer recommend?",
+            "options": [
+              "A deal where only you win",
+              "A quick deal without questions",
+              "A secret deal",
+              "A deal that is good for both sides"
+            ],
+            "correct": "A deal that is good for both sides",
+            "explanation_ar": "أفضل صفقة هي التي يكسب فيها الطرفان، لأنها تبني علاقة طويلة الأمد."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Imagine you are calling your supplier to negotiate a bulk order of brake pads. Record yourself: ask for a discount, ask about the warranty, and agree on a delivery deadline.",
+          "prompt_ar": "تخيّل أنك تتصل بمورّدك للتفاوض على طلب كمية كبيرة من فحمات الفرامل. سجّل صوتك: اطلب خصمًا، واسأل عن الضمان، واتفق على موعد نهائي للتوصيل.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، وتحدّث بجمل كاملة كأنك في مكالمة حقيقية."
+        }
+      }
+    }
+  ]
+}

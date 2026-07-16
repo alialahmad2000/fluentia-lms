@@ -1,0 +1,179 @@
+{
+  "stage": {
+    "slug": "the-web",
+    "sort_order": 3,
+    "title_en": "The Web",
+    "title_ar": "الويب والإنترنت",
+    "subtitle_ar": "افتحي المتصفّح واكتشفي كيف تعمل المواقع، وكيف تحمين حسابكِ، وكيف تجدين أي معلومة بذكاء.",
+    "cefr": "A2",
+    "accent": "#34d399",
+    "icon": "Globe"
+  },
+  "lessons": [
+    {
+      "slug": "browsers-and-websites",
+      "sort_order": 1,
+      "title_en": "Browsers and Websites",
+      "title_ar": "المتصفّحات والمواقع",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "المتصفّح هو النافذة التي تدخلين منها إلى عالم الويب كلّه، وكطالبة في تخصّص التقنية ستقضين وقتاً طويلاً بين المواقع وصفحاتها. في هذا الدرس ستتعلّمين بالإنجليزية أسماء الأجزاء التي تستخدمينها كلّ يوم: المتصفّح، الموقع، الصفحة، والرابط. تخيّلي أنّكِ تشرحين للمستخدم كيف يفتح موقعاً، فهذه هي الكلمات التي ستحتاجينها.",
+        "vocab": [
+          { "word": "browser", "ipa": "/ˈbraʊzər/", "meaning_ar": "متصفّح", "meaning_en": "a program you use to open websites", "example": "Chrome is a popular browser." },
+          { "word": "website", "ipa": "/ˈwebsaɪt/", "meaning_ar": "موقع إلكتروني", "meaning_en": "a set of pages on the internet", "example": "This website has many pages." },
+          { "word": "web page", "ipa": "/ˈweb peɪdʒ/", "meaning_ar": "صفحة ويب", "meaning_en": "one single page on a website", "example": "The home web page loads first." },
+          { "word": "link", "ipa": "/lɪŋk/", "meaning_ar": "رابط", "meaning_en": "text or an image you click to go to another page", "example": "Click the link to open the next page." },
+          { "word": "address bar", "ipa": "/əˈdres bɑːr/", "meaning_ar": "شريط العنوان", "meaning_en": "the box where you type a website address", "example": "Type the address in the address bar." },
+          { "word": "URL", "ipa": "/ˌjuː ɑːr ˈel/", "meaning_ar": "عنوان الموقع", "meaning_en": "the full address of a web page", "example": "Every web page has its own URL." },
+          { "word": "tab", "ipa": "/tæb/", "meaning_ar": "علامة تبويب", "meaning_en": "one open page inside the browser", "example": "I keep three tabs open at work." },
+          { "word": "home page", "ipa": "/ˈhoʊm peɪdʒ/", "meaning_ar": "الصفحة الرئيسية", "meaning_en": "the main or first page of a website", "example": "The home page shows the main menu." },
+          { "word": "load", "ipa": "/loʊd/", "meaning_ar": "يُحمّل / يفتح", "meaning_en": "when a page opens and shows on the screen", "example": "The page takes a few seconds to load." },
+          { "word": "click", "ipa": "/klɪk/", "meaning_ar": "ينقر", "meaning_en": "to press a button on the mouse", "example": "Click the button to send the form." },
+          { "word": "bookmark", "ipa": "/ˈbʊkmɑːrk/", "meaning_ar": "علامة مرجعية / محفوظة", "meaning_en": "a saved link you can open again fast", "example": "I saved the site as a bookmark." },
+          { "word": "refresh", "ipa": "/rɪˈfreʃ/", "meaning_ar": "يُحدّث / يُنعش", "meaning_en": "to load a page again to get new content", "example": "Refresh the page to see the new post." }
+        ],
+        "reading": {
+          "title_en": "How We Open a Website",
+          "title_ar": "كيف نفتح موقعاً إلكترونياً",
+          "paragraphs": [
+            "A browser is a program that opens the web. Chrome, Safari, and Firefox are all browsers. When you want to visit a website, you open the browser first. Then you look at the address bar at the top of the window. This is the box where you type the URL, or web address, of the site.",
+            "After you type the URL and press Enter, the page begins to load. In a few seconds, the home page shows on the screen. The home page is the main page of the website. From here, you can click a link to move to another web page. A link can be blue text or an image.",
+            "You can open many pages at the same time. Each page sits in its own tab at the top of the browser. If a page looks old or does not work, you can refresh it to load it again. When you find a good site, save it as a bookmark. Next time, you click the bookmark and the website opens fast, with no typing."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Open the browser and go to the website.", "ar": "افتحي المتصفّح واذهبي إلى الموقع." },
+          { "en": "Type the URL in the address bar.", "ar": "اكتبي عنوان الموقع في شريط العنوان." },
+          { "en": "Click the link to open the page.", "ar": "انقري على الرابط لفتح الصفحة." },
+          { "en": "The page is loading now.", "ar": "الصفحة تُحمّل الآن." },
+          { "en": "Open it in a new tab.", "ar": "افتحيه في علامة تبويب جديدة." },
+          { "en": "Save this website as a bookmark.", "ar": "احفظي هذا الموقع كعلامة مرجعية." }
+        ],
+        "comprehension": [
+          { "question": "What is a browser?", "options": ["A program that opens the web", "A kind of website", "A saved link", "A mouse button"], "correct": "A program that opens the web", "explanation_ar": "المتصفّح برنامج نفتح به الويب، مثل كروم وسفاري وفايرفوكس." },
+          { "question": "Where do you type the URL?", "options": ["In the home page", "In the address bar", "In a bookmark", "In a tab title"], "correct": "In the address bar", "explanation_ar": "نكتب عنوان الموقع (URL) في شريط العنوان أعلى النافذة." },
+          { "question": "What happens after you press Enter?", "options": ["The browser closes", "The mouse stops", "The page begins to load", "The tab is deleted"], "correct": "The page begins to load", "explanation_ar": "بعد الضغط على Enter تبدأ الصفحة بالتحميل حتى تظهر على الشاشة." },
+          { "question": "What is the home page?", "options": ["A broken link", "The main page of a website", "The address bar", "A closed tab"], "correct": "The main page of a website", "explanation_ar": "الصفحة الرئيسية هي الصفحة الأساسية للموقع التي تظهر أولاً." },
+          { "question": "Why do you save a bookmark?", "options": ["To close the browser", "To make the page smaller", "To open a good site again fast", "To delete a web page"], "correct": "To open a good site again fast", "explanation_ar": "نحفظ العلامة المرجعية لنفتح الموقع الجيّد بسرعة دون كتابة عنوانه." },
+          { "question": "What do you do when a page looks old or does not work?", "options": ["Refresh it", "Buy a new browser", "Turn off the screen", "Type a new password"], "correct": "Refresh it", "explanation_ar": "نضغط على تحديث (refresh) لإعادة تحميل الصفحة وجلب المحتوى الجديد." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3-4 sentences about how you open your favorite website. Say which browser you use and what you do step by step.",
+          "prompt_ar": "اكتبي ٣-٤ جُمل عن كيف تفتحين موقعكِ المفضّل. اذكري المتصفّح الذي تستخدمينه وما تفعلينه خطوة بخطوة.",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل: browser، URL، address bar، link، tab."
+        }
+      }
+    },
+    {
+      "slug": "accounts-and-safety",
+      "sort_order": 2,
+      "title_en": "Accounts and Online Safety",
+      "title_ar": "الحسابات والأمان على الإنترنت",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "في كلّ موقع تقريباً ستحتاجين حساباً خاصّاً بكِ، ومع الحساب تأتي مسؤولية حمايته. كطالبة تقنية، الأمان الرقمي ليس خياراً بل جزء من عملكِ اليومي. في هذا الدرس ستتعلّمين بالإنجليزية كلمات الحساب وكلمة المرور وتسجيل الدخول، وكيف تحمين نفسكِ من الاحتيال. تخيّلي أنّكِ تنصحين صديقة كيف تبقي حسابها آمناً.",
+        "vocab": [
+          { "word": "account", "ipa": "/əˈkaʊnt/", "meaning_ar": "حساب", "meaning_en": "your own space on a website with your name and data", "example": "I made a new account on the site." },
+          { "word": "username", "ipa": "/ˈjuːzərneɪm/", "meaning_ar": "اسم المستخدم", "meaning_en": "the name you use to sign in", "example": "Please type your username here." },
+          { "word": "password", "ipa": "/ˈpæswɜːrd/", "meaning_ar": "كلمة المرور", "meaning_en": "a secret word that protects your account", "example": "Choose a strong password." },
+          { "word": "sign in", "ipa": "/saɪn ɪn/", "meaning_ar": "يسجّل الدخول", "meaning_en": "to enter your account with your name and password", "example": "Sign in to read your messages." },
+          { "word": "sign up", "ipa": "/saɪn ʌp/", "meaning_ar": "يسجّل / ينشئ حساباً", "meaning_en": "to make a new account", "example": "Sign up to start using the app." },
+          { "word": "log out", "ipa": "/lɒɡ aʊt/", "meaning_ar": "يسجّل الخروج", "meaning_en": "to leave your account safely", "example": "Log out when you finish on a shared computer." },
+          { "word": "secure", "ipa": "/sɪˈkjʊr/", "meaning_ar": "آمِن", "meaning_en": "safe and protected", "example": "A good password keeps your account secure." },
+          { "word": "private", "ipa": "/ˈpraɪvət/", "meaning_ar": "خاص / سرّي", "meaning_en": "only for you, not for other people", "example": "Keep your password private." },
+          { "word": "hacker", "ipa": "/ˈhækər/", "meaning_ar": "مخترِق", "meaning_en": "a person who tries to break into accounts", "example": "A hacker wants to steal your data." },
+          { "word": "scam", "ipa": "/skæm/", "meaning_ar": "احتيال / خدعة", "meaning_en": "a trick to take your money or data", "example": "That free-prize email is a scam." },
+          { "word": "verify", "ipa": "/ˈverɪfaɪ/", "meaning_ar": "يتحقّق / يؤكّد", "meaning_en": "to check that something is real or true", "example": "The site sends a code to verify it is you." },
+          { "word": "two-factor", "ipa": "/ˌtuː ˈfæktər/", "meaning_ar": "التحقّق بخطوتين", "meaning_en": "a second safety step, like a code on your phone", "example": "Turn on two-factor login for more safety." }
+        ],
+        "reading": {
+          "title_en": "Keep Your Account Safe",
+          "title_ar": "احمِ حسابك",
+          "paragraphs": [
+            "To use most websites, you need an account. First you sign up with a username and a password. The username is your name on the site. The password is a secret word. A strong password is long and hard to guess. Keep it private and never share it with other people.",
+            "When you want to enter your account, you sign in with your username and password. When you finish, you log out. This is very important on a shared computer, so no one else can open your account. To stay more secure, turn on two-factor login. The site then sends a code to your phone to verify that it is really you.",
+            "Be careful of a scam. A hacker may send an email that looks real and asks for your password. A safe website never asks for your password by email. If a message says you won a big prize, do not click the link. When you protect your account, you protect your data and your money."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Sign up with a username and a password.", "ar": "سجّلي بإنشاء اسم مستخدم وكلمة مرور." },
+          { "en": "Choose a strong, private password.", "ar": "اختاري كلمة مرور قوية وسرّية." },
+          { "en": "Sign in to your account.", "ar": "سجّلي الدخول إلى حسابكِ." },
+          { "en": "Log out when you finish.", "ar": "سجّلي الخروج عند الانتهاء." },
+          { "en": "Turn on two-factor login to stay secure.", "ar": "فعّلي التحقّق بخطوتين لتبقي آمنة." },
+          { "en": "Never share your password. It might be a scam.", "ar": "لا تشاركي كلمة المرور أبداً؛ قد يكون الأمر احتيالاً." }
+        ],
+        "comprehension": [
+          { "question": "What do you do first to use a new website?", "options": ["Sign up for an account", "Log out", "Delete your data", "Call a hacker"], "correct": "Sign up for an account", "explanation_ar": "أولاً ننشئ حساباً (sign up) باسم مستخدم وكلمة مرور." },
+          { "question": "What is a password?", "options": ["A public name for everyone", "A kind of browser", "A free prize", "A secret word that protects your account"], "correct": "A secret word that protects your account", "explanation_ar": "كلمة المرور كلمة سرّية تحمي حسابكِ، ويجب أن تبقى خاصّة." },
+          { "question": "Why should you log out on a shared computer?", "options": ["To make the page load faster", "So no one else can open your account", "To change the browser", "To win a prize"], "correct": "So no one else can open your account", "explanation_ar": "نسجّل الخروج على جهاز مشترك حتى لا يستطيع أحد فتح حسابنا." },
+          { "question": "What does two-factor login do?", "options": ["It deletes your account", "It shares your password", "It sends a code to verify it is you", "It closes the browser"], "correct": "It sends a code to verify it is you", "explanation_ar": "التحقّق بخطوتين يرسل رمزاً إلى هاتفكِ للتأكّد أنّكِ أنتِ فعلاً." },
+          { "question": "A safe website will never ask for your password by...", "options": ["a strong login", "email", "a bookmark", "a home page"], "correct": "email", "explanation_ar": "الموقع الآمن لا يطلب كلمة المرور عبر البريد الإلكتروني أبداً." },
+          { "question": "What should you do with an email that says you won a big prize?", "options": ["Do not click the link", "Type your password fast", "Send it to your friends", "Share your username"], "correct": "Do not click the link", "explanation_ar": "رسالة الجائزة الكبيرة غالباً احتيال؛ لا تنقري على الرابط." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3-4 sentences of advice for a friend about staying safe online. Tell her how to make her account secure.",
+          "prompt_ar": "اكتبي ٣-٤ جُمل نصيحة لصديقة عن البقاء آمنة على الإنترنت. أخبريها كيف تجعل حسابها آمناً.",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل: password، account، secure، log out، scam."
+        }
+      }
+    },
+    {
+      "slug": "search-and-find",
+      "sort_order": 3,
+      "title_en": "Search and Find",
+      "title_ar": "البحث وإيجاد المعلومات",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "البحث الجيّد مهارة أساسية لكلّ مبرمجة؛ فأنتِ ستبحثين عن حلول وأفكار ومعلومات كلّ يوم. في هذا الدرس ستتعلّمين بالإنجليزية كيف تكتبين كلمات بحث ذكية، وتقرئين النتائج، وتختارين مصدراً موثوقاً. تخيّلي أنّكِ تبحثين عن جواب لسؤال في مشروعكِ، فالطريقة التي تسألين بها تغيّر ما تجدين.",
+        "vocab": [
+          { "word": "search engine", "ipa": "/ˈsɜːrtʃ ˌendʒɪn/", "meaning_ar": "محرّك بحث", "meaning_en": "a website that helps you find pages, like Google", "example": "Google is a famous search engine." },
+          { "word": "search", "ipa": "/sɜːrtʃ/", "meaning_ar": "يبحث / بحث", "meaning_en": "to look for information online", "example": "I search for answers every day." },
+          { "word": "keyword", "ipa": "/ˈkiːwɜːrd/", "meaning_ar": "كلمة مفتاحية", "meaning_en": "an important word you type to find something", "example": "Use a clear keyword to get good results." },
+          { "word": "result", "ipa": "/rɪˈzʌlt/", "meaning_ar": "نتيجة", "meaning_en": "a page the search engine shows you", "example": "The first result is often useful." },
+          { "word": "query", "ipa": "/ˈkwɪri/", "meaning_ar": "استعلام / عبارة البحث", "meaning_en": "the words you type into the search box", "example": "A short query can still be very clear." },
+          { "word": "information", "ipa": "/ˌɪnfərˈmeɪʃən/", "meaning_ar": "معلومات", "meaning_en": "facts and knowledge about something", "example": "I found good information on that page." },
+          { "word": "source", "ipa": "/sɔːrs/", "meaning_ar": "مصدر", "meaning_en": "the place where information comes from", "example": "Always check the source of the news." },
+          { "word": "reliable", "ipa": "/rɪˈlaɪəbl/", "meaning_ar": "موثوق", "meaning_en": "something you can trust", "example": "This website is a reliable source." },
+          { "word": "filter", "ipa": "/ˈfɪltər/", "meaning_ar": "يُرشّح / مرشّح", "meaning_en": "a tool that shows only the results you want", "example": "Use a filter to see only recent pages." },
+          { "word": "browse", "ipa": "/braʊz/", "meaning_ar": "يتصفّح", "meaning_en": "to look through pages without a fixed plan", "example": "I browse many pages before I choose one." },
+          { "word": "topic", "ipa": "/ˈtɒpɪk/", "meaning_ar": "موضوع", "meaning_en": "the subject you are reading about", "example": "This page is about one clear topic." },
+          { "word": "accurate", "ipa": "/ˈækjərət/", "meaning_ar": "دقيق / صحيح", "meaning_en": "correct and with no mistakes", "example": "Good sources give accurate facts." }
+        ],
+        "reading": {
+          "title_en": "How to Search Well",
+          "title_ar": "كيف تبحثين جيّداً",
+          "paragraphs": [
+            "The internet is very big, so we use a search engine to find things. Google is the most famous one. You type your query in the search box and press Enter. In a moment, the search engine shows a list of results. Each result is a link to a web page about your topic.",
+            "To get good results, choose your keyword with care. A short and clear keyword works best. If you type too many words, the results may not match. You can also use a filter to see only new pages or only images. Then you browse the list and open the pages that look useful.",
+            "Not every page has good information. Some pages are old, and some are wrong. Always look at the source. Is it a reliable website, like a school, a company, or a well-known news site? A reliable source gives accurate facts. When you compare two or three sources, you can trust the answer more."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Type your query in the search box.", "ar": "اكتبي عبارة البحث في مربّع البحث." },
+          { "en": "Choose a clear keyword.", "ar": "اختاري كلمة مفتاحية واضحة." },
+          { "en": "Look at the first results.", "ar": "انظري إلى النتائج الأولى." },
+          { "en": "Use a filter to see recent pages.", "ar": "استخدمي مرشّحاً لعرض الصفحات الحديثة." },
+          { "en": "Check the source before you trust it.", "ar": "تحقّقي من المصدر قبل أن تثقي به." },
+          { "en": "Is this a reliable and accurate source?", "ar": "هل هذا مصدر موثوق ودقيق؟" }
+        ],
+        "comprehension": [
+          { "question": "What do we use to find things on the internet?", "options": ["A password", "A bookmark", "A search engine", "A log out button"], "correct": "A search engine", "explanation_ar": "نستخدم محرّك بحث مثل Google لإيجاد الصفحات على الإنترنت." },
+          { "question": "What is a result?", "options": ["A secret word", "A link to a web page about your topic", "A kind of browser", "A phone code"], "correct": "A link to a web page about your topic", "explanation_ar": "النتيجة رابط إلى صفحة ويب تتعلّق بموضوع بحثكِ." },
+          { "question": "What kind of keyword works best?", "options": ["A short and clear one", "A very long one", "A secret one", "A wrong one"], "correct": "A short and clear one", "explanation_ar": "الكلمة المفتاحية القصيرة الواضحة تعطي أفضل النتائج." },
+          { "question": "Why should you look at the source?", "options": ["To close the tab", "To change your password", "To know if the information is reliable", "To make the page load"], "correct": "To know if the information is reliable", "explanation_ar": "ننظر إلى المصدر لنعرف إن كانت المعلومات موثوقة ودقيقة." },
+          { "question": "What does a filter do?", "options": ["It shows only the results you want", "It deletes the search engine", "It steals your data", "It writes the query for you"], "correct": "It shows only the results you want", "explanation_ar": "المرشّح يعرض فقط النتائج التي تريدينها، مثل الصفحات الحديثة أو الصور." },
+          { "question": "How can you trust an answer more?", "options": ["Read only one old page", "Compare two or three sources", "Type a very long query", "Never check the source"], "correct": "Compare two or three sources", "explanation_ar": "عند مقارنة مصدرين أو ثلاثة يمكنكِ الوثوق بالإجابة أكثر." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Choose a topic you like. Write 3-4 sentences about how you would search for it and how you would check if the source is good.",
+          "prompt_ar": "اختاري موضوعاً تحبّينه. اكتبي ٣-٤ جُمل عن كيف ستبحثين عنه وكيف تتأكّدين أنّ المصدر جيّد.",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل: search engine، keyword، result، source، reliable."
+        }
+      }
+    }
+  ]
+}

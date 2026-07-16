@@ -1,0 +1,559 @@
+{
+  "stage": {
+    "slug": "business-finance",
+    "sort_order": 7,
+    "title_en": "Business Finance",
+    "title_ar": "المالية للأعمال",
+    "subtitle_ar": "لغة المال بالإنجليزية — تدفّق نقدي وربح وتقارير واضحة تقود بها عملك بثقة.",
+    "cefr": "B1",
+    "accent": "#fbbf24",
+    "icon": "Wallet"
+  },
+  "lessons": [
+    {
+      "slug": "cash-flow",
+      "sort_order": 1,
+      "title_en": "Cash Flow",
+      "title_ar": "التدفّق النقدي",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الربح على الورق لا يدفع الرواتب — الذي يدفعها هو النقد المتوفّر في حسابك. في هذا الدرس ستتعلّم مفردات التدفّق النقدي بالإنجليزية: الدخل والمصروفات والمبالغ المستحقّة، وكيف تتحدّث عن الفجوات النقدية قبل أن تحدث. تخيّل مكالمة مع محاسبك أو مورّدك — بعد هذا الدرس ستديرها بثقة أكبر.",
+        "vocab": [
+          {
+            "word": "cash flow",
+            "ipa": "/ˈkæʃ fləʊ/",
+            "meaning_ar": "التدفّق النقدي",
+            "meaning_en": "the money moving into and out of a business",
+            "example": "Good cash flow keeps the workshop open."
+          },
+          {
+            "word": "income",
+            "ipa": "/ˈɪnkʌm/",
+            "meaning_ar": "الدخل",
+            "meaning_en": "the money that comes into a business",
+            "example": "Our income was higher in March."
+          },
+          {
+            "word": "expenses",
+            "ipa": "/ɪkˈspensɪz/",
+            "meaning_ar": "المصروفات",
+            "meaning_en": "the money a business must spend",
+            "example": "Rent and salaries are my biggest expenses."
+          },
+          {
+            "word": "payment",
+            "ipa": "/ˈpeɪmənt/",
+            "meaning_ar": "دفعة / سداد",
+            "meaning_en": "an amount of money paid for something",
+            "example": "The customer made a payment of 500 riyals."
+          },
+          {
+            "word": "due",
+            "ipa": "/djuː/",
+            "meaning_ar": "مستحقّ الدفع",
+            "meaning_en": "money that must be paid at a certain time",
+            "example": "The rent is due on the first of the month."
+          },
+          {
+            "word": "balance",
+            "ipa": "/ˈbæləns/",
+            "meaning_ar": "الرصيد",
+            "meaning_en": "the amount of money in an account",
+            "example": "I check the bank balance every morning."
+          },
+          {
+            "word": "owe",
+            "ipa": "/əʊ/",
+            "meaning_ar": "يدين بمبلغ (عليه مبلغ لم يدفعه)",
+            "meaning_en": "to need to pay money to someone",
+            "example": "This customer still owes us 2,000 riyals."
+          },
+          {
+            "word": "cover",
+            "ipa": "/ˈkʌvər/",
+            "meaning_ar": "يغطّي (تكلفة)",
+            "meaning_en": "to have enough money to pay for something",
+            "example": "We need enough cash to cover the salaries."
+          },
+          {
+            "word": "shortage",
+            "ipa": "/ˈʃɔːtɪdʒ/",
+            "meaning_ar": "نقص / عجز",
+            "meaning_en": "when there is not enough of something",
+            "example": "A cash shortage can stop a strong business."
+          },
+          {
+            "word": "gap",
+            "ipa": "/ɡæp/",
+            "meaning_ar": "فجوة (نقدية)",
+            "meaning_en": "a period when more money goes out than comes in",
+            "example": "There was a gap between money in and money out."
+          },
+          {
+            "word": "forecast",
+            "ipa": "/ˈfɔːkɑːst/",
+            "meaning_ar": "توقّع مالي",
+            "meaning_en": "a plan of the money you expect to receive and pay",
+            "example": "I make a cash forecast every month."
+          }
+        ],
+        "reading": {
+          "title_en": "The Month Khalid Almost Ran Out of Cash",
+          "title_ar": "الشهر الذي كاد النقد فيه أن ينفد",
+          "paragraphs": [
+            "Khalid runs a busy workshop in the industrial district. Last year his income was strong — customers paid him more than 40,000 riyals every month. But one week in June, he almost could not pay his two mechanics on time. The problem was not profit. The problem was cash flow.",
+            "Cash flow is the movement of money into and out of your business. Money comes in when a customer makes a payment. Money goes out when you pay expenses like rent, salaries, and spare parts. If more money goes out than comes in, you have a shortage — even when the business looks profitable on paper.",
+            "In June, Khalid had finished several big jobs, but three customers had not paid yet. Together they owed him 18,000 riyals. At the same time, the rent was due, and he had to cover salaries and a large order of parts. His bank balance was low, and there was a gap between the money coming in and the money going out.",
+            "Today, Khalid makes a simple forecast at the start of every month. He writes down the payments he expects to receive and the expenses he must pay, week by week. When he sees a possible gap, he acts early: he calls the customers who owe him money, or he delays an order that can wait. A business can survive a weak month, but it cannot survive without cash."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "When is this payment due?",
+            "ar": "متى موعد استحقاق هذه الدفعة؟"
+          },
+          {
+            "en": "The customer still owes us 3,000 riyals.",
+            "ar": "العميل ما زال مدينًا لنا بثلاثة آلاف ريال."
+          },
+          {
+            "en": "We need to cover salaries and rent first.",
+            "ar": "علينا أن نغطّي الرواتب والإيجار أولًا."
+          },
+          {
+            "en": "Let me check the balance before we order.",
+            "ar": "دعني أتحقّق من الرصيد قبل أن نطلب."
+          },
+          {
+            "en": "Our cash flow is tight this month.",
+            "ar": "التدفّق النقدي لدينا ضيّق هذا الشهر."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What was Khalid's real problem in June?",
+            "options": [
+              "His workshop lost money",
+              "His cash flow",
+              "His mechanics left the workshop",
+              "His rent increased"
+            ],
+            "correct": "His cash flow",
+            "explanation_ar": "المشكلة لم تكن في الربح، بل في التدفّق النقدي — النقد لم يكن متوفّرًا في الوقت المناسب."
+          },
+          {
+            "question": "What is cash flow?",
+            "options": [
+              "The profit of a business",
+              "The number of customers",
+              "The movement of money into and out of a business",
+              "The price of spare parts"
+            ],
+            "correct": "The movement of money into and out of a business",
+            "explanation_ar": "التدفّق النقدي هو حركة المال الداخل إلى العمل والخارج منه."
+          },
+          {
+            "question": "How much did the three customers owe Khalid?",
+            "options": [
+              "18,000 riyals",
+              "40,000 riyals",
+              "8,000 riyals",
+              "28,000 riyals"
+            ],
+            "correct": "18,000 riyals",
+            "explanation_ar": "ثلاثة عملاء كانوا مدينين له بمبلغ 18,000 ريال مجتمعين."
+          },
+          {
+            "question": "What does Khalid do now at the start of every month?",
+            "options": [
+              "He orders more parts",
+              "He hires new mechanics",
+              "He closes the workshop for a day",
+              "He makes a cash forecast"
+            ],
+            "correct": "He makes a cash forecast",
+            "explanation_ar": "صار خالد يعدّ توقّعًا نقديًا بسيطًا في بداية كل شهر: الدفعات المتوقّعة والمصروفات المستحقّة أسبوعًا بأسبوع."
+          },
+          {
+            "question": "What does Khalid do when he sees a possible gap?",
+            "options": [
+              "He waits until the end of the month",
+              "He calls the customers who owe him money",
+              "He pays all his expenses immediately",
+              "He borrows money from the bank"
+            ],
+            "correct": "He calls the customers who owe him money",
+            "explanation_ar": "عندما يتوقّع فجوة، يتصرّف مبكرًا: يتصل بالعملاء المدينين له أو يؤجّل طلبًا يمكن تأجيله."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences about the cash flow in your business this month: what money is coming in, what expenses are due, and is there a gap?",
+          "prompt_ar": "اكتب ٤–٥ جُمل عن التدفّق النقدي في عملك هذا الشهر: ما المال الداخل؟ وما المصروفات المستحقّة؟ وهل هناك فجوة؟",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، واذكر مبلغًا واحدًا بالريال على الأقل."
+        }
+      }
+    },
+    {
+      "slug": "profit-and-loss",
+      "sort_order": 2,
+      "title_en": "Profit and Loss",
+      "title_ar": "الربح والخسارة",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الإيرادات وحدها لا تعني أنك تكسب — المهم هو ما يبقى في جيبك في نهاية الشهر. في هذا الدرس ستتعلّم بالإنجليزية الفرق بين الربح الإجمالي وصافي الربح، وكيف تتحدّث عن هامش الربح ونقطة التعادل. هذه هي اللغة التي تحتاجها في أي نقاش جادّ عن أرباح عملك.",
+        "vocab": [
+          {
+            "word": "profit",
+            "ipa": "/ˈprɒfɪt/",
+            "meaning_ar": "ربح",
+            "meaning_en": "the money you keep after paying all costs",
+            "example": "The workshop made a good profit last month."
+          },
+          {
+            "word": "loss",
+            "ipa": "/lɒs/",
+            "meaning_ar": "خسارة",
+            "meaning_en": "when a business spends more than it earns",
+            "example": "The business made a loss in January."
+          },
+          {
+            "word": "revenue",
+            "ipa": "/ˈrevənjuː/",
+            "meaning_ar": "الإيرادات",
+            "meaning_en": "all the money a business earns from sales",
+            "example": "Our revenue comes from repairs and spare parts."
+          },
+          {
+            "word": "cost",
+            "ipa": "/kɒst/",
+            "meaning_ar": "تكلفة",
+            "meaning_en": "the money you pay to make or sell something",
+            "example": "The cost of parts went up this year."
+          },
+          {
+            "word": "gross profit",
+            "ipa": "/ˌɡrəʊs ˈprɒfɪt/",
+            "meaning_ar": "الربح الإجمالي",
+            "meaning_en": "revenue minus the cost of what you sold",
+            "example": "Revenue minus the cost of parts is your gross profit."
+          },
+          {
+            "word": "net profit",
+            "ipa": "/ˌnet ˈprɒfɪt/",
+            "meaning_ar": "صافي الربح",
+            "meaning_en": "the money left after paying all expenses",
+            "example": "Our net profit was 7,000 riyals."
+          },
+          {
+            "word": "margin",
+            "ipa": "/ˈmɑːdʒɪn/",
+            "meaning_ar": "هامش الربح",
+            "meaning_en": "profit shown as a percentage of revenue",
+            "example": "This service has a healthy margin."
+          },
+          {
+            "word": "reduce",
+            "ipa": "/rɪˈdjuːs/",
+            "meaning_ar": "يخفّض",
+            "meaning_en": "to make something smaller or lower",
+            "example": "We reduced our electricity costs by 10 percent."
+          },
+          {
+            "word": "increase",
+            "ipa": "/ɪnˈkriːs/",
+            "meaning_ar": "يزيد / يرفع",
+            "meaning_en": "to make something bigger or higher",
+            "example": "We increased our prices a little this year."
+          },
+          {
+            "word": "break even",
+            "ipa": "/ˌbreɪk ˈiːvən/",
+            "meaning_ar": "يتعادل (لا ربح ولا خسارة)",
+            "meaning_en": "to make no profit and no loss",
+            "example": "The workshop broke even after six months."
+          }
+        ],
+        "reading": {
+          "title_en": "Profit Is What You Keep",
+          "title_ar": "الربح هو ما يبقى لك",
+          "paragraphs": [
+            "At the end of every month, Khalid asks himself one simple question: did the workshop make a profit or a loss? To find the answer, he starts with his revenue — all the money the workshop earned from repairs, oil changes, and spare parts. Last month the revenue was 52,000 riyals.",
+            "Revenue alone does not tell the full story. Next, Khalid takes away the cost of the parts he bought, which was 21,000 riyals. That leaves a gross profit of 31,000 riyals. Then he pays rent, salaries, electricity, and insurance — another 24,000 riyals. What remains is his net profit: 7,000 riyals.",
+            "Khalid also checks his profit margin. He divides the net profit by the revenue: 7,000 out of 52,000 is about 13 percent. This number tells him how healthy the business really is. When the margin falls, he looks for ways to reduce costs or increase prices carefully, without losing his customers.",
+            "It was not always like this. In its first year, the workshop lost money in some months and only broke even in others. Khalid did not panic, because he knew a new business needs time to break even before it can grow. Understanding these numbers has helped him make better decisions ever since."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Did we make a profit this month?",
+            "ar": "هل حقّقنا ربحًا هذا الشهر؟"
+          },
+          {
+            "en": "Our net profit was 7,000 riyals.",
+            "ar": "كان صافي ربحنا سبعة آلاف ريال."
+          },
+          {
+            "en": "We need to reduce our costs.",
+            "ar": "نحتاج إلى خفض تكاليفنا."
+          },
+          {
+            "en": "This service has a good margin.",
+            "ar": "هذه الخدمة هامش ربحها جيّد."
+          },
+          {
+            "en": "We broke even in the first year.",
+            "ar": "تعادلنا في السنة الأولى — لا ربح ولا خسارة."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What was the workshop's revenue last month?",
+            "options": [
+              "31,000 riyals",
+              "52,000 riyals",
+              "7,000 riyals",
+              "24,000 riyals"
+            ],
+            "correct": "52,000 riyals",
+            "explanation_ar": "بلغت إيرادات الورشة 52,000 ريال من الإصلاحات وتغيير الزيت وقطع الغيار."
+          },
+          {
+            "question": "How do you calculate gross profit?",
+            "options": [
+              "Revenue minus the cost of parts",
+              "Revenue plus salaries",
+              "Net profit minus rent",
+              "Revenue divided by costs"
+            ],
+            "correct": "Revenue minus the cost of parts",
+            "explanation_ar": "الربح الإجمالي = الإيرادات ناقص تكلفة القطع المُباعة."
+          },
+          {
+            "question": "What was Khalid's net profit?",
+            "options": [
+              "21,000 riyals",
+              "31,000 riyals",
+              "13,000 riyals",
+              "7,000 riyals"
+            ],
+            "correct": "7,000 riyals",
+            "explanation_ar": "بعد خصم جميع المصروفات (الإيجار والرواتب والكهرباء والتأمين)، بقي صافي ربح قدره 7,000 ريال."
+          },
+          {
+            "question": "What does \"break even\" mean?",
+            "options": [
+              "To make a big profit",
+              "To lose money quickly",
+              "To make no profit and no loss",
+              "To close the business"
+            ],
+            "correct": "To make no profit and no loss",
+            "explanation_ar": "التعادل يعني ألّا يحقّق العمل ربحًا ولا خسارة — الإيرادات تساوي التكاليف تمامًا."
+          },
+          {
+            "question": "What does Khalid do when his margin falls?",
+            "options": [
+              "He looks for ways to reduce costs or increase prices",
+              "He fires his mechanics",
+              "He stops checking his numbers",
+              "He takes a loan immediately"
+            ],
+            "correct": "He looks for ways to reduce costs or increase prices",
+            "explanation_ar": "عندما ينخفض الهامش، يبحث عن طرق لخفض التكاليف أو رفع الأسعار بحذر دون خسارة العملاء."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Choose one service in your business (for example, an oil change). Write 4–5 sentences about its price, its costs, and its margin.",
+          "prompt_ar": "اختر خدمة واحدة في عملك (مثل تغيير الزيت)، واكتب ٤–٥ جُمل عن سعرها وتكاليفها وهامش ربحها.",
+          "guidance_ar": "استخدم كلمات مثل revenue وcost وmargin، وحاول أن تذكر أرقامًا حقيقية من عملك."
+        }
+      }
+    },
+    {
+      "slug": "reading-reports",
+      "sort_order": 3,
+      "title_en": "Reading Financial Reports",
+      "title_ar": "قراءة التقارير المالية",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "التقرير المالي ليس مجرّد أوراق وأرقام — إنه خريطة عملك. في هذا الدرس ستتعلّم كيف تقرأ التقارير والكشوف بالإنجليزية: الإجمالي والفترة والاتجاه، وكيف تطرح على محاسبك أسئلة واضحة وواثقة. حاول بعد الدرس أن تفتح آخر تقرير لديك وتقرأه بعين جديدة.",
+        "vocab": [
+          {
+            "word": "report",
+            "ipa": "/rɪˈpɔːt/",
+            "meaning_ar": "تقرير",
+            "meaning_en": "a document that shows information about the business",
+            "example": "My accountant sends me a report every month."
+          },
+          {
+            "word": "statement",
+            "ipa": "/ˈsteɪtmənt/",
+            "meaning_ar": "كشف حساب",
+            "meaning_en": "an official record of money in an account",
+            "example": "Please check the bank statement carefully."
+          },
+          {
+            "word": "figure",
+            "ipa": "/ˈfɪɡə/",
+            "meaning_ar": "رقم (في تقرير)",
+            "meaning_en": "a number that shows an amount",
+            "example": "This figure shows our total expenses."
+          },
+          {
+            "word": "total",
+            "ipa": "/ˈtəʊtl/",
+            "meaning_ar": "الإجمالي",
+            "meaning_en": "the full amount when everything is added together",
+            "example": "The total at the bottom is our net profit."
+          },
+          {
+            "word": "summary",
+            "ipa": "/ˈsʌməri/",
+            "meaning_ar": "ملخّص",
+            "meaning_en": "a short text that gives the main points",
+            "example": "Read the summary before the details."
+          },
+          {
+            "word": "period",
+            "ipa": "/ˈpɪəriəd/",
+            "meaning_ar": "فترة (زمنية)",
+            "meaning_en": "a length of time, like a month or a year",
+            "example": "The report covers a period of one month."
+          },
+          {
+            "word": "quarter",
+            "ipa": "/ˈkwɔːtə/",
+            "meaning_ar": "ربع السنة (ثلاثة أشهر)",
+            "meaning_en": "a period of three months in a business year",
+            "example": "Sales were strong in the last quarter."
+          },
+          {
+            "word": "compare",
+            "ipa": "/kəmˈpeə/",
+            "meaning_ar": "يقارن",
+            "meaning_en": "to look at two things and see the differences",
+            "example": "Compare this month with last month."
+          },
+          {
+            "word": "trend",
+            "ipa": "/trend/",
+            "meaning_ar": "اتجاه / منحى",
+            "meaning_en": "the direction in which numbers are moving over time",
+            "example": "The trend in our costs is going up."
+          },
+          {
+            "word": "accountant",
+            "ipa": "/əˈkaʊntənt/",
+            "meaning_ar": "محاسب",
+            "meaning_en": "a person whose job is to keep the money records of a business",
+            "example": "I meet my accountant every quarter."
+          },
+          {
+            "word": "column",
+            "ipa": "/ˈkɒləm/",
+            "meaning_ar": "عمود (في جدول)",
+            "meaning_en": "a line of numbers going down a table",
+            "example": "Each column in the table shows one month."
+          }
+        ],
+        "reading": {
+          "title_en": "A Map of the Business",
+          "title_ar": "خريطة العمل",
+          "paragraphs": [
+            "Once a month, Khalid receives a financial report from his accountant. In the past he was afraid of it — pages full of numbers and English words. Today he reads it in ten minutes, because he knows exactly what to look for.",
+            "He starts with the summary at the top. It shows three main figures: total revenue, total expenses, and net profit for the period. Then he looks at the table below, where each column shows one month, so he can compare this month with the months before. He also checks his bank statement to make sure the numbers match.",
+            "Comparing is the real power of a report. One figure alone tells you very little, but a trend tells you a story. If the cost of parts has gone up for three months in a row, that is a trend Khalid needs to understand. Is a supplier charging more? Are materials being wasted in the workshop?",
+            "At the end of every quarter, he sits down with his accountant and asks simple, direct questions: What does this figure mean? Why is this total higher than last quarter? Which trend should worry me? A report is not just paper — it is a map of the business. When you learn to read it, you make your decisions with open eyes."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Can you send me the monthly report?",
+            "ar": "هل يمكنك أن ترسل لي التقرير الشهري؟"
+          },
+          {
+            "en": "What does this figure mean?",
+            "ar": "ماذا يعني هذا الرقم؟"
+          },
+          {
+            "en": "Let's compare this quarter with the last one.",
+            "ar": "لنقارن هذا الربع بالربع الماضي."
+          },
+          {
+            "en": "The total is higher than last month.",
+            "ar": "الإجمالي أعلى من الشهر الماضي."
+          },
+          {
+            "en": "I see a worrying trend in our costs.",
+            "ar": "أرى اتجاهًا مقلقًا في تكاليفنا."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What does the summary at the top of the report show?",
+            "options": [
+              "Only the names of customers",
+              "The prices of new cars",
+              "Total revenue, total expenses, and net profit",
+              "The addresses of suppliers"
+            ],
+            "correct": "Total revenue, total expenses, and net profit",
+            "explanation_ar": "الملخّص في أعلى التقرير يعرض ثلاثة أرقام رئيسية: الإيرادات الإجمالية والمصروفات الإجمالية وصافي الربح للفترة."
+          },
+          {
+            "question": "What does each column in the table show?",
+            "options": [
+              "One month",
+              "One customer",
+              "One mechanic",
+              "One car"
+            ],
+            "correct": "One month",
+            "explanation_ar": "كل عمود في الجدول يمثّل شهرًا واحدًا، وهذا يسهّل مقارنة الشهر الحالي بالأشهر السابقة."
+          },
+          {
+            "question": "Why is comparing months useful?",
+            "options": [
+              "It makes the report longer",
+              "A trend tells you a story about the business",
+              "It hides the losses",
+              "It is required by law"
+            ],
+            "correct": "A trend tells you a story about the business",
+            "explanation_ar": "الرقم الواحد يقول القليل، أمّا الاتجاه عبر عدة أشهر فيروي قصة كاملة عن العمل."
+          },
+          {
+            "question": "What does Khalid check to make sure the numbers match?",
+            "options": [
+              "His phone",
+              "His parts shelf",
+              "His calendar",
+              "His bank statement"
+            ],
+            "correct": "His bank statement",
+            "explanation_ar": "يتحقّق من كشف الحساب البنكي ليتأكّد من تطابق الأرقام مع التقرير."
+          },
+          {
+            "question": "How often does Khalid sit down with his accountant?",
+            "options": [
+              "Every day",
+              "Every week",
+              "Every quarter",
+              "Every year"
+            ],
+            "correct": "Every quarter",
+            "explanation_ar": "يجلس مع محاسبه في نهاية كل ربع سنة ويطرح عليه أسئلة مباشرة عن الأرقام والاتجاهات."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Imagine a call with your accountant about the monthly report. Speak for one minute: ask three questions about the figures, the totals, or a trend.",
+          "prompt_ar": "تخيّل مكالمة مع محاسبك عن التقرير الشهري. تحدّث لمدة دقيقة واطرح ثلاثة أسئلة عن الأرقام أو الإجماليات أو اتجاه معيّن.",
+          "guidance_ar": "ابدأ أسئلتك بـ What أو Why أو Which، واستخدم ٣ كلمات على الأقل من كلمات الدرس."
+        }
+      }
+    }
+  ]
+}

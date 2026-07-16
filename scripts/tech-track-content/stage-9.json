@@ -1,0 +1,182 @@
+{
+  "stage": {
+    "slug": "professional-it-english",
+    "sort_order": 9,
+    "title_en": "Professional IT English",
+    "title_ar": "إنجليزية العمل التقني",
+    "subtitle_ar": "الإنجليزية التي ستفتح لكِ باب العمل التقني: سيرة ذاتية قوية، مقابلة واثقة، ورسائل وتوثيق يفهمه الجميع.",
+    "cefr": "B2",
+    "accent": "#fbbf24",
+    "icon": "Briefcase"
+  },
+  "lessons": [
+    {
+      "slug": "your-cv",
+      "sort_order": 1,
+      "title_en": "Your CV",
+      "title_ar": "سيرتكِ الذاتية CV",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "سيرتكِ الذاتية هي أول ما يراه صاحب العمل عنكِ، وغالبًا ما تُكتب بالإنجليزية في مجال التقنية. في هذا الدرس ستتعلّمين كلمات ومصطلحات السيرة الذاتية التقنية، وكيف تصفين مهاراتكِ ومشاريعكِ بجُمل قصيرة وقوية. تخيّلي أنكِ تفتحين أول باب في مسيرتكِ المهنية.",
+        "vocab": [
+          { "word": "CV / résumé", "ipa": "/ˌsiːˈviː/", "meaning_ar": "السيرة الذاتية", "meaning_en": "a short document that lists your skills, education, and work experience", "example": "She sent her CV to three companies." },
+          { "word": "skills", "ipa": "/skɪlz/", "meaning_ar": "المهارات", "meaning_en": "the things you can do well", "example": "My technical skills include Python and SQL." },
+          { "word": "experience", "ipa": "/ɪkˈspɪəriəns/", "meaning_ar": "الخبرة", "meaning_en": "the knowledge you get from doing a job or activity", "example": "He has two years of experience in web development." },
+          { "word": "education", "ipa": "/ˌedʒuˈkeɪʃən/", "meaning_ar": "التعليم", "meaning_en": "your studies at school or university", "example": "Her education section lists her computer science degree." },
+          { "word": "degree", "ipa": "/dɪˈɡriː/", "meaning_ar": "الشهادة الجامعية", "meaning_en": "a qualification you get after finishing university", "example": "I am studying for a degree in information technology." },
+          { "word": "project", "ipa": "/ˈprɒdʒekt/", "meaning_ar": "المشروع", "meaning_en": "a piece of work you plan and complete", "example": "My final project was a mobile app for students." },
+          { "word": "achievement", "ipa": "/əˈtʃiːvmənt/", "meaning_ar": "الإنجاز", "meaning_en": "something good that you did with effort", "example": "Winning the coding contest was a big achievement." },
+          { "word": "summary", "ipa": "/ˈsʌməri/", "meaning_ar": "الملخّص", "meaning_en": "a few sentences at the top that describe you", "example": "Her summary says she is a motivated junior developer." },
+          { "word": "responsibility", "ipa": "/rɪˌspɒnsɪˈbɪləti/", "meaning_ar": "المسؤولية", "meaning_en": "a task or duty that is your job to do", "example": "One responsibility was testing the code before release." },
+          { "word": "reference", "ipa": "/ˈrefərəns/", "meaning_ar": "الجهة المُزكّية", "meaning_en": "a person who can describe your work to an employer", "example": "My professor agreed to be a reference." },
+          { "word": "keyword", "ipa": "/ˈkiːwɜːd/", "meaning_ar": "الكلمة المفتاحية", "meaning_en": "an important word that recruiters or systems search for", "example": "Add keywords like 'Java' and 'teamwork' to your CV." },
+          { "word": "tailor", "ipa": "/ˈteɪlər/", "meaning_ar": "يُخصّص / يُكيّف", "meaning_en": "to change something so it fits a special purpose", "example": "Tailor your CV for each job you apply to." }
+        ],
+        "reading": {
+          "title_en": "Building a Strong Tech CV",
+          "title_ar": "بناء سيرة ذاتية تقنية قوية",
+          "paragraphs": [
+            "A CV is a short document that shows who you are as a professional. In technology, most companies expect it in English, so clear and simple language is important. A good CV usually starts with a short summary of two or three sentences. This summary tells the reader about your goals and your best skills before they read the rest.",
+            "After the summary, you list your education and your experience. In the education section, you write your degree, your university, and the year. In the experience section, you describe each job or internship and your main responsibility there. Use strong verbs like 'built', 'designed', and 'tested', because they sound active and confident.",
+            "Your skills and your projects are very important in a tech CV. List technical skills such as programming languages and tools, and add a few soft skills like teamwork. For each project, write one line that explains what you built and why it matters. A clear achievement, for example a prize or a working app, makes your CV stronger.",
+            "Finally, remember to tailor your CV to the job. Read the job advert, find the keywords, and use the same words if they are true for you. Keep the design clean, check your spelling, and be ready to give a reference. A short, honest, and well-organised CV opens the first door to a great career."
+          ]
+        },
+        "key_phrases": [
+          { "en": "I am a motivated junior developer with a passion for clean code.", "ar": "أنا مطوّرة مبتدئة متحمّسة وشغوفة بالكود النظيف." },
+          { "en": "I have hands-on experience with Python and web development.", "ar": "لديّ خبرة عملية في بايثون وتطوير الويب." },
+          { "en": "I built a mobile app as my final university project.", "ar": "بنيتُ تطبيقًا للجوال كمشروع تخرّجي الجامعي." },
+          { "en": "My main responsibilities included testing and fixing bugs.", "ar": "تضمّنت مسؤولياتي الرئيسية اختبار الأكواد وإصلاح الأخطاء." },
+          { "en": "My technical skills include Java, SQL, and Git.", "ar": "تشمل مهاراتي التقنية جافا وقواعد البيانات وGit." },
+          { "en": "References are available on request.", "ar": "يمكن تزويدكم بجهات مُزكّية عند الطلب." }
+        ],
+        "comprehension": [
+          { "question": "What is a CV?", "options": ["A short document that shows your professional skills and experience", "A type of computer program", "A letter to a friend", "A university exam"], "correct": "A short document that shows your professional skills and experience", "explanation_ar": "السيرة الذاتية مستند قصير يعرض مهاراتكِ وخبرتكِ المهنية." },
+          { "question": "Why should a tech CV usually be written in English?", "options": ["Because English is easier than other languages", "Because most technology companies expect it", "Because it is a legal rule everywhere", "Because CVs cannot be written in Arabic"], "correct": "Because most technology companies expect it", "explanation_ar": "معظم شركات التقنية تتوقّع السيرة الذاتية بالإنجليزية، لذا الوضوح مهم." },
+          { "question": "What kind of verbs does the reading recommend for the experience section?", "options": ["Question words", "Long and formal words", "Strong active verbs like 'built' and 'designed'", "Only past-perfect verbs"], "correct": "Strong active verbs like 'built' and 'designed'", "explanation_ar": "الأفعال القوية النشطة مثل built وdesigned تجعل السيرة واثقة ومؤثّرة." },
+          { "question": "What does it mean to 'tailor' your CV?", "options": ["To make it as long as possible", "To change it so it fits the specific job", "To add many photos to it", "To copy another person's CV"], "correct": "To change it so it fits the specific job", "explanation_ar": "تخصيص السيرة يعني تكييفها لتناسب الوظيفة المحدّدة باستخدام كلماتها المفتاحية." },
+          { "question": "According to the reading, what makes a CV stronger?", "options": ["A very long summary", "Many spelling mistakes", "A clear achievement such as a prize or a working app", "Hiding your skills"], "correct": "A clear achievement such as a prize or a working app", "explanation_ar": "الإنجاز الواضح، كجائزة أو تطبيق يعمل، يقوّي السيرة الذاتية." },
+          { "question": "What should you write for each project on your CV?", "options": ["The full source code", "One line explaining what you built and why it matters", "Only the name of the tool", "Nothing at all"], "correct": "One line explaining what you built and why it matters", "explanation_ar": "لكل مشروع اكتبي سطرًا واحدًا يوضّح ما بنيتِه ولماذا هو مهم." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short CV summary about yourself in 3–4 sentences. Mention your goal, one or two skills, and one project or achievement.",
+          "prompt_ar": "اكتبي ملخّصًا قصيرًا لسيرتكِ الذاتية في ٣–٤ جُمل. اذكري هدفكِ، ومهارة أو مهارتين، ومشروعًا أو إنجازًا واحدًا.",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل skills وexperience وproject، وابدئي بأفعال قوية."
+        }
+      }
+    },
+    {
+      "slug": "the-interview",
+      "sort_order": 2,
+      "title_en": "The Interview",
+      "title_ar": "مقابلة العمل التقنية",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "بعد أن تُعجب سيرتكِ الذاتية صاحب العمل، تأتي مرحلة المقابلة، وهي فرصتكِ لتُظهري شخصيتكِ وتفكيركِ. في المقابلات التقنية لن يسألوكِ عن خبرتكِ فحسب، بل قد يطلبون منكِ شرح فكرة أو حلّ مشكلة بصوتٍ مسموع. في هذا الدرس ستتعلّمين لغة المقابلة الواثقة: كيف تجيبين، وتوضّحين تفكيركِ، وتطرحين أسئلتكِ الخاصة.",
+        "vocab": [
+          { "word": "interview", "ipa": "/ˈɪntəvjuː/", "meaning_ar": "المقابلة", "meaning_en": "a meeting where an employer asks you questions about a job", "example": "My technical interview is scheduled for Monday morning." },
+          { "word": "candidate", "ipa": "/ˈkændɪdət/", "meaning_ar": "المُرشّح للوظيفة", "meaning_en": "a person who applies for a job", "example": "The strongest candidate explained her thinking clearly." },
+          { "word": "recruiter", "ipa": "/rɪˈkruːtər/", "meaning_ar": "مسؤول التوظيف", "meaning_en": "a person whose job is to find and hire new employees", "example": "The recruiter asked about my previous projects." },
+          { "word": "strengths", "ipa": "/streŋθs/", "meaning_ar": "نقاط القوة", "meaning_en": "the things you are especially good at", "example": "One of my strengths is solving problems calmly." },
+          { "word": "weakness", "ipa": "/ˈwiːknəs/", "meaning_ar": "نقطة الضعف", "meaning_en": "something you are not yet good at but are improving", "example": "I mentioned a weakness and how I am working on it." },
+          { "word": "confident", "ipa": "/ˈkɒnfɪdənt/", "meaning_ar": "واثق/واثقة", "meaning_en": "sure of yourself in a calm, positive way", "example": "Try to sound confident but not arrogant." },
+          { "word": "explain your reasoning", "ipa": null, "meaning_ar": "توضيح طريقة تفكيرك", "meaning_en": "to say the steps and ideas behind your answer", "example": "In coding tasks, always explain your reasoning out loud." },
+          { "word": "approach", "ipa": "/əˈprəʊtʃ/", "meaning_ar": "الأسلوب / طريقة المعالجة", "meaning_en": "the way you decide to solve a problem", "example": "Let me describe my approach before I write the code." },
+          { "word": "handle pressure", "ipa": null, "meaning_ar": "التعامل مع الضغط", "meaning_en": "to stay calm and work well in a difficult situation", "example": "Interviewers want to see how you handle pressure." },
+          { "word": "elaborate", "ipa": "/ɪˈlæbəreɪt/", "meaning_ar": "يُفصّل / يُسهب", "meaning_en": "to give more detail about something you said", "example": "Could you elaborate on how you tested the feature?" },
+          { "word": "follow-up question", "ipa": null, "meaning_ar": "سؤال متابعة", "meaning_en": "a second question that goes deeper into your answer", "example": "Be ready for a follow-up question after every answer." },
+          { "word": "salary", "ipa": "/ˈsæləri/", "meaning_ar": "الراتب", "meaning_en": "the money you are paid for your work", "example": "We can discuss the salary at the end of the process." }
+        ],
+        "reading": {
+          "title_en": "How to Handle a Technical Interview",
+          "title_ar": "كيف تتعاملين مع المقابلة التقنية",
+          "paragraphs": [
+            "A technical interview is a conversation between a candidate and one or more interviewers, and it usually has two parts. In the first part, a recruiter or engineer asks about your background: your projects, your strengths, and sometimes a weakness that you are improving. The goal is not to trap you, but to understand how you think and how you would fit into the team.",
+            "In the second part, you often solve a problem while the interviewer watches. This can feel stressful, but experienced candidates know a secret: explain your reasoning out loud. Before you write any code, describe your approach in simple steps. If you get stuck, say what you are thinking, because a clear thought process is often more valuable than a perfect answer.",
+            "Interviewers also want to see how you handle pressure and how you respond to a follow-up question. If they ask you to elaborate, take a breath and give one more detail; do not panic. It is completely fine to say, 'That is a good question, let me think for a moment.' Being calm and honest usually makes a much better impression than pretending to know everything.",
+            "Finally, remember that an interview goes in both directions. Near the end, you will be invited to ask your own questions, so prepare two or three about the team, the technology, or how they support junior engineers. Questions about the salary can wait until later in the process. If you stay confident, curious, and clear, you will leave a strong and professional impression."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Thank you for the opportunity to interview for this role.", "ar": "شكرًا لكم على فرصة إجراء المقابلة لهذه الوظيفة." },
+          { "en": "Let me explain my approach before I start coding.", "ar": "دعوني أوضّح أسلوبي قبل أن أبدأ كتابة الكود." },
+          { "en": "That is a good question. Let me think for a moment.", "ar": "هذا سؤال جيّد، دعوني أفكّر للحظة." },
+          { "en": "One of my strengths is staying calm under pressure.", "ar": "من نقاط قوّتي أنني أبقى هادئة تحت الضغط." },
+          { "en": "Could you elaborate on what the team is working on now?", "ar": "هل يمكنكم التفصيل حول ما يعمل عليه الفريق حاليًا؟" },
+          { "en": "How do you support junior engineers who are still learning?", "ar": "كيف تدعمون المهندسين المبتدئين الذين لا يزالون يتعلّمون؟" }
+        ],
+        "comprehension": [
+          { "question": "According to the reading, what is the main goal of the first part of a technical interview?", "options": ["To trap the candidate with hard questions", "To understand how you think and how you fit the team", "To test your typing speed", "To offer you a salary immediately"], "correct": "To understand how you think and how you fit the team", "explanation_ar": "الجزء الأول يهدف لفهم طريقة تفكيركِ ومدى ملاءمتكِ للفريق، لا لإيقاعكِ في الخطأ." },
+          { "question": "What 'secret' do experienced candidates use when solving a problem?", "options": ["They stay completely silent", "They explain their reasoning out loud", "They write the code as fast as possible", "They ask the interviewer for the answer"], "correct": "They explain their reasoning out loud", "explanation_ar": "شرح طريقة التفكير بصوت مسموع أهم أحيانًا من الوصول لإجابة مثالية." },
+          { "question": "What is an acceptable thing to say if you need a moment to think?", "options": ["I don't want to answer that", "Let's talk about the salary instead", "That is a good question, let me think for a moment", "This interview is too hard"], "correct": "That is a good question, let me think for a moment", "explanation_ar": "طلب لحظة للتفكير بهدوء وأمانة يترك انطباعًا أفضل من ادّعاء معرفة كل شيء." },
+          { "question": "What is a 'follow-up question'?", "options": ["A question you email after the interview", "The first question of the interview", "A second question that goes deeper into your answer", "A question about the office address"], "correct": "A second question that goes deeper into your answer", "explanation_ar": "سؤال المتابعة يتعمّق في إجابتكِ السابقة ليختبر فهمكِ." },
+          { "question": "When is it best to ask about the salary?", "options": ["In the very first minute", "Later in the process, not at the start", "Never, it is forbidden", "Before you send your CV"], "correct": "Later in the process, not at the start", "explanation_ar": "أسئلة الراتب تُترك لمرحلة لاحقة من العملية، لا في بدايتها." },
+          { "question": "Why does the reading say an interview 'goes in both directions'?", "options": ["Because you also get to ask your own questions", "Because you must answer twice", "Because the room has two doors", "Because two candidates attend together"], "correct": "Because you also get to ask your own questions", "explanation_ar": "المقابلة تبادلية: قرب النهاية تُتاح لكِ فرصة طرح أسئلتكِ الخاصة." }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Imagine you are in a technical interview. Speak for 30–60 seconds answering: 'Tell me about a project you are proud of, and explain how you built it.'",
+          "prompt_ar": "تخيّلي أنكِ في مقابلة تقنية. تحدّثي لمدة ٣٠–٦٠ ثانية للإجابة عن: «حدّثيني عن مشروع تفخرين به، ووضّحي كيف بنيتِه».",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل approach وconfident وexplain your reasoning، ووضّحي خطواتكِ بهدوء."
+        }
+      }
+    },
+    {
+      "slug": "emails-and-docs",
+      "sort_order": 3,
+      "title_en": "Emails and Docs",
+      "title_ar": "الرسائل والتوثيق التقني",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "في العمل التقني، الكتابة الواضحة لا تقلّ أهمية عن الكود نفسه. ستكتبين رسائل بريد لزملائكِ، وتقارير عن الأخطاء، وتوثيقًا يشرح كيف يعمل مشروعكِ. في هذا الدرس ستتعلّمين كيف تكتبين رسالة مهنية مهذّبة، وتقرير خطأ واضحًا، وتوثيقًا يفهمه أي شخص يقرؤه بعدكِ.",
+        "vocab": [
+          { "word": "recipient", "ipa": "/rɪˈsɪpiənt/", "meaning_ar": "المُستَلِم", "meaning_en": "the person who receives your email or message", "example": "Always write a clear subject line for the recipient." },
+          { "word": "subject line", "ipa": null, "meaning_ar": "سطر الموضوع", "meaning_en": "the short title at the top of an email that says what it is about", "example": "A good subject line summarises the whole email in a few words." },
+          { "word": "attachment", "ipa": "/əˈtætʃmənt/", "meaning_ar": "المُرفَق", "meaning_en": "a file that you send together with an email", "example": "Please find the report in the attachment." },
+          { "word": "documentation", "ipa": "/ˌdɒkjumenˈteɪʃən/", "meaning_ar": "التوثيق", "meaning_en": "written text that explains how software works or how to use it", "example": "Good documentation helps new developers start quickly." },
+          { "word": "bug report", "ipa": null, "meaning_ar": "تقرير الخطأ", "meaning_en": "a message that describes a problem in the software", "example": "Her bug report explained exactly how to reproduce the error." },
+          { "word": "reproduce", "ipa": "/ˌriːprəˈdjuːs/", "meaning_ar": "إعادة إظهار الخطأ", "meaning_en": "to make a problem happen again so others can see it", "example": "Write the steps so the team can reproduce the bug." },
+          { "word": "concise", "ipa": "/kənˈsaɪs/", "meaning_ar": "موجز / مختصر", "meaning_en": "short and clear, with no extra words", "example": "Keep your messages concise and easy to read." },
+          { "word": "tone", "ipa": "/təʊn/", "meaning_ar": "النبرة / أسلوب الخطاب", "meaning_en": "the feeling your words give, for example polite or friendly", "example": "Keep a polite and professional tone in work emails." },
+          { "word": "follow up", "ipa": null, "meaning_ar": "المتابعة", "meaning_en": "to send a reminder or check on something later", "example": "I will follow up next week if I do not hear back." },
+          { "word": "instructions", "ipa": "/ɪnˈstrʌkʃənz/", "meaning_ar": "التعليمات", "meaning_en": "clear steps that tell someone how to do something", "example": "The README gives step-by-step instructions for setup." },
+          { "word": "regards", "ipa": "/rɪˈɡɑːdz/", "meaning_ar": "تحيّاتي (خِتام مهذّب)", "meaning_en": "a polite word used to close a formal email", "example": "She ended the email with 'Kind regards, Atyaf'." },
+          { "word": "clarify", "ipa": "/ˈklærɪfaɪ/", "meaning_ar": "يُوضّح", "meaning_en": "to make something easier to understand", "example": "Could you clarify which file the error is in?" }
+        ],
+        "reading": {
+          "title_en": "Writing Clearly at Work",
+          "title_ar": "الكتابة الواضحة في بيئة العمل",
+          "paragraphs": [
+            "In a software team, you write almost every day, and clear writing saves everyone time. A professional email usually starts with a short subject line that tells the recipient what the message is about. Then you greet the person, write two or three concise sentences, and end with a polite closing such as 'Kind regards'. If you are sending a file, mention the attachment so the reader knows to open it.",
+            "One of the most common things you will write is a bug report. A good bug report is calm and factual, not emotional. It describes what you expected, what actually happened, and the exact steps to reproduce the problem. When your teammates can reproduce a bug, they can fix it much faster, so clear steps are a real gift to the team.",
+            "Documentation is writing that explains how your software works. It might be a README file with setup instructions, or notes that describe what each part of the code does. Good documentation uses simple language and short sentences, because the reader is often busy or new to the project. Always imagine a future developer, maybe even yourself in six months, who has forgotten every detail.",
+            "Across all of these, tone and clarity matter most. Be polite, stay concise, and clarify anything unclear. If you do not get an answer, it is normal to follow up politely after a few days. Strong written communication makes people trust you, and in technology that trust is as valuable as your code."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Please find the report attached to this email.", "ar": "تجدون التقرير مُرفقًا بهذه الرسالة." },
+          { "en": "Could you clarify which part of the code causes the error?", "ar": "هل يمكنكم توضيح أيّ جزء من الكود يسبّب الخطأ؟" },
+          { "en": "To reproduce the bug, follow these steps.", "ar": "لإعادة إظهار الخطأ، اتبعوا هذه الخطوات." },
+          { "en": "I just wanted to follow up on my previous message.", "ar": "أردتُ فقط المتابعة بخصوص رسالتي السابقة." },
+          { "en": "Thank you for your time and help.", "ar": "شكرًا لكم على وقتكم ومساعدتكم." },
+          { "en": "Kind regards, Atyaf.", "ar": "مع خالص التحيّة، أطياف." }
+        ],
+        "comprehension": [
+          { "question": "What should a professional email usually start with?", "options": ["A long story", "A short subject line that says what the email is about", "The word 'Regards'", "An attachment only"], "correct": "A short subject line that says what the email is about", "explanation_ar": "الرسالة المهنية تبدأ بسطر موضوع قصير يوضّح مضمونها للمُستَلِم." },
+          { "question": "What does a good bug report describe?", "options": ["Your feelings about the software", "Only the name of the developer", "What you expected, what happened, and the steps to reproduce it", "The price of the software"], "correct": "What you expected, what happened, and the steps to reproduce it", "explanation_ar": "تقرير الخطأ الجيّد يذكر المتوقّع، وما حدث فعلًا، وخطوات إعادة إظهار المشكلة." },
+          { "question": "Why is it helpful when teammates can reproduce a bug?", "options": ["Because they can fix it much faster", "Because it makes the code longer", "Because it deletes the error automatically", "Because it is required by law"], "correct": "Because they can fix it much faster", "explanation_ar": "عندما يستطيع الفريق إعادة إظهار الخطأ، يصبح إصلاحه أسرع بكثير." },
+          { "question": "What is documentation?", "options": ["A private email to your manager", "Writing that explains how the software works", "A photo of the team", "A list of salaries"], "correct": "Writing that explains how the software works", "explanation_ar": "التوثيق نصّ يشرح كيف يعمل البرنامج وكيفية استخدامه." },
+          { "question": "Why should documentation use simple language and short sentences?", "options": ["Because long words are not allowed in English", "Because the reader is often busy or new to the project", "Because computers cannot read long words", "Because it must fit on one line"], "correct": "Because the reader is often busy or new to the project", "explanation_ar": "القارئ غالبًا مشغول أو جديد على المشروع، فاللغة البسيطة تسهّل عليه الفهم." },
+          { "question": "According to the reading, what is normal to do if you do not get an answer?", "options": ["Send an angry message", "Give up on the project", "Follow up politely after a few days", "Call the person many times at night"], "correct": "Follow up politely after a few days", "explanation_ar": "من الطبيعي المتابعة بأدب بعد بضعة أيام إن لم يصلكِ ردّ." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short, professional email (4–6 sentences) to a teammate reporting a small bug in your project. Include a subject line, describe the problem, and give one step to reproduce it.",
+          "prompt_ar": "اكتبي رسالة بريد مهنية قصيرة (٤–٦ جُمل) لزميل في الفريق تبلّغينه فيها عن خطأ بسيط في مشروعكِ. أضيفي سطر موضوع، وصِفي المشكلة، واذكري خطوة واحدة لإعادة إظهارها.",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس مثل bug report وreproduce وconcise، واختمي بنبرة مهذّبة مثل «Kind regards»."
+        }
+      }
+    }
+  ]
+}

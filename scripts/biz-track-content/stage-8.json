@@ -1,0 +1,559 @@
+{
+  "stage": {
+    "slug": "growing-the-business",
+    "sort_order": 8,
+    "title_en": "Growing the Business",
+    "title_ar": "تنمية الأعمال والتسويق",
+    "subtitle_ar": "ورشتك تعمل بإتقان — الآن حان وقت أن يعرفك الناس ويعودوا إليك: تسويق ذكي، حضور في وسائل التواصل، وعملاء أوفياء.",
+    "cefr": "B2",
+    "accent": "#f472b6",
+    "icon": "TrendingUp"
+  },
+  "lessons": [
+    {
+      "slug": "marketing-basics",
+      "sort_order": 1,
+      "title_en": "Marketing Basics",
+      "title_ar": "أساسيات التسويق",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "التسويق ليس رفاهية للشركات الكبيرة، بل هو الطريقة التي يعرف بها الناس ورشتك ومعرضك. في هذا الدرس تتعلّم المصطلحات الأساسية للتسويق بالإنجليزية: العلامة التجارية، العروض، الخصومات، والعميل المستهدف. ستخرج قادرًا على وصف عرضك القادم بجملة إنجليزية واضحة تجذب العميل.",
+        "vocab": [
+          {
+            "word": "marketing",
+            "ipa": "/ˈmɑːrkɪtɪŋ/",
+            "meaning_ar": "التسويق",
+            "meaning_en": "the work of telling people about your business and its services",
+            "example": "Good marketing brings new customers to the workshop."
+          },
+          {
+            "word": "customer",
+            "ipa": "/ˈkʌstəmər/",
+            "meaning_ar": "عميل",
+            "meaning_en": "a person who buys your products or services",
+            "example": "This customer brings his car to us every three months."
+          },
+          {
+            "word": "brand",
+            "ipa": "/brænd/",
+            "meaning_ar": "علامة تجارية",
+            "meaning_en": "the name and image of your business that people remember",
+            "example": "Our brand is known for honest work."
+          },
+          {
+            "word": "advertise",
+            "ipa": "/ˈædvərtaɪz/",
+            "meaning_ar": "يُعلن",
+            "meaning_en": "to tell people about your business, for example online or on signs",
+            "example": "We advertise our services in the industrial area."
+          },
+          {
+            "word": "target",
+            "ipa": "/ˈtɑːrɡɪt/",
+            "meaning_ar": "العميل المستهدف / يستهدف",
+            "meaning_en": "the specific group of customers you want to reach",
+            "example": "Our target is companies with delivery vans."
+          },
+          {
+            "word": "promotion",
+            "ipa": "/prəˈmoʊʃn/",
+            "meaning_ar": "عرض ترويجي",
+            "meaning_en": "a special deal to attract customers for a short time",
+            "example": "The promotion starts next Sunday."
+          },
+          {
+            "word": "discount",
+            "ipa": "/ˈdɪskaʊnt/",
+            "meaning_ar": "خصم",
+            "meaning_en": "money taken off the normal price",
+            "example": "New customers get a 50-riyal discount."
+          },
+          {
+            "word": "offer",
+            "ipa": "/ˈɔːfər/",
+            "meaning_ar": "عرض",
+            "meaning_en": "something special you give to customers, like a lower price",
+            "example": "This offer is valid until the end of the month."
+          },
+          {
+            "word": "campaign",
+            "ipa": "/kæmˈpeɪn/",
+            "meaning_ar": "حملة تسويقية",
+            "meaning_en": "a planned set of marketing activities with one goal",
+            "example": "Our summer campaign focuses on air-conditioning service."
+          },
+          {
+            "word": "reputation",
+            "ipa": "/ˌrepjuˈteɪʃn/",
+            "meaning_ar": "سمعة",
+            "meaning_en": "what people think and say about your business",
+            "example": "A good reputation takes years to build."
+          },
+          {
+            "word": "word of mouth",
+            "ipa": "/ˌwɜːrd əv ˈmaʊθ/",
+            "meaning_ar": "التوصية الشفهية بين الناس",
+            "meaning_en": "when customers tell other people about your business",
+            "example": "Most of our new customers come from word of mouth."
+          }
+        ],
+        "reading": {
+          "title_en": "Marketing for a Workshop: Where Do You Start?",
+          "title_ar": "التسويق للورشة: من أين تبدأ؟",
+          "paragraphs": [
+            "Many people think marketing is only for big companies with big budgets. This is not true. Marketing simply means understanding your customers and showing them why your business is the right choice. A workshop with excellent service but no marketing is like a shop with the lights off — the work is good, but nobody sees it.",
+            "Good marketing starts with a clear target. Who are your best customers? Maybe they are families with older cars, or companies with delivery vans. When you know your target, you can advertise in the right places and speak to the right people. A strong brand also helps: a clear name, a clean logo, and the same message everywhere. Over time, your brand becomes a promise that customers trust.",
+            "You do not always need a big budget. A simple promotion, like a 50-riyal discount on the first oil change, can bring new customers through the door. A special offer on regular maintenance keeps them coming back. But remember: the strongest marketing tool is still word of mouth. When a customer leaves your workshop happy, he tells his friends, and your reputation grows.",
+            "Finally, treat marketing as a plan, not an accident. Run one clear campaign each season, measure the results, and improve the next one. Marketing is not a cost — it is an investment in the future of your business."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "We have a special offer for new customers.",
+            "ar": "لدينا عرض خاص للعملاء الجدد."
+          },
+          {
+            "en": "You get a 50-riyal discount on your first visit.",
+            "ar": "تحصل على خصم ٥٠ ريالًا في زيارتك الأولى."
+          },
+          {
+            "en": "This offer is valid until the end of the month.",
+            "ar": "هذا العرض ساري حتى نهاية الشهر."
+          },
+          {
+            "en": "Our workshop is known for honest service.",
+            "ar": "ورشتنا معروفة بالخدمة الأمينة."
+          },
+          {
+            "en": "Most of our customers come to us by word of mouth.",
+            "ar": "معظم عملائنا يصلون إلينا بتوصية من الناس."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "According to the reading, what does marketing mean?",
+            "options": [
+              "Spending a big budget on advertisements",
+              "Understanding your customers and showing them why to choose you",
+              "Opening a second workshop",
+              "Lowering all your prices"
+            ],
+            "correct": "Understanding your customers and showing them why to choose you",
+            "explanation_ar": "التسويق في النص يعني فهم عملائك وإظهار سبب اختيارهم لعملك — وليس مجرد إنفاق مبالغ كبيرة على الإعلانات."
+          },
+          {
+            "question": "What example of a promotion is mentioned in the reading?",
+            "options": [
+              "A free car wash every day",
+              "A new delivery van",
+              "A 50-riyal discount on the first oil change",
+              "A bigger workshop sign"
+            ],
+            "correct": "A 50-riyal discount on the first oil change",
+            "explanation_ar": "المثال المذكور هو خصم ٥٠ ريالًا على أول تغيير زيت، لجذب عملاء جدد إلى الورشة."
+          },
+          {
+            "question": "What is described as the strongest marketing tool?",
+            "options": [
+              "Television advertisements",
+              "A clean logo",
+              "Seasonal campaigns",
+              "Word of mouth"
+            ],
+            "correct": "Word of mouth",
+            "explanation_ar": "يؤكد النص أن أقوى أداة تسويق هي التوصية الشفهية: العميل الراضي يخبر أصدقاءه فتنمو سمعتك."
+          },
+          {
+            "question": "What does a strong brand become over time?",
+            "options": [
+              "A promise that customers trust",
+              "A legal requirement",
+              "A type of discount",
+              "A second business"
+            ],
+            "correct": "A promise that customers trust",
+            "explanation_ar": "مع الوقت تتحول العلامة التجارية القوية إلى وعد يثق به العملاء، بفضل الاسم الواضح والرسالة الثابتة."
+          },
+          {
+            "question": "What should you do after running a campaign?",
+            "options": [
+              "Forget it and start a new business",
+              "Raise your prices immediately",
+              "Measure the results and improve",
+              "Close the workshop for a week"
+            ],
+            "correct": "Measure the results and improve",
+            "explanation_ar": "ينصح النص بالتعامل مع التسويق كخطة: نفّذ حملة واحدة واضحة، ثم قِس نتائجها وحسّن الحملة التالية."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences about a simple marketing plan for your business: who is your target customer, and what special offer will you give him?",
+          "prompt_ar": "اكتب ٤–٥ جُمل عن خطة تسويق بسيطة لعملك: من هو عميلك المستهدف؟ وما العرض الخاص الذي ستقدّمه له؟",
+          "guidance_ar": "استخدم ٣ كلمات على الأقل من كلمات الدرس، مثل: target، offer، discount."
+        }
+      }
+    },
+    {
+      "slug": "social-media",
+      "sort_order": 2,
+      "title_en": "Social Media Marketing",
+      "title_ar": "التسويق عبر وسائل التواصل",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "عملاؤك اليوم يبحثون عنك في جوالاتهم قبل أن يزوروك. في هذا الدرس تتعلّم لغة التسويق عبر وسائل التواصل بالإنجليزية: الحساب، المنشور، المتابعون، والتقييمات. حاول وأنت تقرأ أن تتخيّل حساب ورشتك — ماذا ستنشر فيه غدًا؟",
+        "vocab": [
+          {
+            "word": "social media",
+            "ipa": "/ˌsoʊʃl ˈmiːdiə/",
+            "meaning_ar": "وسائل التواصل الاجتماعي",
+            "meaning_en": "apps and websites where people share posts, photos, and videos",
+            "example": "Social media helps small businesses reach new customers."
+          },
+          {
+            "word": "account",
+            "ipa": "/əˈkaʊnt/",
+            "meaning_ar": "حساب",
+            "meaning_en": "your business page on a social media app",
+            "example": "Our workshop opened a business account last month."
+          },
+          {
+            "word": "profile",
+            "ipa": "/ˈproʊfaɪl/",
+            "meaning_ar": "الملف التعريفي",
+            "meaning_en": "the part of your account that shows your name, location, and hours",
+            "example": "Add your phone number to the profile."
+          },
+          {
+            "word": "post",
+            "ipa": "/poʊst/",
+            "meaning_ar": "منشور / ينشر",
+            "meaning_en": "a photo, video, or text you publish on your account",
+            "example": "This post about brake repair got many likes."
+          },
+          {
+            "word": "content",
+            "ipa": "/ˈkɑːntent/",
+            "meaning_ar": "محتوى",
+            "meaning_en": "the photos, videos, and words you share online",
+            "example": "Useful content builds trust with customers."
+          },
+          {
+            "word": "follower",
+            "ipa": "/ˈfɑːloʊər/",
+            "meaning_ar": "متابع",
+            "meaning_en": "a person who chooses to see your posts",
+            "example": "We have 800 followers on our account."
+          },
+          {
+            "word": "engagement",
+            "ipa": "/ɪnˈɡeɪdʒmənt/",
+            "meaning_ar": "تفاعل",
+            "meaning_en": "likes, comments, and shares from your followers",
+            "example": "Short videos usually get the highest engagement."
+          },
+          {
+            "word": "review",
+            "ipa": "/rɪˈvjuː/",
+            "meaning_ar": "تقييم",
+            "meaning_en": "a customer's public opinion about your business",
+            "example": "He wrote a five-star review after the repair."
+          },
+          {
+            "word": "reply",
+            "ipa": "/rɪˈplaɪ/",
+            "meaning_ar": "يرد / رد",
+            "meaning_en": "to answer a comment or message",
+            "example": "Always reply to questions within one day."
+          },
+          {
+            "word": "share",
+            "ipa": "/ʃer/",
+            "meaning_ar": "يشارك",
+            "meaning_en": "to send a post to other people",
+            "example": "Happy customers often share our posts."
+          }
+        ],
+        "reading": {
+          "title_en": "Your Workshop on Social Media",
+          "title_ar": "ورشتك على وسائل التواصل",
+          "paragraphs": [
+            "Today, most customers look at their phones before they visit a workshop. This is why social media is a powerful tool for your business. You do not need to be famous — you need a clear business account with a complete profile: your name, your location, your working hours, and a phone number that answers.",
+            "The secret is useful content. Post a short video that shows how your team fixes a common problem, or a before-and-after photo of a repaired car. This kind of post builds trust because people can see real work, not just words. You do not need to post every day; two or three good posts each week are enough.",
+            "Engagement matters more than numbers. An account with 500 real followers who ask questions and share your posts is worth more than 10,000 silent ones. When someone writes a comment, reply quickly and politely. When a customer leaves a good review, thank him. When the review is negative, stay calm and offer a solution — everyone is watching how you handle problems.",
+            "Finally, ask your happy customers to follow your account and share their experience. In Saudi Arabia, people trust the words of friends and family more than any advertisement. One honest review can bring you more business than an expensive campaign."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Follow us for weekly maintenance tips.",
+            "ar": "تابعنا لتصلك نصائح صيانة أسبوعية."
+          },
+          {
+            "en": "Thank you for your kind review!",
+            "ar": "شكرًا لتقييمك اللطيف!"
+          },
+          {
+            "en": "Send us a message and we will reply today.",
+            "ar": "أرسل لنا رسالة وسنرد عليك اليوم."
+          },
+          {
+            "en": "Watch this short video about brake care.",
+            "ar": "شاهد هذا الفيديو القصير عن العناية بالفرامل."
+          },
+          {
+            "en": "We are sorry about your experience — please call us so we can fix it.",
+            "ar": "نعتذر عن تجربتك — اتصل بنا حتى نصحح الأمر."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "What should a complete business profile include?",
+            "options": [
+              "Your name, location, working hours, and phone number",
+              "Only your prices",
+              "Photos of your family",
+              "A list of your suppliers"
+            ],
+            "correct": "Your name, location, working hours, and phone number",
+            "explanation_ar": "الملف التعريفي المكتمل يشمل الاسم والموقع وساعات العمل ورقم هاتف يُجيب فعلًا على العملاء."
+          },
+          {
+            "question": "How many posts each week does the reading suggest?",
+            "options": [
+              "One post every day",
+              "Two or three good posts",
+              "Ten short videos",
+              "No posts at all"
+            ],
+            "correct": "Two or three good posts",
+            "explanation_ar": "لا حاجة للنشر يوميًا؛ يكفي منشوران أو ثلاثة منشورات جيدة كل أسبوع."
+          },
+          {
+            "question": "According to the reading, which account is worth more?",
+            "options": [
+              "An account with 10,000 silent followers",
+              "An account that never posts",
+              "An account with 500 real followers who engage",
+              "An account with no profile information"
+            ],
+            "correct": "An account with 500 real followers who engage",
+            "explanation_ar": "التفاعل أهم من الأرقام: ٥٠٠ متابع حقيقي يسألون ويشاركون أفضل من ١٠ آلاف متابع صامت."
+          },
+          {
+            "question": "What should you do when you receive a negative review?",
+            "options": [
+              "Delete it immediately",
+              "Reply with an angry comment",
+              "Ignore it completely",
+              "Stay calm and offer a solution"
+            ],
+            "correct": "Stay calm and offer a solution",
+            "explanation_ar": "عند التقييم السلبي، ابقَ هادئًا وقدّم حلًا — فالجميع يراقب طريقة تعاملك مع المشكلات."
+          },
+          {
+            "question": "What do people in Saudi Arabia trust most, according to the reading?",
+            "options": [
+              "Expensive campaigns",
+              "The words of friends and family",
+              "Long advertisements",
+              "Famous accounts"
+            ],
+            "correct": "The words of friends and family",
+            "explanation_ar": "يذكر النص أن الناس في السعودية يثقون بكلام الأهل والأصدقاء أكثر من أي إعلان مدفوع."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Describe one post idea for your workshop's social media account: what will you show in it, and why will customers like it?",
+          "prompt_ar": "تحدّث عن فكرة منشور واحد لحساب ورشتك في وسائل التواصل: ماذا ستعرض فيه؟ ولماذا سيعجب العملاء؟",
+          "guidance_ar": "تحدّث لمدة ٣٠–٦٠ ثانية، واستخدم كلمات مثل: post، content، followers."
+        }
+      }
+    },
+    {
+      "slug": "keeping-customers",
+      "sort_order": 3,
+      "title_en": "Keeping Your Customers",
+      "title_ar": "كسب ولاء العملاء",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "كسب عميل جديد مكلف، أما العميل الذي يعود إليك في كل مرة فهو الكنز الحقيقي لعملك. في هذا الدرس تتعلّم بالإنجليزية كيف تبني ولاء العملاء: المتابعة بعد الخدمة، التذكير بمواعيد الصيانة، والتعامل الذكي مع الشكاوى. هذه المهارات تحوّل عميلًا غاضبًا إلى أوفى عملائك.",
+        "vocab": [
+          {
+            "word": "loyalty",
+            "ipa": "/ˈlɔɪəlti/",
+            "meaning_ar": "ولاء",
+            "meaning_en": "when a customer keeps choosing your business again and again",
+            "example": "Customer loyalty is worth more than any advertisement."
+          },
+          {
+            "word": "retention",
+            "ipa": "/rɪˈtenʃn/",
+            "meaning_ar": "الاحتفاظ بالعملاء",
+            "meaning_en": "keeping your current customers instead of losing them",
+            "example": "Retention costs less than finding new customers."
+          },
+          {
+            "word": "regular customer",
+            "ipa": "/ˈreɡjələr ˈkʌstəmər/",
+            "meaning_ar": "عميل دائم",
+            "meaning_en": "a customer who returns to your business many times",
+            "example": "As a regular customer, he gets a special price."
+          },
+          {
+            "word": "relationship",
+            "ipa": "/rɪˈleɪʃnʃɪp/",
+            "meaning_ar": "علاقة",
+            "meaning_en": "the connection between you and your customer over time",
+            "example": "A strong relationship is built on honesty."
+          },
+          {
+            "word": "trust",
+            "ipa": "/trʌst/",
+            "meaning_ar": "ثقة",
+            "meaning_en": "the feeling that your business is honest and reliable",
+            "example": "Trust grows when you keep your promises."
+          },
+          {
+            "word": "follow-up",
+            "ipa": "/ˈfɑːloʊ ʌp/",
+            "meaning_ar": "متابعة بعد الخدمة",
+            "meaning_en": "contacting the customer after the service to check everything is fine",
+            "example": "A quick follow-up call shows that you care."
+          },
+          {
+            "word": "reminder",
+            "ipa": "/rɪˈmaɪndər/",
+            "meaning_ar": "تذكير",
+            "meaning_en": "a message that tells the customer about the next service date",
+            "example": "We send a reminder when the oil change is due."
+          },
+          {
+            "word": "complaint",
+            "ipa": "/kəmˈpleɪnt/",
+            "meaning_ar": "شكوى",
+            "meaning_en": "when a customer says something is wrong with the service",
+            "example": "Handle every complaint quickly and politely."
+          },
+          {
+            "word": "feedback",
+            "ipa": "/ˈfiːdbæk/",
+            "meaning_ar": "ملاحظات العملاء",
+            "meaning_en": "opinions from customers about your service",
+            "example": "Customer feedback helps us improve our work."
+          },
+          {
+            "word": "reward",
+            "ipa": "/rɪˈwɔːrd/",
+            "meaning_ar": "مكافأة",
+            "meaning_en": "something you give a customer to thank him",
+            "example": "A free car wash is a small reward with a big effect."
+          },
+          {
+            "word": "exceed expectations",
+            "ipa": "/ɪkˈsiːd ˌekspekˈteɪʃnz/",
+            "meaning_ar": "يتجاوز التوقعات",
+            "meaning_en": "to give customers more than they expected",
+            "example": "When you exceed expectations, customers tell their friends."
+          }
+        ],
+        "reading": {
+          "title_en": "The Customer Who Comes Back",
+          "title_ar": "العميل الذي يعود",
+          "paragraphs": [
+            "Winning a new customer can cost five times more than keeping an existing one. That is why experienced business owners focus on retention as much as on marketing. A regular customer who returns every few months is worth far more than his first invoice suggests; over the years, his loyalty may be worth tens of thousands of riyals.",
+            "Loyalty is built on trust, and trust is built through small, consistent actions. Deliver the car when you promised. Explain the repair honestly, even when the news is expensive. If a part has not arrived, call the customer before he calls you. Every kept promise strengthens the relationship — and every broken one weakens it.",
+            "A simple follow-up leaves a strong impression. Two days after a major repair, send a short message: 'How is the car running?' Few workshops do this, so the ones that do are remembered. A polite service reminder works the same way: when the next oil change is due, it shows the customer that you care about his car, not only his money.",
+            "Finally, treat every complaint as a second chance, not as an attack. A customer who complains is giving you feedback and one more opportunity to keep him; the truly dangerous one is the customer who says nothing and never returns. Solve the problem quickly, add a small reward — a free wash or a discount — and an angry customer may become a loyal one. When you exceed expectations, your customers do your marketing for you."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "How is the car running after the repair?",
+            "ar": "كيف أداء السيارة بعد الإصلاح؟"
+          },
+          {
+            "en": "Your next service is due in two weeks.",
+            "ar": "موعد صيانتك القادمة بعد أسبوعين."
+          },
+          {
+            "en": "As a regular customer, you get a special discount.",
+            "ar": "بصفتك عميلًا دائمًا، لك خصم خاص."
+          },
+          {
+            "en": "Thank you for your feedback — we will fix this today.",
+            "ar": "شكرًا على ملاحظاتك — سنعالج الأمر اليوم."
+          },
+          {
+            "en": "We really appreciate your loyalty.",
+            "ar": "نحن نقدّر ولاءك حقًا."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "How much more can winning a new customer cost, compared with keeping an existing one?",
+            "options": [
+              "Twice as much",
+              "Half as much",
+              "Five times more",
+              "Ten times more"
+            ],
+            "correct": "Five times more",
+            "explanation_ar": "يذكر النص أن كسب عميل جديد قد يكلّف خمسة أضعاف تكلفة الاحتفاظ بعميل حالي."
+          },
+          {
+            "question": "According to the reading, what is trust built through?",
+            "options": [
+              "Small, consistent actions",
+              "Expensive gifts",
+              "Long contracts",
+              "Low prices only"
+            ],
+            "correct": "Small, consistent actions",
+            "explanation_ar": "الثقة تُبنى من أفعال صغيرة ومنتظمة: تسليم السيارة في الموعد، والشرح الصادق، والاتصال قبل أن يتصل العميل."
+          },
+          {
+            "question": "What follow-up message does the reading suggest after a major repair?",
+            "options": [
+              "'Please pay your invoice.'",
+              "'How is the car running?'",
+              "'We are closed next week.'",
+              "'Do you want to buy a new car?'"
+            ],
+            "correct": "'How is the car running?'",
+            "explanation_ar": "بعد يومين من إصلاح كبير، أرسل رسالة قصيرة تسأل عن أداء السيارة — قلّة من الورش تفعل ذلك، لذا يتذكرها العميل."
+          },
+          {
+            "question": "Who is described as the truly dangerous customer?",
+            "options": [
+              "The one who complains loudly",
+              "The one who asks for a discount",
+              "The one who visits every week",
+              "The one who says nothing and never returns"
+            ],
+            "correct": "The one who says nothing and never returns",
+            "explanation_ar": "العميل الذي يشتكي يمنحك فرصة لإصلاح الخطأ، أما الخطر الحقيقي فهو العميل الصامت الذي يختفي بلا عودة."
+          },
+          {
+            "question": "What may turn an angry customer into a loyal one?",
+            "options": [
+              "Ignoring the complaint until it disappears",
+              "Solving the problem quickly and adding a small reward",
+              "Asking him to leave the workshop",
+              "Raising the price of the repair"
+            ],
+            "correct": "Solving the problem quickly and adding a small reward",
+            "explanation_ar": "حلّ المشكلة بسرعة مع مكافأة صغيرة — كغسيل مجاني أو خصم — قد يحوّل أكثر العملاء غضبًا إلى أكثرهم ولاءً."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 5–6 sentences about your plan to keep a good customer coming back: include one follow-up idea, one reminder idea, and one reward.",
+          "prompt_ar": "اكتب ٥–٦ جُمل عن خطتك للحفاظ على عميل مميّز: اذكر فكرة متابعة بعد الخدمة، وفكرة تذكير بالصيانة، ومكافأة واحدة.",
+          "guidance_ar": "استخدم ٤ كلمات على الأقل من كلمات الدرس، مثل: follow-up، reminder، reward، loyalty."
+        }
+      }
+    }
+  ]
+}

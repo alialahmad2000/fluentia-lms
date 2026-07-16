@@ -1,0 +1,177 @@
+{
+  "stage": {
+    "slug": "foundations",
+    "sort_order": 1,
+    "title_en": "Foundations",
+    "title_ar": "تأسيس التقنية",
+    "subtitle_ar": "خطوتكِ الأولى في عالم التقنية بالإنجليزية: الحاسوب، والبرنامج، والإنترنت بكلمات بسيطة وواثقة.",
+    "cefr": "A1",
+    "accent": "#38bdf8",
+    "icon": "Cpu"
+  },
+  "lessons": [
+    {
+      "slug": "what-is-a-computer",
+      "sort_order": 1,
+      "title_en": "What Is a Computer?",
+      "title_ar": "ما هو الحاسوب؟",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "الحاسوب هو أوّل أداة في رحلتكِ نحو تخصّص تقنية المعلومات، وفهمه بالإنجليزية يفتح لكِ أبواب هذا المجال. في هذا الدرس ستتعرّفين على أجزاء الحاسوب الأساسية وأسمائها الإنجليزية، وكيف يخزّن البيانات ويعمل بسرعة. لنبدأ من الأساس بثقة.",
+        "vocab": [
+          { "word": "computer", "ipa": "/kəmˈpjuːtər/", "meaning_ar": "حاسوب", "meaning_en": "a machine that stores and works with data", "example": "She uses a computer to write code." },
+          { "word": "screen", "ipa": "/skriːn/", "meaning_ar": "شاشة", "meaning_en": "the flat part where you see words and pictures", "example": "I read the words on the screen." },
+          { "word": "keyboard", "ipa": "/ˈkiːbɔːrd/", "meaning_ar": "لوحة المفاتيح", "meaning_en": "the part with keys for typing", "example": "I type my name on the keyboard." },
+          { "word": "mouse", "ipa": "/maʊs/", "meaning_ar": "الفأرة", "meaning_en": "a small tool to move and click", "example": "She moves the mouse with her hand." },
+          { "word": "data", "ipa": "/ˈdeɪtə/", "meaning_ar": "بيانات", "meaning_en": "facts, words, and numbers a computer keeps", "example": "The computer saves my data." },
+          { "word": "machine", "ipa": "/məˈʃiːn/", "meaning_ar": "آلة", "meaning_en": "a thing that does work for us", "example": "A computer is a fast machine." },
+          { "word": "hardware", "ipa": "/ˈhɑːrdwer/", "meaning_ar": "العتاد (المكوّنات المادّية)", "meaning_en": "the computer parts you can touch", "example": "The screen and keyboard are hardware." },
+          { "word": "button", "ipa": "/ˈbʌtn/", "meaning_ar": "زر", "meaning_en": "a small part you press", "example": "Press the button to turn it on." },
+          { "word": "store", "ipa": "/stɔːr/", "meaning_ar": "يُخزِّن", "meaning_en": "to keep something to use later", "example": "Computers store many files." },
+          { "word": "use", "ipa": "/juːz/", "meaning_ar": "يستخدم", "meaning_en": "to work with a thing", "example": "I use a computer every day." },
+          { "word": "fast", "ipa": "/fæst/", "meaning_ar": "سريع", "meaning_en": "working with great speed", "example": "A computer is very fast." },
+          { "word": "work", "ipa": "/wɜːrk/", "meaning_ar": "يعمل / يشتغل", "meaning_en": "to do a job", "example": "The computer works well." }
+        ],
+        "reading": {
+          "title_en": "What Is a Computer?",
+          "title_ar": "ما هو الحاسوب؟",
+          "paragraphs": [
+            "A computer is a machine. It helps people do many things. You can see a screen with words and pictures. You can touch a keyboard and a mouse. These parts are hardware. You can hold them in your hands. A computer is very fast and strong.",
+            "A computer can store data. Data is facts, words, and numbers. You use the keyboard to type words. You use the mouse to click and move. You press a button to turn on the computer.",
+            "People use computers every day. Students use a computer to study and to read. Programmers use a computer to write code. A computer can work fast, and it does not get tired. It is a helpful machine for your school and your future job."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Turn on the computer.", "ar": "شغّلي الحاسوب." },
+          { "en": "This is my keyboard.", "ar": "هذه لوحة مفاتيحي." },
+          { "en": "I use a computer every day.", "ar": "أستخدم الحاسوب كل يوم." },
+          { "en": "The computer stores my data.", "ar": "الحاسوب يخزّن بياناتي." },
+          { "en": "Click the mouse to open it.", "ar": "انقري بالفأرة لفتحه." },
+          { "en": "The screen shows words and pictures.", "ar": "الشاشة تعرض كلمات وصورًا." }
+        ],
+        "comprehension": [
+          { "question": "What is a computer?", "options": ["A kind of food", "A machine that does work", "A book", "A car"], "correct": "A machine that does work", "explanation_ar": "الحاسوب آلة تساعدنا على إنجاز الأعمال." },
+          { "question": "Which parts are hardware?", "options": ["The keyboard and the mouse", "Words and numbers", "Facts and data", "Dreams"], "correct": "The keyboard and the mouse", "explanation_ar": "العتاد هو الأجزاء التي يمكن لمسها مثل لوحة المفاتيح والفأرة." },
+          { "question": "What does a computer store?", "options": ["Water", "Food", "Data", "Air"], "correct": "Data", "explanation_ar": "الحاسوب يخزّن البيانات مثل الكلمات والأرقام." },
+          { "question": "How do you type words?", "options": ["With the screen", "With your feet", "With the button", "With the keyboard"], "correct": "With the keyboard", "explanation_ar": "نكتب الكلمات باستخدام لوحة المفاتيح." },
+          { "question": "How does a computer work?", "options": ["Slowly, and it gets tired", "Fast, and it does not get tired", "Only at night", "Only one time"], "correct": "Fast, and it does not get tired", "explanation_ar": "الحاسوب يعمل بسرعة ولا يتعب." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about the computer you use.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن الحاسوب الذي تستخدمينه.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: screen، keyboard، data."
+        }
+      }
+    },
+    {
+      "slug": "what-is-a-program",
+      "sort_order": 2,
+      "title_en": "What Is a Program?",
+      "title_ar": "ما هو البرنامج؟",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "خلف كل شاشة يعمل برنامج، وستكونين يومًا مَن يكتب هذه البرامج. في هذا الدرس ستفهمين ما هو البرنامج والكود والتطبيق بالإنجليزية، وكيف يتبع الحاسوب خطوات البرنامج. هذه الكلمات ستلازمكِ طوال دراستكِ ومهنتكِ.",
+        "vocab": [
+          { "word": "program", "ipa": "/ˈproʊɡræm/", "meaning_ar": "برنامج", "meaning_en": "a set of steps that tells a computer what to do", "example": "A program tells the computer what to do." },
+          { "word": "code", "ipa": "/koʊd/", "meaning_ar": "الكود / الشيفرة", "meaning_en": "the words a programmer writes for a computer", "example": "She writes code every day." },
+          { "word": "app", "ipa": "/æp/", "meaning_ar": "تطبيق", "meaning_en": "a small program on a phone or computer", "example": "I open the app to send a message." },
+          { "word": "programmer", "ipa": "/ˈproʊɡræmər/", "meaning_ar": "مبرمج / مبرمجة", "meaning_en": "a person who writes code", "example": "A programmer makes new programs." },
+          { "word": "software", "ipa": "/ˈsɔːftwer/", "meaning_ar": "البرمجيات", "meaning_en": "programs you use, not the parts you touch", "example": "Software runs on the computer." },
+          { "word": "open", "ipa": "/ˈoʊpən/", "meaning_ar": "يفتح", "meaning_en": "to start a program or file", "example": "Open the app to start." },
+          { "word": "run", "ipa": "/rʌn/", "meaning_ar": "يُشغِّل / يُنفِّذ", "meaning_en": "to make a program work", "example": "The computer runs the program." },
+          { "word": "step", "ipa": "/step/", "meaning_ar": "خطوة", "meaning_en": "one small action in a set of actions", "example": "A program has many steps." },
+          { "word": "instruction", "ipa": "/ɪnˈstrʌkʃən/", "meaning_ar": "تعليمة / أمر", "meaning_en": "one thing you tell the computer to do", "example": "The code gives the computer an instruction." },
+          { "word": "simple", "ipa": "/ˈsɪmpl/", "meaning_ar": "بسيط", "meaning_en": "easy, not hard", "example": "My first program is very simple." },
+          { "word": "write", "ipa": "/raɪt/", "meaning_ar": "يكتب", "meaning_en": "to make words or code", "example": "I write code to make an app." },
+          { "word": "task", "ipa": "/tæsk/", "meaning_ar": "مهمة", "meaning_en": "a job to do", "example": "A program can do a hard task fast." }
+        ],
+        "reading": {
+          "title_en": "What Is a Program?",
+          "title_ar": "ما هو البرنامج؟",
+          "paragraphs": [
+            "A program is a set of steps. It tells the computer what to do. A computer cannot think for you. It only follows the steps in the program, one by one. Each step is one instruction.",
+            "A programmer writes the program. She writes code with words and numbers. This code is software. You cannot touch software with your hands. You open it on the screen, and then the computer runs it for you.",
+            "An app is a small program. You use apps every day. One app plays music. One app sends a message. A good program is simple and fast. It can do a hard task in one second. Soon you will write your first program too. Writing code is fun to learn."
+          ]
+        },
+        "key_phrases": [
+          { "en": "A program tells the computer what to do.", "ar": "البرنامج يخبر الحاسوب بما يفعل." },
+          { "en": "I write code to make an app.", "ar": "أكتب الكود لأصنع تطبيقًا." },
+          { "en": "Open the app and run it.", "ar": "افتحي التطبيق وشغّليه." },
+          { "en": "This is my first program.", "ar": "هذا أوّل برنامج لي." },
+          { "en": "Software runs on the computer.", "ar": "البرمجيات تعمل على الحاسوب." },
+          { "en": "Each step is one instruction.", "ar": "كل خطوة هي تعليمة واحدة." }
+        ],
+        "comprehension": [
+          { "question": "What is a program?", "options": ["A set of steps for the computer", "A kind of screen", "A type of mouse", "A hard machine"], "correct": "A set of steps for the computer", "explanation_ar": "البرنامج مجموعة من الخطوات التي تخبر الحاسوب بما يفعل." },
+          { "question": "Who writes code?", "options": ["A cook", "A driver", "A programmer", "A doctor"], "correct": "A programmer", "explanation_ar": "المبرمج أو المبرمجة هو من يكتب الكود." },
+          { "question": "What is software?", "options": ["A part you can touch", "Programs you cannot touch", "A kind of keyboard", "A screen"], "correct": "Programs you cannot touch", "explanation_ar": "البرمجيات هي البرامج التي لا يمكن لمسها، بعكس العتاد." },
+          { "question": "What is an app?", "options": ["A big machine", "A small program", "A button", "A mouse"], "correct": "A small program", "explanation_ar": "التطبيق برنامج صغير نستخدمه على الهاتف أو الحاسوب." },
+          { "question": "What does the computer do with a program?", "options": ["It eats it", "It sleeps", "It runs it", "It breaks it"], "correct": "It runs it", "explanation_ar": "الحاسوب يشغّل البرنامج وينفّذ خطواته." }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Say 3–4 sentences: What is a program? Give one example of an app you use.",
+          "prompt_ar": "تحدّثي بـ ٣–٤ جُمل: ما هو البرنامج؟ واذكري مثالًا لتطبيق تستخدمينه.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: program، code، app."
+        }
+      }
+    },
+    {
+      "slug": "the-internet-basics",
+      "sort_order": 3,
+      "title_en": "The Internet Basics",
+      "title_ar": "أساسيات الإنترنت",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "الإنترنت هو النافذة التي يعمل عليها المبرمجون كل يوم، وإتقان مصطلحاته بالإنجليزية ضرورة في تخصّصكِ. في هذا الدرس ستتعلّمين كلمات الإنترنت والمتصفّح والموقع والرابط، وكيف نتّصل ونبحث ونرسل البريد. استعدّي لتصبح الإنجليزية التقنية لغتكِ اليومية.",
+        "vocab": [
+          { "word": "internet", "ipa": "/ˈɪntərnet/", "meaning_ar": "الإنترنت", "meaning_en": "a big network that joins computers around the world", "example": "The internet joins computers all over the world." },
+          { "word": "website", "ipa": "/ˈwebsaɪt/", "meaning_ar": "موقع إلكتروني", "meaning_en": "a place on the internet with pages", "example": "I visit a website to read the news." },
+          { "word": "browser", "ipa": "/ˈbraʊzər/", "meaning_ar": "متصفّح", "meaning_en": "a program to open websites", "example": "I open a browser to find a website." },
+          { "word": "network", "ipa": "/ˈnetwɜːrk/", "meaning_ar": "شبكة", "meaning_en": "computers that are joined together", "example": "A network joins many computers." },
+          { "word": "online", "ipa": "/ˌɒnˈlaɪn/", "meaning_ar": "متّصل بالإنترنت", "meaning_en": "connected to the internet", "example": "She is online every evening." },
+          { "word": "connect", "ipa": "/kəˈnekt/", "meaning_ar": "يتّصل / يربط", "meaning_en": "to join to something", "example": "I connect my phone to the internet." },
+          { "word": "link", "ipa": "/lɪŋk/", "meaning_ar": "رابط", "meaning_en": "a word or picture you click to go to a page", "example": "Click the link to open the page." },
+          { "word": "email", "ipa": "/ˈiːmeɪl/", "meaning_ar": "بريد إلكتروني", "meaning_en": "a message you send on the internet", "example": "I send an email to my teacher." },
+          { "word": "download", "ipa": "/ˌdaʊnˈloʊd/", "meaning_ar": "يُنزّل / يحمّل", "meaning_en": "to save a file from the internet", "example": "I download a file from the website." },
+          { "word": "search", "ipa": "/sɜːrtʃ/", "meaning_ar": "يبحث", "meaning_en": "to look for something", "example": "I search for an answer online." },
+          { "word": "page", "ipa": "/peɪdʒ/", "meaning_ar": "صفحة", "meaning_en": "one screen of a website", "example": "This website has many pages." },
+          { "word": "Wi-Fi", "ipa": "/ˈwaɪfaɪ/", "meaning_ar": "واي فاي", "meaning_en": "a way to connect to the internet with no wires", "example": "I use Wi-Fi at home." }
+        ],
+        "reading": {
+          "title_en": "The Internet",
+          "title_ar": "الإنترنت",
+          "paragraphs": [
+            "The internet is a very big network. It joins computers all over the world. When you connect to the internet, you are online. Many people use Wi-Fi at home to connect with no wires. The internet never sleeps.",
+            "You open a browser to use the internet. A browser is a program. It opens a website. A website has many pages. You click a link to go to a new page. You can search for words and find answers fast.",
+            "The internet helps you every day. You can send an email to a friend. You can download a file to your computer. Students learn online, and programmers find help online too. The internet is a big part of your future work. It brings the whole world to your screen."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Connect to the internet.", "ar": "اتّصلي بالإنترنت." },
+          { "en": "Open the browser and search.", "ar": "افتحي المتصفّح وابحثي." },
+          { "en": "Click the link to open the page.", "ar": "انقري على الرابط لفتح الصفحة." },
+          { "en": "I send an email to my teacher.", "ar": "أرسل بريدًا إلكترونيًا إلى معلّمتي." },
+          { "en": "I use Wi-Fi at home.", "ar": "أستخدم الواي فاي في البيت." },
+          { "en": "I download a file from the website.", "ar": "أُنزّل ملفًا من الموقع." }
+        ],
+        "comprehension": [
+          { "question": "What is the internet?", "options": ["A small book", "A big network of computers", "One website", "A keyboard"], "correct": "A big network of computers", "explanation_ar": "الإنترنت شبكة كبيرة تربط الحواسيب حول العالم." },
+          { "question": "What do you open to use the internet?", "options": ["A browser", "A door", "A window", "A box"], "correct": "A browser", "explanation_ar": "نفتح المتصفّح لتصفّح الإنترنت وفتح المواقع." },
+          { "question": "What do you click to go to a new page?", "options": ["A wire", "A key", "A link", "A wall"], "correct": "A link", "explanation_ar": "ننقر على الرابط للانتقال إلى صفحة جديدة." },
+          { "question": "What does \"online\" mean?", "options": ["Very old", "Connected to the internet", "Without power", "Broken"], "correct": "Connected to the internet", "explanation_ar": "كلمة online تعني «متّصل بالإنترنت»." },
+          { "question": "How can you connect with no wires?", "options": ["With Wi-Fi", "With a mouse", "With paper", "With a pen"], "correct": "With Wi-Fi", "explanation_ar": "نتّصل بالإنترنت بدون أسلاك باستخدام الواي فاي." },
+          { "question": "What can you send to a friend?", "options": ["A tree", "An email", "A mountain", "A cloud"], "correct": "An email", "explanation_ar": "يمكن إرسال بريد إلكتروني (email) إلى صديق عبر الإنترنت." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about how you use the internet.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن طريقة استخدامكِ للإنترنت.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: internet، website، browser."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "stage": {
+    "slug": "data-and-databases",
+    "sort_order": 5,
+    "title_en": "Data and Databases",
+    "title_ar": "البيانات وقواعد البيانات",
+    "subtitle_ar": "من فكرة بسيطة اسمها «البيانات» إلى جداولٍ منظّمة تسألينها فتُجيبكِ — هنا يبدأ قلب أي نظام برمجي.",
+    "cefr": "B1",
+    "accent": "#f5b942",
+    "icon": "Database"
+  },
+  "lessons": [
+    {
+      "slug": "what-is-data",
+      "sort_order": 1,
+      "title_en": "What Is Data?",
+      "title_ar": "ما هي البيانات؟",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "قبل أن نتحدّث عن قواعد البيانات، لازم نفهم البيانات نفسها. البيانات هي كل شيء نخزّنه: اسمكِ، عمركِ، الصور، والرسائل. في تخصّص الحاسب ستعملين مع البيانات كل يوم، لذلك تعلّمي كلماتها بالإنجليزية من الآن. في هذا الدرس ستعرفين ما البيانات، وكيف يحوّلها الحاسوب إلى معلومات مفيدة.",
+        "vocab": [
+          { "word": "data", "ipa": "/ˈdeɪtə/", "meaning_ar": "بيانات", "meaning_en": "facts, numbers, or text that a computer stores", "example": "The app saves your data on a server." },
+          { "word": "information", "ipa": "/ˌɪnfərˈmeɪʃən/", "meaning_ar": "معلومات", "meaning_en": "data that has meaning and is useful", "example": "The chart turns data into clear information." },
+          { "word": "number", "ipa": "/ˈnʌmbər/", "meaning_ar": "رقم", "meaning_en": "a value you can count or measure", "example": "Her age is a number." },
+          { "word": "text", "ipa": "/tekst/", "meaning_ar": "نص", "meaning_en": "letters and words, like a name or a message", "example": "A name is text, not a number." },
+          { "word": "store", "ipa": "/stɔːr/", "meaning_ar": "يُخزِّن", "meaning_en": "to keep data so you can use it later", "example": "Phones store photos and contacts." },
+          { "word": "value", "ipa": "/ˈvæljuː/", "meaning_ar": "قيمة", "meaning_en": "one piece of data, like 18 or \"Atyaf\"", "example": "The value of her age is 18." },
+          { "word": "digital", "ipa": "/ˈdɪdʒɪtl/", "meaning_ar": "رقمي", "meaning_en": "kept as numbers inside a computer", "example": "A digital photo is made of tiny dots." },
+          { "word": "collect", "ipa": "/kəˈlekt/", "meaning_ar": "يجمع", "meaning_en": "to gather data from people or devices", "example": "The website collects your email." },
+          { "word": "record", "ipa": "/ˈrekɔːrd/", "meaning_ar": "يُسجِّل / سِجِلّ", "meaning_en": "to write down data, or one set of data", "example": "The app records the time of each visit." },
+          { "word": "example", "ipa": "/ɪɡˈzæmpəl/", "meaning_ar": "مثال", "meaning_en": "one thing that shows what you mean", "example": "A phone number is an example of data." }
+        ],
+        "reading": {
+          "title_en": "Data Is Everywhere",
+          "title_ar": "البيانات في كل مكان",
+          "paragraphs": [
+            "Data is all around us. Your name, your age, and your photos are data. A phone number is data too. Every day, apps collect and store data about the things you do. Some data is text, like a name or a message. Some data is a number, like your age or the time.",
+            "But data alone is not always useful. When we give data meaning, it becomes information. For example, the number 18 is just a value. When we say \"Atyaf is 18 years old,\" it becomes information. Computers are very good at this. They store digital data and turn it into clear information for people to read.",
+            "This is why data is so important in technology. Every website and every app records data. It stores your messages, your files, and your photos. As a future computer scientist, you will work with data every day, so it is good to know these words early. Data is the start of everything you will build."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This is an example of data.", "ar": "هذا مثال على البيانات." },
+          { "en": "The app stores your data.", "ar": "التطبيق يخزّن بياناتكِ." },
+          { "en": "A name is text, and an age is a number.", "ar": "الاسم نص، والعمر رقم." },
+          { "en": "We turn data into information.", "ar": "نحوّل البيانات إلى معلومات." },
+          { "en": "The website collects your email.", "ar": "الموقع يجمع بريدكِ الإلكتروني." },
+          { "en": "Computers store digital data.", "ar": "الحواسيب تخزّن البيانات الرقمية." }
+        ],
+        "comprehension": [
+          { "question": "What is data?", "options": ["A kind of food", "Facts, numbers, or text that a computer stores", "A type of phone", "A game"], "correct": "Facts, numbers, or text that a computer stores", "explanation_ar": "البيانات هي الحقائق والأرقام والنصوص التي يخزّنها الحاسوب." },
+          { "question": "When does data become information?", "options": ["When it is deleted", "When we give it meaning", "When it is a number", "When we hide it"], "correct": "When we give it meaning", "explanation_ar": "تصبح البيانات معلومات عندما نمنحها معنى مفيدًا." },
+          { "question": "Which one is text, not a number?", "options": ["Your age", "The time", "A name", "The year"], "correct": "A name", "explanation_ar": "الاسم نص، بينما العمر والوقت والسنة أرقام." },
+          { "question": "What do apps do every day?", "options": ["They collect and store data", "They cook food", "They clean the house", "They stop the internet"], "correct": "They collect and store data", "explanation_ar": "التطبيقات تجمع البيانات وتخزّنها كل يوم." },
+          { "question": "According to the reading, why is data important in technology?", "options": ["Because it is heavy", "Because every website and app records data", "Because it is always a photo", "Because it is never stored"], "correct": "Because every website and app records data", "explanation_ar": "لأن كل موقع وكل تطبيق يسجّل البيانات، فهي أساس كل شيء." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about the data on your phone. What text and numbers does it store?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن البيانات الموجودة على جوّالكِ. ما النصوص والأرقام التي يخزّنها؟",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس مثل: data، store، number، text."
+        }
+      }
+    },
+    {
+      "slug": "tables-and-records",
+      "sort_order": 2,
+      "title_en": "Tables and Records",
+      "title_ar": "الجداول والسجلات",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "بعد أن عرفتِ ما البيانات، السؤال المهم هو: كيف نرتّبها؟ الجواب في معظم الأنظمة هو الجدول. الجدول يشبه الشبكة: صفوف وأعمدة، تمامًا كجدول في إكسل. في تخصّصكِ ستصمّمين جداول تخزّن آلاف السجلات بترتيب وأمان. في هذا الدرس ستتعلّمين أجزاء الجدول وكلماتها الإنجليزية التي يستخدمها كل مبرمج.",
+        "vocab": [
+          { "word": "database", "ipa": "/ˈdeɪtəbeɪs/", "meaning_ar": "قاعدة بيانات", "meaning_en": "an organised place where a system stores its data", "example": "The school keeps student marks in a database." },
+          { "word": "table", "ipa": "/ˈteɪbəl/", "meaning_ar": "جدول", "meaning_en": "data arranged in rows and columns", "example": "The students table holds one row per student." },
+          { "word": "row", "ipa": "/rəʊ/", "meaning_ar": "صف", "meaning_en": "a line across a table that holds one record", "example": "Each row is one student." },
+          { "word": "column", "ipa": "/ˈkɒləm/", "meaning_ar": "عمود", "meaning_en": "a line down a table for one kind of value", "example": "The email column holds every email." },
+          { "word": "record", "ipa": "/ˈrekɔːrd/", "meaning_ar": "سِجِلّ", "meaning_en": "all the data about one thing, stored in one row", "example": "Her record has her name, age, and email." },
+          { "word": "field", "ipa": "/fiːld/", "meaning_ar": "حقل", "meaning_en": "one value in a record, matching one column", "example": "The name field is empty for this record." },
+          { "word": "primary key", "ipa": "/ˈpraɪməri kiː/", "meaning_ar": "مفتاح أساسي", "meaning_en": "a unique value that names one record", "example": "The student ID is the primary key." },
+          { "word": "unique", "ipa": "/juːˈniːk/", "meaning_ar": "فريد / غير مكرَّر", "meaning_en": "not the same as any other; appears only once", "example": "Every ID must be unique." },
+          { "word": "type", "ipa": "/taɪp/", "meaning_ar": "نوع البيانات", "meaning_en": "the kind of data a column holds, like text or number", "example": "The age column has a number type." },
+          { "word": "design", "ipa": "/dɪˈzaɪn/", "meaning_ar": "يُصمِّم / تصميم", "meaning_en": "to plan how the tables and columns will look", "example": "Good design keeps data clean and clear." },
+          { "word": "relate", "ipa": "/rɪˈleɪt/", "meaning_ar": "يربط / يرتبط", "meaning_en": "to connect one table to another", "example": "We relate the orders table to the users table." },
+          { "word": "organise", "ipa": "/ˈɔːɡənaɪz/", "meaning_ar": "يُنظِّم", "meaning_en": "to arrange data in a clear, tidy way", "example": "Tables help you organise large amounts of data." }
+        ],
+        "reading": {
+          "title_en": "How a Database Stores Data",
+          "title_ar": "كيف تخزّن قاعدة البيانات البيانات",
+          "paragraphs": [
+            "When a company has a lot of data, it needs a good way to organise it. The most common way is a database made of tables. A table looks like a grid, with rows and columns. If you have used Excel, you already know the idea. Each column has a name, such as \"name,\" \"age,\" or \"email,\" and it holds one type of value.",
+            "Every row in a table is called a record. A record holds all the data about one thing — for example, one student. Each single value inside that record is a field. So Atyaf's record might have three fields: her name, her age, and her email. Because a table can store thousands of records, it must stay tidy and well designed.",
+            "There is one more important idea: the primary key. This is a special column that gives every record a unique value, so no two records are the same. A student ID is a good example, because each student has a different ID. Later, systems use these keys to relate one table to another. For instance, an \"orders\" table can point to a \"users\" table through the user's key. Learning to design clean tables is one of the first real skills of a computer scientist, and you will use it in almost every project you build."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Each row is one record.", "ar": "كل صف هو سِجِلّ واحد." },
+          { "en": "The column holds one type of value.", "ar": "العمود يحمل نوعًا واحدًا من القيم." },
+          { "en": "The primary key must be unique.", "ar": "يجب أن يكون المفتاح الأساسي فريدًا." },
+          { "en": "We store the data in a table.", "ar": "نخزّن البيانات في جدول." },
+          { "en": "This field is empty.", "ar": "هذا الحقل فارغ." },
+          { "en": "We relate one table to another.", "ar": "نربط جدولًا بآخر." }
+        ],
+        "comprehension": [
+          { "question": "What is a table made of?", "options": ["Rows and columns", "Only numbers", "Photos and videos", "One long line of text"], "correct": "Rows and columns", "explanation_ar": "الجدول مكوَّن من صفوف وأعمدة." },
+          { "question": "What do we call one row in a table?", "options": ["A column", "A record", "A key", "A type"], "correct": "A record", "explanation_ar": "الصف الواحد يُسمّى سِجِلًّا (record)." },
+          { "question": "What is a field?", "options": ["A whole table", "The name of the database", "One value inside a record", "A row of many students"], "correct": "One value inside a record", "explanation_ar": "الحقل هو قيمة واحدة داخل السِجِلّ، تقابل عمودًا واحدًا." },
+          { "question": "Why must a primary key be unique?", "options": ["So the table looks nice", "So it can be empty", "So it can hold photos", "So no two records are the same"], "correct": "So no two records are the same", "explanation_ar": "المفتاح الأساسي فريد كي لا يتشابه سِجِلّان، فيُميِّز كل سِجِلّ بمفرده." },
+          { "question": "What is a good example of a primary key?", "options": ["A student's favourite colour", "A student ID", "The word \"age\"", "An empty field"], "correct": "A student ID", "explanation_ar": "رقم الطالب مثال جيد لأن لكل طالب رقمًا مختلفًا." },
+          { "question": "How do systems connect two tables?", "options": ["By using keys to relate them", "By deleting one table", "By turning them into photos", "By making them empty"], "correct": "By using keys to relate them", "explanation_ar": "تستخدم الأنظمة المفاتيح لربط جدول بآخر." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Imagine a table for your favourite apps. Write 4–5 sentences: name three columns you would use, and describe one record in the table.",
+          "prompt_ar": "تخيّلي جدولًا لتطبيقاتكِ المفضّلة. اكتبي ٤–٥ جُمل: سمّي ثلاثة أعمدة ستستخدمينها، وصِفي سِجِلًّا واحدًا في الجدول.",
+          "guidance_ar": "استخدمي على الأقل أربع كلمات من الدرس مثل: table، row، column، record، field، primary key."
+        }
+      }
+    },
+    {
+      "slug": "queries",
+      "sort_order": 3,
+      "title_en": "Queries: Asking the Data",
+      "title_ar": "الاستعلامات: سؤال البيانات",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الآن لديكِ جداول مليئة بالبيانات، فكيف تجدين ما تريدينه بينها؟ عبر الاستعلام (query): سؤال تكتبينه للحاسوب فيعيد لكِ الإجابة من قاعدة البيانات. لغة هذه الأسئلة اسمها SQL، وهي من أهم المهارات في تخصّصكِ. في هذا الدرس ستفهمين فكرة الاستعلام وكلماته الإنجليزية الأساسية، وستقرئين مثالًا بسيطًا بلغة SQL.",
+        "vocab": [
+          { "word": "query", "ipa": "/ˈkwɪəri/", "meaning_ar": "استعلام", "meaning_en": "a question you ask a database to get data", "example": "This query returns all students in level B1." },
+          { "word": "SQL", "ipa": "/ˌes kjuː ˈel/", "meaning_ar": "لغة الاستعلام SQL", "meaning_en": "the common language for asking databases questions", "example": "Most databases understand SQL." },
+          { "word": "search", "ipa": "/sɜːtʃ/", "meaning_ar": "يبحث", "meaning_en": "to look through data to find something", "example": "You can search the table for one name." },
+          { "word": "select", "ipa": "/sɪˈlekt/", "meaning_ar": "يختار / يستعرض", "meaning_en": "the SQL word that chooses which columns to show", "example": "SELECT name FROM students." },
+          { "word": "filter", "ipa": "/ˈfɪltər/", "meaning_ar": "يُرشِّح / يُصفّي", "meaning_en": "to keep only the rows that match a rule", "example": "We filter the list to show only level B1." },
+          { "word": "result", "ipa": "/rɪˈzʌlt/", "meaning_ar": "نتيجة", "meaning_en": "the data that a query gives back to you", "example": "The result shows three rows." },
+          { "word": "condition", "ipa": "/kənˈdɪʃən/", "meaning_ar": "شرط", "meaning_en": "a rule that decides which rows to include", "example": "The condition is age > 17." },
+          { "word": "return", "ipa": "/rɪˈtɜːn/", "meaning_ar": "يُعيد / يُرجِع", "meaning_en": "to give data back as the answer", "example": "The query returns her email." },
+          { "word": "sort", "ipa": "/sɔːt/", "meaning_ar": "يُرتِّب", "meaning_en": "to put rows in order, such as A to Z", "example": "We sort the names from A to Z." },
+          { "word": "match", "ipa": "/mætʃ/", "meaning_ar": "يُطابق", "meaning_en": "to be the same as what you asked for", "example": "Only two rows match the condition." },
+          { "word": "update", "ipa": "/ˌʌpˈdeɪt/", "meaning_ar": "يُحدِّث", "meaning_en": "to change data that is already stored", "example": "We update her email to a new one." }
+        ],
+        "reading": {
+          "title_en": "Asking the Database a Question",
+          "title_ar": "أن تسألي قاعدة البيانات سؤالًا",
+          "paragraphs": [
+            "A database can hold millions of records, so you need a fast way to find the right ones. You do this with a query. A query is simply a question that you ask the database, and the database sends back an answer called the result. Instead of reading every row yourself, you let the computer search for you.",
+            "Most databases use a language called SQL to write these questions. SQL reads a little like English. For example, the query \"SELECT name FROM students WHERE level = 'B1'\" means: show me the name from the students table, but only for the rows where the level is B1. The word SELECT chooses the column, and the word WHERE adds a condition. The database then returns only the rows that match.",
+            "Queries can do much more than find data. You can filter a table to keep only the rows you want, and you can sort the result so the names appear from A to Z. You can also update a record when something changes, such as a new email address. Because almost every app talks to a database, writing clear queries is a skill you will use for your whole career. Start with small, simple questions, and soon you will ask big ones with ease."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This query returns three rows.", "ar": "هذا الاستعلام يُعيد ثلاثة صفوف." },
+          { "en": "The database sends back a result.", "ar": "قاعدة البيانات تُرجِع نتيجة." },
+          { "en": "We filter the rows by a condition.", "ar": "نُرشِّح الصفوف حسب شرط معيّن." },
+          { "en": "Sort the names from A to Z.", "ar": "رتّبي الأسماء من الألف إلى الياء." },
+          { "en": "Only two rows match the condition.", "ar": "صفّان فقط يطابقان الشرط." },
+          { "en": "We update the record with new data.", "ar": "نُحدِّث السِجِلّ ببيانات جديدة." }
+        ],
+        "comprehension": [
+          { "question": "What is a query?", "options": ["A kind of table", "A question you ask a database", "A photo of data", "An empty field"], "correct": "A question you ask a database", "explanation_ar": "الاستعلام هو سؤال تطرحينه على قاعدة البيانات لتحصلي على بيانات." },
+          { "question": "What language do most databases use for queries?", "options": ["SQL", "HTML", "Arabic only", "A photo file"], "correct": "SQL", "explanation_ar": "معظم قواعد البيانات تستخدم لغة SQL لكتابة الاستعلامات." },
+          { "question": "In the example, what does the word SELECT do?", "options": ["It deletes the table", "It closes the database", "It chooses which column to show", "It adds a new row"], "correct": "It chooses which column to show", "explanation_ar": "كلمة SELECT تختار الأعمدة التي ستظهر في النتيجة." },
+          { "question": "What does the WHERE part add to a query?", "options": ["A new table", "A condition that chooses rows", "A photo", "A primary key"], "correct": "A condition that chooses rows", "explanation_ar": "جزء WHERE يضيف شرطًا يحدّد الصفوف المطلوبة." },
+          { "question": "What do we call the data a query gives back?", "options": ["The column", "The design", "The field", "The result"], "correct": "The result", "explanation_ar": "البيانات التي يُعيدها الاستعلام تُسمّى النتيجة (result)." },
+          { "question": "Which of these can a query also do?", "options": ["Sort and update data", "Cook food", "Turn off the computer", "Delete the internet"], "correct": "Sort and update data", "explanation_ar": "الاستعلامات يمكنها أيضًا ترتيب البيانات وتحديثها." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "In simple English, describe a question you would ask a database of your favourite songs (for example, \"show all songs from 2024\"). Write 3–4 sentences explaining what the query would search for and what result you expect.",
+          "prompt_ar": "بالإنجليزية البسيطة، صِفي سؤالًا ستطرحينه على قاعدة بيانات لأغانيكِ المفضّلة (مثلًا: «أرِني كل الأغاني من عام ٢٠٢٤»). اكتبي ٣–٤ جُمل تشرحين ما الذي سيبحث عنه الاستعلام وما النتيجة المتوقّعة.",
+          "guidance_ar": "استخدمي على الأقل ثلاث كلمات من الدرس مثل: query، search، filter، result، condition، sort."
+        }
+      }
+    }
+  ]
+}

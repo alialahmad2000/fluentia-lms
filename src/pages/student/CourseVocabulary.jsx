@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Volume2, ChevronDown, GraduationCap, Rocket, Truck, HeartPulse, HeartHandshake, Briefcase, BookOpen, Code2, Cpu, Globe, Database, Library, Sparkles, Smile, HelpCircle } from 'lucide-react'
+import { Volume2, ChevronDown, GraduationCap, Rocket, Truck, HeartPulse, HeartHandshake, Briefcase, BookOpen, Code2, Cpu, Globe, Database, Library, Sparkles, Smile, HelpCircle, Car, Wrench, Banknote, TrendingUp } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useG } from '../../i18n/gender'
 import { supabase } from '../../lib/supabase'
@@ -29,6 +29,11 @@ const COURSE_CATALOG = [
   { source: 'uni:LIB-STORY', code: 'STORIES',   name_ar: 'قصص وحكايات',                 accent: '#fb7185', Icon: Sparkles },
   { source: 'uni:LIB-FEEL',  code: 'FEELINGS',  name_ar: 'مشاعر وشخصيات',               accent: '#eab308', Icon: Smile },
   { source: 'uni:LIB-ASK',   code: 'QUESTIONS', name_ar: 'أسئلة الطالبات',              accent: '#a78bfa', Icon: HelpCircle },
+  // Automotive-business collections (السيارات والصيانة والأعمال) — ظافر
+  { source: 'uni:AUTO-CARS', code: 'CARS',      name_ar: 'السيارة وأجزاؤها',            accent: '#38bdf8', Icon: Car },
+  { source: 'uni:AUTO-SHOP', code: 'WORKSHOP',  name_ar: 'الورشة والصيانة',             accent: '#34d399', Icon: Wrench },
+  { source: 'uni:BIZ-FIN',   code: 'FINANCE',   name_ar: 'المال والحسابات',             accent: '#4ade80', Icon: Banknote },
+  { source: 'uni:BIZ-GROW',  code: 'GROWTH',    name_ar: 'نمو الأعمال والعملاء',        accent: '#f59e0b', Icon: TrendingUp },
 ]
 
 const MASTERY = {
