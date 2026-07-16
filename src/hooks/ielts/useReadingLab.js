@@ -79,6 +79,36 @@ export function useRecentReadingSessions(studentId, limit = 10) {
   })
 }
 
+// All completed reading sessions for a student, reduced to a map keyed by the
+// passage id (source_id) → the student's BEST attempt on that passage. Powers
+// the sequential-path done-states and the answer-review screen.
+export function useCompletedReadingSessions(studentId) {
+  return useQuery({
+    queryKey: ['ielts-reading-sessions-map', studentId],
+    enabled: !!studentId,
+    staleTime: STALE,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_skill_sessions')
+        .select('source_id, band_score, correct_count, incorrect_count, completed_at, session_data')
+        .eq('student_id', studentId)
+        .eq('skill_type', 'reading')
+        .not('source_id', 'is', null)
+        .not('completed_at', 'is', null)
+        .order('completed_at', { ascending: false })
+      if (error) throw error
+      const byPassage = {}
+      for (const row of data || []) {
+        const key = row.source_id
+        const prev = byPassage[key]
+        // keep the highest band; ties → most recent (rows already sorted desc)
+        if (!prev || Number(row.band_score || 0) > Number(prev.band_score || 0)) byPassage[key] = row
+      }
+      return byPassage
+    },
+  })
+}
+
 // Passages for practice.
 // NOTE: passage questions have no 'type' field, so type filtering is not possible.
 // We return passages for any requested questionType — the session is tagged with

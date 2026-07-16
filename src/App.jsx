@@ -601,10 +601,14 @@ function RoleRedirect() {
 
 // ─── IELTS-first account bounce ──────────────────────────────
 // For students whose whole account is the IELTS world (students.uses_ielts_home),
-// the general student home is not their surface — send them into the Atelier.
+// the general student home is NOT their default surface — the Atelier is.
 // EXCEPTION: returning students with students.keep_academy_access keep BOTH —
-// IELTS is their landing (RoleRedirect), but their old curriculum/level stays
-// reachable at /student (a nav item in the Atelier links back). Nothing hidden.
+// IELTS is their landing, but their old curriculum/level stays reachable. To
+// keep IELTS the *true* default (even on a PWA resume or a stray tap), we still
+// bounce the /student index into the Atelier UNLESS they explicitly chose the
+// academy via the Atelier's «حسابي في الأكاديمية» nav item, which sets a
+// session-scoped intent flag. Their curriculum sub-pages (/student/curriculum…)
+// are never bounced, so nothing is hidden or locked.
 // Staff (incl. admins viewing directly) keep normal /student access.
 function IELTSHomeBounce({ children }) {
   const studentData = useAuthStore((s) => s.studentData)
@@ -612,8 +616,13 @@ function IELTSHomeBounce({ children }) {
   const loading = useAuthStore((s) => s.loading)
   if (loading) return null
   const isStaff = profile?.role === 'admin' || profile?.role === 'trainer'
-  if (!isStaff && studentData?.uses_ielts_home === true && studentData?.keep_academy_access !== true) {
-    return <Navigate to="/student/ielts-atelier" replace />
+  if (!isStaff && studentData?.uses_ielts_home === true) {
+    // keep_academy_access students who explicitly asked for the academy pass through.
+    let academyIntent = false
+    try { academyIntent = sessionStorage.getItem('fluentia_academy_intent') === '1' } catch { /* ignore */ }
+    if (!(studentData?.keep_academy_access === true && academyIntent)) {
+      return <Navigate to="/student/ielts-atelier" replace />
+    }
   }
   return children
 }

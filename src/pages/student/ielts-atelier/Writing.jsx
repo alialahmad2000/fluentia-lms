@@ -3,8 +3,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PenLine, ChevronLeft, RotateCcw, Loader2, CheckCircle, XCircle, AlertTriangle, Clock } from 'lucide-react'
-import { GalleryCard, MetaChip, LabHeader } from './_ui/primitives'
+import { PenLine, ChevronLeft, ChevronRight, RotateCcw, Loader2, CheckCircle, XCircle, AlertTriangle, Clock, BookOpen, GraduationCap, Dumbbell, Check, ArrowLeft } from 'lucide-react'
+import { GalleryCard, MetaChip, LabHeader, SectionHeader, Card, Icon } from './_ui/primitives'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { invokeWithRetry } from '@/lib/invokeWithRetry'
@@ -13,6 +13,8 @@ import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useG } from '@/i18n/gender'
 import { ExamShell } from './_ui/ExamShell'
+import Task1Figure from './_ui/Task1Figure'
+import writingCurriculum from '@/data/ielts/writing-curriculum.json'
 
 const WSANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 
@@ -320,6 +322,175 @@ function EvalSpinner({ attempt }) {
   )
 }
 
+// ─── Teach-first: lesson reader ────────────────────────────────────────────────
+
+const EN = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+
+function LessonReader({ lesson, onClose, onNext }) {
+  const [checked, setChecked] = useState({}) // sectionIdx → chosen option idx
+  if (!lesson) return null
+  return (
+    <div dir="rtl" style={{ maxWidth: 700, margin: '0 auto', paddingBottom: 90, display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <button onClick={onClose} style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 0, color: 'var(--iel-ink-3)', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>
+        <ArrowLeft size={15} /> رجوع
+      </button>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.08em', marginBottom: 6 }}>درس · {lesson.minutes} دقائق</div>
+        <h1 style={{ fontSize: 23, fontWeight: 800, color: 'var(--iel-ink)', margin: 0, lineHeight: 1.35 }}>{lesson.title}</h1>
+        {lesson.goal_ar && <p style={{ margin: '8px 0 0', fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>{lesson.goal_ar}</p>}
+      </div>
+
+      {lesson.sections.map((s, i) => {
+        if (s.kind === 'concept') return (
+          <Card key={i} style={{ padding: '18px 20px' }}>
+            {s.heading && <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', marginBottom: 10 }}>{s.heading}</div>}
+            {String(s.body_ar || '').split(/\n{2,}/).map((para, j) => (
+              <p key={j} style={{ margin: j === 0 ? 0 : '10px 0 0', fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.95 }}>{para}</p>
+            ))}
+          </Card>
+        )
+        if (s.kind === 'example') return (
+          <Card key={i} style={{ padding: '18px 20px' }}>
+            {s.heading && <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--iel-accent)', marginBottom: 10 }}>{s.heading}</div>}
+            <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14.5, color: 'var(--iel-ink)', lineHeight: 1.75, padding: '13px 15px', borderRadius: 10, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)' }}>{s.body_en}</div>
+            {s.note_ar && <p style={{ margin: '10px 0 0', fontSize: 13.5, color: 'var(--iel-ink-3)', lineHeight: 1.85 }}>{s.note_ar}</p>}
+          </Card>
+        )
+        if (s.kind === 'contrast') return (
+          <Card key={i} style={{ padding: '18px 20px' }}>
+            {s.heading && <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--iel-accent)', marginBottom: 12 }}>{s.heading}</div>}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.7, padding: '11px 14px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-bad) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-bad) 26%, transparent)' }}>
+                <span style={{ display: 'block', direction: 'rtl', fontFamily: "'Tajawal', sans-serif", fontSize: 11, fontWeight: 800, color: 'var(--iel-bad)', marginBottom: 5 }}>ضعيف · Band 5</span>{s.bad_en}
+              </div>
+              <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink)', lineHeight: 1.7, padding: '11px 14px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-good) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-good) 26%, transparent)' }}>
+                <span style={{ display: 'block', direction: 'rtl', fontFamily: "'Tajawal', sans-serif", fontSize: 11, fontWeight: 800, color: 'var(--iel-good)', marginBottom: 5 }}>قوي · Band 7+</span>{s.good_en}
+              </div>
+            </div>
+            {s.note_ar && <p style={{ margin: '11px 0 0', fontSize: 13.5, color: 'var(--iel-ink-3)', lineHeight: 1.85 }}>{s.note_ar}</p>}
+          </Card>
+        )
+        if (s.kind === 'tip') return (
+          <div key={i} style={{ padding: '13px 16px', borderRadius: 12, background: 'color-mix(in srgb, var(--iel-gold, #e6ba68) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-gold, #e6ba68) 28%, transparent)', display: 'flex', gap: 9, alignItems: 'flex-start' }}>
+            <span style={{ flex: 'none', color: 'var(--iel-gold-ink, var(--iel-gold, #e6ba68))', marginTop: 1 }}>✦</span>
+            <p style={{ margin: 0, fontSize: 13.5, color: 'var(--iel-ink)', lineHeight: 1.8, fontWeight: 600 }}>{s.body_ar}</p>
+          </div>
+        )
+        if (s.kind === 'check') {
+          const picked = checked[i]
+          return (
+            <Card key={i} focus style={{ padding: '18px 20px' }}>
+              <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--iel-accent)', marginBottom: 8 }}>تحقّقي من فهمك</div>
+              <p style={{ margin: '0 0 12px', fontSize: 14.5, fontWeight: 700, color: 'var(--iel-ink)', lineHeight: 1.7 }}>{s.question_ar}</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {s.options.map((opt, oi) => {
+                  const isPicked = picked === oi
+                  const reveal = picked != null
+                  const correct = oi === s.correct
+                  const bg = reveal ? (correct ? 'color-mix(in srgb, var(--iel-good) 12%, transparent)' : (isPicked ? 'color-mix(in srgb, var(--iel-bad) 10%, transparent)' : 'transparent')) : (isPicked ? 'var(--iel-accent-soft)' : 'transparent')
+                  const bd = reveal ? (correct ? 'var(--iel-good)' : (isPicked ? 'var(--iel-bad)' : 'var(--iel-border)')) : 'var(--iel-border)'
+                  return (
+                    <button key={oi} onClick={() => picked == null && setChecked((c) => ({ ...c, [i]: oi }))} disabled={picked != null}
+                      style={{ textAlign: 'start', padding: '10px 13px', borderRadius: 10, border: `1.5px solid ${bd}`, background: bg, cursor: picked == null ? 'pointer' : 'default', fontFamily: "'Tajawal', sans-serif", fontSize: 13.5, color: 'var(--iel-ink)', fontWeight: correct && reveal ? 700 : 500 }}>
+                      {opt}{reveal && correct ? ' ✓' : ''}
+                    </button>
+                  )
+                })}
+              </div>
+              {picked != null && s.why_ar && <p style={{ margin: '11px 0 0', fontSize: 13, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>{s.why_ar}</p>}
+            </Card>
+          )
+        }
+        return null
+      })}
+
+      <button onClick={onNext} className="iel-primary" style={{ marginTop: 6, padding: '13px', borderRadius: 12, border: 0, color: '#fff', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", background: 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+        أنهيت الدرس — التالي <ChevronLeft size={17} />
+      </button>
+    </div>
+  )
+}
+
+// ─── Teach-first: micro-drill runner (self-check vs a band-8 model) ─────────────
+
+function DrillRunner({ drill, onClose }) {
+  const [text, setText] = useState('')
+  const [revealed, setRevealed] = useState(false)
+  const [ticks, setTicks] = useState({})
+  if (!drill) return null
+  const wc = countWords(text)
+  const inRange = wc >= (drill.minWords || 0)
+  return (
+    <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 90, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <button onClick={onClose} style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 0, color: 'var(--iel-ink-3)', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>
+        <ArrowLeft size={15} /> رجوع
+      </button>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-accent)', letterSpacing: '.08em', marginBottom: 6 }}>تدريب · {drill.minutes} دقائق</div>
+        <h1 style={{ fontSize: 21, fontWeight: 800, color: 'var(--iel-ink)', margin: 0, lineHeight: 1.4 }}>{drill.title}</h1>
+        {drill.brief_ar && <p style={{ margin: '8px 0 0', fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.85 }}>{drill.brief_ar}</p>}
+      </div>
+
+      {/* Stimulus: chart (Task 1) / prompt / weak-sample-to-improve */}
+      {drill.taskRef && <Task1Figure taskId={drill.taskRef} />}
+      {drill.prompt_en && (
+        <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14.5, color: 'var(--iel-ink)', lineHeight: 1.75, padding: '14px 16px', borderRadius: 12, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', whiteSpace: 'pre-line' }}>{drill.prompt_en}</div>
+      )}
+      {drill.given_en && (
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-bad)', marginBottom: 6 }}>الفقرة الضعيفة — حسّنيها</div>
+          <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.7, padding: '12px 15px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-bad) 7%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-bad) 24%, transparent)' }}>{drill.given_en}</div>
+        </div>
+      )}
+
+      {/* Write */}
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--iel-ink-2)' }}>اكتبي هنا</span>
+          <span style={{ fontSize: 12, fontWeight: 800, fontFamily: "'IBM Plex Mono', monospace", color: inRange ? 'var(--iel-good)' : 'var(--iel-ink-3)' }}>{wc} / {drill.minWords}+ كلمة</span>
+        </div>
+        <textarea dir="ltr" value={text} onChange={(e) => setText(e.target.value)} placeholder="Start writing here…"
+          style={{ width: '100%', minHeight: 150, padding: '14px 16px', borderRadius: 12, resize: 'vertical', boxSizing: 'border-box', border: `1px solid ${text.length > 8 ? 'color-mix(in srgb, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`, background: 'var(--iel-surface)', color: 'var(--iel-ink)', fontSize: 15, fontFamily: EN, lineHeight: 1.7, outline: 'none' }} />
+      </div>
+
+      {!revealed ? (
+        <button onClick={() => setRevealed(true)} disabled={wc < 3} className={wc < 3 ? undefined : 'iel-primary'}
+          style={{ padding: '13px', borderRadius: 12, border: 0, color: wc < 3 ? 'var(--iel-ink-3)' : '#fff', fontSize: 15, fontWeight: 800, cursor: wc < 3 ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", background: wc < 3 ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))' }}>
+          قارني بالنموذج
+        </button>
+      ) : (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <Card style={{ padding: '18px 20px' }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--iel-good)', marginBottom: 10 }}>النموذج (Band 8)</div>
+            <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14.5, color: 'var(--iel-ink)', lineHeight: 1.8 }}>{drill.model_en}</div>
+            {drill.model_note_ar && <p style={{ margin: '12px 0 0', fontSize: 13.5, color: 'var(--iel-ink-2)', lineHeight: 1.85 }}>{drill.model_note_ar}</p>}
+          </Card>
+          {Array.isArray(drill.checklist_ar) && drill.checklist_ar.length > 0 && (
+            <Card style={{ padding: '18px 20px' }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--iel-accent)', marginBottom: 12 }}>راجعي كتابتك — هل حقّقتِ هذه؟</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+                {drill.checklist_ar.map((item, ci) => {
+                  const on = !!ticks[ci]
+                  return (
+                    <button key={ci} onClick={() => setTicks((t) => ({ ...t, [ci]: !t[ci] }))}
+                      style={{ display: 'flex', gap: 10, alignItems: 'flex-start', textAlign: 'start', padding: '9px 11px', borderRadius: 10, border: `1px solid ${on ? 'color-mix(in srgb, var(--iel-good) 40%, var(--iel-border))' : 'var(--iel-border)'}`, background: on ? 'color-mix(in srgb, var(--iel-good) 8%, transparent)' : 'transparent', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>
+                      <span style={{ flex: 'none', width: 20, height: 20, borderRadius: 6, marginTop: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `2px solid ${on ? 'var(--iel-good)' : 'var(--iel-ink-3)'}`, background: on ? 'var(--iel-good)' : 'transparent', color: '#fff' }}>{on && <Check size={13} strokeWidth={3} />}</span>
+                      <span style={{ fontSize: 13.5, color: 'var(--iel-ink)', lineHeight: 1.6 }}>{item}</span>
+                    </button>
+                  )
+                })}
+              </div>
+            </Card>
+          )}
+          <button onClick={onClose} style={{ padding: '12px', borderRadius: 12, border: '1px solid var(--iel-border)', background: 'var(--iel-surface-2)', color: 'var(--iel-ink)', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>
+            أنهيت التدريب
+          </button>
+        </motion.div>
+      )}
+    </div>
+  )
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function Writing() {
@@ -329,7 +500,10 @@ export default function Writing() {
   const qc = useQueryClient()
 
   // ── 1. useState ────────────────────────────────────────────────────────────
-  const [act, setAct]                     = useState('studio')
+  const [act, setAct]                     = useState('hub')
+  const [hubTask, setHubTask]             = useState('task2')       // teach-first tab
+  const [activeLesson, setActiveLesson]   = useState(null)
+  const [activeDrill, setActiveDrill]     = useState(null)
   const [mode, setMode]                   = useState('task2')
   const [selectedTask, setSelectedTask]   = useState(null)
   const [fullTab, setFullTab]             = useState('task1')
@@ -358,7 +532,8 @@ export default function Writing() {
   const currentDraft2Ref = useRef('')
 
   // ── 3. useQuery ───────────────────────────────────────────────────────────
-  const tasksQ   = usePublishedTasks(mode)
+  const tasksQ   = usePublishedTasks(hubTask)
+  const allTasksQ = usePublishedTasks('full') // no filter → both types (for the combined session)
   const recentQ  = useRecentSessions(studentId)
 
   // ── 4. useEffect ───────────────────────────────────────────────────────────
@@ -517,6 +692,7 @@ export default function Writing() {
   }
 
   function handleSelectTask(task) {
+    if (!task._full && task.task_type) setMode(task.task_type)
     setSelectedTask(task)
     setDraft('')
     setTask2Draft('')
@@ -537,6 +713,7 @@ export default function Writing() {
     const t1 = tasks.find(t => t.task_type === 'task1')
     const t2 = tasks.find(t => t.task_type === 'task2')
     if (!t1 || !t2) return
+    setMode('full')
     handleSelectTask({ task1: t1, task2: t2, _full: true })
     setFullTab('task1')
   }
@@ -544,7 +721,7 @@ export default function Writing() {
   function handleBackToStudio() {
     clearInterval(elapsedTimer.current)
     clearInterval(autoSaveTimer.current)
-    setAct('studio')
+    setAct('hub')
     setSelectedTask(null)
   }
 
@@ -558,93 +735,126 @@ export default function Writing() {
   const answeredEnough = mode === 'full' ? (wordCount > 10 || wordCount2 > 10) : wordCount > 10
 
   // ── ACT 1: STUDIO ──────────────────────────────────────────────────────────
-  if (act === 'studio') {
-    const tasks  = tasksQ.data || []
+  // ── ACT 1: LESSON READER ────────────────────────────────────────────────────
+  if (act === 'lesson' && activeLesson) {
+    const list = writingCurriculum[hubTask]?.lessons || []
+    const idx = list.findIndex((l) => l.id === activeLesson.id)
+    const next = idx >= 0 && idx < list.length - 1 ? list[idx + 1] : null
+    return <LessonReader lesson={activeLesson} onClose={() => { setActiveLesson(null); setAct('hub') }} onNext={() => { if (next) setActiveLesson(next); else { setActiveLesson(null); setAct('hub') } }} />
+  }
+
+  // ── ACT 1: DRILL RUNNER ─────────────────────────────────────────────────────
+  if (act === 'drill' && activeDrill) {
+    return <DrillRunner drill={activeDrill} onClose={() => { setActiveDrill(null); setAct('hub') }} />
+  }
+
+  // ── ACT 1: HUB (teach-first) ────────────────────────────────────────────────
+  if (act === 'hub') {
+    const tasks  = (tasksQ.data || [])
+    const allTasks = allTasksQ.data || []
     const recent = recentQ.data || []
     const bestBand = recent.length > 0
       ? Math.max(...recent.map(s => Number(s.band_score || 0)).filter(Boolean))
       : null
+    const cur = writingCurriculum[hubTask] || { lessons: [], drills: [] }
+    const doneBy = {}
+    for (const s of recent) if (s.source_id) doneBy[s.source_id] = doneBy[s.source_id] || s
 
     return (
-      <div dir="rtl" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 32 }}>
+      <div dir="rtl" style={{ maxWidth: 780, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* Header */}
         <LabHeader eyebrow="التدريب · الكتابة" title="الكتابة">
-          مهام كتابة IELTS حقيقية (Task 1 و Task 2). اختر مهمّة واكتب في بيئة الاختبار — عدّاد كلمات مباشر وتقييم ذكي مفصّل بالباند.
+          نتعلّم خطوة بخطوة قبل الاختبار: دروس قصيرة تشرح كل ما تحتاجينه، ثم تدريبات مصغّرة تتقنين فيها جزءاً واحداً، وأخيراً مهمة كاملة في بيئة الاختبار. هكذا تصلين إلى المهمة الكاملة وأنتِ واثقة.
         </LabHeader>
 
-        {/* Stats */}
         {recent.length > 0 && (
-          <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            style={{ display: 'flex', gap: 12 }}>
-            <StatCard label="جلسات مكتملة" value={recent.length} />
-            {bestBand != null && <StatCard label="أفضل Band" value={bestBand.toFixed(1)} accent="var(--sunset-orange)" />}
-          </motion.section>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <StatCard label="مهام مكتملة" value={recent.length} />
+            {bestBand != null && <StatCard label="أفضل Band" value={bestBand.toFixed(1)} accent="var(--iel-accent)" />}
+          </div>
         )}
 
-        {/* Mode selector */}
-        <motion.section initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <p style={{ margin: '0 0 10px', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>
-            {g('اختر الوضع', 'اختاري الوضع')}
-          </p>
-          <div style={{ display: 'flex', gap: 8 }}>
-            {['task1', 'task2', 'full'].map(m => (
-              <ModeButton key={m} mode={m} active={mode === m} onClick={() => setMode(m)} />
+        {/* Task-type tabs */}
+        <div style={{ display: 'flex', gap: 8, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 12, padding: 4 }}>
+          {[['task1', 'المهمة الأولى', 'رسم بياني / عملية / خريطة'], ['task2', 'المهمة الثانية', 'مقال رأي / نقاش']].map(([k, l, sub]) => (
+            <button key={k} onClick={() => setHubTask(k)} style={{ flex: 1, padding: '10px 12px', borderRadius: 9, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", border: 0, background: hubTask === k ? 'var(--iel-accent)' : 'transparent', color: hubTask === k ? '#fff' : 'var(--iel-ink-2)', transition: 'all .15s' }}>
+              <div style={{ fontSize: 13.5, fontWeight: 800 }}>{l}</div>
+              <div style={{ fontSize: 10.5, opacity: .85, marginTop: 2 }}>{sub}</div>
+            </button>
+          ))}
+        </div>
+
+        {/* PHASE 1 — تعلّم */}
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 12 }}>
+            <span style={{ display: 'flex', width: 30, height: 30, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><GraduationCap size={16} /></span>
+            <div><div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)' }}>١ · تعلّمي</div><div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 500 }}>دروس قصيرة تبني الأساس</div></div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 10 }}>
+            {cur.lessons.map((l, i) => (
+              <button key={l.id} onClick={() => { setActiveLesson(l); setAct('lesson') }} className="iel-gcard" style={{ textAlign: 'start', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.04em' }}>درس {i + 1}</span>
+                  <MetaChip icon={Clock}>{l.minutes} د</MetaChip>
+                </div>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.4 }}>{l.title}</div>
+                {l.goal_ar && <div style={{ fontSize: 12, color: 'var(--iel-ink-3)', lineHeight: 1.6, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{l.goal_ar}</div>}
+              </button>
             ))}
           </div>
-        </motion.section>
+        </div>
 
-        {/* Task grid / Full CTA */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-          {mode === 'full' ? (
-            <div style={{
-              padding: '24px 28px', borderRadius: 20,
-              border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)',
-              background: 'color-mix(in srgb, var(--sunset-base-mid) 42%, transparent)',
-              backdropFilter: 'blur(8px)', display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'right',
-            }}>
-              <p style={{ margin: 0, fontSize: 15, fontWeight: 800, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>
-                الجلسة الكاملة — ٦٠ دقيقة
-              </p>
-              <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7 }}>
-                المهمة الأولى (٢٠ دق، ١٥٠+ كلمة) + المهمة الثانية (٤٠ دق، ٢٥٠+ كلمة). كلا التقييمين يظهران في النهاية.
-              </p>
-              {tasksQ.isLoading ? (
-                <Loader2 size={18} color="var(--ds-text-muted)" style={{ animation: 'spin 1.2s linear infinite' }} />
-              ) : (
-                <motion.button
-                  whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-                  onClick={() => handleSelectFull(tasks)}
-                  disabled={tasks.filter(t => t.task_type === 'task1').length === 0 || tasks.filter(t => t.task_type === 'task2').length === 0}
-                  style={{
-                    padding: '14px 24px', borderRadius: 14,
-                    border: '1px solid color-mix(in srgb, var(--sunset-orange) 40%, transparent)',
-                    background: 'color-mix(in srgb, var(--sunset-orange) 16%, transparent)',
-                    color: 'var(--ds-text)', fontSize: 16, fontWeight: 900,
-                    fontFamily: "'Tajawal', sans-serif", cursor: 'pointer',
-                  }}
-                >
-                  ابدأ الجلسة الكاملة
-                </motion.button>
-              )}
-            </div>
-          ) : tasksQ.isLoading ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
-              {[1, 2, 3].map(i => (
-                <div key={i} style={{ height: 160, borderRadius: 18, background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 30%, transparent)' }} />
-              ))}
-            </div>
-          ) : tasks.length === 0 ? (
-            <div style={{ padding: '40px 24px', borderRadius: 20, background: 'color-mix(in srgb, var(--ds-surface) 40%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', textAlign: 'center' }}>
-              <PenLine size={32} color="var(--ds-text-muted)" style={{ marginBottom: 12 }} />
-              <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>لا توجد مهام لهذا الوضع حالياً</p>
+        {/* PHASE 2 — تدرّب */}
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 12 }}>
+            <span style={{ display: 'flex', width: 30, height: 30, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><Dumbbell size={16} /></span>
+            <div><div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)' }}>٢ · تدرّبي على أجزاء صغيرة</div><div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 500 }}>تمرين واحد قصير، ثم قارني بنموذج Band 8</div></div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 10 }}>
+            {cur.drills.map((d) => (
+              <button key={d.id} onClick={() => { setActiveDrill(d); setAct('drill') }} className="iel-gcard" style={{ textAlign: 'start', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--iel-gold-ink, var(--iel-gold, #e6ba68))', letterSpacing: '.04em' }}>تدريب</span>
+                  <MetaChip icon={Clock}>{d.minutes} د</MetaChip>
+                </div>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.4 }}>{d.title}</div>
+                {d.brief_ar && <div style={{ fontSize: 12, color: 'var(--iel-ink-3)', lineHeight: 1.6, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{d.brief_ar}</div>}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* PHASE 3 — المهمة الكاملة */}
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 12 }}>
+            <span style={{ display: 'flex', width: 30, height: 30, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><PenLine size={16} /></span>
+            <div><div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)' }}>٣ · اكتبي مهمة كاملة</div><div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 500 }}>في بيئة الاختبار، بتقييم مفصّل بالباند</div></div>
+          </div>
+          {tasksQ.isLoading ? (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
+              {[1, 2].map(i => <div key={i} style={{ height: 150, borderRadius: 16, background: 'color-mix(in srgb, var(--iel-surface-2) 60%, transparent)', border: '1px solid var(--iel-border)' }} />)}
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 14 }}>
-              {tasks.map(t => <TaskCard key={t.id} task={t} onSelect={handleSelectTask} />)}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
+              {tasks.map(t => (
+                <div key={t.id} style={{ position: 'relative' }}>
+                  <TaskCard task={t} onSelect={handleSelectTask} />
+                  {doneBy[t.id] && (
+                    <span style={{ position: 'absolute', top: 12, insetInlineStart: 14, display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 800, color: 'var(--iel-good)', background: 'color-mix(in srgb, var(--iel-good) 14%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-good) 32%, transparent)', padding: '2px 8px', borderRadius: 7 }}>
+                      <Check size={11} strokeWidth={3} /> {Number(doneBy[t.id].band_score).toFixed(1)}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
           )}
-        </motion.section>
+          {/* Full 60-min combined session */}
+          {allTasks.filter(t => t.task_type === 'task1').length > 0 && allTasks.filter(t => t.task_type === 'task2').length > 0 && (
+            <button onClick={() => handleSelectFull(allTasks)} style={{ marginTop: 12, width: '100%', padding: '13px', borderRadius: 12, border: '1px dashed var(--iel-border-strong, var(--iel-border))', background: 'var(--iel-surface-2)', color: 'var(--iel-ink)', fontSize: 13.5, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>
+              أو جرّبي الجلسة الكاملة (٦٠ دقيقة): المهمة الأولى + الثانية معاً
+            </button>
+          )}
+        </div>
       </div>
     )
   }
@@ -800,7 +1010,7 @@ export default function Writing() {
                 في طابور المراجعة
               </p>
               <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7, textAlign: 'right' }}>
-                تعذّر التقييم التلقائي بعد ٥ محاولات. تمّت حفظ مقالتك وستصلك النتيجة قريباً.
+                تعذّر التقييم الآن، لكن مقالتك محفوظة وستصلكِ نتيجتك قريباً.
               </p>
             </div>
           </motion.div>
@@ -822,10 +1032,10 @@ export default function Writing() {
         {/* Actions */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} style={{ display: 'flex', gap: 12 }}>
           <button
-            onClick={() => { setAct('studio'); setSelectedTask(null) }}
+            onClick={() => { setAct('hub'); setSelectedTask(null) }}
             style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 55%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
           >
-            الاستوديو
+            الكتابة
           </button>
           <button
             onClick={() => handleSelectTask(mode === 'full' ? selectedTask : selectedTask)}

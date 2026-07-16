@@ -49,7 +49,7 @@ export default function IELTSMasterclassLayout() {
     const b = skills?.[s]?.band
     return b != null ? Number(b).toFixed(1) : ''
   }
-  const name = profile?.display_name || profile?.full_name || 'طالب IELTS'
+  const name = profile?.display_name || profile?.full_name || 'طالبة IELTS'
   const target = plan?.target_band != null ? `الهدف · Band ${Number(plan.target_band).toFixed(1)}` : 'مسار IELTS'
 
   return (
@@ -84,7 +84,7 @@ export default function IELTSMasterclassLayout() {
           {studentData?.keep_academy_access === true && (
             <>
               <div className="iel-nav-label">حسابي في الأكاديمية</div>
-              <NavItem icon={Icon.home} label="منهجي ودروسي" onClick={() => navigate('/student')} />
+              <NavItem icon={Icon.home} label="منهجي ودروسي" onClick={() => { try { sessionStorage.setItem('fluentia_academy_intent', '1') } catch { /* ignore */ } navigate('/student') }} />
             </>
           )}
 

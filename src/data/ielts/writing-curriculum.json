@@ -1,0 +1,815 @@
+{
+  "task1": {
+    "lessons": [
+      {
+        "id": "t1-01",
+        "title": "شكل مهمة Task 1 والمعايير الأربعة وما يطلبه Band 7",
+        "minutes": 8,
+        "goal_ar": "بعد هذا الدرس ستعرفين بالضبط ماذا يطلبه ممتحن Task 1، وكيف تُوزَّع درجتك على المعايير الأربعة، وما الفرق العملي بين Band 5 وBand 7.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "ما هي مهمة Task 1؟",
+            "body_ar": "في القسم الأكاديمي، مهمة Task 1 تقرير قصير من 150 كلمة على الأقل، تصفين فيه معلومات بصرية: رسم أعمدة (bar chart)، أو منحنى (line graph)، أو دائرة (pie chart)، أو جدول (table)، أو عملية (process)، أو خريطة (map). عندك 20 دقيقة، وتساوي ثلث درجة الكتابة تقريبًا؛ لذلك لا تُطيلي فيها على حساب Task 2.\n\nمهمتك ليست الرأي ولا التحليل السببي، بل الوصف الأمين: ماذا تُظهر البيانات؟ ما أبرز ملامحها؟ لا تكتبي «هذا جيد» ولا «السبب هو…»، فالتفسير خارج المطلوب ويُنقص درجتك.\n\nاكتبي دائمًا فوق 150 كلمة (المثالي 170–190)؛ أقلّ من 150 يُخصم منك مباشرة. لكن لا تُبالغي فوق 200 كلمة؛ الوقت أثمن من الكلمات الزائدة."
+          },
+          {
+            "kind": "concept",
+            "heading": "المعايير الأربعة",
+            "body_ar": "تُقيَّم كتابتك على أربعة معايير متساوية الوزن، كل واحد 25%:\n\nTask Achievement: هل غطّيتِ المطلوب؟ هل فيه Overview واضح؟ هل الأرقام دقيقة؟\n\nCoherence and Cohesion: هل التقرير منظّم في فقرات منطقية ومترابط بأدوات ربط طبيعية؟\n\nLexical Resource: تنوّع مفردات الوصف (rise, surge, plummet) ودقّتها.\n\nGrammatical Range and Accuracy: تنوّع التراكيب وقلّة الأخطاء.\n\nنقطة حاسمة: لا يمكنك بلوغ Band 7 في Task Achievement بدون Overview صريح. هذه أكثر جملة يخسر فيها الطلاب الدرجة."
+          },
+          {
+            "kind": "contrast",
+            "heading": "الفرق بين Band 5 وBand 7",
+            "bad_en": "The graph shows information about sales. There are many numbers. In 2010 it was 20 and then it went up. Sales was high and then low. Overall there is a lot of change in the graph.",
+            "good_en": "The line graph illustrates changes in company sales between 2010 and 2020. Overall, sales rose substantially across the decade, with the most pronounced growth occurring after 2015, although there was a brief dip midway through the period.",
+            "note_ar": "النسخة الضعيفة مبهمة («many numbers»، «high and then low») وبلا Overview حقيقي. النسخة القوية تُعيد صياغة العنوان (illustrates changes)، وتعطي Overview صريحًا بعبارة Overall، وتختار أفعالًا دقيقة (rose substantially، pronounced growth). هذا هو الفرق الذي يراه الممتحن في السطر الأول."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "قبل أن تكتبي حرفًا، اسألي نفسك سؤالين: ما أعلى قيمة في الرسم؟ وما الاتجاه العام؟ جوابهما هو نواة الـ Overview، وهو أهم ما يرفعك إلى Band 7."
+          },
+          {
+            "kind": "check",
+            "question_ar": "ما الشيء الذي بدونه يستحيل بلوغ Band 7 في معيار Task Achievement؟",
+            "options": [
+              "استخدام كلمات صعبة ونادرة",
+              "كتابة Overview صريح يلخّص أبرز الملامح",
+              "ذكر أسباب تغيّر الأرقام"
+            ],
+            "correct": 1,
+            "why_ar": "الممتحن يبحث عن Overview واضح يلخّص الاتجاه العام؛ غيابه يسقف درجتك عند Band 5 مهما كانت مفرداتك. أمّا ذكر الأسباب فهو خارج المطلوب أصلًا."
+          }
+        ]
+      },
+      {
+        "id": "t1-02",
+        "title": "المقدمة — إعادة صياغة السؤال",
+        "minutes": 7,
+        "goal_ar": "ستكتبين مقدمة من جملة واحدة تُعيد صياغة عنوان السؤال بكلماتك دون نسخه حرفيًا، في أقلّ من دقيقة.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "وظيفة المقدمة",
+            "body_ar": "المقدمة في Task 1 جملة واحدة فقط: تُخبر القارئ ماذا يعرض الرسم. وظيفتها الوحيدة إعادة صياغة (paraphrase) السؤال المُعطى بكلماتك أنتِ. لا تنسخي عنوان السؤال حرفيًا؛ النسخ الحرفي لا يُحتسب ضمن عدد كلماتك وقد يُنقص Lexical Resource.\n\nثلاثة عناصر تُغيّرينها: نوع الرسم، والفعل، والمفردات. مثال: shows تصبح illustrates أو depicts أو presents، و«يُقارن» تصبح compares. واضبطي الزمن حسب التاريخ: بيانات ماضية تأخذ الماضي، وبيانات مستقبلية أو متوقّعة تأخذ will أو projected."
+          },
+          {
+            "kind": "example",
+            "heading": "مقدمة نموذجية",
+            "body_en": "The bar chart compares the average monthly rainfall in three cities — Cairo, London, and Tokyo — over the course of a calendar year.",
+            "note_ar": "لاحظي: shows أصبحت compares، وأُضيف تحديد دقيق (three cities، over the course of a calendar year). جملة واحدة كاملة، دقيقة، وبكلمات مختلفة عن السؤال."
+          },
+          {
+            "kind": "contrast",
+            "heading": "نسخ حرفي مقابل إعادة صياغة",
+            "bad_en": "The graph shows the number of cars sold in five countries from 2000 to 2010.",
+            "good_en": "The line graph illustrates how many cars were sold across five different countries during the eleven-year period from 2000 to 2010.",
+            "note_ar": "الأولى نسخة طبق الأصل من السؤال — لا تُضيف شيئًا وتُهدر فرصة إظهار لغتك. الثانية تُبدّل shows إلى illustrates، وnumber of cars sold إلى how many cars were sold، وتُحوّل الفترة إلى during the eleven-year period. نفس المعنى، لغة أرقى."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "احفظي بنك مرادفات للأفعال: shows = illustrates / depicts / presents / gives information about. وبنكًا لأنواع الرسوم: bar chart, line graph, pie chart, table, diagram, map. تبديل هذين وحدهما يصنع مقدمة قوية في ثوانٍ."
+          },
+          {
+            "kind": "check",
+            "question_ar": "لماذا يُنصح بعدم نسخ عنوان السؤال حرفيًا في المقدمة؟",
+            "options": [
+              "لأن النسخ ممنوع ويُلغى تقريرك",
+              "لأن الكلمات المنسوخة لا تُحتسب من عدد كلماتك ولا تُظهر مهارتك اللغوية",
+              "لأن المقدمة يجب أن تكون فقرتين"
+            ],
+            "correct": 1,
+            "why_ar": "النسخ ليس ممنوعًا يُلغي التقرير، لكن الممتحن يتجاهل الكلمات المنسوخة عند حساب الطول، والأهم أنها لا تُظهر Lexical Resource. إعادة الصياغة تُحقّق الهدفين معًا."
+          }
+        ]
+      },
+      {
+        "id": "t1-03",
+        "title": "الـ Overview — أهمّ جملتين في تقريرك",
+        "minutes": 8,
+        "goal_ar": "ستكتبين Overview من جملتين يلتقط أبرز اتجاهات البيانات دون أرقام، وهو المعيار الأول الذي يفصل Band 7 عن Band 5.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "ما هو الـ Overview ولماذا هو الأهمّ",
+            "body_ar": "الـ Overview فقرة قصيرة (جملة أو جملتان) تُلخّص أبرز ملامح البيانات دون تفاصيل رقمية. هو العنصر الأقوى تأثيرًا في درجتك: تقرير بلا Overview محكوم عليه بـ Band 5 مهما بلغت لغته.\n\nضعيه مباشرة بعد المقدمة، وابدئيه بكلمة صريحة مثل Overall أو In general. سؤاله المحوري: لو نظرتِ إلى الرسم من بعيد، ما القصة الكبرى؟ ما أعلى قيمة؟ ما الاتجاه العام؟ ما التغيّر الأكبر؟\n\nقاعدة ذهبية: لا أرقام في الـ Overview. الأرقام مكانها فقرات الجسم. الـ Overview للصورة الكبيرة فقط."
+          },
+          {
+            "kind": "example",
+            "heading": "Overview نموذجي (منحنى صاعد)",
+            "body_en": "Overall, it is clear that internet usage increased markedly in all four regions over the period, with the sharpest growth seen in Asia. Despite this general upward trend, Europe consistently maintained the highest usage rate throughout.",
+            "note_ar": "جملتان بلا رقم واحد. الأولى تُعطي الاتجاه العام (increased markedly in all regions) وتُبرز الأبرز (sharpest growth in Asia). الثانية تُضيف ملمحًا مقابلًا (Europe highest throughout). هذا يُظهر أنكِ فهمتِ الصورة كاملة."
+          },
+          {
+            "kind": "contrast",
+            "heading": "تفصيل مبكّر مقابل صورة كبيرة",
+            "bad_en": "Overall, in 2000 usage was 20% and in 2020 it was 85%, while Europe was 30% then 90%.",
+            "good_en": "Overall, usage climbed steadily across every region, yet the gap between the highest and lowest performers narrowed noticeably by the end of the period.",
+            "note_ar": "الأولى حشرت أرقامًا في الـ Overview — وهذا خطأ؛ الأرقام للجسم. الثانية ترسم الصورة الكبرى (climbed steadily، narrowed gap) دون رقم، وهذا بالضبط ما يطلبه المعيار."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "إن حِرتِ من أين تبدئين، اسألي: «ما القيمة الأعلى في الرسم كلّه؟» و«هل الاتجاه العام صعود أم هبوط أم تذبذب؟». جوابا هذين السؤالين يصنعان جملتَي Overview جاهزتين."
+          },
+          {
+            "kind": "check",
+            "question_ar": "أيّ العناصر التالية يجب أن يخلو منها الـ Overview؟",
+            "options": [
+              "كلمة مثل Overall في البداية",
+              "الأرقام والتفاصيل الدقيقة",
+              "ذكر الاتجاه الأعلى والأدنى"
+            ],
+            "correct": 1,
+            "why_ar": "الـ Overview للصورة الكبيرة: يبدأ بكلمة مثل Overall ويذكر الأعلى والأدنى والاتجاه العام، لكنه يخلو من الأرقام التي مكانها الطبيعي في فقرات الجسم."
+          }
+        ]
+      },
+      {
+        "id": "t1-04",
+        "title": "لغة الاتجاهات والأرقام",
+        "minutes": 9,
+        "goal_ar": "ستمتلكين مفردات دقيقة لوصف الصعود والهبوط والثبات والتذبذب، وطريقة صحيحة لعرض النسب والتقريب.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "أفعال الحركة ودرجاتها",
+            "body_ar": "لغة الاتجاهات تُبنى على ثنائية: فعل + ظرف يُحدّد شدّته. للصعود: rise, increase, climb, grow, surge, rocket. للهبوط: fall, decline, drop, decrease, plummet, plunge. للثبات: remain stable, level off, plateau. للتذبذب: fluctuate, oscillate.\n\nثم تُضيفين الشدّة عبر ظرف: rise sharply / dramatically / steeply للقوي، وrise steadily / gradually للمتوسّط، وrise slightly / marginally للخفيف. أو تُحوّلين الفعل إلى اسم: a sharp rise, a gradual decline, a slight fluctuation — وهذا التنوّع بين الصيغة الفعلية والاسمية يرفع Grammatical Range."
+          },
+          {
+            "kind": "concept",
+            "heading": "النسب والتقريب والمقارنة العددية",
+            "body_ar": "للأرقام لغة أنيقة أيضًا. بدل قول الرقم مجرّدًا، استخدمي التقريب: approximately, around, just over, just under, nearly, roughly. مثال: just under a fifth أرقى من 19%.\n\nللنِّسَب: a quarter, a third, half, two-thirds, the majority, a minority, a small fraction. وللمقارنة العددية: twice as high as, three times greater than, compared with. واحذري الخلط بين النسبة المئوية (30%) والعدد (30 million)؛ الخلط بينهما خطأ شائع يُنقص Task Achievement."
+          },
+          {
+            "kind": "example",
+            "heading": "فقرة تجمع اللغتين",
+            "body_en": "Sales of electric vehicles surged dramatically, climbing from just under 5,000 units in 2015 to roughly 40,000 by 2020 — an eightfold increase. Petrol-car sales, by contrast, fell steadily over the same period, dropping to approximately half of their initial level.",
+            "note_ar": "لاحظي المزج: أفعال متدرّجة (surged dramatically، fell steadily)، وتقريب أنيق (just under، roughly، approximately)، ومقارنة عددية (eightfold increase، half of their initial level). هذه فقرة جسم بمستوى Band 8."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "لا تُكرّري increase وdecrease في كل جملة. اجعلي لكل فقرة فعلين مختلفين على الأقل، وبدّلي بين الصيغة الفعلية (prices rose) والاسمية (a rise in prices) — التنوّع نفسه درجة."
+          },
+          {
+            "kind": "check",
+            "question_ar": "أيّ عبارة تصف هبوطًا حادًّا وسريعًا بدقة؟",
+            "options": [
+              "prices dropped slightly",
+              "prices plummeted",
+              "prices remained stable"
+            ],
+            "correct": 1,
+            "why_ar": "plummeted تعني هبوطًا حادًّا سريعًا. أمّا dropped slightly فهبوط خفيف، وremained stable ثبات — وكلاهما يُعطي معنى مغايرًا تمامًا."
+          }
+        ]
+      },
+      {
+        "id": "t1-05",
+        "title": "المقارنة والتجميع الذكي للبيانات",
+        "minutes": 9,
+        "goal_ar": "ستتعلّمين كيف تُجمّعين البيانات المتشابهة وتقارنين بينها بدل سردها رقمًا رقمًا، وهو ما يرفع Coherence وTask Achievement معًا.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "لماذا التجميع أذكى من السرد",
+            "body_ar": "أكثر خطأ يُبقي الطالبة في Band 5 هو «سرد الأرقام»: ذكر كل رقم على حِدة كأنكِ تقرئين الجدول بصوت عالٍ. الممتحن يريد أن يرى عقلًا يُنظّم، لا آلة تقرأ.\n\nالحلّ: التجميع (grouping). اجمعي العناصر المتشابهة في اتجاهها (كل ما يصعد معًا، كل ما يهبط معًا)، أو الأعلى مقابل الأدنى، أو الفئة الغالبة مقابل الأقلية. فقرتا جسم مبنيّتان على منطق أفضل من أربع فقرات تسرد أرقامًا."
+          },
+          {
+            "kind": "concept",
+            "heading": "لغة المقارنة",
+            "body_ar": "للمقارنة أدوات: while, whereas, compared with, in contrast, by comparison. وللتفضيل: the highest / lowest, significantly more than, far fewer than, roughly double. وللتشابه: similarly, likewise, both … and.\n\nمثال على التجميع: بدل ذكر خمس دول واحدة واحدة، قولي «بينما تصدّرت فرنسا وإيطاليا القائمة، بقيت اليونان والبرتغال في القاع». جملة واحدة نظّمت أربعة أرقام."
+          },
+          {
+            "kind": "contrast",
+            "heading": "سرد مقابل تجميع",
+            "bad_en": "France was 89 million. Turkey was 51 million. Thailand was 39 million. The UAE was 16 million. Saudi Arabia was 15 million.",
+            "good_en": "France attracted by far the largest number of tourists, at nearly 90 million, followed some distance behind by Turkey and Thailand. The UAE and Saudi Arabia, by contrast, welcomed the fewest visitors, each receiving fewer than 17 million.",
+            "note_ar": "الأولى سرد ممل رقمًا رقمًا — Band 5. الثانية جمّعت الدول في ثلاث مجموعات (المتصدّرة، الوسط، الأدنى) وربطتها بـ followed by وby contrast. نفس الأرقام، لكن بعقل يُنظّم."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "قبل الكتابة، ارسمي بقلمك خطًّا يقسم البيانات إلى مجموعتين أو ثلاث (الأعلى/الأدنى، الصاعد/الهابط). كل مجموعة تصبح فقرة جسم واحدة. هذا التخطيط يمنع السرد العشوائي."
+          },
+          {
+            "kind": "check",
+            "question_ar": "ما الأسلوب الذي يرفع درجتك عند وجود بيانات كثيرة في جدول؟",
+            "options": [
+              "ذكر كل رقم في جملة مستقلة بالترتيب",
+              "تجميع العناصر المتشابهة ومقارنة المجموعات",
+              "ذكر أعلى رقم فقط وتجاهل الباقي"
+            ],
+            "correct": 1,
+            "why_ar": "التجميع والمقارنة يُظهران تنظيمًا منطقيًا يرفع Coherence وTask Achievement. السرد رقمًا رقمًا يُبقيك في Band 5، وتجاهل البيانات يُنقص التغطية."
+          }
+        ]
+      },
+      {
+        "id": "t1-06",
+        "title": "وصف العمليات Process — المبني للمجهول والتسلسل",
+        "minutes": 9,
+        "goal_ar": "ستصفين عملية أو دورة من عدة مراحل بلغة المبني للمجهول وأدوات التسلسل، دون أرقام ولا اتجاهات صعود وهبوط.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "العملية تختلف عن الرسوم الرقمية",
+            "body_ar": "وصف العملية (process/diagram) يختلف جوهريًا عن الرسوم الرقمية: لا أرقام، ولا اتجاهات صعود وهبوط، بل مراحل متتابعة. مهمتك: وصف الخطوات بالترتيب من البداية إلى النهاية.\n\nالـ Overview هنا يذكر: كم عدد المراحل؟ أين تبدأ العملية وأين تنتهي؟ وهل هي خطّية (linear) أم دائرية (cyclical)؟ مثال: «العملية تتكوّن من ثماني مراحل، تبدأ بجمع المياه وتنتهي بتوزيعها»."
+          },
+          {
+            "kind": "concept",
+            "heading": "المبني للمجهول وأدوات التسلسل",
+            "body_ar": "العمليات تُوصف عادةً بالمبني للمجهول (passive voice) لأن الفاعل غير مهمّ: the water is collected لا workers collect the water. هذا التركيب متوقّع ومطلوب في هذا النوع.\n\nأدوات التسلسل عمودك الفقري: First / Initially / To begin with، ثم Next / After that / Subsequently / Once … has been done، وأخيرًا Finally / In the final stage. تجنّبي تكرار then في كل جملة — نوّعي."
+          },
+          {
+            "kind": "example",
+            "heading": "فقرة عملية نموذجية",
+            "body_en": "In the first stage, rainwater is collected in a reservoir before being passed through a screening filter to remove large debris. Once the water has been screened, it undergoes primary treatment, after which harmful bacteria are eliminated during a biological treatment phase. Finally, the purified water is disinfected and distributed to households.",
+            "note_ar": "لاحظي: كل الأفعال مبنية للمجهول (is collected، is disinfected)، والتسلسل واضح (In the first stage، Once … has been screened، after which، Finally). لا رقم واحد، لأن العملية لا تحتاج أرقامًا."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "استخدمي Once the [stage] has been completed… أو Having been [done], the material… لتربطي مرحلة بالتالية بأناقة. هذه التراكيب المعقّدة ترفع Grammatical Range فورًا."
+          },
+          {
+            "kind": "check",
+            "question_ar": "أيّ صيغة فعلية هي الأنسب لوصف مراحل عملية صناعية؟",
+            "options": [
+              "المبني للمعلوم بضمير المتكلم: I collect the water",
+              "المبني للمجهول: the water is collected",
+              "المستقبل: the water will be collected"
+            ],
+            "correct": 1,
+            "why_ar": "العمليات تُوصف بالمبني للمجهول لأن الفاعل (من يُنفّذ) غير مهمّ، والتركيز على الخطوة نفسها. هذا هو التركيب المتوقّع والمطلوب في وصف العمليات."
+          }
+        ]
+      },
+      {
+        "id": "t1-07",
+        "title": "وصف الخرائط Maps — الموقع والتغيّر",
+        "minutes": 9,
+        "goal_ar": "ستصفين التغيّرات بين خريطتين (ماضٍ وحاضر أو مستقبل) بلغة الموقع والتحوّل العمراني بدقة.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "ماذا تطلب أسئلة الخرائط",
+            "body_ar": "أسئلة الخرائط تعرض عادةً خريطتين لنفس المكان في زمنين (قبل/بعد، أو الآن/المستقبل المخطّط). مهمتك: وصف ما تغيّر وما بقي. لا أرقام، بل تحوّلات مكانية.\n\nالـ Overview يُلخّص طبيعة التغيّر: هل تحوّل المكان من ريفي إلى حضري؟ هل زادت المباني على حساب المساحات الخضراء؟ مثال: «شهدت المنطقة تطويرًا عمرانيًا واسعًا، إذ حلّت المباني السكنية والمرافق محلّ معظم الأراضي الزراعية»."
+          },
+          {
+            "kind": "concept",
+            "heading": "لغة الموقع والتغيّر",
+            "body_ar": "للموقع: in the north / south / east / west، in the north-eastern corner، to the left of، adjacent to، on the outskirts، in the centre.\n\nللتغيّر: was demolished / was replaced by / was converted into للإزالة والاستبدال، وwas built / was constructed / was erected للإنشاء، وwas expanded / was extended للتوسّع. واستخدمي المبني للمجهول والزمن الماضي للخرائط التاريخية، وwill be / is planned to be للمستقبلية. وللثبات: remained unchanged / was retained."
+          },
+          {
+            "kind": "contrast",
+            "heading": "وصف مبهم مقابل دقيق",
+            "bad_en": "There were some trees and then they built things. The map changed a lot and there are more buildings now.",
+            "good_en": "The woodland that once occupied the eastern side of the village was cleared to make way for a large housing estate, while the small farm in the north was demolished and replaced by a shopping centre.",
+            "note_ar": "الأولى مبهمة بلا مواقع ولا أفعال دقيقة (built things، changed a lot). الثانية تُحدّد الموقع (eastern side، in the north) والفعل الدقيق (was cleared، was demolished and replaced by)، وتربط التغيّرات بـ while — وهذا مستوى Band 7+."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "نظّمي الخريطة مكانيًّا: فقرة لِما تغيّر في الشمال والشرق، وأخرى للجنوب والغرب؛ أو فقرة لِما أُضيف وأخرى لِما أُزيل. التنظيم المكاني الواضح يرفع Coherence."
+          },
+          {
+            "kind": "check",
+            "question_ar": "ما الزمن والصيغة الأنسب لوصف خريطتين تُظهران قرية عام 1990 وعام 2020؟",
+            "options": [
+              "المضارع المبني للمعلوم: they build houses",
+              "الماضي المبني للمجهول: houses were built",
+              "المستقبل: houses will be built"
+            ],
+            "correct": 1,
+            "why_ar": "بما أن التغيّر وقع في الماضي (بين 1990 و2020) والفاعل غير مهمّ، فالماضي المبني للمجهول (were built، was demolished) هو الأنسب. المستقبل يُستخدم فقط للخرائط ذات الخطط المستقبلية."
+          }
+        ]
+      }
+    ],
+    "drills": [
+      {
+        "id": "d1-01",
+        "title": "اكتبي الـ Overview فقط",
+        "minutes": 6,
+        "brief_ar": "انظري إلى الرسم البياني عن استهلاك المياه حسب القطاع في ثلاث مناطق. لا تصفي كل رقم — اكتبي الـ Overview فقط: جملتان تلتقطان أبرز الملامح دون أرقام.",
+        "taskRef": "3cf97377-80ae-405c-ae82-00c58b98d06d",
+        "prompt_en": null,
+        "given_en": null,
+        "minWords": 30,
+        "maxWords": 55,
+        "model_en": "Overall, agriculture is by far the largest consumer of water in both the Middle East and South-East Asia, whereas in Western Europe it is industry that dominates. South-East Asia records the highest agricultural water use of any sector across all three regions.",
+        "model_note_ar": "الـ Overview قوي لأنه بلا أرقام، ويجمع المناطق حسب النمط: الزراعة تُسيطر في منطقتين والصناعة في الثالثة. الجملة الثانية تُبرز أعلى قيمة مطلقة (زراعة جنوب شرق آسيا) — وهذا هو الملمح الأبرز الذي يبحث عنه الممتحن.",
+        "checklist_ar": [
+          "هل بدأتُ بكلمة Overall أو In general؟",
+          "هل خلا الـ Overview تمامًا من الأرقام؟",
+          "هل ذكرتُ القطاع المسيطر في كل منطقة؟",
+          "هل أبرزتُ أعلى قيمة في الرسم كلّه؟",
+          "هل التزمتُ بجملتين لا أكثر؟"
+        ]
+      },
+      {
+        "id": "d1-02",
+        "title": "مقدمة بإعادة صياغة",
+        "minutes": 6,
+        "brief_ar": "انظري إلى المنحنى عن استخدام الإنترنت عالميًا بين 2000 و2020 في أربع مناطق. اكتبي جملة مقدمة واحدة تُعيد صياغة السؤال بكلماتك دون نسخه حرفيًا.",
+        "taskRef": "c55d916f-fb5b-4c4b-9466-631582192d10",
+        "prompt_en": null,
+        "given_en": null,
+        "minWords": 20,
+        "maxWords": 40,
+        "model_en": "The line graph illustrates how the proportion of people using the internet changed across four different regions of the world over a two-decade period, from 2000 to 2020.",
+        "model_note_ar": "المقدمة جملة واحدة، أعادت صياغة العنوان بدقة: shows إلى illustrates، وinternet usage إلى how the proportion of people using the internet changed، وحدّدت المدة (two-decade period). لا أرقام ولا Overview — مجرّد مقدمة نظيفة.",
+        "checklist_ar": [
+          "هل هي جملة واحدة فقط؟",
+          "هل غيّرتُ الفعل (illustrates أو depicts بدل shows)؟",
+          "هل أعدتُ صياغة الموضوع بكلماتي لا نسخًا حرفيًا؟",
+          "هل ذكرتُ المدة الزمنية والمناطق الأربع؟",
+          "هل خلت المقدمة من الأرقام ومن الـ Overview؟"
+        ]
+      },
+      {
+        "id": "d1-03",
+        "title": "اختاري الملامح الرئيسية",
+        "minutes": 8,
+        "brief_ar": "انظري إلى دائرتَي توليد الكهرباء (2000 مقابل 2020). لا تصفي كل شريحة — اكتبي ثلاث جُمَل تلتقط أهمّ ثلاثة ملامح: أكبر تحوّل صاعد، وأكبر تحوّل هابط، وما بقي شبه ثابت.",
+        "taskRef": "1ecc7c7d-3275-4657-91fb-302281dde5c7",
+        "prompt_en": null,
+        "given_en": null,
+        "minWords": 55,
+        "maxWords": 85,
+        "model_en": "The most striking change is the dramatic rise of renewable sources: solar power surged from a negligible 0.5% to 16%, while wind grew from 1% to 14%. In contrast, fossil fuels declined sharply, with oil and gas falling from 42% to 25% and coal almost halving from 28% to 15%. Meanwhile, nuclear and hydro remained relatively stable, hovering between 10% and 14% in both years.",
+        "model_note_ar": "بدل سرد سبع شرائح، جمّعت البيانات في ثلاث قصص: صعود المتجدّدة (شمس ورياح)، وهبوط الأحفوري (نفط وغاز وفحم)، وثبات النووي والمائي. الأرقام دقيقة ومطابقة، واللغة متدرّجة (surged، declined sharply، remained stable). هذا هو الاختيار الذكي للملامح.",
+        "checklist_ar": [
+          "هل جمّعتُ الشرائح المتشابهة بدل سردها واحدة واحدة؟",
+          "هل ذكرتُ أكبر صعود (الطاقة الشمسية) بدقة؟",
+          "هل ذكرتُ أكبر هبوط (النفط والغاز والفحم)؟",
+          "هل أشرتُ لِما بقي ثابتًا (النووي والمائي)؟",
+          "هل أرقامي مطابقة للرسم تمامًا؟"
+        ]
+      },
+      {
+        "id": "d1-04",
+        "title": "فقرة عملية Process",
+        "minutes": 9,
+        "brief_ar": "انظري إلى مخطّط إعادة تدوير المياه بثماني مراحل. اكتبي فقرة جسم واحدة تصف المراحل بالترتيب، مستخدمةً المبني للمجهول وأدوات التسلسل. لا أرقام.",
+        "taskRef": "1441fb8d-b539-41ea-8f53-aadc708c4416",
+        "prompt_en": null,
+        "given_en": null,
+        "minWords": 70,
+        "maxWords": 110,
+        "model_en": "The process begins when wastewater is collected and channelled into the treatment facility. It is first passed through a screening stage, where large solids are removed, before undergoing primary treatment to separate settleable matter. Once this has been completed, the water enters a biological treatment phase, during which micro-organisms break down remaining pollutants. The liquid then moves to secondary sedimentation, after which it is filtered to eliminate finer particles. In the final two stages, the water is disinfected to kill any remaining pathogens and is finally distributed to consumers.",
+        "model_note_ar": "كل الأفعال مبنية للمجهول (is collected، is filtered، is disinfected)، والمراحل الثماني مرتّبة بأدوات تسلسل متنوّعة (begins، first، before، Once this has been completed، then، after which، In the final two stages، finally). لا رقم واحد، لأن العملية لا تحتاج أرقامًا — هذا نموذج Band 8.",
+        "checklist_ar": [
+          "هل استخدمتُ المبني للمجهول في كل مرحلة؟",
+          "هل غطّيتُ المراحل الثماني بالترتيب الصحيح؟",
+          "هل نوّعتُ أدوات التسلسل بدل تكرار then؟",
+          "هل خلت الفقرة من الأرقام والاتجاهات؟",
+          "هل ربطتُ مرحلة بالتالية بسلاسة (Once… / after which)؟"
+        ]
+      },
+      {
+        "id": "d1-05",
+        "title": "فقرة مقارنة من جدول",
+        "minutes": 9,
+        "brief_ar": "انظري إلى جدول أعداد السيّاح والإيرادات في خمس دول. اكتبي فقرة جسم تُقارن بذكاء بين حجم الزوّار والإيراد — لا تسردي كل رقم، بل جمّعي وقارني.",
+        "taskRef": "cae91555-9c7c-407b-b122-ec37e0faece3",
+        "prompt_en": null,
+        "given_en": null,
+        "minWords": 70,
+        "maxWords": 110,
+        "model_en": "A clear divergence emerges between visitor numbers and the revenue they generate. France attracted by far the most tourists, at 89.4 million, yet earned only 63.8 billion dollars — a relatively modest return of roughly 700 dollars per visitor, much like Turkey. The UAE and Saudi Arabia, despite welcoming the fewest visitors (16.7 and 15.3 million respectively), extracted markedly more from each: the UAE alone generated 38.4 billion dollars, equivalent to well over 2,000 dollars per tourist. Thailand occupied a middle position on both measures.",
+        "model_note_ar": "الفقرة لم تسرد الأرقام، بل بنت قصة: التباين بين الحجم والإيراد. جمّعت فرنسا وتركيا (زوّار كثر، عائد منخفض للفرد) مقابل الإمارات والسعودية (زوّار أقلّ، عائد أعلى للفرد)، مع أرقام دقيقة مطابقة للجدول. الاستنتاج المقارن (per visitor) يرفعها إلى Band 8.",
+        "checklist_ar": [
+          "هل قارنتُ بين الحجم والإيراد بدل سرد كل رقم؟",
+          "هل جمّعتُ الدول المتشابهة في مجموعات؟",
+          "هل أرقامي مطابقة للجدول؟",
+          "هل استخدمتُ لغة مقارنة (by far، markedly more، whereas)؟",
+          "هل أبرزتُ الملمح اللافت (العائد لكل زائر)؟"
+        ]
+      }
+    ]
+  },
+  "task2": {
+    "lessons": [
+      {
+        "id": "t2-01",
+        "title": "أنواع أسئلة المقال الخمسة وكيف تُحدّدين المطلوب بدقة",
+        "minutes": 9,
+        "goal_ar": "ستُميّزين فورًا نوع سؤال المقال من الأنواع الخمسة، وتعرفين ما يطلبه كل نوع بالضبط قبل أن تكتبي كلمة.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "لماذا تحديد النوع أوّل خطوة",
+            "body_ar": "أخطر خطأ في Task 2 ليس ضعف اللغة، بل الإجابة عن سؤال غير مطروح. الممتحن يُقيّم Task Response أولًا: هل أجبتِ عن السؤال المطروح تحديدًا؟ لو أساءتِ فهم النوع، فسقفك Band 5 مهما كانت لغتك.\n\nلذلك اقرئي السؤال مرتين، وحدّدي نوعه، ثم خطّطي وفقه. دقيقة في التحديد توفّر عليك مقالًا كاملًا في الاتجاه الخطأ."
+          },
+          {
+            "kind": "concept",
+            "heading": "الأنواع الخمسة",
+            "body_ar": "الأول Opinion (Agree/Disagree): «To what extent do you agree or disagree?» — يطلب موقفًا واضحًا تُدافعين عنه طوال المقال.\n\nالثاني Discussion (Discuss both views): يطلب عرض الرأيين بإنصاف ثم رأيك أنتِ.\n\nالثالث Problem/Solution أو Cause/Solution: «What are the problems and how can they be solved?» — فقرة للمشكلات وفقرة للحلول.\n\nالرابع Advantages/Disadvantages: يطلب موازنة الإيجابيات والسلبيات، وأحيانًا حُكمًا هل تفوق الإيجابيات السلبيات.\n\nالخامس Two-part (Direct question): سؤالان مباشران (Why? What effect?) — أجيبي عن كليهما، فقرة لكلٍّ."
+          },
+          {
+            "kind": "contrast",
+            "heading": "سوء فهم النوع مقابل فهمه",
+            "bad_en": "(Prompt: 'discuss both views and give your opinion') → The essay argues only that online learning is beneficial, ignoring the opposing view entirely.",
+            "good_en": "(Same prompt) → The essay devotes one body paragraph to the benefits of online learning and another to its drawbacks, before stating a clear personal opinion in the conclusion.",
+            "note_ar": "في سؤال Discussion، تناول رأي واحد فقط يُسقط Task Response إلى Band 5، لأنك لم تُناقشي both views. فهم النوع يفرض عليك فقرة لكل رأي ثم موقفك — وهذا وحده يحمي درجتك."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "ضعي إصبعك على الكلمة المفتاحية في السؤال: agree or disagree تعني رأيًا، وdiscuss both views تعني مناقشة، وproblems / solutions تعني مشكلة وحلًّا. الكلمة المفتاحية تُحدّد هيكل مقالك كلّه."
+          },
+          {
+            "kind": "check",
+            "question_ar": "سؤال يقول: «Discuss both views and give your own opinion». ما الذي يجب أن يحتويه مقالك؟",
+            "options": [
+              "رأيك أنتِ فقط مدعومًا بأمثلة",
+              "عرض الرأيين بإنصاف ثم رأيك الشخصي",
+              "قائمة مشكلات وحلول"
+            ],
+            "correct": 1,
+            "why_ar": "عبارة discuss both views تُلزمك بعرض الرأيين معًا، وgive your own opinion تُلزمك بموقف شخصي واضح. تجاهل أحدهما يُنقص Task Response."
+          }
+        ]
+      },
+      {
+        "id": "t2-02",
+        "title": "التخطيط في ٥ دقائق — الموقف والأفكار والهيكل",
+        "minutes": 8,
+        "goal_ar": "ستُنتجين خطة مقال كاملة (موقف + فكرتان + أمثلة + هيكل) في خمس دقائق، فتكتبين بثقة بلا توقّف.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "لماذا التخطيط يوفّر الوقت لا يُهدره",
+            "body_ar": "يظنّ كثيرات أن القفز مباشرة للكتابة أسرع. العكس صحيح: بلا خطة تتوقّفين كل جملة تسألين «ماذا بعد؟»، وتتكرّر أفكارك، وتنحرف فقراتك. خمس دقائق تخطيط تشتري لك ثلاثين دقيقة كتابة سلسة.\n\nالخطة ليست فقرات كاملة، بل كلمات مفتاحية: موقفك، وفكرتان رئيسيتان، ومثال لكل فكرة. هذا يكفي ليقود قلمك."
+          },
+          {
+            "kind": "concept",
+            "heading": "خطوات الخمس دقائق",
+            "body_ar": "الدقيقة الأولى: حدّدي النوع وموقفك (هل توافقين؟ أيّ رأي أقوى؟).\n\nالدقيقتان الثانية والثالثة: ولّدي فكرتين رئيسيتين تدعمان موقفك — لا أكثر. فكرتان معمّقتان أقوى من أربع سطحية. ولكل فكرة اكتبي مثالًا أو سببًا بكلمة أو اثنتين.\n\nالدقيقة الرابعة: رتّبي: مقدمة، فقرة جسم للفكرة الأولى، فقرة جسم للفكرة الثانية، خاتمة.\n\nالدقيقة الخامسة: اختاري كلمتين أكاديميتين ستوظّفينهما. الآن اكتبي بلا توقّف."
+          },
+          {
+            "kind": "example",
+            "heading": "خطة مصغّرة (سؤال رأي)",
+            "body_en": "PROMPT: Working from home is better than working in an office. Agree/disagree?\nPOSITION: Mostly agree.\nBODY 1 — Flexibility & productivity: no commute means more focused hours (e.g. 2 hours a day saved).\nBODY 2 — Cost savings for both sides: employees save on transport; firms cut office rent.\nCONCESSION: weaker team bonding — but video calls and periodic meetings mitigate this.\nCONCLUSION: benefits outweigh drawbacks for most knowledge workers.",
+            "note_ar": "لاحظي: كلمات مفتاحية لا جُمَل، وموقف واضح، وفكرتان مع مثال لكل واحدة، وحتى اعتراف (concession) جاهز للفقرة. هذه الخطة تُكتب في خمس دقائق وتقود مقالًا كاملًا متماسكًا."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "لا تُولّدي أكثر من فكرتين رئيسيتين. الممتحن يُكافئ العمق (فكرة مشروحة بمثال) لا الكثرة (خمس أفكار مبتورة). فكرتان + مثالان = هيكل Band 7."
+          },
+          {
+            "kind": "check",
+            "question_ar": "لماذا فكرتان رئيسيتان معمّقتان أفضل من أربع أفكار سطحية؟",
+            "options": [
+              "لأن المقال يجب أن يكون قصيرًا",
+              "لأن الممتحن يُكافئ شرح الفكرة وتطويرها بمثال، لا مجرّد ذكرها",
+              "لأن أربع فقرات جسم ممنوعة"
+            ],
+            "correct": 1,
+            "why_ar": "معيار Task Response يُكافئ الأفكار المطوّرة والمدعومة (extended and supported)، لا كثرة النقاط. فكرتان مشروحتان بمثال تُظهران عمقًا يرفعك إلى Band 7."
+          }
+        ]
+      },
+      {
+        "id": "t2-03",
+        "title": "المقدمة — قالب موثوق من جملتين",
+        "minutes": 7,
+        "goal_ar": "ستكتبين مقدمة من جملتين — إعادة صياغة للسؤال + جملة أطروحة تُعلن موقفك أو خارطة مقالك — في دقيقتين.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "بنية المقدمة",
+            "body_ar": "مقدمة Task 2 الموثوقة جملتان فقط:\n\nالجملة الأولى (Background/Paraphrase): تُعيد صياغة موضوع السؤال بكلماتك، وتُدخل القارئ في السياق. لا تنسخي السؤال حرفيًا.\n\nالجملة الثانية (Thesis): تُعلن موقفك بوضوح في أسئلة الرأي، أو تُحدّد ما سيناقشه المقال في أسئلة المناقشة. هذه الجملة هي التي يبحث عنها الممتحن ليعرف اتجاهك من السطر الأول.\n\nلا تكتبي مقدمة طويلة؛ الجُمَل الزائدة تُهدر الوقت دون درجة."
+          },
+          {
+            "kind": "example",
+            "heading": "مقدمة رأي نموذجية",
+            "body_en": "It is often argued that governments should invest more heavily in public transport than in building new roads. While improved roads offer short-term relief, I firmly believe that prioritising public transport is the more sustainable long-term solution, for reasons of both congestion and the environment.",
+            "note_ar": "الجملة الأولى تُعيد صياغة الموضوع (invest in public transport vs roads). الجملة الثانية أطروحة واضحة (I firmly believe…) تُعلن الموقف وتُلمّح للفكرتين (congestion، environment). الممتحن الآن يعرف بالضبط إلى أين يتّجه مقالك."
+          },
+          {
+            "kind": "contrast",
+            "heading": "مقدمة مبهمة مقابل قاطعة",
+            "bad_en": "Nowadays technology is very important in our life and everybody uses it. This essay will talk about technology and its things. There are many opinions about this topic.",
+            "good_en": "The rapid spread of smartphones has transformed the way people communicate and access information. This essay will argue that, despite genuine concerns about screen addiction, these devices have made society both more connected and better informed.",
+            "note_ar": "الأولى حشو فارغ (very important، its things، many opinions) بلا موقف. الثانية تُعيد صياغة دقيقة ثم أطروحة قاطعة تُحدّد الموقف والفكرتين. القالب نفسه ينفع لأي سؤال."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "تجنّبي الافتتاحيات المستهلكة مثل Nowadays وIn this modern world. ابدئي مباشرة بإعادة صياغة موضوع السؤال؛ فهذا أرقى ويوفّر كلمات."
+          },
+          {
+            "kind": "check",
+            "question_ar": "ما وظيفة الجملة الثانية (Thesis) في مقدمة Task 2؟",
+            "options": [
+              "تكرار السؤال بكلمات مختلفة",
+              "إعلان موقفك أو تحديد ما سيناقشه المقال بوضوح",
+              "ذكر مثال تفصيلي"
+            ],
+            "correct": 1,
+            "why_ar": "جملة الأطروحة تُعلن موقفك في أسئلة الرأي أو خارطة المقال في المناقشة. هي التي تُخبر الممتحن باتجاهك، أمّا إعادة الصياغة فوظيفة الجملة الأولى، والأمثلة مكانها الجسم."
+          }
+        ]
+      },
+      {
+        "id": "t2-04",
+        "title": "فقرة الجسم — منهج PEEL",
+        "minutes": 9,
+        "goal_ar": "ستبنين كل فقرة جسم بمنهج PEEL (نقطة، شرح، مثال، ربط) فتصبح كل فقرة مكتملة ومُقنعة.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "ما هو PEEL",
+            "body_ar": "PEEL منهج يضمن أن كل فقرة جسم مكتملة ومطوّرة، وهو ما يطلبه معيار Task Response:\n\nP — Point: جملة الموضوع (topic sentence) تُعلن الفكرة الرئيسية للفقرة.\n\nE — Explain: اشرحي لماذا هذه الفكرة صحيحة، ووضّحي الآلية أو السبب.\n\nE — Example: مثال محدّد يدعم فكرتك (واقعي أو منطقي).\n\nL — Link: جملة تربط الفكرة بالسؤال أو تُمهّد للفقرة التالية.\n\nكل فقرة جسم فكرة واحدة فقط، مطوّرة بالكامل عبر هذه الأربع."
+          },
+          {
+            "kind": "example",
+            "heading": "فقرة PEEL كاملة",
+            "body_en": "One of the strongest arguments for investing in renewable energy is its long-term economic benefit. Although the initial cost of installing solar and wind infrastructure is high, these sources incur almost no fuel costs once operational, unlike coal or gas plants that require a constant supply. Germany, for instance, has cut its energy import bills significantly since expanding its renewable capacity, saving billions annually. This demonstrates that the upfront expense is an investment rather than a burden, strengthening the case for a rapid transition.",
+            "note_ar": "لاحظي البنية الصريحة: جملة نقطة واضحة، ثم شرح للآلية (no fuel costs)، ثم مثال محدّد (Germany)، ثم جملة ربط تُعيدنا للحجّة العامة. الفقرة تُطوّر فكرة واحدة بالكامل — وهذا جوهر Band 7 في Task Response."
+          },
+          {
+            "kind": "contrast",
+            "heading": "فقرة مبتورة مقابل فقرة PEEL",
+            "bad_en": "Renewable energy is good. It is cheap and clean. Many countries use it. So it is important and good for everyone.",
+            "good_en": "One of the strongest arguments for renewable energy is its long-term economic benefit: although installation is costly, these sources incur almost no fuel costs, and Germany has saved billions on energy imports since expanding its capacity — proof that the upfront expense is an investment, not a burden.",
+            "note_ar": "الفقرة الضعيفة سلسلة ادّعاءات بلا شرح ولا مثال (good، cheap، important) — Band 5. فقرة PEEL تأخذ الفكرة نفسها وتُطوّرها: تشرح الآلية، وتُثبت بمثال، وتربط. نفس الموضوع، عمق مختلف تمامًا."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "أضعف حلقة عند أغلب الطالبات هي حرف E الثاني (Example). درّبي نفسك على أن تسألي بعد كل نقطة: «ما مثال يُثبت هذا؟» ولو كان مثالًا افتراضيًا منطقيًا — المهمّ أن يكون محدّدًا لا عامًّا."
+          },
+          {
+            "kind": "check",
+            "question_ar": "في منهج PEEL، ما وظيفة الحرف L الأخير؟",
+            "options": [
+              "تقديم فكرة جديدة تمامًا",
+              "ربط الفكرة بالسؤال أو التمهيد للفقرة التالية",
+              "ذكر رقم إحصائي"
+            ],
+            "correct": 1,
+            "why_ar": "L (Link) يربط الفكرة المطوّرة بالسؤال أو يُمهّد للفقرة التالية، فيحافظ على تماسك المقال. تقديم فكرة جديدة في نهاية الفقرة يكسر وحدتها."
+          }
+        ]
+      },
+      {
+        "id": "t2-05",
+        "title": "الترابط والتماسك بلا إفراط في linkers",
+        "minutes": 8,
+        "goal_ar": "ستربطين أفكارك بسلاسة طبيعية عبر الإشارة المرجعية وتنويع الروابط، بدل حشو Firstly وSecondly وMoreover في كل جملة.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "التماسك أعمق من كلمات الربط",
+            "body_ar": "تظنّ كثير من الطالبات أن Coherence and Cohesion تعني حشو كلمات ربط: Firstly, Moreover, Furthermore, In addition في مطلع كل جملة. هذا خطأ يُنقص الدرجة، لأن الممتحن يصفه بأنه mechanical — استخدام آلي مفرط.\n\nالتماسك الحقيقي يأتي من ثلاثة أشياء: تسلسل منطقي للأفكار، والإشارة المرجعية (this, these, such, it) التي تربط الجملة بما قبلها، وتنويع الروابط بدل تكرارها. الرابط أداة عند الحاجة، لا زينة في كل سطر."
+          },
+          {
+            "kind": "concept",
+            "heading": "أدوات التماسك الطبيعية",
+            "body_ar": "الإشارة المرجعية: بدل تكرار الاسم، استخدمي this trend، وsuch measures، وthese benefits — تربط الجملة بسابقتها بأناقة.\n\nتنويع الروابط: للإضافة (moreover, furthermore, in addition, what is more)، وللتقابل (however, nevertheless, on the other hand, conversely)، وللنتيجة (therefore, consequently, as a result, thus)، وللسبب (since, as, because, owing to). امتلكي بدائل لكل وظيفة.\n\nالربط داخل الجملة: عبر subordinate clauses (although, while, whereas) أرقى من جملتين قصيرتين مربوطتين بـ moreover."
+          },
+          {
+            "kind": "contrast",
+            "heading": "إفراط في الروابط مقابل تماسك طبيعي",
+            "bad_en": "Firstly, pollution is bad. Secondly, it harms health. Moreover, it is dangerous. Furthermore, we must stop it. In addition, governments should act. Finally, this is important.",
+            "good_en": "Air pollution poses a serious threat to public health, as prolonged exposure to fine particles is linked to respiratory disease. Given these risks, governments have a clear responsibility to act — for example, by restricting emissions in densely populated areas.",
+            "note_ar": "الأولى مكدّسة بالروابط الآلية (Firstly, Secondly, Moreover…) وكل جملة قصيرة مبتورة — علامة Band 5. الثانية تربط بالمنطق (as، Given these risks) والإشارة المرجعية (these risks)، فتُقرأ كنصٍّ إنساني متدفّق. روابط أقلّ، تماسك أعلى."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "قاعدة عملية: لا تبدئي أكثر من فقرة واحدة بكلمة ربط ظرفية. داخل الفقرات، اربطي بالإشارة المرجعية (this, such, these) وبأدوات الجُمَل التابعة (although, since). ندرة الرابط ترفع قيمته."
+          },
+          {
+            "kind": "check",
+            "question_ar": "أيّ الأساليب يُظهر تماسكًا (cohesion) أرقى في نظر الممتحن؟",
+            "options": [
+              "بدء كل جملة بـ Firstly, Secondly, Moreover, Furthermore",
+              "الربط بالإشارة المرجعية (this, these, such) والجُمَل التابعة",
+              "تكرار الاسم نفسه في كل جملة للوضوح"
+            ],
+            "correct": 1,
+            "why_ar": "الإشارة المرجعية والجُمَل التابعة تنسج ترابطًا طبيعيًا يُكافئه الممتحن. حشو الروابط الظرفية يُوصف بـ mechanical ويُنقص الدرجة، وتكرار الاسم يُضعف Lexical Resource."
+          }
+        ]
+      },
+      {
+        "id": "t2-06",
+        "title": "مفردات أكاديمية ودقّة اختيار الكلمة",
+        "minutes": 9,
+        "goal_ar": "ستستبدلين المفردات العامة بأخرى أكاديمية دقيقة، وتتجنّبين أخطاء الصياغة (collocation) الشائعة عند المتحدثات بالعربية.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "الدقّة قبل الصعوبة",
+            "body_ar": "Lexical Resource لا يعني كلمات صعبة نادرة، بل الكلمة الصحيحة في مكانها الصحيح. كلمة أكاديمية دقيقة في سياق مناسب أرقى من كلمة نادرة مستخدمة خطأً. الممتحن يُعاقب «الطموح غير الدقيق» أكثر مما يُكافئ المجازفة.\n\nطريقان للرقيّ: استبدال المفردات العامة (good تصبح beneficial، وbad تصبح detrimental، وa lot of تصبح a considerable number of، وbig تصبح substantial)، والتلازم اللفظي الصحيح (collocation): make a decision لا do a decision، وpose a threat، وplay a role، وaddress an issue."
+          },
+          {
+            "kind": "concept",
+            "heading": "أخطاء المتحدثات بالعربية الشائعة",
+            "body_ar": "بعض الأخطاء تتكرّر بسبب الترجمة الحرفية من العربية:\n\ndiscuss about خطأ؛ الصحيح discuss دون about.\n\nin my point of view خطأ؛ الصحيح in my opinion أو from my point of view.\n\nالخلط بين الاسم بأل التعريف والعموم: the society و the nature حين نقصد العموم؛ الصحيح society وnature بلا أل.\n\nترجمة «كثير من الناس» إلى much people؛ الصحيح many people. وترجمة «يُعطي فرصة» إلى give chance؛ الصحيح provide أو offer an opportunity."
+          },
+          {
+            "kind": "contrast",
+            "heading": "مفردات عامة مقابل أكاديمية دقيقة",
+            "bad_en": "Technology is a very good thing and it gives people a lot of good things. But it also has bad things that are not good for kids.",
+            "good_en": "Technology offers society considerable benefits, from instant access to information to improved medical care. Nevertheless, it also carries certain drawbacks, particularly the potential harm that excessive screen time poses to young children.",
+            "note_ar": "الأولى تُكرّر good وbad وthings — فقر معجمي واضح. الثانية توظّف مفردات دقيقة (considerable benefits، carries drawbacks، poses harm) وتلازمًا صحيحًا (offer benefits، pose harm). لاحظي: الكلمات ليست نادرة، لكنها دقيقة ومناسبة — وهذا جوهر Band 7."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "ابني «قائمة ترقية» شخصية: كل مرة تكتبين good أو bad أو thing، استبدليها ببديل أدقّ (beneficial، detrimental، aspect، factor). لكن لا تستخدمي كلمة لستِ واثقة من معناها وتلازمها — الخطأ الواثق أسوأ من الكلمة البسيطة الصحيحة."
+          },
+          {
+            "kind": "check",
+            "question_ar": "أيّ الجُمَل التالية صحيحة لغويًّا؟",
+            "options": [
+              "Many people discuss about this problem",
+              "This issue provides an opportunity for change",
+              "In my point of view, much people agree"
+            ],
+            "correct": 1,
+            "why_ar": "provide an opportunity تلازم صحيح والجملة سليمة. أمّا discuss about فخطأ (الصحيح discuss)، وin my point of view وmuch people خطآن شائعان (الصحيح in my opinion وmany people)."
+          }
+        ]
+      },
+      {
+        "id": "t2-07",
+        "title": "تراكيب القواعد التي ترفع الباند + أخطاء المتحدثات بالعربية",
+        "minutes": 10,
+        "goal_ar": "ستوظّفين تراكيب معقّدة متنوّعة (شرطية، جُمَل وصل، تركيب أمامي) وتتجنّبين أخطاء القواعد الشائعة التي تُنقص الدرجة.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "التنوّع النحوي نصف الدرجة",
+            "body_ar": "معيار Grammatical Range and Accuracy له شقّان: التنوّع (Range) والدقّة (Accuracy). كثير من الطالبات دقيقات لكن بجُمَل بسيطة متشابهة، فيسقفن عند Band 6. الوصول إلى Band 7 يتطلّب مزيجًا من الجُمَل البسيطة والمركّبة والمعقّدة، مع أغلبية جُمَل خالية من الأخطاء.\n\nلا يعني ذلك تعقيدًا مصطنعًا؛ بل توظيف تراكيب متنوّعة حين تخدم المعنى."
+          },
+          {
+            "kind": "concept",
+            "heading": "تراكيب ترفع الباند",
+            "body_ar": "الجُمَل الشرطية: If governments invested more in education, literacy rates would improve (شرطية ثانية للفرضيات).\n\nجُمَل الوصل: Students who are given feedback regularly tend to progress faster (relative clause).\n\nالتركيب الأمامي (fronting): Not only does exercise improve health, but it also boosts mood.\n\nالعبارات الاسمية المعقّدة: The growing reliance on smartphones among teenagers…\n\nالمبني للمجهول عند الحاجة: It is widely believed that… وهذا التنوّع بالضبط ما يرصده الممتحن."
+          },
+          {
+            "kind": "concept",
+            "heading": "أخطاء القواعد الشائعة عند المتحدثات بالعربية",
+            "body_ar": "الأول اتفاق الفاعل والفعل: people is خطأ؛ الصحيح people are.\n\nالثاني أدوات التعريف: العربية لا تملك a/an، فيُسقطهما الطلاب: She is teacher تصبح She is a teacher.\n\nالثالث الجمع والمفرد: informations وadvices خطأ؛ هذه أسماء غير معدودة (information, advice).\n\nالرابع أزمنة الأفعال: خلط الماضي بالمضارع في الفقرة الواحدة.\n\nالخامس حرف الجر بعد الفعل: depend of تصبح depend on، وaffect on تصبح affect دون on."
+          },
+          {
+            "kind": "contrast",
+            "heading": "تراكيب بسيطة متكرّرة مقابل متنوّعة",
+            "bad_en": "Education is important. Governments must fund it. Schools need money. Teachers need training. Students will do better. This is good for the country.",
+            "good_en": "Since education underpins a nation's prosperity, governments that invest generously in schools and teacher training tend to see stronger long-term outcomes. Were funding to be cut, however, the students who most need support would be the first to suffer.",
+            "note_ar": "الأولى ستّ جُمَل بسيطة متطابقة البنية — دقيقة لكن بلا تنوّع، وسقفها Band 6. الثانية تمزج جملة سببية (Since…)، وجملة وصل (governments that invest…)، وشرطية مقلوبة (Were funding to be cut…). نفس الفكرة، وتنوّع نحوي يرفعها إلى Band 8."
+          },
+          {
+            "kind": "check",
+            "question_ar": "أيّ الجُمَل التالية صحيحة نحويًّا؟",
+            "options": [
+              "Many people depends on technology and needs advices",
+              "The information she provided was extremely useful",
+              "She is teacher who give good advices"
+            ],
+            "correct": 1,
+            "why_ar": "The information … was useful صحيحة: information غير معدودة (بلا s وبفعل مفرد was). الأولى بها خطآن (depends وneeds مع many people، وadvices)، والثالثة تُسقط a وتُخطئ في advices وgive."
+          }
+        ]
+      },
+      {
+        "id": "t2-08",
+        "title": "الخاتمة ومراجعة الدقائق الأخيرة",
+        "minutes": 8,
+        "goal_ar": "ستكتبين خاتمة تُلخّص موقفك دون تكرار ممل، وتوظّفين آخر دقيقتين في مراجعة تصطاد أكثر الأخطاء كلفةً.",
+        "sections": [
+          {
+            "kind": "concept",
+            "heading": "وظيفة الخاتمة",
+            "body_ar": "الخاتمة تُعيد التأكيد على موقفك وتُلخّص فكرتيك الرئيسيتين — لا تُقدّم فكرة جديدة أبدًا. غيابها أو بترها يُنقص Task Response وCoherence معًا، لأن المقال يبدو غير مكتمل.\n\nابدئيها بعبارة تلخيص واضحة: In conclusion أو To conclude أو In summary. ثم جملة تُعيد صياغة موقفك (لا نسخه من المقدمة حرفيًا)، وجملة تُلخّص سببيك. جملتان إلى ثلاث تكفي؛ الخاتمة الطويلة تُهدر وقت المراجعة."
+          },
+          {
+            "kind": "example",
+            "heading": "خاتمة نموذجية",
+            "body_en": "In conclusion, while road expansion may ease congestion temporarily, investing in reliable public transport is the wiser long-term choice. Not only does it reduce traffic more sustainably, but it also lessens the environmental damage caused by private vehicles, making it the option that best serves future generations.",
+            "note_ar": "لاحظي: In conclusion تُعلن التلخيص، ثم إعادة تأكيد الموقف (public transport is the wiser choice) بصياغة جديدة، ثم تلخيص للسببين (reduce traffic، environmental damage). لا فكرة جديدة، وتركيب Not only… يختم بقوة."
+          },
+          {
+            "kind": "concept",
+            "heading": "مراجعة الدقيقتين الأخيرتين",
+            "body_ar": "خصّصي آخر دقيقتين لمراجعة تصطاد الأخطاء الأعلى كلفة، بهذا الترتيب:\n\nأولًا اتفاق الفاعل والفعل (people are، she does).\n\nثانيًا أدوات التعريف (a/an/the) والجمع/المفرد.\n\nثالثًا الأزمنة (ثبات الزمن داخل الفقرة).\n\nرابعًا علامات الترقيم وبداية كل جملة بحرف كبير.\n\nلا تُحاولي إعادة الكتابة؛ فقط اصطادي الأخطاء الصغيرة المتكرّرة التي يُعاقب عليها معيار Accuracy. تصحيح خمسة أخطاء نحوية قد يرفع درجة القواعد كاملة."
+          },
+          {
+            "kind": "tip",
+            "body_ar": "لا تُدخلي في الخاتمة أيّ مثال أو إحصائية جديدة؛ إن وجدتِ فكرة جديدة مهمّة فمكانها فقرة جسم لا الخاتمة. الخاتمة للتلخيص فقط."
+          },
+          {
+            "kind": "check",
+            "question_ar": "ما الخطأ الأكثر شيوعًا الذي يجب تجنّبه في الخاتمة؟",
+            "options": [
+              "إعادة تأكيد الموقف بصياغة جديدة",
+              "تقديم فكرة أو مثال جديد لم يُذكر في الجسم",
+              "البدء بعبارة In conclusion"
+            ],
+            "correct": 1,
+            "why_ar": "الخاتمة للتلخيص وإعادة التأكيد فقط؛ إدخال فكرة جديدة فيها يكسر بنية المقال ويُنقص Coherence. إعادة التأكيد بصياغة جديدة والبدء بـ In conclusion كلاهما صحيح ومطلوب."
+          }
+        ]
+      }
+    ],
+    "drills": [
+      {
+        "id": "d2-01",
+        "title": "حلّلي السؤال وخطّطي",
+        "minutes": 8,
+        "brief_ar": "لا تكتبي المقال. حلّلي السؤال (النوع، والكلمة المفتاحية) ثم اكتبي خطة كاملة: موقفك، وفكرتان رئيسيتان مع مثال لكل واحدة، وترتيب الفقرات.",
+        "taskRef": null,
+        "prompt_en": "Some people believe that university education should be free for everyone, while others argue that students should pay for their own tuition. To what extent do you agree or disagree?",
+        "given_en": null,
+        "minWords": 60,
+        "maxWords": 100,
+        "model_en": "TYPE: Opinion (agree/disagree) — a clear position is required throughout.\nPOSITION: Partly agree — free university education is desirable but should be means-tested rather than universal.\nBODY 1 — Access & equality: free tuition removes financial barriers, allowing talented low-income students to attend (e.g. the high enrolment rates in Nordic countries).\nBODY 2 — Sustainability & fairness: fully free education strains public budgets and subsidises the wealthy; a means-tested model targets funds where they are genuinely needed.\nCONCLUSION: education should be affordable and merit-based, but not unconditionally free for all.",
+        "model_note_ar": "الخطة حدّدت النوع والموقف بدقة، وولّدت فكرتين متقابلتين (الوصول مقابل الاستدامة) لكل منهما مثال، ورتّبت الفقرات. الموقف «موافقة جزئية» ناضج ويسمح بحجّة متوازنة — أقوى من موافقة مطلقة.",
+        "checklist_ar": [
+          "هل حدّدتُ نوع السؤال (opinion) بوضوح؟",
+          "هل موقفي واضح لا متردّد؟",
+          "هل ولّدتُ فكرتين رئيسيتين لا أكثر؟",
+          "هل لكل فكرة مثال أو سبب محدّد؟",
+          "هل رتّبتُ الفقرات (مقدمة/جسم1/جسم2/خاتمة)؟"
+        ]
+      },
+      {
+        "id": "d2-02",
+        "title": "المقدمة فقط",
+        "minutes": 6,
+        "brief_ar": "اكتبي المقدمة فقط (جملتان): جملة تُعيد صياغة الموضوع، وجملة أطروحة تُحدّد أنكِ ستُناقشين الرأيين ثم تُعلن ميلكِ.",
+        "taskRef": null,
+        "prompt_en": "Some people think that children should begin learning a foreign language at primary school, while others believe it is better to start in secondary school. Discuss both views and give your own opinion.",
+        "given_en": null,
+        "minWords": 40,
+        "maxWords": 65,
+        "model_en": "There is ongoing debate about the ideal age at which children should be introduced to a second language, with some favouring an early start in primary school and others preferring to wait until the secondary years. This essay will examine both positions before arguing that, on balance, beginning at a younger age yields greater long-term benefits.",
+        "model_note_ar": "المقدمة جملتان مثاليتان لسؤال المناقشة: الأولى تُعيد صياغة الموضوع وتُلمّح للرأيين، والثانية تُعلن أن المقال سيُناقش الرأيين (both positions) ثم تكشف الميل الشخصي (arguing that…). هذا يحمي Task Response في أسئلة Discussion.",
+        "checklist_ar": [
+          "هل هي جملتان فقط؟",
+          "هل أعدتُ صياغة الموضوع دون نسخ حرفي؟",
+          "هل أشرتُ إلى وجود رأيين؟",
+          "هل أعلنتُ ميلي الشخصي (لأن السؤال طلب opinion)؟",
+          "هل تجنّبتُ الافتتاحيات المستهلكة مثل Nowadays؟"
+        ]
+      },
+      {
+        "id": "d2-03",
+        "title": "فقرة جسم واحدة PEEL",
+        "minutes": 9,
+        "brief_ar": "اكتبي فقرة جسم واحدة فقط عن أحد الحلول، مبنيّة بمنهج PEEL: نقطة واضحة، وشرح، ومثال محدّد، ثم جملة ربط.",
+        "taskRef": null,
+        "prompt_en": "Traffic congestion is becoming a serious problem in many large cities. What are the main causes of this problem, and what measures could be taken to solve it?",
+        "given_en": null,
+        "minWords": 70,
+        "maxWords": 110,
+        "model_en": "One of the most effective measures for easing urban congestion is to invest heavily in reliable public transport. When buses and metro systems are frequent, affordable, and well-connected, commuters are far more likely to leave their cars at home, which directly reduces the number of vehicles on the road. London's congestion charge, combined with its extensive underground network, has demonstrably cut traffic in the city centre while raising funds for further transport improvements. This shows that offering a genuine alternative to driving, rather than merely penalising motorists, is the key to tackling the problem at its root.",
+        "model_note_ar": "الفقرة PEEL مكتملة: نقطة واضحة (invest in public transport)، وشرح للآلية (commuters leave cars فتقلّ المركبات)، ومثال محدّد (London congestion charge)، وجملة ربط تعود للسؤال (tackling the problem at its root). فكرة واحدة مطوّرة بالكامل — نموذج Band 8.",
+        "checklist_ar": [
+          "هل فقرتي عن فكرة واحدة فقط؟",
+          "هل بدأتُ بجملة نقطة (topic sentence) واضحة؟",
+          "هل شرحتُ الآلية (لماذا يعمل هذا الحل)؟",
+          "هل أدرجتُ مثالًا محدّدًا لا عامًّا؟",
+          "هل ختمتُ بجملة ربط تعود للسؤال؟"
+        ]
+      },
+      {
+        "id": "d2-04",
+        "title": "حسّني فقرة ضعيفة",
+        "minutes": 9,
+        "brief_ar": "الفقرة المعطاة ضعيفة: حشو روابط، وتكرار، وكلمات عامة. أعيدي كتابتها بمستوى Band 7+: فكرة واضحة، وشرح، ومثال، ومفردات دقيقة، بلا حشو روابط.",
+        "taskRef": null,
+        "prompt_en": "Some people think social media has a negative effect on society. To what extent do you agree?",
+        "given_en": "Firstly, social media is very bad. Secondly, it is bad for people. Moreover, people use it a lot and it is not good. Furthermore, many people spend much time on it and this is a bad thing. In addition, social media is bad for the society and it makes people sad. So we can say social media is a bad thing and it is not good for people.",
+        "minWords": 70,
+        "maxWords": 110,
+        "model_en": "Social media does carry a number of genuine risks for society, the most concerning of which is its impact on mental well-being. These platforms are deliberately designed to maximise engagement, encouraging users — especially teenagers — to spend hours scrolling and comparing their lives to the carefully curated images of others. This constant comparison has been linked to rising rates of anxiety and low self-esteem among young people. That said, the technology itself is neutral; the harm stems largely from how it is used, which suggests that better education and healthier habits, rather than outright rejection, offer the most realistic response.",
+        "model_note_ar": "النسخة المحسّنة استبدلت الحشو (bad وnot good المكرّرة) بفكرة محدّدة (الأثر على الصحة النفسية)، وأضافت شرحًا للآلية (التصميم الإدماني والمقارنة) ومثالًا (القلق لدى المراهقين)، وأنهت باعتراف ناضج. عدد الروابط الظرفية هبط من ستة إلى صفر تقريبًا، والتماسك جاء من المعنى لا من كلمات الربط.",
+        "checklist_ar": [
+          "هل حذفتُ حشو الروابط (Firstly/Secondly/Moreover…)؟",
+          "هل استبدلتُ good وbad بمفردات دقيقة؟",
+          "هل أضفتُ شرحًا حقيقيًا للفكرة؟",
+          "هل أدرجتُ مثالًا محدّدًا؟",
+          "هل صارت الفقرة عن فكرة واحدة متماسكة بدل تكرار جملة واحدة؟"
+        ]
+      },
+      {
+        "id": "d2-05",
+        "title": "الخاتمة فقط",
+        "minutes": 7,
+        "brief_ar": "تخيّلي أنكِ كتبتِ الجسم بالفعل (السبب: الضغوط الاقتصادية وثقافة العمل؛ الأثر: الإجهاد وضعف الروابط الأسرية). اكتبي الخاتمة فقط: أعيدي التأكيد ولخّصي دون فكرة جديدة.",
+        "taskRef": null,
+        "prompt_en": "Many people today work long hours and have little time for leisure. Why is this the case, and what effects does it have on individuals and society?",
+        "given_en": null,
+        "minWords": 40,
+        "maxWords": 65,
+        "model_en": "In conclusion, the long working hours that characterise modern life stem largely from economic pressure and a culture that equates constant busyness with success. As this essay has shown, the consequences are far from trivial, ranging from chronic stress and burnout in individuals to weaker family bonds across society as a whole. Restoring a healthier balance should therefore be treated as a genuine priority rather than a luxury.",
+        "model_note_ar": "الخاتمة بدأت بـ In conclusion، ولخّصت شقّي السؤال (السبب: الضغط الاقتصادي والثقافة؛ الأثر: الإجهاد وضعف الروابط) دون أيّ فكرة جديدة، وأنهت بجملة توصية مركّزة. مثالية لسؤال two-part لأنها عالجت جزأيه معًا.",
+        "checklist_ar": [
+          "هل بدأتُ بعبارة تلخيص (In conclusion)؟",
+          "هل لخّصتُ شقّي السؤال (السبب والأثر) معًا؟",
+          "هل تجنّبتُ إدخال أيّ فكرة أو مثال جديد؟",
+          "هل أعدتُ الصياغة بدل نسخ المقدمة حرفيًا؟",
+          "هل بقيت الخاتمة قصيرة (2–3 جُمَل)؟"
+        ]
+      }
+    ]
+  }
+}

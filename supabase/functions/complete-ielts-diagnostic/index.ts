@@ -201,7 +201,17 @@ serve(async (req) => {
     const strengths = ranked.slice(0, 2).map(([s]) => SKILL_LABEL_AR[s])
     const weaknesses = ranked.slice(-2).reverse().map(([s]) => SKILL_LABEL_AR[s])
     const weakestSkill = ranked.length ? ranked[ranked.length - 1][0] : 'reading'
-    const targetBand = Math.min(9.0, roundToHalf((overall ?? 5.0) + 1.0))
+    // Never DOWNGRADE a target the student/trainer has explicitly set (e.g. a
+    // band-7 goal): re-running the diagnostic keeps their chosen target if it's
+    // higher than the auto-suggested overall+1.0.
+    const { data: existingPlan } = await supabase
+      .from('ielts_adaptive_plans')
+      .select('target_band')
+      .eq('student_id', studentId)
+      .maybeSingle()
+    const autoTarget = Math.min(9.0, roundToHalf((overall ?? 5.0) + 1.0))
+    const existingTarget = existingPlan?.target_band != null ? Number(existingPlan.target_band) : null
+    const targetBand = existingTarget != null ? Math.max(existingTarget, autoTarget) : autoTarget
 
     // ── 1. ielts_student_results ─────────────────────────────────────────────
     const nowIso = new Date().toISOString()

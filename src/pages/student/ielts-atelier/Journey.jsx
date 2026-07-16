@@ -56,12 +56,31 @@ export default function Journey() {
     return rated.length ? rated.reduce((a, b) => (Number(a[1]) <= Number(b[1]) ? a : b))[0] : null
   }, [result])
 
+  // A student may have a bespoke, hand-authored intensive plan stored on their
+  // ielts_adaptive_plans.weekly_schedule (e.g. 2h/day, writing+reading focus,
+  // weekends off). Prefer it; otherwise fall back to the generated template.
   const schedule = useMemo(() => {
+    const stored = planRow?.weekly_schedule
+    if (stored && typeof stored === 'object' && Object.values(stored).some((v) => Array.isArray(v) && v.length)) {
+      return stored
+    }
     try {
       const p = generatePlan({ studentId: studentId || 'x', targetBand: target, examDate, weakAreas: weakest ? [{ skill: weakest }] : [], hasDiagnostic: result?.overall_band != null })
       return p?.weekly_schedule || {}
     } catch { return {} }
-  }, [studentId, target, examDate, weakest, result])
+  }, [planRow, studentId, target, examDate, weakest, result])
+
+  // Daily minutes total (for the intensity line) from the active schedule.
+  const dailyMinutes = useMemo(() => {
+    const out = {}
+    for (const k of DAY_KEYS) {
+      const tasks = schedule[k] || []
+      out[k] = tasks.reduce((sum, t) => sum + (Number(t.duration_min) || 0), 0)
+    }
+    return out
+  }, [schedule])
+  const activeDays = DAY_KEYS.filter((k) => (dailyMinutes[k] || 0) > 0).length
+  const peakMinutes = Math.max(0, ...DAY_KEYS.map((k) => dailyMinutes[k] || 0))
 
   const todayIdx = new Date().getDay()
   const go = (r) => navigate(r ? `${BASE}/${r}` : BASE)
@@ -77,7 +96,7 @@ export default function Journey() {
         </div>
         {days != null
           ? <Chip><span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>الاختبار بعد</span> {days} يوماً</Chip>
-          : <button onClick={() => setShowGoal(true)} style={{ background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: 0, borderRadius: 11, padding: '9px 15px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>حدّد هدفك وموعدك</button>}
+          : <button onClick={() => setShowGoal(true)} style={{ background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: 0, borderRadius: 11, padding: '9px 15px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>{g('حدّد هدفك وموعدك', 'حدّدي هدفك وموعدك')}</button>}
       </div>
 
       {/* You are here — the journey arc */}
@@ -85,9 +104,18 @@ export default function Journey() {
         <JourneyStations hasResult={result?.overall_band != null} daysLeft={days} />
       </Card>
 
+      {/* Intensity summary — days/week · peak minutes/day · weekend rest */}
+      {peakMinutes > 0 && (
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <Chip><span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>أيام الدراسة</span> {activeDays} / أسبوع</Chip>
+          <Chip><span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>حتى</span> {Math.round(peakMinutes / 60 * 10) / 10} ساعة/يوم</Chip>
+          <Chip muted>الجمعة والسبت راحة</Chip>
+        </div>
+      )}
+
       {/* How the plan is built — the method, in one line */}
       <p style={{ margin: 0, fontSize: 13.5, color: 'var(--iel-ink-2)', lineHeight: 1.85, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 12, padding: '13px 16px', backdropFilter: 'blur(8px)' }}>
-        خطّتك تلمس المهارات الأربع كل أسبوع حتى لا تبرد أيّ مهارة، وتعطي مهارتك الأضعف تركيزاً مضاعفاً. تابع خطة اليوم، ولك الحرية أن تتدرّب على أي شيء متى شئت.
+        خطّتك مكثّفة نحو هدفك، وتُركّز على الكتابة والقراءة — أصعب قسمين عليك — مع جرعة يومية أخفّ للاستماع والمحادثة حتى لا تبرد أي مهارة. تابعي خطة اليوم، ولك الحرية أن تتدرّبي على أي شيء متى شئت. عطلة نهاية الأسبوع راحة.
       </p>
 
       {/* Today */}

@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Clock, ChevronLeft, CheckCircle, XCircle, RotateCcw, AlignLeft, FileText } from 'lucide-react'
+import { BookOpen, Clock, ChevronLeft, CheckCircle, XCircle, RotateCcw, AlignLeft, FileText, Lock, Play, Check } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
-import { useSubmitReadingSession, useRecentReadingSessions } from '@/hooks/ielts/useReadingLab'
+import { useSubmitReadingSession, useRecentReadingSessions, useCompletedReadingSessions } from '@/hooks/ielts/useReadingLab'
 import { gradeQuestions } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
@@ -47,6 +47,15 @@ const FILTER_OPTIONS = [
   { key: 'band_6_7', label: 'Band 6–7' },
   { key: 'band_7_8', label: 'Band 7–8' },
 ]
+
+// The path ramps up in difficulty: easier passages first, hardest last.
+const DIFF_ORDER = { band_5_6: 0, band_6_7: 1, band_7_8: 2, band_8_9: 3 }
+function fmtDate(iso) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  if (isNaN(d)) return ''
+  return d.toLocaleDateString('ar', { day: 'numeric', month: 'short' })
+}
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
 
@@ -334,10 +343,12 @@ export default function Reading() {
   const studentId = useStudentId()
   const submitSession = useSubmitReadingSession()
   const recentQ = useRecentReadingSessions(studentId, 10)
+  const doneQ = useCompletedReadingSessions(studentId)
   const isWide = useIsWide()
 
   const [act, setAct] = useState('library')
   const [diffFilter, setDiffFilter] = useState(null)
+  const [reviewMode, setReviewMode] = useState(false)
   const [passage, setPassage] = useState(null)
   const [answers, setAnswers] = useState({})
   const [timeLeft, setTimeLeft] = useState(0)
@@ -396,10 +407,23 @@ export default function Reading() {
     setTimeLeft((p.time_limit_minutes || 20) * 60)
     setGradeResult(null)
     setShowReview(false)
+    setReviewMode(false)
     setMobilePane('passage')
     const firstQ = p?.questions?.[0]?.question_number
     setCurrent(firstQ != null ? `0_${firstQ}` : null)
     setAct('session')
+  }
+
+  // Open a previously-completed passage as a read-only answer review.
+  function openReview(p, session) {
+    const result = session?.session_data && typeof session.session_data === 'object'
+      ? session.session_data
+      : { correct: session?.correct_count || 0, total: (session?.correct_count || 0) + (session?.incorrect_count || 0), band: session?.band_score, perQuestion: [] }
+    setPassage(p)
+    setGradeResult(result)
+    setReviewMode(true)
+    setShowReview(true)
+    setAct('results')
   }
 
   function handleAnswerChange(qNum, val) {
@@ -418,112 +442,128 @@ export default function Reading() {
   const answeredCount = Object.keys(answers).length
   const totalQ = passage?.questions?.length || 0
 
-  // ── ACT 1: LIBRARY ──────────────────────────────────────────────────────────
+  // ── ACT 1: PATH ─────────────────────────────────────────────────────────────
   if (act === 'library') {
-    const recentSessions = recentQ.data || []
-    const bestBand = recentSessions.length > 0
-      ? Math.max(...recentSessions.map(s => Number(s.band_score || 0)))
-      : null
-    const passages = passagesQ.data || []
+    const doneMap = doneQ.data || {}
+    // Ordered path — easier passages first, hardest last.
+    const passages = [...(passagesQ.data || [])].sort((a, b) =>
+      ((DIFF_ORDER[a.difficulty_band] ?? 9) - (DIFF_ORDER[b.difficulty_band] ?? 9)) || (a.passage_number - b.passage_number)
+    )
+    const doneCount = passages.filter(p => doneMap[p.id]).length
+    const firstIncomplete = passages.findIndex(p => !doneMap[p.id])
+    const pct = passages.length ? Math.round((doneCount / passages.length) * 100) : 0
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2, maxWidth: 900 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2, maxWidth: 780 }}>
 
-        {/* Header */}
         <LabHeader eyebrow="التدريب · القراءة" title="القراءة">
-          نصوص أكاديمية بأنواع أسئلة الآيلتس. اختر نصّاً وابدأ تدريباً مُوقّتاً — تصحيح فوري وشرح لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
+          نصوص أكاديمية حقيقية على مستوى الآيلتس، مرتّبة كمسار: أنهي نصّاً لينفتح التالي. تصحيح فوري وشرح لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
         </LabHeader>
 
         <QuestionTypesSection />
 
-        {/* Stats strip — only if sessions exist */}
-        {recentSessions.length > 0 && (
-          <div style={{ display: 'flex', gap: 12 }}>
-            <Card style={{ padding: '14px 18px', flex: '0 0 auto' }}>
-              <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 4 }}>جلسات مكتملة</div>
-              <div className="iel-serif" style={{ fontSize: 24, fontWeight: 600, color: 'var(--iel-ink)' }}>{recentSessions.length}</div>
-            </Card>
-            {bestBand != null && (
-              <Card style={{ padding: '14px 18px', flex: '0 0 auto' }}>
-                <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 4 }}>أفضل Band</div>
-                <div className="iel-serif" style={{ fontSize: 24, fontWeight: 600, color: 'var(--iel-accent)' }}>{bestBand.toFixed(1)}</div>
-              </Card>
-            )}
-          </div>
-        )}
-
-        {/* Filter pills + count */}
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-          {FILTER_OPTIONS.map(o => {
-            const active = diffFilter === o.key
-            return (
-              <button
-                key={String(o.key)}
-                onClick={() => setDiffFilter(o.key)}
-                style={{
-                  padding: '6px 14px',
-                  borderRadius: 20,
-                  border: `1px solid ${active ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 55%, transparent)'}`,
-                  background: active ? 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)' : 'color-mix(in srgb, var(--ds-surface) 50%, transparent)',
-                  color: active ? 'var(--ds-text)' : 'var(--ds-text-muted)',
-                  fontSize: 13,
-                  fontWeight: active ? 700 : 500,
-                  fontFamily: "'Tajawal', sans-serif",
-                  cursor: 'pointer',
-                  transition: 'all 0.15s',
-                }}
-              >
-                {o.label}
-              </button>
-            )
-          })}
-          {!passagesQ.isLoading && (
-            <span style={{ fontSize: 12, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", marginInlineStart: 'auto', fontWeight: 600 }}>
-              {passages.length} نص متاح
-            </span>
-          )}
+        {/* Path header — progress */}
+        <div>
+          <SectionHeader title="مسار النصوص" />
+          <Card style={{ padding: '16px 20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--iel-ink)' }}>
+                أنجزتِ <span className="iel-serif" style={{ fontSize: 20, color: 'var(--iel-accent)' }}>{doneCount}</span> من {passages.length} نص
+              </div>
+              {doneCount > 0 && (
+                <div style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', fontWeight: 600 }}>
+                  أفضل Band: <span style={{ color: 'var(--iel-accent-ink)', fontWeight: 800 }}>{Math.max(...passages.map(p => Number(doneMap[p.id]?.band_score || 0))).toFixed(1)}</span>
+                </div>
+              )}
+            </div>
+            <div style={{ height: 7, borderRadius: 20, background: 'var(--iel-track)', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${pct}%`, borderRadius: 20, background: 'linear-gradient(90deg, var(--iel-good), var(--iel-accent))', transition: 'width .6s cubic-bezier(.22,1,.36,1)' }} />
+            </div>
+          </Card>
         </div>
 
-        {/* Passage grid */}
-        {passagesQ.isLoading ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
-            {Array(6).fill(0).map((_, i) => (
-              <div key={i} style={{
-                height: 130,
-                borderRadius: 18,
-                background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)',
-                border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)',
-                animation: 'pulse 1.5s ease-in-out infinite',
-              }} />
+        {/* The path */}
+        {passagesQ.isLoading || doneQ.isLoading ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {Array(5).fill(0).map((_, i) => (
+              <div key={i} style={{ height: 78, borderRadius: 16, background: 'color-mix(in srgb, var(--iel-surface-2) 60%, transparent)', border: '1px solid var(--iel-border)', animation: 'pulse 1.5s ease-in-out infinite' }} />
             ))}
           </div>
         ) : passages.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            style={{
-              padding: '40px 24px',
-              borderRadius: 20,
-              background: 'color-mix(in srgb, var(--ds-surface) 40%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)',
-              textAlign: 'center',
-            }}
-          >
-            <BookOpen size={32} color="var(--ds-text-muted)" style={{ marginBottom: 12 }} />
-            <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-              لا توجد نصوص لهذا المستوى حالياً
-            </p>
-          </motion.div>
+          <Card style={{ padding: '40px 24px', textAlign: 'center' }}>
+            <BookOpen size={32} color="var(--iel-ink-3)" style={{ marginBottom: 12 }} />
+            <p style={{ margin: 0, fontSize: 15, color: 'var(--iel-ink-2)', fontWeight: 600 }}>لا توجد نصوص متاحة حالياً</p>
+          </Card>
         ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.4 }}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 14 }}
-          >
-            {passages.map(p => (
-              <PassageCard key={p.id} passage={p} onSelect={handleSelectPassage} />
-            ))}
-          </motion.div>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {passages.map((p, i) => {
+              const done = !!doneMap[p.id]
+              const state = done ? 'done' : (i === firstIncomplete ? 'current' : 'locked')
+              const session = doneMap[p.id]
+              const qCount = p.questions?.length || 0
+              const isLast = i === passages.length - 1
+              const stopColor = state === 'done' ? 'var(--iel-good)' : state === 'current' ? 'var(--iel-accent)' : 'var(--iel-border-strong, var(--iel-ink-3))'
+              const clickable = state !== 'locked'
+              const onClick = () => { if (state === 'current') handleSelectPassage(p); else if (state === 'done') openReview(p, session) }
+              return (
+                <div key={p.id} style={{ position: 'relative', display: 'flex', gap: 14, alignItems: 'stretch' }}>
+                  {/* rail + node */}
+                  <div style={{ position: 'relative', flex: 'none', width: 34, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {!isLast && <div style={{ position: 'absolute', top: 34, bottom: -10, width: 2, background: done ? 'var(--iel-good)' : 'var(--iel-border)' }} />}
+                    <div style={{
+                      width: 34, height: 34, borderRadius: '50%', flex: 'none', zIndex: 1,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      background: state === 'current' ? 'var(--iel-accent)' : state === 'done' ? 'color-mix(in srgb, var(--iel-good) 18%, var(--iel-surface))' : 'var(--iel-surface-2)',
+                      border: `2px solid ${stopColor}`,
+                      color: state === 'current' ? '#fff' : state === 'done' ? 'var(--iel-good)' : 'var(--iel-ink-3)',
+                      boxShadow: state === 'current' ? '0 0 0 4px color-mix(in srgb, var(--iel-accent) 18%, transparent)' : 'none',
+                    }}>
+                      {state === 'done' ? <Check size={17} strokeWidth={3} /> : state === 'locked' ? <Lock size={14} /> : <span style={{ fontSize: 13, fontWeight: 800, fontFamily: "'IBM Plex Sans', sans-serif" }}>{i + 1}</span>}
+                    </div>
+                  </div>
+                  {/* card */}
+                  <button
+                    type="button"
+                    onClick={clickable ? onClick : undefined}
+                    disabled={!clickable}
+                    className={clickable ? 'iel-gcard' : undefined}
+                    style={{
+                      flex: 1, textAlign: 'start', fontFamily: "'Tajawal', sans-serif", padding: '13px 16px',
+                      display: 'flex', flexDirection: 'column', gap: 7, minWidth: 0,
+                      cursor: clickable ? 'pointer' : 'default',
+                      background: state === 'locked' ? 'color-mix(in srgb, var(--iel-surface) 55%, transparent)' : 'var(--iel-surface)',
+                      border: `1px solid ${state === 'current' ? 'color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border))' : 'var(--iel-border)'}`,
+                      borderRadius: 14, opacity: state === 'locked' ? 0.62 : 1,
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                      <DiffBadge band={p.difficulty_band} />
+                      <span style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, textTransform: 'capitalize' }}>{p.topic_category}</span>
+                    </div>
+                    <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.4, letterSpacing: '-.01em' }}>{p.title}</div>
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 1 }}>
+                      {state === 'done' ? (
+                        <>
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 800, color: 'var(--iel-good)', background: 'color-mix(in srgb, var(--iel-good) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-good) 30%, transparent)', padding: '2px 9px', borderRadius: 7 }}>
+                            <Check size={12} strokeWidth={3} /> Band {Number(session.band_score).toFixed(1)}
+                          </span>
+                          <span style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600 }}>{fmtDate(session.completed_at)} · اضغطي للمراجعة</span>
+                        </>
+                      ) : state === 'current' ? (
+                        <>
+                          <MetaChip icon={AlignLeft}>{p.word_count} كلمة</MetaChip>
+                          <MetaChip icon={FileText}>{qCount} سؤال</MetaChip>
+                          <span style={{ marginInlineStart: 'auto', display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12.5, fontWeight: 800, color: 'var(--iel-accent-ink)' }}><Play size={12} fill="currentColor" /> ابدئي</span>
+                        </>
+                      ) : (
+                        <span style={{ fontSize: 12, color: 'var(--iel-ink-3)', fontWeight: 600 }}>أنهي النص السابق ليُفتح</span>
+                      )}
+                    </div>
+                  </button>
+                </div>
+              )
+            })}
+          </div>
         )}
       </div>
     )
@@ -619,7 +659,7 @@ export default function Reading() {
           }}
         >
           <p style={{ margin: 0, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Reading Result
+            {reviewMode ? 'مراجعة · Reading' : 'Reading Result'}
           </p>
           <BandDisplay band={band} size="xl" animate />
           <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
@@ -638,7 +678,7 @@ export default function Reading() {
           style={{ display: 'flex', gap: 12 }}
         >
           <button
-            onClick={() => setAct('library')}
+            onClick={() => { setReviewMode(false); setAct('library') }}
             style={{
               flex: 1,
               padding: '12px',
@@ -652,7 +692,7 @@ export default function Reading() {
               cursor: 'pointer',
             }}
           >
-            المكتبة
+            المسار
           </button>
           <button
             onClick={() => handleSelectPassage(passage)}
