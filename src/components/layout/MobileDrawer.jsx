@@ -37,6 +37,19 @@ export default function MobileDrawer({ open, onClose, nav }) {
     staleTime: 300_000,
   })
 
+  // Gate "تمارين مخصّصة" — only students with individually-assigned exercises (visibleWhen: targeted-exercises-count).
+  const { data: targetedExercisesCount = 0 } = useQuery({
+    queryKey: ['targeted-exercises', 'count', profileId],
+    queryFn: async () => {
+      const { count } = await supabase
+        .from('targeted_exercises').select('id', { count: 'exact', head: true })
+        .eq('student_id', profileId)
+      return count || 0
+    },
+    enabled: !!profileId && role === 'student',
+    staleTime: 300_000,
+  })
+
   // Close on route change
   useEffect(() => { onClose() }, [location.pathname])
 
@@ -111,6 +124,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
               {(nav.drawerSections || nav.sections).map((section) => {
                 const visibleItems = section.items.filter(item => {
                   if (item.visibleWhen === 'course-vocab-count' && courseVocabCount <= 0) return false
+                  if (item.visibleWhen === 'targeted-exercises-count' && targetedExercisesCount <= 0) return false
                   if (!item.requiresPackage) return true
                   if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
                   return true

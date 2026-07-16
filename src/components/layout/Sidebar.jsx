@@ -79,6 +79,19 @@ function Sidebar({ nav, collapsed, onToggle }) {
     staleTime: 300_000,
   })
 
+  // Conditional "تمارين مخصّصة" nav visibility — only students with individually-assigned exercises.
+  const { data: targetedExercisesCount = 0 } = useQuery({
+    queryKey: ['targeted-exercises', 'count', profileId],
+    queryFn: async () => {
+      const { count } = await supabase
+        .from('targeted_exercises').select('id', { count: 'exact', head: true })
+        .eq('student_id', profileId)
+      return count || 0
+    },
+    enabled: !!profileId && role === 'student',
+    staleTime: 300_000,
+  })
+
   // "X words due" daily-return badge — same unified count the review surface shows.
   const { data: vocabDueCount = 0 } = useQuery({
     queryKey: ['vocab-due-badge', profileId],
@@ -204,6 +217,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
           const visibleItems = section.items.filter(item => {
             if (item.visibleWhen === 'hard-words-count' && hardWordsCount <= 0) return false
             if (item.visibleWhen === 'course-vocab-count' && courseVocabCount <= 0) return false
+            if (item.visibleWhen === 'targeted-exercises-count' && targetedExercisesCount <= 0) return false
             if (item.requiresSpeakingTrack) return studentData?.uses_speaking_track === true
             if (item.requiresIELTSStudents) return hasIELTSStudents
             if (item.requiresMockExamAccess) return canSeeMockExam

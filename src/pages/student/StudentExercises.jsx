@@ -670,9 +670,31 @@ export default function StudentExercises() {
 // ─── Exercise View ──────────────────────────────────────
 
 function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting }) {
+  // Hooks first (React #310 discipline) — used by the manually-authored "learn then test" exercises.
+  const [checked, setChecked] = useState({}) // q.id -> true/false (per-question check mode)
+  const [stage, setStage] = useState(() => (exercise.content?.learn ? 'learn' : 'test'))
+
   const questions = exercise.content?.questions || []
   const type = exercise.content?.type || 'multiple_choice'
+  const learn = exercise.content?.learn || null
+  const perQuestion = exercise.content?.check_mode === 'per_question'
   const allAnswered = questions.every(q => answers[q.id] !== undefined && answers[q.id] !== '')
+  const checkedCount = Object.keys(checked).length
+  const allChecked = !perQuestion || questions.every(q => checked[q.id] !== undefined)
+
+  function checkOne(q) {
+    const accepted = q.accepted_answers || [q.correct_answer]
+    const ok = validateAnswer(answers[q.id], accepted)
+    setChecked(prev => ({ ...prev, [q.id]: ok }))
+  }
+
+  // Score-templated encouragement (rule-based, never an API call; neutral phrasing reads for both genders)
+  const encouragement = result
+    ? result.score >= 90 ? 'ممتاز! إتقان واضح للأزمنة الأربعة 👏'
+      : result.score >= 80 ? 'أداء قوي! مراجعة سريعة للأسئلة الحمراء وتكتمل الصورة.'
+        : result.score >= 60 ? 'جيد — مراجعة قسم التعلّم بالأعلى سترفع نتيجتك أكثر.'
+          : 'بداية طيبة — قسم التعلّم يشرح كل قاعدة خطوة بخطوة، والإعادة تصنع الفرق.'
+    : null
 
   return (
     <div className="space-y-12 max-w-3xl mx-auto">
@@ -683,6 +705,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
         </button>
         <div className="flex-1">
           <h1 className="text-page-title">{exercise.title_ar || exercise.title}</h1>
+          {exercise.content?.title_en && <p className="text-sm text-muted" dir="ltr" style={{ textAlign: 'left' }}>{exercise.content.title_en}</p>}
           <p className="text-muted text-sm">{exercise.instructions}</p>
         </div>
         <span className={`text-xs px-2.5 py-1 rounded-full ${SKILL_COLOR_CLASSES[SKILL_COLORS[exercise.skill]]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
@@ -690,8 +713,40 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
         </span>
       </div>
 
+      {/* Learn ⇄ Test stage toggle (only for exercises that ship a learn section) */}
+      {learn && (
+        <div className="flex items-center gap-2">
+          {[{ k: 'learn', label: 'تعلّم' }, { k: 'test', label: 'اختبر نفسك' }].map(t => (
+            <button
+              key={t.k}
+              onClick={() => setStage(t.k)}
+              className={`text-sm px-4 py-2 rounded-xl border transition-all ${
+                stage === t.k
+                  ? 'bg-sky-500/10 border-sky-500/30 text-sky-400 font-bold'
+                  : 'border-border-subtle text-muted hover:text-[var(--text-primary)]'
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+          {perQuestion && stage === 'test' && (
+            <span className="text-xs text-muted mr-auto">تم فحص {checkedCount} من {questions.length}</span>
+          )}
+        </div>
+      )}
+
+      {/* Learn stage */}
+      {learn && stage === 'learn' && (
+        <>
+          <LearnSection learn={learn} />
+          <button onClick={() => setStage('test')} className="btn-primary w-full py-3 text-sm flex items-center justify-center gap-2">
+            <Target size={14} /> ابدأ الاختبار — {questions.length} سؤالًا
+          </button>
+        </>
+      )}
+
       {/* Result banner */}
-      {submitted && result && (
+      {stage === 'test' && submitted && result && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -707,6 +762,9 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
             <Zap size={14} />
             <span className="text-sm font-bold">+{result.xp} XP</span>
           </div>
+          {perQuestion && encouragement && (
+            <p className="text-sm mt-3" style={{ color: 'var(--text-primary)' }}>{encouragement}</p>
+          )}
           <button onClick={onBack} className="btn-primary mt-4 text-sm">
             العودة للتمارين
           </button>
@@ -714,26 +772,46 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
       )}
 
       {/* Questions */}
+      {stage === 'test' && (
       <div className="space-y-4">
         {questions.map((q, i) => {
           const userAnswer = answers[q.id]
           const acceptedList = q.accepted_answers || [q.correct_answer]
-          const isCorrect = submitted && validateAnswer(userAnswer, acceptedList)
-          const isWrong = submitted && userAnswer && !isCorrect
+          const checkedState = perQuestion ? checked[q.id] : undefined
+          const isCorrect = submitted ? validateAnswer(userAnswer, acceptedList) : checkedState === true
+          const isWrong = submitted ? (userAnswer && !validateAnswer(userAnswer, acceptedList)) : checkedState === false
+          const locked = submitted || (perQuestion && checkedState !== undefined)
 
           return (
             <motion.div
               key={q.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
+              transition={{ delay: Math.min(i, 8) * 0.05 }}
               className={`fl-card-static p-4 ${isCorrect ? 'border-emerald-500/30' : isWrong ? 'border-red-500/30' : ''}`}
             >
+              {/* Item divider (e.g. «1 · المضارع البسيط — Present Simple») */}
+              {q.divider && (
+                <div className="flex items-center gap-2 mb-3 -mt-1">
+                  <span className="text-xs font-bold text-sky-400">{q.divider}</span>
+                  <span className="flex-1 h-px bg-[var(--border-subtle)]" />
+                </div>
+              )}
+
               <div className="flex items-start gap-2 mb-3">
                 <span className="text-xs bg-[var(--surface-raised)] text-[var(--text-primary)] w-6 h-6 rounded-full flex items-center justify-center shrink-0">
                   {i + 1}
                 </span>
-                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{q.question}</p>
+                <div className="flex-1 min-w-0">
+                  {/* Read-only seed sentence (reference context) */}
+                  {q.context && (
+                    <div className="mb-2 p-2.5 rounded-lg bg-[var(--surface-raised)] border border-[var(--border-subtle)]">
+                      <p className="text-[11px] text-muted mb-0.5">{q.context_form_ar || 'الجملة المُعطاة'}</p>
+                      <p className="text-sm font-medium" dir="ltr" style={{ color: 'var(--text-primary)', textAlign: 'left' }}>{q.context}</p>
+                    </div>
+                  )}
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{q.question}</p>
+                </div>
               </div>
 
               {type === 'multiple_choice' || q.options ? (
@@ -763,14 +841,43 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                 </div>
               ) : (
                 <div className="mr-8">
-                  <input
-                    type="text"
-                    value={userAnswer || ''}
-                    onChange={(e) => setAnswers(prev => ({ ...prev, [q.id]: e.target.value }))}
-                    disabled={submitted}
-                    className={`input-field text-sm w-full ${isCorrect ? 'border-emerald-500/30' : isWrong ? 'border-red-500/30' : ''}`}
-                    placeholder="اكتب إجابتك..."
-                  />
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={userAnswer || ''}
+                      onChange={(e) => setAnswers(prev => ({ ...prev, [q.id]: e.target.value }))}
+                      disabled={locked}
+                      dir={type === 'rewrite' ? 'ltr' : undefined}
+                      className={`input-field text-sm w-full ${isCorrect ? 'border-emerald-500/30' : isWrong ? 'border-red-500/30' : ''}`}
+                      style={type === 'rewrite' ? { textAlign: 'left' } : undefined}
+                      placeholder={type === 'rewrite' ? 'Write the sentence…' : 'اكتب إجابتك...'}
+                    />
+                    {/* Per-question instant check (manually-authored exercises) */}
+                    {perQuestion && !locked && (
+                      <button
+                        onClick={() => checkOne(q)}
+                        disabled={!userAnswer || userAnswer.trim() === ''}
+                        className="text-xs px-3 py-2 rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400 font-bold shrink-0 disabled:opacity-40 transition-all hover:translate-y-[-1px]"
+                      >
+                        تحقق
+                      </button>
+                    )}
+                    {perQuestion && checkedState !== undefined && !submitted && (
+                      checkedState
+                        ? <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
+                        : <AlertCircle size={18} className="text-red-400 shrink-0" />
+                    )}
+                  </div>
+                  {/* Instant feedback: student's answer stays; correct answer shown separately (green) */}
+                  {perQuestion && checkedState === false && !submitted && (
+                    <div className="mt-2 text-xs p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
+                      <p className="text-muted mb-0.5">الإجابة الصحيحة:</p>
+                      <p className="text-emerald-400 font-medium" dir="ltr" style={{ textAlign: 'left' }}>{q.correct_answer}</p>
+                    </div>
+                  )}
+                  {perQuestion && checkedState === true && !submitted && (
+                    <p className="mt-1.5 text-xs text-emerald-400">إجابة صحيحة ✓</p>
+                  )}
                 </div>
               )}
 
@@ -781,25 +888,152 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                   <p>{q.explanation}</p>
                 </div>
               )}
+              {/* Correct answer after final submit for wrong typed answers without explanation */}
+              {submitted && !q.explanation && isWrong && !q.options && (
+                <div className="mt-2 mr-8 text-xs p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
+                  <p className="text-muted mb-0.5">الإجابة الصحيحة:</p>
+                  <p className="text-emerald-400 font-medium" dir="ltr" style={{ textAlign: 'left' }}>{q.correct_answer}</p>
+                </div>
+              )}
             </motion.div>
           )
         })}
       </div>
+      )}
 
       {/* Submit button */}
-      {!submitted && (
+      {stage === 'test' && !submitted && (
         <button
           onClick={onSubmit}
-          disabled={!allAnswered || submitting}
+          disabled={!allAnswered || !allChecked || submitting}
           className="btn-primary w-full py-3 text-sm flex items-center justify-center gap-2"
         >
           {submitting ? (
             <><Loader2 size={14} className="animate-spin" /> جاري التقييم...</>
+          ) : perQuestion && !allChecked ? (
+            <><CheckCircle2 size={14} /> تحقق من جميع الأسئلة أولًا ({checkedCount}/{questions.length})</>
           ) : (
             <><CheckCircle2 size={14} /> تسليم الإجابات</>
           )}
         </button>
       )}
+    </div>
+  )
+}
+
+// ─── Learn section (structured teaching content for manually-authored exercises) ───
+function LearnSection({ learn }) {
+  return (
+    <div className="space-y-6">
+      {/* Intro */}
+      {learn.intro_ar && (
+        <div className="fl-card-static p-5">
+          <p className="text-sm leading-7" style={{ color: 'var(--text-primary)' }}>{learn.intro_ar}</p>
+        </div>
+      )}
+
+      {/* The four forms */}
+      {Array.isArray(learn.forms) && learn.forms.length > 0 && (
+        <div className="fl-card-static p-5">
+          <h3 className="text-section-title mb-3" style={{ color: 'var(--text-primary)' }}>الصيغ الأربع</h3>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {learn.forms.map((f) => (
+              <div key={f.en} className="p-3 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)]">
+                <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
+                  <span dir="ltr">{f.en}</span> — {f.ar}
+                </p>
+                <p className="text-xs text-muted mt-1 leading-6">{f.desc_ar}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Tenses */}
+      {(learn.tenses || []).map((t, ti) => (
+        <div key={t.title_en} className="fl-card-static p-5 space-y-4">
+          <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>
+            {ti + 1}) <span dir="ltr">{t.title_en}</span> — {t.title_ar}
+          </h3>
+
+          {/* Uses */}
+          {Array.isArray(t.uses_ar) && (
+            <div>
+              <p className="text-xs font-bold text-sky-400 mb-1.5">الاستخدام (Uses)</p>
+              <ul className="space-y-1">
+                {t.uses_ar.map((u, i) => (
+                  <li key={i} className="text-sm text-muted leading-7 pr-3 border-r-2 border-[var(--border-subtle)]">{u}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Formation table */}
+          {Array.isArray(t.formation) && (
+            <div>
+              <p className="text-xs font-bold text-sky-400 mb-1.5">التكوين (Formation)</p>
+              <div className="overflow-x-auto rounded-xl border border-[var(--border-subtle)]">
+                <table className="w-full text-sm" dir="ltr">
+                  <thead>
+                    <tr className="text-xs text-muted">
+                      <th className="text-left p-2.5 border-b border-[var(--border-subtle)]">Form</th>
+                      <th className="text-left p-2.5 border-b border-[var(--border-subtle)]">Rule</th>
+                      <th className="text-left p-2.5 border-b border-[var(--border-subtle)]">Example</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {t.formation.map((row) => (
+                      <tr key={row.form}>
+                        <td className="p-2.5 font-bold whitespace-nowrap align-top" style={{ color: 'var(--text-primary)' }}>{row.form}</td>
+                        <td className="p-2.5 text-muted align-top">{row.rule}</td>
+                        <td className="p-2.5 align-top" style={{ color: 'var(--text-primary)' }}>{row.example}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Key rules */}
+          {Array.isArray(t.rules_ar) && (
+            <div>
+              <p className="text-xs font-bold text-sky-400 mb-1.5">قواعد مهمة</p>
+              <ul className="space-y-1.5">
+                {t.rules_ar.map((r, i) => (
+                  <li key={i} className="text-sm text-muted leading-7">• {r}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Signal words */}
+          {t.signal_words && (
+            <p className="text-xs text-muted">
+              <span className="font-bold text-gold-400">كلمات دالة: </span>
+              <span dir="ltr">{t.signal_words}</span>
+            </p>
+          )}
+
+          {/* Worked example */}
+          {t.worked && (
+            <div className="p-3.5 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+              <p className="text-xs font-bold text-emerald-400 mb-2">مثال محلول (Worked Example)</p>
+              <p className="text-sm font-bold mb-2" dir="ltr" style={{ color: 'var(--text-primary)', textAlign: 'left' }}>{t.worked.seed}</p>
+              <div className="space-y-1.5">
+                {(t.worked.steps || []).map((s) => (
+                  <div key={s.label} className="text-sm leading-6">
+                    <span className="text-xs font-bold text-emerald-400" dir="ltr">{s.label}</span>
+                    <span className="mx-1.5 text-muted">←</span>
+                    <span dir="ltr" style={{ color: 'var(--text-primary)' }}>{s.answer}</span>
+                    {s.note_ar && <span className="text-xs text-muted mr-1.5">{s.note_ar}</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   )
 }
