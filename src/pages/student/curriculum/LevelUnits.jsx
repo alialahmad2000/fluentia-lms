@@ -1,289 +1,350 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, ArrowLeft, Clock } from 'lucide-react'
+import { ArrowRight, ArrowLeft, Clock, Sparkles } from 'lucide-react'
 import { useCurriculumData } from './_useCurriculumData'
-import { ProgressRing, StatusChip, getUnitStatus, LoadingSkeleton, EmptyState, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
+import { StatusChip, getUnitStatus, LoadingSkeleton, EmptyState, useCinematicMotion } from './_premiumPrimitives'
 import { tracker } from '../../../services/activityTracker'
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
+import { useG } from '../../../i18n/gender'
+import './levelUnits.css'
+
+const toArabicDigits = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d])
+
+function useIsCompact() {
+  const [compact, setCompact] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    const onChange = (e) => setCompact(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+  return compact
+}
 
 export default function LevelUnits() {
   const { level, units, chapters, progressMap, levelProgress, nextUnit, loading, levelColor, levelNum, navigate } = useCurriculumData()
   const { basePath } = useCurriculumPreview()
   const m = useCinematicMotion()
+  const compact = useIsCompact()
+  const g = useG()
 
   if (loading) return <LoadingSkeleton />
   if (!level) return null
 
-  return (
-    <div dir="rtl" style={{ fontFamily: "'Tajawal', sans-serif", color: V1.textPrimary, minHeight: '100vh', position: 'relative' }}>
+  // The world is painted from the student's NEXT unit art (it changes as she
+  // advances), falling back to any unit cover, then the level cover.
+  const worldArt = nextUnit?.cover_image_url
+    || units.find((u) => u.cover_image_url)?.cover_image_url
+    || level.cover_image_url
+    || null
 
-      {/* Background */}
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} aria-hidden>
-        <div style={{ position: 'absolute', inset: 0, background: V1.bg }} />
-        {level.cover_image_url && (
-          <div className="curr-kenburns" style={{
-            position: 'absolute', inset: 0,
-            backgroundImage: `url(${level.cover_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center',
-            filter: 'blur(40px) brightness(0.35) saturate(1.3)', transform: 'scale(1.1)',
-          }} />
-        )}
-        <div className="curr-breathe" aria-hidden style={{ position: 'absolute', inset: 0, background: 'radial-gradient(58% 42% at 50% 6%, rgba(251,191,36,0.10), transparent 60%)', mixBlendMode: 'screen' }} />
-        <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at center, transparent 0%, ${V1.overlaySoft} 50%, ${V1.overlay} 100%)` }} />
-        <div style={{ position: 'absolute', inset: 0, opacity: V1.filmGrainOpacity, mixBlendMode: 'overlay', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
-        <div style={{ position: 'absolute', top: '20%', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${V1.accentGoldSoft}, transparent)` }} />
-        <div style={{ position: 'absolute', top: '75%', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${V1.accentCyanSoft}, transparent)` }} />
+  const reveal = m.reduced
+    ? {}
+    : {
+        initial: { opacity: 0, y: 18 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: '-40px' },
+        transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+      }
+
+  const openUnit = (unit) => {
+    tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum })
+    navigate(`${basePath}/unit/${unit.id}`)
+  }
+
+  return (
+    <div dir="rtl" className="lvx-root">
+
+      {/* ── THE WORLD ── */}
+      <div className={`lvx-world${worldArt ? '' : ' lvx-world--empty'}`} aria-hidden>
+        {worldArt && <div className="lvx-world__far" style={{ backgroundImage: `url(${worldArt})` }} />}
+        <div className="lvx-world__near" style={worldArt ? { backgroundImage: `url(${worldArt})` } : undefined} />
+        <div className="lvx-world__wash" style={{ background: `linear-gradient(180deg, ${levelColor}55, transparent 60%)` }} />
+        <div className="lvx-world__bloom" />
+        <div className="lvx-world__motes" />
+        <div className="lvx-world__scrim" />
+        <div className="lvx-world__grain" />
       </div>
 
-      {/* Content */}
-      <div style={{ position: 'relative', zIndex: 10, maxWidth: '1100px', margin: '0 auto', padding: '0 24px' }}>
+      {/* ── CONTENT ── */}
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: 1160, margin: '0 auto', padding: '0 24px var(--mobile-bottom-clearance, 96px)' }}>
 
         {/* HERO */}
-        <section style={{ padding: '80px 0 60px', position: 'relative' }}>
-          <div style={{
-            position: 'absolute', bottom: 0, left: 0, fontSize: V1.type.bgType, fontWeight: 800,
-            fontFamily: "'Inter Tight', sans-serif", letterSpacing: '-0.05em', lineHeight: V1.leading.tight,
-            background: V1.goldGradient,
-            WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
-            opacity: 0.06, pointerEvents: 'none', userSelect: 'none',
-          }} dir="ltr">
-            {level.cefr}
-          </div>
+        <section style={{ padding: '64px 0 72px', position: 'relative' }}>
+          <div className="lvx-watermark" data-text={level.cefr} dir="ltr">{level.cefr}</div>
 
           <motion.div {...m.heroEntry}>
             <motion.button
               {...m.fadeUp}
               onClick={() => navigate(basePath)}
-              className="cinematic-card inline-flex items-center gap-2 mb-8 transition-colors"
-              style={{ fontSize: V1.type.bodySm, color: V1.accentGold, opacity: 0.6, background: 'none', border: 'none' }}
+              className="lvx-back"
               tabIndex={0}
             >
-              <ArrowRight size={16} />
+              <ArrowRight size={15} />
               العودة للمستويات
             </motion.button>
 
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-              <div className="flex-1">
-                <motion.h1 {...m.fadeUp} style={{
-                  fontFamily: "'Playfair Display', 'Amiri', serif", fontSize: V1.type.xl,
-                  fontWeight: 700, lineHeight: V1.leading.tight, marginBottom: '12px',
-                }}>
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10" style={{ marginTop: 34 }}>
+              <div className="flex-1" style={{ position: 'relative' }}>
+                <motion.div {...m.fadeUp} className="lvx-eyebrow">
+                  <span className="lvx-eyebrow__rule" />
+                  <span className="lvx-eyebrow__text">رحلة المستوى</span>
+                  <span className="lvx-cefr" dir="ltr">{level.cefr}</span>
+                </motion.div>
+
+                <motion.h1 {...m.fadeUp} className="lvx-title">
                   {level.name_ar}
                 </motion.h1>
 
-                <motion.div {...m.fadeUp} className="flex items-center gap-3 mb-4">
-                  <div style={{ width: 30, height: 1, background: V1.accentGold }} />
-                  <span style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: V1.type.md, color: V1.accentGold, fontStyle: 'italic' }} dir="ltr">
-                    {level.name_en}
-                  </span>
-                  <span style={{
-                    fontSize: V1.type.bodyXs, fontWeight: 600, padding: '3px 10px', borderRadius: '999px',
-                    background: V1.accentCyanSoft, color: V1.accentCyan, border: `1px solid ${V1.accentCyanStrong}`,
-                  }}>
-                    {level.cefr}
-                  </span>
+                <motion.div {...m.fadeUp} className="lvx-subtitle">
+                  <span className="lvx-subtitle__name" dir="ltr">{level.name_en}</span>
+                  <span className="lvx-subtitle__rule" />
                 </motion.div>
 
                 {level.description_ar && (
-                  <motion.p {...m.fadeUp} style={{ fontSize: V1.type.bodyLg, color: V1.textDim, lineHeight: V1.leading.relaxed, maxWidth: '520px' }}>
+                  <motion.p {...m.fadeUp} className="lvx-desc">
                     {level.description_ar}
                   </motion.p>
                 )}
 
-                <motion.div {...m.fadeUp} className="flex flex-wrap gap-3 mt-6">
-                  <Pill label="وحدة مكتملة" value={`${levelProgress.completedUnits}/${levelProgress.totalUnits}`} color={V1.accentCyan} />
-                  <Pill label="التقدّم" value={`${levelProgress.overallPercent}%`} color={V1.accentGold} />
+                <motion.div {...m.fadeUp} className="lvx-chips">
+                  <span className="lvx-chip">
+                    <strong style={{ color: '#f5c842' }} dir="ltr">{levelProgress.completedUnits}/{levelProgress.totalUnits}</strong>
+                    وحدة مكتملة
+                  </span>
+                  <span className="lvx-chip">
+                    <strong style={{ color: '#9ee3f8' }} dir="ltr">{levelProgress.overallPercent}%</strong>
+                    التقدّم الكلي
+                  </span>
+                  {levelProgress.inProgressUnits > 0 && (
+                    <span className="lvx-chip">
+                      <strong style={{ color: '#9ee3f8' }} dir="ltr">{levelProgress.inProgressUnits}</strong>
+                      قيد التعلّم
+                    </span>
+                  )}
                 </motion.div>
 
                 {nextUnit && (
-                  <motion.button
-                    {...m.fadeUp}
-                    onClick={() => { tracker.track('unit_selected', { unit_id: nextUnit.id }); navigate(`${basePath}/unit/${nextUnit.id}`) }}
-                    className="cinematic-card mt-8 inline-flex items-center gap-2 font-bold transition-all"
-                    style={{
-                      padding: '12px 28px', borderRadius: '999px', fontSize: V1.type.bodySm,
-                      border: `2px solid ${V1.accentGoldStrong}`, color: V1.accentGold, background: 'transparent',
-                    }}
-                    whileHover={m.reduced ? {} : { background: V1.accentGoldSoft, boxShadow: V1.glowCyan }}
-                    tabIndex={0}
-                  >
-                    ابدأ من حيث توقفت
-                    <ArrowLeft size={18} />
-                  </motion.button>
+                  <motion.div {...m.fadeUp}>
+                    <button className="lvx-cta" onClick={() => openUnit(nextUnit)} tabIndex={0}>
+                      {g('ابدأ من حيث توقفت', 'ابدئي من حيث توقفت')}
+                      <span className="lvx-cta__arrow"><ArrowLeft size={17} /></span>
+                    </button>
+                    <p className="lvx-cta-hint">
+                      الوحدة التالية: <strong>{nextUnit.theme_ar}</strong>
+                    </p>
+                  </motion.div>
                 )}
               </div>
 
-              <motion.div {...m.fadeUp} className="flex flex-col items-center shrink-0">
-                <div style={{ position: 'relative' }}>
-                  <ProgressRing percent={levelProgress.overallPercent} size={140} strokeWidth={8} color={V1.accentCyan} bgColor={V1.border} />
-                  <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: V1.type.lg, fontWeight: 800, fontFamily: "'Inter Tight', sans-serif", color: V1.textPrimary }}>
-                      {levelProgress.overallPercent}%
-                    </span>
-                  </div>
-                </div>
-                <span style={{ fontSize: V1.type.bodySm, color: V1.textDim, marginTop: '12px' }}>تقدّمك الكلي</span>
+              <motion.div {...m.fadeUp} className="lvx-ring shrink-0">
+                <HeroRing percent={levelProgress.overallPercent} reduced={m.reduced} compact={compact} />
+                <span className="lvx-ring__label">تقدّمك الكلي في المستوى</span>
               </motion.div>
             </div>
           </motion.div>
         </section>
 
         {/* CHAPTERS & UNITS */}
-        {units.length === 0 ? <EmptyState /> : chapters.map((chapter, ci) => (
-          <section key={ci} style={{ marginBottom: '64px' }}>
-            <motion.div
-              {...(m.reduced ? {} : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true } })}
-              className="flex items-center gap-4 mb-10 mt-4"
-            >
-              <div style={{ flex: 1, height: '1px', background: V1.accentGoldSoft }} />
-              <span style={{ color: V1.accentGold, fontSize: V1.type.bodySm }}>◆</span>
-              <span style={{ fontFamily: "'Amiri', serif", fontSize: V1.type.lg, fontWeight: 700, color: V1.textPrimary }}>
-                {chapter.name}
-              </span>
-              {chapter.theme && (
-                <span style={{ fontSize: V1.type.body, color: V1.textDim }}>— {chapter.theme}</span>
-              )}
-              <span style={{ color: V1.accentGold, fontSize: V1.type.bodySm }}>◆</span>
-              <div style={{ flex: 1, height: '1px', background: V1.accentGoldSoft }} />
-            </motion.div>
+        {units.length === 0 ? <EmptyState /> : chapters.map((chapter) => {
+          const doneCount = chapter.units.filter((u) => (progressMap[u.id]?.overall || 0) === 100).length
+          const allDone = doneCount === chapter.units.length
+          return (
+            <section key={chapter.index} style={{ marginBottom: 76 }}>
+              <motion.div className="lvx-chapter" {...reveal}>
+                <div className="lvx-chapter__medal">{toArabicDigits(chapter.index + 1)}</div>
+                <div className="lvx-chapter__names">
+                  <span className="lvx-chapter__name">{chapter.name}</span>
+                  {chapter.theme && <span className="lvx-chapter__theme">— {chapter.theme}</span>}
+                </div>
+                <span className={`lvx-chapter__progress${allDone ? ' lvx-chapter__progress--done' : ''}`}>
+                  {toArabicDigits(doneCount)}/{toArabicDigits(chapter.units.length)}
+                </span>
+                <div className="lvx-chapter__rule" />
+              </motion.div>
 
-            <motion.div {...m.staggerParent} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}>
-              {chapter.units[0] && <FeaturedCard unit={chapter.units[0]} progress={getUnitStatus(progressMap, chapter.units[0].id)} levelColor={levelColor} navigate={navigate} levelNum={levelNum} basePath={basePath} m={m} />}
+              {chapter.units[0] && (
+                <FeaturedCard
+                  unit={chapter.units[0]}
+                  progress={getUnitStatus(progressMap, chapter.units[0].id)}
+                  isNext={nextUnit?.id === chapter.units[0].id}
+                  levelColor={levelColor}
+                  onOpen={openUnit}
+                  reveal={reveal}
+                />
+              )}
 
               {chapter.units.length > 1 && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                  {chapter.units.slice(1).map(unit => (
-                    <StandardCard key={unit.id} unit={unit} progress={getUnitStatus(progressMap, unit.id)} levelColor={levelColor} navigate={navigate} levelNum={levelNum} basePath={basePath} m={m} />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
+                  {chapter.units.slice(1).map((unit) => (
+                    <StandardCard
+                      key={unit.id}
+                      unit={unit}
+                      progress={getUnitStatus(progressMap, unit.id)}
+                      isNext={nextUnit?.id === unit.id}
+                      levelColor={levelColor}
+                      onOpen={openUnit}
+                      reveal={reveal}
+                    />
                   ))}
                 </div>
               )}
-            </motion.div>
-          </section>
-        ))}
+            </section>
+          )
+        })}
       </div>
     </div>
   )
 }
 
-/* Pill */
-function Pill({ label, value, color }) {
+/* ── Hero progress ring — gradient stroke + glow + legibility disc ── */
+function HeroRing({ percent = 0, reduced, compact = false }) {
+  const size = compact ? 104 : 156
+  const stroke = compact ? 7 : 9
+  const r = (size - stroke) / 2
+  const circ = 2 * Math.PI * r
+  const offset = circ - (percent / 100) * circ
+
   return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: '6px',
-      padding: '6px 14px', borderRadius: '999px', fontSize: V1.type.bodySm,
-      background: V1.bgElevated, border: `1px solid ${V1.border}`, color: V1.textPrimary,
-    }}>
-      <span style={{ fontWeight: 700, fontFamily: "'Inter Tight', sans-serif", color }}>{value}</span>
-      {label}
-    </span>
+    <div style={{ position: 'relative', width: size, height: size, flexShrink: 0 }}>
+      <div className="lvx-ring__disc" />
+      <svg width={size} height={size} className="lvx-ring__svg" style={{ transform: 'rotate(-90deg)' }}>
+        <defs>
+          <linearGradient id="lvxRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffe9a8" />
+            <stop offset="55%" stopColor="#f5c842" />
+            <stop offset="100%" stopColor="#d99e2b" />
+          </linearGradient>
+        </defs>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth={stroke} />
+        {percent > 0 && (
+          <motion.circle
+            cx={size / 2} cy={size / 2} r={r} fill="none"
+            stroke="url(#lvxRingGrad)" strokeWidth={stroke} strokeLinecap="round"
+            strokeDasharray={circ}
+            initial={{ strokeDashoffset: reduced ? offset : circ }}
+            animate={{ strokeDashoffset: offset }}
+            transition={{ duration: reduced ? 0 : 1.4, ease: 'easeOut', delay: 0.4 }}
+          />
+        )}
+      </svg>
+      <div className="lvx-ring__center">
+        <span className="lvx-ring__pct" dir="ltr">{percent}%</span>
+      </div>
+    </div>
   )
 }
 
-/* Featured Card */
-function FeaturedCard({ unit, progress, levelColor, navigate, levelNum, basePath, m }) {
-  const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`${basePath}/unit/${unit.id}`) }
-  const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
+/* ── Cover image with graceful gradient fallback on load failure ── */
+function CoverImage({ src, levelColor }) {
+  const [failed, setFailed] = useState(false)
+  if (!src || failed) {
+    return <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg, ${levelColor}, ${levelColor}66)` }} />
+  }
+  return <img src={src} alt="" loading="lazy" onError={() => setFailed(true)} />
+}
+
+/* ── Featured card — first unit of each chapter ── */
+function FeaturedCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
+  const g = useG()
+  const hasCover = !!unit.cover_image_url
+  const handleKey = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(unit) }
+  }
 
   return (
     <motion.div
-      {...m.fadeUp}
-      onClick={handleClick}
+      {...reveal}
+      onClick={() => onOpen(unit)}
       onKeyDown={handleKey}
       tabIndex={0}
       role="button"
-      className="cinematic-card cursor-pointer overflow-hidden"
-      style={{
-        borderRadius: '20px', border: `1px solid ${V1.border}`,
-        background: V1.bgLayer, minHeight: '320px',
-        display: 'grid', gridTemplateColumns: unit.cover_image_url ? '1fr 1fr' : '1fr',
-        transition: `border-color ${V1.duration.fast}, box-shadow ${V1.duration.fast}`,
-      }}
-      whileHover={m.reduced ? {} : { borderColor: V1.borderHover, boxShadow: V1.glowGold, scale: m.hoverScale }}
-      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+      aria-label={`الوحدة ${unit.unit_number}: ${unit.theme_ar}`}
+      className={`lvx-feat${hasCover ? '' : ' lvx-feat--single'}`}
     >
-      {unit.cover_image_url && (
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <img src={unit.cover_image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-          <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to left, ${V1.overlay} 0%, transparent 60%)` }} />
+      {hasCover && (
+        <div className="lvx-feat__media">
+          <CoverImage src={unit.cover_image_url} levelColor={levelColor} />
         </div>
       )}
-      <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <span style={{ fontSize: V1.type.massive, fontWeight: 800, fontFamily: "'Inter Tight', sans-serif", color: V1.accentGold, opacity: 0.15, lineHeight: 1 }}>
-          {unit.unit_number}
-        </span>
-        <h3 style={{ fontSize: V1.type.lg, fontWeight: 700, color: V1.textPrimary, marginTop: '-20px', marginBottom: '8px' }}>
-          {unit.theme_ar}
-        </h3>
-        {unit.theme_en && (
-          <p style={{ fontSize: V1.type.body, color: V1.accentCyan, fontStyle: 'italic', marginBottom: '16px' }} dir="ltr">
-            {unit.theme_en}
-          </p>
-        )}
-        <div className="flex items-center gap-3">
+      <div className="lvx-feat__body">
+        <span className="lvx-feat__num" aria-hidden>{unit.unit_number}</span>
+
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
           <StatusChip status={progress.status} />
+          {isNext && progress.status !== 'completed' && (
+            <span className="lvx-next-badge"><Sparkles size={12} /> وحدتك التالية</span>
+          )}
+        </div>
+
+        <h3 className="lvx-feat__title">{unit.theme_ar}</h3>
+        {unit.theme_en && <p className="lvx-feat__en" dir="ltr">{unit.theme_en}</p>}
+
+        <div className="lvx-feat__meta">
           {unit.estimated_minutes && (
-            <span className="flex items-center gap-1" style={{ fontSize: V1.type.bodySm, color: V1.textDim }}>
+            <span className="lvx-feat__minutes">
               <Clock size={14} /> ~{unit.estimated_minutes} دقيقة
             </span>
           )}
         </div>
+
         {progress.percent > 0 && (
-          <div style={{ marginTop: '12px', height: '3px', borderRadius: '2px', background: V1.border }}>
-            <div style={{ height: '100%', borderRadius: '2px', width: `${progress.percent}%`, background: progress.status === 'completed' ? '#4ade80' : V1.accentCyan, transition: `width ${V1.duration.medium}` }} />
+          <div className="lvx-bar" style={{ maxWidth: 300 }}>
+            <div
+              className={`lvx-bar__fill${progress.status === 'completed' ? ' lvx-bar__fill--done' : ''}`}
+              style={{ width: `${progress.percent}%` }}
+            />
           </div>
         )}
+
+        <span className="lvx-feat__open">
+          {g('افتح الوحدة', 'افتحي الوحدة')}
+          <ArrowLeft size={16} />
+        </span>
       </div>
     </motion.div>
   )
 }
 
-/* Standard Card */
-function StandardCard({ unit, progress, levelColor, navigate, levelNum, basePath, m }) {
-  const hasCover = !!unit.cover_image_url
-  const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`${basePath}/unit/${unit.id}`) }
-  const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
+/* ── Standard card ── */
+function StandardCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
+  const handleKey = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(unit) }
+  }
 
   return (
     <motion.div
-      {...m.fadeUp}
-      onClick={handleClick}
+      {...reveal}
+      onClick={() => onOpen(unit)}
       onKeyDown={handleKey}
       tabIndex={0}
       role="button"
-      className="cinematic-card cursor-pointer overflow-hidden"
-      style={{
-        borderRadius: '16px', border: `1px solid ${V1.border}`,
-        background: V1.bgLayer, transition: `border-color ${V1.duration.fast}, transform ${V1.duration.fast}, box-shadow ${V1.duration.fast}`,
-      }}
-      whileHover={m.reduced ? {} : { y: m.hoverLift, borderColor: V1.borderHover, boxShadow: V1.shadowHover }}
-      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+      aria-label={`الوحدة ${unit.unit_number}: ${unit.theme_ar}`}
+      className="lvx-card"
     >
-      <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
-        {hasCover ? (
-          <img src={unit.cover_image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-        ) : (
-          <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg, ${levelColor}, ${levelColor}88)` }} />
-        )}
-        <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${V1.overlay} 0%, transparent 50%)` }} />
-        <div style={{ position: 'absolute', top: '12px', left: '12px' }}>
+      <div className="lvx-card__media">
+        <CoverImage src={unit.cover_image_url} levelColor={levelColor} />
+        <div className="lvx-card__status">
           <StatusChip status={progress.status} size="sm" />
         </div>
+        <span className="lvx-card__num" aria-hidden>{unit.unit_number}</span>
       </div>
 
-      <div style={{ padding: '16px 20px 20px' }}>
-        <div className="flex items-center gap-2 mb-1">
-          <span style={{
-            fontSize: V1.type.bodyXs, fontWeight: 700, padding: '2px 8px', borderRadius: '999px',
-            background: V1.accentGoldSoft, color: V1.accentGold,
-          }}>
-            {unit.unit_number}
-          </span>
-          <h3 style={{ fontSize: V1.type.bodyLg, fontWeight: 700, color: V1.textPrimary }}>{unit.theme_ar}</h3>
+      <div className="lvx-card__body">
+        <div className="flex items-center gap-2 flex-wrap" style={{ marginBottom: 2 }}>
+          <h3 className="lvx-card__title">{unit.theme_ar}</h3>
+          {isNext && progress.status !== 'completed' && (
+            <span className="lvx-next-badge"><Sparkles size={11} /> التالية</span>
+          )}
         </div>
-        {unit.theme_en && (
-          <p style={{ fontSize: V1.type.bodySm, color: V1.textDim, fontStyle: 'italic' }} dir="ltr">{unit.theme_en}</p>
-        )}
+        {unit.theme_en && <p className="lvx-card__en" dir="ltr">{unit.theme_en}</p>}
+
         {progress.percent > 0 && (
-          <div style={{ marginTop: '10px', height: '2px', borderRadius: '1px', background: V1.border }}>
-            <div style={{ height: '100%', borderRadius: '1px', width: `${progress.percent}%`, background: progress.status === 'completed' ? '#4ade80' : V1.accentCyan, transition: `width ${V1.duration.medium}` }} />
+          <div className="lvx-bar">
+            <div
+              className={`lvx-bar__fill${progress.status === 'completed' ? ' lvx-bar__fill--done' : ''}`}
+              style={{ width: `${progress.percent}%` }}
+            />
           </div>
         )}
       </div>
