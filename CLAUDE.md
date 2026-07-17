@@ -313,6 +313,15 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-07-17 — «مسار الأعمال» home aesthetic upgrade (design-loop, premium)
+- What: Ali flagged the biz-track home (ظافر) as functional-but-plain (hero was ~60% dead black space, tiny floating ring, flat station boxes, no identity). Redesigned via design-loop (build→screenshot→premium-ui-critic→fix, 2 passes, 6.5→premium).
+- Hero rebuilt: warm-obsidian gradient + drifting amber/gold atmosphere + faint blueprint/road line-motif + grain (kills the empty void); two-column composition; three **world-cards** (السيارات وصيانتها/Cars · المالية/Finance · نموّ الأعمال/Growth) for instant identity; glowing sheen CTA.
+- **Signature element:** the progress ring became a **30-lesson gauge** — 30 tick marks (one per lesson) that light up as he progresses; at 0 it shows a play glyph + «٠ / ٣٠ درسًا» (Arabic-Indic digits) instead of a hollow "0" (the critic's #1 fix). Stations now sit on a glowing spine with amber next-lesson fill/glow + earned-green done state.
+- iOS-safe: NO color-mix (accent tints computed as rgba via hexA()); decorative drift gated behind prefers-reduced-motion + pointer:coarse (Android-flicker lesson). Removed the half-baked stage watermark numeral (kept colliding with the icon).
+- Files: `src/pages/student/biz-track/BizTrackHome.jsx` (rewrite, adaptive Gauge, gender-aware CTA), `src/pages/student/biz-track/bizTrack.css` (+.bt-* home block; .tt-* lesson-page styles untouched). No DB/edge changes. Ported onto origin/main via Trees API + prod-verified as ظافر.
+
+
+
 ### 2026-07-16 — FOUR TENSES interactive task (learn + 36 auto-graded transformations) assigned to ظافر
 - What: Ran TASK-FOUR-TENSES-INTERACTIVE-LMS. ONE manually-authored, individually-assigned grammar task «الأزمنة الأربعة — تحويل الجُمل» for ظافر آل قهيدان (`f1ebe336`, resolved as the single student created in the last 12h). Two parts: **تعلّم** (full bilingual 4-tense explanation: uses, formation tables, spelling rules, signal words + worked examples, masculine address) and **اختبر نفسك** (36 sentence-transformation questions, each with a read-only seed sentence + accepted_answers variants, per-question «تحقق» instant ✅/❌ that never overwrites the student's answer).
 - **Surface decision (Phase A):** `targeted_exercises` + `/student/exercises` — NOT weekly_tasks (its type CHECK forbids 'grammar', grading needs the `grade-weekly-task` edge round-trip whose open-ended path calls Claude, and the list is week_start-gated so the task would vanish next week). targeted_exercises is per-student, `skill` un-CHECKed, graded 100% locally via `validateAnswer` with `accepted_answers`, XP client-side (`reason:'custom'`), and the table was empty platform-wide → count-gated nav is single-student in practice.
