@@ -563,7 +563,7 @@ function TrainerOnboardingGuard({ children }) {
 //     Bounces to /desk no matter how they arrived (impersonation, bookmark, nav). ─────────
 function StudentHome() {
   const studentData = useAuthStore((s) => s.studentData)
-  if (studentData?.uses_pro_desk === true) return <Navigate to="/desk" replace />
+  if (studentData?.uses_pro_desk === true && studentData?.uses_custom_curriculum !== true) return <Navigate to="/desk" replace />
   return <StudentDashboard />
 }
 
@@ -581,7 +581,7 @@ function RoleRedirect() {
     case 'student':
       // Pro Desk students → their pro surface; IELTS-first students → the IELTS world
       // is their whole account; everyone else → the normal student home.
-      if (studentData?.uses_pro_desk === true) return <Navigate to="/desk" replace />
+      if (studentData?.uses_pro_desk === true && studentData?.uses_custom_curriculum !== true) return <Navigate to="/desk" replace />
       if (studentData?.uses_ielts_home === true) return <Navigate to="/student/ielts-atelier" replace />
       return <Navigate to="/student" replace />
     case 'trainer':
