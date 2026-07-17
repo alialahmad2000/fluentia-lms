@@ -4,12 +4,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Target, CheckCircle2, Clock, Zap, ArrowLeft, AlertCircle,
-  Loader2, BookOpen, RefreshCw, Trophy, Sparkles, ArrowUpRight,
+  Loader2, BookOpen, Trophy, ArrowUpRight, ClipboardList,
   PenLine, Languages, Mic, Headphones, FileText,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
-import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { validateAnswer } from '../../utils/answerValidator'
 import { useG } from '../../i18n/gender'
 import './studentExercises.css'
@@ -313,28 +312,6 @@ export default function StudentExercises() {
     enabled: !!exercises,
   })
 
-  const generateMutation = useMutation({
-    mutationFn: async () => {
-      // First analyze patterns
-      await invokeWithRetry('analyze-error-patterns', {
-        body: { student_id: profile?.id, analyze_all: true },
-        
-      })
-      // Then generate exercises
-      const res = await invokeWithRetry('generate-targeted-exercises', {
-        body: { student_id: profile?.id },
-        
-      })
-      return res.data
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['student-exercises'] })
-    },
-    onError: (err) => {
-      console.error('[StudentExercises] generate error:', err)
-    },
-  })
-
   const submitMutation = useMutation({
     mutationFn: async ({ exerciseId, answers: studentAnswers }) => {
       const exercise = exercises.find(e => e.id === exerciseId)
@@ -475,14 +452,6 @@ export default function StudentExercises() {
     () => (skillFilter === 'all' ? GENERAL_EXERCISES : GENERAL_EXERCISES.filter(e => e.skill === skillFilter)),
     [skillFilter]
   )
-  const completedGeneralCount = Object.keys(completedGeneral).length
-  const avgScoreAll = useMemo(() => {
-    // Blend targeted avg-score with general completions so the console reflects real practice.
-    const scores = []
-    for (const e of (exercises || [])) if (e.status === 'completed' && e.score != null) scores.push(Number(e.score))
-    for (const id in completedGeneral) if (completedGeneral[id]?.score != null) scores.push(Number(completedGeneral[id].score))
-    return scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0
-  }, [exercises, completedGeneral])
 
   if (activeExercise) {
     return (
@@ -506,60 +475,21 @@ export default function StudentExercises() {
 
         {/* ── HERO ── */}
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
-          <span className="pex-eyebrow">تدريب ذكي مخصّص</span>
+          <span className="pex-eyebrow">مهامّ من مدرّبك</span>
           <h1 className="pex-title">تمارين مخصّصة</h1>
-          <p className="pex-title-en" dir="ltr">Personalized Training</p>
+          <p className="pex-title-en" dir="ltr">Your Assigned Tasks</p>
           <p className="pex-lead">
-            {g('تمارين يصمّمها الذكاء بناءً على أدائك الحقيقي لتقوية نقاط ضعفك', 'تمارين يصمّمها الذكاء بناءً على أدائكِ الحقيقي لتقوية نقاط ضعفكِ')} —
-            كل تمرين يستهدف مهارة تحتاج إلى تقوية.
+            {g('مهامّ اختارها لك مدرّبك لتقوية مهارات محدّدة — أنجِزها واحدةً تلو الأخرى، ونتيجتك تُحسب فورًا.',
+               'مهامّ اختارها لكِ مدرّبكِ لتقوية مهارات محدّدة — أنجِزيها واحدةً تلو الأخرى، ونتيجتكِ تُحسب فورًا.')}
           </p>
-        </motion.div>
-
-        {/* ── FORGE CARD ── */}
-        <motion.div
-          className="pex-forge"
-          initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
-        >
-          <span className="pex-forge__sheen" />
-          <div className="pex-forge__body">
-            <p className="pex-forge__kicker">محرّك التمارين الذكي</p>
-            <h2 className="pex-forge__head">{g('حلّل أداءك ودع الذكاء يصنع تمارينك', 'حلّلي أداءكِ ودعي الذكاء يصنع تمارينكِ')}</h2>
-            <p className="pex-forge__desc">
-              {g('يقرأ الذكاء أخطاءك في الواجبات والاختبارات، ثم يولّد تمارين مركّزة تعالج كل نقطة ضعف على حدة.',
-                 'يقرأ الذكاء أخطاءكِ في الواجبات والاختبارات، ثم يولّد تمارين مركّزة تعالج كل نقطة ضعف على حدة.')}
-            </p>
-            <button className="pex-cta" onClick={() => generateMutation.mutate()} disabled={generateMutation.isPending}>
-              {generateMutation.isPending ? (
-                <><Loader2 size={16} className="animate-spin" /> {g('جاري التحليل…', 'جاري التحليل…')}</>
-              ) : (
-                <>
-                  <Sparkles size={16} />
-                  {g('حلّل نقاط ضعفي وأنشئ تمارين', 'حلّلي نقاط ضعفي وأنشئي تمارين')}
-                  <span className="pex-cta__arrow"><ArrowLeft size={16} /></span>
-                </>
-              )}
-            </button>
-          </div>
-          <div className="pex-forge__motif" aria-hidden>
-            <svg width="148" height="148" viewBox="0 0 148 148">
-              <g fill="none" stroke="#b9a4fb">
-                <circle cx="74" cy="74" r="60" opacity=".4" strokeWidth="1.8" />
-                <circle cx="74" cy="74" r="44" opacity=".55" strokeWidth="1.5" />
-                <circle cx="74" cy="74" r="28" opacity=".75" strokeWidth="1.7" />
-                <circle cx="74" cy="74" r="12" opacity=".9" strokeWidth="2" />
-              </g>
-            </svg>
-            <span className="pex-forge__spark"><Target size={26} strokeWidth={1.6} /></span>
-          </div>
         </motion.div>
 
         {/* ── STAT CONSOLE ── */}
         <div className="pex-stats">
           {[
-            { label: 'متاحة', value: toAr(pendingExercises.length || (hasNoTargetedExercises ? GENERAL_EXERCISES.length : 0)), Icon: Clock, a: '#38bdf8', glow: 'rgba(56,189,248,.5)' },
-            { label: 'مكتملة', value: toAr(stats?.completed || completedGeneralCount), Icon: CheckCircle2, a: '#4ade80', glow: 'rgba(74,222,128,.5)' },
-            { label: 'متوسط الدرجة', value: `${toAr(Math.round(avgScoreAll))}٪`, Icon: Trophy, a: '#f5c842', glow: 'rgba(245,200,66,.5)' },
+            { label: 'مهامّ متاحة', value: toAr(pendingExercises.length), Icon: Clock, a: '#38bdf8', glow: 'rgba(56,189,248,.5)' },
+            { label: 'مكتملة', value: toAr(stats?.completed || 0), Icon: CheckCircle2, a: '#4ade80', glow: 'rgba(74,222,128,.5)' },
+            { label: 'متوسط الدرجة', value: `${toAr(Math.round(stats?.avgScore || 0))}٪`, Icon: Trophy, a: '#f5c842', glow: 'rgba(245,200,66,.5)' },
             { label: 'نقاط الخبرة', value: toAr(stats?.totalXp || 0), Icon: Zap, a: '#a78bfa', glow: 'rgba(139,124,246,.55)' },
           ].map((c, i) => (
             <motion.div
@@ -586,18 +516,26 @@ export default function StudentExercises() {
           </div>
         ) : hasNoTargetedExercises ? (
           <>
-            {/* No targeted yet — warm note + general library */}
+            {/* No assigned tasks yet — warm note + optional extra practice */}
+            <motion.div
+              className="pex-note" style={{ marginTop: 26 }}
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.4 }}
+            >
+              <div className="pex-note__ic"><ClipboardList size={26} /></div>
+              <h3 className="pex-note__title">{g('لم يُسنِد لك مدرّبك مهامّ بعد', 'لم يُسنِد لكِ مدرّبكِ مهامّ بعد')}</h3>
+              <p className="pex-note__text">
+                {g('ستظهر مهامّك المخصّصة هنا فور إسنادها. حتى ذلك الحين، يمكنك التدرّب بتمارين إضافية:',
+                   'ستظهر مهامّكِ المخصّصة هنا فور إسنادها. حتى ذلك الحين، يمكنكِ التدرّب بتمارين إضافية:')}
+              </p>
+            </motion.div>
+
+            {/* Optional extra practice library */}
             <div className="pex-sec-head">
-              <span className="pex-sec-ic" style={{ background: 'rgba(139,124,246,.12)', color: '#a78bfa', border: '1px solid rgba(139,124,246,.3)' }}><BookOpen size={17} /></span>
-              <span className="pex-sec-title">مكتبة التمارين</span>
+              <span className="pex-sec-ic" style={{ background: 'rgba(56,189,248,.1)', color: '#38bdf8', border: '1px solid rgba(56,189,248,.28)' }}><BookOpen size={17} /></span>
+              <span className="pex-sec-title">تدريب إضافي</span>
               <span className="pex-sec-count" dir="ltr">{toAr(filteredGeneral.length)}</span>
               <span className="pex-sec-rule" />
             </div>
-
-            <p className="pex-lead" style={{ marginTop: -6, marginBottom: 18, fontSize: '0.875rem' }}>
-              {g('تمارينك المخصّصة تظهر هنا بعد أول تقييم لواجباتك. حتى ذلك الحين، درّب مهاراتك:',
-                 'تمارينكِ المخصّصة تظهر هنا بعد أول تقييم لواجباتكِ. حتى ذلك الحين، درّبي مهاراتكِ:')}
-            </p>
 
             <SkillFilters counts={generalCounts} active={skillFilter} onChange={setSkillFilter} />
 
@@ -620,12 +558,12 @@ export default function StudentExercises() {
           </>
         ) : (
           <>
-            {/* Pending targeted exercises */}
+            {/* Assigned tasks (pending) */}
             {pendingExercises.length > 0 && (
               <>
                 <div className="pex-sec-head">
-                  <span className="pex-sec-ic" style={{ background: 'rgba(139,124,246,.12)', color: '#a78bfa', border: '1px solid rgba(139,124,246,.3)' }}><Target size={17} /></span>
-                  <span className="pex-sec-title">تمارينك المستهدَفة</span>
+                  <span className="pex-sec-ic" style={{ background: 'rgba(139,124,246,.12)', color: '#a78bfa', border: '1px solid rgba(139,124,246,.3)' }}><ClipboardList size={17} /></span>
+                  <span className="pex-sec-title">مهامّك</span>
                   <span className="pex-sec-count" dir="ltr">{toAr(pendingExercises.length)}</span>
                   <span className="pex-sec-rule" />
                 </div>
