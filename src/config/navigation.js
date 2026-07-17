@@ -23,7 +23,7 @@ export const STUDENT_NAV = {
       items: [
         { id: 'dashboard',   label: 'الرئيسية',    icon: Home,       to: '/student' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
-        { id: 'everyday-english', label: 'إنجليزي يومي', icon: Sparkles, to: '/student/everyday-english' },
+        // OWNER-HIDDEN 2026-07-17: «إنجليزي يومي» hidden from EVERY student (route kept in App.jsx + tables intact). Hide-don't-delete.
         { id: 'sentence-builder', label: 'بناء الجُمل', icon: Layers, to: '/student/sentence-builder' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
@@ -86,7 +86,7 @@ export const STUDENT_NAV = {
       items: [
         { id: 'dashboard',    label: 'الرئيسية',    icon: Home,          to: '/student' },
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
-        { id: 'everyday-english', label: 'إنجليزي يومي', icon: Sparkles,  to: '/student/everyday-english' },
+        // OWNER-HIDDEN 2026-07-17: «إنجليزي يومي» hidden from EVERY student (route kept in App.jsx + tables intact). Hide-don't-delete.
         { id: 'sentence-builder', label: 'بناء الجُمل', icon: Layers, to: '/student/sentence-builder' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
@@ -427,6 +427,23 @@ function injectBizTrack(nav) {
     Students with an extra-curriculum-level grant get per-level sidebar items.
     Students with the Tech Track flag get «مسار التقنية» injected (composes with the above).
     Works under impersonation too — studentData is the swapped student row. */
+// «بناء الجُمل» (Sentence Builder) is NADIAH-ONLY as of 2026-07-17 (owner decision).
+// Kept in STUDENT_NAV but stripped for everyone except نادية القحطاني. Route + tables
+// stay intact (hide-don't-delete). Impersonation-safe: studentData is the swapped row.
+const SENTENCE_BUILDER_ONLY_ID = '0aba3164-2cd9-4e47-a47b-c3c3b7e8a56e' // نادية القحطاني
+
+function gateSentenceBuilder(nav, studentData) {
+  if (studentData?.id === SENTENCE_BUILDER_ONLY_ID) return nav
+  const strip = (list) => (Array.isArray(list) ? list.filter((it) => it?.id !== 'sentence-builder') : list)
+  const mapSecs = (secs) => (Array.isArray(secs) ? secs.map((s) => ({ ...s, items: strip(s.items) })) : secs)
+  return {
+    ...nav,
+    sections: mapSecs(nav.sections),
+    drawerSections: mapSecs(nav.drawerSections),
+    mobileBar: strip(nav.mobileBar),
+  }
+}
+
 export function getNavForUser(role, studentData) {
   if ((role === 'student' || !role) && studentData?.study_mode === 'individual') return INDIVIDUAL_NAV
   if (role === 'student' || !role) {
@@ -435,7 +452,7 @@ export function getNavForUser(role, studentData) {
     if (levelItems) nav = injectLevelNav(nav, levelItems)
     if (studentData?.uses_tech_track === true) nav = injectTechTrack(nav)
     if (studentData?.uses_biz_track === true) nav = injectBizTrack(nav)
-    if (nav !== STUDENT_NAV) return nav
+    return gateSentenceBuilder(nav, studentData)
   }
   return getNavForRole(role)
 }

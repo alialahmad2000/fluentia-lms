@@ -1,15 +1,33 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Target, CheckCircle2, Clock, Zap, ArrowLeft, AlertCircle,
-  Loader2, BookOpen, RefreshCw, Trophy,
+  Loader2, BookOpen, RefreshCw, Trophy, Sparkles, ArrowUpRight,
+  PenLine, Languages, Mic, Headphones, FileText,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { validateAnswer } from '../../utils/answerValidator'
+import { useG } from '../../i18n/gender'
+import './studentExercises.css'
+
+// Western → Arabic-Indic digits (this student reads Arabic-Indic).
+const AR_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩']
+const toAr = (n) => String(n ?? 0).replace(/\d/g, (d) => AR_DIGITS[+d])
+
+// Per-skill accent (drives card glow, medallion, tags) — explicit rgba, self-contained.
+const SKILL_THEME = {
+  grammar:    { ic: PenLine,   a: '#38bdf8', soft: 'rgba(56,189,248,.12)',  bd: 'rgba(56,189,248,.32)' },
+  vocabulary: { ic: Languages, a: '#4ade80', soft: 'rgba(74,222,128,.12)',  bd: 'rgba(74,222,128,.32)' },
+  speaking:   { ic: Mic,       a: '#c4b5fd', soft: 'rgba(196,181,253,.14)', bd: 'rgba(196,181,253,.34)' },
+  listening:  { ic: Headphones,a: '#f5c842', soft: 'rgba(245,200,66,.12)',  bd: 'rgba(245,200,66,.32)' },
+  reading:    { ic: BookOpen,  a: '#fb7185', soft: 'rgba(251,113,133,.12)', bd: 'rgba(251,113,133,.32)' },
+  writing:    { ic: FileText,  a: '#fbbf24', soft: 'rgba(251,191,36,.12)',  bd: 'rgba(251,191,36,.32)' },
+}
+const skillTheme = (s) => SKILL_THEME[s] || { ic: Target, a: '#a78bfa', soft: 'rgba(139,124,246,.12)', bd: 'rgba(139,124,246,.32)' }
 
 // ─── General Exercises ──────────────────────────────────
 const GENERAL_EXERCISES = [
@@ -209,7 +227,7 @@ const GENERAL_EXERCISES = [
 ]
 
 const SKILL_LABELS = {
-  grammar: 'القرامر',
+  grammar: 'القواعد',
   vocabulary: 'المفردات',
   speaking: 'المحادثة',
   listening: 'الاستماع',
@@ -257,6 +275,7 @@ function markGeneralExerciseCompleted(exerciseId, resultData) {
 
 export default function StudentExercises() {
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
+  const g = useG()
   const queryClient = useQueryClient()
   const [activeExercise, setActiveExercise] = useState(null)
   const [answers, setAnswers] = useState({})
@@ -264,6 +283,7 @@ export default function StudentExercises() {
   const [result, setResult] = useState(null)
   const [isGeneralExercise, setIsGeneralExercise] = useState(false)
   const [completedGeneral, setCompletedGeneral] = useState(() => getCompletedGeneralExercises())
+  const [skillFilter, setSkillFilter] = useState('all')
 
   const { data: exercises, isLoading } = useQuery({
     queryKey: ['student-exercises'],
@@ -445,6 +465,25 @@ export default function StudentExercises() {
   const completedExercises = exercises?.filter(e => e.status === 'completed') || []
   const hasNoTargetedExercises = pendingExercises.length === 0 && completedExercises.length === 0
 
+  // ─── Derived for the redesigned landing ───
+  const generalCounts = useMemo(() => {
+    const c = {}
+    for (const e of GENERAL_EXERCISES) c[e.skill] = (c[e.skill] || 0) + 1
+    return c
+  }, [])
+  const filteredGeneral = useMemo(
+    () => (skillFilter === 'all' ? GENERAL_EXERCISES : GENERAL_EXERCISES.filter(e => e.skill === skillFilter)),
+    [skillFilter]
+  )
+  const completedGeneralCount = Object.keys(completedGeneral).length
+  const avgScoreAll = useMemo(() => {
+    // Blend targeted avg-score with general completions so the console reflects real practice.
+    const scores = []
+    for (const e of (exercises || [])) if (e.status === 'completed' && e.score != null) scores.push(Number(e.score))
+    for (const id in completedGeneral) if (completedGeneral[id]?.score != null) scores.push(Number(completedGeneral[id].score))
+    return scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0
+  }, [exercises, completedGeneral])
+
   if (activeExercise) {
     return (
       <ExerciseView
@@ -461,209 +500,252 @@ export default function StudentExercises() {
   }
 
   return (
-    <div className="space-y-12">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-page-title flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-              <Target size={20} strokeWidth={1.5} className="text-violet-400" />
-            </div>
-            تمارين مخصصة
-          </h1>
-          <p className="text-muted text-sm mt-1">تمارين ذكية مصممة لتحسين نقاط ضعفك</p>
-        </div>
-        <button
-          onClick={() => generateMutation.mutate()}
-          disabled={generateMutation.isPending}
-          className="btn-primary flex items-center gap-2 text-sm"
+    <div className="pex-root" dir="rtl">
+      <PexWorld />
+      <div className="pex-wrap">
+
+        {/* ── HERO ── */}
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
+          <span className="pex-eyebrow">تدريب ذكي مخصّص</span>
+          <h1 className="pex-title">تمارين مخصّصة</h1>
+          <p className="pex-title-en" dir="ltr">Personalized Training</p>
+          <p className="pex-lead">
+            {g('تمارين يصمّمها الذكاء بناءً على أدائك الحقيقي لتقوية نقاط ضعفك', 'تمارين يصمّمها الذكاء بناءً على أدائكِ الحقيقي لتقوية نقاط ضعفكِ')} —
+            كل تمرين يستهدف مهارة تحتاج إلى تقوية.
+          </p>
+        </motion.div>
+
+        {/* ── FORGE CARD ── */}
+        <motion.div
+          className="pex-forge"
+          initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
         >
-          {generateMutation.isPending ? (
-            <><Loader2 size={14} className="animate-spin" /> جاري التحليل...</>
-          ) : (
-            <><RefreshCw size={14} /> تحليل وإنشاء تمارين</>
-          )}
-        </button>
-      </div>
+          <span className="pex-forge__sheen" />
+          <div className="pex-forge__body">
+            <p className="pex-forge__kicker">محرّك التمارين الذكي</p>
+            <h2 className="pex-forge__head">{g('حلّل أداءك ودع الذكاء يصنع تمارينك', 'حلّلي أداءكِ ودعي الذكاء يصنع تمارينكِ')}</h2>
+            <p className="pex-forge__desc">
+              {g('يقرأ الذكاء أخطاءك في الواجبات والاختبارات، ثم يولّد تمارين مركّزة تعالج كل نقطة ضعف على حدة.',
+                 'يقرأ الذكاء أخطاءكِ في الواجبات والاختبارات، ثم يولّد تمارين مركّزة تعالج كل نقطة ضعف على حدة.')}
+            </p>
+            <button className="pex-cta" onClick={() => generateMutation.mutate()} disabled={generateMutation.isPending}>
+              {generateMutation.isPending ? (
+                <><Loader2 size={16} className="animate-spin" /> {g('جاري التحليل…', 'جاري التحليل…')}</>
+              ) : (
+                <>
+                  <Sparkles size={16} />
+                  {g('حلّل نقاط ضعفي وأنشئ تمارين', 'حلّلي نقاط ضعفي وأنشئي تمارين')}
+                  <span className="pex-cta__arrow"><ArrowLeft size={16} /></span>
+                </>
+              )}
+            </button>
+          </div>
+          <div className="pex-forge__motif" aria-hidden>
+            <svg width="148" height="148" viewBox="0 0 148 148">
+              <g fill="none" stroke="#b9a4fb">
+                <circle cx="74" cy="74" r="60" opacity=".4" strokeWidth="1.8" />
+                <circle cx="74" cy="74" r="44" opacity=".55" strokeWidth="1.5" />
+                <circle cx="74" cy="74" r="28" opacity=".75" strokeWidth="1.7" />
+                <circle cx="74" cy="74" r="12" opacity=".9" strokeWidth="2" />
+              </g>
+            </svg>
+            <span className="pex-forge__spark"><Target size={26} strokeWidth={1.6} /></span>
+          </div>
+        </motion.div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[
-          { label: 'متاحة', value: pendingExercises.length, icon: Clock, color: 'sky' },
-          { label: 'مكتملة', value: stats?.completed || 0, icon: CheckCircle2, color: 'emerald' },
-          { label: 'متوسط الدرجة', value: `${Math.round(stats?.avgScore || 0)}%`, icon: Trophy, color: 'gold' },
-          { label: 'XP مكتسبة', value: stats?.totalXp || 0, icon: Zap, color: 'violet' },
-        ].map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className="fl-card p-4 hover:translate-y-[-2px] transition-all duration-200"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-muted text-xs">{card.label}</span>
-              <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${SKILL_COLOR_CLASSES[card.color]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
-                <card.icon size={16} />
+        {/* ── STAT CONSOLE ── */}
+        <div className="pex-stats">
+          {[
+            { label: 'متاحة', value: toAr(pendingExercises.length || (hasNoTargetedExercises ? GENERAL_EXERCISES.length : 0)), Icon: Clock, a: '#38bdf8', glow: 'rgba(56,189,248,.5)' },
+            { label: 'مكتملة', value: toAr(stats?.completed || completedGeneralCount), Icon: CheckCircle2, a: '#4ade80', glow: 'rgba(74,222,128,.5)' },
+            { label: 'متوسط الدرجة', value: `${toAr(Math.round(avgScoreAll))}٪`, Icon: Trophy, a: '#f5c842', glow: 'rgba(245,200,66,.5)' },
+            { label: 'نقاط الخبرة', value: toAr(stats?.totalXp || 0), Icon: Zap, a: '#a78bfa', glow: 'rgba(139,124,246,.55)' },
+          ].map((c, i) => (
+            <motion.div
+              key={c.label}
+              className="pex-stat"
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12 + i * 0.06, duration: 0.4 }}
+            >
+              <div className="pex-stat__glow" style={{ background: `radial-gradient(circle, ${c.glow}, transparent 70%)` }} />
+              <div className="pex-stat__top">
+                <span className="pex-stat__label">{c.label}</span>
+                <span className="pex-stat__ic" style={{ background: `${c.a}1f`, color: c.a, border: `1px solid ${c.a}44` }}>
+                  <c.Icon size={16} />
+                </span>
               </div>
-            </div>
-            <p className="text-xl font-bold text-[var(--text-primary)]">{card.value}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      {isLoading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 size={24} className="animate-spin text-sky-400" />
+              <p className="pex-stat__val" dir="ltr">{c.value}</p>
+            </motion.div>
+          ))}
         </div>
-      ) : hasNoTargetedExercises ? (
-        <>
-          {/* Friendly message about no targeted exercises */}
-          <div className="fl-card-static p-8 text-center">
-            <Target size={48} strokeWidth={1.5} className="mx-auto text-muted mb-4" />
-            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2">لم يتم تحليل أخطائك بعد</h3>
-            <p className="text-muted text-sm mb-4">
-              سيتم إنشاء تمارين مخصصة لك بعد تقييم واجباتك الأولى
-            </p>
-            <p className="text-muted text-xs">
-              في الوقت الحالي، يمكنك التدرب على التمارين العامة أدناه لتحسين مهاراتك
-            </p>
-          </div>
 
-          {/* General Exercises Section */}
-          <div>
-            <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                <BookOpen size={16} className="text-emerald-400" />
-              </div>
-              تمارين عامة
-            </h2>
-            <div className="grid gap-6">
-              {GENERAL_EXERCISES.map((exercise, i) => {
-                const color = SKILL_COLORS[exercise.skill] || 'sky'
-                const isCompleted = !!completedGeneral[exercise.id]
-                const completedData = completedGeneral[exercise.id]
-                return (
-                  <motion.div
-                    key={exercise.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.04 }}
-                    className={`fl-card p-4 cursor-pointer hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'opacity-70 hover:opacity-90' : 'hover:border-sky-500/30'}`}
-                    onClick={() => openGeneralExercise(exercise)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-xs px-2 py-0.5 rounded-full border ${SKILL_COLOR_CLASSES[color]?.badge || 'bg-sky-500/10 text-sky-400 border-sky-500/20'}`}>
-                            {SKILL_LABELS[exercise.skill]}
-                          </span>
-                          <span className="text-xs text-muted">
-                            {DIFFICULTY_LABELS[exercise.difficulty]}
-                          </span>
-                          <span className="text-xs text-violet-400 flex items-center gap-0.5">
-                            <Zap size={10} /> {exercise.xp_reward} XP
-                          </span>
-                          {isCompleted && (
-                            <span className="text-xs text-emerald-400 flex items-center gap-0.5">
-                              <CheckCircle2 size={10} /> {completedData.score}%
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="font-medium text-[var(--text-primary)] text-sm">{exercise.title_ar}</h3>
-                        <p className="text-xs text-muted mt-0.5">{exercise.title}</p>
-                      </div>
-                      {isCompleted ? (
-                        <CheckCircle2 size={16} className="text-emerald-400" />
-                      ) : (
-                        <ArrowLeft size={16} className="text-muted" />
-                      )}
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 size={26} className="animate-spin" style={{ color: '#a78bfa' }} />
           </div>
-        </>
-      ) : (
-        <>
-          {/* Pending exercises */}
-          {pendingExercises.length > 0 && (
-            <div>
-              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
-                  <Clock size={16} className="text-sky-400" />
+        ) : hasNoTargetedExercises ? (
+          <>
+            {/* No targeted yet — warm note + general library */}
+            <div className="pex-sec-head">
+              <span className="pex-sec-ic" style={{ background: 'rgba(139,124,246,.12)', color: '#a78bfa', border: '1px solid rgba(139,124,246,.3)' }}><BookOpen size={17} /></span>
+              <span className="pex-sec-title">مكتبة التمارين</span>
+              <span className="pex-sec-count" dir="ltr">{toAr(filteredGeneral.length)}</span>
+              <span className="pex-sec-rule" />
+            </div>
+
+            <p className="pex-lead" style={{ marginTop: -6, marginBottom: 18, fontSize: '0.875rem' }}>
+              {g('تمارينك المخصّصة تظهر هنا بعد أول تقييم لواجباتك. حتى ذلك الحين، درّب مهاراتك:',
+                 'تمارينكِ المخصّصة تظهر هنا بعد أول تقييم لواجباتكِ. حتى ذلك الحين، درّبي مهاراتكِ:')}
+            </p>
+
+            <SkillFilters counts={generalCounts} active={skillFilter} onChange={setSkillFilter} />
+
+            <div className="pex-grid">
+              {filteredGeneral.map((exercise, i) => (
+                <ExerciseCard
+                  key={exercise.id}
+                  i={i}
+                  skill={exercise.skill}
+                  difficulty={exercise.difficulty}
+                  xp={exercise.xp_reward}
+                  titleAr={exercise.title_ar}
+                  titleEn={exercise.title}
+                  done={!!completedGeneral[exercise.id]}
+                  doneScore={completedGeneral[exercise.id]?.score}
+                  onOpen={() => openGeneralExercise(exercise)}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Pending targeted exercises */}
+            {pendingExercises.length > 0 && (
+              <>
+                <div className="pex-sec-head">
+                  <span className="pex-sec-ic" style={{ background: 'rgba(139,124,246,.12)', color: '#a78bfa', border: '1px solid rgba(139,124,246,.3)' }}><Target size={17} /></span>
+                  <span className="pex-sec-title">تمارينك المستهدَفة</span>
+                  <span className="pex-sec-count" dir="ltr">{toAr(pendingExercises.length)}</span>
+                  <span className="pex-sec-rule" />
                 </div>
-                تمارين متاحة ({pendingExercises.length})
-              </h2>
-              <div className="grid gap-6">
-                {pendingExercises.map((exercise, i) => {
-                  const color = SKILL_COLORS[exercise.skill] || 'sky'
-                  return (
-                    <motion.div
+                <div className="pex-grid">
+                  {pendingExercises.map((exercise, i) => (
+                    <ExerciseCard
                       key={exercise.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="fl-card p-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200 cursor-pointer"
-                      onClick={() => { setActiveExercise(exercise); setAnswers({}); setSubmitted(false); setResult(null) }}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className={`text-xs px-2 py-0.5 rounded-full border ${SKILL_COLOR_CLASSES[color]?.badge || 'bg-sky-500/10 text-sky-400 border-sky-500/20'}`}>
-                              {SKILL_LABELS[exercise.skill]}
-                            </span>
-                            <span className="text-xs text-muted">
-                              {DIFFICULTY_LABELS[exercise.difficulty]}
-                            </span>
-                          </div>
-                          <h3 className="font-medium text-[var(--text-primary)] text-sm">{exercise.title}</h3>
-                          {exercise.error_patterns && (
-                            <p className="text-xs text-muted mt-1">{exercise.error_patterns.description}</p>
-                          )}
-                        </div>
-                        <ArrowLeft size={16} className="text-muted" />
-                      </div>
-                    </motion.div>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Completed exercises */}
-          {completedExercises.length > 0 && (
-            <div>
-              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <CheckCircle2 size={16} className="text-emerald-400" />
+                      i={i}
+                      skill={exercise.skill}
+                      difficulty={exercise.difficulty}
+                      titleAr={exercise.title}
+                      subtitle={exercise.error_patterns?.description}
+                      onOpen={() => { setActiveExercise(exercise); setAnswers({}); setSubmitted(false); setResult(null) }}
+                    />
+                  ))}
                 </div>
-                مكتملة ({completedExercises.length})
-              </h2>
-              <div className="grid gap-2">
-                {completedExercises.slice(0, 10).map((exercise) => (
-                  <div key={exercise.id} className="fl-card-static p-3 opacity-70">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 size={14} className="text-emerald-400" />
-                        <span className="text-sm text-[var(--text-primary)]">{exercise.title}</span>
-                        <span className="text-xs text-muted">{SKILL_LABELS[exercise.skill]}</span>
+              </>
+            )}
+
+            {/* Completed */}
+            {completedExercises.length > 0 && (
+              <>
+                <div className="pex-sec-head">
+                  <span className="pex-sec-ic" style={{ background: 'rgba(74,222,128,.12)', color: '#4ade80', border: '1px solid rgba(74,222,128,.3)' }}><CheckCircle2 size={17} /></span>
+                  <span className="pex-sec-title">مكتملة</span>
+                  <span className="pex-sec-count" dir="ltr">{toAr(completedExercises.length)}</span>
+                  <span className="pex-sec-rule" />
+                </div>
+                <div className="pex-grid" style={{ gap: 9 }}>
+                  {completedExercises.slice(0, 12).map((exercise) => {
+                    const good = exercise.score >= 80, ok = exercise.score >= 60
+                    const c = good ? '#4ade80' : ok ? '#f5c842' : '#fb7185'
+                    return (
+                      <div key={exercise.id} className="pex-done-row">
+                        <div className="pex-done-row__l">
+                          <CheckCircle2 size={15} style={{ color: '#4ade80', flexShrink: 0 }} />
+                          <span className="pex-done-row__title" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{exercise.title}</span>
+                          <span className="pex-done-row__skill">{SKILL_LABELS[exercise.skill]}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="pex-score-badge" dir="ltr" style={{ color: c, background: `${c}1f`, border: `1px solid ${c}44` }}>{toAr(exercise.score)}٪</span>
+                          <span className="pex-meta pex-meta--xp" dir="ltr"><Zap size={11} /> +{toAr(exercise.xp_awarded)}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className={`text-xs font-bold ${exercise.score >= 80 ? 'text-emerald-400' : exercise.score >= 60 ? 'text-gold-400' : 'text-red-400'}`}>
-                          {exercise.score}%
-                        </span>
-                        <span className="text-xs text-violet-400">+{exercise.xp_awarded} XP</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </>
-      )}
+                    )
+                  })}
+                </div>
+              </>
+            )}
+          </>
+        )}
+      </div>
     </div>
+  )
+}
+
+// ─── The immersive Intelligence-Lab world (fixed, behind content) ───
+function PexWorld() {
+  return (
+    <div className="pex-world" aria-hidden>
+      <div className="pex-world__rings" />
+      <div className="pex-world__grid" />
+      <div className="pex-world__bloom" />
+      <div className="pex-world__motes" />
+      <div className="pex-world__scrim" />
+      <div className="pex-world__grain" />
+    </div>
+  )
+}
+
+// ─── Skill filter chips ───
+function SkillFilters({ counts, active, onChange }) {
+  const total = Object.values(counts).reduce((a, b) => a + b, 0)
+  const skills = Object.keys(counts).filter((k) => counts[k] > 0)
+  if (skills.length <= 1) return null
+  return (
+    <div className="pex-filters">
+      <button className={`pex-chip${active === 'all' ? ' is-active' : ''}`} onClick={() => onChange('all')}>
+        الكل <span className="pex-chip__count" dir="ltr">{toAr(total)}</span>
+      </button>
+      {skills.map((s) => (
+        <button key={s} className={`pex-chip${active === s ? ' is-active' : ''}`} onClick={() => onChange(s)}>
+          {SKILL_LABELS[s] || s} <span className="pex-chip__count" dir="ltr">{toAr(counts[s])}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+// ─── Premium exercise card (targeted + general) ───
+function ExerciseCard({ i, skill, difficulty, xp, titleAr, titleEn, subtitle, done, doneScore, onOpen }) {
+  const t = skillTheme(skill)
+  const Icon = t.ic
+  const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }
+  return (
+    <motion.div
+      className={`pex-card${done ? ' is-done' : ''}`}
+      style={{ '--pex-accent': t.a, '--pex-accent-soft': t.soft, '--pex-accent-bd': t.bd }}
+      initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: Math.min(i, 8) * 0.04, duration: 0.4 }}
+      onClick={onOpen} onKeyDown={handleKey} tabIndex={0} role="button"
+    >
+      <span className="pex-card__medal"><Icon size={22} strokeWidth={1.8} /></span>
+      <div className="pex-card__body">
+        <div className="pex-card__chips">
+          <span className="pex-tag">{SKILL_LABELS[skill] || skill}</span>
+          {difficulty && <span className="pex-meta">{DIFFICULTY_LABELS[difficulty]}</span>}
+          {xp != null && <span className="pex-meta pex-meta--xp" dir="ltr"><Zap size={11} /> {toAr(xp)} XP</span>}
+          {done && doneScore != null && <span className="pex-meta pex-meta--score" dir="ltr"><CheckCircle2 size={11} /> {toAr(doneScore)}٪</span>}
+        </div>
+        <h3 className="pex-card__title">{titleAr}</h3>
+        {titleEn && <p className="pex-card__en" dir="ltr">{titleEn}</p>}
+        {subtitle && <p className="pex-card__en" dir="rtl" style={{ direction: 'rtl', color: 'rgba(236,233,246,.6)' }}>{subtitle}</p>}
+      </div>
+      {done ? (
+        <span className="pex-card__done"><CheckCircle2 size={18} /></span>
+      ) : (
+        <span className="pex-card__go"><ArrowUpRight size={17} style={{ transform: 'scaleX(-1)' }} /></span>
+      )}
+    </motion.div>
   )
 }
 
@@ -671,6 +753,7 @@ export default function StudentExercises() {
 
 function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting }) {
   // Hooks first (React #310 discipline) — used by the manually-authored "learn then test" exercises.
+  const g = useG()
   const [checked, setChecked] = useState({}) // q.id -> true/false (per-question check mode)
   const [stage, setStage] = useState(() => (exercise.content?.learn ? 'learn' : 'test'))
 
@@ -690,25 +773,28 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
 
   // Score-templated encouragement (rule-based, never an API call; neutral phrasing reads for both genders)
   const encouragement = result
-    ? result.score >= 90 ? 'ممتاز! إتقان واضح للأزمنة الأربعة 👏'
+    ? result.score >= 90 ? 'ممتاز! إتقان واضح 👏'
       : result.score >= 80 ? 'أداء قوي! مراجعة سريعة للأسئلة الحمراء وتكتمل الصورة.'
         : result.score >= 60 ? 'جيد — مراجعة قسم التعلّم بالأعلى سترفع نتيجتك أكثر.'
           : 'بداية طيبة — قسم التعلّم يشرح كل قاعدة خطوة بخطوة، والإعادة تصنع الفرق.'
     : null
 
+  const t = skillTheme(exercise.skill)
   return (
-    <div className="space-y-12 max-w-3xl mx-auto">
+    <div className="pex-root" dir="rtl">
+      <PexWorld />
+      <div className="pex-run space-y-12">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <button onClick={onBack} className="text-muted hover:text-white transition-colors">
-          <ArrowLeft size={20} />
+      <div className="pex-run__head">
+        <button onClick={onBack} className="pex-back" aria-label="رجوع">
+          <ArrowLeft size={19} />
         </button>
-        <div className="flex-1">
-          <h1 className="text-page-title">{exercise.title_ar || exercise.title}</h1>
-          {exercise.content?.title_en && <p className="text-sm text-muted" dir="ltr" style={{ textAlign: 'left' }}>{exercise.content.title_en}</p>}
-          <p className="text-muted text-sm">{exercise.instructions}</p>
+        <div className="flex-1 min-w-0">
+          <h1 className="pex-title" style={{ fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', marginBottom: 2 }}>{exercise.title_ar || exercise.title}</h1>
+          {exercise.content?.title_en && <p className="pex-card__en" dir="ltr" style={{ fontSize: '0.8125rem' }}>{exercise.content.title_en}</p>}
+          {exercise.instructions && <p style={{ color: 'rgba(236,233,246,.62)', fontSize: '0.875rem', marginTop: 4 }}>{exercise.instructions}</p>}
         </div>
-        <span className={`text-xs px-2.5 py-1 rounded-full ${SKILL_COLOR_CLASSES[SKILL_COLORS[exercise.skill]]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
+        <span className="pex-tag" style={{ '--pex-accent': t.a, '--pex-accent-soft': t.soft, '--pex-accent-bd': t.bd, padding: '4px 12px', fontSize: '0.75rem', flexShrink: 0 }}>
           {SKILL_LABELS[exercise.skill]}
         </span>
       </div>
@@ -716,7 +802,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
       {/* Learn ⇄ Test stage toggle (only for exercises that ship a learn section) */}
       {learn && (
         <div className="flex items-center gap-2">
-          {[{ k: 'learn', label: 'تعلّم' }, { k: 'test', label: 'اختبر نفسك' }].map(t => (
+          {[{ k: 'learn', label: 'تعلّم' }, { k: 'test', label: g('اختبر نفسك', 'اختبري نفسكِ') }].map(t => (
             <button
               key={t.k}
               onClick={() => setStage(t.k)}
@@ -740,7 +826,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
         <>
           <LearnSection learn={learn} />
           <button onClick={() => setStage('test')} className="btn-primary w-full py-3 text-sm flex items-center justify-center gap-2">
-            <Target size={14} /> ابدأ الاختبار — {questions.length} سؤالًا
+            <Target size={14} /> {g('ابدأ الاختبار', 'ابدئي الاختبار')} — {questions.length} سؤالًا
           </button>
         </>
       )}
@@ -850,7 +936,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                       dir={type === 'rewrite' ? 'ltr' : undefined}
                       className={`input-field text-sm w-full ${isCorrect ? 'border-emerald-500/30' : isWrong ? 'border-red-500/30' : ''}`}
                       style={type === 'rewrite' ? { textAlign: 'left' } : undefined}
-                      placeholder={type === 'rewrite' ? 'Write the sentence…' : 'اكتب إجابتك...'}
+                      placeholder={type === 'rewrite' ? 'Write the sentence…' : g('اكتب إجابتك...', 'اكتبي إجابتكِ...')}
                     />
                     {/* Per-question instant check (manually-authored exercises) */}
                     {perQuestion && !locked && (
@@ -859,7 +945,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                         disabled={!userAnswer || userAnswer.trim() === ''}
                         className="text-xs px-3 py-2 rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400 font-bold shrink-0 disabled:opacity-40 transition-all hover:translate-y-[-1px]"
                       >
-                        تحقق
+                        {g('تحقق', 'تحققي')}
                       </button>
                     )}
                     {perQuestion && checkedState !== undefined && !submitted && (
@@ -911,12 +997,13 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
           {submitting ? (
             <><Loader2 size={14} className="animate-spin" /> جاري التقييم...</>
           ) : perQuestion && !allChecked ? (
-            <><CheckCircle2 size={14} /> تحقق من جميع الأسئلة أولًا ({checkedCount}/{questions.length})</>
+            <><CheckCircle2 size={14} /> {g('تحقق من جميع الأسئلة أولًا', 'تحققي من جميع الأسئلة أولًا')} ({checkedCount}/{questions.length})</>
           ) : (
             <><CheckCircle2 size={14} /> تسليم الإجابات</>
           )}
         </button>
       )}
+      </div>
     </div>
   )
 }

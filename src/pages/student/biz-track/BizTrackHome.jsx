@@ -79,7 +79,15 @@ export default function BizTrackHome() {
   const { roadmap, totalLessons, doneLessons, nextLesson, isLoading } = useBizRoadmap()
 
   return (
-    <div className="tt-root" dir="rtl">
+    <div className="tt-root bt-page" dir="rtl">
+      {/* Immersive amber world — the whole page lives inside it (never flat black). */}
+      <div className="bt-world" aria-hidden>
+        <div className="bt-world__grid" />
+        <div className="bt-world__bloom" />
+        <div className="bt-world__motes" />
+        <div className="bt-world__scrim" />
+        <div className="bt-world__grain" />
+      </div>
       <div className="tt-wrap">
         {/* Hero */}
         <div className="bt-hero">
