@@ -6,6 +6,14 @@
 // The beats map onto the existing ACTIVITY_MAP keys; the underlying skill tabs are
 // reused unchanged. This file only defines display order, role labels, and fallbacks.
 
+// The eyebrow label above each scene — profession-adaptive by the student's theme_key,
+// so an IT student never sees "Marketing scene". Falls back to the generic «المشهد».
+export const SCENE_LABEL = {
+  studio: 'مشهد التسويق',   // Malak — marketing
+  control: 'مشهد العمل',    // Sara — IT / infrastructure
+}
+export const sceneLabelFor = (themeKey) => SCENE_LABEL[themeKey] || 'المشهد'
+
 export const SCENE_BEATS = [
   { key: 'reading',    role: 'اقرئي الموقف',       icon: 'BookOpen'  },
   { key: 'vocabulary', role: 'عُدّتكِ',             icon: 'Languages' },

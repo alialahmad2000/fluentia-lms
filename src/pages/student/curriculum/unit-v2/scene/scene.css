@@ -30,6 +30,7 @@
   --sc-accent-a40: rgba(125,211,250,0.40);
   --sc-accent-a50: rgba(125,211,250,0.50);
   --sc-cap-earned-bg: linear-gradient(155deg, #17293b, #0f1626);
+  --sc-on-accent: #06202a; /* text ON the bright accent (cool dark; studio overrides warm) */
 
   --sc-node: 33px;
   --sc-node-center: 23px;
@@ -63,6 +64,34 @@ html[data-track="studio"] .scene-root{
   --sc-accent-a40: rgba(234,168,100,0.40);
   --sc-accent-a50: rgba(234,168,100,0.50);
   --sc-cap-earned-bg: linear-gradient(155deg, #3a2412, #141009);
+  --sc-on-accent: #1a0f07;
+}
+
+/* Sara Al-Asmari's Control Room — steel navy + electric cyan (an IT/infra identity) */
+html[data-track="control"] .scene-root{
+  --sc-accent: #14b6cf;
+  --sc-accent-bright: #38dcf0;
+  --sc-accent-deep: #0a5766;
+  --sc-glow: rgba(56,220,240,0.30);
+  --sc-panel: #0f1a22;
+  --sc-panel-2: #0a121a;
+  --sc-ink: #eef6fa;
+  --sc-ink-2: #b7cdd7;
+  --sc-ink-3: #7d97a3;
+  --sc-ink-4: #556873;
+  --sc-hair: rgba(56,220,240,0.15);
+  --sc-hair-soft: rgba(56,220,240,0.07);
+  --sc-ok: #34d399;
+  --sc-ok-soft: rgba(52,211,153,0.15);
+  --sc-ok-border: rgba(52,211,153,0.5);
+  --sc-accent-a12: rgba(56,220,240,0.12);
+  --sc-accent-a16: rgba(56,220,240,0.16);
+  --sc-accent-a18: rgba(56,220,240,0.18);
+  --sc-accent-a35: rgba(56,220,240,0.35);
+  --sc-accent-a40: rgba(56,220,240,0.40);
+  --sc-accent-a50: rgba(56,220,240,0.50);
+  --sc-cap-earned-bg: linear-gradient(155deg, #0e3541, #0a121a);
+  --sc-on-accent: #04222b;
 }
 
 /* ── OUTCOME SLATE ─────────────────────────────── */
@@ -141,7 +170,7 @@ html[data-track="studio"] .scene-root{
 @media (prefers-reduced-motion: no-preference){ .scene-chip .pulse{ animation: scenePulse 1.5s ease-in-out infinite; } }
 @keyframes scenePulse{ 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: .35; transform: scale(.7); } }
 .scene-why{ margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--sc-hair-soft); font-size: 12.5px; line-height: 1.62; color: var(--sc-ink-3); }
-.scene-here{ font-size: 12px; font-weight: 800; color: #1a0f07; background: var(--sc-accent-bright); border-radius: 20px; padding: 2px 10px; white-space: nowrap; }
+.scene-here{ font-size: 12px; font-weight: 800; color: var(--sc-on-accent); background: var(--sc-accent-bright); border-radius: 20px; padding: 2px 10px; white-space: nowrap; }
 .scene-go{ margin-top: 13px; display: inline-flex; align-items: center; gap: 7px; color: var(--sc-accent-bright); font-weight: 800; font-size: 13px; }
 
 /* ── CAPSTONE ──────────────────────────────────── */
@@ -161,7 +190,7 @@ html[data-track="studio"] .scene-root{
   background: transparent; border: 1px solid var(--sc-accent-deep); color: var(--sc-ink-3); font-weight: 700; font-size: 13px; border-radius: 12px; }
 
 /* ignited (prerequisites done) */
-.scene-capstone.earned .scene-node{ background: radial-gradient(circle, var(--sc-accent-bright), var(--sc-accent-deep)); border: none; color: #1a0f07;
+.scene-capstone.earned .scene-node{ background: radial-gradient(circle, var(--sc-accent-bright), var(--sc-accent-deep)); border: none; color: var(--sc-on-accent);
   box-shadow: 0 0 0 5px var(--sc-accent-a12), 0 0 22px var(--sc-glow); }
 .scene-capstone.earned .scene-node .n5{ color: rgba(26,15,7,.6); }
 .scene-capstone.earned .scene-cap{ background: var(--sc-cap-earned-bg);
@@ -171,7 +200,7 @@ html[data-track="studio"] .scene-root{
 .scene-capstone.earned .scene-cap-tag{ color: var(--sc-accent-bright); }
 .scene-capstone.earned .scene-cap-title{ color: var(--sc-ink); }
 .scene-capstone.earned .scene-cap-sub{ color: var(--sc-ink-2); }
-.scene-capstone.earned .scene-cap-cta{ background: linear-gradient(90deg, var(--sc-accent-bright), var(--sc-accent)); border: none; color: #1a0f07; font-weight: 800;
+.scene-capstone.earned .scene-cap-cta{ background: linear-gradient(90deg, var(--sc-accent-bright), var(--sc-accent)); border: none; color: var(--sc-on-accent); font-weight: 800;
   box-shadow: 0 10px 24px -8px var(--sc-glow); }
 
 .scene-foot-note{ text-align: center; margin-top: 24px; font-size: 12px; color: var(--sc-ink-4); line-height: 1.7; }

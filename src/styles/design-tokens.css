@@ -66,6 +66,14 @@
   --accent-studio-glow:       rgba(207, 125, 67, 0.20);
   --accent-studio-strong:     #eaa864;
 
+  /* Control accent — Sara Al-Asmari's IT / infrastructure "control room": a cool
+     electric cyan on steel, distinct at a glance from the studio copper, fardi purple
+     and default sky. Applied only within a [data-track="control"] subtree. */
+  --accent-control:           #06b6d4;
+  --accent-control-dim:       #0a3f4a;
+  --accent-control-glow:      rgba(34, 211, 238, 0.18);
+  --accent-control-strong:    #22d3ee;
+
   --accent-gold:         #fbbf24;
   --accent-gold-dim:     #713f12;
   --accent-gold-glow:    rgba(251, 191, 36, 0.12);
@@ -698,4 +706,23 @@ html[data-track="studio"] {
   --ds-accent-primary:      var(--accent-studio);
   --ds-accent-primary-glow: var(--accent-studio-glow);
   --ds-sky:                 var(--accent-studio-strong);
+}
+
+/* CONTROL ACCENT (scoped) — Sara Al-Asmari's IT "control room" reads electric cyan on
+   steel. Set on <html> via data-track="control" (LayoutShell, driven by
+   students.theme_key='control'). Same html[...] specificity trick as fardi/desk/studio;
+   every other student's palette is untouched. */
+html[data-track="control"] {
+  --accent-sky:            var(--accent-control);
+  --accent-sky-strong:     var(--accent-control-strong);
+  --accent-sky-glow:       var(--accent-control-glow);
+  --accent-sky-dim:        var(--accent-control-dim);
+  --text-link:             var(--accent-control-strong);
+  --info:                  var(--accent-control);
+  --sidebar-active-border: var(--accent-control);
+  --sidebar-icon-active:   var(--accent-control);
+
+  --ds-accent-primary:      var(--accent-control);
+  --ds-accent-primary-glow: var(--accent-control-glow);
+  --ds-sky:                 var(--accent-control-strong);
 }

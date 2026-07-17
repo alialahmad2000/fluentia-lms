@@ -538,6 +538,7 @@ export default function UnitContent() {
               activities={unitData.activities}
               unit={unit}
               onSelect={handleActivitySelect}
+              themeKey={studentData?.theme_key}
             />
           ) : (
             <>

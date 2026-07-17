@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { BookOpen, Languages, PenLine, Headphones, Mic, Send, Star } from 'lucide-react'
 import { useG } from '@/i18n/gender'
 import { useCinematicMotion } from '../../_premiumPrimitives'
-import { SCENE_BEATS, CAPSTONE_PREREQS, BEAT_WHY_FALLBACK } from './sceneConfig'
+import { SCENE_BEATS, CAPSTONE_PREREQS, BEAT_WHY_FALLBACK, sceneLabelFor } from './sceneConfig'
 import './scene.css'
 
 /**
@@ -79,7 +79,7 @@ function SceneCapstone({ beat, activity, num, earned, onSelect, reduced, g, unit
   )
 }
 
-export default function SceneOverview({ activities, unit, onSelect }) {
+export default function SceneOverview({ activities, unit, onSelect, themeKey }) {
   const g = useG()
   const { reduced } = useCinematicMotion()
 
@@ -119,7 +119,7 @@ export default function SceneOverview({ activities, unit, onSelect }) {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="scene-eyebrow">
-          <span className="d" /> مشهد التسويق
+          <span className="d" /> {sceneLabelFor(themeKey)}
           {sceneNo ? <span className="num"> · المشهد {toAr(sceneNo)}</span> : null}
         </div>
         <h2 className="scene-title">{title}</h2>
