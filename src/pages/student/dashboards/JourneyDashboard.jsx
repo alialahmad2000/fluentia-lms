@@ -519,20 +519,12 @@ export default function JourneyDashboard() {
                 وسّع رحلتك — تمارين ومهارات إضافية بانتظارك.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-                <Link to="/student/spelling-lab" className="jp-chip">
-                  <span aria-hidden="true">✍️</span> مختبر الإملاء
-                </Link>
-                <Link to="/student/speaking-hub" className="jp-chip">
-                  <span aria-hidden="true">🎙️</span> معمل التحدّث
-                </Link>
+                {/* OWNER-HIDDEN 2026-07-17: «مختبر الإملاء» + «معمل التحدّث» + «الاختبار التجريبي» chips hidden from EVERY student (routes kept in App.jsx). Hide-don't-delete. */}
                 <Link to="/student/flashcards" className="jp-chip">
                   <span aria-hidden="true">🃏</span> البطاقات
                 </Link>
                 <Link to="/student/leaderboard" className="jp-chip">
                   <span aria-hidden="true">🏆</span> المتصدّرون
-                </Link>
-                <Link to="/student/mock-exam" className="jp-chip">
-                  <span aria-hidden="true">📝</span> الاختبار التجريبي
                 </Link>
               </div>
             </GlassPanel>

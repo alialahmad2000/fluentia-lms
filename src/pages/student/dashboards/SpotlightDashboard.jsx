@@ -94,8 +94,7 @@ function getTimeWash() {
 const DISCOVER = [
   { to: '/student/curriculum', label: 'التعلّم', sub: 'كل الوحدات', icon: BookOpen, hue: '56,189,248' },
   { to: '/student/srs', label: 'المراجعة', sub: 'كلماتك اليوم', icon: RefreshCw, hue: '167,139,250' },
-  { to: '/student/speaking-hub', label: 'المحادثة', sub: 'تحدّث وتدرّب', icon: Mic, hue: '251,113,133' },
-  { to: '/student/spelling-lab', label: 'الإملاء', sub: 'اختبر تهجئتك', icon: SpellCheck, hue: '52,211,153' },
+  // OWNER-HIDDEN 2026-07-17: «المحادثة» (speaking-hub) + «الإملاء» (spelling-lab) discover tiles hidden from EVERY student (routes kept). Hide-don't-delete.
   { to: '/student/flashcards', label: 'المفردات', sub: 'بطاقاتك', icon: Layers, hue: '34,211,238' },
   { to: '/library', label: 'المكتبة', sub: 'روايات بلغتين', icon: BookMarked, hue: '224,177,94' },
 ]
