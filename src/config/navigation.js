@@ -43,7 +43,7 @@ export const STUDENT_NAV = {
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
         { id: 'course-vocab', label: 'مفردات مقرّراتي', icon: GraduationCap, to: '/student/course-vocab', visibleWhen: 'course-vocab-count' },
         { id: 'custom-exercises', label: 'تمارين مخصّصة', icon: Target, to: '/student/exercises', visibleWhen: 'targeted-exercises-count' },
-        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine, to: '/student/spelling-lab' },
+        // OWNER-HIDDEN 2026-07-17: «مختبر الإملاء» hidden from EVERY student (route /student/spelling-lab kept in App.jsx). Hide-don't-delete.
         { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
       ],
     },
@@ -52,18 +52,11 @@ export const STUDENT_NAV = {
       label: 'عالم طلاقة',
       items: [
         { id: 'library',     label: 'المكتبة',      icon: BookMarked, to: '/library' },
-        { id: 'speaking-hub', label: 'نادي التحدث', icon: MessageCircle, to: '/student/speaking-hub' },
-        { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+        // OWNER-HIDDEN 2026-07-17: «نادي التحدث» + «المحادثة» hidden from EVERY student (routes /student/speaking-hub + /chat kept in App.jsx). Hide-don't-delete.
         // OWNER-HIDDEN (routes kept): leaderboard(لوحة الشرف), duels(المبارزات), competition, competition-rules.
       ],
     },
-    {
-      id: 'exams',
-      label: 'الاختبارات',
-      items: [
-        { id: 'mock-exam', label: 'الاختبار التجريبي', icon: FileCheck, to: '/student/mock-exam', requiresMockExamAccess: true },
-      ],
-    },
+    // OWNER-HIDDEN 2026-07-17: «الاختبارات» section («الاختبار التجريبي» /student/mock-exam) hidden from EVERY student (route kept in App.jsx). Hide-don't-delete.
     {
       id: 'account',
       label: 'حسابي',
@@ -101,7 +94,7 @@ export const STUDENT_NAV = {
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
         { id: 'course-vocab', label: 'مفردات مقرّراتي', icon: GraduationCap, to: '/student/course-vocab', visibleWhen: 'course-vocab-count' },
         { id: 'custom-exercises', label: 'تمارين مخصّصة', icon: Target, to: '/student/exercises', visibleWhen: 'targeted-exercises-count' },
-        { id: 'spelling-lab', label: 'مختبر الإملاء', icon: PencilLine,   to: '/student/spelling-lab' },
+        // OWNER-HIDDEN 2026-07-17: «مختبر الإملاء» hidden from EVERY student (route kept). Hide-don't-delete.
         { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
       ],
     },
@@ -110,8 +103,7 @@ export const STUDENT_NAV = {
       label: 'عالم طلاقة',
       items: [
         { id: 'library',      label: 'المكتبة',      icon: BookMarked,   to: '/library' },
-        { id: 'speaking-hub', label: 'نادي التحدث', icon: MessageCircle, to: '/student/speaking-hub' },
-        { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+        // OWNER-HIDDEN 2026-07-17: «نادي التحدث» + «المحادثة» hidden from EVERY student (routes kept). Hide-don't-delete.
       ],
     },
     {
@@ -129,10 +121,7 @@ export const STUDENT_NAV = {
     { id: 'dashboard',   label: 'الرئيسية',  icon: Home,       to: '/student' },
     { id: 'curriculum',  label: 'المنهج',     icon: BookOpen,   to: '/student/curriculum' },
     { id: 'flashcards',  label: 'المفردات',   icon: FileText,   to: '/student/flashcards' },
-    // 2026-06-02 (prompt 09): 'progress' was hidden from the sidebar, so it's replaced here by the
-    // new Spelling Lab to keep the 5-slot bar consistent on mobile (primary device). 'progress'
-    // stays reachable via the "More" drawer + direct URL.
-    { id: 'spelling-lab', label: 'الإملاء',   icon: PencilLine, to: '/student/spelling-lab' },
+    // OWNER-HIDDEN 2026-07-17: «الإملاء» removed from the mobile bar (route kept). 5 slots: dashboard/curriculum/flashcards/phrasebook/more.
     { id: 'phrasebook', label: 'دفتر عباراتي', icon: NotebookPen, to: '/student/phrasebook' },
     { id: 'more',        label: 'المزيد',     icon: 'more',     to: null },
   ],
@@ -154,13 +143,7 @@ const INDIVIDUAL_SECTIONS = [
       { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
     ],
   },
-  {
-    id: 'community',
-    label: 'المجتمع',
-    items: [
-      { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
-    ],
-  },
+  // OWNER-HIDDEN 2026-07-17: «المجتمع» → «المحادثة» hidden from EVERY individual student (route /chat kept in App.jsx). Hide-don't-delete.
   {
     id: 'account',
     label: 'حسابي',
@@ -177,7 +160,7 @@ export const INDIVIDUAL_NAV = {
     { id: 'dashboard', label: 'الرئيسية', icon: Home, to: '/student' },
     { id: 'track', label: 'مساري', icon: Briefcase, to: '/student/track' },
     { id: 'library', label: 'المكتبة', icon: BookMarked, to: '/library' },
-    { id: 'chat', label: 'المحادثة', icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
+    // OWNER-HIDDEN 2026-07-17: «المحادثة» removed from the individual mobile bar (route kept). Hide-don't-delete.
     { id: 'more', label: 'المزيد', icon: 'more', to: null },
   ],
 }
