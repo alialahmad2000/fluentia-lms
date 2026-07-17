@@ -313,6 +313,13 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-07-17 — «مسار التقنية» home aesthetic upgrade (matches the biz-track redesign)
+- What: applied the same premium home redesign to أطياف's tech track so the two gated tracks stay visually in sync. Cinematic hero (cool-obsidian + drifting sky/cyan atmosphere + circuit-grid line-motif + grain), three IT/CS **world-cards** (البرمجة/Coding · الإنترنت والويب/Web · الذكاء الاصطناعي/AI), the **30-lesson gauge** (30 ticks that light up as she progresses; 0-state = play glyph + «٠ / ٣٠ درسًا»), glowing sheen CTA, station spine with next-lesson fill + done-green.
+- Distinct **`.tk-*`** prefix (sky palette) — deliberately NOT `.bt-*` (biz) so both stylesheets coexist safely in one SPA session. `.tt-*` (TechLessonPage) untouched. iOS-safe (no color-mix; rgba via hexA), reduced-motion + pointer:coarse gated. Gender-aware CTA (feminine for أطياف). Arabic-Indic digits.
+- Files: `src/pages/student/tech-track/TechTrackHome.jsx` (rewrite), `src/pages/student/tech-track/techTrack.css` (+.tk-* block). No DB/edge changes. Ported onto origin/main via Trees API + prod-verified.
+
+
+
 ### 2026-07-17 — «مسار الأعمال» home aesthetic upgrade (design-loop, premium)
 - What: Ali flagged the biz-track home (ظافر) as functional-but-plain (hero was ~60% dead black space, tiny floating ring, flat station boxes, no identity). Redesigned via design-loop (build→screenshot→premium-ui-critic→fix, 2 passes, 6.5→premium).
 - Hero rebuilt: warm-obsidian gradient + drifting amber/gold atmosphere + faint blueprint/road line-motif + grain (kills the empty void); two-column composition; three **world-cards** (السيارات وصيانتها/Cars · المالية/Finance · نموّ الأعمال/Growth) for instant identity; glowing sheen CTA.
