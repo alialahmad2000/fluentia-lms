@@ -8,7 +8,7 @@ import NarrativeReveal from '@/design-system/components/masterclass/NarrativeRev
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useListeningSection, useSubmitListeningSession, useRecentListeningSessions } from '@/hooks/ielts/useListeningLab'
-import { gradeQuestions } from '@/lib/ielts/grading'
+import { gradeQuestions, questionKey, questionDisplayNumber } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
 import { ExamShell, QuestionPalette } from './_ui/ExamShell'
@@ -555,8 +555,8 @@ export default function Listening() {
   // Highlight the first question as "current" once the section's questions load
   useEffect(() => {
     if (act !== 'session' || current) return
-    const firstQ = (sectionQ.data?.questions || [])[0]?.number
-    if (firstQ != null) setCurrent(`0_${firstQ}`)
+    const first = (sectionQ.data?.questions || [])[0]
+    if (first != null) setCurrent(`0_${questionDisplayNumber(first, 0)}`)
   }, [act, sectionQ.data, current])
 
   // Audio event listeners — re-attach whenever act or section data changes
@@ -638,10 +638,10 @@ export default function Listening() {
     }
   }
 
-  function handleAnswerChange(qNum, val) {
-    setAnswers(prev => ({ ...prev, [String(qNum)]: val }))
+  function handleAnswerChange(qKey, dispNum, val) {
+    setAnswers(prev => ({ ...prev, [qKey]: val }))
     setConfirmSubmit(false)
-    setCurrent(`0_${qNum}`)
+    setCurrent(`0_${dispNum}`)
   }
   function jumpToQuestion(n) {
     setCurrent(`0_${n}`)
@@ -796,11 +796,12 @@ export default function Listening() {
   if (act === 'session') {
     const qs = Array.isArray(questions) ? questions : []
     const sharedInstr = qs.find(q => q.instruction)?.instruction || ''
-    const answeredSet = new Set(
-      qs.filter(q => answers[String(q.number)] != null && answers[String(q.number)] !== '')
-        .map(q => `0_${q.number}`)
-    )
-    const groups = [{ label: SECTION_LABELS[section?.section_number] || 'Section', numbers: qs.map(q => q.number) }]
+    const answeredSet = new Set()
+    qs.forEach((q, i) => {
+      const v = answers[questionKey(q, i)]
+      if (v != null && v !== '') answeredSet.add(`0_${questionDisplayNumber(q, i)}`)
+    })
+    const groups = [{ label: SECTION_LABELS[section?.section_number] || 'Section', numbers: qs.map((q, i) => questionDisplayNumber(q, i)) }]
 
     return (
       <ExamShell
@@ -838,9 +839,13 @@ export default function Listening() {
               {section?.context_description && <QuestionGroupInstruction>{section.context_description}</QuestionGroupInstruction>}
               {sharedInstr && <QuestionGroupInstruction>{sharedInstr}</QuestionGroupInstruction>}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {qs.map(q => (
-                  <ExamQuestion key={q.number} q={{ ...q, question_number: q.number }} value={answers[String(q.number)]} onChange={(v) => handleAnswerChange(q.number, v)} showInstruction={q.instruction !== sharedInstr} />
-                ))}
+                {qs.map((q, i) => {
+                  const qk = questionKey(q, i)
+                  const dn = questionDisplayNumber(q, i)
+                  return (
+                    <ExamQuestion key={qk} q={{ ...q, question_number: dn }} value={answers[qk]} onChange={(v) => handleAnswerChange(qk, dn, v)} showInstruction={q.instruction !== sharedInstr} />
+                  )
+                })}
               </div>
             </div>
           </div>

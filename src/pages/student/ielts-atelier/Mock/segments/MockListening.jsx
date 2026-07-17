@@ -6,6 +6,7 @@ import { getRemainingSeconds, SKILL_LIMITS } from '../useMockSession'
 import { useG } from '@/i18n/gender'
 import { ExamShell, QuestionPalette } from '../../_ui/ExamShell'
 import { ExamQuestion, QuestionGroupInstruction } from '../../_ui/ExamQuestions'
+import { questionKey, questionDisplayNumber } from '@/lib/ielts/grading'
 
 const LIMIT = SKILL_LIMITS.listening
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
@@ -41,8 +42,8 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
   // Highlight the first question as "current" on load so the palette shows state
   useEffect(() => {
     if (!sections.length || current) return
-    const firstQ = (Array.isArray(sections[0]?.questions) ? sections[0].questions : [])[0]?.number
-    if (firstQ != null) setCurrent(`0_${firstQ}`)
+    const first = (Array.isArray(sections[0]?.questions) ? sections[0].questions : [])[0]
+    if (first != null) setCurrent(`0_${questionDisplayNumber(first, 0)}`)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sections])
 
@@ -55,9 +56,10 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
     sections.forEach((section, si) => {
       const key = section.answer_key || {}
       const qs = Array.isArray(section.questions) ? section.questions : []
-      qs.forEach((q) => {
-        const expected = q.correct_answer ?? key[String(q.number)] ?? key[q.number]
-        const given = ua[`${si}_${q.number}`]
+      qs.forEach((q, qi) => {
+        const qk = questionKey(q, qi)
+        const expected = q.correct_answer ?? q.correct ?? key[qk]
+        const given = ua[`${si}_${qk}`]
         total++
         if (expected != null && given != null && String(given).trim().toLowerCase() === String(expected).trim().toLowerCase()) correct++
       })
@@ -86,7 +88,7 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
   }, [sectionIdx, sections.length])
 
   function start() { setAudioStarted(true); audioRef.current?.play().then(() => setPlaying(true)).catch(() => {}) }
-  function setAnswer(si, qNum, val) { setUserAnswers((p) => ({ ...p, [`${si}_${qNum}`]: val })); setCurrent(`${si}_${qNum}`) }
+  function setAnswer(si, qk, dispNum, val) { setUserAnswers((p) => ({ ...p, [`${si}_${qk}`]: val })); setCurrent(`${si}_${dispNum}`) }
   function jump(gi, n) {
     if (gi !== sectionIdx) setSectionIdx(gi)
     setCurrent(`${gi}_${n}`)
@@ -98,12 +100,12 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
   const sharedInstr = qs.find((q) => q.instruction)?.instruction || ''
   const answered = useMemo(() => {
     const s = new Set()
-    sections.forEach((sec, si) => (Array.isArray(sec.questions) ? sec.questions : []).forEach((q) => {
-      const v = userAnswers[`${si}_${q.number}`]; if (v != null && v !== '') s.add(`${si}_${q.number}`)
+    sections.forEach((sec, si) => (Array.isArray(sec.questions) ? sec.questions : []).forEach((q, qi) => {
+      const v = userAnswers[`${si}_${questionKey(q, qi)}`]; if (v != null && v !== '') s.add(`${si}_${questionDisplayNumber(q, qi)}`)
     }))
     return s
   }, [sections, userAnswers])
-  const groups = useMemo(() => sections.map((sec, si) => ({ label: `Section ${sec.section_number ?? si + 1}`, numbers: (Array.isArray(sec.questions) ? sec.questions : []).map((q) => q.number) })), [sections])
+  const groups = useMemo(() => sections.map((sec, si) => ({ label: `Section ${sec.section_number ?? si + 1}`, numbers: (Array.isArray(sec.questions) ? sec.questions : []).map((q, qi) => questionDisplayNumber(q, qi)) })), [sections])
   const pct = dur > 0 ? Math.min(100, (pos / dur) * 100) : 0
 
   return (
@@ -138,9 +140,13 @@ export default function MockListening({ attemptId, answers, content, startedAt, 
             {cs?.title && <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 12px', fontFamily: SANS, direction: 'ltr', textAlign: 'left' }}>{cs.title}</h3>}
             {sharedInstr && <QuestionGroupInstruction>{sharedInstr}</QuestionGroupInstruction>}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {qs.map((q) => (
-                <ExamQuestion key={q.number} q={{ ...q, question_number: q.number }} value={userAnswers[`${sectionIdx}_${q.number}`]} onChange={(v) => setAnswer(sectionIdx, q.number, v)} showInstruction={q.instruction !== sharedInstr} />
-              ))}
+              {qs.map((q, qi) => {
+                const qk = questionKey(q, qi)
+                const dn = questionDisplayNumber(q, qi)
+                return (
+                  <ExamQuestion key={qk} q={{ ...q, question_number: dn }} value={userAnswers[`${sectionIdx}_${qk}`]} onChange={(v) => setAnswer(sectionIdx, qk, dn, v)} showInstruction={q.instruction !== sharedInstr} />
+                )
+              })}
             </div>
           </div>
         </div>

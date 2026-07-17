@@ -24,6 +24,28 @@ export function roundToHalf(n) {
   return Math.round(n * 2) / 2
 }
 
+/**
+ * Stable per-question storage key. MUST be unique within a section so answers
+ * never collapse into one shared slot. Prefers the question's own number, then
+ * question_number, then its stable id, and finally the array index as a last
+ * resort. Some sections (older AI-generated ones) ship `number: null` on every
+ * question, so keying by `number` alone silently merges all answers — that is
+ * the bug this guards against. Aligns with how `answer_key` is keyed for every
+ * section shape (numeric "1".."10" or id "dl1".."dl10").
+ */
+export function questionKey(q, idx) {
+  return String(q?.number ?? q?.question_number ?? q?.id ?? idx)
+}
+
+/**
+ * The number shown to the student (badge + palette + scroll anchor). Falls back
+ * to the 1-based position when the question carries no number, so a malformed
+ * section still reads 1…N instead of "null".
+ */
+export function questionDisplayNumber(q, idx) {
+  return q?.number ?? q?.question_number ?? (idx + 1)
+}
+
 function normalizeAnswer(v) {
   return String(v ?? '').trim().toLowerCase()
 }
@@ -80,19 +102,19 @@ export function gradeQuestions({ questions, answerKey, studentAnswers }) {
   let correct = 0
   const perQuestion = []
 
-  for (const q of qList) {
-    const qNum = q.question_number ?? q.number ?? q.id
-    const qKey = String(qNum)
+  qList.forEach((q, idx) => {
+    const qKey = questionKey(q, idx)
+    const qNum = questionDisplayNumber(q, idx)
     const keyEntry = keyLookup[qKey] || {}
-    const expected = keyEntry.correct_answer ?? q.correct_answer
+    const expected = keyEntry.correct_answer ?? q.correct_answer ?? q.correct
     const explanation = keyEntry.explanation ?? q.explanation ?? ''
-    const text = q.question_text || q.statement || q.text || `Question ${qNum}`
+    const text = q.question_text || q.statement || q.text || q.question || `Question ${qNum}`
     const given = studentAnswers?.[qKey]
     const isCorrect = answersMatch(given, expected)
 
     if (isCorrect) correct++
     perQuestion.push({ qNum, isCorrect, given, expected, explanation, text, options: q.options })
-  }
+  })
 
   return {
     correct,

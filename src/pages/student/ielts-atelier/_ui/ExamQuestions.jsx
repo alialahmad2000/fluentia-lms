@@ -25,7 +25,9 @@ function stemText(q) { return q.question_text || q.statement || q.incomplete_sen
 function optionEntries(q) {
   const o = q.options
   if (!o) return []
-  if (Array.isArray(o)) return o.map((v, i) => [String.fromCharCode(65 + i), typeof v === 'string' ? v.replace(/^[A-Z]:\s*/, '') : v])
+  // Strip a leading enumerated marker ("A) ", "A:") — the renderer prints its own
+  // A/B/C/D label, so keeping the prefix would read "A A) Professional athletes".
+  if (Array.isArray(o)) return o.map((v, i) => [String.fromCharCode(65 + i), typeof v === 'string' ? v.replace(/^[A-Z][):]\s*/, '') : v])
   if (typeof o === 'object') return Object.entries(o)
   return []
 }
