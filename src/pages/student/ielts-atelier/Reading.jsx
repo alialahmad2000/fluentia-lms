@@ -14,6 +14,7 @@ import { ExamShell, QuestionPalette } from './_ui/ExamShell'
 import { ExamQuestion } from './_ui/ExamQuestions'
 
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+const arDigit = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[+d])
 function splitParagraphs(content) {
   return String(content || '').split(/\n{2,}/).map((s) => s.trim()).filter(Boolean)
 }
@@ -290,7 +291,7 @@ export default function Reading() {
               color: on ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)',
             }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: BAND_COLOR[pp.difficulty_band] || 'var(--iel-ink-3)' }} />
-              نص {pi + 1}
+              نص {arDigit(pi + 1)}
             </button>
           )
         })}
@@ -376,7 +377,7 @@ export default function Reading() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.4 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
           {perPassage.map((pp) => (
             <div key={pp.pi} style={{ padding: '14px 12px', borderRadius: 14, background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 45%, transparent)', textAlign: 'center' }}>
-              <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", marginBottom: 6 }}>نص {pp.pi + 1}</div>
+              <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", marginBottom: 6 }}>نص {arDigit(pp.pi + 1)}</div>
               <div className="iel-serif" style={{ fontSize: 20, fontWeight: 700, color: posColor(pp.pi) }}>{pp.correct}/{pp.total}</div>
             </div>
           ))}
@@ -405,7 +406,7 @@ export default function Reading() {
                   <div key={pp.pi} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 800, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif" }}>
                       <span style={{ width: 8, height: 8, borderRadius: '50%', background: posColor(pp.pi) }} />
-                      نص {pp.pi + 1} — {pp.correct}/{pp.total}
+                      نص {arDigit(pp.pi + 1)} — {pp.correct}/{pp.total}
                     </div>
                     {pp.perQuestion.map((r) => (
                       <div key={r.qNum} style={{ padding: '12px 16px', borderRadius: 12, background: r.isCorrect ? 'color-mix(in srgb, #4ade80 7%, transparent)' : 'color-mix(in srgb, #f87171 7%, transparent)', border: `1px solid ${r.isCorrect ? 'rgba(74,222,128,0.18)' : 'rgba(248,113,113,0.18)'}`, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
