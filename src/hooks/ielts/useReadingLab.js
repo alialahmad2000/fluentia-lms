@@ -254,3 +254,130 @@ export function useQuestionTypeAvailability() {
     },
   })
 }
+
+// ── Full 3-passage READING TESTS (real IELTS Academic format) ──────────────────
+
+// Published reading tests (each = 3 passages of rising difficulty, 40 questions, 60 min)
+export function useReadingTests() {
+  return useQuery({
+    queryKey: ['ielts-reading-tests'],
+    staleTime: 5 * 60 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_reading_tests')
+        .select('id, test_number, title_ar, title_en, passage_ids, total_questions, total_time_minutes')
+        .eq('is_published', true)
+        .order('test_number')
+      if (error) throw error
+      return data || []
+    },
+  })
+}
+
+// Lightweight metadata for every published passage (id → title/topic/band) — for test cards
+export function usePassageMeta() {
+  return useQuery({
+    queryKey: ['ielts-passage-meta'],
+    staleTime: 5 * 60 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_reading_passages')
+        .select('id, title, topic_category, difficulty_band')
+      if (error) throw error
+      const map = {}
+      for (const p of (data || [])) map[p.id] = p
+      return map
+    },
+  })
+}
+
+// Submit a completed 3-passage reading test (one combined session row + progress + error bank)
+export function useSubmitReadingTest() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ studentId, test, result, durationSeconds }) => {
+      const now = new Date().toISOString()
+      const startedAt = new Date(Date.now() - durationSeconds * 1000).toISOString()
+
+      // 1. One combined session row (source_id = the test id)
+      const { data: sessionRow, error: sessErr } = await supabase
+        .from('ielts_skill_sessions')
+        .insert({
+          student_id: studentId,
+          skill_type: 'reading',
+          question_type: null,
+          source_id: test.id,
+          started_at: startedAt,
+          completed_at: now,
+          duration_seconds: durationSeconds,
+          correct_count: result.correct,
+          incorrect_count: result.total - result.correct,
+          band_score: result.band,
+          session_data: { kind: 'reading_test', test_number: test.test_number, ...result },
+        })
+        .select('id')
+        .single()
+      if (sessErr || !sessionRow) throw sessErr || new Error('Session insert failed')
+
+      // 2. Rolling-average reading progress (60% new / 40% history), general (question_type null)
+      const { data: progRows } = await supabase
+        .from('ielts_student_progress')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('skill_type', 'reading')
+      const prev = (progRows || []).find(r => r.question_type == null) || {}
+      const prevBand = prev.estimated_band != null ? Number(prev.estimated_band) : null
+      const newBand = prevBand != null
+        ? Math.round(((0.4 * prevBand) + (0.6 * (result.band || 0))) * 2) / 2
+        : result.band
+      const { error: progErr } = await supabase
+        .from('ielts_student_progress')
+        .upsert({
+          student_id: studentId,
+          skill_type: 'reading',
+          question_type: null,
+          attempts_count: (prev.attempts_count || 0) + 1,
+          correct_count: (prev.correct_count || 0) + result.correct,
+          total_time_seconds: (prev.total_time_seconds || 0) + durationSeconds,
+          estimated_band: newBand,
+          last_attempt_at: now,
+          updated_at: now,
+        }, { onConflict: 'student_id,skill_type,question_type' })
+      if (progErr) throw progErr
+
+      // 3. Wrong answers → error bank, tagged to their real passage (non-fatal)
+      const errorRows = []
+      for (const pp of (result.perPassage || [])) {
+        const pid = test.passages?.[pp.pi]?.id || null
+        for (const w of (pp.perQuestion || []).filter(q => !q.isCorrect)) {
+          errorRows.push({
+            student_id: studentId,
+            skill_type: 'reading',
+            question_type: null,
+            source_table: 'ielts_reading_passages',
+            source_id: pid,
+            question_text: w.text ? String(w.text).substring(0, 500) : String(w.qNum),
+            student_answer: w.given != null ? String(w.given) : null,
+            correct_answer: w.expected != null ? String(w.expected) : null,
+            explanation: w.explanation ? String(w.explanation).substring(0, 500) : null,
+            times_seen: 1,
+            times_correct: 0,
+            mastered: false,
+            next_review_at: new Date(Date.now() + 24 * 3600 * 1000).toISOString(),
+          })
+        }
+      }
+      if (errorRows.length) {
+        const { error: ebErr } = await supabase.from('ielts_error_bank').insert(errorRows)
+        if (ebErr) console.warn('Error bank insert failed (non-fatal):', ebErr.message)
+      }
+
+      return { sessionId: sessionRow.id }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['ielts-reading-progress'] })
+      qc.invalidateQueries({ queryKey: ['ielts-reading-sessions'] })
+      qc.invalidateQueries({ queryKey: ['ielts-progress'] })
+    },
+  })
+}
