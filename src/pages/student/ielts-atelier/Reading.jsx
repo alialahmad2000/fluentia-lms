@@ -81,8 +81,8 @@ function TestCard({ test, meta, session, loading, onSelect }) {
       </div>
 
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 8 }}>
-        <MetaChip icon={FileText}>{test.total_questions || 40} سؤالاً</MetaChip>
-        <MetaChip icon={Clock}>{test.total_time_minutes || 60} دقيقة</MetaChip>
+        <MetaChip icon={FileText}>{arDigit(test.total_questions || 40)} سؤالاً</MetaChip>
+        <MetaChip icon={Clock}>{arDigit(test.total_time_minutes || 60)} دقيقة</MetaChip>
         <MetaChip icon={BookOpen}>٣ نصوص</MetaChip>
       </div>
     </GalleryCard>
