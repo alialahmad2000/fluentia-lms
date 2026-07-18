@@ -74,11 +74,15 @@ export function useCurriculumData() {
     queryKey: ['curriculum-units', useCustomCurriculum ? `custom:${profile?.id}` : level?.id],
     queryFn: async () => {
       if (useCustomCurriculum) {
-        // This student has their own curriculum → show ONLY their units, ordered by custom_sort.
+        // This student has their own curriculum → show ONLY their PUBLISHED units,
+        // ordered by custom_sort. The is_published filter lets us archive a student's
+        // older units (e.g. أنوار's A2 course when she is levelled up to a deeper B1
+        // course) by flipping is_published=false — the rows are preserved, just hidden.
         const { data, error } = await supabase
           .from('curriculum_units')
           .select('*')
           .eq('owner_student_id', profile.id)
+          .eq('is_published', true)
           .order('custom_sort', { ascending: true, nullsFirst: false })
         if (error) throw error
         return data || []

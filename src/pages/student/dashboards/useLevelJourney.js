@@ -43,11 +43,15 @@ export function useLevelJourney(studentId, academicLevel, useCustom = false) {
     staleTime: 5 * 60_000,
     queryFn: async () => {
       if (useCustom) {
-        // Fardi student → HER own units (owner_student_id), ordered by custom_sort.
+        // Fardi student → HER own PUBLISHED units (owner_student_id), ordered by
+        // custom_sort. is_published lets us archive an older custom course (e.g.
+        // أنوار's A2 units after she is levelled up to a deeper B1 course) without
+        // it leaking into the cinematic home world.
         const { data, error } = await supabase
           .from('curriculum_units')
           .select('id, theme_ar, theme_en, unit_number, cover_image_url, level_id')
           .eq('owner_student_id', studentId)
+          .eq('is_published', true)
           .order('custom_sort', { ascending: true, nullsFirst: false })
         if (error) throw error
         return data || []

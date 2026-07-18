@@ -63,7 +63,7 @@ export default function LayoutShell() {
   const themeKey =
     studentData?.theme_key || (studentData?.uses_custom_curriculum === true ? 'fardi' : null)
   useEffect(() => {
-    const CUSTOM_TRACKS = ['fardi', 'studio', 'control']
+    const CUSTOM_TRACKS = ['fardi', 'studio', 'control', 'maktaba']
     const el = document.documentElement
     if (themeKey) el.setAttribute('data-track', themeKey)
     else if (CUSTOM_TRACKS.includes(el.getAttribute('data-track'))) el.removeAttribute('data-track')

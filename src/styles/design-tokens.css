@@ -74,6 +74,15 @@
   --accent-control-glow:      rgba(34, 211, 238, 0.18);
   --accent-control-strong:    #22d3ee;
 
+  /* Maktaba accent — أنوار صبيح's school-library "reading room": warm antique-brass gold,
+     lamplight on old book spines. Distinct at a glance from the studio copper (more
+     orange), the control cyan, the fardi purple and the default sky. Applied only
+     within a [data-track="maktaba"] subtree (a single custom student). */
+  --accent-maktaba:           #c69536;
+  --accent-maktaba-dim:       #3a2b0d;
+  --accent-maktaba-glow:      rgba(198, 149, 54, 0.20);
+  --accent-maktaba-strong:    #e8c169;
+
   --accent-gold:         #fbbf24;
   --accent-gold-dim:     #713f12;
   --accent-gold-glow:    rgba(251, 191, 36, 0.12);
@@ -725,4 +734,24 @@ html[data-track="control"] {
   --ds-accent-primary:      var(--accent-control);
   --ds-accent-primary-glow: var(--accent-control-glow);
   --ds-sky:                 var(--accent-control-strong);
+}
+
+/* MAKTABA ACCENT (scoped) — أنوار صبيح's school-library "reading room" reads warm
+   antique-brass gold instead of purple/sky/copper/cyan. Set on <html> via
+   data-track="maktaba" (LayoutShell, driven by students.theme_key='maktaba'). Same
+   html[...] specificity trick as fardi/desk/studio/control; every other student's
+   palette is untouched. */
+html[data-track="maktaba"] {
+  --accent-sky:            var(--accent-maktaba);
+  --accent-sky-strong:     var(--accent-maktaba-strong);
+  --accent-sky-glow:       var(--accent-maktaba-glow);
+  --accent-sky-dim:        var(--accent-maktaba-dim);
+  --text-link:             var(--accent-maktaba-strong);
+  --info:                  var(--accent-maktaba);
+  --sidebar-active-border: var(--accent-maktaba);
+  --sidebar-icon-active:   var(--accent-maktaba);
+
+  --ds-accent-primary:      var(--accent-maktaba);
+  --ds-accent-primary-glow: var(--accent-maktaba-glow);
+  --ds-sky:                 var(--accent-maktaba-strong);
 }

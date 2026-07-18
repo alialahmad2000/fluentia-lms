@@ -94,6 +94,33 @@ html[data-track="control"] .scene-root{
   --sc-on-accent: #04222b;
 }
 
+/* أنوار صبيح's Reading Room — antique-brass gold on deep sepia (a school-library identity) */
+html[data-track="maktaba"] .scene-root{
+  --sc-accent: #bf8f3a;
+  --sc-accent-bright: #e8c169;
+  --sc-accent-deep: #7a5a1f;
+  --sc-glow: rgba(232,193,105,0.30);
+  --sc-panel: #191307;
+  --sc-panel-2: #120e05;
+  --sc-ink: #f7efe1;
+  --sc-ink-2: #ddccb0;
+  --sc-ink-3: #9d8b6e;
+  --sc-ink-4: #6d5e46;
+  --sc-hair: rgba(232,193,105,0.15);
+  --sc-hair-soft: rgba(232,193,105,0.07);
+  --sc-ok: #d0a94f;
+  --sc-ok-soft: rgba(208,169,79,0.15);
+  --sc-ok-border: rgba(208,169,79,0.55);
+  --sc-accent-a12: rgba(232,193,105,0.12);
+  --sc-accent-a16: rgba(232,193,105,0.16);
+  --sc-accent-a18: rgba(232,193,105,0.18);
+  --sc-accent-a35: rgba(232,193,105,0.35);
+  --sc-accent-a40: rgba(232,193,105,0.40);
+  --sc-accent-a50: rgba(232,193,105,0.50);
+  --sc-cap-earned-bg: linear-gradient(155deg, #382a10, #120e05);
+  --sc-on-accent: #1c1405;
+}
+
 /* ── OUTCOME SLATE ─────────────────────────────── */
 .scene-slate{
   position: relative;

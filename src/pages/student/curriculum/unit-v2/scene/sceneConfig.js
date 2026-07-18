@@ -11,6 +11,7 @@
 export const SCENE_LABEL = {
   studio: 'مشهد التسويق',   // Malak — marketing
   control: 'مشهد العمل',    // Sara — IT / infrastructure
+  maktaba: 'مشهد المكتبة',  // أنوار — school librarian
 }
 export const sceneLabelFor = (themeKey) => SCENE_LABEL[themeKey] || 'المشهد'
 
