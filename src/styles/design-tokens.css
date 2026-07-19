@@ -83,6 +83,14 @@
   --accent-maktaba-glow:      rgba(198, 149, 54, 0.20);
   --accent-maktaba-strong:    #e8c169;
 
+  /* Insight accent — يسرا خوجة's business-analysis "insight studio": indigo→magenta (BI /
+     data-analyst energy). Distinct at a glance from the studio copper, control cyan, maktaba
+     brass, fardi purple and default sky. Applied only within a [data-track="insight"] subtree. */
+  --accent-insight:           #8b7cf6;
+  --accent-insight-dim:       #241d47;
+  --accent-insight-glow:      rgba(209, 107, 240, 0.20);
+  --accent-insight-strong:    #d16bf0;
+
   --accent-gold:         #fbbf24;
   --accent-gold-dim:     #713f12;
   --accent-gold-glow:    rgba(251, 191, 36, 0.12);
@@ -754,4 +762,23 @@ html[data-track="maktaba"] {
   --ds-accent-primary:      var(--accent-maktaba);
   --ds-accent-primary-glow: var(--accent-maktaba-glow);
   --ds-sky:                 var(--accent-maktaba-strong);
+}
+
+/* INSIGHT ACCENT (scoped) — يسرا خوجة's business-analysis "insight studio" reads indigo→magenta
+   instead of purple/sky/copper/cyan/brass. Set on <html> via data-track="insight" (LayoutShell,
+   driven by students.theme_key='insight'). Same html[...] specificity trick as fardi/studio/
+   control/maktaba; every other student's palette is untouched. */
+html[data-track="insight"] {
+  --accent-sky:            var(--accent-insight);
+  --accent-sky-strong:     var(--accent-insight-strong);
+  --accent-sky-glow:       var(--accent-insight-glow);
+  --accent-sky-dim:        var(--accent-insight-dim);
+  --text-link:             var(--accent-insight-strong);
+  --info:                  var(--accent-insight);
+  --sidebar-active-border: var(--accent-insight);
+  --sidebar-icon-active:   var(--accent-insight);
+
+  --ds-accent-primary:      var(--accent-insight);
+  --ds-accent-primary-glow: var(--accent-insight-glow);
+  --ds-sky:                 var(--accent-insight-strong);
 }

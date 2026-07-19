@@ -121,6 +121,33 @@ html[data-track="maktaba"] .scene-root{
   --sc-on-accent: #1c1405;
 }
 
+/* يسرا خوجة's Insight Studio — indigo-night + violet→magenta (a business-analysis / BI identity) */
+html[data-track="insight"] .scene-root{
+  --sc-accent: #8b7cf6;
+  --sc-accent-bright: #d16bf0;
+  --sc-accent-deep: #4a3a8a;
+  --sc-glow: rgba(209,107,240,0.32);
+  --sc-panel: #16132e;
+  --sc-panel-2: #0e0c20;
+  --sc-ink: #f2effc;
+  --sc-ink-2: #ccc4e6;
+  --sc-ink-3: #948bb5;
+  --sc-ink-4: #655d84;
+  --sc-hair: rgba(180,140,240,0.15);
+  --sc-hair-soft: rgba(180,140,240,0.07);
+  --sc-ok: #34d399;
+  --sc-ok-soft: rgba(52,211,153,0.15);
+  --sc-ok-border: rgba(52,211,153,0.5);
+  --sc-accent-a12: rgba(209,107,240,0.12);
+  --sc-accent-a16: rgba(209,107,240,0.16);
+  --sc-accent-a18: rgba(209,107,240,0.18);
+  --sc-accent-a35: rgba(209,107,240,0.35);
+  --sc-accent-a40: rgba(209,107,240,0.40);
+  --sc-accent-a50: rgba(209,107,240,0.50);
+  --sc-cap-earned-bg: linear-gradient(155deg, #2a1c4a, #0e0c20);
+  --sc-on-accent: #1a0f2e;
+}
+
 /* ── OUTCOME SLATE ─────────────────────────────── */
 .scene-slate{
   position: relative;
