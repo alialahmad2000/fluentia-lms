@@ -291,29 +291,31 @@ export function usePassageMeta() {
   })
 }
 
-// Submit a completed 3-passage reading test (one combined session row + progress + error bank)
+// Submit a completed reading test OR single passage (one session row + progress + error bank).
+// Pass sourceId (defaults to test.id) so a single-passage attempt is tagged to the passage,
+// not the test — keeping the library's per-test "best band" badge to full-test attempts only.
 export function useSubmitReadingTest() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: async ({ studentId, test, result, durationSeconds }) => {
+    mutationFn: async ({ studentId, test, result, durationSeconds, sourceId, kind }) => {
       const now = new Date().toISOString()
       const startedAt = new Date(Date.now() - durationSeconds * 1000).toISOString()
 
-      // 1. One combined session row (source_id = the test id)
+      // 1. One combined session row
       const { data: sessionRow, error: sessErr } = await supabase
         .from('ielts_skill_sessions')
         .insert({
           student_id: studentId,
           skill_type: 'reading',
           question_type: null,
-          source_id: test.id,
+          source_id: sourceId ?? test.id,
           started_at: startedAt,
           completed_at: now,
           duration_seconds: durationSeconds,
           correct_count: result.correct,
           incorrect_count: result.total - result.correct,
           band_score: result.band,
-          session_data: { kind: 'reading_test', test_number: test.test_number, ...result },
+          session_data: { kind: kind || 'reading_test', test_number: test.test_number, ...result },
         })
         .select('id')
         .single()

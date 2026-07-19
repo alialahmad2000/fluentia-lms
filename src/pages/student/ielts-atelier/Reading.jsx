@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, ArrowRight } from 'lucide-react'
+import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, Compass, Gauge, Repeat, Scale, MessageSquare, ListTree, PenLine, GraduationCap, Lightbulb } from 'lucide-react'
 
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
@@ -41,14 +41,14 @@ function useIsWide(bp = 900) {
   return wide
 }
 
-// ─── Test card (library) ───────────────────────────────────────────────────────
-function TestCard({ test, meta, session, loading, onSelect }) {
+// ─── Test card (library) — pick one passage OR sit the full 3-passage test ───────
+function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingle }) {
   const ids = Array.isArray(test.passage_ids) ? test.passage_ids : []
   const topics = ids.map((id) => meta?.[id]).filter(Boolean)
   const bestBand = session?.band != null ? session.band : null
   const num = String(test.test_number).padStart(2, '0')
   return (
-    <GalleryCard onClick={() => !loading && onSelect(test)}>
+    <div className="iel-gcard" style={{ display: 'flex', flexDirection: 'column', gap: 11, padding: '18px 20px', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif" }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
         <span style={{
           display: 'inline-flex', alignItems: 'center', gap: 6, padding: '2px 10px', borderRadius: 6,
@@ -64,28 +64,62 @@ function TestCard({ test, meta, session, loading, onSelect }) {
         )}
       </div>
 
-      <h3 style={{ margin: '4px 0 0', fontSize: 16.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.4, textAlign: 'start' }}>
+      <h3 style={{ margin: '2px 0 0', fontSize: 16.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.4, textAlign: 'start' }}>
         {test.title_ar || `اختبار القراءة ${num}`}
       </h3>
 
-      {/* three-passage progression */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginTop: 6 }}>
+      <p style={{ margin: 0, fontSize: 11.5, color: 'var(--iel-ink-3)', textAlign: 'start' }}>
+        {g('اضغط نصاً لتتدرّب عليه وحده، أو ابدأ الاختبار الكامل', 'اضغطي نصاً لتتدرّبي عليه وحده، أو ابدئي الاختبار الكامل')}
+      </p>
+
+      {/* three tappable passage rows — each starts a single-passage session */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 2 }}>
         {[0, 1, 2].map((i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button
+            key={i}
+            type="button"
+            onClick={() => !loading && onSelectSingle(test, i)}
+            title="تدريب على هذا النص وحده"
+            className="iel-passrow"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 9, width: '100%', textAlign: 'start',
+              padding: '7px 9px', borderRadius: 9, cursor: 'pointer',
+              border: '1px solid transparent', background: 'color-mix(in srgb, var(--iel-ink) 3%, transparent)',
+              fontFamily: "'Tajawal', sans-serif",
+            }}
+          >
             <span style={{ width: 8, height: 8, borderRadius: '50%', flex: 'none', background: posColor(i) }} />
-            <span style={{ fontSize: 12, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif", flex: 1, textAlign: 'start', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <span style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {topics[i]?.title || POS_LABEL[i]}
             </span>
-          </div>
+            <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--iel-ink-3)', flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+              نص {arDigit(i + 1)} <span style={{ fontSize: 13 }}>←</span>
+            </span>
+          </button>
         ))}
       </div>
 
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 8 }}>
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 2 }}>
         <MetaChip icon={FileText}>{arDigit(test.total_questions || 40)} سؤالاً</MetaChip>
         <MetaChip icon={Clock}>{arDigit(test.total_time_minutes || 60)} دقيقة</MetaChip>
         <MetaChip icon={BookOpen}>٣ نصوص</MetaChip>
       </div>
-    </GalleryCard>
+
+      {/* full-test CTA */}
+      <button
+        type="button"
+        onClick={() => !loading && onSelectFull(test)}
+        disabled={loading}
+        className="iel-primary"
+        style={{
+          marginTop: 4, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+          padding: '11px 14px', borderRadius: 11, border: 0, cursor: loading ? 'wait' : 'pointer',
+          background: 'var(--iel-accent)', color: '#fff', fontSize: 13.5, fontWeight: 800, fontFamily: "'Tajawal', sans-serif",
+        }}
+      >
+        {loading ? 'جارٍ…' : <>الاختبار الكامل — ٣ نصوص <span style={{ fontSize: 15 }}>←</span></>}
+      </button>
+    </div>
   )
 }
 
@@ -95,6 +129,200 @@ function StatBox({ label, value, accent }) {
       <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 4 }}>{label}</div>
       <div className="iel-serif" style={{ fontSize: 24, fontWeight: 600, color: accent || 'var(--iel-ink)' }}>{value}</div>
     </Card>
+  )
+}
+
+// ─── Reading lessons guide (teach-first, like the Writing section) ───────────────
+const READING_LESSONS = [
+  {
+    id: 'map', icon: Compass, color: '#4ade80',
+    title: 'خريطة الاختبار', subtitle: 'كيف يُبنى قسم القراءة وكيف تُحسب الدرجة',
+    concept: 'قسم القراءة الأكاديمي = ثلاثة نصوص تتدرّج في الصعوبة (النص الأول أيسر، الثالث أصعب)، أربعون سؤالاً، وستون دقيقة فقط. في النسخة الأكاديمية لا يوجد وقت إضافيّ لنقل الإجابات، فاكتب إجابتك مباشرة. كل إجابة صحيحة = علامة واحدة، ثم تُحوَّل العلامات من ٤٠ إلى نطاق (Band).',
+    steps: [
+      'خصّص نحو ٢٠ دقيقة لكل نص — لا أكثر، حتى لا يسرق النص الأول وقت الثالث.',
+      'الأسئلة عادةً بترتيب ورودها في النص (ما عدا مطابقة العناوين والمعلومات) — استغلّ ذلك.',
+      'لا تترك أي فراغ: كل سؤال بلا إجابة = صفر، والتخمين قد يصيب.',
+    ],
+    tip: 'حوالي ٣٠ إجابة صحيحة من ٤٠ ≈ Band 7. اعرف هدفك بالأرقام.',
+  },
+  {
+    id: 'skim', icon: Gauge, color: '#4ade80',
+    title: 'القراءة السريعة: تصفّح ومسح', subtitle: 'Skimming & Scanning',
+    concept: 'لا تقرأ كل كلمة. «التصفّح» (Skimming) قراءة سريعة لالتقاط الفكرة العامة وبنية النص وموضوع كل فقرة. «المسح» (Scanning) بحث سريع عن معلومة محددة كاسم أو رقم أو تاريخ دون قراءة الجُمل كاملة.',
+    steps: [
+      'ابدأ بتصفّح سريع (دقيقة–دقيقتان): العنوان، أول جملة من كل فقرة، والكلمات البارزة.',
+      'اقرأ السؤال أولاً، حدّد كلمته المفتاحية، ثم «امسح» النص عنها.',
+      'حين تجد المكان المناسب، اقرأ الجملة وما حولها بعناية لتأكيد الإجابة.',
+    ],
+    tip: 'الأرقام والأسماء والحروف الكبيرة أسهل ما يُمسَح — اجعلها نقطة انطلاقك.',
+  },
+  {
+    id: 'paraphrase', icon: Repeat, color: 'var(--sunset-amber, #f59e0b)',
+    title: 'إعادة الصياغة والكلمات المفتاحية', subtitle: 'لماذا لا تجد نفس الكلمات؟',
+    concept: 'أهم مهارة في القراءة: الأسئلة تُعيد صياغة النص بمرادفات، ونادراً ما تستخدم كلماته نفسها. فمن يبحث عن الكلمة الحرفية يضيع؛ ومن يبحث عن المعنى والمرادف يصيب.',
+    steps: [
+      'تحت كل كلمة مفتاحية في السؤال، فكّر: ما مرادفها المحتمل في النص؟',
+      'احذر «الفخّ»: كلمة من السؤال تظهر حرفياً في النص لكن في سياق مختلف — ليست دائماً الإجابة.',
+      'ركّز على الفعل والفكرة، لا على الاسم وحده.',
+    ],
+    example: { text_en: 'Question: "The bridge was expensive to build." · Passage: "…the construction of the bridge came at a considerable cost."', why_ar: '«expensive» ← «considerable cost»، و«to build» ← «construction»: نفس المعنى بكلمات مختلفة.' },
+    tip: 'درّب عينك على المرادفات، لا على تطابق الحروف.',
+  },
+  {
+    id: 'tfng', icon: Scale, color: 'var(--sunset-orange, #fb7185)',
+    title: 'صح / خطأ / غير مذكور', subtitle: 'True / False / Not Given',
+    concept: 'أكثر نوع يخلط بين الطلاب. TRUE = المعلومة تتفق مع النص. FALSE = النص يناقضها صراحةً. NOT GIVEN = النص لا يذكرها ولا ينفيها. القاعدة الذهبية: احكم من النص فقط، لا من معلوماتك الخارجية.',
+    steps: [
+      'اسأل: هل النص يؤكّد العبارة؟ (TRUE) هل يناقضها؟ (FALSE) أم يسكت عنها؟ (NOT GIVEN).',
+      'الفرق بين FALSE و NOT GIVEN هو الأصعب: FALSE يحتاج تناقضاً واضحاً في النص، أما NOT GIVEN فلا أثر للمعلومة أصلاً.',
+      'لا تفترض؛ «يبدو منطقياً» ليس دليلاً.',
+    ],
+    tip: 'لو ترددت بين FALSE و NOT GIVEN: هل يوجد جملة في النص تقول العكس؟ إن لم توجد فهي غالباً NOT GIVEN.',
+  },
+  {
+    id: 'ynng', icon: MessageSquare, color: 'var(--sunset-orange, #fb7185)',
+    title: 'نعم / لا / غير مذكور', subtitle: "Yes / No / Not Given — رأي الكاتب",
+    concept: 'يشبه صح/خطأ لكنّه يخصّ رأي الكاتب وادّعاءاته لا الحقائق. YES = العبارة تتفق مع رأي الكاتب. NO = تناقض رأيه. NOT GIVEN = لم يُبدِ رأياً فيها.',
+    steps: [
+      'انتبه لكلمات الرأي في النص: «يرى، يعتقد، من الواضح، للأسف، من المرجّح».',
+      'ميّز بين ما يذكره الكاتب كحقيقة وما يتبنّاه كرأي.',
+      'إن ذكر الكاتب رأياً لغيره دون أن يوافقه، فرأيه هو NOT GIVEN.',
+    ],
+    tip: 'اسأل دائماً: ما رأيُ الكاتب نفسه، لا ما هو صحيح في الواقع.',
+  },
+  {
+    id: 'headings', icon: ListTree, color: 'var(--sunset-amber, #f59e0b)',
+    title: 'مطابقة العناوين', subtitle: 'Matching Headings',
+    concept: 'تختار عنواناً لكل فقرة من قائمة. عدد العناوين أكثر من الفقرات، فبعضها فخّ. العنوان الصحيح يلخّص الفكرة الرئيسة للفقرة كلها، لا تفصيلة صغيرة فيها.',
+    steps: [
+      'اقرأ جملة الفقرة الأولى والأخيرة — غالباً فيهما الفكرة الرئيسة.',
+      'احذر العنوان الذي يذكر تفصيلة صحيحة لكنها ليست موضوع الفقرة.',
+      'اترك الفقرات الصعبة للنهاية، فحلّ الأسهل يقلّص خيارات الأصعب.',
+    ],
+    tip: 'اسأل: «عن ماذا تتحدث هذه الفقرة ككل؟» لا «أي تفصيلة وردت فيها؟».',
+  },
+  {
+    id: 'completion', icon: PenLine, color: '#4ade80',
+    title: 'أسئلة الإكمال', subtitle: 'إكمال الجُمل والملخّص والجداول',
+    concept: 'تملأ الفراغ بكلمات مأخوذة حرفياً من النص. احترم حدّ الكلمات («كلمة واحدة»، «كلمتان كحدّ أقصى») وإلا احتُسبت الإجابة خطأ حتى لو كان معناها صحيحاً.',
+    steps: [
+      'حدّد نوع الكلمة الناقصة قبل البحث: اسم؟ فعل؟ رقم؟ (من قواعد الجملة).',
+      'انسخ الكلمة كما هي في النص تماماً — لا تغيّر صيغتها.',
+      'تأكد أن الجملة بعد الملء صحيحة نحوياً.',
+    ],
+    tip: '«NO MORE THAN TWO WORDS» تعني كلمتين على الأكثر — عُدّها قبل أن تكتب.',
+  },
+  {
+    id: 'time', icon: Clock, color: 'var(--sunset-orange, #fb7185)',
+    title: 'إدارة الوقت والأعصاب', subtitle: 'كيف لا تضيّع الساعة',
+    concept: 'أكثر ما يخفض الدرجة ليس صعوبة النص بل سوء إدارة الوقت. النصوص تتدرّج في الصعوبة، فلا تعلَق في سؤال واحد.',
+    steps: [
+      'إن استعصى سؤال بعد دقيقة، ضع تخميناً وضع علامة وانتقل — عُد إليه إن بقي وقت.',
+      'راقب الساعة: نص كل ٢٠ دقيقة تقريباً.',
+      'في آخر دقيقتين، تأكد أن كل الأربعين خانة مملوءة (خمّن ما تبقّى).',
+    ],
+    tip: 'الكمال عدوّ الإنجاز؛ إجابة مخمّنة خير من خانة فارغة.',
+  },
+]
+
+function LessonCard({ lesson, onOpen }) {
+  const I = lesson.icon
+  return (
+    <button type="button" onClick={() => onOpen(lesson)} className="iel-gcard" style={{
+      display: 'flex', flexDirection: 'column', gap: 8, padding: '15px 16px', width: '100%', cursor: 'pointer',
+      textAlign: 'start', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif",
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ width: 34, height: 34, borderRadius: 10, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `color-mix(in srgb, ${lesson.color} 15%, transparent)`, border: `1px solid color-mix(in srgb, ${lesson.color} 30%, transparent)`, color: lesson.color }}>
+          <I size={17} />
+        </span>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.3 }}>{lesson.title}</div>
+          <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{lesson.subtitle}</div>
+        </div>
+      </div>
+    </button>
+  )
+}
+
+function LessonDrawer({ lesson, onClose }) {
+  const I = lesson?.icon
+  return (
+    <AnimatePresence>
+      {lesson && (
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          onClick={onClose}
+          style={{ position: 'fixed', inset: 0, zIndex: 10060, background: 'rgba(0,0,0,.5)', backdropFilter: 'blur(3px)', display: 'flex', justifyContent: 'flex-start' }}
+        >
+          <motion.div
+            dir="rtl"
+            initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 30, stiffness: 260 }}
+            onClick={(e) => e.stopPropagation()}
+            className="iel-root"
+            style={{ width: 'min(520px, 100%)', height: '100%', overflowY: 'auto', background: 'var(--iel-panel)', borderInlineEnd: '1px solid var(--iel-border)', padding: '24px 24px 60px', fontFamily: "'Tajawal', sans-serif" }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginBottom: 16 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
+                <span style={{ width: 40, height: 40, borderRadius: 11, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `color-mix(in srgb, ${lesson.color} 16%, transparent)`, border: `1px solid color-mix(in srgb, ${lesson.color} 32%, transparent)`, color: lesson.color }}>
+                  {I && <I size={20} />}
+                </span>
+                <div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--iel-ink)' }}>{lesson.title}</div>
+                  <div style={{ fontSize: 12.5, color: 'var(--iel-ink-3)' }}>{lesson.subtitle}</div>
+                </div>
+              </div>
+              <button onClick={onClose} aria-label="إغلاق" style={{ flex: 'none', width: 34, height: 34, borderRadius: 9, border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-3)', fontSize: 17, cursor: 'pointer', lineHeight: 1 }}>✕</button>
+            </div>
+
+            <p style={{ margin: '0 0 18px', fontSize: 14.5, lineHeight: 1.9, color: 'var(--iel-ink-2)' }}>{lesson.concept}</p>
+
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 8px' }}>الخطوات</div>
+            <ol style={{ margin: '0 0 18px', paddingInlineStart: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {lesson.steps.map((s, i) => (
+                <li key={i} style={{ fontSize: 13.5, lineHeight: 1.8, color: 'var(--iel-ink-2)' }}>{s}</li>
+              ))}
+            </ol>
+
+            {lesson.example && (
+              <div style={{ margin: '0 0 18px', padding: '14px 16px', borderRadius: 12, background: 'color-mix(in srgb, var(--iel-accent) 7%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-accent) 20%, transparent)' }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-accent-ink)', marginBottom: 6 }}>مثال</div>
+                <p style={{ margin: '0 0 8px', fontSize: 13, lineHeight: 1.7, color: 'var(--iel-ink)', direction: 'ltr', textAlign: 'left', fontFamily: SANS }}>{lesson.example.text_en}</p>
+                <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.8, color: 'var(--iel-ink-3)' }}>{lesson.example.why_ar}</p>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 9, padding: '13px 15px', borderRadius: 12, background: 'color-mix(in srgb, var(--sunset-amber, #f59e0b) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber, #f59e0b) 26%, transparent)' }}>
+              <Lightbulb size={16} color="var(--sunset-amber, #f59e0b)" style={{ flex: 'none', marginTop: 2 }} />
+              <p style={{ margin: 0, fontSize: 13, lineHeight: 1.8, color: 'var(--iel-ink-2)' }}>{lesson.tip}</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function ReadingLessonsGuide() {
+  const [open, setOpen] = useState(null)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ width: 30, height: 30, borderRadius: 9, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in srgb, var(--iel-accent) 26%, transparent)', color: 'var(--iel-accent)' }}>
+          <GraduationCap size={17} />
+        </span>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>دليل القراءة — تعلّم قبل أن تختبر</h2>
+          <p style={{ margin: '2px 0 0', fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>دروس أساسية في استراتيجية قراءة الآيلتس — ابدأ بها ثم انتقل للتدريب.</p>
+        </div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 12 }}>
+        {READING_LESSONS.map((l) => (
+          <LessonCard key={l.id} lesson={l} onOpen={setOpen} />
+        ))}
+      </div>
+      <LessonDrawer lesson={open} onClose={() => setOpen(null)} />
+    </div>
   )
 }
 
@@ -156,7 +384,11 @@ export default function Reading() {
     setGradeResult(result)
     if (studentId && test) {
       const elapsed = Math.max(1, (test.total_time_minutes || 60) * 60 - timeLeft)
-      submitTest.mutate({ studentId, test, result, durationSeconds: elapsed })
+      submitTest.mutate({
+        studentId, test, result, durationSeconds: elapsed,
+        sourceId: test.single ? test.singleSourceId : test.id,
+        kind: test.single ? 'reading_passage' : 'reading_test',
+      })
     }
     setAct('results')
   }
@@ -183,7 +415,7 @@ export default function Reading() {
     if (error || !data?.length) { setLoadingTestId(null); return }
     const order = new Map(ids.map((id, i) => [id, i]))
     const passages = data.slice().sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0))
-    setTest({ ...t, passages })
+    setTest({ ...t, passages, single: false, total_time_minutes: t.total_time_minutes || 60 })
     setAnswers({})
     setTimeLeft((t.total_time_minutes || 60) * 60)
     setGradeResult(null)
@@ -193,6 +425,52 @@ export default function Reading() {
     const firstQ = passages[0]?.questions?.[0]?.question_number
     setCurrent(firstQ != null ? `0_${firstQ}` : null)
     setLoadingTestId(null)
+    setAct('session')
+  }
+
+  // Practise ONE passage on its own (~20 min); numbering normalised to 1..N for a standalone session
+  async function handleSelectSingle(t, pi) {
+    setLoadingTestId(t.id)
+    const ids = Array.isArray(t.passage_ids) ? t.passage_ids : []
+    const targetId = ids[pi]
+    if (!targetId) { setLoadingTestId(null); return }
+    const { data, error } = await supabase
+      .from('ielts_reading_passages')
+      .select('id, title, content, questions, answer_key, difficulty_band, topic_category')
+      .eq('id', targetId)
+      .single()
+    if (error || !data) { setLoadingTestId(null); return }
+    const questions = (Array.isArray(data.questions) ? data.questions : []).map((q, i) => ({ ...q, question_number: i + 1 }))
+    const answer_key = (Array.isArray(data.answer_key) ? data.answer_key : []).map((e, i) => ({ ...e, question_number: i + 1 }))
+    const passage = { ...data, questions, answer_key }
+    const DUR = 20
+    setTest({
+      id: t.id, test_number: t.test_number, title_ar: t.title_ar,
+      passages: [passage], single: true, singleSourceId: passage.id, single_title: passage.title,
+      total_time_minutes: DUR,
+    })
+    setAnswers({})
+    setTimeLeft(DUR * 60)
+    setGradeResult(null)
+    setShowReview(false)
+    setTabIdx(0)
+    setMobilePane('passage')
+    setCurrent(`0_${questions[0]?.question_number ?? 1}`)
+    setLoadingTestId(null)
+    setAct('session')
+  }
+
+  // Retry the CURRENT session (single or full) without re-fetching — reuses loaded passages
+  function restartSession() {
+    if (!test) return
+    setAnswers({})
+    setGradeResult(null)
+    setShowReview(false)
+    setTabIdx(0)
+    setMobilePane('passage')
+    setTimeLeft((test.total_time_minutes || 60) * 60)
+    const firstQ = test.passages?.[0]?.questions?.[0]?.question_number
+    setCurrent(firstQ != null ? `0_${firstQ}` : null)
     setAct('session')
   }
 
@@ -226,9 +504,21 @@ export default function Reading() {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2, maxWidth: 940 }}>
-        <LabHeader eyebrow="التدريب · القراءة" title="اختبارات القراءة">
-          اختبارات قراءة كاملة على شكل امتحان الآيلتس الأكاديمي الحقيقي: ثلاثة نصوص تتدرّج في الصعوبة، أربعون سؤالاً، وساعة واحدة. تصحيح فوري وشرح عربيّ لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
+        <LabHeader eyebrow="التدريب · القراءة" title="القراءة">
+          تعلّم أولاً أنواع أسئلة الآيلتس واستراتيجية حلّها، ثم تدرّب: نصٌّ واحد للتركيز، أو اختبار كامل من ثلاثة نصوص وأربعين سؤالاً في ساعة. تصحيح فوري وشرح عربيّ لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
         </LabHeader>
+
+        {/* LESSONS GUIDE first (teach-first, like the Writing section) */}
+        <ReadingLessonsGuide g={g} />
+
+        {/* Question-types strategy hub */}
+        <QuestionTypesSection />
+
+        {/* ── الاختبارات والتدريب ── */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 6 }}>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>التدرّب على الاختبارات</h2>
+          <span style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>نصّ واحد للتركيز · أو اختبار كامل</span>
+        </div>
 
         {(completedCount > 0) && (
           <div style={{ display: 'flex', gap: 12 }}>
@@ -254,12 +544,10 @@ export default function Reading() {
             style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 14 }}
           >
             {tests.map((t) => (
-              <TestCard key={t.id} test={t} meta={meta} session={{ band: bestByTest[t.id] }} loading={loadingTestId === t.id} onSelect={handleSelectTest} />
+              <TestCard key={t.id} test={t} meta={meta} session={{ band: bestByTest[t.id] }} loading={loadingTestId === t.id} g={g} onSelectFull={handleSelectTest} onSelectSingle={handleSelectSingle} />
             ))}
           </motion.div>
         )}
-
-        <QuestionTypesSection />
       </div>
     )
   }
@@ -323,16 +611,16 @@ export default function Reading() {
     return (
       <ExamShell
         sectionLabel="القراءة"
-        partLabel={`Reading Passage ${tabIdx + 1} / ${passages.length}`}
+        partLabel={test.single ? (test.single_title || 'نص واحد') : `Reading Passage ${tabIdx + 1} / ${passages.length}`}
         secsLeft={timeLeft}
         onSubmit={() => submitRef.current()}
         submitting={submitTest.isPending}
-        submitLabel="تسليم الاختبار"
+        submitLabel={test.single ? 'تسليم النص' : 'تسليم الاختبار'}
         onExit={() => { clearInterval(timerRef.current); setAct('library') }}
         footer={<QuestionPalette groups={groups} answered={answeredSet} current={current} onJump={jump} />}
       >
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
-          {PassageTabs}
+          {passages.length > 1 ? PassageTabs : null}
           <div style={{ flex: 1, minHeight: 0 }}>
             {isWide ? (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: '100%', minHeight: 0 }}>
@@ -366,29 +654,35 @@ export default function Reading() {
           initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           style={{ padding: '40px 32px', borderRadius: 24, background: 'color-mix(in srgb, var(--sunset-base-mid, #1a1220) 48%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber, #f59e0b) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
         >
-          <p style={{ margin: 0, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Reading Test {String(test?.test_number || '').padStart(2, '0')}
-          </p>
+          {test?.single ? (
+            <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", direction: 'ltr' }}>{test.single_title || 'نص واحد'}</p>
+          ) : (
+            <p style={{ margin: 0, fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              Reading Test {String(test?.test_number || '').padStart(2, '0')}
+            </p>
+          )}
           <BandDisplay band={band} size="xl" animate />
           <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>{correct} من {total} إجابة صحيحة</p>
         </motion.div>
 
-        {/* Per-passage breakdown */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.4 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
-          {perPassage.map((pp) => (
-            <div key={pp.pi} style={{ padding: '14px 12px', borderRadius: 14, background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 45%, transparent)', textAlign: 'center' }}>
-              <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", marginBottom: 6 }}>نص {arDigit(pp.pi + 1)}</div>
-              <div className="iel-serif" style={{ fontSize: 20, fontWeight: 700, color: posColor(pp.pi) }}>{pp.correct}/{pp.total}</div>
-            </div>
-          ))}
-        </motion.div>
+        {/* Per-passage breakdown (only for the full 3-passage test) */}
+        {perPassage.length > 1 && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.4 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+            {perPassage.map((pp) => (
+              <div key={pp.pi} style={{ padding: '14px 12px', borderRadius: 14, background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 45%, transparent)', textAlign: 'center' }}>
+                <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", marginBottom: 6 }}>نص {arDigit(pp.pi + 1)}</div>
+                <div className="iel-serif" style={{ fontSize: 20, fontWeight: 700, color: posColor(pp.pi) }}>{pp.correct}/{pp.total}</div>
+              </div>
+            ))}
+          </motion.div>
+        )}
 
         {/* Actions */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.4 }} style={{ display: 'flex', gap: 12 }}>
           <button onClick={() => setAct('library')} style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 55%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
             كل الاختبارات
           </button>
-          <button onClick={() => handleSelectTest(test)} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange, #fb7185) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange, #fb7185) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          <button onClick={restartSession} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange, #fb7185) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange, #fb7185) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
             <RotateCcw size={13} /> {g('حاول مرة أخرى', 'حاولي مرة أخرى')}
           </button>
         </motion.div>
