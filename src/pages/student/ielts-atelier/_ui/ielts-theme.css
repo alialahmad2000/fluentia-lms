@@ -297,3 +297,66 @@ html .iel-exam-clinical .iel-atmo{ display:none; }
   .iel-nav button{white-space:nowrap;flex:none}
   .iel-main{padding:18px 15px 64px}
 }
+
+/* ── Single-article rows on a test card (interactive, like the full-exam CTA) ─── */
+.iel-passrow{ transition:background .16s ease, border-color .16s ease, transform .12s ease, box-shadow .16s ease; }
+.iel-passrow:hover{
+  background:var(--iel-accent-soft) !important;
+  border-color:color-mix(in srgb, var(--iel-accent) 45%, transparent) !important;
+  box-shadow:0 6px 16px -12px color-mix(in srgb, var(--iel-accent) 80%, #000);
+}
+.iel-passrow:hover .cta{ color:var(--iel-accent-ink); }
+.iel-passrow:hover .arrow{ transform:translateX(-4px); }
+.iel-passrow .arrow{ transition:transform .16s ease; }
+.iel-passrow:active{ transform:translateY(1px); }
+
+/* ── Sidebar sub-nav (nested reading parts under one parent) ─────────────────── */
+.iel-subnav{ position:relative; display:flex; flex-direction:column; gap:1px; margin:1px 0 4px; padding-inline-start:15px; }
+.iel-subnav::before{ content:''; position:absolute; inset-inline-start:6px; top:5px; bottom:7px; width:1.5px; border-radius:2px;
+  background:linear-gradient(180deg, color-mix(in srgb, var(--iel-accent) 34%, transparent), transparent 92%); }
+.iel-subitem{ position:relative; display:flex; align-items:center; gap:9px; width:100%; padding:7px 11px; border-radius:9px; border:0;
+  cursor:pointer; text-align:start; font-family:'Tajawal',sans-serif; font-size:13px; font-weight:600;
+  color:var(--iel-ink-3); background:transparent; transition:background .14s, color .14s; }
+.iel-subitem .dot{ flex:none; width:5px; height:5px; border-radius:50%; background:var(--iel-ink-3); transition:background .14s, transform .14s, box-shadow .14s; }
+.iel-subitem:hover{ color:var(--iel-ink); background:var(--iel-surface-2); }
+.iel-subitem:hover .dot{ background:var(--iel-accent); }
+.iel-subitem .cnt{ margin-inline-start:auto; font-size:10.5px; font-weight:700; color:var(--iel-ink-3); }
+.iel-subitem.on{ color:var(--iel-accent-ink); background:var(--iel-accent-soft); font-weight:700; }
+.iel-subitem.on .dot{ background:var(--iel-accent); transform:scale(1.35); box-shadow:0 0 8px color-mix(in srgb, var(--iel-accent) 70%, transparent); }
+.iel-subitem.on .cnt{ color:var(--iel-accent-ink); }
+
+/* ── Premium strategy drawer (reading lessons + question types) ──────────────── */
+.iel-drawer2{ background:var(--iel-panel); border-inline-end:1px solid var(--iel-border-strong);
+  box-shadow:-44px 0 90px -44px rgba(0,0,0,.72); }
+.iel-drawer2-head{ position:relative; padding:24px 26px 20px; overflow:hidden; border-bottom:1px solid var(--iel-border); }
+.iel-drawer2-head::after{ content:''; position:absolute; top:0; inset-inline:0; height:3px;
+  background:linear-gradient(90deg, var(--dc), color-mix(in srgb, var(--dc) 10%, transparent) 72%); }
+.iel-drawer2-head .glow{ position:absolute; top:-70px; inset-inline-start:-30px; width:60%; height:190px; pointer-events:none;
+  background:radial-gradient(60% 100% at 35% 0, color-mix(in srgb, var(--dc) 42%, transparent), transparent 72%); filter:blur(26px); opacity:.5; }
+.iel-drawer2-head .closebtn{ position:absolute; top:20px; inset-inline-end:22px; z-index:2; width:34px; height:34px; border-radius:9px;
+  border:1px solid var(--iel-border); background:var(--iel-surface); color:var(--iel-ink-2); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .14s, color .14s; }
+.iel-drawer2-head .closebtn:hover{ background:var(--iel-surface-2); color:var(--iel-ink); }
+.iel-drawer2-head .medallion{ width:48px; height:48px; border-radius:14px; flex:none; display:flex; align-items:center; justify-content:center;
+  color:var(--dc); background:color-mix(in srgb, var(--dc) 16%, transparent); border:1px solid color-mix(in srgb, var(--dc) 34%, transparent);
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--dc) 8%, transparent), 0 10px 26px -12px color-mix(in srgb, var(--dc) 70%, #000); }
+.iel-steps .iel-step{ position:relative; display:flex; gap:13px; padding-bottom:15px; }
+.iel-steps .iel-step:last-child{ padding-bottom:0; }
+.iel-steps .iel-step::before{ content:''; position:absolute; inset-inline-start:12px; top:27px; bottom:0; width:2px;
+  background:color-mix(in srgb, var(--dc) 22%, transparent); }
+.iel-steps .iel-step:last-child::before{ display:none; }
+.iel-steps .iel-step .n{ flex:none; width:26px; height:26px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:13px; color:var(--dc); background:color-mix(in srgb, var(--dc) 15%, transparent);
+  border:1px solid color-mix(in srgb, var(--dc) 32%, transparent); position:relative; z-index:1; }
+.iel-steps .iel-step .t{ font-size:14px; line-height:1.75; color:var(--iel-ink); padding-top:3px; }
+.iel-drawer2-ex{ padding:15px 16px; border-radius:14px; background:var(--iel-surface-2); border:1px solid var(--iel-border); }
+.iel-drawer2-ex .lbl{ font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--iel-ink-3); margin-bottom:10px; }
+
+@media (max-width:900px){
+  /* sub-nav becomes inline chips inside the horizontal mobile nav bar */
+  .iel-subnav{ flex-direction:row; padding-inline-start:0; gap:6px; margin:0; }
+  .iel-subnav::before{ display:none; }
+  .iel-subitem{ flex:none; padding:7px 12px; border:1px solid var(--iel-border); }
+  .iel-subitem .cnt{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){ .iel-passrow, .iel-passrow .arrow{ transition:none } }

@@ -10,6 +10,12 @@ import { useAuthStore } from '@/stores/authStore'
 const BASE = '/student/ielts-atelier'
 const SKILLS = ['reading', 'listening', 'writing', 'speaking']
 const SKILL_LABEL = { reading: 'القراءة', listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة' }
+// Reading is a parent with always-visible sub-parts (each its own page).
+const READING_SUB = [
+  { path: 'reading', label: 'دليل القراءة', exact: true },
+  { path: 'reading/types', label: 'أنواع الأسئلة' },
+  { path: 'reading/tests', label: 'الاختبارات' },
+]
 
 const LoadingFallback = () => (
   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 240 }}>
@@ -40,6 +46,10 @@ export default function IELTSMasterclassLayout() {
     if (index) return pathname === BASE || pathname === `${BASE}/`
     return pathname === full || pathname.startsWith(`${full}/`)
   }
+  const subActive = (path, exact) => {
+    const full = `${BASE}/${path}`
+    return exact ? pathname === full : (pathname === full || pathname.startsWith(`${full}/`))
+  }
   const go = (path) => navigate(path ? `${BASE}/${path}` : BASE)
   const handleLogout = async () => {
     try { await signOut?.() } catch { /* ignore */ }
@@ -49,7 +59,7 @@ export default function IELTSMasterclassLayout() {
     const b = skills?.[s]?.band
     return b != null ? Number(b).toFixed(1) : ''
   }
-  const name = profile?.display_name || profile?.full_name || 'طالبة IELTS'
+  const name = profile?.display_name || profile?.full_name || 'طالب IELTS'
   const target = plan?.target_band != null ? `الهدف · Band ${Number(plan.target_band).toFixed(1)}` : 'مسار IELTS'
 
   return (
@@ -70,7 +80,16 @@ export default function IELTSMasterclassLayout() {
           <NavItem icon={Icon.diagnostic} label="الاختبار التشخيصي" active={isActive('diagnostic')} onClick={() => go('diagnostic')} />
 
           <div className="iel-nav-label">التدريب</div>
-          {SKILLS.map((s) => (
+          {/* Reading — a parent with always-visible sub-parts */}
+          <NavItem icon={Icon.reading} label="القراءة" badge={bandOf('reading')} active={pathname.startsWith(`${BASE}/reading`)} onClick={() => go('reading')} />
+          <div className="iel-subnav">
+            {READING_SUB.map((it) => (
+              <button key={it.path} type="button" className={`iel-subitem${subActive(it.path, it.exact) ? ' on' : ''}`} onClick={() => go(it.path)}>
+                <span className="dot" aria-hidden />{it.label}
+              </button>
+            ))}
+          </div>
+          {['listening', 'writing', 'speaking'].map((s) => (
             <NavItem key={s} icon={Icon[s]} label={SKILL_LABEL[s]} badge={bandOf(s)} active={isActive(s)} onClick={() => go(s)} />
           ))}
 
@@ -84,7 +103,7 @@ export default function IELTSMasterclassLayout() {
           {studentData?.keep_academy_access === true && (
             <>
               <div className="iel-nav-label">حسابي في الأكاديمية</div>
-              <NavItem icon={Icon.home} label="منهجي ودروسي" onClick={() => { try { sessionStorage.setItem('fluentia_academy_intent', '1') } catch { /* ignore */ } navigate('/student') }} />
+              <NavItem icon={Icon.home} label="منهجي ودروسي" onClick={() => navigate('/student')} />
             </>
           )}
 

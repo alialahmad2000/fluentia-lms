@@ -941,7 +941,9 @@ export default function App() {
                   <Route path="diagnostic" element={<IELTSAtelierDiagnostic />} />
                   <Route path="diagnostic/session/:attemptId" element={<IELTSAtelierDiagnosticSession />} />
                   <Route path="diagnostic/results" element={<IELTSAtelierDiagnosticResults />} />
-                  <Route path="reading"    element={<IELTSAtelierReading />} />
+                  <Route path="reading"        element={<IELTSAtelierReading />} />
+                  <Route path="reading/types"  element={<IELTSAtelierReading />} />
+                  <Route path="reading/tests"  element={<IELTSAtelierReading />} />
                   <Route path="listening"  element={<IELTSAtelierListening />} />
                   <Route path="writing"    element={<IELTSAtelierWriting />} />
                   <Route path="speaking"   element={<IELTSAtelierSpeaking />} />
