@@ -1,8 +1,11 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { PenLine, Mic, Clock, CheckCircle2, ExternalLink, Inbox } from 'lucide-react'
+import { PenLine, Mic, Clock, CheckCircle2, ExternalLink, Inbox, Award } from 'lucide-react'
 import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
 import { useGradeSubmission, useRequestRedo } from '@/hooks/teacher/useGrade'
+import { useIELTSGradingQueueExtension } from '@/hooks/trainer/useTrainerIELTSStudents'
+import IELTSSubmissionCard from '@/components/trainer/ielts/IELTSSubmissionCard'
+import IELTSReviewModal from '@/components/trainer/ielts/IELTSReviewModal'
 import FeedbackSnippets from '@/components/teacher/answers/FeedbackSnippets'
 
 const TYPE_META = {
@@ -66,6 +69,8 @@ function QueueCard({ row }) {
 
 export default function WorkReview() {
   const { data: queue = [], isLoading, error } = useGradingQueue(80)
+  const { data: ieltsQueue = [] } = useIELTSGradingQueueExtension()
+  const [ieltsItem, setIeltsItem] = useState(null)
   const [filter, setFilter] = useState('all')
 
   const rows = useMemo(() => (filter === 'all' ? queue : queue.filter((r) => r.submission_type === filter)), [queue, filter])
@@ -82,6 +87,22 @@ export default function WorkReview() {
         <div className="tea-pagehead__sub">كل ما ينتظر تقييمك من طلابك في مكان واحد</div>
       </div>
 
+      {/* IELTS — AI-graded already; the trainer reviews/adjusts by exception (not blocking). */}
+      {ieltsQueue.length > 0 && (
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-2.5 flex-wrap">
+            <Award size={15} className="text-amber-300" />
+            <div className="font-bold text-[14px] text-slate-100">مراجعة الآيلتس</div>
+            <span className="text-[11.5px] text-slate-500">تقييم آليّ جاهز — راجعه أو عدّل النطاق عند الحاجة</span>
+          </div>
+          <div className="grid gap-2.5 lg:grid-cols-2">
+            {ieltsQueue.map((it) => (
+              <IELTSSubmissionCard key={it.id} item={it} onClick={() => setIeltsItem(it)} />
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-wrap gap-2 mb-5">
         {[['all', 'الكل'], ['writing', 'كتابة'], ['speaking', 'محادثة']].map(([k, label]) => (
           <button key={k} type="button" onClick={() => setFilter(k)}
@@ -93,7 +114,7 @@ export default function WorkReview() {
 
       {isLoading && <div className="grid gap-3 lg:grid-cols-2">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="tea-skel h-44" />)}</div>}
       {error && <div className="tea-empty">تعذّر تحميل قائمة التقييم.</div>}
-      {!isLoading && !error && rows.length === 0 && (
+      {!isLoading && !error && rows.length === 0 && ieltsQueue.length === 0 && (
         <div className="tea-empty">
           <Inbox size={32} className="tea-empty__icon" />
           <div className="font-bold text-slate-200 mb-1">لا يوجد عمل بانتظار التقييم</div>
@@ -104,6 +125,8 @@ export default function WorkReview() {
       <div className="grid gap-3 lg:grid-cols-2">
         {rows.map((r) => <QueueCard key={`${r.submission_type}-${r.submission_id}`} row={r} />)}
       </div>
+
+      {ieltsItem && <IELTSReviewModal item={ieltsItem} onClose={() => setIeltsItem(null)} />}
     </div>
   )
 }

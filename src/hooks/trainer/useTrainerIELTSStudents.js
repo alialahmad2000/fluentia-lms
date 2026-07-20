@@ -173,11 +173,22 @@ export function useIELTSGradingQueueExtension() {
         .order('submitted_at', { ascending: true })
         .limit(50)
       if (error) throw error
-      return (data || []).map(s => ({
+      const rows = (data || []).map(s => ({
         ...s,
         student_name: s.students?.full_name || 'طالب',
         is_ielts: true,
       }))
+      // Speaking rows store the storage PATH in audio_url — mint a short-lived signed
+      // URL on view (staff read the bucket) so no long-lived token lives in the DB.
+      await Promise.all(rows.map(async (s) => {
+        if (s.audio_url && !/^https?:/i.test(s.audio_url)) {
+          const { data: su } = await supabase.storage
+            .from('ielts-speaking-submissions')
+            .createSignedUrl(s.audio_url, 3600)
+          s.audio_url = su?.signedUrl || null
+        }
+      }))
+      return rows
     },
   })
 }

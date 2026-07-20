@@ -45,7 +45,7 @@ export default function IELTSSubmissionCard({ item, onClick }) {
     <button
       onClick={onClick}
       style={{
-        width: '100%', textAlign: 'right', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '14px 16px', borderRadius: 12, cursor: 'pointer',
         background: isUrgent ? 'rgba(244,63,94,0.04)' : 'var(--ds-surface-1, rgba(255,255,255,0.03))',
         border: `1px solid ${isUrgent ? 'rgba(244,63,94,0.15)' : 'var(--ds-border-subtle, rgba(255,255,255,0.06))'}`,
@@ -57,7 +57,10 @@ export default function IELTSSubmissionCard({ item, onClick }) {
           <IELTSChip />
           <TypeChip type={submission_type} />
           {isUrgent && (
-            <span style={{ fontSize: 10, color: 'var(--ds-accent-rose, #f43f5e)', fontWeight: 600 }}>⚠️ {t('trainer.grading.urgent_badge', 'متأخر')}</span>
+            <span style={{
+              fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4,
+              background: 'rgba(244,63,94,0.12)', color: 'var(--ds-accent-rose, #f43f5e)',
+            }}>{t('trainer.grading.urgent_badge', 'متأخر')}</span>
           )}
         </div>
         <span style={{ fontSize: 14, color: 'var(--ds-text-primary, var(--text-primary))', fontWeight: 600 }}>

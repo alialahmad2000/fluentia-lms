@@ -509,6 +509,39 @@ export default function Speaking() {
       qc.invalidateQueries({ queryKey: ['v3-speaking-sessions', studentId] })
       qc.invalidateQueries({ queryKey: ['ielts-progress'] })
 
+      // Mirror the writing pipeline: file a speaking row in ielts_submissions so the
+      // trainer's review queue can SEE it (AI-graded; trainer reviews/adjusts by exception).
+      // Best-effort — a failure here never blocks the student's results screen.
+      try {
+        // Store the storage PATH (not a signed URL) — the trainer mints a short-lived
+        // signed URL on view, so no long-lived bearer token ever sits in the DB.
+        const firstPath = validPaths[0] || null
+        const transcriptText = (d.transcripts || [])
+          .map((tt) => (typeof tt === 'string' ? tt : tt?.text || ''))
+          .filter(Boolean)
+          .join('\n\n')
+        await supabase.from('ielts_submissions').insert({
+          student_id: studentId,
+          submission_type: 'speaking',
+          source_table: 'ielts_speaking_questions',
+          source_id: selectedRow.id,
+          audio_url: firstPath,
+          transcript: transcriptText || null,
+          band_score: band,
+          ai_feedback: {
+            criteria: d.criteria || {},
+            feedback_ar: d.feedback_ar || '',
+            strengths: d.strengths || [],
+            weaknesses: d.weaknesses || [],
+            per_question_feedback: d.per_question_feedback || [],
+          },
+          submitted_at: now,
+          evaluated_at: now,
+        })
+      } catch (e) {
+        console.warn('[Speaking] trainer-visible submission insert failed:', e.message)
+      }
+
       // Generate signed URLs for playback
       const signedUrls = []
       for (const path of uploadedPaths) {
