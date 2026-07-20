@@ -30,6 +30,7 @@ import WordPopup from '../../../../components/curriculum/reading/WordPopup'
 import ReadingTools from '../../../../components/curriculum/reading/ReadingTools'
 import { useArticleVocabIndex } from '../../../../hooks/useArticleVocabIndex'
 import { trackEvent } from '../../../../lib/trackEvent'
+import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -1876,28 +1877,41 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
   const typeColor = QUESTION_TYPE_COLORS[question.question_type] || QUESTION_TYPE_COLORS.detail
 
   return (
-    <div className="rounded-2xl p-5 sm:p-6 space-y-3 bg-slate-900/50 border border-slate-800/60">
-      <div className="flex items-start gap-3">
-        <div className="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-400 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+    <div
+      className="rounded-2xl p-5 sm:p-6 space-y-4"
+      style={{
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        boxShadow: '0 10px 28px -14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05)',
+      }}
+    >
+      <div className="flex items-start gap-3.5">
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 text-[#0a1225]"
+          style={{
+            background: 'linear-gradient(145deg, #7dd3fc 0%, #38bdf8 100%)',
+            boxShadow: '0 4px 14px -4px rgba(56,189,248,0.55), inset 0 1px 0 rgba(255,255,255,0.35)',
+          }}
+        >
           {index + 1}
         </div>
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-2.5">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
+            <span className={`text-xs font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
               {typeBadge}
             </span>
           </div>
-          <p className="text-sm sm:text-[15px] font-medium text-white font-['Inter'] leading-relaxed" dir="ltr">
+          <p className="text-[15px] sm:text-base font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
             {question.question_en}
           </p>
           {question.question_ar && (
-            <p className="text-xs text-slate-400 font-['Tajawal']">{question.question_ar}</p>
+            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{genderizeText(question.question_ar)}</p>
           )}
         </div>
       </div>
 
       {/* Choices */}
-      <div className="grid grid-cols-1 gap-2 mt-1">
+      <div className="grid grid-cols-1 gap-2.5">
         {shuffledChoices.map((choice, i) => {
           const isSelected = answer?.selected === choice
           const isCorrectAnswer = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
@@ -1911,21 +1925,23 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
               onClick={() => handleSelect(choice)}
               disabled={revealCorrect}
               dir="ltr"
-              className={`text-start px-4 py-3 rounded-xl text-sm font-['Inter'] transition-all duration-200 border ${
-                showCorrect
-                  ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
-                  : showWrong
-                    ? 'bg-red-500/15 border-red-500/40 text-red-400'
-                    : isSelected
-                      ? 'bg-sky-500/10 border-sky-500/40 text-sky-200'
-                      : 'bg-slate-800/30 border-slate-700/40 text-slate-200 hover:border-sky-500/40 hover:bg-sky-500/5 cursor-pointer'
-              }`}
+              className="text-start px-4 py-3.5 rounded-xl text-sm font-['Inter'] transition-all duration-200 min-h-[48px]"
+              style={{
+                background: showCorrect ? 'rgba(16,185,129,0.13)' : showWrong ? 'rgba(244,63,94,0.12)' : isSelected ? 'rgba(56,189,248,0.12)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${showCorrect ? 'rgba(16,185,129,0.45)' : showWrong ? 'rgba(244,63,94,0.45)' : isSelected ? 'rgba(56,189,248,0.5)' : 'rgba(255,255,255,0.08)'}`,
+                color: showCorrect ? '#6ee7b7' : showWrong ? '#fda4af' : isSelected ? '#bae6fd' : 'var(--text-primary)',
+                boxShadow: isSelected && !revealCorrect ? '0 0 0 3px rgba(56,189,248,0.12)' : showCorrect ? '0 0 0 3px rgba(16,185,129,0.10)' : 'none',
+                cursor: revealCorrect ? 'default' : 'pointer',
+              }}
+              onMouseEnter={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(56,189,248,0.4)' }}
+              onMouseLeave={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)' }}
             >
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+                <span className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                   style={{
-                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : isSelected ? 'rgba(56,189,248,0.2)' : 'rgba(51,65,85,0.5)',
-                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : isSelected ? '#38bdf8' : '#94a3b8',
+                    background: showCorrect ? 'rgba(16,185,129,0.22)' : showWrong ? 'rgba(244,63,94,0.22)' : isSelected ? 'rgba(56,189,248,0.22)' : 'rgba(255,255,255,0.06)',
+                    color: showCorrect ? '#34d399' : showWrong ? '#fb7185' : isSelected ? '#38bdf8' : '#94a3b8',
+                    border: '1px solid rgba(255,255,255,0.08)',
                   }}
                 >
                   {showCorrect ? <CheckCircle size={14} /> : showWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
@@ -1936,6 +1952,15 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
           )
         })}
       </div>
+
+      {/* Hint — the passage excerpt that answers this question */}
+      <QuestionHint
+        hint={question.hint}
+        accent="sky"
+        kind="reading"
+        contentId={question.reading_id}
+        questionKey={question.id}
+      />
 
       {/* Explanation — only after submit */}
       <AnimatePresence>
@@ -1961,7 +1986,7 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
               )}
               {question.explanation_ar && (
                 <p className="text-xs text-slate-400 font-['Tajawal']" dir="rtl">
-                  {question.explanation_ar}
+                  {genderizeText(question.explanation_ar)}
                 </p>
               )}
             </div>

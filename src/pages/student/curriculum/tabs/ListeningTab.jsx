@@ -6,7 +6,9 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthUser } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { genderizeText } from '../../../../i18n/gender'
 import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
+import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { ListeningSection as ListeningSectionUI } from '../../../../components/players/listening/ListeningSection'
 import { TranscriptReader } from '../../../../components/players/listening/TranscriptReader'
@@ -257,7 +259,7 @@ function ListeningSection({ listening, studentId, unitId }) {
 
       {/* Exercises — PRESERVED UNCHANGED */}
       {exercises.length > 0 && (
-        <ListeningExercises exercises={exercises} studentId={studentId} unitId={unitId} listeningId={listening.id} />
+        <ListeningExercises exercises={exercises} studentId={studentId} unitId={unitId} listeningId={listening.id} audioUrl={listening.audio_url} />
       )}
     </div>
   )
@@ -385,7 +387,7 @@ function AudioPlayer({ url, duration: initialDuration }) {
 // Uses INSERT-per-attempt model (same as Grammar's ExerciseSection) to prevent
 // the phantom-submit-on-reload bug. Each retry creates a new DB row instead of
 // overwriting the previous one via upsert.
-function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
+function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUrl }) {
   // readOnly must be read HERE (this component owns saveProgress). It was declared
   // only in the parent ListeningTab, so `if (readOnly) return` in saveProgress threw
   // ReferenceError → all listening saves silently failed for every student since 2026-06-06.
@@ -441,7 +443,23 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
         if (latest.status === 'completed') {
           setIsCompleted(true)
           hasSaved.current = true
-          // DON'T restore answers — student starts fresh on next attempt
+          // Restore the submitted answers so reopening the section shows the
+          // student's own picks with correct/wrong marks (same as Reading).
+          // A retry still starts fresh via handleRetry (clears answers state).
+          if (latest.answers?.questions) {
+            const restored = {}
+            latest.answers.questions.forEach(q => {
+              if (q.studentAnswer !== null && q.studentAnswer !== undefined) {
+                restored[q.questionIndex] = { selected: q.studentAnswer, correct: q.isCorrect }
+              }
+            })
+            if (Object.keys(restored).length > 0) {
+              setAnswers(restored)
+              // Block the autosave effect from firing on restored answers —
+              // this attempt is closed; nothing should be written for it.
+              prevAnsweredRef.current = Object.keys(restored).length
+            }
+          }
         } else {
           // in_progress: restore ONLY questions that were actually answered (non-null).
           // Phantom fix: old code restored null-selected answers and counted them as
@@ -726,7 +744,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
       {/* Progress bar */}
       {!isCompleted && (
         <div className="space-y-1">
-          <div className="h-1.5 rounded-full bg-[var(--surface-base)] overflow-hidden">
+          <div className="h-2 rounded-full bg-[var(--surface-base)] overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
@@ -735,7 +753,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
               }}
             />
           </div>
-          <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-left">
+          <p className="text-xs font-medium text-[var(--text-secondary)] font-['Tajawal'] text-left">
             {answered}/{total} مُجاب عليها
           </p>
         </div>
@@ -766,6 +784,8 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
               exercise={ex}
               index={idx}
               answer={answers[idx]}
+              audioUrl={audioUrl}
+              listeningId={listeningId}
               revealCorrect={isCompleted && !retrying}
               onAnswer={(ans) => {
                 if (isCompleted && !retrying) return
@@ -870,7 +890,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
 // `revealCorrect` (2026-04-16 bug fix): when false, students can change answers
 // freely and no correct/wrong styling or explanation is shown. Only flips true
 // after explicit submit — matches Reading's MCQQuestion semantics.
-function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer }) {
+function ListeningMCQ({ exercise, index, answer, audioUrl, listeningId, revealCorrect = false, onAnswer }) {
   const handleSelect = (optIdx) => {
     if (revealCorrect) return // locked after submit
     const correct = optIdx === exercise.correct_answer_index
@@ -883,34 +903,45 @@ function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer
 
   return (
     <div
-      className="rounded-xl p-4 sm:p-5 space-y-3"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', ...(diff?.flame ? { borderInlineStart: '3px solid rgba(244,63,94,0.55)' } : {}) }}
+      className="rounded-2xl p-5 sm:p-6 space-y-4"
+      style={{
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        boxShadow: '0 10px 28px -14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05)',
+        ...(diff?.flame ? { borderInlineStart: '3px solid rgba(244,63,94,0.55)' } : {}),
+      }}
     >
-      <div className="flex items-start gap-3">
-        <div className="w-7 h-7 rounded-lg bg-purple-500/15 text-purple-400 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+      <div className="flex items-start gap-3.5">
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 text-white"
+          style={{
+            background: 'linear-gradient(145deg, #a855f7 0%, #7c3aed 100%)',
+            boxShadow: '0 4px 14px -4px rgba(168,85,247,0.55), inset 0 1px 0 rgba(255,255,255,0.25)',
+          }}
+        >
           {index + 1}
         </div>
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-2.5">
           <div className="flex items-center gap-1.5 flex-wrap">
             {exercise.question_type && (
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
+              <span className={`text-xs font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
                 {typeBadge}
               </span>
             )}
             {diff && (
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border font-['Tajawal'] ${diff.cls}`}>
+              <span className={`text-xs font-bold px-2 py-0.5 rounded-md border font-['Tajawal'] ${diff.cls}`}>
                 {diff.flame ? '🔥 ' : ''}{diff.label}
               </span>
             )}
           </div>
-          <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
+          <p className="text-[15px] sm:text-base font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
             {exercise.question_en}
           </p>
         </div>
       </div>
 
       {/* Options */}
-      <div className="grid grid-cols-1 gap-2 mt-1">
+      <div className="grid grid-cols-1 gap-2.5">
         {exercise.options?.map((opt, i) => {
           const isSelected = answer?.selected === i
           const isCorrectAnswer = i === exercise.correct_answer_index
@@ -924,21 +955,23 @@ function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer
               onClick={() => handleSelect(i)}
               disabled={revealCorrect}
               dir="ltr"
-              className={`text-start px-4 py-3 rounded-xl text-sm font-['Inter'] transition-all duration-200 border ${
-                showCorrect
-                  ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
-                  : showWrong
-                    ? 'bg-red-500/15 border-red-500/40 text-red-400'
-                    : isSelected
-                      ? 'bg-purple-500/10 border-purple-500/40 text-purple-200'
-                      : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-purple-500/40 hover:bg-purple-500/5 cursor-pointer'
-              }`}
+              className="text-start px-4 py-3.5 rounded-xl text-sm font-['Inter'] transition-all duration-200 min-h-[48px]"
+              style={{
+                background: showCorrect ? 'rgba(16,185,129,0.13)' : showWrong ? 'rgba(244,63,94,0.12)' : isSelected ? 'rgba(168,85,247,0.13)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${showCorrect ? 'rgba(16,185,129,0.45)' : showWrong ? 'rgba(244,63,94,0.45)' : isSelected ? 'rgba(168,85,247,0.5)' : 'rgba(255,255,255,0.08)'}`,
+                color: showCorrect ? '#6ee7b7' : showWrong ? '#fda4af' : isSelected ? '#e9d5ff' : 'var(--text-primary)',
+                boxShadow: isSelected && !revealCorrect ? '0 0 0 3px rgba(168,85,247,0.12)' : showCorrect ? '0 0 0 3px rgba(16,185,129,0.10)' : 'none',
+                cursor: revealCorrect ? 'default' : 'pointer',
+              }}
+              onMouseEnter={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)' }}
+              onMouseLeave={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)' }}
             >
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+                <span className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                   style={{
-                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : isSelected ? 'rgba(168,85,247,0.2)' : 'var(--surface-raised)',
-                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : isSelected ? '#c084fc' : 'var(--text-muted)',
+                    background: showCorrect ? 'rgba(16,185,129,0.22)' : showWrong ? 'rgba(244,63,94,0.22)' : isSelected ? 'rgba(168,85,247,0.25)' : 'rgba(255,255,255,0.06)',
+                    color: showCorrect ? '#34d399' : showWrong ? '#fb7185' : isSelected ? '#c084fc' : 'var(--text-muted)',
+                    border: '1px solid rgba(255,255,255,0.08)',
                   }}
                 >
                   {showCorrect ? <CheckCircle size={14} /> : showWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
@@ -950,6 +983,16 @@ function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer
         })}
       </div>
 
+      {/* Hint — the transcript excerpt that answers this question + segment replay */}
+      <QuestionHint
+        hint={exercise.hint}
+        audioUrl={audioUrl}
+        accent="violet"
+        kind="listening"
+        contentId={listeningId}
+        questionKey={index}
+      />
+
       {/* Explanation — only after submit */}
       <AnimatePresence>
         {revealCorrect && answer && exercise.explanation_ar && (
@@ -960,7 +1003,7 @@ function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer
             className="overflow-hidden"
           >
             <div
-              className="p-3.5 rounded-xl mt-1 text-xs font-['Tajawal']"
+              className="p-3.5 rounded-xl text-xs font-['Tajawal'] leading-relaxed"
               dir="rtl"
               style={{
                 background: answer.correct ? 'rgba(16,185,129,0.06)' : 'rgba(56,189,248,0.06)',
@@ -968,7 +1011,7 @@ function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer
                 color: 'var(--text-secondary)',
               }}
             >
-              {exercise.explanation_ar}
+              {genderizeText(exercise.explanation_ar)}
             </div>
           </motion.div>
         )}
