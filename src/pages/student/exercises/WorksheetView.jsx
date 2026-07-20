@@ -21,7 +21,7 @@ const COLS = [
  * Shares the parent's submit path (submitMutation grades content.questions by accepted_answers).
  * The GIVEN cell varies per row; the student fills the other three. Reveal after submit.
  */
-export default function WorksheetView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting }) {
+export default function WorksheetView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting, submitError }) {
   const g = useG()
   const ws = exercise.content?.worksheet || {}
   const tenses = ws.tenses || []
@@ -108,6 +108,13 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
           </motion.div>
         )}
 
+        {/* Save-failure notice — answers stay on screen; the student can retry */}
+        {submitError && !submitted && (
+          <div dir="rtl" role="alert" style={{ margin: '4px 0 10px', padding: '12px 14px', borderRadius: 12, background: 'rgba(176,84,63,.12)', border: '1px solid rgba(176,84,63,.42)', color: '#e8c9c0', fontSize: '.92rem', lineHeight: 1.6 }}>
+            {submitError}
+          </div>
+        )}
+
         {/* Toolbar */}
         <div className="pw-bar">
           {!submitted ? (
@@ -126,6 +133,7 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
           {!submitted && (
             <span className="pw-progresspill">{g('أكملت', 'أكملتِ')} <b dir="ltr">{toAr(answeredCount)}</b> من {toAr(total)} خانة</span>
           )}
+          {!submitted && <span className="pw-autosave">{g('تُحفظ إجاباتك تلقائيًا — لن تفقد شيئًا لو أغلقت الصفحة', 'تُحفظ إجاباتكِ تلقائيًا — لن تفقدي شيئًا لو أغلقتِ الصفحة')}</span>}
         </div>
 
         {/* Tense tables */}
@@ -164,12 +172,14 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
                           let cls = ''
                           if (submitted && q) cls = validateAnswer(val, q.accepted_answers) ? ' ok' : ' no'
                           return (
-                            <td key={c.f}>
+                            <td key={c.f} data-label={c.head}>
                               <input
                                 className={`pw-ans${cls}`} dir="ltr" placeholder={c.ph}
                                 value={val} disabled={submitted}
                                 onChange={(e) => setAns(qid, e.target.value)}
                                 aria-label={c.head}
+                                type="text" inputMode="text" enterKeyHint="next"
+                                autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck={false}
                               />
                               {submitted && q && cls === ' no' && (
                                 <div className="pw-model" dir="ltr">{q.correct_answer}</div>
