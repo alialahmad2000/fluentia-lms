@@ -64,7 +64,11 @@ export default function StudentExercises() {
   const [completedGeneral, setCompletedGeneral] = useState(() => getCompletedGeneral())
 
   const { data: exercises, isLoading } = useQuery({
-    queryKey: ['student-exercises'],
+    // Key by student id so an admin switching impersonation (or any account
+    // switch) never sees another student's cached worksheets/score. The filter
+    // below is already per-student; without the id in the key, the constant key
+    // bled one student's results into another's view.
+    queryKey: ['student-exercises', profile?.id],
     queryFn: async () => {
       const { data } = await supabase
         .from('targeted_exercises')
