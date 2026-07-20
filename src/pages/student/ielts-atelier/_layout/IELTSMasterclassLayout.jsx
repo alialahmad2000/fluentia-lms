@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, Fragment } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
 import '../_ui/ielts-theme.css'
@@ -10,12 +10,19 @@ import { useAuthStore } from '@/stores/authStore'
 const BASE = '/student/ielts-atelier'
 const SKILLS = ['reading', 'listening', 'writing', 'speaking']
 const SKILL_LABEL = { reading: 'القراءة', listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة' }
-// Reading is a parent with always-visible sub-parts (each its own page).
+// Every skill is a parent with always-visible sub-parts (each its own page).
+// Reading has the full teach→practise split; every skill has a performance monitor.
 const READING_SUB = [
   { path: 'reading', label: 'دليل القراءة', exact: true },
   { path: 'reading/types', label: 'أنواع الأسئلة' },
   { path: 'reading/tests', label: 'الاختبارات' },
+  { path: 'reading/monitor', label: 'الأداء' },
 ]
+const SKILL_SUB = {
+  listening: [{ path: 'listening/monitor', label: 'الأداء' }],
+  writing: [{ path: 'writing/monitor', label: 'الأداء' }],
+  speaking: [{ path: 'speaking/monitor', label: 'الأداء' }],
+}
 
 const LoadingFallback = () => (
   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 240 }}>
@@ -90,7 +97,16 @@ export default function IELTSMasterclassLayout() {
             ))}
           </div>
           {['listening', 'writing', 'speaking'].map((s) => (
-            <NavItem key={s} icon={Icon[s]} label={SKILL_LABEL[s]} badge={bandOf(s)} active={isActive(s)} onClick={() => go(s)} />
+            <Fragment key={s}>
+              <NavItem icon={Icon[s]} label={SKILL_LABEL[s]} badge={bandOf(s)} active={isActive(s)} onClick={() => go(s)} />
+              <div className="iel-subnav">
+                {SKILL_SUB[s].map((it) => (
+                  <button key={it.path} type="button" className={`iel-subitem${subActive(it.path) ? ' on' : ''}`} onClick={() => go(it.path)}>
+                    <span className="dot" aria-hidden />{it.label}
+                  </button>
+                ))}
+              </div>
+            </Fragment>
           ))}
 
           <div className="iel-nav-label">الاستعداد</div>

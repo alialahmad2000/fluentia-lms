@@ -205,6 +205,7 @@ const IELTSAtelierDiagnostic        = lazyRetry(() => import('./pages/student/ie
 const IELTSAtelierDiagnosticSession = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticSession'))
 const IELTSAtelierDiagnosticResults = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticResults'))
 const IELTSAtelierReading           = lazyRetry(() => import('./pages/student/ielts-atelier/Reading'))
+const IELTSAtelierSkillMonitor      = lazyRetry(() => import('./pages/student/ielts-atelier/SkillMonitor'))
 const IELTSAtelierListening      = lazyRetry(() => import('./pages/student/ielts-atelier/Listening'))
 const IELTSAtelierWriting        = lazyRetry(() => import('./pages/student/ielts-atelier/Writing'))
 const IELTSAtelierSpeaking       = lazyRetry(() => import('./pages/student/ielts-atelier/Speaking'))
@@ -944,9 +945,13 @@ export default function App() {
                   <Route path="reading"        element={<IELTSAtelierReading />} />
                   <Route path="reading/types"  element={<IELTSAtelierReading />} />
                   <Route path="reading/tests"  element={<IELTSAtelierReading />} />
+                  <Route path="reading/monitor"   element={<IELTSAtelierSkillMonitor />} />
                   <Route path="listening"  element={<IELTSAtelierListening />} />
+                  <Route path="listening/monitor" element={<IELTSAtelierSkillMonitor />} />
                   <Route path="writing"    element={<IELTSAtelierWriting />} />
+                  <Route path="writing/monitor"   element={<IELTSAtelierSkillMonitor />} />
                   <Route path="speaking"   element={<IELTSAtelierSpeaking />} />
+                  <Route path="speaking/monitor"  element={<IELTSAtelierSkillMonitor />} />
                   <Route path="journey"    element={<IELTSAtelierJourney />} />
                   <Route path="errors"          element={<IELTSAtelierErrorsHub />} />
                   <Route path="errors/review"  element={<IELTSAtelierErrorsReview />} />
