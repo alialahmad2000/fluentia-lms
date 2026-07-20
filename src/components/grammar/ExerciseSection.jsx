@@ -79,12 +79,28 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         onAttemptUpdate?.(null, latest.attempt_number || 1, best?.score ?? null)
 
         if (latest.status === 'completed') {
-          // Completed attempt: show summary badge but keep exercises FRESH
-          // Do NOT hydrate answers — student sees empty cards ready for a new attempt
+          // Completed attempt: show the summary badge AND restore the student's own
+          // graded answers so reopening the section shows what she actually solved
+          // (with correct/wrong marks), instead of blank cards. Matches Reading/Listening.
+          // A retry still starts fresh — handleRetry clears `answers`.
           setIsCompleted(true)
           setShowSummary(true)
           hasSaved.current = true
-          // No currentRowId — next answer will create a fresh DB row
+          if (latest.answers?.exercises) {
+            const restored = {}
+            latest.answers.exercises.forEach(r => {
+              if (r.studentAnswer != null) {
+                restored[r.id] = { selected: r.studentAnswer, correct: r.isCorrect }
+              }
+            })
+            if (Object.keys(restored).length > 0) {
+              setAnswers(restored)
+              // Block the autosave effect from firing on restored answers — this
+              // attempt is closed; reopening must never INSERT a phantom in_progress row.
+              prevAnsweredRef.current = Object.keys(restored).length
+            }
+          }
+          // No currentRowId — a retry INSERTs a fresh row via saveProgress.
         } else {
           // IMPORTANT: This hydrates in-progress answers so students don't lose work
           // when navigating between tabs. Do NOT revert this to a "fresh state" reset —
