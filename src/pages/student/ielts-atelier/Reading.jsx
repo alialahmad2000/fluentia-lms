@@ -25,13 +25,13 @@ function splitParagraphs(content) {
 const POS_LABEL = ['نص ١ — أيسر', 'نص ٢ — متوسّط', 'نص ٣ — أصعب']
 const POS_LEVEL = ['أيسر', 'متوسّط', 'أصعب']
 const BAND_COLOR = {
-  band_5_6: '#4ade80',
-  band_6_7: 'var(--sunset-amber, #f59e0b)',
-  band_7_8: 'var(--sunset-orange, #fb7185)',
+  band_5_6: 'var(--iel-diff-1, #4ade80)',
+  band_6_7: 'var(--iel-diff-2, #f5b042)',
+  band_7_8: 'var(--iel-diff-3, #fb7185)',
   band_8_9: '#c084fc',
 }
 function posColor(i) {
-  return ['#4ade80', 'var(--sunset-amber, #f59e0b)', 'var(--sunset-orange, #fb7185)'][i] || 'var(--iel-ink-3)'
+  return ['var(--iel-diff-1, #4ade80)', 'var(--iel-diff-2, #f5b042)', 'var(--iel-diff-3, #fb7185)'][i] || 'var(--iel-ink-3)'
 }
 
 function useIsWide(bp = 900) {
@@ -51,7 +51,7 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
   const bestBand = session?.band != null ? session.band : null
   const num = String(test.test_number).padStart(2, '0')
   return (
-    <div className="iel-gcard" style={{ display: 'flex', flexDirection: 'column', gap: 13, padding: '18px 20px', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif" }}>
+    <div className="iel-gcard" style={{ display: 'flex', flexDirection: 'column', gap: 15, padding: '22px 22px', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif" }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
         <span style={{
           display: 'inline-flex', alignItems: 'center', gap: 6, padding: '2px 10px', borderRadius: 6,
@@ -80,10 +80,10 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
 
       {/* Choice 1 — practise ONE text (now a clear, interactive choice) */}
       <div>
-        <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.04em', color: 'var(--iel-ink-3)', marginBottom: 7 }}>
+        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-ink-2)', marginBottom: 8 }}>
           {g('تدرّب على نصّ واحد', 'تدرّبي على نصّ واحد')}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
           {[0, 1, 2].map((i) => (
             <button
               key={i}
@@ -92,24 +92,22 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
               title="تدريب على هذا النص وحده (~٢٠ دقيقة)"
               className="iel-passrow"
               style={{
-                display: 'flex', alignItems: 'center', gap: 10, width: '100%', textAlign: 'start',
-                padding: '9px 11px', borderRadius: 10, cursor: loading ? 'wait' : 'pointer',
-                border: '1px solid var(--iel-border)', background: 'color-mix(in srgb, var(--iel-ink) 3%, transparent)',
+                display: 'flex', alignItems: 'center', gap: 11, width: '100%', textAlign: 'start',
+                padding: '11px 13px', borderRadius: 11, cursor: loading ? 'wait' : 'pointer',
+                border: '1px solid var(--iel-border)', background: 'var(--iel-surface-2)',
                 fontFamily: "'Tajawal', sans-serif",
               }}
             >
-              <span style={{ width: 9, height: 9, borderRadius: '50%', flex: 'none', background: posColor(i), boxShadow: `0 0 8px color-mix(in srgb, ${posColor(i)} 55%, transparent)` }} />
+              <span style={{ width: 10, height: 10, borderRadius: '50%', flex: 'none', background: posColor(i), boxShadow: `0 0 9px color-mix(in srgb, ${posColor(i)} 60%, transparent)` }} />
               <span style={{ minWidth: 0, flex: 1 }}>
                 <span style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {topics[i]?.title || POS_LABEL[i]}
                 </span>
-                <span style={{ display: 'block', fontSize: 10.5, fontWeight: 600, color: 'var(--iel-ink-3)', marginTop: 1 }}>
+                <span style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--iel-ink-2)', marginTop: 2 }}>
                   نص {arDigit(i + 1)} · {POS_LEVEL[i]}
                 </span>
               </span>
-              <span className="cta" style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11.5, fontWeight: 800, color: 'var(--iel-ink-2)' }}>
-                {g('تدرّب', 'تدرّبي')} <span className="arrow" style={{ fontSize: 14, display: 'inline-block' }}>←</span>
-              </span>
+              <span className="arrow" style={{ flex: 'none', fontSize: 16, display: 'inline-block', color: 'var(--iel-ink-3)' }}>←</span>
             </button>
           ))}
         </div>
@@ -144,7 +142,7 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
 function StatBox({ label, value, accent }) {
   return (
     <Card style={{ padding: '14px 18px', flex: '0 0 auto' }}>
-      <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 12, color: 'var(--iel-ink-2)', fontWeight: 700, marginBottom: 4 }}>{label}</div>
       <div className="iel-serif" style={{ fontSize: 24, fontWeight: 600, color: accent || 'var(--iel-ink)' }}>{value}</div>
     </Card>
   )
@@ -266,7 +264,7 @@ function LessonCard({ lesson, onOpen }) {
 function ReadingGuidePage() {
   const [open, setOpen] = useState(null)
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 18, paddingTop: 2, maxWidth: 940 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingTop: 2, maxWidth: 940 }}>
       <LabHeader eyebrow="القراءة · تعلّم أولاً" title="دليل القراءة">
         دروس أساسية في استراتيجية قراءة الآيلتس — ابدأ بها قبل أن تختبر. كل درس فيه الفكرة، خطوات واضحة، ومثال يوضّحها.
       </LabHeader>
@@ -295,7 +293,7 @@ function ReadingGuidePage() {
 // ─── Sub-page: question types ────────────────────────────────────────────────────
 function ReadingTypesPage() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 18, paddingTop: 2, maxWidth: 940 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingTop: 2, maxWidth: 940 }}>
       <LabHeader eyebrow="القراءة · الاستراتيجية" title="أنواع الأسئلة">
         لكل نوع سؤال طريقة تعامل مختلفة. اضغط أي نوع لتعرف خطوات حلّه، الأخطاء الشائعة، ومثالاً محلولاً.
       </LabHeader>
@@ -488,7 +486,7 @@ export default function Reading() {
     const bestBand = Object.keys(bestByTest).length ? Math.max(...Object.values(bestByTest)) : null
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, paddingTop: 2, maxWidth: 940 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingTop: 2, maxWidth: 940 }}>
         <LabHeader eyebrow="القراءة · التدرّب" title="الاختبارات">
           اختر نصّاً واحداً للتركيز (نحو ٢٠ دقيقة)، أو ابدأ اختباراً كاملاً من ثلاثة نصوص وأربعين سؤالاً في ساعة. تصحيح فوري وشرح عربيّ لكل إجابة، وتُضاف أخطاؤك إلى بنك المراجعة.
         </LabHeader>

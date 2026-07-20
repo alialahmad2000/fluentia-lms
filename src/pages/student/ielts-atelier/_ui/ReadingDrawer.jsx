@@ -19,7 +19,7 @@ export function ReadingDrawer({ open, onClose, icon: I, color = 'var(--iel-accen
           <motion.div
             dir="rtl"
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 32, stiffness: 300 }}
+            transition={{ type: 'spring', damping: 38, stiffness: 300 }}
             onClick={(e) => e.stopPropagation()}
             className="iel-root iel-drawer2"
             style={{ width: 'min(560px, 100%)', height: '100%', overflowY: 'auto', fontFamily: "'Tajawal', sans-serif" }}
@@ -31,7 +31,7 @@ export function ReadingDrawer({ open, onClose, icon: I, color = 'var(--iel-accen
               <div style={{ display: 'flex', alignItems: 'center', gap: 13, position: 'relative' }}>
                 <span className="medallion" style={{ '--dc': color }}>{I && <I size={22} />}</span>
                 <div style={{ minWidth: 0 }}>
-                  {kicker && <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.1em', color, marginBottom: 5, textTransform: 'uppercase' }}>{kicker}</div>}
+                  {kicker && <div style={{ fontSize: 12, fontWeight: 800, color, marginBottom: 5 }}>{kicker}</div>}
                   <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--iel-ink)', margin: 0, lineHeight: 1.25, letterSpacing: '-.01em' }}>{title}</h2>
                   {subtitle && <div style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', fontWeight: 600, marginTop: 4 }}>{subtitle}</div>}
                 </div>
@@ -59,7 +59,7 @@ export function DrawerSteps({ title = 'الخطوات', steps = [], color = 'var
   if (!steps.length) return null
   return (
     <div>
-      <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: '.06em', color, marginBottom: 12, textTransform: 'uppercase' }}>{title}</div>
+      <div style={{ fontSize: 12.5, fontWeight: 800, color, marginBottom: 12 }}>{title}</div>
       <ol className="iel-steps" style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 2 }}>
         {steps.map((s, i) => (
           <li key={i} className="iel-step" style={{ '--dc': color }}>
