@@ -1,0 +1,251 @@
+{
+  "stage": {
+    "slug": "awareness",
+    "sort_order": 8,
+    "title_en": "Environmental Awareness & Education",
+    "title_ar": "التوعية البيئية والتعليم",
+    "subtitle_ar": "هنا تتعلّمين كيف تنقلين حبّ الطبيعة إلى الناس — من حملات التوعية والمنشورات إلى كلمةٍ تُلهم جيلاً كاملاً برعاية الحياة الفطرية.",
+    "cefr": "B2",
+    "accent": "#f472b6",
+    "icon": "Megaphone"
+  },
+  "lessons": [
+    {
+      "slug": "raising-awareness",
+      "sort_order": 1,
+      "title_en": "Raising Awareness",
+      "title_ar": "نشر الوعي البيئي",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "جزءٌ كبيرٌ من عملكِ في المركز الوطني لتنمية الحياة الفطرية هو إيصال رسالة الطبيعة إلى الناس، لا حماية الكائنات فحسب. في هذا الدرس ستتعلّمين إنجليزية حملات التوعية: كيف تختارين رسالةً واضحة، وتصلين إلى جمهوركِ، وتحوّلين الكلمات إلى سلوكٍ يحمي الحياة الفطرية. لغةٌ بسيطة، لكنها تصنع فرقاً حقيقياً.",
+        "vocab": [
+          { "word": "awareness", "ipa": "/əˈwer.nəs/", "meaning_ar": "الوعي", "meaning_en": "knowing about and understanding something important", "example": "Our awareness campaign reached the whole town." },
+          { "word": "campaign", "ipa": "/kæmˈpeɪn/", "meaning_ar": "حملة", "meaning_en": "an organized set of actions to reach a goal", "example": "We started a campaign to protect the oryx." },
+          { "word": "message", "ipa": "/ˈmes.ɪdʒ/", "meaning_ar": "رسالة", "meaning_en": "the main idea you want people to understand", "example": "The message is simple: keep the reserve clean." },
+          { "word": "audience", "ipa": "/ˈɔː.di.əns/", "meaning_ar": "الجمهور", "meaning_en": "the people you want to reach", "example": "Our audience is families who visit the park." },
+          { "word": "slogan", "ipa": "/ˈsloʊ.ɡən/", "meaning_ar": "شعار", "meaning_en": "a short, memorable phrase", "example": "The slogan «Nature is home» is easy to remember." },
+          { "word": "poster", "ipa": "/ˈpoʊ.stər/", "meaning_ar": "ملصق", "meaning_en": "a large printed notice put on a wall", "example": "She put a poster about birds on the school wall." },
+          { "word": "volunteer", "ipa": "/ˌvɑː.lənˈtɪr/", "meaning_ar": "متطوّع", "meaning_en": "a person who helps without being paid", "example": "Every volunteer helped clean the beach." },
+          { "word": "protect", "ipa": "/prəˈtekt/", "meaning_ar": "يحمي", "meaning_en": "to keep something safe from harm", "example": "We work hard to protect wild animals." },
+          { "word": "behaviour", "ipa": "/bɪˈheɪ.vjər/", "meaning_ar": "سلوك", "meaning_en": "the way people act", "example": "Good behaviour in the reserve keeps animals safe." },
+          { "word": "litter", "ipa": "/ˈlɪt̬.ər/", "meaning_ar": "نفايات مُلقاة", "meaning_en": "waste left in a public place", "example": "Please do not drop litter on the path." },
+          { "word": "spread", "ipa": "/spred/", "meaning_ar": "ينشر", "meaning_en": "to make something reach many people", "example": "Social media helps us spread the message." },
+          { "word": "community", "ipa": "/kəˈmjuː.nə.t̬i/", "meaning_ar": "المجتمع", "meaning_en": "the people who live in one area", "example": "The whole community joined the clean-up day." }
+        ],
+        "reading": {
+          "title_en": "Every Voice Counts",
+          "title_ar": "كل صوتٍ يُحدث فرقاً",
+          "paragraphs": [
+            "At the National Center for Wildlife, protecting animals is only half of the work. The other half is helping people understand why nature matters. This is the goal of an awareness campaign: to share a clear message with a wide audience and to change everyday behaviour.",
+            "A good campaign starts with a simple idea. You choose one message — for example, 'Do not leave litter in the reserve' — and you repeat it in many ways. A short slogan helps people remember it. A bright poster catches the eye. Photos of the Arabian oryx or the houbara bustard remind people what they are protecting.",
+            "You cannot spread awareness alone. Volunteers are the heart of every campaign. When members of the community join, the message travels from person to person, from family to family. Slowly, small actions become normal: people take their litter home, they respect the reserve, and they teach their children to do the same.",
+            "Awareness is not about blaming people. It is about inviting them. When you show the beauty of wildlife and explain the danger it faces, most people want to help protect it."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Our campaign has one simple message.", "ar": "حملتنا تحمل رسالةً واحدة بسيطة." },
+          { "en": "Please take your litter home with you.", "ar": "من فضلكِ خُذي نفاياتكِ معكِ." },
+          { "en": "Together we can protect our wildlife.", "ar": "معاً نستطيع حماية حياتنا الفطرية." },
+          { "en": "We are looking for volunteers to help us.", "ar": "نبحث عن متطوّعين لمساعدتنا." },
+          { "en": "Small actions make a big difference.", "ar": "الأفعال الصغيرة تُحدث فرقاً كبيراً." }
+        ],
+        "comprehension": [
+          {
+            "question": "What is the main goal of an awareness campaign?",
+            "options": ["To share a clear message and change behaviour", "To sell tickets to the reserve", "To count the animals", "To build new roads"],
+            "correct": "To share a clear message and change behaviour",
+            "explanation_ar": "الهدف من حملة التوعية هو إيصال رسالة واضحة إلى الجمهور وتغيير السلوك اليومي."
+          },
+          {
+            "question": "Why does a campaign use a short slogan?",
+            "options": ["Because it is cheaper than a poster", "Because it helps people remember the message", "Because animals understand it", "Because the law requires it"],
+            "correct": "Because it helps people remember the message",
+            "explanation_ar": "الشعار القصير يسهّل على الناس تذكّر الرسالة الأساسية للحملة."
+          },
+          {
+            "question": "Who does the passage describe as 'the heart of every campaign'?",
+            "options": ["Scientists", "Tourists", "Volunteers", "Journalists"],
+            "correct": "Volunteers",
+            "explanation_ar": "المتطوّعون هم قلب كل حملة، فهم من ينقلون الرسالة من شخصٍ إلى آخر."
+          },
+          {
+            "question": "According to the passage, what is awareness really about?",
+            "options": ["Blaming people for their mistakes", "Punishing visitors", "Collecting money", "Inviting people to help"],
+            "correct": "Inviting people to help",
+            "explanation_ar": "التوعية ليست إلقاء اللوم، بل دعوة الناس للمشاركة في حماية الطبيعة."
+          },
+          {
+            "question": "What small action becomes normal when a campaign succeeds?",
+            "options": ["People take their litter home", "People stop visiting the reserve", "People stop reading posters", "People move to the city"],
+            "correct": "People take their litter home",
+            "explanation_ar": "من علامات نجاح الحملة أن تصبح الأفعال الصغيرة عادةً، مثل أن يأخذ الناس نفاياتهم معهم."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Design a short awareness message for visitors to a wildlife reserve. Write a slogan and 3–4 sentences explaining it.",
+          "prompt_ar": "صمّمي رسالةً توعويةً قصيرة لزوّار إحدى المحميات. اكتبي شعاراً وثلاث إلى أربع جُملٍ تشرحين فيها فكرتكِ.",
+          "guidance_ar": "استخدمي ٣ كلماتٍ على الأقل من كلمات الدرس، مثل: campaign و message و litter."
+        }
+      }
+    },
+    {
+      "slug": "social-media",
+      "sort_order": 2,
+      "title_en": "Social Media",
+      "title_ar": "التواصل عبر وسائل التواصل",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "اليوم تصل رسائل حماية البيئة إلى الناس عبر الهاتف قبل أي مكانٍ آخر. في هذا الدرس ستتعلّمين إنجليزية وسائل التواصل: كيف تكتبين تعليقاً توضيحياً لصورة كائنٍ فطري، وتختارين الوسم المناسب، وتشجّعين متابِعيكِ على التفاعل والمشاركة. منشورٌ واحدٌ جيّد قد يصل إلى آلاف الناس.",
+        "vocab": [
+          { "word": "post", "ipa": "/poʊst/", "meaning_ar": "منشور", "meaning_en": "a piece of content shared online", "example": "She shared a post about the Arabian leopard." },
+          { "word": "caption", "ipa": "/ˈkæp.ʃən/", "meaning_ar": "تعليق توضيحي", "meaning_en": "the short text under a photo or video", "example": "The caption under the photo gave one clear fact." },
+          { "word": "hashtag", "ipa": "/ˈhæʃ.tæɡ/", "meaning_ar": "وسم", "meaning_en": "a word after the # sign that groups posts", "example": "We use the hashtag #SaudiWildlife on every post." },
+          { "word": "follower", "ipa": "/ˈfɑː.loʊ.ər/", "meaning_ar": "متابِع", "meaning_en": "a person who sees your posts", "example": "A follower asked where the bird lives." },
+          { "word": "share", "ipa": "/ʃer/", "meaning_ar": "يشارك / مشاركة", "meaning_en": "to send content to other people", "example": "Please share this photo with your friends." },
+          { "word": "content", "ipa": "/ˈkɑːn.tent/", "meaning_ar": "محتوى", "meaning_en": "the photos, videos and words you post", "example": "Our content shows the beauty of the desert." },
+          { "word": "engagement", "ipa": "/ɪnˈɡeɪdʒ.mənt/", "meaning_ar": "تفاعل", "meaning_en": "likes, comments and shares from people", "example": "Questions in the caption raise engagement." },
+          { "word": "wildlife", "ipa": "/ˈwaɪld.laɪf/", "meaning_ar": "الحياة الفطرية", "meaning_en": "wild animals and plants", "example": "The page posts wildlife photos every week." },
+          { "word": "conservation", "ipa": "/ˌkɑːn.sɚˈveɪ.ʃən/", "meaning_ar": "صون الطبيعة / حماية البيئة", "meaning_en": "protecting nature and species", "example": "Social media is a strong tool for conservation." },
+          { "word": "comment", "ipa": "/ˈkɑː.ment/", "meaning_ar": "تعليق", "meaning_en": "a written response to a post", "example": "She left a kind comment on the post." },
+          { "word": "reel", "ipa": "/riːl/", "meaning_ar": "مقطع قصير", "meaning_en": "a short video clip shared online", "example": "The short reel showed a fox at sunset." }
+        ],
+        "reading": {
+          "title_en": "One Photo, One Thousand Followers",
+          "title_ar": "صورةٌ واحدة، ألف متابِع",
+          "paragraphs": [
+            "Last spring, a ranger took a photo of a young Arabian leopard at sunrise. She shared the photo as a simple post, with a short caption: 'This is why we protect our mountains.' She added the hashtag #SaudiWildlife. By evening, hundreds of followers had shared it.",
+            "Social media is now one of the strongest tools in conservation. A single post can reach people who will never visit a reserve. Good content does three things: it shows the beauty of wildlife, it teaches one clear fact, and it invites action. A photo or a short reel works better than a long article, because people stop and look.",
+            "Engagement matters more than numbers. When a follower leaves a comment or shares your post, the message travels further. So end every caption with a question or a small request: 'Have you ever seen this bird?' or 'Share this to protect it.' A kind reply to each comment keeps people close and builds trust.",
+            "Remember one rule: always be honest. Never show a wild animal as a pet, and never share the exact place of a rare species. Good conservation content protects wildlife — it does not put it in danger."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Follow us for more wildlife photos.", "ar": "تابِعونا لمزيدٍ من صور الحياة الفطرية." },
+          { "en": "Share this post to spread the word.", "ar": "شاركوا هذا المنشور لنشر الفكرة." },
+          { "en": "Tell us in the comments what you think.", "ar": "أخبِرونا في التعليقات برأيكم." },
+          { "en": "This short reel shows how we protect the reserve.", "ar": "هذا المقطع القصير يوضّح كيف نحمي المحمية." },
+          { "en": "Thank you for supporting conservation.", "ar": "شكراً لكم على دعم حماية البيئة." }
+        ],
+        "comprehension": [
+          {
+            "question": "Why does the passage say a photo or short reel works better than a long article?",
+            "options": ["Because it costs more money", "Because people stop and look", "Because it needs no camera", "Because animals prefer it"],
+            "correct": "Because people stop and look",
+            "explanation_ar": "الصورة أو المقطع القصير يجذب الناس فيتوقفون وينظرون، بعكس المقال الطويل."
+          },
+          {
+            "question": "According to the passage, what matters more than the number of followers?",
+            "options": ["Engagement", "The price of the phone", "The length of the caption", "The time of day"],
+            "correct": "Engagement",
+            "explanation_ar": "التفاعل (التعليقات والمشاركات) أهم من مجرد عدد المتابعين، لأنه ينشر الرسالة أبعد."
+          },
+          {
+            "question": "What is one honest rule the passage gives for conservation content?",
+            "options": ["Always post at sunrise", "Always use ten hashtags", "Never show a wild animal as a pet", "Never reply to comments"],
+            "correct": "Never show a wild animal as a pet",
+            "explanation_ar": "من قواعد الأمانة ألّا تُظهري الكائن الفطري وكأنه حيوانٌ أليف، وألّا تكشفي مكان الأنواع النادرة."
+          },
+          {
+            "question": "Why should you end a caption with a question or a small request?",
+            "options": ["To make the post shorter", "To hide the location", "To fill empty space", "To encourage people to comment and share"],
+            "correct": "To encourage people to comment and share",
+            "explanation_ar": "إنهاء التعليق بسؤالٍ أو طلبٍ بسيط يشجّع المتابعين على التفاعل والمشاركة فتصل الرسالة أبعد."
+          },
+          {
+            "question": "What happened by evening after the ranger shared her post?",
+            "options": ["Hundreds of followers had shared it", "The leopard was captured", "The reserve closed", "The photo was deleted"],
+            "correct": "Hundreds of followers had shared it",
+            "explanation_ar": "بحلول المساء كان مئات المتابعين قد شاركوا المنشور."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a social-media caption for a photo of an Arabian oryx or a houbara bustard. Include one clear fact and one hashtag, and end with a question.",
+          "prompt_ar": "اكتبي تعليقاً توضيحياً لمنشورٍ يحمل صورة مها عربي أو طائر حُبارى. ضمّنيه معلومةً واضحة ووسماً واحداً، وأنهيه بسؤال.",
+          "guidance_ar": "استخدمي ٣ كلماتٍ على الأقل من كلمات الدرس، مثل: caption و hashtag و wildlife."
+        }
+      }
+    },
+    {
+      "slug": "school-and-community",
+      "sort_order": 3,
+      "title_en": "Awareness in Schools & the Community",
+      "title_ar": "التوعية في المدارس والمجتمع",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "عندما تقفين أمام صفٍّ من الأطفال أو أمام أهل حيّكِ، فأنتِ لا تنقلين معلومةً فحسب، بل تزرعين شعوراً بالمسؤولية تجاه الطبيعة قد يبقى مدى الحياة. في هذا الدرس ستتعلّمين الإنجليزية الأكثر عمقاً وإقناعاً: كيف تُعِدّين عرضاً تقديمياً، وتُشرِكين جمهوركِ، وتُلهمين جيلاً جديداً ليكون راعياً أميناً للحياة الفطرية.",
+        "vocab": [
+          { "word": "presentation", "ipa": "/ˌprez.ənˈteɪ.ʃən/", "meaning_ar": "عرض تقديمي", "meaning_en": "a formal talk given to an audience", "example": "She gave a presentation about desert animals." },
+          { "word": "inspire", "ipa": "/ɪnˈspaɪr/", "meaning_ar": "يُلهم", "meaning_en": "to make someone feel they want to do something", "example": "A good talk can inspire children to care." },
+          { "word": "generation", "ipa": "/ˌdʒen.əˈreɪ.ʃən/", "meaning_ar": "جيل", "meaning_en": "all the people born around the same time", "example": "We are teaching a new generation to protect nature." },
+          { "word": "sustainable", "ipa": "/səˈsteɪ.nə.bəl/", "meaning_ar": "مستدام", "meaning_en": "able to continue without harming nature", "example": "Ecotourism can be a sustainable way to earn money." },
+          { "word": "responsibility", "ipa": "/rɪˌspɑːn.səˈbɪl.ə.t̬i/", "meaning_ar": "مسؤولية", "meaning_en": "a duty to take care of something", "example": "Protecting wildlife is everyone's responsibility." },
+          { "word": "engage", "ipa": "/ɪnˈɡeɪdʒ/", "meaning_ar": "يُشرِك", "meaning_en": "to involve people so they take part actively", "example": "Ask questions to engage the audience." },
+          { "word": "workshop", "ipa": "/ˈwɝːk.ʃɑːp/", "meaning_ar": "ورشة عمل", "meaning_en": "a practical session where people learn by doing", "example": "The students joined a tree-planting workshop." },
+          { "word": "impact", "ipa": "/ˈɪm.pækt/", "meaning_ar": "أثر", "meaning_en": "a strong and lasting effect", "example": "One talk can have a lasting impact." },
+          { "word": "curiosity", "ipa": "/ˌkjʊr.iˈɑː.sə.t̬i/", "meaning_ar": "فضول", "meaning_en": "a strong desire to learn or know", "example": "A surprising fact awakens their curiosity." },
+          { "word": "persuade", "ipa": "/pɚˈsweɪd/", "meaning_ar": "يُقنِع", "meaning_en": "to make someone agree by giving good reasons", "example": "We try to persuade families to save water." },
+          { "word": "stewardship", "ipa": "/ˈstuː.ɚd.ʃɪp/", "meaning_ar": "رعاية مسؤولة", "meaning_en": "careful, responsible care of nature", "example": "Stewardship means caring for nature for the future." },
+          { "word": "audience", "ipa": "/ˈɔː.di.əns/", "meaning_ar": "الجمهور", "meaning_en": "the people who listen to your talk", "example": "Look at your audience and speak clearly." }
+        ],
+        "reading": {
+          "title_en": "Planting an Idea",
+          "title_ar": "أن تزرعي فكرة",
+          "paragraphs": [
+            "Giving a talk in a school is very different from posting online. In front of a live audience, your goal is not only to inform but to inspire. A strong presentation begins with a question that awakens curiosity — 'What would our desert look like without the oryx?' — and lets the children imagine the answer before you offer any facts.",
+            "The most powerful talks engage the audience instead of lecturing them. Rather than listing threats, invite the students to solve a problem: how could their own school save water, or reduce waste? A short hands-on workshop — planting a native tree, sorting recyclable materials — turns abstract ideas into a real experience they will remember. People rarely act on information alone; they act on feeling and on responsibility.",
+            "When you speak to the wider community, adjust your message. Parents and local leaders respond to what is practical and sustainable: how protecting a reserve supports ecotourism, local jobs, and a healthier future. You are not there to blame anyone, but to persuade — to show that caring for wildlife and building a good life are the same goal.",
+            "The real impact of an awareness talk is rarely seen the same day. You are planting an idea in a new generation. If even a few children grow up believing that nature is worth protecting, you have created something lasting: a sense of stewardship that no single campaign could ever buy."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Let me start with a question for you all.", "ar": "دَعوني أبدأ بسؤالٍ لكم جميعاً." },
+          { "en": "Imagine our desert without the Arabian oryx.", "ar": "تخيّلوا صحراءنا من دون المها العربي." },
+          { "en": "Every one of us shares this responsibility.", "ar": "كلٌّ منّا يتشارك هذه المسؤولية." },
+          { "en": "Small daily choices have a lasting impact.", "ar": "الخيارات اليومية الصغيرة لها أثرٌ باقٍ." },
+          { "en": "Protecting nature and living well can go together.", "ar": "حماية الطبيعة والعيش الكريم يمكن أن يسيرا معاً." },
+          { "en": "You are the generation that can make the change.", "ar": "أنتم الجيل القادر على صنع التغيير." }
+        ],
+        "comprehension": [
+          {
+            "question": "According to the passage, how does a strong presentation begin?",
+            "options": ["With a full list of facts", "With a question that awakens curiosity", "With a warning about fines", "With the speaker's name and title"],
+            "correct": "With a question that awakens curiosity",
+            "explanation_ar": "العرض القوي يبدأ بسؤالٍ يوقظ الفضول ويجعل الجمهور يتخيّل الإجابة قبل تقديم المعلومات."
+          },
+          {
+            "question": "What does the passage say the most powerful talks do?",
+            "options": ["They engage the audience instead of lecturing them", "They last as long as possible", "They avoid any activities", "They focus only on threats"],
+            "correct": "They engage the audience instead of lecturing them",
+            "explanation_ar": "أقوى العروض تُشرِك الجمهور وتُفعّله بدلاً من إلقاء محاضرةٍ عليه."
+          },
+          {
+            "question": "When speaking to parents and local leaders, what do they respond to most?",
+            "options": ["Long scientific reports", "Blame and criticism", "What is practical and sustainable", "Photos of other countries"],
+            "correct": "What is practical and sustainable",
+            "explanation_ar": "أولياء الأمور وقادة المجتمع يتجاوبون مع ما هو عمليٌّ ومستدام، كربط حماية المحمية بالسياحة البيئية وفرص العمل."
+          },
+          {
+            "question": "Why is the real impact of an awareness talk 'rarely seen the same day'?",
+            "options": ["Because the talk is too short", "Because no one listens", "Because facts are always forgotten", "Because you are planting an idea in a new generation"],
+            "correct": "Because you are planting an idea in a new generation",
+            "explanation_ar": "الأثر الحقيقي يظهر لاحقاً، لأنكِ تزرعين فكرةً في جيلٍ جديد قد ينمو وهو يؤمن بحماية الطبيعة."
+          },
+          {
+            "question": "What difference does the passage draw between a school talk and a social-media post?",
+            "options": ["A school talk aims to inspire a live audience, not only to inform", "A school talk must be silent", "A post reaches no one", "A post is always dishonest"],
+            "correct": "A school talk aims to inspire a live audience, not only to inform",
+            "explanation_ar": "العرض في المدرسة يخاطب جمهوراً حاضراً، وهدفه أن يُلهم لا أن يُعلِم فقط."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Prepare a two-minute talk for a school class about why the Arabian oryx matters. Open with a question, share two facts, and end by inspiring the students to act.",
+          "prompt_ar": "جهّزي كلمةً مدّتها دقيقتان لصفٍّ مدرسي عن أهمية المها العربي. ابدئي بسؤال، واذكري معلومتين، واختمي بإلهام الطلاب للعمل.",
+          "guidance_ar": "استخدمي ٤ كلماتٍ على الأقل من كلمات الدرس، مثل: audience و inspire و responsibility و impact."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,609 @@
+{
+  "stage": {
+    "slug": "ecotourism",
+    "sort_order": 5,
+    "title_en": "Ecotourism",
+    "title_ar": "السياحة البيئية",
+    "subtitle_ar": "رحلةٌ إلى قلب السياحة البيئية، حيث تستقبلين الزوّار وترشدينهم في المحميات وتُجيبين عن أسئلتهم بثقةٍ وإنجليزيةٍ واضحة.",
+    "cefr": "B1",
+    "accent": "#22d3ee",
+    "icon": "Compass"
+  },
+  "lessons": [
+    {
+      "slug": "welcoming-visitors",
+      "sort_order": 1,
+      "title_en": "Welcoming Visitors",
+      "title_ar": "استقبال الزوّار",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "في كل يوم عمل، أنتِ أوّل وجهٍ يراه الزوّار عند وصولهم إلى المحمية. تحيّةٌ دافئة بالإنجليزية تجعلهم يشعرون بالترحيب والأمان منذ اللحظة الأولى. في هذا الدرس ستتعلّمين كلماتٍ وجُملاً بسيطة لاستقبال الزوّار، والتحقّق من تذاكرهم، وتعريفهم بقواعد المحمية.",
+        "vocab": [
+          {
+            "word": "welcome",
+            "ipa": "/ˈwelkəm/",
+            "meaning_ar": "ترحيب / أهلاً",
+            "meaning_en": "to greet someone in a friendly way",
+            "example": "Welcome to the reserve!"
+          },
+          {
+            "word": "visitor",
+            "ipa": "/ˈvɪzɪtər/",
+            "meaning_ar": "زائر",
+            "meaning_en": "a person who comes to see a place",
+            "example": "The visitors arrive in the morning."
+          },
+          {
+            "word": "guide",
+            "ipa": "/ɡaɪd/",
+            "meaning_ar": "مُرشِد",
+            "meaning_en": "a person who shows visitors around",
+            "example": "I am your guide today."
+          },
+          {
+            "word": "reserve",
+            "ipa": "/rɪˈzɜːrv/",
+            "meaning_ar": "محمية طبيعية",
+            "meaning_en": "a protected area for wildlife",
+            "example": "The oryx live in this reserve."
+          },
+          {
+            "word": "entrance",
+            "ipa": "/ˈentrəns/",
+            "meaning_ar": "المدخل",
+            "meaning_en": "the door or gate where you go in",
+            "example": "Please wait at the entrance."
+          },
+          {
+            "word": "ticket",
+            "ipa": "/ˈtɪkɪt/",
+            "meaning_ar": "تذكرة",
+            "meaning_en": "a paper that lets you enter",
+            "example": "Do you have your ticket?"
+          },
+          {
+            "word": "tour",
+            "ipa": "/tʊr/",
+            "meaning_ar": "جولة",
+            "meaning_en": "a short trip to see a place",
+            "example": "The tour starts at nine."
+          },
+          {
+            "word": "group",
+            "ipa": "/ɡruːp/",
+            "meaning_ar": "مجموعة",
+            "meaning_en": "a number of people together",
+            "example": "Please stay with your group."
+          },
+          {
+            "word": "map",
+            "ipa": "/mæp/",
+            "meaning_ar": "خريطة",
+            "meaning_en": "a drawing that shows a place",
+            "example": "Here is a map of the reserve."
+          },
+          {
+            "word": "rule",
+            "ipa": "/ruːl/",
+            "meaning_ar": "قاعدة",
+            "meaning_en": "a thing you must do or must not do",
+            "example": "Please follow the rules."
+          },
+          {
+            "word": "safe",
+            "ipa": "/seɪf/",
+            "meaning_ar": "آمن",
+            "meaning_en": "not in danger",
+            "example": "The reserve is a safe place."
+          },
+          {
+            "word": "greet",
+            "ipa": "/ɡriːt/",
+            "meaning_ar": "يُحيّي",
+            "meaning_en": "to say hello to someone",
+            "example": "I greet every visitor with a smile."
+          }
+        ],
+        "reading": {
+          "title_en": "A Warm Welcome",
+          "title_ar": "ترحيبٌ دافئ",
+          "paragraphs": [
+            "Every morning, I stand at the entrance of the reserve. I am a guide. My job is to welcome the visitors. When a group arrives, I greet them with a big smile. 'Welcome!' I say. 'Welcome to our reserve. My name is Noura, and I am your guide today.'",
+            "First, I check the tickets at the entrance. Then I give each visitor a small map. The map shows the safe paths, the rest area, and the water point. I also tell the group the rules. The rules are simple, and they keep the animals and the people safe.",
+            "'Please stay with your group,' I say. 'Please do not feed the animals, and please do not drop litter.' The visitors listen and nod. When everyone is ready, the tour begins. A warm welcome makes the visitors feel happy and safe, and a happy group always enjoys the reserve."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Welcome to the reserve. My name is Noura, and I am your guide.",
+            "ar": "أهلاً بكم في المحمية. اسمي نورة، وأنا مرشدتكم."
+          },
+          {
+            "en": "May I see your ticket, please?",
+            "ar": "هل يمكنني رؤية تذكرتكم من فضلكم؟"
+          },
+          {
+            "en": "Please follow me and stay with the group.",
+            "ar": "من فضلكم اتبعوني وابقوا مع المجموعة."
+          },
+          {
+            "en": "Here is a map of the reserve.",
+            "ar": "هذه خريطة للمحمية."
+          },
+          {
+            "en": "If you have any questions, please ask me.",
+            "ar": "إن كان لديكم أي سؤال، اسألوني من فضلكم."
+          },
+          {
+            "en": "I hope you enjoy your tour today.",
+            "ar": "أتمنّى أن تستمتعوا بجولتكم اليوم."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "Where does the guide stand every morning?",
+            "options": [
+              "At the entrance of the reserve",
+              "In the city center",
+              "At the airport",
+              "Near the water point"
+            ],
+            "correct": "At the entrance of the reserve",
+            "explanation_ar": "تقف المرشدة عند مدخل المحمية كل صباح لاستقبال الزوّار."
+          },
+          {
+            "question": "What does the guide give each visitor?",
+            "options": [
+              "A ticket",
+              "A small map",
+              "A bottle of water",
+              "A camera"
+            ],
+            "correct": "A small map",
+            "explanation_ar": "تُعطي المرشدة كل زائر خريطة صغيرة تُبيّن المسارات الآمنة."
+          },
+          {
+            "question": "Why are the rules important?",
+            "options": [
+              "They make the tour longer",
+              "They cost money",
+              "They keep the animals and people safe",
+              "They are hard to follow"
+            ],
+            "correct": "They keep the animals and people safe",
+            "explanation_ar": "القواعد بسيطة، وهي تحافظ على سلامة الحيوانات والناس."
+          },
+          {
+            "question": "What does the word \"greet\" mean?",
+            "options": [
+              "To sell tickets",
+              "To close the gate",
+              "To feed the animals",
+              "To say hello"
+            ],
+            "correct": "To say hello",
+            "explanation_ar": "كلمة greet تعني أن تُحيّي شخصاً وتقول له مرحباً."
+          },
+          {
+            "question": "What should visitors NOT do?",
+            "options": [
+              "Listen to the guide",
+              "Stay with the group",
+              "Feed the animals",
+              "Look at the map"
+            ],
+            "correct": "Feed the animals",
+            "explanation_ar": "تطلب المرشدة من الزوّار عدم إطعام الحيوانات وعدم رمي المهملات."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Imagine a group of visitors has just arrived at the reserve. Welcome them, introduce yourself as their guide, and tell them two simple rules.",
+          "prompt_ar": "تخيّلي أن مجموعة من الزوّار وصلت للتوّ إلى المحمية. رحّبي بهم، وعرّفي بنفسكِ كمرشدة، وأخبريهم بقاعدتين بسيطتين.",
+          "guidance_ar": "استخدمي كلمة welcome وكلمة guide وكلمتين أُخريين على الأقل من كلمات الدرس. تحدّثي بجُملٍ قصيرة وواضحة."
+        }
+      }
+    },
+    {
+      "slug": "guiding-a-tour",
+      "sort_order": 2,
+      "title_en": "Guiding a Tour",
+      "title_ar": "إرشاد جولة بيئية",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "بعد الترحيب، تبدأ الجولة الحقيقية داخل المحمية. هنا يعتمد الزوّار عليكِ لإرشادهم بأمان، وتنبيههم إلى الكائنات الفطرية، وحماية البيئة في آنٍ واحد. في هذا الدرس ستتعلّمين لغة قيادة الجولة: البقاء على المسار، والإشارة إلى الحيوانات، ومبدأ «لا تترك أثراً».",
+        "vocab": [
+          {
+            "word": "trail",
+            "ipa": "/treɪl/",
+            "meaning_ar": "مسار / درب",
+            "meaning_en": "a path through nature",
+            "example": "Please stay on the marked trail."
+          },
+          {
+            "word": "wildlife",
+            "ipa": "/ˈwaɪldlaɪf/",
+            "meaning_ar": "الحياة الفطرية",
+            "meaning_en": "wild animals and plants",
+            "example": "This reserve protects rare wildlife."
+          },
+          {
+            "word": "spot",
+            "ipa": "/spɒt/",
+            "meaning_ar": "يلمح / يرصد",
+            "meaning_en": "to see something suddenly",
+            "example": "Can you spot the oryx over there?"
+          },
+          {
+            "word": "binoculars",
+            "ipa": "/bɪˈnɒkjələrz/",
+            "meaning_ar": "منظار مُكبِّر",
+            "meaning_en": "a tool for seeing far things closely",
+            "example": "Use the binoculars to watch the birds."
+          },
+          {
+            "word": "disturb",
+            "ipa": "/dɪˈstɜːrb/",
+            "meaning_ar": "يُزعج",
+            "meaning_en": "to trouble or bother an animal",
+            "example": "Loud noise can disturb the animals."
+          },
+          {
+            "word": "litter",
+            "ipa": "/ˈlɪtər/",
+            "meaning_ar": "نفايات / مهملات",
+            "meaning_en": "rubbish left on the ground",
+            "example": "Please take your litter home."
+          },
+          {
+            "word": "footprint",
+            "ipa": "/ˈfʊtprɪnt/",
+            "meaning_ar": "أثر قدم",
+            "meaning_en": "a mark left by a foot",
+            "example": "We only leave footprints behind."
+          },
+          {
+            "word": "viewpoint",
+            "ipa": "/ˈvjuːpɔɪnt/",
+            "meaning_ar": "نقطة مشاهدة",
+            "meaning_en": "a place with a good view",
+            "example": "The viewpoint looks over the valley."
+          },
+          {
+            "word": "species",
+            "ipa": "/ˈspiːʃiːz/",
+            "meaning_ar": "نوع / صنف",
+            "meaning_en": "a type of living thing",
+            "example": "The oryx is a native species."
+          },
+          {
+            "word": "gazelle",
+            "ipa": "/ɡəˈzel/",
+            "meaning_ar": "غزال",
+            "meaning_en": "a small, fast wild animal",
+            "example": "A gazelle ran across the trail."
+          },
+          {
+            "word": "quiet",
+            "ipa": "/ˈkwaɪət/",
+            "meaning_ar": "هادئ",
+            "meaning_en": "with little or no noise",
+            "example": "Please keep your voice quiet."
+          },
+          {
+            "word": "protect",
+            "ipa": "/prəˈtekt/",
+            "meaning_ar": "يحمي",
+            "meaning_en": "to keep safe from harm",
+            "example": "We protect the reserve for the future."
+          }
+        ],
+        "reading": {
+          "title_en": "On the Trail",
+          "title_ar": "على المسار",
+          "paragraphs": [
+            "When the tour begins, I lead the group along a narrow trail through the reserve. The first rule is simple but important: everyone must stay on the marked trail. If visitors walk off the path, they may damage the plants or disturb the wildlife that lives here.",
+            "As we walk, I ask the group to keep quiet. Animals are shy, and a loud voice can frighten them. When I spot something interesting, I stop and point. 'Look to your left,' I whisper. 'A gazelle is standing near the rocks.' I hand out binoculars so everyone can watch the animal without getting too close.",
+            "We stop at a viewpoint that looks over the whole valley. From here, visitors can often see several species at once — gazelles, birds, and sometimes a herd of oryx. I explain that each species has its own place in the reserve, and that our job is to protect them all.",
+            "Before we leave, I remind the group about one golden rule: leave no trace. We do not drop any litter, and we do not pick the plants. 'We take only photographs,' I tell them, 'and we leave only footprints.' A good tour teaches visitors to enjoy nature and to protect it at the same time."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "Please stay on the marked trail at all times.",
+            "ar": "من فضلكم ابقوا على المسار المحدَّد طوال الوقت."
+          },
+          {
+            "en": "Keep your voice low so we don't disturb the animals.",
+            "ar": "اخفضوا أصواتكم حتى لا نُزعج الحيوانات."
+          },
+          {
+            "en": "If you look to your right, you can see a gazelle.",
+            "ar": "إن نظرتم إلى يمينكم، تستطيعون رؤية غزال."
+          },
+          {
+            "en": "Please take only photographs and leave only footprints.",
+            "ar": "التقطوا الصور فقط واتركوا آثار أقدامكم فقط."
+          },
+          {
+            "en": "Take your litter with you and leave no trace.",
+            "ar": "خذوا نفاياتكم معكم ولا تتركوا أثراً."
+          },
+          {
+            "en": "Let's stop here at the viewpoint for a few minutes.",
+            "ar": "لنتوقّف هنا عند نقطة المشاهدة لبضع دقائق."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "Why must visitors stay on the marked trail?",
+            "options": [
+              "To avoid damaging plants and disturbing wildlife",
+              "To walk faster",
+              "To find the exit",
+              "To take better photos"
+            ],
+            "correct": "To avoid damaging plants and disturbing wildlife",
+            "explanation_ar": "البقاء على المسار يمنع إتلاف النباتات وإزعاج الحياة الفطرية."
+          },
+          {
+            "question": "Why does the guide ask the group to keep quiet?",
+            "options": [
+              "Because talking is not allowed",
+              "Because a loud voice can frighten the animals",
+              "Because the trail is short",
+              "Because the visitors are tired"
+            ],
+            "correct": "Because a loud voice can frighten the animals",
+            "explanation_ar": "الحيوانات خجولة، والصوت العالي قد يُخيفها."
+          },
+          {
+            "question": "What does the guide hand out so visitors can watch animals from far away?",
+            "options": [
+              "Maps",
+              "Tickets",
+              "Binoculars",
+              "Cameras"
+            ],
+            "correct": "Binoculars",
+            "explanation_ar": "توزّع المرشدة المناظير حتى يُشاهد الزوّار الحيوان من بعيد دون الاقتراب منه."
+          },
+          {
+            "question": "What does \"leave no trace\" mean?",
+            "options": [
+              "Walk very quickly",
+              "Stay until night",
+              "Follow the guide closely",
+              "Do not leave any litter or damage behind"
+            ],
+            "correct": "Do not leave any litter or damage behind",
+            "explanation_ar": "مبدأ «لا تترك أثراً» يعني عدم ترك أي نفايات أو ضرر خلفك."
+          },
+          {
+            "question": "What can visitors often see from the viewpoint?",
+            "options": [
+              "The city",
+              "Several species at once",
+              "The entrance gate",
+              "The parking area"
+            ],
+            "correct": "Several species at once",
+            "explanation_ar": "من نقطة المشاهدة يمكن رؤية عدّة أنواع في آنٍ واحد، كالغزلان والطيور والمها."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "You are guiding a small group on a trail. Give three instructions to keep everyone safe and to protect the wildlife, and describe one animal you spot along the way.",
+          "prompt_ar": "أنتِ تُرشدين مجموعة صغيرة على أحد المسارات. أعطِي ثلاث تعليمات للحفاظ على سلامة الجميع وحماية الحياة الفطرية، وصِفي حيواناً واحداً تلمحينه في الطريق.",
+          "guidance_ar": "استخدمي على الأقل ثلاث كلمات من كلمات الدرس مثل trail وwildlife وspot. اربطي جُملكِ بكلماتٍ مثل because وso."
+        }
+      }
+    },
+    {
+      "slug": "answering-questions",
+      "sort_order": 3,
+      "title_en": "Answering Visitors' Questions",
+      "title_ar": "الإجابة عن أسئلة الزوّار",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "لن تكتمل الجولة دون أسئلة الزوّار الفضوليين: ما هذا الحيوان؟ هل يُسمح بإطعامه؟ لماذا هذا النوع مهدَّد؟ الإجابة بثقةٍ ولباقة جزءٌ من مهنتكِ. في هذا الدرس ستتعلّمين كيف تفهمين سؤال الزائر، وتُجيبين بوضوح، وتعترفين بلطفٍ حين لا تعرفين الإجابة.",
+        "vocab": [
+          {
+            "word": "question",
+            "ipa": "/ˈkwestʃən/",
+            "meaning_ar": "سؤال",
+            "meaning_en": "something you ask",
+            "example": "That is a very good question."
+          },
+          {
+            "word": "explain",
+            "ipa": "/ɪkˈspleɪn/",
+            "meaning_ar": "يشرح / يوضّح",
+            "meaning_en": "to make something clear",
+            "example": "Let me explain how they live."
+          },
+          {
+            "word": "species",
+            "ipa": "/ˈspiːʃiːz/",
+            "meaning_ar": "نوع / صنف",
+            "meaning_en": "a type of living thing",
+            "example": "The Arabian oryx is a native species."
+          },
+          {
+            "word": "endangered",
+            "ipa": "/ɪnˈdeɪndʒərd/",
+            "meaning_ar": "مهدَّد بالانقراض",
+            "meaning_en": "at risk of dying out",
+            "example": "The Arabian leopard is endangered."
+          },
+          {
+            "word": "habitat",
+            "ipa": "/ˈhæbɪtæt/",
+            "meaning_ar": "موطن / بيئة",
+            "meaning_en": "the natural home of an animal",
+            "example": "The desert is the oryx's habitat."
+          },
+          {
+            "word": "allowed",
+            "ipa": "/əˈlaʊd/",
+            "meaning_ar": "مسموح",
+            "meaning_en": "permitted",
+            "example": "Feeding the animals is not allowed."
+          },
+          {
+            "word": "feed",
+            "ipa": "/fiːd/",
+            "meaning_ar": "يُطعِم",
+            "meaning_en": "to give food to an animal",
+            "example": "Please do not feed the wildlife."
+          },
+          {
+            "word": "native",
+            "ipa": "/ˈneɪtɪv/",
+            "meaning_ar": "أصيل / محلّي",
+            "meaning_en": "belonging naturally to a place",
+            "example": "The houbara is a native bird."
+          },
+          {
+            "word": "conservation",
+            "ipa": "/ˌkɒnsərˈveɪʃən/",
+            "meaning_ar": "الحفاظ / الصون",
+            "meaning_en": "protecting nature and wildlife",
+            "example": "Our center works in wildlife conservation."
+          },
+          {
+            "word": "migration",
+            "ipa": "/maɪˈɡreɪʃən/",
+            "meaning_ar": "الهجرة",
+            "meaning_en": "the seasonal movement of animals",
+            "example": "Many birds pass through during migration."
+          },
+          {
+            "word": "breeding",
+            "ipa": "/ˈbriːdɪŋ/",
+            "meaning_ar": "التكاثر",
+            "meaning_en": "producing young",
+            "example": "Spring is the breeding season."
+          },
+          {
+            "word": "permit",
+            "ipa": "/ˈpɜːrmɪt/",
+            "meaning_ar": "تصريح",
+            "meaning_en": "an official paper that allows something",
+            "example": "You need a permit to camp here."
+          }
+        ],
+        "reading": {
+          "title_en": "Every Question Matters",
+          "title_ar": "كل سؤالٍ مُهم",
+          "paragraphs": [
+            "At the end of every tour, the visitors always have questions, and I enjoy answering them. Some questions are easy, and some make me think. I try to explain each answer clearly, in simple words.",
+            "'What is that animal?' a visitor asks. 'That is an Arabian oryx,' I say. 'It is a native species, and the desert is its natural habitat.' Another visitor asks why we work so hard to protect it. I explain that the oryx was once endangered, and that careful conservation brought it back from the edge.",
+            "Many questions are about the rules. 'Can we feed the gazelles?' someone asks. 'No, feeding the animals is not allowed,' I answer gently. 'Wild animals must find their own food to stay healthy.' Others ask about the birds. I tell them that thousands of birds pass through the reserve during migration, and that spring is an important breeding season.",
+            "Sometimes a visitor asks a question I cannot answer. I never guess. Instead, I say, 'That is a great question. I am not sure, but I can find out for you.' Honesty builds trust. If someone wants to do research or camp inside the reserve, I explain that they first need a special permit from the center. A clear, patient answer turns a simple visit into real learning."
+          ]
+        },
+        "key_phrases": [
+          {
+            "en": "That's a great question — let me explain.",
+            "ar": "سؤالٌ رائع، دعوني أوضّح لكم."
+          },
+          {
+            "en": "The Arabian oryx is a native species of this desert.",
+            "ar": "المها العربي نوعٌ أصيل في هذه الصحراء."
+          },
+          {
+            "en": "I'm sorry, but feeding the animals is not allowed.",
+            "ar": "آسفة، لكن إطعام الحيوانات غير مسموح."
+          },
+          {
+            "en": "I'm not sure, but I can find out for you.",
+            "ar": "لستُ متأكدة، لكن يمكنني معرفة الإجابة لكم."
+          },
+          {
+            "en": "You need a special permit to camp inside the reserve.",
+            "ar": "تحتاجون إلى تصريحٍ خاص للتخييم داخل المحمية."
+          },
+          {
+            "en": "This species was endangered, but conservation helped it recover.",
+            "ar": "كان هذا النوع مهدَّداً بالانقراض، لكن جهود الصون ساعدته على التعافي."
+          }
+        ],
+        "comprehension": [
+          {
+            "question": "How does the guide try to answer each question?",
+            "options": [
+              "Clearly, in simple words",
+              "With long, difficult words",
+              "By ignoring it",
+              "Only in Arabic"
+            ],
+            "correct": "Clearly, in simple words",
+            "explanation_ar": "تحاول المرشدة أن تشرح كل إجابة بوضوح وبكلماتٍ بسيطة."
+          },
+          {
+            "question": "What is the natural habitat of the Arabian oryx?",
+            "options": [
+              "The city",
+              "The desert",
+              "The sea",
+              "The mountains only"
+            ],
+            "correct": "The desert",
+            "explanation_ar": "المها العربي نوعٌ أصيل، والصحراء هي موطنه الطبيعي."
+          },
+          {
+            "question": "Can visitors feed the gazelles?",
+            "options": [
+              "Yes, at any time",
+              "Yes, with a ticket",
+              "No, feeding the animals is not allowed",
+              "Only in spring"
+            ],
+            "correct": "No, feeding the animals is not allowed",
+            "explanation_ar": "إطعام الحيوانات غير مسموح؛ فالحيوانات البرية يجب أن تجد طعامها بنفسها لتبقى بصحة جيدة."
+          },
+          {
+            "question": "What does the guide do when she does not know an answer?",
+            "options": [
+              "She guesses quickly",
+              "She changes the subject",
+              "She ends the tour",
+              "She says she will find out"
+            ],
+            "correct": "She says she will find out",
+            "explanation_ar": "لا تُخمّن المرشدة أبداً؛ بل تقول إنها ستبحث عن الإجابة، فالصدق يبني الثقة."
+          },
+          {
+            "question": "What do visitors need in order to camp inside the reserve?",
+            "options": [
+              "A special permit",
+              "A new ticket",
+              "A map",
+              "Nothing at all"
+            ],
+            "correct": "A special permit",
+            "explanation_ar": "يحتاج الزائر إلى تصريحٍ خاص من المركز للتخييم داخل المحمية."
+          },
+          {
+            "question": "Why is the oryx no longer on the edge of extinction?",
+            "options": [
+              "Because visitors feed it",
+              "Because of careful conservation",
+              "Because it left the desert",
+              "Because of migration"
+            ],
+            "correct": "Because of careful conservation",
+            "explanation_ar": "أعادت جهود الصون الدقيقة المها من حافة الانقراض."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "A visitor asks you three questions: 'What is that animal?', 'Can I feed it?', and 'Why is it protected?' Answer all three politely and clearly, and admit honestly if there is anything you are not sure about.",
+          "prompt_ar": "يسألكِ أحد الزوّار ثلاثة أسئلة: «ما هذا الحيوان؟»، و«هل يمكنني إطعامه؟»، و«لماذا هو محميّ؟». أجيبي عن الأسئلة الثلاثة بلباقةٍ ووضوح، واعترفي بصدقٍ إن كان هناك ما لستِ متأكدة منه.",
+          "guidance_ar": "استخدمي على الأقل ثلاث كلمات من كلمات الدرس مثل species وallowed وendangered. ابدئي إجابتكِ بعبارةٍ مثل «That's a great question»."
+        }
+      }
+    }
+  ]
+}

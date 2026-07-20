@@ -1,0 +1,259 @@
+{
+  "stage": {
+    "slug": "wildlife",
+    "sort_order": 2,
+    "title_en": "Wildlife & Animals",
+    "title_ar": "الحياة الفطرية والحيوانات",
+    "subtitle_ar": "رحلة قصيرة داخل عالم الحياة الفطرية، تتعرّفين فيها على حيوانات المملكة البرية والبحرية، وكيف تصفينها وتحمينها بالإنجليزية.",
+    "cefr": "A2",
+    "accent": "#34d399",
+    "icon": "Bird"
+  },
+  "lessons": [
+    {
+      "slug": "wild-animals",
+      "sort_order": 1,
+      "title_en": "Wild Animals",
+      "title_ar": "الحيوانات البرية",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "في عملك بالمركز الوطني لتنمية الحياة الفطرية، تلتقين كل يوم بأسماء الحيوانات البرية بالإنجليزية. في هذا الدرس ستتعلّمين الكلمات الأساسية للحديث عن حيوانات الصحراء مثل المها العربي والغزال والنمر العربي. اقرئي نصًّا قصيرًا وبسيطًا، ثم تدرّبي على جُمل تستخدمينها في وصف الكائنات وحمايتها.",
+        "vocab": [
+          { "word": "animal", "ipa": "/ˈænɪməl/", "meaning_ar": "حيوان", "meaning_en": "a living creature that is not a plant", "example": "The oryx is a desert animal." },
+          { "word": "wild", "ipa": "/waɪld/", "meaning_ar": "بَرّي", "meaning_en": "living in nature, not with people", "example": "A wild animal lives in nature." },
+          { "word": "desert", "ipa": "/ˈdezərt/", "meaning_ar": "صحراء", "meaning_en": "a large, dry area of sand", "example": "The desert is hot and dry." },
+          { "word": "oryx", "ipa": "/ˈɔːrɪks/", "meaning_ar": "المها العربي", "meaning_en": "a large white desert animal with long horns", "example": "The oryx has long horns." },
+          { "word": "gazelle", "ipa": "/ɡəˈzel/", "meaning_ar": "غزال", "meaning_en": "a small, fast animal that eats grass", "example": "The gazelle runs very fast." },
+          { "word": "leopard", "ipa": "/ˈlepərd/", "meaning_ar": "النمر العربي", "meaning_en": "a big wild cat with spots", "example": "The Arabian leopard is very rare." },
+          { "word": "reserve", "ipa": "/rɪˈzɜːrv/", "meaning_ar": "محمية طبيعية", "meaning_en": "a safe, protected area for wildlife", "example": "The animals live in a reserve." },
+          { "word": "protect", "ipa": "/prəˈtekt/", "meaning_ar": "يحمي", "meaning_en": "to keep something safe from harm", "example": "We protect the wild animals." },
+          { "word": "rare", "ipa": "/reər/", "meaning_ar": "نادِر", "meaning_en": "not many; hard to find", "example": "This animal is rare." },
+          { "word": "live", "ipa": "/lɪv/", "meaning_ar": "يعيش", "meaning_en": "to have your home in a place", "example": "Many animals live in the desert." },
+          { "word": "hide", "ipa": "/haɪd/", "meaning_ar": "يختبئ", "meaning_en": "to go where no one can see you", "example": "The leopard hides in the day." }
+        ],
+        "reading": {
+          "title_en": "Animals in the Desert",
+          "title_ar": "حيوانات الصحراء",
+          "paragraphs": [
+            "Saudi Arabia has many wild animals. They live in the desert. The desert is hot and dry, but these animals are strong.",
+            "The Arabian oryx is a big white animal with long horns. The oryx can live for many days without water. The gazelle is small and fast. It runs quickly when there is danger.",
+            "The Arabian leopard is very rare. Only a few leopards live in the high mountains. They hide in the day and hunt at night. It is hard to see one.",
+            "We must protect these wild animals. Many of them live in a reserve. A reserve is a safe place for animals. In a reserve, no one can hunt them. This work keeps the desert full of life for the future."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This animal lives in the desert.", "ar": "هذا الحيوان يعيش في الصحراء." },
+          { "en": "The oryx is a wild animal.", "ar": "المها حيوان بري." },
+          { "en": "We must protect rare animals.", "ar": "علينا حماية الحيوانات النادرة." },
+          { "en": "The animals live in a reserve.", "ar": "تعيش الحيوانات في محمية." },
+          { "en": "This animal is very rare.", "ar": "هذا الحيوان نادر جدًا." }
+        ],
+        "comprehension": [
+          {
+            "question": "Where do the wild animals live?",
+            "options": ["In the desert", "In the city", "In the sea", "In a house"],
+            "correct": "In the desert",
+            "explanation_ar": "يقول النص إن الحيوانات البرية تعيش في الصحراء."
+          },
+          {
+            "question": "What color is the Arabian oryx?",
+            "options": ["Black", "White", "Green", "Blue"],
+            "correct": "White",
+            "explanation_ar": "المها العربي حيوان كبير أبيض اللون له قرون طويلة."
+          },
+          {
+            "question": "Why is the Arabian leopard special?",
+            "options": ["It is very big", "It is very fast", "It is very rare", "It is very slow"],
+            "correct": "It is very rare",
+            "explanation_ar": "النمر العربي نادر جدًا، ولا يعيش منه إلا القليل في الجبال."
+          },
+          {
+            "question": "What is a reserve?",
+            "options": ["A busy road", "A hot desert", "A tall building", "A safe place for animals"],
+            "correct": "A safe place for animals",
+            "explanation_ar": "المحمية منطقة آمنة يُمنع فيها صيد الحيوانات."
+          },
+          {
+            "question": "When does the leopard hunt?",
+            "options": ["At night", "In the morning", "At noon", "It never hunts"],
+            "correct": "At night",
+            "explanation_ar": "النمر يختبئ في النهار ويصطاد في الليل."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about a wild animal in Saudi Arabia.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن حيوان بري في السعودية.",
+          "guidance_ar": "استخدمي على الأقل ٣ كلمات من كلمات الدرس، مثل: صحراء، محمية، نادر."
+        }
+      }
+    },
+    {
+      "slug": "birds-and-marine",
+      "sort_order": 2,
+      "title_en": "Birds & Marine Life",
+      "title_ar": "الطيور والكائنات البحرية",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "يمرّ فوق المملكة كل موسم آلاف الطيور المهاجرة، وتحت مياه البحر الأحمر عالم كامل من الشعاب المرجانية والكائنات البحرية. في هذا الدرس ستتعلّمين أسماء الطيور والحيوانات البحرية بالإنجليزية، وكيف تصفين هجرتها وحياتها. اقرئي النص، ثم تدرّبي على الجُمل حتى تستطيعي الحديث عنها بثقة مع زوّار المحمية.",
+        "vocab": [
+          { "word": "bird", "ipa": "/bɜːrd/", "meaning_ar": "طائر", "meaning_en": "an animal with wings and feathers", "example": "The falcon is a fast bird." },
+          { "word": "falcon", "ipa": "/ˈfælkən/", "meaning_ar": "صقر", "meaning_en": "a fast bird that hunts other animals", "example": "The falcon has strong wings." },
+          { "word": "houbara", "ipa": "/huːˈbɑːrə/", "meaning_ar": "الحُبارى", "meaning_en": "a desert bird that walks and also flies", "example": "The houbara walks on the ground." },
+          { "word": "migrate", "ipa": "/ˈmaɪɡreɪt/", "meaning_ar": "يهاجر", "meaning_en": "to travel to another place each year", "example": "Many birds migrate every year." },
+          { "word": "wing", "ipa": "/wɪŋ/", "meaning_ar": "جناح", "meaning_en": "the part of a bird used to fly", "example": "The bird opens its wings." },
+          { "word": "nest", "ipa": "/nest/", "meaning_ar": "عُش", "meaning_en": "a place a bird makes for its eggs", "example": "The bird builds a nest for its eggs." },
+          { "word": "sea", "ipa": "/siː/", "meaning_ar": "بحر", "meaning_en": "a large area of salt water", "example": "The Red Sea is full of life." },
+          { "word": "coral reef", "ipa": "/ˈkɔːrəl riːf/", "meaning_ar": "الشعاب المرجانية", "meaning_en": "colorful rock made by small sea animals", "example": "The coral reef has many colors." },
+          { "word": "turtle", "ipa": "/ˈtɜːrtl/", "meaning_ar": "سلحفاة بحرية", "meaning_en": "a sea animal with a hard shell", "example": "The sea turtle swims slowly." },
+          { "word": "dolphin", "ipa": "/ˈdɒlfɪn/", "meaning_ar": "دلفين", "meaning_en": "a clever sea animal that swims fast", "example": "The dolphin plays in the waves." },
+          { "word": "dive", "ipa": "/daɪv/", "meaning_ar": "يغوص", "meaning_en": "to go down under the water", "example": "Dolphins dive under the water." }
+        ],
+        "reading": {
+          "title_en": "Birds and the Red Sea",
+          "title_ar": "الطيور والبحر الأحمر",
+          "paragraphs": [
+            "Saudi Arabia is home to many birds. The falcon is a fast bird with strong wings. People in the country love falcons. The houbara is a desert bird. It walks on the ground and can also fly. Every year, many birds migrate. They travel a long way to find food and warm weather, and they build a nest to keep their eggs safe.",
+            "The Red Sea is full of life too. Under the water, there are beautiful coral reefs. The coral reef looks like a colorful garden. Many fish live around it. Sea turtles swim slowly near the reef, and dolphins dive and play in the waves.",
+            "We must protect the birds and the sea animals. The coral reef is very old, and it grows very slowly. If we keep the sea clean, these animals will live for a long time."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This bird can fly a long way.", "ar": "يستطيع هذا الطائر الطيران لمسافة طويلة." },
+          { "en": "Many birds migrate every year.", "ar": "تهاجر طيور كثيرة كل عام." },
+          { "en": "The coral reef is full of fish.", "ar": "الشعاب المرجانية مليئة بالأسماك." },
+          { "en": "We must keep the sea clean.", "ar": "علينا الحفاظ على نظافة البحر." },
+          { "en": "Sea turtles swim near the reef.", "ar": "تسبح السلاحف البحرية قرب الشعاب." }
+        ],
+        "comprehension": [
+          {
+            "question": "What does the falcon have?",
+            "options": ["Strong wings", "Long legs", "Big teeth", "Soft fur"],
+            "correct": "Strong wings",
+            "explanation_ar": "الصقر طائر سريع له أجنحة قوية."
+          },
+          {
+            "question": "Where does the houbara walk?",
+            "options": ["In the sea", "On the ground", "On the roof", "Inside a nest"],
+            "correct": "On the ground",
+            "explanation_ar": "الحُبارى طائر صحراوي يمشي على الأرض ويستطيع الطيران أيضًا."
+          },
+          {
+            "question": "Why do birds migrate?",
+            "options": ["To sleep all day", "To swim in the sea", "To find food and warm weather", "To build a road"],
+            "correct": "To find food and warm weather",
+            "explanation_ar": "تهاجر الطيور لتبحث عن الطعام والجو الدافئ."
+          },
+          {
+            "question": "What lives around the coral reef?",
+            "options": ["Many fish", "Camels", "Cars", "Trees"],
+            "correct": "Many fish",
+            "explanation_ar": "تعيش أسماك كثيرة حول الشعاب المرجانية."
+          },
+          {
+            "question": "How does the coral reef grow?",
+            "options": ["Very quickly", "Very slowly", "Under the sand", "In the desert"],
+            "correct": "Very slowly",
+            "explanation_ar": "الشعاب المرجانية قديمة جدًا وتنمو ببطء شديد."
+          },
+          {
+            "question": "What do dolphins do in the waves?",
+            "options": ["They sleep", "They walk", "They dive and play", "They fly"],
+            "correct": "They dive and play",
+            "explanation_ar": "تغوص الدلافين وتلعب في الأمواج."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Talk for one minute about the sea animals you protect. Describe two of them.",
+          "prompt_ar": "تحدّثي دقيقة واحدة عن الكائنات البحرية التي تعملين على حمايتها. صِفي اثنين منها.",
+          "guidance_ar": "استخدمي كلمات مثل: الشعاب المرجانية، السلحفاة، الدلفين، ويغوص."
+        }
+      }
+    },
+    {
+      "slug": "describing-animals",
+      "sort_order": 3,
+      "title_en": "Describing Animals & Behavior",
+      "title_ar": "وصف الكائنات وسلوكها",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "جزء كبير من عملك الميداني هو ملاحظة الكائنات ووصف سلوكها بدقّة. في هذا الدرس ستتعلّمين الصفات وأفعال السلوك التي تحتاجينها لوصف أي حيوان بالإنجليزية — كيف يبدو، وكيف يتحرّك، وماذا يأكل. اقرئي النص، ثم تدرّبي على وصف حيوان تعرفينه من عملك.",
+        "vocab": [
+          { "word": "describe", "ipa": "/dɪˈskraɪb/", "meaning_ar": "يصف", "meaning_en": "to say what something is like", "example": "I describe the animal in my notes." },
+          { "word": "behavior", "ipa": "/bɪˈheɪvjər/", "meaning_ar": "سلوك", "meaning_en": "the way an animal acts", "example": "We watch the animal's behavior." },
+          { "word": "fast", "ipa": "/fɑːst/", "meaning_ar": "سريع", "meaning_en": "moving with great speed", "example": "The gazelle is very fast." },
+          { "word": "shy", "ipa": "/ʃaɪ/", "meaning_ar": "خجول / نافر", "meaning_en": "afraid of people; not friendly", "example": "The leopard is shy and quiet." },
+          { "word": "strong", "ipa": "/strɒŋ/", "meaning_ar": "قوي", "meaning_en": "having a lot of power", "example": "The oryx is a strong animal." },
+          { "word": "dangerous", "ipa": "/ˈdeɪndʒərəs/", "meaning_ar": "خطير", "meaning_en": "able to hurt you", "example": "A leopard can be dangerous." },
+          { "word": "hunt", "ipa": "/hʌnt/", "meaning_ar": "يصطاد", "meaning_en": "to catch other animals for food", "example": "The leopard hunts at night." },
+          { "word": "feed", "ipa": "/fiːd/", "meaning_ar": "يتغذّى", "meaning_en": "to eat a type of food", "example": "The gazelle feeds on grass." },
+          { "word": "spots", "ipa": "/spɒts/", "meaning_ar": "بُقَع", "meaning_en": "small round marks on the skin or fur", "example": "The leopard has spots on its fur." },
+          { "word": "tail", "ipa": "/teɪl/", "meaning_ar": "ذيل", "meaning_en": "the long part at the back of an animal", "example": "The animal has a long tail." },
+          { "word": "sharp", "ipa": "/ʃɑːrp/", "meaning_ar": "حاد", "meaning_en": "with a fine point that can cut", "example": "The leopard has sharp teeth." }
+        ],
+        "reading": {
+          "title_en": "How to Describe an Animal",
+          "title_ar": "كيف تصف حيوانًا",
+          "paragraphs": [
+            "When we watch an animal, we describe how it looks and how it acts. We look at its color, its size, and its behavior.",
+            "The Arabian leopard has beautiful spots on its fur. It has a long tail and sharp teeth. The leopard is strong and dangerous, but it is also shy. It stays away from people and hunts alone at night.",
+            "The gazelle is very fast. When it feels danger, it runs quickly. The gazelle feeds on grass and small plants. It is a calm and shy animal.",
+            "Good rangers watch animal behavior every day. They write notes about what each animal eats and how it moves. When you describe an animal well, other people can understand it too. This helps us protect every animal in the reserve."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This animal is fast and shy.", "ar": "هذا الحيوان سريع وخجول." },
+          { "en": "The leopard has spots on its fur.", "ar": "النمر له بقع على فروه." },
+          { "en": "It hunts at night.", "ar": "يصطاد في الليل." },
+          { "en": "The gazelle feeds on grass.", "ar": "يتغذّى الغزال على العشب." },
+          { "en": "This animal is strong but not dangerous.", "ar": "هذا الحيوان قوي لكنه ليس خطيرًا." }
+        ],
+        "comprehension": [
+          {
+            "question": "What do we look at to describe an animal?",
+            "options": ["Its color, size, and behavior", "Its house and car", "Its money", "Its phone"],
+            "correct": "Its color, size, and behavior",
+            "explanation_ar": "لوصف الحيوان ننظر إلى لونه وحجمه وسلوكه."
+          },
+          {
+            "question": "What does the leopard have on its fur?",
+            "options": ["Feathers", "Spots", "Leaves", "Sand"],
+            "correct": "Spots",
+            "explanation_ar": "النمر العربي له بقع جميلة على فروه."
+          },
+          {
+            "question": "How does the gazelle behave with people?",
+            "options": ["It is angry", "It is friendly", "It is shy", "It is loud"],
+            "correct": "It is shy",
+            "explanation_ar": "الغزال حيوان هادئ وخجول يبتعد عن الناس."
+          },
+          {
+            "question": "What does the gazelle feed on?",
+            "options": ["Grass and small plants", "Fish", "Other leopards", "Bread"],
+            "correct": "Grass and small plants",
+            "explanation_ar": "يتغذّى الغزال على العشب والنباتات الصغيرة."
+          },
+          {
+            "question": "When does the leopard hunt?",
+            "options": ["In the morning", "Alone at night", "With people", "In the sea"],
+            "correct": "Alone at night",
+            "explanation_ar": "النمر يبتعد عن الناس ويصطاد وحده في الليل."
+          },
+          {
+            "question": "Why do rangers write notes about behavior?",
+            "options": ["To sell animals", "To play games", "To help protect the animals", "To buy food"],
+            "correct": "To help protect the animals",
+            "explanation_ar": "تدوين الملاحظات عن السلوك يساعد على فهم الحيوان وحمايته."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Choose one animal. Write 4 sentences describing how it looks and how it behaves.",
+          "prompt_ar": "اختاري حيوانًا واحدًا. اكتبي ٤ جُمل تصفين فيها شكله وسلوكه.",
+          "guidance_ar": "استخدمي صفات من الدرس مثل: سريع، خجول، قوي، وأفعال السلوك مثل: يصطاد، يتغذّى."
+        }
+      }
+    }
+  ]
+}

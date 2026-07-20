@@ -1,0 +1,251 @@
+{
+  "stage": {
+    "slug": "professional-english",
+    "sort_order": 10,
+    "title_en": "Professional English for the Environment",
+    "title_ar": "الإنجليزية المهنية للبيئة",
+    "subtitle_ar": "الإنجليزية التي تحملين بها صوتكِ المهني إلى العالم: رسائل تُكتب بثقة، وعروض تُلقى باقتدار، وحُجج تُقنع صنّاع القرار من أجل الطبيعة.",
+    "cefr": "B2",
+    "accent": "#fb7185",
+    "icon": "Mail"
+  },
+  "lessons": [
+    {
+      "slug": "emails",
+      "sort_order": 1,
+      "title_en": "Work Emails",
+      "title_ar": "رسائل العمل",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "البريد الإلكتروني هو أكثر أدواتكِ استخداماً في العمل اليومي: به تطلبين بيانات، وتُرسلين تحديثاً عن مشروع، وتدعين شريكاً لزيارة محمية. في هذا الدرس ستتعلّمين كيف تكتبين رسالة عمل واضحة ومهذّبة بالإنجليزية، من سطر الموضوع حتى الخاتمة. اكتبي بثقة، فالرسالة المرتّبة تعكس احترافيّتكِ قبل أن تُقرأ كلمة واحدة.",
+        "vocab": [
+          { "word": "request", "ipa": "/rɪˈkwɛst/", "meaning_ar": "طلب مهذّب", "meaning_en": "a polite ask for something", "example": "I am writing to request the latest survey data." },
+          { "word": "attach", "ipa": "/əˈtætʃ/", "meaning_ar": "يُرفِق ملفاً", "meaning_en": "to add a file to an email", "example": "Please find the report attached to this email." },
+          { "word": "recipient", "ipa": "/rɪˈsɪpiənt/", "meaning_ar": "المستلِم", "meaning_en": "the person who receives the email", "example": "Add the recipient's address before you send." },
+          { "word": "subject line", "ipa": "/ˈsʌbdʒɛkt laɪn/", "meaning_ar": "سطر الموضوع", "meaning_en": "the short title of an email", "example": "Write a clear subject line so people open your email." },
+          { "word": "follow up", "ipa": "/ˈfɒloʊ ʌp/", "meaning_ar": "يُتابِع", "meaning_en": "to send another message to check progress", "example": "I will follow up next week if I don't hear back." },
+          { "word": "schedule", "ipa": "/ˈskɛdʒuːl/", "meaning_ar": "يُحدّد موعداً", "meaning_en": "to arrange a time for something", "example": "Can we schedule a meeting for Thursday?" },
+          { "word": "confirm", "ipa": "/kənˈfɜːrm/", "meaning_ar": "يؤكّد", "meaning_en": "to say that something is certain", "example": "Please confirm that you received the files." },
+          { "word": "update", "ipa": "/ˈʌpdeɪt/", "meaning_ar": "تحديث", "meaning_en": "new information about progress", "example": "Here is a short update on the reserve project." },
+          { "word": "regarding", "ipa": "/rɪˈɡɑːrdɪŋ/", "meaning_ar": "بخصوص", "meaning_en": "about; on the subject of", "example": "I am writing regarding the field visit next month." },
+          { "word": "apologize", "ipa": "/əˈpɒlədʒaɪz/", "meaning_ar": "يعتذر", "meaning_en": "to say sorry", "example": "I apologize for the late reply." },
+          { "word": "deadline", "ipa": "/ˈdɛdlaɪn/", "meaning_ar": "الموعد النهائي", "meaning_en": "the latest time to finish something", "example": "The deadline for the report is Sunday." },
+          { "word": "invitation", "ipa": "/ˌɪnvɪˈteɪʃən/", "meaning_ar": "دعوة", "meaning_en": "a request to attend an event", "example": "Please accept this invitation to our awareness day." }
+        ],
+        "reading": {
+          "title_en": "A Clear Work Email",
+          "title_ar": "رسالة عمل واضحة",
+          "paragraphs": [
+            "At work, Noura writes many emails every week, and she has learned that a good email is short and clear. She always begins with a clear subject line so the recipient knows the topic at once — for example, 'Regarding: Field visit to the reserve — 12 May.'",
+            "This morning she needs to send an update about the oryx survey. She writes a polite request, asking a partner to confirm the number of animals before the deadline on Sunday, and she asks whether they can schedule a short call on Thursday. She attaches the data sheet so the recipient has everything in one place.",
+            "Noura ends the email in a friendly way. She adds an invitation to the team's awareness day and says she will follow up next week if she does not hear back. When she made a small mistake last month, she wrote a short note to apologize — a professional habit that keeps trust strong."
+          ]
+        },
+        "key_phrases": [
+          { "en": "I am writing to request the latest data.", "ar": "أكتب إليكم لطلب أحدث البيانات." },
+          { "en": "Please find the report attached.", "ar": "تجدون التقرير مُرفَقاً." },
+          { "en": "I would be grateful if you could confirm by Sunday.", "ar": "سأكون ممتنّةً لو أمكنكم التأكيد قبل يوم الأحد." },
+          { "en": "I apologize for the late reply.", "ar": "أعتذر عن تأخّر الرد." },
+          { "en": "I will follow up with you next week.", "ar": "سأتابع معكم الأسبوع القادم." },
+          { "en": "Please let me know if you have any questions.", "ar": "أعلموني إن كان لديكم أي أسئلة." }
+        ],
+        "comprehension": [
+          {
+            "question": "What does a clear subject line help the recipient know?",
+            "options": ["The topic of the email at once", "The writer's phone number", "The color of the report", "The name of the reserve only"],
+            "correct": "The topic of the email at once",
+            "explanation_ar": "سطر الموضوع الواضح يُخبر المستلِم بموضوع الرسالة فوراً."
+          },
+          {
+            "question": "What does Noura attach to the email?",
+            "options": ["A photo of herself", "The data sheet", "A map of the city", "Nothing at all"],
+            "correct": "The data sheet",
+            "explanation_ar": "أرفقت ورقة البيانات ليجد المستلِم كل شيء في مكان واحد."
+          },
+          {
+            "question": "What will Noura do if she does not get a reply?",
+            "options": ["Cancel the project", "Delete the email", "Follow up next week", "Change her job"],
+            "correct": "Follow up next week",
+            "explanation_ar": "قالت إنها ستتابع الأسبوع القادم إن لم يصلها رد."
+          },
+          {
+            "question": "Why did Noura write a note to apologize last month?",
+            "options": ["To ask for money", "To invite a partner", "To book a flight", "Because she made a mistake"],
+            "correct": "Because she made a mistake",
+            "explanation_ar": "اعتذرت لأنها ارتكبت خطأً صغيراً، وهي عادة مهنية تحافظ على الثقة."
+          },
+          {
+            "question": "When is the deadline for confirming the number of animals?",
+            "options": ["Sunday", "Monday", "There is no deadline", "Next year"],
+            "correct": "Sunday",
+            "explanation_ar": "الموعد النهائي للتأكيد هو يوم الأحد."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short work email (4–6 sentences) inviting a partner to visit your reserve. Include a clear subject line and a polite request.",
+          "prompt_ar": "اكتبي رسالة عمل قصيرة (٤–٦ جُمل) تدعين فيها شريكاً لزيارة محميتكِ. ضَعي سطر موضوع واضحاً وطلباً مهذّباً.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، وابدئي بتحية مهذّبة."
+        }
+      }
+    },
+    {
+      "slug": "presentations",
+      "sort_order": 2,
+      "title_en": "Giving Presentations",
+      "title_ar": "تقديم العروض",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "حين تقفين أمام شركاء أو زملاء لتقديم مشروعٍ أو محمية، فإن طريقة عرضكِ لا تقلّ أهمّيةً عن محتواه. في هذا الدرس ستتعلّمين كيف تفتتحين عرضكِ بثقة، وتبنينه بترتيب واضح، وتصفين الرسوم والبيانات، وتختمين بفكرةٍ تبقى في الأذهان. تذكّري أن العرض المُتقَن هو حديثٌ مُنظّم، لا مجرّد شرائح؛ فتحدّثي إلى جمهوركِ، لا إلى الشاشة.",
+        "vocab": [
+          { "word": "audience", "ipa": "/ˈɔːdiəns/", "meaning_ar": "الجمهور", "meaning_en": "the people watching or listening", "example": "She adjusted her talk to suit the audience." },
+          { "word": "slide", "ipa": "/slaɪd/", "meaning_ar": "شريحة العرض", "meaning_en": "a single page in a presentation", "example": "Each slide should show one clear idea." },
+          { "word": "outline", "ipa": "/ˈaʊtlaɪn/", "meaning_ar": "مُخطّط الحديث", "meaning_en": "a plan of the main points", "example": "She began by giving an outline of the talk." },
+          { "word": "highlight", "ipa": "/ˈhaɪlaɪt/", "meaning_ar": "يُبرِز نقطةً مهمّة", "meaning_en": "to draw attention to something important", "example": "The chart highlights the drop in poaching." },
+          { "word": "overview", "ipa": "/ˈoʊvərvjuː/", "meaning_ar": "نظرة عامة", "meaning_en": "a short, general description", "example": "Let me give you a brief overview of the project." },
+          { "word": "trend", "ipa": "/trɛnd/", "meaning_ar": "اتجاه عام", "meaning_en": "a general direction of change", "example": "The graph shows an upward trend in bird numbers." },
+          { "word": "emphasize", "ipa": "/ˈɛmfəsaɪz/", "meaning_ar": "يُشدّد على", "meaning_en": "to give special importance to", "example": "I want to emphasize how fragile the habitat is." },
+          { "word": "summarize", "ipa": "/ˈsʌməraɪz/", "meaning_ar": "يُلخّص", "meaning_en": "to give the main points briefly", "example": "To summarize, the reserve is recovering slowly." },
+          { "word": "handout", "ipa": "/ˈhændaʊt/", "meaning_ar": "نشرة موزّعة", "meaning_en": "printed material given to the audience", "example": "There is a handout with all the figures." },
+          { "word": "visual", "ipa": "/ˈvɪʒuəl/", "meaning_ar": "عنصر بصري", "meaning_en": "a picture, chart or image used to explain", "example": "A strong visual makes data easier to grasp." },
+          { "word": "takeaway", "ipa": "/ˈteɪkəweɪ/", "meaning_ar": "الفكرة المُستخلَصة", "meaning_en": "the main message people should remember", "example": "The key takeaway is that protection works." },
+          { "word": "rehearse", "ipa": "/rɪˈhɜːrs/", "meaning_ar": "يتمرّن", "meaning_en": "to practise before presenting", "example": "She rehearsed the talk twice before the meeting." }
+        ],
+        "reading": {
+          "title_en": "Presenting the Reserve",
+          "title_ar": "تقديم عرض عن المحمية",
+          "paragraphs": [
+            "When Noura presents her reserve project to partners, she knows the first minute matters most. She opens with a short overview and a clear outline, so the audience can follow the structure of her talk from the start. Rather than filling each slide with text, she keeps one idea per slide and lets a strong visual carry the message.",
+            "In the middle of the talk, she uses charts to describe the data. She highlights the upward trend in houbara numbers and emphasizes how fragile the habitat still is. Because some figures are complex, she prepares a handout so the audience can study them later without losing the thread of her argument.",
+            "Noura closes by returning to her main point. She summarizes the results in two sentences and leaves the room with a single takeaway: consistent protection changes outcomes. She always rehearses the ending, because a confident close is what people remember most."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Thank you all for coming. Let me give you a brief overview.", "ar": "شكراً لحضوركم جميعاً، دعوني أقدّم لكم نظرةً عامة موجزة." },
+          { "en": "As you can see on this slide…", "ar": "كما ترون في هذه الشريحة…" },
+          { "en": "I'd like to highlight one important trend.", "ar": "أودّ أن أُبرز اتجاهاً مهمّاً واحداً." },
+          { "en": "Let me emphasize this point before we move on.", "ar": "دعوني أُشدّد على هذه النقطة قبل أن ننتقل." },
+          { "en": "To summarize, we have three main findings.", "ar": "لأُلخّص، لدينا ثلاث نتائج رئيسية." },
+          { "en": "The key takeaway is simple: protection works.", "ar": "الفكرة المُستخلَصة بسيطة: الحماية تُجدي." }
+        ],
+        "comprehension": [
+          {
+            "question": "Why does Noura keep one idea per slide?",
+            "options": ["So a strong visual can carry the message", "So the talk lasts longer", "Because she has no data", "To confuse the audience"],
+            "correct": "So a strong visual can carry the message",
+            "explanation_ar": "تُبقي فكرةً واحدة في كل شريحة كي يحمل العنصر البصري القوي الرسالة بوضوح."
+          },
+          {
+            "question": "What does Noura give the audience to study the complex figures later?",
+            "options": ["A video", "A handout", "A new slide", "Her phone number"],
+            "correct": "A handout",
+            "explanation_ar": "تُجهّز نشرةً موزّعة كي يدرس الجمهور الأرقام المعقّدة لاحقاً."
+          },
+          {
+            "question": "What is the single takeaway of her presentation?",
+            "options": ["The reserve is closing", "Data is boring", "Consistent protection changes outcomes", "Slides need more text"],
+            "correct": "Consistent protection changes outcomes",
+            "explanation_ar": "الفكرة المُستخلَصة أنّ الحماية المستمرّة تُغيّر النتائج."
+          },
+          {
+            "question": "Which part of the talk does Noura always rehearse?",
+            "options": ["The introduction only", "The handout", "The audience questions", "The ending"],
+            "correct": "The ending",
+            "explanation_ar": "تتمرّن دائماً على الخاتمة لأن الإغلاق الواثق هو ما يتذكّره الناس."
+          },
+          {
+            "question": "How does she begin her presentation?",
+            "options": ["With a short overview and a clear outline", "With a long video", "By reading every figure aloud", "With no introduction"],
+            "correct": "With a short overview and a clear outline",
+            "explanation_ar": "تبدأ بنظرةٍ عامة موجزة ومُخطّط واضح ليتابع الجمهور بنية الحديث."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Prepare and record a 60-second opening for a presentation about a reserve or project you know. Give an overview and outline your three main points.",
+          "prompt_ar": "جهّزي وسجّلي افتتاحيةً مدّتها ٦٠ ثانية لعرضٍ عن محمية أو مشروع تعرفينه. قدّمي نظرة عامة واذكري نقاطكِ الرئيسية الثلاث.",
+          "guidance_ar": "استخدمي ثلاث عبارات على الأقل من عبارات الدرس، وتمرّني قبل التسجيل."
+        }
+      }
+    },
+    {
+      "slug": "advocacy",
+      "sort_order": 3,
+      "title_en": "The Language of Persuasion and Environmental Advocacy",
+      "title_ar": "لغة الإقناع والمناصرة البيئية",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "حماية الطبيعة لا تكفيها البيانات وحدها؛ فهي تحتاج إلى صوتٍ يُدافع عنها في الغرف التي تُصنع فيها القرارات. في هذا الدرس ستتعلّمين كيف تبنين حُجّةً مُقنعة، وتحوّلين الأرقام إلى قصّة عن الأثر، وتوجّهين نداءً واضحاً للتحرّك يصل إلى صنّاع القرار. تحدّثي بثقة، فالمناصرة الجيّدة تمنح الناس دوراً لا شعوراً بالذنب.",
+        "vocab": [
+          { "word": "advocate", "ipa": "/ˈædvəkeɪt/", "meaning_ar": "يُناصِر قضيّة", "meaning_en": "to speak publicly in support of a cause", "example": "She advocates for stronger protection of wetlands." },
+          { "word": "persuade", "ipa": "/pərˈsweɪd/", "meaning_ar": "يُقنع", "meaning_en": "to make someone agree by giving reasons", "example": "Good data can persuade decision-makers to act." },
+          { "word": "stakeholder", "ipa": "/ˈsteɪkˌhoʊldər/", "meaning_ar": "طرف معنيّ / صاحب مصلحة", "meaning_en": "a person or group affected by a decision", "example": "Every stakeholder should have a voice." },
+          { "word": "call to action", "ipa": "/ˌkɔːl tu ˈækʃən/", "meaning_ar": "دعوة للتحرّك", "meaning_en": "a clear request for people to do something", "example": "End your speech with a strong call to action." },
+          { "word": "urgent", "ipa": "/ˈɜːrdʒənt/", "meaning_ar": "عاجل / مُلحّ", "meaning_en": "needing attention very soon", "example": "The loss of coral reefs is an urgent problem." },
+          { "word": "impact", "ipa": "/ˈɪmpækt/", "meaning_ar": "أثر / تأثير", "meaning_en": "the effect one thing has on another", "example": "Plastic waste has a serious impact on marine life." },
+          { "word": "policy", "ipa": "/ˈpɒləsi/", "meaning_ar": "سياسة عامة", "meaning_en": "a plan or rule made by an authority", "example": "We need a clear policy on single-use plastic." },
+          { "word": "compelling", "ipa": "/kəmˈpɛlɪŋ/", "meaning_ar": "مُقنع بقوّة", "meaning_en": "so strong that it wins agreement", "example": "She made a compelling case for the new reserve." },
+          { "word": "sustainable", "ipa": "/səˈsteɪnəbəl/", "meaning_ar": "مُستدام", "meaning_en": "able to continue without harming nature", "example": "Tourism must be sustainable to protect the coast." },
+          { "word": "decision-maker", "ipa": "/dɪˈsɪʒən ˌmeɪkər/", "meaning_ar": "صانع القرار", "meaning_en": "a person with the power to decide", "example": "Reach the decision-makers with a clear message." },
+          { "word": "raise awareness", "ipa": "/ˌreɪz əˈwɛrnəs/", "meaning_ar": "يرفع الوعي", "meaning_en": "to help people understand an issue", "example": "Campaigns raise awareness about endangered species." },
+          { "word": "accountable", "ipa": "/əˈkaʊntəbəl/", "meaning_ar": "خاضع للمساءلة / مسؤول", "meaning_en": "required to explain and take responsibility", "example": "Companies must be held accountable for pollution." }
+        ],
+        "reading": {
+          "title_en": "Making the Case for Nature",
+          "title_ar": "بناء الحُجّة من أجل الطبيعة",
+          "paragraphs": [
+            "To protect a threatened habitat, good science is not enough on its own; someone has to advocate for it in the rooms where decisions are made. Noura has learned that to persuade a decision-maker, she must turn data into a story about impact — what is lost, who is affected, and why the problem is urgent.",
+            "She begins by naming every stakeholder: local communities, tourism operators, researchers, and future generations. She argues that protection and livelihoods are not enemies, because sustainable ecotourism can bring income while keeping the coast alive. A compelling case, she says, always answers the listener's real question: 'What does this mean for me?'",
+            "Noura also knows that awareness must lead somewhere. Every talk she gives ends with a clear call to action — a specific request, such as a new policy on single-use plastic or a promise to hold polluters accountable. She raises awareness not to make people feel guilty, but to give them a role. Change happens, she believes, when informed people are asked to do one concrete thing."
+          ]
+        },
+        "key_phrases": [
+          { "en": "We cannot afford to wait; this is an urgent issue.", "ar": "لا يمكننا الانتظار؛ هذه قضية عاجلة." },
+          { "en": "The evidence makes a compelling case for change.", "ar": "الأدلّة تبني حُجّةً مُقنعة للتغيير." },
+          { "en": "I urge you to consider the impact on future generations.", "ar": "أحثّكم على النظر في الأثر على الأجيال القادمة." },
+          { "en": "What we need is a clear policy, and we need it now.", "ar": "ما نحتاجه هو سياسة واضحة، ونحتاجها الآن." },
+          { "en": "Let me leave you with one call to action.", "ar": "دعوني أترككم بدعوةٍ واحدة للتحرّك." },
+          { "en": "Together, we can make ecotourism truly sustainable.", "ar": "معاً نستطيع أن نجعل السياحة البيئية مُستدامة بحق." }
+        ],
+        "comprehension": [
+          {
+            "question": "According to the passage, why is good science not enough on its own?",
+            "options": ["Because someone must advocate for it where decisions are made", "Because science is always wrong", "Because data cannot be measured", "Because habitats are not important"],
+            "correct": "Because someone must advocate for it where decisions are made",
+            "explanation_ar": "العِلم وحده لا يكفي؛ لا بدّ من مُناصِر يُدافع عنه حيث تُصنع القرارات."
+          },
+          {
+            "question": "How does Noura try to persuade a decision-maker?",
+            "options": ["By raising her voice", "By turning data into a story about impact", "By ignoring the data", "By promising money"],
+            "correct": "By turning data into a story about impact",
+            "explanation_ar": "تُقنع صانع القرار بتحويل البيانات إلى قصّة عن الأثر."
+          },
+          {
+            "question": "Why does she argue that protection and livelihoods are not enemies?",
+            "options": ["Because tourism is illegal", "Because nobody lives on the coast", "Because sustainable ecotourism can bring income while keeping the coast alive", "Because protection has no cost"],
+            "correct": "Because sustainable ecotourism can bring income while keeping the coast alive",
+            "explanation_ar": "لأن السياحة البيئية المُستدامة يمكن أن تُدرّ دخلاً مع الحفاظ على الساحل حيّاً."
+          },
+          {
+            "question": "How does every talk she gives end?",
+            "options": ["With a long silence", "With a list of names", "With a joke", "With a clear call to action"],
+            "correct": "With a clear call to action",
+            "explanation_ar": "تنتهي كل كلمةٍ لها بدعوةٍ واضحة للتحرّك."
+          },
+          {
+            "question": "Why does Noura raise awareness?",
+            "options": ["To give people a role, not to make them feel guilty", "To frighten the audience", "To sell tickets", "To end the meeting quickly"],
+            "correct": "To give people a role, not to make them feel guilty",
+            "explanation_ar": "ترفع الوعي كي تمنح الناس دوراً، لا كي تُشعرهم بالذنب."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short persuasive paragraph (5–7 sentences) urging a decision-maker to protect a habitat you care about. End with a clear call to action.",
+          "prompt_ar": "اكتبي فقرةً إقناعية قصيرة (٥–٧ جُمل) تحثّين فيها صانع قرار على حماية موطنٍ يهمّكِ. اختمي بدعوةٍ واضحة للتحرّك.",
+          "guidance_ar": "استخدمي أربع كلمات على الأقل من كلمات الدرس، واجعلي حجّتكِ مُقنعة ومبنيّة على الأثر."
+        }
+      }
+    }
+  ]
+}

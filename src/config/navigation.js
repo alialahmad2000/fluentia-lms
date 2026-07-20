@@ -8,7 +8,7 @@ import {
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
   MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
-  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu,
+  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf,
 } from 'lucide-react'
 
 
@@ -406,6 +406,28 @@ function injectBizTrack(nav) {
   return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
 }
 
+// A student granted the Environment Track (students.uses_env_track) gets «مسار البيئة»
+// injected right after «الرئيسية» — same pattern as Tech/Biz (wildlife, environment &
+// ecotourism English alongside the normal curriculum, nothing replaced).
+const ENV_TRACK_ITEM = { id: 'env-track', label: 'مسار البيئة', icon: Leaf, to: '/env' }
+function injectEnvTrack(nav) {
+  const addTo = (list) => {
+    if (!Array.isArray(list)) return list
+    return list.map((sec) => {
+      if (sec.id !== 'journey' || !Array.isArray(sec.items)) return sec
+      const items = []
+      let inserted = false
+      for (const it of sec.items) {
+        items.push(it)
+        if (!inserted && it && it.id === 'dashboard') { items.push(ENV_TRACK_ITEM); inserted = true }
+      }
+      if (!inserted) items.push(ENV_TRACK_ITEM)
+      return { ...sec, items }
+    })
+  }
+  return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
+}
+
 /** Account-aware nav: individual (1-on-1) students get INDIVIDUAL_NAV.
     Students with an extra-curriculum-level grant get per-level sidebar items.
     Students with the Tech Track flag get «مسار التقنية» injected (composes with the above).
@@ -435,6 +457,7 @@ export function getNavForUser(role, studentData) {
     if (levelItems) nav = injectLevelNav(nav, levelItems)
     if (studentData?.uses_tech_track === true) nav = injectTechTrack(nav)
     if (studentData?.uses_biz_track === true) nav = injectBizTrack(nav)
+    if (studentData?.uses_env_track === true) nav = injectEnvTrack(nav)
     return gateSentenceBuilder(nav, studentData)
   }
   return getNavForRole(role)

@@ -1,0 +1,249 @@
+{
+  "stage": {
+    "slug": "conservation",
+    "sort_order": 4,
+    "title_en": "Conservation",
+    "title_ar": "حماية البيئة والمحافظة",
+    "subtitle_ar": "تعلّمي كيف تحمين الطبيعة وكائناتها، وتصفين الأنواع المهدَّدة بالانقراض وتهديدات البيئة وحلولها بلغة إنجليزية واضحة ومهنية.",
+    "cefr": "B1",
+    "accent": "#059669",
+    "icon": "ShieldCheck"
+  },
+  "lessons": [
+    {
+      "slug": "protecting-nature",
+      "sort_order": 1,
+      "title_en": "Protecting Nature and Wildlife",
+      "title_ar": "حماية الطبيعة والكائنات",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "في عملكِ بالمركز الوطني لتنمية الحياة الفطرية، حماية الطبيعة هي قلب ما تقومين به كل يوم. في هذا الدرس ستتعلّمين كلمات الإنجليزية الأساسية عن المحميات وحماية الكائنات، حتى تشرحيها بثقة للزوّار والشركاء. سنتدرّب على الحديث عن الحماية بجُمل بسيطة وواضحة.",
+        "vocab": [
+          { "word": "protect", "ipa": "/prəˈtekt/", "meaning_ar": "يحمي", "meaning_en": "to keep something safe from harm", "example": "We protect wild animals in the reserve." },
+          { "word": "reserve", "ipa": "/rɪˈzɜːrv/", "meaning_ar": "محمية طبيعية", "meaning_en": "a protected area for wildlife", "example": "The Arabian oryx lives in a reserve." },
+          { "word": "protected area", "ipa": "/prəˈtektɪd ˈeəriə/", "meaning_ar": "منطقة محميّة", "meaning_en": "a place where nature is kept safe", "example": "This protected area is very large." },
+          { "word": "wildlife", "ipa": "/ˈwaɪldlaɪf/", "meaning_ar": "الحياة الفطرية", "meaning_en": "wild animals and plants", "example": "Saudi Arabia has beautiful wildlife." },
+          { "word": "nature", "ipa": "/ˈneɪtʃər/", "meaning_ar": "الطبيعة", "meaning_en": "the natural world of plants, animals, and land", "example": "We must take care of nature." },
+          { "word": "ranger", "ipa": "/ˈreɪndʒər/", "meaning_ar": "حارس المحمية", "meaning_en": "a person who protects a reserve", "example": "The ranger checks the reserve every day." },
+          { "word": "safe", "ipa": "/seɪf/", "meaning_ar": "آمن", "meaning_en": "not in danger", "example": "The animals are safe here." },
+          { "word": "rule", "ipa": "/ruːl/", "meaning_ar": "قاعدة", "meaning_en": "something you must do or must not do", "example": "Every reserve has rules for visitors." },
+          { "word": "plant", "ipa": "/plɑːnt/", "meaning_ar": "نبات", "meaning_en": "a living thing that grows in the ground", "example": "Please do not pick the plants." },
+          { "word": "fence", "ipa": "/fens/", "meaning_ar": "سياج", "meaning_en": "a barrier around an area", "example": "A fence keeps the oryx inside the reserve." },
+          { "word": "litter", "ipa": "/ˈlɪtər/", "meaning_ar": "نفايات / قمامة", "meaning_en": "rubbish left on the ground", "example": "Do not leave litter in the reserve." }
+        ],
+        "reading": {
+          "title_en": "Keeping the Reserve Safe",
+          "title_ar": "الحفاظ على أمان المحمية",
+          "paragraphs": [
+            "A reserve is a protected area for wildlife. In Saudi Arabia, many reserves keep animals and plants safe. The Arabian oryx, the gazelle, and many birds live in these places. At the National Center for Wildlife, we protect nature every day.",
+            "A ranger works in the reserve. The ranger drives around and checks that the animals are safe. Sometimes a fence keeps the oryx inside the protected area. The ranger also cares for the land and the plants.",
+            "Every reserve has rules, and visitors must follow them. Please do not leave litter on the ground. Please do not pick the plants or feed the animals. These simple rules help us protect the wildlife. When we all care for nature, the reserve stays clean and safe for the future."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This is a protected area for wildlife.", "ar": "هذه منطقة محميّة للحياة الفطرية." },
+          { "en": "Please follow the rules of the reserve.", "ar": "من فضلكم اتّبعوا قواعد المحمية." },
+          { "en": "Please do not leave any litter.", "ar": "من فضلكم لا تتركوا أي نفايات." },
+          { "en": "We protect the animals and plants here.", "ar": "نحن نحمي الحيوانات والنباتات هنا." },
+          { "en": "The ranger keeps the reserve safe.", "ar": "حارس المحمية يحافظ على أمانها." }
+        ],
+        "comprehension": [
+          {
+            "question": "What is a reserve?",
+            "options": ["A busy city street", "A protected area for wildlife", "A type of car", "A kind of food"],
+            "correct": "A protected area for wildlife",
+            "explanation_ar": "المحمية منطقة محميّة تعيش فيها الكائنات الفطرية بأمان."
+          },
+          {
+            "question": "What does a ranger do?",
+            "options": ["Sells food to visitors", "Builds new roads", "Checks that the animals are safe", "Teaches at a school"],
+            "correct": "Checks that the animals are safe",
+            "explanation_ar": "حارس المحمية يتفقّدها ويتأكّد أن الحيوانات بأمان."
+          },
+          {
+            "question": "What keeps the oryx inside the protected area?",
+            "options": ["A fence", "A river", "A phone", "A cloud"],
+            "correct": "A fence",
+            "explanation_ar": "السياج يُبقي المها العربي داخل المنطقة المحميّة."
+          },
+          {
+            "question": "What should visitors NOT do in the reserve?",
+            "options": ["Follow the rules", "Look at the birds", "Leave litter on the ground", "Stay on the path"],
+            "correct": "Leave litter on the ground",
+            "explanation_ar": "على الزوّار ألّا يتركوا النفايات؛ فهي تضرّ بالطبيعة والكائنات."
+          },
+          {
+            "question": "Why do we have rules in a reserve?",
+            "options": ["To sell tickets", "To help protect the wildlife", "To make noise", "To build houses"],
+            "correct": "To help protect the wildlife",
+            "explanation_ar": "القواعد تساعد على حماية الحياة الفطرية وإبقاء المحمية نظيفة وآمنة."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about a reserve you protect. What animals live there? What do the rules ask visitors to do?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن محميّة تعملين على حمايتها. ما الحيوانات التي تعيش فيها؟ وما القواعد التي يجب أن يتّبعها الزوّار؟",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: reserve، protect، ranger، rule."
+        }
+      }
+    },
+    {
+      "slug": "endangered-species",
+      "sort_order": 2,
+      "title_en": "Endangered Species",
+      "title_ar": "الأنواع المهدَّدة بالانقراض",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "يعرف العاملون في مجال الحياة الفطرية أن بعض الأنواع أصبحت مهدَّدة بالانقراض، وأن إنقاذها مسؤولية كبيرة. في هذا الدرس ستتعرّفين على مفردات الإنجليزية التي تصف الأنواع المهدَّدة وجهود إعادة التوطين، من خلال قصّة المها العربي الحقيقية. ستتمكّنين من شرح هذه المفاهيم للزوّار والشركاء بلغة واضحة ومهنية.",
+        "vocab": [
+          { "word": "species", "ipa": "/ˈspiːʃiːz/", "meaning_ar": "نوع / فصيلة", "meaning_en": "a group of animals or plants of the same kind", "example": "The Arabian oryx is a desert species." },
+          { "word": "endangered", "ipa": "/ɪnˈdeɪndʒəd/", "meaning_ar": "مهدَّد بالانقراض", "meaning_en": "at risk of disappearing forever", "example": "Many endangered species need our help." },
+          { "word": "extinct", "ipa": "/ɪkˈstɪŋkt/", "meaning_ar": "منقرض", "meaning_en": "no longer existing anywhere", "example": "The dodo bird is extinct." },
+          { "word": "extinction", "ipa": "/ɪkˈstɪŋkʃən/", "meaning_ar": "الانقراض", "meaning_en": "when a species disappears completely", "example": "We are working to prevent extinction." },
+          { "word": "reintroduce", "ipa": "/ˌriːɪntrəˈdjuːs/", "meaning_ar": "يُعيد التوطين", "meaning_en": "to bring a species back to the wild", "example": "The oryx was reintroduced into the desert." },
+          { "word": "reintroduction", "ipa": "/ˌriːɪntrəˈdʌkʃən/", "meaning_ar": "إعادة التوطين", "meaning_en": "bringing a species back to its habitat", "example": "The reintroduction of the oryx was a success." },
+          { "word": "captivity", "ipa": "/kæpˈtɪvəti/", "meaning_ar": "الأَسْر", "meaning_en": "being kept by people, not in the wild", "example": "The animals were kept in captivity." },
+          { "word": "breed", "ipa": "/briːd/", "meaning_ar": "يُربّي / يتكاثر", "meaning_en": "to produce young animals", "example": "Centres breed rare animals to save them." },
+          { "word": "population", "ipa": "/ˌpɒpjuˈleɪʃən/", "meaning_ar": "التعداد / الجمهرة", "meaning_en": "the number of one species in an area", "example": "The oryx population is slowly growing." },
+          { "word": "survive", "ipa": "/səˈvaɪv/", "meaning_ar": "يبقى على قيد الحياة / ينجو", "meaning_en": "to stay alive", "example": "Few oryx survived in the 1970s." },
+          { "word": "recover", "ipa": "/rɪˈkʌvər/", "meaning_ar": "يتعافى", "meaning_en": "to become strong again after a decline", "example": "The species is beginning to recover." },
+          { "word": "threatened", "ipa": "/ˈθretənd/", "meaning_ar": "مُهدَّد", "meaning_en": "likely to become endangered soon", "example": "The houbara bustard is a threatened bird." }
+        ],
+        "reading": {
+          "title_en": "The Return of the Arabian Oryx",
+          "title_ar": "عودة المها العربي",
+          "paragraphs": [
+            "The Arabian oryx is one of the most famous species in the desert. For thousands of years, it survived in the sands of the Arabian Peninsula. However, by the 1970s, too much hunting had pushed this animal to the edge. The last wild oryx were killed, and the species became extinct in the wild.",
+            "Although the oryx had disappeared from the desert, a small number still lived in captivity. Scientists decided to breed these animals carefully in zoos and special centres. Over many years, the population slowly grew. When enough healthy animals were ready, experts began the reintroduction of the oryx into protected reserves.",
+            "Today, the Arabian oryx has been reintroduced across Saudi Arabia and other countries in the region. The population continues to recover, and the species is no longer listed as extinct in the wild. This story shows that extinction is not always the end. With patient work, an endangered species can survive and return home. Other threatened animals, such as the houbara bustard, are now protected in the same way, so that future generations can see them in the wild."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This species was once extinct in the wild.", "ar": "كان هذا النوع منقرضًا في البرّية من قبل." },
+          { "en": "The oryx has been reintroduced into the reserve.", "ar": "أُعيد توطين المها العربي في المحمية." },
+          { "en": "The population is slowly recovering.", "ar": "يتعافى التعداد ببطء." },
+          { "en": "We breed endangered animals to save them.", "ar": "نُربّي الحيوانات المهدَّدة بالانقراض لإنقاذها." },
+          { "en": "Hunting pushed this species close to extinction.", "ar": "دفع الصيد هذا النوع إلى حافة الانقراض." },
+          { "en": "These animals are now protected by law.", "ar": "هذه الحيوانات محميّة الآن بموجب القانون." }
+        ],
+        "comprehension": [
+          {
+            "question": "What happened to the Arabian oryx by the 1970s?",
+            "options": ["It became extinct in the wild", "It moved to the city", "Its population doubled", "It learned to fly"],
+            "correct": "It became extinct in the wild",
+            "explanation_ar": "بحلول السبعينيات أدّى الصيد الجائر إلى انقراض المها العربي في البرّية."
+          },
+          {
+            "question": "How did scientists save the oryx?",
+            "options": ["They built new roads", "They bred animals kept in captivity", "They stopped all visitors", "They moved them to Europe"],
+            "correct": "They bred animals kept in captivity",
+            "explanation_ar": "ربّى العلماء المها الذي بقي في الأَسْر حتى نما تعداده."
+          },
+          {
+            "question": "What does 'reintroduction' mean here?",
+            "options": ["Meeting someone again", "Building a zoo", "Bringing a species back to the wild", "Writing a report"],
+            "correct": "Bringing a species back to the wild",
+            "explanation_ar": "إعادة التوطين تعني إرجاع النوع إلى بيئته البرّية."
+          },
+          {
+            "question": "What is the oryx population doing today?",
+            "options": ["Disappearing again", "Staying the same forever", "Leaving Saudi Arabia", "Continuing to recover"],
+            "correct": "Continuing to recover",
+            "explanation_ar": "ما زال تعداد المها العربي يتعافى ويزداد تدريجيًا."
+          },
+          {
+            "question": "What is the main message of the story?",
+            "options": ["Extinction is not always the end", "Deserts are dangerous", "Zoos are better than reserves", "Hunting is good for nature"],
+            "correct": "Extinction is not always the end",
+            "explanation_ar": "الرسالة أن الانقراض ليس دائمًا النهاية؛ فالجهود الصبورة قد تُعيد النوع إلى بيئته."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Tell the story of an endangered species you know. Why was it in danger, and what is being done to save it?",
+          "prompt_ar": "احكي قصّة نوع مهدَّد بالانقراض تعرفينه. لماذا أصبح في خطر؟ وما الذي يُبذل لإنقاذه؟",
+          "guidance_ar": "تحدّثي لمدّة دقيقة تقريبًا، واستخدمي كلمات مثل: species، endangered، reintroduce، population."
+        }
+      }
+    },
+    {
+      "slug": "threats-and-solutions",
+      "sort_order": 3,
+      "title_en": "Threats and Solutions",
+      "title_ar": "التهديدات والحلول",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "تواجه الطبيعة اليوم تهديدات عديدة، من فقدان الموائل والصيد الجائر إلى التلوّث وتغيّر المناخ. في هذا الدرس ستتعلّمين كيف تصفين هذه التهديدات وحلولها بالإنجليزية، لتوظّفيها في تقاريركِ ولقاءاتكِ مع الشركاء. سنربط كل مشكلة بحلٍّ عملي يعزّز جهود الحماية.",
+        "vocab": [
+          { "word": "threat", "ipa": "/θret/", "meaning_ar": "تهديد / خطر", "meaning_en": "something that can cause harm", "example": "Pollution is a serious threat to wildlife." },
+          { "word": "habitat loss", "ipa": "/ˈhæbɪtæt lɒs/", "meaning_ar": "فقدان الموائل", "meaning_en": "the destruction of natural homes", "example": "Habitat loss is the biggest problem for many species." },
+          { "word": "overhunting", "ipa": "/ˌəʊvəˈhʌntɪŋ/", "meaning_ar": "الصيد الجائر", "meaning_en": "hunting too many animals", "example": "Overhunting almost destroyed the oryx." },
+          { "word": "pollution", "ipa": "/pəˈluːʃən/", "meaning_ar": "التلوّث", "meaning_en": "harmful materials in the air, water, or land", "example": "Plastic pollution harms sea animals." },
+          { "word": "climate change", "ipa": "/ˈklaɪmət tʃeɪndʒ/", "meaning_ar": "تغيّر المناخ", "meaning_en": "long-term changes in weather patterns", "example": "Climate change is warming the desert." },
+          { "word": "overgrazing", "ipa": "/ˌəʊvəˈɡreɪzɪŋ/", "meaning_ar": "الرعي الجائر", "meaning_en": "when too many animals eat the plants", "example": "Overgrazing removes the plants that hold the soil." },
+          { "word": "solution", "ipa": "/səˈluːʃən/", "meaning_ar": "حلّ", "meaning_en": "a way to solve a problem", "example": "We need a solution to protect the reefs." },
+          { "word": "restore", "ipa": "/rɪˈstɔːr/", "meaning_ar": "يستعيد / يُصلِح", "meaning_en": "to return something to its natural state", "example": "We are working to restore the mangroves." },
+          { "word": "reduce", "ipa": "/rɪˈdjuːs/", "meaning_ar": "يُقلّل", "meaning_en": "to make smaller in amount", "example": "We must reduce pollution." },
+          { "word": "awareness", "ipa": "/əˈweənəs/", "meaning_ar": "الوعي", "meaning_en": "knowledge and understanding of a problem", "example": "Public awareness helps protect nature." },
+          { "word": "sustainable", "ipa": "/səˈsteɪnəbl/", "meaning_ar": "مستدام", "meaning_en": "able to continue without harming nature", "example": "We promote sustainable tourism." },
+          { "word": "law", "ipa": "/lɔː/", "meaning_ar": "قانون", "meaning_en": "a rule made by the government", "example": "New laws protect endangered species." }
+        ],
+        "reading": {
+          "title_en": "Threats and Solutions",
+          "title_ar": "التهديدات والحلول",
+          "paragraphs": [
+            "Wildlife faces many threats today. One of the biggest is habitat loss, which happens when natural homes are destroyed. In the past, overhunting also reduced many populations, and overgrazing removed the plants that protect the soil. At the same time, pollution damages the air, the water, and the land.",
+            "Climate change is another serious threat. As the desert becomes hotter and drier, some species find it harder to survive. Along the Red Sea, warmer water can harm the coral reefs, and plastic pollution puts sea animals in danger. These problems are connected, so they must be solved together.",
+            "Fortunately, every threat has a solution. Strong laws now protect endangered species and stop overhunting. Teams work to restore damaged habitats, such as the mangroves along the coast. We also try to reduce pollution and promote sustainable tourism. Above all, public awareness is powerful: when people understand the value of nature, they help to protect it. Together, these solutions give wildlife a real chance to recover."
+          ]
+        },
+        "key_phrases": [
+          { "en": "The biggest threat is habitat loss.", "ar": "أكبر تهديد هو فقدان الموائل." },
+          { "en": "New laws now protect endangered species.", "ar": "تحمي القوانين الجديدة الآن الأنواع المهدَّدة بالانقراض." },
+          { "en": "We are working to restore the habitat.", "ar": "نعمل على استعادة الموئل." },
+          { "en": "We must reduce pollution to protect wildlife.", "ar": "علينا تقليل التلوّث لحماية الحياة الفطرية." },
+          { "en": "Public awareness helps solve the problem.", "ar": "الوعي العام يساعد على حلّ المشكلة." },
+          { "en": "Every threat has a solution.", "ar": "لكلّ تهديد حلّ." }
+        ],
+        "comprehension": [
+          {
+            "question": "What is one of the biggest threats to wildlife?",
+            "options": ["Habitat loss", "Too many reserves", "Clean water", "Public awareness"],
+            "correct": "Habitat loss",
+            "explanation_ar": "فقدان الموائل من أكبر التهديدات؛ إذ تُدمَّر بيوت الكائنات الطبيعية."
+          },
+          {
+            "question": "How can climate change harm coral reefs?",
+            "options": ["By adding more fish", "Through warmer water", "By cleaning the sea", "With stronger laws"],
+            "correct": "Through warmer water",
+            "explanation_ar": "يؤدّي تغيّر المناخ إلى ارتفاع حرارة الماء، ممّا يضرّ بالشعاب المرجانية."
+          },
+          {
+            "question": "According to the reading, what do strong laws do?",
+            "options": ["Increase pollution", "Remove the plants", "Protect endangered species and stop overhunting", "Warm the desert"],
+            "correct": "Protect endangered species and stop overhunting",
+            "explanation_ar": "القوانين القوية تحمي الأنواع المهدَّدة وتوقف الصيد الجائر."
+          },
+          {
+            "question": "Why is public awareness important?",
+            "options": ["It makes the desert hotter", "It causes habitat loss", "It replaces the rangers", "When people understand nature, they help protect it"],
+            "correct": "When people understand nature, they help protect it",
+            "explanation_ar": "حين يفهم الناس قيمة الطبيعة يشاركون في حمايتها؛ لذلك الوعي مؤثّر."
+          },
+          {
+            "question": "What does 'restore' mean in the reading?",
+            "options": ["To sell something", "To return a habitat to its natural state", "To hunt animals", "To build a road"],
+            "correct": "To return a habitat to its natural state",
+            "explanation_ar": "الاستعادة (restore) تعني إرجاع الموئل إلى حالته الطبيعية، مثل استعادة أشجار القُرم."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Choose one threat to wildlife (for example pollution or climate change). Write 4–5 sentences about the problem and one solution.",
+          "prompt_ar": "اختاري تهديدًا واحدًا للحياة الفطرية (مثل التلوّث أو تغيّر المناخ). اكتبي ٤–٥ جُمل عن المشكلة وحلٍّ واحد لها.",
+          "guidance_ar": "استخدمي ٤ كلمات على الأقل من كلمات الدرس، مثل: threat، pollution، solution، reduce."
+        }
+      }
+    }
+  ]
+}

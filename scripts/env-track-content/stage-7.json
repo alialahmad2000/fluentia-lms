@@ -1,0 +1,264 @@
+{
+  "stage": {
+    "slug": "data-and-reports",
+    "sort_order": 7,
+    "title_en": "Data & Reports",
+    "title_ar": "البيانات والتقارير",
+    "subtitle_ar": "حوّلي عملكِ الميداني إلى بياناتٍ دقيقة، وأرقامٍ واضحة، وتقاريرَ مهنية تصنع فرقاً حقيقياً في حماية الحياة الفطرية.",
+    "cefr": "B1",
+    "accent": "#fbbf24",
+    "icon": "ClipboardList"
+  },
+  "lessons": [
+    {
+      "slug": "collecting-data",
+      "sort_order": 1,
+      "title_en": "Collecting Data",
+      "title_ar": "جمع البيانات",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "كل قرارٍ في حماية الحياة الفطرية يبدأ من بياناتٍ جيّدة. في هذا الدرس ستتعلّمين لغة جمع البيانات في الميدان بالإنجليزية: المسوحات، والإحصاءات، والعيّنات، وتدوين الملاحظات. عباراتٌ بسيطة تجعل تسجيل عملكِ اليومي أوضحَ وأدقّ.",
+        "vocab": [
+          { "word": "data", "ipa": "/ˈdeɪtə/", "meaning_ar": "البيانات", "meaning_en": "facts and numbers collected for study", "example": "We collect data during every field survey." },
+          { "word": "survey", "ipa": "/ˈsɜːrveɪ/", "meaning_ar": "مسح ميداني", "meaning_en": "a careful count or study of an area", "example": "The team carried out a survey of the reserve." },
+          { "word": "count", "ipa": "/kaʊnt/", "meaning_ar": "عدّ / إحصاء", "meaning_en": "the number of animals or plants recorded", "example": "The count showed forty oryx in the valley." },
+          { "word": "sample", "ipa": "/ˈsæmpəl/", "meaning_ar": "عيّنة", "meaning_en": "a small part used to represent the whole", "example": "She took a soil sample near the water." },
+          { "word": "record", "ipa": "/rɪˈkɔːrd/", "meaning_ar": "يُسجّل / تدوين", "meaning_en": "to write down information", "example": "Please record the time of each sighting." },
+          { "word": "observation", "ipa": "/ˌɒbzərˈveɪʃən/", "meaning_ar": "ملاحظة / رصد", "meaning_en": "something you notice and note down", "example": "Every observation goes into the notebook." },
+          { "word": "fieldwork", "ipa": "/ˈfiːldwɜːrk/", "meaning_ar": "العمل الميداني", "meaning_en": "work done outdoors, not in an office", "example": "We spend three days a week doing fieldwork." },
+          { "word": "accurate", "ipa": "/ˈækjərət/", "meaning_ar": "دقيق", "meaning_en": "correct and exact", "example": "Accurate data helps us protect species." },
+          { "word": "transect", "ipa": "/ˈtrænsekt/", "meaning_ar": "مسار مسح ثابت (ترانسِكت)", "meaning_en": "a fixed line walked to count wildlife", "example": "We walked the same transect at dawn." },
+          { "word": "dataset", "ipa": "/ˈdeɪtəset/", "meaning_ar": "مجموعة بيانات", "meaning_en": "a collected group of data", "example": "The dataset covers three years of counts." },
+          { "word": "logbook", "ipa": "/ˈlɒɡbʊk/", "meaning_ar": "سجلّ ميداني", "meaning_en": "a book for daily field records", "example": "The logbook holds every day's observations." }
+        ],
+        "reading": {
+          "title_en": "A Morning of Fieldwork",
+          "title_ar": "صباحٌ في الميدان",
+          "paragraphs": [
+            "Every wildlife project begins with good data. At the National Center for Wildlife, a team starts its fieldwork before sunrise, when animals are most active. The first task is a survey of the reserve. The rangers walk a fixed line called a transect and count every animal they see. They record the species, the number, and the exact time of each observation.",
+            "Nadia leads the count today. She writes each sighting in her logbook and takes a small sample of plants near the water. Later, she will add every note to the project's dataset on the computer. A clean dataset makes the next report much easier to write.",
+            "Accurate work matters. If the count is wrong, the whole study is wrong, and managers may make poor decisions about the reserve. So the team checks the numbers twice and compares notes before they leave the field. Good observation and careful records are the base of every good decision.",
+            "By nine o'clock, the survey is finished. The team has counted thirty-eight oryx and recorded twelve bird species. It is only a small sample of one morning, but over many months these counts build a clear picture of how the wildlife is doing."
+          ]
+        },
+        "key_phrases": [
+          { "en": "We recorded 38 animals during the survey.", "ar": "سجّلنا ٣٨ حيواناً خلال المسح." },
+          { "en": "The count took place at dawn.", "ar": "جرى الإحصاء عند الفجر." },
+          { "en": "We took a sample near the water.", "ar": "أخذنا عيّنة قرب الماء." },
+          { "en": "Each observation is written in the logbook.", "ar": "تُدوَّن كل ملاحظة في السجلّ الميداني." },
+          { "en": "The data was collected along a fixed transect.", "ar": "جُمِعت البيانات على مسار مسحٍ ثابت." },
+          { "en": "Please make sure the numbers are accurate.", "ar": "تأكّدي من أن الأرقام دقيقة." }
+        ],
+        "comprehension": [
+          {
+            "question": "What is a transect?",
+            "options": ["A fixed line walked to count wildlife", "A type of soil sample", "A computer program", "A bird species"],
+            "correct": "A fixed line walked to count wildlife",
+            "explanation_ar": "الترانسِكت مسارٌ ثابت تسير عليه لتَعُدّي الكائنات، فتُقارَن الأعداد على نفس الخط في كل مرة."
+          },
+          {
+            "question": "Why does the team start fieldwork before sunrise?",
+            "options": ["Because the office is closed", "Because animals are most active then", "Because it is cooler for the computer", "Because visitors arrive early"],
+            "correct": "Because animals are most active then",
+            "explanation_ar": "يبدأ الفريق قبل الشروق لأن الحيوانات تكون أكثر نشاطاً في ذلك الوقت، فيسهل رصدها وعدّها."
+          },
+          {
+            "question": "Where does Nadia write each sighting?",
+            "options": ["On the computer only", "In a visitor's book", "In her logbook", "On a photograph"],
+            "correct": "In her logbook",
+            "explanation_ar": "تدوّن نادية كل مشاهدة في السجلّ الميداني (logbook) أولاً، ثم تنقلها لاحقاً إلى مجموعة البيانات."
+          },
+          {
+            "question": "Why does accurate data matter?",
+            "options": ["It makes the report longer", "It looks nicer on the screen", "It uses less paper", "Wrong data can lead to poor decisions"],
+            "correct": "Wrong data can lead to poor decisions",
+            "explanation_ar": "البيانات الدقيقة مهمّة لأن الأرقام الخاطئة قد تقود المسؤولين إلى قراراتٍ سيّئة بشأن المحمية."
+          },
+          {
+            "question": "What does the team do before leaving the field?",
+            "options": ["They check the numbers twice and compare notes", "They delete the logbook", "They go straight to the office", "They stop counting birds"],
+            "correct": "They check the numbers twice and compare notes",
+            "explanation_ar": "قبل مغادرة الميدان يراجع الفريق الأرقام مرّتين ويقارنون ملاحظاتهم لضمان دقّة البيانات."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Describe a morning of fieldwork. Write 4–5 sentences about how you collect and record data.",
+          "prompt_ar": "صِفي صباحاً من العمل الميداني. اكتبي ٤–٥ جُمل عن كيف تجمعين البيانات وتسجّلينها.",
+          "guidance_ar": "استخدمي أربع كلمات على الأقل من كلمات الدرس مثل survey و count و record و data."
+        }
+      }
+    },
+    {
+      "slug": "describing-trends",
+      "sort_order": 2,
+      "title_en": "Describing Trends & Numbers",
+      "title_ar": "وصف الاتجاهات والأرقام",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الأرقام تروي قصة النوع؛ فهل تعداد المها يرتفع أم ينخفض؟ في هذا الدرس ستتقنين وصف الاتجاهات والأرقام بالإنجليزية: الزيادة والنقصان، والارتفاع والانخفاض، والنسب المئوية. ستتمكّنين من قول جملةٍ مثل «زاد عدد المها بنسبة عشرين بالمئة» بثقة.",
+        "vocab": [
+          { "word": "increase", "ipa": "/ɪnˈkriːs/", "meaning_ar": "يزداد / زيادة", "meaning_en": "to become larger in number", "example": "The oryx population increased last year." },
+          { "word": "decrease", "ipa": "/dɪˈkriːs/", "meaning_ar": "يتناقص / نقصان", "meaning_en": "to become smaller in number", "example": "The number of hunters decreased after the ban." },
+          { "word": "rise", "ipa": "/raɪz/", "meaning_ar": "يرتفع / ارتفاع", "meaning_en": "to go up", "example": "Bird numbers rose during the wet season." },
+          { "word": "fall", "ipa": "/fɔːl/", "meaning_ar": "ينخفض / انخفاض", "meaning_en": "to go down", "example": "Water levels fell in the summer." },
+          { "word": "trend", "ipa": "/trend/", "meaning_ar": "اتّجاه", "meaning_en": "the general direction of change over time", "example": "The trend shows a slow recovery." },
+          { "word": "percentage", "ipa": "/pərˈsentɪdʒ/", "meaning_ar": "نسبة مئوية", "meaning_en": "a part of a whole out of 100", "example": "The percentage of nesting birds grew by ten." },
+          { "word": "population", "ipa": "/ˌpɒpjəˈleɪʃən/", "meaning_ar": "التعداد / أعداد النوع", "meaning_en": "all the animals of one species in an area", "example": "The gazelle population is stable now." },
+          { "word": "grow", "ipa": "/ɡroʊ/", "meaning_ar": "ينمو / نما (grew)", "meaning_en": "to increase in size or number", "example": "The herd grew from fifty to eighty." },
+          { "word": "decline", "ipa": "/dɪˈklaɪn/", "meaning_ar": "يتراجع / تراجع", "meaning_en": "a steady fall over time", "example": "Coral reefs are in decline in warm water." },
+          { "word": "stable", "ipa": "/ˈsteɪbəl/", "meaning_ar": "مستقرّ", "meaning_en": "not changing much", "example": "The numbers stayed stable for three years." },
+          { "word": "compared to", "ipa": "/kəmˈpeərd tuː/", "meaning_ar": "مقارنةً بـ", "meaning_en": "measured against something else", "example": "Numbers are higher compared to last year." },
+          { "word": "double", "ipa": "/ˈdʌbəl/", "meaning_ar": "يتضاعف / الضِّعف", "meaning_en": "to become twice as many", "example": "The count almost doubled in five years." }
+        ],
+        "reading": {
+          "title_en": "Reading the Numbers",
+          "title_ar": "قراءة الأرقام",
+          "paragraphs": [
+            "Numbers tell the story of a species. When we study wildlife, we do not just count once; we count every year and look at the trend over time. A trend can go up or down, and each direction means something different for the reserve.",
+            "Take the Arabian oryx. Fifty years ago the wild population fell to zero because of hunting. After a strong reintroduction programme, the numbers began to rise. Today the population has grown from a few animals to more than a thousand. Compared to the 1970s, that is a huge increase.",
+            "Not every story is good news. The number of some birds has decreased, and a few species are still in decline. When a population falls year after year, managers must act quickly. When it stays stable, they can watch and wait.",
+            "We often describe change with percentages. We might say that nesting birds increased by fifteen percent, or that water use decreased by a quarter. Sometimes a healthy population can even double in a few years. Clear numbers and a clear trend help everyone — rangers, managers, and partners — understand what is really happening in nature, and decide what to do next."
+          ]
+        },
+        "key_phrases": [
+          { "en": "The number of oryx increased by 20 percent.", "ar": "زاد عدد المها بنسبة ٢٠ بالمئة." },
+          { "en": "The population rose from 50 to 80.", "ar": "ارتفع التعداد من ٥٠ إلى ٨٠." },
+          { "en": "Compared to last year, numbers are higher.", "ar": "مقارنةً بالعام الماضي، الأعداد أعلى." },
+          { "en": "The trend shows a steady decline.", "ar": "يُظهر الاتّجاه تراجعاً مستمرّاً." },
+          { "en": "The numbers stayed stable over three years.", "ar": "بقيت الأعداد مستقرّة على مدى ثلاث سنوات." },
+          { "en": "There was a sharp fall in the summer.", "ar": "حدث انخفاضٌ حادّ في الصيف." }
+        ],
+        "comprehension": [
+          {
+            "question": "What does a \"trend\" show?",
+            "options": ["The colour of a bird", "The name of a reserve", "The weather today", "The general direction of change over time"],
+            "correct": "The general direction of change over time",
+            "explanation_ar": "الاتّجاه (trend) يُظهر الاتّجاه العام للتغيّر عبر الزمن — هل الأعداد ترتفع أم تنخفض على مدى سنوات."
+          },
+          {
+            "question": "What happened to the wild oryx population fifty years ago?",
+            "options": ["It doubled", "It stayed stable", "It fell to zero", "It grew slowly"],
+            "correct": "It fell to zero",
+            "explanation_ar": "قبل خمسين عاماً انخفض التعداد البرّي للمها إلى الصفر بسبب الصيد الجائر."
+          },
+          {
+            "question": "How has the oryx population changed since the reintroduction programme?",
+            "options": ["It has grown to more than a thousand", "It has disappeared again", "It has stayed the same", "It has fallen by half"],
+            "correct": "It has grown to more than a thousand",
+            "explanation_ar": "بعد برنامج إعادة التوطين نما تعداد المها من أفرادٍ قليلة إلى أكثر من ألف — وهذه زيادة كبيرة."
+          },
+          {
+            "question": "When a population falls year after year, what should managers do?",
+            "options": ["Wait and do nothing", "Delete the data", "Act quickly", "Stop counting"],
+            "correct": "Act quickly",
+            "explanation_ar": "عندما ينخفض التعداد عاماً بعد عام، على المسؤولين التحرّك بسرعة قبل أن يتفاقم التراجع."
+          },
+          {
+            "question": "Which sentence describes numbers that do not change much?",
+            "options": ["The population doubled", "The numbers stayed stable", "The trend rose sharply", "The count fell to zero"],
+            "correct": "The numbers stayed stable",
+            "explanation_ar": "كلمة stable تصف الأعداد التي تبقى مستقرّة ولا تتغيّر كثيراً."
+          },
+          {
+            "question": "What does \"increased by fifteen percent\" describe?",
+            "options": ["A drop in numbers", "A rise in numbers", "A stable count", "A missing sample"],
+            "correct": "A rise in numbers",
+            "explanation_ar": "«increased by fifteen percent» تعني ارتفاعاً في الأعداد بمقدار ١٥ بالمئة."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Look at your reserve's animal counts for two years. Write 4–5 sentences describing how the numbers changed.",
+          "prompt_ar": "انظري إلى إحصاءات الحيوانات في محميتكِ خلال عامين. اكتبي ٤–٥ جُمل تصفين فيها كيف تغيّرت الأرقام.",
+          "guidance_ar": "استخدمي كلماتٍ مثل increase و decrease و trend و percentage، واذكري نسبة مئوية واحدة على الأقل."
+        }
+      }
+    },
+    {
+      "slug": "writing-a-report",
+      "sort_order": 3,
+      "title_en": "Writing a Field Report",
+      "title_ar": "كتابة تقرير ميداني",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "التقرير الجيّد يحوّل يوماً مزدحماً في الميدان إلى معلومةٍ يستفيد منها الجميع. في هذا الدرس ستتعلّمين بناء تقريرٍ ميداني بسيط بالإنجليزية: الملخّص، والطريقة، والنتائج، والخلاصة — مع زمن الماضي والمبني للمجهول، ولغةٍ واضحة ومهنية.",
+        "vocab": [
+          { "word": "report", "ipa": "/rɪˈpɔːrt/", "meaning_ar": "تقرير", "meaning_en": "a written account of work or findings", "example": "She wrote a short report after the survey." },
+          { "word": "summary", "ipa": "/ˈsʌməri/", "meaning_ar": "ملخّص", "meaning_en": "a short account of the main points", "example": "The summary is only two sentences long." },
+          { "word": "findings", "ipa": "/ˈfaɪndɪŋz/", "meaning_ar": "النتائج / ما تمّ التوصّل إليه", "meaning_en": "the results of a study", "example": "The findings show a healthy population." },
+          { "word": "method", "ipa": "/ˈmeθəd/", "meaning_ar": "الطريقة / المنهجية", "meaning_en": "the way the work was done", "example": "The method section explains how we counted." },
+          { "word": "results", "ipa": "/rɪˈzʌlts/", "meaning_ar": "النتائج (الأرقام والحقائق)", "meaning_en": "the numbers and facts you found", "example": "The results are shown in a simple table." },
+          { "word": "conclusion", "ipa": "/kənˈkluːʒən/", "meaning_ar": "الخلاصة / الاستنتاج", "meaning_en": "the final judgement of a report", "example": "In conclusion, the reserve is doing well." },
+          { "word": "recommend", "ipa": "/ˌrekəˈmend/", "meaning_ar": "يوصي بـ", "meaning_en": "to suggest what should be done", "example": "We recommend more visits in spring." },
+          { "word": "monitoring", "ipa": "/ˈmɒnɪtərɪŋ/", "meaning_ar": "الرصد / المتابعة", "meaning_en": "checking something regularly over time", "example": "Monitoring helps us notice problems early." },
+          { "word": "section", "ipa": "/ˈsekʃən/", "meaning_ar": "قسم / جزء", "meaning_en": "one part of a document", "example": "Each report has four main sections." },
+          { "word": "clear", "ipa": "/klɪər/", "meaning_ar": "واضح", "meaning_en": "easy to understand", "example": "Keep the language clear and short." },
+          { "word": "submit", "ipa": "/səbˈmɪt/", "meaning_ar": "يُقدِّم / يُسلِّم", "meaning_en": "to send work to someone officially", "example": "Please submit the report by Thursday." }
+        ],
+        "reading": {
+          "title_en": "How to Write a Field Report",
+          "title_ar": "كيف تكتبين تقريراً ميدانياً",
+          "paragraphs": [
+            "A good field report is short, clear, and easy to read. It turns a busy day in the field into information that others can use. Most reports follow the same simple structure, with four main sections.",
+            "The report usually opens with a short summary. In one or two sentences, it says what was done and what was found. After the summary comes the method: this section explains how the work was carried out. Because we describe past actions, we often use the past tense and the passive voice — for example, \"The survey was carried out at dawn\" or \"Samples were collected near the water.\"",
+            "Next come the results. Here the writer gives the numbers and the main findings, often in a small table so they are easy to read. The last section is the conclusion. It gives a clear judgement and may recommend the next step, such as more monitoring or a repeat survey.",
+            "Before you submit a report, read it once more. Remove long words, check every number, and make sure each section is clear. A short, honest report that anyone can understand is far more useful than a long one that no one finishes. Good monitoring depends on good reports, so this final step is always worth the time."
+          ]
+        },
+        "key_phrases": [
+          { "en": "The survey was carried out at dawn.", "ar": "أُجري المسح عند الفجر." },
+          { "en": "Data were collected along the transect.", "ar": "جُمِعت البيانات على طول مسار المسح." },
+          { "en": "The results show that the population is stable.", "ar": "تُظهر النتائج أن التعداد مستقرّ." },
+          { "en": "In conclusion, the reserve is healthy.", "ar": "في الختام، المحمية بحالةٍ جيّدة." },
+          { "en": "We recommend a repeat survey next spring.", "ar": "نوصي بإعادة المسح في الربيع القادم." },
+          { "en": "The report was submitted on Thursday.", "ar": "قُدِّم التقرير يوم الخميس." }
+        ],
+        "comprehension": [
+          {
+            "question": "How many main sections does most field report have (in the reading)?",
+            "options": ["Four", "Two", "Six", "Ten"],
+            "correct": "Four",
+            "explanation_ar": "يتّبع أغلب التقارير الميدانية بنيةً بسيطة من أربعة أقسام رئيسية: الملخّص، والطريقة، والنتائج، والخلاصة."
+          },
+          {
+            "question": "What does the summary do?",
+            "options": ["It lists every animal by name", "It shows a long table", "It thanks the visitors", "It says what was done and what was found"],
+            "correct": "It says what was done and what was found",
+            "explanation_ar": "الملخّص يقول في جملةٍ أو جملتين ما الذي تمّ عمله وما الذي تمّ التوصّل إليه."
+          },
+          {
+            "question": "Why do reports often use the passive voice and past tense?",
+            "options": ["To make the report longer", "Because they describe past actions", "To hide the results", "Because it looks modern"],
+            "correct": "Because they describe past actions",
+            "explanation_ar": "تصف التقارير أفعالاً حدثت في الماضي، لذلك نستخدم زمن الماضي والمبني للمجهول مثل «The survey was carried out»."
+          },
+          {
+            "question": "Where does the writer give the numbers and main findings?",
+            "options": ["In the summary", "In the method", "In the results", "In the title"],
+            "correct": "In the results",
+            "explanation_ar": "تُعرَض الأرقام والنتائج الرئيسية في قسم النتائج (results)، غالباً في جدولٍ صغير سهل القراءة."
+          },
+          {
+            "question": "What should you do before you submit a report?",
+            "options": ["Read it again and check every number", "Add as many long words as possible", "Delete the conclusion", "Send it without reading"],
+            "correct": "Read it again and check every number",
+            "explanation_ar": "قبل التسليم، اقرئي التقرير مرّة أخرى وتحقّقي من كل رقم، وتأكّدي أن كل قسمٍ واضح."
+          },
+          {
+            "question": "What does the conclusion often do?",
+            "options": ["Start the survey", "Recommend the next step", "List the vocabulary", "Describe the weather"],
+            "correct": "Recommend the next step",
+            "explanation_ar": "الخلاصة تعطي حكماً واضحاً وقد توصي بالخطوة التالية، مثل مزيدٍ من الرصد أو إعادة المسح."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write a short field report about a survey in your reserve. Use four sections: summary, method, results, and conclusion.",
+          "prompt_ar": "اكتبي تقريراً ميدانياً قصيراً عن مسحٍ في محميتكِ، مستخدمةً الأقسام الأربعة: الملخّص، والطريقة، والنتائج، والخلاصة.",
+          "guidance_ar": "استخدمي زمن الماضي والمبني للمجهول (مثل: The survey was carried out)، وأدرِجي رقماً واحداً على الأقل من نتائجكِ."
+        }
+      }
+    }
+  ]
+}

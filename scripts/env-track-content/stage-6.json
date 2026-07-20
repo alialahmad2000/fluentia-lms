@@ -1,0 +1,262 @@
+{
+  "stage": {
+    "slug": "fieldwork",
+    "sort_order": 6,
+    "title_en": "Fieldwork",
+    "title_ar": "العمل الميداني والرصد",
+    "subtitle_ar": "رافقي فريقكِ إلى الميدان: تعلّمي إنجليزية الأدوات والرصد وتدوين الملاحظات والسلامة، لتوثّقي الحياة الفطرية بثقة.",
+    "cefr": "B1",
+    "accent": "#a78bfa",
+    "icon": "Binoculars"
+  },
+  "lessons": [
+    {
+      "slug": "field-equipment",
+      "sort_order": 1,
+      "title_en": "Field Equipment",
+      "title_ar": "أدوات ومعدّات الميدان",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "قبل أن تخرجي إلى الميدان، تبدأ رحلتكِ من تجهيز المعدّات. في هذا الدرس ستتعلّمين أسماء أهمّ الأدوات التي ترافقكِ يوميًّا: المنظار، وجهاز تحديد المواقع، وكاميرا الرصد، والدفتر، وبطاقات التعريف. إتقان هذه الكلمات بالإنجليزية سيجعل تواصلكِ مع الفريق والزوّار أسهل وأدقّ.",
+        "vocab": [
+          { "word": "field", "ipa": "/fiːld/", "meaning_ar": "الميدان", "meaning_en": "the place outside where we work", "example": "We work in the field every morning." },
+          { "word": "equipment", "ipa": "/ɪˈkwɪpmənt/", "meaning_ar": "المعدّات", "meaning_en": "the tools you need for a job", "example": "We check our equipment before we go." },
+          { "word": "binoculars", "ipa": "/bɪˈnɒkjələz/", "meaning_ar": "المنظار المقرّب", "meaning_en": "a tool with two lenses to see things far away", "example": "I use binoculars to watch the birds." },
+          { "word": "GPS device", "ipa": "/ˌdʒiː piː ˈes dɪˈvaɪs/", "meaning_ar": "جهاز تحديد المواقع", "meaning_en": "a device that shows your location", "example": "The GPS device shows where we are." },
+          { "word": "camera trap", "ipa": "/ˈkæmərə træp/", "meaning_ar": "كاميرا الرصد", "meaning_en": "a camera that takes a photo when an animal passes", "example": "The camera trap took a photo of a fox at night." },
+          { "word": "notebook", "ipa": "/ˈnəʊtbʊk/", "meaning_ar": "دفتر الملاحظات", "meaning_en": "a small book for writing notes", "example": "I write the time in my notebook." },
+          { "word": "tag", "ipa": "/tæɡ/", "meaning_ar": "بطاقة التعريف / الوسم", "meaning_en": "a small label put on an animal to identify it", "example": "Each bird has a small tag on its leg." },
+          { "word": "battery", "ipa": "/ˈbætəri/", "meaning_ar": "البطارية", "meaning_en": "a thing that gives power to a device", "example": "The camera needs a new battery." },
+          { "word": "map", "ipa": "/mæp/", "meaning_ar": "الخريطة", "meaning_en": "a drawing of an area", "example": "We look at the map to find the road." },
+          { "word": "backpack", "ipa": "/ˈbækpæk/", "meaning_ar": "حقيبة الظهر", "meaning_en": "a bag you carry on your back", "example": "I put my water in my backpack." },
+          { "word": "compass", "ipa": "/ˈkʌmpəs/", "meaning_ar": "البوصلة", "meaning_en": "a tool that shows direction, like north and south", "example": "A compass shows us the north." },
+          { "word": "torch", "ipa": "/tɔːtʃ/", "meaning_ar": "الكشّاف / المصباح اليدوي", "meaning_en": "a small light you hold in your hand", "example": "We use a torch in the dark." }
+        ],
+        "reading": {
+          "title_en": "Getting Ready for the Field",
+          "title_ar": "الاستعداد للميدان",
+          "paragraphs": [
+            "Every morning, I get ready for the field. First, I check my equipment. I put my binoculars, my notebook, and a map in my backpack. I also take a GPS device and a compass. They help me find my way.",
+            "I work at a wildlife reserve. My job is to watch animals and birds. I use my binoculars to see them far away. When I see an animal, I write the time in my notebook. Some birds have a small tag on the leg. The tag helps us to know the same bird again.",
+            "We also use camera traps. A camera trap takes a photo when an animal walks past it. We check the battery in each camera. If the battery is low, we change it.",
+            "Before I leave, I take water and a torch. The torch helps me in the dark. Good equipment keeps my work safe and easy."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Let me check my equipment first.", "ar": "دعوني أتحقّق من معدّاتي أولًا." },
+          { "en": "I need new batteries for the camera.", "ar": "أحتاج بطاريات جديدة للكاميرا." },
+          { "en": "Where is the GPS device?", "ar": "أين جهاز تحديد المواقع؟" },
+          { "en": "We put the notebook in the backpack.", "ar": "نضع الدفتر في حقيبة الظهر." },
+          { "en": "The camera trap is ready.", "ar": "كاميرا الرصد جاهزة." },
+          { "en": "Let's look at the map.", "ar": "لننظر إلى الخريطة." }
+        ],
+        "comprehension": [
+          {
+            "question": "What do you use to see animals far away?",
+            "options": ["A notebook", "Binoculars", "A battery", "A torch"],
+            "correct": "Binoculars",
+            "explanation_ar": "المنظار يساعدكِ على رؤية الحيوانات من بعيد."
+          },
+          {
+            "question": "What does a camera trap do?",
+            "options": ["It shows your location", "It gives power", "It takes a photo when an animal passes", "It shows the north"],
+            "correct": "It takes a photo when an animal passes",
+            "explanation_ar": "كاميرا الرصد تلتقط صورة عندما يمرّ حيوان أمامها."
+          },
+          {
+            "question": "Why do we check the battery?",
+            "options": ["To change it if it is low", "To write the time", "To find the road", "To carry water"],
+            "correct": "To change it if it is low",
+            "explanation_ar": "نتحقّق من البطارية لنغيّرها إذا كانت ضعيفة."
+          },
+          {
+            "question": "What helps you find direction?",
+            "options": ["A backpack", "A notebook", "A tag", "A compass"],
+            "correct": "A compass",
+            "explanation_ar": "البوصلة تدلّكِ على الاتجاه مثل الشمال."
+          },
+          {
+            "question": "What is the tag used for?",
+            "options": ["To know the same bird again", "To see in the dark", "To take photos", "To carry equipment"],
+            "correct": "To know the same bird again",
+            "explanation_ar": "البطاقة تساعد على معرفة الطائر نفسه مرة أخرى."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about the equipment you take to the field and why.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن المعدّات التي تأخذينها إلى الميدان ولماذا.",
+          "guidance_ar": "استخدمي ٤ كلمات على الأقل من كلمات الدرس، مثل: المنظار، والدفتر، والبوصلة، والبطارية."
+        }
+      }
+    },
+    {
+      "slug": "observing-and-recording",
+      "sort_order": 2,
+      "title_en": "Observing and Recording",
+      "title_ar": "الرصد وتدوين الملاحظات",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "الرصد الدقيق هو قلب عملكِ في المحمية؛ فما لا يُدوَّن كأنّه لم يحدث. في هذا الدرس ستتعلّمين كيف تصفين مشاهداتكِ بالإنجليزية: كيف تعدّين الكائنات، وتتتبّعين آثارها، وتوثّقين سلوكها وبياناتها. هذه المفردات ستساعدكِ على كتابة ملاحظاتٍ واضحة يفهمها زملاؤكِ والباحثون.",
+        "vocab": [
+          { "word": "observe", "ipa": "/əbˈzɜːv/", "meaning_ar": "يرصد / يراقب بعناية", "meaning_en": "to watch something carefully", "example": "We observe the birds without disturbing them." },
+          { "word": "record", "ipa": "/rɪˈkɔːd/", "meaning_ar": "يسجّل / يدوّن", "meaning_en": "to write down information", "example": "Please record the number of animals you see." },
+          { "word": "sighting", "ipa": "/ˈsaɪtɪŋ/", "meaning_ar": "مشاهدة (رصد كائن)", "meaning_en": "a time when you see a wild animal", "example": "We had three sightings of gazelles today." },
+          { "word": "count", "ipa": "/kaʊnt/", "meaning_ar": "يعدّ / يحصي", "meaning_en": "to say how many there are", "example": "We count the birds at the lake each week." },
+          { "word": "track", "ipa": "/træk/", "meaning_ar": "يتتبّع / يقتفي الأثر", "meaning_en": "to follow the signs an animal leaves", "example": "We can track a fox by its footprints." },
+          { "word": "behaviour", "ipa": "/bɪˈheɪvjə/", "meaning_ar": "السلوك", "meaning_en": "the way an animal acts", "example": "The guide explained the animal's behaviour." },
+          { "word": "footprint", "ipa": "/ˈfʊtprɪnt/", "meaning_ar": "أثر القدم", "meaning_en": "the mark a foot leaves on the ground", "example": "We found fresh footprints near the water." },
+          { "word": "log", "ipa": "/lɒɡ/", "meaning_ar": "يوثّق في السجلّ", "meaning_en": "to write data into a record", "example": "I log every sighting with the time and place." },
+          { "word": "data", "ipa": "/ˈdeɪtə/", "meaning_ar": "البيانات", "meaning_en": "facts and numbers you collect", "example": "We send the data to the office every evening." },
+          { "word": "species", "ipa": "/ˈspiːʃiːz/", "meaning_ar": "النوع (الفصيلة)", "meaning_en": "a type of animal or plant", "example": "The reserve protects many rare species." },
+          { "word": "estimate", "ipa": "/ˈestɪmeɪt/", "meaning_ar": "يقدّر", "meaning_en": "to say a number that is close to the real one", "example": "We estimate there are about fifty birds." },
+          { "word": "survey", "ipa": "/ˈsɜːveɪ/", "meaning_ar": "مسح ميداني", "meaning_en": "a careful count or study of an area", "example": "We do a bird survey twice a year." }
+        ],
+        "reading": {
+          "title_en": "A Morning Survey at the Reserve",
+          "title_ar": "مسحٌ صباحي في المحمية",
+          "paragraphs": [
+            "At sunrise, my team and I begin a survey of the reserve. Our job is to observe the wildlife and record what we find. Because the animals are shy, we move slowly and stay quiet, so we do not change their behaviour.",
+            "We start near the water, where many species come to drink. I use binoculars to count the birds, and my colleague logs each sighting in her notebook. When we are not sure of the exact number, we estimate it. For example, this morning we counted twelve gazelles and estimated about forty birds.",
+            "Sometimes we do not see an animal, but we can still track it. Fresh footprints in the sand show that a fox has passed during the night. We record the footprints too, because they are useful data.",
+            "After three hours, we have collected a lot of information. Every sighting has been logged with the time, the place, and the number of animals. Later, this data will be sent to the office, and the scientists will study it.",
+            "Good records are very important. If we observe carefully and record honestly, we can understand how each species is doing. Over the years, the data shows us whether a population is growing or falling. That is why a simple notebook can protect the wildlife of the whole reserve."
+          ]
+        },
+        "key_phrases": [
+          { "en": "We had three sightings this morning.", "ar": "سجّلنا ثلاث مشاهدات هذا الصباح." },
+          { "en": "Please record the time and the place.", "ar": "يُرجى تسجيل الوقت والمكان." },
+          { "en": "I estimate there are about forty birds.", "ar": "أُقدّر أنّ هناك نحو أربعين طائرًا." },
+          { "en": "We can track the animal by its footprints.", "ar": "يمكننا تتبّع الحيوان من آثار أقدامه." },
+          { "en": "Let's log this sighting now.", "ar": "لنوثّق هذه المشاهدة الآن." },
+          { "en": "The data will be sent to the office.", "ar": "ستُرسَل البيانات إلى المكتب." }
+        ],
+        "comprehension": [
+          {
+            "question": "Why does the team move slowly and stay quiet?",
+            "options": ["To count the office", "So they do not change the animals' behaviour", "To send the data faster", "To find their car"],
+            "correct": "So they do not change the animals' behaviour",
+            "explanation_ar": "يتحرّكون بهدوء حتى لا يغيّروا سلوك الحيوانات أو يزعجوها."
+          },
+          {
+            "question": "What do they do when they are not sure of the exact number?",
+            "options": ["They estimate it", "They stop the survey", "They go home", "They change the battery"],
+            "correct": "They estimate it",
+            "explanation_ar": "عندما لا يعرفون العدد الدقيق، يقدّرونه تقديرًا قريبًا."
+          },
+          {
+            "question": "How do they know a fox passed during the night?",
+            "options": ["They saw it drink", "They heard it", "They found fresh footprints", "They read the map"],
+            "correct": "They found fresh footprints",
+            "explanation_ar": "آثار الأقدام الطازجة في الرمل تدلّ على مرور الثعلب ليلًا."
+          },
+          {
+            "question": "What happens to the data later?",
+            "options": ["It is deleted", "It stays in the field", "It becomes a photo", "It is sent to the office and studied"],
+            "correct": "It is sent to the office and studied",
+            "explanation_ar": "تُرسَل البيانات لاحقًا إلى المكتب ليدرسها العلماء."
+          },
+          {
+            "question": "Why are good records important?",
+            "options": ["They make the walk shorter", "They show how each species is doing over time", "They give power to the camera", "They replace the binoculars"],
+            "correct": "They show how each species is doing over time",
+            "explanation_ar": "السجلّات الجيدة تُظهر حال كلّ نوع عبر الزمن، وهل يزيد أو ينقص."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Describe a wildlife sighting: what species you saw, how many, and what they were doing.",
+          "prompt_ar": "صِفي مشاهدةً لكائنٍ فطري: أيّ نوعٍ رأيتِ، وكم كان عددها، وماذا كانت تفعل.",
+          "guidance_ar": "اكتبي ٤–٥ جُمل، واستخدمي كلماتٍ مثل: مشاهدة، وتعدّ، والسلوك، وتقدّر."
+        }
+      }
+    },
+    {
+      "slug": "field-safety",
+      "sort_order": 3,
+      "title_en": "Field Safety",
+      "title_ar": "السلامة في الميدان",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "العمل في الصحراء ممتعٌ لكنّه يتطلّب حذرًا، وسلامتكِ دائمًا تأتي أوّلًا. في هذا الدرس ستتعلّمين مفردات الإنجليزية الخاصة بالسلامة الميدانية: الحرارة، والجفاف، ومعدّات الوقاية، والظلّ، والطوارئ. ستمكّنكِ هذه الكلمات من تحذير الزوّار وإرشاد المتطوّعين والبقاء بأمانٍ أثناء عملكِ.",
+        "vocab": [
+          { "word": "safety", "ipa": "/ˈseɪfti/", "meaning_ar": "السلامة", "meaning_en": "being safe from danger", "example": "Safety always comes first in the field." },
+          { "word": "heat", "ipa": "/hiːt/", "meaning_ar": "الحرارة", "meaning_en": "very warm weather", "example": "The heat in summer can be dangerous." },
+          { "word": "dehydration", "ipa": "/ˌdiːhaɪˈdreɪʃn/", "meaning_ar": "الجفاف (نقص سوائل الجسم)", "meaning_en": "when your body loses too much water", "example": "Dehydration is a real risk in the desert." },
+          { "word": "hydrated", "ipa": "/haɪˈdreɪtɪd/", "meaning_ar": "رطب الجسم (شارب كفايته من الماء)", "meaning_en": "having enough water in the body", "example": "Drink often to stay hydrated." },
+          { "word": "shade", "ipa": "/ʃeɪd/", "meaning_ar": "الظلّ", "meaning_en": "a place out of the sun", "example": "We rest in the shade at midday." },
+          { "word": "protective gear", "ipa": "/prəˈtektɪv ɡɪə/", "meaning_ar": "معدّات الوقاية", "meaning_en": "clothes and items that keep you safe", "example": "Wear protective gear such as gloves and a hat." },
+          { "word": "sunscreen", "ipa": "/ˈsʌnskriːn/", "meaning_ar": "الواقي من الشمس", "meaning_en": "a cream that protects the skin from the sun", "example": "Put sunscreen on your face and arms." },
+          { "word": "first-aid kit", "ipa": "/ˌfɜːst ˈeɪd kɪt/", "meaning_ar": "حقيبة الإسعافات الأوّلية", "meaning_en": "a box with medicine for small injuries", "example": "Every team carries a first-aid kit." },
+          { "word": "desert", "ipa": "/ˈdezət/", "meaning_ar": "الصحراء", "meaning_en": "a large, dry, sandy area", "example": "We often work in the desert of the reserve." },
+          { "word": "risk", "ipa": "/rɪsk/", "meaning_ar": "الخطر / المخاطرة", "meaning_en": "the chance that something bad happens", "example": "We check the weather to reduce the risk." },
+          { "word": "warn", "ipa": "/wɔːn/", "meaning_ar": "يُحذّر", "meaning_en": "to tell someone about a danger", "example": "The guide warns visitors about the heat." },
+          { "word": "emergency", "ipa": "/ɪˈmɜːdʒənsi/", "meaning_ar": "الطوارئ", "meaning_en": "a sudden dangerous situation", "example": "In an emergency, we call for help by radio." }
+        ],
+        "reading": {
+          "title_en": "Staying Safe in the Desert",
+          "title_ar": "البقاء بأمانٍ في الصحراء",
+          "paragraphs": [
+            "Fieldwork in the desert is exciting, but it can be dangerous, so safety must always come first. The biggest risk is the heat. In summer, the temperature can rise very high, and a person who does not drink enough water may suffer from dehydration.",
+            "To stay safe, we prepare well before we leave. We take a lot of water and drink often, so we stay hydrated all day. We wear protective gear, such as a hat, sunglasses, and light clothes, and we put sunscreen on our skin. When the sun is strongest at midday, we stop and rest in the shade.",
+            "Every team also carries a first-aid kit for small injuries, and a radio in case of an emergency. Before we start, the team leader warns everyone about the plan and the weather. If a storm is coming, we do not go out.",
+            "We never work alone in the desert. We always go in a group, and someone at the office knows where we are. If a person feels dizzy or very tired, we stop immediately and give them water and shade.",
+            "These simple rules protect us. The wildlife of the reserve is important, but the people who protect it are important too. When we respect the desert and follow safety rules, we can do our work and return home safely."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Safety comes first.", "ar": "السلامة أوّلًا." },
+          { "en": "Please drink water often and stay hydrated.", "ar": "من فضلكم اشربوا الماء باستمرار حتى لا تُصابوا بالجفاف." },
+          { "en": "Let's rest in the shade for a while.", "ar": "لنستَرِح في الظلّ قليلًا." },
+          { "en": "Don't forget your hat and sunscreen.", "ar": "لا تنسوا القبّعة والواقي من الشمس." },
+          { "en": "We carry a first-aid kit for emergencies.", "ar": "نحمل حقيبة إسعافاتٍ أوّلية للطوارئ." },
+          { "en": "In an emergency, call for help on the radio.", "ar": "في حالة الطوارئ، اطلبوا المساعدة عبر اللاسلكي." }
+        ],
+        "comprehension": [
+          {
+            "question": "What is the biggest risk when working in the desert?",
+            "options": ["The heat", "The notebook", "The map", "The shade"],
+            "correct": "The heat",
+            "explanation_ar": "أكبر خطرٍ في الصحراء هو الحرارة الشديدة."
+          },
+          {
+            "question": "How does the team stay hydrated?",
+            "options": ["By working alone", "By drinking water often", "By walking faster", "By turning off the radio"],
+            "correct": "By drinking water often",
+            "explanation_ar": "يبقون رطبي الجسم بشرب الماء باستمرار طوال اليوم."
+          },
+          {
+            "question": "What do they do when the sun is strongest at midday?",
+            "options": ["They run", "They remove their hats", "They rest in the shade", "They stop drinking"],
+            "correct": "They rest in the shade",
+            "explanation_ar": "عند اشتداد الشمس ظهرًا، يتوقّفون ويستريحون في الظلّ."
+          },
+          {
+            "question": "What is the first-aid kit for?",
+            "options": ["Taking photos", "Finding direction", "Counting birds", "Small injuries"],
+            "correct": "Small injuries",
+            "explanation_ar": "حقيبة الإسعافات الأوّلية مخصّصة للإصابات البسيطة."
+          },
+          {
+            "question": "Why do they never work alone?",
+            "options": ["So someone can help in an emergency", "To save water", "To walk faster", "To carry less"],
+            "correct": "So someone can help in an emergency",
+            "explanation_ar": "لا يعملون بمفردهم حتى يستطيع أحدهم المساعدة عند الطوارئ."
+          },
+          {
+            "question": "What does the team leader do before they start?",
+            "options": ["Deletes the data", "Warns everyone about the plan and the weather", "Sells the equipment", "Turns off the GPS"],
+            "correct": "Warns everyone about the plan and the weather",
+            "explanation_ar": "يُحذّر قائد الفريق الجميع بشأن الخطة والطقس قبل الانطلاق."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Imagine you are giving a short safety talk to new volunteers before a desert survey. Say 4–5 sentences about how to stay safe.",
+          "prompt_ar": "تخيّلي أنّكِ تُقدّمين حديثًا قصيرًا عن السلامة لمتطوّعين جُدد قبل مسحٍ في الصحراء. تحدّثي بـ٤–٥ جُمل عن كيفية البقاء بأمان.",
+          "guidance_ar": "استخدمي كلماتٍ مثل: الحرارة، والظلّ، ومعدّات الوقاية، والجفاف، والطوارئ."
+        }
+      }
+    }
+  ]
+}

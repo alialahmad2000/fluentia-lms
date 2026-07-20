@@ -12,6 +12,7 @@ import DeskShell from './components/desk/DeskShell'
 import DeskGuard from './components/desk/DeskGuard'
 import TechTrackGuard from './components/tech-track/TechTrackGuard'
 import BizTrackGuard from './components/biz-track/BizTrackGuard'
+import EnvTrackGuard from './components/env-track/EnvTrackGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
@@ -72,6 +73,8 @@ const TechTrackHome = lazyRetry(() => import('./pages/student/tech-track/TechTra
 const TechLessonPage = lazyRetry(() => import('./pages/student/tech-track/TechLessonPage'))
 const BizTrackHome = lazyRetry(() => import('./pages/student/biz-track/BizTrackHome'))
 const BizLessonPage = lazyRetry(() => import('./pages/student/biz-track/BizLessonPage'))
+const EnvTrackHome = lazyRetry(() => import('./pages/student/env-track/EnvTrackHome'))
+const EnvLessonPage = lazyRetry(() => import('./pages/student/env-track/EnvLessonPage'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
 const IndividualModulePage = lazyRetry(() => import('./pages/student/individual/ModulePage'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -788,6 +791,11 @@ export default function App() {
                 <Route element={<BizTrackGuard />}>
                   <Route path="/biz" element={<Page><BizTrackHome /></Page>} />
                   <Route path="/biz/:lessonSlug" element={<Page><BizLessonPage /></Page>} />
+                </Route>
+                {/* مسار البيئة — gated wildlife/environment/ecotourism English track (uses_env_track), alongside the normal curriculum. Staff can preview. */}
+                <Route element={<EnvTrackGuard />}>
+                  <Route path="/env" element={<Page><EnvTrackHome /></Page>} />
+                  <Route path="/env/:lessonSlug" element={<Page><EnvLessonPage /></Page>} />
                 </Route>
               </Route>
             </Route>

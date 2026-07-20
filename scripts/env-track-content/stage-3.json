@@ -1,0 +1,170 @@
+{
+  "stage": {
+    "slug": "habitats",
+    "sort_order": 3,
+    "title_en": "Habitats",
+    "title_ar": "البيئات والموائل الطبيعية",
+    "subtitle_ar": "رحلة عبر تضاريس المملكة ونُظمها البيئية ومناخها، لتصفي عالمكِ الطبيعي بالإنجليزية بثقة.",
+    "cefr": "A2",
+    "accent": "#10b981",
+    "icon": "TreePine"
+  },
+  "lessons": [
+    {
+      "slug": "landscapes",
+      "sort_order": 1,
+      "title_en": "Landscapes",
+      "title_ar": "التضاريس والمناظر الطبيعية",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "أنتِ تعملين وسط تضاريس متنوّعة، من رمال النفود إلى الجبال وسواحل البحر الأحمر. في هذا الدرس تتعلّمين أسماء المناظر الطبيعية بالإنجليزية حتى تصفي أي موقع ميداني بثقة. ستحتاجين هذه الكلمات كثيرًا عند وصف المحميات أو إرشاد الزوّار.",
+        "vocab": [
+          { "word": "landscape", "ipa": "/ˈlændskeɪp/", "meaning_ar": "منظر طبيعي / تضاريس", "meaning_en": "the natural features of an area of land", "example": "The desert landscape is beautiful at sunset." },
+          { "word": "desert", "ipa": "/ˈdezərt/", "meaning_ar": "صحراء", "meaning_en": "a large, dry area with very little water", "example": "The Nafud is a big sandy desert." },
+          { "word": "dune", "ipa": "/duːn/", "meaning_ar": "كثيب رملي", "meaning_en": "a hill of sand made by the wind", "example": "The wind makes tall dunes in the desert." },
+          { "word": "mountain", "ipa": "/ˈmaʊntən/", "meaning_ar": "جبل", "meaning_en": "a very high area of land", "example": "Arabian leopards live in the high mountains." },
+          { "word": "wadi", "ipa": "/ˈwɑːdi/", "meaning_ar": "وادٍ", "meaning_en": "a valley or dry riverbed that fills with water when it rains", "example": "After the rain, water runs through the wadi." },
+          { "word": "cliff", "ipa": "/klɪf/", "meaning_ar": "منحدر صخري", "meaning_en": "a high, steep face of rock", "example": "Birds make their nests on the high cliff." },
+          { "word": "plain", "ipa": "/pleɪn/", "meaning_ar": "سهل", "meaning_en": "a large, flat area of land", "example": "Gazelles run across the open plain." },
+          { "word": "coast", "ipa": "/koʊst/", "meaning_ar": "ساحل", "meaning_en": "the land next to the sea", "example": "The Red Sea coast has many coral reefs." },
+          { "word": "shore", "ipa": "/ʃɔːr/", "meaning_ar": "شاطئ", "meaning_en": "the land along the edge of the sea", "example": "We walked along the shore near the mangroves." },
+          { "word": "mangrove", "ipa": "/ˈmæŋɡroʊv/", "meaning_ar": "شجرة القُرم", "meaning_en": "a tree that grows in salt water near the coast", "example": "Mangroves grow along the coast and protect the shore." },
+          { "word": "reef", "ipa": "/riːf/", "meaning_ar": "شعاب مرجانية", "meaning_en": "a line of rocks or coral near the surface of the sea", "example": "The Red Sea reef is full of colorful fish." }
+        ],
+        "reading": {
+          "title_en": "The Landscapes of Saudi Arabia",
+          "title_ar": "تضاريس المملكة",
+          "paragraphs": [
+            "Saudi Arabia has many kinds of landscape. In the north, the Nafud is a large desert. The wind builds tall dunes of sand. In summer, the desert is very hot and dry.",
+            "In the west, high mountains run along the land. Arabian leopards live on the rocky cliffs. Between the mountains lie open plains where gazelles run. You can also find a wadi. A wadi is dry for most of the year. But when it rains, water runs through it, and small plants grow.",
+            "On the Red Sea coast, the landscape is different. Mangroves grow in the salt water near the shore. They protect the coast and give birds a safe home. Near the coast, a coral reef lives under the water. Many fish and other sea animals live in the reef."
+          ]
+        },
+        "key_phrases": [
+          { "en": "This area is a protected landscape.", "ar": "هذه المنطقة منظر طبيعي محمي." },
+          { "en": "The dunes move with the wind.", "ar": "تتحرّك الكثبان الرملية مع الرياح." },
+          { "en": "Water collects in the wadi after rain.", "ar": "يتجمّع الماء في الوادي بعد المطر." },
+          { "en": "Mangroves protect the coast.", "ar": "تحمي أشجار القُرم الساحل." },
+          { "en": "The reef is home to many fish.", "ar": "الشعاب المرجانية موطن لأسماك كثيرة." }
+        ],
+        "comprehension": [
+          { "question": "What is the Nafud?", "options": ["A large desert", "A high mountain", "A coral reef", "A green forest"], "correct": "A large desert", "explanation_ar": "النفود صحراء كبيرة في شمال المملكة." },
+          { "question": "What makes the dunes?", "options": ["The rain", "The wind", "The sea", "The rocks"], "correct": "The wind", "explanation_ar": "الرياح هي التي تبني الكثبان الرملية." },
+          { "question": "When does water run through a wadi?", "options": ["Every day", "In summer", "When it rains", "At night"], "correct": "When it rains", "explanation_ar": "يجري الماء في الوادي عندما تمطر." },
+          { "question": "Where do mangroves grow?", "options": ["On the mountains", "In the salt water near the coast", "In the dry desert", "On the high cliffs"], "correct": "In the salt water near the coast", "explanation_ar": "تنمو أشجار القُرم في الماء المالح قرب الساحل." },
+          { "question": "What lives in the coral reef?", "options": ["Leopards", "Camels", "Many fish", "Birds"], "correct": "Many fish", "explanation_ar": "تعيش أسماك كثيرة في الشعاب المرجانية." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about a landscape in your country. What can you see there?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن منظر طبيعي في بلدكِ. ماذا ترين هناك؟",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: صحراء، جبل، ساحل."
+        }
+      }
+    },
+    {
+      "slug": "ecosystems",
+      "sort_order": 2,
+      "title_en": "Ecosystems",
+      "title_ar": "النظم البيئية",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "لتحمي الحياة الفطرية، لا بدّ أن تفهمي كيف تترابط الكائنات في النظام البيئي. في هذا الدرس تتعلّمين بالإنجليزية مفردات السلسلة الغذائية والمفترس والفريسة وتوازن الطبيعة. هذه اللغة تساعدكِ حين تشرحين للزوّار أو تكتبين تقريرًا عن المحمية.",
+        "vocab": [
+          { "word": "ecosystem", "ipa": "/ˈiːkoʊsɪstəm/", "meaning_ar": "نظام بيئي", "meaning_en": "all the plants and animals in one place, living together", "example": "A desert is one kind of ecosystem." },
+          { "word": "habitat", "ipa": "/ˈhæbɪtæt/", "meaning_ar": "موطن", "meaning_en": "the natural home of a plant or animal", "example": "The mountain is the habitat of the Arabian leopard." },
+          { "word": "species", "ipa": "/ˈspiːʃiːz/", "meaning_ar": "نوع (كائن حي)", "meaning_en": "a group of the same kind of animal or plant", "example": "The Arabian oryx is a desert species." },
+          { "word": "food chain", "ipa": "/ˈfuːd tʃeɪn/", "meaning_ar": "السلسلة الغذائية", "meaning_en": "the way animals eat plants and other animals for energy", "example": "In the food chain, small animals eat plants, and big animals eat them." },
+          { "word": "predator", "ipa": "/ˈpredətər/", "meaning_ar": "مُفترِس", "meaning_en": "an animal that hunts and eats other animals", "example": "The leopard is a predator." },
+          { "word": "prey", "ipa": "/preɪ/", "meaning_ar": "فريسة", "meaning_en": "an animal that a predator hunts and eats", "example": "The gazelle is the prey of the leopard." },
+          { "word": "plant", "ipa": "/plænt/", "meaning_ar": "نبات", "meaning_en": "a living thing that grows in the ground", "example": "Plants make food from the sun." },
+          { "word": "insect", "ipa": "/ˈɪnsekt/", "meaning_ar": "حشرة", "meaning_en": "a small animal with six legs", "example": "Insects are food for many birds." },
+          { "word": "energy", "ipa": "/ˈenərdʒi/", "meaning_ar": "طاقة", "meaning_en": "the power that living things need to live and grow", "example": "Plants give energy to animals." },
+          { "word": "balance", "ipa": "/ˈbæləns/", "meaning_ar": "توازن", "meaning_en": "when everything is equal and healthy", "example": "Every species keeps the balance of nature." },
+          { "word": "environment", "ipa": "/ɪnˈvaɪrənmənt/", "meaning_ar": "بيئة", "meaning_en": "the natural world around us", "example": "We must protect the environment." }
+        ],
+        "reading": {
+          "title_en": "How Nature Stays in Balance",
+          "title_ar": "كيف تبقى الطبيعة في توازن",
+          "paragraphs": [
+            "An ecosystem is all the plants and animals in one place. They live together and need each other. The desert, the mountain, and the coast are all different ecosystems. Each animal has a habitat, or a natural home.",
+            "In every ecosystem, energy moves through a food chain. Plants make food from the sun. Small animals and insects eat the plants. Then a predator, like the leopard, hunts its prey. The gazelle is the prey of the leopard. In this way, energy moves from one species to the next.",
+            "Every species is important for the balance of nature. If one plant or animal disappears, the whole environment can change. This is why we protect every habitat and every species in the wild."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Every species has a role in the ecosystem.", "ar": "لكل نوع دور في النظام البيئي." },
+          { "en": "Plants are the start of the food chain.", "ar": "النباتات هي بداية السلسلة الغذائية." },
+          { "en": "The predator hunts its prey.", "ar": "يصطاد المفترس فريسته." },
+          { "en": "We must keep the balance of nature.", "ar": "علينا أن نحافظ على توازن الطبيعة." },
+          { "en": "This animal lives in a desert habitat.", "ar": "يعيش هذا الكائن في موطن صحراوي." }
+        ],
+        "comprehension": [
+          { "question": "What is an ecosystem?", "options": ["All the plants and animals in one place", "A kind of car", "A type of desert sand", "A high mountain"], "correct": "All the plants and animals in one place", "explanation_ar": "النظام البيئي هو كل النباتات والحيوانات في مكان واحد تعيش معًا." },
+          { "question": "What is the start of the food chain?", "options": ["Predators", "Plants", "Insects", "Water"], "correct": "Plants", "explanation_ar": "النباتات هي بداية السلسلة الغذائية لأنها تصنع الغذاء من الشمس." },
+          { "question": "In the reading, what is the prey of the leopard?", "options": ["The plant", "The insect", "The gazelle", "The bird"], "correct": "The gazelle", "explanation_ar": "الغزال هو فريسة النمر في النص." },
+          { "question": "Why is every species important?", "options": ["It keeps the balance of nature", "It makes the desert hot", "It builds the dunes", "It stops the rain"], "correct": "It keeps the balance of nature", "explanation_ar": "كل نوع مهم لأنه يحافظ على توازن الطبيعة." },
+          { "question": "What can happen if one animal disappears?", "options": ["Nothing changes", "The whole environment can change", "The sun stops", "The sea dries"], "correct": "The whole environment can change", "explanation_ar": "إذا اختفى كائن واحد فقد يتغيّر النظام البيئي كله." }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Talk about one animal and one plant in a desert ecosystem. How do they need each other?",
+          "prompt_ar": "تحدّثي عن حيوان واحد ونبات واحد في نظام بيئي صحراوي. كيف يحتاج كلٌّ منهما الآخر؟",
+          "guidance_ar": "استخدمي كلمات مثل: النظام البيئي، السلسلة الغذائية، الفريسة."
+        }
+      }
+    },
+    {
+      "slug": "weather-and-climate",
+      "sort_order": 3,
+      "title_en": "Weather and Climate",
+      "title_ar": "الطقس والمناخ",
+      "cefr": "A2",
+      "content": {
+        "intro_ar": "الطقس والمناخ يؤثّران في كل كائن تعملين على حمايته. في هذا الدرس تتعلّمين بالإنجليزية كيف تصفين درجة الحرارة والمطر والرياح والفصول، وتميّزين بين الطقس والمناخ. ستستخدمين هذه المفردات عند رصد الميدان أو الحديث عن مواسم الحياة الفطرية.",
+        "vocab": [
+          { "word": "weather", "ipa": "/ˈweðər/", "meaning_ar": "الطقس", "meaning_en": "how hot, cold, wet, or dry it is today", "example": "The weather is very hot today." },
+          { "word": "climate", "ipa": "/ˈklaɪmət/", "meaning_ar": "المناخ", "meaning_en": "the usual weather in a place over a long time", "example": "Saudi Arabia has a hot, dry climate." },
+          { "word": "temperature", "ipa": "/ˈtemprətʃər/", "meaning_ar": "درجة الحرارة", "meaning_en": "how hot or cold something is", "example": "In summer, the temperature is very high." },
+          { "word": "rain", "ipa": "/reɪn/", "meaning_ar": "المطر", "meaning_en": "water that falls from the clouds", "example": "After the rain, the desert becomes green." },
+          { "word": "wind", "ipa": "/wɪnd/", "meaning_ar": "الرياح", "meaning_en": "air that moves", "example": "The wind moves the sand across the dunes." },
+          { "word": "cloud", "ipa": "/klaʊd/", "meaning_ar": "سحابة", "meaning_en": "a white or grey shape in the sky that can bring rain", "example": "Dark clouds bring rain." },
+          { "word": "humid", "ipa": "/ˈhjuːmɪd/", "meaning_ar": "رطب", "meaning_en": "with a lot of water in the air", "example": "The coast is hot and humid." },
+          { "word": "dry", "ipa": "/draɪ/", "meaning_ar": "جاف", "meaning_en": "with little or no water", "example": "The desert climate is very dry." },
+          { "word": "season", "ipa": "/ˈsiːzən/", "meaning_ar": "فصل (من فصول السنة)", "meaning_en": "one of the parts of the year, like summer or winter", "example": "Winter is the coolest season." },
+          { "word": "drought", "ipa": "/draʊt/", "meaning_ar": "جفاف", "meaning_en": "a long time with no rain", "example": "A drought is hard for plants and animals." },
+          { "word": "flood", "ipa": "/flʌd/", "meaning_ar": "فيضان", "meaning_en": "a lot of water that covers dry land", "example": "Heavy rain can cause a flood in the wadi." }
+        ],
+        "reading": {
+          "title_en": "Weather and Climate in the Desert",
+          "title_ar": "الطقس والمناخ في الصحراء",
+          "paragraphs": [
+            "The weather tells us about one day. The climate tells us about many years. Saudi Arabia has a hot and dry climate. In summer, the temperature is very high, and the air is dry. On the coast, the weather is also humid.",
+            "There are different seasons in the year. Summer is long and hot. Winter is short and cool. In winter, dark clouds sometimes bring rain. The wind moves the sand across the desert all year.",
+            "Rain is not the same every year. Some years have very little rain. A long, dry time with no rain is called a drought. A drought is hard for plants and animals. But when heavy rain falls fast, it can cause a flood in a wadi. People who work in nature must always watch the weather and the climate."
+          ]
+        },
+        "key_phrases": [
+          { "en": "The weather is hot and dry today.", "ar": "الطقس حار وجاف اليوم." },
+          { "en": "Our region has a desert climate.", "ar": "منطقتنا ذات مناخ صحراوي." },
+          { "en": "The temperature is very high in summer.", "ar": "درجة الحرارة عالية جدًا في الصيف." },
+          { "en": "A drought is dangerous for wildlife.", "ar": "الجفاف خطر على الحياة الفطرية." },
+          { "en": "Heavy rain can cause a flood.", "ar": "قد يسبب المطر الغزير فيضانًا." }
+        ],
+        "comprehension": [
+          { "question": "What is the difference between weather and climate?", "options": ["Weather is one day; climate is many years", "Weather is many years; climate is one day", "They are the same thing", "Both mean rain"], "correct": "Weather is one day; climate is many years", "explanation_ar": "الطقس يصف يومًا واحدًا، أما المناخ فيصف حالة الجو عبر سنوات كثيرة." },
+          { "question": "What is the climate of Saudi Arabia like?", "options": ["Cold and wet", "Hot and dry", "Cool and green", "Rainy all year"], "correct": "Hot and dry", "explanation_ar": "مناخ المملكة حار وجاف." },
+          { "question": "What is a drought?", "options": ["A lot of rain", "A cold season", "A long time with no rain", "A strong wind"], "correct": "A long time with no rain", "explanation_ar": "الجفاف فترة طويلة بلا مطر." },
+          { "question": "What can heavy, fast rain cause in a wadi?", "options": ["A flood", "A dune", "A reef", "A cloud"], "correct": "A flood", "explanation_ar": "قد يسبب المطر الغزير السريع فيضانًا في الوادي." },
+          { "question": "How is the weather on the coast?", "options": ["Cold and dry", "Hot and humid", "Snowy", "Windy and freezing"], "correct": "Hot and humid", "explanation_ar": "الطقس على الساحل حار ورطب." }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about the weather and climate where you live. What is it like in summer and winter?",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن الطقس والمناخ في المكان الذي تعيشين فيه. كيف يكون في الصيف والشتاء؟",
+          "guidance_ar": "استخدمي كلمات مثل: المناخ، درجة الحرارة، الفصل، جاف."
+        }
+      }
+    }
+  ]
+}

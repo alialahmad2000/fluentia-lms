@@ -1,0 +1,264 @@
+{
+  "stage": {
+    "slug": "partnerships",
+    "sort_order": 9,
+    "title_en": "Partnerships & International Cooperation",
+    "title_ar": "الشراكات والتعاون الدولي",
+    "subtitle_ar": "تعلّمي لغة الشراكة والتعاون الدولي — من العمل مع الجهات الشريكة وإدارة الاجتماعات إلى الاتفاقيات العالمية التي تحمي الحياة الفطرية.",
+    "cefr": "B2",
+    "accent": "#60a5fa",
+    "icon": "Handshake"
+  },
+  "lessons": [
+    {
+      "slug": "working-with-partners",
+      "sort_order": 1,
+      "title_en": "Working with Partners & Agencies",
+      "title_ar": "العمل مع الشركاء والجهات",
+      "cefr": "B1",
+      "content": {
+        "intro_ar": "عملكِ في المركز الوطني لتنمية الحياة الفطرية لا يسير بمعزل عن الآخرين؛ فأنتِ تتعاونين يوميًا مع منظمات وجهات شريكة. في هذا الدرس ستتعلّمين كلمات وعبارات إنجليزية تساعدكِ على تعريف فريقكِ، وشرح أدوار الشركاء، وطلب الدعم بثقة ووضوح.",
+        "vocab": [
+          { "word": "partner", "ipa": "/ˈpɑːrtnər/", "meaning_ar": "شريك", "meaning_en": "a person or group you work with", "example": "Our main partner is a local university." },
+          { "word": "organization", "ipa": "/ˌɔːrɡənaɪˈzeɪʃən/", "meaning_ar": "منظمة", "meaning_en": "a group of people who work together for a goal", "example": "This organization protects birds." },
+          { "word": "agency", "ipa": "/ˈeɪdʒənsi/", "meaning_ar": "جهة حكومية / وكالة", "meaning_en": "an official government body", "example": "A government agency gives us support." },
+          { "word": "stakeholder", "ipa": "/ˈsteɪkˌhoʊldər/", "meaning_ar": "صاحب مصلحة", "meaning_en": "a person affected by or interested in a project", "example": "Farmers are important stakeholders." },
+          { "word": "collaborate", "ipa": "/kəˈlæbəˌreɪt/", "meaning_ar": "يتعاون", "meaning_en": "to work together with others", "example": "We collaborate with many teams." },
+          { "word": "goal", "ipa": "/ɡoʊl/", "meaning_ar": "هدف", "meaning_en": "the result you want to reach", "example": "Our goal is to protect the oryx." },
+          { "word": "role", "ipa": "/roʊl/", "meaning_ar": "دور", "meaning_en": "the part someone plays in a project", "example": "Each partner has a clear role." },
+          { "word": "responsibility", "ipa": "/rɪˌspɑːnsəˈbɪləti/", "meaning_ar": "مسؤولية", "meaning_en": "a duty you must take care of", "example": "Data collection is my responsibility." },
+          { "word": "support", "ipa": "/səˈpɔːrt/", "meaning_ar": "دعم", "meaning_en": "help, often money or resources", "example": "Thank you for your support." },
+          { "word": "project", "ipa": "/ˈprɑːdʒekt/", "meaning_ar": "مشروع", "meaning_en": "a planned piece of work", "example": "The new project starts in spring." },
+          { "word": "contact", "ipa": "/ˈkɑːntækt/", "meaning_ar": "جهة اتصال", "meaning_en": "a person you communicate with", "example": "She is our contact at the agency." },
+          { "word": "share", "ipa": "/ʃer/", "meaning_ar": "يشارك / يتشارك", "meaning_en": "to give a part of something to others", "example": "We share our data with partners." }
+        ],
+        "reading": {
+          "title_en": "Working with Partners",
+          "title_ar": "العمل مع الشركاء",
+          "paragraphs": [
+            "At the National Center for Wildlife, we never work alone. To protect nature, we collaborate with many partner organizations, from large government agencies to small local universities. Each partner brings something different. Some agencies give us financial support, others share important data, and a few send their own experts into the field.",
+            "We also listen to local stakeholders, such as farmers, fishermen, and tour guides. These people live close to our reserves, so they understand the land and the animals very well. Their knowledge is a real gift for every project.",
+            "Before new work begins, we meet our partners to agree on a common goal. Together we decide who will do what, and we name one contact person in each organization. This person stays in touch with our team, answers questions, and makes sure that everyone knows their role and responsibilities.",
+            "When every partner understands its part, the work becomes much easier. We share our results, celebrate our success together, and plan the next steps. Strong partnerships help us protect endangered animals, such as the Arabian oryx, far better than we ever could on our own."
+          ]
+        },
+        "key_phrases": [
+          { "en": "We work closely with several partner organizations.", "ar": "نعمل عن قرب مع عدة منظمات شريكة." },
+          { "en": "Thank you for your support on this project.", "ar": "شكرًا لدعمكم في هذا المشروع." },
+          { "en": "What is your organization's role in this project?", "ar": "ما دور منظمتكم في هذا المشروع؟" },
+          { "en": "Could you tell me who is responsible for this task?", "ar": "هل يمكنكم إخباري بمن المسؤول عن هذه المهمة؟" },
+          { "en": "Let's share our data with the partner agency.", "ar": "لنشارك بياناتنا مع الجهة الشريكة." },
+          { "en": "I'd like to introduce our team to yours.", "ar": "أودّ تعريف فريقنا بفريقكم." }
+        ],
+        "comprehension": [
+          {
+            "question": "According to the text, why does the Center work with partners?",
+            "options": ["Because it cannot protect nature alone", "Because partners pay the staff", "Because it wants to close the reserves", "Because it has no experts"],
+            "correct": "Because it cannot protect nature alone",
+            "explanation_ar": "المركز يتعاون مع الشركاء لأن حماية الطبيعة تكون أقوى بالعمل المشترك، ولا يستطيع أن يقوم بها وحده."
+          },
+          {
+            "question": "What is a 'stakeholder' in this text?",
+            "options": ["A type of endangered bird", "A person like a farmer who lives near the reserve", "A financial report", "A government building"],
+            "correct": "A person like a farmer who lives near the reserve",
+            "explanation_ar": "صاحب المصلحة هو شخص قريب من المحمية — كالمزارع أو الصياد أو المرشد — لديه معرفة بالأرض والكائنات."
+          },
+          {
+            "question": "Why does each organization choose one contact person?",
+            "options": ["To pay for the field trips", "To lead the whole project alone", "To stay in touch and answer questions", "To write the news reports"],
+            "correct": "To stay in touch and answer questions",
+            "explanation_ar": "يُختار شخص واحد للتواصل ليبقى على اتصال بالفريق ويجيب عن الأسئلة، مما يسهّل التنسيق بين الشركاء."
+          },
+          {
+            "question": "What does the word 'collaborate' mean?",
+            "options": ["To argue", "To travel far", "To pay money", "To work together"],
+            "correct": "To work together",
+            "explanation_ar": "كلمة «collaborate» تعني «يتعاون»، أي يعمل مع الآخرين لتحقيق هدف مشترك."
+          },
+          {
+            "question": "What helps make the project stronger, according to the text?",
+            "options": ["More cars", "Good communication", "Longer meetings", "Fewer partners"],
+            "correct": "Good communication",
+            "explanation_ar": "التواصل الجيّد بين الشركاء يجعل المشروع أقوى وأكثر تنظيمًا."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–5 sentences about a partner organization or agency you work with. Explain its role and how you collaborate.",
+          "prompt_ar": "اكتبي ٤–٥ جُمل عن منظمة أو جهة شريكة تعملين معها. وضّحي دورها وكيف تتعاونان.",
+          "guidance_ar": "استخدمي على الأقل أربع كلمات من كلمات الدرس مثل partner و role و support و collaborate."
+        }
+      }
+    },
+    {
+      "slug": "meetings",
+      "sort_order": 2,
+      "title_en": "Running & Attending Meetings",
+      "title_ar": "إدارة الاجتماعات",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "الاجتماعات بالإنجليزية جزء أساسي من التعاون مع الشركاء الدوليين. في هذا الدرس ستتعرّفين على لغة إدارة الاجتماع وحضوره: كيف تعرضين بندًا في جدول الأعمال، وتُبدين رأيكِ، وتوافقين أو تعترضين بأدب، وتُنهين الاجتماع ببنود إجرائية واضحة.",
+        "vocab": [
+          { "word": "meeting", "ipa": "/ˈmiːtɪŋ/", "meaning_ar": "اجتماع", "meaning_en": "a planned gathering to discuss work", "example": "The meeting starts at nine." },
+          { "word": "agenda", "ipa": "/əˈdʒendə/", "meaning_ar": "جدول الأعمال", "meaning_en": "a list of items to discuss", "example": "The first item on the agenda is the budget." },
+          { "word": "minutes", "ipa": "/ˈmɪnɪts/", "meaning_ar": "محضر الاجتماع", "meaning_en": "a written record of a meeting", "example": "She takes the minutes every week." },
+          { "word": "action point", "ipa": "/ˈækʃən pɔɪnt/", "meaning_ar": "بند إجرائي", "meaning_en": "a specific task decided in a meeting", "example": "The action point is to send the report." },
+          { "word": "chair", "ipa": "/tʃer/", "meaning_ar": "يرأس الاجتماع", "meaning_en": "to lead a meeting", "example": "I will chair the meeting today." },
+          { "word": "attend", "ipa": "/əˈtend/", "meaning_ar": "يحضر", "meaning_en": "to be present at an event", "example": "All partners will attend the meeting." },
+          { "word": "propose", "ipa": "/prəˈpoʊz/", "meaning_ar": "يقترح", "meaning_en": "to suggest an idea", "example": "I propose a new schedule." },
+          { "word": "agree", "ipa": "/əˈɡriː/", "meaning_ar": "يوافق", "meaning_en": "to have the same opinion", "example": "We all agree on the plan." },
+          { "word": "disagree", "ipa": "/ˌdɪsəˈɡriː/", "meaning_ar": "يعترض / لا يوافق", "meaning_en": "to have a different opinion", "example": "I politely disagree with that idea." },
+          { "word": "clarify", "ipa": "/ˈklærəˌfaɪ/", "meaning_ar": "يوضّح", "meaning_en": "to make something clear", "example": "Could you clarify your point?" },
+          { "word": "deadline", "ipa": "/ˈdedˌlaɪn/", "meaning_ar": "موعد نهائي", "meaning_en": "the latest time to finish something", "example": "The deadline is next Monday." },
+          { "word": "follow up", "ipa": "/ˈfɑːloʊ ʌp/", "meaning_ar": "يتابع / متابعة", "meaning_en": "to check on progress later", "example": "Let's follow up next week." }
+        ],
+        "reading": {
+          "title_en": "Running a Good Meeting",
+          "title_ar": "إدارة اجتماع ناجح",
+          "paragraphs": [
+            "Every month, our team attends a meeting with our conservation partners. As the person who chairs the meeting, I always prepare an agenda and send it to everyone a few days before. A clear agenda tells people what we will discuss and how much time we have, so the meeting does not become too long. Some partners attend in person, while others join online from other cities in the Kingdom.",
+            "During the meeting, everyone is welcome to propose new ideas. Of course, we do not always agree. When I disagree with a suggestion, I try to be polite: I say that I see the point but have a different opinion. If something is not clear, I ask the speaker to clarify before we make a decision.",
+            "At the end, we write down the action points. Each point says who is responsible for a task and gives a clear deadline. Someone also takes the minutes, a short record of what we decided. A week later, we follow up to check that the work is moving forward. Good meetings turn talk into real action for wildlife."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Let's move on to the next item on the agenda.", "ar": "لننتقل إلى البند التالي في جدول الأعمال." },
+          { "en": "I'd like to propose that we start the survey in spring.", "ar": "أودّ أن أقترح أن نبدأ المسح الميداني في الربيع." },
+          { "en": "I see your point, but I'm not sure I agree.", "ar": "أفهم وجهة نظرك، لكنني لست متأكدة من موافقتي." },
+          { "en": "Could you clarify what you mean?", "ar": "هل يمكنك توضيح ما تقصده؟" },
+          { "en": "So, the action point is that Noura will send the report.", "ar": "إذًا، البند الإجرائي هو أن ترسل نورة التقرير." },
+          { "en": "Let's follow up on this by next week.", "ar": "لنتابع هذا الأمر قبل الأسبوع القادم." }
+        ],
+        "comprehension": [
+          {
+            "question": "What does the person who chairs the meeting prepare and send in advance?",
+            "options": ["A car", "A payment", "An agenda", "A new reserve"],
+            "correct": "An agenda",
+            "explanation_ar": "من يرأس الاجتماع يُعِدّ جدول الأعمال ويرسله للجميع قبل أيام، حتى يعرف الحضور ما سيُناقَش."
+          },
+          {
+            "question": "How does the writer disagree politely?",
+            "options": ["By leaving the meeting", "By saying she sees the point but has a different opinion", "By shouting", "By cancelling the project"],
+            "correct": "By saying she sees the point but has a different opinion",
+            "explanation_ar": "تعترض بأدب بأن تقول إنها تفهم وجهة النظر لكن لديها رأيًا مختلفًا، وهذه طريقة مهذّبة للاختلاف."
+          },
+          {
+            "question": "What does 'clarify' mean in the text?",
+            "options": ["To end the meeting", "To write the minutes", "To be late", "To make something clear"],
+            "correct": "To make something clear",
+            "explanation_ar": "كلمة «clarify» تعني «يوضّح»؛ عندما لا يكون الأمر واضحًا نطلب من المتحدث أن يوضّح قبل اتخاذ القرار."
+          },
+          {
+            "question": "What does an action point include?",
+            "options": ["Who is responsible and a clear deadline", "The name of the reserve only", "A photo of the animals", "The weather report"],
+            "correct": "Who is responsible and a clear deadline",
+            "explanation_ar": "البند الإجرائي يحدّد من المسؤول عن المهمة، ويضع موعدًا نهائيًا واضحًا لإنجازها."
+          },
+          {
+            "question": "What are the 'minutes' of a meeting?",
+            "options": ["The time the meeting starts", "A short written record of what was decided", "A list of partners' phone numbers", "The cost of the project"],
+            "correct": "A short written record of what was decided",
+            "explanation_ar": "محضر الاجتماع (minutes) هو سجلّ مكتوب قصير لما تمّ الاتفاق عليه خلال الاجتماع."
+          },
+          {
+            "question": "Why does the team follow up a week later?",
+            "options": ["To cancel the action points", "To check that the work is moving forward", "To choose a new chair", "To delete the agenda"],
+            "correct": "To check that the work is moving forward",
+            "explanation_ar": "تتم المتابعة بعد أسبوع للتأكّد من أن العمل يسير إلى الأمام وأن البنود الإجرائية تُنفَّذ."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Imagine you are chairing a short meeting about a new reserve. Speak for one minute: welcome the partners, present two agenda items, and give one action point with a deadline.",
+          "prompt_ar": "تخيّلي أنكِ ترأسين اجتماعًا قصيرًا حول محمية جديدة. تحدّثي لمدة دقيقة: رحّبي بالشركاء، واعرضي بندين من جدول الأعمال، وأعطي بندًا إجرائيًا واحدًا مع موعد نهائي.",
+          "guidance_ar": "استخدمي عبارات الاجتماع مثل «Let's move on to the next item» و«The action point is…»، وحاولي استعمال أربع كلمات من كلمات الدرس."
+        }
+      }
+    },
+    {
+      "slug": "international-cooperation",
+      "sort_order": 3,
+      "title_en": "International Cooperation & Agreements",
+      "title_ar": "التعاون الدولي والاتفاقيات",
+      "cefr": "B2",
+      "content": {
+        "intro_ar": "الحياة الفطرية لا تعرف الحدود، والطيور المهاجرة تعبر القارات كل عام. في هذا الدرس ستتعلّمين لغة التعاون الدولي: الاتفاقيات والمعاهدات مثل «سايتس» (CITES)، وحماية الأنواع عبر الحدود، والعمل مع المنظمات غير الحكومية العالمية للحفاظ على تراثنا الطبيعي.",
+        "vocab": [
+          { "word": "cooperation", "ipa": "/koʊˌɑːpəˈreɪʃən/", "meaning_ar": "تعاون", "meaning_en": "the act of working together", "example": "International cooperation saves species." },
+          { "word": "convention", "ipa": "/kənˈvenʃən/", "meaning_ar": "اتفاقية دولية", "meaning_en": "a formal international agreement", "example": "The convention protects rare plants." },
+          { "word": "agreement", "ipa": "/əˈɡriːmənt/", "meaning_ar": "اتفاق", "meaning_en": "a shared decision between parties", "example": "The two countries signed an agreement." },
+          { "word": "treaty", "ipa": "/ˈtriːti/", "meaning_ar": "معاهدة", "meaning_en": "a formal agreement between nations", "example": "The treaty regulates wildlife trade." },
+          { "word": "cross-border", "ipa": "/ˌkrɔːs ˈbɔːrdər/", "meaning_ar": "عابر للحدود", "meaning_en": "involving more than one country", "example": "We run cross-border projects." },
+          { "word": "endangered species", "ipa": "/ɪnˈdeɪndʒərd ˈspiːʃiːz/", "meaning_ar": "الأنواع المهددة بالانقراض", "meaning_en": "animals or plants at risk of dying out", "example": "The oryx was once an endangered species." },
+          { "word": "trade", "ipa": "/treɪd/", "meaning_ar": "الاتجار / التجارة", "meaning_en": "the buying and selling of goods", "example": "Illegal trade harms wildlife." },
+          { "word": "regulate", "ipa": "/ˈreɡjəˌleɪt/", "meaning_ar": "ينظّم", "meaning_en": "to control by rules", "example": "The treaty regulates the trade." },
+          { "word": "global", "ipa": "/ˈɡloʊbəl/", "meaning_ar": "عالمي", "meaning_en": "relating to the whole world", "example": "We work with global partners." },
+          { "word": "NGO", "ipa": "/ˌen dʒiː ˈoʊ/", "meaning_ar": "منظمة غير حكومية", "meaning_en": "a non-governmental organization", "example": "A global NGO joined the project." },
+          { "word": "migratory", "ipa": "/ˈmaɪɡrəˌtɔːri/", "meaning_ar": "مهاجر", "meaning_en": "moving between regions by season", "example": "Migratory birds cross the desert." },
+          { "word": "commitment", "ipa": "/kəˈmɪtmənt/", "meaning_ar": "التزام", "meaning_en": "a strong promise to do something", "example": "We show a real commitment to nature." }
+        ],
+        "reading": {
+          "title_en": "Cooperation Across Borders",
+          "title_ar": "التعاون عبر الحدود",
+          "paragraphs": [
+            "Wildlife does not stop at borders. Migratory birds like the houbara bustard fly across many countries every year, so no single nation can protect them alone. This is why international cooperation is so important, and why Saudi Arabia has joined several global conventions and agreements. Some of these birds travel thousands of kilometres between Asia, the Middle East, and Africa.",
+            "One of the most famous is CITES, the Convention on International Trade in Endangered Species. This treaty helps to regulate the trade in wild animals and plants, so that rare species are not sold until they disappear. The Kingdom is a proud party to this convention, and our center works hard to respect its rules.",
+            "We also cooperate with our neighbours and with global NGOs on cross-border projects. Together we share data, exchange experts, and reintroduce endangered species, such as the Arabian oryx, into protected areas. Every year, we report our progress and celebrate small victories together. These agreements show a real commitment to nature. When countries keep their promises and work as partners, the whole planet becomes a safer home for wildlife."
+          ]
+        },
+        "key_phrases": [
+          { "en": "Saudi Arabia is a party to several international conventions.", "ar": "المملكة العربية السعودية طرف في عدة اتفاقيات دولية." },
+          { "en": "This species is protected under CITES.", "ar": "هذا النوع محمي بموجب اتفاقية سايتس (CITES)." },
+          { "en": "We are committed to cross-border cooperation.", "ar": "نحن ملتزمون بالتعاون العابر للحدود." },
+          { "en": "Illegal trade in wildlife is regulated by this treaty.", "ar": "يُنظَّم الاتجار غير المشروع بالحياة الفطرية بموجب هذه المعاهدة." },
+          { "en": "We cooperate with global NGOs to protect migratory birds.", "ar": "نتعاون مع منظمات غير حكومية عالمية لحماية الطيور المهاجرة." },
+          { "en": "Both sides have signed the agreement.", "ar": "وقّع الطرفان الاتفاق." }
+        ],
+        "comprehension": [
+          {
+            "question": "Why can no single country protect migratory birds alone?",
+            "options": ["Because the birds fly across many countries", "Because the birds are too small", "Because the birds never move", "Because the birds live only in cities"],
+            "correct": "Because the birds fly across many countries",
+            "explanation_ar": "الطيور المهاجرة تعبر عدة دول، لذا لا تستطيع دولة واحدة حمايتها بمفردها، ومن هنا تأتي أهمية التعاون الدولي."
+          },
+          {
+            "question": "What is CITES?",
+            "options": ["A type of desert plant", "A convention about international trade in endangered species", "A national park in Riyadh", "A migratory bird"],
+            "correct": "A convention about international trade in endangered species",
+            "explanation_ar": "سايتس (CITES) هي اتفاقية دولية تُعنى بتنظيم الاتجار الدولي بالأنواع المهددة بالانقراض."
+          },
+          {
+            "question": "What does the treaty help to do?",
+            "options": ["Build new roads", "Sell more animals", "Regulate the trade in wild animals and plants", "Close all the reserves"],
+            "correct": "Regulate the trade in wild animals and plants",
+            "explanation_ar": "المعاهدة تساعد على تنظيم الاتجار بالحيوانات والنباتات البرية حتى لا تُباع الأنواع النادرة إلى أن تختفي."
+          },
+          {
+            "question": "What does 'commitment' mean in the text?",
+            "options": ["A promise to do something", "A type of border", "A short holiday", "A kind of bird"],
+            "correct": "A promise to do something",
+            "explanation_ar": "كلمة «commitment» تعني «التزام»؛ فالاتفاقيات تُظهر التزامًا حقيقيًا تجاه حماية الطبيعة."
+          },
+          {
+            "question": "According to the text, what do countries do on cross-border projects?",
+            "options": ["They stop all communication", "They build walls", "They ignore endangered species", "They share data and exchange experts"],
+            "correct": "They share data and exchange experts",
+            "explanation_ar": "في المشاريع العابرة للحدود، تتشارك الدول البيانات وتتبادل الخبراء وتعيد توطين الأنواع المهددة."
+          },
+          {
+            "question": "What happens when countries keep their promises and work as partners?",
+            "options": ["The whole planet becomes a safer home for wildlife", "The reserves close", "Trade becomes illegal for everyone", "The birds stop migrating"],
+            "correct": "The whole planet becomes a safer home for wildlife",
+            "explanation_ar": "عندما تفي الدول بوعودها وتعمل كشركاء، يصبح الكوكب كله بيتًا أكثر أمانًا للحياة الفطرية."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 4–6 sentences about why international cooperation matters for protecting wildlife. Mention one convention or agreement and one endangered species.",
+          "prompt_ar": "اكتبي ٤–٦ جُمل عن أهمية التعاون الدولي في حماية الحياة الفطرية. اذكري اتفاقية أو معاهدة واحدة ونوعًا واحدًا مهددًا بالانقراض.",
+          "guidance_ar": "استخدمي على الأقل خمس كلمات من كلمات الدرس مثل cooperation و convention و treaty و global و commitment."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "stage": {
+    "slug": "nature-basics",
+    "sort_order": 1,
+    "title_en": "Communication Basics in Your Field",
+    "title_ar": "أساسيات التواصل في مجالك",
+    "subtitle_ar": "خطوتكِ الأولى نحو الإنجليزية: كلمات وجُمل بسيطة تعرّفين بها بنفسكِ وعملكِ في عالم الحياة الفطرية والبيئة بثقة.",
+    "cefr": "A1",
+    "accent": "#22c55e",
+    "icon": "Leaf"
+  },
+  "lessons": [
+    {
+      "slug": "intro-your-work",
+      "sort_order": 1,
+      "title_en": "Introducing Yourself and Your Work",
+      "title_ar": "التعريف بنفسكِ وعملكِ",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "في مجالكِ، أول ما تحتاجينه هو أن تعرّفي بنفسكِ بثقة: اسمكِ، ووظيفتكِ، والمركز الذي تعملين فيه. في هذا الدرس ستتعلّمين كلمات وجُملاً بسيطة لتقديم نفسكِ وعملكِ في مجال الحياة الفطرية والبيئة بالإنجليزية. جُمل قصيرة وسهلة تستخدمينها مع الزملاء والزوّار.",
+        "vocab": [
+          { "word": "name", "ipa": "/neɪm/", "meaning_ar": "الاسم", "meaning_en": "the word people call you", "example": "My name is Noura." },
+          { "word": "job", "ipa": "/dʒɒb/", "meaning_ar": "الوظيفة", "meaning_en": "the work a person does", "example": "My job is to protect animals." },
+          { "word": "work", "ipa": "/wɜːrk/", "meaning_ar": "يعمل / العمل", "meaning_en": "to do a job", "example": "I work at a wildlife center." },
+          { "word": "center", "ipa": "/ˈsentər/", "meaning_ar": "مركز", "meaning_en": "a place where people work together", "example": "I work at the National Center for Wildlife." },
+          { "word": "wildlife", "ipa": "/ˈwaɪldlaɪf/", "meaning_ar": "الحياة الفطرية", "meaning_en": "wild animals and plants", "example": "I study wildlife." },
+          { "word": "nature", "ipa": "/ˈneɪtʃər/", "meaning_ar": "الطبيعة", "meaning_en": "plants, animals, and land", "example": "I love nature." },
+          { "word": "protect", "ipa": "/prəˈtekt/", "meaning_ar": "يحمي", "meaning_en": "to keep something safe", "example": "We protect the animals." },
+          { "word": "animal", "ipa": "/ˈænɪml/", "meaning_ar": "حيوان", "meaning_en": "a living thing that can move", "example": "The oryx is a beautiful animal." },
+          { "word": "team", "ipa": "/tiːm/", "meaning_ar": "فريق", "meaning_en": "a group of people who work together", "example": "I work with a small team." },
+          { "word": "colleague", "ipa": "/ˈkɒliːɡ/", "meaning_ar": "زميل / زميلة", "meaning_en": "a person you work with", "example": "Sara is my colleague." },
+          { "word": "welcome", "ipa": "/ˈwelkəm/", "meaning_ar": "يُرحّب / أهلاً", "meaning_en": "a friendly hello to a guest", "example": "Welcome to our center." },
+          { "word": "office", "ipa": "/ˈɒfɪs/", "meaning_ar": "مكتب", "meaning_en": "a room where you work", "example": "My office is small." }
+        ],
+        "reading": {
+          "title_en": "My Name and My Work",
+          "title_ar": "اسمي وعملي",
+          "paragraphs": [
+            "My name is Noura. I am from Saudi Arabia. I work at the National Center for Wildlife. My job is to protect wildlife and nature. I love animals, and I love my work.",
+            "Every day, I meet my team at the center. We are a small team, but we work hard. Sara is my colleague. She works with me. My office is small, but it is nice and quiet.",
+            "We protect the Arabian oryx and other animals. We also welcome visitors to the center. When a visitor comes, I say, \"Welcome! My name is Noura.\" I am happy to talk about nature, animals, and my job.",
+            "This is my job, and I am proud of it. Nature is important, and we must protect it."
+          ]
+        },
+        "key_phrases": [
+          { "en": "My name is Noura.", "ar": "اسمي نورة." },
+          { "en": "I work at the National Center for Wildlife.", "ar": "أعمل في المركز الوطني لتنمية الحياة الفطرية." },
+          { "en": "My job is to protect wildlife.", "ar": "وظيفتي هي حماية الحياة الفطرية." },
+          { "en": "Welcome to our center.", "ar": "أهلاً بكِ في مركزنا." },
+          { "en": "This is my colleague, Sara.", "ar": "هذه زميلتي سارة." },
+          { "en": "Nice to meet you.", "ar": "سعدتُ بلقائكِ." }
+        ],
+        "comprehension": [
+          {
+            "question": "Where does Noura work?",
+            "options": ["At a school", "At the National Center for Wildlife", "At a hospital", "At a shop"],
+            "correct": "At the National Center for Wildlife",
+            "explanation_ar": "نورة تعمل في المركز الوطني لتنمية الحياة الفطرية."
+          },
+          {
+            "question": "What is Noura's job?",
+            "options": ["To sell cars", "To cook food", "To protect wildlife and nature", "To drive a bus"],
+            "correct": "To protect wildlife and nature",
+            "explanation_ar": "وظيفتها هي حماية الحياة الفطرية والطبيعة."
+          },
+          {
+            "question": "Who is Sara?",
+            "options": ["Noura's colleague", "A visitor", "Noura's teacher", "A driver"],
+            "correct": "Noura's colleague",
+            "explanation_ar": "سارة هي زميلة نورة في العمل."
+          },
+          {
+            "question": "What does Noura say to a visitor?",
+            "options": ["Goodbye", "Stop", "Welcome", "Sorry"],
+            "correct": "Welcome",
+            "explanation_ar": "ترحّب بالزائر وتقول: Welcome (أهلاً)."
+          },
+          {
+            "question": "How does Noura feel about her work?",
+            "options": ["She is sad", "She loves it", "She is bored", "She is tired"],
+            "correct": "She loves it",
+            "explanation_ar": "نورة تحب عملها وهي فخورة به."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Introduce yourself. Say your name, your job, and where you work.",
+          "prompt_ar": "عرّفي بنفسكِ. قولي اسمكِ، ووظيفتكِ، والمكان الذي تعملين فيه.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، وتحدّثي بجُمل قصيرة وبسيطة."
+        }
+      }
+    },
+    {
+      "slug": "numbers-measurements",
+      "sort_order": 2,
+      "title_en": "Numbers and Measurements",
+      "title_ar": "الأرقام والقياسات",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "في عملكِ الميداني تعُدّين الحيوانات وتقيسين أشياء كثيرة كل يوم: الوزن، والطول، ودرجة الحرارة. في هذا الدرس ستتعلّمين الأرقام وكلمات القياس بالإنجليزية لتسجيل بياناتكِ بوضوح. كلمات بسيطة تساعدكِ على العدّ والقياس والتسجيل بثقة.",
+        "vocab": [
+          { "word": "number", "ipa": "/ˈnʌmbər/", "meaning_ar": "رقم / عدد", "meaning_en": "a word that says how many", "example": "The number of birds is ten." },
+          { "word": "count", "ipa": "/kaʊnt/", "meaning_ar": "يعُدّ", "meaning_en": "to say numbers to find how many", "example": "I count the animals." },
+          { "word": "how many", "ipa": "/haʊ ˈmeni/", "meaning_ar": "كم عدد", "meaning_en": "a question about number", "example": "How many oryx are here?" },
+          { "word": "measure", "ipa": "/ˈmeʒər/", "meaning_ar": "يقيس", "meaning_en": "to find the size or weight of something", "example": "We measure the animal." },
+          { "word": "weight", "ipa": "/weɪt/", "meaning_ar": "الوزن", "meaning_en": "how heavy something is", "example": "The weight is fifty kilograms." },
+          { "word": "kilogram", "ipa": "/ˈkɪləɡræm/", "meaning_ar": "كيلوغرام", "meaning_en": "a unit for weight", "example": "The oryx weighs seventy kilograms." },
+          { "word": "meter", "ipa": "/ˈmiːtər/", "meaning_ar": "متر", "meaning_en": "a unit for length or height", "example": "The tree is three meters tall." },
+          { "word": "length", "ipa": "/leŋθ/", "meaning_ar": "الطول", "meaning_en": "how long something is", "example": "We check the length of the tree." },
+          { "word": "tall", "ipa": "/tɔːl/", "meaning_ar": "طويل (مرتفع)", "meaning_en": "high from bottom to top", "example": "The tree is tall." },
+          { "word": "temperature", "ipa": "/ˈtemprətʃər/", "meaning_ar": "درجة الحرارة", "meaning_en": "how hot or cold it is", "example": "The temperature is forty degrees." },
+          { "word": "degree", "ipa": "/dɪˈɡriː/", "meaning_ar": "درجة", "meaning_en": "a unit for temperature", "example": "It is thirty-five degrees today." },
+          { "word": "record", "ipa": "/rɪˈkɔːrd/", "meaning_ar": "يُسجّل", "meaning_en": "to write down information", "example": "I record the numbers every day." }
+        ],
+        "reading": {
+          "title_en": "Numbers in the Field",
+          "title_ar": "الأرقام في الميدان",
+          "paragraphs": [
+            "Today I work in the field. I count the animals. \"How many oryx are here?\" There are ten oryx and six birds. I write the number in my book. Counting is easy for me.",
+            "I also measure the animals. One oryx is big and heavy. The weight is seventy kilograms. Near the water, a young tree is three meters tall. I check the length of the tree too.",
+            "The temperature is hot today. It is forty degrees. I record the temperature every morning. I also record the number of animals in my book. This is my daily job.",
+            "Numbers are important in my job. I count, I measure, and I record. Good data helps us protect wildlife and nature every day."
+          ]
+        },
+        "key_phrases": [
+          { "en": "How many animals are there?", "ar": "كم عدد الحيوانات؟" },
+          { "en": "There are ten oryx.", "ar": "يوجد عشرة من المها." },
+          { "en": "The weight is seventy kilograms.", "ar": "الوزن سبعون كيلوغراماً." },
+          { "en": "The tree is three meters tall.", "ar": "الشجرة طولها ثلاثة أمتار." },
+          { "en": "The temperature is forty degrees.", "ar": "درجة الحرارة أربعون درجة." },
+          { "en": "I record the numbers every day.", "ar": "أُسجّل الأرقام كل يوم." }
+        ],
+        "comprehension": [
+          {
+            "question": "How many oryx are in the field?",
+            "options": ["Six", "Ten", "Three", "Seventy"],
+            "correct": "Ten",
+            "explanation_ar": "يوجد عشرة من المها في الميدان."
+          },
+          {
+            "question": "What is the weight of the oryx?",
+            "options": ["Forty kilograms", "Ten kilograms", "Seventy kilograms", "Three kilograms"],
+            "correct": "Seventy kilograms",
+            "explanation_ar": "وزن المها سبعون كيلوغراماً."
+          },
+          {
+            "question": "How tall is the young tree?",
+            "options": ["Three meters", "Ten meters", "Forty meters", "Six meters"],
+            "correct": "Three meters",
+            "explanation_ar": "طول الشجرة الصغيرة ثلاثة أمتار."
+          },
+          {
+            "question": "What is the temperature today?",
+            "options": ["Ten degrees", "Seventy degrees", "Three degrees", "Forty degrees"],
+            "correct": "Forty degrees",
+            "explanation_ar": "درجة الحرارة اليوم أربعون درجة."
+          },
+          {
+            "question": "What does Noura do every day?",
+            "options": ["She counts, measures, and records", "She sleeps in the office", "She sells animals", "She drives to the city"],
+            "correct": "She counts, measures, and records",
+            "explanation_ar": "كل يوم تعُدّ وتقيس وتُسجّل البيانات."
+          }
+        ],
+        "task": {
+          "type": "writing",
+          "prompt_en": "Write 3–4 sentences about numbers in your work. Count some animals and give a weight or a temperature.",
+          "prompt_ar": "اكتبي ٣–٤ جُمل عن الأرقام في عملكِ. عُدّي بعض الحيوانات، واذكري وزناً أو درجة حرارة.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: count و weight و temperature."
+        }
+      }
+    },
+    {
+      "slug": "days-and-fieldwork",
+      "sort_order": 3,
+      "title_en": "Days and the Fieldwork Schedule",
+      "title_ar": "الأيام وجدول العمل الميداني",
+      "cefr": "A1",
+      "content": {
+        "intro_ar": "يومكِ الميداني مليء بالمهام: زيارات للمحمية، واجتماعات مع الفريق، وكتابة التقارير. في هذا الدرس ستتعلّمين أيام الأسبوع وكلمات الجدول والعمل الميداني بالإنجليزية، لتتحدّثي عن خطة أسبوعكِ بسهولة. رتّبي وقتكِ وتحدّثي عن مهامكِ بجُمل بسيطة وواضحة.",
+        "vocab": [
+          { "word": "day", "ipa": "/deɪ/", "meaning_ar": "يوم", "meaning_en": "one of the seven parts of a week", "example": "I work five days a week." },
+          { "word": "week", "ipa": "/wiːk/", "meaning_ar": "أسبوع", "meaning_en": "seven days together", "example": "This is a busy week." },
+          { "word": "today", "ipa": "/təˈdeɪ/", "meaning_ar": "اليوم", "meaning_en": "this day now", "example": "Today is Sunday." },
+          { "word": "tomorrow", "ipa": "/təˈmɒrəʊ/", "meaning_ar": "غداً", "meaning_en": "the day after today", "example": "Tomorrow I go to the field." },
+          { "word": "morning", "ipa": "/ˈmɔːrnɪŋ/", "meaning_ar": "الصباح", "meaning_en": "the early part of the day", "example": "I start work in the morning." },
+          { "word": "schedule", "ipa": "/ˈʃedjuːl/", "meaning_ar": "جدول", "meaning_en": "a plan of days and times", "example": "I check my schedule." },
+          { "word": "fieldwork", "ipa": "/ˈfiːldwɜːrk/", "meaning_ar": "العمل الميداني", "meaning_en": "work outside in nature", "example": "Fieldwork is my favorite part." },
+          { "word": "meeting", "ipa": "/ˈmiːtɪŋ/", "meaning_ar": "اجتماع", "meaning_en": "a time when people talk together", "example": "We have a meeting on Sunday." },
+          { "word": "report", "ipa": "/rɪˈpɔːrt/", "meaning_ar": "تقرير", "meaning_en": "a paper about your work", "example": "I write a report." },
+          { "word": "visit", "ipa": "/ˈvɪzɪt/", "meaning_ar": "يزور / زيارة", "meaning_en": "to go and see a place", "example": "I visit the reserve." },
+          { "word": "reserve", "ipa": "/rɪˈzɜːrv/", "meaning_ar": "محمية طبيعية", "meaning_en": "a protected area for wildlife", "example": "The oryx live in a large reserve." },
+          { "word": "plan", "ipa": "/plæn/", "meaning_ar": "يُخطّط / خطة", "meaning_en": "to decide what to do", "example": "I plan my week." }
+        ],
+        "reading": {
+          "title_en": "My Fieldwork Week",
+          "title_ar": "أسبوع عملي الميداني",
+          "paragraphs": [
+            "This is my week. I work five days, from Sunday to Thursday. Every morning, I check my schedule. My schedule tells me my plan for the day. I like to start early.",
+            "On Sunday, I have a meeting with my team. We plan our fieldwork for the week. On Monday and Tuesday, I visit the reserve. Fieldwork is my favorite part of the job. I see the animals and I count them.",
+            "On Wednesday, I write a report about the reserve. On Thursday, I finish my work and clean my office. Today is Sunday, so I have a meeting. Tomorrow I go to the field. I love my busy week. This is my schedule, and I follow it every week."
+          ]
+        },
+        "key_phrases": [
+          { "en": "I work from Sunday to Thursday.", "ar": "أعمل من الأحد إلى الخميس." },
+          { "en": "I check my schedule every morning.", "ar": "أتفقّد جدولي كل صباح." },
+          { "en": "We have a meeting on Sunday.", "ar": "لدينا اجتماع يوم الأحد." },
+          { "en": "Tomorrow I visit the reserve.", "ar": "غداً أزور المحمية." },
+          { "en": "I write a report on Wednesday.", "ar": "أكتب تقريراً يوم الأربعاء." },
+          { "en": "This is my plan for the week.", "ar": "هذه خطتي للأسبوع." }
+        ],
+        "comprehension": [
+          {
+            "question": "How many days does Noura work?",
+            "options": ["Three days", "Seven days", "Five days", "One day"],
+            "correct": "Five days",
+            "explanation_ar": "تعمل خمسة أيام، من الأحد إلى الخميس."
+          },
+          {
+            "question": "What does Noura do on Sunday?",
+            "options": ["She has a meeting with her team", "She visits the city", "She stays home", "She writes a report"],
+            "correct": "She has a meeting with her team",
+            "explanation_ar": "يوم الأحد لديها اجتماع مع فريقها."
+          },
+          {
+            "question": "When does Noura visit the reserve?",
+            "options": ["On Thursday", "On Monday and Tuesday", "On Wednesday", "On Friday"],
+            "correct": "On Monday and Tuesday",
+            "explanation_ar": "تزور المحمية يومي الاثنين والثلاثاء."
+          },
+          {
+            "question": "What does Noura write on Wednesday?",
+            "options": ["A letter", "A book", "An email", "A report"],
+            "correct": "A report",
+            "explanation_ar": "يوم الأربعاء تكتب تقريراً عن المحمية."
+          },
+          {
+            "question": "What is Noura's favorite part of the job?",
+            "options": ["Cleaning the office", "Fieldwork", "The meetings", "Writing reports"],
+            "correct": "Fieldwork",
+            "explanation_ar": "العمل الميداني هو الجزء المفضّل لديها."
+          }
+        ],
+        "task": {
+          "type": "speaking",
+          "prompt_en": "Talk about your week. Say what you do on two or three days.",
+          "prompt_ar": "تحدّثي عن أسبوعكِ. قولي ماذا تفعلين في يومين أو ثلاثة أيام.",
+          "guidance_ar": "استخدمي ٣ كلمات على الأقل من كلمات الدرس، مثل: schedule و meeting و fieldwork و report."
+        }
+      }
+    }
+  ]
+}
