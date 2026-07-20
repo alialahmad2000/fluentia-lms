@@ -180,6 +180,17 @@ export default function StudentExercises() {
   }
   const openTargeted = (ex) => { setActiveExercise(ex); setIsGeneral(false); setAnswers(seedAnswers(ex, { fromDb: true })); setSubmitted(false); setResult(null); setSubmitError(null) }
   const openGeneral = (ex) => { setActiveExercise(ex); setIsGeneral(true); setAnswers(seedAnswers(ex)); setSubmitted(false); setResult(null); setSubmitError(null) }
+  // Open a finished worksheet in graded review — shows the student's own answers,
+  // which cells were right/wrong, and the model answer under each wrong one.
+  const openCompleted = (ex) => {
+    const questions = ex.content?.questions || []
+    let correct = 0
+    for (const q of questions) if (validateAnswer(ex.student_answers?.[q.id], q.accepted_answers || [q.correct_answer])) correct++
+    setActiveExercise(ex); setIsGeneral(false)
+    setAnswers(ex.student_answers || {})
+    setResult({ score: ex.score ?? Math.round((correct / (questions.length || 1)) * 100), xp: ex.xp_awarded || 0, correct, total: questions.length })
+    setSubmitted(true); setSubmitError(null)
+  }
 
   const pending = (exercises || []).filter((e) => e.status === 'pending')
   const completed = (exercises || []).filter((e) => e.status === 'completed')
@@ -286,7 +297,13 @@ export default function StudentExercises() {
                     const c = good ? '#2f7d72' : ok ? '#b26a1b' : '#b0543f'
                     const bg = good ? 'rgba(47,125,114,.1)' : ok ? 'rgba(178,106,27,.1)' : 'rgba(176,84,63,.1)'
                     return (
-                      <div key={ex.id} className="pw-drow">
+                      <div
+                        key={ex.id} className="pw-drow" role="button" tabIndex={0}
+                        onClick={() => openCompleted(ex)}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCompleted(ex) } }}
+                        style={{ cursor: 'pointer' }}
+                        title={g('مراجعة إجاباتك', 'مراجعة إجاباتكِ')}
+                      >
                         <div className="pw-drow__l">
                           <CheckCircle2 size={16} style={{ color: '#2f7d72', flexShrink: 0 }} />
                           <span className="pw-drow__t">{ex.title}</span>
@@ -294,7 +311,8 @@ export default function StudentExercises() {
                         </div>
                         <div className="pw-drow__r">
                           <span className="pw-badge-score" dir="ltr" style={{ color: c, background: bg, border: `1px solid ${c}55` }}>{toAr(ex.score)}٪</span>
-                          <span className="pw-wmeta"><span className="xp"><Zap size={12} /> +{toAr(ex.xp_awarded)}</span></span>
+                          {ex.xp_awarded > 0 && <span className="pw-wmeta"><span className="xp"><Zap size={12} /> +{toAr(ex.xp_awarded)}</span></span>}
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '.8rem', color: '#b26a1b', fontWeight: 600 }}>مراجعة <ArrowUpRight size={14} style={{ transform: 'scaleX(-1)' }} /></span>
                         </div>
                       </div>
                     )
