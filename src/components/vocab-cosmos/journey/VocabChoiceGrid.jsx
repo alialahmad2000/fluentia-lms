@@ -85,7 +85,7 @@ export default function VocabChoiceGrid({ dueCount = 0 }) {
                   </span>
                   {c.badge ? (
                     <span
-                      className="min-w-[22px] h-[22px] px-1.5 rounded-full text-[11px] font-bold flex items-center justify-center tabular-nums"
+                      className="min-w-[22px] h-[22px] px-1.5 rounded-full text-xs font-bold flex items-center justify-center tabular-nums"
                       style={{ background: 'rgba(233,185,73,0.18)', color: '#fbe6a8', border: '1px solid rgba(233,185,73,0.34)' }}
                     >
                       {c.badge}

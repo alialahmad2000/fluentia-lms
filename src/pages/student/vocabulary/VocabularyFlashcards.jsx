@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { playWordAudioOnce } from '../../../lib/audio/wordAudioGate'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain } from 'lucide-react'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain, Sparkles, Star } from 'lucide-react'
 import { useAuthStudentData } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
@@ -240,8 +241,6 @@ export default function VocabularyFlashcards() {
     return vocab.filter((v) => v.reading?.unit_id === selectedUnitId)
   }, [vocab, selectedUnitId])
 
-  const audioCount = filteredVocab.filter((v) => v.audio_url).length
-
   const playWord = (url) => {
     playWordAudioOnce(url)
   }
@@ -307,6 +306,7 @@ export default function VocabularyFlashcards() {
         title="المفردات"
         subtitle="استكشفي كلمات مستواكِ وأضيفيها إلى سمائك"
         stats={vocabStats?.data}
+        progress={{ mastered: masteryStats.mastered, learning: masteryStats.learning, total: masteryStats.total }}
       />
 
       {/* Filters */}
@@ -370,46 +370,34 @@ export default function VocabularyFlashcards() {
         </div>
       </div>
 
-      {/* Mastery stats strip across the displayed words */}
-      <div className="mt-4 flex flex-wrap items-center gap-2.5">
-        <div className="vc-pill">
-          <BookOpen size={14} style={{ color: 'var(--vc-text-dim)' }} />
-          <span className="tabular-nums">{toArabicNum(masteryStats.total)}</span>
-          <span style={{ color: 'var(--vc-text-dim)' }}>كلمة</span>
-        </div>
-        <div className="vc-pill vc-pill-gold" title="كلمات أتقنتِها">
-          <span className="vc-star is-mastered" />
-          <span className="tabular-nums">{toArabicNum(masteryStats.mastered)}</span>
-          <span style={{ color: 'rgba(252,211,77,0.7)' }}>متقنة</span>
-        </div>
-        <div className="vc-pill">
-          <span className="vc-star is-learning" />
-          <span className="tabular-nums">{toArabicNum(masteryStats.learning)}</span>
-          <span style={{ color: 'var(--vc-text-dim)' }}>تتعلمينها</span>
-        </div>
-        <div className="vc-pill">
-          <span className="vc-star is-new" />
-          <span className="tabular-nums">{toArabicNum(masteryStats.newCount)}</span>
-          <span style={{ color: 'var(--vc-text-dim)' }}>جديدة</span>
-        </div>
-        {audioCount > 0 && (
-          <div className="vc-pill">
-            <Volume2 size={14} style={{ color: 'var(--vc-text-dim)' }} />
-            <span className="tabular-nums">{toArabicNum(audioCount)}</span>
-            <span style={{ color: 'var(--vc-text-dim)' }}>مع صوت</span>
-          </div>
-        )}
+      {/* Quiet composition line — total + level, with a mastery legend only
+          once there's progress (keeps the browse surface calm). */}
+      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px]" style={{ color: 'var(--vc-text-dim)' }}>
+        <span className="inline-flex items-center gap-1.5">
+          <BookOpen size={14} />
+          <span className="tabular-nums font-semibold" style={{ color: 'var(--vc-text-soft)' }}>{toArabicNum(masteryStats.total)}</span>
+          كلمة
+        </span>
         {selectedLevelData && (
-          <span
-            className="vc-pill"
-            style={{
-              background: (selectedLevelData.color || 'var(--vc-indigo)') + '22',
-              borderColor: (selectedLevelData.color || 'var(--vc-indigo)') + '55',
-              color: selectedLevelData.color || 'var(--vc-indigo-bright)',
-            }}
-          >
-            {selectedLevelData.name_ar}
-          </span>
+          <>
+            <span style={{ opacity: 0.45 }}>·</span>
+            <span style={{ color: selectedLevelData.color || 'var(--vc-sky-bright)' }}>{selectedLevelData.name_ar}</span>
+          </>
+        )}
+        {(masteryStats.mastered > 0 || masteryStats.learning > 0) && (
+          <>
+            <span style={{ opacity: 0.45 }}>·</span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="vc-dot" style={{ background: 'var(--vc-gold)' }} />
+              <span className="tabular-nums" style={{ color: 'var(--vc-gold-soft)' }}>{toArabicNum(masteryStats.mastered)}</span>
+              متقنة
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="vc-dot" style={{ background: 'var(--vc-sky)' }} />
+              <span className="tabular-nums" style={{ color: 'var(--vc-sky-bright)' }}>{toArabicNum(masteryStats.learning)}</span>
+              تتعلمينها
+            </span>
+          </>
         )}
       </div>
 
@@ -439,12 +427,12 @@ export default function VocabularyFlashcards() {
               }}
               className="flex items-center justify-center gap-1.5 shrink-0 px-3.5 h-10 rounded-full text-sm font-semibold whitespace-nowrap transition-all"
               style={{
-                background: active ? 'var(--vc-surface-2)' : 'transparent',
-                border: active ? '1px solid var(--vc-border-strong)' : '1px solid transparent',
-                color: active ? 'var(--vc-indigo-bright)' : 'var(--vc-text-dim)',
+                background: active ? 'linear-gradient(180deg, rgba(56,189,248,0.16), rgba(56,189,248,0.07))' : 'transparent',
+                border: active ? '1px solid rgba(56,189,248,0.34)' : '1px solid transparent',
+                color: active ? 'var(--vc-sky-bright)' : 'var(--vc-text-dim)',
                 opacity: disabled ? 0.4 : 1,
                 cursor: disabled ? 'not-allowed' : 'pointer',
-                boxShadow: active ? 'var(--vc-glow-indigo)' : 'none',
+                boxShadow: active ? 'var(--vc-glow-sky)' : 'none',
               }}
             >
               <Icon size={15} />
@@ -462,7 +450,10 @@ export default function VocabularyFlashcards() {
             <p style={{ color: 'var(--vc-text-dim)' }}>لا توجد مفردات لهذه الوحدة بعد</p>
           </div>
         ) : viewMode === 'cards' ? (
-          <FlashcardDeck words={filteredVocab} masteryById={masteryById} />
+          <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-8 lg:items-center">
+            <FlashcardDeck words={filteredVocab} masteryById={masteryById} />
+            <SkyCompanion stats={masteryStats} levelName={selectedLevelData?.name_ar} due={vocabStats?.data?.dueCount ?? 0} />
+          </div>
         ) : viewMode === 'list' ? (
           <VocabList words={filteredVocab} masteryById={masteryById} onPlayAudio={playWord} />
         ) : viewMode === 'chunks' ? (
@@ -471,7 +462,7 @@ export default function VocabularyFlashcards() {
               <button
                 onClick={() => setActiveChunk(null)}
                 className="mb-4 text-sm font-semibold transition-colors"
-                style={{ color: 'var(--vc-indigo-bright)' }}
+                style={{ color: 'var(--vc-sky-bright)' }}
               >
                 ← العودة إلى الدفعات
               </button>
@@ -651,7 +642,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete, studen
         return (
           <div className="vc-card p-12 text-center">
             <p style={{ color: 'var(--vc-text-dim)' }}>لا توجد جمل متاحة لهذه المفردات</p>
-            <button onClick={backToHub} className="mt-4 text-sm font-semibold" style={{ color: 'var(--vc-indigo-bright)' }}>
+            <button onClick={backToHub} className="mt-4 text-sm font-semibold" style={{ color: 'var(--vc-sky-bright)' }}>
               العودة
             </button>
           </div>
@@ -734,7 +725,7 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
                   style={{
                     background: isSelected ? 'var(--vc-surface-2)' : 'transparent',
                     color: isSelected
-                      ? 'var(--vc-indigo-bright)'
+                      ? 'var(--vc-sky-bright)'
                       : isLocked
                         ? 'var(--vc-text-dim)'
                         : 'var(--vc-text-soft)',
@@ -758,6 +749,65 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
         )}
       </AnimatePresence>
     </div>
+  )
+}
+
+// ─── Desktop "سماؤك" companion (fills the wide side of the cards stage) ──────
+function SkyCompanion({ stats, levelName, due }) {
+  const total = Math.max(stats.total, 1)
+  const pm = (stats.mastered / total) * 100
+  const pl = (stats.learning / total) * 100
+  const rows = [
+    { key: 'm', dot: 'var(--vc-gold)', label: 'متقنة', value: stats.mastered, color: 'var(--vc-gold-soft)' },
+    { key: 'l', dot: 'var(--vc-sky)', label: 'تتعلمينها', value: stats.learning, color: 'var(--vc-sky-bright)' },
+    { key: 'n', dot: 'rgba(148,163,184,0.6)', label: 'جديدة', value: stats.newCount, color: 'var(--vc-text-soft)' },
+  ]
+
+  return (
+    <aside className="hidden lg:flex flex-col vc-card p-6 self-stretch">
+      <div className="flex items-center gap-2 mb-1">
+        <Star size={16} style={{ color: 'var(--vc-gold-soft)' }} fill="currentColor" />
+        <h2 className="text-base font-bold" style={{ color: 'var(--vc-text)' }}>رحلتكِ في المفردات</h2>
+      </div>
+      <p className="text-xs mb-5" style={{ color: 'var(--vc-text-dim)' }}>
+        {toArabicNum(stats.total)} كلمة{levelName ? ` · ${levelName}` : ''}
+      </p>
+
+      <div className="vc-seg mb-4">
+        <i className="seg-mastered" style={{ width: `${pm}%` }} />
+        <i className="seg-learning" style={{ width: `${pl}%` }} />
+        <i className="seg-new" style={{ width: `${Math.max(0, 100 - pm - pl)}%` }} />
+      </div>
+
+      <div className="space-y-2.5">
+        {rows.map((r) => (
+          <div key={r.key} className="flex items-center justify-between text-sm">
+            <span className="inline-flex items-center gap-2" style={{ color: 'var(--vc-text-soft)' }}>
+              <span className="vc-dot" style={{ background: r.dot }} />
+              {r.label}
+            </span>
+            <span className="tabular-nums font-semibold" style={{ color: r.color }}>{toArabicNum(r.value)}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-auto pt-6">
+        {due > 0 ? (
+          <Link
+            to="/student/srs"
+            className="vc-btn vc-btn-primary w-full text-sm"
+            style={{ padding: '0.7rem 1rem', textDecoration: 'none' }}
+          >
+            <Sparkles size={16} />
+            راجعي {toArabicNum(due)} كلمة اليوم
+          </Link>
+        ) : (
+          <p className="text-xs text-center" style={{ color: 'var(--vc-text-dim)' }}>
+            اقلبي البطاقات وأضيفي كلماتكِ إلى سمائك ✦
+          </p>
+        )}
+      </div>
+    </aside>
   )
 }
 
@@ -793,7 +843,7 @@ function VocabList({ words, masteryById, onPlayAudio }) {
             <button
               onClick={() => onPlayAudio(w.audio_url)}
               className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors"
-              style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
+              style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-sky-bright)' }}
               aria-label={`تشغيل نطق ${w.word}`}
             >
               <Volume2 size={16} />

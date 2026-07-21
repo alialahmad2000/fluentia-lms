@@ -44,84 +44,93 @@ export default function Flashcard({ word, mastery, onFlip }) {
     const parts = sentence.split(regex)
     return parts.map((part, i) =>
       part.toLowerCase() === targetWord.toLowerCase()
-        ? <strong key={i} className="font-bold" style={{ color: 'var(--vc-indigo-bright)' }}>{part}</strong>
+        ? <strong key={i} className="font-bold" style={{ color: 'var(--vc-sky-bright)' }}>{part}</strong>
         : part
     )
   }
 
-  const faceStyle = {
-    backfaceVisibility: 'hidden',
-    background:
-      'radial-gradient(120% 140% at 100% 0%, rgba(129, 140, 248, 0.07), transparent 55%), var(--vc-surface)',
-    border: '1px solid var(--vc-border)',
-  }
+  const posLabel = word.part_of_speech ? (POS_LABELS[word.part_of_speech] || word.part_of_speech) : null
 
   return (
     <div
-      className="relative w-full max-w-[380px] h-[240px] max-sm:max-w-full max-sm:h-[200px] cursor-pointer"
-      style={{ perspective: '1000px' }}
+      className="relative w-full max-w-[400px] h-[224px] max-sm:max-w-full max-sm:h-[200px] cursor-pointer"
+      style={{ perspective: '1200px' }}
       onClick={handleFlip}
     >
       <motion.div
         className="relative w-full h-full"
         animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         style={{ transformStyle: 'preserve-3d' }}
       >
-        {/* Front */}
+        {/* Front — the "star" */}
         <div
-          className="absolute inset-0 rounded-[22px] flex flex-col items-center justify-center gap-3 p-6"
-          style={faceStyle}
+          className={`vc-face ${star.cls} absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 py-7`}
+          style={{ backfaceVisibility: 'hidden' }}
         >
-          {/* Mastery star (top corner) */}
-          <span
-            className={`vc-star ${star.cls} absolute top-4 right-4`}
-            title={star.label}
-          />
+          <div className="vc-face-glow" />
 
-          <span className="vc-word text-[30px] sm:text-[34px] font-bold" style={{ color: 'var(--vc-text)' }}>
+          {/* Mastery chip (top-start corner) */}
+          <span
+            className="absolute top-3.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
+            style={{
+              insetInlineStart: '0.875rem',
+              background: 'var(--vc-surface-2)',
+              border: '1px solid var(--vc-border)',
+              color: 'var(--vc-text-dim)',
+            }}
+          >
+            <span className={`vc-star ${star.cls}`} style={{ width: 10, height: 10 }} />
+            {star.label}
+          </span>
+
+          <span className="vc-word relative text-[38px] sm:text-[44px] font-bold leading-none text-center" style={{ color: 'var(--vc-text)' }}>
             {word.word}
           </span>
 
-          {word.part_of_speech && (
-            <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-text-dim)' }}>
-              {POS_LABELS[word.part_of_speech] || word.part_of_speech}
+          {posLabel && (
+            <span
+              className="relative text-[13px] tracking-[0.14em] uppercase"
+              style={{ color: 'var(--vc-text-soft)', fontFamily: "'Cormorant Garamond','Playfair Display',serif" }}
+            >
+              {posLabel}
             </span>
           )}
 
           {word.audio_url && (
             <button
               onClick={playAudio}
-              className="w-11 h-11 rounded-full flex items-center justify-center transition-colors"
-              style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
+              className="vc-audio relative w-11 h-11 mt-0.5"
               aria-label="تشغيل النطق"
             >
-              <Volume2 size={20} />
+              <Volume2 size={19} />
             </button>
           )}
 
-          <span className="absolute bottom-4 text-xs" style={{ color: 'var(--vc-text-dim)' }}>
+          <span className="absolute bottom-3.5 text-xs" style={{ color: 'var(--vc-text-dim)' }}>
             اضغطي للقلب
           </span>
         </div>
 
-        {/* Back */}
+        {/* Back — meaning */}
         <div
-          className="absolute inset-0 rounded-[22px] flex flex-col items-center justify-center gap-3 p-6"
-          style={{ ...faceStyle, transform: 'rotateY(180deg)' }}
+          className={`vc-face ${star.cls} absolute inset-0 flex flex-col items-center justify-center gap-2.5 px-6 py-7`}
+          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <span className="text-[24px] sm:text-[28px] font-bold text-center leading-relaxed" style={{ color: 'var(--vc-text)' }}>
+          <div className="vc-face-glow" />
+
+          <span className="relative text-[24px] sm:text-[27px] font-bold text-center leading-snug" style={{ color: 'var(--vc-text)' }}>
             {word.definition_ar}
           </span>
 
           {word.definition_en && (
-            <span className="text-sm text-center max-w-[90%]" style={{ color: 'var(--vc-text-dim)' }}>
+            <span className="relative text-sm text-center max-w-[92%]" style={{ color: 'var(--vc-text-dim)' }} dir="ltr">
               {word.definition_en}
             </span>
           )}
 
           {word.example_sentence && (
-            <p className="text-sm italic text-center max-w-[90%] leading-relaxed" style={{ color: 'var(--vc-text-soft)' }}>
+            <p className="relative text-[13px] italic text-center max-w-[92%] leading-relaxed" style={{ color: 'var(--vc-text-soft)' }} dir="ltr">
               {renderExample(word.example_sentence, word.word)}
             </p>
           )}
@@ -129,11 +138,10 @@ export default function Flashcard({ word, mastery, onFlip }) {
           {word.audio_url && (
             <button
               onClick={playAudio}
-              className="w-11 h-11 rounded-full flex items-center justify-center transition-colors"
-              style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
+              className="vc-audio relative w-11 h-11 mt-0.5"
               aria-label="تشغيل النطق"
             >
-              <Volume2 size={20} />
+              <Volume2 size={19} />
             </button>
           )}
         </div>

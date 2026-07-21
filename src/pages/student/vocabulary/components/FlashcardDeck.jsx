@@ -55,7 +55,7 @@ export default function FlashcardDeck({ words, masteryById = {} }) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center gap-6 lg:max-w-[420px] lg:me-auto">
       {/* Card area with swipe */}
       <motion.div
         className="relative w-full flex justify-center"
@@ -114,7 +114,7 @@ export default function FlashcardDeck({ words, masteryById = {} }) {
       <div className="w-full max-w-[380px] h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--vc-surface-2)' }}>
         <motion.div
           className="h-full rounded-full"
-          style={{ background: 'linear-gradient(135deg, var(--vc-indigo), var(--vc-violet))' }}
+          style={{ background: 'linear-gradient(135deg, var(--vc-sky), var(--vc-indigo))', boxShadow: '0 0 12px -2px rgba(56,189,248,0.6)' }}
           initial={false}
           animate={{ width: `${((currentIndex + 1) / words.length) * 100}%` }}
           transition={{ duration: 0.3 }}

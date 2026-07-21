@@ -217,7 +217,7 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
     const parts = sentence.split(regex)
     return parts.map((part, i) =>
       part.toLowerCase() === targetWord.toLowerCase()
-        ? <strong key={i} className="font-bold" style={{ color: 'var(--vc-indigo-bright)' }}>{part}</strong>
+        ? <strong key={i} className="font-bold" style={{ color: 'var(--vc-sky-bright)' }}>{part}</strong>
         : part
     )
   }
@@ -233,7 +233,7 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
         <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--vc-surface-2)' }}>
           <motion.div
             className="h-full rounded-full"
-            style={{ background: 'linear-gradient(135deg, var(--vc-indigo), var(--vc-violet))' }}
+            style={{ background: 'linear-gradient(135deg, var(--vc-sky), var(--vc-indigo))', boxShadow: '0 0 12px -2px rgba(56,189,248,0.6)' }}
             initial={false}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -265,15 +265,11 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
             >
               {/* Front — English word */}
               <div
-                className="absolute inset-0 rounded-[22px] flex flex-col items-center justify-center gap-3 p-6"
-                style={{
-                  backfaceVisibility: 'hidden',
-                  background:
-                    'radial-gradient(120% 140% at 100% 0%, rgba(129, 140, 248, 0.07), transparent 55%), var(--vc-surface)',
-                  border: '1px solid var(--vc-border)',
-                }}
+                className="vc-face absolute inset-0 flex flex-col items-center justify-center gap-3 p-6"
+                style={{ backfaceVisibility: 'hidden' }}
               >
-                <div className="flex items-center gap-2">
+                <div className="vc-face-glow" />
+                <div className="relative flex items-center gap-2">
                   <span className="vc-word text-[28px] sm:text-[32px] font-bold" style={{ color: 'var(--vc-text)' }}>
                     {currentWord.word}
                   </span>
@@ -294,7 +290,10 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
                 </div>
 
                 {currentWord.part_of_speech && (
-                  <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-text-dim)' }}>
+                  <span
+                    className="relative text-[13px] tracking-[0.14em] uppercase"
+                    style={{ color: 'var(--vc-text-soft)', fontFamily: "'Cormorant Garamond','Playfair Display',serif" }}
+                  >
                     {POS_LABELS[currentWord.part_of_speech] || currentWord.part_of_speech}
                   </span>
                 )}
@@ -302,8 +301,7 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
                 {currentWord.audio_url && (
                   <button
                     onClick={playAudio}
-                    className="w-11 h-11 rounded-full flex items-center justify-center transition-colors"
-                    style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
+                    className="vc-audio relative w-11 h-11"
                     aria-label="تشغيل النطق"
                   >
                     <Volume2 size={20} />
@@ -317,37 +315,31 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
 
               {/* Back — Arabic meaning */}
               <div
-                className="absolute inset-0 rounded-[22px] flex flex-col items-center justify-center gap-3 p-6"
-                style={{
-                  backfaceVisibility: 'hidden',
-                  transform: 'rotateY(180deg)',
-                  background:
-                    'radial-gradient(120% 140% at 100% 0%, rgba(129, 140, 248, 0.07), transparent 55%), var(--vc-surface)',
-                  border: '1px solid var(--vc-border)',
-                }}
+                className="vc-face absolute inset-0 flex flex-col items-center justify-center gap-3 p-6"
+                style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
               >
-                <span className="text-[24px] sm:text-[28px] font-bold font-[Tajawal] text-center leading-relaxed" style={{ color: 'var(--vc-text)' }}>
+                <div className="vc-face-glow" />
+                <span className="relative text-[24px] sm:text-[28px] font-bold font-[Tajawal] text-center leading-relaxed" style={{ color: 'var(--vc-text)' }}>
                   {currentWord.definition_ar}
                 </span>
 
                 {currentWord.definition_en && (
-                  <span className="text-sm text-center max-w-[90%]" style={{ color: 'var(--vc-text-dim)' }}>
+                  <span className="relative text-sm text-center max-w-[90%]" style={{ color: 'var(--vc-text-dim)' }} dir="ltr">
                     {currentWord.definition_en}
                   </span>
                 )}
 
                 {currentWord.example_sentence && (
-                  <p className="text-sm italic text-center max-w-[90%] leading-relaxed" style={{ color: 'var(--vc-text-soft)' }}>
+                  <p className="relative text-sm italic text-center max-w-[90%] leading-relaxed" style={{ color: 'var(--vc-text-soft)' }} dir="ltr">
                     {renderExample(currentWord.example_sentence, currentWord.word)}
                   </p>
                 )}
 
-                <div className="flex items-center gap-2">
+                <div className="relative flex items-center gap-2">
                   {currentWord.audio_url && (
                     <button
                       onClick={playAudio}
-                      className="w-11 h-11 rounded-full flex items-center justify-center transition-colors"
-                      style={{ background: 'var(--vc-surface-2)', color: 'var(--vc-indigo-bright)' }}
+                      className="vc-audio w-11 h-11"
                       aria-label="تشغيل النطق"
                     >
                       <Volume2 size={20} />

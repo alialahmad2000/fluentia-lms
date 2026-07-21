@@ -2,33 +2,57 @@
  * Vocabulary "Constellation" identity — a dedicated visual world for the vocab
  * surfaces (المفردات / المراجعة / الكلمات الصعبة / الإملاء). Words are stars you
  * collect; your known vocabulary is a growing galaxy; mastered words glow gold.
- * Distinct indigo-violet night sky, harmonized with the app's dark navy.
- * ALL tokens + classes are namespaced under .vocab-cosmos so nothing leaks.
+ *
+ * Redesigned 2026-07-21: harmonised with the platform (deep navy #060e1c family,
+ * sky-blue #38bdf8 as the interactive accent, gold #fbbf24 for achievement) and
+ * given a genuinely IMMERSIVE living night sky (3-depth parallax starfield +
+ * on-stage nebulae + a central gold bloom + aurora band + vignette) plus real
+ * resting depth on every surface (layered shadows — there were none before) and
+ * a premium collectible "star-card" face. ALL tokens + classes are namespaced
+ * under .vocab-cosmos so nothing leaks.
  * ==========================================================================*/
 .vocab-cosmos {
-  --vc-void: #060a18;
-  --vc-field: #0a0f22;
-  --vc-surface: rgba(129, 140, 248, 0.055);
-  --vc-surface-2: rgba(129, 140, 248, 0.10);
-  --vc-border: rgba(165, 180, 252, 0.13);
-  --vc-border-strong: rgba(165, 180, 252, 0.26);
+  /* ── Base: deep navy, tuned to the platform's #060e1c family ── */
+  --vc-void: #04070f;
+  --vc-field: #0b1428;
 
-  --vc-indigo: #818cf8;
+  /* ── Surfaces (cool navy glass, layered) ── */
+  --vc-surface: rgba(130, 165, 255, 0.05);
+  --vc-surface-2: rgba(130, 165, 255, 0.09);
+  --vc-surface-3: rgba(130, 165, 255, 0.15);
+  --vc-border: rgba(150, 180, 255, 0.13);
+  --vc-border-strong: rgba(150, 180, 255, 0.30);
+
+  /* ── Accents — a disciplined 3-note chord that matches the platform ── */
+  --vc-sky: #38bdf8;          /* platform primary — interactive / learning */
+  --vc-sky-bright: #7dd3fc;
+  --vc-indigo: #818cf8;       /* cosmic secondary (ambient only) */
   --vc-indigo-bright: #a5b4fc;
-  --vc-violet: #a78bfa;
-  --vc-gold: #fbbf24;
+  --vc-violet: #a78bfa;       /* nebula flavour */
+  --vc-gold: #fbbf24;         /* mastery / achievement — shared w/ platform */
   --vc-gold-soft: #fcd34d;
 
-  --vc-star-new: rgba(148, 163, 184, 0.6);
-  --vc-star-learning: #a5b4fc;
-  --vc-star-mastered: #fbbf24;
+  /* ── Star mastery states ── */
+  --vc-star-new: rgba(148, 163, 184, 0.55);
+  --vc-star-learning: #7dd3fc;
+  --vc-star-mastered: #fcd34d;
 
-  --vc-text: #eef1ff;
-  --vc-text-soft: #c4caea;
-  --vc-text-dim: #8a92b8;
+  /* ── Text ── */
+  --vc-text: #eef3ff;
+  --vc-text-soft: #c2ccea;
+  --vc-text-dim: #8994ba;
 
-  --vc-glow-indigo: 0 0 28px -6px rgba(129, 140, 248, 0.5);
-  --vc-glow-gold: 0 0 30px -6px rgba(251, 191, 36, 0.55);
+  /* ── Glows / shadows ── */
+  --vc-glow-sky: 0 0 26px -6px rgba(56, 189, 248, 0.55);
+  --vc-glow-indigo: 0 0 26px -6px rgba(129, 140, 248, 0.5);
+  --vc-glow-gold: 0 0 30px -6px rgba(251, 191, 36, 0.6);
+  --vc-shadow-card:
+    0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
+    0 2px 8px -3px rgba(0, 0, 0, 0.5),
+    0 14px 34px -14px rgba(0, 0, 0, 0.72);
+  --vc-shadow-pill:
+    0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 4px 12px -6px rgba(0, 0, 0, 0.5);
 
   position: relative;
   color: var(--vc-text);
@@ -43,17 +67,82 @@
 
 /* ── Surfaces ───────────────────────────────────────────────────────────── */
 .vocab-cosmos .vc-card {
+  position: relative;
   background:
-    radial-gradient(120% 140% at 100% 0%, rgba(129, 140, 248, 0.07), transparent 55%),
-    var(--vc-surface);
+    radial-gradient(140% 130% at 100% 0%, rgba(56, 189, 248, 0.06), transparent 52%),
+    linear-gradient(180deg, rgba(150, 180, 255, 0.055), rgba(150, 180, 255, 0.02));
   border: 1px solid var(--vc-border);
   border-radius: 22px;
-  transition: transform 0.18s ease-out, border-color 0.18s ease-out, box-shadow 0.18s ease-out;
+  box-shadow: var(--vc-shadow-card);
+  transition: transform 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 .vocab-cosmos .vc-card-hover:hover {
   transform: translateY(-2px);
   border-color: var(--vc-border-strong);
-  box-shadow: var(--vc-glow-indigo);
+  box-shadow: var(--vc-glow-sky), 0 16px 40px -14px rgba(0, 0, 0, 0.78);
+}
+
+/* ── The collectible star-card (flashcard face) ─────────────────────────── */
+/* One reusable premium face used by Flashcard + VocabularyPractice.
+ * Mastery state is set via .is-new | .is-learning | .is-mastered. */
+.vocab-cosmos .vc-face {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 85% at 50% -6%, rgba(56, 189, 248, 0.12), transparent 55%),
+    radial-gradient(95% 120% at 100% 108%, rgba(167, 139, 250, 0.12), transparent 60%),
+    linear-gradient(165deg, rgba(22, 33, 62, 0.94), rgba(10, 17, 36, 0.97));
+  border: 1px solid var(--vc-border-strong);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.07) inset,
+    0 30px 64px -26px rgba(0, 0, 0, 0.9),
+    0 8px 20px -10px rgba(0, 0, 0, 0.6);
+}
+/* faint constellation texture inside the card */
+.vocab-cosmos .vc-face::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 24%, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 76% 18%, rgba(199, 210, 254, 0.6), transparent),
+    radial-gradient(1px 1px at 64% 76%, rgba(255, 255, 255, 0.42), transparent),
+    radial-gradient(1.5px 1.5px at 28% 84%, rgba(125, 211, 252, 0.5), transparent),
+    radial-gradient(1px 1px at 88% 62%, rgba(255, 255, 255, 0.35), transparent);
+  opacity: 0.75;
+  pointer-events: none;
+}
+/* a "starlight" bloom sitting behind the focal word */
+.vocab-cosmos .vc-face-glow {
+  position: absolute;
+  inset-inline: 0;
+  top: 16%;
+  height: 68%;
+  background: radial-gradient(56% 56% at 50% 42%, rgba(180, 205, 255, 0.30), transparent 70%);
+  pointer-events: none;
+}
+.vocab-cosmos .vc-face.is-learning {
+  border-color: rgba(56, 189, 248, 0.42);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+    0 0 0 1px rgba(56, 189, 248, 0.14),
+    0 30px 64px -26px rgba(0, 0, 0, 0.9),
+    var(--vc-glow-sky);
+}
+.vocab-cosmos .vc-face.is-learning .vc-face-glow {
+  background: radial-gradient(56% 56% at 50% 42%, rgba(56, 189, 248, 0.30), transparent 70%);
+}
+.vocab-cosmos .vc-face.is-mastered {
+  border-color: rgba(251, 191, 36, 0.46);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.09) inset,
+    0 0 0 1px rgba(251, 191, 36, 0.18),
+    0 30px 64px -26px rgba(0, 0, 0, 0.9),
+    var(--vc-glow-gold);
+}
+.vocab-cosmos .vc-face.is-mastered .vc-face-glow {
+  background: radial-gradient(56% 56% at 50% 42%, rgba(251, 191, 36, 0.28), transparent 70%);
 }
 
 /* ── Stat orb / pill ────────────────────────────────────────────────────── */
@@ -68,11 +157,19 @@
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--vc-text-soft);
+  box-shadow: var(--vc-shadow-pill);
 }
 .vocab-cosmos .vc-pill-gold {
-  background: rgba(251, 191, 36, 0.12);
-  border-color: rgba(251, 191, 36, 0.3);
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.17), rgba(251, 191, 36, 0.08));
+  border-color: rgba(251, 191, 36, 0.34);
   color: var(--vc-gold-soft);
+  box-shadow: 0 0 18px -8px rgba(251, 191, 36, 0.55), var(--vc-shadow-pill);
+}
+.vocab-cosmos .vc-pill-sky {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.16), rgba(56, 189, 248, 0.07));
+  border-color: rgba(56, 189, 248, 0.32);
+  color: var(--vc-sky-bright);
+  box-shadow: 0 0 18px -8px rgba(56, 189, 248, 0.5), var(--vc-shadow-pill);
 }
 
 /* ── Buttons ────────────────────────────────────────────────────────────── */
@@ -92,9 +189,9 @@
 .vocab-cosmos .vc-btn:hover { transform: translateY(-2px); }
 .vocab-cosmos .vc-btn:active { transform: translateY(0); }
 .vocab-cosmos .vc-btn-primary {
-  background: linear-gradient(135deg, var(--vc-indigo), var(--vc-violet));
-  color: #0a0e1c;
-  box-shadow: 0 14px 36px -14px rgba(129, 140, 248, 0.6);
+  background: linear-gradient(135deg, var(--vc-sky-bright), var(--vc-sky));
+  color: #05101f;
+  box-shadow: 0 14px 36px -14px rgba(56, 189, 248, 0.65);
 }
 .vocab-cosmos .vc-btn-gold {
   background: linear-gradient(135deg, var(--vc-gold), var(--vc-gold-soft));
@@ -107,25 +204,116 @@
   color: var(--vc-text-soft);
 }
 
-/* ── The star (mastery node) ────────────────────────────────────────────── */
+/* ── Audio node (round icon button) ─────────────────────────────────────── */
+.vocab-cosmos .vc-audio {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.18), rgba(56, 189, 248, 0.08));
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--vc-sky-bright);
+  box-shadow: 0 0 20px -8px rgba(56, 189, 248, 0.5), 0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+  transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, background 0.16s ease-out;
+}
+.vocab-cosmos .vc-audio:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.26), rgba(56, 189, 248, 0.12));
+  box-shadow: 0 0 26px -6px rgba(56, 189, 248, 0.6), 0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+/* ── The star (mastery node) — a real 4-point spark ─────────────────────── */
 .vocab-cosmos .vc-star {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+  width: 12px;
+  height: 12px;
   display: inline-block;
   position: relative;
+  flex-shrink: 0;
+  background: var(--vc-star-new);
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
 }
 .vocab-cosmos .vc-star.is-new { background: var(--vc-star-new); }
 .vocab-cosmos .vc-star.is-learning {
   background: var(--vc-star-learning);
-  box-shadow: 0 0 10px -1px var(--vc-star-learning);
+  filter: drop-shadow(0 0 5px var(--vc-star-learning));
 }
 .vocab-cosmos .vc-star.is-mastered {
   background: var(--vc-star-mastered);
-  box-shadow: 0 0 12px -1px var(--vc-star-mastered);
+  filter: drop-shadow(0 0 7px var(--vc-star-mastered));
+  animation: vc-star-twinkle 3.5s ease-in-out infinite;
+}
+@keyframes vc-star-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.72; transform: scale(0.88); }
 }
 
-/* ── Ambient field ──────────────────────────────────────────────────────── */
+/* ── The "سماؤك" hero medallion (circular constellation + progress ring) ── */
+.vocab-cosmos .vc-medallion {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(56, 189, 248, 0.12), transparent 60%),
+    radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.14), transparent 62%),
+    linear-gradient(160deg, #101a34, #070c1c);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 18px 44px -20px rgba(0, 0, 0, 0.85);
+}
+.vocab-cosmos .vc-medallion::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 24% 30%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 70% 26%, rgba(125,211,252,0.8), transparent),
+    radial-gradient(1px 1px at 40% 68%, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1.5px 1.5px at 78% 72%, rgba(252,211,77,0.8), transparent),
+    radial-gradient(1px 1px at 58% 46%, rgba(255,255,255,0.5), transparent);
+  pointer-events: none;
+}
+/* soft gold halo bloom behind the whole medallion */
+.vocab-cosmos .vc-medallion-halo {
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.22), transparent 62%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+/* ── Segmented mastery bar (mastered / learning / new composition) ──────── */
+.vocab-cosmos .vc-seg {
+  display: flex;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--vc-surface-2);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.03) inset;
+}
+.vocab-cosmos .vc-seg > i {
+  display: block;
+  height: 100%;
+  transition: width 0.6s ease-out;
+}
+.vocab-cosmos .vc-seg .seg-mastered {
+  background: linear-gradient(90deg, var(--vc-gold), var(--vc-gold-soft));
+  box-shadow: 0 0 12px -2px rgba(251, 191, 36, 0.6);
+}
+.vocab-cosmos .vc-seg .seg-learning {
+  background: linear-gradient(90deg, var(--vc-sky), var(--vc-sky-bright));
+}
+.vocab-cosmos .vc-seg .seg-new { background: rgba(148, 163, 184, 0.22); }
+
+/* dot used in the compact composition legend */
+.vocab-cosmos .vc-dot {
+  width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0;
+}
+
+/* ── Ambient field — the immersive night sky ────────────────────────────── */
 .vocab-cosmos .vc-field {
   position: absolute;
   inset: 0;
@@ -135,39 +323,106 @@
   border-radius: inherit;
 }
 .vocab-cosmos .vc-field > * { position: absolute; }
-/* layered starfields via tiny radial gradients */
+
+/* Three parallax star layers (far/mid/near) for real depth */
+.vocab-cosmos .vc-stars,
+.vocab-cosmos .vc-stars-mid,
+.vocab-cosmos .vc-stars-near { inset: -20%; }
 .vocab-cosmos .vc-stars {
-  inset: -10%;
   background-image:
-    radial-gradient(1.5px 1.5px at 12% 22%, rgba(255,255,255,0.7), transparent),
-    radial-gradient(1.5px 1.5px at 70% 12%, rgba(199,210,254,0.8), transparent),
-    radial-gradient(1px 1px at 38% 64%, rgba(255,255,255,0.55), transparent),
-    radial-gradient(1.5px 1.5px at 88% 48%, rgba(167,139,250,0.7), transparent),
-    radial-gradient(1px 1px at 25% 88%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1.5px 1.5px at 58% 78%, rgba(199,210,254,0.65), transparent),
-    radial-gradient(1px 1px at 92% 84%, rgba(255,255,255,0.45), transparent);
-  animation: vc-twinkle 7s ease-in-out infinite;
+    radial-gradient(1.5px 1.5px at 12% 22%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 70% 12%, rgba(199,210,254,0.65), transparent),
+    radial-gradient(1px 1px at 38% 64%, rgba(255,255,255,0.45), transparent),
+    radial-gradient(1.5px 1.5px at 88% 48%, rgba(167,139,250,0.55), transparent),
+    radial-gradient(1px 1px at 25% 88%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 58% 78%, rgba(199,210,254,0.55), transparent),
+    radial-gradient(1px 1px at 92% 84%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1px 1px at 8% 54%, rgba(255,255,255,0.4), transparent);
+  animation: vc-drift-slow 130s linear infinite, vc-twinkle 8s ease-in-out infinite;
+}
+.vocab-cosmos .vc-stars-mid {
+  background-image:
+    radial-gradient(2px 2px at 22% 34%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 64% 26%, rgba(125,211,252,0.85), transparent),
+    radial-gradient(2px 2px at 46% 72%, rgba(255,255,255,0.65), transparent),
+    radial-gradient(2px 2px at 82% 62%, rgba(199,210,254,0.72), transparent),
+    radial-gradient(2px 2px at 33% 16%, rgba(255,255,255,0.6), transparent);
+  animation: vc-drift-a 90s ease-in-out infinite, vc-twinkle 6s ease-in-out infinite 1s;
+}
+.vocab-cosmos .vc-stars-near {
+  background-image:
+    radial-gradient(2.5px 2.5px at 16% 68%, rgba(255,255,255,0.95), transparent),
+    radial-gradient(2.5px 2.5px at 78% 30%, rgba(125,211,252,0.9), transparent),
+    radial-gradient(2.5px 2.5px at 54% 88%, rgba(255,255,255,0.85), transparent);
+  animation: vc-drift-b 70s ease-in-out infinite, vc-twinkle 5s ease-in-out infinite 0.5s;
+}
+
+/* Soft aurora band + on-stage nebulae + a central gold bloom near the hero */
+.vocab-cosmos .vc-aurora {
+  inset-inline: -20%;
+  top: 6%;
+  height: 52%;
+  background:
+    radial-gradient(60% 100% at 50% 50%, rgba(56, 189, 248, 0.10), transparent 70%),
+    radial-gradient(45% 90% at 30% 40%, rgba(167, 139, 250, 0.12), transparent 72%),
+    radial-gradient(45% 90% at 72% 60%, rgba(129, 140, 248, 0.10), transparent 72%);
+  filter: blur(34px);
+  transform: rotate(-12deg);
+  opacity: 0.8;
+  animation: vc-aurora-breathe 22s ease-in-out infinite;
+}
+.vocab-cosmos .vc-goldbloom {
+  top: 2%;
+  inset-inline-start: 50%;
+  width: 46vw; height: 30vw; max-width: 520px; max-height: 340px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.12), transparent 66%);
+  filter: blur(50px);
+  opacity: 0.7;
+  animation: vc-aurora-breathe 26s ease-in-out infinite 2s;
 }
 .vocab-cosmos .vc-nebula {
-  width: 60vw; height: 60vw; max-width: 620px; max-height: 620px;
+  width: 66vw; height: 66vw; max-width: 700px; max-height: 700px;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.5;
+  filter: blur(70px);
 }
 .vocab-cosmos .vc-nebula-a {
-  top: -28%; inset-inline-end: -16%;
-  background: radial-gradient(circle, rgba(129,140,248,0.4), transparent 65%);
+  top: -6%; inset-inline-end: -6%;
+  opacity: 0.62;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.32), transparent 66%);
   animation: vc-drift-a 26s ease-in-out infinite;
 }
 .vocab-cosmos .vc-nebula-b {
-  bottom: -32%; inset-inline-start: -18%;
-  background: radial-gradient(circle, rgba(167,139,250,0.32), transparent 65%);
+  bottom: -18%; inset-inline-start: -12%;
+  opacity: 0.55;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.30), transparent 66%);
   animation: vc-drift-b 32s ease-in-out infinite;
+}
+/* a lone shooting star that streaks occasionally */
+.vocab-cosmos .vc-shoot {
+  top: 13%; inset-inline-end: 14%;
+  width: 150px; height: 1.5px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+  border-radius: 2px;
+  opacity: 0;
+  transform: rotate(18deg);
+  animation: vc-shoot 12s ease-in infinite;
+}
+/* top vignette so header text always reads; bottom fade into the app */
+.vocab-cosmos .vc-vignette {
+  inset: 0;
+  background:
+    radial-gradient(130% 60% at 50% -12%, transparent 42%, rgba(4, 7, 15, 0.42) 100%),
+    linear-gradient(180deg, rgba(4, 7, 15, 0.30), transparent 20%);
 }
 
 @keyframes vc-twinkle {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 0.95; }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes vc-drift-slow {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-3%, -4%); }
 }
 @keyframes vc-drift-a {
   0%, 100% { transform: translate(0, 0); }
@@ -177,16 +432,39 @@
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(5%, -4%); }
 }
+@keyframes vc-aurora-breathe {
+  0%, 100% { opacity: 0.55; transform: rotate(-12deg) scale(1); }
+  50% { opacity: 0.9; transform: rotate(-12deg) scale(1.05); }
+}
+@keyframes vc-shoot {
+  0%, 92% { opacity: 0; transform: translate(0, 0) rotate(18deg); }
+  93% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(-230px, 74px) rotate(18deg); }
+}
 
 /* perf + accessibility: drop animation on reduced-motion / low-end */
 @media (prefers-reduced-motion: reduce) {
   .vocab-cosmos .vc-stars,
+  .vocab-cosmos .vc-stars-mid,
+  .vocab-cosmos .vc-stars-near,
+  .vocab-cosmos .vc-aurora,
+  .vocab-cosmos .vc-goldbloom,
   .vocab-cosmos .vc-nebula-a,
-  .vocab-cosmos .vc-nebula-b { animation: none; }
+  .vocab-cosmos .vc-nebula-b,
+  .vocab-cosmos .vc-shoot,
+  .vocab-cosmos .vc-star.is-mastered { animation: none; }
+  .vocab-cosmos .vc-shoot { display: none; }
 }
 .vocab-cosmos.vc-static .vc-stars,
+.vocab-cosmos.vc-static .vc-stars-mid,
+.vocab-cosmos.vc-static .vc-stars-near,
+.vocab-cosmos.vc-static .vc-aurora,
+.vocab-cosmos.vc-static .vc-goldbloom,
 .vocab-cosmos.vc-static .vc-nebula-a,
-.vocab-cosmos.vc-static .vc-nebula-b { animation: none; }
+.vocab-cosmos.vc-static .vc-nebula-b,
+.vocab-cosmos.vc-static .vc-shoot,
+.vocab-cosmos.vc-static .vc-star.is-mastered { animation: none; }
+.vocab-cosmos.vc-static .vc-shoot { display: none; }
 
 /* content sits above the field */
 .vocab-cosmos .vc-content { position: relative; z-index: 1; }

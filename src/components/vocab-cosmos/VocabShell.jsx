@@ -18,7 +18,7 @@ export default function VocabShell({ children, maxWidth = 'max-w-3xl', className
       className={`vocab-cosmos ${LOW_END ? 'vc-static' : ''} relative min-h-[100dvh] ${className}`}
       style={{
         background:
-          'radial-gradient(130% 85% at 50% -10%, var(--vc-field), var(--vc-void) 72%)',
+          'radial-gradient(120% 80% at 50% -10%, #141d3c, var(--vc-field) 52%, var(--vc-void) 100%)',
         marginInline: '-1rem',
         marginBlockStart: '-1.5rem',
       }}
