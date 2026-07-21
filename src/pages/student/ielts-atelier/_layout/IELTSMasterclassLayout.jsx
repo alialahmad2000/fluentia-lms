@@ -10,18 +10,17 @@ import { useAuthStore } from '@/stores/authStore'
 const BASE = '/student/ielts-atelier'
 const SKILLS = ['reading', 'listening', 'writing', 'speaking']
 const SKILL_LABEL = { reading: 'القراءة', listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة' }
-// Every skill is a parent with always-visible sub-parts (each its own page).
-// Reading has the full teach→practise split; every skill has a performance monitor.
+// Every skill is a parent whose click opens its PERFORMANCE page (the monitor);
+// the sub-items are the ways to learn/practise that skill.
 const READING_SUB = [
   { path: 'reading', label: 'دليل القراءة', exact: true },
   { path: 'reading/types', label: 'أنواع الأسئلة' },
   { path: 'reading/tests', label: 'الاختبارات' },
-  { path: 'reading/monitor', label: 'الأداء' },
 ]
 const SKILL_SUB = {
-  listening: [{ path: 'listening/monitor', label: 'الأداء' }],
-  writing: [{ path: 'writing/monitor', label: 'الأداء' }],
-  speaking: [{ path: 'speaking/monitor', label: 'الأداء' }],
+  listening: [{ path: 'listening', label: 'التدريب', exact: true }],
+  writing: [{ path: 'writing', label: 'التدريب', exact: true }],
+  speaking: [{ path: 'speaking', label: 'التدريب', exact: true }],
 }
 
 const LoadingFallback = () => (
@@ -87,8 +86,8 @@ export default function IELTSMasterclassLayout() {
           <NavItem icon={Icon.diagnostic} label="الاختبار التشخيصي" active={isActive('diagnostic')} onClick={() => go('diagnostic')} />
 
           <div className="iel-nav-label">التدريب</div>
-          {/* Reading — a parent with always-visible sub-parts */}
-          <NavItem icon={Icon.reading} label="القراءة" badge={bandOf('reading')} active={pathname.startsWith(`${BASE}/reading`)} onClick={() => go('reading')} />
+          {/* Reading — parent opens performance; sub-items are the teach→practise parts */}
+          <NavItem icon={Icon.reading} label="القراءة" badge={bandOf('reading')} active={pathname.startsWith(`${BASE}/reading`)} onClick={() => go('reading/monitor')} />
           <div className="iel-subnav">
             {READING_SUB.map((it) => (
               <button key={it.path} type="button" className={`iel-subitem${subActive(it.path, it.exact) ? ' on' : ''}`} onClick={() => go(it.path)}>
@@ -98,10 +97,10 @@ export default function IELTSMasterclassLayout() {
           </div>
           {['listening', 'writing', 'speaking'].map((s) => (
             <Fragment key={s}>
-              <NavItem icon={Icon[s]} label={SKILL_LABEL[s]} badge={bandOf(s)} active={isActive(s)} onClick={() => go(s)} />
+              <NavItem icon={Icon[s]} label={SKILL_LABEL[s]} badge={bandOf(s)} active={isActive(s)} onClick={() => go(`${s}/monitor`)} />
               <div className="iel-subnav">
                 {SKILL_SUB[s].map((it) => (
-                  <button key={it.path} type="button" className={`iel-subitem${subActive(it.path) ? ' on' : ''}`} onClick={() => go(it.path)}>
+                  <button key={it.path} type="button" className={`iel-subitem${subActive(it.path, it.exact) ? ' on' : ''}`} onClick={() => go(it.path)}>
                     <span className="dot" aria-hidden />{it.label}
                   </button>
                 ))}

@@ -11,15 +11,20 @@
   --iel-ground:#0a0d12;
   --iel-panel:rgba(18,23,32,.62); --iel-surface:rgba(23,29,40,.55); --iel-surface-2:rgba(31,39,52,.62);
   --iel-solid:#141924;                 /* opaque fallback where blur can't apply */
-  --iel-border:rgba(255,255,255,.10); --iel-border-strong:rgba(255,255,255,.18);
-  --iel-ink:#eef2f7; --iel-ink-2:#aab4c1; --iel-ink-3:#727d8c;
+  --iel-border:rgba(255,255,255,.11); --iel-border-strong:rgba(255,255,255,.2);
+  /* text ramp — muted tiers lifted for WCAG-AA on the glass surfaces (ui-ux-pro-max §6) */
+  --iel-ink:#f0f3f8; --iel-ink-2:#b6c0cd; --iel-ink-3:#8a95a4;
   --iel-accent:#34c8a6; --iel-accent-ink:#8ff0d8; --iel-accent-soft:rgba(52,200,166,.14);
   --iel-gold:#e6ba68; --iel-gold-ink:#f4d38f; --iel-gold-soft:rgba(230,186,104,.15);
   --iel-good:#34c8a6; --iel-warn:#e6b45a; --iel-bad:#eb6f5c;
   --iel-nav-active:#8ff0d8; --iel-nav-active-bg:rgba(52,200,166,.15);
   --iel-track:rgba(255,255,255,.09);
+  /* one consistent elevation scale (ui-ux-pro-max: elevation-consistent) */
   --iel-shadow-sm:0 1px 2px rgba(0,0,0,.35);
   --iel-shadow:0 2px 6px rgba(0,0,0,.35), 0 22px 52px -24px rgba(0,0,0,.72);
+  --iel-shadow-lg:0 4px 14px rgba(0,0,0,.42), 0 44px 96px -44px rgba(0,0,0,.8);
+  /* unified motion tokens (ui-ux-pro-max §7: 150–300ms, ease-out enter) */
+  --iel-ease:cubic-bezier(.22,1,.36,1); --iel-dur:.2s;
   --iel-sans:"Tajawal","Readex Pro",system-ui,sans-serif;
   --iel-serif:"Source Serif 4","Newsreader",Georgia,serif;
 
