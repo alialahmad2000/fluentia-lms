@@ -18,9 +18,20 @@ const READING_SUB = [
   { path: 'reading/tests', label: 'الاختبارات' },
 ]
 const SKILL_SUB = {
-  listening: [{ path: 'listening', label: 'التدريب', exact: true }],
-  writing: [{ path: 'writing', label: 'التدريب', exact: true }],
-  speaking: [{ path: 'speaking', label: 'التدريب', exact: true }],
+  listening: [
+    { path: 'listening/guide', label: 'دليل الاستماع' },
+    { path: 'listening', label: 'التمارين', exact: true },
+  ],
+  writing: [
+    { path: 'writing', label: 'المهمة الأولى', exact: true },
+    { path: 'writing/task2', label: 'المهمة الثانية' },
+  ],
+  speaking: [
+    { path: 'speaking/guide', label: 'دليل المحادثة' },
+    { path: 'speaking', label: 'الجزء الأول', exact: true },
+    { path: 'speaking/part2', label: 'الجزء الثاني' },
+    { path: 'speaking/part3', label: 'الجزء الثالث' },
+  ],
 }
 
 const LoadingFallback = () => (

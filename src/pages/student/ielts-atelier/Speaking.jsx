@@ -2,8 +2,11 @@
 // Three-act: Booth (gallery) → Session (recording) → Results (feedback)
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, MicOff, ChevronLeft, RotateCcw, Play, Square, AlertTriangle, Loader2 } from 'lucide-react'
+import LessonsGuide from './_ui/LessonsGuide'
+import { SPEAKING_LESSONS } from './_ui/speakingLessons'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { invokeWithRetry } from '@/lib/invokeWithRetry'
@@ -273,7 +276,7 @@ function CriterionCard({ label, score }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export default function Speaking() {
+function SpeakingBooth({ initialPart = 1 }) {
   const g = useG()
   const studentId = useStudentId()
   const isWide = useIsWide()
@@ -281,7 +284,7 @@ export default function Speaking() {
 
   // ── 1. useState ────────────────────────────────────────────────────────────
   const [act, setAct]                   = useState('booth')
-  const [selectedPart, setSelectedPart] = useState(1)
+  const [selectedPart, setSelectedPart] = useState(initialPart)
   const [selectedRow, setSelectedRow]   = useState(null)
   const [currentQIdx, setCurrentQIdx]   = useState(0)
   const [recordings, setRecordings]     = useState({})      // { qIdx: { blob, url, mimeType, ext } }
@@ -868,4 +871,25 @@ export default function Speaking() {
   }
 
   return null
+}
+
+// Teach-first lessons for speaking (bento modal via the shared LessonsGuide).
+function SpeakingLessonsGuide() {
+  return (
+    <LessonsGuide
+      eyebrow="المحادثة · تعلّمي أولاً"
+      title="دليل المحادثة"
+      kicker="درس المحادثة"
+      intro="دروس أساسية في استراتيجية محادثة الآيلتس — كيف تُقيَّمين، وكيف تجيبين في كل جزء. ابدئي بها قبل أن تتدرّبي في الأجزاء."
+      lessons={SPEAKING_LESSONS}
+    />
+  )
+}
+
+// Route dispatcher: /speaking/guide → lessons; /speaking[/part2|part3] → the booth for that part.
+export default function Speaking() {
+  const { pathname } = useLocation()
+  if (pathname.endsWith('/speaking/guide')) return <SpeakingLessonsGuide />
+  const initialPart = pathname.endsWith('/speaking/part2') ? 2 : pathname.endsWith('/speaking/part3') ? 3 : 1
+  return <SpeakingBooth initialPart={initialPart} />
 }

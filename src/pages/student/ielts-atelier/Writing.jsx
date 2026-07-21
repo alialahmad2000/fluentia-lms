@@ -2,6 +2,7 @@
 // Three-act: Studio (gallery) → Session (editor) → Results (feedback)
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PenLine, ChevronLeft, ChevronRight, RotateCcw, Loader2, CheckCircle, XCircle, AlertTriangle, Clock, BookOpen, GraduationCap, Dumbbell, Check, ArrowLeft } from 'lucide-react'
 import { GalleryCard, MetaChip, LabHeader, SectionHeader, Card, Icon } from './_ui/primitives'
@@ -498,13 +499,16 @@ export default function Writing() {
   const studentId = useStudentId()
   const isWide = useIsWide()
   const qc = useQueryClient()
+  const { pathname } = useLocation()
+  // Sidebar sub-item routes the landing task: /writing → Task 1, /writing/task2 → Task 2.
+  const routedTask = pathname.endsWith('/writing/task2') ? 'task2' : 'task1'
 
   // ── 1. useState ────────────────────────────────────────────────────────────
   const [act, setAct]                     = useState('hub')
-  const [hubTask, setHubTask]             = useState('task2')       // teach-first tab
+  const [hubTask, setHubTask]             = useState(routedTask)     // teach-first tab
   const [activeLesson, setActiveLesson]   = useState(null)
   const [activeDrill, setActiveDrill]     = useState(null)
-  const [mode, setMode]                   = useState('task2')
+  const [mode, setMode]                   = useState(routedTask)
   const [selectedTask, setSelectedTask]   = useState(null)
   const [fullTab, setFullTab]             = useState('task1')
   const [draft, setDraft]                 = useState('')

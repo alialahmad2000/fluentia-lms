@@ -947,10 +947,15 @@ export default function App() {
                   <Route path="reading/tests"  element={<IELTSAtelierReading />} />
                   <Route path="reading/monitor"   element={<IELTSAtelierSkillMonitor />} />
                   <Route path="listening"  element={<IELTSAtelierListening />} />
+                  <Route path="listening/guide"   element={<IELTSAtelierListening />} />
                   <Route path="listening/monitor" element={<IELTSAtelierSkillMonitor />} />
                   <Route path="writing"    element={<IELTSAtelierWriting />} />
+                  <Route path="writing/task2"     element={<IELTSAtelierWriting />} />
                   <Route path="writing/monitor"   element={<IELTSAtelierSkillMonitor />} />
                   <Route path="speaking"   element={<IELTSAtelierSpeaking />} />
+                  <Route path="speaking/guide"    element={<IELTSAtelierSpeaking />} />
+                  <Route path="speaking/part2"    element={<IELTSAtelierSpeaking />} />
+                  <Route path="speaking/part3"    element={<IELTSAtelierSpeaking />} />
                   <Route path="speaking/monitor"  element={<IELTSAtelierSkillMonitor />} />
                   <Route path="journey"    element={<IELTSAtelierJourney />} />
                   <Route path="errors"          element={<IELTSAtelierErrorsHub />} />

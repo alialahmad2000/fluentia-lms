@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, ChevronLeft, Play, Pause, RotateCcw, CheckCircle, XCircle, Clock, FileText, Users } from 'lucide-react'
 import { GalleryCard, MetaChip, LabHeader } from './_ui/primitives'
+import LessonsGuide from './_ui/LessonsGuide'
+import { LISTENING_LESSONS } from './_ui/listeningLessons'
 import { useQuery } from '@tanstack/react-query'
 
 import NarrativeReveal from '@/design-system/components/masterclass/NarrativeReveal'
@@ -501,7 +504,7 @@ function QuestionItem({ q, answer, onChange }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export default function Listening() {
+function ListeningHall() {
   const g = useG()
   const studentId = useStudentId()
   const isWide = useIsWide()
@@ -1025,4 +1028,24 @@ export default function Listening() {
   }
 
   return null
+}
+
+// Teach-first lessons for listening (bento modal via the shared LessonsGuide).
+function ListeningLessonsGuide() {
+  return (
+    <LessonsGuide
+      eyebrow="الاستماع · تعلّمي أولاً"
+      title="دليل الاستماع"
+      kicker="درس الاستماع"
+      intro="دروس أساسية في استراتيجية استماع الآيلتس — كيف يُبنى القسم، وكيف تلتقطين الإجابة قبل أن تفوتكِ. ابدئي بها قبل أن تتدرّبي."
+      lessons={LISTENING_LESSONS}
+    />
+  )
+}
+
+// Route dispatcher: /listening/guide → lessons; /listening → the practice hall.
+export default function Listening() {
+  const { pathname } = useLocation()
+  if (pathname.endsWith('/listening/guide')) return <ListeningLessonsGuide />
+  return <ListeningHall />
 }
