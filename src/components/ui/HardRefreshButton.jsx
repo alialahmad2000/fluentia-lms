@@ -50,16 +50,12 @@ export default function HardRefreshButton({ className = '', compact = false }) {
         disabled={busy}
         aria-label="تحديث شامل"
         title="تحديث شامل — يمسح الذاكرة المؤقتة ويعيد التحميل"
-        className={`flex items-center justify-center w-9 h-9 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-60 disabled:cursor-wait ${className}`}
-        style={{
-          background: 'var(--surface-raised, var(--ds-surface-1, rgba(255,255,255,0.04)))',
-          borderColor: 'var(--border-subtle, var(--ds-border-subtle, rgba(255,255,255,0.08)))',
-        }}
+        className={`fl-hdr-btn ${className}`}
       >
         {busy ? (
-          <Loader2 size={16} className="animate-spin" style={{ color: 'var(--accent-sky, var(--ds-accent-primary, #38bdf8))' }} />
+          <Loader2 size={18} strokeWidth={1.75} className="animate-spin" />
         ) : (
-          <RefreshCw size={16} style={{ color: 'var(--accent-sky, var(--ds-accent-primary, #38bdf8))' }} />
+          <RefreshCw size={18} strokeWidth={1.75} />
         )}
       </button>
     )

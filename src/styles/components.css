@@ -960,3 +960,60 @@
   background-color: rgba(4, 120, 87, 0.12);
   color: #047857;
 }
+
+/* ── Header control cluster — one cohesive, restrained premium icon set ────
+ * Unifies the reset / hard-refresh / theme / notifications triggers (and the
+ * menu button) into identical circular glass buttons: muted icons at rest, a
+ * subtle lift + theme-accent ring on hover. Reserves colour for meaning (the
+ * red unread badge) instead of tinting every icon. ---------------------- */
+.fl-hdr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 9999px;
+  /* dark frosted glass — a self-defining "material" that reads over ANY
+     backdrop (transparent header on a bright hero image, or scrolled over warm
+     content); keeps the muted-light icon legible everywhere, like iOS controls
+     over photos. */
+  background: rgba(13, 18, 30, 0.42);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #c3ccdf;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.18s ease-out, background 0.18s ease-out, color 0.18s ease-out,
+    border-color 0.18s ease-out, box-shadow 0.18s ease-out;
+  cursor: pointer;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+.fl-hdr-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(24, 31, 48, 0.6);
+  color: #f4f6fb;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 6px 16px -6px rgba(0, 0, 0, 0.55),
+    0 0 0 3px var(--ds-accent-primary-glow, rgba(233, 185, 73, 0.16)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.fl-hdr-btn:active { transform: translateY(0) scale(0.95); }
+.fl-hdr-btn:focus-visible {
+  outline: none;
+  border-color: var(--ds-accent-primary, rgba(233, 185, 73, 0.7));
+  box-shadow: 0 0 0 3px var(--ds-accent-primary-glow, rgba(233, 185, 73, 0.28));
+}
+.fl-hdr-btn:disabled { opacity: 0.55; cursor: wait; }
+
+/* the profile avatar shares the cluster — matching ring + lift */
+.fl-hdr-avatar {
+  border-radius: 9999px;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  box-shadow: 0 0 0 1px var(--ds-border-subtle, rgba(255, 255, 255, 0.1));
+}
+.fl-hdr-avatar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px var(--ds-accent-primary, rgba(233, 185, 73, 0.6)), 0 6px 16px -6px rgba(0, 0, 0, 0.5);
+}

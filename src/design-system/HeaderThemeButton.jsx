@@ -107,14 +107,10 @@ export default function HeaderThemeButton() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(p => !p)}
-        className="flex items-center justify-center w-9 h-9 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-        style={{
-          background: 'var(--surface-raised, var(--ds-surface-1, rgba(255,255,255,0.04)))',
-          borderColor: 'var(--border-subtle, var(--ds-border-subtle, rgba(255,255,255,0.08)))',
-        }}
+        className="fl-hdr-btn"
         aria-label="تغيير المظهر"
       >
-        <CurrentIcon size={16} style={{ color: 'var(--accent-sky, var(--ds-accent-primary, #38bdf8))' }} />
+        <CurrentIcon size={18} strokeWidth={1.75} />
       </button>
 
       {/* Dropdown */}

@@ -84,13 +84,9 @@ function Header({ showMenuButton, onMenuClick }) {
           <button
             onClick={onMenuClick}
             aria-label="فتح القائمة"
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200"
-            style={{
-              background: 'var(--ds-surface-1, var(--surface-raised, rgba(255,255,255,0.04)))',
-              color: 'var(--ds-text-secondary, var(--text-secondary))',
-            }}
+            className="fl-hdr-btn"
           >
-            <Menu size={20} strokeWidth={1.5} />
+            <Menu size={19} strokeWidth={1.75} />
           </button>
         )}
       </div>
@@ -114,12 +110,14 @@ function Header({ showMenuButton, onMenuClick }) {
           <button
             onClick={() => setProfileOpen((p) => !p)}
             aria-label="الملف الشخصي"
-            className="cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[var(--ds-accent-primary)]"
-            style={{
-              boxShadow: profileOpen ? '0 0 0 2px var(--ds-accent-primary-glow, rgba(233,185,73,0.35))' : 'none',
-            }}
+            className="fl-hdr-avatar cursor-pointer outline-none"
+            style={
+              profileOpen
+                ? { boxShadow: '0 0 0 2px var(--ds-accent-primary, rgba(233,185,73,0.7)), 0 6px 16px -6px rgba(0,0,0,0.5)' }
+                : undefined
+            }
           >
-            <UserAvatar user={profile} size={36} rounded="xl" />
+            <UserAvatar user={profile} size={38} rounded="full" />
           </button>
 
           <AnimatePresence>

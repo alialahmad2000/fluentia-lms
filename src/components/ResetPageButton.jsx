@@ -120,17 +120,10 @@ export default function ResetPageButton() {
         <button
           onClick={handleClick}
           aria-label="إعادة تعيين الصفحة"
-          className="flex items-center justify-center w-9 h-9 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group"
-          style={{
-            background: 'var(--surface-raised, var(--ds-surface-1, rgba(255,255,255,0.04)))',
-            borderColor: 'var(--border-subtle, var(--ds-border-subtle, rgba(255,255,255,0.08)))',
-          }}
+          className="fl-hdr-btn group"
           title="إعادة تعيين الصفحة"
         >
-          <RotateCcw
-            className={`w-4 h-4 transition-colors ${isSpinning ? 'animate-spin-once' : ''}`}
-            style={{ color: 'var(--accent-sky, var(--ds-accent-primary, #38bdf8))' }}
-          />
+          <RotateCcw className={`w-[18px] h-[18px] ${isSpinning ? 'animate-spin-once' : ''}`} strokeWidth={1.75} />
         </button>
 
         {/* Confirmation popover (anchored to button) */}

@@ -233,9 +233,9 @@ export default function NotificationCenter() {
       <button
         onClick={() => setOpen(!open)}
         aria-label={t('common.notifications.title')}
-        className="relative btn-icon text-muted transition-all duration-200 p-1.5 hover:scale-110 active:scale-95"
+        className="fl-hdr-btn"
       >
-        <Bell size={20} strokeWidth={1.5} />
+        <Bell size={19} strokeWidth={1.75} />
         {unreadCount > 0 && (
           <>
             {/* Pulse ring */}
