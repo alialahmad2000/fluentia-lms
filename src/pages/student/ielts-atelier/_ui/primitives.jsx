@@ -224,7 +224,7 @@ export function NavItem({ icon: I, label, badge, active, onClick }) {
       <span style={{ display: 'flex', flex: 'none' }}><I size={18} /></span>
       {label}
       {badge != null && badge !== '' && (
-        <span style={{ marginInlineStart: 'auto', fontSize: 11, fontWeight: 700, background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', padding: '1px 8px', borderRadius: 20 }}>{badge}</span>
+        <span style={{ marginInlineStart: 'auto', fontSize: 12.5, fontWeight: 700, fontFamily: 'var(--iel-display)', fontVariantNumeric: 'tabular-nums', background: 'var(--iel-track)', color: 'var(--iel-ink-2)', padding: '1px 9px', borderRadius: 20 }}>{badge}</span>
       )}
     </button>
   )

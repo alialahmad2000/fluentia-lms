@@ -162,16 +162,20 @@ export default function SkillMonitor() {
       </LabHeader>
 
       {!hasData ? (
-        <Card style={{ padding: '44px 28px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-          <span style={{ width: 52, height: 52, borderRadius: 15, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent)' }}><Activity size={24} /></span>
-          <div>
-            <div style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--iel-ink)', marginBottom: 6 }}>لا يوجد أداء بعد</div>
-            <p style={{ margin: 0, fontSize: 13.5, color: 'var(--iel-ink-3)', lineHeight: 1.7, maxWidth: '40ch' }}>
-              {g('ابدأ التدريب على هذه المهارة، وستظهر هنا درجاتك ومسار تحسّنك خطوة بخطوة.', 'ابدئي التدريب على هذه المهارة، وستظهر هنا درجاتك ومسار تحسّنك خطوة بخطوة.')}
+        <div style={{ position: 'relative', overflow: 'hidden', maxWidth: 660, border: '1px solid var(--iel-border-strong)', borderRadius: 16, background: 'var(--iel-surface)', boxShadow: '0 12px 28px -22px rgba(60,45,20,.2)' }}>
+          <div style={{ height: 3, background: 'linear-gradient(90deg, transparent, var(--iel-accent) 32%, var(--iel-gold) 72%, transparent)' }} />
+          <div style={{ padding: '30px 30px 32px' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: '.14em', color: 'var(--iel-ink-3)' }}>سِجِلّ الأداء</div>
+            <h3 style={{ fontFamily: 'var(--iel-display)', fontSize: 25, fontWeight: 700, color: 'var(--iel-ink)', margin: '9px 0 0', lineHeight: 1.22 }}>لا يوجد أداء بعد</h3>
+            <div style={{ height: 1, margin: '15px 0', background: 'linear-gradient(90deg, var(--iel-border-strong), transparent)' }} />
+            <p style={{ margin: 0, fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.85, maxWidth: '46ch' }}>
+              {g('ابدأ التدريب على هذه المهارة، وستُنشَر هنا درجاتك ومسار تحسّنك عبر الجلسات، خطوة بخطوة.', 'ابدئي التدريب على هذه المهارة، وستُنشَر هنا درجاتك ومسار تحسّنك عبر الجلسات، خطوة بخطوة.')}
             </p>
+            <div style={{ marginTop: 22 }}>
+              <PrimaryButton onClick={goLab}>{g('ابدأ التدريب', 'ابدئي التدريب')} <Icon.chevron size={16} sw={2.4} /></PrimaryButton>
+            </div>
           </div>
-          <PrimaryButton onClick={goLab}>{g('ابدأ التدريب', 'ابدئي التدريب')} <Icon.chevron size={16} sw={2.4} /></PrimaryButton>
-        </Card>
+        </div>
       ) : (
         <>
           {/* Hero: gauge + trend */}

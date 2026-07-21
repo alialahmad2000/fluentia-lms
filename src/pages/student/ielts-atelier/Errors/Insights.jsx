@@ -134,7 +134,7 @@ export default function Insights() {
                 <BarChart data={chartData} layout="vertical" margin={{ right: 20 }}>
                   <XAxis type="number" tick={{ fill: 'var(--ds-text-muted)', fontSize: 11 }} />
                   <YAxis type="category" dataKey="name" tick={{ fill: 'var(--ds-text)', fontSize: 12, fontFamily: 'Tajawal' }} width={60} />
-                  <Tooltip contentStyle={{ background: '#0b0f18', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: 'var(--ds-text)', fontFamily: 'Tajawal', fontSize: 12 }} />
+                  <Tooltip contentStyle={{ background: 'var(--iel-solid)', border: '1px solid var(--iel-border)', borderRadius: 8, color: 'var(--iel-ink)', boxShadow: 'var(--iel-shadow)', fontFamily: 'Tajawal', fontSize: 12 }} />
                   <Bar dataKey="errors" radius={[0,4,4,0]} name="أخطاء">
                     {chartData.map(d => <Cell key={d.skill} fill={SKILL_COLORS[d.skill]} fillOpacity={0.7} />)}
                   </Bar>

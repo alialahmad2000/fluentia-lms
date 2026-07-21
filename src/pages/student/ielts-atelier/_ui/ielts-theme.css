@@ -6,27 +6,29 @@
    ========================================================================== */
 
 .iel-root{
-  /* — Dark: an immersive, warm-cool study world (glassy surfaces over an
-       ambient teal+gold field) — default — */
-  --iel-ground:#0a0d12;
-  --iel-panel:rgba(18,23,32,.62); --iel-surface:rgba(23,29,40,.55); --iel-surface-2:rgba(31,39,52,.62);
-  --iel-solid:#141924;                 /* opaque fallback where blur can't apply */
-  --iel-border:rgba(255,255,255,.11); --iel-border-strong:rgba(255,255,255,.2);
-  /* text ramp — muted tiers lifted for WCAG-AA on the glass surfaces (ui-ux-pro-max §6) */
-  --iel-ink:#f0f3f8; --iel-ink-2:#b6c0cd; --iel-ink-3:#8a95a4;
-  --iel-accent:#34c8a6; --iel-accent-ink:#8ff0d8; --iel-accent-soft:rgba(52,200,166,.14);
-  --iel-gold:#e6ba68; --iel-gold-ink:#f4d38f; --iel-gold-soft:rgba(230,186,104,.15);
-  --iel-good:#34c8a6; --iel-warn:#e6b45a; --iel-bad:#eb6f5c;
-  --iel-nav-active:#8ff0d8; --iel-nav-active-bg:rgba(52,200,166,.15);
-  --iel-track:rgba(255,255,255,.09);
-  /* one consistent elevation scale (ui-ux-pro-max: elevation-consistent) */
-  --iel-shadow-sm:0 1px 2px rgba(0,0,0,.35);
-  --iel-shadow:0 2px 6px rgba(0,0,0,.35), 0 22px 52px -24px rgba(0,0,0,.72);
-  --iel-shadow-lg:0 4px 14px rgba(0,0,0,.42), 0 44px 96px -44px rgba(0,0,0,.8);
+  /* — Editorial «الصحيفة»: a bright, authoritative exam-board journal — warm ivory
+       paper, deep-green ink accent, rich near-black type, hairline rules. ONE
+       committed light finish (Ali 2026-07-21), applied in every app theme. — */
+  --iel-ground:#f6f1e6;
+  --iel-panel:#efe8d9; --iel-surface:#ffffff; --iel-surface-2:#faf6ec;
+  --iel-solid:#ffffff;                  /* opaque fallback where blur can't apply */
+  --iel-border:#e7dfce; --iel-border-strong:#d7cdb6;
+  /* text ramp — rich ink on warm paper, WCAG-AA across all tiers */
+  --iel-ink:#1b1710; --iel-ink-2:#5a5140; --iel-ink-3:#8f8672;
+  --iel-accent:#116b5a; --iel-accent-ink:#0d5647; --iel-accent-soft:#e7f0ec;
+  --iel-gold:#a17a20; --iel-gold-ink:#846213; --iel-gold-soft:#f3ecd9;
+  --iel-good:#116b5a; --iel-warn:#b0761d; --iel-bad:#b5533a;
+  --iel-nav-active:#0d5647; --iel-nav-active-bg:#e7f0ec;
+  --iel-track:#ece4d3;
+  /* one consistent elevation scale — soft, warm, paper-appropriate shadows */
+  --iel-shadow-sm:0 1px 2px rgba(60,45,20,.05);
+  --iel-shadow:0 1px 2px rgba(60,45,20,.05), 0 22px 44px -26px rgba(60,45,20,.22);
+  --iel-shadow-lg:0 4px 14px rgba(60,45,20,.08), 0 42px 84px -44px rgba(60,45,20,.3);
   /* unified motion tokens (ui-ux-pro-max §7: 150–300ms, ease-out enter) */
   --iel-ease:cubic-bezier(.22,1,.36,1); --iel-dur:.2s;
   --iel-sans:"Tajawal","Readex Pro",system-ui,sans-serif;
   --iel-serif:"Source Serif 4","Newsreader",Georgia,serif;
+  --iel-display:"Amiri","Source Serif 4",Georgia,serif;   /* editorial serif for headings */
 
   /* Bridge: un-rebuilt screens still read the old sunset and ds tokens — keep them coherent */
   --sunset-base-deep:var(--iel-ground); --sunset-base-mid:var(--iel-panel); --sunset-base-warm:var(--iel-surface-2);
@@ -38,24 +40,18 @@
   --ds-text:var(--iel-ink); --ds-text-primary:var(--iel-ink); --ds-text-secondary:var(--iel-ink-2);
   --ds-text-muted:var(--iel-ink-3); --ds-text-tertiary:var(--iel-ink-3);
 
-  background:var(--iel-ground); color:var(--iel-ink); font-family:var(--iel-sans);
+  /* subtle editorial warmth baked into the paper — a whisper of green + gold at the corners */
+  background:
+    radial-gradient(56% 42% at 92% -4%, color-mix(in srgb, var(--iel-accent) 6%, transparent), transparent 60%),
+    radial-gradient(50% 40% at 3% 104%, color-mix(in srgb, var(--iel-gold) 7%, transparent), transparent 58%),
+    var(--iel-ground);
+  color:var(--iel-ink); font-family:var(--iel-sans);
   min-height:100dvh;
 }
 
-/* — Bright (clean, authoritative exam-board) — under the app's light theme — */
-html.light .iel-root,
-:root[data-theme="minimal"] .iel-root{
-  --iel-ground:#f4f1ea; --iel-panel:#efe9de; --iel-surface:#ffffff; --iel-surface-2:#faf8f3;
-  --iel-solid:#ffffff;
-  --iel-border:#e7e1d5; --iel-border-strong:#d8d0c0;
-  --iel-ink:#201c15; --iel-ink-2:#6d6456; --iel-ink-3:#9a9082;
-  --iel-accent:#0f6f5f; --iel-accent-ink:#0a5749; --iel-accent-soft:#e4efec;
-  --iel-gold:#a17a20; --iel-gold-ink:#8a6417; --iel-gold-soft:#f3ecd9; --iel-good:#0f6f5f; --iel-warn:#b0761d; --iel-bad:#b5533a;
-  --iel-nav-active:#0f6f5f; --iel-nav-active-bg:#e6efec;
-  --iel-track:#eae4d8;
-  --iel-shadow-sm:0 1px 2px rgba(40,30,15,.05);
-  --iel-shadow:0 1px 2px rgba(40,30,15,.05), 0 10px 30px -14px rgba(40,30,15,.16);
-}
+/* The editorial palette above is the ONE committed finish, applied in every app
+   theme (dark/light/auto) — no separate light override; the exam keeps its own
+   clinical white below. */
 
 .iel-serif{font-family:var(--iel-serif);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
@@ -159,7 +155,7 @@ html .iel-exam-clinical.iel-exam-clinical,
   border:1.5px solid var(--iel-border); background:var(--iel-surface-2); color:var(--iel-ink-3); position:relative; z-index:1;
   transition:transform .2s ease; }
 .iel-station .lbl{ font-size:11.5px; font-weight:700; color:var(--iel-ink-3); margin-top:8px; line-height:1.3; }
-.iel-station .sub{ font-size:10px; font-weight:600; color:var(--iel-ink-3); opacity:.7; margin-top:2px; }
+.iel-station .sub{ font-size:12px; font-weight:600; color:var(--iel-ink-3); margin-top:2px; }
 /* connector to the NEXT station — spans the gap from this dot's centre toward
    the next dot (RTL-safe): inset-inline-start:50% anchors it at the dot centre
    and it extends one station-width toward the following station. No stray
@@ -219,7 +215,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 /* premium lab header: eyebrow + big title + lede + hairline accent rule */
 .iel-labhead{ margin:0 0 22px }
 .iel-labhead .eyebrow{ font-size:12px; font-weight:800; color:var(--iel-accent); letter-spacing:.08em; margin:0 0 9px }
-.iel-labhead h1{ font-size:27px; font-weight:800; color:var(--iel-ink); margin:0; letter-spacing:-.02em; line-height:1.1 }
+.iel-labhead h1{ font-family:var(--iel-display); font-size:clamp(32px,4vw,42px); font-weight:700; color:var(--iel-ink); margin:0; letter-spacing:-.015em; line-height:1.08 }
 .iel-labhead p{ font-size:14.5px; color:var(--iel-ink-2); margin:10px 0 0; line-height:1.8; max-width:56ch }
 .iel-labhead .rule{ height:1px; margin-top:18px; background:linear-gradient(90deg,
   color-mix(in srgb, var(--iel-accent) 55%, transparent), var(--iel-border) 40%, transparent); }
@@ -263,8 +259,7 @@ html .iel-exam-clinical.iel-exam-clinical,
   100%{ transform:translate3d(-3%,2%,0) scale(1.08); }
 }
 /* Under the bright/exam themes the field must not muddy the clean surfaces */
-html.light .iel-atmo, :root[data-theme="minimal"] .iel-atmo,
-html .iel-exam-clinical .iel-atmo{ display:none; }
+.iel-atmo{ display:none; }  /* editorial «الصحيفة» finish is clean paper — no dark ambient field */
 @media (prefers-reduced-motion: reduce){ .iel-atmo::after{ animation:none } }
 
 /* ── Shell layout (RTL: nav right, content fills left) ─────────────────────── */
@@ -272,9 +267,9 @@ html .iel-exam-clinical .iel-atmo{ display:none; }
 .iel-nav{width:264px;flex:none;align-self:flex-start;position:sticky;top:0;height:100dvh;overflow-y:auto;
   background:var(--iel-panel);border-inline-start:1px solid var(--iel-border-strong);
   backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);
-  box-shadow:-1px 0 0 rgba(255,255,255,.04) inset, -30px 0 60px -40px rgba(0,0,0,.6);
+  box-shadow:inset -1px 0 0 var(--iel-border), -24px 0 48px -36px rgba(60,45,20,.18);
   display:flex;flex-direction:column;padding:22px 16px;gap:3px}
-.iel-nav-label{font-size:11px;font-weight:700;color:var(--iel-ink-3);letter-spacing:.13em;padding:14px 10px 6px}
+.iel-nav-label{font-size:12px;font-weight:800;color:var(--iel-ink-3);letter-spacing:.12em;padding:14px 10px 6px}
 .iel-brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px}
 .iel-brand .mark{width:34px;height:34px;border-radius:10px;
   background:linear-gradient(140deg, var(--iel-accent), var(--iel-gold));
@@ -283,7 +278,7 @@ html .iel-exam-clinical .iel-atmo{ display:none; }
 .iel-brand .wm{font-weight:800;font-size:17px;color:var(--iel-ink);line-height:1.1}
 .iel-brand .wm small{display:block;font-size:11px;font-weight:600;color:var(--iel-ink-3);letter-spacing:.14em}
 .iel-navfoot{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 10px 2px;border-top:1px solid var(--iel-border)}
-.iel-navfoot .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#5b8def,#8b5bef);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.iel-navfoot .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(140deg, var(--iel-accent), var(--iel-accent-ink));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
 .iel-navfoot .who{font-size:13px;font-weight:700;color:var(--iel-ink)}
 .iel-navfoot .who small{display:block;font-size:11px;color:var(--iel-ink-3);font-weight:600}
 .iel-main{flex:1;min-width:0;padding:26px 34px 60px}
@@ -328,7 +323,7 @@ html .iel-exam-clinical .iel-atmo{ display:none; }
 .iel-subitem .dot{ flex:none; width:5px; height:5px; border-radius:50%; background:var(--iel-ink-3); transition:background .14s, transform .14s, box-shadow .14s; }
 .iel-subitem:hover{ color:var(--iel-ink); background:var(--iel-surface-2); }
 .iel-subitem:hover .dot{ background:var(--iel-accent); }
-.iel-subitem .cnt{ margin-inline-start:auto; font-size:10.5px; font-weight:700; color:var(--iel-ink-3); }
+.iel-subitem .cnt{ margin-inline-start:auto; font-size:12px; font-weight:700; color:var(--iel-ink-3); }
 .iel-subitem.on{ color:var(--iel-accent-ink); background:var(--iel-accent-soft); font-weight:700; }
 .iel-subitem.on .dot{ background:var(--iel-accent); transform:scale(1.35); box-shadow:0 0 8px color-mix(in srgb, var(--iel-accent) 70%, transparent); }
 .iel-subitem.on .cnt{ color:var(--iel-accent-ink); }
@@ -390,10 +385,10 @@ html .iel-exam-clinical .iel-atmo{ display:none; }
 .iel-bento > [data-span="2"]{ grid-column:1 / -1; }
 
 .iel-bcard{
-  background:color-mix(in srgb, var(--iel-solid) 55%, var(--iel-surface));
+  background:var(--iel-surface);
   border:1px solid var(--iel-border); border-radius:16px; padding:16px 17px;
   position:relative; overflow:hidden; min-width:0;
-  box-shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 26px -16px rgba(0,0,0,.62), inset 0 1px 0 rgba(255,255,255,.05);
+  box-shadow:0 1px 2px rgba(60,45,20,.05), 0 14px 32px -22px rgba(60,45,20,.26);
 }
 .iel-blab{ display:flex; align-items:center; gap:9px; margin-bottom:11px; font-size:13px; font-weight:800; color:var(--iel-ink); }
 .iel-blab .d{ width:26px; height:26px; border-radius:9px; flex:none; display:grid; place-items:center;
@@ -411,7 +406,7 @@ html .iel-exam-clinical .iel-atmo{ display:none; }
   box-shadow:0 0 0 4px color-mix(in srgb, var(--dc) 8%, transparent), 0 10px 24px -12px color-mix(in srgb, var(--dc) 70%, #000); }
 .iel-bcard--head .ht{ min-width:0; }
 .iel-bcard--head .kick{ font-size:12px; font-weight:800; letter-spacing:.04em; color:var(--dc); margin-bottom:6px; }
-.iel-bcard--head h2{ margin:0; font-size:23px; font-weight:800; color:var(--iel-ink); line-height:1.22; letter-spacing:-.015em; }
+.iel-bcard--head h2{ margin:0; font-family:var(--iel-display); font-size:24px; font-weight:700; color:var(--iel-ink); line-height:1.2; letter-spacing:-.01em; }
 .iel-bcard--head .sub{ font-size:13px; color:var(--iel-ink-2); font-weight:600; margin-top:5px; }
 
 /* steps — compact numbered chips (no timeline) */
