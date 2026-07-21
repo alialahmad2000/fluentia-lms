@@ -31,6 +31,7 @@ import ReadingTools from '../../../../components/curriculum/reading/ReadingTools
 import { useArticleVocabIndex } from '../../../../hooks/useArticleVocabIndex'
 import { trackEvent } from '../../../../lib/trackEvent'
 import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
+import '../../../../components/curriculum/questions/questionCards.css'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -1744,20 +1745,34 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-base font-bold text-white font-['Tajawal']">أسئلة الفهم</h3>
+    <div className="space-y-4 qx-scope" data-accent="sky">
+      <div className="qx-eyebrow" dir="rtl">
+        <span className="qx-spark" />
+        <h3 className="qx-eyebrow-title">أسئلة الفهم</h3>
+        <span className="qx-eyebrow-rule" />
         {answered > 0 && submitted && (
-          <span className="text-xs text-slate-400 font-['Tajawal']">
+          <span className="text-xs text-slate-400 font-['Tajawal'] flex-shrink-0">
             {correctCount}/{answered} صحيحة
           </span>
         )}
-        {answered > 0 && !submitted && (
-          <span className="text-xs text-slate-400 font-['Tajawal']">
-            {answered}/{total} مُجاب عليها
-          </span>
-        )}
       </div>
+
+      {/* Per-question progress ticks — one segment per question, fills as answered */}
+      {!submitted && (
+        <div dir="rtl">
+          <div className="qx-ticks">
+            {questions.map(q => (
+              <span key={q.id} className="qx-tick" data-on={answers[q.id] ? 'true' : 'false'} />
+            ))}
+          </div>
+          {answered > 0 && (
+            <p className="qx-ticks-label text-left" dir="ltr">
+              <span dir="rtl">{answered}/{total} مُجاب عليها</span>
+            </p>
+          )}
+        </div>
+      )}
+
       <div className="space-y-4">
         {questions.map((q, idx) => (
           <MCQQuestion
@@ -1877,90 +1892,61 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
   const typeColor = QUESTION_TYPE_COLORS[question.question_type] || QUESTION_TYPE_COLORS.detail
 
   return (
-    <div
-      className="rounded-2xl p-5 sm:p-6 space-y-4"
-      style={{
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        boxShadow: '0 10px 28px -14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05)',
-      }}
-    >
-      <div className="flex items-start gap-3.5">
-        <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 text-[#0a1225]"
-          style={{
-            background: 'linear-gradient(145deg, #7dd3fc 0%, #38bdf8 100%)',
-            boxShadow: '0 4px 14px -4px rgba(56,189,248,0.55), inset 0 1px 0 rgba(255,255,255,0.35)',
-          }}
-        >
-          {index + 1}
-        </div>
-        <div className="flex-1 space-y-2.5">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-xs font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
-              {typeBadge}
-            </span>
-          </div>
-          <p className="text-[15px] sm:text-base font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
-            {question.question_en}
-          </p>
-          {question.question_ar && (
-            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{genderizeText(question.question_ar)}</p>
-          )}
-        </div>
+    <div className="qx-card" data-accent="sky" dir="rtl">
+      <span className="qx-rail" />
+      <span className="qx-node" />
+      <span className="qx-ghost-num" aria-hidden="true">{index + 1}</span>
+
+      {/* Meta line: question type, number etched at the end */}
+      <div className="qx-meta">
+        <span className="qx-spark" />
+        <span className="qx-type">{typeBadge}</span>
+        <span className="qx-qnum" dir="ltr">Q{index + 1}</span>
       </div>
 
-      {/* Choices */}
-      <div className="grid grid-cols-1 gap-2.5">
+      <p className="qx-question" dir="ltr">{question.question_en}</p>
+      {question.question_ar && (
+        <p className="qx-question-ar" dir="rtl">{genderizeText(question.question_ar)}</p>
+      )}
+
+      {/* Answer ledger */}
+      <div className="qx-well" dir="ltr">
         {shuffledChoices.map((choice, i) => {
           const isSelected = answer?.selected === choice
           const isCorrectAnswer = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
           // Correctness styling is ONLY revealed after explicit submit.
-          const showCorrect = revealCorrect && isCorrectAnswer
-          const showWrong = revealCorrect && isSelected && !answer?.correct
+          const state = revealCorrect && isCorrectAnswer ? 'correct'
+            : revealCorrect && isSelected && !answer?.correct ? 'wrong'
+            : isSelected ? 'selected' : 'idle'
 
           return (
             <button
               key={i}
+              type="button"
               onClick={() => handleSelect(choice)}
               disabled={revealCorrect}
-              dir="ltr"
-              className="text-start px-4 py-3.5 rounded-xl text-sm font-['Inter'] transition-all duration-200 min-h-[48px]"
-              style={{
-                background: showCorrect ? 'rgba(16,185,129,0.13)' : showWrong ? 'rgba(244,63,94,0.12)' : isSelected ? 'rgba(56,189,248,0.12)' : 'rgba(255,255,255,0.03)',
-                border: `1px solid ${showCorrect ? 'rgba(16,185,129,0.45)' : showWrong ? 'rgba(244,63,94,0.45)' : isSelected ? 'rgba(56,189,248,0.5)' : 'rgba(255,255,255,0.08)'}`,
-                color: showCorrect ? '#6ee7b7' : showWrong ? '#fda4af' : isSelected ? '#bae6fd' : 'var(--text-primary)',
-                boxShadow: isSelected && !revealCorrect ? '0 0 0 3px rgba(56,189,248,0.12)' : showCorrect ? '0 0 0 3px rgba(16,185,129,0.10)' : 'none',
-                cursor: revealCorrect ? 'default' : 'pointer',
-              }}
-              onMouseEnter={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(56,189,248,0.4)' }}
-              onMouseLeave={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)' }}
+              className="qx-opt"
+              data-state={state}
             >
-              <div className="flex items-center gap-3">
-                <span className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
-                  style={{
-                    background: showCorrect ? 'rgba(16,185,129,0.22)' : showWrong ? 'rgba(244,63,94,0.22)' : isSelected ? 'rgba(56,189,248,0.22)' : 'rgba(255,255,255,0.06)',
-                    color: showCorrect ? '#34d399' : showWrong ? '#fb7185' : isSelected ? '#38bdf8' : '#94a3b8',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                  }}
-                >
-                  {showCorrect ? <CheckCircle size={14} /> : showWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
-                </span>
-                <span>{choice}</span>
-              </div>
+              <span className="qx-marker">
+                {state === 'correct' ? <CheckCircle size={14} /> : state === 'wrong' ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
+              </span>
+              <span>{choice}</span>
             </button>
           )
         })}
       </div>
 
-      {/* Hint — the passage excerpt that answers this question */}
-      <QuestionHint
-        hint={question.hint}
-        accent="sky"
-        kind="reading"
-        contentId={question.reading_id}
-        questionKey={question.id}
-      />
+      <div className="qx-foot space-y-3">
+        {/* Hint — the passage excerpt that answers this question */}
+        <QuestionHint
+          hint={question.hint}
+          accent="sky"
+          kind="reading"
+          contentId={question.reading_id}
+          questionKey={question.id}
+        />
+      </div>
 
       {/* Explanation — only after submit */}
       <AnimatePresence>

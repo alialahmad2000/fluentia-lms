@@ -1,0 +1,250 @@
+/* ── Question cards: "examiner's dossier" ─────────────────────────────────────
+   Shared by Listening (violet, default) and Reading (sky, data-accent="sky").
+   One accent system via CSS vars so both sections stay visual twins.
+   No color-mix / no backdrop-filter (iOS<16.4 + list perf). */
+
+.qx-scope,
+.qx-card {
+  --qx-accent: #a855f7;
+  --qx-accent-strong: #c084fc;
+  --qx-tint: rgba(168, 85, 247, 0.13);
+  --qx-edge: rgba(168, 85, 247, 0.45);
+  --qx-ghost: rgba(168, 85, 247, 0.16);
+  --qx-glowsh: rgba(168, 85, 247, 0.35);
+  --qx-soft: rgba(168, 85, 247, 0.07);
+}
+.qx-scope[data-accent='sky'],
+.qx-card[data-accent='sky'] {
+  --qx-accent: #38bdf8;
+  --qx-accent-strong: #7dd3fc;
+  --qx-tint: rgba(56, 189, 248, 0.12);
+  --qx-edge: rgba(56, 189, 248, 0.45);
+  --qx-ghost: rgba(56, 189, 248, 0.18);
+  --qx-glowsh: rgba(56, 189, 248, 0.35);
+  --qx-soft: rgba(56, 189, 248, 0.07);
+}
+
+/* ── Card shell ── */
+.qx-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background:
+    linear-gradient(172deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.012) 36%, rgba(0, 0, 0, 0.14) 100%),
+    rgba(9, 15, 30, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 20px 44px -24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  padding: 20px 22px 20px;
+}
+/* accent rail across the top, brightest at the inline-start */
+.qx-rail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(to left, var(--qx-accent) 0%, rgba(255, 255, 255, 0) 62%);
+  pointer-events: none;
+}
+.qx-node {
+  position: absolute;
+  top: -3.5px;
+  inset-inline-start: 20px;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--qx-accent-strong);
+  box-shadow: 0 0 12px 3px var(--qx-glowsh);
+  pointer-events: none;
+}
+/* oversized etched numeral behind the top corner */
+.qx-ghost-num {
+  position: absolute;
+  top: -16px;
+  inset-inline-end: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 96px;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--qx-ghost);
+  opacity: 0.8;
+  pointer-events: none;
+  user-select: none;
+}
+.qx-card [data-hard-spine] {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(244, 63, 94, 0.65), rgba(244, 63, 94, 0.1));
+}
+
+/* ── Meta line (type · difficulty) ── */
+.qx-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.qx-spark {
+  width: 5px;
+  height: 5px;
+  transform: rotate(45deg);
+  background: var(--qx-accent-strong);
+  box-shadow: 0 0 8px var(--qx-glowsh);
+  flex-shrink: 0;
+}
+.qx-meta .qx-type { color: var(--qx-accent-strong); }
+.qx-meta .qx-sep { color: rgba(148, 163, 184, 0.55); }
+.qx-meta .qx-diff { color: #94a3b8; }
+.qx-meta .qx-diff[data-hard='true'] { color: #fda4af; }
+.qx-meta .qx-qnum {
+  margin-inline-start: auto;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--qx-accent-strong);
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+
+/* ── Question text ── */
+.qx-question {
+  margin-top: 12px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.55;
+  color: #f2f5fa;
+}
+.qx-question-ar {
+  margin-top: 6px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px;
+  color: #8fa0b5;
+}
+
+/* ── Answer ledger: one recessed well, hairline-divided rows ── */
+.qx-well {
+  margin-top: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(2, 6, 16, 0.5);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+.qx-opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: start;
+  padding: 13px 16px;
+  min-height: 52px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #d7dfea;
+  transition: background 0.16s ease-out, color 0.16s ease-out;
+}
+.qx-opt + .qx-opt { border-top: 1px solid rgba(255, 255, 255, 0.055); }
+.qx-opt:hover:not([disabled]) { background: var(--qx-soft); }
+.qx-opt::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--qx-accent);
+  opacity: 0;
+  transition: opacity 0.16s ease-out;
+}
+.qx-marker {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #8b98ab;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: all 0.16s ease-out;
+}
+.qx-opt[data-state='selected'] { background: var(--qx-tint); color: #f4f7fb; }
+.qx-opt[data-state='selected']::before { opacity: 1; }
+.qx-opt[data-state='selected'] .qx-marker {
+  background: var(--qx-accent);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 12px -2px var(--qx-glowsh);
+}
+.qx-opt[data-state='correct'] { background: rgba(16, 185, 129, 0.1); color: #eef8f3; }
+.qx-opt[data-state='correct']::before { opacity: 1; background: #10b981; }
+.qx-opt[data-state='correct'] .qx-marker { background: #10b981; color: #022c22; border-color: transparent; }
+.qx-opt[data-state='wrong'] { background: rgba(244, 63, 94, 0.09); color: #f9eef1; }
+.qx-opt[data-state='wrong']::before { opacity: 1; background: #f43f5e; }
+.qx-opt[data-state='wrong'] .qx-marker { background: rgba(244, 63, 94, 0.9); color: #fff; border-color: transparent; }
+.qx-opt[disabled] { cursor: default; }
+
+/* ── Card footer (hint + explanation live here) ── */
+.qx-foot { margin-top: 16px; }
+
+/* ── Section header + per-question progress ticks ── */
+.qx-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qx-eyebrow-title {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #f1f5f9;
+}
+.qx-eyebrow-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0));
+}
+.qx-ticks {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+.qx-tick {
+  height: 6px;
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+.qx-tick[data-on='true'] {
+  background: var(--qx-accent);
+  box-shadow: 0 0 8px var(--qx-glowsh);
+}
+.qx-ticks-label {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qx-opt, .qx-opt::before, .qx-marker, .qx-tick { transition: none; }
+}

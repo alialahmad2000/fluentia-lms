@@ -3,12 +3,22 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Lightbulb, Volume2, Square } from 'lucide-react'
 import { trackEvent } from '../../../lib/trackEvent'
 
-// Per-section accent so the hint chrome matches its host card
-// (listening = violet, reading = sky). Highlighted answer is always emerald —
-// one consistent "this is the answer" color across the platform.
+// Accent inherits from the host .qx-card / .qx-scope CSS vars (see questionCards.css)
+// so the hint chrome always matches its section. Fallbacks keep it usable standalone.
+// Highlighted answer is always emerald — one consistent "answer" color platform-wide.
 const ACCENTS = {
-  violet: { text: '#c084fc', border: 'rgba(168,85,247,0.35)', bg: 'rgba(168,85,247,0.10)', soft: 'rgba(168,85,247,0.06)' },
-  sky:    { text: '#7dd3fc', border: 'rgba(56,189,248,0.35)', bg: 'rgba(56,189,248,0.10)', soft: 'rgba(56,189,248,0.06)' },
+  violet: {
+    text: 'var(--qx-accent-strong, #c084fc)',
+    border: 'var(--qx-edge, rgba(168,85,247,0.35))',
+    bg: 'var(--qx-tint, rgba(168,85,247,0.10))',
+    soft: 'var(--qx-soft, rgba(168,85,247,0.06))',
+  },
+  sky: {
+    text: 'var(--qx-accent-strong, #7dd3fc)',
+    border: 'var(--qx-edge, rgba(56,189,248,0.35))',
+    bg: 'var(--qx-tint, rgba(56,189,248,0.10))',
+    soft: 'var(--qx-soft, rgba(56,189,248,0.06))',
+  },
 }
 
 const normalize = (s) => (s || '')
@@ -149,21 +159,27 @@ export default function QuestionHint({ hint, audioUrl, accent = 'sky', kind = 'r
             className="overflow-hidden"
           >
             <div
-              className="mt-2.5 rounded-xl p-4 space-y-3"
-              style={{ background: colors.soft, border: `1px solid ${colors.border}` }}
+              className="mt-2 rounded-xl p-4 space-y-3"
+              style={{
+                background: 'linear-gradient(180deg, rgba(2,6,16,0.35), rgba(2,6,16,0.55))',
+                border: `1px solid ${colors.border}`,
+                boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.3)',
+              }}
             >
-              <div className="flex items-center justify-between gap-2 flex-wrap">
-                <p className="text-xs font-bold font-['Tajawal']" style={{ color: colors.text }}>
-                  {kind === 'listening' ? 'موضع الإجابة في التسجيل' : 'موضع الإجابة في النص'}
-                  <span className="ms-2 font-medium" style={{ color: 'var(--text-muted)' }}>
-                    — الإجابة مظلّلة بالأخضر
-                  </span>
-                </p>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+                <div>
+                  <p className="text-xs font-bold font-['Tajawal']" style={{ color: colors.text }}>
+                    {kind === 'listening' ? 'موضع الإجابة في التسجيل' : 'موضع الإجابة في النص'}
+                  </p>
+                  <p className="text-xs font-medium font-['Tajawal'] mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                    الإجابة مظلّلة بالأخضر
+                  </p>
+                </div>
                 {canReplay && (
                   <button
                     type="button"
                     onClick={handleReplay}
-                    className="inline-flex items-center gap-1.5 px-4 min-h-[44px] rounded-lg text-xs font-bold font-['Tajawal'] transition-colors"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 min-h-[44px] rounded-lg text-xs font-bold font-['Tajawal'] transition-colors w-full sm:w-auto"
                     style={{
                       color: playing ? '#fda4af' : colors.text,
                       background: playing ? 'rgba(244,63,94,0.12)' : colors.bg,

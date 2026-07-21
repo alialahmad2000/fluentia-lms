@@ -9,6 +9,7 @@ import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { genderizeText } from '../../../../i18n/gender'
 import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
+import '../../../../components/curriculum/questions/questionCards.css'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { ListeningSection as ListeningSectionUI } from '../../../../components/players/listening/ListeningSection'
 import { TranscriptReader } from '../../../../components/players/listening/TranscriptReader'
@@ -730,31 +731,29 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
   const latestCompleted = completedAttempts.find(a => a.is_latest) || completedAttempts[0]
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">أسئلة الاستماع</h3>
+    <div className="space-y-4 qx-scope" data-accent="violet">
+      <div className="qx-eyebrow" dir="rtl">
+        <span className="qx-spark" />
+        <h3 className="qx-eyebrow-title">أسئلة الاستماع</h3>
+        <span className="qx-eyebrow-rule" />
         {bestScore != null && (
-          <span className="text-xs font-bold px-2 py-0.5 rounded-md font-['Tajawal']"
+          <span className="text-xs font-bold px-2 py-0.5 rounded-md font-['Tajawal'] flex-shrink-0"
             style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>
             أفضل درجة: {bestScore}%
           </span>
         )}
       </div>
 
-      {/* Progress bar */}
+      {/* Per-question progress ticks — one segment per question, fills as answered */}
       {!isCompleted && (
-        <div className="space-y-1">
-          <div className="h-2 rounded-full bg-[var(--surface-base)] overflow-hidden">
-            <div
-              className="h-full rounded-full transition-all duration-500"
-              style={{
-                width: `${total > 0 ? (answered / total) * 100 : 0}%`,
-                background: allAnswered ? '#10b981' : '#a855f7',
-              }}
-            />
+        <div dir="rtl">
+          <div className="qx-ticks">
+            {exercises.map((_, i) => (
+              <span key={i} className="qx-tick" data-on={answers[i]?.selected !== null && answers[i]?.selected !== undefined ? 'true' : 'false'} />
+            ))}
           </div>
-          <p className="text-xs font-medium text-[var(--text-secondary)] font-['Tajawal'] text-left">
-            {answered}/{total} مُجاب عليها
+          <p className="qx-ticks-label text-left" dir="ltr">
+            <span dir="rtl">{answered}/{total} مُجاب عليها</span>
           </p>
         </div>
       )}
@@ -902,120 +901,90 @@ function ListeningMCQ({ exercise, index, answer, audioUrl, listeningId, revealCo
   const diff = DIFFICULTY[exercise.difficulty]
 
   return (
-    <div
-      className="rounded-2xl p-5 sm:p-6 space-y-4"
-      style={{
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        boxShadow: '0 10px 28px -14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05)',
-        ...(diff?.flame ? { borderInlineStart: '3px solid rgba(244,63,94,0.55)' } : {}),
-      }}
-    >
-      <div className="flex items-start gap-3.5">
-        <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 text-white"
-          style={{
-            background: 'linear-gradient(145deg, #a855f7 0%, #7c3aed 100%)',
-            boxShadow: '0 4px 14px -4px rgba(168,85,247,0.55), inset 0 1px 0 rgba(255,255,255,0.25)',
-          }}
-        >
-          {index + 1}
-        </div>
-        <div className="flex-1 space-y-2.5">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {exercise.question_type && (
-              <span className={`text-xs font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
-                {typeBadge}
-              </span>
-            )}
-            {diff && (
-              <span className={`text-xs font-bold px-2 py-0.5 rounded-md border font-['Tajawal'] ${diff.cls}`}>
-                {diff.flame ? '🔥 ' : ''}{diff.label}
-              </span>
-            )}
-          </div>
-          <p className="text-[15px] sm:text-base font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
-            {exercise.question_en}
-          </p>
-        </div>
+    <div className="qx-card" data-accent="violet" dir="rtl">
+      <span className="qx-rail" />
+      <span className="qx-node" />
+      <span className="qx-ghost-num" aria-hidden="true">{index + 1}</span>
+      {diff?.flame && <span data-hard-spine="" />}
+
+      {/* Meta line: type · difficulty, question number etched at the end */}
+      <div className="qx-meta">
+        <span className="qx-spark" />
+        {exercise.question_type && <span className="qx-type">{typeBadge}</span>}
+        {diff && (
+          <>
+            <span className="qx-sep">·</span>
+            <span className="qx-diff" data-hard={diff.flame ? 'true' : 'false'}>{diff.flame ? '🔥 ' : ''}{diff.label}</span>
+          </>
+        )}
+        <span className="qx-qnum" dir="ltr">Q{index + 1}</span>
       </div>
 
-      {/* Options */}
-      <div className="grid grid-cols-1 gap-2.5">
+      <p className="qx-question" dir="ltr">{exercise.question_en}</p>
+
+      {/* Answer ledger */}
+      <div className="qx-well" dir="ltr">
         {exercise.options?.map((opt, i) => {
           const isSelected = answer?.selected === i
           const isCorrectAnswer = i === exercise.correct_answer_index
           // Correctness revealed only after submit.
-          const showCorrect = revealCorrect && isCorrectAnswer
-          const showWrong = revealCorrect && isSelected && !answer?.correct
+          const state = revealCorrect && isCorrectAnswer ? 'correct'
+            : revealCorrect && isSelected && !answer?.correct ? 'wrong'
+            : isSelected ? 'selected' : 'idle'
 
           return (
             <button
               key={i}
+              type="button"
               onClick={() => handleSelect(i)}
               disabled={revealCorrect}
-              dir="ltr"
-              className="text-start px-4 py-3.5 rounded-xl text-sm font-['Inter'] transition-all duration-200 min-h-[48px]"
-              style={{
-                background: showCorrect ? 'rgba(16,185,129,0.13)' : showWrong ? 'rgba(244,63,94,0.12)' : isSelected ? 'rgba(168,85,247,0.13)' : 'rgba(255,255,255,0.03)',
-                border: `1px solid ${showCorrect ? 'rgba(16,185,129,0.45)' : showWrong ? 'rgba(244,63,94,0.45)' : isSelected ? 'rgba(168,85,247,0.5)' : 'rgba(255,255,255,0.08)'}`,
-                color: showCorrect ? '#6ee7b7' : showWrong ? '#fda4af' : isSelected ? '#e9d5ff' : 'var(--text-primary)',
-                boxShadow: isSelected && !revealCorrect ? '0 0 0 3px rgba(168,85,247,0.12)' : showCorrect ? '0 0 0 3px rgba(16,185,129,0.10)' : 'none',
-                cursor: revealCorrect ? 'default' : 'pointer',
-              }}
-              onMouseEnter={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)' }}
-              onMouseLeave={(e) => { if (!revealCorrect && !isSelected) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)' }}
+              className="qx-opt"
+              data-state={state}
             >
-              <div className="flex items-center gap-3">
-                <span className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
-                  style={{
-                    background: showCorrect ? 'rgba(16,185,129,0.22)' : showWrong ? 'rgba(244,63,94,0.22)' : isSelected ? 'rgba(168,85,247,0.25)' : 'rgba(255,255,255,0.06)',
-                    color: showCorrect ? '#34d399' : showWrong ? '#fb7185' : isSelected ? '#c084fc' : 'var(--text-muted)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                  }}
-                >
-                  {showCorrect ? <CheckCircle size={14} /> : showWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
-                </span>
-                <span>{opt}</span>
-              </div>
+              <span className="qx-marker">
+                {state === 'correct' ? <CheckCircle size={14} /> : state === 'wrong' ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
+              </span>
+              <span>{opt}</span>
             </button>
           )
         })}
       </div>
 
-      {/* Hint — the transcript excerpt that answers this question + segment replay */}
-      <QuestionHint
-        hint={exercise.hint}
-        audioUrl={audioUrl}
-        accent="violet"
-        kind="listening"
-        contentId={listeningId}
-        questionKey={index}
-      />
+      <div className="qx-foot space-y-3">
+        {/* Hint — the transcript excerpt that answers this question + segment replay */}
+        <QuestionHint
+          hint={exercise.hint}
+          audioUrl={audioUrl}
+          accent="violet"
+          kind="listening"
+          contentId={listeningId}
+          questionKey={index}
+        />
 
-      {/* Explanation — only after submit */}
-      <AnimatePresence>
-        {revealCorrect && answer && exercise.explanation_ar && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
-          >
-            <div
-              className="p-3.5 rounded-xl text-xs font-['Tajawal'] leading-relaxed"
-              dir="rtl"
-              style={{
-                background: answer.correct ? 'rgba(16,185,129,0.06)' : 'rgba(56,189,248,0.06)',
-                border: `1px solid ${answer.correct ? 'rgba(16,185,129,0.15)' : 'rgba(56,189,248,0.15)'}`,
-                color: 'var(--text-secondary)',
-              }}
+        {/* Explanation — only after submit */}
+        <AnimatePresence>
+          {revealCorrect && answer && exercise.explanation_ar && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden"
             >
-              {genderizeText(exercise.explanation_ar)}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <div
+                className="p-3.5 rounded-xl text-xs font-['Tajawal'] leading-relaxed"
+                dir="rtl"
+                style={{
+                  background: answer.correct ? 'rgba(16,185,129,0.06)' : 'rgba(56,189,248,0.06)',
+                  border: `1px solid ${answer.correct ? 'rgba(16,185,129,0.15)' : 'rgba(56,189,248,0.15)'}`,
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                {genderizeText(exercise.explanation_ar)}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   )
 }
