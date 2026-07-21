@@ -43,21 +43,17 @@ function splitQuote(quote, phrase) {
 }
 
 /**
- * QuestionHint — «تلميح» reveal beside a comprehension question.
- * Shows the exact transcript/passage excerpt that answers the question with the
- * answer phrase highlighted, and (listening only, when timing exists) replays
- * just that segment of the audio.
- *
- * hint shape: { quote, answer_phrase, start_ms?, end_ms?, paragraph_index? }
+ * EvidenceExcerpt — the excerpt panel itself: source label + (listening) segment
+ * replay + the verbatim quote with the answer phrase highlighted emerald.
+ * Self-contained audio handling; reused by QuestionHint (pre-submit toggle)
+ * and VerdictPanel (post-submit explanation).
  */
-export default function QuestionHint({ hint, audioUrl, accent = 'sky', kind = 'reading', contentId, questionKey }) {
-  const [open, setOpen] = useState(false)
+export function EvidenceExcerpt({ hint, audioUrl, accent = 'sky', kind = 'reading', contentId, questionKey, headerLabel }) {
   const [playing, setPlaying] = useState(false)
   // DOM-ATTACHED <audio> (rendered below) — a detached `new Audio()` gets
   // garbage-collected mid-playback on iPad Safari (see the 6f89446 lesson).
   const audioRef = useRef(null)
   const stopTimerRef = useRef(null)
-  const trackedRef = useRef(false)
 
   const colors = ACCENTS[accent] || ACCENTS.sky
   const parts = useMemo(() => splitQuote(hint?.quote, hint?.answer_phrase), [hint])
@@ -78,16 +74,6 @@ export default function QuestionHint({ hint, audioUrl, accent = 'sky', kind = 'r
   }, [])
 
   if (!hint?.quote) return null
-
-  const toggle = () => {
-    const next = !open
-    setOpen(next)
-    if (!next) stopReplay()
-    if (next && !trackedRef.current) {
-      trackedRef.current = true
-      trackEvent('question_hint_opened', { kind, content_id: contentId, question: questionKey })
-    }
-  }
 
   const handleReplay = () => {
     if (playing) { stopReplay(); return }
@@ -130,11 +116,87 @@ export default function QuestionHint({ hint, audioUrl, accent = 'sky', kind = 'r
   }
 
   return (
-    <div dir="rtl">
+    <div
+      className="rounded-xl p-4 space-y-3"
+      dir="rtl"
+      style={{
+        background: 'linear-gradient(180deg, rgba(2,6,16,0.35), rgba(2,6,16,0.55))',
+        border: `1px solid ${colors.border}`,
+        boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.3)',
+      }}
+    >
       {canReplay && (
         // eslint-disable-next-line jsx-a11y/media-has-caption
         <audio ref={audioRef} preload="none" playsInline style={{ display: 'none' }} />
       )}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+        <div>
+          <p className="text-xs font-bold font-['Tajawal']" style={{ color: colors.text }}>
+            {headerLabel || (kind === 'listening' ? 'موضع الإجابة في التسجيل' : 'موضع الإجابة في النص')}
+          </p>
+          <p className="text-xs font-medium font-['Tajawal'] mt-0.5" style={{ color: 'var(--text-muted)' }}>
+            الإجابة مظلّلة بالأخضر
+          </p>
+        </div>
+        {canReplay && (
+          <button
+            type="button"
+            onClick={handleReplay}
+            className="inline-flex items-center justify-center gap-1.5 px-4 min-h-[44px] rounded-lg text-xs font-bold font-['Tajawal'] transition-colors w-full sm:w-auto"
+            style={{
+              color: playing ? '#fda4af' : colors.text,
+              background: playing ? 'rgba(244,63,94,0.12)' : colors.bg,
+              border: `1px solid ${playing ? 'rgba(244,63,94,0.35)' : colors.border}`,
+            }}
+          >
+            {playing ? <Square size={12} /> : <Volume2 size={13} />}
+            {playing ? 'إيقاف' : 'تشغيل هذا الجزء'}
+          </button>
+        )}
+      </div>
+
+      <p className="text-sm font-['Inter'] leading-[1.9] text-[var(--text-secondary)]" dir="ltr">
+        {parts.before}
+        {parts.match && (
+          <mark
+            className="rounded-md px-1 py-0.5 font-semibold"
+            style={{
+              background: 'rgba(16,185,129,0.18)',
+              color: '#6ee7b7',
+              boxShadow: 'inset 0 -1.5px 0 rgba(16,185,129,0.55)',
+            }}
+          >
+            {parts.match}
+          </mark>
+        )}
+        {parts.after}
+      </p>
+    </div>
+  )
+}
+
+/**
+ * QuestionHint — «تلميح» reveal beside a comprehension question (pre-submit).
+ * hint shape: { quote, answer_phrase, start_ms?, end_ms?, paragraph_index? }
+ */
+export default function QuestionHint({ hint, audioUrl, accent = 'sky', kind = 'reading', contentId, questionKey }) {
+  const [open, setOpen] = useState(false)
+  const trackedRef = useRef(false)
+  const colors = ACCENTS[accent] || ACCENTS.sky
+
+  if (!hint?.quote) return null
+
+  const toggle = () => {
+    const next = !open
+    setOpen(next)
+    if (next && !trackedRef.current) {
+      trackedRef.current = true
+      trackEvent('question_hint_opened', { kind, content_id: contentId, question: questionKey })
+    }
+  }
+
+  return (
+    <div dir="rtl">
       <button
         type="button"
         onClick={toggle}
@@ -158,56 +220,15 @@ export default function QuestionHint({ hint, audioUrl, accent = 'sky', kind = 'r
             transition={{ duration: 0.22, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <div
-              className="mt-2 rounded-xl p-4 space-y-3"
-              style={{
-                background: 'linear-gradient(180deg, rgba(2,6,16,0.35), rgba(2,6,16,0.55))',
-                border: `1px solid ${colors.border}`,
-                boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.3)',
-              }}
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
-                <div>
-                  <p className="text-xs font-bold font-['Tajawal']" style={{ color: colors.text }}>
-                    {kind === 'listening' ? 'موضع الإجابة في التسجيل' : 'موضع الإجابة في النص'}
-                  </p>
-                  <p className="text-xs font-medium font-['Tajawal'] mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                    الإجابة مظلّلة بالأخضر
-                  </p>
-                </div>
-                {canReplay && (
-                  <button
-                    type="button"
-                    onClick={handleReplay}
-                    className="inline-flex items-center justify-center gap-1.5 px-4 min-h-[44px] rounded-lg text-xs font-bold font-['Tajawal'] transition-colors w-full sm:w-auto"
-                    style={{
-                      color: playing ? '#fda4af' : colors.text,
-                      background: playing ? 'rgba(244,63,94,0.12)' : colors.bg,
-                      border: `1px solid ${playing ? 'rgba(244,63,94,0.35)' : colors.border}`,
-                    }}
-                  >
-                    {playing ? <Square size={12} /> : <Volume2 size={13} />}
-                    {playing ? 'إيقاف' : 'تشغيل هذا الجزء'}
-                  </button>
-                )}
-              </div>
-
-              <p className="text-sm font-['Inter'] leading-[1.9] text-[var(--text-secondary)]" dir="ltr">
-                {parts.before}
-                {parts.match && (
-                  <mark
-                    className="rounded-md px-1 py-0.5 font-semibold"
-                    style={{
-                      background: 'rgba(16,185,129,0.18)',
-                      color: '#6ee7b7',
-                      boxShadow: 'inset 0 -1.5px 0 rgba(16,185,129,0.55)',
-                    }}
-                  >
-                    {parts.match}
-                  </mark>
-                )}
-                {parts.after}
-              </p>
+            <div className="mt-2">
+              <EvidenceExcerpt
+                hint={hint}
+                audioUrl={audioUrl}
+                accent={accent}
+                kind={kind}
+                contentId={contentId}
+                questionKey={questionKey}
+              />
             </div>
           </motion.div>
         )}

@@ -9,6 +9,7 @@ import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { genderizeText } from '../../../../i18n/gender'
 import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
+import VerdictPanel from '../../../../components/curriculum/questions/VerdictPanel'
 import '../../../../components/curriculum/questions/questionCards.css'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { ListeningSection as ListeningSectionUI } from '../../../../components/players/listening/ListeningSection'
@@ -951,39 +952,36 @@ function ListeningMCQ({ exercise, index, answer, audioUrl, listeningId, revealCo
       </div>
 
       <div className="qx-foot space-y-3">
-        {/* Hint — the transcript excerpt that answers this question + segment replay */}
-        <QuestionHint
-          hint={exercise.hint}
-          audioUrl={audioUrl}
-          accent="violet"
-          kind="listening"
-          contentId={listeningId}
-          questionKey={index}
-        />
+        {/* Pre-submit: the «تلميح» reveal. Post-submit: the full verdict below covers it. */}
+        {!revealCorrect && (
+          <QuestionHint
+            hint={exercise.hint}
+            audioUrl={audioUrl}
+            accent="violet"
+            kind="listening"
+            contentId={listeningId}
+            questionKey={index}
+          />
+        )}
 
-        {/* Explanation — only after submit */}
-        <AnimatePresence>
-          {revealCorrect && answer && exercise.explanation_ar && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden"
-            >
-              <div
-                className="p-3.5 rounded-xl text-xs font-['Tajawal'] leading-relaxed"
-                dir="rtl"
-                style={{
-                  background: answer.correct ? 'rgba(16,185,129,0.06)' : 'rgba(56,189,248,0.06)',
-                  border: `1px solid ${answer.correct ? 'rgba(16,185,129,0.15)' : 'rgba(56,189,248,0.15)'}`,
-                  color: 'var(--text-secondary)',
-                }}
-              >
-                {genderizeText(exercise.explanation_ar)}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Post-submit verdict — why the answer is right/wrong + the correct one + evidence */}
+        {revealCorrect && answer && answer.selected !== null && answer.selected !== undefined && (
+          <VerdictPanel
+            correct={!!answer.correct}
+            selectedLabel={String.fromCharCode(65 + answer.selected)}
+            selectedText={exercise.options?.[answer.selected]}
+            correctLabel={String.fromCharCode(65 + exercise.correct_answer_index)}
+            correctText={exercise.options?.[exercise.correct_answer_index]}
+            wrongNote={exercise.wrong_notes?.[String(answer.selected)]}
+            explanationAr={exercise.explanation_ar}
+            hint={exercise.hint}
+            audioUrl={audioUrl}
+            accent="violet"
+            kind="listening"
+            contentId={listeningId}
+            questionKey={index}
+          />
+        )}
       </div>
     </div>
   )

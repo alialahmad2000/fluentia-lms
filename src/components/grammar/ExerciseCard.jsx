@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Sparkles } from 'lucide-react'
 import { useG } from '@/i18n/gender'
 import ExplainModal from './ExplainModal'
+import VerdictPanel from '../curriculum/questions/VerdictPanel'
+import '../curriculum/questions/questionCards.css'
 import MCQQuestion from './exercise-types/MCQQuestion'
 import FillBlankQuestion from './exercise-types/FillBlankQuestion'
 import ErrorCorrectionQuestion from './exercise-types/ErrorCorrectionQuestion'
@@ -94,10 +96,18 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer,
         <TransformQuestion item={item} answer={answer} onAnswer={onAnswer} exerciseType={exercise.exercise_type} />
       )}
 
-      {/* Explanation after answer */}
-      {answer && item.explanation_ar && (
-        <div className="grammar-explanation-bar text-xs font-['Tajawal']" dir="rtl">
-          {item.explanation_ar}
+      {/* Verdict after answer — your answer vs the correct one + why.
+          Wrapped in .qx-scope so the shared verdict styles pick up an accent. */}
+      {answer && answer.selected != null && (
+        <div className="qx-scope" data-accent="violet">
+          <VerdictPanel
+            correct={!!answer.correct}
+            selectedText={String(answer.selected)}
+            correctText={item.correct_answer}
+            explanationAr={item.explanation_ar}
+            explanationEn={!item.explanation_ar ? (ruleSnippet || null) : null}
+            kind="grammar"
+          />
         </div>
       )}
 

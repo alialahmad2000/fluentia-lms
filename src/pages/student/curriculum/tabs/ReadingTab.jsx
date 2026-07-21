@@ -31,6 +31,7 @@ import ReadingTools from '../../../../components/curriculum/reading/ReadingTools
 import { useArticleVocabIndex } from '../../../../hooks/useArticleVocabIndex'
 import { trackEvent } from '../../../../lib/trackEvent'
 import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
+import VerdictPanel from '../../../../components/curriculum/questions/VerdictPanel'
 import '../../../../components/curriculum/questions/questionCards.css'
 
 const QUESTION_TYPE_LABELS = {
@@ -1938,47 +1939,36 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
       </div>
 
       <div className="qx-foot space-y-3">
-        {/* Hint — the passage excerpt that answers this question */}
-        <QuestionHint
-          hint={question.hint}
-          accent="sky"
-          kind="reading"
-          contentId={question.reading_id}
-          questionKey={question.id}
-        />
-      </div>
-
-      {/* Explanation — only after submit */}
-      <AnimatePresence>
-        {revealCorrect && answer && (question.explanation_en || question.explanation_ar) && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <div
-              className="p-3.5 rounded-xl mt-1 space-y-1"
-              style={{
-                background: answer.correct ? 'rgba(16,185,129,0.06)' : 'rgba(56,189,248,0.06)',
-                border: `1px solid ${answer.correct ? 'rgba(16,185,129,0.15)' : 'rgba(56,189,248,0.15)'}`,
-              }}
-            >
-              {question.explanation_en && (
-                <p className="text-xs text-slate-300 font-['Inter'] leading-relaxed" dir="ltr">
-                  {question.explanation_en}
-                </p>
-              )}
-              {question.explanation_ar && (
-                <p className="text-xs text-slate-400 font-['Tajawal']" dir="rtl">
-                  {genderizeText(question.explanation_ar)}
-                </p>
-              )}
-            </div>
-          </motion.div>
+        {/* Pre-submit: the «تلميح» reveal. Post-submit: the full verdict below covers it. */}
+        {!revealCorrect && (
+          <QuestionHint
+            hint={question.hint}
+            accent="sky"
+            kind="reading"
+            contentId={question.reading_id}
+            questionKey={question.id}
+          />
         )}
-      </AnimatePresence>
+
+        {/* Post-submit verdict — why the answer is right/wrong + the correct one + evidence */}
+        {revealCorrect && answer?.selected != null && (
+          <VerdictPanel
+            correct={!!answer.correct}
+            selectedLabel={String.fromCharCode(65 + Math.max(0, shuffledChoices.indexOf(answer.selected)))}
+            selectedText={answer.selected}
+            correctLabel={String.fromCharCode(65 + Math.max(0, shuffledChoices.findIndex(c => c.toLowerCase().trim() === question.correct_answer.toLowerCase().trim())))}
+            correctText={question.correct_answer}
+            wrongNote={question.wrong_notes?.[answer.selected]}
+            explanationAr={question.explanation_ar}
+            explanationEn={question.explanation_en}
+            hint={question.hint}
+            accent="sky"
+            kind="reading"
+            contentId={question.reading_id}
+            questionKey={question.id}
+          />
+        )}
+      </div>
     </div>
   )
 }

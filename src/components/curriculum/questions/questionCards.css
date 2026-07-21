@@ -248,3 +248,131 @@
 @media (prefers-reduced-motion: reduce) {
   .qx-opt, .qx-opt::before, .qx-marker, .qx-tick { transition: none; }
 }
+
+/* ── Verdict panel: post-submit "why right / why wrong" ── */
+.qx-verdict {
+  margin-top: 14px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.09), rgba(2, 6, 16, 0.42) 55%);
+}
+.qx-verdict[data-ok='false'] {
+  border-color: rgba(244, 63, 94, 0.28);
+  background: linear-gradient(180deg, rgba(244, 63, 94, 0.08), rgba(2, 6, 16, 0.42) 55%);
+}
+.qx-verdict-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px 11px;
+}
+.qx-verdict-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.qx-verdict[data-ok='false'] .qx-verdict-icon {
+  color: #fb7185;
+  background: rgba(244, 63, 94, 0.14);
+  border-color: rgba(244, 63, 94, 0.35);
+}
+.qx-verdict-title {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #6ee7b7;
+}
+.qx-verdict[data-ok='false'] .qx-verdict-title { color: #fda4af; }
+.qx-verdict-body {
+  padding: 0 16px 14px;
+  display: grid;
+  gap: 10px;
+}
+
+/* your answer vs correct answer */
+.qx-vchips { display: grid; gap: 8px; }
+@media (min-width: 640px) { .qx-vchips { grid-template-columns: 1fr 1fr; } }
+.qx-vchip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  min-width: 0;
+}
+.qx-vchip[data-kind='yours'] {
+  background: rgba(244, 63, 94, 0.09);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #fecdd3;
+}
+.qx-vchip[data-kind='correct'] {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.32);
+  color: #d1fae5;
+}
+.qx-vchip-label {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+.qx-vchip-letter {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+}
+.qx-vchip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* why blocks */
+.qx-vwhy {
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.qx-vwhy-label {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  color: var(--qx-accent-strong);
+}
+.qx-vwhy[data-tone='wrong'] .qx-vwhy-label { color: #fda4af; }
+.qx-vwhy[data-tone='right'] .qx-vwhy-label { color: #6ee7b7; }
+.qx-vwhy-text {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text-secondary, #c3cddc);
+}
+.qx-vwhy-text-en {
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text-muted, #8fa0b5);
+}
