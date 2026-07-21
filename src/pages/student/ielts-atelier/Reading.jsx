@@ -275,14 +275,14 @@ function ReadingGuidePage() {
         {open && (
           <>
             <DrawerLede>{open.concept}</DrawerLede>
-            <DrawerSteps title="الخطوات" steps={open.steps} color={open.color} />
+            <DrawerSteps title="الخطوات" steps={open.steps} color={open.color} span={open.example ? 1 : 2} />
             {open.example && (
-              <DrawerExample title="مثال">
+              <DrawerExample title="مثال" span={1}>
                 <p style={{ margin: '0 0 8px', fontSize: 13, lineHeight: 1.7, color: 'var(--iel-ink)', direction: 'ltr', textAlign: 'left', fontFamily: SANS }}>{open.example.text_en}</p>
                 <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.8, color: 'var(--iel-ink-3)' }}>{open.example.why_ar}</p>
               </DrawerExample>
             )}
-            <DrawerCallout icon={Lightbulb} tone="gold" title="نصيحة">{open.tip}</DrawerCallout>
+            <DrawerCallout icon={Lightbulb} tone="gold" title="نصيحة" span={2}>{open.tip}</DrawerCallout>
           </>
         )}
       </ReadingDrawer>

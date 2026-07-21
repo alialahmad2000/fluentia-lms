@@ -45,12 +45,12 @@ function StrategyDrawer({ skill, onClose }) {
       {skill && (
         <>
           {skill.explanation_ar && <DrawerLede>{skill.explanation_ar}</DrawerLede>}
-          <DrawerSteps title="الاستراتيجية" steps={steps} color="var(--iel-accent)" />
+          <DrawerSteps title="الاستراتيجية" steps={steps} color="var(--iel-accent)" span={2} />
           {skill.common_mistakes_ar && (
-            <DrawerCallout icon={AlertTriangle} tone="warn" title="أخطاء شائعة">{skill.common_mistakes_ar}</DrawerCallout>
+            <DrawerCallout icon={AlertTriangle} tone="warn" title="أخطاء شائعة" span={ex ? 1 : 2}>{skill.common_mistakes_ar}</DrawerCallout>
           )}
           {ex && (
-            <DrawerExample title="مثال محلول">
+            <DrawerExample title="مثال محلول" span={skill.common_mistakes_ar ? 1 : 2}>
               {ex.snippet && <div style={{ direction: 'ltr', textAlign: 'left', fontSize: 13.5, color: 'var(--iel-ink-2)', lineHeight: 1.7, padding: '11px 13px', borderRadius: 10, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', marginBottom: 12, fontStyle: 'italic' }}>{ex.snippet}</div>}
               {ex.question && <div style={{ direction: 'ltr', textAlign: 'left', fontSize: 13.5, fontWeight: 700, color: 'var(--iel-ink)', marginBottom: 10 }}>{ex.question}</div>}
               {Array.isArray(ex.options) && (
