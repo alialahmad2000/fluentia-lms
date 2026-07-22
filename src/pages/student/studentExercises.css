@@ -38,6 +38,9 @@
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
 
 .pw-wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:34px 22px var(--mobile-bottom-clearance,96px)}
+/* the sheet itself gets every pixel the shell allows — 4 sentence columns need room */
+.pw-wrap--sheet{max-width:1180px}
+@media (min-width:901px){ .pw-wrap--sheet{padding-inline:14px} }
 
 /* ─────────────────────────── MASTHEAD ─────────────────────────── */
 .pw-mast{position:relative;text-align:center;padding:8px 0 24px;margin-bottom:26px;border-bottom:1px solid var(--pw-line)}
@@ -125,6 +128,12 @@
 .pw-drow__t{font-size:.92rem;color:var(--pw-ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pw-drow__s{font-size:.74rem;color:var(--pw-muted);flex:none}
 .pw-drow__r{display:flex;align-items:center;gap:10px;flex:none}
+.pw-drow.is-clickable{cursor:pointer;transition:border-color .15s,transform .15s,box-shadow .15s}
+.pw-drow.is-clickable:hover{border-color:var(--pw-amber-line);transform:translateY(-1px);box-shadow:var(--pw-shadow)}
+.pw-drow.is-clickable:focus-visible{outline:2px solid var(--pw-amber);outline-offset:2px}
+.pw-drow__go{font-size:.72rem;font-weight:800;color:var(--pw-amber-deep);flex:none;opacity:0;transition:opacity .15s}
+.pw-drow.is-clickable:hover .pw-drow__go,.pw-drow.is-clickable:focus-visible .pw-drow__go{opacity:1}
+@media (pointer:coarse){ .pw-drow__go{opacity:1} }
 .pw-badge-score{font-family:'SF Arabic',sans-serif;font-weight:800;font-size:.8rem;padding:3px 11px;border-radius:999px}
 
 /* empty / info note */
@@ -173,6 +182,9 @@
 .pw-progresspill{margin-inline-start:auto;font-size:.82rem;color:var(--pw-ink-soft);font-family:'SF Arabic',sans-serif;
   background:var(--pw-card);border:1px solid var(--pw-line);border-radius:999px;padding:7px 14px;font-weight:700}
 .pw-progresspill b{color:var(--pw-amber-deep)}
+.pw-autosave{width:100%;font-size:.74rem;color:var(--pw-teal);font-family:'SF Arabic',sans-serif;font-weight:600;
+  display:inline-flex;align-items:center;gap:6px;opacity:.9}
+.pw-autosave::before{content:'✓';font-weight:800}
 
 /* result banner */
 .pw-result{border-radius:16px;padding:22px 24px;margin-bottom:20px;text-align:center;box-shadow:var(--pw-shadow);
@@ -198,23 +210,38 @@
   border:1px solid var(--pw-teal-line);border-radius:9px;padding:5px 11px;font-family:'SF Arabic',sans-serif}
 .pw-scroll{overflow-x:auto;margin:0 -20px;padding:0 20px;-webkit-overflow-scrolling:touch}
 .pw-table{width:100%;border-collapse:separate;border-spacing:0;min-width:840px;table-layout:fixed}
-.pw-table col.rn{width:34px}
+.pw-table col.rn{width:30px}
 .pw-table thead th{font-size:.76rem;font-weight:800;color:var(--pw-muted);text-align:right;padding:6px 10px 10px;white-space:nowrap;border-bottom:1px solid var(--pw-line)}
-.pw-table tbody td{padding:9px 7px;vertical-align:middle;border-bottom:1px solid var(--pw-line-soft)}
+/* top-aligned: answer boxes now grow with their sentence, so rows are uneven by design */
+.pw-table tbody td{padding:9px 5px;vertical-align:top;border-bottom:1px solid var(--pw-line-soft)}
 .pw-table tbody tr:last-child td{border-bottom:none}
 .pw-table td.rn{font-family:'SF Arabic',sans-serif;font-weight:800;color:var(--pw-muted);text-align:center;font-variant-numeric:tabular-nums}
 .pw-given{position:relative;background:var(--pw-teal-soft);border:1px solid var(--pw-teal-line);border-radius:10px;padding:8px 11px}
 .pw-given .chip{font-size:.62rem;font-weight:800;letter-spacing:.03em;color:var(--pw-teal);text-transform:uppercase;margin-bottom:3px;font-family:'SF Arabic',sans-serif;display:flex;align-items:center;gap:5px}
 .pw-given .q{font-family:var(--pw-serif);font-size:.95rem;color:var(--pw-ink);direction:ltr;text-align:left;line-height:1.35;unicode-bidi:plaintext}
-.pw-ans{width:100%;font-family:var(--pw-serif);font-size:.95rem;color:var(--pw-ink);direction:ltr;text-align:left;background:var(--pw-blank);
-  border:1px solid var(--pw-line);border-bottom:2px solid var(--pw-blank-line);border-radius:8px;padding:9px 10px;transition:.15s}
+/* The answer box is a textarea that auto-grows, so a full sentence is ALWAYS readable
+   inside the column instead of being clipped at the edge. */
+.pw-ans{display:block;width:100%;box-sizing:border-box;font-family:var(--pw-serif);font-size:.92rem;line-height:1.4;
+  color:var(--pw-ink);direction:ltr;text-align:left;background:var(--pw-blank);
+  border:1px solid var(--pw-line);border-bottom:2px solid var(--pw-blank-line);border-radius:8px;padding:9px 10px;transition:border-color .15s,background .15s;
+  resize:none;overflow:hidden;min-height:42px;white-space:pre-wrap;overflow-wrap:break-word;field-sizing:content}
 .pw-ans::placeholder{color:var(--pw-muted);opacity:.5;font-style:italic}
 .pw-ans:focus{outline:none;border-color:var(--pw-amber-line);border-bottom-color:var(--pw-amber);background:var(--pw-card)}
-.pw-ans:disabled{opacity:1}
+.pw-ans:disabled{opacity:1;-webkit-text-fill-color:var(--pw-ink)}
 .pw-ans.ok{border-color:var(--pw-teal-line);border-bottom-color:var(--pw-teal);background:var(--pw-teal-soft)}
 .pw-ans.no{border-color:var(--pw-rose-line);border-bottom-color:var(--pw-rose);background:var(--pw-rose-soft)}
-.pw-model{font-family:var(--pw-serif);font-size:.82rem;color:var(--pw-teal);direction:ltr;text-align:left;margin-top:5px;padding-inline-start:2px;line-height:1.3;unicode-bidi:plaintext}
+.pw-model{font-family:var(--pw-serif);font-size:.8rem;color:var(--pw-teal);direction:ltr;text-align:left;margin-top:5px;padding-inline-start:2px;line-height:1.32;unicode-bidi:plaintext}
 .pw-model::before{content:"✓ ";font-family:'SF Arabic',sans-serif}
+/* why it was marked wrong — names the exact auxiliary / verb form that was missing */
+.pw-why{font-size:.72rem;line-height:1.5;color:var(--pw-rose);margin-top:4px;padding-inline-start:2px;font-family:'Tajawal','SF Arabic',sans-serif}
+.pw-why.is-ok{color:var(--pw-teal);opacity:.85}
+.pw-policy{background:var(--pw-teal-soft);border:1px solid var(--pw-teal-line);border-radius:12px;padding:11px 14px;margin-top:12px;font-size:.9rem}
+/* trainer note above the sheet (e.g. the re-marking explanation) */
+.pw-coach{background:var(--pw-amber-soft);border:1px solid var(--pw-amber-line);border-radius:14px;
+  padding:13px 16px;margin:0 0 18px;box-shadow:var(--pw-shadow)}
+.pw-coach .k{display:block;font-size:.68rem;font-weight:800;letter-spacing:.06em;color:var(--pw-amber-deep);
+  text-transform:uppercase;margin-bottom:5px;font-family:'SF Arabic',sans-serif}
+.pw-coach p{margin:0;font-size:.92rem;line-height:1.75;color:var(--pw-ink-soft)}
 
 .pw-foot{text-align:center;color:var(--pw-muted);font-size:.82rem;margin-top:26px}
 .pw-foot b{color:var(--pw-amber)}
@@ -253,6 +280,32 @@
 @media (prefers-reduced-motion:reduce){ .pw-world__blooms{animation:none!important} .pw-wcard,.pw-cta,.pw-btn,.pw-back{transition:none} }
 html.a11y-reduce-motion .pw-world__blooms{animation:none!important}
 @media (pointer:coarse){ .pw-world__grain{display:none} }
+
+/* ── TOUCH INPUTS: 16px fields on touch devices so iOS/iPadOS never blocks the
+      on-screen keyboard on focus (paired with comfortable tap targets). ── */
+@media (pointer:coarse){ .pw-ans{font-size:16px;padding:12px 12px;min-height:50px} }
+
+/* ── TABLET / PHONE: reflow the wide fixed worksheet table into stacked,
+      full-width cards. On iPad-portrait the 840px table used to overflow inside
+      a nested horizontal scroller, and iPadOS then failed to raise the keyboard
+      when a gap was tapped. In normal (non-scrolling) flow the keyboard shows
+      reliably. Desktop keeps the classic table (>900px). ── */
+@media (max-width:900px){
+  .pw-scroll{overflow-x:visible;margin:0;padding:0;-webkit-overflow-scrolling:auto}
+  .pw-table{min-width:0;width:100%;display:block}
+  .pw-table colgroup,.pw-table thead{display:none}
+  .pw-table tbody,.pw-table tr,.pw-table td{display:block;width:100%}
+  .pw-table tbody tr{border:1px solid var(--pw-line);border-radius:14px;background:var(--pw-card-2);
+    box-shadow:var(--pw-shadow);padding:6px 14px 12px;margin-bottom:14px}
+  .pw-table tbody td{border:none;padding:8px 0}
+  .pw-table tbody tr:last-child td{border:none}
+  .pw-table td.rn{padding:6px 0 4px;text-align:start;font-size:.72rem;font-weight:800;
+    color:var(--pw-muted);border-bottom:1px solid var(--pw-line-soft);margin-bottom:4px}
+  .pw-table td.rn::before{content:'الصف '}
+  .pw-table td[data-label]::before{content:attr(data-label);display:block;
+    font-size:.64rem;font-weight:800;letter-spacing:.03em;color:var(--pw-muted);
+    text-transform:uppercase;margin-bottom:6px;font-family:'SF Arabic',sans-serif}
+}
 
 /* ── print / save-PDF (the worksheet becomes a clean printable sheet) ── */
 @media print{

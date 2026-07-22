@@ -9,6 +9,7 @@ import {
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { validateAnswer } from '../../utils/answerValidator'
+import { gradeWorksheet } from '../../utils/worksheetGrader'
 import { useG } from '../../i18n/gender'
 import WorksheetView from './exercises/WorksheetView'
 import { GENERAL_EXERCISES, SKILL_LABELS, DIFFICULTY_LABELS } from './exercises/generalExercises'
@@ -60,15 +61,10 @@ export default function StudentExercises() {
   const [submitted, setSubmitted] = useState(false)
   const [result, setResult] = useState(null)
   const [isGeneral, setIsGeneral] = useState(false)
-  const [submitError, setSubmitError] = useState(null)
   const [completedGeneral, setCompletedGeneral] = useState(() => getCompletedGeneral())
 
   const { data: exercises, isLoading } = useQuery({
-    // Key by student id so an admin switching impersonation (or any account
-    // switch) never sees another student's cached worksheets/score. The filter
-    // below is already per-student; without the id in the key, the constant key
-    // bled one student's results into another's view.
-    queryKey: ['student-exercises', profile?.id],
+    queryKey: ['student-exercises'],
     queryFn: async () => {
       const { data } = await supabase
         .from('targeted_exercises')
@@ -97,37 +93,28 @@ export default function StudentExercises() {
     mutationFn: async ({ exerciseId, answers: sa }) => {
       const ex = exercises.find((e) => e.id === exerciseId)
       const questions = ex.content?.questions || []
+      // Worksheets are graded on the TRANSFORMATION (structure), not on wording —
+      // only one cell per row is given, so the object of the others is unknowable.
       let correct = 0
-      for (const q of questions) if (validateAnswer(sa[q.id], q.accepted_answers || [q.correct_answer])) correct++
+      if (ex.content?.render === 'worksheet') {
+        correct = gradeWorksheet(ex.content, sa).correct
+      } else {
+        for (const q of questions) if (validateAnswer(sa[q.id], q.accepted_answers || [q.correct_answer])) correct++
+      }
       const score = Math.round((correct / (questions.length || 1)) * 100)
       const xp = score >= 80 ? 15 : score >= 60 ? 10 : 5
-      // Persist the submission FIRST and CONFIRM it actually saved. A silently
-      // rejected write (RLS / offline / network) must NEVER look like success —
-      // otherwise onSuccess clears the draft and the answers are lost for good.
-      const { data: saved, error: upErr } = await supabase
-        .from('targeted_exercises')
-        .update({ status: 'completed', score, student_answers: sa, xp_awarded: xp, completed_at: new Date().toISOString() })
-        .eq('id', exerciseId)
-        .select('id')
-      if (upErr) throw upErr
-      if (!saved || saved.length === 0) throw new Error('save_not_persisted')
-      // XP is best-effort — a failed XP write must not lose the (already-saved) answers.
-      const { error: xpErr } = await supabase.from('xp_transactions').insert({
+      await supabase.from('targeted_exercises').update({
+        status: 'completed', score, student_answers: sa, xp_awarded: xp, completed_at: new Date().toISOString(),
+      }).eq('id', exerciseId)
+      await supabase.from('xp_transactions').insert({
         student_id: profile?.id, amount: xp, reason: 'custom', description: `إكمال ورقة مخصّصة: ${ex.title}`,
       })
-      if (xpErr) console.warn('[exercises] xp insert failed (non-fatal):', xpErr.message)
       return { score, xp, correct, total: questions.length }
     },
     onSuccess: (data) => {
-      setSubmitError(null); setResult(data); setSubmitted(true)
+      setResult(data); setSubmitted(true)
       clearDraft(profile?.id, activeExercise?.id)
       queryClient.invalidateQueries({ queryKey: ['student-exercises'] })
-    },
-    onError: (err) => {
-      console.error('[exercises] submit failed:', err?.message || err)
-      setSubmitError(g(
-        'تعذّر حفظ إجاباتك — تأكّد من اتصالك بالإنترنت وحاول مرة أخرى. إجاباتك ما زالت أمامك ولن تضيع.',
-        'تعذّر حفظ إجاباتكِ — تأكّدي من اتصالكِ بالإنترنت وحاولي مرة أخرى. إجاباتكِ ما زالت أمامكِ ولن تضيع.'))
     },
   })
 
@@ -170,11 +157,10 @@ export default function StudentExercises() {
 
   const handleSubmit = () => {
     if (!activeExercise) return
-    setSubmitError(null)
     if (isGeneral) submitGeneralMutation.mutate({ exerciseId: activeExercise.id, answers })
     else submitMutation.mutate({ exerciseId: activeExercise.id, answers })
   }
-  const reset = () => { setActiveExercise(null); setAnswers({}); setSubmitted(false); setResult(null); setIsGeneral(false); setSubmitError(null) }
+  const reset = () => { setActiveExercise(null); setAnswers({}); setSubmitted(false); setResult(null); setIsGeneral(false) }
   // Resume from a saved draft: prefer the (freshest) local draft; else the DB copy.
   const seedAnswers = (ex, { fromDb = false } = {}) => {
     const draft = loadDraft(profile?.id, ex.id)
@@ -182,19 +168,20 @@ export default function StudentExercises() {
     if (fromDb && ex.student_answers && Object.keys(ex.student_answers).length) return ex.student_answers
     return {}
   }
-  const openTargeted = (ex) => { setActiveExercise(ex); setIsGeneral(false); setAnswers(seedAnswers(ex, { fromDb: true })); setSubmitted(false); setResult(null); setSubmitError(null) }
-  const openGeneral = (ex) => { setActiveExercise(ex); setIsGeneral(true); setAnswers(seedAnswers(ex)); setSubmitted(false); setResult(null); setSubmitError(null) }
-  // Open a finished worksheet in graded review — shows the student's own answers,
-  // which cells were right/wrong, and the model answer under each wrong one.
+  const openTargeted = (ex) => { setActiveExercise(ex); setIsGeneral(false); setAnswers(seedAnswers(ex, { fromDb: true })); setSubmitted(false); setResult(null) }
+  // Re-open a handed-in worksheet READ-ONLY so the student can see what was marked and why.
   const openCompleted = (ex) => {
-    const questions = ex.content?.questions || []
-    let correct = 0
-    for (const q of questions) if (validateAnswer(ex.student_answers?.[q.id], q.accepted_answers || [q.correct_answer])) correct++
-    setActiveExercise(ex); setIsGeneral(false)
-    setAnswers(ex.student_answers || {})
-    setResult({ score: ex.score ?? Math.round((correct / (questions.length || 1)) * 100), xp: ex.xp_awarded || 0, correct, total: questions.length })
-    setSubmitted(true); setSubmitError(null)
+    const sa = ex.student_answers || {}
+    const graded = ex.content?.render === 'worksheet' ? gradeWorksheet(ex.content, sa) : null
+    setActiveExercise(ex); setIsGeneral(false); setAnswers(sa); setSubmitted(true)
+    setResult({
+      score: Math.round(Number(ex.score) || 0),
+      xp: ex.xp_awarded || 0,
+      correct: graded?.correct ?? 0,
+      total: graded?.total ?? (ex.content?.questions?.length || 0),
+    })
   }
+  const openGeneral = (ex) => { setActiveExercise(ex); setIsGeneral(true); setAnswers(seedAnswers(ex)); setSubmitted(false); setResult(null) }
 
   const pending = (exercises || []).filter((e) => e.status === 'pending')
   const completed = (exercises || []).filter((e) => e.status === 'completed')
@@ -208,7 +195,6 @@ export default function StudentExercises() {
         <WorksheetView
           exercise={activeExercise} answers={answers} setAnswers={setAnswers}
           submitted={submitted} result={result} onSubmit={handleSubmit} onBack={reset} submitting={submitting}
-          submitError={submitError}
         />
       )
     }
@@ -216,7 +202,6 @@ export default function StudentExercises() {
       <ExerciseRunner
         exercise={activeExercise} answers={answers} setAnswers={setAnswers}
         submitted={submitted} result={result} onSubmit={handleSubmit} onBack={reset} submitting={submitting}
-        submitError={submitError}
       />
     )
   }
@@ -300,23 +285,23 @@ export default function StudentExercises() {
                     const good = ex.score >= 80, ok = ex.score >= 60
                     const c = good ? '#2f7d72' : ok ? '#b26a1b' : '#b0543f'
                     const bg = good ? 'rgba(47,125,114,.1)' : ok ? 'rgba(178,106,27,.1)' : 'rgba(176,84,63,.1)'
+                    const reviewable = ex.content?.render === 'worksheet' && ex.student_answers
                     return (
                       <div
-                        key={ex.id} className="pw-drow" role="button" tabIndex={0}
-                        onClick={() => openCompleted(ex)}
-                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCompleted(ex) } }}
-                        style={{ cursor: 'pointer' }}
-                        title={g('مراجعة إجاباتك', 'مراجعة إجاباتكِ')}
+                        key={ex.id} className={`pw-drow${reviewable ? ' is-clickable' : ''}`}
+                        role={reviewable ? 'button' : undefined} tabIndex={reviewable ? 0 : undefined}
+                        onClick={reviewable ? () => openCompleted(ex) : undefined}
+                        onKeyDown={reviewable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCompleted(ex) } } : undefined}
                       >
                         <div className="pw-drow__l">
                           <CheckCircle2 size={16} style={{ color: '#2f7d72', flexShrink: 0 }} />
                           <span className="pw-drow__t">{ex.title}</span>
                           <span className="pw-drow__s">{SKILL_LABELS[ex.skill] || ex.skill}</span>
+                          {reviewable && <span className="pw-drow__go">عرض التصحيح ←</span>}
                         </div>
                         <div className="pw-drow__r">
                           <span className="pw-badge-score" dir="ltr" style={{ color: c, background: bg, border: `1px solid ${c}55` }}>{toAr(ex.score)}٪</span>
-                          {ex.xp_awarded > 0 && <span className="pw-wmeta"><span className="xp"><Zap size={12} /> +{toAr(ex.xp_awarded)}</span></span>}
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '.8rem', color: '#b26a1b', fontWeight: 600 }}>مراجعة <ArrowUpRight size={14} style={{ transform: 'scaleX(-1)' }} /></span>
+                          <span className="pw-wmeta"><span className="xp"><Zap size={12} /> +{toAr(ex.xp_awarded)}</span></span>
                         </div>
                       </div>
                     )
@@ -435,7 +420,7 @@ function EmptyState({ g, completedGeneral, onOpen }) {
 }
 
 // ── Compact warm runner for MC / text exercises (general + non-worksheet targeted) ──
-function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting, submitError }) {
+function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting }) {
   const g = useG()
   const questions = exercise.content?.questions || []
   const allAnswered = questions.every((q) => answers[q.id] !== undefined && answers[q.id] !== '')
@@ -501,11 +486,6 @@ function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSu
           })}
         </div>
 
-        {submitError && !submitted && (
-          <div dir="rtl" role="alert" style={{ margin: '8px 0', padding: '12px 14px', borderRadius: 12, background: 'rgba(176,84,63,.12)', border: '1px solid rgba(176,84,63,.42)', color: '#e8c9c0', fontSize: '.92rem', lineHeight: 1.6 }}>
-            {submitError}
-          </div>
-        )}
         <div className="pw-bar" style={{ position: 'static', marginTop: 8 }}>
           {!submitted ? (
             <button className="pw-btn primary" onClick={onSubmit} disabled={!allAnswered || submitting}>

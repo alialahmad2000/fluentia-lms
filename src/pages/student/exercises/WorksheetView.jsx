@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Printer, RotateCcw, CheckCircle2, Zap, Send, Loader2 } from 'lucide-react'
-import { validateAnswer } from '../../../utils/answerValidator'
+import { gradeWorksheet } from '../../../utils/worksheetGrader'
 import { useG } from '../../../i18n/gender'
 
 // Western → Arabic-Indic digits (this student reads Arabic-Indic).
@@ -17,11 +17,49 @@ const COLS = [
 ]
 
 /**
- * WorksheetView — renders a tense-transformation worksheet (content.render === 'worksheet').
- * Shares the parent's submit path (submitMutation grades content.questions by accepted_answers).
- * The GIVEN cell varies per row; the student fills the other three. Reveal after submit.
+ * Answer box — a one-line-looking field that GROWS with the answer instead of clipping it.
+ * (A plain <input> hid the tail of every full sentence: «He was not configuring t…».)
+ * Enter is swallowed so a worksheet cell always stays a single sentence.
  */
-export default function WorksheetView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting, submitError }) {
+function AnswerBox({ value, disabled, placeholder, cls, label, onChange }) {
+  const ref = useRef(null)
+  const fit = () => {
+    const el = ref.current
+    if (!el) return
+    el.style.height = 'auto'
+    // box-sizing is border-box → scrollHeight (content+padding) must gain the borders
+    // back, otherwise the last line is shaved by ~3px on engines without field-sizing.
+    const borders = el.offsetHeight - el.clientHeight
+    el.style.height = `${el.scrollHeight + borders}px`
+  }
+  useLayoutEffect(fit, [value])
+  useEffect(() => {
+    const onResize = () => fit()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  return (
+    <textarea
+      ref={ref} rows={1} className={`pw-ans${cls}`} dir="ltr" placeholder={placeholder}
+      value={value} disabled={disabled} aria-label={label}
+      onChange={(e) => { onChange(e.target.value); fit() }}
+      onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault() }}
+      inputMode="text" enterKeyHint="next" wrap="soft"
+      autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck={false}
+    />
+  )
+}
+
+/**
+ * WorksheetView — renders a tense-transformation worksheet (content.render === 'worksheet').
+ * The GIVEN cell varies per row; the student fills the other three. Reveal after submit.
+ *
+ * GRADING: structure-first (see utils/worksheetGrader.js). Only one cell per row is given,
+ * so the student cannot know the object of the other three — the transformation is what
+ * counts (auxiliary · verb form · negation · word order), not the wording.
+ */
+export default function WorksheetView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting }) {
   const g = useG()
   const ws = exercise.content?.worksheet || {}
   const tenses = ws.tenses || []
@@ -32,6 +70,12 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
     for (const q of exercise.content?.questions || []) m[q.id] = q
     return m
   }, [exercise])
+
+  // per-blank verdicts (only needed once the sheet is handed in / re-opened for review)
+  const verdicts = useMemo(
+    () => (submitted ? gradeWorksheet(exercise.content, answers).results : {}),
+    [submitted, exercise, answers],
+  )
 
   const blankIds = useMemo(() => Object.keys(qmap), [qmap])
   const total = blankIds.length
@@ -54,7 +98,7 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
     <div className="pw-root" dir="rtl">
       <div className="pw-world" aria-hidden><div className="pw-world__blooms" /><div className="pw-world__grain" /></div>
 
-      <div className="pw-wrap">
+      <div className="pw-wrap pw-wrap--sheet">
         <button className="pw-back" onClick={onBack}>→ العودة إلى الأوراق</button>
 
         {/* Masthead */}
@@ -71,6 +115,11 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
             في كل صف <b>خانة واحدة فقط محلولة</b> ومظلّلة بالأخضر (<span className="mk">مُعطى</span>) — وقد تكون
             مُثبتةً أو منفيةً أو سؤالاً (نعم/لا) أو سؤالاً بأداة، <b>وتختلف من صف لآخر</b>. مهمتك:
             {g(' انطلِق', ' انطلِقي')} من الخانة المُعطاة {g('واملأ', 'واملئي')} الصيغ الثلاث الباقية.
+          </p>
+          <p className="p pw-policy">
+            <b>كيف تُصحَّح الورقة؟</b> التصحيح على <b>التركيب</b>: الفعل المساعد، صيغة الفعل مع الزمن،
+            النفي، وترتيب السؤال. أمّا <b>المفعول والكلمات</b> — التي قد لا تظهر في الخانة المُعطاة —
+            فاختلافها لا يُحتسب خطأً، وكذلك الأخطاء الإملائية البسيطة وعلامات الترقيم.
           </p>
           {Array.isArray(ws.forms) && ws.forms.length > 0 && (
             <ul className="pw-forms">
@@ -108,11 +157,9 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
           </motion.div>
         )}
 
-        {/* Save-failure notice — answers stay on screen; the student can retry */}
-        {submitError && !submitted && (
-          <div dir="rtl" role="alert" style={{ margin: '4px 0 10px', padding: '12px 14px', borderRadius: 12, background: 'rgba(176,84,63,.12)', border: '1px solid rgba(176,84,63,.42)', color: '#e8c9c0', fontSize: '.92rem', lineHeight: 1.6 }}>
-            {submitError}
-          </div>
+        {/* trainer/system note — e.g. «أُعيد تصحيح ورقتك بمعيار التركيب…» */}
+        {submitted && exercise.ai_feedback && (
+          <div className="pw-coach"><span className="k">ملاحظة المدرّب</span><p>{exercise.ai_feedback}</p></div>
         )}
 
         {/* Toolbar */}
@@ -169,20 +216,23 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
                           const qid = `${t.id}-${ri}-${c.f}`
                           const q = qmap[qid]
                           const val = answers[qid] || ''
-                          let cls = ''
-                          if (submitted && q) cls = validateAnswer(val, q.accepted_answers) ? ' ok' : ' no'
+                          const v = submitted && q ? verdicts[qid] : null
+                          const cls = !v ? '' : v.ok ? ' ok' : ' no'
                           return (
                             <td key={c.f} data-label={c.head}>
-                              <input
-                                className={`pw-ans${cls}`} dir="ltr" placeholder={c.ph}
+                              <AnswerBox
+                                cls={cls} placeholder={c.ph} label={c.head}
                                 value={val} disabled={submitted}
-                                onChange={(e) => setAns(qid, e.target.value)}
-                                aria-label={c.head}
-                                type="text" inputMode="text" enterKeyHint="next"
-                                autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck={false}
+                                onChange={(next) => setAns(qid, next)}
                               />
-                              {submitted && q && cls === ' no' && (
-                                <div className="pw-model" dir="ltr">{q.correct_answer}</div>
+                              {v && !v.ok && (
+                                <>
+                                  <div className="pw-model" dir="ltr">{q.correct_answer}</div>
+                                  {v.note_ar && <div className="pw-why">{v.note_ar}</div>}
+                                </>
+                              )}
+                              {v?.ok && v.code === 'structure' && (
+                                <div className="pw-why is-ok">التركيب صحيح ✓ — اختلاف الكلمات مقبول</div>
                               )}
                             </td>
                           )
