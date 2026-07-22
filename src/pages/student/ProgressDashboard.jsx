@@ -7,7 +7,7 @@ import {
   RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer,
   AreaChart, Area, XAxis, YAxis, Tooltip,
 } from 'recharts'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStore, useEffectiveStudentId } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS } from '../../lib/constants'
 
@@ -37,9 +37,9 @@ const SKILL_KEYS = ['reading', 'grammar', 'vocabulary', 'listening', 'writing', 
 
 // ─── Page ─────────────────────────────────────
 export default function ProgressDashboard() {
-  const user = useAuthStore((s) => s.user)
   const studentData = useAuthStore((s) => s.studentData)
-  const studentId = user?.id
+  // Effective (impersonation-aware) student — never the auth user id, see authStore.
+  const studentId = useEffectiveStudentId()
 
   // ── Hero stats ──
   const xpTotal = studentData?.xp_total || 0

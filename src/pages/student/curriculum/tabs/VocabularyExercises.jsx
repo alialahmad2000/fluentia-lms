@@ -7,6 +7,7 @@ import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { validateAnswer } from '../../../../utils/answerValidator'
 import { recordExercise } from '../../../../services/vocab'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 
 // Map each drill to a unified vocab_cards exercise key.
 // match/choose test the meaning; fill_blank/scramble test sentence/spelling.
@@ -40,6 +41,8 @@ const EXERCISES = [
 // ═════════════════════════════════════════════════════
 export default function VocabularyExercises({ unitId, allWords }) {
   const profile = useAuthProfile()
+  // Declared HERE, in the same component as the guard inside saveResult.
+  const { readOnly } = useCurriculumPreview() // teacher preview / impersonation: never persist progress
   const [activeExercise, setActiveExercise] = useState(null)
   const [completedExercises, setCompletedExercises] = useState({})
   const [savedProgress, setSavedProgress] = useState(null)
@@ -50,14 +53,19 @@ export default function VocabularyExercises({ unitId, allWords }) {
     if (!profile?.id || !unitId) return
     let mounted = true
     const load = async () => {
-      const { data } = await supabase
+      // No unique constraint backs (student, unit, vocabulary_exercise), so a
+      // second row must not make maybeSingle() error out and blank the drills —
+      // take the newest row instead.
+      const { data: rows } = await supabase
         .from('student_curriculum_progress')
         .select('*')
         .eq('student_id', profile.id)
         .eq('unit_id', unitId)
         .eq('section_type', 'vocabulary_exercise')
-        .maybeSingle()
+        .order('updated_at', { ascending: false })
+        .limit(1)
       if (!mounted) return
+      const data = rows?.[0]
       if (data) {
         progressIdRef.current = data.id
         setSavedProgress(data)
@@ -76,6 +84,7 @@ export default function VocabularyExercises({ unitId, allWords }) {
 
   // Save exercise result
   const saveResult = useCallback(async (exerciseKey, result) => {
+    if (readOnly) return
     if (!profile?.id || !unitId) return
 
     const updated = {
@@ -137,7 +146,7 @@ export default function VocabularyExercises({ unitId, allWords }) {
       const xp = await awardCurriculumXP(profile.id, 'vocabulary_exercise', row.score, unitId)
       if (xp > 0) toast({ type: 'success', title: `+${xp} XP — أحسنت!` })
     }
-  }, [profile?.id, unitId, completedExercises, savedProgress])
+  }, [readOnly, profile?.id, unitId, completedExercises, savedProgress])
 
   if (!allWords?.length || allWords.length < 4) return null
 

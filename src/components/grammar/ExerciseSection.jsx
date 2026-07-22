@@ -6,6 +6,7 @@ import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { awardCurriculumXP } from '../../utils/curriculumXP'
 import { useG } from '@/i18n/gender'
+import { useCurriculumPreview } from '../../contexts/CurriculumPreviewContext'
 import ExerciseCard from './ExerciseCard'
 import ExerciseSummary from './ExerciseSummary'
 import AttemptsHistory from './AttemptsHistory'
@@ -25,6 +26,10 @@ function getCompletionMessage(score, g) {
 
 export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet }) {
   const g = useG()
+  // Declared HERE, in the same component as the `if (readOnly) return` guard in
+  // saveProgress — a parent-scoped copy would throw ReferenceError inside the
+  // fire-and-forget save and silently kill persistence.
+  const { readOnly } = useCurriculumPreview() // teacher preview / impersonation: never persist progress
   const sectionRef = useRef(null)
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
@@ -193,6 +198,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   //     (the "إنهاء وحفظ المحاولة" CTA). It computes score, sets status
   //     ='completed', awards XP, and updates best/is_latest flags.
   const saveProgress = useCallback(async (currentAnswers, isComplete, _retryCount = 0) => {
+    if (readOnly) return
     if (!studentId || !grammarId) return
     const results = buildResults(currentAnswers)
     // Score only meaningful on submit; on autosave we write null.
@@ -341,7 +347,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     } finally {
       setIsSaving(false)
     }
-  }, [studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber, g])
+  }, [readOnly, studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber, g])
 
   // Auto-save after each answer — NEVER auto-completes.
   // Students must click "إنهاء وحفظ المحاولة" (handleFinish) to submit.

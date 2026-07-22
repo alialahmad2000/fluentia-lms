@@ -230,12 +230,19 @@ export default function UnitContent() {
     }
   }, [unit, unitId])
 
-  // Guard: redirect if student can't access this level
+  // Guard: redirect if student can't access this level.
+  // Fail-open until the level is actually KNOWN: `currentLevel` falls back to 0
+  // while `studentData` is still loading, which would bounce a legitimate
+  // student off their own unit. That window is wide under admin impersonation
+  // (profile/studentData are fetched after boot), which is why "view as student"
+  // kept landing on the level page instead of the unit.
+  const levelKnown = canSeeAllLevels || studentData?.academic_level != null
   useEffect(() => {
+    if (!levelKnown) return
     if (unit?.level?.level_number != null && unit.level.level_number > currentLevel) {
       navigate(basePath, { replace: true })
     }
-  }, [unit, currentLevel, navigate])
+  }, [unit, currentLevel, levelKnown, basePath, navigate])
 
   // Navigate to activity — uses URL search param
   const handleActivitySelect = useCallback((key) => {

@@ -3,7 +3,7 @@ import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { PenLine, MessageCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { useAuthStore } from '../../../../stores/authStore'
+import { useAuthStore, useEffectiveStudentId } from '../../../../stores/authStore'
 import { usePageReset } from '../../../../hooks/usePageReset'
 import { useG } from '@/i18n/gender'
 import GrammarPageShell from '../../../../components/grammar/GrammarPageShell'
@@ -17,7 +17,9 @@ import GrammarMapPanel from '../../../../components/grammar/GrammarMapPanel'
 
 // ─── Main Component ─────────────────────────────────
 export default function GrammarTab({ unitId }) {
-  const { user, profile } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile })))
+  const { profile } = useAuthStore(useShallow((s) => ({ profile: s.profile })))
+  // Effective (impersonation-aware) student — never `user.id`, see authStore.
+  const studentId = useEffectiveStudentId()
 
   // Register page-specific reset (UI-only, never clears answers)
   usePageReset(() => {})
@@ -58,7 +60,7 @@ export default function GrammarTab({ unitId }) {
         <GrammarTopic
           key={topic.id}
           topic={topic}
-          studentId={user?.id}
+          studentId={studentId}
           unitId={unitId}
           studentLevel={profile?.current_level || 'A1'}
         />

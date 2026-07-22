@@ -8,7 +8,7 @@ import { supabase } from '../../../../lib/supabase'
 // Canonical curriculum is the single default. To re-introduce as opt-in secondary
 // surface later: see docs/audits/personalization-revert/PHASE-A-REPORT.md
 // import PersonalizedReadingCard from '../../../../components/personalization/PersonalizedReadingCard'
-import { useAuthUser } from '../../../../stores/authStore'
+import { useEffectiveStudentId } from '../../../../stores/authStore'
 import { useG, genderizeText } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -80,7 +80,8 @@ function PremiumImage({ src, alt, className, aspectClass = 'aspect-[16/9]' }) {
 // ─── Main Component ─────────────────────────────────
 export default function ReadingTab({ unitId }) {
   const [activeReading, setActiveReading] = useState(0)
-  const user = useAuthUser()
+  // Effective (impersonation-aware) student — never `user.id`, see authStore.
+  const studentId = useEffectiveStudentId()
   const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
 
   const { data: readings, isLoading } = useQuery({
@@ -141,7 +142,7 @@ export default function ReadingTab({ unitId }) {
           transition={{ duration: 0.2 }}
           className="space-y-6"
         >
-          <ReadingContent reading={reading} studentId={user?.id} unitId={unitId} />
+          <ReadingContent reading={reading} studentId={studentId} unitId={unitId} />
         </motion.div>
       </AnimatePresence>
 

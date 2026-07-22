@@ -363,6 +363,20 @@ export const useIsTrainer = () =>
 export const useIsStudent = () => useAuthStore((s) => s.profile?.role === 'student')
 export const useIsImpersonating = () => useAuthStore((s) => !!s.impersonation)
 
+// ── Effective student id ──────────────────────────────────────────────────────
+// THE id every student-scoped read must use ( .eq('student_id', …) ).
+//
+// Impersonation is a client-side PROFILE swap — the Supabase session still
+// belongs to the admin, so `user.id` keeps pointing at the admin while
+// `profile.id` is the student actually being viewed. Reading with `user.id`
+// under impersonation queries the ADMIN's rows and returns nothing, which is
+// why "view as student" used to show a student's finished work as blank.
+//
+// Not impersonating: profile.id === user.id, so this is a no-op.
+// Falls back to user.id only while the profile row is still loading.
+export const useEffectiveStudentId = () =>
+  useAuthStore((s) => s.profile?.id ?? s.user?.id ?? null)
+
 // Action-only hook — actions are stable references, useShallow keeps the
 // returned object's identity stable across renders so consumers don't re-render
 // on every store update just to grab callbacks.

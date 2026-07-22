@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircle, XCircle, RotateCcw, History } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { useAuthUser } from '../../../../stores/authStore'
+import { useEffectiveStudentId } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { genderizeText } from '../../../../i18n/gender'
@@ -55,7 +55,8 @@ const DIFFICULTY = {
 
 // ─── Main Component ─────────────────────────────────
 export default function ListeningTab({ unitId }) {
-  const user = useAuthUser()
+  // Effective (impersonation-aware) student — never `user.id`, see authStore.
+  const studentId = useEffectiveStudentId()
   const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
 
   const { data: listenings, isLoading } = useQuery({
@@ -87,7 +88,7 @@ export default function ListeningTab({ unitId }) {
   return (
     <div className="space-y-6">
       {listenings.map((listening) => (
-        <ListeningSection key={listening.id} listening={listening} studentId={user?.id} unitId={unitId} />
+        <ListeningSection key={listening.id} listening={listening} studentId={studentId} unitId={unitId} />
       ))}
       {/* Generous bottom runway so the last question + the "تسليم الإجابات" submit
           button always clear the fixed bottom player bar — the student can scroll

@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Video, ExternalLink, Pencil, Trash2, Calendar, Link2, Loader2, AlertCircle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStore, useEffectiveStudentId } from '../../stores/authStore'
 import { toast } from '../../components/ui/FluentiaToast'
 import VideoPlayer from '../VideoPlayer'
 import UnitRecordingsSection from '../recordings/UnitRecordingsSection'
@@ -335,7 +335,8 @@ function RecordingForm({ part, unitId, existing, onCancel }) {
 
 // ─── Empty State (Student) with Request ─────────────
 function EmptyRecording({ part, unitId }) {
-  const user = useAuthStore((s) => s.user)
+  // Effective (impersonation-aware) student — never the auth user id, see authStore.
+  const studentId = useEffectiveStudentId()
   const studentData = useAuthStore((s) => s.studentData)
   const groupId = studentData?.group_id
   const [requested, setRequested] = useState(false)
@@ -343,19 +344,19 @@ function EmptyRecording({ part, unitId }) {
 
   // Check for existing pending request
   const { data: existingRequest } = useQuery({
-    queryKey: ['recording-request', user?.id, unitId, part.id],
+    queryKey: ['recording-request', studentId, unitId, part.id],
     queryFn: async () => {
       const { data } = await supabase
         .from('recording_requests')
         .select('id, created_at')
-        .eq('student_id', user.id)
+        .eq('student_id', studentId)
         .eq('unit_id', unitId)
         .eq('part', part.id)
         .eq('status', 'pending')
         .maybeSingle()
       return data
     },
-    enabled: !!user?.id && !!unitId,
+    enabled: !!studentId && !!unitId,
   })
 
   // Check if request was made within 24 hours
@@ -366,7 +367,7 @@ function EmptyRecording({ part, unitId }) {
     setLoading(true)
     try {
       const { error } = await supabase.from('recording_requests').insert({
-        student_id: user.id,
+        student_id: studentId,
         group_id: groupId,
         unit_id: unitId,
         part: part.id,

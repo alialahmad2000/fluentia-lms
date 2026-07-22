@@ -6,7 +6,7 @@ import { useRecordingProgress } from '../../hooks/useRecordingProgress'
 import { useRecordingChapters } from '../../hooks/useRecordingChapters'
 import { useRecordingBookmarks } from '../../hooks/useRecordingBookmarks'
 import { useSidebarWidth } from '../../hooks/useSidebarWidth'
-import { useAuthStudentData, useAuthUser } from '../../stores/authStore'
+import { useAuthStudentData, useEffectiveStudentId } from '../../stores/authStore'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
@@ -179,7 +179,8 @@ function PlayerModal({ recording, onClose }) {
   const { progress, save, forceSave } = useRecordingProgress(recording.id)
   const { chapters } = useRecordingChapters(recording.id)
   const { bookmarks, addBookmark } = useRecordingBookmarks(recording.id)
-  const user = useAuthUser()
+  // Effective (impersonation-aware) student — never the auth user id, see authStore.
+  const studentId = useEffectiveStudentId()
   const queryClient = useQueryClient()
   const playerContainerRef = useRef(null)
   const xpAwardedRef = useRef(false)
@@ -199,7 +200,7 @@ function PlayerModal({ recording, onClose }) {
     await forceSave({ position: 0, percent: 100, speed: 1, completed: true })
 
     // Award XP if not already awarded
-    if (!xpAwardedRef.current && !progress?.xp_awarded && user?.id) {
+    if (!xpAwardedRef.current && !progress?.xp_awarded && studentId) {
       xpAwardedRef.current = true
 
       try {
@@ -207,7 +208,7 @@ function PlayerModal({ recording, onClose }) {
         const { data: updated, error: updateErr } = await supabase
           .from('recording_progress')
           .update({ xp_awarded: true, completed_at: new Date().toISOString() })
-          .eq('student_id', user.id)
+          .eq('student_id', studentId)
           .eq('recording_id', recording.id)
           .eq('xp_awarded', false)
           .select()
@@ -219,7 +220,7 @@ function PlayerModal({ recording, onClose }) {
 
         // Insert XP transaction
         const { error: xpErr } = await supabase.from('xp_transactions').insert({
-          student_id: user.id,
+          student_id: studentId,
           amount: 25,
           reason: 'recording_complete',
           description: 'مشاهدة تسجيل الكلاس كاملاً',
@@ -236,7 +237,7 @@ function PlayerModal({ recording, onClose }) {
     }
 
     queryClient.invalidateQueries({ queryKey: ['recording-progress'] })
-  }, [forceSave, progress?.xp_awarded, user?.id, recording.id, queryClient])
+  }, [forceSave, progress?.xp_awarded, studentId, recording.id, queryClient])
 
   const handleClose = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: ['recording-progress'] })

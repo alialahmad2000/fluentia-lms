@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../lib/supabase'
-import { useAuthUser } from '../stores/authStore'
+import { useEffectiveStudentId } from '../stores/authStore'
 
 export function useRecordingBookmarks(recordingId) {
-  const user = useAuthUser()
-  const studentId = user?.id
+  // Effective (impersonation-aware) student — never the auth user id, see authStore.
+  const studentId = useEffectiveStudentId()
   const queryClient = useQueryClient()
   const qk = ['recording-bookmarks', studentId, recordingId]
 
