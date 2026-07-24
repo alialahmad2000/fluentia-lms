@@ -33,8 +33,29 @@ const NOTIFICATION_ROUTES = {
   smart_nudge: '/student',
   task_completed: '/student/weekly-tasks',
   competition_event: '/student/competition',
+  // Staff-facing review queues.
+  writing_needs_review: '/trainer/work',
+  speaking_needs_manual_review: '/trainer/work',
   system: null,
   announcement: null,
+}
+
+// Evaluation notifications carry the unit in `data` rather than a stored route,
+// so their destination is built at tap time instead of looked up.
+const UNIT_ACTIVITY_BY_TYPE = {
+  speaking_evaluated: 'speaking',
+  speaking_recorded: 'speaking',
+  writing_evaluated: 'writing',
+}
+
+function resolveNotificationRoute(n) {
+  if (!n) return null
+  const stored = n.action_url || n.data?.link || n.link
+  if (stored) return stored
+  const activity = UNIT_ACTIVITY_BY_TYPE[n.type]
+  const unitId = n.data?.unit_id
+  if (activity && unitId) return `/student/curriculum/unit/${unitId}?activity=${activity}`
+  return NOTIFICATION_ROUTES[n.type] ?? null
 }
 
 const COMPETITION_TYPES = new Set(['competition_event'])
@@ -185,13 +206,8 @@ export default function NotificationCenter() {
     // Navigate to relevant page
     const role = profile?.role
 
-    // 1. First priority: action_url or data.link (explicit target from the notification sender)
-    let route = notification.action_url || notification.data?.link || null
-
-    // 2. Fallback: type-based route mapping
-    if (!route) {
-      route = NOTIFICATION_ROUTES[notification.type]
-    }
+    // Stored target, else a destination built from the notification's own data.
+    let route = resolveNotificationRoute(notification)
 
     // 3. Adjust routes for trainer/admin
     if (role === 'trainer' || role === 'admin') {
@@ -314,7 +330,7 @@ export default function NotificationCenter() {
                             >
                               <button
                                 onClick={() => {
-                                  const hasRoute = n.action_url || n.data?.link || NOTIFICATION_ROUTES[n.type]
+                                  const hasRoute = resolveNotificationRoute(n)
                                   if (isLong && !isExpanded) { setExpandedId(n.id); if (!n.read) markRead.mutate(n.id) }
                                   else if (hasRoute) { handleNotificationClick(n) }
                                   else { if (!n.read) markRead.mutate(n.id) }
@@ -358,7 +374,7 @@ export default function NotificationCenter() {
                         >
                           <button
                             onClick={() => {
-                              const hasRoute = n.action_url || n.data?.link || NOTIFICATION_ROUTES[n.type]
+                              const hasRoute = resolveNotificationRoute(n)
                               // Long notifications: expand first so user can read, then navigate via action button
                               if (isLong && !isExpanded) {
                                 setExpandedId(n.id)
@@ -418,7 +434,7 @@ export default function NotificationCenter() {
                           </button>
 
                           {/* Expanded action bar */}
-                          {isExpanded && (n.action_url || n.data?.link || NOTIFICATION_ROUTES[n.type]) && (
+                          {isExpanded && (resolveNotificationRoute(n)) && (
                             <motion.div
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: 'auto' }}

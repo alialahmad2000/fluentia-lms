@@ -31,6 +31,7 @@ function QueueCard({ row }) {
           <div className="font-bold text-[14.5px] text-slate-100 truncate">{row.student_name || 'طالب'}</div>
           <div className="text-[11.5px] text-slate-500 truncate">{row.group_name || ''}{row.unit_title ? ` · ${row.unit_title}` : ''}</div>
         </div>
+        {row.is_unassigned && <span className="tea-pill !py-0.5 !px-2 !text-[10.5px] !bg-amber-500/12 !text-amber-200 !border-amber-500/25">بلا مدرّب</span>}
         {row.is_urgent && <span className="tea-pill tea-pill--rose !py-0.5 !px-2 !text-[10.5px]">عاجل</span>}
         <span className="text-[11px] text-slate-500 flex items-center gap-1 shrink-0"><Clock size={12} />{Math.round(row.hours_pending || 0)}س</span>
       </div>
@@ -73,11 +74,16 @@ export default function WorkReview() {
   const [ieltsItem, setIeltsItem] = useState(null)
   const [filter, setFilter] = useState('all')
 
-  const rows = useMemo(() => (filter === 'all' ? queue : queue.filter((r) => r.submission_type === filter)), [queue, filter])
+  const rows = useMemo(() => {
+    if (filter === 'all') return queue
+    if (filter === 'unassigned') return queue.filter((r) => r.is_unassigned)
+    return queue.filter((r) => r.submission_type === filter)
+  }, [queue, filter])
   const counts = useMemo(() => ({
     all: queue.length,
     writing: queue.filter((r) => r.submission_type === 'writing').length,
     speaking: queue.filter((r) => r.submission_type === 'speaking').length,
+    unassigned: queue.filter((r) => r.is_unassigned).length,
   }), [queue])
 
   return (
@@ -85,6 +91,11 @@ export default function WorkReview() {
       <div className="tea-pagehead">
         <div className="tea-pagehead__title">الأعمال والتقييم</div>
         <div className="tea-pagehead__sub">كل ما ينتظر تقييمك من طلابك في مكان واحد</div>
+        {counts.unassigned > 0 && (
+          <div className="text-[12.5px] text-amber-200/85 mt-1.5">
+            {counts.unassigned} عمل من طلاب بلا مدرّب مُسنَد — كان مخفيًّا عن الجميع
+          </div>
+        )}
       </div>
 
       {/* IELTS — AI-graded already; the trainer reviews/adjusts by exception (not blocking). */}
@@ -104,7 +115,8 @@ export default function WorkReview() {
       )}
 
       <div className="flex flex-wrap gap-2 mb-5">
-        {[['all', 'الكل'], ['writing', 'كتابة'], ['speaking', 'محادثة']].map(([k, label]) => (
+        {[['all', 'الكل'], ['writing', 'كتابة'], ['speaking', 'محادثة'],
+          ...(counts.unassigned > 0 ? [['unassigned', 'بلا مدرّب']] : [])].map(([k, label]) => (
           <button key={k} type="button" onClick={() => setFilter(k)}
             className={`px-3.5 py-1.5 rounded-full text-[12.5px] font-bold border transition-colors ${
               filter === k ? 'bg-sky-500/15 border-sky-500/35 text-sky-200' : 'bg-white/[0.03] border-white/8 text-slate-400 hover:text-slate-200'

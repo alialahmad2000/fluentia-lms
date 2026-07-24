@@ -7,7 +7,7 @@ export default function FillBlankQuestion({ item, answer, onAnswer }) {
   const CORRECT_MSGS = [g('ممتاز! إجابة صحيحة 🎯', 'ممتازة! إجابة صحيحة 🎯'), g('أحسنت! بالضبط ✨', 'أحسنتِ! بالضبط ✨'), 'صحيح! رائع 💫', 'إجابة موفقة! 🌟']
   const [input, setInput] = useState('')
   const inputRef = useRef(null)
-  const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+  const acceptedAnswers = item.accepted_answers?.length ? item.accepted_answers : [item.correct_answer]
   const expectedWordCount = (acceptedAnswers[0] || '').split(/\s+/).filter(Boolean).length
 
   const handleSubmit = (e) => {

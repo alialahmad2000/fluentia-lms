@@ -26,7 +26,7 @@ export default function ReorderQuestion({ item, answer, onAnswer }) {
   const handleCheck = () => {
     if (answer || selected.length === 0) return
     const builtSentence = selected.join(' ')
-    const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+    const acceptedAnswers = item.accepted_answers?.length ? item.accepted_answers : [item.correct_answer]
     const correct = validateAnswer(builtSentence, acceptedAnswers)
     onAnswer({ selected: builtSentence, correct })
   }

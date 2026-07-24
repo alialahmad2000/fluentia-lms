@@ -155,6 +155,7 @@ serve(async (req) => {
             student_id: recording.student_id,
             unit_id: recording.unit_id,
           },
+          action_url: "/trainer/work",
         })
       }
     }
@@ -483,6 +484,9 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
       unit_id: recording.unit_id,
       overall_score: aiEvaluation.overall_score,
     },
+    action_url: recording.unit_id
+      ? `/student/curriculum/unit/${recording.unit_id}?activity=speaking`
+      : "/student/curriculum",
   })
 
   // ── Update curriculum progress ──

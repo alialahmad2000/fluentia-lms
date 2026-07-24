@@ -5,7 +5,7 @@ import { useG } from '@/i18n/gender'
 export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
   const g = useG()
   const [input, setInput] = useState('')
-  const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+  const acceptedAnswers = item.accepted_answers?.length ? item.accepted_answers : [item.correct_answer]
 
   const handleSubmit = (e) => {
     e.preventDefault()

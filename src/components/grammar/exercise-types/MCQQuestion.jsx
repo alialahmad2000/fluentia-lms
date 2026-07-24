@@ -8,7 +8,7 @@ export default function MCQQuestion({ item, answer, onAnswer }) {
   const g = useG()
   const CORRECT_MSGS = [g('أحسنت! إجابة صحيحة 🎯', 'أحسنتِ! إجابة صحيحة 🎯'), g('ممتاز! ✨', 'ممتازة! ✨'), 'صحيح! رائع 💫', 'بالضبط! 🌟', 'إجابة موفقة! 🔥']
   const WRONG_MSGS = [g('لا بأس — راجع القاعدة 📖', 'لا بأس — راجعي القاعدة 📖'), g('حاول تذكّر القاعدة 💡', 'حاولي تذكّر القاعدة 💡'), g('قريب! راجع الشرح 🔍', 'قريب! راجعي الشرح 🔍')]
-  const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+  const acceptedAnswers = item.accepted_answers?.length ? item.accepted_answers : [item.correct_answer]
 
   const handleSelect = (opt) => {
     if (answer) return

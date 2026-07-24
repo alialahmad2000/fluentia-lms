@@ -99,7 +99,7 @@ export default function StudentExercises() {
       if (ex.content?.render === 'worksheet') {
         correct = gradeWorksheet(ex.content, sa).correct
       } else {
-        for (const q of questions) if (validateAnswer(sa[q.id], q.accepted_answers || [q.correct_answer])) correct++
+        for (const q of questions) if (validateAnswer(sa[q.id], (q.accepted_answers?.length ? q.accepted_answers : [q.correct_answer]))) correct++
       }
       const score = Math.round((correct / (questions.length || 1)) * 100)
       const xp = score >= 80 ? 15 : score >= 60 ? 10 : 5
@@ -124,7 +124,7 @@ export default function StudentExercises() {
       const ex = GENERAL_EXERCISES.find((e) => e.id === exerciseId)
       const questions = ex.content?.questions || []
       let correct = 0
-      for (const q of questions) if (validateAnswer(sa[q.id], q.accepted_answers || [q.correct_answer])) correct++
+      for (const q of questions) if (validateAnswer(sa[q.id], (q.accepted_answers?.length ? q.accepted_answers : [q.correct_answer]))) correct++
       const score = Math.round((correct / (questions.length || 1)) * 100)
       const base = ex.xp_reward || 10
       const xp = score >= 80 ? base : score >= 60 ? Math.round(base * 0.7) : Math.round(base * 0.4)
@@ -449,7 +449,7 @@ function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSu
         <div>
           {questions.map((q, i) => {
             const val = answers[q.id]
-            const accepted = q.accepted_answers || [q.correct_answer]
+            const accepted = (q.accepted_answers?.length ? q.accepted_answers : [q.correct_answer])
             const isCorrect = submitted && validateAnswer(val, accepted)
             const isWrong = submitted && val && !isCorrect
             return (

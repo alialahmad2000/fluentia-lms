@@ -306,6 +306,7 @@ export default function VoiceRecorder({
           title: 'تسجيل تحدث جديد',
           body: 'قام طالب بتسجيل نشاط تحدث جديد',
           data: { recording_id: recording.id, unit_id: unitId, student_id: studentId },
+          action_url: "/trainer/work",
         })
       }
 

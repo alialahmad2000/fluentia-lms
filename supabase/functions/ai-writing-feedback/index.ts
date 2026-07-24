@@ -236,6 +236,9 @@ async function handleQueueMode(supabase: any, progressId: string) {
       title: 'تم تصحيح كتابتك ✨',
       body: 'وصل تصحيح تمرين الكتابة — اضغط للاطلاع على التغذية الراجعة',
       data: { unit_id: row.unit_id, progress_id: progressId },
+      action_url: row.unit_id
+        ? `/student/curriculum/unit/${row.unit_id}?activity=writing`
+        : "/student/curriculum",
     })
 
     // Log usage
@@ -469,7 +472,8 @@ async function notifyTrainer(supabase: any, row: any) {
       type: 'writing_needs_review',
       title: 'كتابة طالب تحتاج تصحيح يدوي',
       body: `${studentName} في الوحدة ${unit?.unit_number || '?'} — لم نتمكن من التصحيح التلقائي`,
-      data: { link: `/trainer/students/${row.student_id}/curriculum?unit=${row.unit_id}&tab=writing` },
+      data: { student_id: row.student_id, unit_id: row.unit_id },
+      action_url: '/trainer/work',
       priority: 'high',
     })
   } catch (err) {
