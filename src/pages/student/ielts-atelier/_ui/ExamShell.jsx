@@ -1,10 +1,17 @@
 import React from 'react'
+import { createPortal } from 'react-dom'
+import { Maximize, Minimize } from 'lucide-react'
 
 /* ============================================================================
    Full-screen IELTS exam chrome — a fixed overlay that takes over the viewport
    (no app nav, no distractions) like the real computer-delivered test.
-   Top bar: brand + section + live timer + finish. Bottom: question palette.
+   Top bar: brand + section + live timer + fullscreen + finish. Bottom: palette.
    The body (split passage/questions, audio, editor) is passed as children.
+
+   Rendered through a portal to <body> so the fixed overlay escapes the
+   atelier's transformed content column (`.iel-content` animates `transform`,
+   which would otherwise trap position:fixed and let the sidebar bleed through).
+   A student can also enter/leave true OS fullscreen via the top-bar toggle.
    ========================================================================== */
 
 function fmt(s) {
@@ -12,16 +19,58 @@ function fmt(s) {
   return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')}`
 }
 
+const CTRL_BTN = { flex: 'none', width: 36, height: 36, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-3)', lineHeight: 1 }
+
 export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children, submitLabel = 'إنهاء القسم', showSubmit = true, onExit }) {
   const urgent = secsLeft != null && secsLeft < 600
   const critical = secsLeft != null && secsLeft < 120
   const [confirming, setConfirming] = React.useState(false)
+  const rootRef = React.useRef(null)
+  const [isFullscreen, setIsFullscreen] = React.useState(false)
+  // Only offer the OS-fullscreen toggle where the API exists (desktop, Android,
+  // iPad). iPhone Safari has no Element.requestFullscreen — there the portalled
+  // overlay is already edge-to-edge, so nothing to toggle.
+  const canFullscreen = typeof document !== 'undefined' && !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen)
+
   React.useEffect(() => {
     document.body.classList.add('ielts-exam')
     return () => document.body.classList.remove('ielts-exam')
   }, [])
-  return (
-    <div className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 10050, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column' }}>
+
+  // Keep the toggle icon in sync with browser state (covers Esc-to-exit too).
+  React.useEffect(() => {
+    const sync = () => setIsFullscreen(!!(document.fullscreenElement || document.webkitFullscreenElement))
+    document.addEventListener('fullscreenchange', sync)
+    document.addEventListener('webkitfullscreenchange', sync)
+    return () => {
+      document.removeEventListener('fullscreenchange', sync)
+      document.removeEventListener('webkitfullscreenchange', sync)
+    }
+  }, [])
+
+  // Leaving the exam must never strand the whole app in OS fullscreen.
+  React.useEffect(() => () => {
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {})
+    else if (document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen()
+  }, [])
+
+  const toggleFullscreen = React.useCallback(async () => {
+    const el = rootRef.current
+    if (!el) return
+    try {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) await document.exitFullscreen()
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen()
+      } else if (el.requestFullscreen) {
+        await el.requestFullscreen()
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen()
+      }
+    } catch { /* user-gesture / permission edge cases — ignore */ }
+  }, [])
+
+  const overlay = (
+    <div ref={rootRef} className="iel-root iel-exam-clinical" dir="rtl" style={{ position: 'fixed', inset: 0, zIndex: 10050, background: 'var(--iel-ground)', display: 'flex', flexDirection: 'column' }}>
       {/* Top bar */}
       <div style={{ flex: 'none', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, padding: '0 20px', background: 'var(--iel-panel)', borderBottom: '1px solid var(--iel-border)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
@@ -38,8 +87,13 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
               <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
             </div>
           )}
+          {canFullscreen && (
+            <button onClick={toggleFullscreen} title={isFullscreen ? 'إنهاء ملء الشاشة' : 'وضع ملء الشاشة'} aria-label={isFullscreen ? 'إنهاء ملء الشاشة' : 'وضع ملء الشاشة'} style={CTRL_BTN}>
+              {isFullscreen ? <Minimize size={17} /> : <Maximize size={17} />}
+            </button>
+          )}
           {onExit && (
-            <button onClick={onExit} title="خروج" aria-label="خروج" style={{ flex: 'none', width: 36, height: 36, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-3)', fontSize: 18, lineHeight: 1 }}>✕</button>
+            <button onClick={onExit} title="خروج" aria-label="خروج" style={{ ...CTRL_BTN, fontSize: 18 }}>✕</button>
           )}
         </div>
       </div>
@@ -74,6 +128,8 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
       )}
     </div>
   )
+
+  return typeof document !== 'undefined' ? createPortal(overlay, document.body) : overlay
 }
 
 /* Numbered question palette — answered (filled), current (ring), else outline. */
