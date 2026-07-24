@@ -6,24 +6,26 @@
    ========================================================================== */
 
 .iel-root{
-  /* — Editorial «الصحيفة»: a bright, authoritative exam-board journal — warm ivory
-       paper, deep-green ink accent, rich near-black type, hairline rules. ONE
-       committed light finish (Ali 2026-07-21), applied in every app theme. — */
-  --iel-ground:#f6f1e6;
-  --iel-panel:#efe8d9; --iel-surface:#ffffff; --iel-surface-2:#faf6ec;
-  --iel-solid:#ffffff;                  /* opaque fallback where blur can't apply */
-  --iel-border:#e7dfce; --iel-border-strong:#d7cdb6;
-  /* text ramp — rich ink on warm paper, WCAG-AA across all tiers */
-  --iel-ink:#1b1710; --iel-ink-2:#5a5140; --iel-ink-3:#8f8672;
-  --iel-accent:#116b5a; --iel-accent-ink:#0d5647; --iel-accent-soft:#e7f0ec;
-  --iel-gold:#a17a20; --iel-gold-ink:#846213; --iel-gold-soft:#f3ecd9;
-  --iel-good:#116b5a; --iel-warn:#b0761d; --iel-bad:#b5533a;
-  --iel-nav-active:#0d5647; --iel-nav-active-bg:#e7f0ec;
-  --iel-track:#ece4d3;
-  /* one consistent elevation scale — soft, warm, paper-appropriate shadows */
-  --iel-shadow-sm:0 1px 2px rgba(60,45,20,.05);
-  --iel-shadow:0 1px 2px rgba(60,45,20,.05), 0 22px 44px -26px rgba(60,45,20,.22);
-  --iel-shadow-lg:0 4px 14px rgba(60,45,20,.08), 0 42px 84px -44px rgba(60,45,20,.3);
+  /* — «الأبنوس + الزمرّد» (Obsidian + Emerald): the committed DARK finish
+       (Ali 2026-07-25) — cool graphite grounds, luminous emerald accent, gold
+       highlights, bright cream/steel type, editorial serif headings. ONE finish,
+       applied in every app theme. The exam keeps its own clinical white below
+       (the real computer-delivered test is white — realism). — */
+  --iel-ground:#0a0e13;
+  --iel-panel:#0f141c; --iel-surface:#141b24; --iel-surface-2:#0d131b;
+  --iel-solid:#141b24;                  /* opaque fallback where blur can't apply */
+  --iel-border:rgba(255,255,255,.08); --iel-border-strong:rgba(255,255,255,.17);
+  /* text ramp — bright cream/steel on graphite, WCAG-AA across all tiers */
+  --iel-ink:#eef2f7; --iel-ink-2:#a9b4c1; --iel-ink-3:#6c7784;
+  --iel-accent:#10b981; --iel-accent-ink:#5eead4; --iel-accent-soft:rgba(16,185,129,.14);
+  --iel-gold:#eab308; --iel-gold-ink:#fcd34d; --iel-gold-soft:rgba(234,179,8,.14);
+  --iel-good:#10b981; --iel-warn:#eab308; --iel-bad:#f87171;
+  --iel-nav-active:#5eead4; --iel-nav-active-bg:rgba(16,185,129,.14);
+  --iel-track:rgba(255,255,255,.08);
+  /* one consistent elevation scale — deep shadows for a dark surface */
+  --iel-shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --iel-shadow:0 1px 2px rgba(0,0,0,.4), 0 22px 44px -26px rgba(0,0,0,.7);
+  --iel-shadow-lg:0 4px 14px rgba(0,0,0,.5), 0 42px 84px -44px rgba(0,0,0,.82);
   /* unified motion tokens (ui-ux-pro-max §7: 150–300ms, ease-out enter) */
   --iel-ease:cubic-bezier(.22,1,.36,1); --iel-dur:.2s;
   --iel-sans:"Tajawal","Readex Pro",system-ui,sans-serif;
@@ -40,16 +42,16 @@
   --ds-text:var(--iel-ink); --ds-text-primary:var(--iel-ink); --ds-text-secondary:var(--iel-ink-2);
   --ds-text-muted:var(--iel-ink-3); --ds-text-tertiary:var(--iel-ink-3);
 
-  /* subtle editorial warmth baked into the paper — a whisper of green + gold at the corners */
+  /* obsidian ground with a luminous emerald bloom + a faint sky whisper at the corners */
   background:
-    radial-gradient(56% 42% at 92% -4%, color-mix(in srgb, var(--iel-accent) 6%, transparent), transparent 60%),
-    radial-gradient(50% 40% at 3% 104%, color-mix(in srgb, var(--iel-gold) 7%, transparent), transparent 58%),
+    radial-gradient(58% 44% at 92% -4%, color-mix(in srgb, var(--iel-accent) 13%, transparent), transparent 60%),
+    radial-gradient(48% 40% at 3% 104%, color-mix(in srgb, #38bdf8 7%, transparent), transparent 58%),
     var(--iel-ground);
   color:var(--iel-ink); font-family:var(--iel-sans);
   min-height:100dvh;
 }
 
-/* The editorial palette above is the ONE committed finish, applied in every app
+/* The obsidian palette above is the ONE committed finish, applied in every app
    theme (dark/light/auto) — no separate light override; the exam keeps its own
    clinical white below. */
 
@@ -267,7 +269,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-nav{width:264px;flex:none;align-self:flex-start;position:sticky;top:0;height:100dvh;overflow-y:auto;
   background:var(--iel-panel);border-inline-start:1px solid var(--iel-border-strong);
   backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);
-  box-shadow:inset -1px 0 0 var(--iel-border), -24px 0 48px -36px rgba(60,45,20,.18);
+  box-shadow:inset -1px 0 0 var(--iel-border), -24px 0 48px -36px rgba(0,0,0,.55);
   display:flex;flex-direction:column;padding:22px 16px;gap:3px}
 .iel-nav-label{font-size:12px;font-weight:800;color:var(--iel-ink-3);letter-spacing:.12em;padding:14px 10px 6px}
 .iel-brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px}
@@ -388,7 +390,7 @@ html .iel-exam-clinical.iel-exam-clinical,
   background:var(--iel-surface);
   border:1px solid var(--iel-border); border-radius:16px; padding:16px 17px;
   position:relative; overflow:hidden; min-width:0;
-  box-shadow:0 1px 2px rgba(60,45,20,.05), 0 14px 32px -22px rgba(60,45,20,.26);
+  box-shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 32px -22px rgba(0,0,0,.62);
 }
 .iel-blab{ display:flex; align-items:center; gap:9px; margin-bottom:11px; font-size:13px; font-weight:800; color:var(--iel-ink); }
 .iel-blab .d{ width:26px; height:26px; border-radius:9px; flex:none; display:grid; place-items:center;
