@@ -8,7 +8,7 @@ import {
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
   MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
-  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf,
+  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf, BellRing,
 } from 'lucide-react'
 
 
@@ -25,6 +25,7 @@ export const STUDENT_NAV = {
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         // OWNER-HIDDEN 2026-07-17: «إنجليزي يومي» hidden from EVERY student (route kept in App.jsx + tables intact). Hide-don't-delete.
         { id: 'sentence-builder', label: 'بناء الجُمل', icon: Layers, to: '/student/sentence-builder' },
+        { id: 'growth', label: 'كم قطعت', icon: TrendingUp, to: '/student/growth' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
@@ -81,6 +82,7 @@ export const STUDENT_NAV = {
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         // OWNER-HIDDEN 2026-07-17: «إنجليزي يومي» hidden from EVERY student (route kept in App.jsx + tables intact). Hide-don't-delete.
         { id: 'sentence-builder', label: 'بناء الجُمل', icon: Layers, to: '/student/sentence-builder' },
+        { id: 'growth', label: 'كم قطعت', icon: TrendingUp, to: '/student/growth' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
       ],
@@ -215,6 +217,7 @@ export const ADMIN_NAV = {
       items: [
         { id: 'dashboard',   label: 'الرئيسية',     icon: Home,          to: '/admin' },
         { id: 'reports',     label: 'التقارير',     icon: BarChart3,     to: '/admin/reports' },
+        { id: 'attention',   label: 'المتابعة',     icon: BellRing,      to: '/admin/attention' },
         { id: 'mock-exam',   label: 'نتائج الاختبار التجريبي', icon: FileCheck, to: '/admin/mock-exam-results' },
       ],
     },

@@ -52,27 +52,33 @@ Deno.serve(async (req) => {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return jsonRes({ ok: false, error: 'unauthorized' }, 401)
 
-    // Check if there's already a cached draft
-    const { data: cached } = await supabase
+    const serviceSupabase = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    )
+
+    // The academy owner is role=admin, not a trainer, so ownership alone would
+    // lock them out of every row they can see in the academy-wide queue.
+    const { data: caller } = await serviceSupabase
+      .from('profiles').select('role').eq('id', user.id).single()
+    const isAdmin = caller?.role === 'admin'
+
+    let q = serviceSupabase
       .from('student_interventions')
       .select('suggested_message_ar, reason_ar, signal_data, suggested_action_ar, student_id, trainer_id')
       .eq('id', intervention_id)
-      .eq('trainer_id', user.id)
-      .single()
+    if (!isAdmin) q = q.eq('trainer_id', user.id)
+    const { data: cached } = await q.single()
 
     if (!cached) return jsonRes({ ok: false, error: 'intervention not found' }, 404)
     if (cached.suggested_message_ar) {
       return jsonRes({ ok: true, message: cached.suggested_message_ar, cached: true })
     }
 
-    // Fetch full detail for Claude context
-    const serviceSupabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    )
+    // Detail is owner-scoped; pass the row's own trainer so admins get context too.
     const { data: detail } = await serviceSupabase.rpc('get_intervention_detail', {
       p_id: intervention_id,
-      p_trainer_id: user.id
+      p_trainer_id: cached.trainer_id
     })
 
     const student = detail?.student || {}
@@ -101,7 +107,7 @@ ${recentActivity.length > 0 ? `- آخر تفاعل: ${recentActivity[0].activity
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-haiku-4-5',
         max_tokens: 300,
         temperature: 0.7,
         system: SYSTEM_PROMPT,
