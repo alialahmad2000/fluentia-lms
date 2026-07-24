@@ -114,12 +114,12 @@ export function BandGauge({ current, target, min = 4, max = 9, size = 208, label
     <div style={{ position: 'relative', width: size, height: size, margin: '0 auto' }}>
       {/* soft glow bed */}
       <div aria-hidden style={{ position: 'absolute', inset: '14%', borderRadius: '50%',
-        background: 'radial-gradient(circle, color-mix(in srgb, var(--iel-accent) 26%, transparent), transparent 68%)', filter: 'blur(10px)' }} />
+        background: 'radial-gradient(circle, color-mix(in srgb, var(--iel-accent) 13%, transparent), transparent 70%)', filter: 'blur(16px)' }} />
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ position: 'relative' }}>
         <defs>
           <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="var(--iel-accent)" />
-            <stop offset="100%" stopColor="var(--iel-gold)" />
+            <stop offset="100%" stopColor="var(--iel-accent-ink)" />
           </linearGradient>
         </defs>
         <g transform={`rotate(135 ${size / 2} ${size / 2})`}>
@@ -237,7 +237,7 @@ export function PrimaryButton({ children, onClick, disabled, style }) {
       border: 0, cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 15, fontWeight: 700,
       color: disabled ? 'var(--iel-ink-3)' : '#fff', position: 'relative', overflow: 'hidden',
       background: disabled ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))',
-      boxShadow: disabled ? 'none' : '0 8px 22px -10px color-mix(in srgb, var(--iel-accent) 75%, #000), inset 0 1px 0 rgba(255,255,255,.22)',
+      boxShadow: disabled ? 'none' : '0 6px 16px -9px color-mix(in srgb, var(--iel-accent) 48%, #000), 0 1px 3px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.16)',
       opacity: disabled ? 0.7 : 1, ...style,
     }}>{children}</button>
   )

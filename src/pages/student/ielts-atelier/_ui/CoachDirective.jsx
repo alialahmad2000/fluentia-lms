@@ -42,21 +42,21 @@ export default function CoachDirective({ action, todayTasks = [], weakest, onGo 
   return (
     <div className="iel-coach" dir="rtl">
       <style>{`
-        @keyframes iel-coach-ping{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(2.4);opacity:0}}
+        @keyframes iel-coach-ping{0%{transform:scale(1);opacity:.30}70%,100%{transform:scale(2.4);opacity:0}}
         @media (prefers-reduced-motion: reduce){ .iel-coach-ring{animation:none!important} }
       `}</style>
       <div className="iel-coach-glow" aria-hidden />
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
         {/* coach presence orb */}
-        <div style={{ position: 'relative', flex: 'none', width: 44, height: 44, marginTop: 2 }}>
+        <div style={{ position: 'relative', flex: 'none', width: 44, height: 44 }}>
           <span className="iel-coach-ring" style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--iel-accent)', animation: 'iel-coach-ping 2.6s cubic-bezier(0,0,.2,1) infinite' }} />
-          <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'linear-gradient(140deg, var(--iel-accent), var(--iel-gold))', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.35), 0 6px 16px -6px color-mix(in srgb, var(--iel-accent) 70%, #000)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+          <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'linear-gradient(145deg, var(--iel-accent-ink), var(--iel-accent))', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.22), 0 4px 12px -6px color-mix(in srgb, var(--iel-accent) 45%, #000), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 22%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
             <Icon.coach size={20} sw={2} />
           </span>
         </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: '1 1 320px', minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.06em', marginBottom: 7 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--iel-accent)', boxShadow: '0 0 8px var(--iel-accent)' }} />
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--iel-accent)', boxShadow: '0 0 6px color-mix(in srgb, var(--iel-accent) 55%, transparent)' }} />
             خطوتك الآن
           </div>
           <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: 0, lineHeight: 1.4 }}>{title}</h2>
@@ -66,19 +66,21 @@ export default function CoachDirective({ action, todayTasks = [], weakest, onGo 
               <Icon.diagnostic size={13} sw={2} /> لماذا؟ {reason}
             </div>
           )}
-          <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-            <PrimaryButton onClick={() => onGo(route)}>{cta} <Icon.chevron size={16} sw={2.4} /></PrimaryButton>
-            {chips.length > 1 && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--iel-ink-3)' }}>خطة اليوم أيضاً:</span>
-                {chips.slice(0, 4).map((t, i) => (
-                  <button key={i} onClick={() => onGo(SKILL_ROUTE[t.task_type] || 'reading')} style={{ fontSize: 11.5, fontWeight: 700, padding: '4px 10px', borderRadius: 8, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink-2)' }}>
-                    {TASK_META[t.task_type] || t.task_type}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+        </div>
+        {/* Action column — pinned to the far end (left in RTL) so the card's width is
+            deliberate, not a dead half. Wraps beneath the text on narrow screens. */}
+        <div style={{ flex: 'none', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 11, marginInlineStart: 'auto' }}>
+          <PrimaryButton onClick={() => onGo(route)}>{cta} <Icon.chevron size={16} sw={2.4} /></PrimaryButton>
+          {chips.length > 1 && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap', maxWidth: 250 }}>
+              <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--iel-ink-3)' }}>خطة اليوم أيضاً:</span>
+              {chips.slice(0, 4).map((t, i) => (
+                <button key={i} onClick={() => onGo(SKILL_ROUTE[t.task_type] || 'reading')} style={{ fontSize: 11.5, fontWeight: 700, padding: '4px 10px', borderRadius: 8, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink-2)' }}>
+                  {TASK_META[t.task_type] || t.task_type}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

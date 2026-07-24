@@ -43,10 +43,7 @@
   --ds-text-muted:var(--iel-ink-3); --ds-text-tertiary:var(--iel-ink-3);
 
   /* obsidian ground with a luminous emerald bloom + a faint sky whisper at the corners */
-  background:
-    radial-gradient(58% 44% at 92% -4%, color-mix(in srgb, var(--iel-accent) 13%, transparent), transparent 60%),
-    radial-gradient(48% 40% at 3% 104%, color-mix(in srgb, #38bdf8 7%, transparent), transparent 58%),
-    var(--iel-ground);
+  background:var(--iel-ground);   /* .iel-atmo paints the living field above this */
   color:var(--iel-ink); font-family:var(--iel-sans);
   min-height:100dvh;
 }
@@ -94,7 +91,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 /* Primary button — hover lift + a slow diagonal sheen sweep */
 .iel-primary{ transition:transform .18s ease, box-shadow .18s ease, filter .18s ease; }
 .iel-primary:hover{ transform:translateY(-2px);
-  box-shadow:0 12px 30px -10px color-mix(in srgb, var(--iel-accent) 80%, #000), inset 0 1px 0 rgba(255,255,255,.28) !important; }
+  box-shadow:0 10px 24px -12px color-mix(in srgb, var(--iel-accent) 52%, #000), 0 2px 6px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.20) !important; }
 .iel-primary:active{ transform:translateY(0); }
 .iel-primary::after{ content:''; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.35) 48%, transparent 62%);
@@ -234,34 +231,34 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-atmo::before{
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(140% 90% at 84% -12%, color-mix(in srgb, var(--iel-accent) 26%, transparent), transparent 58%),
-    radial-gradient(120% 80% at 6% 2%,   color-mix(in srgb, var(--iel-gold)   19%, transparent), transparent 55%),
-    radial-gradient(120% 100% at 50% 116%, color-mix(in srgb, var(--iel-accent) 15%, transparent), transparent 60%),
-    linear-gradient(180deg, #0c1017 0%, var(--iel-ground) 40%, #080a0f 100%);
+    radial-gradient(130% 85% at 86% -14%, color-mix(in srgb, var(--iel-accent) 15%, transparent), transparent 58%),
+    radial-gradient(110% 75% at 4% 4%,    color-mix(in srgb, #38bdf8 8%, transparent), transparent 55%),
+    radial-gradient(120% 100% at 52% 118%, color-mix(in srgb, var(--iel-accent) 9%, transparent), transparent 62%),
+    linear-gradient(180deg, #0d121a 0%, var(--iel-ground) 42%, #05070b 100%);
 }
 /* second, slowly drifting bloom layer for life */
 .iel-atmo::after{
   content:''; position:absolute; inset:-15%;
   background:
-    radial-gradient(45% 40% at 22% 18%, color-mix(in srgb, var(--iel-gold) 22%, transparent), transparent 62%),
-    radial-gradient(50% 46% at 82% 72%, color-mix(in srgb, var(--iel-accent) 24%, transparent), transparent 64%);
-  filter:blur(20px); opacity:.9; animation:iel-atmo-drift 34s ease-in-out infinite alternate;
+    radial-gradient(46% 42% at 20% 16%, color-mix(in srgb, var(--iel-gold) 7%, transparent), transparent 64%),
+    radial-gradient(52% 48% at 84% 74%, color-mix(in srgb, var(--iel-accent) 11%, transparent), transparent 66%);
+  filter:blur(26px); opacity:.85; animation:iel-atmo-drift 52s ease-in-out infinite alternate;
 }
 /* fine grain + vignette so the field reads as depth, never a flat gradient */
 .iel-atmo-grain{
-  position:absolute; inset:0; pointer-events:none; mix-blend-mode:soft-light; opacity:.5;
+  position:absolute; inset:0; pointer-events:none; mix-blend-mode:soft-light; opacity:.34;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 .iel-atmo-vig{
   position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(120% 120% at 50% 30%, transparent 52%, rgba(5,7,11,.5) 100%);
+  background:radial-gradient(118% 118% at 50% 26%, transparent 48%, rgba(3,5,9,.62) 100%);
 }
 @keyframes iel-atmo-drift{
   0%  { transform:translate3d(0,0,0) scale(1); }
   100%{ transform:translate3d(-3%,2%,0) scale(1.08); }
 }
 /* Under the bright/exam themes the field must not muddy the clean surfaces */
-.iel-atmo{ display:none; }  /* editorial «الصحيفة» finish is clean paper — no dark ambient field */
+/* Obsidian finish: the ambient field is ON — an immersive living ground, never flat black. */
 @media (prefers-reduced-motion: reduce){ .iel-atmo::after{ animation:none } }
 
 /* ── Shell layout (RTL: nav right, content fills left) ─────────────────────── */
