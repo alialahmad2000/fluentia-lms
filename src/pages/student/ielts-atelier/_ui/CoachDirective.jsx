@@ -28,7 +28,7 @@ export default function CoachDirective({ action, todayTasks = [], weakest, onGo 
   const title = action.title_ar || 'تابع تدريبك اليومي'
   const subtitle = action.subtitle_ar || ''
   const reason = action.reason_ar || ''
-  const cta = action.cta_ar || 'ابدأ الآن'
+  const cta = action.cta_ar || 'ابدئي الآن'
 
   // today's rotation, de-duplicated by task_type, excluding the primary directive skill
   const seen = new Set()
@@ -62,7 +62,7 @@ export default function CoachDirective({ action, todayTasks = [], weakest, onGo 
           <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: 0, lineHeight: 1.4 }}>{title}</h2>
           {subtitle && <p style={{ fontSize: 13.5, color: 'var(--iel-ink-2)', margin: '7px 0 0', lineHeight: 1.75, maxWidth: '52ch' }}>{subtitle}</p>}
           {reason && (
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 12, fontSize: 12, fontWeight: 700, color: 'var(--iel-gold-ink, var(--iel-gold))', background: 'var(--iel-gold-soft)', border: '1px solid color-mix(in srgb, var(--iel-gold) 30%, transparent)', padding: '5px 11px', borderRadius: 9 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, marginTop: 13, fontSize: 12.5, fontWeight: 600, color: 'var(--iel-ink-2)', borderInlineStart: '2px solid var(--iel-gold)', paddingInlineStart: 10, background: 'none' }}>
               <Icon.diagnostic size={13} sw={2} /> لماذا؟ {reason}
             </div>
           )}

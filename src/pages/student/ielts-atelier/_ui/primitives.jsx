@@ -235,9 +235,9 @@ export function PrimaryButton({ children, onClick, disabled, style }) {
     <button onClick={onClick} disabled={disabled} className={disabled ? undefined : 'iel-primary'} style={{
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '12px 22px', borderRadius: 12,
       border: 0, cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 15, fontWeight: 700,
-      color: disabled ? 'var(--iel-ink-3)' : '#fff', position: 'relative', overflow: 'hidden',
+      color: disabled ? 'var(--iel-ink-3)' : '#04231a', position: 'relative', overflow: 'hidden',
       background: disabled ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))',
-      boxShadow: disabled ? 'none' : '0 6px 16px -9px color-mix(in srgb, var(--iel-accent) 48%, #000), 0 1px 3px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.16)',
+      boxShadow: disabled ? 'none' : '0 6px 16px -9px color-mix(in srgb, var(--iel-accent) 48%, #000), 0 1px 3px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.28)',
       opacity: disabled ? 0.7 : 1, ...style,
     }}>{children}</button>
   )

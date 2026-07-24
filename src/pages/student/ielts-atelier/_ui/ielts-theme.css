@@ -12,11 +12,11 @@
        applied in every app theme. The exam keeps its own clinical white below
        (the real computer-delivered test is white — realism). — */
   --iel-ground:#0a0e13;
-  --iel-panel:#0f141c; --iel-surface:#141b24; --iel-surface-2:#0d131b;
-  --iel-solid:#141b24;                  /* opaque fallback where blur can't apply */
+  --iel-panel:rgba(15,20,28,.66); --iel-surface:rgba(22,30,41,.72); --iel-surface-2:#0d131b;
+  --iel-solid:#161e29;                  /* opaque fallback where blur can't apply */
   --iel-border:rgba(255,255,255,.08); --iel-border-strong:rgba(255,255,255,.17);
   /* text ramp — bright cream/steel on graphite, WCAG-AA across all tiers */
-  --iel-ink:#eef2f7; --iel-ink-2:#a9b4c1; --iel-ink-3:#6c7784;
+  --iel-ink:#eef2f7; --iel-ink-2:#a9b4c1; --iel-ink-3:#828d9b;
   --iel-accent:#10b981; --iel-accent-ink:#5eead4; --iel-accent-soft:rgba(16,185,129,.14);
   --iel-gold:#eab308; --iel-gold-ink:#fcd34d; --iel-gold-soft:rgba(234,179,8,.14);
   --iel-good:#10b981; --iel-warn:#eab308; --iel-bad:#f87171;
@@ -24,8 +24,8 @@
   --iel-track:rgba(255,255,255,.08);
   /* one consistent elevation scale — deep shadows for a dark surface */
   --iel-shadow-sm:0 1px 2px rgba(0,0,0,.4);
-  --iel-shadow:0 1px 2px rgba(0,0,0,.4), 0 22px 44px -26px rgba(0,0,0,.7);
-  --iel-shadow-lg:0 4px 14px rgba(0,0,0,.5), 0 42px 84px -44px rgba(0,0,0,.82);
+  --iel-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 1px 2px rgba(0,0,0,.5), 0 26px 52px -30px rgba(0,0,0,.9);
+  --iel-shadow-lg:inset 0 1px 0 rgba(255,255,255,.08), 0 4px 14px rgba(0,0,0,.5), 0 46px 92px -46px rgba(0,0,0,.92);
   /* unified motion tokens (ui-ux-pro-max §7: 150–300ms, ease-out enter) */
   --iel-ease:cubic-bezier(.22,1,.36,1); --iel-dur:.2s;
   --iel-sans:"Tajawal","Readex Pro",system-ui,sans-serif;
@@ -134,7 +134,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 
 /* ── Coach Directive — the "do this now" heartbeat ───────────────────────── */
 .iel-coach{
-  position:relative; overflow:hidden; border-radius:18px; padding:22px 24px;
+  position:relative; overflow:hidden; border-radius:18px; padding:26px 28px;
   background:linear-gradient(135deg, color-mix(in srgb, var(--iel-accent) 2%, var(--iel-surface)), var(--iel-surface));
   border:1px solid color-mix(in srgb, var(--iel-accent) 18%, var(--iel-border));
   backdrop-filter:blur(18px) saturate(1.2); -webkit-backdrop-filter:blur(18px) saturate(1.2);
@@ -153,7 +153,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-station .dot{ width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
   border:1.5px solid var(--iel-border); background:var(--iel-surface-2); color:var(--iel-ink-3); position:relative; z-index:1;
   transition:transform .2s ease; }
-.iel-station .lbl{ font-size:11.5px; font-weight:700; color:var(--iel-ink-3); margin-top:8px; line-height:1.3; }
+.iel-station .lbl{ font-size:12px; font-weight:700; color:var(--iel-ink-3); margin-top:8px; line-height:1.3; }
 .iel-station .sub{ font-size:12px; font-weight:600; color:var(--iel-ink-3); margin-top:2px; }
 /* connector to the NEXT station — spans the gap from this dot's centre toward
    the next dot (RTL-safe): inset-inline-start:50% anchors it at the dot centre
@@ -231,7 +231,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-atmo::before{
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(130% 85% at 86% -14%, color-mix(in srgb, var(--iel-accent) 15%, transparent), transparent 58%),
+    radial-gradient(122% 90% at 88% -12%, color-mix(in srgb, var(--iel-accent) 21%, transparent), transparent 62%),
     radial-gradient(110% 75% at 4% 4%,    color-mix(in srgb, #38bdf8 8%, transparent), transparent 55%),
     radial-gradient(120% 100% at 52% 118%, color-mix(in srgb, var(--iel-accent) 9%, transparent), transparent 62%),
     linear-gradient(180deg, #0d121a 0%, var(--iel-ground) 42%, #05070b 100%);
@@ -251,7 +251,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 }
 .iel-atmo-vig{
   position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(118% 118% at 50% 26%, transparent 48%, rgba(3,5,9,.62) 100%);
+  background:radial-gradient(135% 120% at 50% 30%, transparent 62%, rgba(3,5,9,.42) 100%);
 }
 @keyframes iel-atmo-drift{
   0%  { transform:translate3d(0,0,0) scale(1); }
@@ -260,26 +260,28 @@ html .iel-exam-clinical.iel-exam-clinical,
 /* Under the bright/exam themes the field must not muddy the clean surfaces */
 /* Obsidian finish: the ambient field is ON — an immersive living ground, never flat black. */
 @media (prefers-reduced-motion: reduce){ .iel-atmo::after{ animation:none } }
+/* Touch devices: a 130%-viewport blurred animated layer is the Android-flicker pattern. */
+@media (pointer: coarse){ .iel-atmo::after{ animation:none; filter:none; opacity:.6 } }
 
 /* ── Shell layout (RTL: nav right, content fills left) ─────────────────────── */
 .iel-shell{display:flex;min-height:100dvh;position:relative;z-index:1}
 .iel-nav{width:264px;flex:none;align-self:flex-start;position:sticky;top:0;height:100dvh;overflow-y:auto;
   background:var(--iel-panel);border-inline-start:1px solid var(--iel-border-strong);
   backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);
-  box-shadow:inset -1px 0 0 var(--iel-border), -24px 0 48px -36px rgba(0,0,0,.55);
+  box-shadow:-24px 0 48px -36px rgba(0,0,0,.55);
   display:flex;flex-direction:column;padding:22px 16px;gap:3px}
-.iel-nav-label{font-size:12px;font-weight:800;color:var(--iel-ink-3);letter-spacing:.12em;padding:14px 10px 6px}
+.iel-nav-label{font-size:12px;font-weight:800;color:var(--iel-ink-3);letter-spacing:0;padding:14px 10px 6px}
 .iel-brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px}
 .iel-brand .mark{width:34px;height:34px;border-radius:10px;
   background:linear-gradient(140deg, var(--iel-accent), var(--iel-gold));
   box-shadow:0 6px 18px -6px color-mix(in srgb, var(--iel-accent) 60%, transparent), inset 0 1px 0 rgba(255,255,255,.25);
   color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex:none}
 .iel-brand .wm{font-weight:800;font-size:17px;color:var(--iel-ink);line-height:1.1}
-.iel-brand .wm small{display:block;font-size:11px;font-weight:600;color:var(--iel-ink-3);letter-spacing:.14em}
+.iel-brand .wm small{display:block;font-size:12px;font-weight:600;color:var(--iel-ink-3);letter-spacing:.14em}
 .iel-navfoot{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 10px 2px;border-top:1px solid var(--iel-border)}
 .iel-navfoot .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(140deg, var(--iel-accent), var(--iel-accent-ink));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
 .iel-navfoot .who{font-size:13px;font-weight:700;color:var(--iel-ink)}
-.iel-navfoot .who small{display:block;font-size:11px;color:var(--iel-ink-3);font-weight:600}
+.iel-navfoot .who small{display:block;font-size:12px;color:var(--iel-ink-3);font-weight:600}
 .iel-main{flex:1;min-width:0;padding:26px 34px 60px}
 .iel-content{max-width:960px;margin:0 auto;animation:iel-rise .42s cubic-bezier(.22,1,.36,1) both}
 @keyframes iel-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
