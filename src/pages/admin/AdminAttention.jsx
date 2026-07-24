@@ -27,7 +27,7 @@ const REASON_AR = {
   silent_48h:      'غياب أكثر من ٤٨ ساعة',
   silent_7d:       'غياب أكثر من أسبوع',
   streak_at_risk:  'سلسلة الأيام على وشك الانقطاع',
-  stuck_on_unit:   'متوقّف على نفس الوحدة',
+  stuck_on_unit:   'متوقّف عند نفس الوحدة',
 }
 
 const card =
@@ -118,7 +118,7 @@ function Row({ it, actorId }) {
       setCopied(true)
       setTimeout(() => setCopied(false), 1600)
     } catch {
-      toast({ type: 'error', title: 'تعذّر النسخ', description: 'انسخ النص يدوياً من الصندوق' })
+      toast({ type: 'error', title: 'تعذّر النسخ', description: 'انسخ النص يدوياً من المربّع' })
     }
   }
 
@@ -128,7 +128,7 @@ function Row({ it, actorId }) {
         className={`${card} px-4 py-3.5 flex items-center gap-2.5`}>
         <Check size={16} className="text-emerald-400 shrink-0" />
         <span className="text-[13px]" style={{ color: 'var(--text-secondary,#cbd5e1)' }}>
-          {done === 'acted' ? 'تم التواصل' : done === 'snoozed' ? 'أُجّلت ٤٨ ساعة' : 'تم التجاهل'}
+          {done === 'acted' ? 'تم التواصل' : done === 'snoozed' ? 'تم التأجيل ٤٨ ساعة' : 'تم التجاهل'}
           {' · '}{it.student_name}
         </span>
       </motion.div>
@@ -159,7 +159,7 @@ function Row({ it, actorId }) {
             <Link to={`/admin/student/${it.student_id}/report`}
               className="text-[14.5px] font-bold hover:text-sky-300 transition-colors"
               style={{ color: 'var(--text-primary,#f8fafc)' }}>
-              {it.student_name || 'طالب'}
+              {it.student_name || '—'}
             </Link>
             <span className="text-[12px] px-2 py-0.5 rounded-md border"
               style={{ color: meta.color, background: `${meta.color}14`, borderColor: `${meta.color}33` }}>
@@ -213,7 +213,7 @@ function Row({ it, actorId }) {
             <button type="button" disabled={drafting} onClick={draft}
               className={`${BTN} bg-sky-500/10 text-sky-300 border border-sky-500/25 hover:bg-sky-500/15`}>
               {drafting ? <Loader2 size={14} className="animate-spin" /> : message ? <RefreshCw size={14} /> : <Sparkles size={14} />}
-              {drafting ? 'يكتب…' : message ? 'أعد الكتابة' : 'اكتب رسالة'}
+              {drafting ? 'جارٍ الكتابة…' : message ? 'أعد الكتابة' : 'اكتب رسالة'}
             </button>
             <button type="button" disabled={!!busy} onClick={() => act('acted')}
               className={`${BTN} bg-white/[0.05] border border-white/10 hover:bg-white/[0.09]`}
@@ -319,14 +319,14 @@ export default function AdminAttention() {
 
       {error && (
         <div className={`${card} p-6 text-center text-[13px]`} style={{ color: 'var(--text-tertiary,#94a3b8)' }}>
-          تعذّر تحميل قائمة المتابعة.
+          تعذّر تحميل قائمة المتابعة — حدّث الصفحة أو حاول بعد قليل.
         </div>
       )}
 
       {!isLoading && !error && rows.length === 0 && (
         <div className={`${card} p-10 text-center`}>
           <MessagesSquare size={30} className="mx-auto mb-3" style={{ color: 'var(--text-tertiary,#64748b)' }} />
-          <div className="font-bold mb-1" style={{ color: 'var(--text-primary,#f8fafc)' }}>لا أحد بحاجة متابعة الآن</div>
+          <div className="font-bold mb-1" style={{ color: 'var(--text-primary,#f8fafc)' }}>لا أحد يحتاج متابعة الآن</div>
           <div className="text-[13px]" style={{ color: 'var(--text-tertiary,#94a3b8)' }}>كل الطلاب على المسار</div>
         </div>
       )}

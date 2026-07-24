@@ -218,6 +218,7 @@ export const ADMIN_NAV = {
         { id: 'dashboard',   label: 'الرئيسية',     icon: Home,          to: '/admin' },
         { id: 'reports',     label: 'التقارير',     icon: BarChart3,     to: '/admin/reports' },
         { id: 'attention',   label: 'المتابعة',     icon: BellRing,      to: '/admin/attention' },
+        { id: 'intake',      label: 'استمارات التعارف', icon: ClipboardList, to: '/admin/intake' },
         { id: 'mock-exam',   label: 'نتائج الاختبار التجريبي', icon: FileCheck, to: '/admin/mock-exam-results' },
       ],
     },

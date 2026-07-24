@@ -277,6 +277,8 @@ const AdminAudioTelemetry = lazyRetry(() => import('./pages/admin/AdminAudioTele
 const AdminCurriculumQuality = lazyRetry(() => import('./pages/admin/AdminCurriculumQuality'))
 const AdminAttention = lazyRetry(() => import('./pages/admin/AdminAttention'))
 const StudentGrowth = lazyRetry(() => import('./pages/student/StudentGrowth'))
+const StudentIntake = lazyRetry(() => import('./pages/student/StudentIntake'))
+const AdminIntake = lazyRetry(() => import('./pages/admin/AdminIntake'))
 const StudentPhrasebook = lazyRetry(() => import('./pages/student/StudentPhrasebook'))
 const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
 const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
@@ -890,6 +892,7 @@ export default function App() {
               <Route path="/student/progress-reports/:id" element={<Page><StudentReportView /></Page>} />
               <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
               <Route path="/student/growth" element={<Page><StudentGrowth /></Page>} />
+              <Route path="/student/intake" element={<Page><StudentIntake /></Page>} />
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
               <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContentRouter /></Page>} />
               <Route path="/student/curriculum-old" element={<Page><StudentCurriculum /></Page>} />
@@ -1094,6 +1097,7 @@ export default function App() {
               <Route path="/admin/packages" element={<Page><AdminPayments /></Page>} />
               <Route path="/admin/reports" element={<Page><AdminReportsHub /></Page>} />
               <Route path="/admin/attention" element={<Page><AdminAttention /></Page>} />
+              <Route path="/admin/intake" element={<Page><AdminIntake /></Page>} />
               <Route path="/admin/reports/student/:studentId" element={<Page><AdminReportStudentDetail /></Page>} />
               {/* legacy reports page — archived, reachable, never deleted (hide-don't-delete rule) */}
               <Route path="/admin/reports-legacy" element={<Page><AdminReports /></Page>} />

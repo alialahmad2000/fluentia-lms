@@ -28,6 +28,13 @@ const ar = (n) => String(n ?? 0).replace(/\d/g, (d) => AR_DIGITS[+d])
 const MONTHS_AR = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
   'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
 
+function recLabel(n) {
+  if (n === 1) return 'تسجيل واحد'
+  if (n === 2) return 'تسجيلان'
+  if (n <= 10) return `${ar(n)} تسجيلات`
+  return `${ar(n)} تسجيلاً`
+}
+
 function monthLabel(iso) {
   if (!iso) return ''
   const d = new Date(iso)
@@ -149,7 +156,7 @@ export default function StudentGrowth() {
         <div className="gw-shell">
           <div className="gw-empty">
             <Sparkles size={30} className="gw-empty__icon" />
-            <h2 className="gw-empty__title">رحلتك لم تبدأ بالتسجيل بعد</h2>
+            <h2 className="gw-empty__title">رحلتك الصوتية لم تبدأ بعد</h2>
             <p className="gw-empty__body">
               {g('سجّل محادثتين على الأقل، وسنريك هنا كيف تغيّر صوتك بينهما.',
                  'سجّلي محادثتين على الأقل، وسنريكِ هنا كيف تغيّر صوتكِ بينهما.')}
@@ -173,7 +180,7 @@ export default function StudentGrowth() {
           </h1>
           <p className="gw-hero__sub">
             من {monthLabel(data.first?.created_at)} إلى {monthLabel(data.latest?.created_at)}
-            {' · '}{ar(data.recordings_total)} تسجيل
+            {' · '}{recLabel(data.recordings_total)}
           </p>
 
           <div className="gw-arc">
@@ -194,18 +201,19 @@ export default function StudentGrowth() {
             </div>
           </div>
 
-          {improved && (
-            <p className="gw-hero__note">
-              {g('هذا تقدّم حقيقي — قِسناه من تسجيلاتك أنت، لا من تقدير عام.',
-                 'هذا تقدّم حقيقي — قِسناه من تسجيلاتكِ أنتِ، لا من تقدير عام.')}
-            </p>
-          )}
+          <p className="gw-hero__note">
+            {improved
+              ? g('هذا تقدّم حقيقي — قِسناه من تسجيلاتك أنت، لا من تقدير عام.',
+                  'هذا تقدّم حقيقي — قِسناه من تسجيلاتكِ أنتِ، لا من تقدير عام.')
+              : g('الرقم نزل قليلاً — غالباً لأن كلامك صار أطول وأجرأ. هذا طبيعي في هذه المرحلة.',
+                  'الرقم نزل قليلاً — غالباً لأن كلامكِ صار أطول وأجرأ. هذا طبيعي في هذه المرحلة.')}
+          </p>
         </motion.header>
 
         <motion.section className="gw-section" {...rise}>
           <h2 className="gw-h2">{g('استمع لنفسك', 'استمعي لنفسكِ')}</h2>
           <p className="gw-lede">
-            {g('نفس الصوت، بعد شهور من العمل.', 'نفس الصوت، بعد شهور من العمل.')}
+            نفس الصوت — قبل، وبعد.
           </p>
           <div className="gw-clips">
             <AudioCard label="أول تسجيل" rec={data.first} tone="then" />
@@ -241,7 +249,7 @@ export default function StudentGrowth() {
         {expressions.length > 0 && (
           <motion.section className="gw-section" {...rise}>
             <h2 className="gw-h2">{g('عبارات ارتقيتَ بها', 'عبارات ارتقيتِ بها')}</h2>
-            <p className="gw-lede">من كلامك البسيط إلى ما يقوله متحدث أصلي.</p>
+            <p className="gw-lede">من عبارتك الأولى إلى ما يقوله متحدث أصلي.</p>
             <div className="gw-exprs">
               {expressions.map((e, i) => (
                 <div key={i} className="gw-expr">

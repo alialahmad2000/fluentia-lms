@@ -5,6 +5,7 @@ import { getEncouragement } from '../../../utils/encouragement'
 import StudentDashboardSkeleton from '../../../components/skeletons/StudentDashboardSkeleton'
 
 import { AmbientField, SectionLabel, Band } from './_premiumShell'
+import IntakePromptCard from '@/components/student/IntakePromptCard'
 import PremiumHero from './PremiumHero'
 import './premiumDashboard.css'
 
@@ -96,6 +97,7 @@ export default function PremiumDashboard() {
 
       <div className="space-y-8" style={{ position: 'relative', zIndex: 1 }}>
         {/* Conditional hero banners — each hides itself when not relevant. */}
+        <IntakePromptCard />
         <JourneyMapHeroCTA />
         <CompetitionBanner />
 
