@@ -21,7 +21,7 @@ function fmt(s) {
 
 const CTRL_BTN = { flex: 'none', width: 36, height: 36, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-3)', lineHeight: 1 }
 
-export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitting, footer, children, submitLabel = 'إنهاء القسم', showSubmit = true, onExit }) {
+export function ExamShell({ sectionLabel, partLabel, secsLeft, note, onSubmit, submitting, footer, children, submitLabel = 'إنهاء القسم', showSubmit = true, onExit }) {
   const urgent = secsLeft != null && secsLeft < 600
   const critical = secsLeft != null && secsLeft < 120
   const [confirming, setConfirming] = React.useState(false)
@@ -86,6 +86,9 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, onSubmit, submitt
               <span className="iel-exam-tlabel" style={{ fontSize: 11, fontWeight: 700, color: 'var(--iel-ink-3)', whiteSpace: 'nowrap' }}>الوقت المتبقّي</span>
               <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
             </div>
+          )}
+          {note && (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '7px 14px', borderRadius: 10, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', fontSize: 11.5, fontWeight: 700, color: 'var(--iel-ink-3)', whiteSpace: 'nowrap' }}>{note}</span>
           )}
           {canFullscreen && (
             <button onClick={toggleFullscreen} title={isFullscreen ? 'إنهاء ملء الشاشة' : 'وضع ملء الشاشة'} aria-label={isFullscreen ? 'إنهاء ملء الشاشة' : 'وضع ملء الشاشة'} style={CTRL_BTN}>
