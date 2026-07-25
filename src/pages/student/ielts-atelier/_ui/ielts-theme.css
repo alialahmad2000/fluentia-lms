@@ -54,6 +54,11 @@
 
 .iel-serif{font-family:var(--iel-serif);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
+/* Detailed-report cards — one tidy row on desktop, graceful reflow below. */
+.iel-report-grid{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; align-items:stretch; }
+@media (max-width: 900px){ .iel-report-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width: 520px){ .iel-report-grid{ grid-template-columns:1fr; } }
+
 /* Full-screen focus: the IELTS section provides its OWN shell, so hide the
    global LayoutShell chrome and reclaim its space while mounted. */
 body.ielts-app aside[data-sidebar-root],

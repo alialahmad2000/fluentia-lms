@@ -35,6 +35,16 @@ function fmtDate(s) {
   return arDigit(`${d.getDate()}/${d.getMonth() + 1}`)
 }
 
+// A labelled stat chip used to fill the session bar with well-placed detail.
+function SessionStat({ label, value, accent }) {
+  return (
+    <div style={{ flex: 'none', textAlign: 'center', padding: '6px 14px', borderRadius: 11, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', minWidth: 66 }}>
+      <div style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--iel-ink-3)' }}>{label}</div>
+      <div className="iel-serif" style={{ fontSize: 15, fontWeight: 700, color: accent || 'var(--iel-ink)', marginTop: 2 }}>{value}</div>
+    </div>
+  )
+}
+
 // Per-skill session history + question-type breakdown. Writing lives in
 // ielts_submissions; the other three in ielts_skill_sessions.
 function useSkillMonitor(studentId, skill) {
@@ -270,7 +280,7 @@ export default function SkillMonitor() {
           {report && (
             <div>
               <h2 style={{ margin: '0 0 12px', fontSize: 15.5, fontWeight: 800, color: 'var(--iel-ink)' }}>التقرير المفصّل</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 12 }}>
+              <div className="iel-report-grid">
 
                 {/* progress since the first session */}
                 <Card style={{ padding: '16px 18px' }}>
@@ -350,22 +360,47 @@ export default function SkillMonitor() {
           <div>
             <h2 style={{ margin: '0 0 12px', fontSize: 15.5, fontWeight: 800, color: 'var(--iel-ink)' }}>آخر الجلسات</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {recent.map((s) => (
-                <Card key={s.id} style={{ padding: '12px 15px', display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span style={{ width: 40, height: 40, borderRadius: 11, flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent)' }}>
-                    <meta.icon size={18} />
-                  </span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{s.meta || meta.label}</div>
-                    <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600, marginTop: 2 }}>
-                      {fmtDate(s.date)}{s.total ? ` · ${arDigit(s.correct || 0)}/${arDigit(s.total)}` : ''}
+              {recent.map((s, i) => {
+                const older = recent[i + 1]
+                const delta = (s.band != null && older?.band != null) ? Math.round((s.band - older.band) * 10) / 10 : null
+                const acc = (s.total && s.correct != null) ? Math.round((s.correct / s.total) * 100) : null
+                const durMin = s.duration ? Math.round(s.duration / 60) : null
+                const accColor = acc == null ? undefined : acc >= 70 ? 'var(--iel-accent)' : acc >= 50 ? 'var(--iel-gold-ink)' : 'var(--iel-bad)'
+                return (
+                  <Card key={s.id} style={{ padding: '13px 16px', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+                    {/* identity — skill + date */}
+                    <span style={{ width: 42, height: 42, borderRadius: 12, flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent)' }}>
+                      <meta.icon size={19} />
+                    </span>
+                    <div style={{ minWidth: 128 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)' }}>{meta.label}</span>
+                        {s.meta && s.meta !== meta.label && (
+                          <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--iel-ink-2)', background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 6, padding: '1px 8px' }}>{s.meta}</span>
+                        )}
+                      </div>
+                      <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600, marginTop: 3 }}>{fmtDate(s.date)}</div>
                     </div>
-                  </div>
-                  {s.band != null && (
-                    <span className="iel-serif" style={{ fontSize: 19, fontWeight: 700, color: 'var(--iel-ink)', flex: 'none' }}>{arDigit(s.band.toFixed(1))}</span>
-                  )}
-                </Card>
-              ))}
+                    {/* detail — fills the bar */}
+                    <div style={{ flex: 1, display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+                      {acc != null && <SessionStat label="الدقّة" value={`${arDigit(acc)}٪`} accent={accColor} />}
+                      {s.total ? <SessionStat label="الإجابات" value={`${arDigit(s.correct || 0)}/${arDigit(s.total)}`} /> : null}
+                      {durMin ? <SessionStat label="المدّة" value={`${arDigit(durMin)} د`} /> : null}
+                      {acc == null && !durMin && <span style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', fontWeight: 600, alignSelf: 'center' }}>جلسة مُقيَّمة</span>}
+                    </div>
+                    {/* band + trend */}
+                    <div style={{ flex: 'none', textAlign: 'center', minWidth: 72 }}>
+                      <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '.1em', color: 'var(--iel-ink-3)' }}>النطاق</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: 5, justifyContent: 'center', marginTop: 1 }}>
+                        <span className="iel-serif" style={{ fontSize: 24, fontWeight: 700, color: 'var(--iel-accent)' }}>{s.band != null ? arDigit(s.band.toFixed(1)) : '—'}</span>
+                        {delta != null && delta !== 0 && (
+                          <span style={{ fontSize: 11.5, fontWeight: 800, color: delta > 0 ? 'var(--iel-accent)' : 'var(--iel-bad)' }}>{delta > 0 ? '▲' : '▼'}{arDigit(Math.abs(delta).toFixed(1))}</span>
+                        )}
+                      </div>
+                    </div>
+                  </Card>
+                )
+              })}
             </div>
             <button onClick={goLab} style={{ marginTop: 14, display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 0, cursor: 'pointer', color: 'var(--iel-accent)', fontSize: 13.5, fontWeight: 800, fontFamily: "'Tajawal', sans-serif" }}>
               {g('تابع التدريب', 'تابعي التدريب')} <ArrowUpRight size={15} />
