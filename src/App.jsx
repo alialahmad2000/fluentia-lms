@@ -205,6 +205,10 @@ const IELTSAtelierDiagnostic        = lazyRetry(() => import('./pages/student/ie
 const IELTSAtelierDiagnosticSession = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticSession'))
 const IELTSAtelierDiagnosticResults = lazyRetry(() => import('./pages/student/ielts-atelier/DiagnosticResults'))
 const IELTSAtelierReading           = lazyRetry(() => import('./pages/student/ielts-atelier/Reading'))
+const IELTSAtelierReadingGuide      = lazyRetry(() => import('./pages/student/ielts-atelier/reading/Guide'))
+const IELTSAtelierReadingTypes      = lazyRetry(() => import('./pages/student/ielts-atelier/reading/Types'))
+const IELTSAtelierReadingMicro      = lazyRetry(() => import('./pages/student/ielts-atelier/reading/Micro'))
+const IELTSAtelierReadingErrors     = lazyRetry(() => import('./pages/student/ielts-atelier/reading/Errors'))
 const IELTSAtelierSkillMonitor      = lazyRetry(() => import('./pages/student/ielts-atelier/SkillMonitor'))
 const IELTSAtelierListening      = lazyRetry(() => import('./pages/student/ielts-atelier/Listening'))
 const IELTSAtelierWriting        = lazyRetry(() => import('./pages/student/ielts-atelier/Writing'))
@@ -966,9 +970,12 @@ export default function App() {
                   <Route path="diagnostic" element={<IELTSAtelierDiagnostic />} />
                   <Route path="diagnostic/session/:attemptId" element={<IELTSAtelierDiagnosticSession />} />
                   <Route path="diagnostic/results" element={<IELTSAtelierDiagnosticResults />} />
-                  <Route path="reading"        element={<IELTSAtelierReading />} />
-                  <Route path="reading/types"  element={<IELTSAtelierReading />} />
+                  <Route path="reading"        element={<IELTSAtelierReadingGuide />} />
+                  <Route path="reading/types"  element={<IELTSAtelierReadingTypes />} />
+                  <Route path="reading/micro"  element={<IELTSAtelierReadingMicro />} />
+                  <Route path="reading/clock"  element={<IELTSAtelierReading />} />
                   <Route path="reading/tests"  element={<IELTSAtelierReading />} />
+                  <Route path="reading/errors" element={<IELTSAtelierReadingErrors />} />
                   <Route path="reading/monitor"   element={<IELTSAtelierSkillMonitor />} />
                   <Route path="listening"  element={<IELTSAtelierListening />} />
                   <Route path="listening/guide"   element={<IELTSAtelierListening />} />

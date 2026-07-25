@@ -29,7 +29,7 @@ function useReadingSkills() {
   })
 }
 
-function StrategyDrawer({ skill, onClose }) {
+export function StrategyDrawer({ skill, onClose }) {
   const steps = Array.isArray(skill?.strategy_steps) ? skill.strategy_steps : []
   const ex = skill?.worked_example && typeof skill.worked_example === 'object' ? skill.worked_example : null
   return (

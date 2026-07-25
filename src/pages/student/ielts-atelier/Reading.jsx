@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, Compass, Gauge, Repeat, Scale, MessageSquare, ListTree, PenLine, GraduationCap, Lightbulb, ArrowLeft, ArrowRight, ChevronDown, Timer, Hourglass, Infinity as InfinityIcon, History } from 'lucide-react'
+import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, GraduationCap, ArrowLeft, ArrowRight, ChevronDown, Timer, Hourglass, Infinity as InfinityIcon, History } from 'lucide-react'
 
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
@@ -11,8 +11,6 @@ import { gradeQuestions, scoreToBand } from '@/lib/ielts/grading'
 import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
 import { Card, MetaChip, LabHeader } from './_ui/primitives'
-import QuestionTypesSection from './_ui/QuestionTypesSection'
-import { ReadingDrawer, DrawerLede, DrawerSteps, DrawerExample, DrawerCallout } from './_ui/ReadingDrawer'
 import { ExamShell, QuestionPalette } from './_ui/ExamShell'
 import { ExamQuestion } from './_ui/ExamQuestions'
 
@@ -151,156 +149,110 @@ function StatBox({ label, value, accent }) {
   )
 }
 
-// ─── Reading lessons guide (teach-first) ─────────────────────────────────────────
-const READING_LESSONS = [
-  {
-    id: 'map', icon: Compass, color: '#4ade80',
-    title: 'خريطة الاختبار', subtitle: 'كيف يُبنى قسم القراءة وكيف تُحسب الدرجة',
-    concept: 'قسم القراءة الأكاديمي = ثلاثة نصوص تتدرّج في الصعوبة (النص الأول أيسر، الثالث أصعب)، أربعون سؤالاً، وستون دقيقة فقط. في النسخة الأكاديمية لا يوجد وقت إضافيّ لنقل الإجابات، فاكتبي إجابتك مباشرة. كل إجابة صحيحة = علامة واحدة، ثم تُحوَّل العلامات من ٤٠ إلى نطاق (Band).',
-    steps: [
-      'خصّصي نحو ٢٠ دقيقة لكل نص — لا أكثر، حتى لا يسرق النص الأول وقت الثالث.',
-      'الأسئلة عادةً بترتيب ورودها في النص (ما عدا مطابقة العناوين والمعلومات) — استغلّي ذلك.',
-      'لا تتركي أي فراغ: كل سؤال بلا إجابة = صفر، والتخمين قد يصيب.',
-    ],
-    tip: 'حوالي ٣٠ إجابة صحيحة من ٤٠ ≈ Band 7. اعرفي هدفك بالأرقام.',
-  },
-  {
-    id: 'skim', icon: Gauge, color: '#4ade80',
-    title: 'القراءة السريعة: تصفّح ومسح', subtitle: 'Skimming & Scanning',
-    concept: 'لا تقرئي كل كلمة. «التصفّح» (Skimming) قراءة سريعة لالتقاط الفكرة العامة وبنية النص وموضوع كل فقرة. «المسح» (Scanning) بحث سريع عن معلومة محددة كاسم أو رقم أو تاريخ دون قراءة الجُمل كاملة.',
-    steps: [
-      'ابدئي بتصفّح سريع (دقيقة–دقيقتان): العنوان، أول جملة من كل فقرة، والكلمات البارزة.',
-      'اقرئي السؤال أولاً، حدّدي كلمته المفتاحية، ثم «امسحي» النص عنها.',
-      'حين تجدين المكان المناسب، اقرئي الجملة وما حولها بعناية لتأكيد الإجابة.',
-    ],
-    tip: 'الأرقام والأسماء والحروف الكبيرة أسهل ما يُمسَح — اجعليها نقطة انطلاقك.',
-  },
-  {
-    id: 'paraphrase', icon: Repeat, color: 'var(--sunset-amber, #f59e0b)',
-    title: 'إعادة الصياغة والكلمات المفتاحية', subtitle: 'لماذا لا تجدين نفس الكلمات؟',
-    concept: 'أهم مهارة في القراءة: الأسئلة تُعيد صياغة النص بمرادفات، ونادراً ما تستخدم كلماته نفسها. فمن يبحث عن الكلمة الحرفية يضيع؛ ومن يبحث عن المعنى والمرادف يصيب.',
-    steps: [
-      'تحت كل كلمة مفتاحية في السؤال، فكّري: ما مرادفها المحتمل في النص؟',
-      'احذري «الفخّ»: كلمة من السؤال تظهر حرفياً في النص لكن في سياق مختلف — ليست دائماً الإجابة.',
-      'ركّزي على الفعل والفكرة، لا على الاسم وحده.',
-    ],
-    example: { text_en: 'Question: "The bridge was expensive to build." · Passage: "…the construction of the bridge came at a considerable cost."', why_ar: '«expensive» ← «considerable cost»، و«to build» ← «construction»: نفس المعنى بكلمات مختلفة.' },
-    tip: 'درّبي عينك على المرادفات، لا على تطابق الحروف.',
-  },
-  {
-    id: 'tfng', icon: Scale, color: 'var(--sunset-orange, #fb7185)',
-    title: 'صح / خطأ / غير مذكور', subtitle: 'True / False / Not Given',
-    concept: 'أكثر نوع يخلط بين الطلاب. TRUE = المعلومة تتفق مع النص. FALSE = النص يناقضها صراحةً. NOT GIVEN = النص لا يذكرها ولا ينفيها. القاعدة الذهبية: احكمي من النص فقط، لا من معلوماتك الخارجية.',
-    steps: [
-      'اسألي: هل النص يؤكّد العبارة؟ (TRUE) هل يناقضها؟ (FALSE) أم يسكت عنها؟ (NOT GIVEN).',
-      'الفرق بين FALSE و NOT GIVEN هو الأصعب: FALSE يحتاج تناقضاً واضحاً في النص، أما NOT GIVEN فلا أثر للمعلومة أصلاً.',
-      'لا تفترضي؛ «يبدو منطقياً» ليس دليلاً.',
-    ],
-    tip: 'لو ترددتِ بين FALSE و NOT GIVEN: هل يوجد جملة في النص تقول العكس؟ إن لم توجد فهي غالباً NOT GIVEN.',
-  },
-  {
-    id: 'ynng', icon: MessageSquare, color: 'var(--sunset-orange, #fb7185)',
-    title: 'نعم / لا / غير مذكور', subtitle: "Yes / No / Not Given — رأي الكاتب",
-    concept: 'يشبه صح/خطأ لكنّه يخصّ رأي الكاتب وادّعاءاته لا الحقائق. YES = العبارة تتفق مع رأي الكاتب. NO = تناقض رأيه. NOT GIVEN = لم يُبدِ رأياً فيها.',
-    steps: [
-      'انتبهي لكلمات الرأي في النص: «يرى، يعتقد، من الواضح، للأسف، من المرجّح».',
-      'ميّزي بين ما يذكره الكاتب كحقيقة وما يتبنّاه كرأي.',
-      'إن ذكر الكاتب رأياً لغيره دون أن يوافقه، فرأيه هو NOT GIVEN.',
-    ],
-    tip: 'اسألي دائماً: ما رأيُ الكاتب نفسه، لا ما هو صحيح في الواقع.',
-  },
-  {
-    id: 'headings', icon: ListTree, color: 'var(--sunset-amber, #f59e0b)',
-    title: 'مطابقة العناوين', subtitle: 'Matching Headings',
-    concept: 'تختارين عنواناً لكل فقرة من قائمة. عدد العناوين أكثر من الفقرات، فبعضها فخّ. العنوان الصحيح يلخّص الفكرة الرئيسة للفقرة كلها، لا تفصيلة صغيرة فيها.',
-    steps: [
-      'اقرئي جملة الفقرة الأولى والأخيرة — غالباً فيهما الفكرة الرئيسة.',
-      'احذري العنوان الذي يذكر تفصيلة صحيحة لكنها ليست موضوع الفقرة.',
-      'اتركي الفقرات الصعبة للنهاية، فحلّ الأسهل يقلّص خيارات الأصعب.',
-    ],
-    tip: 'اسألي: «عن ماذا تتحدث هذه الفقرة ككل؟» لا «أي تفصيلة وردت فيها؟».',
-  },
-  {
-    id: 'completion', icon: PenLine, color: '#4ade80',
-    title: 'أسئلة الإكمال', subtitle: 'إكمال الجُمل والملخّص والجداول',
-    concept: 'تملئين الفراغ بكلمات مأخوذة حرفياً من النص. احترمي حدّ الكلمات («كلمة واحدة»، «كلمتان كحدّ أقصى») وإلا احتُسبت الإجابة خطأ حتى لو كان معناها صحيحاً.',
-    steps: [
-      'حدّدي نوع الكلمة الناقصة قبل البحث: اسم؟ فعل؟ رقم؟ (من قواعد الجملة).',
-      'انسخي الكلمة كما هي في النص تماماً — لا تغيّري صيغتها.',
-      'تأكّدي أن الجملة بعد الملء صحيحة نحوياً.',
-    ],
-    tip: '«NO MORE THAN TWO WORDS» تعني كلمتين على الأكثر — عُدّيها قبل أن تكتبي.',
-  },
-  {
-    id: 'time', icon: Clock, color: 'var(--sunset-orange, #fb7185)',
-    title: 'إدارة الوقت والأعصاب', subtitle: 'كيف لا تضيّعين الساعة',
-    concept: 'أكثر ما يخفض الدرجة ليس صعوبة النص بل سوء إدارة الوقت. النصوص تتدرّج في الصعوبة، فلا تعلَقي في سؤال واحد.',
-    steps: [
-      'إن استعصى سؤال بعد دقيقة، ضعي تخميناً وضعي علامة وانتقلي — عودي إليه إن بقي وقت.',
-      'راقبي الساعة: نص كل ٢٠ دقيقة تقريباً.',
-      'في آخر دقيقتين، تأكّدي أن كل الأربعين خانة مملوءة (خمّني ما تبقّى).',
-    ],
-    tip: 'الكمال عدوّ الإنجاز؛ إجابة مخمّنة خير من خانة فارغة.',
-  },
-]
+// ─── «تحت الساعة» — one passage, 13-14 questions, a visible 20-minute clock ─────
+// The missing middle rung. Between learning a question type and sitting a full
+// 60-minute exam there is a cliff; this is the step most students actually need
+// to live on for weeks, so it gets its own surface rather than being buried as
+// an option inside a test card.
+function ClockLibrary({ tests, meta, sessions, loadingTestId, onStart }) {
+  const g = useG()
+  const rows = []
+  for (const t of tests) {
+    const ids = Array.isArray(t.passage_ids) ? t.passage_ids : []
+    ids.forEach((pid, pi) => {
+      const m = meta[pid]
+      if (!m) return
+      rows.push({ test: t, pi, pid, title: m.title, band: m.difficulty_band, topic: m.topic_category })
+    })
+  }
 
-function LessonCard({ lesson, onOpen }) {
-  const I = lesson.icon
-  return (
-    <button type="button" onClick={() => onOpen(lesson)} className="iel-gcard" style={{
-      display: 'flex', alignItems: 'center', gap: 12, padding: '15px 16px', width: '100%', cursor: 'pointer',
-      textAlign: 'start', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif",
-    }}>
-      <span style={{ width: 38, height: 38, borderRadius: 11, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `color-mix(in srgb, ${lesson.color} 15%, transparent)`, border: `1px solid color-mix(in srgb, ${lesson.color} 30%, transparent)`, color: lesson.color }}>
-        <I size={18} />
-      </span>
-      <div style={{ minWidth: 0, flex: 1 }}>
-        <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.3 }}>{lesson.title}</div>
-        <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{lesson.subtitle}</div>
-      </div>
-      <span style={{ color: 'var(--iel-ink-3)', flex: 'none', fontSize: 15 }}>←</span>
-    </button>
-  )
-}
+  // Best + last attempt per passage, and the honest average pace.
+  const byPassage = {}
+  let singleTotal = 0, singleCount = 0
+  for (const ss of sessions) {
+    const kind = ss.session_data?.kind
+    if (kind && kind !== 'reading_passage') continue
+    if (!ss.source_id) continue
+    const prev = byPassage[ss.source_id]
+    if (!prev || new Date(ss.started_at) > new Date(prev.started_at)) byPassage[ss.source_id] = ss
+    if (ss.duration_seconds) { singleTotal += ss.duration_seconds; singleCount++ }
+  }
+  const avgSecs = singleCount ? Math.round(singleTotal / singleCount) : null
+  const avgMin = avgSecs != null ? avgSecs / 60 : null
 
-// ─── Sub-page: teaching guide ────────────────────────────────────────────────────
-function ReadingGuidePage() {
-  const [open, setOpen] = useState(null)
+  const DIFF = { band_5_6: ['سهلة', 'var(--iel-diff-1)'], band_6_7: ['متوسّطة', 'var(--iel-diff-2)'], band_7_8: ['صعبة', 'var(--iel-diff-3)'], band_8_9: ['صعبة', 'var(--iel-diff-3)'] }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingTop: 2, maxWidth: 940 }}>
-      <LabHeader eyebrow="القراءة · تعلّمي أولاً" title="دليل القراءة">
-        دروس أساسية في استراتيجية قراءة الآيلتس — ابدئي بها قبل أن تختبري. كل درس فيه الفكرة، خطوات واضحة، ومثال يوضّحها.
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 22, paddingTop: 2, maxWidth: 940 }}>
+      <LabHeader eyebrow="الدرجة الرابعة · الضغط الحقيقي" title="تحت الساعة">
+        قطعة واحدة، ثلاثة عشر سؤالاً تقريباً، عشرون دقيقة، وساعة ظاهرة أمامك. {g('الدرجة المفقودة بين تعلّم أنواع الأسئلة وبين امتحان الستين دقيقة — وهي الدرجة التي ستعيش عليها أسابيع.', 'الدرجة المفقودة بين تعلّم أنواع الأسئلة وبين امتحان الستين دقيقة — وهي الدرجة التي ستعيشين عليها أسابيع.')}
       </LabHeader>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(258px, 1fr))', gap: 12 }}>
-        {READING_LESSONS.map((l) => <LessonCard key={l.id} lesson={l} onOpen={setOpen} />)}
-      </div>
-      <ReadingDrawer open={!!open} onClose={() => setOpen(null)} icon={open?.icon} color={open?.color} kicker="درس القراءة" title={open?.title} subtitle={open?.subtitle}>
-        {open && (
-          <>
-            <DrawerLede>{open.concept}</DrawerLede>
-            <DrawerSteps title="الخطوات" steps={open.steps} color={open.color} span={open.example ? 1 : 2} />
-            {open.example && (
-              <DrawerExample title="مثال" span={1}>
-                <p style={{ margin: '0 0 8px', fontSize: 13, lineHeight: 1.7, color: 'var(--iel-ink)', direction: 'ltr', textAlign: 'left', fontFamily: SANS }}>{open.example.text_en}</p>
-                <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.8, color: 'var(--iel-ink-3)' }}>{open.example.why_ar}</p>
-              </DrawerExample>
-            )}
-            <DrawerCallout icon={Lightbulb} tone="gold" title="نصيحة" span={2}>{open.tip}</DrawerCallout>
-          </>
-        )}
-      </ReadingDrawer>
-    </div>
-  )
-}
 
-// ─── Sub-page: question types ────────────────────────────────────────────────────
-function ReadingTypesPage() {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingTop: 2, maxWidth: 940 }}>
-      <LabHeader eyebrow="القراءة · الاستراتيجية" title="أنواع الأسئلة">
-        لكل نوع سؤال طريقة تعامل مختلفة. اضغط أي نوع لتعرف خطوات حلّه، الأخطاء الشائعة، ومثالاً محلولاً.
-      </LabHeader>
-      <QuestionTypesSection hideHeader />
+      {avgMin != null && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+          <div className="iel-gcard" style={{ padding: 18 }}>
+            <span className="iel-metachip" style={{ marginBottom: 10, background: 'var(--iel-gold-soft)', borderColor: 'rgba(234,179,8,.3)', color: 'var(--iel-gold-ink)' }}>مؤشّرك</span>
+            <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 6px' }}>
+              متوسّط وقتك: {arDigit(Math.floor(avgMin))}:{arDigit(String(Math.round(avgSecs % 60)).padStart(2, '0'))} دقيقة
+            </h4>
+            <p style={{ fontSize: 13, color: 'var(--iel-ink-2)', lineHeight: 1.75, margin: 0 }}>
+              {avgMin > 20
+                ? `أنت${g('', 'ِ')} أبطأ من الهدف بـ${arDigit(Math.round((avgMin - 20) * 10) / 10)} دقيقة تقريباً — أي ${arDigit(Math.round((avgMin - 20) * 3))} دقائق زائدة في الامتحان الكامل. هذه هي القطعة الثالثة التي ${g('لن تصل', 'لن تصلي')} إليها.`
+                : g('أنت داخل الهدف. ثبّت هذا الإيقاع ثم انتقل إلى الامتحان الكامل.', 'أنتِ داخل الهدف. ثبّتي هذا الإيقاع ثم انتقلي إلى الامتحان الكامل.')}
+            </p>
+          </div>
+          <div className="iel-gcard" style={{ padding: 18 }}>
+            <span className="iel-metachip" style={{ marginBottom: 10, background: 'var(--iel-accent-soft)', borderColor: 'rgba(16,185,129,.3)', color: 'var(--iel-accent-ink)' }}>الهدف</span>
+            <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 6px' }}>ثلاث قطع متتالية تحت ٢٠ دقيقة</h4>
+            <p style={{ fontSize: 13, color: 'var(--iel-ink-2)', lineHeight: 1.75, margin: 0 }}>
+              {g('عندها يكون الامتحان الكامل خطوةً طبيعية لا قفزة — لأنك تكون جاهزاً له فعلاً لا نظرياً.', 'عندها يكون الامتحان الكامل خطوةً طبيعية لا قفزة — لأنك تكونين جاهزة له فعلاً لا نظرياً.')}
+            </p>
+          </div>
+        </div>
+      )}
+
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginTop: 2 }}>
+        <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--iel-ink)' }}>قطع مُوقّتة</h2>
+        <span style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', fontWeight: 600 }}>الساعة تعمل من أول كلمة — لا إيقاف</span>
+      </div>
+
+      <div>
+        {rows.map((r) => {
+          const last = byPassage[r.pid]
+          const [dLabel, dColor] = DIFF[r.band] || ['متوسّطة', 'var(--iel-diff-2)']
+          const busy = loadingTestId === r.test.id
+          return (
+            <button key={r.pid} type="button" disabled={busy} onClick={() => onStart(r.test, r.pi)} className="iel-passrow"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px', borderRadius: 14, width: '100%',
+                background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', marginBottom: 9,
+                cursor: busy ? 'wait' : 'pointer', textAlign: 'start', fontFamily: "'Tajawal', sans-serif", opacity: busy ? 0.6 : 1,
+              }}>
+              <span style={{ flex: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 64, height: 52, borderRadius: 12, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)' }}>
+                <span className="iel-serif" style={{ fontSize: 18, fontWeight: 700, color: 'var(--iel-gold-ink)', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>٢٠:٠٠</span>
+                <span style={{ fontSize: 10, color: 'var(--iel-ink-3)', fontWeight: 700, marginTop: 3 }}>دقيقة</span>
+              </span>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ display: 'block', fontSize: 14.5, fontWeight: 700, color: 'var(--iel-ink)', marginBottom: 5, direction: 'ltr', textAlign: 'start' }}>{r.title}</span>
+                <span style={{ display: 'flex', gap: 7, flexWrap: 'wrap' }}>
+                  <span className="iel-metachip"><span style={{ width: 7, height: 7, borderRadius: '50%', background: dColor, display: 'inline-block' }} />{dLabel}</span>
+                  {last ? (
+                    <span className="iel-metachip" style={{
+                      color: last.duration_seconds > 1200 ? '#fca5a5' : 'var(--iel-accent-ink)',
+                      borderColor: last.duration_seconds > 1200 ? 'rgba(248,113,113,.3)' : 'rgba(16,185,129,.3)',
+                    }}>
+                      آخر محاولة {arDigit(last.correct_count)} / {arDigit((last.correct_count || 0) + (last.incorrect_count || 0))} · {arDigit(Math.round((last.duration_seconds || 0) / 60))} دقيقة
+                    </span>
+                  ) : (
+                    <span className="iel-metachip">لم تُحاوَل بعد</span>
+                  )}
+                </span>
+              </span>
+              <span className="arrow" style={{ flex: 'none', color: 'var(--iel-ink-3)' }}>←</span>
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -495,7 +447,9 @@ function DurationPreflight({ preflight, g, onStart, onClose }) {
 // ─── Main ──────────────────────────────────────────────────────────────────────
 export default function Reading() {
   const { pathname } = useLocation()
-  const section = pathname.endsWith('/reading/types') ? 'types' : pathname.endsWith('/reading/tests') ? 'tests' : 'guide'
+  // /reading and /reading/types are their own pages now; this component hosts
+  // the two surfaces that need the exam machinery: «تحت الساعة» and «الاختبارات».
+  const section = pathname.endsWith('/reading/clock') ? 'clock' : 'tests'
 
   const g = useG()
   const studentId = useStudentId()
@@ -524,6 +478,38 @@ export default function Reading() {
   const qScrollRef = useRef(null)
   const sessionStartRef = useRef(0)
 
+  // ── Per-question timing ────────────────────────────────────────────────────
+  // Seconds-per-question is half of what the type heatmap reports, and it is the
+  // only way to tell a rushed guess from a considered wrong answer. We accrue
+  // time against whichever question is `current`, switching the meter as the
+  // student moves. Capped at 600s so an abandoned tab can't poison the average.
+  const qSecsRef = useRef({})                       // `${pi}_${qNum}` → seconds
+  const qActiveRef = useRef({ key: null, at: 0 })
+  const timedOutRef = useRef(false)
+
+  function flushQuestionTime(nextKey) {
+    const now = Date.now()
+    const { key, at } = qActiveRef.current
+    if (key && at) {
+      const d = Math.round((now - at) / 1000)
+      if (d > 0 && d < 600) qSecsRef.current[key] = (qSecsRef.current[key] || 0) + d
+    }
+    qActiveRef.current = { key: nextKey ?? null, at: nextKey ? now : 0 }
+  }
+
+  // Move the meter whenever the focused question changes.
+  useEffect(() => {
+    if (act !== 'session') return
+    flushQuestionTime(current)
+  }, [current, act]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  function resetQuestionTiming() {
+    qSecsRef.current = {}
+    qActiveRef.current = { key: null, at: 0 }
+    timedOutRef.current = false
+  }
+
+
   // Best band per test id from recent sessions
   const bestByTest = useMemo(() => {
     const m = {}
@@ -539,16 +525,24 @@ export default function Reading() {
   const submitRef = useRef(null)
   submitRef.current = function doSubmit() {
     clearInterval(timerRef.current)
+    flushQuestionTime(null)   // stop the meter on whatever question was open
     const passages = test?.passages || []
     let correct = 0, total = 0
     const perPassage = []
     passages.forEach((p, pi) => {
       const sa = {}
+      const secondsByKey = {}
       ;(Array.isArray(p.questions) ? p.questions : []).forEach((q) => {
-        const v = answers[`${pi}_${q.question_number}`]
+        const k = `${pi}_${q.question_number}`
+        const v = answers[k]
         if (v != null && v !== '') sa[String(q.question_number)] = v
+        const s = qSecsRef.current[k]
+        if (s != null) secondsByKey[String(q.question_number)] = s
       })
-      const r = gradeQuestions({ questions: p.questions, answerKey: p.answer_key, studentAnswers: sa })
+      const r = gradeQuestions({
+        questions: p.questions, answerKey: p.answer_key, studentAnswers: sa,
+        secondsByKey, timedOut: timedOutRef.current,
+      })
       correct += r.correct
       total += r.total
       perPassage.push({ pi, title: p.title, band: r.band, correct: r.correct, total: r.total, perQuestion: r.perQuestion })
@@ -574,7 +568,7 @@ export default function Reading() {
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
         if (t == null) return t
-        if (t <= 1) { clearInterval(timerRef.current); submitRef.current(); return 0 }
+        if (t <= 1) { clearInterval(timerRef.current); timedOutRef.current = true; submitRef.current(); return 0 }
         return t - 1
       })
     }, 1000)
@@ -598,6 +592,7 @@ export default function Reading() {
     setAnswers({})
     setTimeLeft(untimed ? null : mins * 60)
     sessionStartRef.current = Date.now()
+    resetQuestionTiming()
     setGradeResult(null)
     setShowReview(false)
     setTabIdx(0)
@@ -633,6 +628,7 @@ export default function Reading() {
     setAnswers({})
     setTimeLeft(untimed ? null : mins * 60)
     sessionStartRef.current = Date.now()
+    resetQuestionTiming()
     setGradeResult(null)
     setShowReview(false)
     setTabIdx(0)
@@ -680,6 +676,7 @@ export default function Reading() {
     setMobilePane('passage')
     setTimeLeft(test.untimed ? null : (test.total_time_minutes || 60) * 60)
     sessionStartRef.current = Date.now()
+    resetQuestionTiming()
     const firstQ = test.passages?.[0]?.questions?.[0]?.question_number
     setCurrent(firstQ != null ? `0_${firstQ}` : null)
     setAct('session')
@@ -706,14 +703,18 @@ export default function Reading() {
     if (firstQ != null) setCurrent(`${pi}_${firstQ}`)
   }
 
-  // ── Teaching sub-pages (no session state involved) ────────────────────────────
-  if (section === 'guide') return <ReadingGuidePage />
-  if (section === 'types') return <ReadingTypesPage />
-
   // ── TESTS: ACT 1 — LIBRARY ────────────────────────────────────────────────────
   if (act === 'library') {
     const tests = testsQ.data || []
     const meta = metaQ.data || {}
+    if (section === 'clock') {
+      return (
+        <ClockLibrary
+          tests={tests} meta={meta} sessions={recentQ.data || []} loadingTestId={loadingTestId}
+          onStart={(t, pi) => handleSelectSingle(t, pi, 20)}
+        />
+      )
+    }
     const completedCount = tests.filter((t) => bestByTest[t.id] != null).length
     const bestBand = Object.keys(bestByTest).length ? Math.max(...Object.values(bestByTest)) : null
 

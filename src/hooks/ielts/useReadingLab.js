@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
+import { scoreToBand } from '@/lib/ielts/grading'
 
 const STALE = 30 * 1000
 
@@ -110,9 +111,9 @@ export function useCompletedReadingSessions(studentId) {
 }
 
 // Passages for practice.
-// NOTE: passage questions have no 'type' field, so type filtering is not possible.
-// We return passages for any requested questionType — the session is tagged with
-// the skill's question_type even though passage questions aren't typed.
+// NOTE: passage questions DO carry a `type` (verified 2026-07-25) — the old
+// comment here claimed otherwise and was wrong. Type-aware filtering is possible;
+// this helper still returns a general set because a passage mixes several types.
 // is_published filter omitted: only 1/43 passages published at this stage.
 export function usePassagesForPractice(limit = 5, difficultyBand = null) {
   return useQuery({
@@ -205,7 +206,9 @@ export function useSubmitReadingSession() {
         const errorRows = wrong.map(w => ({
           student_id: studentId,
           skill_type: 'reading',
-          question_type: questionType || null,
+          question_type: w.type || questionType || null,
+          cause: w.cause || null,
+          seconds_spent: w.secs != null ? Math.round(Number(w.secs)) : null,
           source_table: 'ielts_reading_passages',
           source_id: passageId,
           question_text: w.text ? String(w.text).substring(0, 500) : String(w.qNum),
@@ -321,33 +324,68 @@ export function useSubmitReadingTest() {
         .single()
       if (sessErr || !sessionRow) throw sessErr || new Error('Session insert failed')
 
-      // 2. Rolling-average reading progress (60% new / 40% history), general (question_type null)
+      // 2. Rolling-average reading progress (60% new / 40% history).
+      //    Two levels are written: the general row (question_type null) that
+      //    drives the section band, AND one row per question type — the latter
+      //    is what «أنواع الأسئلة» reads to colour the heatmap, so a student who
+      //    is 90% on tables and 40% on True/False can see exactly that.
       const { data: progRows } = await supabase
         .from('ielts_student_progress')
         .select('*')
         .eq('student_id', studentId)
         .eq('skill_type', 'reading')
-      const prev = (progRows || []).find(r => r.question_type == null) || {}
-      const prevBand = prev.estimated_band != null ? Number(prev.estimated_band) : null
-      const newBand = prevBand != null
-        ? Math.round(((0.4 * prevBand) + (0.6 * (result.band || 0))) * 2) / 2
-        : result.band
-      const { error: progErr } = await supabase
-        .from('ielts_student_progress')
-        .upsert({
+      const byType = new Map((progRows || []).map(r => [r.question_type ?? '__all__', r]))
+      const roll = (prevBand, nextBand) => prevBand != null
+        ? Math.round(((0.4 * prevBand) + (0.6 * (nextBand || 0))) * 2) / 2
+        : nextBand
+
+      const allQuestions = (result.perPassage || []).flatMap(pp => pp.perQuestion || [])
+      const typeAgg = {}
+      for (const q of allQuestions) {
+        if (!q.type) continue
+        const a = (typeAgg[q.type] ||= { n: 0, correct: 0, secs: 0 })
+        a.n += 1
+        if (q.isCorrect) a.correct += 1
+        a.secs += Number(q.secs) || 0
+      }
+
+      const prev = byType.get('__all__') || {}
+      const upserts = [{
+        student_id: studentId,
+        skill_type: 'reading',
+        question_type: null,
+        attempts_count: (prev.attempts_count || 0) + 1,
+        correct_count: (prev.correct_count || 0) + result.correct,
+        total_time_seconds: (prev.total_time_seconds || 0) + durationSeconds,
+        estimated_band: roll(prev.estimated_band != null ? Number(prev.estimated_band) : null, result.band),
+        last_attempt_at: now,
+        updated_at: now,
+      }]
+      for (const [qtype, a] of Object.entries(typeAgg)) {
+        const p = byType.get(qtype) || {}
+        upserts.push({
           student_id: studentId,
           skill_type: 'reading',
-          question_type: null,
-          attempts_count: (prev.attempts_count || 0) + 1,
-          correct_count: (prev.correct_count || 0) + result.correct,
-          total_time_seconds: (prev.total_time_seconds || 0) + durationSeconds,
-          estimated_band: newBand,
+          question_type: qtype,
+          attempts_count: (p.attempts_count || 0) + a.n,
+          correct_count: (p.correct_count || 0) + a.correct,
+          total_time_seconds: (p.total_time_seconds || 0) + Math.round(a.secs),
+          estimated_band: roll(
+            p.estimated_band != null ? Number(p.estimated_band) : null,
+            scoreToBand(a.correct, a.n),
+          ),
           last_attempt_at: now,
           updated_at: now,
-        }, { onConflict: 'student_id,skill_type,question_type' })
+        })
+      }
+      const { error: progErr } = await supabase
+        .from('ielts_student_progress')
+        .upsert(upserts, { onConflict: 'student_id,skill_type,question_type' })
       if (progErr) throw progErr
 
-      // 3. Wrong answers → error bank, tagged to their real passage (non-fatal)
+      // 3. Wrong answers → error bank, tagged to their real passage, their real
+      //    question type, and — the part that makes «أخطائي» a coach rather than
+      //    a list — the CAUSE the grader inferred. (non-fatal)
       const errorRows = []
       for (const pp of (result.perPassage || [])) {
         const pid = test.passages?.[pp.pi]?.id || null
@@ -355,7 +393,9 @@ export function useSubmitReadingTest() {
           errorRows.push({
             student_id: studentId,
             skill_type: 'reading',
-            question_type: null,
+            question_type: w.type || null,
+            cause: w.cause || null,
+            seconds_spent: w.secs != null ? Math.round(Number(w.secs)) : null,
             source_table: 'ielts_reading_passages',
             source_id: pid,
             question_text: w.text ? String(w.text).substring(0, 500) : String(w.qNum),
@@ -380,6 +420,150 @@ export function useSubmitReadingTest() {
       qc.invalidateQueries({ queryKey: ['ielts-reading-progress'] })
       qc.invalidateQueries({ queryKey: ['ielts-reading-sessions'] })
       qc.invalidateQueries({ queryKey: ['ielts-progress'] })
+    },
+  })
+}
+// ════════════════════════════════════════════════════════════════════════════
+// Reading ladder (2026-07-25) — data for the six reading subsections.
+// ════════════════════════════════════════════════════════════════════════════
+
+// Per-question-type accuracy + seconds. This is the heatmap. Computed server-side
+// out of the perQuestion JSON every session already writes, so it needs no
+// backfill and stays correct as soon as a student sits one more test.
+export function useReadingTypeStats(studentId) {
+  return useQuery({
+    queryKey: ['ielts-reading-type-stats', studentId],
+    enabled: !!studentId,
+    staleTime: STALE,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('ielts_reading_type_stats', { p_student: studentId })
+      if (error) throw error
+      const byType = {}
+      for (const r of data || []) byType[r.question_type] = r
+      return byType
+    },
+  })
+}
+
+// Wrong answers grouped by WHY, not by what. Drives the «أخطائي» verdict.
+export function useReadingErrorCauses(studentId) {
+  return useQuery({
+    queryKey: ['ielts-reading-error-causes', studentId],
+    enabled: !!studentId,
+    staleTime: STALE,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('ielts_reading_error_causes', { p_student: studentId })
+      if (error) throw error
+      const out = { paraphrase_trap: 0, not_located: 0, misread: 0, ran_out_of_time: 0, unclassified: 0 }
+      for (const r of data || []) out[r.cause] = r.n
+      return out
+    },
+  })
+}
+
+// The individual wrong answers, newest first — the review list under the verdict.
+export function useReadingErrors(studentId, limit = 40) {
+  return useQuery({
+    queryKey: ['ielts-reading-errors', studentId, limit],
+    enabled: !!studentId,
+    staleTime: STALE,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_error_bank')
+        .select('id, question_type, cause, seconds_spent, question_text, student_answer, correct_answer, explanation, first_seen_at, mastered, source_id')
+        .eq('student_id', studentId)
+        .eq('skill_type', 'reading')
+        .order('first_seen_at', { ascending: false })
+        .limit(limit)
+      if (error) throw error
+      return data || []
+    },
+  })
+}
+
+// ── Micro-drills ────────────────────────────────────────────────────────────
+// A drill set is small and static, so it is fetched once and shuffled on the
+// client; a rep must never wait on the network.
+export function useMicroDrills(kind) {
+  return useQuery({
+    queryKey: ['ielts-micro-drills', kind],
+    enabled: !!kind,
+    staleTime: 10 * 60 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_micro_drills')
+        .select('id, drill_kind, difficulty, payload')
+        .eq('drill_kind', kind)
+        .eq('is_published', true)
+        .order('sort_order')
+      if (error) throw error
+      return data || []
+    },
+  })
+}
+
+// How many items exist per kind — for the drill cards' availability badges.
+export function useMicroDrillCounts() {
+  return useQuery({
+    queryKey: ['ielts-micro-drill-counts'],
+    staleTime: 10 * 60 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_micro_drills')
+        .select('drill_kind')
+        .eq('is_published', true)
+      if (error) throw error
+      const counts = {}
+      for (const r of data || []) counts[r.drill_kind] = (counts[r.drill_kind] || 0) + 1
+      return counts
+    },
+  })
+}
+
+// Last-round score + best time per drill kind, for the card meta chips.
+export function useMicroDrillStats(studentId) {
+  return useQuery({
+    queryKey: ['ielts-micro-drill-stats', studentId],
+    enabled: !!studentId,
+    staleTime: STALE,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_micro_drill_attempts')
+        .select('drill_kind, is_correct, ms, created_at')
+        .eq('student_id', studentId)
+        .order('created_at', { ascending: false })
+        .limit(400)
+      if (error) throw error
+      const byKind = {}
+      for (const r of data || []) {
+        const k = (byKind[r.drill_kind] ||= { n: 0, correct: 0, bestMs: null, lastAt: r.created_at })
+        k.n += 1
+        if (r.is_correct) k.correct += 1
+        if (r.is_correct && r.ms != null && (k.bestMs == null || r.ms < k.bestMs)) k.bestMs = r.ms
+      }
+      return byKind
+    },
+  })
+}
+
+// Log a rep. Fire-and-forget by design: a failed log must never block the drill.
+export function useLogMicroAttempt() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ studentId, drillKind, drillId, isCorrect, ms }) => {
+      if (!studentId) return null
+      const { error } = await supabase.from('ielts_micro_drill_attempts').insert({
+        student_id: studentId,
+        drill_kind: drillKind,
+        drill_id: drillId || null,
+        is_correct: !!isCorrect,
+        ms: ms != null ? Math.round(ms) : null,
+      })
+      if (error) { console.warn('micro-drill log failed (non-fatal):', error.message); return null }
+      return true
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['ielts-micro-drill-stats'] })
     },
   })
 }

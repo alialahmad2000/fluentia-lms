@@ -1,0 +1,681 @@
+{
+ "_note": "Authored micro-drill items for the IELTS reading ladder (Ali 2026-07-25). `paraphrase` and `qualifier` are hand-written because they are the two skills that decide the 6.5→7.5 jump and cannot be derived safely from existing passages. `scan` and `gist` are derived from real published passages by build-reading-micro-drills.cjs. Difficulty 1=easy 2=medium 3=hard.",
+ "paraphrase": [
+  {
+   "d": 1,
+   "stem": "The scheme was eventually abandoned.",
+   "options": [
+    "The scheme was dropped after a time.",
+    "The scheme was postponed for a year.",
+    "The scheme was heavily criticised.",
+    "The scheme was expanded nationwide."
+   ],
+   "answer": 0,
+   "note_ar": "«abandoned» = «dropped». التأجيل ليس إلغاءً، والانتقاد ليس إنهاءً."
+  },
+  {
+   "d": 1,
+   "stem": "Production costs fell sharply.",
+   "options": [
+    "Costs dropped a great deal.",
+    "Costs rose steeply.",
+    "Costs stayed roughly level.",
+    "Costs were difficult to calculate."
+   ],
+   "answer": 0,
+   "note_ar": "«fell sharply» = «dropped a great deal». انتبهي لاتجاه الحركة قبل حجمها."
+  },
+  {
+   "d": 1,
+   "stem": "The findings were confirmed by a second team.",
+   "options": [
+    "Another team verified the results.",
+    "A second team disputed the results.",
+    "The results were published twice.",
+    "Two teams worked on the study together."
+   ],
+   "answer": 0,
+   "note_ar": "«confirmed» = «verified». التكرار في النشر شيء والتأكيد شيء آخر."
+  },
+  {
+   "d": 1,
+   "stem": "Attendance is compulsory for first-year students.",
+   "options": [
+    "First-year students must attend.",
+    "First-year students are encouraged to attend.",
+    "Attendance is recorded for first-year students.",
+    "Only first-year students may attend."
+   ],
+   "answer": 0,
+   "note_ar": "«compulsory» = «must». «encouraged» أضعف بكثير، و«only» تقلب المعنى."
+  },
+  {
+   "d": 1,
+   "stem": "The device is virtually silent.",
+   "options": [
+    "The device makes almost no noise.",
+    "The device is completely silent.",
+    "The device is quieter than expected.",
+    "The device has no moving parts."
+   ],
+   "answer": 0,
+   "note_ar": "«virtually» = «almost»، وليست «completely». هذه الكلمة وحدها تُسقِط كثيرين."
+  },
+  {
+   "d": 2,
+   "stem": "The technique is now widely used in industry.",
+   "options": [
+    "Many industrial firms have adopted the technique.",
+    "The technique was invented by industry.",
+    "Industry prefers this technique to all others.",
+    "The technique is used only in industry."
+   ],
+   "answer": 0,
+   "note_ar": "«widely used» = «many have adopted». لا تعني الأفضلية ولا الحصرية."
+  },
+  {
+   "d": 2,
+   "stem": "Results varied considerably between sites.",
+   "options": [
+    "Different sites produced quite different results.",
+    "All sites produced similar results.",
+    "Results were recorded at several sites.",
+    "Some sites failed to produce results."
+   ],
+   "answer": 0,
+   "note_ar": "«varied considerably» = «quite different». مجرد ذكر مواقع متعددة ليس تبايناً."
+  },
+  {
+   "d": 2,
+   "stem": "Few researchers dispute this conclusion.",
+   "options": [
+    "The conclusion is accepted by most researchers.",
+    "Researchers rarely discuss this conclusion.",
+    "The conclusion has not yet been tested.",
+    "Researchers disagree about this conclusion."
+   ],
+   "answer": 0,
+   "note_ar": "«few dispute» = «most accept». احذري: «few» نفي شبه تام، وليست «some»."
+  },
+  {
+   "d": 2,
+   "stem": "The policy had unintended consequences.",
+   "options": [
+    "The policy produced effects nobody planned for.",
+    "The policy failed completely.",
+    "The policy was poorly written.",
+    "The policy was reversed later."
+   ],
+   "answer": 0,
+   "note_ar": "«unintended consequences» = آثار غير مقصودة، ولا تعني الفشل التام."
+  },
+  {
+   "d": 2,
+   "stem": "Funding was cut in successive years.",
+   "options": [
+    "Funding was reduced year after year.",
+    "Funding was reduced once.",
+    "Funding was withdrawn entirely.",
+    "Funding was slow to arrive."
+   ],
+   "answer": 0,
+   "note_ar": "«successive» = متتالية، أي أكثر من مرة. «once» و«entirely» فخّان كلاسيكيان."
+  },
+  {
+   "d": 2,
+   "stem": "Critics overstated the risks.",
+   "options": [
+    "Critics made the risks sound greater than they were.",
+    "Critics identified the main risks.",
+    "Critics were proved right about the risks.",
+    "Critics ignored the risks."
+   ],
+   "answer": 0,
+   "note_ar": "«overstated» = بالغوا. ليست «حدّدوا» ولا «تجاهلوا»."
+  },
+  {
+   "d": 2,
+   "stem": "The species has been reintroduced to the region.",
+   "options": [
+    "The species has been brought back to the area.",
+    "The species has newly appeared in the area.",
+    "The species has left the area.",
+    "The species was discovered in the area."
+   ],
+   "answer": 0,
+   "note_ar": "«re-» تعني العودة بعد غياب. «newly appeared» تفترض أنها لم تكن موجودة أصلاً."
+  },
+  {
+   "d": 2,
+   "stem": "The two accounts are broadly consistent.",
+   "options": [
+    "The accounts largely agree with each other.",
+    "The accounts are identical.",
+    "The accounts contradict each other.",
+    "The accounts were written at the same time."
+   ],
+   "answer": 0,
+   "note_ar": "«broadly consistent» = اتفاق عام لا تطابق. «identical» أقوى مما قيل."
+  },
+  {
+   "d": 3,
+   "stem": "The correlation does not establish causation.",
+   "options": [
+    "The link between them does not prove one caused the other.",
+    "There is no link between the two.",
+    "One clearly causes the other.",
+    "The link was measured incorrectly."
+   ],
+   "answer": 0,
+   "note_ar": "نفي «الإثبات» ليس نفي «العلاقة». هذا أشهر فخّ في الأسئلة العلمية."
+  },
+  {
+   "d": 3,
+   "stem": "The evidence is at best circumstantial.",
+   "options": [
+    "The evidence is indirect and not strong.",
+    "The evidence is detailed and convincing.",
+    "There is no evidence at all.",
+    "The evidence has not been examined."
+   ],
+   "answer": 0,
+   "note_ar": "«at best» تُضعِف ما بعدها. «circumstantial» = غير مباشر، لا معدوم."
+  },
+  {
+   "d": 3,
+   "stem": "Adoption was slower than its advocates had predicted.",
+   "options": [
+    "Supporters expected it to spread faster than it did.",
+    "Nobody expected it to spread.",
+    "It spread faster than expected.",
+    "Its supporters did not make predictions."
+   ],
+   "answer": 0,
+   "note_ar": "المقارنة بين الواقع والتوقّع، لا بين الواقع والصفر."
+  },
+  {
+   "d": 3,
+   "stem": "The practice persisted long after it was outlawed.",
+   "options": [
+    "People carried on doing it for years despite the ban.",
+    "The practice stopped as soon as it was banned.",
+    "The practice was never banned.",
+    "The ban was lifted after a few years."
+   ],
+   "answer": 0,
+   "note_ar": "«persisted after» = استمرّ رغم المنع. الخيار الرابع يقلب من رُفِع عنه الحظر."
+  },
+  {
+   "d": 3,
+   "stem": "Her account has since been called into question.",
+   "options": [
+    "Doubts have been raised about her account since then.",
+    "Her account has since been confirmed.",
+    "She has since withdrawn her account.",
+    "Her account was questioned at the time."
+   ],
+   "answer": 0,
+   "note_ar": "«called into question» = أُثيرت شكوك، وليس أنها تراجعت هي. و«since» تعني لاحقاً لا وقتها."
+  },
+  {
+   "d": 3,
+   "stem": "The benefits are marginal at current prices.",
+   "options": [
+    "At today's prices the gains are very small.",
+    "There are no benefits at today's prices.",
+    "The benefits will grow as prices rise.",
+    "The benefits are hard to measure."
+   ],
+   "answer": 0,
+   "note_ar": "«marginal» = ضئيل لا معدوم، و«at current prices» شرط لا تنبؤ."
+  },
+  {
+   "d": 3,
+   "stem": "The theory fell out of favour in the 1970s.",
+   "options": [
+    "The theory lost support during the 1970s.",
+    "The theory was disproved in the 1970s.",
+    "The theory became popular in the 1970s.",
+    "The theory was proposed in the 1970s."
+   ],
+   "answer": 0,
+   "note_ar": "فقدان القبول ليس دحضاً. «fell out of favour» = تراجعت شعبيته."
+  },
+  {
+   "d": 2,
+   "stem": "Access to the archive is restricted to scholars.",
+   "options": [
+    "Only scholars may use the archive.",
+    "Scholars are encouraged to use the archive.",
+    "The archive is open to everyone.",
+    "The archive is rarely used by scholars."
+   ],
+   "answer": 0,
+   "note_ar": "«restricted to» = حصر. لاحظي الفرق بينها وبين «restricted from»."
+  },
+  {
+   "d": 2,
+   "stem": "The report was largely ignored at the time.",
+   "options": [
+    "Little attention was paid to the report then.",
+    "The report was rejected at the time.",
+    "The report was widely read at the time.",
+    "The report was not published at the time."
+   ],
+   "answer": 0,
+   "note_ar": "«ignored» = لم يُلتفت إليه. الرفض فعل واعٍ، والتجاهل ليس كذلك."
+  },
+  {
+   "d": 2,
+   "stem": "Numbers have stabilised after decades of decline.",
+   "options": [
+    "Numbers have stopped falling.",
+    "Numbers have begun to rise.",
+    "Numbers are still falling.",
+    "Numbers have fallen for decades and continue to do so."
+   ],
+   "answer": 0,
+   "note_ar": "«stabilised» = توقّف التغيّر، لا انعكاسه. لا تقفزي إلى «rise»."
+  },
+  {
+   "d": 1,
+   "stem": "The museum houses one of the largest collections in Europe.",
+   "options": [
+    "The museum holds a very large European collection.",
+    "The museum has the largest collection in Europe.",
+    "The museum lends its collection across Europe.",
+    "The museum is the largest in Europe."
+   ],
+   "answer": 0,
+   "note_ar": "«one of the largest» ليست «the largest». وحجم المجموعة ليس حجم المتحف."
+  },
+  {
+   "d": 3,
+   "stem": "Only a handful of studies have addressed the question directly.",
+   "options": [
+    "Very few studies have tackled the question head-on.",
+    "No studies have looked at the question.",
+    "Many studies have examined the question.",
+    "Studies have addressed the question indirectly."
+   ],
+   "answer": 0,
+   "note_ar": "«a handful» = عدد قليل جداً لكنه ليس صفراً. الخيار الرابع يضيف ما لم يُقَل."
+  },
+  {
+   "d": 3,
+   "stem": "The method is reliable provided the sample is large enough.",
+   "options": [
+    "The method works well as long as there is a big sample.",
+    "The method is reliable regardless of sample size.",
+    "The method needs a small sample to work.",
+    "The method has proved unreliable."
+   ],
+   "answer": 0,
+   "note_ar": "«provided» = شرط. حذفه يجعل العبارة أقوى مما قال النص."
+  },
+  {
+   "d": 2,
+   "stem": "Traders were obliged to pay a levy at each border.",
+   "options": [
+    "Traders had to pay a charge at every crossing.",
+    "Traders chose to pay a charge at some borders.",
+    "Traders avoided paying charges at borders.",
+    "Traders paid a single charge for the whole journey."
+   ],
+   "answer": 0,
+   "note_ar": "«obliged» = إلزام لا اختيار، و«at each» = عند كل واحدة لا مرة واحدة."
+  },
+  {
+   "d": 2,
+   "stem": "The design was ahead of its time.",
+   "options": [
+    "The design was more advanced than others of its period.",
+    "The design was completed early.",
+    "The design was old-fashioned.",
+    "The design was finished before the deadline."
+   ],
+   "answer": 0,
+   "note_ar": "«ahead of its time» تعبير اصطلاحي عن التقدّم لا عن الجدول الزمني."
+  },
+  {
+   "d": 3,
+   "stem": "The link is plausible but remains unproven.",
+   "options": [
+    "The connection is believable yet still lacks proof.",
+    "The connection has been proved.",
+    "The connection has been ruled out.",
+    "The connection is impossible to test."
+   ],
+   "answer": 0,
+   "note_ar": "«plausible» و«unproven» تجتمعان — لا تختاري أحد الطرفين وحده."
+  },
+  {
+   "d": 1,
+   "stem": "Applications must be submitted no later than 1 March.",
+   "options": [
+    "1 March is the final day to apply.",
+    "Applications open on 1 March.",
+    "Applications are reviewed on 1 March.",
+    "Applications should be sent well before 1 March."
+   ],
+   "answer": 0,
+   "note_ar": "«no later than» = آخر موعد. لا تخلطيها ببداية الفترة."
+  }
+ ],
+ "qualifier": [
+  {
+   "d": 1,
+   "passage": "Most researchers accept that the technique reduces costs.",
+   "claim": "All researchers agree the technique reduces costs.",
+   "answer": "FALSE",
+   "focus": "Most → All",
+   "note_ar": "النص قال «معظم»، والعبارة قالت «كل». التعميم يجعلها خاطئة، لا «غير مذكورة»."
+  },
+  {
+   "d": 1,
+   "passage": "The vaccine may cause mild fatigue in some patients.",
+   "claim": "The vaccine causes fatigue in all patients.",
+   "answer": "FALSE",
+   "focus": "may / some → all",
+   "note_ar": "«may» احتمال و«some» بعض. العبارة حوّلتهما إلى يقين وشمول."
+  },
+  {
+   "d": 1,
+   "passage": "The library is usually open until nine in the evening.",
+   "claim": "The library is always open until nine.",
+   "answer": "FALSE",
+   "focus": "usually → always",
+   "note_ar": "«usually» تترك استثناءات؛ «always» لا تترك أيّاً."
+  },
+  {
+   "d": 2,
+   "passage": "Several early cities were built near rivers.",
+   "claim": "Early cities were never built away from rivers.",
+   "answer": "FALSE",
+   "focus": "several → never...away",
+   "note_ar": "قول إنّ بعضها بُني قرب الأنهار لا ينفي وجود غيرها بعيداً عنها."
+  },
+  {
+   "d": 2,
+   "passage": "The author suggests that the decline began earlier than previously thought.",
+   "claim": "The author proves the decline began earlier.",
+   "answer": "FALSE",
+   "focus": "suggests → proves",
+   "note_ar": "«suggests» ترجيح و«proves» إثبات. رفع درجة اليقين خطأ صريح."
+  },
+  {
+   "d": 2,
+   "passage": "Recycling rates rose in most European countries during the decade.",
+   "claim": "Recycling rates rose in every European country during the decade.",
+   "answer": "FALSE",
+   "focus": "most → every",
+   "note_ar": "«most» تسمح باستثناءات؛ «every» تلغيها."
+  },
+  {
+   "d": 2,
+   "passage": "The team examined samples from twelve sites across the region.",
+   "claim": "The team found identical results at all twelve sites.",
+   "answer": "NOT GIVEN",
+   "focus": "examined ≠ found",
+   "note_ar": "النص ذكر الفحص فقط. لم يقل شيئاً عن تطابق النتائج — «غير مذكورة» لا «خاطئة»."
+  },
+  {
+   "d": 2,
+   "passage": "Solar panels are now cheaper than they were a decade ago.",
+   "claim": "Solar panels are now the cheapest source of electricity.",
+   "answer": "NOT GIVEN",
+   "focus": "cheaper than before ≠ cheapest overall",
+   "note_ar": "المقارنة مع الماضي لا مع بقية المصادر. لا تُكملي المقارنة من عندك."
+  },
+  {
+   "d": 2,
+   "passage": "Few of the manuscripts have survived intact.",
+   "claim": "Most of the manuscripts have survived intact.",
+   "answer": "FALSE",
+   "focus": "few → most",
+   "note_ar": "«few» تعني القليل جداً؛ العبارة عكستها تماماً."
+  },
+  {
+   "d": 3,
+   "passage": "The practice was common among wealthy households, though rarely recorded.",
+   "claim": "There are few written records of the practice.",
+   "answer": "TRUE",
+   "focus": "rarely recorded = few records",
+   "note_ar": "إعادة صياغة صحيحة: «نادراً ما دُوّن» = «سجلات قليلة»."
+  },
+  {
+   "d": 3,
+   "passage": "Researchers have yet to identify the cause.",
+   "claim": "The cause is still unknown.",
+   "answer": "TRUE",
+   "focus": "have yet to = still not",
+   "note_ar": "«have yet to» = لم يفعلوا بعد. صياغة مختلفة لنفس المعنى."
+  },
+  {
+   "d": 3,
+   "passage": "Almost all of the birds return to the same nesting site each spring.",
+   "claim": "Every bird returns to the same site each spring.",
+   "answer": "FALSE",
+   "focus": "almost all → every",
+   "note_ar": "«almost» تستثني قلّة؛ «every» لا تستثني أحداً."
+  },
+  {
+   "d": 3,
+   "passage": "Critics argued that the reforms went too far.",
+   "claim": "The reforms went too far.",
+   "answer": "NOT GIVEN",
+   "focus": "critics argued ≠ the text asserts",
+   "note_ar": "نَسْبُ الرأي إلى منتقدين لا يعني أن الكاتب يتبنّاه."
+  },
+  {
+   "d": 3,
+   "passage": "The material can withstand temperatures of up to 400°C.",
+   "claim": "The material withstands temperatures above 400°C.",
+   "answer": "FALSE",
+   "focus": "up to → above",
+   "note_ar": "«up to 400» سقف؛ العبارة ادّعت ما فوقه."
+  },
+  {
+   "d": 2,
+   "passage": "Attendance at the lectures is optional for postgraduate students.",
+   "claim": "Postgraduate students are not required to attend the lectures.",
+   "answer": "TRUE",
+   "focus": "optional = not required",
+   "note_ar": "صياغة سالبة لنفس الحكم — صحيحة."
+  },
+  {
+   "d": 2,
+   "passage": "Sales grew steadily until 2015, when they levelled off.",
+   "claim": "Sales fell after 2015.",
+   "answer": "FALSE",
+   "focus": "levelled off ≠ fell",
+   "note_ar": "«levelled off» = استقرّت، لا انخفضت."
+  },
+  {
+   "d": 3,
+   "passage": "The technique is used in a handful of specialist clinics.",
+   "claim": "The technique is not widely available.",
+   "answer": "TRUE",
+   "focus": "a handful = not widely",
+   "note_ar": "«عدد قليل من العيادات» = «غير متاح على نطاق واسع». هذه إعادة صياغة صحيحة."
+  },
+  {
+   "d": 2,
+   "passage": "The survey covered households in three northern cities.",
+   "claim": "The survey covered rural households.",
+   "answer": "NOT GIVEN",
+   "focus": "cities ≠ statement about rural",
+   "note_ar": "النص حدّد المدن ولم ينفِ الريف صراحة — لا معلومة عنه."
+  },
+  {
+   "d": 3,
+   "passage": "It is widely believed that the site was a temple, but no inscription confirms this.",
+   "claim": "The site has been confirmed as a temple.",
+   "answer": "FALSE",
+   "focus": "widely believed but unconfirmed",
+   "note_ar": "النص نفى التأكيد صراحة، فالعبارة خاطئة لا «غير مذكورة»."
+  },
+  {
+   "d": 1,
+   "passage": "Tickets are sometimes available on the day of the performance.",
+   "claim": "Tickets are never available on the day.",
+   "answer": "FALSE",
+   "focus": "sometimes → never",
+   "note_ar": "«sometimes» تثبت وجود الحالة؛ «never» تنفيها تماماً."
+  },
+  {
+   "d": 3,
+   "passage": "Output doubled between 1990 and 2000, and rose again in the following decade.",
+   "claim": "Output more than doubled between 1990 and 2010.",
+   "answer": "TRUE",
+   "focus": "doubled + rose again",
+   "note_ar": "تضاعف ثم ارتفع مجدداً ⇒ أكثر من الضِّعف عبر الفترتين."
+  },
+  {
+   "d": 2,
+   "passage": "The museum reopened in 2018 after extensive renovation.",
+   "claim": "The museum was closed for renovation before 2018.",
+   "answer": "TRUE",
+   "focus": "reopened after = was closed",
+   "note_ar": "«أعيد افتتاحه بعد ترميم» يستلزم أنه كان مغلقاً — استنتاج لازم لا إضافة."
+  },
+  {
+   "d": 3,
+   "passage": "Only in the last twenty years has the disease been treatable.",
+   "claim": "The disease could not be treated before that period.",
+   "answer": "TRUE",
+   "focus": "only in the last X years",
+   "note_ar": "«only in» تحصر الإمكانية في الفترة، فما قبلها منفيّ ضمناً."
+  },
+  {
+   "d": 3,
+   "passage": "The compound appears to slow the process, though the mechanism is unclear.",
+   "claim": "The compound has no effect on the process.",
+   "answer": "FALSE",
+   "focus": "appears to slow ≠ no effect",
+   "note_ar": "غموض الآلية لا ينفي الأثر. ركّزي على ما نُفي فعلاً."
+  }
+ ],
+ "gist": [
+  {
+   "d": 2,
+   "paragraph": "The earliest coins were not minted by merchants but by states, and their purpose was as much political as economic. A ruler's face stamped on a piece of silver travelled further and more often than any decree, reaching markets and households that no official would ever visit. Coinage was, in this sense, the first mass medium: a portable, durable assertion of who held power and over what territory.",
+   "options": [
+    "Coins as a tool of political messaging",
+    "The technical difficulty of early minting",
+    "How merchants resisted state currency",
+    "The metals used in the first coins"
+   ],
+   "answer": 0,
+   "note_ar": "الفقرة كلها عن العملة كوسيلة لإعلان السلطة — لا عن معادنها ولا عن صعوبة سكّها."
+  },
+  {
+   "d": 2,
+   "paragraph": "Attempts to reintroduce the species have met with mixed success. Where released animals were given a period of acclimatisation in enclosures before being freed, survival rates after two years exceeded seventy per cent. Where they were released directly into the wild, fewer than one in five survived the first winter. The difference has persuaded most conservation bodies to adopt the slower method as standard.",
+   "options": [
+    "Why gradual release works better than immediate release",
+    "The reasons the species disappeared originally",
+    "Disagreements among conservation bodies",
+    "The cost of running reintroduction programmes"
+   ],
+   "answer": 0,
+   "note_ar": "مقارنة بين طريقتَي إطلاق ونتيجتهما. الخيارات الأخرى تتحدث عن أمور لم تُذكر."
+  },
+  {
+   "d": 3,
+   "paragraph": "It would be wrong, however, to conclude that the technology caused the shift. Employment in the sector had already been falling for a decade before the machines arrived, and it continued to fall at much the same rate afterwards. What the technology did was change the kind of work that remained, not the quantity of it — a distinction that has been lost in most public discussion of the subject.",
+   "options": [
+    "A common misreading of the technology's effect",
+    "The speed at which the technology spread",
+    "How employment recovered after the change",
+    "The cost savings the technology delivered"
+   ],
+   "answer": 0,
+   "note_ar": "«It would be wrong to conclude» إشارة صريحة إلى تصحيح فهم خاطئ — وهذه هي فكرة الفقرة."
+  },
+  {
+   "d": 2,
+   "paragraph": "Rainfall records kept by monastery scribes have proved unexpectedly valuable. Although the monks were recording weather for practical reasons — to plan planting and to explain poor harvests — their entries are dated, continuous and, crucially, unaffected by the assumptions of later climate science. Researchers now treat these ledgers as one of the few genuinely independent checks on reconstructed climate data.",
+   "options": [
+    "An unintended scientific use for old records",
+    "The religious significance of weather in monasteries",
+    "How monks predicted the weather",
+    "Errors found in reconstructed climate data"
+   ],
+   "answer": 0,
+   "note_ar": "سجلات كُتبت لغرض ثم صارت مفيدة لغرض آخر — هذه هي الفكرة الجامعة."
+  },
+  {
+   "d": 3,
+   "paragraph": "The debate has been complicated by the fact that both sides use the same word to mean different things. When economists speak of 'growth' they mean an increase in measured output; when ecologists use it they usually mean an increase in the physical throughput of materials and energy. Since the two can move in opposite directions, participants frequently find themselves arguing past one another without realising it.",
+   "options": [
+    "A shared term that means different things to each side",
+    "Evidence that growth harms the environment",
+    "Why economists and ecologists rarely meet",
+    "A proposal for measuring growth differently"
+   ],
+   "answer": 0,
+   "note_ar": "الفقرة تشخّص سبب سوء التفاهم (كلمة واحدة بمعنيين) ولا تنحاز لطرف."
+  },
+  {
+   "d": 2,
+   "paragraph": "Most of the manuscripts that survive today do so by accident rather than design. Libraries burned, damp destroyed what fire spared, and successive owners cut up volumes to reuse the parchment. The texts we possess are therefore not the ones judged most important by their own age, but simply those that happened to be stored somewhere dry and forgotten.",
+   "options": [
+    "Why surviving texts are not a representative sample",
+    "The methods used to preserve manuscripts",
+    "How parchment was manufactured",
+    "The most valuable manuscripts in existence"
+   ],
+   "answer": 0,
+   "note_ar": "«by accident rather than design» تقود الفقرة كلها: ما بقي ليس ما اختير."
+  },
+  {
+   "d": 2,
+   "paragraph": "For the first three decades the airline made no profit at all. Its founders had calculated that acceptance would take a generation, and they priced tickets to build the habit of flying rather than to cover costs. By the time competitors entered the market the airline had a customer base that no amount of advertising could quickly replicate.",
+   "options": [
+    "A deliberate strategy of early losses",
+    "Mistakes made by the airline's founders",
+    "How competitors were kept out by regulation",
+    "The engineering behind the first aircraft"
+   ],
+   "answer": 0,
+   "note_ar": "الخسارة كانت مقصودة لبناء عادة — «deliberate»، لا خطأ."
+  },
+  {
+   "d": 3,
+   "paragraph": "None of this is to say that the older method is obsolete. In settings where power is unreliable, where technicians are scarce, or where results are needed in minutes rather than hours, the simpler test remains the better choice. The newer technique is more accurate, but accuracy is only one of several things a diagnostic tool has to deliver.",
+   "options": [
+    "Conditions in which the older method is still preferable",
+    "Proof that the newer technique is inaccurate",
+    "The training technicians require",
+    "Why the older method was replaced"
+   ],
+   "answer": 0,
+   "note_ar": "«None of this is to say» = دفاع مشروط عن القديم في حالات محددة."
+  },
+  {
+   "d": 2,
+   "paragraph": "The canal transformed the city's fortunes, but not in the way its backers had promised. They had expected it to make the port a centre of manufacturing; instead, goods passed through faster than ever and factories relocated closer to their raw materials. What the city gained was not industry but a new role as a place of transit, insurance and finance.",
+   "options": [
+    "An outcome different from the one predicted",
+    "The engineering challenges of building the canal",
+    "Opposition to the canal from local factories",
+    "How the canal was financed"
+   ],
+   "answer": 0,
+   "note_ar": "«but not in the way its backers had promised» — الفكرة هي الفارق بين المتوقَّع والواقع."
+  },
+  {
+   "d": 3,
+   "paragraph": "Critics of the survey have focused on its sample, and with some justification: respondents were recruited online and skewed young. But the central finding has since been reproduced in three separate studies using very different recruitment methods, and the objection, while fair in principle, no longer carries much weight in practice.",
+   "options": [
+    "A valid criticism that later work has answered",
+    "The reasons the survey's sample was chosen",
+    "Why online surveys should not be trusted",
+    "A summary of the survey's main finding"
+   ],
+   "answer": 0,
+   "note_ar": "الفقرة تعترف بالنقد ثم تبيّن أنه فقد أثره — لا ترفضه ولا تتبنّاه."
+  }
+ ]
+}

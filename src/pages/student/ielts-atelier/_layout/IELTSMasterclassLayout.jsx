@@ -12,10 +12,16 @@ const SKILLS = ['reading', 'listening', 'writing', 'speaking']
 const SKILL_LABEL = { reading: 'القراءة', listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة' }
 // Every skill is a parent whose click opens its PERFORMANCE page (the monitor);
 // the sub-items are the ways to learn/practise that skill.
+// Reading is a LADDER, not a table of contents: know the method → know each
+// type's trap → drill the raw sub-skill → one passage under a clock → the full
+// exam. «أخطائي» closes the loop by sending you back to the rung you fell off.
 const READING_SUB = [
   { path: 'reading', label: 'دليل القراءة', exact: true },
   { path: 'reading/types', label: 'أنواع الأسئلة' },
+  { path: 'reading/micro', label: 'المهارات المصغّرة' },
+  { path: 'reading/clock', label: 'تحت الساعة' },
   { path: 'reading/tests', label: 'الاختبارات' },
+  { path: 'reading/errors', label: 'أخطائي في القراءة' },
 ]
 const SKILL_SUB = {
   listening: [
