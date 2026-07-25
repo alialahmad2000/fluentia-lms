@@ -262,21 +262,22 @@ html .iel-exam-clinical.iel-exam-clinical,
 
 /* ── Shell layout (RTL: nav right, content fills left) ─────────────────────── */
 .iel-shell{display:flex;min-height:100dvh;position:relative;z-index:1}
-.iel-nav{width:264px;flex:none;align-self:flex-start;position:sticky;top:0;height:100dvh;overflow-y:auto;
+.iel-nav{width:248px;flex:none;align-self:flex-start;position:sticky;top:0;height:100dvh;overflow-y:auto;
   background:var(--iel-panel);border-inline-start:1px solid var(--iel-border-strong);
   backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);
   box-shadow:-24px 0 48px -36px rgba(0,0,0,.55);
-  display:flex;flex-direction:column;padding:22px 16px;gap:3px}
-.iel-nav-label{font-size:12px;font-weight:800;color:var(--iel-ink-3);letter-spacing:0;padding:14px 10px 6px}
-.iel-brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px}
+  display:flex;flex-direction:column;padding:20px 14px 16px;gap:2px}
+.iel-nav-label{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;color:var(--iel-ink-3);letter-spacing:0;padding:16px 10px 7px}
+.iel-nav-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg, var(--iel-border), transparent)}
+.iel-brand{display:flex;align-items:center;gap:11px;padding:4px 8px 15px;margin-bottom:5px;border-bottom:1px solid var(--iel-border)}
 .iel-brand .mark{width:34px;height:34px;border-radius:10px;
-  background:linear-gradient(140deg, var(--iel-accent), var(--iel-gold));
-  box-shadow:0 6px 18px -6px color-mix(in srgb, var(--iel-accent) 60%, transparent), inset 0 1px 0 rgba(255,255,255,.25);
-  color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex:none}
+  background:linear-gradient(145deg, var(--iel-accent-ink), var(--iel-accent));
+  box-shadow:0 4px 12px -5px color-mix(in srgb, var(--iel-accent) 42%, transparent), inset 0 1px 0 rgba(255,255,255,.22), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 24%, transparent);
+  color:#04231a;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex:none}
 .iel-brand .wm{font-weight:800;font-size:17px;color:var(--iel-ink);line-height:1.1}
-.iel-brand .wm small{display:block;font-size:12px;font-weight:600;color:var(--iel-ink-3);letter-spacing:.14em}
-.iel-navfoot{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 10px 2px;border-top:1px solid var(--iel-border)}
-.iel-navfoot .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(140deg, var(--iel-accent), var(--iel-accent-ink));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.iel-brand .wm small{display:block;font-size:12px;font-weight:700;color:var(--iel-ink-3);letter-spacing:.18em;margin-top:1px}
+.iel-navfoot{margin-top:auto;display:flex;align-items:center;gap:10px;padding:13px 10px 2px;margin-top:14px;border-top:1px solid var(--iel-border)}
+.iel-navfoot .av{width:34px;height:34px; border-radius:50%;background:linear-gradient(140deg, var(--iel-accent), var(--iel-accent-ink));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
 .iel-navfoot .who{font-size:13px;font-weight:700;color:var(--iel-ink)}
 .iel-navfoot .who small{display:block;font-size:12px;color:var(--iel-ink-3);font-weight:600}
 .iel-main{flex:1;min-width:0;padding:26px 34px 60px;
@@ -316,7 +317,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 /* ── Sidebar sub-nav (nested reading parts under one parent) ─────────────────── */
 .iel-subnav{ position:relative; display:flex; flex-direction:column; gap:1px; margin:1px 0 4px; padding-inline-start:15px; }
 .iel-subnav::before{ content:''; position:absolute; inset-inline-start:6px; top:5px; bottom:7px; width:1.5px; border-radius:2px;
-  background:linear-gradient(180deg, color-mix(in srgb, var(--iel-accent) 34%, transparent), transparent 92%); }
+  background:linear-gradient(180deg, var(--iel-border-strong), transparent 90%); }
 .iel-subitem{ position:relative; display:flex; align-items:center; gap:9px; width:100%; padding:7px 11px; border-radius:9px; border:0;
   cursor:pointer; text-align:start; font-family:'Tajawal',sans-serif; font-size:13px; font-weight:600;
   color:var(--iel-ink-3); background:transparent; transition:background .14s, color .14s; }
@@ -324,8 +325,8 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-subitem:hover{ color:var(--iel-ink); background:var(--iel-surface-2); }
 .iel-subitem:hover .dot{ background:var(--iel-accent); }
 .iel-subitem .cnt{ margin-inline-start:auto; font-size:12px; font-weight:700; color:var(--iel-ink-3); }
-.iel-subitem.on{ color:var(--iel-accent-ink); background:var(--iel-accent-soft); font-weight:700; }
-.iel-subitem.on .dot{ background:var(--iel-accent); transform:scale(1.35); box-shadow:0 0 8px color-mix(in srgb, var(--iel-accent) 70%, transparent); }
+.iel-subitem.on{ color:var(--iel-accent-ink); background:color-mix(in srgb, var(--iel-accent) 9%, transparent); font-weight:700; }
+.iel-subitem.on .dot{ background:var(--iel-accent); transform:scale(1.3); box-shadow:0 0 6px color-mix(in srgb, var(--iel-accent) 55%, transparent); }
 .iel-subitem.on .cnt{ color:var(--iel-accent-ink); }
 
 /* ── Premium strategy drawer (reading lessons + question types) ──────────────── */
@@ -364,6 +365,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 }
 @media (pointer:coarse){
   .iel-subitem{ min-height:44px; }
+  .iel-nav button{ min-height:44px; }
   .iel-drawer2-head .closebtn{ width:44px; height:44px; }
 }
 @media (prefers-reduced-motion: reduce){ .iel-passrow, .iel-passrow .arrow{ transition:none } }

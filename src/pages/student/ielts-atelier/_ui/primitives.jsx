@@ -214,13 +214,13 @@ export function NavItem({ icon: I, label, badge, active, onClick }) {
       border: 0, cursor: 'pointer', textAlign: 'start', fontFamily: "'Tajawal', sans-serif", fontSize: 14, fontWeight: active ? 700 : 600,
       color: active ? 'var(--iel-nav-active)' : 'var(--iel-ink-2)',
       background: active ? 'var(--iel-nav-active-bg)' : 'transparent',
-      boxShadow: active ? 'inset 0 0 0 1px color-mix(in srgb, var(--iel-accent) 26%, transparent), 0 6px 18px -12px color-mix(in srgb, var(--iel-accent) 90%, #000)' : 'none',
+      boxShadow: active ? 'inset 0 0 0 1px color-mix(in srgb, var(--iel-accent) 18%, transparent)' : 'none',
       transition: 'background .15s, color .15s',
     }}
       onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = 'var(--iel-surface-2)'; e.currentTarget.style.color = 'var(--iel-ink)' } }}
       onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--iel-ink-2)' } }}
     >
-      {active && <span aria-hidden style={{ position: 'absolute', insetInlineStart: 0, top: 8, bottom: 8, width: 3, borderRadius: 3, background: 'linear-gradient(180deg, var(--iel-accent-ink), var(--iel-accent))', boxShadow: '0 0 8px color-mix(in srgb, var(--iel-accent) 70%, transparent)' }} />}
+      {active && <span aria-hidden style={{ position: 'absolute', insetInlineStart: 0, top: 8, bottom: 8, width: 3, borderRadius: 3, background: 'linear-gradient(180deg, var(--iel-accent-ink), var(--iel-accent))' }} />}
       <span style={{ display: 'flex', flex: 'none' }}><I size={18} /></span>
       {label}
       {badge != null && badge !== '' && (

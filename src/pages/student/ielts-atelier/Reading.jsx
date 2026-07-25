@@ -304,11 +304,13 @@ function ReadingTypesPage() {
 }
 
 // ─── Attempt review (shared by post-exam results + the attempts log) ─────────────
+const AR_MONTHS = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+// Month NAME, never «14/7» — a slashed date next to a slashed score is unreadable.
 function fmtWhen(iso) {
   if (!iso) return ''
   const d = new Date(iso); if (isNaN(d)) return ''
   const hh = String(d.getHours()).padStart(2, '0'), mm = String(d.getMinutes()).padStart(2, '0')
-  return `${arDigit(`${d.getDate()}/${d.getMonth() + 1}`)} · ${arDigit(`${hh}:${mm}`)}`
+  return `${arDigit(d.getDate())} ${AR_MONTHS[d.getMonth()]} · ${arDigit(`${hh}:${mm}`)}`
 }
 function fmtDur(secs) {
   const m = Math.max(1, Math.round((secs || 0) / 60))
@@ -365,7 +367,7 @@ function PassageReviewCard({ pp, passage, defaultOpen }) {
           <span style={{ width: 8, height: 8, borderRadius: '50%', flex: 'none', background: posColor(pp.pi) }} />
           <span className="iel-serif" dir="ltr" style={{ fontSize: 16, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{title}</span>
         </div>
-        <span style={{ flex: 'none', fontSize: 12.5, fontWeight: 800, color: posColor(pp.pi), fontFamily: "'Tajawal', sans-serif" }}>{arDigit(pp.correct)}/{arDigit(pp.total)}</span>
+        <span style={{ flex: 'none', fontSize: 12.5, fontWeight: 800, color: posColor(pp.pi), fontFamily: "'Tajawal', sans-serif" }}>{arDigit(pp.correct)} من {arDigit(pp.total)}</span>
       </div>
       {paras.length > 0 && (
         <>
@@ -420,7 +422,14 @@ function AttemptRow({ session, onOpen }) {
       </span>
       <span style={{ flex: 1, minWidth: 0 }}>
         <span style={{ display: 'block', fontSize: 13.5, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'start', unicodeBidi: 'plaintext' }}>{attemptLabel(session)}</span>
-        <span style={{ display: 'block', fontSize: 12, color: 'var(--iel-ink-3)', marginTop: 3, textAlign: 'start' }}>{fmtWhen(session.completed_at || session.started_at)} · {fmtDur(session.duration_seconds)} · <span style={{ color: 'var(--iel-ink)', fontWeight: 800 }}>{arDigit(correct)}/{arDigit(total)}</span></span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', fontSize: 12, color: 'var(--iel-ink-3)', marginTop: 4 }}>
+          <span>{fmtWhen(session.completed_at || session.started_at)}</span>
+          <span aria-hidden style={{ opacity: .45 }}>·</span>
+          <span>{fmtDur(session.duration_seconds)}</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '2px 8px', borderRadius: 7, background: 'var(--iel-track)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink)', fontWeight: 700 }}>
+            <CheckCircle size={11} color="var(--iel-accent)" />{arDigit(correct)} من {arDigit(total)}
+          </span>
+        </span>
       </span>
       {band != null && (
         <span style={{ flex: 'none', textAlign: 'center' }}>
@@ -809,7 +818,7 @@ export default function Reading() {
         <div className="iel-gcard" style={{ padding: '20px 22px', background: 'var(--iel-surface)', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
           <div style={{ minWidth: 0, flex: 1 }}>
             <div className="iel-serif" style={{ fontSize: 25, fontWeight: 700, color: 'var(--iel-ink)', textAlign: 'start', unicodeBidi: 'plaintext', lineHeight: 1.2 }}>{attemptLabel(attempt)}</div>
-            <div style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', marginTop: 5, fontFamily: "'Tajawal', sans-serif" }}>{fmtWhen(attempt.completed_at || attempt.started_at)} · {fmtDur(attempt.duration_seconds)} · <span style={{ color: 'var(--iel-ink)', fontWeight: 800 }}>{arDigit(correct)}/{arDigit(total)}</span> صحيحة</div>
+            <div style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', marginTop: 5, fontFamily: "'Tajawal', sans-serif" }}>{fmtWhen(attempt.completed_at || attempt.started_at)} · {fmtDur(attempt.duration_seconds)} · <span style={{ color: 'var(--iel-ink)', fontWeight: 800 }}>{arDigit(correct)} من {arDigit(total)}</span> إجابة صحيحة</div>
           </div>
           {band != null && (
             <div style={{ flex: 'none', textAlign: 'center', padding: '8px 16px', borderRadius: 14, background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in srgb, var(--iel-accent) 24%, transparent)' }}>
