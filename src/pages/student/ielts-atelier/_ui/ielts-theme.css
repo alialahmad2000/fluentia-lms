@@ -231,17 +231,17 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-atmo::before{
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(122% 90% at 88% -12%, color-mix(in srgb, var(--iel-accent) 21%, transparent), transparent 62%),
-    radial-gradient(110% 75% at 4% 4%,    color-mix(in srgb, #38bdf8 8%, transparent), transparent 55%),
-    radial-gradient(120% 100% at 52% 118%, color-mix(in srgb, var(--iel-accent) 9%, transparent), transparent 62%),
-    linear-gradient(180deg, #0d121a 0%, var(--iel-ground) 42%, #05070b 100%);
+    radial-gradient(120% 88% at 86% -12%, rgba(191,205,224,.075), transparent 62%),
+    radial-gradient(105% 72% at 4% 6%,     rgba(148,163,184,.045), transparent 56%),
+    radial-gradient(120% 100% at 52% 118%, rgba(120,136,158,.035), transparent 62%),
+    linear-gradient(180deg, #111823 0%, var(--iel-ground) 44%, #05070b 100%);
 }
 /* second, slowly drifting bloom layer for life */
 .iel-atmo::after{
   content:''; position:absolute; inset:-15%;
   background:
-    radial-gradient(46% 42% at 20% 16%, color-mix(in srgb, var(--iel-gold) 7%, transparent), transparent 64%),
-    radial-gradient(52% 48% at 84% 74%, color-mix(in srgb, var(--iel-accent) 11%, transparent), transparent 66%);
+    radial-gradient(46% 42% at 20% 16%, rgba(203,213,225,.05), transparent 64%),
+    radial-gradient(52% 48% at 84% 74%, rgba(160,174,192,.055), transparent 66%);
   filter:blur(26px); opacity:.85; animation:iel-atmo-drift 52s ease-in-out infinite alternate;
 }
 /* fine grain + vignette so the field reads as depth, never a flat gradient */
