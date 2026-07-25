@@ -72,10 +72,12 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
         <h3 style={{ margin: '2px 0 8px', fontSize: 16.5, fontWeight: 800, color: 'var(--iel-ink)', lineHeight: 1.4, textAlign: 'start' }}>
           {test.title_ar || `اختبار القراءة ${num}`}
         </h3>
-        <div style={{ display: 'flex', gap: 7, alignItems: 'center', flexWrap: 'wrap' }}>
-          <MetaChip icon={FileText}>{arDigit(test.total_questions || 40)} سؤالاً</MetaChip>
-          <MetaChip icon={Clock}>{arDigit(test.total_time_minutes || 60)} دقيقة</MetaChip>
-          <MetaChip icon={BookOpen}>٣ نصوص</MetaChip>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 9, flexWrap: 'wrap', fontSize: 12.5, fontWeight: 700, color: 'var(--iel-ink-2)' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}><BookOpen size={13} color="var(--iel-ink-3)" />٣ نصوص</span>
+          <span aria-hidden style={{ opacity: .4 }}>·</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}><FileText size={13} color="var(--iel-ink-3)" />{arDigit(test.total_questions || 40)} سؤالاً</span>
+          <span aria-hidden style={{ opacity: .4 }}>·</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}><Clock size={13} color="var(--iel-ink-3)" />{arDigit(test.total_time_minutes || 60)} دقيقة</span>
         </div>
       </div>
 
@@ -101,7 +103,7 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
             >
               <span style={{ width: 10, height: 10, borderRadius: '50%', flex: 'none', background: posColor(i), boxShadow: `0 0 9px color-mix(in srgb, ${posColor(i)} 60%, transparent)` }} />
               <span style={{ minWidth: 0, flex: 1 }}>
-                <span style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <span dir="ltr" style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'left' }}>
                   {topics[i]?.title || POS_LABEL[i]}
                 </span>
                 <span style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--iel-ink-2)', marginTop: 2 }}>
@@ -722,11 +724,21 @@ export default function Reading() {
         </LabHeader>
 
         {(completedCount > 0 || recentQ.data?.length > 0) && (
-          <div style={{ display: 'flex', gap: 12, alignItems: 'stretch', flexWrap: 'wrap' }}>
-            {completedCount > 0 && <StatBox label="اختبارات مكتملة" value={arDigit(completedCount)} />}
-            {bestBand != null && <StatBox label="أفضل Band" value={bestBand.toFixed(1)} accent="var(--iel-accent)" />}
+          <div className="iel-gcard" style={{ display: 'flex', gap: 0, alignItems: 'stretch', flexWrap: 'wrap', padding: 0, background: 'var(--iel-surface)', borderRadius: 16, overflow: 'hidden' }}>
+            {completedCount > 0 && (
+              <div style={{ flex: '1 1 150px', padding: '15px 20px', borderInlineEnd: '1px solid var(--iel-border)' }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-ink-3)', marginBottom: 4 }}>اختبارات مكتملة</div>
+                <div className="iel-serif" style={{ fontSize: 26, fontWeight: 700, color: 'var(--iel-ink)', lineHeight: 1 }}>{arDigit(completedCount)}</div>
+              </div>
+            )}
+            {bestBand != null && (
+              <div style={{ flex: '1 1 150px', padding: '15px 20px', borderInlineEnd: '1px solid var(--iel-border)' }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--iel-ink-3)', marginBottom: 4 }}>أفضل نطاق</div>
+                <div className="iel-serif" style={{ fontSize: 26, fontWeight: 700, color: 'var(--iel-accent)', lineHeight: 1 }}>{bestBand.toFixed(1)}</div>
+              </div>
+            )}
             {recentQ.data?.length > 0 && (
-              <button type="button" onClick={() => setAct('history')} className="iel-gcard" style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '13px 18px', cursor: 'pointer', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif", border: '1px solid var(--iel-border)', borderRadius: 16 }}>
+              <button type="button" onClick={() => setAct('history')} style={{ flex: '2 1 250px', display: 'flex', alignItems: 'center', gap: 11, padding: '15px 20px', cursor: 'pointer', background: 'transparent', fontFamily: "'Tajawal', sans-serif", border: 0, textAlign: 'start' }}>
                 <span style={{ width: 36, height: 36, borderRadius: 10, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: '1px solid color-mix(in srgb, var(--iel-accent) 24%, transparent)' }}><History size={17} /></span>
                 <span style={{ textAlign: 'start' }}>
                   <span style={{ display: 'block', fontSize: 13.5, fontWeight: 800, color: 'var(--iel-ink)' }}>سجل المحاولات</span>

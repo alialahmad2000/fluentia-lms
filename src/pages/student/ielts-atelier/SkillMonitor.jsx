@@ -81,13 +81,25 @@ function useSkillMonitor(studentId, skill) {
         .map((p) => ({ type: p.question_type, band: p.estimated_band != null ? Number(p.estimated_band) : null, attempts: p.attempts_count || 0, accuracy: p.attempts_count ? (p.correct_count || 0) / p.attempts_count : null }))
         .sort((a, b) => (a.band ?? 9) - (b.band ?? 9))
 
+      // Open errors for this skill — the most actionable number on the page.
+      let openErrors = 0
+      try {
+        const { count } = await supabase
+          .from('ielts_error_bank')
+          .select('id', { count: 'exact', head: true })
+          .eq('student_id', studentId)
+          .eq('skill_type', skill)
+          .eq('mastered', false)
+        openErrors = count || 0
+      } catch { /* non-fatal */ }
+
       const withBand = sessions.filter((s) => s.band != null)
       const bestBand = withBand.length ? Math.max(...withBand.map((s) => s.band)) : null
       const totalCorrect = sessions.reduce((a, s) => a + (s.correct || 0), 0)
       const totalQ = sessions.reduce((a, s) => a + (s.total || 0), 0)
       const accuracy = totalQ ? totalCorrect / totalQ : null
       const totalMinutes = Math.round(sessions.reduce((a, s) => a + (s.duration || 0), 0) / 60)
-      return { sessions, types, count: sessions.length, bestBand, accuracy, totalMinutes }
+      return { sessions, types, count: sessions.length, bestBand, accuracy, totalMinutes, openErrors }
     },
   })
 }
@@ -150,6 +162,29 @@ export default function SkillMonitor() {
   const trend = useMemo(() => (mon?.sessions || []).map((s) => s.band).filter((b) => b != null), [mon])
   const recent = useMemo(() => (mon?.sessions || []).slice(-6).reverse(), [mon])
   const weakTypes = useMemo(() => (mon?.types || []).filter((t) => t.band != null).slice(0, 4), [mon])
+
+  // ── Detailed report, derived entirely from sessions already loaded ──────────
+  const report = useMemo(() => {
+    const ss = mon?.sessions || []
+    if (!ss.length) return null
+    const scored = ss.filter((x) => x.total > 0)
+    const accTrend = scored.map((x) => Math.round((x.correct / x.total) * 100))
+    const banded = ss.filter((x) => x.band != null)
+    const firstBand = banded.length ? banded[0].band : null
+    const lastBand = banded.length ? banded[banded.length - 1].band : null
+    const delta = firstBand != null && lastBand != null ? lastBand - firstBand : null
+    // practice cadence over the last 30 days
+    const DAY = 86400000, today = new Date(); today.setHours(0, 0, 0, 0)
+    const daySet = new Set()
+    for (const x of ss) { const d = new Date(x.date); if (!isNaN(d)) { d.setHours(0, 0, 0, 0); daySet.add(d.getTime()) } }
+    const last30 = Array.from({ length: 30 }, (_, i) => daySet.has(today.getTime() - (29 - i) * DAY))
+    const daysActive = last30.filter(Boolean).length
+    let streak = 0
+    for (let i = 29; i >= 0; i--) { if (last30[i]) streak++; else if (i < 29) break }
+    const avgMin = ss.length ? Math.round((mon.totalMinutes || 0) / ss.length) : 0
+    const bestSession = banded.length ? banded.reduce((a, b) => (b.band > a.band ? b : a)) : null
+    return { accTrend, delta, last30, daysActive, streak, avgMin, bestSession, firstBand, lastBand }
+  }, [mon])
 
   const goLab = () => navigate(skill === 'reading' ? `${BASE}/reading/tests` : `${BASE}/${skill}`)
 
@@ -227,6 +262,86 @@ export default function SkillMonitor() {
                     </Card>
                   )
                 })}
+              </div>
+            </div>
+          )}
+
+          {/* ── Detailed report ─────────────────────────────────────────── */}
+          {report && (
+            <div>
+              <h2 style={{ margin: '0 0 12px', fontSize: 15.5, fontWeight: 800, color: 'var(--iel-ink)' }}>التقرير المفصّل</h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 12 }}>
+
+                {/* progress since the first session */}
+                <Card style={{ padding: '16px 18px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-ink-3)', marginBottom: 9 }}>تقدّمك منذ أول جلسة</div>
+                  {report.delta != null ? (
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 9 }}>
+                      <span dir="ltr" className="iel-serif" style={{ fontSize: 30, fontWeight: 700, color: report.delta >= 0 ? 'var(--iel-accent)' : 'var(--iel-bad)' }}>
+                        {report.delta >= 0 ? '+' : '−'}{arDigit(Math.abs(report.delta).toFixed(1))}
+                      </span>
+                      <span style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', fontWeight: 600 }}>
+                        نطاق · من {arDigit(report.firstBand.toFixed(1))} إلى {arDigit(report.lastBand.toFixed(1))}
+                      </span>
+                    </div>
+                  ) : <div style={{ fontSize: 13, color: 'var(--iel-ink-3)' }}>تحتاجين جلستين على الأقل لقياس التقدّم.</div>}
+                </Card>
+
+                {/* accuracy over time */}
+                <Card style={{ padding: '16px 18px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-ink-3)', marginBottom: 9 }}>الدقّة عبر الجلسات</div>
+                  {report.accTrend.length >= 2 ? (
+                    <>
+                      <Sparkline points={report.accTrend} color="var(--iel-gold)" h={44} />
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6, fontSize: 12, fontWeight: 700, color: 'var(--iel-ink-3)' }}>
+                        <span>الأحدث {arDigit(report.accTrend[report.accTrend.length - 1])}٪</span>
+                        <span>الأولى {arDigit(report.accTrend[0])}٪</span>
+                      </div>
+                    </>
+                  ) : <div style={{ fontSize: 13, color: 'var(--iel-ink-3)' }}>لا تكفي البيانات بعد.</div>}
+                </Card>
+
+                {/* practice cadence — 30 days */}
+                <Card style={{ padding: '16px 18px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-ink-3)', marginBottom: 10 }}>انتظام التدريب · آخر ٣٠ يوماً</div>
+                  <div style={{ display: 'flex', gap: 3, alignItems: 'flex-end', marginBottom: 10 }}>
+                    {report.last30.map((on, i) => (
+                      <span key={i} title={on ? 'تدرّبتِ' : 'بلا تدريب'} style={{ flex: 1, height: on ? 22 : 9, borderRadius: 3, background: on ? 'var(--iel-accent)' : 'var(--iel-track)' }} />
+                    ))}
+                  </div>
+                  <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', fontWeight: 600 }}>
+                    <b style={{ color: 'var(--iel-ink)' }}>{arDigit(report.daysActive)}</b> يوماً من التدريب
+                    {report.streak > 1 && <> · تتابع حالي <b style={{ color: 'var(--iel-accent)' }}>{arDigit(report.streak)}</b></>}
+                  </div>
+                </Card>
+
+                {/* rhythm + best session */}
+                <Card style={{ padding: '16px 18px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-ink-3)', marginBottom: 9 }}>إيقاع الجلسات</div>
+                  <div style={{ fontSize: 13, color: 'var(--iel-ink-2)', lineHeight: 1.9, fontWeight: 600 }}>
+                    متوسّط الجلسة <b style={{ color: 'var(--iel-ink)' }}>{arDigit(report.avgMin)} دقيقة</b><br />
+                    عدد الجلسات <b style={{ color: 'var(--iel-ink)' }}>{arDigit(mon.count)}</b>
+                    {report.bestSession && <><br />أفضل جلسة <b style={{ color: 'var(--iel-accent)' }}>{arDigit(report.bestSession.band.toFixed(1))}</b> · {fmtDate(report.bestSession.date)}</>}
+                  </div>
+                </Card>
+
+                {/* error bank — the actionable one */}
+                {mon.openErrors > 0 && (
+                  <Card style={{ padding: '16px 18px', gridColumn: '1 / -1', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+                    <span style={{ width: 42, height: 42, borderRadius: 12, flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-gold-soft)', color: 'var(--iel-gold)' }}>
+                      <Icon.errors size={19} />
+                    </span>
+                    <div style={{ flex: 1, minWidth: 200 }}>
+                      <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)' }}>
+                        {arDigit(mon.openErrors)} خطأ في {meta.label} بانتظار المراجعة
+                      </div>
+                      <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', marginTop: 3 }}>مراجعة أخطائك أسرع طريق لرفع نطاقك — كل خطأ تُتقنينه يختفي من البنك.</div>
+                    </div>
+                    <button onClick={() => navigate(`${BASE}/errors`)} style={{ flex: 'none', padding: '11px 20px', borderRadius: 11, border: '1px solid var(--iel-border-strong)', background: 'transparent', color: 'var(--iel-ink)', fontSize: 13.5, fontWeight: 800, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+                      بنك الأخطاء ←
+                    </button>
+                  </Card>
+                )}
               </div>
             </div>
           )}
