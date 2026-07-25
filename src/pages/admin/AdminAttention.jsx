@@ -99,10 +99,10 @@ function Row({ it, actorId }) {
     setTimeout(refresh, 900)
   }
 
-  async function draft() {
+  async function draft({ regenerate = false } = {}) {
     setDrafting(true)
     const { data, error } = await supabase.functions.invoke('draft-intervention-message', {
-      body: { intervention_id: it.id },
+      body: { intervention_id: it.id, force: regenerate },
     })
     setDrafting(false)
     if (error || !data?.ok) {
@@ -210,7 +210,7 @@ function Row({ it, actorId }) {
           </AnimatePresence>
 
           <div className="flex items-center gap-2 mt-3 flex-wrap">
-            <button type="button" disabled={drafting} onClick={draft}
+            <button type="button" disabled={drafting} onClick={() => draft({ regenerate: !!message })}
               className={`${BTN} bg-sky-500/10 text-sky-300 border border-sky-500/25 hover:bg-sky-500/15`}>
               {drafting ? <Loader2 size={14} className="animate-spin" /> : message ? <RefreshCw size={14} /> : <Sparkles size={14} />}
               {drafting ? 'جارٍ الكتابة…' : message ? 'أعد الكتابة' : 'اكتب رسالة'}
