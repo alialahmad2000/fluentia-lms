@@ -123,16 +123,19 @@ export function BandGauge({ current, target, min = 4, max = 9, size = 208, label
           </linearGradient>
         </defs>
         <g transform={`rotate(135 ${size / 2} ${size / 2})`}>
-          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--iel-track)" strokeWidth={11}
+          {/* Track — an accent-tinted ring so the gauge reads as a confident band,
+              not a sparse gray line when the current score is low. */}
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="color-mix(in srgb, var(--iel-accent) 22%, transparent)" strokeWidth={11}
             strokeLinecap="round" strokeDasharray={`${trackLen} ${c}`} />
           {has && (
             <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={`url(#${gid})`} strokeWidth={11}
               strokeLinecap="round" strokeDasharray={`${progLen} ${c}`}
-              style={{ transition: 'stroke-dasharray .9s cubic-bezier(.22,1,.36,1)' }} />
+              style={{ transition: 'stroke-dasharray .9s cubic-bezier(.22,1,.36,1)', filter: 'drop-shadow(0 0 6px color-mix(in srgb, var(--iel-accent) 55%, transparent))' }} />
           )}
         </g>
         {tAngle != null && (
-          <circle cx={tx} cy={ty} r={4.5} fill="var(--iel-gold)" stroke="var(--iel-ground)" strokeWidth={2} />
+          <circle cx={tx} cy={ty} r={5} fill="var(--iel-gold)" stroke="var(--iel-ground)" strokeWidth={2.5}
+            style={{ filter: 'drop-shadow(0 0 5px color-mix(in srgb, var(--iel-gold) 60%, transparent))' }} />
         )}
       </svg>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
