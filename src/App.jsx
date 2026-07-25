@@ -275,10 +275,6 @@ const AdminHolidays = lazyRetry(() => import('./pages/admin/AdminHolidays'))
 const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 const AdminAudioTelemetry = lazyRetry(() => import('./pages/admin/AdminAudioTelemetry'))
 const AdminCurriculumQuality = lazyRetry(() => import('./pages/admin/AdminCurriculumQuality'))
-const AdminAttention = lazyRetry(() => import('./pages/admin/AdminAttention'))
-const StudentGrowth = lazyRetry(() => import('./pages/student/StudentGrowth'))
-const StudentIntake = lazyRetry(() => import('./pages/student/StudentIntake'))
-const AdminIntake = lazyRetry(() => import('./pages/admin/AdminIntake'))
 const StudentPhrasebook = lazyRetry(() => import('./pages/student/StudentPhrasebook'))
 const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
 const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
@@ -576,14 +572,35 @@ function StudentHome() {
 }
 
 // ─── Role-Based Redirect ─────────────────────────────────────
+// ─── Landing-decision gate ───────────────────────────────────
+// `loading` goes false when the PROFILE resolves, but students.uses_ielts_home lives on
+// the student ROW, which can still be in flight. Deciding during that gap renders the
+// academy home and then bounces to the Atelier — the visible flash. So for student-role
+// sessions we HOLD the decision until the row lands, bounded so a failed fetch can never
+// strand anyone on a blank screen.
+function useStudentRowSettled(role, studentData) {
+  const [timedOut, setTimedOut] = useState(false)
+  useEffect(() => {
+    if (studentData != null) return
+    const t = setTimeout(() => setTimedOut(true), 2000)
+    return () => clearTimeout(t)
+  }, [studentData])
+  if (role !== 'student') return true
+  return studentData != null || timedOut
+}
+
 function RoleRedirect() {
   const user = useAuthStore((s) => s.user)
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
   const loading = useAuthStore((s) => s.loading)
 
+  const rowSettled = useStudentRowSettled(profile?.role, studentData)
+
   if (loading) return <LoadingSkeleton />
   if (!user) return <Navigate to="/login" replace />
+  // Don't guess a student's home before their row arrives — that's the IELTS flash.
+  if (!rowSettled) return <LoadingSkeleton />
 
   switch (profile?.role) {
     case 'student':
@@ -622,7 +639,10 @@ function IELTSHomeBounce({ children }) {
   const studentData = useAuthStore((s) => s.studentData)
   const profile = useAuthStore((s) => s.profile)
   const loading = useAuthStore((s) => s.loading)
+  const rowSettled = useStudentRowSettled(profile?.role, studentData)
   if (loading) return null
+  // Hold rather than render the academy home for an IELTS-first student (the flash).
+  if (!rowSettled) return <LoadingSkeleton />
   const isStaff = profile?.role === 'admin' || profile?.role === 'trainer'
   if (!isStaff && studentData?.uses_ielts_home === true) {
     // keep_academy_access students who explicitly asked for the academy pass through.
@@ -891,8 +911,6 @@ export default function App() {
               <Route path="/student/progress-reports" element={<Page><StudentProgressReports /></Page>} />
               <Route path="/student/progress-reports/:id" element={<Page><StudentReportView /></Page>} />
               <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
-              <Route path="/student/growth" element={<Page><StudentGrowth /></Page>} />
-              <Route path="/student/intake" element={<Page><StudentIntake /></Page>} />
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
               <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContentRouter /></Page>} />
               <Route path="/student/curriculum-old" element={<Page><StudentCurriculum /></Page>} />
@@ -1096,8 +1114,6 @@ export default function App() {
               <Route path="/admin/trainers" element={<Page><AdminTrainers /></Page>} />
               <Route path="/admin/packages" element={<Page><AdminPayments /></Page>} />
               <Route path="/admin/reports" element={<Page><AdminReportsHub /></Page>} />
-              <Route path="/admin/attention" element={<Page><AdminAttention /></Page>} />
-              <Route path="/admin/intake" element={<Page><AdminIntake /></Page>} />
               <Route path="/admin/reports/student/:studentId" element={<Page><AdminReportStudentDetail /></Page>} />
               {/* legacy reports page — archived, reachable, never deleted (hide-don't-delete rule) */}
               <Route path="/admin/reports-legacy" element={<Page><AdminReports /></Page>} />

@@ -11,22 +11,13 @@ export default function ImpersonateButton({ userId, role, name, variant = 'icon'
 
   const handleClick = async (e) => {
     e.stopPropagation()
-    try {
-      await startImpersonation(userId, role, name)
-    } catch (err) {
-      // eslint-disable-next-line no-alert
-      alert(`تعذّر بدء المعاينة: ${err?.message || 'حدث خطأ'}`)
-      return
-    }
+    await startImpersonation(userId, role, name)
     // Clear all cached queries so the impersonated user's data is fetched fresh
     queryClient.clear()
-    // Full page load forces all components to remount with new user context.
-    // Route to the impersonated role's home (agents → /team, admins → /admin).
-    // Pro Desk students land straight in their /desk surface (Operations Room), not the
-    // normal student home. studentData was loaded by startImpersonation above.
-    const usesDesk = useAuthStore.getState().studentData?.uses_pro_desk === true
-    const dest = role === 'student' ? (usesDesk ? '/desk' : '/student') : role === 'agent' ? '/team' : role === 'admin' ? '/admin' : role === 'coordinator' ? '/coordinator' : '/trainer'
-    window.location.href = dest
+    // Full page load forces all components to remount with new user context
+    // Land via the role gate so an IELTS-first / Pro-Desk student opens THEIR surface
+    // directly — going straight to /student flashed the academy home first.
+    window.location.href = role === 'student' ? '/' : '/trainer'
   }
 
   if (variant === 'icon') {
