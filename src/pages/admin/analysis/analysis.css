@@ -36,7 +36,7 @@
   top: -14vw;
   inset-inline-end: -8vw;
   background: radial-gradient(circle, var(--sda-a1) 0%, rgba(0, 0, 0, 0) 70%);
-  opacity: 0.55;
+  opacity: 0.72;
   animation: sda-drift-a 44s ease-in-out infinite alternate;
 }
 
@@ -49,7 +49,7 @@
   bottom: -16vw;
   inset-inline-start: -10vw;
   background: radial-gradient(circle, var(--sda-a2) 0%, rgba(0, 0, 0, 0) 70%);
-  opacity: 0.45;
+  opacity: 0.6;
   animation: sda-drift-b 58s ease-in-out infinite alternate;
 }
 
@@ -61,7 +61,7 @@
   top: 42%;
   inset-inline-start: 18%;
   background: radial-gradient(ellipse, var(--sda-a3) 0%, rgba(0, 0, 0, 0) 72%);
-  opacity: 0.3;
+  opacity: 0.42;
   animation: sda-drift-c 72s ease-in-out infinite alternate;
 }
 
@@ -72,7 +72,7 @@
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(6, 14, 28, 0.72) 0%, rgba(6, 14, 28, 0.12) 30%, rgba(6, 14, 28, 0.55) 100%);
+    linear-gradient(180deg, rgba(6, 14, 28, 0.40) 0%, rgba(6, 14, 28, 0.06) 32%, rgba(6, 14, 28, 0.38) 100%);
 }
 
 @keyframes sda-drift-a {
