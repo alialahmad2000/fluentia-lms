@@ -110,14 +110,23 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           // IMPORTANT: This hydrates in-progress answers so students don't lose work
           // when navigating between tabs. Do NOT revert this to a "fresh state" reset —
           // the student's data lives in DB and must be restored on mount.
-          // Grading state is tracked separately via `correct` — we only show correct/wrong
-          // marks AFTER the student re-answers, not during restoration.
+          //
+          // Restore `correct` too (2026-07-27 fix). An earlier version deliberately
+          // omitted it "so the UI stays in in-progress mode", but the item is already
+          // locked once `answer` exists (every question type does `disabled={!!answer}`),
+          // so the student can never re-answer and `correct` was never recomputed. It
+          // stayed undefined forever, which meant:
+          //   1. buildResults() wrote `isCorrect: false` on the next autosave, silently
+          //      turning already-correct answers into wrong ones in the DB,
+          //   2. the submitted score counted them as wrong,
+          //   3. MCQ rendered the student's correct pick with a red ✗.
+          // This poisoned the curriculum-quality detector too — the same answer showed up
+          // as both correct and wrong on the same day for the same item.
           if (latest.answers?.exercises) {
             const restored = {}
             latest.answers.exercises.forEach(r => {
               if (r.studentAnswer != null) {
-                // Restore only the selected value — omit `correct` so UI stays in "in-progress" mode
-                restored[r.id] = { selected: r.studentAnswer }
+                restored[r.id] = { selected: r.studentAnswer, correct: r.isCorrect }
               }
             })
             if (Object.keys(restored).length > 0) {

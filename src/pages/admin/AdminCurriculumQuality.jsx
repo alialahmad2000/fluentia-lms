@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ShieldAlert, Sparkles, CheckCircle2, EyeOff, RefreshCw,
-  BookOpen, Headphones, PenLine, Volume2, Shuffle, ChevronDown,
+  BookOpen, Headphones, PenLine, Volume2, Shuffle, ChevronDown, Pencil,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { toast } from '@/components/ui/FluentiaToast'
@@ -57,7 +57,8 @@ export default function AdminCurriculumQuality() {
       const { data, error } = await supabase
         .from('curriculum_quality_flags')
         .select('*')
-        .order('severity', { ascending: true }) // high < low alphabetically? no — order client-side
+        // severity is ordered client-side by sevRank below (alphabetical order
+        // would put "high" after "auto_ok"), so only sort by recency here.
         .order('updated_at', { ascending: false })
         .limit(500)
       if (error) throw error
@@ -204,9 +205,14 @@ function FlagCard({ flag, onSetStatus, showActions }) {
   const Icon = meta.icon
   const v = flag.ai_verdict || {}
   const ev = flag.evidence || {}
-  const title = ev.question_en || ev.target_word
-    ? (ev.question_en || `«${ev.target_word}» ⇄ «${ev.chosen_word}»`)
-    : (flag.item_ref?.audio_url ? decodeURIComponent(String(flag.item_ref.audio_url).split('/').pop() || '') : flag.dedupe_key)
+  // Prefer the real question text. Older grammar flags were filed before the
+  // detector carried question_en, so they fall back to a readable label rather
+  // than the raw dedupe_key (a bare UUID nobody can act on).
+  const title = ev.question_en
+    || (ev.target_word ? `«${ev.target_word}» ⇄ «${ev.chosen_word}»` : null)
+    || (flag.item_ref?.audio_url ? decodeURIComponent(String(flag.item_ref.audio_url).split('/').pop() || '') : null)
+    || (flag.item_ref?.title_en ? `${flag.item_ref.title_en} — سؤال ${(flag.item_ref.question_index ?? 0) + 1}` : null)
+    || (flag.source === 'grammar_exercise' ? 'تمرين قواعد (أعِد الفحص لجلب نص السؤال)' : flag.dedupe_key)
 
   return (
     <motion.div
@@ -245,6 +251,13 @@ function FlagCard({ flag, onSetStatus, showActions }) {
             className="overflow-hidden"
           >
             <div className="px-4 pb-4 pt-1 border-t border-white/[0.06] space-y-3">
+              {ev.keyed_correct_answer && (
+                <div className="text-xs text-slate-400">
+                  <span className="text-slate-500">الإجابة المعتمدة: </span>
+                  <span className="font-semibold text-slate-200" dir="ltr">{ev.keyed_correct_answer}</span>
+                </div>
+              )}
+
               {v.suggested_fix_ar && (
                 <div className="rounded-xl p-3 text-[13px] leading-relaxed" style={{ background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#bae6fd' }}>
                   <span className="font-bold text-sky-300">الإصلاح المقترح: </span>{v.suggested_fix_ar}
@@ -279,6 +292,15 @@ function FlagCard({ flag, onSetStatus, showActions }) {
                   {ev.errors} خطأ تشغيل، {ev.stalls} تقطّع، عند {ev.students} طالب خلال ١٤ يوماً
                   {Array.isArray(ev.reasons) && ev.reasons.length > 0 && <span> — الأسباب: {ev.reasons.join('، ')}</span>}
                 </div>
+              )}
+
+              {flag.unit_id && (
+                <a
+                  href={`/admin/curriculum/unit/${flag.unit_id}`}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold px-3 h-9 rounded-lg bg-white/[0.05] text-slate-300 border border-white/10 hover:bg-white/[0.09]"
+                >
+                  <Pencil size={13} /> افتح الوحدة للتعديل
+                </a>
               )}
 
               {showActions && (

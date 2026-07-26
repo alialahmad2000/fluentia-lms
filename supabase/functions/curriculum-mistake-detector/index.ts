@@ -18,8 +18,24 @@ const cors = {
 const J = (b: unknown, s = 200) =>
   new Response(JSON.stringify(b), { status: s, headers: { ...cors, "Content-Type": "application/json" } });
 
+// Mirrors src/utils/answerValidator.js. Keep the two in sync — the model's
+// too_strict_grading judgements are only as good as this description.
+const GRADER_DESCRIPTION = [
+  "The app grades free-text answers with a tolerant validator, NOT exact string matching:",
+  "- case-insensitive, trims whitespace, collapses repeated spaces, normalises smart quotes",
+  "- ignores punctuation differences (a missing full stop never fails an answer)",
+  "- expands contractions (\"don't\" == \"do not\", \"it's\" == \"it is\")",
+  "- multi-blank answers are separator-tolerant: \"told, had been\" == \"Told / had been\" == \"told - had been\"",
+  "- a key containing single-word slash alternatives (\"who/that\") accepts either alternative",
+  "- fill_blank also accepts the whole sentence when it contains the keyed word",
+  "- transform / error_correction also accept just the changed word(s)",
+  "- a key marked \"(sample answer)\" accepts any answer of 3+ words",
+  "- every entry in accepted_answers is accepted",
+  "So only call it too_strict_grading when a wrong-marked answer would still fail THIS validator.",
+].join("\n");
+
 const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
-const MODEL = "claude-sonnet-4-6";
+const MODEL = "claude-opus-5";
 const MAX_AI_ITEMS = 20; // per run — keeps the weekly AI spend trivial
 
 Deno.serve(async (req) => {
@@ -88,8 +104,25 @@ Deno.serve(async (req) => {
       candidates.push({
         dedupe_key: `grammar:${r.item_id}`, source: "grammar_exercise", unit_id: r.unit_id,
         item_ref: { item_id: r.item_id, grammar_id: r.grammar_id, exercise_type: r.exercise_type },
-        evidence: { attempts: r.attempts, students: r.students, wrong_n: r.wrong_n, wrong_pct: r.wrong_pct, wrong_distribution: r.wrong_distribution },
-        content: { kind: `grammar exercise (${r.exercise_type}) — graded by EXACT string match in the app`, item: r.item, keyed_correct_answer: r.correct_answer },
+        evidence: {
+          attempts: r.attempts, students: r.students, wrong_n: r.wrong_n,
+          wrong_pct: r.wrong_pct, wrong_distribution: r.wrong_distribution,
+          // question_en powers the flag title in /admin/curriculum-quality — without
+          // it the card fell back to printing the raw dedupe_key (a bare UUID).
+          question_en: r.item?.question ?? null,
+          keyed_correct_answer: r.correct_answer ?? null,
+        },
+        content: {
+          kind: `grammar exercise (${r.exercise_type})`,
+          item: r.item,
+          keyed_correct_answer: r.correct_answer,
+          accepted_answers: r.item?.accepted_answers ?? null,
+          // The app does NOT compare strings exactly. Describing the real grader
+          // matters: an earlier version of this prompt claimed "graded by EXACT
+          // string match", which pushed the model toward a too_strict_grading
+          // verdict on items the grader actually accepts.
+          how_it_is_graded: GRADER_DESCRIPTION,
+        },
       });
     }
 
@@ -210,15 +243,22 @@ ${JSON.stringify(c.content, null, 1).slice(0, 3500)}
 
 انتبه لهذه الأنماط:
 - إجابة معتمدة خاطئة أو غامضة (أغلب الطلاب يختارون نفس البديل "الخاطئ")
-- تصحيح صارم أكثر من اللازم (إجابات صحيحة المعنى تُرفض بسبب مطابقة نصية حرفية، حالة الأحرف، أو "(sample answer)")
+- تصحيح صارم أكثر من اللازم: إجابة صحيحة المعنى رُفضت رغم أن المُصحِّح الموصوف في الحقل how_it_is_graded كان يجب أن يقبلها
 - خيارات متشابهة لدرجة الالتباس، أو سؤال لا يُجاب من النص/الصوت
 - إذا كانت الإجابات الخاطئة عشوائية/عبثية (حرف واحد مثل "G") فالأغلب سلوك طلاب لا خطأ منهج
+
+قواعد صارمة قبل الحكم:
+- احكم على محتوى السؤال المعروض أعلاه فقط. لا تفترض أن السؤال ناقص أو غائب عن شاشة الطالب: المحتوى المعروض هنا هو نفسه ما يراه الطالب.
+- إذا كان الحقل item فارغاً (null) فهذه مشكلة في أداة الفحص لا في المنهج: أعطِ suspected=false و category=other واذكر أن المحتوى لم يصل للمراجعة.
+- لا تحكم بـ too_strict_grading إلا بعد أن تتحقق فعلياً من how_it_is_graded ومن accepted_answers، وتتأكد أن الإجابة المرفوضة كانت سترسب حتى مع هذا التساهل.
+- اختلاف حالة الأحرف أو علامات الترقيم أو فاصل الفراغات وحده ليس سبباً كافياً لـ too_strict_grading — المُصحِّح يتجاوزها.
 
 أصدر حكمك عبر الأداة verdict فقط.`;
 
   const tools = [{
     name: "verdict",
     description: "حكم جودة سؤال المنهج",
+    strict: true,
     input_schema: {
       type: "object",
       properties: {
@@ -229,13 +269,24 @@ ${JSON.stringify(c.content, null, 1).slice(0, 3500)}
         suggested_fix_ar: { type: "string", description: "اقتراح الإصلاح للفريق (الفريق ينفّذ، ليس الذكاء الاصطناعي)" },
       },
       required: ["suspected", "confidence", "category", "reason_ar", "suggested_fix_ar"],
+      additionalProperties: false,
     },
   }];
 
   const resp = await fetch(ANTHROPIC_API, {
     method: "POST",
     headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
-    body: JSON.stringify({ model: MODEL, max_tokens: 700, tools, tool_choice: { type: "tool", name: "verdict" }, messages: [{ role: "user", content: prompt }] }),
+    // max_tokens caps thinking + output together on Opus 5 (thinking is on by
+    // default), so leave headroom above the small verdict payload or the tool
+    // call gets truncated.
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 4000,
+      output_config: { effort: "low" },
+      tools,
+      tool_choice: { type: "tool", name: "verdict" },
+      messages: [{ role: "user", content: prompt }],
+    }),
   });
   if (!resp.ok) throw new Error(`anthropic ${resp.status}`);
   const jr = await resp.json();
