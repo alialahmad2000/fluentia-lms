@@ -269,6 +269,7 @@ const AdminPayments = lazyRetry(() => import('./pages/admin/AdminPayments'))
 const AdminReports = lazyRetry(() => import('./pages/admin/AdminReports'))
 const AdminReportsHub = lazyRetry(() => import('./pages/admin/reports/AdminReportsHub'))
 const AdminReportStudentDetail = lazyRetry(() => import('./pages/admin/reports/StudentReportDetail'))
+const StudentDeepAnalysis = lazyRetry(() => import('./pages/admin/analysis/StudentDeepAnalysis'))
 const AdminSettings = lazyRetry(() => import('./pages/admin/AdminSettings'))
 const SystemDiagnostics = lazyRetry(() => import('./pages/admin/SystemDiagnostics'))
 const AdminChurnPrediction = lazyRetry(() => import('./pages/admin/AdminChurnPrediction'))
@@ -1183,6 +1184,7 @@ export default function App() {
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
               <Route path="/admin/student/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
+              <Route path="/admin/student/:studentId/analysis" element={<Page><StudentDeepAnalysis /></Page>} />
               <Route path="/admin/design-showcase-masterclass" element={<Page><MasterclassDesignShowcase /></Page>} />
               <Route path="/admin/atelier-preview/student" element={<AtelierStudentPreview />} />
               <Route path="/admin/atelier-preview/trainer" element={<AtelierTrainerPreview />} />

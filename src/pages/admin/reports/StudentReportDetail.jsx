@@ -5,7 +5,7 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom'
 import {
   ArrowRight, Flame, Zap, Clock3, Layers, BookOpenCheck, Mic, Bug, CheckCircle2,
-  MonitorSmartphone, Wallet, GraduationCap,
+  MonitorSmartphone, Wallet, GraduationCap, Stethoscope,
 } from 'lucide-react'
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -62,7 +62,15 @@ export default function StudentReportDetail() {
             </div>
           </div>
         </div>
-        <RangePicker days={days} onChange={(d) => { const n = new URLSearchParams(params); n.set('days', String(d)); setParams(n, { replace: true }) }} />
+        <div className="flex items-center gap-2 flex-wrap">
+          <Link
+            to={`/admin/student/${studentId}/analysis`}
+            className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-amber-400/25 bg-amber-400/[0.08] text-xs font-bold text-amber-300 hover:bg-amber-400/[0.14] transition-colors"
+          >
+            <Stethoscope size={13} /> تحليل عميق
+          </Link>
+          <RangePicker days={days} onChange={(d) => { const n = new URLSearchParams(params); n.set('days', String(d)); setParams(n, { replace: true }) }} />
+        </div>
       </div>
 
       {/* headline stats */}

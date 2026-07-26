@@ -3,7 +3,7 @@ import lazyRetry from '../../utils/lazyRetry'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Users, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff, Mail, CheckCircle2, AlertCircle, GraduationCap, UserCog, BarChart3, FlaskConical } from 'lucide-react'
+import { Users, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff, Mail, CheckCircle2, AlertCircle, GraduationCap, UserCog, BarChart3, FlaskConical, Stethoscope } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { exportToCSV } from '../../utils/exportData'
@@ -380,8 +380,15 @@ function StudentsContent() {
                         <div className="flex items-center gap-1">
                           <ImpersonateButton userId={s.id} role="student" name={getStudentName(s)} />
                           <button
-                            onClick={() => navigate(`/admin/student/${s.id}/report`)}
+                            onClick={() => navigate(`/admin/student/${s.id}/analysis`)}
                             className="adp-act gold"
+                            title="تحليل عميق — لماذا هي هنا وماذا نفعل"
+                          >
+                            <Stethoscope size={14} />
+                          </button>
+                          <button
+                            onClick={() => navigate(`/admin/student/${s.id}/report`)}
+                            className="adp-act"
                             title="تقرير النشاط التفصيلي"
                           >
                             <BarChart3 size={14} />
@@ -447,7 +454,10 @@ function StudentsContent() {
                 </div>
                 <div className="adp-mcard__actions">
                   <ImpersonateButton userId={s.id} role="student" name={getStudentName(s)} />
-                  <button onClick={() => navigate(`/admin/student/${s.id}/report`)} className="adp-act gold" title="تقرير النشاط">
+                  <button onClick={() => navigate(`/admin/student/${s.id}/analysis`)} className="adp-act gold" title="تحليل عميق">
+                    <Stethoscope size={15} />
+                  </button>
+                  <button onClick={() => navigate(`/admin/student/${s.id}/report`)} className="adp-act" title="تقرير النشاط">
                     <BarChart3 size={15} />
                   </button>
                   <button onClick={() => { setEditStudent(s); setShowForm(true) }} className="adp-act" title="تعديل">

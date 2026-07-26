@@ -1,0 +1,175 @@
+/* تحليل الطالب العميق — atmosphere + a few premium primitives.
+   Scoped to .sda-root so nothing here can leak into other admin pages.
+   No color-mix() anywhere (iOS < 16.4 safe) — every colour is explicit rgba. */
+
+.sda-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── living background: three slow drifting blooms + hairline horizon ────── */
+.sda-atmo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sda-atmo::before,
+.sda-atmo::after,
+.sda-atmo > i {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+/* primary bloom — tinted per student track */
+.sda-atmo::before {
+  width: 46vw;
+  height: 46vw;
+  min-width: 380px;
+  min-height: 380px;
+  top: -14vw;
+  inset-inline-end: -8vw;
+  background: radial-gradient(circle, var(--sda-a1) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0.55;
+  animation: sda-drift-a 44s ease-in-out infinite alternate;
+}
+
+/* secondary bloom */
+.sda-atmo::after {
+  width: 40vw;
+  height: 40vw;
+  min-width: 320px;
+  min-height: 320px;
+  bottom: -16vw;
+  inset-inline-start: -10vw;
+  background: radial-gradient(circle, var(--sda-a2) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0.45;
+  animation: sda-drift-b 58s ease-in-out infinite alternate;
+}
+
+/* third, deep bloom keeps the middle of long pages from going flat */
+.sda-atmo > i {
+  width: 52vw;
+  height: 32vw;
+  min-width: 340px;
+  top: 42%;
+  inset-inline-start: 18%;
+  background: radial-gradient(ellipse, var(--sda-a3) 0%, rgba(0, 0, 0, 0) 72%);
+  opacity: 0.3;
+  animation: sda-drift-c 72s ease-in-out infinite alternate;
+}
+
+/* legibility floor + a single warm horizon line under the masthead */
+.sda-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6, 14, 28, 0.72) 0%, rgba(6, 14, 28, 0.12) 30%, rgba(6, 14, 28, 0.55) 100%);
+}
+
+@keyframes sda-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-4vw, 5vh, 0) scale(1.12); }
+}
+@keyframes sda-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.06); }
+  to   { transform: translate3d(5vw, -4vh, 0) scale(1); }
+}
+@keyframes sda-drift-c {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(3vw, -3vh, 0) scale(1.15); }
+}
+
+/* track tints — copper Studio, teal Insight, sky default … */
+.sda-root { --sda-a1: rgba(56, 189, 248, 0.5); --sda-a2: rgba(167, 139, 250, 0.42); --sda-a3: rgba(52, 211, 153, 0.3); }
+.sda-root[data-track='studio']  { --sda-a1: rgba(217, 119, 6, 0.55);  --sda-a2: rgba(251, 191, 36, 0.38); --sda-a3: rgba(180, 83, 9, 0.34); }
+.sda-root[data-track='insight'] { --sda-a1: rgba(45, 212, 191, 0.5);  --sda-a2: rgba(56, 189, 248, 0.4);  --sda-a3: rgba(129, 140, 248, 0.3); }
+.sda-root[data-track='control'] { --sda-a1: rgba(129, 140, 248, 0.5); --sda-a2: rgba(56, 189, 248, 0.38); --sda-a3: rgba(167, 139, 250, 0.3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sda-atmo::before,
+  .sda-atmo::after,
+  .sda-atmo > i { animation: none; }
+}
+
+/* phones: one bloom, cheaper blur (Android flicker rule) */
+@media (max-width: 640px), (pointer: coarse) {
+  .sda-atmo::before { filter: blur(64px); animation: none; }
+  .sda-atmo::after,
+  .sda-atmo > i { display: none; }
+}
+
+/* ── verdict band ────────────────────────────────────────────────────────── */
+.sda-verdict {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 22px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.018) 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+}
+
+.sda-verdict::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background: var(--sda-verdict, #fbbf24);
+  box-shadow: 0 0 22px var(--sda-verdict, #fbbf24);
+}
+
+/* ── attendance strip ────────────────────────────────────────────────────── */
+.sda-day {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.035);
+}
+.sda-day[data-lvl='1'] { background: rgba(251, 191, 36, 0.28); border-color: rgba(251, 191, 36, 0.3); }
+.sda-day[data-lvl='2'] { background: rgba(251, 191, 36, 0.55); border-color: rgba(251, 191, 36, 0.5); }
+.sda-day[data-lvl='3'] { background: rgba(52, 211, 153, 0.75); border-color: rgba(52, 211, 153, 0.6); }
+.sda-day[data-today='true'] { outline: 1px solid rgba(255, 255, 255, 0.35); outline-offset: 1px; }
+
+/* ── unit rows ───────────────────────────────────────────────────────────── */
+.sda-unit {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: 16px;
+  transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+.sda-unit:hover {
+  border-color: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.045);
+  transform: translateY(-2px);
+}
+.sda-unit[data-blocking='true'] { border-color: rgba(251, 113, 133, 0.28); }
+
+.sda-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+.sda-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+/* print: drop the atmosphere so a PDF of the analysis stays legible */
+@media print {
+  .sda-atmo, .sda-scrim { display: none !important; }
+}
