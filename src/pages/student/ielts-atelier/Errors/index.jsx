@@ -31,6 +31,22 @@ function StatCard({ label, value, accent, onClick }) {
   )
 }
 
+const AR_DIGITS = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[+d])
+// A clear label for a FUTURE spaced-repetition due date (next_review_at) — so an
+// item scheduled for tomorrow reads «تُراجَع غداً», not a bare future date that
+// looks like a wrong date. Compared by calendar day (local), no timezone drift.
+function dueLabel(dueDate) {
+  const now = new Date()
+  const a = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const b = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate())
+  const days = Math.round((b - a) / 86400000)
+  if (days <= 0) return 'اليوم'
+  if (days === 1) return 'غداً'
+  if (days === 2) return 'بعد يومين'
+  if (days <= 10) return `بعد ${AR_DIGITS(days)} أيام`
+  return `${AR_DIGITS(dueDate.getDate())}/${AR_DIGITS(dueDate.getMonth() + 1)}`
+}
+
 function ErrorCard({ item, onReview }) {
   const isRL = item.skill_type === 'reading' || item.skill_type === 'listening'
   const dueDate = item.next_review_at ? new Date(item.next_review_at) : null
@@ -49,7 +65,7 @@ function ErrorCard({ item, onReview }) {
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
             {item.mastered && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: 'color-mix(in srgb, #4ade80 10%, transparent)', border: '1px solid rgba(74,222,128,0.25)', color: '#4ade80', fontFamily: "'IBM Plex Sans', sans-serif" }}>✓ أتقنتها</span>}
             {!item.mastered && isDue && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: 'color-mix(in srgb, var(--sunset-orange) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-orange) 25%, transparent)', color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif" }}>للمراجعة</span>}
-            {!item.mastered && !isDue && dueDate && <span style={{ fontSize: 10, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>{dueDate.toLocaleDateString('ar-SA')}</span>}
+            {!item.mastered && !isDue && dueDate && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: 'color-mix(in srgb, var(--ds-text-muted) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", whiteSpace: 'nowrap' }}>تُراجَع {dueLabel(dueDate)}</span>}
           </div>
         </div>
         <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: isRL ? "'IBM Plex Sans', sans-serif" : "'Tajawal', sans-serif", lineHeight: 1.6, direction: isRL ? 'ltr' : 'rtl', textAlign: isRL ? 'left' : 'right', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
