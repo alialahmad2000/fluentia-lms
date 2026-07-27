@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, useReducedMotion } from 'framer-motion'
 import {
-  Play, Pause, Sparkles, ArrowUpRight, Clock, CalendarCheck,
+  Play, Pause, Sparkles, ArrowUpRight, ArrowLeft, Clock, CalendarCheck,
   BookOpenCheck, Languages, TrendingUp,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
@@ -23,7 +23,7 @@ import './studentGrowth.css'
 // read as regression when the opposite is true.
 
 const AR_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩']
-const ar = (n) => String(n ?? 0).replace(/\d/g, (d) => AR_DIGITS[+d])
+const ar = (n) => String(n ?? 0).replace(/\d/g, (d) => AR_DIGITS[+d]).replace('.', '٫')
 
 const MONTHS_AR = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
   'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
@@ -179,8 +179,11 @@ export default function StudentGrowth() {
             {g('كم قطعتَ', 'كم قطعتِ')}
           </h1>
           <p className="gw-hero__sub">
-            من {monthLabel(data.first?.created_at)} إلى {monthLabel(data.latest?.created_at)}
-            {' · '}{recLabel(data.recordings_total)}
+            <span>من {monthLabel(data.first?.created_at)}</span>
+            <i className="gw-dot" aria-hidden="true" />
+            <span>إلى {monthLabel(data.latest?.created_at)}</span>
+            <i className="gw-dot" aria-hidden="true" />
+            <span>{recLabel(data.recordings_total)}</span>
           </p>
 
           <div className="gw-arc">
@@ -191,7 +194,7 @@ export default function StudentGrowth() {
             <div className="gw-arc__mid">
               <div className={`gw-arc__delta ${improved ? 'is-up' : ''}`}>
                 {improved && <ArrowUpRight size={18} />}
-                {improved ? `+${ar(Math.abs(delta))}` : ar(delta)}
+                <bdi dir="ltr">{improved ? '+' : '−'}{ar(Math.abs(delta))}</bdi>
               </div>
               <div className="gw-arc__rule" />
             </div>
@@ -233,7 +236,7 @@ export default function StudentGrowth() {
                 <div key={i} className="gw-fix">
                   <div className="gw-fix__pair">
                     <span className="gw-fix__was" dir="ltr">{c.spoken}</span>
-                    <span className="gw-fix__arrow" aria-hidden="true">←</span>
+                    <ArrowLeft size={15} className="gw-fix__arrow" aria-hidden="true" />
                     <span className="gw-fix__now" dir="ltr">{c.corrected}</span>
                   </div>
                   {c.rule && <p className="gw-fix__rule">{c.rule}</p>}

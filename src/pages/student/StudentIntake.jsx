@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
@@ -70,6 +70,7 @@ export default function StudentIntake() {
   const reduce = useReducedMotion()
 
   const [step, setStep] = useState(0)
+  const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
   const [answers, setAnswers] = useState({
@@ -89,6 +90,21 @@ export default function StudentIntake() {
   })
 
   const set = (patch) => setAnswers((a) => ({ ...a, ...patch }))
+
+  // Seed the form from the saved row so editing never starts blank — otherwise
+  // submit() upserts nulls over answers she already gave.
+  useEffect(() => {
+    if (!existing) return
+    setAnswers({
+      goal: existing.goal ?? null,
+      field: existing.field ?? '',
+      role_title: existing.role_title ?? '',
+      horizon: existing.horizon ?? null,
+      motivation_moment: existing.motivation_moment ?? '',
+      confidence: existing.confidence ?? null,
+      weekly_hours: existing.weekly_hours ?? null,
+    })
+  }, [existing])
 
   const STEPS = useMemo(() => [
     {
@@ -243,7 +259,7 @@ export default function StudentIntake() {
   }
 
   // Already answered, and not mid-flow — show the summary instead of re-asking.
-  if (existing && step === 0) {
+  if (existing && !editing && step === 0) {
     const goal = GOALS.find((x) => x.id === existing.goal)
     return (
       <div className="ik-root">
@@ -261,7 +277,7 @@ export default function StudentIntake() {
                  'يراجعها د. علي بنفسه ويشكّل مسارك على أساسها. إن تغيّر شيء، عدّلي إجاباتك متى شئتِ.')}
             </p>
             <div className="ik-done__actions">
-              <button type="button" className="ik-btn ik-btn--ghost" onClick={() => setStep(0.5)}>
+              <button type="button" className="ik-btn ik-btn--ghost" onClick={() => { setEditing(true); setStep(0) }}>
                 تعديل إجاباتي
               </button>
               <button type="button" className="ik-btn" onClick={() => navigate('/student')}>

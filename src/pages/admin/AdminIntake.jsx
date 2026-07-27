@@ -6,6 +6,7 @@ import {
   ChevronDown, Quote, Clock, CalendarClock, ClipboardList,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import { useAuthStore } from '@/stores/authStore'
 import { toast } from '@/components/ui/FluentiaToast'
 
 // ── استمارات التعارف (2026-07-25) ──────────────────────────────────────────
@@ -124,7 +125,7 @@ function SpecView({ spec }) {
   )
 }
 
-function IntakeRow({ row, drafts }) {
+function IntakeRow({ row, drafts, profile }) {
   const qc = useQueryClient()
   const reduce = useReducedMotion()
   const meta = GOAL_META[row.goal] || GOAL_META.growth
@@ -154,7 +155,7 @@ function IntakeRow({ row, drafts }) {
     setBusy(true)
     const { error } = await supabase
       .from('custom_track_drafts')
-      .update({ status, reviewed_at: new Date().toISOString() })
+      .update({ status, reviewed_at: new Date().toISOString(), reviewed_by: profile?.id ?? null })
       .eq('id', draft.id)
       .select()
     setBusy(false)
@@ -267,6 +268,7 @@ function IntakeRow({ row, drafts }) {
 }
 
 export default function AdminIntake() {
+  const profile = useAuthStore((s) => s.profile)
   const [filter, setFilter] = useState('all')
 
   const { data: rows = [], isLoading } = useQuery({
@@ -361,7 +363,7 @@ export default function AdminIntake() {
       )}
 
       <div className="space-y-3">
-        {list.map((r) => <IntakeRow key={r.student_id} row={r} drafts={drafts} />)}
+        {list.map((r) => <IntakeRow key={r.student_id} row={r} drafts={drafts} profile={profile} />)}
       </div>
     </div>
   )
