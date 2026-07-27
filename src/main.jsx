@@ -1,3 +1,4 @@
+import './lib/forceGregorian' // must run before anything formats a date (platform-wide Gregorian)
 import './i18n'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
