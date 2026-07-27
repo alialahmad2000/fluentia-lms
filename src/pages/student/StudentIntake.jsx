@@ -71,6 +71,12 @@ export default function StudentIntake() {
 
   const [step, setStep] = useState(0)
   const [editing, setEditing] = useState(false)
+
+  // The global a11y / bug-report FABs sit exactly on the sticky action rail.
+  useEffect(() => {
+    document.body.classList.add('intake-page')
+    return () => document.body.classList.remove('intake-page')
+  }, [])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
   const [answers, setAnswers] = useState({

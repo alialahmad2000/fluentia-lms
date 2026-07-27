@@ -255,6 +255,9 @@
 .ik-error { font-size: 13px; color: #f6a9a9; margin-top: 14px; }
 
 /* ── nav ──────────────────────────────────────────────────────────────── */
+body.intake-page .z-\[998\],
+body.intake-page .z-\[997\] { display: none !important; }
+
 /* Sticky action rail — the obstruction is the 64px MobileBar, not the notch. */
 .ik-nav {
   position: sticky;
