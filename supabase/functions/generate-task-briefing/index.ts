@@ -277,7 +277,7 @@ RULES:
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 600,
         temperature: 0.3,
         system: systemPrompt,
@@ -315,7 +315,7 @@ RULES:
     await supa.from('ai_usage').insert({
       type: 'task_briefing',
       student_id,
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       input_tokens: inputTokens,
       output_tokens: outputTokens,
       estimated_cost_sar: costSAR.toFixed(4),

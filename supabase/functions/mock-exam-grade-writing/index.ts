@@ -12,7 +12,7 @@ import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import Anthropic from "https://esm.sh/@anthropic-ai/sdk@0.27.0";
 
-// claude-sonnet-4-20250514 was retired and replaced project-wide with
+// claude-sonnet-4-6 was retired and replaced project-wide with
 // claude-sonnet-4-6 on 2026-03-14 (see CLAUDE.md change log). Honor that.
 const CLAUDE_MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 1024;

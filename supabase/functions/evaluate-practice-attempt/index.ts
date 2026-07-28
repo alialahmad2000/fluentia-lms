@@ -193,7 +193,7 @@ RULES:
             'anthropic-version': '2023-06-01',
           },
           body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
+            model: 'claude-sonnet-4-6',
             max_tokens: 400,
             temperature: 0.2,
             system: systemPrompt,
@@ -281,7 +281,7 @@ RULES:
     await supa.from('ai_usage').insert({
       type: 'speaking_analysis',
       student_id,
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       estimated_cost_sar: claudeCostSAR.toFixed(4),
     })
   }
