@@ -58,6 +58,26 @@ Deno.serve(async (_req) => {
       escalated: writing?.filter(r => r.evaluation_status === 'escalated').length ?? 0,
     }
 
+    // ── ALL-TIME backlog of items needing manual review ───────────────
+    // The counts above are windowed to 24h for throughput stats. Manual-review
+    // backlog must NOT be windowed: a row that escalates today drops out of the
+    // 24h window tomorrow and becomes invisible forever, even though the student
+    // still has no feedback. (2026-07-28: 14 writing submissions sat escalated
+    // for up to 5 weeks while this monitor reported 0.)
+    const { count: escalatedAllTime } = await supa
+      .from('student_curriculum_progress')
+      .select('id', { count: 'exact', head: true })
+      .eq('section_type', 'writing')
+      .eq('evaluation_status', 'escalated')
+
+    const { count: failedManualAllTime } = await supa
+      .from('speaking_recordings')
+      .select('id', { count: 'exact', head: true })
+      .eq('evaluation_status', 'failed_manual')
+
+    writingCounts.escalated = escalatedAllTime ?? 0
+    speakingCounts.failed_manual = failedManualAllTime ?? 0
+
     // ── Oldest stuck item ──
     const stuckSpeaking = speaking?.filter(r => r.evaluation_status !== 'completed') ?? []
     const stuckWriting = writing?.filter(r => r.evaluation_status !== 'completed' && r.evaluation_status !== null) ?? []
