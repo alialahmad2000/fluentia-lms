@@ -14,6 +14,7 @@ import TechTrackGuard from './components/tech-track/TechTrackGuard'
 import BizTrackGuard from './components/biz-track/BizTrackGuard'
 import EnvTrackGuard from './components/env-track/EnvTrackGuard'
 import PhraseBankGuard from './components/phrase-bank/PhraseBankGuard'
+import ClassRecapsGuard from './components/class-recaps/ClassRecapsGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
@@ -76,6 +77,7 @@ const BizTrackHome = lazyRetry(() => import('./pages/student/biz-track/BizTrackH
 const BizLessonPage = lazyRetry(() => import('./pages/student/biz-track/BizLessonPage'))
 const EnvTrackHome = lazyRetry(() => import('./pages/student/env-track/EnvTrackHome'))
 const PhraseBank = lazyRetry(() => import('./pages/student/PhraseBank'))
+const ClassRecaps = lazyRetry(() => import('./pages/student/ClassRecaps'))
 const EnvLessonPage = lazyRetry(() => import('./pages/student/env-track/EnvLessonPage'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
 const IndividualModulePage = lazyRetry(() => import('./pages/student/individual/ModulePage'))
@@ -836,6 +838,10 @@ export default function App() {
                 {/* «عبارات جاهزة» — per-student phrase bank (uses_phrase_bank), alongside the curriculum. Staff can preview. */}
                 <Route element={<PhraseBankGuard />}>
                   <Route path="/student/phrases" element={<Page><PhraseBank /></Page>} />
+                </Route>
+                {/* «ملخّص الحصص» — per-student recap of a live class (uses_class_notes). Staff can preview. */}
+                <Route element={<ClassRecapsGuard />}>
+                  <Route path="/student/class-recaps" element={<Page><ClassRecaps /></Page>} />
                 </Route>
               </Route>
             </Route>

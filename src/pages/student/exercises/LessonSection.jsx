@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, ChevronDown, Lightbulb, AlertTriangle, Check, X } from 'lucide-react'
+import './lessonSection.css'
 
 /**
  * LessonSection — the "teach" half of a targeted worksheet.
@@ -149,6 +150,8 @@ const BLOCKS = { rule: RuleBlock, contrast: ContrastBlock, chunks: ChunksBlock, 
 
 export default function LessonSection({ learn, g }) {
   const [open, setOpen] = useState(true)
+  // hosts may not pass `g`; fall back to the masculine form rather than crash
+  const gg = g || ((m) => m)
   if (!learn) return null
   const blocks = (learn.blocks || []).filter((b) => BLOCKS[b?.type])
   if (blocks.length === 0 && !learn.intro_ar) return null
@@ -159,7 +162,7 @@ export default function LessonSection({ learn, g }) {
       <button className="ls-toggle" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
         <span className="ls-toggle__ic"><BookOpen size={17} /></span>
         <span className="ls-toggle__txt">
-          <b>الدرس أولًا — اقرأ الشرح قبل الأسئلة</b>
+          <b>الدرس أولًا — {gg('اقرأ الشرح قبل الأسئلة', 'اقرئي الشرح قبل الأسئلة')}</b>
           <em>Learn it first · {toAr(blocks.length)} قواعد</em>
         </span>
         <ChevronDown size={18} className={`ls-toggle__chev${open ? ' up' : ''}`} />

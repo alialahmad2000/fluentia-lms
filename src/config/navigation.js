@@ -8,7 +8,7 @@ import {
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
   MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
-  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf, BellRing, MessageSquareQuote,} from 'lucide-react'
+  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf, BellRing, MessageSquareQuote, NotebookText,} from 'lucide-react'
 
 
 export const STUDENT_NAV = {
@@ -27,6 +27,7 @@ export const STUDENT_NAV = {
         { id: 'growth', label: 'كم قطعت', icon: TrendingUp, to: '/student/growth' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'phrase-bank', label: 'عبارات جاهزة', icon: MessageSquareQuote, to: '/student/phrases', requiresPhraseBank: true },
+        { id: 'class-recaps', label: 'ملخّص الحصص', icon: NotebookText, to: '/student/class-recaps', requiresClassNotes: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
         //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
@@ -85,6 +86,7 @@ export const STUDENT_NAV = {
         { id: 'growth', label: 'كم قطعت', icon: TrendingUp, to: '/student/growth' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'phrase-bank', label: 'عبارات جاهزة', icon: MessageSquareQuote, to: '/student/phrases', requiresPhraseBank: true },
+        { id: 'class-recaps', label: 'ملخّص الحصص', icon: NotebookText, to: '/student/class-recaps', requiresClassNotes: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
       ],
     },
