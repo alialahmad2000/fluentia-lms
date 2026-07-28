@@ -12,6 +12,7 @@ import { validateAnswer } from '../../utils/answerValidator'
 import { gradeWorksheet } from '../../utils/worksheetGrader'
 import { useG } from '../../i18n/gender'
 import WorksheetView from './exercises/WorksheetView'
+import LessonSection from './exercises/LessonSection'
 import { GENERAL_EXERCISES, SKILL_LABELS, DIFFICULTY_LABELS } from './exercises/generalExercises'
 import './studentExercises.css'
 
@@ -172,13 +173,18 @@ export default function StudentExercises() {
   // Re-open a handed-in worksheet READ-ONLY so the student can see what was marked and why.
   const openCompleted = (ex) => {
     const sa = ex.student_answers || {}
+    const qs = ex.content?.questions || []
     const graded = ex.content?.render === 'worksheet' ? gradeWorksheet(ex.content, sa) : null
+    // Non-worksheet sheets have no gradeWorksheet pass — recount from the saved
+    // answers, otherwise reviewing a finished sheet always read "٠ من N صحيحة".
+    const plainCorrect = graded ? null : qs.reduce(
+      (n, q) => n + (validateAnswer(sa[q.id], (q.accepted_answers?.length ? q.accepted_answers : [q.correct_answer])) ? 1 : 0), 0)
     setActiveExercise(ex); setIsGeneral(false); setAnswers(sa); setSubmitted(true)
     setResult({
       score: Math.round(Number(ex.score) || 0),
       xp: ex.xp_awarded || 0,
-      correct: graded?.correct ?? 0,
-      total: graded?.total ?? (ex.content?.questions?.length || 0),
+      correct: graded?.correct ?? plainCorrect ?? 0,
+      total: graded?.total ?? qs.length,
     })
   }
   const openGeneral = (ex) => { setActiveExercise(ex); setIsGeneral(true); setAnswers(seedAnswers(ex)); setSubmitted(false); setResult(null) }
@@ -438,6 +444,8 @@ function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSu
           {exercise.instructions && <p className="pw-lead" style={{ margin: '4px 0 0', maxWidth: 560 }}>{exercise.instructions}</p>}
         </header>
 
+        <LessonSection learn={exercise.content?.learn} g={g} />
+
         {submitted && result && (
           <motion.div className={`pw-result ${tone}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <div className="pw-result__score" dir="ltr">{toAr(result.score)}٪</div>
@@ -454,9 +462,9 @@ function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSu
             const isWrong = submitted && val && !isCorrect
             return (
               <div key={q.id} className={`pw-qcard${isCorrect ? ' ok' : isWrong ? ' no' : ''}`}>
-                <p className="pw-qcard__q"><span className="pw-qnum">{toAr(i + 1)}</span><span>{q.question}</span></p>
+                <p className="pw-qcard__q"><span className="pw-qnum">{toAr(i + 1)}</span><span dir="auto">{q.question}</span></p>
                 {q.options ? (
-                  <div className="pw-opts">
+                  <div className={`pw-opts${q.options.every((o) => String(o).length <= 14) ? ' pw-opts--inline' : ''}`}>
                     {q.options.map((opt, oi) => {
                       const sel = val === opt
                       const correctOpt = submitted && validateAnswer(opt, accepted)
@@ -465,7 +473,7 @@ function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSu
                       else if (sel && isWrong) cls += ' wrong'
                       else if (sel) cls += ' sel'
                       return (
-                        <button key={oi} className={cls} disabled={submitted}
+                        <button key={oi} className={cls} disabled={submitted} dir="auto"
                           onClick={() => !submitted && setAnswers((p) => ({ ...p, [q.id]: opt }))}>{opt}</button>
                       )
                     })}
