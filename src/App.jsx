@@ -13,6 +13,7 @@ import DeskGuard from './components/desk/DeskGuard'
 import TechTrackGuard from './components/tech-track/TechTrackGuard'
 import BizTrackGuard from './components/biz-track/BizTrackGuard'
 import EnvTrackGuard from './components/env-track/EnvTrackGuard'
+import PhraseBankGuard from './components/phrase-bank/PhraseBankGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
@@ -74,6 +75,7 @@ const TechLessonPage = lazyRetry(() => import('./pages/student/tech-track/TechLe
 const BizTrackHome = lazyRetry(() => import('./pages/student/biz-track/BizTrackHome'))
 const BizLessonPage = lazyRetry(() => import('./pages/student/biz-track/BizLessonPage'))
 const EnvTrackHome = lazyRetry(() => import('./pages/student/env-track/EnvTrackHome'))
+const PhraseBank = lazyRetry(() => import('./pages/student/PhraseBank'))
 const EnvLessonPage = lazyRetry(() => import('./pages/student/env-track/EnvLessonPage'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
 const IndividualModulePage = lazyRetry(() => import('./pages/student/individual/ModulePage'))
@@ -830,6 +832,10 @@ export default function App() {
                 <Route element={<EnvTrackGuard />}>
                   <Route path="/env" element={<Page><EnvTrackHome /></Page>} />
                   <Route path="/env/:lessonSlug" element={<Page><EnvLessonPage /></Page>} />
+                </Route>
+                {/* «عبارات جاهزة» — per-student phrase bank (uses_phrase_bank), alongside the curriculum. Staff can preview. */}
+                <Route element={<PhraseBankGuard />}>
+                  <Route path="/student/phrases" element={<Page><PhraseBank /></Page>} />
                 </Route>
               </Route>
             </Route>

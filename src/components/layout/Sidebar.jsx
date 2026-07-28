@@ -219,6 +219,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
             if (item.visibleWhen === 'course-vocab-count' && courseVocabCount <= 0) return false
             if (item.visibleWhen === 'targeted-exercises-count' && targetedExercisesCount <= 0) return false
             if (item.requiresSpeakingTrack) return studentData?.uses_speaking_track === true
+            if (item.requiresPhraseBank) return studentData?.uses_phrase_bank === true
             if (item.requiresIELTSStudents) return hasIELTSStudents
             if (item.requiresMockExamAccess) return canSeeMockExam
             if (!item.requiresPackage) return true

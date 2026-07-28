@@ -125,6 +125,8 @@ export default function MobileDrawer({ open, onClose, nav }) {
                 const visibleItems = section.items.filter(item => {
                   if (item.visibleWhen === 'course-vocab-count' && courseVocabCount <= 0) return false
                   if (item.visibleWhen === 'targeted-exercises-count' && targetedExercisesCount <= 0) return false
+                  if (item.requiresSpeakingTrack) return studentData?.uses_speaking_track === true
+                  if (item.requiresPhraseBank) return studentData?.uses_phrase_bank === true
                   if (!item.requiresPackage) return true
                   if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
                   return true
