@@ -4,7 +4,7 @@ import { LogOut } from 'lucide-react'
 import '../_ui/ielts-theme.css'
 import { Icon, NavItem } from '../_ui/primitives'
 import { useStudentId } from '../_helpers/resolveStudentId'
-import { useSkillProgress, useErrorBankCount, useAdaptivePlan } from '@/hooks/ielts/useIELTSHub'
+import { useSkillProgress, useErrorBankCount, useErrorBankBySkill, useAdaptivePlan } from '@/hooks/ielts/useIELTSHub'
 import { useAuthStore } from '@/stores/authStore'
 
 const BASE = '/student/ielts-atelier'
@@ -12,33 +12,79 @@ const SKILLS = ['reading', 'listening', 'writing', 'speaking']
 const SKILL_LABEL = { reading: 'القراءة', listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة' }
 // Every skill is a parent whose click opens its PERFORMANCE page (the monitor);
 // the sub-items are the ways to learn/practise that skill.
+//
 // Reading is a LADDER, not a table of contents: know the method → know each
 // type's trap → drill the raw sub-skill → one passage under a clock → the full
 // exam. «أخطائي» closes the loop by sending you back to the rung you fell off.
-const READING_SUB = [
-  { path: 'reading', label: 'دليل القراءة', exact: true },
-  { path: 'reading/types', label: 'أنواع الأسئلة' },
-  { path: 'reading/micro', label: 'المهارات المصغّرة' },
-  { path: 'reading/clock', label: 'تحت الساعة' },
-  { path: 'reading/tests', label: 'الاختبارات' },
-  { path: 'reading/errors', label: 'أخطائي في القراءة' },
-]
+//
+// That order used to be invisible: six identical dots read as six peer options,
+// so nothing told the student where to start. It is now carried WITHOUT any
+// numbering, by two cues that are also real information:
+//   1. the group names are themselves a sequence — التعلّم → التدريب → المراجعة.
+//      Nouns, not imperatives: a nav label is a category, and nouns carry no
+//      gender, so one string is correct for every student (see src/i18n/gender).
+//   2. `intensity` draws ascending bars showing how much pressure a drill puts
+//      her under. Set it ONLY where a genuine ramp exists — reading goes untimed
+//      drill (1) → one passage in 20 minutes (2) → the full 60-minute test (3).
+//      Exam parts that merely have a fixed order (speaking 1/2/3, writing 1/2)
+//      get no bars: there the bars would be decoration, not meaning.
+// `loop: true` marks the feedback surface — it is a report about the student,
+// not another rung, so it is toned gold instead of the green practice track.
+//
+// Group headings are rendered only for skills with 3+ sub-items (see
+// GROUP_HEADING_MIN). On a two-item list they cost two heading rows to separate
+// two rows — more chrome than the split is worth, and the pair already reads as
+// guide-then-practice on its own.
 const SKILL_SUB = {
+  reading: [
+    { group: 'التعلّم', items: [
+      { path: 'reading', label: 'دليل القراءة', exact: true },
+      { path: 'reading/types', label: 'أنواع الأسئلة' },
+    ] },
+    { group: 'التدريب', items: [
+      { path: 'reading/micro', label: 'المهارات المصغّرة', intensity: 1 },
+      { path: 'reading/clock', label: 'تحت الساعة', intensity: 2 },
+      { path: 'reading/tests', label: 'الاختبارات', intensity: 3 },
+    ] },
+    { group: 'المراجعة', items: [
+      { path: 'reading/errors', label: 'أخطائي في القراءة', loop: true },
+    ] },
+  ],
   listening: [
-    { path: 'listening/guide', label: 'دليل الاستماع' },
-    { path: 'listening', label: 'التمارين', exact: true },
+    { group: 'التعلّم', items: [{ path: 'listening/guide', label: 'دليل الاستماع' }] },
+    { group: 'التدريب', items: [{ path: 'listening', label: 'التمارين', exact: true }] },
   ],
   writing: [
-    { path: 'writing', label: 'المهمة الأولى', exact: true },
-    { path: 'writing/task2', label: 'المهمة الثانية' },
+    { items: [
+      { path: 'writing', label: 'المهمة الأولى', exact: true },
+      { path: 'writing/task2', label: 'المهمة الثانية' },
+    ] },
   ],
   speaking: [
-    { path: 'speaking/guide', label: 'دليل المحادثة' },
-    { path: 'speaking', label: 'الجزء الأول', exact: true },
-    { path: 'speaking/part2', label: 'الجزء الثاني' },
-    { path: 'speaking/part3', label: 'الجزء الثالث' },
+    { group: 'التعلّم', items: [{ path: 'speaking/guide', label: 'دليل المحادثة' }] },
+    { group: 'التدريب', items: [
+      { path: 'speaking', label: 'الجزء الأول', exact: true },
+      { path: 'speaking/part2', label: 'الجزء الثاني' },
+      { path: 'speaking/part3', label: 'الجزء الثالث' },
+    ] },
   ],
 }
+
+// Below this many sub-items, group headings add more rows than they clarify.
+const GROUP_HEADING_MIN = 3
+const countItems = (groups) => groups.reduce((n, g) => n + g.items.length, 0)
+
+const INTENSITY_LABEL = { 1: 'تمرين قصير بلا وقت', 2: 'قطعة واحدة بوقت', 3: 'اختبار كامل بوقت' }
+
+// `level` ascending bars — the ramp cue that replaces numbering inside a
+// practice group. Renders exactly `level` bars (not three with some dimmed) so
+// the outline differs between levels; see .iel-bars in ielts-theme.css.
+// aria-label carries the same meaning for screen readers, since bars are visual.
+const IntensityBars = ({ level }) => (
+  <span className="iel-bars" role="img" aria-label={INTENSITY_LABEL[level] || ''}>
+    <span>{Array.from({ length: level }, (_, i) => <i key={i} />)}</span>
+  </span>
+)
 
 const LoadingFallback = () => (
   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 240 }}>
@@ -56,6 +102,7 @@ export default function IELTSMasterclassLayout() {
   const isImpersonating = useAuthStore((s) => !!s.impersonation)
   const { data: skills } = useSkillProgress(studentId)
   const { data: errCount } = useErrorBankCount(studentId)
+  const { data: errBySkill } = useErrorBankBySkill(studentId)
   const { data: plan } = useAdaptivePlan(studentId)
 
   // Full-screen focus: hide the global chrome while the section is mounted.
@@ -103,23 +150,36 @@ export default function IELTSMasterclassLayout() {
           <NavItem icon={Icon.diagnostic} label="الاختبار التشخيصي" active={isActive('diagnostic')} onClick={() => go('diagnostic')} />
 
           <div className="iel-nav-label">التدريب</div>
-          {/* Reading — parent opens performance; sub-items are the teach→practise parts */}
-          <NavItem icon={Icon.reading} label="القراءة" badge={bandOf('reading')} active={pathname.startsWith(`${BASE}/reading`)} onClick={() => go('reading/monitor')} />
-          <div className="iel-subnav">
-            {READING_SUB.map((it) => (
-              <button key={it.path} type="button" className={`iel-subitem${subActive(it.path, it.exact) ? ' on' : ''}`} onClick={() => go(it.path)}>
-                <span className="dot" aria-hidden />{it.label}
-              </button>
-            ))}
-          </div>
-          {['listening', 'writing', 'speaking'].map((s) => (
+          {/* Each skill parent opens its performance monitor; the sub-nav below is
+              the teach→practise→review path through that skill. */}
+          {SKILLS.map((s) => (
             <Fragment key={s}>
-              <NavItem icon={Icon[s]} label={SKILL_LABEL[s]} badge={bandOf(s)} active={isActive(s)} onClick={() => go(`${s}/monitor`)} />
+              <NavItem
+                icon={Icon[s]}
+                label={SKILL_LABEL[s]}
+                badge={bandOf(s)}
+                active={s === 'reading' ? pathname.startsWith(`${BASE}/reading`) : isActive(s)}
+                onClick={() => go(`${s}/monitor`)}
+              />
               <div className="iel-subnav">
-                {SKILL_SUB[s].map((it) => (
-                  <button key={it.path} type="button" className={`iel-subitem${subActive(it.path, it.exact) ? ' on' : ''}`} onClick={() => go(it.path)}>
-                    <span className="dot" aria-hidden />{it.label}
-                  </button>
+                {SKILL_SUB[s].map((grp) => (
+                  <Fragment key={grp.group || 'ungrouped'}>
+                    {grp.group && countItems(SKILL_SUB[s]) >= GROUP_HEADING_MIN
+                      && <div className="iel-subgroup">{grp.group}</div>}
+                    {grp.items.map((it) => (
+                      <button
+                        key={it.path}
+                        type="button"
+                        className={`iel-subitem${it.loop ? ' loop' : ''}${subActive(it.path, it.exact) ? ' on' : ''}`}
+                        onClick={() => go(it.path)}
+                      >
+                        <span className="dot" aria-hidden />
+                        {it.label}
+                        {it.intensity && <IntensityBars level={it.intensity} />}
+                        {it.loop && errBySkill?.[s] ? <span className="cnt">{errBySkill[s]}</span> : null}
+                      </button>
+                    ))}
+                  </Fragment>
                 ))}
               </div>
             </Fragment>

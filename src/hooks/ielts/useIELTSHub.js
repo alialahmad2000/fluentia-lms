@@ -112,6 +112,32 @@ export function useErrorBankCount(studentId) {
   })
 }
 
+// Unmastered errors broken down per skill, in one round trip.
+// The sidebar's per-skill review item needs its OWN number — showing the global
+// useErrorBankCount there would report listening/writing errors on the reading
+// row. Returns e.g. { reading: 7, listening: 2, writing: 0, speaking: 0 }.
+export function useErrorBankBySkill(studentId) {
+  return useQuery({
+    queryKey: ['ielts-errors-by-skill', studentId],
+    enabled: !!studentId,
+    staleTime: STALE,
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_error_bank')
+        .select('skill_type')
+        .eq('student_id', studentId)
+        .eq('mastered', false)
+      if (error) throw error
+      const bySkill = { reading: 0, listening: 0, writing: 0, speaking: 0 }
+      for (const row of data || []) {
+        if (row.skill_type in bySkill) bySkill[row.skill_type] += 1
+      }
+      return bySkill
+    },
+  })
+}
+
 export function useMockAttempts(studentId) {
   return useQuery({
     queryKey: ['ielts-mock-attempts', studentId],

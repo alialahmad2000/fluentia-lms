@@ -334,6 +334,52 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-subitem.on .dot{ background:var(--iel-accent); transform:scale(1.3); box-shadow:0 0 6px color-mix(in srgb, var(--iel-accent) 55%, transparent); }
 .iel-subitem.on .cnt{ color:var(--iel-accent-ink); }
 
+/* Group heading inside a sub-nav. The three names are themselves a sequence
+   (التعلّم → التدريب → المراجعة), which is how the student reads the order of a
+   skill without any numbering. Nouns, not imperatives — a nav label is a
+   category, and nouns carry no gender so one string is correct for everyone. */
+.iel-subgroup{ padding:9px 11px 3px; font-size:9.5px; font-weight:800; letter-spacing:.12em;
+  color:var(--iel-ink-3); font-family:'Tajawal',sans-serif; text-transform:uppercase; user-select:none; }
+.iel-subgroup:first-child{ padding-top:4px; }
+
+/* Intensity meter — ascending bars marking how much pressure a drill puts the
+   student under. Used ONLY where a real ramp exists (reading: untimed drill →
+   20-minute passage → full 60-minute test). Decorative elsewhere, so omitted.
+   `direction:ltr` is deliberate: inside an RTL sidebar a plain flex row lays the
+   bars right-to-left, which flips the ramp and makes all three levels look
+   identical. Signal-strength meters ascend left-to-right in every locale, so
+   the container opts out of the inherited direction. */
+/* The outer span keeps the sidebar's own direction so `margin-inline-start:auto`
+   parks the meter at the row's end, next to where a count badge would sit.
+   `direction` is set on the INNER span only: setting it here would also flip
+   which side that auto margin pushes against, dragging the meter back up
+   against the label. */
+.iel-bars{ margin-inline-start:auto; flex:none; }
+.iel-bars > span{ direction:ltr; display:flex; align-items:flex-end; gap:2.5px; height:11px; }
+/* Only `level` bars are rendered — the SILHOUETTE is the signal. Drawing three
+   bars and dimming the empty ones failed in review: a tall dim bar outweighs a
+   short bright one, so every level produced the same shape and the ramp read as
+   a smudge. One / two / three ascending bars differ in outline, which survives
+   at 11px, and the three drills sit adjacent so the staircase is visible. */
+.iel-bars i{ display:block; width:3px; border-radius:1.5px; background:var(--iel-ink-3);
+  transition:background .14s; }
+.iel-bars i:nth-child(1){ height:5px; }
+.iel-bars i:nth-child(2){ height:8px; }
+.iel-bars i:nth-child(3){ height:11px; }
+.iel-bars i:last-child{ background:var(--iel-ink-2); }
+.iel-subitem:hover .iel-bars i,
+.iel-subitem.on .iel-bars i{ background:var(--iel-accent); }
+
+/* The loop-closing item (أخطائي) is a report about the student, not another
+   rung — gold sets it apart from the green practice track. */
+.iel-subitem.loop{ color:var(--iel-gold-ink); }
+.iel-subitem.loop .dot{ background:var(--iel-gold); }
+.iel-subitem.loop:hover{ background:color-mix(in srgb, var(--iel-gold) 8%, transparent); color:var(--iel-gold-ink); }
+.iel-subitem.loop:hover .dot{ background:var(--iel-gold); }
+.iel-subitem.loop.on{ color:var(--iel-gold-ink); background:color-mix(in srgb, var(--iel-gold) 11%, transparent); }
+.iel-subitem.loop.on .dot{ background:var(--iel-gold); box-shadow:0 0 6px color-mix(in srgb, var(--iel-gold) 55%, transparent); }
+.iel-subitem.loop .cnt{ color:var(--iel-gold-ink); }
+
 /* ── Premium strategy drawer (reading lessons + question types) ──────────────── */
 .iel-drawer2{ background:var(--iel-panel); border-inline-end:1px solid var(--iel-border-strong);
   box-shadow:-44px 0 90px -44px rgba(0,0,0,.72); }
@@ -363,10 +409,20 @@ html .iel-exam-clinical.iel-exam-clinical,
 
 @media (max-width:900px){
   /* sub-nav becomes a distinct tinted group of chips so the parent/child relation survives */
-  .iel-subnav{ flex-direction:row; padding:4px; gap:4px; margin:0; background:var(--iel-accent-soft); border-radius:12px; }
+  .iel-subnav{ flex-direction:row; padding:4px; gap:4px; margin:0; background:var(--iel-accent-soft); border-radius:12px;
+    overflow-x:auto; scrollbar-width:none; }
+  .iel-subnav::-webkit-scrollbar{ display:none; }
   .iel-subnav::before{ display:none; }
-  .iel-subitem{ flex:none; padding:8px 13px; border:0; }
+  /* width:auto is load-bearing: .iel-subitem is width:100% for the vertical
+     desktop rail, and without resetting it here every chip stretches to the
+     full strip width, so only one is ever on screen. */
+  .iel-subitem{ flex:none; width:auto; padding:8px 13px; border:0; white-space:nowrap; }
   .iel-subitem .cnt{ display:none; }
+  /* In the horizontal chip strip the chips already sit in order left-to-right,
+     so the group headings would only break the row — the order is carried by
+     position instead. Bars stay: they are the ramp cue, and they cost no width. */
+  .iel-subgroup{ display:none; }
+  .iel-bars{ margin-inline-start:7px; }
 }
 @media (pointer:coarse){
   .iel-subitem{ min-height:44px; }
