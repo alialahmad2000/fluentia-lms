@@ -36,8 +36,10 @@ export function useRecentlyAttempted({ days = 30 } = {}) {
 
   return useQuery({
     queryKey: ['retention-recent-attempts', userId, days],
+    // Plain ARRAY, never a Set: the query cache is persisted to localStorage as
+    // JSON and a Set rehydrates as `{}`, which blows up selectHomework's .has().
     queryFn: async () => {
-      if (!userId) return new Set()
+      if (!userId) return []
       const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
       const { data, error } = await supabase
         .from('retention_homework_attempts')
@@ -45,10 +47,10 @@ export function useRecentlyAttempted({ days = 30 } = {}) {
         .eq('student_id', userId)
         .gte('attempted_at', cutoff)
       if (error) {
-        if (error.code === '42P01') return new Set()
+        if (error.code === '42P01') return []
         throw error
       }
-      return new Set((data || []).map((r) => r.exercise_id).filter(Boolean))
+      return (data || []).map((r) => r.exercise_id).filter(Boolean)
     },
     enabled: Boolean(userId),
     staleTime: 60_000,
@@ -123,7 +125,7 @@ export function useCreateHomeworkSet() {
       const { selected, reason } = selectHomework({
         bank,
         mistakeTags: mistakeTags || [],
-        recentlyAttemptedIds: recentlyAttempted || new Set(),
+        recentlyAttemptedIds: new Set(Array.isArray(recentlyAttempted) ? recentlyAttempted : []),
         preferredDifficulty:
           studentLevel?.academic_level === 1 ? 1
           : studentLevel?.academic_level === 5 ? 4

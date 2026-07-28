@@ -1,8 +1,14 @@
+import { useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 
-/** Set of locked unit_ids for one of the teacher's groups. */
+/**
+ * Locked unit_ids for one of the teacher's groups, as a plain ARRAY.
+ * Must not be a Set: the query cache is persisted to localStorage as JSON, and a
+ * Set rehydrates as `{}` — truthy but without `.has`, which crashes the consumer.
+ * Callers build their own Set (see useGroupUnitLockSet).
+ */
 export function useGroupUnitLocks(groupId) {
   return useQuery({
     queryKey: ['teacher-unit-locks', groupId],
@@ -14,9 +20,15 @@ export function useGroupUnitLocks(groupId) {
         .select('unit_id')
         .eq('group_id', groupId)
       if (error) throw error
-      return new Set((data || []).map((r) => r.unit_id))
+      return (data || []).map((r) => r.unit_id).filter(Boolean)
     },
   })
+}
+
+/** Same data as a Set, built client-side so nothing non-JSON enters the cache. */
+export function useGroupUnitLockSet(groupId) {
+  const { data } = useGroupUnitLocks(groupId)
+  return useMemo(() => new Set(Array.isArray(data) ? data : []), [data])
 }
 
 /** Lock (insert) or unlock (delete) a unit for a group. */

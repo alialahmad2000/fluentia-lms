@@ -491,23 +491,28 @@ function ReadingContent({ reading, studentId, unitId }) {
     setQuizAnswers({})
   })
 
-  // Fetch student's saved words to highlight them
+  // Fetch student's saved words to highlight them.
+  // ['saved-words-set'] is shared with VocabularyTab. It used to hold an ARRAY here
+  // and a SET there, so whichever tab rendered second got the wrong shape and the
+  // section crashed ("X.map is not a function" / "X?.has is not a function").
+  // The key now has ONE canonical shape everywhere: an array of lowercase words.
+  // Reads vocab_cards, the unified saved-word store (student_saved_words has been
+  // dead since 2026-06-05, so highlighting was silently matching nothing).
   const { data: savedWords } = useQuery({
     queryKey: ['saved-words-set', studentId],
     queryFn: async () => {
       const { data } = await supabase
-        .from('student_saved_words')
-        .select('word')
+        .from('vocab_cards')
+        .select('word_normalized')
         .eq('student_id', studentId)
-      return data || []
+      return (data || []).map((w) => (w.word_normalized || '').toLowerCase()).filter(Boolean)
     },
     enabled: !!studentId,
   })
 
   useEffect(() => {
-    if (savedWords) {
-      setSavedWordSet(new Set(savedWords.map(w => w.word.toLowerCase())))
-    }
+    // Array.isArray guard: never trust the shape coming out of a persisted cache.
+    setSavedWordSet(new Set(Array.isArray(savedWords) ? savedWords : []))
   }, [savedWords])
 
   // Track passage open

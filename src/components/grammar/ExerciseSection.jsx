@@ -48,11 +48,17 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   const timerRef = useRef(null)
   const prevAnsweredRef = useRef(0)
   const lastExerciseRef = useRef(null)
+  // Signature of the answers last written to the server, and the answers that are
+  // typed but not yet flushed. Both drive the autosave effect below.
+  const savedSigRef = useRef(null)
+  const pendingRef = useRef(null)
 
   const total = exercises.length
   const answered = Object.keys(answers).length
   const correctCount = Object.values(answers).filter(a => a.correct).length
   const allAnswered = answered === total && total > 0
+  // Content signature, not just a count — see the autosave effect for why.
+  const answersSig = JSON.stringify(answers)
 
   // Time tracker
   useEffect(() => {
@@ -103,6 +109,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
               // Block the autosave effect from firing on restored answers — this
               // attempt is closed; reopening must never INSERT a phantom in_progress row.
               prevAnsweredRef.current = Object.keys(restored).length
+              // Seed the signature so restoring does not immediately re-save it.
+              savedSigRef.current = JSON.stringify(restored)
             }
           }
           // No currentRowId — a retry INSERTs a fresh row via saveProgress.
@@ -132,6 +140,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
             if (Object.keys(restored).length > 0) {
               setAnswers(restored)
               prevAnsweredRef.current = Object.keys(restored).length
+              // Seed the signature so restoring does not immediately re-save it.
+              savedSigRef.current = JSON.stringify(restored)
             }
           }
           if (latest.id) setCurrentRowId(latest.id)
@@ -175,6 +185,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     setAnswers({})
     prevAnsweredRef.current = 0
     hasSaved.current = false
+    savedSigRef.current = null
+    pendingRef.current = null
     timeRef.current = 0
     setRetryKey(k => k + 1)
     // Keep bestScore and attemptNumber — header badge still shows best score
@@ -363,17 +375,57 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   // This prevents the "last click silently graded all answers" bug where a
   // student answered the final question, navigated away without reviewing,
   // and came back to a completed row they never explicitly submitted.
+  //
+  // Gate on the answers' CONTENT, not on `answered` (their count). The old gate was
+  // `answered <= prevAnsweredRef.current`, so a save fired only when the number of
+  // answered questions went UP. Editing or finishing an answer already started never
+  // persisted: a student who typed "T" and completed it to "They are meeting" left
+  // "T" on the server, and every correction after the first was silently dropped.
+  // Debounced so typing costs one write, not one per keystroke.
   useEffect(() => {
     if (progressLoading) return
-    if (answered === 0 || answered <= prevAnsweredRef.current) return
-    prevAnsweredRef.current = answered
-    // Always save as in_progress. Completion is only via handleFinish.
-    saveProgress(answers, false)
-  }, [answered, answers, progressLoading, saveProgress])
+    if (answered === 0) return
+    if (answersSig === savedSigRef.current) return
+    pendingRef.current = answers
+    const t = setTimeout(() => {
+      savedSigRef.current = answersSig
+      prevAnsweredRef.current = answered
+      pendingRef.current = null
+      // Always save as in_progress. Completion is only via handleFinish.
+      saveProgress(answers, false)
+    }, 700)
+    return () => clearTimeout(t)
+  }, [answersSig, answered, answers, progressLoading, saveProgress])
+
+  // Flush a pending edit when she leaves — switching section (unmount), backgrounding
+  // the tab, or closing it. Without this, the last ~700ms of work dies with the page,
+  // which is exactly the "I solved it and it wasn't there" complaint.
+  useEffect(() => {
+    const flush = () => {
+      if (!pendingRef.current) return
+      // Never write in_progress over an attempt she has already submitted.
+      if (hasSaved.current) { pendingRef.current = null; return }
+      const toSave = pendingRef.current
+      pendingRef.current = null
+      savedSigRef.current = JSON.stringify(toSave)
+      saveProgress(toSave, false)
+    }
+    const onHide = () => { if (document.visibilityState === 'hidden') flush() }
+    document.addEventListener('visibilitychange', onHide)
+    window.addEventListener('pagehide', flush)
+    return () => {
+      document.removeEventListener('visibilitychange', onHide)
+      window.removeEventListener('pagehide', flush)
+      flush()
+    }
+  }, [saveProgress])
 
   const handleFinish = () => {
     if (allAnswered && !hasSaved.current) {
       hasSaved.current = true
+      // Drop any debounced in_progress write so it cannot land after this one.
+      pendingRef.current = null
+      savedSigRef.current = answersSig
       saveProgress(answers, true)
     }
     // Scroll to summary

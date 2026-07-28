@@ -101,17 +101,26 @@ export default function VocabularyTab({ unitId }) {
 
   // Save word to personal list
   const studentId = studentData?.id
-  const { data: savedWordSet = new Set() } = useQuery({
+  // Shares ['saved-words-set'] with ReadingTab, so the shape MUST match: a plain
+  // array of lowercase words. It previously returned a Set here and an array there,
+  // which crashed whichever tab rendered second. A Set also cannot survive the
+  // localStorage query-cache persister — it rehydrates as `{}` and `.has` explodes.
+  const { data: savedWords } = useQuery({
     queryKey: ['saved-words-set', studentId],
     queryFn: async () => {
       const { data } = await supabase
         .from('vocab_cards')
-        .select('word')
+        .select('word_normalized')
         .eq('student_id', studentId)
-      return new Set((data || []).map(w => (w.word || '').toLowerCase()))
+      return (data || []).map((w) => (w.word_normalized || '').toLowerCase()).filter(Boolean)
     },
     enabled: !!studentId && profile?.role === 'student',
   })
+
+  const savedWordSet = useMemo(
+    () => new Set(Array.isArray(savedWords) ? savedWords : []),
+    [savedWords],
+  )
 
   const saveWordMutation = useMutation({
     mutationFn: async (word) => {

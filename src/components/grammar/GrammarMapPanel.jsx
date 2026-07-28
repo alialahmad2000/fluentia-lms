@@ -39,7 +39,11 @@ export default function GrammarMapPanel({ unitId }) {
   })
 
   // Which grammar sections she has completed (best attempt).
-  const { data: doneIds } = useQuery({
+  // Returns a plain ARRAY, never a Set: the query cache is persisted to localStorage
+  // as JSON, and a Set rehydrates as `{}` — truthy, so `?.` does not protect the
+  // `.has()` below. That crashed this whole grammar section for custom-curriculum
+  // students on any return visit within the cache's 24h maxAge.
+  const { data: doneIdList } = useQuery({
     queryKey: ['grammar-map-progress', studentId],
     enabled: isCustom && !!studentId,
     staleTime: 60 * 1000,
@@ -52,9 +56,14 @@ export default function GrammarMapPanel({ unitId }) {
         .eq('status', 'completed')
         .not('grammar_id', 'is', null)
       if (error) throw error
-      return new Set((data || []).map((r) => r.grammar_id))
+      return (data || []).map((r) => r.grammar_id).filter(Boolean)
     },
   })
+
+  const doneIds = useMemo(
+    () => new Set(Array.isArray(doneIdList) ? doneIdList : []),
+    [doneIdList],
+  )
 
   const steps = useMemo(() => {
     if (!units?.length) return []
@@ -63,7 +72,7 @@ export default function GrammarMapPanel({ unitId }) {
         const gr = Array.isArray(u.grammar) ? u.grammar[0] : u.grammar
         if (!gr) return null
         const isCurrent = u.id === unitId
-        const isDone = !isCurrent && doneIds?.has(gr.id)
+        const isDone = !isCurrent && doneIds.has(gr.id)
         return {
           unitId: u.id,
           sort: u.custom_sort,

@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { BookOpen, CheckCircle2, XCircle, Clock3, UserCheck, Plus, Sparkles, ChevronLeft, Target, Lock, Unlock } from 'lucide-react'
 import { useCurriculumUnits, useTodayAttendance, useMarkAttendance, useCreateAssignment, useGroupAssignments } from '@/hooks/teacher/useClassHub'
-import { useGroupUnitLocks, useToggleUnitLock } from '@/hooks/teacher/useUnitLocks'
+import { useGroupUnitLockSet, useToggleUnitLock } from '@/hooks/teacher/useUnitLocks'
 import { useSetGroupFocus } from '@/hooks/teacher/useRosterActions'
 import { useClassInsight } from '@/hooks/teacher/useInsights'
 import { useRosterActivity, studentName } from '@/hooks/teacher/useTeacherRoster'
@@ -119,7 +119,7 @@ function AssignForm({ groupId }) {
 }
 
 function UnitLockControl({ group, units }) {
-  const { data: locked = new Set() } = useGroupUnitLocks(group.id)
+  const locked = useGroupUnitLockSet(group.id)
   const toggle = useToggleUnitLock()
   const [open, setOpen] = useState(false)
   const levelUnits = units.filter((u) => !group.level || u.curriculum_levels?.level_number === group.level)

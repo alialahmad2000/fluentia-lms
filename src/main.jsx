@@ -20,14 +20,49 @@ const persister = createSyncStoragePersister({
   throttleTime: 1000,
 })
 
+/**
+ * The persister writes the query cache to localStorage as JSON, so anything a
+ * queryFn returns must survive a JSON round-trip. A Set or Map does NOT: it
+ * rehydrates as `{}` — still truthy, so `?.` does not save you, and the next
+ * `.has(...)` / `.map(...)` throws and takes the whole section down with it.
+ *
+ * This bit students for real: a stale `{}` under ['saved-words-set'] crashed the
+ * reading tab for 12 students from April 2026, and the same shape crashed the
+ * grammar tab. The crash outlives the session (cache lived up to maxAge), which
+ * is why it read as "I solved it, and when I came back my work was gone".
+ *
+ * queryFns now return plain arrays and consumers build their own Sets — this
+ * guard is the backstop so the bug class can never reach localStorage again.
+ * Bounded depth/breadth so it stays cheap on every throttled persist.
+ */
+function hasNonJsonValue(value, depth = 0) {
+  if (value == null || typeof value !== 'object') return false
+  if (value instanceof Set || value instanceof Map) return true
+  if (depth >= 3) return false
+  if (Array.isArray(value)) {
+    for (let i = 0; i < Math.min(value.length, 20); i++) {
+      if (hasNonJsonValue(value[i], depth + 1)) return true
+    }
+    return false
+  }
+  let seen = 0
+  for (const key in value) {
+    if (++seen > 20) break
+    if (hasNonJsonValue(value[key], depth + 1)) return true
+  }
+  return false
+}
+
 const persistOptions = {
   persister,
   maxAge: 1000 * 60 * 60 * 24,  // 24h max age in localStorage
-  buster: 'v1',                  // bump to invalidate all cached data on breaking deploys
+  buster: 'v2',                  // bump to invalidate all cached data on breaking deploys
+                                 // v2 (2026-07-29): purge caches poisoned by persisted Sets
   dehydrateOptions: {
     shouldDehydrateQuery: (query) =>
       query.state.status === 'success' &&
-      !query.queryKey.includes('no-persist'),
+      !query.queryKey.includes('no-persist') &&
+      !hasNonJsonValue(query.state.data),
   },
 }
 
