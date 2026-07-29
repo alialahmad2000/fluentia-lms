@@ -1,21 +1,41 @@
 /* ══════════════════════════════════════════════════════════════════════════
    «ملخّص الحصص» — per-student recap of a live class.
-   Warm copper "Studio" identity (Malak's theme), on a living parchment field.
+   Every token below is DERIVED FROM THE PLATFORM's design tokens, so this page
+   sits inside the app instead of next to it: same dark surface stack, same text
+   ramp, same borders. Malak's identity comes through --accent-studio (the copper
+   her theme already uses), not through a separate parchment world.
+   Fallbacks are the deep-space defaults, so the page still renders standalone.
    The --pw-* tokens are what LessonSection reads, so the lesson blocks inherit
    this page's palette instead of the exercises page's.
    ══════════════════════════════════════════════════════════════════════════ */
 .cr-root{
-  /* page tokens */
-  --cr-paper:#f3ece1; --cr-card:#fffdf9; --cr-card-2:#faf3e8;
-  --cr-ink:#2b2117; --cr-ink-soft:#5a4c3c; --cr-muted:#8b7c69;
-  --cr-line:rgba(43,33,23,.14); --cr-line-soft:rgba(43,33,23,.07);
-  --cr-copper:#b0632a; --cr-copper-deep:#8f4d1d; --cr-copper-soft:rgba(176,99,42,.1);
-  --cr-copper-line:rgba(176,99,42,.28);
-  --cr-teal:#2f7d72; --cr-teal-soft:rgba(47,125,114,.1); --cr-teal-line:rgba(47,125,114,.3);
-  --cr-rose:#b0543f; --cr-rose-soft:rgba(176,84,63,.1); --cr-rose-line:rgba(176,84,63,.38);
+  /* surfaces — platform dark stack */
+  --cr-paper:var(--surface-void,#030711);
+  --cr-card:var(--glass-card,rgba(255,255,255,.025));
+  --cr-card-2:var(--glass-elevated,rgba(255,255,255,.05));
+  /* text ramp — identical to the rest of the app */
+  --cr-ink:var(--text-primary,#f0f4f8);
+  --cr-ink-soft:var(--text-secondary,#8892b0);
+  --cr-muted:var(--text-tertiary,#5a6785);
+  --cr-line:var(--border-default,rgba(255,255,255,.07));
+  --cr-line-soft:var(--border-subtle,rgba(255,255,255,.04));
+  /* accent — her Studio copper. On a dark surface the "deep" slot has to be the
+     BRIGHTER copper: it is used for text and icons that sit on dark glass. */
+  --cr-copper:var(--accent-studio,#cf7d43);
+  --cr-copper-deep:var(--accent-studio-strong,#eaa864);
+  --cr-copper-soft:var(--accent-studio-glow,rgba(207,125,67,.2));
+  --cr-copper-line:rgba(207,125,67,.34);
+  /* states — platform emerald/rose, bright enough to read on dark */
+  --cr-teal:var(--accent-emerald,#34d399);
+  --cr-teal-soft:rgba(52,211,153,.12); --cr-teal-line:rgba(52,211,153,.32);
+  --cr-rose:var(--accent-rose,#fb7185);
+  --cr-rose-soft:rgba(251,113,133,.12); --cr-rose-line:rgba(251,113,133,.34);
+  /* English specimens get their own warm tone — emerald must stay a STATE colour */
+  --cr-spec:rgba(234,168,100,.78);
   --cr-serif:Georgia,'Iowan Old Style','Times New Roman',serif;
-  --cr-shadow:0 1px 2px rgba(60,40,18,.06), 0 14px 34px -20px rgba(60,40,18,.26);
-  --cr-shadow-lg:0 2px 4px rgba(60,40,18,.05), 0 30px 60px -30px rgba(60,40,18,.42);
+  /* on dark, depth reads as a lifted rim + deep shadow, not a soft grey blur */
+  --cr-shadow:0 1px 0 rgba(255,255,255,.03) inset, 0 14px 34px -20px rgba(0,0,0,.8);
+  --cr-shadow-lg:0 1px 0 rgba(255,255,255,.05) inset, 0 30px 60px -28px rgba(0,0,0,.95);
 
   /* tokens LessonSection reads — the lesson picks up the copper palette here */
   --pw-card:var(--cr-card); --pw-card-2:var(--cr-card-2);
@@ -32,24 +52,22 @@
   font-family:'Tajawal','SF Arabic',sans-serif;
 }
 
-/* living field — warm blooms drifting behind the sheet */
-/* The app sets a GLOBAL `h1..h6 { color: var(--text-primary) }`. This page paints
-   its own light parchment surface, so under any dark app theme --text-primary is
-   near-white and every heading here rendered white-on-cream — effectively
-   invisible (reported 2026-07-29). Pin all headings to this surface's own ink.
-   Any new heading added below inherits the fix automatically. */
+/* Global CSS sets `h1..h6 { color: var(--text-primary) }`. Our ink IS that token
+   now, so this is belt-and-braces — but it keeps the page correct if the surface
+   ever stops tracking the app theme again (headings went white-on-cream once). */
 .cr-root h1, .cr-root h2, .cr-root h3, .cr-root h4, .cr-root h5, .cr-root h6 {
   color: var(--cr-ink);
 }
 
+/* living field — copper blooms drifting over the app's void, never a flat black */
 .cr-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--cr-paper)}
-.cr-world i{position:absolute;display:block;border-radius:50%;filter:blur(76px);opacity:.55}
+.cr-world i{position:absolute;display:block;border-radius:50%;filter:blur(86px);opacity:.75}
 .cr-world i:nth-child(1){width:52vw;height:52vw;top:-14vw;inset-inline-end:-10vw;
-  background:radial-gradient(circle,rgba(176,99,42,.2),transparent 68%);animation:crD1 38s ease-in-out infinite}
+  background:radial-gradient(circle,rgba(207,125,67,.30),transparent 68%);animation:crD1 38s ease-in-out infinite}
 .cr-world i:nth-child(2){width:44vw;height:44vw;bottom:-14vw;inset-inline-start:-8vw;
-  background:radial-gradient(circle,rgba(47,125,114,.16),transparent 68%);animation:crD2 48s ease-in-out infinite}
+  background:radial-gradient(circle,rgba(56,189,248,.14),transparent 68%);animation:crD2 48s ease-in-out infinite}
 .cr-world i:nth-child(3){width:36vw;height:36vw;top:42%;inset-inline-start:30%;
-  background:radial-gradient(circle,rgba(212,160,90,.16),transparent 70%);animation:crD3 56s ease-in-out infinite}
+  background:radial-gradient(circle,rgba(234,168,100,.16),transparent 70%);animation:crD3 56s ease-in-out infinite}
 @keyframes crD1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4vw,3vw,0)}}
 @keyframes crD2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(4vw,-3vw,0)}}
 @keyframes crD3{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,3vw,0)}}
@@ -75,32 +93,35 @@
 
 .cr-rhead{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--cr-line-soft)}
 .cr-rhead h1{font-family:var(--cr-serif);font-size:clamp(1.55rem,3.8vw,2.2rem);font-weight:700;margin:12px 0 4px}
-.cr-rhead .en{font-family:var(--cr-serif);font-style:italic;font-size:.9rem;color:var(--cr-teal)}
-.cr-rbar{height:5px;border-radius:999px;background:rgba(43,33,23,.09);margin:16px 0 7px;overflow:hidden}
+.cr-rhead .en{font-family:var(--cr-serif);font-style:italic;font-size:.9rem;color:var(--cr-spec)}
+.cr-rbar{height:5px;border-radius:999px;background:rgba(255,255,255,.09);margin:16px 0 7px;overflow:hidden}
 .cr-rbar span{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--cr-copper-deep),var(--cr-copper));transition:width .4s ease}
+  background:linear-gradient(90deg,var(--cr-copper),var(--cr-copper-deep));transition:width .4s ease}
 .cr-rmeta{margin:0;font-size:.8rem;font-weight:700;color:var(--cr-muted)}
 
 .cr-shead{margin-bottom:20px}
 .cr-shead h1{font-family:var(--cr-serif);font-size:clamp(1.4rem,3.4vw,2rem);font-weight:700;margin:0 0 3px;line-height:1.35}
-.cr-shead .en{font-family:var(--cr-serif);font-style:italic;font-size:.9rem;color:var(--cr-teal)}
+.cr-shead .en{font-family:var(--cr-serif);font-style:italic;font-size:.9rem;color:var(--cr-spec)}
 .cr-shead .lead{margin:9px 0 0;font-size:.92rem;line-height:1.85;color:var(--cr-ink-soft);max-width:560px}
 
 /* ── class cards ── */
 .cr-list{display:flex;flex-direction:column;gap:12px}
-.cr-card{display:flex;gap:15px;text-align:start;cursor:pointer;background:var(--cr-card);
+.cr-card{display:flex;gap:15px;text-align:start;cursor:pointer;
+  background:linear-gradient(160deg,var(--cr-card-2),var(--cr-card) 58%);
   border:1px solid var(--cr-line);border-radius:18px;padding:17px 18px;color:inherit;
   transition:.2s;box-shadow:var(--cr-shadow);font-family:inherit}
 .cr-card:hover{transform:translateY(-2px);border-color:var(--cr-copper-line);box-shadow:var(--cr-shadow-lg)}
+/* copper glow on the number badge — the one warm point of light on the card */
+.cr-card__no{box-shadow:0 0 22px -6px var(--cr-copper-soft)}
 .cr-card__no{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
   font-family:var(--cr-serif);font-size:1.35rem;font-weight:700;
   background:var(--cr-copper-soft);border:1px solid var(--cr-copper-line);color:var(--cr-copper-deep)}
 .cr-card__body{flex:1;min-width:0}
 .cr-card__body h3{margin:0;font-size:1.08rem;font-weight:800}
-.cr-card__body .en{font-family:var(--cr-serif);font-style:italic;font-size:.82rem;color:var(--cr-teal);margin-top:2px}
-.cr-card__bar{height:4px;border-radius:999px;background:rgba(43,33,23,.08);margin:12px 0 8px;overflow:hidden}
+.cr-card__body .en{font-family:var(--cr-serif);font-style:italic;font-size:.82rem;color:var(--cr-spec);margin-top:2px}
+.cr-card__bar{height:4px;border-radius:999px;background:rgba(255,255,255,.08);margin:12px 0 8px;overflow:hidden}
 .cr-card__bar span{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--cr-copper-deep),var(--cr-copper))}
+  background:linear-gradient(90deg,var(--cr-copper),var(--cr-copper-deep))}
 .cr-card__meta{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;font-weight:700;color:var(--cr-muted)}
 /* Separator drawn in CSS, never as a character in the Arabic string — see the
    comment at the call site for why a literal «·» breaks under bidi. */
@@ -111,7 +132,7 @@
 
 /* ── section cards ── */
 .cr-sgrid{display:flex;flex-direction:column;gap:12px}
-.cr-scard{display:flex;gap:14px;background:var(--cr-card);border:1px solid var(--cr-line);
+.cr-scard{display:flex;gap:14px;background:linear-gradient(160deg,var(--cr-card-2),var(--cr-card) 58%);border:1px solid var(--cr-line);
   border-radius:18px;padding:17px 18px;box-shadow:var(--cr-shadow);transition:.2s}
 .cr-scard:hover{border-color:var(--cr-copper-line);box-shadow:var(--cr-shadow-lg)}
 .cr-scard.done{background:linear-gradient(160deg,var(--cr-teal-soft),var(--cr-card) 62%);border-color:var(--cr-teal-line)}
@@ -121,7 +142,7 @@
 .cr-scard.done .cr-scard__n{background:var(--cr-teal-soft);border-color:var(--cr-teal-line);color:var(--cr-teal)}
 .cr-scard__body{flex:1;min-width:0}
 .cr-scard__body h3{margin:0;font-size:1.04rem;font-weight:800;line-height:1.5}
-.cr-scard__body .en{font-family:var(--cr-serif);font-style:italic;font-size:.84rem;color:var(--cr-teal);margin-top:1px}
+.cr-scard__body .en{font-family:var(--cr-serif);font-style:italic;font-size:.84rem;color:var(--cr-spec);margin-top:1px}
 .cr-scard__body p{margin:8px 0 0;font-size:.88rem;line-height:1.8;color:var(--cr-ink-soft)}
 .cr-scard__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:13px}
 .cr-scard__meta{font-size:.78rem;font-weight:700;color:var(--cr-muted);display:inline-flex;align-items:center;gap:9px}
@@ -155,7 +176,7 @@
 .cr-opt.wrong{border-color:var(--cr-rose-line);background:var(--cr-rose-soft);color:var(--cr-rose);font-weight:700}
 
 .cr-ans{display:block;width:100%;box-sizing:border-box;font-family:var(--cr-serif);font-size:.95rem;
-  padding:11px 13px;border-radius:11px;border:1px solid var(--cr-line);background:#fffef9;color:var(--cr-ink)}
+  padding:11px 13px;border-radius:11px;border:1px solid var(--cr-line);background:var(--glass-input,rgba(255,255,255,.035));color:var(--cr-ink)}
 .cr-ans:focus{outline:none;border-color:var(--cr-copper-line);box-shadow:0 0 0 3px var(--cr-copper-soft)}
 .cr-ans.ok{border-color:var(--cr-teal-line);background:var(--cr-teal-soft)}
 .cr-ans.no{border-color:var(--cr-rose-line);background:var(--cr-rose-soft)}
@@ -184,8 +205,9 @@
   background:var(--cr-card);border:1px solid var(--cr-line);color:var(--cr-ink-soft)}
 .cr-btn:hover:not(:disabled){transform:translateY(-1px);color:var(--cr-ink);border-color:var(--cr-copper-line)}
 .cr-btn.sm{padding:8px 14px;font-size:.8rem;border-radius:10px}
-.cr-btn.primary{background:linear-gradient(135deg,var(--cr-copper),var(--cr-copper-deep));
-  border-color:transparent;color:#fff8ef;box-shadow:0 10px 24px -14px rgba(143,77,29,.9)}
+.cr-btn.primary{background:linear-gradient(135deg,var(--cr-copper-deep),var(--cr-copper));
+  border-color:transparent;color:var(--surface-void,#030711);
+  box-shadow:0 10px 26px -12px rgba(207,125,67,.65)}
 .cr-btn.primary:hover:not(:disabled){filter:brightness(1.05)}
 .cr-btn:disabled{opacity:.45;cursor:not-allowed}
 .cr-btn .arw{display:inline-block}
@@ -197,7 +219,7 @@
 .cr-empty h2{margin:14px 0 6px;font-size:1.2rem;color:var(--cr-ink)}
 .cr-empty p{margin:0;font-size:.9rem}
 .cr-skel{height:110px;border-radius:18px;margin-bottom:13px;
-  background:linear-gradient(90deg,rgba(43,33,23,.05),rgba(43,33,23,.09),rgba(43,33,23,.05));
+  background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.09),rgba(255,255,255,.04));
   background-size:200% 100%;animation:crSkel 1.5s ease-in-out infinite}
 .cr-skel.sm{height:70px}
 @keyframes crSkel{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -209,6 +231,6 @@
 }
 @media print{
   .cr-world,.cr-back,.cr-bar{display:none!important}
-  .cr-root{background:#fff;min-height:auto}
+  .cr-root{background:#fff;min-height:auto;--cr-ink:#1a1a1a;--cr-ink-soft:#444;--cr-muted:#777;--cr-line:#ccc}
   .cr-q,.cr-scard,.cr-card{box-shadow:none;border-color:#bbb;break-inside:avoid;background:#fff}
 }
