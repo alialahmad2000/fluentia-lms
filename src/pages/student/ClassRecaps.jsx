@@ -302,7 +302,14 @@ export default function ClassRecaps() {
                 {r.subtitle && <div className="en" dir="ltr">{r.subtitle}</div>}
                 <div className="cr-card__bar"><span style={{ width: `${(doneCount / (sections.length || 1)) * 100}%` }} /></div>
                 <div className="cr-card__meta">
-                  <span>{toAr(sections.length)} أقسام · {toAr(qCount)} تمرينًا</span>
+                  {/* Two spans, not one string with a «·». A bidi-neutral separator
+                      between two Arabic-Indic numerals gets reordered, so «٥ أقسام ·
+                      ٧٢ تمرينًا» rendered as «٥ أقسام ٧٢٠ تمرينًا» — the dot read as a
+                      zero glued to the count. Separate elements keep each run intact. */}
+                  <span className="cr-card__facts">
+                    <span>{toAr(sections.length)} أقسام</span>
+                    <span>{toAr(qCount)} تمرينًا</span>
+                  </span>
                   {doneCount === sections.length && sections.length > 0
                     ? <b className="ok"><Check size={12} /> مكتملة</b>
                     : <b>{toAr(doneCount)} مكتمل</b>}

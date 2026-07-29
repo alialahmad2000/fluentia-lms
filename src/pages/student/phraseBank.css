@@ -14,6 +14,15 @@
 }
 
 /* living room — slow drifting blooms, paused under reduced-motion */
+/* The app sets a GLOBAL `h1..h6 { color: var(--text-primary) }`. This page paints
+   its own light parchment surface, so under any dark app theme --text-primary is
+   near-white and every heading here rendered white-on-cream — effectively
+   invisible (same class as the ClassRecaps bug reported 2026-07-29). Pin all headings to this surface's own ink.
+   Any new heading added below inherits the fix automatically. */
+.pb-root h1, .pb-root h2, .pb-root h3, .pb-root h4, .pb-root h5, .pb-root h6 {
+  color: var(--pb-ink);
+}
+
 .pb-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   background:radial-gradient(120% 100% at 50% 0%,#171310 0%,#0d0b09 55%,#080706 100%)}
 .pb-world i{position:absolute;display:block;border-radius:50%;filter:blur(80px);opacity:.5}

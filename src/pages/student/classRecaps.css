@@ -33,6 +33,15 @@
 }
 
 /* living field — warm blooms drifting behind the sheet */
+/* The app sets a GLOBAL `h1..h6 { color: var(--text-primary) }`. This page paints
+   its own light parchment surface, so under any dark app theme --text-primary is
+   near-white and every heading here rendered white-on-cream — effectively
+   invisible (reported 2026-07-29). Pin all headings to this surface's own ink.
+   Any new heading added below inherits the fix automatically. */
+.cr-root h1, .cr-root h2, .cr-root h3, .cr-root h4, .cr-root h5, .cr-root h6 {
+  color: var(--cr-ink);
+}
+
 .cr-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--cr-paper)}
 .cr-world i{position:absolute;display:block;border-radius:50%;filter:blur(76px);opacity:.55}
 .cr-world i:nth-child(1){width:52vw;height:52vw;top:-14vw;inset-inline-end:-10vw;
@@ -93,6 +102,10 @@
 .cr-card__bar span{display:block;height:100%;border-radius:999px;
   background:linear-gradient(90deg,var(--cr-copper-deep),var(--cr-copper))}
 .cr-card__meta{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;font-weight:700;color:var(--cr-muted)}
+/* Separator drawn in CSS, never as a character in the Arabic string — see the
+   comment at the call site for why a literal «·» breaks under bidi. */
+.cr-card__facts{display:inline-flex;align-items:center;gap:9px}
+.cr-card__facts>span+span{padding-inline-start:9px;border-inline-start:1px solid var(--cr-line)}
 .cr-card__meta b{font-weight:800;color:var(--cr-copper-deep)}
 .cr-card__meta b.ok{display:inline-flex;align-items:center;gap:4px;color:var(--cr-teal)}
 
