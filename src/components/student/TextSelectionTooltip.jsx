@@ -3,7 +3,14 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Lightbulb, BookOpen, Loader2, Check, Volume2, Copy, Trash2, ChevronDown, Type } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { addCard } from '../../services/vocab'
 import { toast } from '../ui/FluentiaToast'
+
+// Mirrors the SQL public.vocab_norm(): strip leading/trailing non-alphanumerics,
+// trim, lowercase. Card identity is (student_id, word_normalized), so remove has to
+// normalize the same way save does or it silently deletes nothing.
+const vocabNorm = (w) =>
+  (w || '').replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').trim().toLowerCase()
 
 function extractSentence(text, selectionStart) {
   const before = text.substring(0, selectionStart)
@@ -195,32 +202,47 @@ export default function TextSelectionTooltip({
     if (!tooltip || !studentId || saveState === 'saving') return
     setSaveState('saving')
     try {
-      const { error } = await supabase.from('student_saved_words').insert({
-        student_id: studentId, word: tooltip.text,
-        meaning: aiResult?.meaning_ar || null,
-        context_sentence: tooltip.contextSentence,
-        source_unit_id: unitId, source: 'reading_passage', source_reference: readingId,
-        next_review_at: new Date().toISOString(),
+      // Save through addCard — the ONE saved-word path, writing vocab_cards.
+      // This used to INSERT into student_saved_words, which nothing reads any more:
+      // SavedWordsPanel and the passage highlighter both read vocab_cards, so a word
+      // saved from a passage vanished from «مفرداتي» the moment the toast faded.
+      // source 'reading' (not 'reading_passage') is what SavedWordsPanel filters on.
+      await addCard(studentId, {
+        word: tooltip.text,
+        meaningAr: aiResult?.meaning_ar || null,
+        contextSentence: tooltip.contextSentence,
+        source: 'reading',
       })
-      if (error) {
-        if (error.code === '23505') { toast({ type: 'info', title: 'الكلمة محفوظة مسبقاً' }); setSaveState('saved') }
-        else { console.error('Save error:', error); toast({ type: 'error', title: 'فشل حفظ الكلمة' }); setSaveState('idle') }
-      } else {
-        setSaveState('saved')
-        onWordSaved?.(tooltip.text)
-        toast({ type: 'success', title: '✓ تمت الإضافة لمفرداتك' })
-        window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word: tooltip.text } }))
-        setTimeout(() => setTooltip(null), 1500)
+      setSaveState('saved')
+      onWordSaved?.(tooltip.text)
+      toast({ type: 'success', title: '✓ تمت الإضافة لمفرداتك' })
+      window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word: tooltip.text } }))
+      setTimeout(() => setTooltip(null), 1500)
+    } catch (err) {
+      // vocab_add_card upserts per (student_id, word_normalized), so a duplicate is
+      // a no-op success rather than a 23505 — keep the branch for older deployments.
+      if (err?.code === '23505') { toast({ type: 'info', title: 'الكلمة محفوظة مسبقاً' }); setSaveState('saved') }
+      else {
+        console.error('Save error:', err)
+        toast({ type: 'error', title: 'فشل حفظ الكلمة' })
+        setSaveState('idle')
       }
-    } catch { setSaveState('idle') }
-  }, [tooltip, studentId, unitId, readingId, onWordSaved, saveState])
+    }
+  }, [tooltip, studentId, unitId, readingId, onWordSaved, saveState, aiResult])
 
   const handleRemoveWord = useCallback(async (e) => {
     e.preventDefault(); e.stopPropagation()
     if (!tooltip || !studentId) return
     setSaveState('removing')
     try {
-      const { error } = await supabase.from('student_saved_words').delete().eq('student_id', studentId).eq('word', tooltip.text)
+      // Delete from vocab_cards, matching the save path above. Cards are keyed by
+      // (student_id, word_normalized); vocabNorm mirrors the SQL vocab_norm() the
+      // insert uses, so remove finds exactly the row that save created.
+      const { error } = await supabase
+        .from('vocab_cards')
+        .delete()
+        .eq('student_id', studentId)
+        .eq('word_normalized', vocabNorm(tooltip.text))
       if (error) { toast({ type: 'error', title: 'فشل الإزالة' }); setSaveState('saved') }
       else { setSaveState('idle'); onWordSaved?.(`__remove__${tooltip.text}`); toast({ type: 'success', title: 'تم إزالة الكلمة' }) }
     } catch { setSaveState('saved') }
