@@ -103,10 +103,19 @@ export default function ClassRecaps() {
   }
   const backToSections = () => { setOpenSection(null); setAnswers({}); setSubmitted(false); setResult(null) }
 
+  /**
+   * Two surfaces on purpose: .cr-root is the DESK (the platform's dark surface, so
+   * the page belongs to the app) and .cr-sheet is a sheet of PAPER lying on it —
+   * ruled lines, red margin, corrections in pen. All ink tokens are redeclared on
+   * .cr-sheet, so the paper stays paper whatever theme the app is in.
+   */
   const Shell = ({ children, narrow }) => (
     <div className="cr-root" dir="rtl">
       <div className="cr-world" aria-hidden><i /><i /><i /></div>
-      <div className={`cr-wrap${narrow ? ' cr-wrap--narrow' : ''}`}>{children}</div>
+      <div className={`cr-wrap${narrow ? ' cr-wrap--narrow' : ''}`}>
+        <span className="cr-tab"><NotebookText size={14} /> دفتر الحصص</span>
+        <div className="cr-sheet">{children}</div>
+      </div>
     </div>
   )
 
@@ -232,8 +241,13 @@ export default function ClassRecaps() {
       <Shell>
         <button className="cr-back" onClick={() => setOpenRecap(null)}>→ كل الحصص</button>
         <header className="cr-rhead">
-          <span className="cr-k"><CalendarDays size={13} /> الحصة {toAr(recap.class_no)}
-            {recap.class_date ? ` · ${recap.class_date}` : ''}</span>
+          {/* Separate elements, not a « · » in the string: a bidi-neutral separator
+              between an Arabic-Indic numeral and a date gets reordered. */}
+          <span className="cr-k">
+            <CalendarDays size={13} />
+            <span>الحصة {toAr(recap.class_no)}</span>
+            {recap.class_date && <span dir="ltr">{recap.class_date}</span>}
+          </span>
           <h1>{recap.title}</h1>
           {recap.subtitle && <div className="en" dir="ltr">{recap.subtitle}</div>}
           <div className="cr-rbar"><span style={{ width: `${(doneCount / (sections.length || 1)) * 100}%` }} /></div>
@@ -280,7 +294,7 @@ export default function ClassRecaps() {
   return (
     <Shell>
       <header className="cr-hero">
-        <span className="cr-k"><NotebookText size={13} /> ملخّص الحصص</span>
+        {/* no kicker here — the notebook tab above the sheet already names the page */}
         <h1>ما أخذتِه في الحصة، بين يديكِ</h1>
         <p>كل حصة تحضرينها تُلخَّص هنا: الشرح بالعربية والإنجليزية، ثم تمارين تثبّت ما تعلّمتِه.</p>
       </header>

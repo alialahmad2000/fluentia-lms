@@ -1,236 +1,280 @@
 /* ══════════════════════════════════════════════════════════════════════════
-   «ملخّص الحصص» — per-student recap of a live class.
-   Every token below is DERIVED FROM THE PLATFORM's design tokens, so this page
-   sits inside the app instead of next to it: same dark surface stack, same text
-   ramp, same borders. Malak's identity comes through --accent-studio (the copper
-   her theme already uses), not through a separate parchment world.
-   Fallbacks are the deep-space defaults, so the page still renders standalone.
-   The --pw-* tokens are what LessonSection reads, so the lesson blocks inherit
-   this page's palette instead of the exercises page's.
-   ══════════════════════════════════════════════════════════════════════════ */
-.cr-root{
-  /* surfaces — platform dark stack */
-  --cr-paper:var(--surface-void,#030711);
-  --cr-card:var(--glass-card,rgba(255,255,255,.025));
-  --cr-card-2:var(--glass-elevated,rgba(255,255,255,.05));
-  /* text ramp — identical to the rest of the app */
-  --cr-ink:var(--text-primary,#f0f4f8);
-  --cr-ink-soft:var(--text-secondary,#8892b0);
-  --cr-muted:var(--text-tertiary,#5a6785);
-  --cr-line:var(--border-default,rgba(255,255,255,.07));
-  --cr-line-soft:var(--border-subtle,rgba(255,255,255,.04));
-  /* accent — her Studio copper. On a dark surface the "deep" slot has to be the
-     BRIGHTER copper: it is used for text and icons that sit on dark glass. */
-  --cr-copper:var(--accent-studio,#cf7d43);
-  --cr-copper-deep:var(--accent-studio-strong,#eaa864);
-  --cr-copper-soft:var(--accent-studio-glow,rgba(207,125,67,.2));
-  --cr-copper-line:rgba(207,125,67,.34);
-  /* states — platform emerald/rose, bright enough to read on dark */
-  --cr-teal:var(--accent-emerald,#34d399);
-  --cr-teal-soft:rgba(52,211,153,.12); --cr-teal-line:rgba(52,211,153,.32);
-  --cr-rose:var(--accent-rose,#fb7185);
-  --cr-rose-soft:rgba(251,113,133,.12); --cr-rose-line:rgba(251,113,133,.34);
-  /* English specimens get their own warm tone — emerald must stay a STATE colour */
-  --cr-spec:rgba(234,168,100,.78);
-  --cr-serif:Georgia,'Iowan Old Style','Times New Roman',serif;
-  /* on dark, depth reads as a lifted rim + deep shadow, not a soft grey blur */
-  --cr-shadow:0 1px 0 rgba(255,255,255,.03) inset, 0 14px 34px -20px rgba(0,0,0,.8);
-  --cr-shadow-lg:0 1px 0 rgba(255,255,255,.05) inset, 0 30px 60px -28px rgba(0,0,0,.95);
+   «ملخّص الحصص» — «الدفتر» / the Notebook  (direction ب, chosen 2026-07-29)
 
-  /* tokens LessonSection reads — the lesson picks up the copper palette here */
+   TWO surfaces, deliberately:
+     · the DESK is the platform's own dark surface, so the page sits inside the
+       app instead of next to it (--surface-void / --accent-studio, with the
+       deep-space values as fallbacks);
+     · the SHEET is a sheet of paper resting on that desk — ruled lines, a red
+       margin down the reading edge, corrections in pen.
+
+   Every ink token is redeclared on .cr-sheet, so anything inside the paper reads
+   as paper regardless of the app theme. That includes the --pw-* tokens
+   LessonSection reads: the lesson blocks must be dark-on-cream here, never the
+   desk palette.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── the desk ─────────────────────────────────────────────────────────────── */
+.cr-root{
+  --cr-desk:var(--surface-void,#030711);
+  --cr-copper:var(--accent-studio,#cf7d43);
+  --cr-copper-bright:var(--accent-studio-strong,#eaa864);
+  position:relative; z-index:1; min-height:100dvh;
+  font-family:'Tajawal','SF Arabic',sans-serif;
+}
+.cr-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--cr-desk)}
+.cr-world i{position:absolute;display:block;border-radius:50%;filter:blur(90px);opacity:.7}
+.cr-world i:nth-child(1){width:52vw;height:52vw;top:-16vw;inset-inline-end:-10vw;
+  background:radial-gradient(circle,rgba(207,125,67,.30),transparent 68%);animation:crD1 38s ease-in-out infinite}
+.cr-world i:nth-child(2){width:44vw;height:44vw;bottom:-14vw;inset-inline-start:-8vw;
+  background:radial-gradient(circle,rgba(56,189,248,.13),transparent 68%);animation:crD2 48s ease-in-out infinite}
+.cr-world i:nth-child(3){width:36vw;height:36vw;top:44%;inset-inline-start:28%;
+  background:radial-gradient(circle,rgba(234,168,100,.15),transparent 70%);animation:crD3 56s ease-in-out infinite}
+@keyframes crD1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4vw,3vw,0)}}
+@keyframes crD2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(4vw,-3vw,0)}}
+@keyframes crD3{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,3vw,0)}}
+@media (prefers-reduced-motion:reduce){.cr-world i{animation:none}}
+
+.cr-wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:26px 0 80px}
+.cr-wrap--narrow{max-width:760px}
+
+/* the notebook's tab, sitting on the sheet's top edge */
+.cr-tab{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(160deg,var(--cr-copper-bright),var(--cr-copper));
+  color:#2a1608;font-weight:800;font-size:.8rem;padding:9px 18px;
+  border-radius:10px 10px 0 0;letter-spacing:.01em;box-shadow:0 -3px 14px rgba(0,0,0,.35)}
+
+/* ── the sheet: everything below is PAPER ─────────────────────────────────── */
+.cr-sheet{
+  /* paper palette — pinned, so the app theme can never bleed into the page */
+  --cr-paper:#fbf5e9; --cr-card:#fffdf6; --cr-card-2:#f5ecda;
+  --cr-ink:#1f1a14; --cr-ink-soft:#544a3c; --cr-muted:#93876f;
+  --cr-line:rgba(31,26,20,.16); --cr-line-soft:rgba(31,26,20,.08);
+  --cr-rule:rgba(96,124,160,.20);           /* the printed ruling */
+  --cr-margin:#c0553f;                      /* the red margin + the pen */
+  --cr-copper-deep:#8a4a1a; --cr-copper-soft:rgba(176,99,42,.11);
+  --cr-copper-line:rgba(176,99,42,.30);
+  --cr-teal:#2c7568; --cr-teal-soft:rgba(44,117,104,.10); --cr-teal-line:rgba(44,117,104,.30);
+  --cr-rose:#b0543f; --cr-rose-soft:rgba(176,84,63,.10); --cr-rose-line:rgba(176,84,63,.36);
+  --cr-spec:#8a4a1a;
+  --cr-serif:'Iowan Old Style',Georgia,'Times New Roman',serif;
+  --cr-shadow:0 1px 2px rgba(60,40,18,.05), 0 10px 24px -18px rgba(60,40,18,.3);
+  --cr-shadow-lg:0 2px 4px rgba(60,40,18,.06), 0 22px 44px -26px rgba(60,40,18,.45);
+
+  /* LessonSection reads these — on paper they must be dark-on-cream */
   --pw-card:var(--cr-card); --pw-card-2:var(--cr-card-2);
   --pw-ink:var(--cr-ink); --pw-ink-soft:var(--cr-ink-soft); --pw-muted:var(--cr-muted);
   --pw-line:var(--cr-line); --pw-line-soft:var(--cr-line-soft);
-  --pw-amber:var(--cr-copper); --pw-amber-deep:var(--cr-copper-deep);
+  --pw-amber:var(--cr-copper-deep); --pw-amber-deep:var(--cr-copper-deep);
   --pw-amber-soft:var(--cr-copper-soft); --pw-amber-line:var(--cr-copper-line);
   --pw-teal:var(--cr-teal); --pw-teal-soft:var(--cr-teal-soft); --pw-teal-line:var(--cr-teal-line);
   --pw-rose:var(--cr-rose); --pw-rose-soft:var(--cr-rose-soft); --pw-rose-line:var(--cr-rose-line);
   --pw-serif:var(--cr-serif);
   --pw-shadow:var(--cr-shadow); --pw-shadow-lg:var(--cr-shadow-lg);
 
-  position:relative; z-index:1; min-height:100dvh; color:var(--cr-ink);
-  font-family:'Tajawal','SF Arabic',sans-serif;
+  position:relative;background:var(--cr-paper);color:var(--cr-ink);
+  border-radius:12px;border-start-start-radius:0;
+  /* stacked pages under the top sheet, then the drop onto the desk */
+  box-shadow:0 2px 0 #f0e6d2, 0 4px 0 #e8dcc4, 0 6px 0 #e0d3b8,
+             0 40px 70px -28px rgba(0,0,0,.7);
+  padding:34px 34px 46px 34px;
+  /* the reading edge (right, in RTL) carries the margin marks */
+  padding-inline-start:74px;
+  overflow:hidden;
 }
+/* printed ruling */
+.cr-sheet::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:repeating-linear-gradient(180deg,transparent 0 33px,var(--cr-rule) 33px 34px);
+  background-position:0 72px;opacity:.5}
+/* the red margin, down the edge she starts reading from */
+.cr-sheet::after{content:'';position:absolute;inset-block:0;inset-inline-start:56px;width:1.5px;
+  background:rgba(192,85,63,.38)}
+.cr-sheet>*{position:relative;z-index:1}
 
-/* Global CSS sets `h1..h6 { color: var(--text-primary) }`. Our ink IS that token
-   now, so this is belt-and-braces — but it keeps the page correct if the surface
-   ever stops tracking the app theme again (headings went white-on-cream once). */
-.cr-root h1, .cr-root h2, .cr-root h3, .cr-root h4, .cr-root h5, .cr-root h6 {
-  color: var(--cr-ink);
-}
+/* Latin runs (titles, specimens, answers) must ORDER left-to-right but stay
+   aligned to the Arabic reading edge. dir="ltr" would right-align them off to
+   the far side of the sheet; plaintext isolates direction without touching
+   alignment. */
+.cr-sheet [dir=ltr],.cr-sheet .en{unicode-bidi:plaintext;direction:inherit}
+/* plaintext aligns to the DETECTED direction, so a Latin-first line would still
+   sit flush left, away from the Arabic reading edge. The sheet is always RTL
+   (dir="rtl" is hardcoded on .cr-root), so pin these specimen lines to the right. */
+.cr-sheet .en{text-align:right}
 
-/* living field — copper blooms drifting over the app's void, never a flat black */
-.cr-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--cr-paper)}
-.cr-world i{position:absolute;display:block;border-radius:50%;filter:blur(86px);opacity:.75}
-.cr-world i:nth-child(1){width:52vw;height:52vw;top:-14vw;inset-inline-end:-10vw;
-  background:radial-gradient(circle,rgba(207,125,67,.30),transparent 68%);animation:crD1 38s ease-in-out infinite}
-.cr-world i:nth-child(2){width:44vw;height:44vw;bottom:-14vw;inset-inline-start:-8vw;
-  background:radial-gradient(circle,rgba(56,189,248,.14),transparent 68%);animation:crD2 48s ease-in-out infinite}
-.cr-world i:nth-child(3){width:36vw;height:36vw;top:42%;inset-inline-start:30%;
-  background:radial-gradient(circle,rgba(234,168,100,.16),transparent 70%);animation:crD3 56s ease-in-out infinite}
-@keyframes crD1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4vw,3vw,0)}}
-@keyframes crD2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(4vw,-3vw,0)}}
-@keyframes crD3{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,3vw,0)}}
-@media (prefers-reduced-motion:reduce){.cr-world i{animation:none}}
+/* Global CSS sets `h1..h6 { color: var(--text-primary) }` — which is near-white
+   under the app's dark themes. The sheet is cream, so every heading in it must be
+   pinned to the paper's own ink or it disappears (this exact bug shipped once). */
+.cr-sheet h1,.cr-sheet h2,.cr-sheet h3,.cr-sheet h4,.cr-sheet h5,.cr-sheet h6{color:var(--cr-ink)}
 
-.cr-wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:6px 0 72px}
-.cr-wrap--narrow{max-width:660px}
-
-.cr-back{background:var(--cr-card);border:1px solid var(--cr-line);color:var(--cr-ink-soft);
+/* ── shared paper furniture ───────────────────────────────────────────────── */
+.cr-back{background:transparent;border:1.5px solid var(--cr-line);color:var(--cr-ink-soft);
   border-radius:999px;padding:7px 15px;font-size:.82rem;font-weight:700;cursor:pointer;
-  margin-bottom:18px;transition:.16s;font-family:inherit}
-.cr-back:hover{color:var(--cr-copper);border-color:var(--cr-copper-line);transform:translateY(-1px)}
+  margin-bottom:20px;transition:.16s;font-family:inherit}
+.cr-back:hover{color:var(--cr-margin);border-color:var(--cr-margin);transform:translateY(-1px)}
 
-.cr-k{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:800;letter-spacing:.05em;
-  color:var(--cr-copper-deep);background:var(--cr-copper-soft);border:1px solid var(--cr-copper-line);
-  border-radius:999px;padding:5px 12px}
+.cr-k{display:inline-flex;align-items:center;gap:8px;font-family:var(--cr-serif);font-style:italic;
+  font-size:.9rem;letter-spacing:.04em;color:var(--cr-margin)}
+/* rule between the facts, drawn — never a « · » character (bidi reorders it) */
+.cr-k>span+span{padding-inline-start:8px;border-inline-start:1px solid rgba(192,85,63,.35)}
 
-/* ── hero / heads ── */
-.cr-hero{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--cr-line-soft)}
-.cr-hero h1{font-family:var(--cr-serif);font-size:clamp(1.8rem,4.4vw,2.7rem);font-weight:700;
-  margin:14px 0 8px;line-height:1.3;letter-spacing:-.01em}
-.cr-hero p{margin:0;max-width:600px;font-size:.97rem;line-height:1.9;color:var(--cr-ink-soft)}
+/* ── heads ────────────────────────────────────────────────────────────────── */
+.cr-hero{margin-bottom:26px}
+.cr-hero h1{font-size:clamp(1.6rem,3.8vw,2.3rem);font-weight:800;margin:8px 0 0;
+  line-height:1.28;letter-spacing:-.02em}
+.cr-hero p{margin:14px 0 0;max-width:58ch;font-size:.96rem;line-height:2.02;color:var(--cr-ink-soft)}
+.cr-hero::after{content:'';display:block;margin-top:18px;border-top:2px solid var(--cr-ink);opacity:.85}
 
-.cr-rhead{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--cr-line-soft)}
-.cr-rhead h1{font-family:var(--cr-serif);font-size:clamp(1.55rem,3.8vw,2.2rem);font-weight:700;margin:12px 0 4px}
-.cr-rhead .en{font-family:var(--cr-serif);font-style:italic;font-size:.9rem;color:var(--cr-spec)}
-.cr-rbar{height:5px;border-radius:999px;background:rgba(255,255,255,.09);margin:16px 0 7px;overflow:hidden}
+.cr-rhead{margin-bottom:24px}
+.cr-rhead h1{font-size:clamp(1.45rem,3.4vw,2rem);font-weight:800;margin:7px 0 4px;letter-spacing:-.02em}
+.cr-rhead .en{font-family:var(--cr-serif);font-style:italic;font-size:.95rem;color:var(--cr-spec)}
+.cr-rbar{height:5px;border-radius:999px;background:rgba(31,26,20,.10);margin:16px 0 7px;overflow:hidden}
 .cr-rbar span{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--cr-copper),var(--cr-copper-deep));transition:width .4s ease}
+  background:linear-gradient(90deg,var(--cr-copper-deep),#c07a34);transition:width .4s ease}
 .cr-rmeta{margin:0;font-size:.8rem;font-weight:700;color:var(--cr-muted)}
 
-.cr-shead{margin-bottom:20px}
-.cr-shead h1{font-family:var(--cr-serif);font-size:clamp(1.4rem,3.4vw,2rem);font-weight:700;margin:0 0 3px;line-height:1.35}
-.cr-shead .en{font-family:var(--cr-serif);font-style:italic;font-size:.9rem;color:var(--cr-spec)}
-.cr-shead .lead{margin:9px 0 0;font-size:.92rem;line-height:1.85;color:var(--cr-ink-soft);max-width:560px}
+.cr-shead{margin-bottom:22px;padding-bottom:16px;border-bottom:2px solid var(--cr-ink)}
+.cr-shead h1{font-size:clamp(1.3rem,3.1vw,1.85rem);font-weight:800;margin:0 0 3px;line-height:1.4}
+.cr-shead .en{font-family:var(--cr-serif);font-style:italic;font-size:.92rem;color:var(--cr-spec)}
+.cr-shead .lead{margin:10px 0 0;font-size:.93rem;line-height:1.95;color:var(--cr-ink-soft);max-width:56ch}
 
-/* ── class cards ── */
-.cr-list{display:flex;flex-direction:column;gap:12px}
-.cr-card{display:flex;gap:15px;text-align:start;cursor:pointer;
-  background:linear-gradient(160deg,var(--cr-card-2),var(--cr-card) 58%);
-  border:1px solid var(--cr-line);border-radius:18px;padding:17px 18px;color:inherit;
-  transition:.2s;box-shadow:var(--cr-shadow);font-family:inherit}
-.cr-card:hover{transform:translateY(-2px);border-color:var(--cr-copper-line);box-shadow:var(--cr-shadow-lg)}
-/* copper glow on the number badge — the one warm point of light on the card */
-.cr-card__no{box-shadow:0 0 22px -6px var(--cr-copper-soft)}
-.cr-card__no{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
-  font-family:var(--cr-serif);font-size:1.35rem;font-weight:700;
-  background:var(--cr-copper-soft);border:1px solid var(--cr-copper-line);color:var(--cr-copper-deep)}
-.cr-card__body{flex:1;min-width:0}
-.cr-card__body h3{margin:0;font-size:1.08rem;font-weight:800}
-.cr-card__body .en{font-family:var(--cr-serif);font-style:italic;font-size:.82rem;color:var(--cr-spec);margin-top:2px}
-.cr-card__bar{height:4px;border-radius:999px;background:rgba(255,255,255,.08);margin:12px 0 8px;overflow:hidden}
+/* ── class entries: written into the notebook, numbered in the margin ─────── */
+.cr-list,.cr-sgrid{display:flex;flex-direction:column}
+.cr-card,.cr-scard{position:relative;display:block;width:100%;text-align:start;font-family:inherit;
+  background:transparent;border:0;border-bottom:1px dashed var(--cr-line);
+  padding:20px 0 22px;color:inherit;cursor:pointer;transition:background .16s ease}
+.cr-card:last-child,.cr-scard:last-child{border-bottom:0}
+.cr-card:hover,.cr-scard:hover{background:rgba(192,85,63,.035)}
+.cr-scard{cursor:default}
+
+/* the number lives in the red margin, hand-slanted */
+.cr-card__no,.cr-scard__n{position:absolute;inset-inline-start:-52px;top:20px;
+  width:32px;text-align:center;font-family:var(--cr-serif);font-size:1.3rem;font-weight:700;
+  color:var(--cr-margin);transform:rotate(-6deg);background:none;border:0;padding:0}
+.cr-scard__n{font-size:1.1rem;top:22px}
+.cr-scard.done .cr-scard__n{color:var(--cr-teal)}
+
+.cr-card__body,.cr-scard__body{min-width:0}
+.cr-card__body h3,.cr-scard__body h3{margin:0;font-family:var(--cr-serif);font-size:1.32rem;
+  font-weight:600;line-height:1.35;letter-spacing:-.01em}
+/* the highlighter stripe under a title, like a marked-up notebook */
+.cr-card__body h3{box-shadow:inset 0 -11px 0 rgba(216,164,96,.28);display:inline;padding:0 2px}
+.cr-card__body .en,.cr-scard__body .en{font-family:var(--cr-serif);font-style:italic;
+  font-size:.88rem;color:var(--cr-spec);margin-top:6px}
+.cr-scard__body p{margin:9px 0 0;font-size:.9rem;line-height:1.9;color:var(--cr-ink-soft)}
+
+.cr-card__bar{height:4px;border-radius:999px;background:rgba(31,26,20,.09);margin:14px 0 9px;overflow:hidden}
 .cr-card__bar span{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--cr-copper),var(--cr-copper-deep))}
-.cr-card__meta{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;font-weight:700;color:var(--cr-muted)}
-/* Separator drawn in CSS, never as a character in the Arabic string — see the
-   comment at the call site for why a literal «·» breaks under bidi. */
+  background:linear-gradient(90deg,var(--cr-copper-deep),#c07a34)}
+.cr-card__meta,.cr-scard__meta{display:flex;justify-content:space-between;gap:10px;
+  font-size:.79rem;font-weight:700;color:var(--cr-muted)}
+/* Separator drawn in CSS, never as a character: a bidi-neutral «·» between two
+   Arabic-Indic numerals reorders and reads as a zero glued to the count. */
 .cr-card__facts{display:inline-flex;align-items:center;gap:9px}
 .cr-card__facts>span+span{padding-inline-start:9px;border-inline-start:1px solid var(--cr-line)}
 .cr-card__meta b{font-weight:800;color:var(--cr-copper-deep)}
-.cr-card__meta b.ok{display:inline-flex;align-items:center;gap:4px;color:var(--cr-teal)}
-
-/* ── section cards ── */
-.cr-sgrid{display:flex;flex-direction:column;gap:12px}
-.cr-scard{display:flex;gap:14px;background:linear-gradient(160deg,var(--cr-card-2),var(--cr-card) 58%);border:1px solid var(--cr-line);
-  border-radius:18px;padding:17px 18px;box-shadow:var(--cr-shadow);transition:.2s}
-.cr-scard:hover{border-color:var(--cr-copper-line);box-shadow:var(--cr-shadow-lg)}
-.cr-scard.done{background:linear-gradient(160deg,var(--cr-teal-soft),var(--cr-card) 62%);border-color:var(--cr-teal-line)}
-.cr-scard__n{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
-  font-family:var(--cr-serif);font-weight:700;font-size:1rem;
-  background:var(--cr-copper-soft);border:1px solid var(--cr-copper-line);color:var(--cr-copper-deep)}
-.cr-scard.done .cr-scard__n{background:var(--cr-teal-soft);border-color:var(--cr-teal-line);color:var(--cr-teal)}
-.cr-scard__body{flex:1;min-width:0}
-.cr-scard__body h3{margin:0;font-size:1.04rem;font-weight:800;line-height:1.5}
-.cr-scard__body .en{font-family:var(--cr-serif);font-style:italic;font-size:.84rem;color:var(--cr-spec);margin-top:1px}
-.cr-scard__body p{margin:8px 0 0;font-size:.88rem;line-height:1.8;color:var(--cr-ink-soft)}
-.cr-scard__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:13px}
-.cr-scard__meta{font-size:.78rem;font-weight:700;color:var(--cr-muted);display:inline-flex;align-items:center;gap:9px}
-.cr-scard__meta b.ok{display:inline-flex;align-items:center;gap:4px;color:var(--cr-teal);font-weight:800}
+.cr-card__meta b.ok,.cr-scard__meta b.ok{display:inline-flex;align-items:center;gap:4px;color:var(--cr-teal)}
+.cr-scard__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+.cr-scard__meta{display:inline-flex;align-items:center;gap:9px}
 .cr-scard__acts{display:flex;gap:8px}
 
-/* ── questions ── */
+/* ── questions: written on the ruled lines ────────────────────────────────── */
 .cr-qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;
-  margin:26px 0 12px;font-size:.78rem;font-weight:800;letter-spacing:.04em;color:var(--cr-copper-deep)}
+  margin:30px 0 6px;padding-bottom:8px;border-bottom:2px solid var(--cr-ink);
+  font-size:.82rem;font-weight:800;letter-spacing:.03em;color:var(--cr-ink)}
 .cr-qhead .cnt{color:var(--cr-muted);font-weight:700}
 
-.cr-q{background:var(--cr-card);border:1px solid var(--cr-line);border-radius:15px;
-  padding:15px 16px;margin-bottom:10px;box-shadow:var(--cr-shadow)}
-.cr-q.ok{border-color:var(--cr-teal-line);background:linear-gradient(160deg,var(--cr-teal-soft),var(--cr-card) 55%)}
-.cr-q.no{border-color:var(--cr-rose-line);background:linear-gradient(160deg,var(--cr-rose-soft),var(--cr-card) 55%)}
-.cr-q__t{display:flex;gap:10px;align-items:flex-start;margin:0 0 11px;font-size:1rem;font-weight:700;line-height:1.6}
-.cr-qn{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
-  font-size:.78rem;font-weight:800;background:var(--cr-copper-soft);
-  border:1px solid var(--cr-copper-line);color:var(--cr-copper-deep)}
+.cr-q{position:relative;padding:18px 0 18px;border-bottom:1px dashed var(--cr-line)}
+.cr-q:last-of-type{border-bottom:0}
+/* right/wrong shows as a pen mark in the margin, not a coloured card */
+.cr-q.ok::before,.cr-q.no::before{position:absolute;inset-inline-start:-50px;top:16px;
+  font-family:var(--cr-serif);font-size:1.5rem;font-weight:700;transform:rotate(-8deg)}
+.cr-q.ok::before{content:'✓';color:var(--cr-teal)}
+.cr-q.no::before{content:'✗';color:var(--cr-margin)}
+.cr-q__t{display:flex;gap:10px;align-items:flex-start;margin:0 0 12px;font-size:1rem;
+  font-weight:700;line-height:1.65}
+.cr-qn{flex:none;font-family:var(--cr-serif);font-size:.95rem;font-weight:700;
+  color:var(--cr-muted);min-width:20px}
 
 .cr-opts{display:grid;gap:8px}
-.cr-opts--inline{grid-template-columns:repeat(auto-fit,minmax(104px,1fr))}
-.cr-opts--inline .cr-opt{text-align:center;font-family:var(--cr-serif);font-size:1rem}
-.cr-opt{text-align:start;font-size:.94rem;padding:10px 14px;border-radius:11px;cursor:pointer;
-  border:1px solid var(--cr-line);background:var(--cr-card-2);color:var(--cr-ink-soft);
+.cr-opts--inline{grid-template-columns:repeat(auto-fit,minmax(112px,1fr))}
+.cr-opts--inline .cr-opt{text-align:center;font-family:var(--cr-serif);font-size:1.02rem}
+.cr-opt{text-align:start;font-size:.94rem;padding:10px 14px;border-radius:10px;cursor:pointer;
+  border:1.5px solid var(--cr-line);background:rgba(255,255,255,.5);color:var(--cr-ink-soft);
   transition:.14s;font-family:inherit}
-.cr-opt:hover:not(:disabled){border-color:var(--cr-copper-line);color:var(--cr-ink)}
+.cr-opt:hover:not(:disabled){border-color:var(--cr-margin);color:var(--cr-ink)}
 .cr-opt:disabled{cursor:default}
-.cr-opt.sel{border-color:var(--cr-copper-line);background:var(--cr-copper-soft);color:var(--cr-copper-deep);font-weight:700}
+.cr-opt.sel{border-color:var(--cr-copper-line);background:var(--cr-copper-soft);
+  color:var(--cr-copper-deep);font-weight:700}
 .cr-opt.correct{border-color:var(--cr-teal-line);background:var(--cr-teal-soft);color:var(--cr-teal);font-weight:700}
 .cr-opt.wrong{border-color:var(--cr-rose-line);background:var(--cr-rose-soft);color:var(--cr-rose);font-weight:700}
 
-.cr-ans{display:block;width:100%;box-sizing:border-box;font-family:var(--cr-serif);font-size:.95rem;
-  padding:11px 13px;border-radius:11px;border:1px solid var(--cr-line);background:var(--glass-input,rgba(255,255,255,.035));color:var(--cr-ink)}
-.cr-ans:focus{outline:none;border-color:var(--cr-copper-line);box-shadow:0 0 0 3px var(--cr-copper-soft)}
-.cr-ans.ok{border-color:var(--cr-teal-line);background:var(--cr-teal-soft)}
-.cr-ans.no{border-color:var(--cr-rose-line);background:var(--cr-rose-soft)}
+.cr-ans{display:block;width:100%;box-sizing:border-box;font-family:var(--cr-serif);font-size:.98rem;
+  padding:11px 13px;border-radius:0;border:0;border-bottom:1.5px solid var(--cr-line);
+  background:transparent;color:var(--cr-ink)}
+.cr-ans:focus{outline:none;border-bottom-color:var(--cr-margin)}
+.cr-ans.ok{border-bottom-color:var(--cr-teal);color:var(--cr-teal)}
+.cr-ans.no{border-bottom-color:var(--cr-rose);color:var(--cr-rose)}
 @media (pointer:coarse){.cr-ans{font-size:16px;min-height:48px}}
 
-.cr-why{margin-top:10px;padding-top:9px;border-top:1px dashed var(--cr-line-soft);
-  font-size:.85rem;line-height:1.8;color:var(--cr-ink-soft)}
-.cr-why b{font-family:var(--cr-serif);color:var(--cr-teal);margin-inline-end:7px}
+/* the correction, in red pen */
+.cr-why{margin-top:12px;padding:9px 14px;border-inline-start:3px solid var(--cr-margin);
+  background:rgba(192,85,63,.055);font-size:.88rem;line-height:1.85;color:#8d3d2c}
+.cr-why b{display:inline-block;font-family:var(--cr-serif);color:#6f2c1e;font-weight:700;
+  margin-inline-end:10px;padding:1px 9px;border-radius:5px;background:rgba(192,85,63,.13);
+  border:1px solid rgba(192,85,63,.3)}
+.cr-why b::before{content:'الصواب: ';font-family:'Tajawal','SF Arabic',sans-serif;
+  font-size:.78rem;font-weight:800;opacity:.75;margin-inline-end:4px}
 
-/* ── result + bar ── */
-.cr-result{text-align:center;border-radius:18px;padding:22px 18px;margin:18px 0 4px;border:1px solid var(--cr-line)}
-.cr-result.good{background:var(--cr-teal-soft);border-color:var(--cr-teal-line)}
-.cr-result.mid{background:var(--cr-copper-soft);border-color:var(--cr-copper-line)}
-.cr-result.low{background:var(--cr-rose-soft);border-color:var(--cr-rose-line)}
+/* ── result: a stamp on the page ──────────────────────────────────────────── */
+.cr-result{text-align:center;padding:22px 18px;margin:22px 0 6px;border-radius:10px;
+  border:2px dashed var(--cr-line)}
+.cr-result.good{border-color:var(--cr-teal-line);background:var(--cr-teal-soft)}
+.cr-result.mid{border-color:var(--cr-copper-line);background:var(--cr-copper-soft)}
+.cr-result.low{border-color:var(--cr-rose-line);background:var(--cr-rose-soft)}
 .cr-result__score{font-family:var(--cr-serif);font-size:2.7rem;font-weight:700;line-height:1}
 .cr-result.good .cr-result__score{color:var(--cr-teal)}
 .cr-result.mid .cr-result__score{color:var(--cr-copper-deep)}
 .cr-result.low .cr-result__score{color:var(--cr-rose)}
 .cr-result__sub{margin-top:5px;font-size:.85rem;font-weight:700;color:var(--cr-muted)}
-.cr-result__msg{margin:11px auto 0;max-width:420px;font-size:.92rem;line-height:1.8;color:var(--cr-ink-soft)}
+.cr-result__msg{margin:11px auto 0;max-width:420px;font-size:.92rem;line-height:1.85;color:var(--cr-ink-soft)}
 
-.cr-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+/* ── actions ──────────────────────────────────────────────────────────────── */
+.cr-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px}
 .cr-hint{font-size:.8rem;font-weight:700;color:var(--cr-muted)}
 .cr-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;
-  border-radius:12px;padding:11px 19px;font-size:.88rem;font-weight:800;transition:.18s;font-family:inherit;
-  background:var(--cr-card);border:1px solid var(--cr-line);color:var(--cr-ink-soft)}
-.cr-btn:hover:not(:disabled){transform:translateY(-1px);color:var(--cr-ink);border-color:var(--cr-copper-line)}
-.cr-btn.sm{padding:8px 14px;font-size:.8rem;border-radius:10px}
-.cr-btn.primary{background:linear-gradient(135deg,var(--cr-copper-deep),var(--cr-copper));
-  border-color:transparent;color:var(--surface-void,#030711);
-  box-shadow:0 10px 26px -12px rgba(207,125,67,.65)}
-.cr-btn.primary:hover:not(:disabled){filter:brightness(1.05)}
-.cr-btn:disabled{opacity:.45;cursor:not-allowed}
+  border-radius:999px;padding:11px 20px;font-size:.87rem;font-weight:800;transition:.18s;
+  font-family:inherit;background:transparent;border:1.5px solid var(--cr-line);color:var(--cr-ink-soft)}
+.cr-btn:hover:not(:disabled){transform:translateY(-1px);color:var(--cr-ink);border-color:var(--cr-ink)}
+.cr-btn.sm{padding:8px 15px;font-size:.8rem}
+.cr-btn.primary{background:var(--cr-ink);border-color:var(--cr-ink);color:var(--cr-paper)}
+.cr-btn.primary:hover:not(:disabled){background:var(--cr-margin);border-color:var(--cr-margin)}
+.cr-btn:disabled{opacity:.4;cursor:not-allowed}
 .cr-btn .arw{display:inline-block}
 .cr-spin{animation:crSpin .9s linear infinite}
 @keyframes crSpin{to{transform:rotate(360deg)}}
 
-/* ── empty / skeleton ── */
-.cr-empty{text-align:center;padding:64px 20px;color:var(--cr-muted)}
+/* ── empty / skeleton ─────────────────────────────────────────────────────── */
+.cr-empty{text-align:center;padding:56px 20px;color:var(--cr-muted)}
 .cr-empty h2{margin:14px 0 6px;font-size:1.2rem;color:var(--cr-ink)}
 .cr-empty p{margin:0;font-size:.9rem}
-.cr-skel{height:110px;border-radius:18px;margin-bottom:13px;
-  background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.09),rgba(255,255,255,.04));
+.cr-skel{height:96px;border-radius:8px;margin-bottom:14px;
+  background:linear-gradient(90deg,rgba(31,26,20,.05),rgba(31,26,20,.10),rgba(31,26,20,.05));
   background-size:200% 100%;animation:crSkel 1.5s ease-in-out infinite}
-.cr-skel.sm{height:70px}
+.cr-skel.sm{height:64px}
 @keyframes crSkel{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-@media (max-width:560px){
-  .cr-card,.cr-scard{padding:15px 14px;gap:12px}
+@media (max-width:600px){
+  .cr-wrap{padding:16px 12px 64px}
+  .cr-sheet{padding:26px 18px 34px;padding-inline-start:52px;border-radius:10px;border-start-start-radius:0}
+  .cr-sheet::after{inset-inline-start:38px}
+  .cr-card__no,.cr-scard__n{inset-inline-start:-36px;font-size:1.05rem}
+  .cr-q.ok::before,.cr-q.no::before{inset-inline-start:-34px;font-size:1.2rem}
   .cr-opts--inline{grid-template-columns:1fr 1fr}
-  .cr-hero h1{font-size:1.65rem}
 }
 @media print{
-  .cr-world,.cr-back,.cr-bar{display:none!important}
-  .cr-root{background:#fff;min-height:auto;--cr-ink:#1a1a1a;--cr-ink-soft:#444;--cr-muted:#777;--cr-line:#ccc}
-  .cr-q,.cr-scard,.cr-card{box-shadow:none;border-color:#bbb;break-inside:avoid;background:#fff}
+  .cr-world,.cr-back,.cr-bar,.cr-tab{display:none!important}
+  .cr-root{background:#fff;min-height:auto}
+  .cr-sheet{box-shadow:none;padding:0;background:#fff}
+  .cr-sheet::before,.cr-sheet::after{display:none}
+  .cr-q,.cr-scard,.cr-card{break-inside:avoid}
 }
