@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion } from 'framer-motion'
-import { ChevronLeft, Settings } from 'lucide-react'
+import { Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import UserAvatar from '@/components/common/UserAvatar'
 import { hasIELTSAccess } from '@/lib/packageAccess'
@@ -17,7 +17,7 @@ import { supabase } from '@/lib/supabase'
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin', agent: '/team', coordinator: '/coordinator' }
 const STAFF_ROLE_LABELS = { admin: 'إدارة الأكاديمية', trainer: 'مدرب', agent: 'خدمة العملاء', coordinator: 'تنسيق الحصص' }
 
-function Sidebar({ nav, collapsed, onToggle }) {
+function Sidebar({ nav, collapsed }) {
   const profile = useAuthStore((s) => s.profile)
   const profileId = profile?.id
   const studentData = useAuthStore((s) => s.studentData)
@@ -433,20 +433,14 @@ function Sidebar({ nav, collapsed, onToggle }) {
         </div>
       </div>
 
-      {/* Collapse toggle */}
-      <button
-        onClick={onToggle}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full flex items-center justify-center z-40 transition-all duration-200 cursor-pointer"
-        style={{
-          background: 'var(--ds-bg-elevated, #0b0f18)',
-          border: '1px solid var(--ds-border-subtle)',
-          color: 'var(--ds-text-tertiary)',
-          boxShadow: 'var(--ds-shadow-sm)',
-        }}
-        aria-label={collapsed ? 'توسيع القائمة' : 'طي القائمة'}
-      >
-        <ChevronLeft size={14} style={{ transform: collapsed ? 'rotate(180deg)' : 'none', transition: 'transform 200ms' }} />
-      </button>
+      {/* The collapse toggle used to live HERE, and that was the bug. It is
+          positioned to straddle the rail's inner edge (left-0 + -translate-x-1/2),
+          but this <aside> sets `overflow: hidden` (to clip the ambient glow and
+          the scroll area) — so the outer half of the button was cut off. What
+          students saw was a faint clipped arc, not a control, which is why nobody
+          could find it. Restyling it in place could never fix that.
+          It now renders in LayoutShell as a sibling of the rail, so nothing
+          clips it. See <SidebarCollapseToggle> there. */}
 
       <style>{`
         .pd-rail-item { transition: background 170ms var(--ease-out,ease), color 170ms var(--ease-out,ease), box-shadow 170ms var(--ease-out,ease); }

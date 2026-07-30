@@ -80,11 +80,19 @@ function Header({ showMenuButton, onMenuClick }) {
     >
       {/* Right side (RTL start) */}
       <div className="flex items-center gap-3">
+        {/* Hamburger — MOBILE ONLY. It opens <MobileDrawer>, which is itself
+            `lg:hidden`, so above lg the button was rendered but clicking it did
+            literally nothing (the drawer it toggles cannot render). Meanwhile the
+            real desktop nav is <Sidebar>, which is `hidden lg:flex`. Gating this
+            at the same `lg` breakpoint keeps exactly one nav affordance on screen
+            at any width. `fl-hdr-btn` sets display:inline-flex from
+            components.css, which is imported BEFORE @tailwind utilities, so
+            `lg:hidden` wins the cascade. */}
         {showMenuButton && (
           <button
             onClick={onMenuClick}
             aria-label="فتح القائمة"
-            className="fl-hdr-btn"
+            className="fl-hdr-btn lg:hidden"
           >
             <Menu size={19} strokeWidth={1.75} />
           </button>

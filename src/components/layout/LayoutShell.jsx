@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback, Suspense, useMemo } from 'rea
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import lazyRetry from '../../utils/lazyRetry'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ChevronLeft } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import MobileBar from './MobileBar'
@@ -165,7 +165,53 @@ export default function LayoutShell() {
 
       {/* Sidebar (desktop only) */}
       {!isClassMode && (
-        <Sidebar nav={nav} collapsed={collapsed} onToggle={handleToggleCollapsed} />
+        <Sidebar nav={nav} collapsed={collapsed} />
+      )}
+
+      {/* Sidebar collapse toggle — a SIBLING of the rail, not a child.
+          It has to straddle the rail's inner edge, and <Sidebar>'s <aside> sets
+          `overflow: hidden` (it clips the ambient glow + the scroll area), so as
+          a child the outer half of this button was sliced off — students saw a
+          faint arc rather than a control, which is why nobody could find it.
+          Rendering it here means nothing clips it.
+          `right` tracks the rail width and translate(50%) centres it on the edge;
+          the transition matches the rail's own 300ms so they move together. */}
+      {!isClassMode && (
+        <>
+          <button
+            onClick={handleToggleCollapsed}
+            className="pd-rail-toggle hidden lg:flex items-center justify-center fixed w-[34px] h-[34px] rounded-full z-40 cursor-pointer"
+            style={{
+              right: collapsed ? 76 : 264,
+              top: 'calc(var(--impersonation-banner-height, 0px) + (100dvh - var(--impersonation-banner-height, 0px)) / 2)',
+              transform: 'translate(50%, -50%)',
+              background: 'var(--ds-surface-3, #1a2230)',
+              border: '1px solid var(--ds-border-emphasis, rgba(255,255,255,0.28))',
+              color: 'var(--ds-text-primary)',
+              boxShadow: 'var(--ds-shadow-lg)',
+              transition: 'right 300ms cubic-bezier(0.22,1,0.36,1), background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease',
+            }}
+            aria-label={collapsed ? 'توسيع القائمة' : 'طي القائمة'}
+            aria-expanded={!collapsed}
+            title={collapsed ? 'توسيع القائمة' : 'طي القائمة'}
+          >
+            <ChevronLeft
+              size={17}
+              strokeWidth={2.5}
+              style={{ transform: collapsed ? 'rotate(180deg)' : 'none', transition: 'transform 220ms cubic-bezier(0.22,1,0.36,1)' }}
+            />
+          </button>
+          <style>{`
+            /* 44px hit area without inflating the 34px visual */
+            .pd-rail-toggle::before { content: ''; position: absolute; inset: -5px; border-radius: 999px; }
+            .pd-rail-toggle:hover { border-color: var(--ds-accent-primary) !important; color: var(--ds-accent-primary) !important; box-shadow: var(--ds-shadow-lg), 0 0 0 3px color-mix(in srgb, var(--ds-accent-primary) 18%, transparent) !important; }
+            .pd-rail-toggle:focus-visible { outline: none; border-color: var(--ds-accent-primary) !important; box-shadow: var(--ds-shadow-lg), 0 0 0 3px color-mix(in srgb, var(--ds-accent-primary) 38%, transparent) !important; }
+            .pd-rail-toggle:active { transform: translate(50%, -50%) scale(0.94) !important; }
+            @media (prefers-reduced-motion: reduce) {
+              .pd-rail-toggle, .pd-rail-toggle svg { transition: none !important; }
+            }
+          `}</style>
+        </>
       )}
 
       {/* Main content area */}
