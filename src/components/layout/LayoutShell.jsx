@@ -180,6 +180,14 @@ export default function LayoutShell() {
         <>
           <button
             onClick={handleToggleCollapsed}
+            /* Marks this as part of the rail, not standalone chrome. Full-screen
+               sections that provide their own shell hide the rail by selector
+               (`body.ielts-app aside[data-sidebar-root]`) — because this button
+               must live OUTSIDE the rail to escape its overflow:hidden, it needs
+               its own hook in those rules or it floats over their UI with
+               nothing to collapse. If you add another takeover mode, hide
+               `[data-sidebar-toggle]` wherever you hide `[data-sidebar-root]`. */
+            data-sidebar-toggle
             className="pd-rail-toggle hidden lg:flex items-center justify-center fixed w-[34px] h-[34px] rounded-full z-40 cursor-pointer"
             style={{
               right: collapsed ? 76 : 264,

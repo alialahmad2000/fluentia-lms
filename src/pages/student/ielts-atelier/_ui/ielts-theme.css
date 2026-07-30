@@ -62,6 +62,11 @@
 /* Full-screen focus: the IELTS section provides its OWN shell, so hide the
    global LayoutShell chrome and reclaim its space while mounted. */
 body.ielts-app aside[data-sidebar-root],
+/* The rail's collapse toggle is a SIBLING of the rail (it has to escape the
+   rail's overflow:hidden), so hiding `aside[data-sidebar-root]` alone leaves it
+   floating over the IELTS shell with nothing to collapse. Keep these two
+   selectors together — the toggle is part of the rail, not separate chrome. */
+body.ielts-app [data-sidebar-toggle],
 body.ielts-app [data-app-header],
 body.ielts-app .mobile-bottom-nav{ display:none !important; }
 body.ielts-app [data-content-shell]{ margin:0 !important; }
