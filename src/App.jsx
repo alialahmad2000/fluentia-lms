@@ -216,6 +216,9 @@ const IELTSAtelierReadingErrors     = lazyRetry(() => import('./pages/student/ie
 const IELTSAtelierSkillMonitor      = lazyRetry(() => import('./pages/student/ielts-atelier/SkillMonitor'))
 const IELTSAtelierListening      = lazyRetry(() => import('./pages/student/ielts-atelier/Listening'))
 const IELTSAtelierWriting        = lazyRetry(() => import('./pages/student/ielts-atelier/Writing'))
+const IELTSAtelierWritingCriteria = lazyRetry(() => import('./pages/student/ielts-atelier/writing/Criteria'))
+const IELTSAtelierWritingModels   = lazyRetry(() => import('./pages/student/ielts-atelier/writing/Models'))
+const IELTSAtelierWritingErrors   = lazyRetry(() => import('./pages/student/ielts-atelier/writing/Errors'))
 const IELTSAtelierSpeaking       = lazyRetry(() => import('./pages/student/ielts-atelier/Speaking'))
 const IELTSAtelierJourney        = lazyRetry(() => import('./pages/student/ielts-atelier/Journey'))
 const IELTSAtelierErrorsHub      = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/index'))
@@ -999,8 +1002,17 @@ export default function App() {
                   <Route path="listening"  element={<IELTSAtelierListening />} />
                   <Route path="listening/guide"   element={<IELTSAtelierListening />} />
                   <Route path="listening/monitor" element={<IELTSAtelierSkillMonitor />} />
-                  <Route path="writing"    element={<IELTSAtelierWriting />} />
+                  {/* Writing ladder — the surfaces were all reachable only from
+                      inside one page, so nothing could be linked to or resumed.
+                      Each rung is now its own route (mirrors the reading ladder). */}
+                  <Route path="writing"           element={<IELTSAtelierWriting />} />
+                  <Route path="writing/task1"     element={<IELTSAtelierWriting />} />
                   <Route path="writing/task2"     element={<IELTSAtelierWriting />} />
+                  <Route path="writing/micro"     element={<IELTSAtelierWriting />} />
+                  <Route path="writing/full"      element={<IELTSAtelierWriting />} />
+                  <Route path="writing/criteria"  element={<IELTSAtelierWritingCriteria />} />
+                  <Route path="writing/models"    element={<IELTSAtelierWritingModels />} />
+                  <Route path="writing/errors"    element={<IELTSAtelierWritingErrors />} />
                   <Route path="writing/monitor"   element={<IELTSAtelierSkillMonitor />} />
                   <Route path="speaking"   element={<IELTSAtelierSpeaking />} />
                   <Route path="speaking/guide"    element={<IELTSAtelierSpeaking />} />

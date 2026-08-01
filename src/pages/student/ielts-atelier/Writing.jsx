@@ -37,6 +37,27 @@ const MODE_CONFIG = {
   full:  { label: 'كاملاً (٦٠ دقيقة)', timeMin: 60, minWords: 400, edgeType: null,          subType: null },
 }
 
+// Header copy per rung. The eyebrow mirrors the reading ladder's «الدرجة الأولى ·
+// الطريقة» phrasing so the two sections read as one system.
+const ROUTE_HEADER = {
+  guide: {
+    eyebrow: 'الدرجة الأولى · الطريقة', title: 'دليل الكتابة',
+    lede: 'قبل أن تكتبي مقالاً كاملاً: دروس قصيرة تشرح كيف يُصحَّح ما تكتبينه، وكيف تُبنى كل فقرة. اقرئيها بالترتيب — كل درس يبني على الذي قبله.',
+  },
+  micro: {
+    eyebrow: 'الدرجة الثانية · حركة واحدة', title: 'المهارات المصغّرة',
+    lede: 'تمرين واحد قصير بدل أربعين دقيقة: اكتبي الـ Overview وحده، أو المقدمة وحدها، أو فقرة PEEL واحدة — ثم قارنيها بنموذج ومعه سبب قوّته.',
+  },
+  task: {
+    eyebrow: 'الدرجة الثالثة · مهمة كاملة', title: 'مهمة كاملة',
+    lede: 'مهمة واحدة على ساعتها الحقيقية، ثم تقييم مفصّل بالمعايير الأربعة.',
+  },
+  full: {
+    eyebrow: 'الدرجة الرابعة · الجلسة الكاملة', title: 'الاختبار الكامل',
+    lede: 'المهمّتان معاً في ستّين دقيقة، كما في يوم الاختبار. الأهمّ هنا ليس اللغة بل إدارة الوقت: عشرون دقيقة للأولى وأربعون للثانية — والثانية تساوي ثُلثَي الدرجة.',
+  },
+}
+
 const BAND_CRITERIA_TASK1 = [
   { key: 'task_achievement', label: 'Task Achievement' },
   { key: 'coherence_cohesion', label: 'Coherence & Cohesion' },
@@ -500,8 +521,20 @@ export default function Writing() {
   const isWide = useIsWide()
   const qc = useQueryClient()
   const { pathname } = useLocation()
-  // Sidebar sub-item routes the landing task: /writing → Task 1, /writing/task2 → Task 2.
+  // Each rung of the writing ladder is its own route, so a lesson, a drill set,
+  // a task or the full sitting can be linked to and resumed. Previously the
+  // whole section lived behind /writing and /writing/task2, which meant the
+  // guide, the drills and the 60-minute sitting had no address at all.
+  //   /writing        → the guide (lessons)
+  //   /writing/micro  → the short drills
+  //   /writing/task1  → one Task 1 under its own clock
+  //   /writing/task2  → one Task 2
+  //   /writing/full   → both tasks, 60 minutes
   const routedTask = pathname.endsWith('/writing/task2') ? 'task2' : 'task1'
+  const routeView = pathname.endsWith('/writing/micro') ? 'micro'
+    : pathname.endsWith('/writing/full') ? 'full'
+    : (pathname.endsWith('/writing/task1') || pathname.endsWith('/writing/task2')) ? 'task'
+    : 'guide'
 
   // ── 1. useState ────────────────────────────────────────────────────────────
   const [act, setAct]                     = useState('hub')
@@ -543,6 +576,30 @@ export default function Writing() {
   // ── 4. useEffect ───────────────────────────────────────────────────────────
 
   // Keep refs in sync with state for use in closures
+  // Keep the task tab in step with the route, so /writing/task2 really lands on
+  // Task 2 instead of only setting it on first mount.
+  useEffect(() => {
+    setHubTask(routedTask)
+    setMode(routedTask)
+  }, [routedTask])
+
+  // /writing/full opens the 60-minute sitting directly. The route is the whole
+  // point of the rung — before this it existed only as a link buried at the
+  // bottom of the hub, so nothing could send a student straight to it.
+  const fullAutoStarted = useRef(false)
+  useEffect(() => {
+    if (routeView !== 'full') { fullAutoStarted.current = false; return }
+    if (fullAutoStarted.current || act !== 'hub') return
+    const tasks = allTasksQ.data || []
+    const hasPair = tasks.some(t => t.task_type === 'task1') && tasks.some(t => t.task_type === 'task2')
+    if (!hasPair) return
+    fullAutoStarted.current = true
+    handleSelectFull(tasks)
+    // handleSelectFull is defined below in the component body and is stable for
+    // this purpose; re-running on task load is the only trigger we need.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [routeView, act, allTasksQ.data])
+
   useEffect(() => { currentDraftRef.current = draft }, [draft])
   useEffect(() => { currentDraft2Ref.current = task2Draft }, [task2Draft])
   useEffect(() => { draftIdRef.current = draftId }, [draftId])
@@ -767,8 +824,10 @@ export default function Writing() {
     return (
       <div dir="rtl" style={{ maxWidth: 780, margin: '0 auto', paddingBottom: 80, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        <LabHeader eyebrow="التدريب · الكتابة" title="الكتابة">
-          نتعلّم خطوة بخطوة قبل الاختبار: دروس قصيرة تشرح كل ما تحتاجينه، ثم تدريبات مصغّرة تتقنين فيها جزءاً واحداً، وأخيراً مهمة كاملة في بيئة الاختبار. هكذا تصلين إلى المهمة الكاملة وأنتِ واثقة.
+        {/* Each rung now has its own address, so the header names the rung the
+            student actually opened instead of the whole section. */}
+        <LabHeader eyebrow={ROUTE_HEADER[routeView].eyebrow} title={ROUTE_HEADER[routeView].title}>
+          {ROUTE_HEADER[routeView].lede}
         </LabHeader>
 
         {recent.length > 0 && (
@@ -778,7 +837,10 @@ export default function Writing() {
           </div>
         )}
 
-        {/* Task-type tabs */}
+        {/* Task-type tabs — only where the student still has a choice. On
+            /writing/task1|task2 the route already fixed the task, and the full
+            sitting covers both, so the tabs would contradict the URL there. */}
+        {(routeView === 'guide' || routeView === 'micro') && (
         <div style={{ display: 'flex', gap: 8, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', borderRadius: 12, padding: 4 }}>
           {[['task1', 'المهمة الأولى', 'رسم بياني / عملية / خريطة'], ['task2', 'المهمة الثانية', 'مقال رأي / نقاش']].map(([k, l, sub]) => (
             <button key={k} onClick={() => setHubTask(k)} style={{ flex: 1, padding: '10px 12px', borderRadius: 9, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", border: 0, background: hubTask === k ? 'var(--iel-accent)' : 'transparent', color: hubTask === k ? '#fff' : 'var(--iel-ink-2)', transition: 'all .15s' }}>
@@ -787,8 +849,10 @@ export default function Writing() {
             </button>
           ))}
         </div>
+        )}
 
-        {/* PHASE 1 — تعلّم */}
+        {/* PHASE 1 — تعلّم · shown on /writing (دليل الكتابة) */}
+        {routeView === 'guide' && (
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 12 }}>
             <span style={{ display: 'flex', width: 30, height: 30, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><GraduationCap size={16} /></span>
@@ -807,8 +871,10 @@ export default function Writing() {
             ))}
           </div>
         </div>
+        )}
 
-        {/* PHASE 2 — تدرّب */}
+        {/* PHASE 2 — تدرّب · shown on /writing/micro (المهارات المصغّرة) */}
+        {routeView === 'micro' && (
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 12 }}>
             <span style={{ display: 'flex', width: 30, height: 30, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><Dumbbell size={16} /></span>
@@ -827,8 +893,10 @@ export default function Writing() {
             ))}
           </div>
         </div>
+        )}
 
-        {/* PHASE 3 — المهمة الكاملة */}
+        {/* PHASE 3 — المهمة الكاملة · shown on /writing/task1|task2|full */}
+        {(routeView === 'task' || routeView === 'full') && (
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 12 }}>
             <span style={{ display: 'flex', width: 30, height: 30, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><PenLine size={16} /></span>
@@ -859,6 +927,7 @@ export default function Writing() {
             </button>
           )}
         </div>
+        )}
       </div>
     )
   }

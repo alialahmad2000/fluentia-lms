@@ -54,10 +54,25 @@ const SKILL_SUB = {
     { group: 'التعلّم', items: [{ path: 'listening/guide', label: 'دليل الاستماع' }] },
     { group: 'التدريب', items: [{ path: 'listening', label: 'التمارين', exact: true }] },
   ],
+  // Writing's ramp is neither time (reading) nor replays (listening) — there is
+  // no right answer at all, it is scored on four criteria and improves by
+  // iterating on the same text. What escalates is how much SCAFFOLDING is taken
+  // away: template + key phrases on screen → one task on its own clock → both
+  // tasks in 60 minutes with nothing.
   writing: [
-    { items: [
-      { path: 'writing', label: 'المهمة الأولى', exact: true },
-      { path: 'writing/task2', label: 'المهمة الثانية' },
+    { group: 'التعلّم', items: [
+      { path: 'writing', label: 'دليل الكتابة', exact: true },
+      { path: 'writing/criteria', label: 'المعايير الأربعة' },
+      { path: 'writing/models', label: 'نماذج مشروحة' },
+    ] },
+    { group: 'التدريب', items: [
+      { path: 'writing/micro', label: 'المهارات المصغّرة', intensity: 1 },
+      { path: 'writing/task1', label: 'المهمة الأولى', intensity: 2 },
+      { path: 'writing/task2', label: 'المهمة الثانية', intensity: 2 },
+      { path: 'writing/full', label: 'الاختبار الكامل', intensity: 3 },
+    ] },
+    { group: 'المراجعة', items: [
+      { path: 'writing/errors', label: 'أخطائي في الكتابة', loop: true },
     ] },
   ],
   speaking: [
