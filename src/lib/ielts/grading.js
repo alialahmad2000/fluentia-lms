@@ -50,15 +50,66 @@ function normalizeAnswer(v) {
   return String(v ?? '').trim().toLowerCase()
 }
 
+// Punctuation-insensitive form used only as a LAST comparison step. Kept
+// deliberately narrow: it collapses spacing and drops full stops/commas so
+// "8 p.m." and "8pm" agree, but it never trims or fuzzy-matches words, so
+// "Wednesday" still fails against "Wednesdays" and "Park lanen" still fails
+// against "Park Lane" — both of which are genuinely wrong in IELTS.
+function looseAnswer(v) {
+  return normalizeAnswer(v).replace(/[.,]/g, '').replace(/\s+/g, ' ').trim()
+}
+
+// IELTS answer keys mark OPTIONAL words with parentheses and alternatives with
+// slashes, often nested: "3(rd) (of) September 1995", "6:30 (p.m./pm/in the
+// evening)". Expand a key into every string it actually licenses.
+//
+// This was a real scoring bug, not a nicety. The old code split the WHOLE string
+// on "/" before looking at parentheses, so "6:30 (p.m./pm/in the evening)" became
+// "6:30 (p.m." · "pm" · "in the evening)" — three fragments that no correct answer
+// can ever equal. 23 of 250 listening keys (9.2%) carry parentheses, and every
+// one of them was unmatchable: a student writing exactly the keyed answer was
+// marked wrong. Recovered from real sessions — "3rd of September 1995" scored
+// zero against "3(rd) (of) September 1995".
+function expandKey(key) {
+  const parts = String(key).split(/(\([^()]*\))/)
+  let out = ['']
+  for (const part of parts) {
+    if (!part) continue
+    if (part.startsWith('(') && part.endsWith(')')) {
+      // optional group: omit it, or use any of its slash alternatives
+      const alts = part.slice(1, -1).split('/').map(a => a.trim())
+      out = out.flatMap(prefix => ['', ...alts].map(a => prefix + a))
+    } else if (part.includes('/')) {
+      // alternatives outside parentheses: "third/3rd"
+      const alts = part.split('/').map(a => a.trim())
+      out = out.flatMap(prefix => alts.map(a => prefix + a))
+    } else {
+      out = out.map(prefix => prefix + part)
+    }
+    if (out.length > 64) out = out.slice(0, 64) // pathological keys: stay bounded
+  }
+  return out
+}
+
 function answersMatch(given, expected) {
   if (given == null || expected == null) return false
   if (Array.isArray(expected)) {
     return expected.some(e => answersMatch(given, e))
   }
   const expectedStr = String(expected)
-  // Handle slash-separated alternatives: "third/3rd", "1,312/1312"
-  if (expectedStr.includes('/')) {
-    return expectedStr.split('/').some(alt => answersMatch(given, alt.trim()))
+  // Expand parentheses and slashes together, then compare against every licensed
+  // form. Handles them in one pass so "/" inside "( )" is treated as an
+  // alternative within that optional group rather than cutting the key apart.
+  if (expectedStr.includes('(') || expectedStr.includes('/')) {
+    const variants = expandKey(expectedStr)
+    if (variants.length > 1 || expectedStr.includes('(')) {
+      const g = normalizeAnswer(given)
+      const gl = looseAnswer(given)
+      return variants.some((v) => {
+        const nv = normalizeAnswer(v)
+        return nv.length > 0 && (g === nv || gl === looseAnswer(v))
+      })
+    }
   }
   // T/F/NG flexible matching
   const tfMap = {
