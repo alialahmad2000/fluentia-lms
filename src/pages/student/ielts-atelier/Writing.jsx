@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PenLine, ChevronLeft, ChevronRight, RotateCcw, Loader2, CheckCircle, XCircle, AlertTriangle, Clock, BookOpen, GraduationCap, Dumbbell, Check, ArrowLeft } from 'lucide-react'
+import { PenLine, ChevronLeft, ChevronRight, ChevronDown, RotateCcw, Loader2, CheckCircle, XCircle, AlertTriangle, Clock, BookOpen, GraduationCap, Dumbbell, Check, ArrowLeft, ListTree, Columns } from 'lucide-react'
 import { GalleryCard, MetaChip, LabHeader, SectionHeader, Card, Icon } from './_ui/primitives'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
@@ -128,7 +128,11 @@ function usePublishedTasks(mode) {
     queryFn: async () => {
       let q = supabase
         .from('ielts_writing_tasks')
-        .select('id, task_type, test_variant, title, prompt, image_url, word_count_target, time_limit_minutes, difficulty_band')
+        // model_answer_band7 / template_structure / key_phrases were the real
+        // reason those three columns had zero references in the UI: the task
+        // query simply never asked for them. They drive the scaffolding panel
+        // while writing and the side-by-side comparison after grading.
+        .select('id, task_type, test_variant, title, prompt, image_url, word_count_target, time_limit_minutes, difficulty_band, model_answer_band7, template_structure, key_phrases')
         .eq('is_published', true)
         .order('difficulty_band')
       if (mode === 'task1') q = q.eq('task_type', 'task1')
@@ -508,6 +512,109 @@ function DrillRunner({ drill, onClose }) {
             أنهيت التدريب
           </button>
         </motion.div>
+      )}
+    </div>
+  )
+}
+
+// ─── Scaffolding panel ────────────────────────────────────────────────────────
+// The paragraph structure + phrase bank for THIS task, shown while she writes.
+// This is the first rung of the scaffolding ramp: present in a single timed task,
+// withheld in the 60-minute sitting, where the point is doing it unaided.
+function ScaffoldPanel({ task }) {
+  const [open, setOpen] = useState(false)
+  const tmpl = task?.template_structure && typeof task.template_structure === 'object' ? task.template_structure : null
+  const phrases = Array.isArray(task?.key_phrases) ? task.key_phrases : []
+  if (!tmpl && !phrases.length) return null
+
+  const flat = []
+  const walk = (v, label) => {
+    if (v == null) return
+    if (typeof v === 'string') { flat.push([label, v]); return }
+    if (Array.isArray(v)) { flat.push([label, v.join(' · ')]); return }
+    if (typeof v === 'object') Object.entries(v).forEach(([k, x]) => walk(x, TMPL_AR[k] || k.replace(/_/g, ' ')))
+  }
+  if (tmpl) Object.entries(tmpl).forEach(([k, v]) => walk(v, TMPL_AR[k] || k.replace(/_/g, ' ')))
+
+  return (
+    <div style={{ border: '1px solid var(--iel-border)', borderRadius: 12, background: 'var(--iel-surface-2)', overflow: 'hidden' }}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 13px', background: 'transparent', border: 0, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", color: 'var(--iel-ink-2)', textAlign: 'start' }}
+      >
+        <ListTree size={14} style={{ flex: 'none', color: 'var(--iel-accent)' }} />
+        <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--iel-ink)' }}>مساعدة الهيكل</span>
+        <span style={{ fontSize: 11, color: 'var(--iel-ink-3)' }}>{open ? 'إخفاء' : 'إظهار'}</span>
+        <ChevronDown size={14} style={{ marginInlineStart: 'auto', flex: 'none', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }} />
+      </button>
+      {open && (
+        <div style={{ padding: '4px 13px 13px', display: 'flex', flexDirection: 'column', gap: 11 }}>
+          {flat.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+              {flat.map(([k, v], i) => (
+                <div key={i}>
+                  <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--iel-accent-ink)', letterSpacing: '.03em' }}>{k}</div>
+                  <div dir="auto" style={{ fontSize: 12, color: 'var(--iel-ink-2)', lineHeight: 1.75 }}>{v}</div>
+                </div>
+              ))}
+            </div>
+          )}
+          {phrases.length > 0 && (
+            <div>
+              <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--iel-ink-3)', letterSpacing: '.03em', marginBottom: 5 }}>عبارات مفيدة</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+                {phrases.map((p, i) => (
+                  <span key={i} dir="ltr" style={{ fontSize: 11, padding: '4px 8px', borderRadius: 7, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink-2)', fontFamily: WSANS }}>{String(p)}</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+const TMPL_AR = {
+  introduction: 'المقدمة', overview: 'الـ Overview', body1: 'الفقرة الأولى', body2: 'الفقرة الثانية',
+  body_paragraph_1: 'الفقرة الأولى', body_paragraph_2: 'الفقرة الثانية', conclusion: 'الخاتمة',
+  key_arguments: 'الحجج', planning_guide: 'خطة الكتابة', paragraph_outline: 'هيكل الفقرات',
+  for: 'مع', against: 'ضدّ',
+}
+
+// ─── Compare with the Band 7 model ────────────────────────────────────────────
+// Shown after grading: her text beside the model answer for the SAME task. A
+// generic model teaches far less than the one written for the question she just
+// answered — and this is the single biggest thing the section already owned and
+// never showed.
+function CompareWithModel({ task, myText }) {
+  const [show, setShow] = useState(false)
+  const model = task?.model_answer_band7
+  if (!model) return null
+  return (
+    <div style={{ borderRadius: 16, border: '1px solid var(--iel-border)', background: 'var(--iel-surface)', overflow: 'hidden' }}>
+      <button
+        onClick={() => setShow((s) => !s)}
+        style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 9, padding: '14px 16px', background: 'transparent', border: 0, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", textAlign: 'start' }}
+      >
+        <span style={{ display: 'inline-flex', width: 26, height: 26, borderRadius: 8, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><Columns size={14} /></span>
+        <span style={{ flex: 1, minWidth: 0 }}>
+          <span style={{ display: 'block', fontSize: 13.5, fontWeight: 800, color: 'var(--iel-ink)' }}>قارني بنموذج Band 7</span>
+          <span style={{ display: 'block', fontSize: 11.5, color: 'var(--iel-ink-3)' }}>نموذج مكتوب لهذا السؤال بالذات</span>
+        </span>
+        <ChevronDown size={16} style={{ flex: 'none', color: 'var(--iel-ink-3)', transform: show ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }} />
+      </button>
+      {show && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', borderTop: '1px solid var(--iel-border)' }}>
+          <div style={{ padding: '14px 16px' }}>
+            <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: '.09em', color: 'var(--iel-ink-3)', marginBottom: 8 }}>نصّك</div>
+            <div dir="ltr" style={{ fontSize: 13, lineHeight: 2, color: 'var(--iel-ink-2)', whiteSpace: 'pre-wrap', textAlign: 'start', fontFamily: WSANS }}>{myText || '—'}</div>
+          </div>
+          <div style={{ padding: '14px 16px', borderInlineStart: '1px solid var(--iel-border)', background: 'color-mix(in srgb, var(--iel-accent) 4%, transparent)' }}>
+            <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: '.09em', color: 'var(--iel-accent-ink)', marginBottom: 8 }}>نموذج Band 7</div>
+            <div dir="ltr" style={{ fontSize: 13, lineHeight: 2, color: 'var(--iel-ink)', whiteSpace: 'pre-wrap', textAlign: 'start', fontFamily: WSANS }}>{model}</div>
+          </div>
+        </div>
       )}
     </div>
   )
@@ -975,6 +1082,12 @@ export default function Writing() {
           <div style={{ marginBottom: 16, padding: '11px 14px', borderRadius: 10, border: '1px dashed var(--iel-border-strong)', background: 'var(--iel-surface-2)', fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: WSANS, lineHeight: 1.6, direction: 'ltr', textAlign: 'left' }}>The visual data for this task is described in the prompt below.</div>
         ) : null}
         <p style={{ margin: 0, fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: WSANS, lineHeight: 1.75, textAlign: 'left', whiteSpace: 'pre-line' }}>{activeTask?.prompt || 'Loading…'}</p>
+        {/* Scaffolding is the writing ladder's ramp: available on a single timed
+            task, withheld in the 60-minute sitting where doing it unaided is the
+            whole measurement. Collapsed by default so it never crowds the prompt. */}
+        {mode !== 'full' && (
+          <div style={{ marginTop: 14 }}><ScaffoldPanel task={activeTask} /></div>
+        )}
       </div>
     )
     const EditorPane = (
@@ -1091,14 +1204,18 @@ export default function Writing() {
 
         {/* Task1 results */}
         {gradeResult && renderFeedback(gradeResult, task1)}
+        {/* Her answer beside the Band 7 model written for THIS question. The
+            models existed for all 25 tasks and were never once shown. */}
+        {gradeResult && <CompareWithModel task={task1} myText={draft} />}
 
         {/* Task2 results (full mode) */}
         {mode === 'full' && task2Result && (
-          <div style={{ marginTop: 8 }}>
-            <p style={{ margin: '0 0 14px', fontSize: 12, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <p style={{ margin: '0 0 0', fontSize: 12, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Task 2
             </p>
             {renderFeedback(task2Result, task2)}
+            <CompareWithModel task={task2} myText={task2Draft} />
           </div>
         )}
 
