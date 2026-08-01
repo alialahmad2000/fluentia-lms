@@ -94,8 +94,10 @@ function SkillBars({ skills }) {
               className="h-full rounded-full"
               style={{
                 width: `${Math.max(3, s.pct)}%`,
-                background:
-                  s.verdict === 'strong' ? '#4ade80' : s.verdict === 'weak' ? '#fbbf24' : 'var(--ds-accent-primary, #38bdf8)',
+                // Literal blue, NOT --ds-accent-primary: that token is gold in
+                // the admin theme, which made "even" indistinguishable from the
+                // amber "weak" bar — the one distinction this chart exists for.
+                background: s.verdict === 'strong' ? '#4ade80' : s.verdict === 'weak' ? '#fbbf24' : '#38bdf8',
               }}
             />
           </div>
