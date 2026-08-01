@@ -50,9 +50,17 @@ const SKILL_SUB = {
       { path: 'reading/errors', label: 'أخطائي في القراءة', loop: true },
     ] },
   ],
+  // Listening's ramp is neither time (reading) nor scaffolding (writing): the
+  // recording sets the clock, so what escalates is HOW MANY TIMES she may hear
+  // it. Replay freely while drilling → one play only, as in the exam.
   listening: [
     { group: 'التعلّم', items: [{ path: 'listening/guide', label: 'دليل الاستماع' }] },
-    { group: 'التدريب', items: [{ path: 'listening', label: 'التمارين', exact: true }] },
+    { group: 'التدريب', items: [
+      { path: 'listening', label: 'التمارين', exact: true, intensity: 1 },
+    ] },
+    { group: 'المراجعة', items: [
+      { path: 'listening/errors', label: 'أخطائي في الاستماع', loop: true },
+    ] },
   ],
   // Writing's ramp is neither time (reading) nor replays (listening) — there is
   // no right answer at all, it is scored on four criteria and improves by

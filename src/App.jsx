@@ -219,6 +219,7 @@ const IELTSAtelierWriting        = lazyRetry(() => import('./pages/student/ielts
 const IELTSAtelierWritingCriteria = lazyRetry(() => import('./pages/student/ielts-atelier/writing/Criteria'))
 const IELTSAtelierWritingModels   = lazyRetry(() => import('./pages/student/ielts-atelier/writing/Models'))
 const IELTSAtelierWritingErrors   = lazyRetry(() => import('./pages/student/ielts-atelier/writing/Errors'))
+const IELTSAtelierListeningErrors = lazyRetry(() => import('./pages/student/ielts-atelier/listening/Errors'))
 const IELTSAtelierSpeaking       = lazyRetry(() => import('./pages/student/ielts-atelier/Speaking'))
 const IELTSAtelierJourney        = lazyRetry(() => import('./pages/student/ielts-atelier/Journey'))
 const IELTSAtelierErrorsHub      = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/index'))
@@ -1001,6 +1002,7 @@ export default function App() {
                   <Route path="reading/monitor"   element={<IELTSAtelierSkillMonitor />} />
                   <Route path="listening"  element={<IELTSAtelierListening />} />
                   <Route path="listening/guide"   element={<IELTSAtelierListening />} />
+                  <Route path="listening/errors"  element={<IELTSAtelierListeningErrors />} />
                   <Route path="listening/monitor" element={<IELTSAtelierSkillMonitor />} />
                   {/* Writing ladder — the surfaces were all reachable only from
                       inside one page, so nothing could be linked to or resumed.
