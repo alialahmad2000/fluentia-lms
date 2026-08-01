@@ -310,6 +310,7 @@ const AdminDailyReports = lazyRetry(() => import('./pages/admin/AdminDailyReport
 const AdminAnalytics = lazyRetry(() => import('./pages/admin/AdminAnalytics'))
 const CompetitionAdmin = lazyRetry(() => import('./pages/admin/CompetitionAdmin'))
 const PlacementQueuePage = lazyRetry(() => import('./pages/admin/PlacementQueuePage'))
+const AdminLevelTests = lazyRetry(() => import('./pages/admin/AdminLevelTests'))
 const UnitMasteryPage = lazyRetry(() => import('./pages/student/assessment/UnitMasteryPage'))
 const UnitMasteryResultPage = lazyRetry(() => import('./pages/student/assessment/UnitMasteryResultPage'))
 const UnitMasteryManagerPage = lazyRetry(() => import('./pages/admin/UnitMasteryManagerPage'))
@@ -1198,6 +1199,8 @@ export default function App() {
               <Route path="/admin/announcements" element={<Page><ComposeAnnouncement /></Page>} />
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
               <Route path="/admin/placement-queue" element={<Page><PlacementQueuePage /></Page>} />
+              {/* Public level-test results (fluentia.academy/level-test) */}
+              <Route path="/admin/level-tests" element={<Page><AdminLevelTests /></Page>} />
               <Route path="/admin/unit-mastery" element={<Page><UnitMasteryManagerPage /></Page>} />
               <Route path="/admin/competition" element={<Page><CompetitionAdmin /></Page>} />
               <Route path="/admin/affiliates" element={<Page><AffiliatesList /></Page>} />
