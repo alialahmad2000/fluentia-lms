@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useContext } from 'react'
@@ -33,6 +33,7 @@ function chunkUnits(units, size = 4) {
 export function useCurriculumData() {
   const { levelNumber } = useParams()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const { canSeeAllLevels, basePath } = useContext(CurriculumPreviewContext) || {}
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
@@ -68,7 +69,17 @@ export function useCurriculumData() {
   })
 
   // Fardi custom-curriculum flag (from studentData, impersonation-safe). NULL/false → unchanged behaviour.
-  const useCustomCurriculum = studentData?.uses_custom_curriculum === true
+  //
+  // A custom student may ALSO be granted the ordinary level curriculum
+  // (uses_standard_curriculum). Both courses live under the same /level/:n route,
+  // so ?track=standard is what tells them apart — without it a custom student
+  // always gets their own course, exactly as before. Both conditions are required,
+  // so nothing changes for custom students whose bespoke course REPLACED the
+  // standard one (e.g. أنوار, whose A2 units were archived on purpose).
+  const wantsStandardTrack = searchParams.get('track') === 'standard'
+  const hasStandardTrack = studentData?.uses_standard_curriculum === true
+  const useCustomCurriculum =
+    studentData?.uses_custom_curriculum === true && !(wantsStandardTrack && hasStandardTrack)
 
   const { data: units = [], isLoading: loadingUnits } = useQuery({
     queryKey: ['curriculum-units', useCustomCurriculum ? `custom:${profile?.id}` : level?.id],
@@ -145,5 +156,9 @@ export function useCurriculumData() {
     levelNum,
     navigate,
     profile,
+    // Which of the two courses is on screen. Only meaningful for a student who has
+    // both; everyone else gets the single course they always got.
+    isCustomTrack: useCustomCurriculum,
+    hasBothTracks: studentData?.uses_custom_curriculum === true && hasStandardTrack,
   }
 }

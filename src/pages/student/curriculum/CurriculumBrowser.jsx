@@ -12,6 +12,9 @@ import { ProgressRing, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_pre
 import CurriculumPageSkeleton from '../../../components/skeletons/CurriculumPageSkeleton'
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 
+// Sentinel id for the synthesised «مساري الخاص» card. Never a real curriculum_levels row.
+const CUSTOM_TRACK_ID = '__custom_track__'
+
 export default function CurriculumBrowser() {
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const navigate = useNavigate()
@@ -23,19 +26,24 @@ export default function CurriculumBrowser() {
   const extraLevels = Array.isArray(studentData?.extra_curriculum_levels) ? studentData.extra_curriculum_levels : []
   const hasExtra = extraLevels.length > 0
   const extraKey = extraLevels.join(',')
+  // A student with their OWN course who is also granted the ordinary curriculum has
+  // two courses to choose between, so the grid has to stay reachable for them.
+  const hasBothTracks =
+    studentData?.uses_custom_curriculum === true && studentData?.uses_standard_curriculum === true
   const [autoNavDone, setAutoNavDone] = useState(false)
   const m = useCinematicMotion()
 
   // Auto-navigate students to their current level (skip in preview mode, for
-  // teacher-preview accounts, and for students with an extra-level grant — all of
-  // whom need the grid to reach more than one curriculum).
+  // teacher-preview accounts, for students with an extra-level grant, and for
+  // students holding BOTH a custom and the standard course — all of whom need the
+  // grid to reach more than one curriculum).
   useEffect(() => {
-    if (!canSeeAllLevels && !canAccessLower && !hasExtra && profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
+    if (!canSeeAllLevels && !canAccessLower && !hasExtra && !hasBothTracks && profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
       setAutoNavDone(true)
       navigate(`${basePath}/level/${currentLevel}`, { replace: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile?.role, currentLevel, canAccessLower, extraKey, autoNavDone, navigate, canSeeAllLevels, basePath])
+  }, [profile?.role, currentLevel, canAccessLower, extraKey, hasBothTracks, autoNavDone, navigate, canSeeAllLevels, basePath])
 
   // Fetch all active levels
   const { data: levels, isLoading: loadingLevels, error: levelsError, refetch } = useQuery({
@@ -51,20 +59,35 @@ export default function CurriculumBrowser() {
     },
   })
 
-  // Fetch unit counts per level
+  // Fetch unit counts per level.
+  // owner_student_id IS NULL matters: without it every custom student's private
+  // units were counted into the shared level totals, so A2 advertised 34 units when
+  // the ordinary course has 12 (L3 showed 42, L4 showed 22).
   const { data: unitCounts, isLoading: loadingUnits } = useQuery({
-    queryKey: ['curriculum-unit-counts'],
+    queryKey: ['curriculum-unit-counts', hasBothTracks ? profile?.id : null],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_units')
         .select('level_id')
+        .is('owner_student_id', null)
       if (error) throw error
       const counts = {}
       for (const u of (data || [])) {
         counts[u.level_id] = (counts[u.level_id] || 0) + 1
       }
+      // The synthesised custom-course card counts the student's OWN published units.
+      if (hasBothTracks && profile?.id) {
+        const { count, error: ownErr } = await supabase
+          .from('curriculum_units')
+          .select('id', { count: 'exact', head: true })
+          .eq('owner_student_id', profile.id)
+          .eq('is_published', true)
+        if (ownErr) throw ownErr
+        counts[CUSTOM_TRACK_ID] = count || 0
+      }
       return counts
     },
+    enabled: hasBothTracks ? !!profile?.id : true,
   })
 
   // Fetch student section-level progress and calculate unit completions per level
@@ -82,12 +105,14 @@ export default function CurriculumBrowser() {
       const unitIds = [...new Set(data.map(p => p.unit_id))]
       const { data: units } = await supabase
         .from('curriculum_units')
-        .select('id, level_id')
+        .select('id, level_id, owner_student_id')
         .in('id', unitIds)
 
       const unitToLevel = {}
       for (const u of (units || [])) {
-        unitToLevel[u.id] = u.level_id
+        // A student's own unit belongs to their custom course, not to the shared
+        // level — otherwise finishing a bespoke unit lights up the ordinary card.
+        unitToLevel[u.id] = u.owner_student_id ? CUSTOM_TRACK_ID : u.level_id
       }
 
       const byUnit = groupProgressByUnit(data)
@@ -128,9 +153,32 @@ export default function CurriculumBrowser() {
     if (canSeeAllLevels) return true
     if (canAccessLower) return lvlNum <= currentLevel
     if (hasExtra) return lvlNum === currentLevel || extraLevels.includes(lvlNum)
+    // Two-course student: the point of the grid is choosing between THEIR course and
+    // the ordinary one at their level — not browsing every level beneath them.
+    if (hasBothTracks) return lvlNum === currentLevel
     return lvlNum <= currentLevel
   }
   let unlockedLevels = (levels || []).filter(l => isAccessible(l.level_number))
+  // Two-COURSE view (distinct from the two-LEVEL "extra grant" view above): a student
+  // with their own course who also holds the ordinary curriculum gets a card for each.
+  // The custom course is synthesised as a level-shaped object so it reuses the exact
+  // same card, and leads — it is the course built for them.
+  if (hasBothTracks) {
+    const ownLevel = (levels || []).find(l => l.level_number === currentLevel)
+    unlockedLevels = [
+      {
+        id: CUSTOM_TRACK_ID,
+        level_number: currentLevel,
+        name_ar: 'مساري الخاص',
+        name_en: 'My own course',
+        cefr: ownLevel?.cefr || '',
+        description_ar: 'المقرّر المكتوب لك أنت — وحداتك الخاصة بترتيبها.',
+        cover_image_url: ownLevel?.cover_image_url || null,
+        __customTrack: true,
+      },
+      ...unlockedLevels,
+    ]
+  }
   // Extra-grant view: the current level leads as the hero, granted revisit levels
   // follow (closest first). Staff/normal ordering (ascending) is left untouched.
   if (hasExtra) {
@@ -290,7 +338,9 @@ export default function CurriculumBrowser() {
           className="space-y-5"
         >
           {unlockedLevels.map(level => {
-            const isCurrent = level.level_number === currentLevel
+            const isCurrent = hasBothTracks
+              ? Boolean(level.__customTrack)   // the bespoke course leads for a two-course student
+              : level.level_number === currentLevel
             // A level opened via an explicit extra grant (e.g. A2 for a B1 student):
             // framed as a revisit path, NOT as "completed" — she hasn't finished it.
             const isExtra = hasExtra && !isCurrent && extraLevels.includes(level.level_number)
@@ -305,7 +355,10 @@ export default function CurriculumBrowser() {
 
             const handleClick = () => {
               tracker.track('unit_opened', { level_id: level.id, level_number: level.level_number, level_name: level.name_ar })
-              navigate(`${basePath}/level/${level.level_number}`)
+              // Both courses live under /level/:n. ?track=standard is what picks the
+              // ordinary curriculum; without it a custom student gets their own course.
+              const qs = !level.__customTrack && hasBothTracks ? '?track=standard' : ''
+              navigate(`${basePath}/level/${level.level_number}${qs}`)
             }
             const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
 

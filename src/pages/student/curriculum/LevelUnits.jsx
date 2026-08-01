@@ -22,7 +22,8 @@ function useIsCompact() {
 }
 
 export default function LevelUnits() {
-  const { level, units, chapters, progressMap, levelProgress, nextUnit, loading, levelColor, levelNum, navigate } = useCurriculumData()
+  const { level, units, chapters, progressMap, levelProgress, nextUnit, loading, levelColor, levelNum, navigate,
+    isCustomTrack, hasBothTracks } = useCurriculumData()
   const { basePath } = useCurriculumPreview()
   const m = useCinematicMotion()
   const compact = useIsCompact()
@@ -88,12 +89,14 @@ export default function LevelUnits() {
               <div className="flex-1" style={{ position: 'relative' }}>
                 <motion.div {...m.fadeUp} className="lvx-eyebrow">
                   <span className="lvx-eyebrow__rule" />
-                  <span className="lvx-eyebrow__text">رحلة المستوى</span>
+                  <span className="lvx-eyebrow__text">
+                    {hasBothTracks ? (isCustomTrack ? 'مسارك الخاص' : 'المنهج العام') : 'رحلة المستوى'}
+                  </span>
                   <span className="lvx-cefr" dir="ltr">{level.cefr}</span>
                 </motion.div>
 
                 <motion.h1 {...m.fadeUp} className="lvx-title">
-                  {level.name_ar}
+                  {hasBothTracks && isCustomTrack ? 'مساري الخاص' : level.name_ar}
                 </motion.h1>
 
                 <motion.div {...m.fadeUp} className="lvx-subtitle">
