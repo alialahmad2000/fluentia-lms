@@ -329,13 +329,42 @@ export function getNavForRole(role) {
 // CEFR label per curriculum level_number (== students.academic_level).
 const LEVEL_CEFR = { 0: 'Pre-A1', 1: 'A1', 2: 'A2', 3: 'B1', 4: 'B2', 5: 'C1' }
 
-/** For a student granted extra_curriculum_levels, build one sidebar item per level
-    she can reach — her current level first («منهج B1»), then each granted revisit
-    level («مراجعة A2»). Returns null for everyone else (nav unchanged). */
+/** One sidebar item per curriculum the student can reach, so a click lands INSIDE
+    that curriculum. Students must never be routed to the all-levels grid — see the
+    note on injectLevelNav. Two independent grants produce items:
+
+      · extra_curriculum_levels — her current level first («منهج B1»), then each
+        granted revisit level («مراجعة A2»);
+      · uses_standard_curriculum on a custom-curriculum student — their own course
+        («مساري الخاص») and the ordinary course at the same level («المنهج العام»),
+        told apart by ?track=standard since both live under /level/:n.
+
+    Returns null for everyone else (nav unchanged). */
 function buildLevelNavItems(studentData) {
   const cur = studentData?.academic_level
+  if (cur == null) return null
+
+  // Two COURSES at one level (custom + ordinary).
+  if (studentData?.uses_custom_curriculum === true && studentData?.uses_standard_curriculum === true) {
+    return [
+      {
+        id: 'curriculum-own',
+        label: 'مساري الخاص',
+        icon: BookOpen,
+        to: `/student/curriculum/level/${cur}`,
+      },
+      {
+        id: 'curriculum-standard',
+        label: 'المنهج العام',
+        icon: BookOpenCheck,
+        to: `/student/curriculum/level/${cur}?track=standard`,
+      },
+    ]
+  }
+
+  // Two LEVELS of the ordinary course (current + granted revisit levels).
   const extras = Array.isArray(studentData?.extra_curriculum_levels) ? studentData.extra_curriculum_levels : []
-  if (cur == null || extras.length === 0) return null
+  if (extras.length === 0) return null
   const uniqExtras = [...new Set(extras.filter((n) => n !== cur))].sort((a, b) => b - a)
   return [cur, ...uniqExtras].map((n) => {
     const isCurrent = n === cur
@@ -349,9 +378,13 @@ function buildLevelNavItems(studentData) {
   })
 }
 
-// Replace the single «المنهج» item with the per-level items in the desktop sidebar
-// + the mobile "More" drawer. The mobile bottom bar keeps «المنهج» → the grid (which
-// itself shows both levels), so the bar never overflows.
+// Replace the single «المنهج» item with the per-curriculum items in the desktop
+// sidebar + the mobile "More" drawer.
+//
+// The mobile bottom bar has only 5 slots, so it keeps ONE «المنهج» entry — but that
+// entry is re-pointed at the student's PRIMARY curriculum, never at the all-levels
+// grid. No student should ever land on the grid: it costs a click, shows courses
+// that are not theirs, and buries the one they came for.
 function injectLevelNav(nav, items) {
   const swap = (list) => {
     if (!Array.isArray(list)) return list
@@ -362,10 +395,16 @@ function injectLevelNav(nav, items) {
     }
     return out
   }
+  const primary = items[0]?.to
+  const retargetBar = (list) => {
+    if (!Array.isArray(list) || !primary) return list
+    return list.map((it) => (it && it.id === 'curriculum' ? { ...it, to: primary } : it))
+  }
   return {
     ...nav,
     sections: Array.isArray(nav.sections) ? nav.sections.map((s) => ({ ...s, items: swap(s.items) })) : nav.sections,
     drawerSections: Array.isArray(nav.drawerSections) ? nav.drawerSections.map((s) => ({ ...s, items: swap(s.items) })) : nav.drawerSections,
+    mobileBar: retargetBar(nav.mobileBar),
   }
 }
 
@@ -456,12 +495,33 @@ function gateSentenceBuilder(nav, studentData) {
   }
 }
 
+/** Point the single «المنهج» item straight at the student's own curriculum.
+    Every student has exactly one primary curriculum, so linking to the all-levels
+    grid and letting it redirect is a wasted hop through a screen they should never
+    see. Students with SEVERAL curricula are handled by buildLevelNavItems instead. */
+function retargetCurriculum(nav, studentData) {
+  const cur = studentData?.academic_level
+  if (cur == null) return nav
+  const to = `/student/curriculum/level/${cur}`
+  const fix = (list) =>
+    Array.isArray(list) ? list.map((it) => (it && it.id === 'curriculum' ? { ...it, to } : it)) : list
+  return {
+    ...nav,
+    sections: Array.isArray(nav.sections) ? nav.sections.map((s) => ({ ...s, items: fix(s.items) })) : nav.sections,
+    drawerSections: Array.isArray(nav.drawerSections) ? nav.drawerSections.map((s) => ({ ...s, items: fix(s.items) })) : nav.drawerSections,
+    mobileBar: fix(nav.mobileBar),
+  }
+}
+
 export function getNavForUser(role, studentData) {
   if ((role === 'student' || !role) && studentData?.study_mode === 'individual') return INDIVIDUAL_NAV
   if (role === 'student' || !role) {
     let nav = STUDENT_NAV
     const levelItems = buildLevelNavItems(studentData)
+    // Several curricula → one entry each; otherwise retarget the single «المنهج»
+    // item. Either way the student clicks once and is inside a curriculum.
     if (levelItems) nav = injectLevelNav(nav, levelItems)
+    else nav = retargetCurriculum(nav, studentData)
     if (studentData?.uses_tech_track === true) nav = injectTechTrack(nav)
     if (studentData?.uses_biz_track === true) nav = injectBizTrack(nav)
     if (studentData?.uses_env_track === true) nav = injectEnvTrack(nav)
