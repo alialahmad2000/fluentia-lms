@@ -1,10 +1,36 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { supabase } from '@/lib/supabase'
 import { useDiagnosticResultV2 } from '@/hooks/ielts/useDiagnosticResultV2'
 import { useAdaptivePlan } from '@/hooks/ielts/useIELTSHub'
 import { useStudentId } from './_helpers/resolveStudentId'
 import { useG } from '@/i18n/gender'
 import { Card, PrimaryButton, Icon, SectionHeader } from './_ui/primitives'
+import MockReview from './_ui/MockReview'
+
+// The raw diagnostic attempt (ielts_mock_attempts) that produced this result row —
+// carries the content IDs + the student's answer map, so the full per-question
+// review can be rebuilt retroactively for a diagnostic taken any time in the past.
+function useDiagnosticAttempt(resultId) {
+  return useQuery({
+    queryKey: ['ielts-diagnostic-attempt', resultId],
+    enabled: !!resultId,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_mock_attempts')
+        .select('id, status, started_at, completed_at, answers')
+        .eq('result_id', resultId)
+        .order('completed_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+      if (error) throw error
+      return data
+    },
+  })
+}
 
 const BASE = '/student/ielts-atelier'
 const SKILLS = ['reading', 'listening', 'writing', 'speaking']
@@ -28,6 +54,7 @@ export default function DiagnosticResults() {
   const { data: result, isLoading } = useDiagnosticResultV2()
   const { data: plan } = useAdaptivePlan(studentId)
   const target = plan?.target_band != null ? Number(plan.target_band) : null
+  const { data: diagAttempt } = useDiagnosticAttempt(result?.hasResult ? result.attemptId : null)
 
   if (isLoading) {
     return (
@@ -113,6 +140,16 @@ export default function DiagnosticResults() {
         </div>
         <PrimaryButton onClick={() => navigate(`${BASE}/journey`)}>{g('اعرض خطّتي', 'اعرض خطّتي')} <Icon.chevron size={16} sw={2.4} /></PrimaryButton>
       </Card>
+
+      {/* Full per-question review of the diagnostic — every question with its choices,
+          the correct answer, the feedback, and the source passage / audio transcript.
+          Rebuilt retroactively from the stored attempt, so it works for past diagnostics. */}
+      {diagAttempt && (
+        <div>
+          <SectionHeader title="مراجعة الاختبار كاملاً" />
+          <MockReview attempt={diagAttempt} defaultOpen={false} />
+        </div>
+      )}
     </div>
   )
 }

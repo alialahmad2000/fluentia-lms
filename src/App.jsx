@@ -221,6 +221,9 @@ const IELTSAtelierWritingModels   = lazyRetry(() => import('./pages/student/ielt
 const IELTSAtelierWritingErrors   = lazyRetry(() => import('./pages/student/ielts-atelier/writing/Errors'))
 const IELTSAtelierListeningErrors = lazyRetry(() => import('./pages/student/ielts-atelier/listening/Errors'))
 const IELTSAtelierSpeaking       = lazyRetry(() => import('./pages/student/ielts-atelier/Speaking'))
+const IELTSAtelierSpeakingCriteria = lazyRetry(() => import('./pages/student/ielts-atelier/speaking/Criteria'))
+const IELTSAtelierSpeakingPhrases  = lazyRetry(() => import('./pages/student/ielts-atelier/speaking/Phrases'))
+const IELTSAtelierSpeakingErrors   = lazyRetry(() => import('./pages/student/ielts-atelier/speaking/Errors'))
 const IELTSAtelierJourney        = lazyRetry(() => import('./pages/student/ielts-atelier/Journey'))
 const IELTSAtelierErrorsHub      = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/index'))
 const IELTSAtelierErrorsReview   = lazyRetry(() => import('./pages/student/ielts-atelier/Errors/ReviewSession'))
@@ -1021,6 +1024,9 @@ export default function App() {
                   <Route path="speaking/guide"    element={<IELTSAtelierSpeaking />} />
                   <Route path="speaking/part2"    element={<IELTSAtelierSpeaking />} />
                   <Route path="speaking/part3"    element={<IELTSAtelierSpeaking />} />
+                  <Route path="speaking/criteria" element={<IELTSAtelierSpeakingCriteria />} />
+                  <Route path="speaking/phrases"  element={<IELTSAtelierSpeakingPhrases />} />
+                  <Route path="speaking/errors"   element={<IELTSAtelierSpeakingErrors />} />
                   <Route path="speaking/monitor"  element={<IELTSAtelierSkillMonitor />} />
                   <Route path="journey"    element={<IELTSAtelierJourney />} />
                   <Route path="errors"          element={<IELTSAtelierErrorsHub />} />

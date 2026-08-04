@@ -135,8 +135,10 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, note, onSubmit, s
   return typeof document !== 'undefined' ? createPortal(overlay, document.body) : overlay
 }
 
-/* Numbered question palette — answered (filled), current (ring), else outline. */
-export function QuestionPalette({ groups, answered, onJump, current }) {
+/* Numbered question palette — answered (filled), current (ring), else outline.
+   In REVIEW mode pass `status[`${gi}_${n}`] = 'correct' | 'wrong'` to colour each
+   cell green/red instead of the plain answered fill. */
+export function QuestionPalette({ groups, answered, onJump, current, status }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 16, width: '100%', minWidth: 0 }}>
       {groups.map((g, gi) => (
@@ -144,15 +146,21 @@ export function QuestionPalette({ groups, answered, onJump, current }) {
           <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--iel-ink-3)', whiteSpace: 'nowrap' }}>{g.label}</span>
           <div style={{ display: 'flex', gap: 5 }}>
             {g.numbers.map((n) => {
-              const on = answered.has(`${gi}_${n}`)
+              const on = answered?.has(`${gi}_${n}`)
               const cur = current === `${gi}_${n}`
+              const st = status?.[`${gi}_${n}`]
+              let bg, color, border
+              if (st === 'correct') { bg = 'var(--iel-accent)'; color = '#fff'; border = 'transparent' }
+              else if (st === 'wrong') { bg = 'var(--iel-bad)'; color = '#fff'; border = 'transparent' }
+              else if (on) { bg = 'var(--iel-accent)'; color = '#fff'; border = 'transparent' }
+              else if (cur) { bg = 'var(--iel-accent-soft)'; color = 'var(--iel-accent-ink)'; border = 'var(--iel-accent)' }
+              else { bg = 'transparent'; color = 'var(--iel-ink-3)'; border = 'var(--iel-border)' }
               return (
                 <button key={n} onClick={() => onJump(gi, n)} title={`سؤال ${n}`} style={{
                   width: 30, height: 30, borderRadius: 8, cursor: 'pointer', fontSize: 12.5, fontWeight: 700, flex: 'none',
                   fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
-                  border: `1.5px solid ${cur ? 'var(--iel-accent)' : on ? 'transparent' : 'var(--iel-border)'}`,
-                  background: on ? 'var(--iel-accent)' : cur ? 'var(--iel-accent-soft)' : 'transparent',
-                  color: on ? '#fff' : cur ? 'var(--iel-accent-ink)' : 'var(--iel-ink-3)', transition: 'all .12s',
+                  border: `1.5px solid ${cur && st ? 'var(--iel-ink)' : border}`,
+                  background: bg, color, transition: 'all .12s',
                 }}>{n}</button>
               )
             })}

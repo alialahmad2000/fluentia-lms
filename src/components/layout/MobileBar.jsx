@@ -1,10 +1,11 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { prefetchRoute } from '../../lib/prefetchRegistry'
 import { useAuthStore } from '../../stores/authStore'
 import { motion } from 'framer-motion'
 import { MoreHorizontal } from 'lucide-react'
+import { resolveActiveNavTo, isRootNavPath } from '../../utils/navActive'
 import { useChatUnread } from '../../features/chat/queries/useDM'
 import { toArabicNum } from '../../lib/vocabFormat'
 
@@ -16,6 +17,12 @@ function MobileBar({ nav, onMoreClick, role }) {
   const chatUnread = useChatUnread()
   // When chat is a primary tab in the bar, show its unread badge on that tab (not on "More").
   const hasChatTab = (nav.mobileBar || []).some((i) => i && i.badgeSource === 'chat-unread')
+
+  // Same most-specific match as the rail and the drawer.
+  const activeTo = useMemo(
+    () => resolveActiveNavTo(nav.mobileBar || [], location.pathname, location.search, role),
+    [nav, location.pathname, location.search, role],
+  )
   // Admin's mobile bar matches the gold operations rail (one accent system, Arabic-Indic count).
   const badgeStyle = role === 'admin'
     ? { background: 'var(--ds-accent-primary, #e9b949)', color: 'var(--ds-text-inverse, #0b0f18)' }
@@ -59,8 +66,8 @@ function MobileBar({ nav, onMoreClick, role }) {
           }
 
           const Icon = item.icon
-          const isDashboard = item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'
-          const active = isDashboard ? location.pathname === item.to : location.pathname.startsWith(item.to)
+          const isDashboard = isRootNavPath(item.to, role)
+          const active = item.to === activeTo
 
           return (
             <NavLink

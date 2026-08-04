@@ -235,21 +235,25 @@ html .iel-exam-clinical.iel-exam-clinical,
       + a fine grain + a soft vignette + a very slow drift. The clinical exam
       overlay (z-10050, opaque) covers it entirely, so the test is unaffected. ── */
 .iel-atmo{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-/* base wash — a deep blue-obsidian with the ground beneath */
+/* base wash — obsidian ground lit by living emerald blooms that reach across the
+   WHOLE viewport (not just the nav corner), so the content canvas is never flat. */
 .iel-atmo::before{
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(120% 84% at 86% -14%, rgba(186,202,224,.045), transparent 60%),
-    radial-gradient(100% 68% at 4% 6%,     rgba(148,163,184,.022), transparent 54%),
-    linear-gradient(180deg, #0a0e15 0%, #07090e 46%, #030509 100%);
+    radial-gradient(76% 60% at 84% -10%, rgba(16,185,129,.18), transparent 60%),   /* emerald crown, top-right */
+    radial-gradient(66% 56% at 38% 2%,   rgba(16,185,129,.095), transparent 62%),  /* soft glow behind the content header */
+    radial-gradient(80% 66% at 3% 98%,   rgba(45,212,191,.09), transparent 60%),   /* teal pool, bottom-left */
+    radial-gradient(66% 56% at 74% 106%, rgba(16,185,129,.08), transparent 60%),   /* emerald rise, bottom-right (fills the lower canvas) */
+    radial-gradient(46% 46% at 16% 50%,  rgba(234,179,8,.045), transparent 66%),   /* faint gold warmth, mid-left */
+    linear-gradient(180deg, #0a0f16 0%, #080c14 50%, #06080f 100%);
 }
-/* second, slowly drifting bloom layer for life */
+/* second, slowly drifting bloom layer — the "living" motion */
 .iel-atmo::after{
   content:''; position:absolute; inset:-15%;
   background:
-    radial-gradient(46% 42% at 20% 16%, rgba(203,213,225,.028), transparent 64%),
-    radial-gradient(52% 48% at 84% 74%, rgba(160,174,192,.032), transparent 66%);
-  filter:blur(26px); opacity:.85; animation:iel-atmo-drift 52s ease-in-out infinite alternate;
+    radial-gradient(48% 44% at 26% 22%, rgba(16,185,129,.12), transparent 64%),
+    radial-gradient(56% 52% at 80% 70%, rgba(45,212,191,.11), transparent 66%);
+  filter:blur(30px); opacity:.9; animation:iel-atmo-drift 52s ease-in-out infinite alternate;
 }
 /* fine grain + vignette so the field reads as depth, never a flat gradient */
 .iel-atmo-grain{
@@ -291,8 +295,9 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-navfoot .who{font-size:13px;font-weight:700;color:var(--iel-ink)}
 .iel-navfoot .who small{display:block;font-size:12px;color:var(--iel-ink-3);font-weight:600}
 .iel-main{flex:1;min-width:0;padding:26px 34px 60px;
-  /* very dark reading canvas — the nav rail stays lighter so the shell reads in two planes */
-  background:linear-gradient(180deg, rgba(0,0,0,.34), rgba(0,0,0,.48));}
+  /* a whisper-thin scrim only — the living .iel-atmo field is the reading canvas,
+     never a flat black wash. Kept just dark enough to hold text contrast. */
+  background:linear-gradient(180deg, rgba(4,8,14,.12), rgba(4,8,14,.24));}
 .iel-content{max-width:960px;margin:0 auto;animation:iel-rise .42s cubic-bezier(.22,1,.36,1) both}
 @keyframes iel-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){ .iel-content{animation:none} }
@@ -346,6 +351,59 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-subgroup{ padding:9px 11px 3px; font-size:9.5px; font-weight:800; letter-spacing:.12em;
   color:var(--iel-ink-3); font-family:'Tajawal',sans-serif; text-transform:uppercase; user-select:none; }
 .iel-subgroup:first-child{ padding-top:4px; }
+
+/* ── Per-skill blocks ────────────────────────────────────────────────────────
+   The four skills used to be fifteen identically-styled rows in one column, so
+   there was no boundary between القراءة and الاستماع and no way to tell which
+   sub-item belonged to which skill. Each block now redefines --iel-accent for
+   its own subtree, which recolours the icon, dots, rail and active row through
+   the EXISTING rules above — no per-skill duplicates of .iel-subitem. */
+.iel-skillblock{ position:relative; padding-block-end:9px; margin-block-end:9px; }
+.iel-skillblock:not(:last-of-type)::after{
+  content:''; position:absolute; inset-inline:9px 11px; bottom:0; height:1px; opacity:.55;
+  background:linear-gradient(90deg, transparent, var(--iel-border-strong) 20%, var(--iel-border-strong) 80%, transparent); }
+
+/* --iel-nav-active / -bg must be redefined alongside --iel-accent: the active
+   parent row reads those two tokens, so without them المحادثة rendered emerald
+   while its own rail was violet — the one row that most needs to match its
+   skill was the only one that did not. */
+.iel-skillblock[data-skill="reading"]  { --iel-accent:#10b981; --iel-accent-ink:#6ee7b7; --iel-accent-soft:rgba(16,185,129,.14);
+  --iel-nav-active:#6ee7b7; --iel-nav-active-bg:rgba(16,185,129,.14); }
+.iel-skillblock[data-skill="listening"]{ --iel-accent:#38bdf8; --iel-accent-ink:#7dd3fc; --iel-accent-soft:rgba(56,189,248,.14);
+  --iel-nav-active:#7dd3fc; --iel-nav-active-bg:rgba(56,189,248,.14); }
+.iel-skillblock[data-skill="writing"]  { --iel-accent:#f0a020; --iel-accent-ink:#fcd34d; --iel-accent-soft:rgba(240,160,32,.15);
+  --iel-nav-active:#fcd34d; --iel-nav-active-bg:rgba(240,160,32,.15); }
+.iel-skillblock[data-skill="speaking"] { --iel-accent:#a78bfa; --iel-accent-ink:#c4b5fd; --iel-accent-soft:rgba(167,139,250,.15);
+  --iel-nav-active:#c4b5fd; --iel-nav-active-bg:rgba(167,139,250,.15); }
+
+/* The rail ties the sub-items to their parent and stops at the block edge. It
+   carries the skill hue, and brightens for the block you are currently inside —
+   so the open block is obvious without collapsing the others and hiding where
+   everything lives. */
+.iel-skillblock .iel-subnav::before{
+  width:2px;
+  background:linear-gradient(180deg, color-mix(in srgb, var(--iel-accent) 72%, transparent), color-mix(in srgb, var(--iel-accent) 12%, transparent) 94%); }
+.iel-skillblock[data-current] .iel-subnav::before{
+  width:2.5px;
+  background:linear-gradient(180deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 22%, transparent) 94%);
+  box-shadow:0 0 7px color-mix(in srgb, var(--iel-accent) 45%, transparent); }
+.iel-skillblock[data-current] .iel-subgroup{ color:color-mix(in srgb, var(--iel-accent) 58%, var(--iel-ink-3)); }
+
+/* The skill's icon carries its hue at all times. This is the cue that actually
+   does the work: a 2px rail is easy to miss, but a coloured glyph beside the
+   skill name is read instantly and stays legible when the eye is scanning. The
+   parent NavItem is inline-styled, so the colour is set on the icon's own span —
+   a rule there beats the colour the button inherits down. */
+.iel-skillblock > button > span:not([aria-hidden]){ color:var(--iel-accent); }
+.iel-skillblock > button:hover > span:not([aria-hidden]){ color:var(--iel-accent-ink); }
+
+/* Dots inherit the hue too, so a sub-item's colour alone identifies its skill. */
+.iel-skillblock .iel-subitem .dot{ background:color-mix(in srgb, var(--iel-accent) 45%, var(--iel-ink-3)); }
+.iel-skillblock .iel-subitem:hover .dot{ background:var(--iel-accent); }
+
+/* Intensity bars follow their skill's hue on the active row, so the ramp reads
+   as part of that skill rather than as a fifth, unrelated colour. */
+.iel-subitem.on .iel-bars i{ background:color-mix(in srgb, var(--iel-accent) 72%, transparent); }
 
 /* Intensity meter — ascending bars marking how much pressure a drill puts the
    student under. Used ONLY where a real ramp exists (reading: untimed drill →
@@ -509,3 +567,29 @@ html .iel-exam-clinical.iel-exam-clinical,
   .iel-lmodal{ width:100%; max-height:calc(100dvh - 20px); border-radius:20px; }
 }
 @media (pointer:coarse){ .iel-lmodal-x{ width:44px; height:44px; } }
+
+/* ── Home masthead — editorial cinematic headline (2026-08-04 elevation) ───── */
+.iel-mast{ margin:2px 2px 6px }
+.iel-mast .eyebrow{ display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:800;
+  color:var(--iel-accent-ink); letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px }
+.iel-mast .eyebrow .spark{ width:22px; height:1.5px; background:linear-gradient(90deg, var(--iel-accent), transparent) }
+.iel-mast h1{ font-family:var(--iel-display); font-weight:700; font-size:clamp(30px,4.6vw,50px);
+  line-height:1.08; color:var(--iel-ink); letter-spacing:-.01em; margin:0 }
+.iel-mast h1 .band{ font-style:italic; background:linear-gradient(120deg, var(--iel-gold-ink), var(--iel-gold));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+.iel-mast .sub{ margin:16px 0 0; font-size:16px; color:var(--iel-ink-2); line-height:1.8; max-width:58ch; font-weight:500 }
+
+/* ── Bilingual editorial section label ────────────────────────────────────── */
+.iel-slabel{ display:flex; align-items:center; gap:12px; margin:32px 2px 15px }
+.iel-slabel .t{ font-family:var(--iel-display); font-size:21px; font-weight:700; color:var(--iel-ink) }
+.iel-slabel .en{ font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--iel-ink-3) }
+.iel-slabel .rule{ flex:1; height:1px; background:linear-gradient(90deg, var(--iel-border-strong), transparent) }
+.iel-slabel .act{ background:none; border:0; cursor:pointer; font-size:12.5px; font-weight:700; color:var(--iel-accent); font-family:'Tajawal',sans-serif; white-space:nowrap }
+
+/* ── Hero refinement — the band gauge is the single luminous showpiece ─────── */
+.iel-hero{ padding:34px 38px; gap:42px; border-radius:24px }
+.iel-hero-glow{ inset:-34% 34% auto -20%; height:150%;
+  background:radial-gradient(52% 52% at 26% 30%, color-mix(in srgb, var(--iel-accent) 15%, transparent), transparent 70%) }
+.iel-hero-count{ min-width:156px; border-radius:20px; padding:20px 16px }
+.iel-hero-count .big{ font-family:var(--iel-display); font-size:42px; font-weight:600; color:var(--iel-ink); line-height:1 }
+.iel-hero-count .div{ height:1px; background:var(--iel-border); margin:15px 0 }

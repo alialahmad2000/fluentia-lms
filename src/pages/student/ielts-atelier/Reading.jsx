@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, GraduationCap, ArrowLeft, ArrowRight, ChevronDown, Timer, Hourglass, Infinity as InfinityIcon, History } from 'lucide-react'
+import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, GraduationCap, ArrowLeft, ArrowRight, ChevronDown, ChevronLeft, Timer, Hourglass, Infinity as InfinityIcon, History } from 'lucide-react'
 
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
@@ -12,6 +12,8 @@ import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
 import { Card, MetaChip, LabHeader } from './_ui/primitives'
 import { ExamShell, QuestionPalette } from './_ui/ExamShell'
+import ExamReview, { ReviewRow as ExamReviewRow } from './_ui/ExamReview'
+import HighlightableText from './_ui/HighlightableText'
 import { ExamQuestion } from './_ui/ExamQuestions'
 
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
@@ -44,7 +46,7 @@ function useIsWide(bp = 900) {
 }
 
 // ─── Test card — pick ONE text (prominent, interactive) OR the full 3-passage test ─
-function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingle }) {
+function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingle, bestBySource }) {
   const ids = Array.isArray(test.passage_ids) ? test.passage_ids : []
   const topics = ids.map((id) => meta?.[id]).filter(Boolean)
   const bestBand = session?.band != null ? session.band : null
@@ -85,12 +87,14 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
           {g('تدرّب على نصّ واحد', 'تدرّبي على نصّ واحد')}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-          {[0, 1, 2].map((i) => (
+          {[0, 1, 2].map((i) => {
+            const pBand = bestBySource?.[ids[i]]
+            return (
             <button
               key={i}
               type="button"
               onClick={() => !loading && onSelectSingle(test, i)}
-              title="تدريب على هذا النص وحده (~٢٠ دقيقة)"
+              title={pBand != null ? `أفضل نطاق ${Number(pBand).toFixed(1)} — أعِد المحاولة` : 'تدريب على هذا النص وحده (~٢٠ دقيقة)'}
               className="iel-passrow"
               style={{
                 display: 'flex', alignItems: 'center', gap: 11, width: '100%', textAlign: 'start',
@@ -108,9 +112,15 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
                   نص {arDigit(i + 1)} · {POS_LEVEL[i]}
                 </span>
               </span>
+              {pBand != null && (
+                <span title="أفضل نطاق حصلتِ عليه" style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, padding: '3px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--iel-accent) 13%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-accent) 32%, transparent)', color: '#4ade80', fontSize: 11.5, fontWeight: 800, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+                  <CheckCircle size={11} /> {Number(pBand).toFixed(1)}
+                </span>
+              )}
               <span className="arrow" style={{ flex: 'none', fontSize: 16, display: 'inline-block', color: 'var(--iel-ink-3)' }}>←</span>
             </button>
-          ))}
+            )
+          })}
         </div>
       </div>
 
@@ -352,14 +362,109 @@ function PassageReviewCard({ pp, passage, defaultOpen }) {
   )
 }
 
-function AttemptReview({ perPassage, passages }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {perPassage.map((pp) => (
-        <PassageReviewCard key={pp.pi} pp={pp} passage={passages?.[pp.pi]} defaultOpen={perPassage.length === 1} />
-      ))}
+// Past-attempt review IN THE EXAM SCREEN LAYOUT — the same full-screen split
+// passage|questions shell as the live test, but read-only: her answer, the
+// correct answer, and the feedback per question, with the passage highlightable.
+// This is what "see the whole exam again as it was" means to a student.
+function AttemptExamReview({ attempt, perPassage, passages, isWide, loading, onExit }) {
+  const [tabIdx, setTabIdx] = useState(0)
+  const [mobilePane, setMobilePane] = useState('questions')
+  const single = perPassage.length <= 1
+  const pp = perPassage[tabIdx] || perPassage[0]
+  const passage = passages?.[pp?.pi]
+  const band = attempt.band_score != null ? Number(attempt.band_score) : null
+
+  const groups = perPassage.map((p, gi) => ({ label: single ? 'الأسئلة' : `Passage ${gi + 1}`, numbers: (p.perQuestion || []).map((r) => r.qNum) }))
+  const status = {}
+  perPassage.forEach((p, gi) => (p.perQuestion || []).forEach((r) => { status[`${gi}_${r.qNum}`] = r.isCorrect ? 'correct' : 'wrong' }))
+  const jump = (gi, n) => {
+    setTabIdx(gi)
+    if (!isWide) setMobilePane('questions')
+    setTimeout(() => document.getElementById(`rev-${gi}-${n}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60)
+  }
+
+  const PassageTabs = perPassage.length > 1 ? (
+    <div style={{ flex: 'none', display: 'flex', gap: 6, padding: '9px 16px', borderBottom: '1px solid var(--iel-border)', overflowX: 'auto' }}>
+      {perPassage.map((p, gi) => {
+        const on = gi === tabIdx
+        return (
+          <button key={gi} onClick={() => setTabIdx(gi)} style={{
+            flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, padding: '7px 13px', borderRadius: 9, cursor: 'pointer',
+            fontFamily: "'Tajawal', sans-serif", fontSize: 12.5, fontWeight: 700,
+            border: `1.5px solid ${on ? 'var(--iel-accent)' : 'var(--iel-border)'}`,
+            background: on ? 'var(--iel-accent-soft)' : 'transparent',
+            color: on ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)',
+          }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: posColor(gi) }} />
+            نص {arDigit(gi + 1)}
+          </button>
+        )
+      })}
+    </div>
+  ) : null
+
+  const PassagePane = (
+    <div style={{ padding: isWide ? '24px 30px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
+      <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 18px', fontFamily: SANS, textAlign: 'left', lineHeight: 1.3 }}>{passage?.title || pp?.title || ''}</h2>
+      {passage?.content
+        ? <HighlightableText text={passage.content} sourceType="reading_passage" sourceId={passage.id} lettered variant="exam" />
+        : <p style={{ fontSize: 13.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>{loading ? 'جارٍ تحميل النص…' : 'تعذّر تحميل نص هذه القطعة.'}</p>}
     </div>
   )
+  const QuestionsPane = (
+    <div style={{ padding: isWide ? '22px 24px' : '18px 16px', overflowY: 'auto', height: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+        {(pp?.perQuestion || []).map((r) => (
+          <div key={r.qNum} id={`rev-${tabIdx}-${r.qNum}`}><ExamReviewRow r={r} /></div>
+        ))}
+      </div>
+    </div>
+  )
+
+  return (
+    <ExamShell
+      sectionLabel="القراءة"
+      partLabel={single ? (passage?.title || pp?.title || 'مراجعة النص') : `Reading Passage ${tabIdx + 1} / ${perPassage.length}`}
+      secsLeft={null}
+      note={band != null ? `مراجعة · Band ${band.toFixed(1)}` : 'مراجعة'}
+      onExit={onExit}
+      footer={<QuestionPalette groups={groups} status={status} current={null} onJump={jump} />}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+        {PassageTabs}
+        <div style={{ flex: 1, minHeight: 0 }}>
+          {isWide ? (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: '100%', minHeight: 0 }}>
+              <div style={{ minHeight: 0, borderInlineStart: '1px solid var(--iel-border)', order: 2 }}>{PassagePane}</div>
+              <div style={{ minHeight: 0, order: 1 }}>{QuestionsPane}</div>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+              <div style={{ flex: 'none', display: 'flex', gap: 8, padding: '10px 16px', borderBottom: '1px solid var(--iel-border)' }}>
+                {[['questions', 'الأسئلة'], ['passage', 'النص']].map(([k, l]) => (
+                  <button key={k} onClick={() => setMobilePane(k)} style={{ flex: 1, padding: '9px', borderRadius: 9, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 13.5, fontWeight: 700, border: `1.5px solid ${mobilePane === k ? 'var(--iel-accent)' : 'var(--iel-border)'}`, background: mobilePane === k ? 'var(--iel-accent-soft)' : 'transparent', color: mobilePane === k ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)' }}>{l}</button>
+                ))}
+              </div>
+              <div style={{ flex: 1, minHeight: 0 }}>{mobilePane === 'passage' ? PassagePane : QuestionsPane}</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </ExamShell>
+  )
+}
+
+function AttemptReview({ perPassage, passages }) {
+  // Delegate to the shared ExamReview (source passage + per-question choices +
+  // always-on feedback), one section per passage.
+  const sections = (perPassage || []).map((pp) => ({
+    title: passages?.[pp.pi]?.title || pp.title || `نص ${arDigit(pp.pi + 1)}`,
+    sourceId: passages?.[pp.pi]?.id,
+    correct: pp.correct, total: pp.total, perQuestion: pp.perQuestion,
+    sourceText: passages?.[pp.pi]?.content, sourceKind: 'passage',
+    color: posColor(pp.pi),
+  }))
+  return <ExamReview sections={sections} />
 }
 
 function AttemptRow({ session, onOpen }) {
@@ -369,29 +474,35 @@ function AttemptRow({ session, onOpen }) {
   const band = session.band_score != null ? Number(session.band_score) : null
   const correct = session.correct_count || 0
   const total = correct + (session.incorrect_count || 0)
+  // Tier tint — emerald for a strong band, gold for a developing one. Never a
+  // punishing red: the number is honest enough; the colour should encourage.
+  const tier = band == null ? 'var(--iel-ink-3)' : band >= 6 ? 'var(--iel-accent)' : 'var(--iel-gold)'
   return (
-    <button type="button" onClick={onOpen} className="iel-passrow" style={{ display: 'flex', alignItems: 'center', gap: 13, width: '100%', textAlign: 'start', padding: '14px 16px', borderRadius: 14, cursor: 'pointer', border: '1px solid var(--iel-border)', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif", boxShadow: '0 1px 2px rgba(60,45,20,.05), 0 12px 26px -20px rgba(60,45,20,.24)' }}>
-      <span style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 9px', borderRadius: 7, fontSize: 11.5, fontWeight: 800, color: isFull ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', background: isFull ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', border: `1px solid ${isFull ? 'color-mix(in srgb, var(--iel-accent) 24%, transparent)' : 'var(--iel-border)'}` }}>
-        {isFull ? <Layers size={11} /> : <FileText size={11} />}{isFull ? 'كامل' : 'نصّ'}
+    <button type="button" onClick={onOpen} className="iel-passrow" style={{ display: 'flex', alignItems: 'center', gap: 15, width: '100%', textAlign: 'start', padding: '14px 16px', borderRadius: 16, cursor: 'pointer', border: '1px solid var(--iel-border)', borderInlineStart: `3px solid ${tier}`, background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif", boxShadow: 'var(--iel-shadow-sm)' }}>
+      {/* Band medallion — the anchor */}
+      <span style={{ flex: 'none', width: 62, height: 62, borderRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: `color-mix(in srgb, ${tier} 15%, var(--iel-surface-2))`, border: `1px solid color-mix(in srgb, ${tier} 34%, transparent)`, boxShadow: 'inset 0 1px 0 rgba(255,255,255,.06)' }}>
+        {band != null ? (
+          <>
+            <span className="iel-serif" style={{ fontSize: 23, fontWeight: 700, color: tier, lineHeight: 1 }}>{band.toFixed(1)}</span>
+            <span style={{ fontSize: 8.5, fontWeight: 800, letterSpacing: '.14em', color: 'var(--iel-ink-3)', marginTop: 4, fontFamily: "'IBM Plex Sans', sans-serif" }}>BAND</span>
+          </>
+        ) : <FileText size={22} color="var(--iel-ink-3)" />}
       </span>
+      {/* Content */}
       <span style={{ flex: 1, minWidth: 0 }}>
-        <span style={{ display: 'block', fontSize: 13.5, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'start', unicodeBidi: 'plaintext' }}>{attemptLabel(session)}</span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', fontSize: 12, color: 'var(--iel-ink-3)', marginTop: 4 }}>
-          <span>{fmtWhen(session.completed_at || session.started_at)}</span>
-          <span aria-hidden style={{ opacity: .45 }}>·</span>
-          <span>{fmtDur(session.duration_seconds)}</span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '2px 8px', borderRadius: 7, background: 'var(--iel-track)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink)', fontWeight: 700 }}>
-            <CheckCircle size={11} color="var(--iel-accent)" />{arDigit(correct)} من {arDigit(total)}
+        <span style={{ display: 'block', fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'start', unicodeBidi: 'plaintext', lineHeight: 1.35 }}>{attemptLabel(session)}</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap', marginTop: 9 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, fontSize: 11, fontWeight: 800, color: isFull ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', background: isFull ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', border: `1px solid ${isFull ? 'color-mix(in srgb, var(--iel-accent) 26%, transparent)' : 'var(--iel-border)'}` }}>
+            {isFull ? <Layers size={11} /> : <FileText size={11} />}{isFull ? 'اختبار كامل' : 'نصّ واحد'}
           </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink)', fontWeight: 700, fontSize: 11.5 }}>
+            <CheckCircle size={11} color="var(--iel-accent)" />{arDigit(correct)} / {arDigit(total)}
+          </span>
+          <span style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600 }}>{fmtWhen(session.completed_at || session.started_at)} · {fmtDur(session.duration_seconds)}</span>
         </span>
       </span>
-      {band != null && (
-        <span style={{ flex: 'none', textAlign: 'center' }}>
-          <span style={{ display: 'block', fontSize: 9.5, fontWeight: 800, letterSpacing: '.12em', color: 'var(--iel-ink-3)' }}>BAND</span>
-          <span className="iel-serif" style={{ display: 'block', fontSize: 19, fontWeight: 700, color: 'var(--iel-accent)', lineHeight: 1 }}>{band.toFixed(1)}</span>
-        </span>
-      )}
-      <span className="arrow" style={{ flex: 'none', fontSize: 15, color: 'var(--iel-ink-3)' }}>←</span>
+      {/* Open affordance (RTL: forward = leftward) */}
+      <ChevronLeft className="arrow" size={19} style={{ flex: 'none', color: 'var(--iel-ink-3)' }} />
     </button>
   )
 }
@@ -465,7 +576,7 @@ export default function Reading() {
   const [answers, setAnswers] = useState({})     // keyed `${pi}_${qNum}`
   const [timeLeft, setTimeLeft] = useState(0)
   const [gradeResult, setGradeResult] = useState(null)
-  const [showReview, setShowReview] = useState(false)
+  const [showReview, setShowReview] = useState(true)
   const [current, setCurrent] = useState(null)
   const [tabIdx, setTabIdx] = useState(0)
   const [mobilePane, setMobilePane] = useState('passage')
@@ -768,7 +879,7 @@ export default function Reading() {
             style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 14 }}
           >
             {tests.map((t) => (
-              <TestCard key={t.id} test={t} meta={meta} session={{ band: bestByTest[t.id] }} loading={loadingTestId === t.id} g={g} onSelectFull={(tt) => openPreflight(tt, 'full')} onSelectSingle={(tt, pi) => openPreflight(tt, 'single', pi)} />
+              <TestCard key={t.id} test={t} meta={meta} session={{ band: bestByTest[t.id] }} bestBySource={bestByTest} loading={loadingTestId === t.id} g={g} onSelectFull={(tt) => openPreflight(tt, 'full')} onSelectSingle={(tt, pi) => openPreflight(tt, 'single', pi)} />
             ))}
           </motion.div>
         )}
@@ -817,42 +928,21 @@ export default function Reading() {
     )
   }
 
-  // ── ATTEMPT DETAIL — the text along with the answers ─────────────────────────────
+  // ── ATTEMPT DETAIL — re-enter the exam SCREEN in review mode (her answers + feedback) ──
   if (act === 'attempt' && attempt) {
     const perPassage = reviewPerPassage(attempt.session_data)
-    const band = attempt.band_score != null ? Number(attempt.band_score) : null
-    const correct = attempt.correct_count || 0
-    const total = correct + (attempt.incorrect_count || 0)
-    return (
-      <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 18, paddingBottom: 80 }}>
-        <button type="button" onClick={() => { setAttempt(null); setAct('history') }} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '9px 15px', borderRadius: 10, border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-2)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', alignSelf: 'flex-start' }}>
-          <ArrowRight size={15} /> السجل
-        </button>
-        <div className="iel-gcard" style={{ padding: '20px 22px', background: 'var(--iel-surface)', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-          <div style={{ minWidth: 0, flex: 1 }}>
-            <div className="iel-serif" style={{ fontSize: 25, fontWeight: 700, color: 'var(--iel-ink)', textAlign: 'start', unicodeBidi: 'plaintext', lineHeight: 1.2 }}>{attemptLabel(attempt)}</div>
-            <div style={{ fontSize: 12.5, color: 'var(--iel-ink-3)', marginTop: 5, fontFamily: "'Tajawal', sans-serif" }}>{fmtWhen(attempt.completed_at || attempt.started_at)} · {fmtDur(attempt.duration_seconds)} · <span style={{ color: 'var(--iel-ink)', fontWeight: 800 }}>{arDigit(correct)} من {arDigit(total)}</span> إجابة صحيحة</div>
-          </div>
-          {band != null && (
-            <div style={{ flex: 'none', textAlign: 'center', padding: '8px 16px', borderRadius: 14, background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in srgb, var(--iel-accent) 24%, transparent)' }}>
-              <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: '.1em', color: 'var(--iel-accent-ink)', fontFamily: "'Tajawal', sans-serif" }}>BAND</div>
-              <div className="iel-serif" style={{ fontSize: 24, fontWeight: 700, color: 'var(--iel-accent)', lineHeight: 1 }}>{band.toFixed(1)}</div>
-            </div>
-          )}
+    const back = () => { setAttempt(null); setAct('history') }
+    if (!attemptLoading && perPassage.length === 0) {
+      return (
+        <div style={{ maxWidth: 640, margin: '48px auto', display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', textAlign: 'center' }}>
+          <p style={{ fontSize: 14, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif" }}>لا تتوفّر تفاصيل هذه المحاولة.</p>
+          <button type="button" onClick={back} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '10px 18px', borderRadius: 10, border: '1px solid var(--iel-border)', background: 'transparent', color: 'var(--iel-ink-2)', fontSize: 13, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+            <ArrowRight size={15} /> العودة للسجل
+          </button>
         </div>
-        {attemptLoading ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {Array(perPassage.length || 1).fill(0).map((_, i) => (
-              <div key={i} style={{ height: 160, borderRadius: 18, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', animation: 'pulse 1.5s ease-in-out infinite' }} />
-            ))}
-          </div>
-        ) : perPassage.length === 0 ? (
-          <div style={{ padding: '32px 24px', borderRadius: 18, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)', textAlign: 'center', color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif", fontSize: 14 }}>لا تتوفّر تفاصيل هذه المحاولة.</div>
-        ) : (
-          <AttemptReview perPassage={perPassage} passages={attemptPassages} />
-        )}
-      </div>
-    )
+      )
+    }
+    return <AttemptExamReview attempt={attempt} perPassage={perPassage} passages={attemptPassages} isWide={isWide} loading={attemptLoading} onExit={back} />
   }
 
   // ── ACT 2: SESSION (3 passages) ────────────────────────────────────────────────
@@ -892,12 +982,7 @@ export default function Reading() {
     const PassagePane = (
       <div style={{ padding: isWide ? '24px 30px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
         <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 18px', fontFamily: SANS, textAlign: 'left', lineHeight: 1.3 }}>{p?.title}</h2>
-        {paras.map((para, i) => (
-          <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 12, margin: '0 0 15px', fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
-            <span style={{ flex: 'none', width: 16, fontWeight: 800, color: 'var(--iel-ink-2)', fontFamily: SANS, fontSize: 14 }}>{paraLetters[i]}</span>
-            <span>{para}</span>
-          </p>
-        ))}
+        <HighlightableText text={p?.content} sourceType="reading_passage" sourceId={p?.id} lettered variant="exam" />
       </div>
     )
 
@@ -994,7 +1079,7 @@ export default function Reading() {
         {/* Review */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.4 }}>
           <button onClick={() => setShowReview((r) => !r)} style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 45%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-            {showReview ? 'إخفاء المراجعة' : 'مراجعة الإجابات'}
+            {showReview ? 'إخفاء مراجعة الاختبار' : 'مراجعة الاختبار كاملاً'}
           </button>
 
           <AnimatePresence>

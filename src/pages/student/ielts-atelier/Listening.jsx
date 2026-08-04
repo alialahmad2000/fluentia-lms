@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, ChevronLeft, Play, Pause, RotateCcw, CheckCircle, XCircle, Clock, FileText, Users } from 'lucide-react'
 import { GalleryCard, MetaChip, LabHeader } from './_ui/primitives'
 import LessonsGuide from './_ui/LessonsGuide'
+import ExamReview from './_ui/ExamReview'
 import { LISTENING_LESSONS } from './_ui/listeningLessons'
 import { useQuery } from '@tanstack/react-query'
 
@@ -515,7 +516,7 @@ function ListeningHall() {
   const [sectionFilter, setSectionFilter] = useState(null)
   const [answers, setAnswers] = useState({})
   const [gradeResult, setGradeResult] = useState(null)
-  const [showReview, setShowReview] = useState(false)
+  const [showReview, setShowReview] = useState(true)
   const [isPlaying, setIsPlaying] = useState(false)
   const [audioCurrentTime, setAudioCurrentTime] = useState(0)
   const [audioDuration, setAudioDuration] = useState(0)
@@ -966,59 +967,25 @@ function ListeningHall() {
               gap: 8,
             }}
           >
-            {showReview ? 'إخفاء المراجعة' : 'مراجعة الإجابات'}
+            {showReview ? 'إخفاء مراجعة الاختبار' : 'مراجعة الاختبار كاملاً'}
           </button>
 
-          <AnimatePresence>
+          <AnimatePresence initial={false}>
             {showReview && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                style={{ overflow: 'hidden', marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}
+                style={{ overflow: 'hidden', marginTop: 12 }}
               >
-                {perQuestion.map(r => (
-                  <div key={r.qNum} style={{
-                    padding: '12px 16px',
-                    borderRadius: 12,
-                    background: r.isCorrect
-                      ? 'color-mix(in srgb, #4ade80 7%, transparent)'
-                      : 'color-mix(in srgb, #f87171 7%, transparent)',
-                    border: `1px solid ${r.isCorrect ? 'rgba(74,222,128,0.18)' : 'rgba(248,113,113,0.18)'}`,
-                    display: 'flex',
-                    gap: 10,
-                    alignItems: 'flex-start',
-                  }}>
-                    <div style={{ flexShrink: 0, marginTop: 3 }}>
-                      {r.isCorrect
-                        ? <CheckCircle size={15} color="#4ade80" />
-                        : <XCircle size={15} color="#f87171" />}
-                    </div>
-                    <div style={{ flex: 1, textAlign: 'right' }}>
-                      <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.65 }}>
-                        {r.text}
-                      </p>
-                      <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>
-                        إجابتك:{' '}
-                        <span style={{ color: r.isCorrect ? '#4ade80' : '#f87171', fontWeight: 700 }}>
-                          {r.given || '—'}
-                        </span>
-                        {!r.isCorrect && (
-                          <>
-                            {' '}· الصحيح:{' '}
-                            <span style={{ color: '#4ade80', fontWeight: 700 }}>{r.expected}</span>
-                          </>
-                        )}
-                      </p>
-                      {r.explanation && !r.isCorrect && (
-                        <p style={{ margin: '4px 0 0', fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.6 }}>
-                          {r.explanation}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                <ExamReview sections={[{
+                  title: sectionQ.data?.title || 'قسم الاستماع',
+                  sourceId: sectionQ.data?.id,
+                  correct, total, perQuestion,
+                  sourceText: sectionQ.data?.transcript,
+                  sourceKind: 'transcript',
+                }]} />
               </motion.div>
             )}
           </AnimatePresence>
