@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, GraduationCap, ArrowLeft, ArrowRight, ChevronDown, Timer, Hourglass, Infinity as InfinityIcon, History } from 'lucide-react'
+import { BookOpen, Clock, CheckCircle, XCircle, RotateCcw, FileText, Layers, GraduationCap, ArrowLeft, ArrowRight, ChevronDown, ChevronLeft, Timer, Hourglass, Infinity as InfinityIcon, History } from 'lucide-react'
 
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useStudentId } from './_helpers/resolveStudentId'
@@ -474,29 +474,35 @@ function AttemptRow({ session, onOpen }) {
   const band = session.band_score != null ? Number(session.band_score) : null
   const correct = session.correct_count || 0
   const total = correct + (session.incorrect_count || 0)
+  // Tier tint — emerald for a strong band, gold for a developing one. Never a
+  // punishing red: the number is honest enough; the colour should encourage.
+  const tier = band == null ? 'var(--iel-ink-3)' : band >= 6 ? 'var(--iel-accent)' : 'var(--iel-gold)'
   return (
-    <button type="button" onClick={onOpen} className="iel-passrow" style={{ display: 'flex', alignItems: 'center', gap: 13, width: '100%', textAlign: 'start', padding: '14px 16px', borderRadius: 14, cursor: 'pointer', border: '1px solid var(--iel-border)', background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif", boxShadow: '0 1px 2px rgba(60,45,20,.05), 0 12px 26px -20px rgba(60,45,20,.24)' }}>
-      <span style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 9px', borderRadius: 7, fontSize: 11.5, fontWeight: 800, color: isFull ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', background: isFull ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', border: `1px solid ${isFull ? 'color-mix(in srgb, var(--iel-accent) 24%, transparent)' : 'var(--iel-border)'}` }}>
-        {isFull ? <Layers size={11} /> : <FileText size={11} />}{isFull ? 'كامل' : 'نصّ'}
+    <button type="button" onClick={onOpen} className="iel-passrow" style={{ display: 'flex', alignItems: 'center', gap: 15, width: '100%', textAlign: 'start', padding: '14px 16px', borderRadius: 16, cursor: 'pointer', border: '1px solid var(--iel-border)', borderInlineStart: `3px solid ${tier}`, background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif", boxShadow: 'var(--iel-shadow-sm)' }}>
+      {/* Band medallion — the anchor */}
+      <span style={{ flex: 'none', width: 62, height: 62, borderRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: `color-mix(in srgb, ${tier} 15%, var(--iel-surface-2))`, border: `1px solid color-mix(in srgb, ${tier} 34%, transparent)`, boxShadow: 'inset 0 1px 0 rgba(255,255,255,.06)' }}>
+        {band != null ? (
+          <>
+            <span className="iel-serif" style={{ fontSize: 23, fontWeight: 700, color: tier, lineHeight: 1 }}>{band.toFixed(1)}</span>
+            <span style={{ fontSize: 8.5, fontWeight: 800, letterSpacing: '.14em', color: 'var(--iel-ink-3)', marginTop: 4, fontFamily: "'IBM Plex Sans', sans-serif" }}>BAND</span>
+          </>
+        ) : <FileText size={22} color="var(--iel-ink-3)" />}
       </span>
+      {/* Content */}
       <span style={{ flex: 1, minWidth: 0 }}>
-        <span style={{ display: 'block', fontSize: 13.5, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'start', unicodeBidi: 'plaintext' }}>{attemptLabel(session)}</span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', fontSize: 12, color: 'var(--iel-ink-3)', marginTop: 4 }}>
-          <span>{fmtWhen(session.completed_at || session.started_at)}</span>
-          <span aria-hidden style={{ opacity: .45 }}>·</span>
-          <span>{fmtDur(session.duration_seconds)}</span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '2px 8px', borderRadius: 7, background: 'var(--iel-track)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink)', fontWeight: 700 }}>
-            <CheckCircle size={11} color="var(--iel-accent)" />{arDigit(correct)} من {arDigit(total)}
+        <span style={{ display: 'block', fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'start', unicodeBidi: 'plaintext', lineHeight: 1.35 }}>{attemptLabel(session)}</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap', marginTop: 9 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, fontSize: 11, fontWeight: 800, color: isFull ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', background: isFull ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', border: `1px solid ${isFull ? 'color-mix(in srgb, var(--iel-accent) 26%, transparent)' : 'var(--iel-border)'}` }}>
+            {isFull ? <Layers size={11} /> : <FileText size={11} />}{isFull ? 'اختبار كامل' : 'نصّ واحد'}
           </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink)', fontWeight: 700, fontSize: 11.5 }}>
+            <CheckCircle size={11} color="var(--iel-accent)" />{arDigit(correct)} / {arDigit(total)}
+          </span>
+          <span style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 600 }}>{fmtWhen(session.completed_at || session.started_at)} · {fmtDur(session.duration_seconds)}</span>
         </span>
       </span>
-      {band != null && (
-        <span style={{ flex: 'none', textAlign: 'center' }}>
-          <span style={{ display: 'block', fontSize: 9.5, fontWeight: 800, letterSpacing: '.12em', color: 'var(--iel-ink-3)' }}>BAND</span>
-          <span className="iel-serif" style={{ display: 'block', fontSize: 19, fontWeight: 700, color: 'var(--iel-accent)', lineHeight: 1 }}>{band.toFixed(1)}</span>
-        </span>
-      )}
-      <span className="arrow" style={{ flex: 'none', fontSize: 15, color: 'var(--iel-ink-3)' }}>←</span>
+      {/* Open affordance (RTL: forward = leftward) */}
+      <ChevronLeft className="arrow" size={19} style={{ flex: 'none', color: 'var(--iel-ink-3)' }} />
     </button>
   )
 }
