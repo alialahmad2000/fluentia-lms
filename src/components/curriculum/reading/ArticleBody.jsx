@@ -55,6 +55,13 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
     return out
   }, [vocabIndex])
 
+  // A target word is marked on its FIRST appearance only. Measured on the live
+  // L0 article, marking every occurrence produced 27 gold runs for 16 target
+  // words ("people" four times, "day" three) — repetition that adds noise
+  // without adding information, and contradicts the masthead's count. Later
+  // occurrences stay fully tappable, just unmarked.
+  const seenVocab = new Set()
+
   const handleTap = (e, word) => {
     const rect = e.currentTarget.getBoundingClientRect()
     onWordTap(word, rect, vocabMap.get(normWord(word)) || null)
@@ -154,9 +161,11 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
         while ((m = TOKEN_RE.exec(clean)) !== null) {
           if (m[1]) {
             const word = m[1]
-            // Underline ONLY curriculum vocabulary words. Glossary-fallback rows
-            // (is_vocab !== true) are tappable for a meaning but not underlined.
-            const isVocab = vocabMap.get(normWord(word))?.is_vocab === true
+            // Mark ONLY this reading's target vocabulary. Glossary-fallback rows
+            // (is_vocab !== true) are tappable for a meaning but not marked.
+            const key = normWord(word)
+            const isVocab = vocabMap.get(key)?.is_vocab === true && !seenVocab.has(key)
+            if (isVocab) seenVocab.add(key)
             segments.push(
               <button
                 key={key++}
