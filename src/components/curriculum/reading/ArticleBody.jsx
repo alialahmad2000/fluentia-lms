@@ -163,9 +163,12 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
             const word = m[1]
             // Mark ONLY this reading's target vocabulary. Glossary-fallback rows
             // (is_vocab !== true) are tappable for a meaning but not marked.
-            const key = normWord(word)
-            const isVocab = vocabMap.get(key)?.is_vocab === true && !seenVocab.has(key)
-            if (isVocab) seenVocab.add(key)
+            // NOT `key` — that shadows the `let key = 0` React-key counter this
+            // loop increments, turning `key={key++}` into an assignment to a
+            // const and throwing out of the whole reading section.
+            const vocabKey = normWord(word)
+            const isVocab = vocabMap.get(vocabKey)?.is_vocab === true && !seenVocab.has(vocabKey)
+            if (isVocab) seenVocab.add(vocabKey)
             segments.push(
               <button
                 key={key++}
