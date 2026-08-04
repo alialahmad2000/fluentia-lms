@@ -297,26 +297,78 @@ function ReadingContent({ reading, studentId, unitId }) {
   // Explicit submit — ONLY path that marks status='completed' and awards XP.
   const handleComprehensionComplete = useCallback(async (answers, score) => {
     if (readOnly) return
-    if (!studentId || !reading?.id || !currentRowId.current) return
+    if (!studentId || !reading?.id) return
 
-    const { error } = await supabase
-      .from('student_curriculum_progress')
-      .update({
-        status: 'completed',
-        score,
-        answers,
-        time_spent_seconds: timeRef.current,
-        completed_at: new Date().toISOString(),
-      })
-      .eq('id', currentRowId.current)
-
-    if (error) {
-      console.error('[ReadingTab] Submit failed for reading_id:', reading.id, error)
-      toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
-      return
+    const completedRow = {
+      status: 'completed',
+      score,
+      answers,
+      time_spent_seconds: timeRef.current,
+      completed_at: new Date().toISOString(),
     }
 
-    // Recompute is_best
+    let rowId = currentRowId.current
+
+    if (rowId) {
+      const { error } = await supabase
+        .from('student_curriculum_progress')
+        .update(completedRow)
+        .eq('id', rowId)
+
+      if (error) {
+        console.error('[ReadingTab] Submit failed for reading_id:', reading.id, error)
+        toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
+        return
+      }
+    } else {
+      // No in-progress row to update. This happens when the student answers
+      // every question faster than the 400ms autosave lands, or when an
+      // autosave INSERT failed earlier. Previously this path returned silently:
+      // the UI flipped to "submitted" and showed a score while NOTHING was
+      // written, so the section stayed unfinished forever. Insert the completed
+      // attempt directly instead of dropping the submission.
+      const hasExisting = allAttempts.length > 0
+      const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
+
+      if (hasExisting) {
+        await supabase
+          .from('student_curriculum_progress')
+          .update({ is_latest: false })
+          .eq('student_id', studentId)
+          .eq('reading_id', reading.id)
+      }
+
+      const { data: newRow, error } = await supabase
+        .from('student_curriculum_progress')
+        .insert({
+          student_id: studentId,
+          unit_id: unitId,
+          reading_id: reading.id,
+          section_type: 'reading',
+          ...completedRow,
+          attempt_number: nextAttemptNum,
+          is_latest: true,
+          is_best: false,
+        })
+        .select()
+        .single()
+
+      if (error || !newRow) {
+        console.error('[ReadingTab] Submit insert failed for reading_id:', reading.id, error)
+        toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
+        return
+      }
+
+      rowId = newRow.id
+      currentRowId.current = newRow.id
+      setAttemptNumber(nextAttemptNum)
+    }
+
+    // Recompute is_best.
+    // Order matters: mark the winner FIRST, then clear the losers. The reverse
+    // order (clear-all then set-winner) leaves EVERY row is_best=false if the
+    // second write fails — and compute_unit_progress only counts is_best rows,
+    // so the completion would vanish from the student's progress.
     const { data: allRows } = await supabase
       .from('student_curriculum_progress')
       .select('id, score, attempt_number')
@@ -328,12 +380,13 @@ function ReadingContent({ reading, studentId, unitId }) {
 
     if (allRows?.length > 0) {
       await supabase.from('student_curriculum_progress')
+        .update({ is_best: true })
+        .eq('id', allRows[0].id)
+      await supabase.from('student_curriculum_progress')
         .update({ is_best: false })
         .eq('student_id', studentId)
         .eq('reading_id', reading.id)
-      await supabase.from('student_curriculum_progress')
-        .update({ is_best: true })
-        .eq('id', allRows[0].id)
+        .neq('id', allRows[0].id)
       setBestScore(allRows[0].score)
     }
 
@@ -345,14 +398,14 @@ function ReadingContent({ reading, studentId, unitId }) {
       .order('attempt_number', { ascending: false })
 
     if (refreshed) setAllAttempts(refreshed)
-    const updatedLatest = refreshed?.find(r => r.id === currentRowId.current) || null
+    const updatedLatest = refreshed?.find(r => r.id === rowId) || null
     setSavedProgress(updatedLatest)
     setRetrying(false)
     setIsCompleted(true)
     toast({ type: 'success', title: 'تم حفظ تقدمك' })
     awardCurriculumXP(studentId, 'reading', score, unitId)
     window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'reading', score } }))
-  }, [studentId, reading?.id, unitId])
+  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber])
 
   const { data: vocabulary } = useQuery({
     queryKey: ['reading-vocab', reading.id],
@@ -423,16 +476,6 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [arabicMode, setArabicMode] = useState(false) // whole-article Arabic (no source data — honest notice)
   const [wordPopup, setWordPopup] = useState(null)     // { word, rect, vocabRow }
   const { data: articleVocabIndex = new Map() } = useArticleVocabIndex(reading?.id, reading?.passage_content?.paragraphs)
-
-  // How many of THIS passage's words carry the target-vocabulary mark. Printed
-  // in the masthead so the gold in the body reads as a promise ("these are the
-  // words you're learning here"), not as decoration.
-  const targetWordCount = useMemo(() => {
-    if (!(articleVocabIndex instanceof Map)) return 0
-    let n = 0
-    for (const row of articleVocabIndex.values()) if (row?.is_vocab === true) n += 1
-    return n
-  }, [articleVocabIndex])
 
   // Audio data for SmartAudioPlayer
   const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
@@ -809,7 +852,6 @@ function ReadingContent({ reading, studentId, unitId }) {
               reading={reading}
               readingTime={readingTime}
               wordCount={reading.passage_word_count}
-              targetWordCount={targetWordCount}
               onOpenTools={() => setToolsOpen(true)}
             />
             {arabicMode && (
@@ -1746,14 +1788,26 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
   const correctCount = Object.values(answers).filter(a => a.correct).length
   const allAnswered = answered === total && total > 0
 
-  // Autosave on every new answer — status='in_progress', no score.
+  // Autosave on every answer change — status='in_progress', no score.
+  // The signature is committed INSIDE the timeout, not before it. Committing it
+  // up-front lost answers: any re-render that changed the effect's deps (e.g.
+  // onAutosave's identity changing after the first INSERT resolves) ran the
+  // cleanup, cancelled the pending timeout, and then hit the early-return
+  // because the signature was already marked as saved — so that batch was never
+  // written and the student's answers silently disappeared on reload.
+  // The signature also covers answer VALUES, so changing an existing answer
+  // (which leaves the key set untouched) is persisted too.
   useEffect(() => {
     if (progressLoading || submitted) return
     if (answered === 0) return
-    const signature = JSON.stringify(Object.keys(answers).sort())
+    const signature = JSON.stringify(
+      Object.entries(answers).sort(([a], [b]) => a.localeCompare(b))
+    )
     if (hasAutosavedRef.current.lastSignature === signature) return
-    hasAutosavedRef.current.lastSignature = signature
-    const t = setTimeout(() => { onAutosave?.(answers) }, 400)
+    const t = setTimeout(() => {
+      hasAutosavedRef.current.lastSignature = signature
+      onAutosave?.(answers)
+    }, 400)
     return () => clearTimeout(t)
   }, [answered, answers, progressLoading, submitted, onAutosave])
 

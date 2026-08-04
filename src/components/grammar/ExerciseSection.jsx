@@ -257,9 +257,12 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
             .order('score', { ascending: false })
             .order('attempt_number', { ascending: false })
 
+          // Winner first, then clear the losers — clearing first leaves every
+          // row is_best=false if the second write fails, and
+          // compute_unit_progress only counts is_best rows.
           if (rows?.length > 0) {
-            await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId)
             await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', rows[0].id)
+            await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId).neq('id', rows[0].id)
             setBestScore(rows[0].score)
           }
 
@@ -330,8 +333,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
               .order('score', { ascending: false })
 
             if (bestRows?.length > 0) {
-              await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId)
               await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', bestRows[0].id)
+              await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId).neq('id', bestRows[0].id)
               setBestScore(bestRows[0].score)
             } else {
               setBestScore(score)

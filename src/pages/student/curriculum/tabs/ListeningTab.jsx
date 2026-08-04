@@ -566,14 +566,18 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
           .order('score', { ascending: false })
           .order('attempt_number', { ascending: false })
 
+        // Winner first, then clear the losers — see the note in ReadingTab:
+        // clearing first leaves every row is_best=false if the second write
+        // fails, and compute_unit_progress only counts is_best rows.
         if (allRows?.length > 0) {
+          await supabase.from('student_curriculum_progress')
+            .update({ is_best: true })
+            .eq('id', allRows[0].id)
           await supabase.from('student_curriculum_progress')
             .update({ is_best: false })
             .eq('student_id', studentId)
             .eq('listening_id', listeningId)
-          await supabase.from('student_curriculum_progress')
-            .update({ is_best: true })
-            .eq('id', allRows[0].id)
+            .neq('id', allRows[0].id)
           setBestScore(allRows[0].score)
         }
 
@@ -642,12 +646,13 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
 
           if (bestRows?.length > 0) {
             await supabase.from('student_curriculum_progress')
+              .update({ is_best: true })
+              .eq('id', bestRows[0].id)
+            await supabase.from('student_curriculum_progress')
               .update({ is_best: false })
               .eq('student_id', studentId)
               .eq('listening_id', listeningId)
-            await supabase.from('student_curriculum_progress')
-              .update({ is_best: true })
-              .eq('id', bestRows[0].id)
+              .neq('id', bestRows[0].id)
             setBestScore(bestRows[0].score)
           } else {
             setBestScore(score)
