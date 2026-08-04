@@ -235,21 +235,25 @@ html .iel-exam-clinical.iel-exam-clinical,
       + a fine grain + a soft vignette + a very slow drift. The clinical exam
       overlay (z-10050, opaque) covers it entirely, so the test is unaffected. ── */
 .iel-atmo{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-/* base wash — a deep blue-obsidian with the ground beneath */
+/* base wash — obsidian ground lit by living emerald blooms that reach across the
+   WHOLE viewport (not just the nav corner), so the content canvas is never flat. */
 .iel-atmo::before{
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(120% 84% at 86% -14%, rgba(186,202,224,.045), transparent 60%),
-    radial-gradient(100% 68% at 4% 6%,     rgba(148,163,184,.022), transparent 54%),
-    linear-gradient(180deg, #0a0e15 0%, #07090e 46%, #030509 100%);
+    radial-gradient(76% 60% at 84% -10%, rgba(16,185,129,.18), transparent 60%),   /* emerald crown, top-right */
+    radial-gradient(66% 56% at 38% 2%,   rgba(16,185,129,.095), transparent 62%),  /* soft glow behind the content header */
+    radial-gradient(80% 66% at 3% 98%,   rgba(45,212,191,.09), transparent 60%),   /* teal pool, bottom-left */
+    radial-gradient(66% 56% at 74% 106%, rgba(16,185,129,.08), transparent 60%),   /* emerald rise, bottom-right (fills the lower canvas) */
+    radial-gradient(46% 46% at 16% 50%,  rgba(234,179,8,.045), transparent 66%),   /* faint gold warmth, mid-left */
+    linear-gradient(180deg, #0a0f16 0%, #080c14 50%, #06080f 100%);
 }
-/* second, slowly drifting bloom layer for life */
+/* second, slowly drifting bloom layer — the "living" motion */
 .iel-atmo::after{
   content:''; position:absolute; inset:-15%;
   background:
-    radial-gradient(46% 42% at 20% 16%, rgba(203,213,225,.028), transparent 64%),
-    radial-gradient(52% 48% at 84% 74%, rgba(160,174,192,.032), transparent 66%);
-  filter:blur(26px); opacity:.85; animation:iel-atmo-drift 52s ease-in-out infinite alternate;
+    radial-gradient(48% 44% at 26% 22%, rgba(16,185,129,.12), transparent 64%),
+    radial-gradient(56% 52% at 80% 70%, rgba(45,212,191,.11), transparent 66%);
+  filter:blur(30px); opacity:.9; animation:iel-atmo-drift 52s ease-in-out infinite alternate;
 }
 /* fine grain + vignette so the field reads as depth, never a flat gradient */
 .iel-atmo-grain{
@@ -291,8 +295,9 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-navfoot .who{font-size:13px;font-weight:700;color:var(--iel-ink)}
 .iel-navfoot .who small{display:block;font-size:12px;color:var(--iel-ink-3);font-weight:600}
 .iel-main{flex:1;min-width:0;padding:26px 34px 60px;
-  /* very dark reading canvas — the nav rail stays lighter so the shell reads in two planes */
-  background:linear-gradient(180deg, rgba(0,0,0,.34), rgba(0,0,0,.48));}
+  /* a whisper-thin scrim only — the living .iel-atmo field is the reading canvas,
+     never a flat black wash. Kept just dark enough to hold text contrast. */
+  background:linear-gradient(180deg, rgba(4,8,14,.12), rgba(4,8,14,.24));}
 .iel-content{max-width:960px;margin:0 auto;animation:iel-rise .42s cubic-bezier(.22,1,.36,1) both}
 @keyframes iel-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){ .iel-content{animation:none} }
