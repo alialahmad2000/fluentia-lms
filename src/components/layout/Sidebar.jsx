@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion } from 'framer-motion'
 import { Settings } from 'lucide-react'
+import { resolveActiveNavTo } from '../../utils/navActive'
 import { useAuthStore } from '@/stores/authStore'
 import UserAvatar from '@/components/common/UserAvatar'
 import { hasIELTSAccess } from '@/lib/packageAccess'
@@ -117,12 +118,17 @@ function Sidebar({ nav, collapsed }) {
   const level = studentData?.level ?? profile?.level ?? null
   const xp = studentData?.xp_total || 0
 
-  const isActive = useCallback((to) => {
-    if (to === `/${role}` || to === '/student' || to === '/trainer' || to === '/admin') {
-      return location.pathname === to
-    }
-    return location.pathname.startsWith(to)
-  }, [location.pathname, role])
+  // Most-specific match across the whole rail, so two items that share a path and
+  // differ only by a query string (مصعب's two courses at /level/2) light up
+  // independently. Computed once per render, not per item.
+  const activeTo = useMemo(
+    () => resolveActiveNavTo(
+      (nav.sections || []).flatMap((sec) => sec.items || []),
+      location.pathname, location.search, role,
+    ),
+    [nav, location.pathname, location.search, role],
+  )
+  const isActive = useCallback((to) => to === activeTo, [activeTo])
 
   return (
     <aside

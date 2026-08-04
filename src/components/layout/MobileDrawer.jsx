@@ -1,10 +1,11 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useMemo } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, LogOut, Settings } from 'lucide-react'
+import { resolveActiveNavTo, isRootNavPath } from '../../utils/navActive'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import UserAvatar from '@/components/common/UserAvatar'
@@ -52,6 +53,16 @@ export default function MobileDrawer({ open, onClose, nav }) {
 
   // Close on route change
   useEffect(() => { onClose() }, [location.pathname])
+
+  // One winner across the whole drawer — see navActive.js. Without this, two items
+  // sharing a path (مصعب's two courses) both resolved to the first one.
+  const activeTo = useMemo(
+    () => resolveActiveNavTo(
+      (nav.drawerSections || nav.sections || []).flatMap((sec) => sec.items || []),
+      location.pathname, location.search, role,
+    ),
+    [nav, location.pathname, location.search, role],
+  )
 
   // Close on ESC
   useEffect(() => {
@@ -171,8 +182,8 @@ export default function MobileDrawer({ open, onClose, nav }) {
                     {visibleItems.map((item) => {
                       if (!item || !item.to || !item.icon) return null
                       const Icon = item.icon
-                      const isDashboard = item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'
-                      const active = isDashboard ? location.pathname === item.to : location.pathname.startsWith(item.to)
+                      const isDashboard = isRootNavPath(item.to, role)
+                      const active = item.to === activeTo
 
                       return (
                         <NavLink
