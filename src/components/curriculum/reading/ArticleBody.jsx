@@ -61,34 +61,82 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
   }
 
   return (
-    <div dir="ltr" className="article-body mx-auto" style={{ maxWidth: '38rem', padding: '0 1.5rem' }}>
+    // lang="en" matters: the document is lang="ar", so without this VoiceOver and
+    // iOS Speak Screen read the English article with Arabic phonemes — inside an
+    // English-learning product. It also unlocks English hyphenation.
+    <div dir="ltr" lang="en" className="article-body mx-auto" style={{ maxWidth: '37rem' }}>
       <style>{`
-        .article-body { font-family: 'Readex Pro', sans-serif; }
+        /* NO horizontal padding here. The card already provides the gutter; the
+           old 1.5rem nested inside it and collapsed the mobile column to 228px
+           (~25 characters per line, against a 45–75 target). */
+        .article-body { font-family: 'Readex Pro', sans-serif; hyphens: auto; -webkit-hyphens: auto; }
         .article-body p {
-          font-weight: 350; font-size: 18px; line-height: 1.85;
-          color: var(--ds-ink-primary, var(--ds-text-primary, #e7ecf3));
-          margin: 0 0 1.6em 0;
+          /* 350 is a dead value — Readex Pro ships static weights only, so this
+             snapped to 400 (or 200) depending on the engine. Declare it. */
+          font-weight: 400;
+          font-size: 19px;
+          line-height: 1.7;          /* 32.3px */
+          letter-spacing: .002em;
+          color: var(--ds-text-primary, #ece7dd);
+          /* The gap BETWEEN paragraphs must beat the gap INSIDE them. It was
+             28.8px against a 33.3px line gap, so paragraphs never separated. */
+          margin: 0 0 2em 0;
+          text-wrap: pretty;
         }
-        .article-body p.aw-first::first-letter {
-          font-family: 'Cormorant Garamond', 'Playfair Display', serif;
-          font-size: 56px; line-height: 1; float: left;
-          padding: 4px 8px 0 0; color: var(--ds-accent-primary, #e9b949);
+        .article-body p:last-child { margin-bottom: 0; }
+        @media (max-width: 640px) {
+          .article-body p { font-size: 18px; line-height: 1.72; margin-bottom: 1.9em; }
         }
+
         .article-body .aw {
           display: inline; padding: 0 1px; margin: 0; border: 0; background: transparent;
           font: inherit; color: inherit; cursor: pointer; border-radius: 3px;
-          transition: background-color 120ms ease;
+          -webkit-tap-highlight-color: transparent;
+          transition: background-color 120ms ease, color 120ms ease;
         }
-        .article-body .aw:hover { background: color-mix(in oklab, var(--ds-accent-primary, #e9b949) 8%, transparent); }
-        .article-body .aw:active { background: color-mix(in oklab, var(--ds-accent-primary, #e9b949) 18%, transparent); }
+        /* :hover latches after tap on iOS — gate it to real pointers. */
+        @media (hover: hover) {
+          .article-body .aw:hover { background: rgba(255,255,255,.05); }
+        }
+        .article-body .aw:active { background: rgba(255,255,255,.08); }
         .article-body .aw:focus-visible { outline: 2px solid var(--ds-accent-primary, #e9b949); outline-offset: 2px; }
-        /* Vocabulary words — style the WORD ITSELF (no underline, no highlighter
-           background — both disliked): a warm gold ink + slightly heavier weight, so
-           a key word reads as special inline while the editorial prose stays calm.
-           Tap feedback is the shared faint-gold pill from .aw:hover / .aw:active. */
+
+        /* Key vocabulary: a RULE at rest, colour only on contact.
+           Measured on production, 59 of 164 words rendered in full accent — 36%
+           of the article — which read as a link farm and destroyed the saccade
+           rhythm. Corpus-wide only ~11 words per reading are target vocabulary
+           that actually occur in the passage; that is the honest density. */
         .article-body .aw-vocab {
+          color: inherit;
+          font-weight: inherit;
+          text-decoration: underline;
+          text-decoration-color: var(--ds-accent-rule, rgba(233,185,73,.42));
+          text-decoration-thickness: 1.5px;
+          text-underline-offset: 5px;
+          text-decoration-skip-ink: auto;
+        }
+        @media (hover: hover) {
+          .article-body .aw-vocab:hover {
+            color: var(--ds-accent-primary, #e9b949);
+            text-decoration-color: var(--ds-accent-primary, #e9b949);
+          }
+        }
+        .article-body .aw-vocab:active,
+        .article-body .aw-vocab[aria-expanded="true"] {
           color: var(--ds-accent-primary, #e9b949);
-          font-weight: 500;
+          text-decoration-color: var(--ds-accent-primary, #e9b949);
+        }
+
+        /* Drop cap. ::first-letter needs a block-ish box, and the first letter
+           lives inside a <button> — so promote that one button to inline-block
+           instead of extracting the character (which would cost its tappability). */
+        .article-body p.aw-first > .aw:first-of-type { display: inline-block; }
+        .article-body p.aw-first > .aw:first-of-type::first-letter {
+          font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+          font-style: italic;
+          font-size: 58px; line-height: .82;
+          float: left; padding: 6px 8px 0 0;
+          color: var(--ds-accent-primary, #e9b949);
         }
       `}</style>
 
@@ -123,7 +171,10 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
           }
         }
         return (
-          <p key={pi} className={pi === 0 ? 'aw-first' : undefined}>
+          // data-paragraph-index is what focus mode + the progress reader query.
+          // The old build emitted it only from PassageDisplay — a fallback branch
+          // that never renders — so both features were silently inert.
+          <p key={pi} data-paragraph-index={pi} className={pi === 0 ? 'aw-first' : undefined}>
             {segments}
           </p>
         )

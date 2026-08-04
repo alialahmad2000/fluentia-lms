@@ -782,3 +782,21 @@ html[data-track="insight"] {
   --ds-accent-primary-glow: var(--accent-insight-glow);
   --ds-sky:                 var(--accent-insight-strong);
 }
+
+/* ============================================================
+   READING — derived accent tokens
+   Declared ONCE on the root. `var()` inside a custom property is
+   substituted where it is USED, and every theme/track override of
+   --ds-accent-primary lands on this same element, so these follow
+   the student's track (gold / fardi purple / desk brass / …) with
+   no per-track duplication.
+   The static value is declared first as an iOS < 16.4 fallback:
+   there, the color-mix line is invalid at computed-value time and
+   the rgba above it holds instead of the whole rule dropping out.
+   ============================================================ */
+:root {
+  --ds-accent-rule: rgba(233, 185, 73, .42);
+  --ds-accent-rule: color-mix(in oklab, var(--ds-accent-primary, #e9b949) 42%, transparent);
+  --ds-accent-wash: rgba(233, 185, 73, .08);
+  --ds-accent-wash: color-mix(in oklab, var(--ds-accent-primary, #e9b949) 8%, transparent);
+}

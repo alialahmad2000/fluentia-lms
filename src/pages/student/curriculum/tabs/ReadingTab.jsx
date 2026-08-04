@@ -609,16 +609,28 @@ function ReadingContent({ reading, studentId, unitId }) {
     if (!container) return
     const handler = () => {
       const rect = container.getBoundingClientRect()
-      const total = container.scrollHeight - container.clientHeight
-      if (total <= 0) { setScrollProgress(100); return }
-      const scrolled = -rect.top + window.innerHeight / 2
-      const pct = Math.min(100, Math.max(0, (scrolled / container.scrollHeight) * 100))
-      setScrollProgress(Math.round(pct))
+      if (rect.height <= 0) return
+      // Measure against a READ-LINE at 60% of the viewport, not the top of the
+      // screen. Anchoring at the top counts a whole screenful as read the moment
+      // the article scrolls into view.
+      // (The old code compared scrollHeight to clientHeight — both equal on a
+      // non-scrolling block — so `total <= 0` was always true and it reported
+      // 100% immediately.)
+      const readLine = window.innerHeight * 0.6
+      const pct = ((readLine - rect.top) / rect.height) * 100
+      setScrollProgress(Math.round(Math.min(100, Math.max(0, pct))))
     }
     window.addEventListener('scroll', handler, { passive: true })
+    window.addEventListener('resize', handler)
     handler()
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
+    return () => {
+      window.removeEventListener('scroll', handler)
+      window.removeEventListener('resize', handler)
+    }
+    // Re-bind when the rendered surface changes: the ref is null on first mount
+    // (content loads async) and the node is swapped when switching article A/B
+    // or entering read-along.
+  }, [reading?.id, audioMode])
 
   // Focus mode — IntersectionObserver
   useEffect(() => {
@@ -662,13 +674,18 @@ function ReadingContent({ reading, studentId, unitId }) {
   }, [readingNotes])
 
   return (
-    <div className="space-y-6 pb-[100px]">
+    // The bottom clearance is nav height + iOS safe-area, not a magic 100px.
+    <div className="space-y-6" style={{ paddingBottom: 'var(--mobile-bottom-clearance, 100px)' }}>
       {/* Reading Progress Bar */}
-      <div className="sticky top-16 z-20 -mx-4 px-4">
+      <div className="sticky z-20 -mx-4 px-4" style={{ top: 'var(--header-height, 64px)' }}>
         <div className="h-1 rounded-full overflow-hidden bg-slate-800/50">
           <motion.div
             className="h-full rounded-full"
-            style={{ background: 'linear-gradient(90deg, #38bdf8, #fbbf24)' }}
+            // Follows the student's track accent instead of a hardcoded
+            // sky→gold pair, and fills from the inline-start edge in RTL.
+            style={{
+              background: 'linear-gradient(to right, var(--ds-accent-primary, #e9b949), var(--ds-accent-rule, rgba(233,185,73,.42)))',
+            }}
             animate={{ width: `${scrollProgress}%` }}
             transition={{ duration: 0.3 }}
           />
@@ -695,38 +712,61 @@ function ReadingContent({ reading, studentId, unitId }) {
       )}
 
       {/* ─── Premium Passage Card ─── */}
-      <div className="relative rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60 hover:border-slate-700 transition-colors duration-300">
-        {/* Gradient accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-500/30 to-transparent" />
+      <div
+        className="relative rounded-2xl overflow-hidden transition-colors duration-300"
+        // Was `bg-slate-900/50 border-slate-800/60` — a cold slate card on a warm
+        // dark page with no depth. Tokenised, with a layered shadow and a faint
+        // interior bloom so the column reads as a lit page in a dark room.
+        style={{
+          background: 'var(--ds-bg-elevated, #0d111b)',
+          border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.07))',
+          boxShadow:
+            '0 1px 0 rgba(255,255,255,.05) inset, 0 2px 8px -2px rgba(0,0,0,.5), 0 24px 60px -24px rgba(0,0,0,.7)',
+        }}
+      >
+        {/* Interior bloom — keeps the reading field off flat black */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-64"
+          style={{
+            background:
+              'radial-gradient(120% 60% at 50% 0%, var(--ds-accent-wash, rgba(233,185,73,.08)), transparent 70%)',
+          }}
+        />
+        {/* Gradient accent hairline */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(to right, transparent, var(--ds-accent-rule, rgba(233,185,73,.42)), transparent)' }}
+        />
 
-        {/* A/B Badge */}
-        {reading.reading_label && (
-          <div className="absolute top-4 left-4 z-10">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-bold font-['Inter'] backdrop-blur-sm">
-              Passage {reading.reading_label}
-            </span>
-          </div>
-        )}
+        {/* NOTE: the old absolutely-positioned "Passage A" pill lived here. It
+            duplicated the A/B tab sitting ~200px above and the masthead eyebrow
+            directly below it, so the same datum appeared three times. */}
 
-        {/* Hero Image */}
+        {/* Hero Image — scrimmed so it resolves into the card instead of being
+            cut off by a hard divider line. */}
         {reading.before_read_image_url && (
-          <div className="rounded-t-2xl overflow-hidden border-b border-slate-700/40">
+          <div className="relative rounded-t-2xl overflow-hidden">
             <PremiumImage
               src={reading.before_read_image_url}
               alt={reading.title_en}
-              className="shadow-2xl shadow-black/30"
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{ background: 'linear-gradient(to top, var(--ds-bg-elevated, #0d111b) 2%, transparent 62%)' }}
             />
           </div>
         )}
 
-        {/* Card Body */}
-        <div className="p-6 md:p-8 space-y-6">
+        {/* Card Body — the mobile step is the other half of the 228px fix: the
+            card padding used to be 24px a side on a 390px screen, on top of the
+            article's own 24px. */}
+        <div className="p-4 sm:p-6 md:p-8 space-y-6">
           {/* Title Block + Toolbar */}
           <div className="space-y-3">
             <ArticleMasthead
               reading={reading}
-              vocabCount={articleVocabIndex?.size || vocabulary?.length || 0}
               readingTime={readingTime}
+              wordCount={reading.passage_word_count}
               onOpenTools={() => setToolsOpen(true)}
             />
             {arabicMode && (
@@ -739,17 +779,11 @@ function ReadingContent({ reading, studentId, unitId }) {
               </div>
             )}
             <div className="flex items-center gap-3 flex-wrap">
-              {readingTime && (
-                <span className="inline-flex items-center gap-1.5 text-xs text-slate-400 font-['Inter']">
-                  <Clock size={12} className="text-slate-500" />
-                  {readingTime} min read
-                </span>
-              )}
-              {reading.passage_word_count > 0 && (
-                <span className="text-xs text-slate-500 font-['Inter']">
-                  {reading.passage_word_count} words
-                </span>
-              )}
+              {/* The meta used to be printed TWICE with two different numbers —
+                  "1 min read · 98 vocabulary words" in the masthead and, forty
+                  pixels below, "words 164 min read 1" here (reversed by the
+                  bidi algorithm, since bare numerals sat in an RTL row). The
+                  masthead now owns the meta; this row is actions only. */}
               {/* Read-along (karaoke) — surfaced as a first-class button (was buried in
                   the ⚙️ tools drawer). The loved v1 "listen while reading" experience:
                   tapping it switches the passage to the synced word-by-word player. */}
@@ -829,7 +863,7 @@ function ReadingContent({ reading, studentId, unitId }) {
                       className="absolute top-full mt-2 right-0 z-50 w-72 rounded-xl p-4 space-y-3"
                       dir="rtl"
                       style={{
-                        background: 'rgba(15,23,42,0.97)', backdropFilter: 'blur(20px)',
+                        background: 'var(--ds-bg-elevated, #0d111b)', backdropFilter: 'blur(20px)',
                         border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
                       }}
                     >
@@ -892,18 +926,27 @@ function ReadingContent({ reading, studentId, unitId }) {
               the student turns on "استمع واقرأ" (the masthead button above). */}
           {/* Discoverability hint — many students don't realize words are tappable. */}
           <p
-            className="text-[11px] font-['Tajawal'] mb-3"
+            className="text-xs font-['Tajawal'] mb-3 mx-auto"
             dir="rtl"
-            style={{ color: 'var(--ds-text-tertiary, #64748b)' }}
+            style={{ color: 'var(--ds-text-tertiary, #8b8578)', maxWidth: '37rem' }}
           >
-            💡 {g('اضغط على أي كلمة لسماع نطقها ومعناها — الكلمات المهمّة باللون الذهبي.', 'اضغطي على أي كلمة لسماع نطقها ومعناها — الكلمات المهمّة باللون الذهبي.')}
+            {/* Copy corrected: the key words are marked by a rule now, not by
+                gold ink, so "باللون الذهبي" no longer described what is on screen. */}
+            💡 {g('اضغط على أي كلمة لسماع نطقها ومعناها — الكلمات المهمّة تحتها خط.', 'اضغطي على أي كلمة لسماع نطقها ومعناها — الكلمات المهمّة تحتها خط.')}
           </p>
           {!audioMode ? (
-            <ArticleBody
-              paragraphs={reading.passage_content?.paragraphs || []}
-              vocabIndex={articleVocabIndex}
-              onWordTap={(word, rect, vocabRow) => setWordPopup({ word, rect, vocabRow })}
-            />
+            // passageRef MUST wrap the surface students actually see. It used to
+            // be attached only to the no-audio fallback below, which never
+            // renders (every reading has audio) — so the scroll-progress
+            // listener bailed on a null ref and the bar sat at 0% forever, and
+            // focus mode found no paragraphs to observe.
+            <div ref={passageRef}>
+              <ArticleBody
+                paragraphs={reading.passage_content?.paragraphs || []}
+                vocabIndex={articleVocabIndex}
+                onWordTap={(word, rect, vocabRow) => setWordPopup({ word, rect, vocabRow })}
+              />
+            </div>
           ) : audioData ? (
             /* bottom-bar mode: SmartAudioPlayer renders KaraokeText as primary passage */
             /* key={reading.id} forces a fresh player instance on article switch — */

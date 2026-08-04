@@ -42,15 +42,48 @@ export function useArticleVocabIndex(articleId, paragraphs) {
       const chunks = []
       for (let i = 0; i < tokens.length; i += CHUNK) chunks.push(tokens.slice(i, i + CHUNK))
 
-      // 1) Rich curriculum vocabulary (also drives the underline).
-      for (const slice of chunks) {
+      const COLS = 'id, word, definition_ar, audio_url, example_sentence, pronunciation_ipa'
+
+      // 1) THIS reading's own target vocabulary — the only words that earn the
+      //    marked treatment.
+      //
+      //    This used to be a global `.in('word', tokens)` over all ~13,900
+      //    curriculum_vocabulary rows, so any passage word that happens to be
+      //    vocabulary for ANY other unit was marked here too. Measured on the
+      //    live L1 U1 article that was 59 of 164 words (36%) — "love", "big",
+      //    "warm", "family" all lit up because they are target words elsewhere.
+      //    Scoping to reading_id restores the intended density (~11 per article
+      //    corpus-wide) and makes the mark mean "this is what YOU are learning
+      //    in this passage".
+      const tokenSet = new Set(tokens)
+      {
         const { data, error } = await supabase
           .from('curriculum_vocabulary')
-          .select('id, word, definition_ar, audio_url, example_sentence, pronunciation_ipa')
-          .in('word', slice)
+          .select(COLS)
+          .eq('reading_id', articleId)
         if (error) throw error
         for (const row of data || []) {
-          if (row.word) map.set(row.word.toLowerCase(), { ...row, is_vocab: true })
+          const w = (row.word || '').toLowerCase()
+          // Only mark words that actually occur in the passage. Corpus-wide only
+          // ~18% of a reading's attached vocabulary appears in its own text, so
+          // marking the rest would underline nothing a student can see.
+          if (w && tokenSet.has(w)) map.set(w, { ...row, is_vocab: true })
+        }
+      }
+
+      // 2) Every other passage token still gets a rich meaning from the global
+      //    vocabulary table — tappable, just not marked.
+      for (const slice of chunks) {
+        const missing = slice.filter((t) => !map.has(t))
+        if (missing.length === 0) continue
+        const { data, error } = await supabase
+          .from('curriculum_vocabulary')
+          .select(COLS)
+          .in('word', missing)
+        if (error) throw error
+        for (const row of data || []) {
+          const w = (row.word || '').toLowerCase()
+          if (w && !map.has(w)) map.set(w, { ...row, is_vocab: false })
         }
       }
 

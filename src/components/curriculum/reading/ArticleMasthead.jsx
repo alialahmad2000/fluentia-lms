@@ -1,10 +1,19 @@
 import { Settings2 } from 'lucide-react'
 
-// Reading editorial rebuild — the "you opened a piece" moment.
-// Cormorant Garamond is NOT loaded in this app; per the prompt's no-new-deps /
-// no-global-CSS rules we use the already-loaded Playfair Display (italic) for the
-// editorial English title, Amiri for the Arabic title, Space Grotesk for the
-// eyebrow + meta numerals, Readex Pro for the deck.
+// Reading editorial masthead.
+//
+// Bidi contract: every element here except the tools button is ENGLISH, so the
+// header itself is LTR. Previously it was dir="rtl" and the <h2> inherited it —
+// which is why the English subtitle rendered right-aligned with its second line
+// jammed against the right edge.
+//
+// Type contract: ONE display family (Cormorant Garamond italic) for the title
+// and the deck, one step apart, the deck in secondary ink. The old masthead ran
+// four families in one block, two of them synthesised (Cormorant italic 700 and
+// Readex Pro italic are not loaded, so the browser was faking both).
+
+const AR_RE = /[؀-ۿ]/
+
 function firstSentence(paragraphs) {
   const first = Array.isArray(paragraphs) ? paragraphs[0] : ''
   if (!first) return ''
@@ -13,122 +22,137 @@ function firstSentence(paragraphs) {
   return s.length > 120 ? s.slice(0, 117).trimEnd() + '…' : s
 }
 
-const GOLD = 'var(--ds-accent-primary, #e9b949)'
-
 export default function ArticleMasthead({
   reading,
   levelNumber,
   unitNumber,
-  vocabCount = 0,
   readingTime,
+  wordCount,
   cefr,
   onOpenTools,
 }) {
-  const deck = firstSentence(reading?.passage_content?.paragraphs)
-  const eyebrowParts = [
-    reading?.reading_label ? reading.reading_label : null,
-    Number.isFinite(levelNumber) ? `LEVEL ${levelNumber}` : null,
-    Number.isFinite(unitNumber) ? `UNIT ${unitNumber}` : null,
-  ].filter(Boolean)
+  // 144 of 240 readings carry ENGLISH text in `title_ar` — it is a deck, not an
+  // Arabic title. Route it by what the string actually contains rather than by
+  // what the column is named.
+  const rawSub = (reading?.title_ar || '').trim()
+  const arabicSubtitle = rawSub && AR_RE.test(rawSub) ? rawSub : ''
+  const englishDeck = rawSub && !AR_RE.test(rawSub) ? rawSub : ''
+  // Only fall back to the passage's opening line when there is no deck at all —
+  // otherwise the deck repeats the first sentence of the article verbatim.
+  const deck = englishDeck || (arabicSubtitle ? '' : firstSentence(reading?.passage_content?.paragraphs))
 
-  const Dot = () => <span style={{ color: GOLD, opacity: 0.7, margin: '0 8px' }}>·</span>
+  const eyebrow = [
+    reading?.reading_label ? `القراءة ${reading.reading_label}` : null,
+    Number.isFinite(levelNumber) ? `المستوى ${levelNumber}` : null,
+    Number.isFinite(unitNumber) ? `الوحدة ${unitNumber}` : null,
+  ].filter(Boolean).join(' · ')
+
+  const meta = [
+    Number.isFinite(wordCount) && wordCount > 0 ? `${wordCount} كلمة` : null,
+    readingTime ? `${readingTime} دقيقة قراءة` : null,
+    cefr || null,
+  ].filter(Boolean).join(' · ')
 
   return (
-    <header className="relative" dir="rtl">
-      {/* Eyebrow + tools button */}
-      <div className="flex items-center justify-between gap-3">
-        <div
-          dir="ltr"
-          style={{
-            fontFamily: "'Space Grotesk', monospace",
-            fontSize: 11,
-            letterSpacing: '1.6px',
-            textTransform: 'uppercase',
-            color: GOLD,
-            opacity: 0.85,
-          }}
-        >
-          {eyebrowParts.length > 0 ? eyebrowParts.join('  ·  ') : 'READING'}
-        </div>
+    <header className="relative" dir="ltr">
+      <div className="flex items-start justify-between gap-3">
+        {eyebrow ? (
+          <span
+            dir="rtl"
+            className="inline-flex items-center font-['Tajawal']"
+            style={{
+              fontSize: 12.5,
+              fontWeight: 500,
+              letterSpacing: '.02em',
+              color: 'var(--ds-text-secondary, #a8a396)',
+              padding: '5px 13px',
+              borderRadius: 999,
+              border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.10))',
+              background: 'rgba(255,255,255,0.03)',
+            }}
+          >
+            {eyebrow}
+          </span>
+        ) : <span />}
+
         <button
           type="button"
           onClick={onOpenTools}
           aria-label="أدوات القراءة"
-          className="shrink-0 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-['Tajawal'] transition-colors"
-          style={{ color: 'var(--ds-text-tertiary, #64748b)', border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.08))' }}
+          dir="rtl"
+          className="shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full font-['Tajawal'] transition-colors"
+          style={{
+            minHeight: 44, minWidth: 44, padding: '0 14px', fontSize: 13,
+            color: 'var(--ds-text-secondary, #a8a396)',
+            border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.08))',
+          }}
         >
-          <Settings2 size={14} />
+          <Settings2 size={15} />
           أدوات
         </button>
       </div>
 
-      {/* Titles */}
       <h1
-        dir="ltr"
-        className="mt-4"
+        className="mt-5"
         style={{
+          // 600 is a loaded Cormorant italic weight; 700 was not, so the old
+          // masthead rendered a synthesised bold.
           fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
           fontStyle: 'italic',
-          fontWeight: 700,
-          fontSize: 'clamp(32px, 7vw, 44px)',
-          lineHeight: 1.02,
-          color: 'var(--ds-text-primary, #f8fafc)',
+          fontWeight: 600,
+          fontSize: 'clamp(34px, 6.2vw, 52px)',
+          lineHeight: 1.04,
+          letterSpacing: '-.01em',
+          color: 'var(--ds-text-primary, #ece7dd)',
         }}
       >
         {reading?.title_en}
       </h1>
-      {reading?.title_ar && (
+
+      {arabicSubtitle && (
         <h2
-          className="mt-1.5"
+          dir="rtl"
+          className="mt-2"
           style={{
             fontFamily: "'Amiri', serif",
             fontWeight: 700,
-            fontSize: 'clamp(24px, 5.5vw, 34px)',
-            lineHeight: 1.15,
-            color: GOLD,
+            fontSize: 'clamp(21px, 4.4vw, 28px)',
+            lineHeight: 1.25,
+            color: 'var(--ds-text-secondary, #a8a396)',
           }}
         >
-          {reading.title_ar}
+          {arabicSubtitle}
         </h2>
       )}
 
-      {/* Deck / standfirst */}
       {deck && (
         <p
-          dir="ltr"
-          className="mt-4"
+          className="mt-2"
           style={{
-            fontFamily: "'Readex Pro', sans-serif",
+            fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
             fontStyle: 'italic',
-            fontSize: 'clamp(15px, 3.6vw, 17px)',
-            lineHeight: 1.5,
-            color: 'var(--ds-text-secondary, #94a3b8)',
-            maxWidth: '34rem',
+            fontWeight: 500,
+            fontSize: 'clamp(19px, 3vw, 25px)',
+            lineHeight: 1.32,
+            color: 'var(--ds-text-secondary, #a8a396)',
+            maxWidth: '30rem',
           }}
         >
           {deck}
         </p>
       )}
 
-      {/* Meta strip */}
-      <div
-        dir="ltr"
-        className="mt-5 flex items-center flex-wrap"
-        style={{
-          fontFamily: "'Space Grotesk', monospace",
-          fontSize: 11,
-          letterSpacing: '0.4px',
-          color: 'var(--ds-text-tertiary, #64748b)',
-        }}
-      >
-        {readingTime ? <span>{readingTime} min read</span> : null}
-        {readingTime && vocabCount ? <Dot /> : null}
-        {vocabCount ? <span>{vocabCount} vocabulary words</span> : null}
-        {cefr ? <Dot /> : null}
-        {cefr ? <span style={{ color: GOLD }}>★ {cefr}</span> : null}
-      </div>
+      {meta && (
+        <div
+          dir="rtl"
+          className="mt-5 font-['Tajawal']"
+          style={{ fontSize: 12.5, letterSpacing: '.02em', color: 'var(--ds-text-tertiary, #8b8578)' }}
+        >
+          {meta}
+        </div>
+      )}
 
-      <div className="mt-6 h-px w-full" style={{ background: 'var(--ds-border-subtle, rgba(255,255,255,0.08))' }} />
+      <div className="mt-6 h-px w-full" style={{ background: 'var(--ds-border-subtle, rgba(255,255,255,0.06))' }} />
     </header>
   )
 }
