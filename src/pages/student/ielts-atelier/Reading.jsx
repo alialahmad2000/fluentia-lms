@@ -12,6 +12,7 @@ import { supabase } from '@/lib/supabase'
 import { useG } from '@/i18n/gender'
 import { Card, MetaChip, LabHeader } from './_ui/primitives'
 import { ExamShell, QuestionPalette } from './_ui/ExamShell'
+import ExamReview from './_ui/ExamReview'
 import { ExamQuestion } from './_ui/ExamQuestions'
 
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
@@ -353,13 +354,15 @@ function PassageReviewCard({ pp, passage, defaultOpen }) {
 }
 
 function AttemptReview({ perPassage, passages }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {perPassage.map((pp) => (
-        <PassageReviewCard key={pp.pi} pp={pp} passage={passages?.[pp.pi]} defaultOpen={perPassage.length === 1} />
-      ))}
-    </div>
-  )
+  // Delegate to the shared ExamReview (source passage + per-question choices +
+  // always-on feedback), one section per passage.
+  const sections = (perPassage || []).map((pp) => ({
+    title: passages?.[pp.pi]?.title || pp.title || `نص ${arDigit(pp.pi + 1)}`,
+    correct: pp.correct, total: pp.total, perQuestion: pp.perQuestion,
+    sourceText: passages?.[pp.pi]?.content, sourceKind: 'passage',
+    color: posColor(pp.pi),
+  }))
+  return <ExamReview sections={sections} />
 }
 
 function AttemptRow({ session, onOpen }) {
@@ -465,7 +468,7 @@ export default function Reading() {
   const [answers, setAnswers] = useState({})     // keyed `${pi}_${qNum}`
   const [timeLeft, setTimeLeft] = useState(0)
   const [gradeResult, setGradeResult] = useState(null)
-  const [showReview, setShowReview] = useState(false)
+  const [showReview, setShowReview] = useState(true)
   const [current, setCurrent] = useState(null)
   const [tabIdx, setTabIdx] = useState(0)
   const [mobilePane, setMobilePane] = useState('passage')
@@ -994,7 +997,7 @@ export default function Reading() {
         {/* Review */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.4 }}>
           <button onClick={() => setShowReview((r) => !r)} style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 45%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-            {showReview ? 'إخفاء المراجعة' : 'مراجعة الإجابات'}
+            {showReview ? 'إخفاء مراجعة الاختبار' : 'مراجعة الاختبار كاملاً'}
           </button>
 
           <AnimatePresence>
