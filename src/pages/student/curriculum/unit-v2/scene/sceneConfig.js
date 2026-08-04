@@ -30,11 +30,15 @@ export const CAPSTONE_PREREQS = ['reading', 'vocabulary', 'grammar', 'listening'
 
 // Per-beat "why" copy used only when the unit has no activity_ribbons entry for that
 // skill (listening + writing were added after ribbons were generated). Feminine.
+// 2026-08-04: «المشهد» removed — that was the retired Scene design's language, and it
+// read wrong on the Spread. Every custom unit now has real ribbons (see
+// scripts/generate-custom-unit-ribbons.cjs), so this is a safety net for a
+// newly-authored unit whose ribbons haven't been generated yet.
 export const BEAT_WHY_FALLBACK = {
-  reading:    'اقرئي الموقف الذي ستعيشينه في هذا المشهد.',
-  vocabulary: 'أتقني الكلمات التي تحتاجينها في هذا الموقف.',
-  grammar:    'أتقني الأداة اللغوية التي يقوم عليها هذا الموقف.',
-  listening:  'استمعي للطرف الآخر في هذا الموقف — وركّزي على ما بين السطور.',
-  speaking:   'أدّي المشهد بصوتك — هذه ذروة الوحدة.',
-  writing:    'اكتبي المتابعة التي يرسلها محترف بعد هذا الموقف.',
+  reading:    { m: 'اقرأ الموقف الذي ستعيشه في هذه الوحدة.', f: 'اقرئي الموقف الذي ستعيشينه في هذه الوحدة.' },
+  vocabulary: { m: 'أتقن الكلمات التي تحتاجها في هذا الموقف.', f: 'أتقني الكلمات التي تحتاجينها في هذا الموقف.' },
+  grammar:    { m: 'أتقن الأداة اللغوية التي يقوم عليها هذا الموقف.', f: 'أتقني الأداة اللغوية التي يقوم عليها هذا الموقف.' },
+  listening:  { m: 'استمع للطرف الآخر في هذا الموقف — وركّز على ما بين السطور.', f: 'استمعي للطرف الآخر في هذا الموقف — وركّزي على ما بين السطور.' },
+  speaking:   { m: 'تحدّث بصوتك في هذا الموقف — هذه ذروة الوحدة.', f: 'تحدّثي بصوتكِ في هذا الموقف — هذه ذروة الوحدة.' },
+  writing:    { m: 'اكتب المتابعة التي يرسلها محترف بعد هذا الموقف.', f: 'اكتبي المتابعة التي يرسلها محترف بعد هذا الموقف.' },
 }

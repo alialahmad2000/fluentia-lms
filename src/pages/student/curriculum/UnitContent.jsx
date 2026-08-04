@@ -46,7 +46,9 @@ import {
   useUnitTheme,
 } from './unit-v2'
 import UnitBrief from './unit-v2/UnitBrief'
-import SceneOverview from './unit-v2/scene/SceneOverview'
+// Custom-curriculum unit overview. SceneOverview (unit-v2/scene/) is the previous
+// design — kept on disk, no longer mounted.
+import UnitSpread from './unit-v2/spread/UnitSpread'
 import UnitDebrief from './unit-v2/components/debrief/UnitDebrief'
 import { useUnitSkillSnapshot } from './unit-v2/hooks/useUnitSkillSnapshot'
 
@@ -94,6 +96,9 @@ export default function UnitContent() {
 
   // Active activity from URL param — null = show mission grid
   const activeActivity = searchParams.get('activity') || null
+  // The Spread owns the unit's identity (title, plate, progress), so the shared
+  // hero header would duplicate it. Suppressed only on the custom overview.
+  const showSpread = isCustom && !activeActivity
 
   // V2 state
   const [trophyOpen, setTrophyOpen] = useState(false)
@@ -387,11 +392,11 @@ export default function UnitContent() {
       {/* Celebration layer — global event listener */}
       <CelebrationLayer />
 
-      <CinematicBg coverUrl={coverUrl} />
+      <CinematicBg coverUrl={coverUrl} lift={showSpread} />
 
       <motion.div
         {...m.heroEntry}
-        className="w-full max-w-4xl mx-auto px-4 py-6 space-y-5"
+        className={`w-full ${showSpread ? 'max-w-5xl' : 'max-w-4xl'} mx-auto px-4 py-6 space-y-5`}
         style={{ position: 'relative', zIndex: 10 }}
       >
         {/* ════ HERO HEADER ════ */}
@@ -434,7 +439,8 @@ export default function UnitContent() {
             </div>
           </div>
 
-          {/* Unit title block */}
+          {/* Unit title block — the Spread renders its own, so it is hidden there */}
+          {!showSpread && (
           <div style={{ position: 'relative', overflow: 'hidden', padding: '8px 0' }}>
             <div style={{
               position: 'absolute', top: -10, left: 0, fontSize: V1.type.bgType, fontWeight: 800,
@@ -485,9 +491,10 @@ export default function UnitContent() {
 
             <div style={{ marginTop: '12px', height: '1px', background: `linear-gradient(90deg, ${V1.accentGoldStrong}, ${V1.accentGoldSoft}, transparent)` }} />
           </div>
+          )}
 
-          {/* Progress bar — compact, merged into header */}
-          {progress && (
+          {/* Progress bar — compact, merged into header (the Spread carries its own) */}
+          {progress && !showSpread && (
             <div className="mt-3 space-y-1.5">
               <div className="flex items-center justify-between">
                 <span className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyXs }}>
@@ -530,7 +537,7 @@ export default function UnitContent() {
         {/* Mission grid — always mounted; hidden via CSS when inside an activity */}
         <div style={{ display: activeActivity ? 'none' : 'block' }}>
           {/* Unit Mastery Card — goalpost shown ABOVE activities so student sees it first */}
-          {isStudent && studentData?.id && (
+          {isStudent && studentData?.id && !isCustom && (
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -541,12 +548,25 @@ export default function UnitContent() {
             </motion.div>
           )}
           {isCustom ? (
-            <SceneOverview
-              activities={unitData.activities}
-              unit={unit}
-              onSelect={handleActivitySelect}
-              themeKey={studentData?.theme_key}
-            />
+            <>
+              <UnitSpread
+                activities={unitData.activities}
+                unit={unit}
+                onSelect={handleActivitySelect}
+                themeKey={studentData?.theme_key}
+                progress={progress}
+              />
+              {isStudent && studentData?.id && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  style={{ marginTop: '24px' }}
+                >
+                  <UnitMasteryCard unitId={unitId} studentId={studentData.id} />
+                </motion.div>
+              )}
+            </>
           ) : (
             <>
               <SmartNextStepCTA nextStep={nextStep} onNavigate={handleActivitySelect} />

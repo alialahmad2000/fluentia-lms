@@ -306,7 +306,15 @@ export function EmptyState() {
 /* ═══════════════════════════════════════════════
    CinematicBg — V1 ambient background layer
    ═══════════════════════════════════════════════ */
-export function CinematicBg({ coverUrl }) {
+// `lift` raises the cover art out of near-black into a readable room and adds a
+// warm wash on top of it — used by the custom-curriculum Spread, where the page
+// floats over the student's own world and that world has to actually be visible.
+// Default (false) is byte-identical to the previous behaviour for every other page.
+// `lift` raises the cover art out of near-black into a readable room and adds a
+// warm accent wash — used by the custom-curriculum Spread, where the page floats
+// over the student's own world and that world has to actually be visible.
+// Default (false) is byte-identical to the previous behaviour for every other page.
+export function CinematicBg({ coverUrl, lift = false }) {
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} aria-hidden>
       <div style={{ position: 'absolute', inset: 0, background: CINEMATIC_TOKENS.bg }} />
@@ -314,7 +322,16 @@ export function CinematicBg({ coverUrl }) {
         <div className="curr-kenburns" style={{
           position: 'absolute', inset: 0,
           backgroundImage: `url(${coverUrl})`, backgroundSize: 'cover', backgroundPosition: 'center',
-          filter: 'blur(40px) brightness(0.35) saturate(1.3)', transform: 'scale(1.1)',
+          filter: lift
+            ? 'blur(34px) brightness(0.92) saturate(1.35) contrast(1.05)'
+            : 'blur(40px) brightness(0.35) saturate(1.3)',
+          transform: 'scale(1.1)',
+        }} />
+      )}
+      {lift && (
+        <div aria-hidden style={{
+          position: 'absolute', inset: 0, mixBlendMode: 'screen', opacity: 0.7,
+          background: 'radial-gradient(58% 46% at 76% 10%, var(--accent-sky-glow, rgba(232,193,105,0.30)) 0%, transparent 62%)',
         }} />
       )}
       {/* breathing warm bloom — gentle ambient life */}

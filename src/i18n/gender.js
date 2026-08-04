@@ -80,6 +80,12 @@ const FEM_TO_MASC = {
   ترجمي: 'ترجم', استخدمي: 'استخدم', فكّري: 'فكّر', فكري: 'فكّر', تخيّلي: 'تخيّل',
   تخيلي: 'تخيّل', لخّصي: 'لخّص', لخصي: 'لخّص', قارني: 'قارن', اذكري: 'اذكر',
   أكمِلي: 'أكمل', أنتِ: 'أنت', بكِ: 'بك',
+  // ── 2026-08-04: «تحدّثي» is all over the curriculum copy (speaking prompts,
+  // unit ribbons) and was reaching male students unconverted. The rest are the
+  // other instruction verbs the custom-track ribbons use. Bare «صفي» is
+  // deliberately excluded — too short to substring-replace safely. ──
+  تحدّثي: 'تحدّث', تحدثي: 'تحدّث', اطلبي: 'اطلب', اعرضي: 'اعرض',
+  ناقشي: 'ناقش', وضّحي: 'وضّح', وضحي: 'وضّح', علّقي: 'علّق',
 }
 // Plain split/join (NO regex) — avoids lookbehind, which throws on iOS Safari < 16.4
 // (the students' devices). Keys are distinctive female imperatives (ـي) / kasra
