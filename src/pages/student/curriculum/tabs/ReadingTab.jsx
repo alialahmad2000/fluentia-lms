@@ -477,6 +477,16 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [wordPopup, setWordPopup] = useState(null)     // { word, rect, vocabRow }
   const { data: articleVocabIndex = new Map() } = useArticleVocabIndex(reading?.id, reading?.passage_content?.paragraphs)
 
+  // How many of THIS passage's words carry the target-vocabulary mark. Printed
+  // in the masthead so the gold in the body reads as a promise ("these are the
+  // words you're learning here"), not as decoration.
+  const targetWordCount = useMemo(() => {
+    if (!(articleVocabIndex instanceof Map)) return 0
+    let n = 0
+    for (const row of articleVocabIndex.values()) if (row?.is_vocab === true) n += 1
+    return n
+  }, [articleVocabIndex])
+
   // Audio data for SmartAudioPlayer
   const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
 
@@ -852,6 +862,7 @@ function ReadingContent({ reading, studentId, unitId }) {
               reading={reading}
               readingTime={readingTime}
               wordCount={reading.passage_word_count}
+              targetWordCount={targetWordCount}
               onOpenTools={() => setToolsOpen(true)}
             />
             {arabicMode && (
