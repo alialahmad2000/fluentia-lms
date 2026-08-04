@@ -313,6 +313,31 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-04 — IELTS SPEAKING gets its ladder + the four skills are finally separable in the nav
+- Ali asked whether speaking and writing had been finished to reading's depth. **Writing had** (guide · criteria · models · micro · task1 · task2 · full · errors — verified, not assumed). **Speaking had not**: one guide plus three exam parts, no criteria, no reference, no review rung.
+- **Same pattern as the writing pass for the third time: the content was already written and simply never fetched.** Verified per-column before building anything:
+  | field | coverage | shown before |
+  |---|---|---|
+  | `useful_phrases` | 60/60 topics · **420 phrases** | SELECTed and dropped |
+  | `band_descriptors.grammar` / `.grammar_structures` | 60/60 | never fetched |
+  | `band_descriptors.arabic_tip(s)` | 40/60 (parts 1, 3) | never fetched |
+  | `band_descriptors.common_mistakes_ar` | 20/20 (part 2) | never fetched |
+  | `cue_card.model_answer_outline` | part 2 | fetched, never rendered |
+- **Shipped:** التعلّم → المعايير الأربعة + عبارات وتراكيب; المراجعة → أخطاء شائعة. The booth now shows the topic's phrases, target structures and Arabic tip — **hidden while recording**, because reading off a list mid-answer is precisely what costs Fluency marks — and the Band-7 outline during part-2 preparation only.
+- **Deliberately NOT built, and why (do not "finish" these later without checking the data first):**
+  - **نماذج مشروحة** — `model_answer_text` is a 60–180 char «Grammar focus: …» note on **every one of the 60 rows**, not a model answer, and `model_answer_audio_url` is null on all 60. The page would have promised what the data cannot deliver.
+  - **أخطائي في المحادثة** — speaking has **0 rows in `ielts_skill_sessions` and 0 in `ielts_error_bank`** platform-wide, because it is graded from audio and never wrote per-item errors. So the review rung is «أخطاء شائعة» (built on `common_mistakes_ar`), with her own sessions rendering above it the moment they exist.
+- **Two real bugs found while building:**
+  - **`ai_feedback` nests the four scores under `criteria` as bare numbers** (`ai_feedback.criteria.fluency_coherence`), unlike writing where they sit at top level as objects. Reading the flat shape — the obvious guess — would have shown an empty chart forever. Reader now tries nested, then flat.
+  - **`grammar_structures` is an ARRAY on parts 2–3 but `grammar` is a STRING on part 1.** Handing React the raw array printed the entries with no separator at all («…the storyPresent simple for recommendingReported speech…»). Normalised to a list in both the page and the booth. **Caught only because the page was screenshotted** — it built clean and read as plausible prose.
+- **NAV — the separation Ali asked for.** The four skills were fifteen identically-styled rows in one column: no boundary between القراءة and الاستماع, nothing tying a sub-item to its skill. Each skill is now a bounded block that **redefines `--iel-accent` (and `--iel-nav-active`/`-bg`) for its own subtree**, so the icon, dots, rail and active row recolour through the EXISTING rules — no per-skill duplicates of `.iel-subitem`. reading emerald · listening sky · writing amber · speaking violet, plus a hairline between blocks and a brighter rail on the block you are inside.
+  - First attempt was too subtle to read at 40% alpha on a 1.5px rail; the cue that actually does the work is the **coloured skill icon**. Confirmed by probing computed styles, not by eye.
+  - `--iel-nav-active` had to be redefined alongside `--iel-accent`: without it المحادثة rendered emerald while its own rail was violet — the one row that most needs to match its skill was the only one that did not.
+- **Accessibility bug fixed from the reading pass:** `INTENSITY_LABEL` was ONE shared map using reading's wording, so writing's «المهمة الأولى» announced "قطعة واحدة بوقت" to screen readers. The bars are purely visual, so that label is all a screen-reader user gets. Now per-skill.
+- Files: NEW `speaking/{Criteria,Phrases,Errors}.jsx`; `Speaking.jsx`, `_layout/IELTSMasterclassLayout.jsx`, `_ui/ielts-theme.css`, `App.jsx`. No DB change.
+- **Working-tree gotcha (cost real time — read this before building):** `~/projects/fluentia-lms` sits on branch `reading-glossary-and-bug-reports`, **373 files / ~50k lines behind origin/main**, and its `CLAUDE.md` is a stale 6 July copy. Pushes via the GitHub API never touch it. Build and screenshot from `git archive origin/main` into a temp dir with `node_modules` symlinked — never from the working tree, and never overwrite the working tree to make a build work.
+- Status: complete — `8fd49eb5` on main; **prod verified** serving `IELTSMasterclassLayout-SWEVZn4f.css` with all four `data-skill` rules and the `Phrases` chunk live on app.fluentia.academy.
+
 ### 2026-08-01 — IELTS LISTENING: two real bugs found before writing any UI (silent error-bank loss + unmatchable answer keys)
 - Started the listening ladder; the investigation surfaced two genuine defects first, both affecting real student scores.
 - **BUG 1 — listening silently lost every recorded error.** 3 real sessions (الهنوف, 2026-07-14) logged **13 wrong answers** and stored **0** error-bank rows, while reading — same table — had 20. Ruled out by evidence, not assumption: RLS allows own-rows (`student_id = auth.uid()`); the same student HAS 8 reading rows so it was not impersonation; no FK/CHECK blocks it; `session_data.perQuestion` proved the wrong answers existed with every field the insert reads; and **reproducing the exact insert shape with a real student JWT succeeded today**.
