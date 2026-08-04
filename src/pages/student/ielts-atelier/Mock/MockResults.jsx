@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { AlertTriangle } from 'lucide-react'
 import BandDisplay from '@/design-system/components/masterclass/BandDisplay'
 import { useMockAttempt } from './useMockSession'
+import MockReview from '../_ui/MockReview'
 
 const SKILL_CONFIG = {
   listening: { label: 'الاستماع', icon: '🎧' },
@@ -132,6 +133,10 @@ export default function MockResults() {
           <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8 }}>{answers.speaking.feedback.feedback_ar}</p>
         </motion.div>
       )}
+
+      {/* Full per-question review — every question, its choices, the correct answer,
+          the feedback, and the source passage / audio transcript. Works retroactively. */}
+      <MockReview attempt={attempt} />
 
       {/* Actions */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} style={{ display: 'flex', gap: 12 }}>
