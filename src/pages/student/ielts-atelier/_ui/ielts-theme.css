@@ -347,6 +347,59 @@ html .iel-exam-clinical.iel-exam-clinical,
   color:var(--iel-ink-3); font-family:'Tajawal',sans-serif; text-transform:uppercase; user-select:none; }
 .iel-subgroup:first-child{ padding-top:4px; }
 
+/* ── Per-skill blocks ────────────────────────────────────────────────────────
+   The four skills used to be fifteen identically-styled rows in one column, so
+   there was no boundary between القراءة and الاستماع and no way to tell which
+   sub-item belonged to which skill. Each block now redefines --iel-accent for
+   its own subtree, which recolours the icon, dots, rail and active row through
+   the EXISTING rules above — no per-skill duplicates of .iel-subitem. */
+.iel-skillblock{ position:relative; padding-block-end:9px; margin-block-end:9px; }
+.iel-skillblock:not(:last-of-type)::after{
+  content:''; position:absolute; inset-inline:9px 11px; bottom:0; height:1px; opacity:.55;
+  background:linear-gradient(90deg, transparent, var(--iel-border-strong) 20%, var(--iel-border-strong) 80%, transparent); }
+
+/* --iel-nav-active / -bg must be redefined alongside --iel-accent: the active
+   parent row reads those two tokens, so without them المحادثة rendered emerald
+   while its own rail was violet — the one row that most needs to match its
+   skill was the only one that did not. */
+.iel-skillblock[data-skill="reading"]  { --iel-accent:#10b981; --iel-accent-ink:#6ee7b7; --iel-accent-soft:rgba(16,185,129,.14);
+  --iel-nav-active:#6ee7b7; --iel-nav-active-bg:rgba(16,185,129,.14); }
+.iel-skillblock[data-skill="listening"]{ --iel-accent:#38bdf8; --iel-accent-ink:#7dd3fc; --iel-accent-soft:rgba(56,189,248,.14);
+  --iel-nav-active:#7dd3fc; --iel-nav-active-bg:rgba(56,189,248,.14); }
+.iel-skillblock[data-skill="writing"]  { --iel-accent:#f0a020; --iel-accent-ink:#fcd34d; --iel-accent-soft:rgba(240,160,32,.15);
+  --iel-nav-active:#fcd34d; --iel-nav-active-bg:rgba(240,160,32,.15); }
+.iel-skillblock[data-skill="speaking"] { --iel-accent:#a78bfa; --iel-accent-ink:#c4b5fd; --iel-accent-soft:rgba(167,139,250,.15);
+  --iel-nav-active:#c4b5fd; --iel-nav-active-bg:rgba(167,139,250,.15); }
+
+/* The rail ties the sub-items to their parent and stops at the block edge. It
+   carries the skill hue, and brightens for the block you are currently inside —
+   so the open block is obvious without collapsing the others and hiding where
+   everything lives. */
+.iel-skillblock .iel-subnav::before{
+  width:2px;
+  background:linear-gradient(180deg, color-mix(in srgb, var(--iel-accent) 72%, transparent), color-mix(in srgb, var(--iel-accent) 12%, transparent) 94%); }
+.iel-skillblock[data-current] .iel-subnav::before{
+  width:2.5px;
+  background:linear-gradient(180deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 22%, transparent) 94%);
+  box-shadow:0 0 7px color-mix(in srgb, var(--iel-accent) 45%, transparent); }
+.iel-skillblock[data-current] .iel-subgroup{ color:color-mix(in srgb, var(--iel-accent) 58%, var(--iel-ink-3)); }
+
+/* The skill's icon carries its hue at all times. This is the cue that actually
+   does the work: a 2px rail is easy to miss, but a coloured glyph beside the
+   skill name is read instantly and stays legible when the eye is scanning. The
+   parent NavItem is inline-styled, so the colour is set on the icon's own span —
+   a rule there beats the colour the button inherits down. */
+.iel-skillblock > button > span:not([aria-hidden]){ color:var(--iel-accent); }
+.iel-skillblock > button:hover > span:not([aria-hidden]){ color:var(--iel-accent-ink); }
+
+/* Dots inherit the hue too, so a sub-item's colour alone identifies its skill. */
+.iel-skillblock .iel-subitem .dot{ background:color-mix(in srgb, var(--iel-accent) 45%, var(--iel-ink-3)); }
+.iel-skillblock .iel-subitem:hover .dot{ background:var(--iel-accent); }
+
+/* Intensity bars follow their skill's hue on the active row, so the ramp reads
+   as part of that skill rather than as a fifth, unrelated colour. */
+.iel-subitem.on .iel-bars i{ background:color-mix(in srgb, var(--iel-accent) 72%, transparent); }
+
 /* Intensity meter — ascending bars marking how much pressure a drill puts the
    student under. Used ONLY where a real ramp exists (reading: untimed drill →
    20-minute passage → full 60-minute test). Decorative elsewhere, so omitted.

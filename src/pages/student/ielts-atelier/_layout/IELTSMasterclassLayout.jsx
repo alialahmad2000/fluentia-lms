@@ -83,12 +83,24 @@ const SKILL_SUB = {
       { path: 'writing/errors', label: 'أخطائي في الكتابة', loop: true },
     ] },
   ],
+  // Speaking's ramp is how much she must produce UNAIDED: part 1 answers a
+  // familiar question in two or three sentences; part 2 is a two-minute monologue
+  // after one minute of preparation; part 3 is abstract discussion with no
+  // preparation at all. That is a real escalation, unlike writing's two tasks
+  // (both intensity 2) which are simply two different tasks in one sitting.
   speaking: [
-    { group: 'التعلّم', items: [{ path: 'speaking/guide', label: 'دليل المحادثة' }] },
+    { group: 'التعلّم', items: [
+      { path: 'speaking/guide', label: 'دليل المحادثة' },
+      { path: 'speaking/criteria', label: 'المعايير الأربعة' },
+      { path: 'speaking/phrases', label: 'عبارات وتراكيب' },
+    ] },
     { group: 'التدريب', items: [
-      { path: 'speaking', label: 'الجزء الأول', exact: true },
-      { path: 'speaking/part2', label: 'الجزء الثاني' },
-      { path: 'speaking/part3', label: 'الجزء الثالث' },
+      { path: 'speaking', label: 'الجزء الأول', exact: true, intensity: 1 },
+      { path: 'speaking/part2', label: 'الجزء الثاني', intensity: 2 },
+      { path: 'speaking/part3', label: 'الجزء الثالث', intensity: 3 },
+    ] },
+    { group: 'المراجعة', items: [
+      { path: 'speaking/errors', label: 'أخطاء شائعة', loop: true },
     ] },
   ],
 }
@@ -97,14 +109,23 @@ const SKILL_SUB = {
 const GROUP_HEADING_MIN = 3
 const countItems = (groups) => groups.reduce((n, g) => n + g.items.length, 0)
 
-const INTENSITY_LABEL = { 1: 'تمرين قصير بلا وقت', 2: 'قطعة واحدة بوقت', 3: 'اختبار كامل بوقت' }
+// Each skill's bars mean a DIFFERENT kind of pressure, so the screen-reader text
+// has to differ too. This was one shared map using reading's wording, which made
+// writing's «المهمة الأولى» announce "قطعة واحدة بوقت" — a reading label on a
+// writing task. Bars are purely visual, so the aria-label is the only thing a
+// screen-reader user gets; a wrong one is worse than none.
+const INTENSITY_LABEL = {
+  reading:   { 1: 'تمرين قصير بلا وقت', 2: 'قطعة واحدة بوقت', 3: 'اختبار كامل بوقت' },
+  listening: { 1: 'إعادة الاستماع متاحة', 2: 'إعادة محدودة', 3: 'استماع مرّة واحدة' },
+  writing:   { 1: 'تمرين قصير موجَّه', 2: 'مهمة واحدة بوقتها', 3: 'المهمّتان في ٦٠ دقيقة بلا مساعدة' },
+  speaking:  { 1: 'أسئلة قصيرة مألوفة', 2: 'حديث متّصل بعد دقيقة تحضير', 3: 'نقاش مجرّد بلا تحضير' },
+}
 
 // `level` ascending bars — the ramp cue that replaces numbering inside a
 // practice group. Renders exactly `level` bars (not three with some dimmed) so
 // the outline differs between levels; see .iel-bars in ielts-theme.css.
-// aria-label carries the same meaning for screen readers, since bars are visual.
-const IntensityBars = ({ level }) => (
-  <span className="iel-bars" role="img" aria-label={INTENSITY_LABEL[level] || ''}>
+const IntensityBars = ({ level, skill }) => (
+  <span className="iel-bars" role="img" aria-label={INTENSITY_LABEL[skill]?.[level] || ''}>
     <span>{Array.from({ length: level }, (_, i) => <i key={i} />)}</span>
   </span>
 )
@@ -175,38 +196,59 @@ export default function IELTSMasterclassLayout() {
           <div className="iel-nav-label">التدريب</div>
           {/* Each skill parent opens its performance monitor; the sub-nav below is
               the teach→practise→review path through that skill. */}
-          {SKILLS.map((s) => (
-            <Fragment key={s}>
-              <NavItem
-                icon={Icon[s]}
-                label={SKILL_LABEL[s]}
-                badge={bandOf(s)}
-                active={s === 'reading' ? pathname.startsWith(`${BASE}/reading`) : isActive(s)}
-                onClick={() => go(`${s}/monitor`)}
-              />
-              <div className="iel-subnav">
-                {SKILL_SUB[s].map((grp) => (
-                  <Fragment key={grp.group || 'ungrouped'}>
-                    {grp.group && countItems(SKILL_SUB[s]) >= GROUP_HEADING_MIN
-                      && <div className="iel-subgroup">{grp.group}</div>}
-                    {grp.items.map((it) => (
-                      <button
-                        key={it.path}
-                        type="button"
-                        className={`iel-subitem${it.loop ? ' loop' : ''}${subActive(it.path, it.exact) ? ' on' : ''}`}
-                        onClick={() => go(it.path)}
-                      >
-                        <span className="dot" aria-hidden />
-                        {it.label}
-                        {it.intensity && <IntensityBars level={it.intensity} />}
-                        {it.loop && errBySkill?.[s] ? <span className="cnt">{errBySkill[s]}</span> : null}
-                      </button>
-                    ))}
-                  </Fragment>
-                ))}
+          {/* Each skill is its own bounded block. Before this the four skills were
+              fifteen identically-styled rows in one column: nothing said where
+              القراءة ended and الاستماع began, so the eye read one long list and
+              the student could not tell which sub-item belonged to which skill.
+              Three cues do the separating, all of them carrying real meaning:
+                · a per-skill hue (--iel-skill) on the icon, dots, rail and the
+                  active row, so a row's colour alone identifies its skill;
+                · a rail down the sub-nav that visually ties the children to their
+                  parent and stops at the block's edge;
+                · a hairline + spacing between blocks.
+              The current skill also gets [data-current], which brightens its rail
+              — so the block you are inside reads as open without collapsing the
+              others and hiding where things are. */}
+          {SKILLS.map((s) => {
+            const skillActive = s === 'reading' ? pathname.startsWith(`${BASE}/reading`) : isActive(s)
+            return (
+              <div
+                className="iel-skillblock"
+                data-skill={s}
+                data-current={skillActive ? '' : undefined}
+                key={s}
+              >
+                <NavItem
+                  icon={Icon[s]}
+                  label={SKILL_LABEL[s]}
+                  badge={bandOf(s)}
+                  active={skillActive}
+                  onClick={() => go(`${s}/monitor`)}
+                />
+                <div className="iel-subnav">
+                  {SKILL_SUB[s].map((grp) => (
+                    <Fragment key={grp.group || 'ungrouped'}>
+                      {grp.group && countItems(SKILL_SUB[s]) >= GROUP_HEADING_MIN
+                        && <div className="iel-subgroup">{grp.group}</div>}
+                      {grp.items.map((it) => (
+                        <button
+                          key={it.path}
+                          type="button"
+                          className={`iel-subitem${it.loop ? ' loop' : ''}${subActive(it.path, it.exact) ? ' on' : ''}`}
+                          onClick={() => go(it.path)}
+                        >
+                          <span className="dot" aria-hidden />
+                          {it.label}
+                          {it.intensity && <IntensityBars level={it.intensity} skill={s} />}
+                          {it.loop && errBySkill?.[s] ? <span className="cnt">{errBySkill[s]}</span> : null}
+                        </button>
+                      ))}
+                    </Fragment>
+                  ))}
+                </div>
               </div>
-            </Fragment>
-          ))}
+            )
+          })}
 
           <div className="iel-nav-label">الاستعداد</div>
           <NavItem icon={Icon.plan} label="خطة الدراسة" active={isActive('journey')} onClick={() => go('journey')} />

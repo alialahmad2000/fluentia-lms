@@ -120,7 +120,9 @@ function usePublishedQuestions(part) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('ielts_speaking_questions')
-        .select('id, part, topic, questions, cue_card, useful_phrases')
+        // band_descriptors carries the per-topic target structure + Arabic tip that
+        // this booth never fetched; useful_phrases was fetched but never rendered.
+        .select('id, part, topic, questions, cue_card, useful_phrases, band_descriptors')
         .eq('is_published', true)
         .eq('part', part)
         .order('sort_order')
@@ -680,6 +682,21 @@ function SpeakingBooth({ initialPart = 1 }) {
     const inPrep = isPart2 && !prepDone
     const prepRemaining = Math.max(0, 60 - prepElapsed)
 
+    // Per-topic study material. Both the key spelling AND the type differ by part:
+    //   part 1 → grammar: STRING,           arabic_tip:  string
+    //   part 2 → grammar_structures: ARRAY, (no tip)
+    //   part 3 → grammar_structures: ARRAY, arabic_tips: string
+    // Read every spelling, and normalise the structures to an array — passing the
+    // raw array to React printed the entries run together with no separator.
+    const bd = selectedRow?.band_descriptors || null
+    const phrasesForTopic = Array.isArray(selectedRow?.useful_phrases) ? selectedRow.useful_phrases : []
+    const rawGrammar = bd?.grammar ?? bd?.grammar_structures
+    const grammarTarget = rawGrammar == null
+      ? []
+      : (Array.isArray(rawGrammar) ? rawGrammar : [rawGrammar]).map((x) => String(x).trim()).filter(Boolean)
+    const rawTip = bd?.arabic_tip ?? bd?.arabic_tips
+    const arabicTip = rawTip == null ? null : (Array.isArray(rawTip) ? rawTip.join(' · ') : String(rawTip))
+
     return (
       <ExamShell
         sectionLabel="المحادثة"
@@ -722,6 +739,14 @@ function SpeakingBooth({ initialPart = 1 }) {
                   </ul>
                   {selectedRow.cue_card.preparation_tips_ar && (
                     <p style={{ margin: '4px 0 0', fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7, textAlign: 'right' }}>💡 {selectedRow.cue_card.preparation_tips_ar}</p>
+                  )}
+                  {/* The shape of a Band-7 answer. Shown only during preparation:
+                      after the minute is up she should be talking, not reading. */}
+                  {selectedRow.cue_card.model_answer_outline && inPrep && (
+                    <div style={{ marginTop: 2, padding: '10px 12px', borderRadius: 10, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)' }}>
+                      <p style={{ margin: '0 0 4px', fontSize: 11, fontWeight: 800, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>هيكل الإجابة</p>
+                      <p dir="ltr" style={{ margin: 0, fontSize: 12.5, color: 'var(--iel-ink-2)', fontFamily: SSANS, lineHeight: 1.75, textAlign: 'left' }}>{selectedRow.cue_card.model_answer_outline}</p>
+                    </div>
                   )}
                 </div>
               ) : (
@@ -766,6 +791,39 @@ function SpeakingBooth({ initialPart = 1 }) {
               )}
             </div>
           </div>
+
+          {/* The topic's phrases and target structure. This content shipped with
+              every one of the 60 topics and was never shown: useful_phrases was
+              SELECTed and dropped, band_descriptors was not even fetched.
+              Hidden while recording — it is preparation material, and reading
+              off a list mid-answer is exactly what costs Fluency marks. */}
+          {recState !== 'recording' && (phrasesForTopic.length > 0 || grammarTarget.length > 0 || arabicTip) && (
+            <div style={{ marginTop: 18, padding: '16px 18px', borderRadius: 14, background: 'var(--iel-surface)', border: '1px solid var(--iel-border)' }}>
+              {phrasesForTopic.length > 0 && (
+                <>
+                  <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 800, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>عبارات مفيدة لهذا الموضوع</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: grammarTarget.length > 0 || arabicTip ? 13 : 0 }}>
+                    {phrasesForTopic.map((p, i) => (
+                      <span key={i} dir="ltr" style={{ fontSize: 12, padding: '4px 9px', borderRadius: 7, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink-2)', fontFamily: SSANS }}>{p}</span>
+                    ))}
+                  </div>
+                </>
+              )}
+              {grammarTarget.length > 0 && (
+                <div style={{ marginBottom: arabicTip ? 10 : 0 }}>
+                  <p style={{ margin: '0 0 4px', fontSize: 11, fontWeight: 800, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>التركيب المستهدف</p>
+                  <ul dir="ltr" style={{ margin: 0, paddingInlineStart: 17, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    {grammarTarget.map((line, i) => (
+                      <li key={i} style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', fontFamily: SSANS, lineHeight: 1.65, textAlign: 'left' }}>{line}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {arabicTip && (
+                <p style={{ margin: 0, padding: '9px 11px', borderRadius: 9, background: 'var(--iel-gold-soft, rgba(234,179,8,.1))', border: '1px solid color-mix(in srgb, var(--iel-gold) 24%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8, textAlign: 'right' }}>💡 {arabicTip}</p>
+              )}
+            </div>
+          )}
         </div>
       </ExamShell>
     )
