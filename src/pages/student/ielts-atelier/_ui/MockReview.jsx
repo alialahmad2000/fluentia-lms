@@ -33,7 +33,7 @@ async function buildAttemptReview(attempt) {
       const sa = {}
       ;(Array.isArray(p.questions) ? p.questions : []).forEach((q, idx) => { const v = rMap[`${pi}_${q.question_number}`]; if (v != null && v !== '') sa[questionKey(q, idx)] = v })
       const g = gradeQuestions({ questions: p.questions, answerKey: p.answer_key, studentAnswers: sa })
-      return { title: p.title, correct: g.correct, total: g.total, perQuestion: g.perQuestion, sourceText: p.content, sourceKind: 'passage', color: posColor(pi) }
+      return { title: p.title, sourceId: p.id, correct: g.correct, total: g.total, perQuestion: g.perQuestion, sourceText: p.content, sourceKind: 'passage', color: posColor(pi) }
     })
   }
 
@@ -47,7 +47,7 @@ async function buildAttemptReview(attempt) {
       const sa = {}
       ;(Array.isArray(s.questions) ? s.questions : []).forEach((q, idx) => { const v = lMap[`${si}_${q.question_number}`]; if (v != null && v !== '') sa[questionKey(q, idx)] = v })
       const g = gradeQuestions({ questions: s.questions, answerKey: s.answer_key, studentAnswers: sa })
-      return { title: s.title, correct: g.correct, total: g.total, perQuestion: g.perQuestion, sourceText: s.transcript, sourceKind: 'transcript', color: 'var(--iel-accent)' }
+      return { title: s.title, sourceId: s.id, correct: g.correct, total: g.total, perQuestion: g.perQuestion, sourceText: s.transcript, sourceKind: 'transcript', color: 'var(--iel-accent)' }
     })
   }
 

@@ -13,6 +13,7 @@ import { useG } from '@/i18n/gender'
 import { Card, MetaChip, LabHeader } from './_ui/primitives'
 import { ExamShell, QuestionPalette } from './_ui/ExamShell'
 import ExamReview from './_ui/ExamReview'
+import HighlightableText from './_ui/HighlightableText'
 import { ExamQuestion } from './_ui/ExamQuestions'
 
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
@@ -358,6 +359,7 @@ function AttemptReview({ perPassage, passages }) {
   // always-on feedback), one section per passage.
   const sections = (perPassage || []).map((pp) => ({
     title: passages?.[pp.pi]?.title || pp.title || `نص ${arDigit(pp.pi + 1)}`,
+    sourceId: passages?.[pp.pi]?.id,
     correct: pp.correct, total: pp.total, perQuestion: pp.perQuestion,
     sourceText: passages?.[pp.pi]?.content, sourceKind: 'passage',
     color: posColor(pp.pi),
@@ -895,12 +897,7 @@ export default function Reading() {
     const PassagePane = (
       <div style={{ padding: isWide ? '24px 30px' : '18px 18px', overflowY: 'auto', height: '100%', direction: 'ltr' }}>
         <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: '0 0 18px', fontFamily: SANS, textAlign: 'left', lineHeight: 1.3 }}>{p?.title}</h2>
-        {paras.map((para, i) => (
-          <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 12, margin: '0 0 15px', fontSize: 15.5, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
-            <span style={{ flex: 'none', width: 16, fontWeight: 800, color: 'var(--iel-ink-2)', fontFamily: SANS, fontSize: 14 }}>{paraLetters[i]}</span>
-            <span>{para}</span>
-          </p>
-        ))}
+        <HighlightableText text={p?.content} sourceType="reading_passage" sourceId={p?.id} lettered variant="exam" />
       </div>
     )
 

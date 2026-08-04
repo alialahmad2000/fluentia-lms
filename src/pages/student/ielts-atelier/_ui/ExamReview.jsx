@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, BookOpen, Headphones, ChevronDown } from 'lucide-react'
+import HighlightableText from './HighlightableText'
 
 /* ============================================================================
    The full post-exam review, shared by every IELTS exam (reading / listening /
@@ -113,14 +114,18 @@ function SectionReviewCard({ section, defaultOpen }) {
           <AnimatePresence initial={false}>
             {showSource && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }} style={{ overflow: 'hidden', borderBottom: '1px solid var(--iel-border)' }}>
-                <div style={{ padding: '16px 20px', direction: 'ltr' }}>
-                  {paras.map((para, i) => (
-                    <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 10, margin: '0 0 13px', fontSize: 14.5, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
-                      {!isTranscript && <span style={{ flex: 'none', width: 15, fontWeight: 800, color: 'var(--iel-ink-3)', fontSize: 13 }}>{String.fromCharCode(65 + i)}</span>}
-                      <span>{para}</span>
-                    </p>
-                  ))}
-                </div>
+                {section.sourceId ? (
+                  <HighlightableText text={section.sourceText} sourceType={isTranscript ? 'listening_transcript' : 'reading_passage'} sourceId={section.sourceId} lettered={!isTranscript} variant="review" />
+                ) : (
+                  <div style={{ padding: '16px 20px', direction: 'ltr' }}>
+                    {paras.map((para, i) => (
+                      <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 10, margin: '0 0 13px', fontSize: 14.5, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
+                        {!isTranscript && <span style={{ flex: 'none', width: 15, fontWeight: 800, color: 'var(--iel-ink-3)', fontSize: 13 }}>{String.fromCharCode(65 + i)}</span>}
+                        <span>{para}</span>
+                      </p>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

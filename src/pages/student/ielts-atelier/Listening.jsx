@@ -981,6 +981,7 @@ function ListeningHall() {
               >
                 <ExamReview sections={[{
                   title: sectionQ.data?.title || 'قسم الاستماع',
+                  sourceId: sectionQ.data?.id,
                   correct, total, perQuestion,
                   sourceText: sectionQ.data?.transcript,
                   sourceKind: 'transcript',
