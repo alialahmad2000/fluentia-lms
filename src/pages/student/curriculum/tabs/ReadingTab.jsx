@@ -8,7 +8,7 @@ import { supabase } from '../../../../lib/supabase'
 // Canonical curriculum is the single default. To re-introduce as opt-in secondary
 // surface later: see docs/audits/personalization-revert/PHASE-A-REPORT.md
 // import PersonalizedReadingCard from '../../../../components/personalization/PersonalizedReadingCard'
-import { useEffectiveStudentId } from '../../../../stores/authStore'
+import { useEffectiveStudentId, useAuthStore } from '../../../../stores/authStore'
 import { useG, genderizeText } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -33,6 +33,20 @@ import { trackEvent } from '../../../../lib/trackEvent'
 import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
 import VerdictPanel from '../../../../components/curriculum/questions/VerdictPanel'
 import '../../../../components/curriculum/questions/questionCards.css'
+
+// The two presentations a student can switch between at any point in the
+// article. Read-along is not a separate page — it is the same column, performed.
+// A third «مشاهد» (scenes) mode is designed and prototyped but deliberately NOT
+// shipped here: it needs per-reading scene breaks + titles that do not exist in
+// the schema yet (see the reading-redesign plan).
+const READING_MODES = [
+  { id: 'read', label: 'قراءة' },
+  { id: 'listen', label: 'استماع' },
+]
+
+// A1/A2 second-language reading speed. The 200wpm native default would tell a
+// beginner she has one minute left when she has four.
+const READING_WPM = 90
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -393,7 +407,19 @@ function ReadingContent({ reading, studentId, unitId }) {
 
   // Editorial rebuild: default reading surface + secondary tools drawer.
   const [toolsOpen, setToolsOpen] = useState(false)
-  const [audioMode, setAudioMode] = useState(false)   // karaoke/full-audio (demoted to drawer)
+  // Mode is a reading PREFERENCE, not a per-article decision — it persists per
+  // student so she is not re-asked on every passage.
+  const MODE_KEY = 'fluentia:readingMode'
+  const [audioMode, setAudioModeRaw] = useState(() => {
+    try { return localStorage.getItem(MODE_KEY) === 'listen' } catch { return false }
+  })
+  const setAudioMode = useCallback((next) => {
+    setAudioModeRaw((prev) => {
+      const val = typeof next === 'function' ? next(prev) : next
+      try { localStorage.setItem(MODE_KEY, val ? 'listen' : 'read') } catch {}
+      return val
+    })
+  }, [])
   const [arabicMode, setArabicMode] = useState(false) // whole-article Arabic (no source data — honest notice)
   const [wordPopup, setWordPopup] = useState(null)     // { word, rect, vocabRow }
   const { data: articleVocabIndex = new Map() } = useArticleVocabIndex(reading?.id, reading?.passage_content?.paragraphs)
@@ -673,6 +699,12 @@ function ReadingContent({ reading, studentId, unitId }) {
     return map
   }, [readingNotes])
 
+  // "N minutes left" from the live read-line progress, at L2 reading speed.
+  const minutesLeft = Math.max(
+    0,
+    Math.ceil(((reading?.passage_word_count || 0) * (1 - scrollProgress / 100)) / READING_WPM),
+  )
+
   return (
     // The bottom clearance is nav height + iOS safe-area, not a magic 100px.
     <div className="space-y-6" style={{ paddingBottom: 'var(--mobile-bottom-clearance, 100px)' }}>
@@ -784,115 +816,49 @@ function ReadingContent({ reading, studentId, unitId }) {
                   pixels below, "words 164 min read 1" here (reversed by the
                   bidi algorithm, since bare numerals sat in an RTL row). The
                   masthead now owns the meta; this row is actions only. */}
-              {/* Read-along (karaoke) — surfaced as a first-class button (was buried in
-                  the ⚙️ tools drawer). The loved v1 "listen while reading" experience:
-                  tapping it switches the passage to the synced word-by-word player. */}
-              {audioData && (
-                <button
-                  onClick={() => setAudioMode((v) => !v)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
-                    audioMode
-                      ? 'bg-sky-500/15 text-sky-400 border-sky-500/30'
-                      : 'bg-slate-800/50 text-slate-300 border-slate-700/50 hover:text-sky-400 hover:border-sky-500/30'
-                  }`}
-                >
-                  <Headphones size={12} />
-                  {audioMode ? 'وضع القراءة' : 'استمع واقرأ'}
-                </button>
-              )}
-              {/* Focus Mode Toggle */}
-              <button
-                onClick={() => setFocusMode(!focusMode)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
-                  focusMode
-                    ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                    : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-slate-200'
-                }`}
+              {/* ONE control cluster. This replaced three competing toolbars: the
+                  «أدوات» modal, this chip row, and a «مساعدات القراءة» popover
+                  nested inside it — where «استمع واقرأ» toggled the SAME state as
+                  the modal's audio row, so one feature had two labels on two
+                  surfaces. Everything secondary now lives behind ⋯. */}
+              <div
+                className="flex items-center gap-1 p-1 rounded-full"
+                role="group"
+                aria-label="طريقة القراءة"
+                style={{ background: 'rgba(255,255,255,.05)', border: '1px solid var(--ds-border-subtle, rgba(255,255,255,.07))' }}
               >
-                {focusMode ? <EyeOff size={12} /> : <Eye size={12} />}
-                {focusMode ? 'إلغاء التركيز' : 'وضع التركيز'}
-              </button>
-              {/* AI Arabic Summary */}
-              <button
-                onClick={handleSummary}
-                disabled={summaryLoading}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
-                  summaryAr
-                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
-                    : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-emerald-400 hover:border-emerald-500/30'
-                }`}
-              >
-                {summaryLoading ? <Loader2 size={12} className="animate-spin" /> : <FileText size={12} />}
-                ملخص بالعربي
-              </button>
-              {/* Vocab Quiz (show when ≥3 saved words) */}
-              {savedWordSet.size >= 3 && (
-                <button
-                  onClick={handleVocabQuiz}
-                  disabled={quizLoading}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
-                    vocabQuiz
-                      ? 'bg-violet-500/15 text-violet-400 border-violet-500/30'
-                      : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-violet-400 hover:border-violet-500/30'
-                  }`}
-                >
-                  {quizLoading ? <Loader2 size={12} className="animate-spin" /> : <Zap size={12} />}
-                  اختبار مفرداتي
-                </button>
-              )}
-              {/* Reading Assistance Settings */}
-              <div className="relative">
-                <button
-                  onClick={() => setPrefsOpen(!prefsOpen)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
-                    prefsOpen
-                      ? 'bg-sky-500/15 text-sky-400 border-sky-500/30'
-                      : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-slate-200'
-                  }`}
-                >
-                  <Settings size={12} />
-                  مساعدات القراءة
-                </button>
-                <AnimatePresence>
-                  {prefsOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full mt-2 right-0 z-50 w-72 rounded-xl p-4 space-y-3"
-                      dir="rtl"
+                {READING_MODES.map((m) => {
+                  const active = audioMode === (m.id === 'listen')
+                  // Read-along needs word timings; 18 of 230 passages have none.
+                  if (m.id === 'listen' && !audioData) return null
+                  return (
+                    <button
+                      key={m.id}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => setAudioMode(m.id === 'listen')}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-full font-['Tajawal'] transition-all duration-200"
                       style={{
-                        background: 'var(--ds-bg-elevated, #0d111b)', backdropFilter: 'blur(20px)',
-                        border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
+                        minHeight: 38, padding: '0 16px', fontSize: 13.5,
+                        fontWeight: active ? 700 : 500, border: 0, cursor: 'pointer',
+                        color: active ? '#14100a' : 'var(--ds-text-tertiary, #8b8578)',
+                        background: active
+                          ? 'linear-gradient(180deg, var(--ds-accent-primary, #e9b949), var(--ds-accent-primary, #e9b949))'
+                          : 'transparent',
+                        boxShadow: active ? '0 1px 0 rgba(255,255,255,.28) inset' : 'none',
                       }}
                     >
-                      <h4 className="text-xs font-bold text-white/70 font-['Tajawal']">مساعدات القراءة</h4>
-                      <PrefsToggle
-                        label="ترجمة سريعة عند تحريك المؤشر أو الضغطة الأولى"
-                        desc="عرض معنى الكلمة عند تمرير المؤشر (لابتوب) أو أول ضغطة (موبايل)"
-                        checked={prefs.quick_translation_on_hover_tap}
-                        onChange={(v) => setPref('quick_translation_on_hover_tap', v)}
-                        disabled={!prefs.word_assistance_enabled}
-                      />
-                      <PrefsToggle
-                        label="القائمة التفصيلية عند النقر / الضغط المطوّل"
-                        desc="خيارات مثل: أضف لمفرداتي، شرح بالسياق، أمثلة جديدة"
-                        checked={prefs.detailed_menu_on_click_longpress}
-                        onChange={(v) => setPref('detailed_menu_on_click_longpress', v)}
-                        disabled={!prefs.word_assistance_enabled}
-                      />
-                      <div className="pt-2 border-t border-white/5">
-                        <PrefsToggle
-                          label="تفعيل جميع المساعدات"
-                          checked={prefs.word_assistance_enabled}
-                          onChange={(v) => setPref('word_assistance_enabled', v)}
-                          master
-                        />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      {m.id === 'listen' ? <Headphones size={15} /> : <BookOpen size={15} />}
+                      {m.label}
+                    </button>
+                  )
+                })}
+              </div>
+
+              <div className="left-time font-['Tajawal'] ms-auto" style={{ fontSize: 12.5, color: 'var(--ds-text-tertiary, #8b8578)' }}>
+                {scrollProgress >= 100
+                  ? g('أنهيت المقال', 'أنهيتِ المقال')
+                  : minutesLeft <= 1 ? 'أقل من دقيقة' : `تبقّت ${minutesLeft} دقائق`}
               </div>
             </div>
             <div className="border-b border-slate-800/50 pb-0" />
@@ -1036,10 +1002,14 @@ function ReadingContent({ reading, studentId, unitId }) {
       <ReadingTools
         open={toolsOpen}
         onClose={() => setToolsOpen(false)}
-        audioActive={audioMode}
-        onToggleAudio={() => setAudioMode((v) => !v)}
         arabicActive={arabicMode}
         onToggleArabic={() => setArabicMode((v) => !v)}
+        focusActive={focusMode}
+        onToggleFocus={() => setFocusMode((v) => !v)}
+        summaryActive={!!summaryAr}
+        onSummary={handleSummary}
+        quizActive={!!vocabQuiz}
+        onVocabQuiz={savedWordSet.size >= 3 ? handleVocabQuiz : undefined}
       />
       {wordPopup && (
         <WordPopup

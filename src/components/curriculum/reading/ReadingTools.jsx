@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Headphones, Mic2, Repeat, Languages, Check } from 'lucide-react'
+import { X, Headphones, Mic2, Repeat, Languages, Check, Eye, FileText, Zap } from 'lucide-react'
 
 // Reading editorial rebuild — secondary tools, presented as a CENTERED MODAL.
 // Was a right-side drawer that could sit visually adjacent to / behind the
@@ -36,7 +36,13 @@ function ToolRow({ icon: Icon, label, sub, active, onClick }) {
   )
 }
 
-export default function ReadingTools({ open, onClose, audioActive, onToggleAudio, arabicActive, onToggleArabic }) {
+export default function ReadingTools({
+  open, onClose,
+  arabicActive, onToggleArabic,
+  focusActive, onToggleFocus,
+  summaryActive, onSummary,
+  quizActive, onVocabQuiz,
+}) {
   const panelRef = useRef(null)
 
   // Escape to close + focus trap while open. Hooks run unconditionally; the
@@ -125,13 +131,38 @@ export default function ReadingTools({ open, onClose, audioActive, onToggleAudio
               <div className="h-px w-full my-3" style={{ background: 'var(--ds-border-subtle, rgba(255,255,255,0.08))' }} />
 
               <div className="space-y-2.5">
-                <ToolRow
-                  icon={Headphones}
-                  label="الاستماع للمقال كاملاً"
-                  sub="الكاريوكي · السرعة · تكرار A-B · التنقّل — كلها داخل المشغّل"
-                  active={audioActive}
-                  onClick={onToggleAudio}
-                />
+                {/* The audio row that used to live here is gone: it toggled the
+                    SAME state as «استمع واقرأ» in the chip row, so one feature
+                    had two labels on two surfaces. Listening is now a mode in
+                    the single control cluster; this sheet holds only what has
+                    no other home. */}
+                {onToggleFocus && (
+                  <ToolRow
+                    icon={Eye}
+                    label="وضع التركيز"
+                    sub="يعتم كل شيء عدا الفقرة التي تقرئينها"
+                    active={focusActive}
+                    onClick={onToggleFocus}
+                  />
+                )}
+                {onSummary && (
+                  <ToolRow
+                    icon={FileText}
+                    label="ملخّص بالعربي"
+                    sub="الفكرة الرئيسية في أسطر قليلة"
+                    active={summaryActive}
+                    onClick={onSummary}
+                  />
+                )}
+                {onVocabQuiz && (
+                  <ToolRow
+                    icon={Zap}
+                    label="اختبار مفرداتي"
+                    sub="اختبار سريع على الكلمات التي حفظتِها"
+                    active={quizActive}
+                    onClick={onVocabQuiz}
+                  />
+                )}
                 <ToolRow
                   icon={Languages}
                   label="الترجمة العربية الكاملة"
@@ -141,9 +172,9 @@ export default function ReadingTools({ open, onClose, audioActive, onToggleAudio
                 />
               </div>
 
-              <p className="mt-5 text-[11px] leading-relaxed font-['Tajawal']" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
-                <Mic2 size={11} className="inline ms-1" /> وضع الإملاء و
-                <Repeat size={11} className="inline mx-1" /> قراءة الظل متاحان من شريط المشغّل بعد تشغيل الاستماع.
+              <p className="mt-5 text-xs leading-relaxed font-['Tajawal']" style={{ color: 'var(--ds-text-tertiary, #8b8578)' }}>
+                <Mic2 size={12} className="inline ms-1" /> وضع الإملاء و
+                <Repeat size={12} className="inline mx-1" /> قراءة الظل متاحان من شريط المشغّل بعد اختيار «استماع».
               </p>
             </motion.div>
           </div>
