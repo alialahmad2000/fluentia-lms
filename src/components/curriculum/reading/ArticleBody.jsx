@@ -101,14 +101,17 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
         .article-body .aw:active { background: rgba(255,255,255,.08); }
         .article-body .aw:focus-visible { outline: 2px solid var(--ds-accent-primary, #e9b949); outline-offset: 2px; }
 
-        /* Key vocabulary: a RULE at rest, colour only on contact.
-           Measured on production, 59 of 164 words rendered in full accent — 36%
-           of the article — which read as a link farm and destroyed the saccade
-           rhythm. Corpus-wide only ~11 words per reading are target vocabulary
-           that actually occur in the passage; that is the honest density. */
+        /* Key vocabulary: the student must be able to SEE, at a glance, which
+           words this passage is teaching — so they carry the accent colour at
+           rest, not only on contact.
+           The earlier version was full accent on 59 of 164 words (36%), which
+           read as a link farm. That was a DATA bug (a global vocabulary query),
+           not a colour bug: with the query scoped to this reading the real
+           density is ~9–17 words per passage (5–10%), where full colour is
+           exactly the right weight of signal. */
         .article-body .aw-vocab {
-          color: inherit;
-          font-weight: inherit;
+          color: var(--ds-accent-primary, #e9b949);
+          font-weight: 500;
           text-decoration: underline;
           text-decoration-color: var(--ds-accent-rule, rgba(233,185,73,.42));
           text-decoration-thickness: 1.5px;
@@ -117,13 +120,13 @@ function ArticleBody({ paragraphs, vocabIndex, onWordTap }) {
         }
         @media (hover: hover) {
           .article-body .aw-vocab:hover {
-            color: var(--ds-accent-primary, #e9b949);
+            background: var(--ds-accent-wash, rgba(233,185,73,.08));
             text-decoration-color: var(--ds-accent-primary, #e9b949);
           }
         }
         .article-body .aw-vocab:active,
         .article-body .aw-vocab[aria-expanded="true"] {
-          color: var(--ds-accent-primary, #e9b949);
+          background: var(--ds-accent-wash, rgba(233,185,73,.08));
           text-decoration-color: var(--ds-accent-primary, #e9b949);
         }
 

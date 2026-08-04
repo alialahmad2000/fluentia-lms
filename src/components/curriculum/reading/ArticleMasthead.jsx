@@ -14,6 +14,15 @@ import { Settings2 } from 'lucide-react'
 
 const AR_RE = /[؀-ۿ]/
 
+// Arabic counts agree with the noun, so «3 كلمة» is wrong in a way that reads as
+// machine output to a native speaker. Same rule set used elsewhere in the app.
+function targetWordsLabel(n) {
+  if (n === 1) return 'كلمة واحدة مستهدفة'
+  if (n === 2) return 'كلمتان مستهدفتان'
+  if (n >= 3 && n <= 10) return `${n} كلمات مستهدفة`
+  return `${n} كلمة مستهدفة`
+}
+
 function firstSentence(paragraphs) {
   const first = Array.isArray(paragraphs) ? paragraphs[0] : ''
   if (!first) return ''
@@ -28,6 +37,7 @@ export default function ArticleMasthead({
   unitNumber,
   readingTime,
   wordCount,
+  targetWordCount = 0,
   cefr,
   onOpenTools,
 }) {
@@ -142,13 +152,32 @@ export default function ArticleMasthead({
         </p>
       )}
 
-      {meta && (
-        <div
-          dir="rtl"
-          className="mt-5 font-['Tajawal']"
-          style={{ fontSize: 12.5, letterSpacing: '.02em', color: 'var(--ds-text-tertiary, #8b8578)' }}
-        >
-          {meta}
+      {(meta || targetWordCount > 0) && (
+        <div dir="rtl" className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 font-['Tajawal']">
+          {meta && (
+            <span style={{ fontSize: 12.5, letterSpacing: '.02em', color: 'var(--ds-text-tertiary, #8b8578)' }}>
+              {meta}
+            </span>
+          )}
+          {/* The key that makes the gold in the body legible as meaning: the
+              chip is styled EXACTLY like a marked word, so the student connects
+              «هذه كلماتك» to what they see in the passage without being told. */}
+          {targetWordCount > 0 && (
+            <span
+              className="inline-flex items-center"
+              style={{
+                fontSize: 12.5,
+                fontWeight: 500,
+                color: 'var(--ds-accent-primary, #e9b949)',
+                textDecoration: 'underline',
+                textDecorationColor: 'var(--ds-accent-rule, rgba(233,185,73,.42))',
+                textDecorationThickness: '1.5px',
+                textUnderlineOffset: '5px',
+              }}
+            >
+              {targetWordsLabel(targetWordCount)}
+            </span>
+          )}
         </div>
       )}
 
