@@ -5,7 +5,7 @@ import { useLatestResult, useSkillProgress, useAdaptivePlan, useErrorBankCount }
 import { generatePlan } from '@/lib/ielts/plan-generator'
 import { useAuthStore } from '@/stores/authStore'
 import { useG } from '@/i18n/gender'
-import { Card, SectionHeader, Chip, BandTrack, BandGauge, SkillCard, Icon, PrimaryButton } from './_ui/primitives'
+import { Card, SectionHeader, BandTrack, BandGauge, SkillCard, Icon, PrimaryButton } from './_ui/primitives'
 import CoachDirective from './_ui/CoachDirective'
 import JourneyStations from './_ui/JourneyStations'
 import CoachHelps from './_ui/CoachHelps'
@@ -114,16 +114,16 @@ export default function Home() {
   // ── Full overview ─────────────────────────────────────────────────────────
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 2 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-        <h1 style={{ fontSize: 21, fontWeight: 800, color: 'var(--iel-ink)', margin: 0 }}>
-          {name ? `مرحباً ${name}` : 'مرحباً'} <span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>— لنقترب خطوة اليوم</span>
+      {/* Cinematic editorial masthead — speaks to her by name */}
+      <div className="iel-mast">
+        <div className="eyebrow"><span className="spark" />رحلتك نحو الآيلتس</div>
+        <h1>
+          {name ? `أهلاً، ${name} — ` : 'أهلاً بك — '}
+          {target != null
+            ? <>هدفك <span className="band">Band {target.toFixed(1)}</span> في المتناول.</>
+            : 'لنقترب خطوة اليوم.'}
         </h1>
-        <div style={{ display: 'flex', gap: 10 }}>
-          {days != null
-            ? <Chip><span style={{ color: 'var(--iel-ink-3)', fontWeight: 600 }}>الاختبار بعد</span> {days} يوماً</Chip>
-            : <Chip muted>لم تُحدَّد موعد الاختبار</Chip>}
-          {target != null && <Chip dot>الهدف Band {target.toFixed(1)}</Chip>}
-        </div>
+        <p className="sub">كل جلسة قصيرة تقرّبك خطوة. هذه لوحتك — نطاقك الحالي، أقرب خطوة، والأيام حتى الاختبار.</p>
       </div>
 
       {/* Coach Directive — the one thing to do right now */}
@@ -133,7 +133,7 @@ export default function Home() {
       <div className="iel-hero">
         <div className="iel-hero-glow" aria-hidden />
         <div className="iel-hero-gauge">
-          <BandGauge current={overall} target={target} />
+          <BandGauge current={overall} target={target} size={224} />
         </div>
         <div className="iel-hero-body">
           <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.1em', marginBottom: 8 }}>مستواك الحالي</div>
@@ -153,9 +153,10 @@ export default function Home() {
         <div className="iel-hero-count">
           {days != null ? (
             <>
-              <div className="iel-serif" style={{ fontSize: 44, fontWeight: 600, color: 'var(--iel-ink)', lineHeight: 1 }}>{days}</div>
-              <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', fontWeight: 700, marginTop: 5 }}>يوماً حتى الاختبار</div>
-              {target != null && <div style={{ fontSize: 11.5, color: 'var(--iel-ink-3)', fontWeight: 700, marginTop: 10 }}>الهدف · Band {target.toFixed(1)}</div>}
+              <div style={{ fontSize: 11.5, fontWeight: 800, letterSpacing: '.1em', color: 'var(--iel-ink-3)', textTransform: 'uppercase' }}>حتى الاختبار</div>
+              <div className="big" style={{ margin: '8px 0 2px' }}>{days}</div>
+              <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', fontWeight: 700 }}>يوماً</div>
+              {target != null && <><div className="div" /><div style={{ fontSize: 12.5, color: 'var(--iel-gold-ink)', fontWeight: 800 }}>الهدف · Band {target.toFixed(1)}</div></>}
             </>
           ) : (
             <>
@@ -167,14 +168,16 @@ export default function Home() {
       </div>
 
       {/* Journey — you are here */}
-      <Card style={{ padding: '18px 22px' }}>
-        <SectionHeader title="رحلتك" actionLabel="الخطة الكاملة" onAction={() => go('journey')} />
-        <JourneyStations hasResult={hasResult} daysLeft={days} onOpen={() => go('journey')} />
-      </Card>
+      <div>
+        <div className="iel-slabel"><span className="t">رحلتك</span><span className="en">Your journey</span><span className="rule" /><button className="act" onClick={() => go('journey')}>الخطة الكاملة ←</button></div>
+        <Card style={{ padding: '18px 22px' }}>
+          <JourneyStations hasResult={hasResult} daysLeft={days} onOpen={() => go('journey')} />
+        </Card>
+      </div>
 
       {/* Skills */}
       <div>
-        <SectionHeader title="مهاراتك الأربع" actionLabel="التفاصيل" onAction={() => go(weakest || 'reading')} />
+        <div className="iel-slabel"><span className="t">مهاراتك الأربع</span><span className="en">Four skills</span><span className="rule" /><button className="act" onClick={() => go(weakest || 'reading')}>التفاصيل ←</button></div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 13 }}>
           {SKILLS.map((s) => (
             <SkillCard key={s} skill={s} label={SKILL_LABEL[s]} current={skillBands[s]} target={target} focus={s === weakest && rated.length > 1} last={skillBands[s] != null ? undefined : 'لم تُقس بعد'} onClick={() => go(s)} />

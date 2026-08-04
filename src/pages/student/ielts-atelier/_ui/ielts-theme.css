@@ -567,3 +567,29 @@ html .iel-exam-clinical.iel-exam-clinical,
   .iel-lmodal{ width:100%; max-height:calc(100dvh - 20px); border-radius:20px; }
 }
 @media (pointer:coarse){ .iel-lmodal-x{ width:44px; height:44px; } }
+
+/* ── Home masthead — editorial cinematic headline (2026-08-04 elevation) ───── */
+.iel-mast{ margin:2px 2px 6px }
+.iel-mast .eyebrow{ display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:800;
+  color:var(--iel-accent-ink); letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px }
+.iel-mast .eyebrow .spark{ width:22px; height:1.5px; background:linear-gradient(90deg, var(--iel-accent), transparent) }
+.iel-mast h1{ font-family:var(--iel-display); font-weight:700; font-size:clamp(30px,4.6vw,50px);
+  line-height:1.08; color:var(--iel-ink); letter-spacing:-.01em; margin:0 }
+.iel-mast h1 .band{ font-style:italic; background:linear-gradient(120deg, var(--iel-gold-ink), var(--iel-gold));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+.iel-mast .sub{ margin:16px 0 0; font-size:16px; color:var(--iel-ink-2); line-height:1.8; max-width:58ch; font-weight:500 }
+
+/* ── Bilingual editorial section label ────────────────────────────────────── */
+.iel-slabel{ display:flex; align-items:center; gap:12px; margin:32px 2px 15px }
+.iel-slabel .t{ font-family:var(--iel-display); font-size:21px; font-weight:700; color:var(--iel-ink) }
+.iel-slabel .en{ font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--iel-ink-3) }
+.iel-slabel .rule{ flex:1; height:1px; background:linear-gradient(90deg, var(--iel-border-strong), transparent) }
+.iel-slabel .act{ background:none; border:0; cursor:pointer; font-size:12.5px; font-weight:700; color:var(--iel-accent); font-family:'Tajawal',sans-serif; white-space:nowrap }
+
+/* ── Hero refinement — the band gauge is the single luminous showpiece ─────── */
+.iel-hero{ padding:34px 38px; gap:42px; border-radius:24px }
+.iel-hero-glow{ inset:-34% 34% auto -20%; height:150%;
+  background:radial-gradient(52% 52% at 26% 30%, color-mix(in srgb, var(--iel-accent) 15%, transparent), transparent 70%) }
+.iel-hero-count{ min-width:156px; border-radius:20px; padding:20px 16px }
+.iel-hero-count .big{ font-family:var(--iel-display); font-size:42px; font-weight:600; color:var(--iel-ink); line-height:1 }
+.iel-hero-count .div{ height:1px; background:var(--iel-border); margin:15px 0 }
