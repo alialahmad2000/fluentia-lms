@@ -33,7 +33,7 @@ function reviewOptions(r) {
   return null
 }
 
-function ReviewRow({ r }) {
+export function ReviewRow({ r }) {
   const c = r.isCorrect ? 'var(--iel-accent)' : 'var(--iel-bad)'
   const tint = r.isCorrect ? 'color-mix(in srgb, var(--iel-accent) 6%, var(--iel-surface))' : 'color-mix(in srgb, var(--iel-bad) 7%, var(--iel-surface))'
   const opts = reviewOptions(r)
