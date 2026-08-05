@@ -66,7 +66,13 @@ export default function StudentExercises() {
   const [completedGeneral, setCompletedGeneral] = useState(() => getCompletedGeneral())
 
   const { data: exercises, isLoading } = useQuery({
-    queryKey: ['student-exercises'],
+    // Key by student id so an admin switching impersonation (or any account switch)
+    // never sees another student's cached worksheets. The filter below is already
+    // per-student; without the id in the key the constant key bled one student's
+    // list into another's view — under view-as the sidebar count (correctly keyed)
+    // showed «تمارين مخصّصة» while this list still served the previous student's
+    // cached empty array. (Shipped in 003349bf, clobbered by 2fcbbdcb. Keep it.)
+    queryKey: ['student-exercises', profile?.id],
     queryFn: async () => {
       const { data } = await supabase
         .from('targeted_exercises')
@@ -312,7 +318,12 @@ export default function StudentExercises() {
                     const good = ex.score >= 80, ok = ex.score >= 60
                     const c = good ? '#2f7d72' : ok ? '#b26a1b' : '#b0543f'
                     const bg = good ? 'rgba(47,125,114,.1)' : ok ? 'rgba(178,106,27,.1)' : 'rgba(176,84,63,.1)'
-                    const reviewable = ex.content?.render === 'worksheet' && ex.student_answers
+                    // Any handed-in sheet can be reopened in review, not just the
+                    // tense-transformation «worksheet» layout — openCompleted already
+                    // recounts non-worksheet sheets from their saved answers, and the
+                    // teach-then-test sheets (render:'runner') are the ones a student
+                    // most wants to re-read with the explanations showing.
+                    const reviewable = !!ex.student_answers && Object.keys(ex.student_answers).length > 0
                     return (
                       <div
                         key={ex.id} className={`pw-drow${reviewable ? ' is-clickable' : ''}`}
