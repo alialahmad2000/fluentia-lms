@@ -1,21 +1,29 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
+import { createContext, useContext, useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Highlighter } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 
 /* ============================================================================
-   HighlightableText — select any word / run of words in an IELTS passage or
-   transcript to mark it in gold; tap a highlight to remove it. Highlights are
-   saved per-student per-source (ielts_text_highlights) and come back on any
-   device. Reused across the reading exam, the labs, and the exam review.
+   Text highlighting for the IELTS exam — select any word / run of words in a
+   passage, transcript, question stem, or answer choice to mark it in gold; tap
+   a highlight to remove it. Saved per-student per-source (ielts_text_highlights)
+   so it comes back on any device.
 
-   A highlight is stored as { p, s, e } = paragraph index + start/end character
-   offsets within that paragraph's DISPLAY text (splitParagraphs output), which
-   is a pure function of the source string, so ranges stay stable across renders.
+   A highlight is stored as { b, s, e } = block key + start/end character offsets
+   within that block's DISPLAY text. `b` is a string: paragraph index for a
+   passage ("0","1",…), or a question block id ("q3_stem","q3_opt1"…). Legacy
+   rows used a numeric `p` (paragraph index) — read as `b ?? p` for compatibility.
+
+   HighlightSurface  — provider: owns the selection→offset mapping + the "ظلِّل"
+                       pill + the persisted ranges for one (sourceType, sourceId).
+   HighlightableBlock — an inline highlightable text span (one block).
+   HighlightableText  — the passage/transcript wrapper (paragraphs = blocks).
    ========================================================================== */
 
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+const HL_CTX = createContext(null)
+const rkey = (r) => String(r.b ?? r.p)   // legacy rows stored numeric `p`
 
 export function splitParagraphs(content) {
   return String(content || '').split(/\n{2,}|\r\n\r\n/).map((s) => s.trim()).filter(Boolean)
@@ -33,23 +41,25 @@ function debounce(fn, ms) {
   return d
 }
 
-// Merge a new [s,e] into paragraph p's ranges (coalesces overlaps/adjacency).
-function addRange(all, p, s, e) {
+// Merge a new [s,e] into block `key`'s ranges (coalesces overlaps/adjacency).
+function addRange(all, key, s, e) {
+  key = String(key)
   if (e <= s) return all
-  const others = all.filter((r) => r.p !== p)
-  const spans = all.filter((r) => r.p === p).map((r) => [r.s, r.e]).concat([[s, e]]).sort((a, b) => a[0] - b[0])
+  const others = all.filter((r) => rkey(r) !== key)
+  const spans = all.filter((r) => rkey(r) === key).map((r) => [r.s, r.e]).concat([[s, e]]).sort((a, b) => a[0] - b[0])
   const merged = []
   for (const [a, b] of spans) {
     const last = merged[merged.length - 1]
     if (last && a <= last[1]) last[1] = Math.max(last[1], b)
     else merged.push([a, b])
   }
-  return others.concat(merged.map(([a, b]) => ({ p, s: a, e: b })))
+  return others.concat(merged.map(([a, b]) => ({ b: key, s: a, e: b })))
 }
 
-// Tap-to-remove: drop the whole highlight range covering `offset` in paragraph p.
-function removeAt(all, p, offset) {
-  return all.filter((r) => !(r.p === p && offset >= r.s && offset <= r.e))
+// Tap-to-remove: drop the whole highlight range covering `offset` in block `key`.
+function removeAt(all, key, offset) {
+  key = String(key)
+  return all.filter((r) => !(rkey(r) === key && offset >= r.s && offset <= r.e))
 }
 
 function useHighlights(sourceType, sourceId) {
@@ -107,7 +117,8 @@ function offsetInEl(el, node, offset) {
   return r.toString().length
 }
 
-function ParaText({ text, ranges, onRemove }) {
+// One block's text with its highlight marks rendered inline.
+function MarkedText({ text, ranges, onRemove }) {
   const sorted = ranges.slice().sort((a, b) => a.s - b.s)
   const out = []
   let cursor = 0
@@ -132,26 +143,18 @@ function ParaText({ text, ranges, onRemove }) {
   return <>{out}</>
 }
 
-export default function HighlightableText({ text, sourceType, sourceId, lettered = true, variant = 'review' }) {
-  const v = VARIANTS[variant] || VARIANTS.review
-  const paras = useMemo(() => splitParagraphs(text), [text])
+// ── The surface: manages the pill + selection→(block,offset) mapping for every
+//    HighlightableBlock inside it, sharing one persisted (sourceType, sourceId). ──
+export function HighlightSurface({ sourceType, sourceId, children, style }) {
   const { ranges, mutate, enabled } = useHighlights(sourceType, sourceId)
-  const containerRef = useRef(null)
-  const [pill, setPill] = useState(null) // { x, y }
+  const rootRef = useRef(null)
+  const [pill, setPill] = useState(null)
 
-  const byPara = useMemo(() => {
-    const m = new Map()
-    for (const r of ranges) { if (!m.has(r.p)) m.set(r.p, []); m.get(r.p).push(r) }
-    return m
-  }, [ranges])
-
-  // Watch the selection; when a stable, non-empty selection lands inside our
-  // container, float a "ظلّل" pill above it (works on touch + mouse).
   useEffect(() => {
     if (!enabled) return
     const onSel = debounce(() => {
       const sel = window.getSelection()
-      const cont = containerRef.current
+      const cont = rootRef.current
       if (!sel || sel.isCollapsed || sel.rangeCount === 0 || !cont) { setPill(null); return }
       const range = sel.getRangeAt(0)
       if (!cont.contains(range.commonAncestorContainer) || !range.toString().trim()) { setPill(null); return }
@@ -167,49 +170,32 @@ export default function HighlightableText({ text, sourceType, sourceId, lettered
 
   const applyHighlight = useCallback(() => {
     const sel = window.getSelection()
-    const cont = containerRef.current
+    const cont = rootRef.current
     if (!sel || sel.isCollapsed || sel.rangeCount === 0 || !cont) return
     const range = sel.getRangeAt(0)
     const additions = []
-    cont.querySelectorAll('[data-hl-para]').forEach((el) => {
+    cont.querySelectorAll('[data-hl-block]').forEach((el) => {
       if (!range.intersectsNode(el)) return
-      const p = Number(el.dataset.hlPara)
+      const b = el.dataset.hlBlock
       const len = el.textContent.length
       const startsHere = el.contains(range.startContainer)
       const endsHere = el.contains(range.endContainer)
       const s = startsHere ? offsetInEl(el, range.startContainer, range.startOffset) : 0
       const e = endsHere ? offsetInEl(el, range.endContainer, range.endOffset) : len
-      if (e > s) additions.push({ p, s, e })
+      if (e > s) additions.push({ b, s, e })
     })
-    if (additions.length) mutate((prev) => additions.reduce((acc, a) => addRange(acc, a.p, a.s, a.e), prev))
+    if (additions.length) mutate((prev) => additions.reduce((acc, a) => addRange(acc, a.b, a.s, a.e), prev))
     sel.removeAllRanges()
     setPill(null)
   }, [mutate])
 
-  const removeInPara = useCallback((p, offset) => { mutate((prev) => removeAt(prev, p, offset)) }, [mutate])
+  const removeInBlock = useCallback((b, offset) => { mutate((prev) => removeAt(prev, b, offset)) }, [mutate])
 
-  if (!paras.length) return null
+  const ctx = useMemo(() => ({ ranges, enabled, removeInBlock }), [ranges, enabled, removeInBlock])
 
   return (
-    <>
-      {enabled && ranges.length === 0 && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: variant === 'exam' ? '0 0 10px' : '4px 20px 8px', fontSize: 11.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", direction: 'rtl', textAlign: 'right' }}>
-          <Highlighter size={12} /> ظلِّل أي كلمة بتحديدها · انقر التظليل لإزالته
-        </div>
-      )}
-      <div ref={containerRef} style={{ padding: v.pad, direction: 'ltr' }}>
-        {paras.map((para, i) => (
-          <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: lettered ? 10 : 0, margin: `0 0 ${v.mb}px`, fontSize: v.fontSize, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
-            {lettered && <span style={{ flex: 'none', width: v.letterW, fontWeight: 800, color: v.letterColor, fontSize: v.letterFs }}>{String.fromCharCode(65 + i)}</span>}
-            <span
-              data-hl-para={i}
-              style={{ flex: 1, userSelect: 'text', WebkitUserSelect: 'text', cursor: 'text' }}
-            >
-              <ParaText text={para} ranges={byPara.get(i) || []} onRemove={(off) => removeInPara(i, off)} />
-            </span>
-          </p>
-        ))}
-      </div>
+    <HL_CTX.Provider value={ctx}>
+      <div ref={rootRef} style={style}>{children}</div>
       {pill && (
         <button
           type="button"
@@ -226,6 +212,53 @@ export default function HighlightableText({ text, sourceType, sourceId, lettered
           <Highlighter size={15} /> ظلِّل
         </button>
       )}
-    </>
+    </HL_CTX.Provider>
+  )
+}
+
+// ── An inline highlightable text block. Renders plain text (no-op) when it is
+//    NOT inside a HighlightSurface, so it's safe to drop into any renderer. ──
+export function HighlightableBlock({ blockKey, children, style }) {
+  const ctx = useContext(HL_CTX)
+  const text = typeof children === 'string' ? children : (children == null ? '' : String(children))
+  if (!ctx || !ctx.enabled) return <>{text}</>
+  const bk = String(blockKey)
+  const mine = ctx.ranges.filter((r) => rkey(r) === bk)
+  return (
+    <span data-hl-block={bk} style={{ userSelect: 'text', WebkitUserSelect: 'text', ...style }}>
+      <MarkedText text={text} ranges={mine} onRemove={(off) => ctx.removeInBlock(bk, off)} />
+    </span>
+  )
+}
+
+// The one-line discovery hint — shown until the first highlight exists.
+export function HighlightHint({ padding }) {
+  const ctx = useContext(HL_CTX)
+  if (!ctx?.enabled || ctx.ranges.length) return null
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: padding || '4px 20px 8px', fontSize: 11.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif", direction: 'rtl', textAlign: 'right' }}>
+      <Highlighter size={12} /> ظلِّل أي كلمة بتحديدها · انقر التظليل لإزالته
+    </div>
+  )
+}
+
+// ── Passage / transcript — paragraphs are the highlight blocks. ──
+export default function HighlightableText({ text, sourceType, sourceId, lettered = true, variant = 'review' }) {
+  const v = VARIANTS[variant] || VARIANTS.review
+  const paras = useMemo(() => splitParagraphs(text), [text])
+  if (!paras.length) return null
+
+  return (
+    <HighlightSurface sourceType={sourceType} sourceId={sourceId}>
+      <HighlightHint padding={variant === 'exam' ? '0 0 10px' : '4px 20px 8px'} />
+      <div style={{ padding: v.pad, direction: 'ltr' }}>
+        {paras.map((para, i) => (
+          <p key={i} style={{ display: 'flex', alignItems: 'baseline', gap: lettered ? 10 : 0, margin: `0 0 ${v.mb}px`, fontSize: v.fontSize, color: 'var(--iel-ink)', fontFamily: SANS, lineHeight: 1.75, textAlign: 'left' }}>
+            {lettered && <span style={{ flex: 'none', width: v.letterW, fontWeight: 800, color: v.letterColor, fontSize: v.letterFs }}>{String.fromCharCode(65 + i)}</span>}
+            <HighlightableBlock blockKey={String(i)} style={{ flex: 1, cursor: 'text' }}>{para}</HighlightableBlock>
+          </p>
+        ))}
+      </div>
+    </HighlightSurface>
   )
 }

@@ -1,4 +1,12 @@
 import React from 'react'
+import { HighlightableBlock } from './HighlightableText'
+
+// True when the user is mid-selection (dragging to highlight) — used so tapping
+// a choice to highlight a word in it doesn't also pick that choice as the answer.
+function isSelecting() {
+  const sel = typeof window !== 'undefined' ? window.getSelection() : null
+  return !!(sel && !sel.isCollapsed && String(sel).trim())
+}
 
 /* ============================================================================
    Authentic IELTS question renderers — modeled on the real computer-delivered
@@ -32,11 +40,12 @@ function optionEntries(q) {
   return []
 }
 
-/* Radio row (MCQ) — hover brightens the border, focus shows a ring, selected fills. */
-function ChoiceRow({ label, text, selected, onClick }) {
+/* Radio row (MCQ) — hover brightens the border, focus shows a ring, selected fills.
+   The choice text is highlightable; a drag-select inside it doesn't pick the answer. */
+function ChoiceRow({ label, text, blockKey, selected, onClick }) {
   const [hover, setHover] = React.useState(false)
   return (
-    <button type="button" onClick={onClick} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+    <button type="button" onClick={() => { if (!isSelecting()) onClick() }} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
       style={{
         display: 'flex', alignItems: 'flex-start', gap: 11, width: '100%', textAlign: 'left', cursor: 'pointer', fontFamily: SANS,
         padding: '10px 13px', borderRadius: 10,
@@ -47,7 +56,7 @@ function ChoiceRow({ label, text, selected, onClick }) {
         {selected && <span style={{ width: 9, height: 9, borderRadius: '50%', background: 'var(--iel-accent)' }} />}
       </span>
       <span style={{ fontSize: 14.5, color: selected ? 'var(--iel-ink)' : 'var(--iel-ink-2)', lineHeight: 1.45 }}>
-        <b style={{ color: 'var(--iel-ink)', marginRight: 7 }}>{label}</b>{text}
+        <b style={{ color: 'var(--iel-ink)', marginRight: 7 }}>{label}</b>{blockKey ? <HighlightableBlock blockKey={blockKey}>{text}</HighlightableBlock> : text}
       </span>
     </button>
   )
@@ -84,6 +93,8 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
   const num = q.question_number ?? q.number
   const stem = stemText(q)
   const instr = q.instruction
+  // Highlightable block wrapper — a no-op when not inside a HighlightSurface.
+  const HB = (k, txt) => <HighlightableBlock blockKey={`q${num}_${k}`}>{txt}</HighlightableBlock>
 
   const gapTypes = ['sentence_completion', 'summary_completion', 'note_completion', 'table_completion', 'form_completion', 'short_answer', 'note_table_flowchart']
   const isGap = gapTypes.includes(type)
@@ -108,9 +119,9 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
     return (
       <div style={wrap} data-q={num}>{body(
         <>
-          <p style={{ ...STEM, marginBottom: 10 }}>{stem}</p>
+          <p style={{ ...STEM, marginBottom: 10 }}>{HB('stem', stem)}</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-            {opts.map(([k, t]) => <ChoiceRow key={k} label={k} text={t} selected={value === k} onClick={() => onChange(k)} />)}
+            {opts.map(([k, t]) => <ChoiceRow key={k} label={k} text={t} blockKey={`q${num}_opt${k}`} selected={value === k} onClick={() => onChange(k)} />)}
           </div>
         </>
       )}</div>
@@ -122,7 +133,7 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
     return (
       <div style={wrap} data-q={num}>{body(
         <>
-          <p style={{ ...STEM, marginBottom: 11 }}>{stem}</p>
+          <p style={{ ...STEM, marginBottom: 11 }}>{HB('stem', stem)}</p>
           <Segmented options={opts} value={value} onChange={onChange} />
         </>
       )}</div>
@@ -135,7 +146,7 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
     return (
       <div style={wrap} data-q={num}>{body(
         <>
-          <p style={{ ...STEM, marginBottom: 11 }}>{stem}</p>
+          <p style={{ ...STEM, marginBottom: 11 }}>{HB('stem', stem)}</p>
           <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap' }}>
             {letters.map((L) => {
               const on = value === L
@@ -144,7 +155,7 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
           </div>
           {opts.length > 2 && (
             <div style={{ marginTop: 9 }}>
-              {opts.map(([k, t]) => <div key={k} style={{ fontSize: 13, color: 'var(--iel-ink-3)', lineHeight: 1.7, fontFamily: SANS }}><b style={{ color: 'var(--iel-ink-2)' }}>{k}</b> &nbsp;{t}</div>)}
+              {opts.map(([k, t]) => <div key={k} style={{ fontSize: 13, color: 'var(--iel-ink-3)', lineHeight: 1.7, fontFamily: SANS }}><b style={{ color: 'var(--iel-ink-2)' }}>{k}</b> &nbsp;{HB(`mopt${k}`, t)}</div>)}
             </div>
           )}
         </>
@@ -158,11 +169,11 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
       <div style={wrap} data-q={num}>{body(
         parts.length > 1 ? (
           <p style={{ ...STEM }}>
-            {parts[0]}<span style={{ display: 'inline-flex', verticalAlign: 'middle', margin: '0 5px' }}><GapInput value={value} onChange={onChange} /></span>{parts.slice(1).join(' ')}
+            {HB('stem_a', parts[0])}<span style={{ display: 'inline-flex', verticalAlign: 'middle', margin: '0 5px' }}><GapInput value={value} onChange={onChange} /></span>{HB('stem_b', parts.slice(1).join(' '))}
           </p>
         ) : (
           <>
-            <p style={{ ...STEM, marginBottom: 11 }}>{stem}</p>
+            <p style={{ ...STEM, marginBottom: 11 }}>{HB('stem', stem)}</p>
             <GapInput value={value} onChange={onChange} />
           </>
         )
@@ -171,7 +182,7 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
   }
 
   return (
-    <div style={wrap} data-q={num}>{body(<><p style={{ ...STEM, marginBottom: 11 }}>{stem}</p><GapInput value={value} onChange={onChange} /></>)}</div>
+    <div style={wrap} data-q={num}>{body(<><p style={{ ...STEM, marginBottom: 11 }}>{HB('stem', stem)}</p><GapInput value={value} onChange={onChange} /></>)}</div>
   )
 }
 

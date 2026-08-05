@@ -13,7 +13,7 @@ import { useG } from '@/i18n/gender'
 import { Card, MetaChip, LabHeader } from './_ui/primitives'
 import { ExamShell, QuestionPalette } from './_ui/ExamShell'
 import ExamReview, { ReviewRow as ExamReviewRow } from './_ui/ExamReview'
-import HighlightableText from './_ui/HighlightableText'
+import HighlightableText, { HighlightSurface } from './_ui/HighlightableText'
 import { ExamQuestion } from './_ui/ExamQuestions'
 
 const SANS = "-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
@@ -988,11 +988,14 @@ export default function Reading() {
 
     const QuestionsPane = (
       <div ref={qScrollRef} style={{ padding: isWide ? '22px 24px' : '18px 16px', overflowY: 'auto', height: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
-          {(Array.isArray(p?.questions) ? p.questions : []).map((q) => (
-            <ExamQuestion key={q.question_number} q={q} value={answers[`${tabIdx}_${q.question_number}`]} onChange={(v) => handleAnswer(tabIdx, q.question_number, v)} paragraphLetters={paraLetters} />
-          ))}
-        </div>
+        {/* Questions + choices are highlightable too — same select→ظلِّل gesture as the passage. */}
+        <HighlightSurface sourceType="reading_questions" sourceId={p?.id}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
+            {(Array.isArray(p?.questions) ? p.questions : []).map((q) => (
+              <ExamQuestion key={q.question_number} q={q} value={answers[`${tabIdx}_${q.question_number}`]} onChange={(v) => handleAnswer(tabIdx, q.question_number, v)} paragraphLetters={paraLetters} />
+            ))}
+          </div>
+        </HighlightSurface>
       </div>
     )
 
