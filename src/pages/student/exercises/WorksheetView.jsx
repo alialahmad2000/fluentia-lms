@@ -59,7 +59,7 @@ function AnswerBox({ value, disabled, placeholder, cls, label, onChange }) {
  * so the student cannot know the object of the other three — the transformation is what
  * counts (auxiliary · verb form · negation · word order), not the wording.
  */
-export default function WorksheetView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting }) {
+export default function WorksheetView({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting, submitError }) {
   const g = useG()
   const ws = exercise.content?.worksheet || {}
   const tenses = ws.tenses || []
@@ -160,6 +160,13 @@ export default function WorksheetView({ exercise, answers, setAnswers, submitted
         {/* trainer/system note — e.g. «أُعيد تصحيح ورقتك بمعيار التركيب…» */}
         {submitted && exercise.ai_feedback && (
           <div className="pw-coach"><span className="k">ملاحظة المدرّب</span><p>{exercise.ai_feedback}</p></div>
+        )}
+
+        {/* Save-failure notice — answers stay on screen; the student can retry */}
+        {submitError && !submitted && (
+          <div dir="rtl" role="alert" style={{ margin: '4px 0 10px', padding: '12px 14px', borderRadius: 12, background: 'rgba(176,84,63,.12)', border: '1px solid rgba(176,84,63,.42)', color: '#e8c9c0', fontSize: '.92rem', lineHeight: 1.6 }}>
+            {submitError}
+          </div>
         )}
 
         {/* Toolbar */}

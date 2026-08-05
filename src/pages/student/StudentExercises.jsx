@@ -62,6 +62,7 @@ export default function StudentExercises() {
   const [submitted, setSubmitted] = useState(false)
   const [result, setResult] = useState(null)
   const [isGeneral, setIsGeneral] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
   const [completedGeneral, setCompletedGeneral] = useState(() => getCompletedGeneral())
 
   const { data: exercises, isLoading } = useQuery({
@@ -104,18 +105,35 @@ export default function StudentExercises() {
       }
       const score = Math.round((correct / (questions.length || 1)) * 100)
       const xp = score >= 80 ? 15 : score >= 60 ? 10 : 5
-      await supabase.from('targeted_exercises').update({
-        status: 'completed', score, student_answers: sa, xp_awarded: xp, completed_at: new Date().toISOString(),
-      }).eq('id', exerciseId)
-      await supabase.from('xp_transactions').insert({
+      // Persist the submission FIRST and CONFIRM it actually saved. A silently
+      // rejected write (RLS / offline / network) must NEVER look like success —
+      // otherwise onSuccess clears the draft and the answers are lost for good.
+      // (Regression watch: this guard shipped in 6b52b677 and was clobbered by
+      // 2fcbbdcb, which was authored off a stale base. Do not drop it again.)
+      const { data: saved, error: upErr } = await supabase
+        .from('targeted_exercises')
+        .update({ status: 'completed', score, student_answers: sa, xp_awarded: xp, completed_at: new Date().toISOString() })
+        .eq('id', exerciseId)
+        .select('id')
+      if (upErr) throw upErr
+      if (!saved || saved.length === 0) throw new Error('save_not_persisted')
+      // XP is best-effort — a failed XP write must not lose the (already-saved) answers.
+      const { error: xpErr } = await supabase.from('xp_transactions').insert({
         student_id: profile?.id, amount: xp, reason: 'custom', description: `إكمال ورقة مخصّصة: ${ex.title}`,
       })
+      if (xpErr) console.warn('[exercises] xp insert failed (non-fatal):', xpErr.message)
       return { score, xp, correct, total: questions.length }
     },
     onSuccess: (data) => {
-      setResult(data); setSubmitted(true)
+      setSubmitError(null); setResult(data); setSubmitted(true)
       clearDraft(profile?.id, activeExercise?.id)
       queryClient.invalidateQueries({ queryKey: ['student-exercises'] })
+    },
+    onError: (err) => {
+      console.error('[exercises] submit failed:', err?.message || err)
+      setSubmitError(g(
+        'تعذّر حفظ إجاباتك — تأكّد من اتصالك بالإنترنت وحاول مرة أخرى. إجاباتك ما زالت أمامك ولن تضيع.',
+        'تعذّر حفظ إجاباتكِ — تأكّدي من اتصالكِ بالإنترنت وحاولي مرة أخرى. إجاباتكِ ما زالت أمامكِ ولن تضيع.'))
     },
   })
 
@@ -158,10 +176,11 @@ export default function StudentExercises() {
 
   const handleSubmit = () => {
     if (!activeExercise) return
+    setSubmitError(null)
     if (isGeneral) submitGeneralMutation.mutate({ exerciseId: activeExercise.id, answers })
     else submitMutation.mutate({ exerciseId: activeExercise.id, answers })
   }
-  const reset = () => { setActiveExercise(null); setAnswers({}); setSubmitted(false); setResult(null); setIsGeneral(false) }
+  const reset = () => { setActiveExercise(null); setAnswers({}); setSubmitted(false); setResult(null); setIsGeneral(false); setSubmitError(null) }
   // Resume from a saved draft: prefer the (freshest) local draft; else the DB copy.
   const seedAnswers = (ex, { fromDb = false } = {}) => {
     const draft = loadDraft(profile?.id, ex.id)
@@ -169,7 +188,7 @@ export default function StudentExercises() {
     if (fromDb && ex.student_answers && Object.keys(ex.student_answers).length) return ex.student_answers
     return {}
   }
-  const openTargeted = (ex) => { setActiveExercise(ex); setIsGeneral(false); setAnswers(seedAnswers(ex, { fromDb: true })); setSubmitted(false); setResult(null) }
+  const openTargeted = (ex) => { setActiveExercise(ex); setIsGeneral(false); setAnswers(seedAnswers(ex, { fromDb: true })); setSubmitted(false); setResult(null); setSubmitError(null) }
   // Re-open a handed-in worksheet READ-ONLY so the student can see what was marked and why.
   const openCompleted = (ex) => {
     const sa = ex.student_answers || {}
@@ -187,7 +206,7 @@ export default function StudentExercises() {
       total: graded?.total ?? qs.length,
     })
   }
-  const openGeneral = (ex) => { setActiveExercise(ex); setIsGeneral(true); setAnswers(seedAnswers(ex)); setSubmitted(false); setResult(null) }
+  const openGeneral = (ex) => { setActiveExercise(ex); setIsGeneral(true); setAnswers(seedAnswers(ex)); setSubmitted(false); setResult(null); setSubmitError(null) }
 
   const pending = (exercises || []).filter((e) => e.status === 'pending')
   const completed = (exercises || []).filter((e) => e.status === 'completed')
@@ -201,6 +220,7 @@ export default function StudentExercises() {
         <WorksheetView
           exercise={activeExercise} answers={answers} setAnswers={setAnswers}
           submitted={submitted} result={result} onSubmit={handleSubmit} onBack={reset} submitting={submitting}
+          submitError={submitError}
         />
       )
     }
@@ -208,6 +228,7 @@ export default function StudentExercises() {
       <ExerciseRunner
         exercise={activeExercise} answers={answers} setAnswers={setAnswers}
         submitted={submitted} result={result} onSubmit={handleSubmit} onBack={reset} submitting={submitting}
+        submitError={submitError}
       />
     )
   }
@@ -426,7 +447,7 @@ function EmptyState({ g, completedGeneral, onOpen }) {
 }
 
 // ── Compact warm runner for MC / text exercises (general + non-worksheet targeted) ──
-function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting }) {
+function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSubmit, onBack, submitting, submitError }) {
   const g = useG()
   const questions = exercise.content?.questions || []
   const allAnswered = questions.every((q) => answers[q.id] !== undefined && answers[q.id] !== '')
@@ -494,6 +515,12 @@ function ExerciseRunner({ exercise, answers, setAnswers, submitted, result, onSu
           })}
         </div>
 
+        {/* Save-failure notice — her answers stay on screen and she can retry */}
+        {submitError && !submitted && (
+          <div dir="rtl" role="alert" style={{ margin: '8px 0', padding: '12px 14px', borderRadius: 12, background: 'rgba(176,84,63,.12)', border: '1px solid rgba(176,84,63,.42)', color: '#e8c9c0', fontSize: '.92rem', lineHeight: 1.6 }}>
+            {submitError}
+          </div>
+        )}
         <div className="pw-bar" style={{ position: 'static', marginTop: 8 }}>
           {!submitted ? (
             <button className="pw-btn primary" onClick={onSubmit} disabled={!allAnswered || submitting}>
