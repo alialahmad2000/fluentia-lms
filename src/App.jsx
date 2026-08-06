@@ -692,6 +692,7 @@ function RoleRedirect() {
 // are never bounced, so nothing is hidden or locked.
 // Staff (incl. admins viewing directly) keep normal /student access.
 function HomeSurfaceBounce({ children }) {
+  const location = useLocation()
   const studentData = useAuthStore((s) => s.studentData)
   const profile = useAuthStore((s) => s.profile)
   const loading = useAuthStore((s) => s.loading)
@@ -701,7 +702,13 @@ function HomeSurfaceBounce({ children }) {
   if (!rowSettled) return <LoadingSkeleton />
   const isStaff = profile?.role === 'admin' || profile?.role === 'trainer'
   const home = resolveHomeSurface(studentData)
-  if (!isStaff && home && HOME_PATH[home]) {
+  // CRITICAL: never bounce a student who is ALREADY inside their own world.
+  // The STEP and IELTS routes live inside this same route group, so without
+  // this check the bounce redirects /student/step → /student/step forever and
+  // the outlet never renders — a blank screen, not a loop you can see.
+  const inHome = home && HOME_PATH[home]
+    && (location.pathname === HOME_PATH[home] || location.pathname.startsWith(HOME_PATH[home] + '/'))
+  if (!isStaff && home && HOME_PATH[home] && !inHome) {
     // keep_academy_access students who explicitly asked for the academy pass through.
     let academyIntent = false
     try { academyIntent = sessionStorage.getItem('fluentia_academy_intent') === '1' } catch { /* ignore */ }
