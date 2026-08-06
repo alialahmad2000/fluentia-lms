@@ -7,7 +7,7 @@ import { Settings } from 'lucide-react'
 import { resolveActiveNavTo } from '../../utils/navActive'
 import { useAuthStore } from '@/stores/authStore'
 import UserAvatar from '@/components/common/UserAvatar'
-import { hasIELTSAccess } from '@/lib/packageAccess'
+import { hasIELTSAccess, hasSTEPAccess } from '@/lib/packageAccess'
 import { toast } from '@/components/ui/FluentiaToast'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { getHardWordsCount } from '@/services/hardWords'
@@ -231,6 +231,7 @@ function Sidebar({ nav, collapsed }) {
             if (item.requiresMockExamAccess) return canSeeMockExam
             if (!item.requiresPackage) return true
             if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
+            if (item.requiresStepTrack) return hasSTEPAccess(studentData)
             return true
           })
           if (visibleItems.length === 0) return null

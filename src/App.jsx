@@ -200,6 +200,16 @@ const IELTSPlanView = lazyRetry(() => import('./pages/student/ielts/plan/IELTSPl
 const IELTSPlanEdit = lazyRetry(() => import('./pages/student/ielts/plan/IELTSPlanEdit.legacy'))
 const ErrorBankHome = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankHome.legacy'))
 const ErrorBankReview = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankReview.legacy'))
+// STEP «القاعة» — its own world: own token layer, own layout shell, full-screen
+// takeover. Grading runs in the `step-attempt` edge function; the browser never
+// reads step_item_keys.
+const STEPGuard    = lazyRetry(() => import('./components/step/STEPGuard'))
+const HallLayout   = lazyRetry(() => import('./pages/student/step/_layout/HallLayout'))
+const STEPHome     = lazyRetry(() => import('./pages/student/step/STEPHome'))
+const STEPExam     = lazyRetry(() => import('./pages/student/step/STEPExam'))
+const STEPRules    = lazyRetry(() => import('./pages/student/step/STEPRules'))
+const STEPErrors   = lazyRetry(() => import('./pages/student/step/STEPErrors'))
+const STEPProgress = lazyRetry(() => import('./pages/student/step/STEPProgress'))
 const IELTSGuard = lazyRetry(() => import('./components/ielts/IELTSGuard'))
 
 // IELTS Atelier — production release 2026-05-20 (feature flag removed; routes mounted at /student/ielts-atelier).
@@ -610,6 +620,29 @@ function useStudentRowSettled(role, studentData) {
   return studentData != null || timedOut
 }
 
+/**
+ * Which world an account IS.
+ *
+ * Owner rule: an IELTS account is TOTALLY an IELTS account, a STEP account is
+ * totally a STEP account — opening one lands you inside that world and shows
+ * nothing else. `students.home_surface` names it; the legacy per-track flags are
+ * still honoured so rows that predate the column keep working.
+ *
+ * ROUTING only. Entitlement is enforced separately, client-side by the *Guard
+ * components and server-side in the edge functions.
+ */
+const HOME_PATH = { step: '/student/step', ielts: '/student/ielts-atelier', desk: '/desk' }
+
+export function resolveHomeSurface(studentData) {
+  if (!studentData) return null
+  const explicit = studentData.home_surface
+  if (explicit && explicit !== 'academy') return explicit
+  if (explicit === 'academy') return null
+  if (studentData.uses_pro_desk === true && studentData.uses_custom_curriculum !== true) return 'desk'
+  if (studentData.uses_ielts_home === true) return 'ielts'
+  return null
+}
+
 function RoleRedirect() {
   const user = useAuthStore((s) => s.user)
   const profile = useAuthStore((s) => s.profile)
@@ -627,8 +660,10 @@ function RoleRedirect() {
     case 'student':
       // Pro Desk students → their pro surface; IELTS-first students → the IELTS world
       // is their whole account; everyone else → the normal student home.
-      if (studentData?.uses_pro_desk === true && studentData?.uses_custom_curriculum !== true) return <Navigate to="/desk" replace />
-      if (studentData?.uses_ielts_home === true) return <Navigate to="/student/ielts-atelier" replace />
+      {
+        const home = resolveHomeSurface(studentData)
+        if (home && HOME_PATH[home]) return <Navigate to={HOME_PATH[home]} replace />
+      }
       return <Navigate to="/student" replace />
     case 'trainer':
       return <Navigate to="/trainer" replace />
@@ -656,7 +691,7 @@ function RoleRedirect() {
 // session-scoped intent flag. Their curriculum sub-pages (/student/curriculum…)
 // are never bounced, so nothing is hidden or locked.
 // Staff (incl. admins viewing directly) keep normal /student access.
-function IELTSHomeBounce({ children }) {
+function HomeSurfaceBounce({ children }) {
   const studentData = useAuthStore((s) => s.studentData)
   const profile = useAuthStore((s) => s.profile)
   const loading = useAuthStore((s) => s.loading)
@@ -665,12 +700,13 @@ function IELTSHomeBounce({ children }) {
   // Hold rather than render the academy home for an IELTS-first student (the flash).
   if (!rowSettled) return <LoadingSkeleton />
   const isStaff = profile?.role === 'admin' || profile?.role === 'trainer'
-  if (!isStaff && studentData?.uses_ielts_home === true) {
+  const home = resolveHomeSurface(studentData)
+  if (!isStaff && home && HOME_PATH[home]) {
     // keep_academy_access students who explicitly asked for the academy pass through.
     let academyIntent = false
     try { academyIntent = sessionStorage.getItem('fluentia_academy_intent') === '1' } catch { /* ignore */ }
     if (!(studentData?.keep_academy_access === true && academyIntent)) {
-      return <Navigate to="/student/ielts-atelier" replace />
+      return <Navigate to={HOME_PATH[home]} replace />
     }
   }
   return children
@@ -858,8 +894,8 @@ export default function App() {
           {/* Student routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
             <Route element={<StudentStatusGuard />}>
-            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
-              <Route path="/student" element={<IELTSHomeBounce><Page><StudentHome /></Page></IELTSHomeBounce>} />
+            <Route element={<HomeSurfaceBounce><ErrorBoundary><LayoutShell /></ErrorBoundary></HomeSurfaceBounce>}>
+              <Route path="/student" element={<Page><StudentHome /></Page>} />
               {/* Individual (1-on-1) professional track */}
               <Route path="/student/track" element={<Page><IndividualTrackHome /></Page>} />
               <Route path="/student/track/:moduleId" element={<Page><IndividualModulePage /></Page>} />
@@ -991,6 +1027,20 @@ export default function App() {
 
               {/* IELTS Atelier — production release 2026-05-20.
                   Package gating handled by IELTSGuard via hasIELTSAccess (ielts + tamayuz + custom_access). */}
+              {/* STEP «القاعة» — mounts inside HallLayout, which takes over the
+                  screen (body.step-app hides the global rail/header/mobile bar).
+                  Without a layout element the section reads as a page in the LMS
+                  rather than a place of its own. */}
+              <Route path="/student/step" element={<Suspense fallback={<PageSkeleton />}><STEPGuard /></Suspense>}>
+                <Route element={<HallLayout />}>
+                  <Route index element={<STEPHome />} />
+                  <Route path="exam" element={<STEPExam />} />
+                  <Route path="rules" element={<STEPRules />} />
+                  <Route path="errors" element={<STEPErrors />} />
+                  <Route path="progress" element={<STEPProgress />} />
+                </Route>
+              </Route>
+
               <Route path="/student/ielts-atelier" element={<Suspense fallback={<PageSkeleton />}><IELTSGuard /></Suspense>}>
                 <Route element={<IELTSMasterclassLayout />}>
                   <Route index element={<IELTSAtelierHome />} />

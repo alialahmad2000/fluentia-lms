@@ -9,7 +9,7 @@ import { resolveActiveNavTo, isRootNavPath } from '../../utils/navActive'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import UserAvatar from '@/components/common/UserAvatar'
-import { hasIELTSAccess } from '@/lib/packageAccess'
+import { hasIELTSAccess, hasSTEPAccess } from '@/lib/packageAccess'
 
 const PROFILE_PATHS = { student: '/student/profile', trainer: '/trainer/my-students', admin: '/admin/settings' }
 
@@ -141,6 +141,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                   if (item.requiresClassNotes) return studentData?.uses_class_notes === true
                   if (!item.requiresPackage) return true
                   if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
+            if (item.requiresStepTrack) return hasSTEPAccess(studentData)
                   return true
                 })
                 if (visibleItems.length === 0) return null

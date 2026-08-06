@@ -29,6 +29,7 @@ export const STUDENT_NAV = {
         { id: 'phrase-bank', label: 'عبارات جاهزة', icon: MessageSquareQuote, to: '/student/phrases', requiresPhraseBank: true },
         { id: 'class-recaps', label: 'ملخّص الحصص', icon: NotebookText, to: '/student/class-recaps', requiresClassNotes: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
+        { id: 'step', label: 'قاعة ستيب', icon: Target, to: '/student/step', requiresStepTrack: true },
         // OWNER-HIDDEN from EVERY nav surface — routes kept in App.jsx (direct-URL reachable):
         //   progress(تقدّمي), reports(التقارير), how-to-earn(كيف تكسب XP),
         //   level-journey(خريطة رحلتك), competition(المسابقة), competition-rules, leaderboard, duels.
@@ -88,6 +89,7 @@ export const STUDENT_NAV = {
         { id: 'phrase-bank', label: 'عبارات جاهزة', icon: MessageSquareQuote, to: '/student/phrases', requiresPhraseBank: true },
         { id: 'class-recaps', label: 'ملخّص الحصص', icon: NotebookText, to: '/student/class-recaps', requiresClassNotes: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
+        { id: 'step', label: 'قاعة ستيب', icon: Target, to: '/student/step', requiresStepTrack: true },
       ],
     },
     {

@@ -10,3 +10,12 @@ export function hasIELTSAccess(studentData) {
   const custom = Array.isArray(studentData.custom_access) ? studentData.custom_access : []
   return pkg === 'ielts' || pkg === 'tamayuz' || custom.includes('ielts')
 }
+
+// STEP is sold separately, so there is deliberately NO package-tier shortcut
+// (unlike IELTS, which grants on `tamayuz`). Access is granted per student.
+export function hasSTEPAccess(studentData) {
+  if (!studentData) return false
+  if (studentData.uses_step_track === true) return true
+  const custom = Array.isArray(studentData.custom_access) ? studentData.custom_access : []
+  return custom.includes('step')
+}

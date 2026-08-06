@@ -6,6 +6,7 @@ import { Icon, NavItem } from '../_ui/primitives'
 import { useStudentId } from '../_helpers/resolveStudentId'
 import { useSkillProgress, useErrorBankCount, useErrorBankBySkill, useAdaptivePlan } from '@/hooks/ielts/useIELTSHub'
 import { useAuthStore } from '@/stores/authStore'
+import { enterAcademy, clearAcademyIntent } from '@/lib/academyIntent'
 
 const BASE = '/student/ielts-atelier'
 const SKILLS = ['reading', 'listening', 'writing', 'speaking']
@@ -152,6 +153,10 @@ export default function IELTSMasterclassLayout() {
   // Full-screen focus: hide the global chrome while the section is mounted.
   useEffect(() => {
     document.body.classList.add('ielts-app')
+    // The bounce reads an "academy intent" flag that NOTHING ever set, so this
+    // link used to send the student straight back here. Set it on click, clear
+    // it on return.
+    clearAcademyIntent()
     return () => document.body.classList.remove('ielts-app')
   }, [])
 
@@ -260,7 +265,7 @@ export default function IELTSMasterclassLayout() {
           {studentData?.keep_academy_access === true && (
             <>
               <div className="iel-nav-label">حسابي في الأكاديمية</div>
-              <NavItem icon={Icon.home} label="منهجي ودروسي" onClick={() => navigate('/student')} />
+              <NavItem icon={Icon.home} label="منهجي ودروسي" onClick={() => enterAcademy(navigate)} />
             </>
           )}
 
