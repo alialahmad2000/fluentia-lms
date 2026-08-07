@@ -342,6 +342,15 @@ These prompts have been written and are ready to paste into Claude Code:
 - Verified in a browser on prod as the mock A1 student: the unit that showed **1** marked word now shows **13**, and the masthead key agrees exactly («13 كلمة مستهدفة»). Data-only — live immediately, no deploy.
 - **Gotcha for future verification runs:** the passage renders from `passage_content` while the vocab index is a *separate* query, so polling only for `.article-body p` measures 0 marks on a page that is fine. Wait for `.aw-vocab` (or the masthead key) before asserting.
 
+### 2026-08-06 (security 2) — STEP: trainer reads/writes scoped to their own groups
+Closed the audit's MED-3, and found one more of the same class while verifying.
+
+- **MED-3 (from the audit):** the five STEP progress tables granted staff access via a bare `profiles.role IN (admin,trainer)` with NO group scoping, so ANY trainer could read ANY student's attempts, results, mistake bank and per-rule accuracy. The platform already had the right pattern and STEP simply wasn't using it — `students_select` is `(id = auth.uid()) OR (is_trainer() AND group_id = ANY(get_trainer_group_ids())) OR is_admin()`. Mirrored it; these tables key on `student_id`, so the scope resolves through `students`. Admin keeps full access.
+- **NEW, found by auditing the finished policy matrix rather than the diff:** the pre-existing `staff_insert_step_*` policies had the same bare role check on the verb nobody had looked at. Any trainer could **INSERT** rows for any student — fabricating a completed 100/100 paper, or planting error-bank entries, for a student in another trainer's group. The auditor covered SELECT and UPDATE; this only showed up when I listed all 15 policies and noticed `group_scoped: false` on the INSERTs.
+- **All 15 staff policies (5 tables × SELECT/UPDATE/INSERT) are now group-scoped**, and every UPDATE/INSERT carries a matching `WITH CHECK` so `student_id` cannot be re-pointed.
+- **Verified with a REAL trainer session** against production (not policy text): the STEP test account has `group_id = null`, so no trainer owns it. Seeded a probe row as service role, then as `goldmohmmed@gmail.com` — reading that student's error bank returned **0 rows**, and inserting a fabricated 100/100 attempt returned **42501**. Probe rows removed.
+- Migration `20260806160000_step_trainer_scoping.sql` (applied). DB-only; no frontend change, nothing to deploy.
+
 ### 2026-08-06 (separation) — `home_surface`: a STEP account IS a STEP account
 Owner opened the STEP test account and landed on the ORDINARY curriculum dashboard («الذكاء الاصطناعي», المنهج, المفردات, المكتبة…) with STEP nowhere in sight. His rule: *"an IELTS account should be totally an IELTS one and separated completely from the ordinary curriculum account — same for STEP, and so on. When I access a STEP account I should immediately see the STEP one without seeing anything else at all."*
 
