@@ -8,7 +8,7 @@ import {
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
   MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
-  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf, BellRing, MessageSquareQuote, NotebookText,} from 'lucide-react'
+  Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf, BellRing, MessageSquareQuote, NotebookText, MessagesSquare,} from 'lucide-react'
 
 
 export const STUDENT_NAV = {
@@ -27,6 +27,7 @@ export const STUDENT_NAV = {
         { id: 'growth', label: 'كم قطعت', icon: TrendingUp, to: '/student/growth' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'phrase-bank', label: 'عبارات جاهزة', icon: MessageSquareQuote, to: '/student/phrases', requiresPhraseBank: true },
+        { id: 'dialogues', label: 'محادثات جاهزة', icon: MessagesSquare, to: '/student/dialogues', requiresDialogues: true },
         { id: 'class-recaps', label: 'ملخّص الحصص', icon: NotebookText, to: '/student/class-recaps', requiresClassNotes: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'step', label: 'قاعة ستيب', icon: Target, to: '/student/step', requiresStepTrack: true },
@@ -87,6 +88,7 @@ export const STUDENT_NAV = {
         { id: 'growth', label: 'كم قطعت', icon: TrendingUp, to: '/student/growth' },
         { id: 'speaking-track', label: 'مسار التحدث', icon: Mic, to: '/student/speaking-track', requiresSpeakingTrack: true },
         { id: 'phrase-bank', label: 'عبارات جاهزة', icon: MessageSquareQuote, to: '/student/phrases', requiresPhraseBank: true },
+        { id: 'dialogues', label: 'محادثات جاهزة', icon: MessagesSquare, to: '/student/dialogues', requiresDialogues: true },
         { id: 'class-recaps', label: 'ملخّص الحصص', icon: NotebookText, to: '/student/class-recaps', requiresClassNotes: true },
         { id: 'ielts-atelier', label: 'IELTS', icon: Target, to: '/student/ielts-atelier', requiresPackage: 'ielts' },
         { id: 'step', label: 'قاعة ستيب', icon: Target, to: '/student/step', requiresStepTrack: true },

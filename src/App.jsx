@@ -14,6 +14,7 @@ import TechTrackGuard from './components/tech-track/TechTrackGuard'
 import BizTrackGuard from './components/biz-track/BizTrackGuard'
 import EnvTrackGuard from './components/env-track/EnvTrackGuard'
 import PhraseBankGuard from './components/phrase-bank/PhraseBankGuard'
+import DialoguesGuard from './components/dialogues/DialoguesGuard'
 import ClassRecapsGuard from './components/class-recaps/ClassRecapsGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
@@ -77,6 +78,8 @@ const BizTrackHome = lazyRetry(() => import('./pages/student/biz-track/BizTrackH
 const BizLessonPage = lazyRetry(() => import('./pages/student/biz-track/BizLessonPage'))
 const EnvTrackHome = lazyRetry(() => import('./pages/student/env-track/EnvTrackHome'))
 const PhraseBank = lazyRetry(() => import('./pages/student/PhraseBank'))
+const Dialogues = lazyRetry(() => import('./pages/student/Dialogues'))
+const DialogueScene = lazyRetry(() => import('./pages/student/DialogueScene'))
 const ClassRecaps = lazyRetry(() => import('./pages/student/ClassRecaps'))
 const EnvLessonPage = lazyRetry(() => import('./pages/student/env-track/EnvLessonPage'))
 const IndividualTrackHome = lazyRetry(() => import('./pages/student/individual/TrackHome'))
@@ -889,6 +892,11 @@ export default function App() {
                 {/* «عبارات جاهزة» — per-student phrase bank (uses_phrase_bank), alongside the curriculum. Staff can preview. */}
                 <Route element={<PhraseBankGuard />}>
                   <Route path="/student/phrases" element={<Page><PhraseBank /></Page>} />
+                </Route>
+                {/* «محادثات جاهزة» — per-student ready conversations (uses_dialogues). Staff can preview. */}
+                <Route element={<DialoguesGuard />}>
+                  <Route path="/student/dialogues" element={<Page><Dialogues /></Page>} />
+                  <Route path="/student/dialogues/:scenarioKey" element={<Page><DialogueScene /></Page>} />
                 </Route>
                 {/* «ملخّص الحصص» — per-student recap of a live class (uses_class_notes). Staff can preview. */}
                 <Route element={<ClassRecapsGuard />}>
