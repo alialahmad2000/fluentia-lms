@@ -26,6 +26,17 @@
   --hall-jade: #4fd9a8;
   --hall-rose: #f08a6e;
 
+  /* Tone washes. Every screen that needed a tinted surface was re-inventing its
+     own rgba() and, worse, passing it as `background` — which REPLACED the
+     panel's layered gradient with one flat fill. These are meant to be layered
+     ON TOP of that gradient (see .hall-block), never instead of it. */
+  --hall-gold-wash: rgba(227, 185, 92, 0.09);
+  --hall-jade-wash: rgba(79, 217, 168, 0.09);
+  --hall-rose-wash: rgba(240, 138, 110, 0.10);
+  --hall-gold-line: rgba(227, 185, 92, 0.30);
+  --hall-jade-line: rgba(79, 217, 168, 0.30);
+  --hall-rose-line: rgba(240, 138, 110, 0.30);
+
   /* Text ramp — all four tiers verified ≥ 4.5:1 on the panel ground. */
   --hall-ink: #f7f4ee;
   --hall-ink-2: #a9a594;
@@ -133,7 +144,9 @@ body.step-exam .hall-wrap { padding-block-end: 0; }
 }
 .hall-navitem {
   display: flex; align-items: center; gap: 11px; width: 100%;
-  border: 1px solid transparent; border-radius: 11px; padding: 11px 12px;
+  /* 44px floor: the rail shows at ≥980px, which includes iPad landscape — a
+     touch device on the desktop layout. 11px padding put these at 41px. */
+  border: 1px solid transparent; border-radius: 11px; padding: 13px 12px; min-height: 44px;
   font: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;
   background: transparent; color: var(--hall-ink-2); text-align: start;
   transition: background 0.18s, color 0.18s, border-color 0.18s;
@@ -282,6 +295,56 @@ body.step-exam .hall-wrap { padding-block-end: 0; }
 .hall-lr .who span { display: block; font-size: 12px; color: var(--hall-ink-3); margin-block-start: 4px; }
 .hall-lr .num { font-family: var(--hall-mono); font-size: 13px; width: 46px; text-align: end; flex: none; }
 @media (max-width: 720px) { .hall-lr .track { display: none; } }
+
+/* ── lesson: the three teaching blocks ──────────────────────────────────
+   القاعدة (the law) · كيف تجي في ستيب (the procedure) · الفخ (the warning) are
+   three different KINDS of information. Rendering them as three identical
+   panels in three tints flattened the pedagogy into a form, so each gets its
+   own geometry, and the tint is layered over the panel gradient rather than
+   replacing it. */
+.hall-block {
+  position: relative; border-radius: 20px; padding: 30px;
+  border: 1px solid var(--hall-line-2);
+  background:
+    radial-gradient(120% 90% at 100% 0%, var(--wash), transparent 62%),
+    linear-gradient(180deg, var(--hall-panel), rgba(11, 14, 26, 0.72));
+  backdrop-filter: blur(14px); box-shadow: var(--hall-shadow);
+}
+.hall-block::before {
+  content: ''; position: absolute; inset-block-start: 0; inset-inline: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+.hall-block > h2 {
+  margin: 0 0 12px; display: flex; align-items: center; gap: 9px;
+  font-family: var(--hall-kufi); font-size: 14.5px; font-weight: 500; color: var(--tone);
+}
+.hall-block > p { margin: 0; color: var(--hall-ink); }
+.hall-block.rule   { --wash: var(--hall-gold-wash); --line: var(--hall-gold-line); --tone: var(--hall-gold-hi); }
+.hall-block.rule > p { font-family: var(--hall-display); font-size: calc(19px * var(--pz, 1)); line-height: 1.85; }
+.hall-block.exam   { --wash: var(--hall-jade-wash); --line: var(--hall-jade-line); --tone: var(--hall-jade);
+  padding: 26px 30px; border-inline-start: 3px solid var(--hall-jade); }
+.hall-block.exam > p { font-size: calc(15.5px * var(--pz, 1)); line-height: 2; }
+.hall-block.trap   { --wash: var(--hall-rose-wash); --line: var(--hall-rose-line); --tone: var(--hall-rose);
+  border-radius: 14px; padding: 24px 28px; border-inline-start: 3px solid var(--hall-rose); }
+.hall-block.trap > p { font-size: calc(15px * var(--pz, 1)); line-height: 1.9; }
+
+/* Presentation mode: the room reads this from the back, so type is driven by
+   one --pz scale rather than per-element multipliers, and the nav rail + the
+   student's own accuracy come off screen — that number is nobody else's
+   business. Same body-class mechanism the exam already uses. */
+body.step-present .hall-nav { display: none; }
+body.step-present .hall-wrap { max-width: 1080px; }
+
+@media (max-width: 720px) {
+  /* The practice CTA was ~2,500px down a phone lesson — the primary action must
+     not require reading the whole page first. */
+  .hall-lesson-cta {
+    position: sticky; z-index: 5;
+    inset-block-end: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .hall-lesson-cta .hall-btn { width: 100%; justify-content: center; }
+  .hall-wrap { padding-block-end: calc(90px + env(safe-area-inset-bottom, 0px)); }
+}
 
 /* ── states ─────────────────────────────────────────────────────────── */
 .hall-empty { text-align: center; padding: 54px 26px; }

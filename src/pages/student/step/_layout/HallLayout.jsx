@@ -1,6 +1,6 @@
 import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Home, FileText, PenLine, AlertTriangle, TrendingUp, LogOut, ArrowRight } from 'lucide-react'
+import { Home, FileText, PenLine, AlertTriangle, TrendingUp, LogOut, ArrowRight, GraduationCap } from 'lucide-react'
 import '../_ui/hall.css'
 import { Atmosphere, Spinner } from '../_ui/primitives'
 import { useAuthStore } from '@/stores/authStore'
@@ -47,6 +47,7 @@ export default function HallLayout() {
   const name = profile?.display_name || profile?.full_name || g('طالب ستيب', 'طالبة ستيب')
   const NAV = [
     { p: '', label: 'القاعة', Icon: Home, index: true },
+    { p: 'learn', label: 'المنهج', Icon: GraduationCap },
     { p: 'exam', label: 'نموذج كامل', Icon: FileText },
     { p: 'rules', label: 'القواعد', Icon: PenLine },
     { p: 'errors', label: 'أخطائي', Icon: AlertTriangle, badge: openErrors || null, hot: true },
@@ -112,7 +113,9 @@ export default function HallLayout() {
                 title="تسجيل الخروج"
                 aria-label="تسجيل الخروج"
                 style={{
-                  marginInlineStart: 'auto', flex: 'none', width: 32, height: 32, borderRadius: 9,
+                  // Sign-out is the only way out of the Hall; it must clear the
+                  // 44px floor on the touch devices that get this rail.
+                  marginInlineStart: 'auto', flex: 'none', width: 44, height: 44, borderRadius: 11,
                   display: 'grid', placeItems: 'center', cursor: 'pointer',
                   border: '1px solid var(--hall-line-2)', background: 'transparent', color: 'var(--hall-ink-3)',
                 }}

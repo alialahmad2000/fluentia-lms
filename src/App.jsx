@@ -213,6 +213,8 @@ const STEPExam     = lazyRetry(() => import('./pages/student/step/STEPExam'))
 const STEPRules    = lazyRetry(() => import('./pages/student/step/STEPRules'))
 const STEPErrors   = lazyRetry(() => import('./pages/student/step/STEPErrors'))
 const STEPProgress = lazyRetry(() => import('./pages/student/step/STEPProgress'))
+const STEPCurriculum = lazyRetry(() => import('./pages/student/step/STEPCurriculum'))
+const STEPLesson     = lazyRetry(() => import('./pages/student/step/STEPLesson'))
 const IELTSGuard = lazyRetry(() => import('./components/ielts/IELTSGuard'))
 
 // IELTS Atelier — production release 2026-05-20 (feature flag removed; routes mounted at /student/ielts-atelier).
@@ -1053,6 +1055,9 @@ export default function App() {
                   <Route path="rules" element={<STEPRules />} />
                   <Route path="errors" element={<STEPErrors />} />
                   <Route path="progress" element={<STEPProgress />} />
+                  {/* «المنهج» — the teaching layer: topics → lesson → practice */}
+                  <Route path="learn" element={<STEPCurriculum />} />
+                  <Route path="learn/:key" element={<STEPLesson />} />
                 </Route>
               </Route>
 

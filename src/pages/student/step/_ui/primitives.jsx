@@ -72,7 +72,7 @@ export function ScoreRing({ score, target, size = 340, label = 'من 100' }) {
             WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
             filter: 'drop-shadow(0 6px 30px rgba(227,185,92,.4))',
           }}>{score ?? '—'}</div>
-          <div style={{ fontSize: 12, letterSpacing: '.16em', color: 'var(--hall-ink-3)', marginBlockStart: 10 }}>
+          <div style={{ fontSize: 12, color: 'var(--hall-ink-3)', marginBlockStart: 10 }}>
             {label}
           </div>
           {target != null && (
@@ -140,14 +140,31 @@ export function questionsAr(n) {
   return `${n} سؤالًا`
 }
 export function questionUnitAr(n) {
+  if (!n) return 'أسئلة'
   if (n === 2) return 'سؤالان'   // dual: the numeral must be suppressed by the caller
   if (n <= 1) return 'سؤال'
   if (n >= 3 && n <= 10) return 'أسئلة'
   if (n % 100 === 0) return 'سؤال'
   return 'سؤالًا'
 }
+export function lessonsAr(n) {
+  if (!n) return 'لا دروس'
+  if (n === 1) return 'درس واحد'
+  if (n === 2) return 'درسان'
+  if (n >= 3 && n <= 10) return `${n} دروس`
+  if (n % 100 === 0) return `${n} درس`
+  return `${n} درسًا`
+}
+export function topicsAr(n) {
+  if (!n) return 'لا أبواب'
+  if (n === 1) return 'باب واحد'
+  if (n === 2) return 'بابان'
+  if (n >= 3 && n <= 10) return `${n} أبواب`
+  if (n % 100 === 0) return `${n} باب`
+  return `${n} بابًا`
+}
 export function papersAr(n) {
-  if (n === 0) return 'ما يكفي لنموذج كامل بعد'
+  if (n === 0) return 'ما يكفي بعد لنموذج كامل'
   if (n === 1) return 'يكفي لنموذج واحد'
   if (n === 2) return 'يكفي لنموذجين'
   if (n <= 10) return `يكفي لـ${n} نماذج`
@@ -157,6 +174,7 @@ export function papersAr(n) {
 
 /** Grades. Same ladder as questionsAr. */
 export function degreesAr(n) {
+  if (!n) return 'لا درجات'
   if (n === 1) return 'درجة واحدة'
   if (n === 2) return 'درجتان'
   if (n >= 3 && n <= 10) return `${n} درجات`
@@ -166,6 +184,7 @@ export function degreesAr(n) {
 
 /** Papers as a standalone count — papersAr() is only the «يكفي لـ» phrasing. */
 export function papersCountAr(n) {
+  if (!n) return 'لا نماذج'
   if (n === 1) return 'نموذج واحد'
   if (n === 2) return 'نموذجان'
   if (n >= 3 && n <= 10) return `${n} نماذج`
@@ -174,6 +193,7 @@ export function papersCountAr(n) {
 }
 
 export function attemptsAr(n) {
+  if (!n) return 'لا محاولات'
   if (n === 1) return 'محاولة واحدة'
   if (n === 2) return 'محاولتان'
   if (n >= 3 && n <= 10) return `${n} محاولات`
@@ -183,6 +203,8 @@ export function attemptsAr(n) {
 
 /** Lives here, not in STEPExam, so «أخطائي» can use it too. */
 export function timesAr(n) {
+  if (!n) return 'لا مرات'
+  if (n % 100 !== 0 && n > 10) return `${n} مرةً`
   if (n === 1) return 'مرة'
   if (n === 2) return 'مرتين'
   if (n >= 3 && n <= 10) return `${n} مرات`
