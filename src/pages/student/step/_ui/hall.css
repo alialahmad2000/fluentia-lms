@@ -73,15 +73,34 @@ body.step-app [data-sidebar-root],
 body.step-app [data-app-header],
 body.step-app .mobile-bottom-nav,
 body.step-app [data-sidebar-toggle] { display: none !important; }
-body.step-app { background: var(--hall-void); }
+/* The Hall mounts inside LayoutShell's `<main id="main-content">`, which is
+   padded and capped at max-width 1200 with the sidebar margin still applied —
+   so the section has always rendered as a 936px column inside a 1280px window.
+   While everything was obsidian that was invisible; on paper the page became an
+   island floating on the app's near-black ground. Break out and paint.
+   A literal colour, not var(--hall-void): the token is scoped to .hall-root, so
+   at body scope it resolves to nothing and the declaration is dropped. */
+body.step-app { background: #F3F0EA; }
+body.step-app #main-content {
+  max-width: none !important; margin: 0 !important; padding: 0 !important;
+}
 /* The two global FABs land exactly on the exam's own nav. */
 body.step-exam .z-\[998\], body.step-exam .z-\[997\] { display: none !important; }
+
+/* global.css declares `h1,h2,h3,h4,h5,h6 { color: var(--text-primary);
+   font-family: Tajawal }` — an ELEMENT rule, which beats inheritance from
+   .hall-root and painted every heading in this section near-white on paper. */
+.hall-root h1, .hall-root h2, .hall-root h3, .hall-root h4 {
+  color: var(--hall-ink);
+  font-family: var(--hall-sans);
+}
 
 /* ── ground ─────────────────────────────────────────────────────────────
    Paper has warmth and a grain; it is not a flat fill (the owner's standing
    rule against flat grounds still applies — it just isn't a light beam any
    more). Two barely-there washes and a fibre texture, no motion. */
-.hall-atmo { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.hall-atmo { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  background: var(--hall-void); }
 .hall-atmo .beam,
 .hall-atmo .halo {
   position: absolute; inset: 0;
