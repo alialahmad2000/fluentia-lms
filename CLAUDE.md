@@ -313,6 +313,29 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-07 (practical) — STEP «القاعة»: study paper, not a stage
+Owner, on the curriculum screen: *"way too overwhelmed… the font is not that practical… change the background, everything. Creative, but with a practical outcome."*
+
+He is right, and the earlier direction was right too — for a different screen. The staged obsidian-and-gold finish works on something you open for thirty seconds to read a score. It is the wrong material for a page a student reads for forty minutes and a teacher projects in class. **So the MATERIAL changed, not the structure.** Every STEP screen already styles through `--hall-*`, so rewriting that one layer moved all seven screens and none of their markup had to move.
+
+- **Typeface.** Amiri (an editorial/Qur'anic serif) and Reem Kufi are gone — everything is **IBM Plex Sans Arabic**, already loaded by the app and built to be read rather than admired. Latin stems and figures keep Plex Sans / JetBrains Mono.
+- **Ground.** Warm study paper `#FAF8F4` with a fibre grain and two barely-there washes — calm, but still not a flat fill. The conic light beam is gone.
+- **Ink instead of gold.** One deep teal at 7.1:1 on the page; gold demoted to an achievement tone. Glass panels → white paper with hairlines. The score ring → an ink dial.
+- **«المنهج» rebuilt as a study manual** — opens on the material with a contents rail, the way a textbook does. The hero instrument is gone: a score ring belongs on a diagnosis screen, not on the page you come to in order to READ. The lesson is a document at a 780px measure with a quiet standing line instead of a stat panel. «وضع العرض» is untouched and still works.
+- **Options were built before choosing** (`~/Desktop/step-practical/`, not in the repo): a workbook, a dense table, and a single-focus stepper — three different SKELETONS with his real 8 topics / 30 lessons, opened in the browser. This is the workbook.
+
+**Two defects the harness could not surface — both PRE-EXISTING, both invisible while the section was dark:**
+- **The Hall has always been a 936px column in a 1280px window.** It mounts inside LayoutShell's `<main id="main-content">` (padded, max-width 1200) AND a wrapper carrying Tailwind's `lg:mr-[264px]` for a rail that `body.step-app` already hides. On obsidian nobody could tell; on paper the page became an island floating on the app's near-black ground. Both neutralised — measured 1016 → 1280 after the second fix.
+- **`global.css` declares `h1..h6 { color: var(--text-primary) }` as an ELEMENT rule**, which beats inheritance from `.hall-root`. Every heading rendered `rgb(240,244,248)` — near-white on paper. Measured on production, not guessed.
+- Also: `body.step-app { background: var(--hall-void) }` was a silent no-op the whole time — the token is scoped to `.hall-root`, so at body scope it resolved to nothing and the declaration was dropped. Literal colour now.
+
+**Caught in the design loop:** «أنجزتِ ٣ من ٦ درسًا» applied the 11-99 accusative to a number in the 3-10 plural band (and its tanwīn misread as a shin at 13px) — now routed through `lessonsAr()`. «٣٦٪» rendered as «٪٣٦» because digits are bidi-weak and «٪» is neutral — isolated as one LTR run. Contents-rail anchors were 32px; they are navigation, so they take the 44px floor.
+
+**Verified on production with a real student session:** all four surfaces full-bleed at 1280 and 390, 0 sub-44px tap targets, no horizontal overflow, 0 page errors; deployed `hall.css` confirmed to carry the Plex tokens and paper ground with **zero** Amiri / Reem Kufi / conic-gradient references.
+
+- ⚠️ **Open, owner's call:** the two global FABs (accessibility, bug report) are saturated blue circles that now read loudly against paper. They are hidden only on `body.step-exam`. Deliberately not changed — suppressing accessibility globally is a product decision, not a styling one.
+- Files: `src/pages/student/step/_ui/{hall.css,primitives.jsx}`, `STEPCurriculum.jsx`, `STEPLesson.jsx`. Shipped `b420e973` → `46878efc` → `2bea95f0`.
+
 ### 2026-08-08 — FIX: sticky audio bars were INVISIBLE behind the mobile bottom nav (phone)
 - Owner report, from his phone: "I cannot see the listening bar that I can play the listening through." The bar was rendering the whole time — it was painting UNDER the nav, with only a ~25px sliver of its top edge peeking out.
 - **Root cause — STACKING, not rendering.** `LayoutShell` wraps all page content in `[data-content-shell]` with `position:relative; z-index:1`, which creates a stacking context. `MobileBar` is a **sibling** of that wrapper at `z-40`. So NOTHING rendered inside a page can ever paint above the nav — the bar's own `z-40` is scoped inside the `z-1` context and loses unconditionally. **Raising the z-index cannot fix this class of bug**; the element must be OFFSET above the nav.
