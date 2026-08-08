@@ -66,40 +66,218 @@
 /* ─── Rule block accent bar ─── */
 .grammar-rule-block {
   background: var(--info-bg);
-  border-right: 3px solid var(--accent-sky);
+  border-inline-start: 3px solid var(--accent-sky);
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
   color: var(--text-primary);
 }
 
+/* The Arabic half of a rule sits INSIDE the same card as the English, under a
+   hairline, so the two languages read as one object instead of two floating
+   paragraphs (the old layout left the Arabic bare on the page). */
+.grammar-rule-ar {
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ─── Structured rich text (see RichText.jsx) ─── */
+.grammar-rt-block + .grammar-rt-block {
+  margin-top: 0.75rem;
+}
+
+.grammar-rt-line + .grammar-rt-line {
+  margin-top: 0.2rem;
+}
+
+/* A line whose direction was flipped (English line inside an Arabic block, or
+   the reverse) must also flip its alignment, or it reads as a stray indent. */
+.grammar-rt[dir='rtl'] .grammar-rt-line[dir='ltr'],
+.grammar-rt[dir='rtl'] .grammar-rt-li[dir='ltr'] {
+  text-align: left;
+}
+.grammar-rt[dir='ltr'] .grammar-rt-line[dir='rtl'],
+.grammar-rt[dir='ltr'] .grammar-rt-li[dir='rtl'] {
+  text-align: right;
+}
+
+/* Example sentences — authors mark them with <i>. Quiet, offset, scannable. */
+.grammar-rt-eg {
+  padding-inline-start: 0.75rem;
+  border-inline-start: 2px solid var(--info-border);
+  color: var(--text-secondary);
+  margin-top: 0.3rem;
+}
+
+.grammar-rt-b {
+  color: var(--accent-sky);
+  font-weight: 700;
+}
+
+.grammar-rt-i {
+  font-style: italic;
+}
+
+.grammar-rt-u {
+  text-decoration-color: var(--accent-sky);
+  text-underline-offset: 3px;
+}
+
+.grammar-rt-code {
+  background: var(--glass-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.85em;
+  color: var(--accent-sky);
+  unicode-bidi: isolate;
+}
+
+.grammar-rt-ul {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+}
+
+.grammar-rt-li {
+  position: relative;
+  padding-inline-start: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.grammar-rt-ol {
+  margin: 0.35rem 0 0;
+  padding-inline-start: 1.35rem;
+}
+
+.grammar-rt-oli {
+  margin-bottom: 0.3rem;
+}
+
+.grammar-rt-oli::marker {
+  color: var(--accent-sky);
+  font-weight: 700;
+}
+
+.grammar-rt-li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0.25rem;
+  top: 0.62em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-sky);
+  opacity: 0.75;
+}
+
 /* ─── Formula box ─── */
 .grammar-formula {
+  position: relative;
   background: var(--info-bg);
   border: 1px solid var(--info-border);
   border-radius: 0.75rem;
-  padding: 1rem 1.5rem;
+  padding: 1.125rem 1.5rem;
   text-align: center;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
   letter-spacing: 0.02em;
   color: var(--text-primary);
 }
 
+/* Formulas are frequently multi-line ("negatives: …", "3rd person: …").
+   Centred monospace lines need a little more air than prose. */
+.grammar-formula .grammar-rt-line + .grammar-rt-line {
+  margin-top: 0.35rem;
+}
+
+.grammar-formula-label {
+  display: block;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
 /* ─── Section heading ─── */
 .grammar-heading {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.0625rem;
+  font-weight: 700;
   color: var(--accent-sky);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.5rem;
 }
 
-/* ─── Comparison table ─── */
+/* Arabic is a connected script: letter-spacing severs it and uppercase is a
+   no-op. Never apply either to an Arabic heading. */
+.grammar-heading[dir='rtl'],
+.grammar-heading:lang(ar) {
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* ─── Comparison table ───
+   Wide content must scroll inside its own box; the page must never scroll
+   sideways on a 390px phone. */
+.grammar-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  background: var(--glass-input);
+}
+
 .grammar-table {
   width: 100%;
+  min-width: 320px;
   border-collapse: separate;
   border-spacing: 0;
+}
+
+/* On a phone the wrap is ~258px wide, so a 320px floor leaves one column
+   permanently half-cut. Let the cells wrap instead — the student's primary
+   device should not have to scroll a four-row table sideways. */
+@media (max-width: 460px) {
+  .grammar-table {
+    min-width: 0;
+  }
+  .grammar-table td,
+  .grammar-table th {
+    padding: 0.75rem 0.625rem;
+    font-size: 0.875rem;
+  }
+}
+
+.grammar-table td:first-child,
+.grammar-table th:first-child {
+  padding-inline-start: 1.125rem;
+}
+
+.grammar-table td:last-child,
+.grammar-table th:last-child {
+  padding-inline-end: 1.125rem;
+}
+
+.grammar-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Grammar forms in a cell are English — keep them LTR inside an RTL page. */
+.grammar-table-cell-ltr {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+  font-family: 'Inter', sans-serif;
+}
+
+.grammar-table-cell-ltr .grammar-rt-b {
+  color: var(--accent-sky);
 }
 
 .grammar-table th {

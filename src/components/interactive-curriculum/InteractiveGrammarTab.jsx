@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { PenLine, Users, ChevronDown } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import StudentAnswersOverlay from './StudentAnswersOverlay'
+import RichText from '../grammar/RichText'
+import '../grammar/grammar.css'
 
 const EXERCISE_TYPE_LABELS = {
   fill_blank: 'أكمل الفراغ',
@@ -197,20 +199,19 @@ function ExplanationSectionRenderer({ section }) {
       return (
         <div className="space-y-3">
           {section.content_en && (
-            <div
+            <RichText
+              text={section.content_en}
               dir="ltr"
-              className="text-sm sm:text-[15px] leading-[1.8] text-[var(--text-primary)] font-['Inter'] grammar-html"
-              dangerouslySetInnerHTML={{ __html: section.content_en }}
+              className="text-sm sm:text-[15px] leading-[1.8] text-[var(--text-primary)] font-['Inter']"
             />
           )}
           {section.content_ar && (
-            <div
-              className="rounded-xl px-4 py-3 text-sm text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed"
-              style={{ background: 'var(--surface-base)', borderRight: '3px solid rgba(56,189,248,0.4)' }}
+            <RichText
+              text={section.content_ar}
               dir="rtl"
-            >
-              {section.content_ar}
-            </div>
+              className="rounded-xl px-4 py-3 text-sm text-[var(--text-secondary)] font-['Tajawal'] leading-[1.9]"
+              style={{ background: 'var(--surface-base)', borderRight: '3px solid rgba(56,189,248,0.4)' }}
+            />
           )}
         </div>
       )
@@ -220,11 +221,44 @@ function ExplanationSectionRenderer({ section }) {
           className="rounded-xl px-5 py-4 text-center"
           style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.08), rgba(168,85,247,0.08))', border: '1px solid rgba(56,189,248,0.2)' }}
         >
-          <p className="text-sm font-bold text-sky-400 font-['Inter'] tracking-wide" dir="ltr">
-            {section.content}
-          </p>
+          <RichText
+            text={section.content}
+            dir="ltr"
+            className="text-sm font-bold text-sky-400 font-['Inter'] tracking-wide"
+          />
         </div>
       )
+    case 'table': {
+      const columns = section.columns || []
+      const rows = section.rows || []
+      if (!columns.length || !rows.length) return null
+      const rtlOf = (v) => /[؀-ۿ]/.test(String(v || ''))
+      return (
+        <div className="grammar-table-wrap">
+          <table className="grammar-table">
+            <thead>
+              <tr>
+                {columns.map((c, i) => {
+                  const label = typeof c === 'string' ? c : (c.label_ar || c.label_en)
+                  return <th key={i} dir={rtlOf(label) ? 'rtl' : 'ltr'} style={{ textAlign: rtlOf(label) ? 'right' : 'left' }}>{label}</th>
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, ri) => (
+                <tr key={ri}>
+                  {row.map((cell, ci) => (
+                    <td key={ci} className={rtlOf(cell) ? '' : 'grammar-table-cell-ltr'} dir={rtlOf(cell) ? 'rtl' : 'ltr'}>
+                      <RichText text={cell} dir={rtlOf(cell) ? 'rtl' : 'ltr'} as="span" />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
+    }
     case 'examples':
       return (
         <div className="space-y-2">

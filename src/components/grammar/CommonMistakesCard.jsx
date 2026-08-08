@@ -27,8 +27,9 @@ export default function CommonMistakesCard({ items }) {
                   {m.correct}
                 </span>
               </div>
+              {/* was --text-tertiary: 2.54:1 on the parchment theme, under AA */}
               {m.explanation_ar && (
-                <p className="text-xs font-['Tajawal']" dir="rtl" style={{ color: 'var(--text-tertiary)' }}>
+                <p className="text-[13px] font-['Tajawal'] leading-relaxed" dir="rtl" style={{ color: 'var(--text-secondary)' }}>
                   {m.explanation_ar}
                 </p>
               )}
