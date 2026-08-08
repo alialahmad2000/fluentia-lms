@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, BookOpen, Zap, StickyNote, Search, Target, Flag } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { getReservedBottom, onReservedBottomChange } from '../../lib/ui/reservedBottom'
 
 const ACTIONS = [
   { key: 'add-word', icon: Plus, label: 'إضافة مفردة جديدة', color: 'text-emerald-400' },
@@ -26,6 +27,21 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
 
   const FAB_SIZE = 56
 
+  // Constrain within the viewport, minus the bottom band owned by the mobile
+  // nav and any sticky player bar. Without the reserved band this FAB's default
+  // position covers the listening player's "-10s" control.
+  // MUST stay above the effects below — they list it in their deps arrays, which
+  // are evaluated during render, so a later `const` would be a TDZ ReferenceError.
+  const constrainPos = useCallback((x, y) => {
+    const maxX = window.innerWidth - FAB_SIZE - 16
+    const maxY = window.innerHeight - FAB_SIZE - 16 - getReservedBottom()
+    return {
+      x: Math.max(16, Math.min(maxX, x)),
+      // Math.max applies last so a short viewport can't push it off the top.
+      y: Math.max(16, Math.min(maxY, y)),
+    }
+  }, [])
+
   // Load saved position
   useEffect(() => {
     const storageKey = STORAGE_PREFIX + (profile?.id || 'guest')
@@ -36,22 +52,18 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
         setPos(constrainPos(parsed.x, parsed.y))
       } else {
         // Default: bottom-left
-        setPos({ x: 24, y: window.innerHeight - FAB_SIZE - 100 })
+        setPos(constrainPos(24, window.innerHeight - FAB_SIZE - 100))
       }
     } catch {
-      setPos({ x: 24, y: window.innerHeight - FAB_SIZE - 100 })
+      setPos(constrainPos(24, window.innerHeight - FAB_SIZE - 100))
     }
-  }, [profile?.id])
+  }, [profile?.id, constrainPos])
 
-  // Constrain within viewport
-  const constrainPos = useCallback((x, y) => {
-    const maxX = window.innerWidth - FAB_SIZE - 16
-    const maxY = window.innerHeight - FAB_SIZE - 16
-    return {
-      x: Math.max(16, Math.min(maxX, x)),
-      y: Math.max(16, Math.min(maxY, y)),
-    }
-  }, [])
+  // Re-constrain on resize AND when a sticky player bar appears mid-session.
+  useEffect(
+    () => onReservedBottomChange(() => setPos(prev => constrainPos(prev.x, prev.y))),
+    [constrainPos],
+  )
 
   // Save position
   const savePos = useCallback((x, y) => {

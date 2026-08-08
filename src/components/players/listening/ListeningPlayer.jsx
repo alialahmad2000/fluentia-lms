@@ -25,9 +25,15 @@
 //   - Drop-shadow above the bar
 //   - Smooth transitions on state changes
 //   - Speed selector hides at <640px to keep mobile touch targets clean
+//
+// LISTENING-BAR-ABOVE-MOBILE-NAV 2026-08-08:
+//   On phones the bar was INVISIBLE — students could see the section but had no
+//   way to play the audio. It is a STACKING bug, not a rendering one; the full
+//   explanation and the shared fix live in hooks/useStickyPlayerBar.js.
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useSidebarWidth } from '../../../hooks/useSidebarWidth'
+import { useBottomNavOffset, useStickyPlayerOffset } from '../../../hooks/useStickyPlayerBar'
 import { logAudioFailure } from '../../../lib/audioTelemetry'
 import { AudioDebugOverlay } from './AudioDebugOverlay'
 
@@ -113,6 +119,10 @@ export function ListeningPlayer({
   const blobUrlRef = useRef(null)
   const sourceAbortRef = useRef(null)
   const sidebarWidth = useSidebarWidth()
+  // Live height of the mobile bottom nav (0 when it isn't on screen). The bar is
+  // pushed up by exactly this much so it can never hide behind the nav.
+  const navHeight = useBottomNavOffset()
+  const barRef = useStickyPlayerOffset([audioUrl])
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [isBuffering, setIsBuffering] = useState(false)
@@ -490,13 +500,15 @@ export function ListeningPlayer({
         />
       )}
 
-      {/* Spacer so page content isn't hidden behind the fixed bar */}
-      <div className="h-32" aria-hidden="true" />
-
-      {/* PREMIUM STICKY BOTTOM BAR */}
+      {/* PREMIUM STICKY BOTTOM BAR — offset above the mobile nav (see header note) */}
       <div
-        className="fixed bottom-0 left-0 z-40 transition-all duration-300 ease-out"
-        style={{ right: sidebarWidth > 0 ? sidebarWidth : 0 }}
+        ref={barRef}
+        // transition ONLY `right` (its purpose: the sidebar expand/collapse).
+        // `transition-all` also animated `bottom`, so on mount the bar slid up
+        // from behind the nav — visible jank, and it reads as "the bar is under
+        // the nav" for the first 300ms.
+        className="fixed left-0 z-40 transition-[right] duration-300 ease-out"
+        style={{ right: sidebarWidth > 0 ? sidebarWidth : 0, bottom: navHeight }}
         dir="rtl"
       >
         {/* Top hairline gradient accent */}
@@ -511,7 +523,11 @@ export function ListeningPlayer({
             px-4 sm:px-6 py-3 sm:py-4
           "
           style={{
-            paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom, 0px))',
+            // The nav already reserves the iOS home indicator; adding the safe
+            // area again when it's on screen would double-pad the bar.
+            paddingBottom: navHeight > 0
+              ? '0.75rem'
+              : 'calc(0.75rem + env(safe-area-inset-bottom, 0px))',
           }}
         >
           {/* Speaker pill (only when known) */}

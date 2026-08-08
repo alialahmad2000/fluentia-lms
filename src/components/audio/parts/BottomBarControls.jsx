@@ -8,6 +8,7 @@ import { Play, Pause, SkipBack, SkipForward, Settings, Loader2 } from 'lucide-re
 import { SpeakerBadge } from './SpeakerBadge'
 import { ProgressBar } from './ProgressBar'
 import { SettingsPopover } from './SettingsPopover'
+import { useBottomNavOffset, useStickyPlayerOffset } from '../../../hooks/useStickyPlayerBar'
 
 function fmt(ms) {
   const s = Math.floor(ms / 1000)
@@ -29,19 +30,27 @@ export function BottomBarControls({
   dictation,
 }) {
   const [showSettings, setShowSettings] = useState(false)
+  const navHeight = useBottomNavOffset()
+  const barRef = useStickyPlayerOffset()
   const locked = playerLocked
   const skipDisabled = locked || (localFeatures.onePlayMode && !playerLocked)
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-[52] select-none"
+      ref={barRef}
+      className="fixed left-0 right-0 z-[52] select-none"
       style={{
+        // Offset above the mobile nav — z-index cannot win here, the page
+        // content lives inside a z-1 stacking context. See useStickyPlayerBar.js.
+        bottom: navHeight,
         background: 'linear-gradient(to bottom, rgba(6,12,26,0.88), rgba(4,8,20,0.96))',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
         borderTop: '1px solid rgba(255,255,255,0.07)',
         boxShadow: '0 -12px 40px -8px rgba(0,0,0,0.6)',
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        // The nav already reserves the iOS home indicator; adding the safe area
+        // again while it's on screen would double-pad the bar.
+        paddingBottom: navHeight > 0 ? 0 : 'env(safe-area-inset-bottom, 0px)',
       }}
     >
       {/* Hairline progress strip */}

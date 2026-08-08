@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Eye } from 'lucide-react';
 import { useAuthProfile } from '../../stores/authStore';
+import { getReservedBottom, onReservedBottomChange } from '../../lib/ui/reservedBottom';
 import AccessibilityPanel from './AccessibilityPanel';
 
 const STORAGE_PREFIX = 'a11y-position-';
@@ -17,11 +18,16 @@ export default function A11yFloatingButton() {
   const pointerStart = useRef({ px: 0, py: 0 });
   const [pos, setPos] = useState({ x: 16, y: -1 });
 
+  // Keep clear of the mobile nav AND any sticky player bar above it — the
+  // default position landed on the listening player's play button, so tapping
+  // play opened this panel instead. See src/lib/ui/reservedBottom.js.
   const constrainPos = useCallback((x, y) => {
     const maxX = window.innerWidth - BTN_SIZE - 16;
-    const maxY = window.innerHeight - BTN_SIZE - 16;
+    const maxY = window.innerHeight - BTN_SIZE - 16 - getReservedBottom();
     return {
       x: Math.max(16, Math.min(maxX, x)),
+      // maxY can fall below 16 on a very short viewport — Math.max applies last
+      // so the button stays on screen rather than being pushed off the top.
       y: Math.max(16, Math.min(maxY, y)),
     };
   }, []);
@@ -34,10 +40,10 @@ export default function A11yFloatingButton() {
       if (saved) {
         setPos(constrainPos(JSON.parse(saved).x, JSON.parse(saved).y));
       } else {
-        setPos({ x: 16, y: window.innerHeight - BTN_SIZE - 90 });
+        setPos(constrainPos(16, window.innerHeight - BTN_SIZE - 90));
       }
     } catch {
-      setPos({ x: 16, y: window.innerHeight - BTN_SIZE - 90 });
+      setPos(constrainPos(16, window.innerHeight - BTN_SIZE - 90));
     }
   }, [profile?.id, constrainPos]);
 
@@ -86,12 +92,12 @@ export default function A11yFloatingButton() {
     isDragging.current = false;
   }, [pos, snapToEdge, savePos]);
 
-  // Re-constrain on resize
-  useEffect(() => {
-    const handler = () => setPos(prev => constrainPos(prev.x, prev.y));
-    window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
-  }, [constrainPos]);
+  // Re-constrain on resize AND when a sticky player bar appears mid-session
+  // (navigating into the listening tab).
+  useEffect(
+    () => onReservedBottomChange(() => setPos(prev => constrainPos(prev.x, prev.y))),
+    [constrainPos],
+  );
 
   return (
     <>

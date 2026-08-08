@@ -11,6 +11,7 @@ import { useMobileGestures } from './hooks/useMobileGestures'
 import { useDictation } from './hooks/useDictation'
 import { useAutoResume } from './hooks/useAutoResume'
 import { useAudioNavigationPause } from './hooks/useAudioNavigationPause'
+import { useBottomNavOffset } from '../../hooks/useStickyPlayerBar'
 
 import { ProgressBar } from './parts/ProgressBar'
 import { PlayerControls } from './parts/PlayerControls'
@@ -111,6 +112,8 @@ export default function SmartAudioPlayer({
     isBottomBarMode: variant === 'bottom-bar',
   })
 
+  const navOffset = useBottomNavOffset()
+
   const abLoop = useABLoop({ currentTime: engine.currentTime, seek: engine.seek })
 
   const { bookmarks, addBookmark, removeBookmark, jumpToBookmark } = useBookmarks({
@@ -179,13 +182,15 @@ export default function SmartAudioPlayer({
     setLocalFeatures(prev => ({ ...prev, [key]: !prev[key] }))
   }, [])
 
-  // Push floating FABs (PageHelp, etc.) up when bottom-bar is mounted
+  // Push floating FABs (PageHelp, etc.) up when bottom-bar is mounted.
+  // Must include the mobile nav's height: the bar now sits ABOVE the nav rather
+  // than behind it, so a bar-height-only offset would land the FAB on the bar.
   useEffect(() => {
     if (variant !== 'bottom-bar') return
     const BAR_H = window.innerWidth < 768 ? 72 : 96
-    document.documentElement.style.setProperty('--fab-bottom', `${BAR_H + 16}px`)
+    document.documentElement.style.setProperty('--fab-bottom', `${navOffset + BAR_H + 16}px`)
     return () => document.documentElement.style.removeProperty('--fab-bottom')
-  }, [variant])
+  }, [variant, navOffset])
 
   // Auto-pause on navigation (route change or unmount)
   useAudioNavigationPause({ isPlaying: engine.isPlaying, pause: engine.pause })
@@ -278,6 +283,10 @@ export default function SmartAudioPlayer({
     return (
       <div ref={containerRef} className={`${className}`}
         tabIndex={0}
+        // Clear the fixed bar so the last lines of the passage aren't stuck
+        // under it. --sticky-player-offset is published by BottomBarControls
+        // from its measured height (0 before it mounts, so nothing shifts).
+        style={{ paddingBottom: 'var(--sticky-player-offset, 0px)' }}
         onFocus={() => { document.body.dataset.audioPlayerActive = 'true' }}
         onBlur={() => { document.body.dataset.audioPlayerActive = 'false' }}
       >

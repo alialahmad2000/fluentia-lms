@@ -54,7 +54,10 @@ export function ListeningSection({
   const typeLabel = AUDIO_TYPE_LABELS[listening.audio_type] || listening.audio_type
 
   return (
-    <div className="space-y-5">
+    // paddingBottom clears the fixed player bar. --sticky-player-offset is
+    // published by ListeningPlayer from its MEASURED height; before it mounts
+    // (or when there's no audio) the fallback is 0 so nothing shifts.
+    <div className="space-y-5" style={{ paddingBottom: 'var(--sticky-player-offset, 0px)' }}>
       {/* ── Cinematic hero (topic image) — premium banner; graceful text fallback ── */}
       {listening.image_url ? (
         <div dir="rtl" className="relative overflow-hidden rounded-2xl" style={{ border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 18px 50px -24px rgba(0,0,0,0.75)' }}>

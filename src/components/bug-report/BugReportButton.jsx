@@ -14,7 +14,10 @@ export default function BugReportButton() {
         className="fixed z-[997]"
         style={{
           right: 16,
-          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 88px)',
+          // --sticky-player-offset is set only while a listening player bar is on
+          // screen; it lifts this FAB clear of the bar's controls instead of
+          // sitting on top of the "إظهار النص" button.
+          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 88px + var(--sticky-player-offset, 0px))',
         }}
       >
         {hover && (
