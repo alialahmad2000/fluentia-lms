@@ -34,49 +34,46 @@ export function ScoreRing({ score, target, size = 340, label = 'من 100' }) {
 
   return (
     <div style={{ position: 'relative', width: '100%', maxWidth: size, aspectRatio: '1', marginInline: 'auto' }}>
+      {/* On paper the ring is an instrument dial drawn in ink: a solid arc and
+          real tick marks. The gold gradient + glow it used to carry only read
+          as "premium" against an obsidian ground; here it would look muddy. */}
       <svg viewBox="0 0 380 380" fill="none" style={{ width: '100%', display: 'block' }}>
-        <circle cx="190" cy="190" r="168" stroke="rgba(255,255,255,.05)" strokeWidth="1" />
-        <circle cx="190" cy="190" r="150" stroke="rgba(227,185,92,.14)" strokeWidth="1" />
-        <g stroke="rgba(227,185,92,.4)" strokeWidth="1.5">
+        <circle cx="190" cy="190" r="168" stroke="var(--hall-line)" strokeWidth="1" />
+        <g stroke="var(--hall-line)" strokeWidth="1.5">
           <line x1="190" y1="18" x2="190" y2="32" /><line x1="362" y1="190" x2="348" y2="190" />
           <line x1="190" y1="362" x2="190" y2="348" /><line x1="18" y1="190" x2="32" y2="190" />
           <line x1="311" y1="69" x2="302" y2="78" /><line x1="311" y1="311" x2="302" y2="302" />
           <line x1="69" y1="311" x2="78" y2="302" /><line x1="69" y1="69" x2="78" y2="78" />
         </g>
-        <circle cx="190" cy="190" r={R} stroke="rgba(255,255,255,.07)" strokeWidth="14" />
+        <circle cx="190" cy="190" r={R} stroke="#EAE6DE" strokeWidth="12" />
         <circle
-          cx="190" cy="190" r={R} stroke="url(#hallArc)" strokeWidth="14" strokeLinecap="round"
+          cx="190" cy="190" r={R} stroke="var(--hall-gold)" strokeWidth="12" strokeLinecap="round"
           strokeDasharray={CIRC} strokeDashoffset={offset}
           transform="rotate(-90 190 190)"
           style={{ transition: 'stroke-dashoffset .9s cubic-bezier(.22,1,.36,1)' }}
         />
         {tick && (
-          <g style={{ filter: 'drop-shadow(0 0 7px rgba(251,228,168,.85))' }}>
+          <g>
             <line x1={tick.x1} y1={tick.y1} x2={tick.x2} y2={tick.y2}
-              stroke="#FBE4A8" strokeWidth="2.5" strokeLinecap="round" />
-            <circle cx={tick.dx} cy={tick.dy} r="3.5" fill="#FBE4A8" />
+              stroke="var(--hall-rose)" strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx={tick.dx} cy={tick.dy} r="3.5" fill="var(--hall-rose)" />
           </g>
         )}
-        <defs>
-          <linearGradient id="hallArc" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#C9992F" /><stop offset="1" stopColor="#FBE4A8" />
-          </linearGradient>
-        </defs>
       </svg>
       <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', textAlign: 'center' }}>
         <div>
           <div style={{
-            fontFamily: 'var(--hall-display)', fontWeight: 700, fontSize: 'clamp(64px,15vw,112px)',
-            lineHeight: 0.9,
-            background: 'linear-gradient(180deg,#FFFDF6,#E3B95C)',
-            WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
-            filter: 'drop-shadow(0 6px 30px rgba(227,185,92,.4))',
+            fontFamily: 'var(--hall-sans)', fontWeight: 600, fontSize: 'clamp(52px,12vw,88px)',
+            lineHeight: 0.95, letterSpacing: '-0.02em', color: 'var(--hall-ink)',
+            fontVariantNumeric: 'tabular-nums',
           }}>{score ?? '—'}</div>
           <div style={{ fontSize: 12, color: 'var(--hall-ink-3)', marginBlockStart: 10 }}>
             {label}
           </div>
+          {/* Matches the tick's colour so the label and the mark it explains
+              are visibly the same fact. */}
           {target != null && (
-            <div style={{ fontSize: 12.5, color: 'var(--hall-gold-hi)', marginBlockStart: 12, fontWeight: 700 }}>
+            <div style={{ fontSize: 12.5, color: 'var(--hall-rose)', marginBlockStart: 12, fontWeight: 600 }}>
               الهدف {target}
             </div>
           )}

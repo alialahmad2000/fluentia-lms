@@ -31,7 +31,7 @@ function Example({ ex, index, presenting }) {
   const answerIdx = ex.answer_index
 
   return (
-    <div className="hall-panel" style={{ padding: 'calc(22px * var(--pz, 1))' }}>
+    <div className="step-ex">
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         gap: 12, marginBlockEnd: 14,
@@ -63,14 +63,14 @@ function Example({ ex, index, presenting }) {
               display: 'flex', alignItems: 'flex-start', gap: 12,
               borderRadius: 12, padding: 'calc(11px * var(--pz, 1)) calc(14px * var(--pz, 1))',
               border: `1px solid ${isAnswer ? 'var(--hall-jade-line)' : 'var(--hall-line-2)'}`,
-              background: isAnswer ? 'var(--hall-jade-wash)' : 'rgba(255,255,255,.03)',
+              background: isAnswer ? 'var(--hall-jade-wash)' : 'var(--hall-panel-2)',
             }}>
               <span style={{
                 flexShrink: 0, width: 'calc(26px * var(--pz, 1))', height: 'calc(26px * var(--pz, 1))',
                 borderRadius: 7, display: 'grid', placeItems: 'center',
                 fontSize: 'calc(12.5px * var(--pz, 1))', fontWeight: 900,
-                background: isAnswer ? 'var(--hall-jade)' : 'rgba(255,255,255,.05)',
-                color: isAnswer ? '#04231C' : 'var(--hall-ink-3)',
+                background: isAnswer ? 'var(--hall-jade)' : 'var(--hall-void)',
+                color: isAnswer ? '#FFFFFF' : 'var(--hall-ink-3)',
                 border: isAnswer ? 'none' : '1px solid var(--hall-line-2)',
               }}>{LETTERS[i] ?? i + 1}</span>
               <span style={{
@@ -154,9 +154,21 @@ export default function STEPLesson() {
         // One scale drives every size in the subtree. Per-element multipliers
         // topped out around 19px — unreadable from the back of a classroom.
         '--pz': presenting ? 1.85 : 1,
-        display: 'flex', flexDirection: 'column', gap: 48, maxWidth: 900,
+        display: 'flex', flexDirection: 'column', gap: 34, maxWidth: presenting ? 940 : 780,
       }}
     >
+      <style>{`
+        .hall-lesson .step-standing{display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;
+          margin:12px 0 0;padding-block-start:14px;border-block-start:1px solid var(--hall-line);
+          font-size:13px;color:var(--hall-ink-2)}
+        .hall-lesson .step-standing b{font-weight:600}
+        .hall-lesson .fig{font-family:var(--hall-mono);font-variant-numeric:tabular-nums}
+        .hall-lesson .step-opener{margin:0;font-size:calc(17px * var(--pz,1));line-height:1.95;
+          color:var(--hall-ink);border-inline-start:3px solid var(--hall-gold);
+          padding-inline-start:20px;max-width:62ch}
+        .hall-lesson .step-ex{border:1px solid var(--hall-line);border-radius:10px;
+          background:var(--hall-panel);padding:calc(18px * var(--pz,1))}
+      `}</style>
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         gap: 12, flexWrap: 'wrap',
@@ -178,42 +190,34 @@ export default function STEPLesson() {
       </div>
 
       <header>
-        {lesson.position && (
-          <span className="hall-kick">الدرس {lesson.position.at} من {lesson.position.of}</span>
-        )}
         <h1 className="hall-h1" style={{
-          marginBlock: '16px 0',
-          fontSize: presenting ? 'clamp(34px,5vw,58px)' : undefined,
+          fontSize: presenting ? 'clamp(30px,4.4vw,50px)' : undefined,
         }}>{lesson.title_ar}</h1>
 
-        {/* Accuracy carries the same tone thresholds as the curriculum index —
-            the identical number read as a neutral pill here and a rose alarm
-            there. */}
-        {pct != null && !presenting && (
-          <div className="hall-panel" style={{
-            marginBlockStart: 18, padding: '14px 20px',
-            display: 'inline-flex', gap: 14, alignItems: 'baseline', flexWrap: 'wrap',
-          }}>
-            <b style={{
-              fontFamily: 'var(--hall-display)', fontSize: 34,
-              color: pct < 50 ? 'var(--hall-rose)' : pct >= 75 ? 'var(--hall-jade)' : 'var(--hall-gold-hi)',
-            }}>{pct}٪</b>
-            <span style={{ fontSize: 12.5, color: 'var(--hall-ink-2)' }}>
-              دقّتك في هذه القاعدة · {questionsAr(p.attempts ?? 0)}
+        {/* One quiet standing line rather than a stat panel. Accuracy keeps the
+            same tone thresholds as the curriculum index — the identical number
+            used to read as a neutral pill here and a rose alarm there. */}
+        <p className="step-standing">
+          {lesson.position && (
+            <span>الدرس <span className="fig">{lesson.position.at}</span> من <span className="fig">{lesson.position.of}</span></span>
+          )}
+          {pct != null && !presenting && (
+            <span>
+              دقّتك{' '}
+              <b className="fig" dir="ltr" style={{
+                color: pct < 50 ? 'var(--hall-rose)' : pct >= 75 ? 'var(--hall-jade)' : 'var(--hall-ink)',
+              }}>{pct}٪</b>
+              {' '}على {questionsAr(p.attempts ?? 0)}
             </span>
-          </div>
-        )}
+          )}
+          <span><span className="fig">{lesson.item_count ?? 0}</span> سؤالًا في البنك</span>
+        </p>
       </header>
 
       {/* The opener — what a teacher says aloud to start. It reduces the whole
           point to one question, so it leads; القاعدة then states the law. */}
       {lesson.teach_ar && (
-        <p style={{
-          margin: 0, fontFamily: 'var(--hall-display)',
-          fontSize: 'calc(20px * var(--pz, 1))', lineHeight: 1.9,
-          color: 'var(--hall-ink)', maxWidth: '60ch',
-          borderInlineStart: '2px solid var(--hall-line)', paddingInlineStart: 22,
-        }}>{lesson.teach_ar}</p>
+        <p className="step-opener">{lesson.teach_ar}</p>
       )}
 
       {lesson.rule_ar && <Block icon={Lightbulb} label="القاعدة" tone="rule">{lesson.rule_ar}</Block>}

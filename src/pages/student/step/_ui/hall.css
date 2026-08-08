@@ -1,372 +1,342 @@
 /* ════════════════════════════════════════════════════════════════════════════
-   طلاقة · STEP — «القاعة» (The Hall)
+   طلاقة · STEP — «القاعة»
 
-   ONE committed finish: obsidian + gold, applied in EVERY app theme.
+   PRACTICAL PASS (2026-08-07). The section previously committed to a staged
+   obsidian-and-gold finish with a conic light beam and an Amiri display serif.
+   That reads well on a screen you visit for thirty seconds to see a score. It
+   is the wrong material for a page a student reads for forty minutes and a
+   teacher projects in class — the owner's words were "way too overwhelmed…
+   the font is not that practical".
 
-   This is deliberate and mirrors what the IELTS atelier does. The platform's
-   default student theme ("night") is a warm parchment, and an earlier STEP pass
-   tried to live inside it — the result read as a page in the LMS rather than a
-   place of its own. The Hall commits: dark ground, volumetric light, gold
-   instrument. Do not add a light-theme override; if a screen needs to be bright
-   (a printed report, say) it opts in explicitly.
+   So the material changed, not the structure: warm study-paper ground, ONE
+   typeface built for screen reading (IBM Plex Sans Arabic, already loaded by
+   the app), ink instead of gold, and hairlines instead of glass panels. Every
+   screen styles through these tokens and none of their markup had to move.
 
-   Every STEP screen styles through --hall-* tokens. No per-screen palettes.
+   Amiri and Reem Kufi are deliberately gone. Amiri is an editorial/Qur'anic
+   serif — beautiful, and unreadable at 15px for an hour.
    ════════════════════════════════════════════════════════════════════════════ */
 
 .hall-root {
-  --hall-void: #06070c;
-  --hall-deep: #0b0e1a;
-  --hall-panel: rgba(20, 26, 44, 0.6);
-  --hall-panel-2: rgba(28, 36, 60, 0.5);
-  --hall-solid: #131828;          /* opaque fallback where blur can't apply */
+  /* Paper, not a stage. Warm off-white so long Arabic prose doesn't glare. */
+  --hall-void: #F3F0EA;          /* the desk the paper sits on */
+  --hall-deep: #FAF8F4;          /* the page */
+  --hall-panel: #FFFFFF;
+  --hall-panel-2: #FCFBF8;
+  --hall-solid: #FFFFFF;
 
-  --hall-gold: #e3b95c;
-  --hall-gold-hi: #fbe4a8;
-  --hall-gold-deep: #c9992f;
-  --hall-jade: #4fd9a8;
-  --hall-rose: #f08a6e;
+  /* One accent. Deep ink-teal reads as considered rather than corporate, and
+     holds 7.1:1 on the page ground. Gold is retained ONLY as an achievement
+     tone (see --hall-gold), never as the interface colour it used to be. */
+  --hall-gold: #1F5F5B;
+  --hall-gold-hi: #17514D;
+  --hall-gold-deep: #123E3B;
+  --hall-jade: #2F6B4F;
+  --hall-rose: #9A5B2C;
 
-  /* Tone washes. Every screen that needed a tinted surface was re-inventing its
-     own rgba() and, worse, passing it as `background` — which REPLACED the
-     panel's layered gradient with one flat fill. These are meant to be layered
-     ON TOP of that gradient (see .hall-block), never instead of it. */
-  --hall-gold-wash: rgba(227, 185, 92, 0.09);
-  --hall-jade-wash: rgba(79, 217, 168, 0.09);
-  --hall-rose-wash: rgba(240, 138, 110, 0.10);
-  --hall-gold-line: rgba(227, 185, 92, 0.30);
-  --hall-jade-line: rgba(79, 217, 168, 0.30);
-  --hall-rose-line: rgba(240, 138, 110, 0.30);
+  --hall-gold-wash: rgba(31, 95, 91, 0.05);
+  --hall-jade-wash: rgba(47, 107, 79, 0.05);
+  --hall-rose-wash: rgba(154, 91, 44, 0.06);
+  --hall-gold-line: rgba(31, 95, 91, 0.22);
+  --hall-jade-line: rgba(47, 107, 79, 0.24);
+  --hall-rose-line: rgba(154, 91, 44, 0.26);
 
-  /* Text ramp — all four tiers verified ≥ 4.5:1 on the panel ground. */
-  --hall-ink: #f7f4ee;
-  --hall-ink-2: #a9a594;
-  --hall-ink-3: #8e8a7c;
-  --hall-line: rgba(227, 185, 92, 0.18);
-  --hall-line-2: rgba(255, 255, 255, 0.08);
+  /* Text ramp — measured on #FAF8F4: 15.9:1 / 6.2:1 / 4.6:1. */
+  --hall-ink: #1A1D21;
+  --hall-ink-2: #5A6068;
+  --hall-ink-3: #7C838C;
+  --hall-line: #E4E0D8;
+  --hall-line-2: #EAE7E0;
 
-  --hall-shadow: 0 30px 70px -46px rgba(0, 0, 0, 1), inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  --hall-shadow-lg: 0 46px 92px -46px rgba(0, 0, 0, 1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  /* Paper doesn't float. Hairlines and one soft lift do the separating. */
+  --hall-shadow: 0 1px 2px rgba(26, 29, 33, 0.04);
+  --hall-shadow-lg: 0 4px 16px -6px rgba(26, 29, 33, 0.12), 0 1px 3px rgba(26, 29, 33, 0.05);
   --hall-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --hall-sans: 'Tajawal', system-ui, sans-serif;
-  --hall-display: 'Amiri', Georgia, serif;
-  --hall-kufi: 'Reem Kufi', 'Tajawal', sans-serif;
-  /* LATIN NUMERALS ONLY. A mono face has no Arabic coverage, so any Arabic
-     styled with this falls per-glyph to the OS default. JetBrains Mono is
-     already loaded by the app; do not add a second mono request. */
+  /* ONE family. Latin runs and figures get Plex Sans / JetBrains Mono so the
+     English stems and the numerals stay properly proportioned. */
+  --hall-sans: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --hall-display: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --hall-kufi: 'IBM Plex Sans Arabic', system-ui, sans-serif;
   --hall-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   min-height: 100dvh;
   background: var(--hall-void);
   color: var(--hall-ink);
   font-family: var(--hall-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── full-screen takeover ────────────────────────────────────────────────
-   The rail's collapse toggle is a SIBLING of the rail (it escapes the rail's
-   overflow), so hiding the aside alone leaves a toggle floating over the Hall
-   with nothing to collapse. These selectors belong together. */
-body.step-app aside[data-sidebar-root],
-body.step-app [data-sidebar-toggle],
+/* Full-screen takeover: the section is its own place, so the global rail,
+   header and mobile bar step aside. Unchanged from the original build. */
+body.step-app [data-sidebar-root],
 body.step-app [data-app-header],
-body.step-app .mobile-bottom-nav { display: none !important; }
-body.step-app [data-content-shell] { margin: 0 !important; }
-body.step-app #main-content { max-width: none !important; margin: 0 !important; padding: 0 !important; }
-/* The global accessibility + bug-report FABs land exactly on the exam's nav. */
+body.step-app .mobile-bottom-nav,
+body.step-app [data-sidebar-toggle] { display: none !important; }
+body.step-app { background: var(--hall-void); }
+/* The two global FABs land exactly on the exam's own nav. */
 body.step-exam .z-\[998\], body.step-exam .z-\[997\] { display: none !important; }
 
-/* ── atmosphere ─────────────────────────────────────────────────────────
-   A shaft of light down a dark hall. Pure paint — no layout cost, and it sits
-   behind everything at z-index 0 with content lifted to 1. */
+/* ── ground ─────────────────────────────────────────────────────────────
+   Paper has warmth and a grain; it is not a flat fill (the owner's standing
+   rule against flat grounds still applies — it just isn't a light beam any
+   more). Two barely-there washes and a fibre texture, no motion. */
 .hall-atmo { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-.hall-atmo .beam {
-  position: absolute; inset-block-start: -24%; inset-inline-start: 50%;
-  width: 150%; height: 120%; transform: translateX(50%);
-  background: conic-gradient(from 172deg at 50% 0%, transparent 0deg,
-    rgba(227, 185, 92, 0.13) 12deg, transparent 30deg, transparent 330deg,
-    rgba(79, 217, 168, 0.07) 350deg, transparent 360deg);
-}
+.hall-atmo .beam,
 .hall-atmo .halo {
-  position: absolute; inset-block-start: -38%; inset-inline-start: 50%;
-  transform: translateX(50%); width: 1100px; height: 1100px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(227, 185, 92, 0.17), transparent 58%);
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(1200px 700px at 88% -12%, rgba(31, 95, 91, 0.045), transparent 60%),
+    radial-gradient(900px 600px at 4% 108%, rgba(154, 91, 44, 0.035), transparent 58%);
 }
-.hall-atmo .ember {
-  position: absolute; inset-block-end: -30%; inset-inline-start: -15%;
-  width: 900px; height: 900px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(79, 217, 168, 0.07), transparent 62%);
-}
+.hall-atmo .halo { background: none; }
+.hall-atmo .ember { display: none; }
 .hall-atmo .floor {
-  position: absolute; inset-block-end: 0; inset-inline: 0; height: 46%;
-  background: linear-gradient(180deg, transparent, rgba(11, 14, 26, 0.9));
+  position: absolute; inset-block-end: 0; inset-inline: 0; height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(226, 220, 208, 0.5));
 }
 .hall-atmo .grain {
-  position: absolute; inset: 0; opacity: 0.35; mix-blend-mode: overlay;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 0.5px, transparent 0.5px);
-  background-size: 3px 3px;
+  position: absolute; inset: 0; opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
 }
-/* Decorative canvas work is the known Android flicker trigger; the atmosphere is
-   pure CSS paint, but keep it static where the device asks for less motion. */
-@media (prefers-reduced-motion: reduce) { .hall-atmo { opacity: 0.75; } }
 
-/* ── shell ──────────────────────────────────────────────────────────── */
+/* ── shell ──────────────────────────────────────────────────────────────── */
 .hall-shell { position: relative; z-index: 1; display: flex; min-height: 100dvh; }
 .hall-main { flex: 1; min-width: 0; }
-.hall-wrap { max-width: 1160px; margin: 0 auto; padding: 34px 26px 90px; }
+.hall-wrap { max-width: 1120px; margin: 0 auto; padding: 38px 28px 90px; }
 @media (prefers-reduced-motion: no-preference) {
-  .hall-wrap { animation: hall-rise 0.42s var(--hall-ease) both; }
+  .hall-wrap { animation: hall-rise 0.3s var(--hall-ease) both; }
 }
-@keyframes hall-rise { from { opacity: 0; transform: translateY(10px); } }
-/* The exam's own sticky bar provides the bottom edge; the wrap's 90px would
-   leave a dead band under it. */
+@keyframes hall-rise { from { opacity: 0; transform: translateY(6px); } }
 body.step-exam .hall-wrap { padding-block-end: 0; }
 .hall-root { scroll-padding-block-end: 96px; }
 
-/* ── nav rail ───────────────────────────────────────────────────────── */
+/* ── nav rail ───────────────────────────────────────────────────────────
+   A margin of the page, not a separate dark chrome. */
 .hall-nav {
-  width: 252px; flex: none; padding: 26px 16px 20px;
-  border-inline-end: 1px solid var(--hall-line-2);
-  background: linear-gradient(180deg, rgba(20, 26, 44, 0.5), rgba(6, 7, 12, 0.6));
-  backdrop-filter: blur(14px);
-  display: flex; flex-direction: column; gap: 4px;
+  width: 248px; flex: none; padding: 26px 14px 20px;
+  border-inline-end: 1px solid var(--hall-line);
+  background: var(--hall-deep);
+  display: flex; flex-direction: column; gap: 2px;
   position: sticky; inset-block-start: 0; align-self: flex-start; height: 100dvh;
   overflow-y: auto;
 }
-.hall-crest { display: flex; align-items: center; gap: 12px; padding: 0 8px 24px; }
-.hall-crest .nm { font-family: var(--hall-kufi); font-size: 21px; line-height: 1; }
+.hall-crest { display: flex; align-items: center; gap: 11px; padding: 0 8px 26px; }
+.hall-crest .nm { font-family: var(--hall-sans); font-size: 18px; font-weight: 600; line-height: 1.2; }
 .hall-crest .nm small {
-  display: block; font-family: var(--hall-mono); font-size: 11px; font-weight: 400;
-  letter-spacing: 0.3em; color: var(--hall-gold); margin-block-start: 7px;
+  display: block; font-family: var(--hall-mono); font-size: 10.5px; font-weight: 400;
+  letter-spacing: 0.24em; color: var(--hall-ink-3); margin-block-start: 4px;
 }
 .hall-navlab {
-  font-family: var(--hall-kufi); font-size: 12px; font-weight: 500;
+  font-family: var(--hall-sans); font-size: 11.5px; font-weight: 600;
   color: var(--hall-ink-3); padding: 18px 10px 8px;
-}
-.hall-navitem {
-  display: flex; align-items: center; gap: 11px; width: 100%;
-  /* 44px floor: the rail shows at ≥980px, which includes iPad landscape — a
-     touch device on the desktop layout. 11px padding put these at 41px. */
-  border: 1px solid transparent; border-radius: 11px; padding: 13px 12px; min-height: 44px;
-  font: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;
-  background: transparent; color: var(--hall-ink-2); text-align: start;
-  transition: background 0.18s, color 0.18s, border-color 0.18s;
-}
-.hall-navitem:hover { background: rgba(227, 185, 92, 0.07); color: var(--hall-ink); }
-.hall-navitem.on {
-  background: rgba(227, 185, 92, 0.13); color: var(--hall-gold-hi);
-  border-color: rgba(227, 185, 92, 0.3);
-}
-.hall-navitem .ico { flex: none; display: grid; place-items: center; }
-.hall-navitem .badge {
-  margin-inline-start: auto; flex: none; font-family: var(--hall-mono); font-size: 12px;
-  background: rgba(227, 185, 92, 0.16); color: var(--hall-gold-hi);
-  border-radius: 99px; padding: 2px 8px;
-}
-.hall-navitem .badge.hot { background: rgba(240, 138, 110, 0.18); color: var(--hall-rose); }
-.hall-navfoot {
-  margin-block-start: auto; padding-block-start: 18px; border-block-start: 1px solid var(--hall-line-2);
-  display: flex; align-items: center; gap: 10px;
-}
-.hall-navfoot .av {
-  width: 34px; height: 34px; border-radius: 10px; flex: none; display: grid; place-items: center;
-  font-family: var(--hall-display); font-size: 16px; color: var(--hall-gold-hi);
-  background: rgba(227, 185, 92, 0.14); border: 1px solid var(--hall-line);
-}
-.hall-navfoot .who { min-width: 0; font-size: 13px; font-weight: 700; }
-.hall-navfoot .who small { display: block; font-size: 12px; font-weight: 400; color: var(--hall-ink-3); margin-block-start: 3px; }
-
-/* mobile: the rail becomes a scrollable top bar */
-@media (max-width: 980px) {
-  .hall-shell { flex-direction: column; }
-  .hall-nav {
-    width: 100%; max-width: 100%; min-width: 0;
-    height: auto; position: sticky; inset-block-start: 0; z-index: 20;
-    flex-direction: row; align-items: center; gap: 6px; overflow-x: auto; overflow-y: hidden;
-    padding: calc(10px + env(safe-area-inset-top, 0px)) 12px 10px;
-    border-inline-end: none; border-block-end: 1px solid var(--hall-line-2);
-    scrollbar-width: none; scroll-snap-type: x proximity;
-    /* fade the clipped edges so the row reads as scrollable */
-    mask-image: linear-gradient(to left, transparent 0, #000 22px,
-      #000 calc(100% - 22px), transparent 100%);
-  }
-  .hall-nav::-webkit-scrollbar { display: none; }
-  .hall-crest, .hall-navlab { display: none; }
-  /* Keep the footer: it holds the ONLY sign-out. Shed the identity, keep the exit. */
-  .hall-navfoot {
-    margin: 0 0 0 auto; padding: 0; border: none; flex: none;
-  }
-  .hall-navfoot .av, .hall-navfoot .who { display: none; }
-  .hall-navitem {
-    width: auto; flex: none; white-space: nowrap;
-    min-height: 44px; padding-block: 0; padding-inline: 14px;
-    scroll-snap-align: center;
-  }
-  .hall-wrap { padding: 22px 18px 90px; }
-}
-
-/* ── type ───────────────────────────────────────────────────────────── */
-.hall-h1 {
-  font-family: var(--hall-display); font-weight: 700;
-  font-size: clamp(28px, 4.4vw, 50px); line-height: 1.36; margin: 0;
-}
-.hall-h1 em { font-style: normal; color: var(--hall-gold-hi); }
-.hall-lede { font-size: 15px; line-height: 2.05; color: var(--hall-ink-2); max-width: 46ch; }
-.hall-kick {
-  display: inline-flex; align-items: center; gap: 8px; font-family: var(--hall-kufi);
-  font-size: 12.5px; color: var(--hall-gold);
-  border: 1px solid var(--hall-line); border-radius: 99px; padding: 7px 15px;
 }
 /* No text-transform and no letter-spacing on the Arabic label: uppercase is a
    no-op on Arabic and letter-spacing breaks the connected script. */
+.hall-navitem {
+  display: flex; align-items: center; gap: 11px; width: 100%;
+  /* 44px floor: the rail shows at ≥980px, which includes iPad landscape — a
+     touch device on the desktop layout. */
+  border: 1px solid transparent; border-radius: 8px; padding: 12px; min-height: 44px;
+  font: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
+  background: transparent; color: var(--hall-ink-2); text-align: start;
+  transition: background 0.14s, color 0.14s;
+}
+.hall-navitem .ico { display: grid; place-items: center; width: 20px; flex: none; opacity: 0.7; }
+.hall-navitem:hover { background: rgba(31, 95, 91, 0.05); color: var(--hall-ink); }
+.hall-navitem.on {
+  background: rgba(31, 95, 91, 0.08); color: var(--hall-gold-hi); font-weight: 600;
+}
+.hall-navitem.on .ico { opacity: 1; }
+.hall-navitem .badge {
+  margin-inline-start: auto; flex: none; font-family: var(--hall-mono); font-size: 11px;
+  padding: 2px 7px; border-radius: 99px;
+  background: rgba(31, 95, 91, 0.1); color: var(--hall-gold-hi);
+}
+.hall-navitem .badge.hot { background: rgba(154, 91, 44, 0.12); color: var(--hall-rose); }
+.hall-navfoot {
+  margin-block-start: auto; padding-block-start: 18px; border-block-start: 1px solid var(--hall-line);
+  display: flex; align-items: center; gap: 10px; font-size: 13px;
+}
+.hall-navfoot .av {
+  width: 34px; height: 34px; border-radius: 9px; flex: none; display: grid; place-items: center;
+  font-weight: 700; font-size: 14px;
+  background: rgba(31, 95, 91, 0.1); color: var(--hall-gold-hi);
+}
+.hall-navfoot .who { font-weight: 600; }
+.hall-navfoot .who small {
+  display: block; font-weight: 400; font-size: 11.5px; color: var(--hall-ink-3);
+  margin-block-start: 2px;
+}
+@media (max-width: 980px) {
+  .hall-shell { flex-direction: column; }
+  .hall-nav {
+    width: 100%; height: auto; position: sticky; inset-block-start: 0; z-index: 20;
+    flex-direction: row; align-items: center; gap: 4px; overflow-x: auto;
+    padding: 8px 12px; border-inline-end: 0; border-block-end: 1px solid var(--hall-line);
+    background: var(--hall-deep);
+  }
+  .hall-crest, .hall-navlab { display: none; }
+  .hall-navitem { width: auto; min-width: 0; flex: none; padding: 10px 13px; font-size: 13px; }
+  .hall-navfoot {
+    margin: 0; padding: 0; border: 0; flex: none; margin-inline-start: auto;
+  }
+  .hall-navfoot .who { display: none; }
+  .hall-wrap { padding: 24px 18px 90px; }
+}
+
+/* ── type ───────────────────────────────────────────────────────────────── */
+.hall-h1 {
+  font-family: var(--hall-sans); font-weight: 600;
+  font-size: clamp(24px, 3.2vw, 32px); line-height: 1.35;
+  letter-spacing: -0.01em; margin: 0;
+}
+.hall-h1 em { font-style: normal; color: var(--hall-gold-hi); }
+.hall-lede { font-size: 15.5px; line-height: 1.9; color: var(--hall-ink-2); max-width: 62ch; }
+.hall-kick {
+  display: inline-flex; align-items: center; gap: 7px; font-family: var(--hall-sans);
+  font-size: 12.5px; font-weight: 600; color: var(--hall-ink-3);
+  border: 0; border-radius: 0; padding: 0;
+}
 .hall-lab {
-  font-family: var(--hall-kufi); font-size: 15px; color: var(--hall-gold-hi);
-  margin: 0 0 18px; display: flex; align-items: center; gap: 14px;
+  font-family: var(--hall-sans); font-size: 13px; font-weight: 600; color: var(--hall-ink-3);
+  margin: 0 0 14px; display: flex; align-items: center; gap: 12px;
 }
 .hall-lab::after {
-  content: ''; flex: 1; height: 1px;
-  background: linear-gradient(270deg, var(--hall-line), transparent);
+  content: ''; flex: 1; height: 1px; background: var(--hall-line);
 }
 
-/* ── surfaces ───────────────────────────────────────────────────────── */
+/* ── surfaces ───────────────────────────────────────────────────────────
+   A card is white paper on the desk with a hairline — not a glass panel with
+   a gradient and a blur. */
 .hall-panel {
-  position: relative; border-radius: 20px; overflow: hidden;
-  background: linear-gradient(180deg, var(--hall-panel), rgba(11, 14, 26, 0.72));
-  border: 1px solid var(--hall-line-2); backdrop-filter: blur(14px);
+  position: relative; border-radius: 12px; overflow: hidden;
+  background: var(--hall-panel);
+  border: 1px solid var(--hall-line);
   box-shadow: var(--hall-shadow);
 }
-.hall-panel::before {
-  content: ''; position: absolute; inset-block-start: 0; inset-inline: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(227, 185, 92, 0.6), transparent);
-}
-.hall-lift { transition: transform 0.2s var(--hall-ease), border-color 0.2s, box-shadow 0.2s; }
-.hall-lift:hover {
-  transform: translateY(-2px); border-color: rgba(227, 185, 92, 0.34);
-  box-shadow: var(--hall-shadow-lg), 0 0 0 1px rgba(227, 185, 92, 0.12);
-}
+.hall-panel::before { display: none; }
+.hall-lift { transition: box-shadow 0.16s, border-color 0.16s; }
+.hall-lift:hover { box-shadow: var(--hall-shadow-lg); border-color: #D8D3C8; }
+.hall-press:active { transform: none; }
 
-/* ── controls ───────────────────────────────────────────────────────── */
+/* ── controls ───────────────────────────────────────────────────────────── */
 .hall-btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-  border: none; cursor: pointer; border-radius: 14px; padding: 16px 32px;
-  font: inherit; font-size: 15.5px; font-weight: 800; min-height: 48px;
-  background: linear-gradient(180deg, var(--hall-gold-hi), var(--hall-gold));
-  color: #2a1e06;
-  box-shadow: 0 20px 44px -20px rgba(227, 185, 92, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: transform 0.2s var(--hall-ease), filter 0.2s;
-}
-.hall-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
-.hall-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.hall-btn2 {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  border: 1px solid var(--hall-line); cursor: pointer; border-radius: 14px;
-  padding: 16px 26px; font: inherit; font-size: 14.5px; font-weight: 700; min-height: 48px;
-  background: rgba(255, 255, 255, 0.04); color: var(--hall-ink); backdrop-filter: blur(8px);
-  transition: transform 0.2s var(--hall-ease), border-color 0.2s;
+  padding: 12px 22px; min-height: 44px; border: 0; border-radius: 9px; cursor: pointer;
+  font: inherit; font-size: 14.5px; font-weight: 600;
+  background: var(--hall-gold); color: #FFFFFF;
+  transition: background 0.14s;
 }
-.hall-btn2:hover { transform: translateY(-2px); border-color: rgba(227, 185, 92, 0.45); }
-.hall-btn2:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-/* Every control in the exam loop clears the 44px floor — it is pressed ~100
-   times per paper. */
+.hall-btn:hover { background: var(--hall-gold-hi); }
+.hall-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.hall-btn2 {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 11px 18px; min-height: 44px; border-radius: 8px; cursor: pointer;
+  font: inherit; font-size: 13.5px; font-weight: 600;
+  background: var(--hall-panel); color: var(--hall-ink-2);
+  border: 1px solid var(--hall-line);
+  transition: background 0.14s, color 0.14s;
+}
+.hall-btn2:hover { background: var(--hall-panel-2); color: var(--hall-ink); }
 .hall-tap { min-height: 44px; }
 .hall-root :focus-visible {
-  outline: 2px solid var(--hall-gold); outline-offset: 2px; border-radius: 10px;
+  outline: 2px solid var(--hall-gold); outline-offset: 2px; border-radius: 8px;
 }
 
-/* ── meters ─────────────────────────────────────────────────────────── */
-.hall-bar { height: 6px; border-radius: 99px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
-.hall-bar > i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--hall-gold-deep), var(--hall-gold-hi)); }
-.hall-bar.weak > i { background: linear-gradient(90deg, #f08a6e, #fbb89e); }
-.hall-bar.good > i { background: linear-gradient(90deg, #4fd9a8, #a8f0d8); }
+/* ── meters ─────────────────────────────────────────────────────────────── */
+.hall-bar { height: 5px; border-radius: 99px; background: #EAE6DE; overflow: hidden; }
+.hall-bar > i { display: block; height: 100%; border-radius: 99px; background: var(--hall-gold); }
+.hall-bar.weak > i { background: var(--hall-rose); }
+.hall-bar.good > i { background: var(--hall-jade); }
 
-/* ── ledger rows ────────────────────────────────────────────────────── */
-.hall-ledger { border: 1px solid var(--hall-line-2); border-radius: 20px; overflow: hidden;
-  background: linear-gradient(180deg, var(--hall-panel-2), rgba(11, 14, 26, 0.7));
-  backdrop-filter: blur(14px); box-shadow: var(--hall-shadow); }
-.hall-lr { display: flex; align-items: center; gap: 18px; padding: 18px 24px;
-  border-block-end: 1px solid rgba(255, 255, 255, 0.06); transition: background 0.18s;
+/* ── ledger rows ────────────────────────────────────────────────────────── */
+.hall-ledger {
+  border: 1px solid var(--hall-line); border-radius: 12px; overflow: hidden;
+  background: var(--hall-panel); box-shadow: var(--hall-shadow);
+}
+.hall-lr {
+  display: flex; align-items: center; gap: 16px; padding: 13px 20px;
+  border-block-end: 1px solid var(--hall-line-2); transition: background 0.14s;
   width: 100%; background: none; text-align: start; font: inherit; color: inherit;
-  cursor: pointer; border-inline: none; border-block-start: none; }
+  cursor: pointer; border-inline: none; border-block-start: none;
+}
 .hall-lr:last-child { border-block-end: none; }
-.hall-lr:hover { background: rgba(227, 185, 92, 0.05); }
-.hall-lr .rank { font-family: var(--hall-display); font-size: 23px; color: var(--hall-gold);
-  width: 30px; flex: none; line-height: 1; }
+.hall-lr:hover { background: var(--hall-panel-2); }
+.hall-lr .rank {
+  font-family: var(--hall-mono); font-size: 12.5px; color: var(--hall-ink-3);
+  width: 22px; flex: none; line-height: 1;
+}
 .hall-lr .who { flex: 1; min-width: 120px; }
-.hall-lr .who b { display: block; font-size: 14.5px; font-weight: 700; }
-.hall-lr .who span { display: block; font-size: 12px; color: var(--hall-ink-3); margin-block-start: 4px; }
+.hall-lr .who b { display: block; font-size: 14.5px; font-weight: 500; }
+.hall-lr .who span { display: block; font-size: 12px; color: var(--hall-ink-3); margin-block-start: 3px; }
 .hall-lr .num { font-family: var(--hall-mono); font-size: 13px; width: 46px; text-align: end; flex: none; }
 @media (max-width: 720px) { .hall-lr .track { display: none; } }
 
 /* ── lesson: the three teaching blocks ──────────────────────────────────
    القاعدة (the law) · كيف تجي في ستيب (the procedure) · الفخ (the warning) are
-   three different KINDS of information. Rendering them as three identical
-   panels in three tints flattened the pedagogy into a form, so each gets its
-   own geometry, and the tint is layered over the panel gradient rather than
-   replacing it. */
+   three different KINDS of information, so each gets its own geometry rather
+   than three identically-shaped panels in three tints. On paper the separation
+   is a rule and a coloured spine, not a glow. */
 .hall-block {
-  position: relative; border-radius: 20px; padding: 30px;
+  position: relative; border-radius: 10px; padding: 22px 24px;
+  background: var(--wash, transparent);
   border: 1px solid var(--hall-line-2);
-  background:
-    radial-gradient(120% 90% at 100% 0%, var(--wash), transparent 62%),
-    linear-gradient(180deg, var(--hall-panel), rgba(11, 14, 26, 0.72));
-  backdrop-filter: blur(14px); box-shadow: var(--hall-shadow);
+  border-inline-start: 3px solid var(--line, var(--hall-line));
 }
-.hall-block::before {
-  content: ''; position: absolute; inset-block-start: 0; inset-inline: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--line), transparent);
-}
+.hall-block::before { display: none; }
 .hall-block > h2 {
-  margin: 0 0 12px; display: flex; align-items: center; gap: 9px;
-  font-family: var(--hall-kufi); font-size: 14.5px; font-weight: 500; color: var(--tone);
+  margin: 0 0 9px; display: flex; align-items: center; gap: 8px;
+  font-family: var(--hall-sans); font-size: 12.5px; font-weight: 600; color: var(--tone);
 }
 .hall-block > p { margin: 0; color: var(--hall-ink); }
-.hall-block.rule   { --wash: var(--hall-gold-wash); --line: var(--hall-gold-line); --tone: var(--hall-gold-hi); }
-.hall-block.rule > p { font-family: var(--hall-display); font-size: calc(19px * var(--pz, 1)); line-height: 1.85; }
-.hall-block.exam   { --wash: var(--hall-jade-wash); --line: var(--hall-jade-line); --tone: var(--hall-jade);
-  padding: 26px 30px; border-inline-start: 3px solid var(--hall-jade); }
-.hall-block.exam > p { font-size: calc(15.5px * var(--pz, 1)); line-height: 2; }
-.hall-block.trap   { --wash: var(--hall-rose-wash); --line: var(--hall-rose-line); --tone: var(--hall-rose);
-  border-radius: 14px; padding: 24px 28px; border-inline-start: 3px solid var(--hall-rose); }
-.hall-block.trap > p { font-size: calc(15px * var(--pz, 1)); line-height: 1.9; }
+.hall-block.rule { --wash: var(--hall-gold-wash); --line: var(--hall-gold); --tone: var(--hall-gold-hi); }
+.hall-block.rule > p { font-size: calc(16.5px * var(--pz, 1)); line-height: 1.95; }
+.hall-block.exam { --wash: var(--hall-jade-wash); --line: var(--hall-jade); --tone: var(--hall-jade); }
+.hall-block.exam > p { font-size: calc(15.5px * var(--pz, 1)); line-height: 1.95; }
+.hall-block.trap { --wash: var(--hall-rose-wash); --line: var(--hall-rose); --tone: var(--hall-rose); }
+.hall-block.trap > p { font-size: calc(15.5px * var(--pz, 1)); line-height: 1.9; }
 
 /* Presentation mode: the room reads this from the back, so type is driven by
    one --pz scale rather than per-element multipliers, and the nav rail + the
    student's own accuracy come off screen — that number is nobody else's
-   business. Same body-class mechanism the exam already uses. */
+   business. */
 body.step-present .hall-nav { display: none; }
-body.step-present .hall-wrap { max-width: 1080px; }
+body.step-present .hall-wrap { max-width: 1000px; }
 
 @media (max-width: 720px) {
-  /* The practice CTA was ~2,500px down a phone lesson — the primary action must
-     not require reading the whole page first. */
+  /* The practice CTA was ~2,500px down a phone lesson — the primary action
+     must not require reading the whole page first. */
   .hall-lesson-cta {
     position: sticky; z-index: 5;
     inset-block-end: calc(12px + env(safe-area-inset-bottom, 0px));
+    box-shadow: var(--hall-shadow-lg);
   }
   .hall-lesson-cta .hall-btn { width: 100%; justify-content: center; }
   .hall-wrap { padding-block-end: calc(90px + env(safe-area-inset-bottom, 0px)); }
 }
 
-/* ── states ─────────────────────────────────────────────────────────── */
-.hall-empty { text-align: center; padding: 54px 26px; }
-.hall-empty h3 { font-family: var(--hall-display); font-size: 24px; margin-block-end: 10px; }
-.hall-empty p { font-size: 14px; line-height: 1.9; color: var(--hall-ink-2); max-width: 42ch; margin-inline: auto; }
-.hall-skel { border-radius: 20px; background: rgba(255, 255, 255, 0.04); }
+/* ── states ─────────────────────────────────────────────────────────────── */
+.hall-empty { text-align: center; padding: 50px 26px; }
+.hall-empty h3 { font-family: var(--hall-sans); font-size: 20px; font-weight: 600; margin-block-end: 9px; }
+.hall-empty p { font-size: 14.5px; line-height: 1.9; color: var(--hall-ink-2); max-width: 44ch; margin-inline: auto; }
+.hall-skel { border-radius: 12px; background: #EFECE5; }
 
-/* Skeleton shimmer — holds the shape the content will take so the layout does
+/* Skeleton shimmer — holds the shape the content will take, so the layout does
    not jump when data lands. Transform/background-position only: no layout work
-   per frame, and it stops entirely under reduced motion. */
+   on the main thread. */
 .hall-shimmer {
-  background: linear-gradient(100deg,
-    rgba(255, 255, 255, 0.035) 30%,
-    rgba(227, 185, 92, 0.09) 48%,
-    rgba(255, 255, 255, 0.035) 66%);
-  background-size: 280% 100%;
-  animation: hall-shimmer 1.5s ease-in-out infinite;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #EFECE5 25%, #F6F4EF 37%, #EFECE5 63%);
+  background-size: 400% 100%;
 }
-@keyframes hall-shimmer { from { background-position: 180% 0; } to { background-position: -80% 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .hall-shimmer { animation: none; background: rgba(255, 255, 255, 0.045); }
+@media (prefers-reduced-motion: no-preference) {
+  .hall-shimmer { animation: hall-sheen 1.4s ease-in-out infinite; }
 }
-
-@keyframes hall-spin { to { transform: rotate(360deg); } }
-.hall-spin { animation: hall-spin 0.7s linear infinite; }
+@keyframes hall-sheen { from { background-position: 100% 0; } to { background-position: 0 0; } }
+.hall-spin {
+  width: 18px; height: 18px; border-radius: 50%; flex: none;
+  border: 2px solid rgba(255, 255, 255, 0.35); border-block-start-color: #fff;
+  animation: hall-turn 0.7s linear infinite;
+}
+@keyframes hall-turn { to { transform: rotate(360deg); } }
