@@ -84,6 +84,16 @@ body.step-app { background: #F3F0EA; }
 body.step-app #main-content {
   max-width: none !important; margin: 0 !important; padding: 0 !important;
 }
+/* LayoutShell also offsets a wrapper by the sidebar width with Tailwind's
+   `lg:mr-[264px]` (or `lg:mr-[76px]` when collapsed). The rail is hidden here,
+   so that margin is 264px of the app's own ground showing beside the page —
+   measured on production: .hall-root was 1016px in a 1280px window even after
+   #main-content was freed. Physical margin-right, because that is what the
+   Tailwind class sets. */
+body.step-app .lg\:mr-\[264px\],
+body.step-app .lg\:mr-\[76px\] {
+  margin-right: 0 !important; margin-left: 0 !important;
+}
 /* The two global FABs land exactly on the exam's own nav. */
 body.step-exam .z-\[998\], body.step-exam .z-\[997\] { display: none !important; }
 
