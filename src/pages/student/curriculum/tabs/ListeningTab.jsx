@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircle, XCircle, RotateCcw, History } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { createSaveQueue, pickLatestAttempt } from '../../../../lib/activitySave'
 import { useEffectiveStudentId } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -405,6 +406,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
   const [bestScore, setBestScore] = useState(null)
   const [confirmOpen, setConfirmOpen] = useState(false)
   const currentRowId = useRef(null)
+  const enqueueSave = useRef(createSaveQueue()).current
   const hasSaved = useRef(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
@@ -438,7 +440,10 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
 
       if (rows && rows.length > 0) {
         setAllAttempts(rows)
-        const latest = rows.find(r => r.is_latest) || rows[0]
+        // Deterministic pick (ties on attempt_number used to resolve arbitrarily,
+        // so a row holding one answer could win over the student's real work).
+        const picked = pickLatestAttempt(rows)
+        const latest = { ...picked.row, answers: picked.answers }
         const best = rows.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, rows[0])
         setBestScore(best?.score ?? null)
         setAttemptNumber(latest.attempt_number || 1)
@@ -525,6 +530,9 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
   const saveProgress = useCallback(async (currentAnswers, isComplete) => {
     if (readOnly) return
     if (!studentId || !listeningId) return
+    // Serialised per activity: an in-flight INSERT can no longer be raced by the
+    // next autosave into writing a second row. See lib/activitySave.js.
+    return enqueueSave(async () => {
     const results = buildResults(currentAnswers)
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
     const score = isComplete ? (total > 0 ? Math.round((correct / total) * 100) : 0) : null
@@ -676,7 +684,8 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
         }
       }
     }
-  }, [studentId, unitId, listeningId, total, buildResults, allAttempts, attemptNumber, setSubmitting])
+    })
+  }, [studentId, unitId, listeningId, total, buildResults, allAttempts, attemptNumber, setSubmitting, readOnly, enqueueSave])
 
   // Autosave on each new answered question — always in_progress, NEVER completes.
   useEffect(() => {

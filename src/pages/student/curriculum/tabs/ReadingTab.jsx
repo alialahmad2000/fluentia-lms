@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { createSaveQueue, pickLatestAttempt } from '../../../../lib/activitySave'
 // PERSONALIZATION-REVERT 2026-05-19: hidden from default flow.
 // Canonical curriculum is the single default. To re-introduce as opt-in secondary
 // surface later: see docs/audits/personalization-revert/PHASE-A-REPORT.md
@@ -179,9 +180,14 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [bestScore, setBestScore] = useState(null)
   const [retrying, setRetrying] = useState(false)
   const currentRowId = useRef(null)
+  const submittedRef = useRef(false)
   const retryKeyRef = useRef(0)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
+  // Every write for this passage goes through one queue. Without it a second
+  // autosave could start while the first INSERT was still in flight (both see
+  // currentRowId === null) and INSERT a second row — see lib/activitySave.js.
+  const enqueueSave = useRef(createSaveQueue()).current
 
   // Time tracker — starts on mount, stops on unmount
   useEffect(() => {
@@ -204,7 +210,11 @@ function ReadingContent({ reading, studentId, unitId }) {
 
       if (rows && rows.length > 0) {
         setAllAttempts(rows)
-        const latest = rows.find(r => r.is_latest) || rows[0]
+        // Deterministic pick + merge of any same-attempt duplicates. Ordering by
+        // attempt_number alone leaves ties in arbitrary order, so the old
+        // `rows.find(r => r.is_latest)` could restore a row holding ONE answer
+        // while the student's other answers sat in a sibling row.
+        const { row: latest, answers: mergedAnswers, duplicates } = pickLatestAttempt(rows)
         const best = rows.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, rows[0])
         setBestScore(best?.score ?? null)
         setAttemptNumber(latest.attempt_number || 1)
@@ -215,21 +225,36 @@ function ReadingContent({ reading, studentId, unitId }) {
           if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
           // Don't set currentRowId — next retry will INSERT a new row
         } else {
-          // in_progress — restore this row for continued autosave
-          setSavedProgress(latest)
+          // in_progress — restore this row for continued autosave, showing the
+          // merged answers so nothing stranded in a duplicate is lost.
+          setSavedProgress({ ...latest, answers: mergedAnswers })
           currentRowId.current = latest.id
           if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
+        }
+
+        // Heal legacy duplicates: fold the salvaged answers into the row we keep
+        // and demote the losers so they can never be restored over her work.
+        if (duplicates?.length && !readOnly) {
+          enqueueSave(async () => {
+            if (latest.status !== 'completed') {
+              await supabase.from('student_curriculum_progress')
+                .update({ answers: mergedAnswers }).eq('id', latest.id)
+            }
+            await supabase.from('student_curriculum_progress')
+              .update({ is_latest: false }).in('id', duplicates.map(d => d.id))
+          }).catch(e => console.error('[ReadingTab] duplicate heal failed:', e))
         }
       }
       setProgressLoading(false)
     }
     load()
     return () => { isMounted = false }
-  }, [studentId, reading?.id])
+  }, [studentId, reading?.id, readOnly, enqueueSave])
 
   // Retry handler — clears local state; a new DB row is created on first answer
   const handleRetry = () => {
     currentRowId.current = null
+    submittedRef.current = false
     setRetrying(true)
     retryKeyRef.current += 1
   }
@@ -239,7 +264,13 @@ function ReadingContent({ reading, studentId, unitId }) {
   const handleComprehensionAutosave = useCallback(async (answers) => {
     if (readOnly) return
     if (!studentId || !reading?.id) return
+    // Hard stop: once this attempt is submitted, no late autosave (e.g. an
+    // unmount flush) may downgrade the completed row back to in_progress.
+    if (submittedRef.current) return
 
+    // Serialised: the branch below is only ever entered by one write at a time,
+    // so `currentRowId.current` is authoritative when it is read.
+    return enqueueSave(async () => {
     if (currentRowId.current) {
       // UPDATE the in-progress row we already own
       const { error } = await supabase
@@ -252,7 +283,9 @@ function ReadingContent({ reading, studentId, unitId }) {
           completed_at: null,
         })
         .eq('id', currentRowId.current)
-      if (error) console.error('[ReadingTab] Autosave update failed:', error)
+      // Throw so the caller leaves the debounce signature UNCOMMITTED and the
+      // next answer retries this batch instead of it silently vanishing.
+      if (error) { console.error('[ReadingTab] Autosave update failed:', error); throw error }
     } else {
       // INSERT a new in-progress row (first answer of a new/retry attempt)
       const hasExisting = allAttempts.length > 0
@@ -290,15 +323,22 @@ function ReadingContent({ reading, studentId, unitId }) {
         setAttemptNumber(nextAttemptNum)
       } else if (error) {
         console.error('[ReadingTab] Autosave insert failed:', error)
+        throw error
       }
     }
-  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber])
+    })
+  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber, readOnly, enqueueSave])
 
   // Explicit submit — ONLY path that marks status='completed' and awards XP.
   const handleComprehensionComplete = useCallback(async (answers, score) => {
     if (readOnly) return
     if (!studentId || !reading?.id) return
+    submittedRef.current = true
 
+    // Queued behind any in-flight autosave, so `currentRowId.current` is settled
+    // before we decide UPDATE-vs-INSERT. Submitting straight after the final
+    // answer used to race that INSERT and write a second, competing row.
+    return enqueueSave(async () => {
     const completedRow = {
       status: 'completed',
       score,
@@ -318,7 +358,8 @@ function ReadingContent({ reading, studentId, unitId }) {
       if (error) {
         console.error('[ReadingTab] Submit failed for reading_id:', reading.id, error)
         toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
-        return
+        submittedRef.current = false // let autosave keep protecting her answers
+        return false
       }
     } else {
       // No in-progress row to update. This happens when the student answers
@@ -356,7 +397,8 @@ function ReadingContent({ reading, studentId, unitId }) {
       if (error || !newRow) {
         console.error('[ReadingTab] Submit insert failed for reading_id:', reading.id, error)
         toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
-        return
+        submittedRef.current = false
+        return false
       }
 
       rowId = newRow.id
@@ -405,7 +447,9 @@ function ReadingContent({ reading, studentId, unitId }) {
     toast({ type: 'success', title: 'تم حفظ تقدمك' })
     awardCurriculumXP(studentId, 'reading', score, unitId)
     window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'reading', score } }))
-  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber])
+    return true
+    })
+  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber, readOnly, enqueueSave])
 
   const { data: vocabulary } = useQuery({
     queryKey: ['reading-vocab', reading.id],
@@ -1785,6 +1829,11 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
   const [submitted, setSubmitted] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
   const hasAutosavedRef = useRef({})
+  // The batch waiting on the 400ms debounce. If she navigates away, hides the
+  // tab, or switches passage before it fires, the timer was simply cleared and
+  // those answers were never written — so we flush it instead of dropping it.
+  const pendingRef = useRef(null)
+  const flushRef = useRef(() => {})
 
   // Restore saved answers on load
   useEffect(() => {
@@ -1815,18 +1864,55 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
       Object.entries(answers).sort(([a], [b]) => a.localeCompare(b))
     )
     if (hasAutosavedRef.current.lastSignature === signature) return
+    const batch = { signature, answers, consumed: false }
+    pendingRef.current = batch
     const t = setTimeout(() => {
-      hasAutosavedRef.current.lastSignature = signature
-      onAutosave?.(answers)
+      // A flush may already have sent this batch — don't write it twice.
+      if (batch.consumed) return
+      batch.consumed = true
+      if (pendingRef.current === batch) pendingRef.current = null
+      // Commit the signature only once the write SUCCEEDS. Committing up front
+      // marked a failed batch as saved, so it was never retried.
+      Promise.resolve(onAutosave?.(answers))
+        .then(() => { hasAutosavedRef.current.lastSignature = signature })
+        .catch(() => {})
     }, 400)
     return () => clearTimeout(t)
   }, [answered, answers, progressLoading, submitted, onAutosave])
 
+  // Keep the flusher pointing at the current pending batch + callback.
+  flushRef.current = () => {
+    const p = pendingRef.current
+    if (!p || p.consumed || submitted) return // never write in_progress over a submitted attempt
+    p.consumed = true
+    pendingRef.current = null
+    Promise.resolve(onAutosave?.(p.answers))
+      .then(() => { hasAutosavedRef.current.lastSignature = p.signature })
+      .catch(() => {})
+  }
+
+  useEffect(() => {
+    const flush = () => flushRef.current?.()
+    const onVisibility = () => { if (document.visibilityState === 'hidden') flush() }
+    window.addEventListener('pagehide', flush)
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      window.removeEventListener('pagehide', flush)
+      document.removeEventListener('visibilitychange', onVisibility)
+      flush() // unmount: leaving the passage must not discard her last answers
+    }
+  }, [])
+
   const handleSubmit = () => {
     if (!allAnswered || submitted) return
+    pendingRef.current = null // the submit carries these answers; don't re-save them as in_progress
     setSubmitted(true)
     const score = Math.round((correctCount / total) * 100)
-    onComplete?.(answers, score)
+    // If the write is rejected, hand the attempt back instead of showing a score
+    // for work that was never saved — she keeps her answers and can retry.
+    Promise.resolve(onComplete?.(answers, score))
+      .then((ok) => { if (ok === false) setSubmitted(false) })
+      .catch(() => setSubmitted(false))
   }
 
   if (progressLoading) {

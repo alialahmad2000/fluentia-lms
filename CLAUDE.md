@@ -313,6 +313,53 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-11 — READING ANSWERS «تختفي إجاباتي»: the autosave INSERT race, and the class behind it
+أنوار reported again that her reading answers vanish and the section never shows as done. Ran the
+progress-engine first diagnostic: `stored == live` on all 12 units, so the computation was right and
+the bug was in the SAVE path — not the cache.
+
+- **Root cause (reproduced on prod, then fixed):** every tab used `if (currentRowId) UPDATE else INSERT`,
+  and `currentRowId` is only set once the INSERT *resolves*. **Nothing stopped a second autosave from
+  starting while the first INSERT was still in flight**, so on a slow connection each answer INSERTed
+  its OWN row. Driving her real course on prod with the POST delayed 2.5s: 4 answers → **4 INSERTs → 4
+  rows holding 1, 2, 3 and 4 answers, all `is_latest=true`**. The loader then did
+  `rows.find(r => r.is_latest)` over a list ordered only by `attempt_number` — every row has the same
+  attempt_number, so Postgres returned them in arbitrary order and she was restored onto the **1-answer**
+  row. Her work rendered as one answer, the section never reached «completed», and unit progress never moved.
+- **NEW `src/lib/activitySave.js`** — the shared save primitives the progress engine never had.
+  `createSaveQueue()` serialises writes per activity so an in-flight INSERT can never be raced;
+  `pickLatestAttempt()` chooses deterministically (most answers, then newest) and **merges** same-attempt
+  duplicates so no answer is lost even if one slips through; `mergeAnswers`/`countAnswers` handle both the
+  flat reading/grammar shape and listening's `{questions:[…]}`.
+- **Applied to all three tabs** (there is still no shared save helper — a bug fixed in one tab stays live in
+  the others): Reading, Listening, and Grammar all route autosave **and submit** through the queue.
+  **Grammar was worst** — it held `currentRowId` in `useState`, so two autosaves in the same tick both read
+  `null`; it now has a ref mirror (`currentRowIdRef`) as the source of truth inside `saveProgress`.
+  منار العتيبي already had a duplicate grammar row from exactly this.
+- **Loader hardened:** Reading and Listening now use `pickLatestAttempt`, and Reading **heals** legacy
+  duplicates on load — folds the salvaged answers into the row it keeps and demotes the losers so a
+  1-answer row can never be restored over her work again.
+- **Two more save-path defects closed while in here:** the debounce committed its signature *before* the
+  write, so a failed batch was marked saved and never retried (now committed only on success); and a
+  pending batch was simply `clearTimeout`-ed on unmount/pagehide/tab-hide (now flushed, with a consumed
+  flag so it never double-writes). A rejected submit also used to leave the child at `submitted=true`,
+  showing a score for work that was never written — `onComplete` now reports failure and the attempt is
+  handed back so she keeps her answers and can retry.
+- **Verified by controlled before/after on the same test, same environment** (prod build + preview,
+  her real course, her session): **before** = 4 INSERTs → 4 rows → restored **1 of 4**; **after** =
+  1 INSERT → 1 row → restored **4 of 4**. Regression-swept the happy paths — answer/leave/return/finish/
+  submit, passage A→B switching, and submit → `completed` + `is_best` + progress 14%/29% — all green,
+  single row throughout. Test rows deleted; her account verified back to its exact prior state
+  (10 rows, 6 completed, 4 in progress).
+- **Honest scope:** her account shows **no duplicate rows today**, so I cannot prove this exact race is the
+  instance she hit — the only reading duplicates in the whole database were the ones my own repro created.
+  What is proven is that the code path she uses could and did produce precisely her symptom, and that it
+  no longer can. Her 4 unfinished readings are genuinely unfinished (1, 1, 1 and 3 of 7 answered) and are
+  still there waiting — nothing of hers was deleted or rewritten.
+- Files: `src/lib/activitySave.js` (NEW), `src/pages/student/curriculum/tabs/ReadingTab.jsx`,
+  `src/pages/student/curriculum/tabs/ListeningTab.jsx`, `src/components/grammar/ExerciseSection.jsx`.
+  DB: none. Edge functions: none.
+
 ### 2026-08-11 — REPORTING: the daily digest could not see most of the platform
 Owner asked what to do off the 10 Aug daily report. The report itself turned out to be the problem — wrong in BOTH directions — so the first four moves were to make it trustworthy before acting on it.
 

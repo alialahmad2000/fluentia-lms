@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Target, RotateCcw } from 'lucide-react'
 import XPBadgeInline from '../xp/XPBadgeInline'
 import { supabase } from '../../lib/supabase'
+import { createSaveQueue, pickLatestAttempt } from '../../lib/activitySave'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { awardCurriculumXP } from '../../utils/curriculumXP'
@@ -38,6 +39,13 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   const [allAttempts, setAllAttempts] = useState([])
   const [retrying, setRetrying] = useState(false)
   const [currentRowId, setCurrentRowId] = useState(null)
+  // Ref mirror of currentRowId. State is async + batched, so two autosaves in the
+  // same tick both read `null` and each INSERT their own row — the exact race
+  // that stranded students' answers in duplicate rows. The ref is the source of
+  // truth inside saveProgress; the state is kept only for render/deps.
+  const currentRowIdRef = useRef(null)
+  const setRowId = useCallback((id) => { currentRowIdRef.current = id; setCurrentRowId(id) }, [])
+  const enqueueSave = useRef(createSaveQueue()).current
   const [retryKey, setRetryKey] = useState(0)
   const [bestScore, setBestScore] = useState(null)
   const [showSummary, setShowSummary] = useState(false)
@@ -82,7 +90,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
 
       if (rows && rows.length > 0) {
         setAllAttempts(rows)
-        const latest = rows.find(r => r.is_latest) || rows[0]
+        const _picked = pickLatestAttempt(rows)
+        const latest = { ..._picked.row, answers: _picked.answers }
         setAttemptNumber(latest.attempt_number || 1)
 
         const best = rows.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, rows[0])
@@ -144,7 +153,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
               savedSigRef.current = JSON.stringify(restored)
             }
           }
-          if (latest.id) setCurrentRowId(latest.id)
+          if (latest.id) setRowId(latest.id)
         }
       }
       setProgressLoading(false)
@@ -178,7 +187,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
 
   // Retry handler — resets local state only; DB write happens on first answer via auto-save
   const handleRetry = () => {
-    setCurrentRowId(null)
+    setRowId(null)
     setRetrying(true)
     setIsCompleted(false)
     setShowSummary(false)
@@ -221,6 +230,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   const saveProgress = useCallback(async (currentAnswers, isComplete, _retryCount = 0) => {
     if (readOnly) return
     if (!studentId || !grammarId) return
+    // Serialised per activity — see lib/activitySave.js.
+    return enqueueSave(async () => {
     const results = buildResults(currentAnswers)
     // Score only meaningful on submit; on autosave we write null.
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
@@ -231,7 +242,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     if (isComplete) setIsSaving(true)
 
     try {
-      if (currentRowId) {
+      if (currentRowIdRef.current) {
         const { error } = await supabase
           .from('student_curriculum_progress')
           .update({
@@ -242,7 +253,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
             time_spent_seconds: timeRef.current,
             completed_at: isComplete ? new Date().toISOString() : null,
           })
-          .eq('id', currentRowId)
+          .eq('id', currentRowIdRef.current)
 
         if (error) throw error
 
@@ -320,7 +331,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         if (error) throw error
 
         if (newRow) {
-          setCurrentRowId(newRow.id)
+          setRowId(newRow.id)
           setAttemptNumber(nextAttemptNum)
           if (isComplete) {
             // Recompute best
@@ -371,7 +382,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     } finally {
       setIsSaving(false)
     }
-  }, [readOnly, studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber, g])
+    })
+  }, [readOnly, studentId, unitId, grammarId, total, buildResults, onAttemptUpdate, allAttempts, attemptNumber, g, enqueueSave, setRowId])
 
   // Auto-save after each answer — NEVER auto-completes.
   // Students must click "إنهاء وحفظ المحاولة" (handleFinish) to submit.
