@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { createSaveQueue, pickLatestAttempt } from '../../../../lib/activitySave'
+import SubmitReminderBar from '../../../../components/curriculum/SubmitReminderBar'
 // PERSONALIZATION-REVERT 2026-05-19: hidden from default flow.
 // Canonical curriculum is the single default. To re-introduce as opt-in secondary
 // surface later: see docs/audits/personalization-revert/PHASE-A-REPORT.md
@@ -1834,6 +1835,7 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
   // those answers were never written — so we flush it instead of dropping it.
   const pendingRef = useRef(null)
   const flushRef = useRef(() => {})
+  const inlineSubmitRef = useRef(null)
 
   // Restore saved answers on load
   useEffect(() => {
@@ -1972,6 +1974,7 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
       {!submitted && answered > 0 && (
         <div className="flex flex-col items-center gap-2 pt-2">
           <button
+            ref={inlineSubmitRef}
             type="button"
             onClick={() => allAnswered && setConfirmOpen(true)}
             disabled={!allAnswered}
@@ -1988,6 +1991,17 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
           </button>
         </div>
       )}
+
+      {/* Every question answered but not handed in yet — the section cannot count
+          until she submits, so say so where she cannot miss it. */}
+      <SubmitReminderBar
+        show={!submitted && allAnswered && !progressLoading}
+        answered={answered}
+        total={total}
+        onSubmit={() => setConfirmOpen(true)}
+        anchorRef={inlineSubmitRef}
+        accent="#38bdf8"
+      />
 
       {/* Confirmation dialog — rendered outside the !submitted guard so it can
           always appear when confirmOpen=true */}

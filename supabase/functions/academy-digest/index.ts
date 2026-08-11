@@ -230,7 +230,25 @@ Deno.serve(async (req) => {
       };
     } catch { /* health section is best-effort — never block the digest */ }
 
-    const data = { period, startDate, endDate, academy, rows, active, inactive, skillTotals, intv, lapsed: lapsedCount, tests: testCount, errHealth, baseline };
+    // ── Stranded work: sections a student FINISHED that progress cannot count ──
+    // Two classes, both from v_stranded_student_work: fully-answered-but-never-
+    // submitted, and duplicate rows from an autosave race. Four active students
+    // were sitting in the first state undetected for weeks (audit 2026-08-11);
+    // nothing surfaced it until a student complained. Now it is on this email.
+    let stranded: any = null;
+    try {
+      const { data: sRows } = await supabase
+        .from("v_stranded_student_work")
+        .select("full_name, section_type, answered, total, issue");
+      const list = sRows || [];
+      stranded = {
+        total: list.length,
+        unsubmitted: list.filter((r: any) => r.issue === "FINISHED_NOT_SUBMITTED"),
+        duplicates: list.filter((r: any) => r.issue === "DUPLICATE_ROWS"),
+      };
+    } catch { /* best-effort — never block the digest */ }
+
+    const data = { period, startDate, endDate, academy, rows, active, inactive, skillTotals, intv, lapsed: lapsedCount, tests: testCount, errHealth, baseline, stranded };
 
     // ── AI feedback (one Claude call, with template fallback) ───────────────
     let ai = null, aiErr: string | null = null;
@@ -412,6 +430,22 @@ function renderEmail(d: any, ai: any) {
   const skillBreakdown = Object.entries(d.skillTotals).sort((a: any, b: any) => b[1] - a[1])
     .map(([k, v]: any) => `<span style="display:inline-block;background:${C.bg};border:1px solid ${C.line};border-radius:999px;padding:4px 10px;margin:3px;font-family:Tajawal,Arial,sans-serif;font-size:12px;color:${C.ink}">${SKILL_AR[k] || k}: <b>${fmtMin(v)}</b></span>`).join("");
 
+
+  // Work a student finished that the engine cannot count — the failure mode that
+  // made students say "I did it and it doesn't show". Silent when clean.
+  const S = d.stranded;
+  const SEC_AR: Record<string, string> = { reading: "القراءة", listening: "الاستماع", grammar: "القواعد" };
+  const strandedBlock = !S ? "" : S.total === 0 ? `
+    <div style="margin:16px 0;font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.green}">📥 لا يوجد عمل مكتمل غير محتسب ✓</div>` : `
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:16px;margin:16px 0">
+      <div style="font-size:13px;font-weight:800;color:#92400e;font-family:Tajawal,Arial,sans-serif;margin-bottom:8px">
+        📥 عمل مكتمل لم يُحتسب: ${S.total} ${S.total === 1 ? "حالة" : "حالات"}
+      </div>
+      ${S.unsubmitted.map((r: any) => `<div style="font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.ink};margin-bottom:4px">• <b>${r.full_name}</b> — ${SEC_AR[r.section_type] || r.section_type}: أجابت ${r.answered}/${r.total} ولم تُسلّم بعد</div>`).join("")}
+      ${S.duplicates.map((r: any) => `<div style="font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.rose};margin-bottom:4px">• <b>${r.full_name}</b> — ${SEC_AR[r.section_type] || r.section_type}: صفوف مكرّرة (تكرار حفظ)</div>`).join("")}
+      <div style="font-family:Tajawal,Arial,sans-serif;font-size:11.5px;color:${C.sub};margin-top:8px">تذكير الطالبة بالضغط على «تسليم الإجابات» يحتسب القسم فوراً.</div>
+    </div>`;
+
   // Platform health — only shouts when something is actually wrong.
   const H = d.errHealth;
   const healthBlock = !H ? "" : H.total === 0 ? `
@@ -474,6 +508,7 @@ function renderEmail(d: any, ai: any) {
         ${inactiveBlock}
 
         ${healthBlock}
+        ${strandedBlock}
 
         <div style="margin-top:22px;padding-top:14px;border-top:1px solid ${C.line};text-align:center;font-size:11px;color:${C.sub};font-family:Tajawal,Arial,sans-serif">
           تقرير تلقائي من منصة طلاقة · ${d.period === "weekly" ? "أسبوعي (نهاية السبت)" : "يومي (منتصف الليل)"}

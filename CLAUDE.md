@@ -313,6 +313,50 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-11 (2) — «عملت القسم وما ظهر»: four active students had FINISHED work the engine could not count
+Ali reported the same complaint from ملاك. Audited all 11 active students instead of one, and found a
+**second, larger failure than the autosave race** — one the race fix would NOT have caught.
+
+- **The finding.** Nine sections across five students were fully answered but still `in_progress`.
+  Five are legitimate — abandoned RETRIES over an attempt that already counts via `is_best`
+  (نادية ×4, الهنوف) — so their progress is correct and I left them alone. **Four are genuinely stranded:**
+  ملاك listening 5/5 (Aug 9), سارة listening 7/7 (Jul 27), نادية listening 7/7 (Jul 16), أنوار grammar 2/2
+  (Jul 20). Each answered EVERY question; none of it has ever counted.
+- **Root cause is structural, not a crash.** Completion is deliberately manual — auto-completing on reload
+  is what produced the phantom 0% submissions `block_phantom_submission` guards against. But the submit
+  button lived INLINE below the last question: on a phone that is several screens down past every question
+  and the audio player. Answer everything, never reach it, leave — the row sits `in_progress` forever, the
+  engine cannot count it, and **nothing tells the student or the trainer**. It stayed invisible for weeks
+  until a student complained.
+- **NEW `src/components/curriculum/SubmitReminderBar.jsx` + `submit-reminder.css`** — once every question is
+  answered, a bar rides above the nav until she hands it in. Mounted in reading + listening (grammar already
+  had `.grammar-sticky-cta`). Three things it must get right, each wrong in the first draft and each caught
+  by SCREENSHOTTING it rather than trusting the assertions:
+  1. **Portalled to `body`.** The tabs render inside framer-motion wrappers; an ancestor with a `transform`
+     becomes the containing block for `position:fixed`, so the bar resolved against that box.
+  2. **Centred with insets, NOT `translateX(-50%)`.** Framer-motion writes its own inline `transform` for the
+     entry animation and clobbered the centering — the bar hung off the right edge with the text clipped.
+     The numeric probe said "in viewport" because it only checked VERTICAL bounds; the screenshot showed the
+     truth. The probe now asserts horizontal containment + text clipping too.
+  3. **Clears the nav AND the FAB band** (`--bottom-nav-height + --sab + 5.25rem`) — the a11y/bug-report FABs
+     sit at z-997/998 in the band just above the nav and covered it. Yields to the inline button via
+     IntersectionObserver so two CTAs never compete. Verified on an iPhone-13 viewport: hidden at 6/7,
+     hidden at 7/7 while the inline button is on screen, visible when scrolled up, 44px target, hit-tested
+     topmost, tap -> confirm -> `completed` + `is_best` + bar dismissed.
+- **The four stranded sections are self-healing:** when those students reopen the section their answers
+  restore, the bar appears, and one tap counts it. No score was fabricated on their behalf.
+- **`VocabularyExercises` serialised too** — same `if (rowId) UPDATE else INSERT` race and, unlike
+  writing/speaking/pronunciation, **no `scp_unique_*` constraint** to catch a duplicate. Reading, listening,
+  grammar and vocabulary now all route through `createSaveQueue()`; writing uses `upsert` + a unique index.
+- **NEW detector `v_stranded_student_work` (view, staff/service-role only) + a section in `academy-digest`.**
+  Reports both classes — finished-but-unsubmitted, and duplicate rows from a save race — every day in the
+  email Ali already gets. It returns the 4 real cases and excludes the 5 abandoned retries. This is the
+  actual "never again" guarantee: a future regression in ANY tab surfaces within a day instead of waiting
+  for a student to complain. Silent when clean.
+- Files: `src/components/curriculum/SubmitReminderBar.jsx` (NEW), `submit-reminder.css` (NEW),
+  `ReadingTab.jsx`, `ListeningTab.jsx`, `VocabularyExercises.jsx`, `supabase/functions/academy-digest/index.ts`.
+  DB: `v_stranded_student_work` view. Edge: academy-digest v10.
+
 ### 2026-08-11 — READING ANSWERS «تختفي إجاباتي»: the autosave INSERT race, and the class behind it
 أنوار reported again that her reading answers vanish and the section never shows as done. Ran the
 progress-engine first diagnostic: `stored == live` on all 12 units, so the computation was right and

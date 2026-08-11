@@ -1,0 +1,73 @@
+/* Sticky "hand in your answers" bar — see SubmitReminderBar.jsx for why.
+   Offsets mirror .grammar-sticky-cta: the mobile nav is fixed at bottom:0 with
+   padding-bottom var(--sab), so its occupied space from the viewport bottom is
+   --bottom-nav-height + --sab. Clearing BOTH is what keeps this tappable on a
+   phone instead of rendering underneath the nav. */
+.submit-reminder-bar {
+  position: fixed;
+  /* Clear the mobile nav (--bottom-nav-height + --sab) AND the floating action
+     buttons that sit in the ~64px band directly above it at z-997/998. */
+  bottom: calc(var(--bottom-nav-height, 64px) + var(--sab, 0px) + 5.25rem);
+  /* Centre with insets, NOT translateX(-50%): framer-motion writes its own inline
+     `transform` for the entry animation and would clobber the centering, leaving
+     the bar hanging off the right edge of the screen. */
+  left: 0.75rem;
+  right: 0.75rem;
+  margin-inline: auto;
+  max-width: 40rem;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.8rem 0.7rem 1rem;
+  border-radius: 16px;
+  background: var(--glass-elevated, rgba(15, 23, 42, 0.92));
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 32px -8px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.submit-reminder-text {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary, #cbd5e1);
+}
+
+.submit-reminder-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px; /* touch-target floor */
+  padding: 0.6rem 1.1rem;
+  border-radius: 12px;
+  border: none;
+  color: #0a1225;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.submit-reminder-btn:hover { filter: brightness(1.08); }
+.submit-reminder-btn:active { transform: scale(0.96); }
+.submit-reminder-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Desktop: no mobile nav, so sit just above the viewport edge. */
+/* Desktop: no mobile nav, but the FABs are still bottom-anchored — clear them. */
+@media (min-width: 1024px) {
+  .submit-reminder-bar { bottom: 5.5rem; }
+}
+
+@media (max-width: 380px) {
+  .submit-reminder-text { font-size: 0.75rem; }
+  .submit-reminder-btn { padding: 0.55rem 0.85rem; font-size: 0.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit-reminder-btn { transition: none; }
+}

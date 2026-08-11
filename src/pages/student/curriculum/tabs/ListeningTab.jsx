@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircle, XCircle, RotateCcw, History } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { createSaveQueue, pickLatestAttempt } from '../../../../lib/activitySave'
+import SubmitReminderBar from '../../../../components/curriculum/SubmitReminderBar'
 import { useEffectiveStudentId } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -408,6 +409,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
   const currentRowId = useRef(null)
   const enqueueSave = useRef(createSaveQueue()).current
   const hasSaved = useRef(false)
+  const inlineSubmitRef = useRef(null)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const prevAnsweredRef = useRef(0)
@@ -811,6 +813,20 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
         ))}
       </div>
 
+      {/* Every question answered but not handed in — three active students were
+          sitting in exactly this state with fully answered listening sections
+          that had never counted. The inline button below is several screens down
+          on a phone; this rides above the nav until she submits. */}
+      <SubmitReminderBar
+        show={(!isCompleted || retrying) && allAnswered && !submitting && !confirmOpen}
+        answered={answered}
+        total={total}
+        onSubmit={handleFinish}
+        submitting={submitting}
+        anchorRef={inlineSubmitRef}
+        accent="#a855f7"
+      />
+
       {/* Submit button — only shown when not completed (or when retrying) */}
       {(!isCompleted || retrying) && answered > 0 && (
         <div className="flex flex-col items-center gap-2 pt-2">
@@ -825,6 +841,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
             </div>
           ) : (
             <button
+              ref={inlineSubmitRef}
               type="button"
               onClick={handleFinish}
               disabled={submitting}

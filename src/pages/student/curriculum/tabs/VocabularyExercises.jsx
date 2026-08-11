@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, RotateCcw, Lightbulb, Shuffle, PenLine, ListChecks, Puzzle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { createSaveQueue } from '../../../../lib/activitySave'
 import { useAuthProfile } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -48,6 +49,9 @@ export default function VocabularyExercises({ unitId, allWords }) {
   const [savedProgress, setSavedProgress] = useState(null)
   const progressIdRef = useRef(null)
 
+  // Serialise writes: without this a second drill finishing while the first
+  // INSERT is still in flight sees progressIdRef===null and INSERTs a rival row.
+  const enqueueSave = useRef(createSaveQueue()).current
   // Load saved exercise progress
   useEffect(() => {
     if (!profile?.id || !unitId) return
@@ -107,19 +111,21 @@ export default function VocabularyExercises({ unitId, allWords }) {
       completed_at: allDone ? new Date().toISOString() : null,
     }
 
-    if (progressIdRef.current) {
-      await supabase
-        .from('student_curriculum_progress')
-        .update(row)
-        .eq('id', progressIdRef.current)
-    } else {
-      const { data: inserted } = await supabase
-        .from('student_curriculum_progress')
-        .insert(row)
-        .select('id')
-        .single()
-      if (inserted) progressIdRef.current = inserted.id
-    }
+    await enqueueSave(async () => {
+      if (progressIdRef.current) {
+        await supabase
+          .from('student_curriculum_progress')
+          .update(row)
+          .eq('id', progressIdRef.current)
+      } else {
+        const { data: inserted } = await supabase
+          .from('student_curriculum_progress')
+          .insert(row)
+          .select('id')
+          .single()
+        if (inserted) progressIdRef.current = inserted.id
+      }
+    }).catch(e => console.error('[VocabularyExercises] save failed:', e))
 
     // Best-effort mirror into the unified vocab_cards store so completing these
     // unit drills feeds the sidebar vocabulary journey (/student/vocab-journey).
