@@ -41,6 +41,15 @@ const SKILL_AR: Record<string, string> = {
   reading: "القراءة", grammar: "القواعد", listening: "الاستماع", writing: "الكتابة",
   speaking: "المحادثة", vocabulary: "المفردات", vocabulary_exercise: "تمارين المفردات",
   pronunciation: "النطق", assessment: "التقييم",
+  // Non-curriculum surfaces. They became visible to the rollup on 2026-08-11
+  // (migration 20260811120000) — before that, a student could work only here and
+  // the report still filed her under «لم ينشط».
+  ielts_reading: "آيلتس — القراءة", ielts_listening: "آيلتس — الاستماع",
+  ielts_writing: "آيلتس — الكتابة", ielts_speaking: "آيلتس — المحادثة",
+  ielts_mock: "آيلتس — اختبار كامل", ielts_drill: "آيلتس — تدريب سريع",
+  ielts_other: "آيلتس", library: "المكتبة", step: "ستيب", spelling_lab: "مختبر الإملاء",
+  games: "الألعاب", retention: "واجبات التثبيت", unit_mastery: "اختبار الوحدة",
+  everyday_english: "إنجليزية يومية",
 };
 
 Deno.serve(async (req) => {
@@ -62,13 +71,18 @@ Deno.serve(async (req) => {
     // ── Gather data ──────────────────────────────────────────────────────────
     const { data: students } = await supabase
       .from("students")
-      .select("id, academic_level, group_id, status, access_expires_at, profiles(display_name, full_name), groups(name)")
+      .select("id, academic_level, group_id, status, access_expires_at, profiles(display_name, full_name, is_test_account), groups(name)")
       .eq("status", "active").is("deleted_at", null);
     // Exclude lapsed-subscription accounts (access_expires_at in the past = soft-blocked).
     // They are no longer enrolled, so they must NOT skew the denominator or the AI's read.
     const nowMs = Date.now();
     const isLapsed = (s: any) => s.access_expires_at && new Date(s.access_expires_at).getTime() <= nowMs;
-    const allActive = students || [];
+    // Test rigs are not students. «حساب اختبار ستيب» was sitting in the denominator and
+    // in the «لم ينشطوا» list every day, making 3/11 read as 3/12 and inflating the
+    // inactive count by one — refresh_daily_activity() already skips them, the digest didn't.
+    const isTest = (s: any) => s?.profiles?.is_test_account === true;
+    const allActive = (students || []).filter((s: any) => !isTest(s));
+    const testCount = (students || []).length - allActive.length;
     const lapsedCount = allActive.filter(isLapsed).length;
     const sList = allActive.filter((s: any) => !isLapsed(s));
     const ids = sList.map((s: any) => s.id);
@@ -124,6 +138,10 @@ Deno.serve(async (req) => {
       totalWords: rows.reduce((s: number, r: any) => s + r.words, 0),
       totalXp: rows.reduce((s: number, r: any) => s + r.xp, 0),
       totalSubs: rows.reduce((s: number, r: any) => s + r.subs, 0),
+      // «تسليم» was a dead tile: public.submissions has never held a single row, so it
+      // printed 0 every day and read as "nobody handed anything in". Replaced on the
+      // report by speaking recordings — real, AI-graded student output.
+      totalSpeaking: rows.reduce((s: number, r: any) => s + r.speaking, 0),
       avgScore: (() => { const sc = active.filter((r: any) => r.avgScore != null); return sc.length ? Math.round(sc.reduce((s: number, r: any) => s + r.avgScore, 0) / sc.length) : null; })(),
     };
     // Academy-wide skill breakdown
@@ -136,6 +154,54 @@ Deno.serve(async (req) => {
       const nm = per[i.student_id]?.name || "طالب";
       if (i.severity !== "celebrate" && intv.list.length < 12) intv.list.push({ name: nm, reason: i.reason_ar });
     }
+
+    // ── Baseline: what a NORMAL day looks like ────────────────────────────────
+    // Without this the report has no sense of scale, so every day reads as a crisis.
+    // On 10 Aug the academy had 3 active students and 48 minutes — roughly TWICE the
+    // 30-day average — and the AI narrative called it «حضوراً ضعيفاً جداً… مقلق».
+    // A report that cries wolf on an above-average day stops being read.
+    let baseline: any = null;
+    try {
+      const bStart = addDays(startDate, -30);
+      const { data: hist } = await supabase
+        .from("student_daily_activity")
+        .select("student_id, activity_date, learning_seconds, sections_completed")
+        .gte("activity_date", bStart).lt("activity_date", startDate)
+        .in("student_id", ids.length ? ids : ["00000000-0000-0000-0000-000000000000"]);
+      const byDay: Record<string, { act: Set<string>; sec: number }> = {};
+      for (const h of hist || []) {
+        const worked = (h.learning_seconds || 0) > 0 || (h.sections_completed || 0) > 0;
+        if (!worked) continue;
+        (byDay[h.activity_date] ??= { act: new Set(), sec: 0 });
+        byDay[h.activity_date].act.add(h.student_id);
+        byDay[h.activity_date].sec += h.learning_seconds || 0;
+      }
+      // Divide by CALENDAR days, not by days that happened to have rows — otherwise
+      // the zero days silently vanish and the average flatters itself.
+      const span = (d: number) => {
+        const from = addDays(startDate, -d);
+        let act = 0, sec = 0;
+        for (const [day, v] of Object.entries(byDay)) {
+          if (day >= from && day < startDate) { act += v.act.size; sec += v.sec; }
+        }
+        return { avgActive: act / d, avgMin: sec / 60 / d };
+      };
+      const d7 = span(7), d30 = span(30);
+      const todayActive = academy.activeCount, todayMin = academy.totalMinutes;
+      const cmp = (now: number, base: number) =>
+        base <= 0 ? (now > 0 ? 999 : 0) : Math.round(((now - base) / base) * 100);
+      baseline = {
+        avgActive7: Math.round(d7.avgActive * 10) / 10, avgMin7: Math.round(d7.avgMin),
+        avgActive30: Math.round(d30.avgActive * 10) / 10, avgMin30: Math.round(d30.avgMin),
+        activeDelta30: cmp(todayActive, d30.avgActive), minDelta30: cmp(todayMin, d30.avgMin),
+        verdict: (() => {
+          const dv = cmp(todayActive, d30.avgActive);
+          if (dv >= 50) return "above";      // clearly a good day — say so
+          if (dv <= -50) return "below";     // a genuine drop worth flagging
+          return "normal";
+        })(),
+      };
+    } catch { /* baseline is best-effort — never block the digest */ }
 
     // ── Platform health: client errors during the period (capture exists since
     // migration 20260525010000 but nothing ever pushed them to the admin) ──────
@@ -164,7 +230,7 @@ Deno.serve(async (req) => {
       };
     } catch { /* health section is best-effort — never block the digest */ }
 
-    const data = { period, startDate, endDate, academy, rows, active, inactive, skillTotals, intv, lapsed: lapsedCount, errHealth };
+    const data = { period, startDate, endDate, academy, rows, active, inactive, skillTotals, intv, lapsed: lapsedCount, tests: testCount, errHealth, baseline };
 
     // ── AI feedback (one Claude call, with template fallback) ───────────────
     let ai = null, aiErr: string | null = null;
@@ -220,9 +286,15 @@ async function aiFeedback(d: any) {
     `${r.name} (مستوى ${r.level ?? "—"}): ${fmtMin(r.sec)}، ${r.sections} نشاط، ${r.daysActive} يوم نشط، ${r.avgScore != null ? r.avgScore + "%" : "—"}، ${r.xp}xp${r.topSkill ? "، أكثر نشاط: " + (SKILL_AR[r.topSkill] || r.topSkill) : ""}`
   ).join("\n");
   const periodWord = d.period === "weekly" ? "هذا الأسبوع" : "هذا اليوم";
+  const B = d.baseline;
+  const baselineBlock = !B ? "" : `
+المعدّل الطبيعي للأكاديمية (آخر ٣٠ يوماً): ${B.avgActive30} طالب نشِط و${B.avgMin30} دقيقة في اليوم. آخر ٧ أيام: ${B.avgActive7} طالب و${B.avgMin7} دقيقة.
+اليوم مقارنةً بالمعدّل: عدد النشطين ${B.activeDelta30 >= 0 ? "+" : ""}${B.activeDelta30}%، دقائق التعلّم ${B.minDelta30 >= 0 ? "+" : ""}${B.minDelta30}%.
+تصنيف اليوم: ${B.verdict === "above" ? "أعلى من المعتاد" : B.verdict === "below" ? "أقل من المعتاد" : "ضمن المعتاد"}.`;
   const prompt = `أنت محلل أداء تعليمي خبير في أكاديمية طلاقة لتعليم الإنجليزية. حلّل بيانات ${periodWord} (${d.startDate} إلى ${d.endDate}) وأعطِ المدير تقريراً ذكياً.
 
-ملخص الأكاديمية: ${d.academy.activeCount} من ${d.academy.totalStudents} طالباً نشطوا، إجمالي ${d.academy.totalMinutes} دقيقة تعلّم، ${d.academy.totalSections} نشاط مكتمل، ${d.academy.totalWords} كلمة، ${d.academy.totalSubs} تسليم، متوسط الدرجات ${d.academy.avgScore ?? "—"}%. طلاب غير نشطين: ${d.inactive.length}. إشارات تحذير: ${d.intv.urgent} عاجلة، ${d.intv.attention} متابعة.
+ملخص الأكاديمية: ${d.academy.activeCount} من ${d.academy.totalStudents} طالباً نشطوا، إجمالي ${d.academy.totalMinutes} دقيقة تعلّم، ${d.academy.totalSections} نشاط مكتمل، ${d.academy.totalWords} كلمة، ${d.academy.totalSpeaking} تسجيل صوتي، متوسط الدرجات ${d.academy.avgScore ?? "—"}%. طلاب غير نشطين: ${d.inactive.length}. إشارات تحذير: ${d.intv.urgent} عاجلة، ${d.intv.attention} متابعة.
+${baselineBlock}
 
 تفاصيل الطلاب:
 ${lines}
@@ -234,7 +306,11 @@ ${lines}
   "highlights": [{"name":"اسم الطالب","note_ar":"إنجاز مميز اليوم"}],
   "recommendations_ar": ["توصية عملية 1","توصية 2","توصية 3"]
 }
-قواعد: worry فقط للطلاب الذين تقلق أرقامهم فعلاً (غياب، نشاط منخفض، درجات متدنية). highlights للأفضل أداءً. لا تختلق أرقاماً.
+قواعد صارمة:
+- worry فقط للطلاب الذين تقلق أرقامهم فعلاً (غياب طويل، تراجع واضح، درجات متدنية). highlights للأفضل أداءً. لا تختلق أرقاماً.
+- **احكم على اليوم مقارنةً بالمعدّل الطبيعي أعلاه، لا بمقياس مثالي.** إذا كان اليوم «أعلى من المعتاد» أو «ضمن المعتاد» فلا تصفه بأنه ضعيف أو مقلق — قل بوضوح إنه يوم طبيعي أو أفضل من المعتاد. لا تُطلق إنذاراً إلا حين يكون اليوم «أقل من المعتاد» فعلاً.
+- إذا كان المستوى الطبيعي نفسه منخفضاً، فالمشكلة في المعدّل العام وليست في هذا اليوم — قلها هكذا صراحةً في overall_ar، ووجّه التوصيات إلى رفع المعدّل لا إلى إنقاذ يوم واحد.
+- «غير نشِط» تعني لا نشاط في أيٍّ من سطوح المنصة (المنهج، آيلتس، ستيب، المكتبة، المختبرات) — لا تفترض غياباً لمجرد أن الطالب لم يفتح المنهج.
 قدّم تحليلك باستدعاء الأداة report.`;
 
   // Tool use → the API returns structured input (guaranteed valid JSON; no text parsing).
@@ -314,6 +390,25 @@ function renderEmail(d: any, ai: any) {
     </div>` : ""}
   ` : `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;margin:14px 0;font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.gold}">تعذّر توليد التحليل الذكي هذه المرة — الأرقام أدناه كاملة.</div>`;
 
+  // Baseline strip — gives the numbers above a sense of scale so a good day reads
+  // as a good day. Sits directly under the stat tiles, before the AI narrative.
+  const B = d.baseline;
+  const arrow = (n: number) => (n > 0 ? "▲" : n < 0 ? "▼" : "■");
+  const deltaTxt = (n: number) => `${arrow(n)} ${n > 0 ? "+" : ""}${n}%`;
+  const baselineBlock = !B ? "" : (() => {
+    const tone = B.verdict === "above" ? C.green : B.verdict === "below" ? C.rose : C.sub;
+    const label = B.verdict === "above" ? "يوم أفضل من المعتاد"
+      : B.verdict === "below" ? "يوم أقل من المعتاد" : "يوم ضمن المعتاد";
+    const bg = B.verdict === "above" ? "#f0fdf4" : B.verdict === "below" ? "#fff1f2" : C.bg;
+    const bd = B.verdict === "above" ? "#bbf7d0" : B.verdict === "below" ? "#fecdd3" : C.line;
+    return `<div style="background:${bg};border:1px solid ${bd};border-radius:14px;padding:12px 14px;margin:14px 0">
+      <div style="font-family:Tajawal,Arial,sans-serif;font-size:13px;font-weight:800;color:${tone};margin-bottom:4px">📈 ${label}</div>
+      <div style="font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.sub};line-height:1.8">
+        المعدّل الطبيعي (٣٠ يوماً): <b style="color:${C.ink}">${B.avgActive30}</b> طالب نشِط و<b style="color:${C.ink}">${B.avgMin30}</b> دقيقة يومياً · آخر ٧ أيام: <b style="color:${C.ink}">${B.avgActive7}</b> طالب و<b style="color:${C.ink}">${B.avgMin7}</b> دقيقة<br/>
+        اليوم: النشطون <b style="color:${tone}">${deltaTxt(B.activeDelta30)}</b> · دقائق التعلّم <b style="color:${tone}">${deltaTxt(B.minDelta30)}</b> مقارنةً بالمعدّل
+      </div></div>`;
+  })();
+
   const skillBreakdown = Object.entries(d.skillTotals).sort((a: any, b: any) => b[1] - a[1])
     .map(([k, v]: any) => `<span style="display:inline-block;background:${C.bg};border:1px solid ${C.line};border-radius:999px;padding:4px 10px;margin:3px;font-family:Tajawal,Arial,sans-serif;font-size:12px;color:${C.ink}">${SKILL_AR[k] || k}: <b>${fmtMin(v)}</b></span>`).join("");
 
@@ -350,10 +445,12 @@ function renderEmail(d: any, ai: any) {
           ${stat(A.avgScore != null ? A.avgScore + "%" : "—", "متوسط الدرجات", C.gold)}
         </tr><tr>
           ${stat(A.totalWords, "كلمة أُتقنت", C.ink)}
-          ${stat(A.totalSubs, "تسليم", C.ink)}
+          ${stat(A.totalSpeaking, "تسجيل صوتي", C.ink)}
           ${stat(A.totalXp.toLocaleString("en"), "نقطة", C.gold)}
           ${stat(d.intv.urgent + d.intv.attention, "إشارة متابعة", d.intv.urgent ? C.rose : C.sub)}
         </tr></table>
+
+        ${baselineBlock}
 
         ${aiBlock}
 
@@ -381,6 +478,7 @@ function renderEmail(d: any, ai: any) {
         <div style="margin-top:22px;padding-top:14px;border-top:1px solid ${C.line};text-align:center;font-size:11px;color:${C.sub};font-family:Tajawal,Arial,sans-serif">
           تقرير تلقائي من منصة طلاقة · ${d.period === "weekly" ? "أسبوعي (نهاية السبت)" : "يومي (منتصف الليل)"}
           ${d.lapsed ? `<div style="margin-top:4px">التقرير يشمل الطلاب المشتركين فقط — تم استبعاد ${d.lapsed} حساباً منتهي الاشتراك</div>` : ""}
+          ${d.tests ? `<div style="margin-top:4px">تم استبعاد ${d.tests} حساباً تجريبياً من العدّ</div>` : ""}
         </div>
       </div>
     </div>

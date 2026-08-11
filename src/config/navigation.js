@@ -413,6 +413,27 @@ function injectLevelNav(nav, items) {
   }
 }
 
+/* Put a granted track on the MOBILE BOTTOM BAR too.
+   Until 2026-08-11 the three track injectors only touched `sections` and
+   `drawerSections`, so on a phone a gated track lived behind the «المزيد» drawer.
+   That is not a cosmetic gap: نورة الدوسري's ONLY entitlement is «مسار البيئة», and in
+   30 days on mobile Safari she opened /student three times and never went deeper —
+   her whole course was one hamburger away and she never found it.
+
+   The bar is a fixed 5 slots, so the track takes the prime slot right after
+   «الرئيسية» and the last non-«المزيد» item drops off. «المنهج» deliberately survives,
+   because ظافر and أطياف have a track AND the normal curriculum. */
+function withTrackInMobileBar(nav, item) {
+  const bar = Array.isArray(nav.mobileBar) ? nav.mobileBar : []
+  if (bar.some((it) => it?.id === item.id)) return nav
+  const more = bar.filter((it) => it?.id === 'more')
+  const rest = bar.filter((it) => it?.id !== 'more')
+  const head = rest[0]?.id === 'dashboard' ? rest.slice(0, 1) : []
+  const tail = rest.slice(head.length)
+  const keep = Math.max(0, 5 - more.length - head.length - 1)
+  return { ...nav, mobileBar: [...head, item, ...tail.slice(0, keep), ...more] }
+}
+
 // A student granted the Tech Track (students.uses_tech_track) gets «مسار التقنية»
 // injected right after «الرئيسية» in the رحلة التعلّم section — a dedicated major-track
 // surface ALONGSIDE her normal curriculum (nothing is replaced).
@@ -432,7 +453,10 @@ function injectTechTrack(nav) {
       return { ...sec, items }
     })
   }
-  return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
+  return withTrackInMobileBar(
+    { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) },
+    TECH_TRACK_ITEM,
+  )
 }
 
 // A student granted the Business Track (students.uses_biz_track) gets «مسار الأعمال»
@@ -454,7 +478,10 @@ function injectBizTrack(nav) {
       return { ...sec, items }
     })
   }
-  return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
+  return withTrackInMobileBar(
+    { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) },
+    BIZ_TRACK_ITEM,
+  )
 }
 
 // A student granted the Environment Track (students.uses_env_track) gets «مسار البيئة»
@@ -476,7 +503,10 @@ function injectEnvTrack(nav) {
       return { ...sec, items }
     })
   }
-  return { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) }
+  return withTrackInMobileBar(
+    { ...nav, sections: addTo(nav.sections), drawerSections: addTo(nav.drawerSections) },
+    ENV_TRACK_ITEM,
+  )
 }
 
 /** Account-aware nav: individual (1-on-1) students get INDIVIDUAL_NAV.
