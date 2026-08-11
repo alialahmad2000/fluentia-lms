@@ -244,6 +244,7 @@ Deno.serve(async (req) => {
       stranded = {
         total: list.length,
         unsubmitted: list.filter((r: any) => r.issue === "FINISHED_NOT_SUBMITTED"),
+        contentGrew: list.filter((r: any) => r.issue === "CONTENT_GREW_AFTER_ATTEMPT"),
         duplicates: list.filter((r: any) => r.issue === "DUPLICATE_ROWS"),
       };
     } catch { /* best-effort — never block the digest */ }
@@ -442,8 +443,9 @@ function renderEmail(d: any, ai: any) {
         📥 عمل مكتمل لم يُحتسب: ${S.total} ${S.total === 1 ? "حالة" : "حالات"}
       </div>
       ${S.unsubmitted.map((r: any) => `<div style="font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.ink};margin-bottom:4px">• <b>${r.full_name}</b> — ${SEC_AR[r.section_type] || r.section_type}: أجابت ${r.answered}/${r.total} ولم تُسلّم بعد</div>`).join("")}
+      ${S.contentGrew.map((r: any) => `<div style="font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.ink};margin-bottom:4px">• <b>${r.full_name}</b> — ${SEC_AR[r.section_type] || r.section_type}: أجابت على كل الأسئلة الموجودة وقتها، ثم أُضيفت أسئلة جديدة (${r.answered}/${r.total}) — لا تستطيع التسليم دون إعادة</div>`).join("")}
       ${S.duplicates.map((r: any) => `<div style="font-family:Tajawal,Arial,sans-serif;font-size:12.5px;color:${C.rose};margin-bottom:4px">• <b>${r.full_name}</b> — ${SEC_AR[r.section_type] || r.section_type}: صفوف مكرّرة (تكرار حفظ)</div>`).join("")}
-      <div style="font-family:Tajawal,Arial,sans-serif;font-size:11.5px;color:${C.sub};margin-top:8px">تذكير الطالبة بالضغط على «تسليم الإجابات» يحتسب القسم فوراً.</div>
+      <div style="font-family:Tajawal,Arial,sans-serif;font-size:11.5px;color:${C.sub};margin-top:8px">«لم تُسلّم» = تذكيرها بالضغط على «تسليم الإجابات» يحتسب القسم فوراً. «أُضيفت أسئلة» = المحتوى تغيّر بعد محاولتها.</div>
     </div>`;
 
   // Platform health — only shouts when something is actually wrong.
