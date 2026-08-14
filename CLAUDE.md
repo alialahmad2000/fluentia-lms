@@ -313,6 +313,48 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-15 — ملاك's grammar: the lesson was thin, and the mistakes card printed its own markup
+Owner: «grammar of Malak's unit is very poorly explained and poorly organized». Both were true, for two
+separate reasons.
+
+- **Her 10 lessons were the thinnest on the platform.** Every other track carries a `formula` section in
+  every lesson; hers had **none** — 10/10 missing — so the lesson never once showed her HOW to build the
+  form (no affirmative/negative/question, no be-verb, no base-vs-participle). Average 2,013 chars against
+  يسرا's 3,328. What rendered was: a rule paragraph, three examples, a "when to use" paragraph. That is the
+  whole lesson. (سعيد عارف and عبدالله عارف have the same 10-lesson shape — same gap, not fixed here.)
+- **All 10 rewritten** to the full renderer schema — `heading · explanation · formula · table · explanation ·
+  examples · common_mistakes`, now 3,000–3,900 chars each. Each lesson gains the FORM box and a decision
+  table (the "which of these three, and why" aid that was missing entirely), 5–6 examples drawn from her own
+  marketing world, and 4 Arabic-speaker-specific mistakes.
+- **Correctness gate, not just a style pass.** The old unit-1 lesson asserted «لا تخلطينهم» — a false
+  absolute; <i>will</i> and <i>going to</i> genuinely overlap for predictions, and the old text omitted
+  evidence-based <i>going to</i> altogether. Every rewritten lesson states its simplification as a
+  simplification. Also taught explicitly because they change meaning rather than register:
+  **mustn't ≠ don't have to**, no finished-time expression with the present perfect, no `will`/`would`
+  inside an `if`-clause, `because` + clause vs `because of` + noun, and `to`-purpose vs `for + -ing`.
+- **`CommonMistakesCard` rendered `{m.explanation_ar}` as a bare string** — so a `<b>` pointing at the exact
+  wrong word printed the tag itself. This is the same defect commit `24096a4f` fixed for `content_ar` and
+  `formula`; this card was missed. Now goes through `RichText` + `useGenderize` like every other explanation
+  field. Only 10 lessons carried markup there (all mine), so no existing lesson changes appearance.
+- **The card also broke on a phone.** wrong → correct sat on ONE wrapping flex row, so on an iPhone the `→`
+  wrapped onto a line of its own and read as broken. Now stacked, each line carrying its own ✗/✓ marker, so
+  the distinction never rests on colour alone. Affects all 154 lessons, on the device most students use.
+- **A bidi trap worth remembering:** a `<b>` placed INSIDE a Latin run embedded in Arabic splits the run, and
+  RichText can no longer isolate it — «am / is / <b>are</b> going to» wrapped mid-phrase with "to." stranded
+  on the next line. Bold the WHOLE Latin run or none of it. Two instances found by scanning and fixed.
+- **A correction to the record:** while investigating I claimed `common_mistakes` was silently dropped for all
+  154 lessons because it is absent from `LessonCard`'s switch. That was wrong — `GrammarTab.jsx:102-104`
+  filters it out deliberately and renders it in its own `CommonMistakesCard`. The switch was fine; I read it
+  without reading its caller. No student ever lost that section.
+- Applied by `scratchpad/malak-grammar/apply.mjs`: validates structure, table widths, that every `highlight`
+  actually occurs in its sentence (the renderer highlights by regex, so a stale highlight silently renders
+  nothing), mistake shape and brand, refuses to write to a lesson not owned by Malak, backs up the previous
+  content, then READS BACK and deep-compares — jsonb normalises key order, so string equality is the wrong
+  test and reported a false mismatch first time.
+- Files: `src/components/grammar/CommonMistakesCard.jsx`. DB: `curriculum_grammar.explanation_content` for
+  Malak's 10 lessons. Verified rendered at 1280 and iPhone-13: all 7 blocks present, 0 literal tags, no
+  horizontal overflow.
+
 ### 2026-08-11 (2) — «عملت القسم وما ظهر»: four active students had FINISHED work the engine could not count
 Ali reported the same complaint from ملاك. Audited all 11 active students instead of one, and found a
 **second, larger failure than the autosave race** — one the race fix would NOT have caught.
