@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown, Flame } from 'lucide-react'
+import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown, Flame, Bookmark } from 'lucide-react'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { supabase } from '../../../../lib/supabase'
 import { addCard } from '../../../../services/vocab'
@@ -30,6 +30,29 @@ import { vocabPhotoUrl } from '../../../../lib/vocabImages'
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
   preposition: 'حرف جر', conjunction: 'حرف عطف', pronoun: 'ضمير',
+}
+
+// Only these two tiers have a defined meaning in the UI. Custom tracks were
+// authored with their own vocabularies (`tier1`/`tier2`, or NULL), and the old
+// `tier !== 'core'` test rendered a gold «متقدمة» badge on EVERY word of those
+// courses — a label the student cannot act on. Unknown tiers get no badge.
+const TIER_BADGE = {
+  extended: { label: 'إضافية', bg: 'rgba(148,163,184,0.1)', color: '#94a3b8' },
+  mastery: { label: 'متقدمة', bg: 'rgba(212,175,55,0.1)', color: '#d4af37' },
+}
+
+// The example sentence is where the word is seen doing its job, so the word
+// itself is emphasised inside it. Inflections count (goal → goals, plan →
+// planning), and anything unmatched just renders plain — never a wrong bold.
+function highlightWord(sentence, word) {
+  const w = String(word || '').trim()
+  if (!w || !sentence) return [sentence]
+  const escaped = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const re = new RegExp(`\\b(${escaped}(?:s|es|ed|d|ing|ies)?)\\b`, 'i')
+  const m = String(sentence).match(re)
+  if (!m) return [sentence]
+  const at = m.index
+  return [sentence.slice(0, at), m[0], sentence.slice(at + m[0].length)]
 }
 
 const FILTERS = [
@@ -947,6 +970,38 @@ function PaginatedTier({ words, viewMode, getMastery, reviewedWords, markReviewe
 // block was removed in Prompt 07. The new HeroSection renders
 // equivalent stats inline.
 
+// ─── Hear the word ────────────────────────────────────
+// `onPlate` pins it over the specimen plate, beside the word; without it the
+// button sits inline in the body (photo cards, which name the word there).
+function AudioButton({ playing, onPlay, onPlate = false }) {
+  return (
+    <button
+      onClick={onPlay}
+      title="استمع للكلمة"
+      aria-label="استمع للكلمة"
+      className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
+        onPlate ? 'absolute top-2 right-2 z-10' : ''
+      }`}
+      style={{
+        background: playing ? 'rgba(56,189,248,0.22)' : 'rgba(10,22,40,0.45)',
+        border: '1px solid rgba(255,255,255,0.12)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+      }}
+    >
+      {playing ? (
+        <div className="flex items-end gap-[2px] h-3">
+          {[0, 1, 2].map(i => (
+            <motion.div key={i} className="w-[2px] bg-sky-400 rounded-full" animate={{ height: ['4px', '12px', '4px'] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.15 }} />
+          ))}
+        </div>
+      ) : (
+        <Volume2 size={15} className="text-white/60" />
+      )}
+    </button>
+  )
+}
+
 // ─── Word Card (Premium) ──────────────────────────────
 function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSaveWord, isStudent }) {
   const audioRef = useRef(null)
@@ -1024,66 +1079,67 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
           <div className="absolute top-2 left-2">
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.15)', boxShadow: isMastered ? '0 0 6px rgba(34,197,94,0.4)' : 'none' }} />
           </div>
+          {/* «Hear it» belongs beside the word it pronounces, not orphaned in the
+              body opposite a two-word meaning — that gap was most of the card's
+              wasted space. 36px keeps it thumb-sized on a phone. */}
+          {word.audio_url && <AudioButton playing={playing} onPlay={playAudio} onPlate />}
         </div>
       )}
 
       {/* Content */}
       <div className="p-3 space-y-2">
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            {/* Photo cards still name the word here; specimen cards already show it
-                large on the plate, so the meaning becomes the primary body line. */}
-            {hasPhoto && (
-              <div className="flex items-baseline gap-2" dir="ltr">
-                <p className="text-sm font-bold text-white font-['Inter'] leading-tight">{word.word}</p>
-                {word.pronunciation_ipa && (
-                  <p className="text-[10px] text-white/35 font-['Inter'] leading-tight tracking-tight">{word.pronunciation_ipa}</p>
-                )}
-              </div>
-            )}
-            {/* Specimen cards freed the word line, so the meaning gets two lines. */}
-            <p className={`font-['Tajawal'] ${hasPhoto ? 'text-[11px] text-white/55 mt-0.5 line-clamp-1' : 'text-xs text-white/75 line-clamp-2 leading-snug'}`}>
-              {POS_AR[word.part_of_speech] || word.part_of_speech} · {word.definition_ar}
-            </p>
-            {word.tier && word.tier !== 'core' && (
-              <span className="inline-block mt-0.5 px-1.5 py-px rounded text-[9px] font-bold font-['Tajawal']" style={{
-                background: word.tier === 'extended' ? 'rgba(148,163,184,0.1)' : 'rgba(212,175,55,0.1)',
-                color: word.tier === 'extended' ? '#94a3b8' : '#d4af37',
-              }}>
-                {word.tier === 'extended' ? 'إضافية' : 'متقدمة'}
-              </span>
-            )}
-          </div>
-          {word.audio_url && (
-            <button
-              onClick={playAudio}
-              className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all"
-              style={{ background: playing ? 'rgba(56,189,248,0.2)' : 'rgba(255,255,255,0.06)' }}
-            >
-              {playing ? (
-                <div className="flex items-end gap-[2px] h-3">
-                  {[0, 1, 2].map(i => (
-                    <motion.div key={i} className="w-[2px] bg-sky-400 rounded-full" animate={{ height: ['4px', '12px', '4px'] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.15 }} />
-                  ))}
-                </div>
-              ) : (
-                <Volume2 size={14} className="text-white/40 group-hover:text-white/60" />
+        {/* Photo cards still name the word here; specimen cards already show it
+            large on the plate, so the meaning becomes the primary body line. */}
+        {hasPhoto && (
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-baseline gap-2 min-w-0" dir="ltr">
+              <p className="text-sm font-bold text-white font-['Inter'] leading-tight truncate">{word.word}</p>
+              {word.pronunciation_ipa && (
+                <p className="text-[10px] text-white/35 font-['Inter'] leading-tight tracking-tight">{word.pronunciation_ipa}</p>
               )}
-            </button>
-          )}
-        </div>
+            </div>
+            {word.audio_url && <AudioButton playing={playing} onPlay={playAudio} />}
+          </div>
+        )}
 
-        {/* The example is the only English sentence on the card — at 25% opacity it
-            was decoration, not something a student could actually read. */}
+        {/* The meaning is what the student came for — full width, two lines, and
+            no longer sharing its row with a button. The part of speech is already
+            set in Latin on the plate, so here it is a quiet Arabic prefix. */}
+        <p className="font-['Tajawal'] text-[13px] text-white/85 leading-snug line-clamp-2">
+          <span className="text-white/35">{POS_AR[word.part_of_speech] || word.part_of_speech} · </span>
+          {word.definition_ar}
+        </p>
+
+        {TIER_BADGE[word.tier] && (
+          <span className="inline-block px-1.5 py-px rounded text-[9px] font-bold font-['Tajawal']" style={{
+            background: TIER_BADGE[word.tier].bg,
+            color: TIER_BADGE[word.tier].color,
+          }}>
+            {TIER_BADGE[word.tier].label}
+          </span>
+        )}
+
+        {/* The example is the only English sentence on the card. One clipped line
+            («…is brand…») taught nothing; two lines usually hold the whole
+            sentence, and the word is emphasised where it does its work. */}
         {word.example_sentence && (
-          <p className="text-[10px] text-white/40 font-['Inter'] leading-relaxed line-clamp-1 italic" dir="ltr">
-            "{word.example_sentence}"
+          <p className="text-[11px] text-white/45 font-['Inter'] leading-relaxed line-clamp-2 italic" dir="ltr">
+            {(() => {
+              const [before, hit, after] = highlightWord(word.example_sentence, word.word)
+              return hit
+                ? <>“{before}<span className="text-white/80 font-semibold not-italic">{hit}</span>{after}”</>
+                : <>“{before}”</>
+            })()}
           </p>
         )}
 
-        {/* Exercise dots + action */}
-        <div className="flex items-center justify-between pt-1">
-          <div className="flex items-center gap-1.5">
+        {/* Progress + actions. On a 390px phone the grid is two columns, so this
+            row has ~150px to work with — it WRAPS rather than pushing the CTA
+            out past the card edge, and the meter is the half that gives way. */}
+        <div className="flex items-center justify-between gap-x-2 gap-y-2 pt-0.5 flex-wrap">
+          {/* Three exercises, three segments. Bars read as a meter; three equal
+              dots read as decoration. */}
+          <div className="flex items-center gap-1.5 min-w-0" title={`${passedCount} من ٣ تمارين`}>
             <div className="flex items-center gap-1">
               {[
                 { passed: mastery?.meaning_exercise_passed, label: 'اختر المعنى' },
@@ -1092,31 +1148,43 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
               ].map((ex, i) => (
                 <div
                   key={i}
-                  className="w-2 h-2 rounded-full"
+                  className="h-1 w-4 rounded-full"
                   title={ex.label}
-                  style={{ background: ex.passed ? '#22c55e' : 'rgba(255,255,255,0.08)', transition: 'background 0.3s' }}
+                  style={{ background: ex.passed ? '#22c55e' : 'rgba(255,255,255,0.09)', transition: 'background 0.3s' }}
                 />
               ))}
             </div>
             {passedCount > 0 && passedCount < 3 && (
-              <span className="text-[9px] text-white/20 font-['Tajawal']">{passedCount}/3</span>
+              <span className="text-[9px] text-white/30 font-['Tajawal'] tabular-nums">{passedCount}/3</span>
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 flex-shrink-0">
             {isStudent && (
               <button
                 onClick={(e) => { e.stopPropagation(); onSaveWord?.() }}
-                className="text-[10px] font-bold font-['Tajawal'] transition-colors"
-                style={{ color: isSaved ? 'rgba(56,189,248,0.7)' : 'rgba(255,255,255,0.25)' }}
+                title={isSaved ? 'محفوظة في كلماتي' : 'احفظ الكلمة'}
+                aria-label={isSaved ? 'محفوظة في كلماتي' : 'احفظ الكلمة'}
+                className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors hover:bg-white/[0.06]"
               >
-                {isSaved ? '📌 محفوظة' : '📌 احفظ'}
+                <Bookmark
+                  size={14}
+                  className={isSaved ? 'text-sky-400' : 'text-white/30'}
+                  fill={isSaved ? 'currentColor' : 'none'}
+                />
               </button>
             )}
-            <span className={`text-[10px] font-bold font-['Tajawal'] ${
-              isMastered ? 'text-emerald-400/70' : isLearning ? 'text-amber-400/70' : 'text-sky-400/70'
-            }`}>
-              {isMastered ? 'أتقنتها' : isLearning ? 'أكمل التمارين' : 'تمرّن'}
+            {/* «تمرّن» was a caption pretending to be a button. The card is still
+                tappable as a whole; this just makes the action visible. */}
+            <span
+              className="inline-flex items-center gap-1 px-3 h-10 rounded-full text-[11px] font-bold font-['Tajawal'] flex-shrink-0"
+              style={{
+                background: isMastered ? 'rgba(34,197,94,0.1)' : isLearning ? 'rgba(245,158,11,0.1)' : 'rgba(56,189,248,0.12)',
+                color: isMastered ? 'rgba(74,222,128,0.9)' : isLearning ? 'rgba(251,191,36,0.9)' : 'rgba(125,211,252,0.95)',
+              }}
+            >
+              {isMastered ? <CheckCircle size={12} /> : <Dumbbell size={12} />}
+              {isMastered ? 'أتقنتها' : isLearning ? 'أكمل' : 'تمرّن'}
             </span>
           </div>
         </div>
