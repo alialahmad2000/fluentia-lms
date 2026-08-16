@@ -5,12 +5,14 @@
      · the DESK is the platform's own surface, painted by LayoutShell — this page
        simply does not cover it, so it sits inside the app instead of next to it;
      · the SHEET is a sheet of paper resting on that desk — ruled lines, a red
-       margin down the reading edge, corrections in pen.
+       margin down the reading edge, corrections in pen. The stock is DARK (warm
+       ink-black with cream ink): a cream sheet read as a bright hole punched in a
+       dark app, which is not what a notebook lying on a desk looks like.
 
    Every ink token is redeclared on .cr-sheet, so anything inside the paper reads
    as paper regardless of the app theme. That includes the --pw-* tokens
-   LessonSection reads: the lesson blocks must be dark-on-cream here, never the
-   desk palette.
+   LessonSection reads: the lesson blocks must follow the notebook's own palette,
+   never the desk's. Change the palette block and the whole sheet follows.
    ══════════════════════════════════════════════════════════════════════════ */
 
 /* ── the desk ─────────────────────────────────────────────────────────────── */
@@ -33,21 +35,12 @@
   position:relative; z-index:1; min-height:100dvh;
   font-family:'Tajawal','SF Arabic',sans-serif;
 }
-/* In the dark themes NOTHING is painted here — no element, no pseudo-element — so
-   the page is pixel-identical to any other page in the app. (Measured: 0/255 delta
-   on every channel at every background point against a plain platform page.) An
-   earlier attempt kept a faint copper glow for the studio track; it measured as
-   exactly 0 difference over #05070d, so it was doing nothing but risking drift.
-
-   Light theme is the one case that needs more than the platform surface: --ds-bg-base
-   is #f8f9fb there, and cream paper on near-white stops reading as paper at all. So
-   only in that theme does a scrim appear — a soft slate desk for the sheet to lie on,
-   with the studio copper warming the corner the notebook tab sits in. */
-.light .cr-root::before,[data-theme="minimal"] .cr-root::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 26% 20% at 88% -3%,rgba(207,125,67,.10),transparent 60%),
-    radial-gradient(ellipse 96% 84% at 50% 28%,rgba(100,116,139,.10),rgba(100,116,139,.26) 100%)}
+/* NOTHING is painted here in ANY theme — no element, no pseudo-element — so the page
+   is pixel-identical to any other page in the app. (Measured: 0/255 delta on every
+   channel at every background point against a plain platform page.)
+   A light-theme scrim used to live here to darken the desk so cream paper could read
+   against it; the stock is dark now, so it lies correctly on every theme's surface
+   and the scrim is gone with it. */
 
 .cr-wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:26px 0 80px}
 .cr-wrap--narrow{max-width:760px}
@@ -60,20 +53,31 @@
 
 /* ── the sheet: everything below is PAPER ─────────────────────────────────── */
 .cr-sheet{
-  /* paper palette — pinned, so the app theme can never bleed into the page */
-  --cr-paper:#fbf5e9; --cr-card:#fffdf6; --cr-card-2:#f5ecda;
-  --cr-ink:#1f1a14; --cr-ink-soft:#544a3c; --cr-muted:#93876f;
-  --cr-line:rgba(31,26,20,.16); --cr-line-soft:rgba(31,26,20,.08);
-  --cr-rule:rgba(96,124,160,.20);           /* the printed ruling */
-  --cr-margin:#c0553f;                      /* the red margin + the pen */
-  --cr-copper-deep:#8a4a1a; --cr-copper-soft:rgba(176,99,42,.11);
-  --cr-copper-line:rgba(176,99,42,.30);
-  --cr-teal:#2c7568; --cr-teal-soft:rgba(44,117,104,.10); --cr-teal-line:rgba(44,117,104,.30);
-  --cr-rose:#b0543f; --cr-rose-soft:rgba(176,84,63,.10); --cr-rose-line:rgba(176,84,63,.36);
-  --cr-spec:#8a4a1a;
+  /* Paper palette — pinned, so the app theme can never bleed into the page.
+     The stock is DARK: a cream slab on the platform's obsidian read as a bright
+     hole punched in a dark app, so the notebook is now warm ink-black paper with
+     cream ink. Everything below is derived from these tokens, so the whole sheet
+     (and every LessonSection block, via --pw-*) follows from this block alone. */
+  --cr-paper:#17130d; --cr-card:#1f1a12; --cr-card-2:#262019;
+  --cr-ink:#f3ece0; --cr-ink-soft:#c8bdaa; --cr-muted:#8d8371;
+  --cr-line:rgba(243,236,224,.15); --cr-line-soft:rgba(243,236,224,.07);
+  --cr-rule:rgba(170,196,232,.15);          /* the printed ruling */
+  --cr-margin:#d9705a;                      /* the red margin + the pen */
+  --cr-margin-soft:rgba(217,112,90,.32);    /* the ruled margin line itself */
+  --cr-margin-wash:rgba(217,112,90,.05);    /* row hover */
+  --cr-copper-deep:#e0a05e; --cr-copper-soft:rgba(224,160,94,.12);
+  --cr-copper-line:rgba(224,160,94,.32); --cr-copper-mid:#c9873f;
+  --cr-teal:#5fbfa8; --cr-teal-soft:rgba(95,191,168,.12); --cr-teal-line:rgba(95,191,168,.32);
+  --cr-rose:#e08a76; --cr-rose-soft:rgba(224,138,118,.12); --cr-rose-line:rgba(224,138,118,.36);
+  --cr-spec:#e0a05e;
+  --cr-track:rgba(243,236,224,.09);         /* progress-bar troughs */
+  --cr-field:rgba(243,236,224,.05);         /* input / option fills */
+  --cr-highlight:rgba(224,160,94,.20);      /* the marker stripe under a title */
+  /* the stacked pages under the top sheet — darker, not lighter, on dark stock */
+  --cr-stack-1:#141009; --cr-stack-2:#110d07; --cr-stack-3:#0d0a05;
   --cr-serif:'Iowan Old Style',Georgia,'Times New Roman',serif;
-  --cr-shadow:0 1px 2px rgba(60,40,18,.05), 0 10px 24px -18px rgba(60,40,18,.3);
-  --cr-shadow-lg:0 2px 4px rgba(60,40,18,.06), 0 22px 44px -26px rgba(60,40,18,.45);
+  --cr-shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 24px -18px rgba(0,0,0,.75);
+  --cr-shadow-lg:0 2px 4px rgba(0,0,0,.4), 0 22px 44px -26px rgba(0,0,0,.8);
 
   /* LessonSection reads these — on paper they must be dark-on-cream */
   --pw-card:var(--cr-card); --pw-card-2:var(--cr-card-2);
@@ -89,7 +93,8 @@
   position:relative;background:var(--cr-paper);color:var(--cr-ink);
   border-radius:12px;border-start-start-radius:0;
   /* stacked pages under the top sheet, then the drop onto the desk */
-  box-shadow:0 2px 0 #f0e6d2, 0 4px 0 #e8dcc4, 0 6px 0 #e0d3b8,
+  box-shadow:inset 0 1px 0 rgba(243,236,224,.055),
+             0 2px 0 var(--cr-stack-1), 0 4px 0 var(--cr-stack-2), 0 6px 0 var(--cr-stack-3),
              0 40px 70px -28px rgba(0,0,0,.7);
   padding:34px 34px 46px 34px;
   /* the reading edge (right, in RTL) carries the margin marks */
@@ -102,7 +107,7 @@
   background-position:0 72px;opacity:.5}
 /* the red margin, down the edge she starts reading from */
 .cr-sheet::after{content:'';position:absolute;inset-block:0;inset-inline-start:56px;width:1.5px;
-  background:rgba(192,85,63,.38)}
+  background:var(--cr-margin-soft)}
 .cr-sheet>*{position:relative;z-index:1}
 
 /* Latin runs (titles, specimens, answers) must ORDER left-to-right but stay
@@ -129,7 +134,7 @@
 .cr-k{display:inline-flex;align-items:center;gap:8px;font-family:var(--cr-serif);font-style:italic;
   font-size:.9rem;letter-spacing:.04em;color:var(--cr-margin)}
 /* rule between the facts, drawn — never a « · » character (bidi reorders it) */
-.cr-k>span+span{padding-inline-start:8px;border-inline-start:1px solid rgba(192,85,63,.35)}
+.cr-k>span+span{padding-inline-start:8px;border-inline-start:1px solid var(--cr-margin-soft)}
 
 /* ── heads ────────────────────────────────────────────────────────────────── */
 .cr-hero{margin-bottom:26px}
@@ -141,9 +146,9 @@
 .cr-rhead{margin-bottom:24px}
 .cr-rhead h1{font-size:clamp(1.45rem,3.4vw,2rem);font-weight:800;margin:7px 0 4px;letter-spacing:-.02em}
 .cr-rhead .en{font-family:var(--cr-serif);font-style:italic;font-size:.95rem;color:var(--cr-spec)}
-.cr-rbar{height:5px;border-radius:999px;background:rgba(31,26,20,.10);margin:16px 0 7px;overflow:hidden}
+.cr-rbar{height:5px;border-radius:999px;background:var(--cr-track);margin:16px 0 7px;overflow:hidden}
 .cr-rbar span{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--cr-copper-deep),#c07a34);transition:width .4s ease}
+  background:linear-gradient(90deg,var(--cr-copper-deep),var(--cr-copper-mid));transition:width .4s ease}
 .cr-rmeta{margin:0;font-size:.8rem;font-weight:700;color:var(--cr-muted)}
 
 .cr-shead{margin-bottom:22px;padding-bottom:16px;border-bottom:2px solid var(--cr-ink)}
@@ -157,7 +162,7 @@
   background:transparent;border:0;border-bottom:1px dashed var(--cr-line);
   padding:20px 0 22px;color:inherit;cursor:pointer;transition:background .16s ease}
 .cr-card:last-child,.cr-scard:last-child{border-bottom:0}
-.cr-card:hover,.cr-scard:hover{background:rgba(192,85,63,.035)}
+.cr-card:hover,.cr-scard:hover{background:var(--cr-margin-wash)}
 .cr-scard{cursor:default}
 
 /* the number lives in the red margin, hand-slanted */
@@ -171,14 +176,14 @@
 .cr-card__body h3,.cr-scard__body h3{margin:0;font-family:var(--cr-serif);font-size:1.32rem;
   font-weight:600;line-height:1.35;letter-spacing:-.01em}
 /* the highlighter stripe under a title, like a marked-up notebook */
-.cr-card__body h3{box-shadow:inset 0 -11px 0 rgba(216,164,96,.28);display:inline;padding:0 2px}
+.cr-card__body h3{box-shadow:inset 0 -11px 0 var(--cr-highlight);display:inline;padding:0 2px}
 .cr-card__body .en,.cr-scard__body .en{font-family:var(--cr-serif);font-style:italic;
   font-size:.88rem;color:var(--cr-spec);margin-top:6px}
 .cr-scard__body p{margin:9px 0 0;font-size:.9rem;line-height:1.9;color:var(--cr-ink-soft)}
 
-.cr-card__bar{height:4px;border-radius:999px;background:rgba(31,26,20,.09);margin:14px 0 9px;overflow:hidden}
+.cr-card__bar{height:4px;border-radius:999px;background:var(--cr-track);margin:14px 0 9px;overflow:hidden}
 .cr-card__bar span{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--cr-copper-deep),#c07a34)}
+  background:linear-gradient(90deg,var(--cr-copper-deep),var(--cr-copper-mid))}
 .cr-card__meta,.cr-scard__meta{display:flex;justify-content:space-between;gap:10px;
   font-size:.79rem;font-weight:700;color:var(--cr-muted)}
 /* Separator drawn in CSS, never as a character: a bidi-neutral «·» between two
@@ -213,7 +218,7 @@
 .cr-opts--inline{grid-template-columns:repeat(auto-fit,minmax(112px,1fr))}
 .cr-opts--inline .cr-opt{text-align:center;font-family:var(--cr-serif);font-size:1.02rem}
 .cr-opt{text-align:start;font-size:.94rem;padding:10px 14px;border-radius:10px;cursor:pointer;
-  border:1.5px solid var(--cr-line);background:rgba(255,255,255,.5);color:var(--cr-ink-soft);
+  border:1.5px solid var(--cr-line);background:var(--cr-field);color:var(--cr-ink-soft);
   transition:.14s;font-family:inherit}
 .cr-opt:hover:not(:disabled){border-color:var(--cr-margin);color:var(--cr-ink)}
 .cr-opt:disabled{cursor:default}
@@ -232,10 +237,10 @@
 
 /* the correction, in red pen */
 .cr-why{margin-top:12px;padding:9px 14px;border-inline-start:3px solid var(--cr-margin);
-  background:rgba(192,85,63,.055);font-size:.88rem;line-height:1.85;color:#8d3d2c}
-.cr-why b{display:inline-block;font-family:var(--cr-serif);color:#6f2c1e;font-weight:700;
-  margin-inline-end:10px;padding:1px 9px;border-radius:5px;background:rgba(192,85,63,.13);
-  border:1px solid rgba(192,85,63,.3)}
+  background:var(--cr-rose-soft);font-size:.88rem;line-height:1.85;color:var(--cr-rose)}
+.cr-why b{display:inline-block;font-family:var(--cr-serif);color:var(--cr-ink);font-weight:700;
+  margin-inline-end:10px;padding:1px 9px;border-radius:5px;background:var(--cr-rose-soft);
+  border:1px solid var(--cr-rose-line)}
 .cr-why b::before{content:'الصواب: ';font-family:'Tajawal','SF Arabic',sans-serif;
   font-size:.78rem;font-weight:800;opacity:.75;margin-inline-end:4px}
 
@@ -272,7 +277,7 @@
 .cr-empty h2{margin:14px 0 6px;font-size:1.2rem;color:var(--cr-ink)}
 .cr-empty p{margin:0;font-size:.9rem}
 .cr-skel{height:96px;border-radius:8px;margin-bottom:14px;
-  background:linear-gradient(90deg,rgba(31,26,20,.05),rgba(31,26,20,.10),rgba(31,26,20,.05));
+  background:linear-gradient(90deg,rgba(243,236,224,.04),rgba(243,236,224,.09),rgba(243,236,224,.04));
   background-size:200% 100%;animation:crSkel 1.5s ease-in-out infinite}
 .cr-skel.sm{height:64px}
 @keyframes crSkel{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -287,9 +292,22 @@
 }
 @media print{
   .velvet-atmo,.cr-back,.cr-bar,.cr-tab{display:none!important}
-  .cr-root::before{display:none!important}
   .cr-root{background:#fff;min-height:auto}
-  .cr-sheet{box-shadow:none;padding:0;background:#fff}
+  /* Print is the one place the stock really is white paper, so the whole palette
+     flips back to dark-on-cream — otherwise the now-light ink prints invisible.
+     Re-declaring the tokens is enough; every rule below derives from them. */
+  .cr-sheet{
+    --cr-paper:#fff; --cr-card:#fff; --cr-card-2:#f7f2e8;
+    --cr-ink:#1f1a14; --cr-ink-soft:#544a3c; --cr-muted:#7a7060;
+    --cr-line:rgba(31,26,20,.22); --cr-line-soft:rgba(31,26,20,.10);
+    --cr-margin:#b0492f; --cr-margin-soft:rgba(176,73,47,.4); --cr-margin-wash:transparent;
+    --cr-copper-deep:#8a4a1a; --cr-copper-mid:#c07a34;
+    --cr-copper-soft:rgba(176,99,42,.10); --cr-copper-line:rgba(176,99,42,.35);
+    --cr-teal:#2c7568; --cr-teal-soft:rgba(44,117,104,.10); --cr-teal-line:rgba(44,117,104,.35);
+    --cr-rose:#a8452f; --cr-rose-soft:rgba(168,69,47,.08); --cr-rose-line:rgba(168,69,47,.35);
+    --cr-spec:#8a4a1a; --cr-track:rgba(31,26,20,.12); --cr-field:transparent;
+    --cr-highlight:rgba(216,164,96,.35);
+    box-shadow:none;padding:0;background:#fff;color:var(--cr-ink)}
   .cr-sheet::before,.cr-sheet::after{display:none}
   .cr-q,.cr-scard,.cr-card{break-inside:avoid}
 }
