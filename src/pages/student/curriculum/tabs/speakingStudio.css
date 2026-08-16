@@ -126,8 +126,32 @@
   pointer-events: none;
 }
 
+/* ── THE SCENE — the unit's own cover art opens the stage ───────────────
+   Listening already gets a cinematic hero band; speaking got a bare card, so
+   the section read flat and the commissioned art was wasted behind a 46px
+   blur. The band gives «المحادثة» a place, fills the composition, and matches
+   the idiom the unit already uses one tab over. */
+.spk-scene { position: relative; overflow: hidden; }
+.spk-scene__img {
+  display: block; width: 100%; height: 168px; object-fit: cover;
+  transform: scale(1.06);
+  animation: spkKen 22s ease-out both;
+}
+@media (min-width: 640px) { .spk-scene__img { height: 210px; } }
+@keyframes spkKen { from { transform: scale(1.11) } to { transform: scale(1.0) } }
+.spk-scene__veil {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10,10,15,0.12) 0%, rgba(10,10,15,0.34) 34%, rgba(10,10,15,0.74) 62%, rgba(10,10,15,0.96) 100%),
+    radial-gradient(120% 80% at 88% 0%, rgba(245,200,66,0.16), rgba(245,200,66,0) 62%);
+}
+.spk-scene__body { position: absolute; inset-inline: 0; bottom: 0; padding: 18px 20px 16px; }
+.spk-scene__body .spk-title { margin-top: 7px; text-shadow: 0 2px 16px rgba(0,0,0,0.6); }
+.spk-scene__body .spk-kicker { text-shadow: 0 1px 8px rgba(0,0,0,0.55); }
+@media (pointer: coarse) { .spk-scene__img { animation: none; transform: none; } }
+
 /* ── THE BRIEF ────────────────────────────────────────────────────────── */
-.spk-brief { position: relative; padding: 20px 20px 18px; }
+.spk-brief { position: relative; padding: 16px 20px 18px; }
 .spk-brief::after {
   content: '';
   position: absolute;
@@ -172,7 +196,7 @@
 @media (min-width: 640px) { .spk-title { font-size: 21px; } }
 
 .spk-brieftext {
-  margin-top: 9px;
+  margin-top: 0;
   font-size: 14px;
   line-height: 1.95;
   color: var(--spk-ink-2);

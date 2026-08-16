@@ -76,9 +76,25 @@ const STYLE = `
 @keyframes cvmBar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
 @keyframes cvmSheen{0%{transform:translateX(-120%)}60%,100%{transform:translateX(220%)}}
 @keyframes cvmShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-.cvm-orb{position:relative;border-radius:50%;background:radial-gradient(circle at 32% 28%,#9beeff,#00d4ff 46%,#0a7ea6 100%);box-shadow:0 0 0 1px rgba(255,255,255,.14) inset,0 0 0 1px rgba(255,255,255,.10),0 10px 28px -8px rgba(0,212,255,.45),0 0 44px -6px rgba(245,200,66,.22)}
+.cvm-orb{position:relative;border-radius:50%;
+background:
+ radial-gradient(circle at 30% 24%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 34%),
+ radial-gradient(circle at 36% 30%, #b6f2ff 0%, #22c9f5 38%, #0791bd 68%, #05516d 100%);
+box-shadow:
+ inset 0 0 0 1px rgba(255,255,255,.30),
+ inset 0 -10px 22px -10px rgba(0,0,0,.55),
+ inset 0 8px 18px -10px rgba(255,255,255,.55),
+ 0 10px 30px -10px rgba(0,212,255,.55),
+ 0 0 60px -12px rgba(0,212,255,.45),
+ 0 0 90px -20px rgba(245,200,66,.28)}
+.cvm-orb::before{content:"";position:absolute;inset:-18%;border-radius:50%;pointer-events:none;
+ background:conic-gradient(from 0deg,rgba(0,212,255,0) 0deg,rgba(0,212,255,.28) 60deg,rgba(245,200,66,.22) 140deg,rgba(0,212,255,0) 220deg);
+ filter:blur(9px);animation:cvmSpin 14s linear infinite;opacity:.85}
+.cvm-orb::after{content:"";position:absolute;inset:8%;border-radius:50%;pointer-events:none;
+ background:radial-gradient(circle at 50% 120%, rgba(255,255,255,.22), rgba(255,255,255,0) 58%)}
+@keyframes cvmSpin{to{transform:rotate(360deg)}}
 .cvm-orb[data-anim="true"]{animation:cvmBreathe 4.5s ease-in-out infinite}
-.cvm-orb-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(125,211,252,.5)}
+.cvm-orb-ring{position:absolute;inset:-6%;border-radius:50%;border:1px solid rgba(0,212,255,.42);pointer-events:none}
 .cvm-orb[data-speaking="true"] .cvm-orb-ring{animation:cvmRing 1.6s ease-out infinite}
 .cvm-orb[data-speaking="true"] .cvm-orb-ring.d2{animation-delay:.5s}
 .cvm-sbar{width:3px;border-radius:2px;background:linear-gradient(to top,#00d4ff,#9beeff);transform-origin:bottom}
@@ -91,8 +107,8 @@ const STYLE = `
 .cvm-shim{background:linear-gradient(90deg,rgba(0,212,255,.06),rgba(245,200,66,.16),rgba(0,212,255,.06));background-size:200% 100%;animation:cvmShimmer 1.8s linear infinite}
 .cvm-stream{overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:min(44vh,360px);min-height:190px;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 100%)}
 @media (min-width:768px){.cvm-stream{max-height:min(52vh,420px)}}
-@media (pointer: coarse){.cvm-blob{animation:none!important;mix-blend-mode:normal;opacity:.62}}
-@media (prefers-reduced-motion: reduce){.cvm-aurora,.cvm-orb,.cvm-orb-ring,.cvm-sbar,.cvm-cta::after,.cvm-mic-pulse,.cvm-shim{animation:none!important}}
+@media (pointer: coarse){.cvm-blob{animation:none!important;mix-blend-mode:normal;opacity:.62}.cvm-orb::before{animation:none}}
+@media (prefers-reduced-motion: reduce){.cvm-aurora,.cvm-orb,.cvm-orb::before,.cvm-orb-ring,.cvm-sbar,.cvm-cta::after,.cvm-mic-pulse,.cvm-shim{animation:none!important}}
 `
 
 // Scenario routing (Pro Desk / individual track) accepts BOTH shapes so neither surface
@@ -360,12 +376,12 @@ export default function ConversationMode({
         <AnimatePresence mode="wait">
           {/* ── INTRO ── */}
           {phase === 'intro' && !autoStart && (
-            <motion.div key="intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 py-8 flex flex-col items-center text-center gap-4">
+            <motion.div key="intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 pt-6 pb-7 flex flex-col items-center text-center gap-3.5">
               <div className="flex flex-col items-center gap-2.5">
-                <CoachOrb size={74} speaking animate={!reduce} />
+                <CoachOrb size={92} speaking animate={!reduce} />
                 <div>
                   <p className="text-[15px] font-bold text-white font-['Tajawal'] leading-none">المدرّبة ليلى</p>
-                  <p className="text-[11px] font-['Inter'] mt-1.5" dir="ltr" style={{ color: 'rgba(125,211,252,0.75)' }}>English speaking coach</p>
+                  <p className="text-[11px] mt-1.5" dir="ltr" style={{ fontFamily: 'Inter, system-ui, sans-serif', letterSpacing: '.055em', textTransform: 'uppercase', color: 'rgba(125,211,252,0.78)' }}>English speaking coach</p>
                 </div>
               </div>
               <p className="text-[13px] font-['Tajawal'] leading-[1.9] max-w-[38ch]" style={{ color: 'rgba(248,250,252,0.6)' }}>
@@ -377,7 +393,7 @@ export default function ConversationMode({
                   {topic.title_en}
                 </div>
               )}
-              <button onClick={startConversation} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5 mt-1" style={{ background: 'linear-gradient(135deg,#f5c842,#00d4ff)', color: '#0b0f17', boxShadow: '0 10px 30px -8px rgba(245,200,66,0.5), inset 0 1px 0 0 rgba(255,255,255,0.35)' }}>
+              <button onClick={startConversation} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5 mt-1" style={{ background: 'linear-gradient(100deg,#f7cf55 0%,#ffe9b0 26%,#9fe9ff 56%,#25c9f2 100%)', color: '#0b0f17', boxShadow: '0 12px 34px -10px rgba(245,200,66,0.45), 0 6px 20px -10px rgba(0,212,255,0.5), inset 0 1px 0 0 rgba(255,255,255,0.5)' }}>
                 <Mic size={16} /> {g('ابدأ المحادثة', 'ابدئي المحادثة')}
               </button>
               {onSwitchToClassic && (

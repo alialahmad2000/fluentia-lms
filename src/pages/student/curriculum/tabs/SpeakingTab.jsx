@@ -147,6 +147,22 @@ export default function SpeakingTab({ unitId }) {
     enabled: !!unitId && !!studentId,
   })
 
+  // The unit's cover art opens the stage (see .spk-scene). Cheap, cached, and
+  // present for all 154 units.
+  const { data: unitCover } = useQuery({
+    queryKey: ['unit-cover', unitId],
+    staleTime: 30 * 60 * 1000,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('curriculum_units')
+        .select('cover_image_url')
+        .eq('id', unitId)
+        .maybeSingle()
+      return data?.cover_image_url || null
+    },
+    enabled: !!unitId,
+  })
+
   const latestByQuestion = useMemo(() => {
     const map = {}
     recordings?.forEach((rec) => { if (!map[rec.question_index]) map[rec.question_index] = rec })
@@ -273,6 +289,7 @@ export default function SpeakingTab({ unitId }) {
           studentId={studentId}
           studentName={studentName}
           groupId={groupId}
+          coverUrl={unitCover}
           existingRecording={latestByQuestion[idx] || null}
           allAttempts={attemptsByQuestion[idx] || []}
           onComplete={handleUploadComplete}
@@ -283,7 +300,7 @@ export default function SpeakingTab({ unitId }) {
 }
 
 // ── The Studio ─────────────────────────────────────────────────────────────
-function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, groupId, existingRecording, allAttempts = [], onComplete }) {
+function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, groupId, coverUrl, existingRecording, allAttempts = [], onComplete }) {
   const g = useG()
   const gz = useGenderize()
   const [phase, setPhase] = useState('intro')       // mirrors ConversationMode
@@ -381,9 +398,20 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
               transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
               style={{ overflow: 'hidden' }}
             >
+              {coverUrl && (
+                <div className="spk-scene">
+                  <img className="spk-scene__img" src={coverUrl} alt="" loading="lazy" />
+                  <div className="spk-scene__veil" />
+                  <div className="spk-scene__body">
+                    <span className="spk-kicker"><i />{typeLabel}<u /></span>
+                    <h3 className="spk-title">{heading}</h3>
+                  </div>
+                </div>
+              )}
+
               <div className="spk-brief">
-                <span className="spk-kicker"><i />{typeLabel}<u /></span>
-                <h3 className="spk-title">{heading}</h3>
+                {!coverUrl && <><span className="spk-kicker"><i />{typeLabel}<u /></span>
+                <h3 className="spk-title">{heading}</h3></>}
 
                 {briefBody && <p className="spk-brieftext">{briefBody}</p>}
                 {!promptAr && topic.prompt_en && (

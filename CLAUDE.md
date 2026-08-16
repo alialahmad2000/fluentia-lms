@@ -313,6 +313,19 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-16 (follow-up 3) — SPEAKING: the studio gets a SCENE, a crafted presence, and a gradient that isn't muddy
+- Owner: *"the design overall look can be enhanced."* Three real weaknesses, not paint:
+  1. **The stage was a tall empty rectangle.** Dense text at the top, then ~60% void holding one small disc and a paragraph. No composition.
+  2. **The commissioned cover art was wasted.** Every unit has one (154/154) and speaking only ever showed it as a 46px blur behind the page — while **listening one tab over already gets a cinematic hero band** (`ListeningSection` renders the topic image with a Ken-Burns push-in, a gradient veil and the title overlaid). Speaking having nothing was an inconsistency inside the same unit.
+  3. **The gold→cyan CTA passed straight through olive.** Fine at 6px (the progress bar); ugly on a 52px pill.
+- **NEW `.spk-scene`** — the unit's cover opens the stage: 168px (210px ≥640px) Ken-Burns image, a four-stop veil, and the kicker + title overlaid at the foot of the band. Same idiom as listening, so the unit now reads as one product. Falls back to the old text header if a unit ever lacks a cover. Ken-Burns is disabled under `(pointer: coarse)` and reduced-motion.
+- **The coach presence is now built, not a flat disc**: a specular highlight, a layered cyan core with depth shading, an inset rim, a soft outer halo, and a slow conic light orbiting behind it (frozen on touch + reduced-motion). It is the focal element of the screen and now reads as an instrument.
+- **CTA gradient re-routed through a pale cream** (`#f7cf55 → #ffe9b0 → #9fe9ff → #25c9f2`) so the midpoint stays luminous instead of turning olive, and rebalanced so cyan keeps a real share rather than 70% yellow.
+- Also: the Latin coach label was falling back to a **serif** (the Tailwind arbitrary `font-['Inter']` class wasn't applying) — pinned inline as a tracked uppercase micro-label; the invitation block tightened so the lower half is no longer a void.
+- **Measured, not eyeballed:** text over the art is **gold 10.5:1** and **white 16.7:1** against the median backdrop luminance behind the band — far past AA. On a 390×844 phone the CTA sits at **725px**, still above the fold with the image band added, and there is no horizontal overflow.
+- Verified in the harness with production's token values injected over this tree's stale ones, at 1440×950 and 390×844.
+- Files: `src/pages/student/curriculum/tabs/SpeakingTab.jsx` (unit-cover query + scene band), `speakingStudio.css`, `src/components/curriculum/speaking/ConversationMode.jsx`. DB: none. Edge functions: none.
+
 ### 2026-08-16 (2) — «إجاباتي تختفي» pass 4: the save that returns 200 and writes NOTHING
 أنوار reported the same loss a fourth time. Top-to-bottom audit, and this time the mechanism is proven with
 a controlled before/after rather than inferred.
