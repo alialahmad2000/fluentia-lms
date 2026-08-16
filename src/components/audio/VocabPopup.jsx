@@ -3,6 +3,7 @@ import { X, Volume2, Bookmark, ExternalLink } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import SmartAudioPlayer from './SmartAudioPlayer'
 import { computePopupPositionFromTap } from '../../lib/ui/computePopupPosition'
+import { vocabPhotoUrl } from '../../lib/vocabImages'
 
 // ── Vocab lookup ──────────────────────────────────────────────────────────────
 async function lookupVocab(word, readingId) {
@@ -148,11 +149,12 @@ function VocabContent({ vocab, word, loading, onClose }) {
         </p>
       ) : (
         <>
-          {/* Vocab image */}
-          {vocab.image_url && (
+          {/* Vocab image — gated: the generated set shows misspelled lettering
+              rather than pictures. See lib/vocabImages. */}
+          {vocabPhotoUrl(vocab.image_url) && (
             <div className="my-2 rounded-lg overflow-hidden bg-white/5 aspect-video">
               <img
-                src={vocab.image_url}
+                src={vocabPhotoUrl(vocab.image_url)}
                 alt={vocab.word}
                 className="w-full h-full object-cover"
                 loading="lazy"

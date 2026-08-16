@@ -24,6 +24,8 @@ import WordDetailSheet from '../../../../components/curriculum/word-detail/WordD
 import { getHardWords } from '../../../../services/hardWords'
 import VocabSettingsGear from '../../../../components/curriculum/settings/VocabSettingsGear'
 import VocabOnboardingTour from '../../../../components/curriculum/onboarding/VocabOnboardingTour'
+import WordArtPlate from '../../../../components/curriculum/vocab/WordArtPlate'
+import { vocabPhotoUrl } from '../../../../lib/vocabImages'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -963,6 +965,12 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
   const isMastered = mastery?.mastery_level === 'mastered'
   const isLearning = mastery?.mastery_level === 'learning'
   const passedCount = [mastery?.meaning_exercise_passed, mastery?.sentence_exercise_passed, mastery?.listening_exercise_passed].filter(Boolean).length
+  // Photos are gated off platform-wide (see lib/vocabImages — the generated set
+  // shows misspelled lettering, not pictures), and only ~11% of rows ever had
+  // one. So the card leads with the word set as a type specimen (WordArtPlate),
+  // and the body must not repeat it.
+  const photoUrl = vocabPhotoUrl(word.image_url)
+  const hasPhoto = Boolean(photoUrl) && !imgError
 
   return (
     <motion.div
@@ -976,24 +984,42 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
       onClick={() => { onView?.(); onPractice?.(word) }}
     >
       {/* Image section */}
-      {word.image_url && !imgError ? (
-        <div className="relative aspect-[16/10] overflow-hidden">
+      {hasPhoto ? (
+        <div className="relative aspect-[16/10] overflow-hidden" style={{ isolation: 'isolate' }}>
+          {/* Every vocab image is a subject rendered on a black ground (30/30
+              sampled, border luminance ≤ 35), so `screen` drops that ground to
+              transparent and the subject floats on the same lit plate the
+              specimen cards use — instead of sitting on a flat black rectangle. */}
+          <WordArtPlate
+            word={word.word}
+            partOfSpeech={word.part_of_speech}
+            variant="ground"
+            style={{ position: 'absolute', inset: 0 }}
+          />
           <img
-            src={word.image_url}
+            src={photoUrl}
             alt={word.word}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ mixBlendMode: 'screen' }}
             loading="lazy"
             onError={() => setImgError(true)}
           />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(transparent 40%, rgba(10,22,40,1) 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(transparent 46%, rgba(6,14,28,0.66) 100%)' }} />
           {/* Mastery badge */}
           <div className="absolute top-2 left-2">
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.15)', boxShadow: isMastered ? '0 0 6px rgba(34,197,94,0.4)' : 'none' }} />
           </div>
         </div>
       ) : (
-        <div className="relative aspect-[16/10] flex items-center justify-center overflow-hidden" style={{ background: 'rgba(255,255,255,0.015)' }}>
-          <span className="text-2xl sm:text-3xl font-black text-white/[0.06] font-['Inter'] select-none">{word.word}</span>
+        <div className="relative aspect-[16/10] overflow-hidden">
+          {/* No photo for this word (only ~11% of vocab has one) — draw a designed
+              plate instead of an empty box. See WordArtPlate for the rationale. */}
+          <WordArtPlate
+            word={word.word}
+            partOfSpeech={word.part_of_speech}
+            ipa={word.pronunciation_ipa}
+            style={{ position: 'absolute', inset: 0 }}
+          />
           {/* Mastery badge */}
           <div className="absolute top-2 left-2">
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.15)', boxShadow: isMastered ? '0 0 6px rgba(34,197,94,0.4)' : 'none' }} />
@@ -1005,13 +1031,18 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
       <div className="p-3 space-y-2">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <div className="flex items-baseline gap-2" dir="ltr">
-              <p className="text-sm font-bold text-white font-['Inter'] leading-tight">{word.word}</p>
-              {word.pronunciation_ipa && (
-                <p className="text-[10px] text-white/35 font-['Inter'] leading-tight tracking-tight">{word.pronunciation_ipa}</p>
-              )}
-            </div>
-            <p className="text-[11px] text-white/55 font-['Tajawal'] mt-0.5 line-clamp-1">
+            {/* Photo cards still name the word here; specimen cards already show it
+                large on the plate, so the meaning becomes the primary body line. */}
+            {hasPhoto && (
+              <div className="flex items-baseline gap-2" dir="ltr">
+                <p className="text-sm font-bold text-white font-['Inter'] leading-tight">{word.word}</p>
+                {word.pronunciation_ipa && (
+                  <p className="text-[10px] text-white/35 font-['Inter'] leading-tight tracking-tight">{word.pronunciation_ipa}</p>
+                )}
+              </div>
+            )}
+            {/* Specimen cards freed the word line, so the meaning gets two lines. */}
+            <p className={`font-['Tajawal'] ${hasPhoto ? 'text-[11px] text-white/55 mt-0.5 line-clamp-1' : 'text-xs text-white/75 line-clamp-2 leading-snug'}`}>
               {POS_AR[word.part_of_speech] || word.part_of_speech} · {word.definition_ar}
             </p>
             {word.tier && word.tier !== 'core' && (
@@ -1042,8 +1073,10 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
           )}
         </div>
 
+        {/* The example is the only English sentence on the card — at 25% opacity it
+            was decoration, not something a student could actually read. */}
         {word.example_sentence && (
-          <p className="text-[10px] text-white/25 font-['Inter'] leading-relaxed line-clamp-1 italic" dir="ltr">
+          <p className="text-[10px] text-white/40 font-['Inter'] leading-relaxed line-clamp-1 italic" dir="ltr">
             "{word.example_sentence}"
           </p>
         )}

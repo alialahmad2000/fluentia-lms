@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { playAudioSlice } from '../../../lib/playAudioSlice'
+import { vocabPhotoUrl } from '../../../lib/vocabImages'
 
 export function WordTooltip({
   word, definition_ar, ipa,
@@ -102,11 +103,12 @@ export function WordTooltip({
           WebkitBackdropFilter: 'blur(20px)',
         }}
       >
-        {/* Image */}
-        {image_url && (
+        {/* Image — gated: the generated set shows misspelled lettering rather
+            than pictures. See lib/vocabImages. */}
+        {vocabPhotoUrl(image_url) && (
           <div className="aspect-video bg-white/5 overflow-hidden">
             <img
-              src={image_url}
+              src={vocabPhotoUrl(image_url)}
               alt={word}
               className="w-full h-full object-cover"
               loading="lazy"

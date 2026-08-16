@@ -10,6 +10,7 @@ import { toast } from '../../components/ui/FluentiaToast'
 import { emitXP } from '../../components/ui/XPFloater'
 import { safeCelebrate } from '../../lib/celebrations'
 import { tracker } from '../../services/activityTracker'
+import { vocabPhotoUrl } from '../../lib/vocabImages'
 
 // Days between two Dates, rounded to 1 decimal for short intervals (<1d shows as hours).
 function daysUntilLabel(due, now = new Date()) {
@@ -306,9 +307,11 @@ export default function DailyReview() {
                 className="p-8 flex flex-col items-center justify-center text-center"
                 style={{ minHeight: '280px' }}
               >
-                {vocab?.image_url && (
+                {/* Gated: the generated vocab image set shows misspelled
+                    lettering rather than pictures. See lib/vocabImages. */}
+                {vocabPhotoUrl(vocab?.image_url) && (
                   <img
-                    src={vocab.image_url}
+                    src={vocabPhotoUrl(vocab?.image_url)}
                     alt={vocab.word}
                     className="w-24 h-24 rounded-xl object-cover mb-4 opacity-80"
                   />
