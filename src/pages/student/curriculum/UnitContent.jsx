@@ -265,11 +265,15 @@ export default function UnitContent() {
   // Invalidates progress cache immediately, then returns to MissionGrid after 3s.
   useEffect(() => {
     let returnTimer = null
-    const handleActivityComplete = () => {
+    const handleActivityComplete = (e) => {
       const studentId = profile?.id ?? studentData?.id
       if (studentId && unitId) {
         queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive', studentId, unitId] })
       }
+      // Some activities END on their reward screen (speaking: score + your own
+      // spoken sentences + AI feedback). Bouncing those back to the grid after
+      // 3s throws away the payoff — they opt out with detail.keepOpen.
+      if (e?.detail?.keepOpen) return
       returnTimer = setTimeout(() => handleBackToGrid(), 3000)
     }
     window.addEventListener('fluentia:activity:complete', handleActivityComplete)
@@ -302,7 +306,9 @@ export default function UnitContent() {
       case 'vocabulary':   return <>{ribbon}<VocabularyTab unitId={unitId} /></>
       case 'listening':    return <>{ribbon}<ListeningTab unitId={unitId} /></>
       case 'writing':      return <>{ribbon}<WritingTab unitId={unitId} /></>
-      case 'speaking':     return <>{ribbon}<SpeakingTab unitId={unitId} /></>
+      // Speaking owns its own brief now (the Studio's headline IS the prompt), so
+      // the ribbon would state the topic a second time right above it.
+      case 'speaking':     return <SpeakingTab unitId={unitId} />
       // PRONUNCIATION-HIDDEN 2026-05-19 — defensive fallback (the tab is gone from nav).
       // case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} onBack={handleBackToGrid} /></>
       case 'recording':    return <RecordingTab unitId={unitId} />

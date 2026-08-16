@@ -250,11 +250,13 @@ function UnitContentV3Wrapper() {
   // Activity-complete listener — invalidate progress + return to layout after 3s
   useEffect(() => {
     let returnTimer = null
-    const handleActivityComplete = () => {
+    const handleActivityComplete = (e) => {
       const studentId = profile?.id ?? studentData?.id
       if (studentId && unitId) {
         queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive', studentId, unitId] })
       }
+      // detail.keepOpen — activities whose reward screen IS the payoff (speaking).
+      if (e?.detail?.keepOpen) return
       returnTimer = setTimeout(() => setSearchParams({}, { replace: true }), 3000)
     }
     window.addEventListener('fluentia:activity:complete', handleActivityComplete)

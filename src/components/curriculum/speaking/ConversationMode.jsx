@@ -1,16 +1,20 @@
-// ConversationMode — a premium, voiced back-and-forth conversation with an AI coach about the
-// unit's speaking topic. Coach ("Layla") speaks first; student replies by voice; gentle recasts;
-// graded with the speaking rubric → marks the section complete (summary speaking_recordings row).
-// DEFAULT speaking surface; classic record-once is one tap away. No existing data touched.
+// ConversationMode — the voiced back-and-forth with an AI coach. This IS the speaking
+// section now: the coach ("Layla") speaks first, the student replies by voice, the coach
+// recasts gently, and the whole exchange is graded with the speaking rubric → the section
+// is marked complete (summary speaking_recordings row). No existing data is touched.
 //
-// Design: aurora-backed glass panel + scrim, a living coach presence orb, refined multi-layer
-// chat bubbles, a mic dock with a live waveform, cinematic intro + reward screens — built to the
-// platform's Apple-level bar. Backend logic is identical to the verified version; only the
-// presentation is premium. Reuses Safari-safe RecordRTC → voice-notes + invokeWithRetry.
+// Two presentations, ONE engine:
+//   variant="panel" (default) — a self-framed glass card with its own aurora. Used by the
+//                               Pro Desk call surface.
+//   variant="stage"           — frameless: it fills the Speaking Studio's single continuous
+//                               stage, which supplies the frame, the bloom and the brief.
+//
+// Backend logic is unchanged from the verified version. Safari-safe RecordRTC → voice-notes,
+// invokeWithRetry, per-turn idempotency, impersonation-aware as_student_id.
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Mic, Square, Loader2, Volume2, Sparkles, Send, RotateCcw, Trophy, ChevronLeft, Lightbulb, AlertCircle, Star } from 'lucide-react'
+import { Mic, Square, Volume2, Sparkles, Send, RotateCcw, Trophy, ChevronLeft, AlertCircle, Star, Lightbulb } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { invokeWithRetry } from '../../../lib/invokeWithRetry'
 import { useG } from '../../../i18n/gender'
@@ -54,6 +58,8 @@ const IDLE_BARS = Array.from({ length: 28 }, () => 0.12)
 // Scoped premium styles (explicit rgba — no color-mix, for iOS < 16.4 safety)
 const STYLE = `
 .cvm-root{position:relative;overflow:hidden;border-radius:26px;background:linear-gradient(180deg,rgba(10,18,34,0.92),rgba(8,14,28,0.96));border:1px solid rgba(255,255,255,0.07);box-shadow:0 1px 0 0 rgba(255,255,255,0.05) inset,0 24px 60px -28px rgba(0,0,0,0.7),0 8px 28px -16px rgba(56,189,248,0.18)}
+.cvm-root[data-variant="stage"]{background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible}
+.cvm-root[data-variant="stage"] .cvm-aurora,.cvm-root[data-variant="stage"] .cvm-scrim{display:none}
 .cvm-aurora{position:absolute;inset:-12%;z-index:0;pointer-events:none;transition:transform 1100ms cubic-bezier(.16,1,.3,1)}
 .cvm-root[data-speaking="true"] .cvm-aurora{transform:scale(1.05)}
 .cvm-blob{position:absolute;border-radius:50%;filter:blur(58px);mix-blend-mode:screen;opacity:.5}
@@ -83,14 +89,25 @@ const STYLE = `
 .cvm-mic-pulse[data-on="true"]{animation:cvmRing 1.5s ease-out infinite}
 .cvm-mic-pulse.d2[data-on="true"]{animation-delay:.5s}
 .cvm-shim{background:linear-gradient(90deg,rgba(56,189,248,.06),rgba(167,139,250,.16),rgba(56,189,248,.06));background-size:200% 100%;animation:cvmShimmer 1.8s linear infinite}
+.cvm-stream{overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:min(44vh,360px);min-height:190px;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 100%)}
+@media (min-width:768px){.cvm-stream{max-height:min(52vh,420px)}}
+@media (pointer: coarse){.cvm-blob{animation:none!important;mix-blend-mode:normal;opacity:.62}}
 @media (prefers-reduced-motion: reduce){.cvm-aurora,.cvm-orb,.cvm-orb-ring,.cvm-sbar,.cvm-cta::after,.cvm-mic-pulse,.cvm-shim{animation:none!important}}
 `
 
-// moduleId (optional): individual-track professional roleplay — the edge fn loads the
-// scenario from specialization_modules instead of curriculum_speaking (unitId is null then).
-export default function ConversationMode({ topic, studentId, unitId, moduleId = null, autoStart = false, questionIndex = 0, onComplete, onSwitchToClassic }) {
+// Scenario routing (Pro Desk / individual track) accepts BOTH shapes so neither surface
+// breaks: `moduleId` (specialization_modules) and `scenarioRef` ({ kind:'module', id }).
+// When either is present the unit fields are omitted and the edge fn loads the scenario.
+// onComplete receives { conversationId, evaluation } so a Desk parent can mark it done.
+export default function ConversationMode({
+  topic, studentId, unitId, questionIndex = 0,
+  moduleId = null, scenarioRef = null, personaVariant,
+  autoStart = false, variant = 'panel', headerExtra = null,
+  onComplete, onPhaseChange, onSwitchToClassic,
+}) {
   const g = useG()
   const reduce = useReducedMotion()
+  const isStage = variant === 'stage'
   const [phase, setPhase] = useState('intro')          // intro | active | grading | result
   const [conversationId, setConversationId] = useState(null)
   const [messages, setMessages] = useState([])          // { id, role, text, audioUrl }
@@ -100,10 +117,12 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
   const [done, setDone] = useState(false)
   const [evaluation, setEvaluation] = useState(null)
   const [yourWords, setYourWords] = useState([])
-  const [hintsOpen, setHintsOpen] = useState(false)
   const [error, setError] = useState('')
   const [bars, setBars] = useState(IDLE_BARS)
   const [coachSpeaking, setCoachSpeaking] = useState(false)
+  // Inline phrase hints belong to the standalone panel (the Desk call). In the
+  // Studio the same phrases live in the stage's «مساعدة» sheet instead.
+  const [hintsOpen, setHintsOpen] = useState(false)
 
   const recorderRef = useRef(null)
   const streamRef = useRef(null)
@@ -133,6 +152,9 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
     }
   }, [])
 
+  // Let the parent stage react to the flow (collapse the brief, swap chrome…).
+  useEffect(() => { onPhaseChange?.(phase) }, [phase, onPhaseChange])
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
   }, [messages, recState])
@@ -155,23 +177,26 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
     } catch {}
     setPhase('active')
     setRecState('processing')
-    const { data, error: err } = await invokeWithRetry('speaking-conversation-turn', {
-      // as_student_id makes impersonation work: when staff view AS a student, completion is
-      // written for that student (studentId here = the effective/impersonated profile id).
-      body: moduleId
+    // as_student_id makes impersonation work: when staff view AS a student, completion is
+    // written for that student (studentId here = the effective/impersonated profile id).
+    const scenarioBody = scenarioRef
+      ? { action: 'start', scenario_ref: scenarioRef, persona_variant: personaVariant, as_student_id: studentId }
+      : moduleId
         ? { action: 'start', module_id: moduleId, as_student_id: studentId }
-        : { action: 'start', unit_id: unitId, speaking_id: topic?.id, question_index: questionIndex, as_student_id: studentId },
+        : { action: 'start', unit_id: unitId, speaking_id: topic?.id, question_index: questionIndex, as_student_id: studentId }
+    const { data, error: err } = await invokeWithRetry('speaking-conversation-turn', {
+      body: scenarioBody,
     }, { timeoutMs: 45000, retries: 1 })
     const parsed = await parseData(data)
     setRecState('idle')
     if (err || !parsed?.conversation_id) {
-      setError('تعذّر بدء المحادثة الآن. تقدرين تجربين التسجيل الكلاسيكي بدلاً من ذلك.')
+      setError(g('تعذّر بدء المحادثة الآن — تحقّق من الاتصال وحاول مرة أخرى.', 'تعذّر بدء المحادثة الآن — تحققي من الاتصال وحاولي مرة أخرى.'))
       setPhase('intro'); return
     }
     setConversationId(parsed.conversation_id)
     pushMessage({ role: 'ai', text: parsed.reply, audioUrl: parsed.reply_audio_url })
     playCoach(parsed.reply_audio_url)
-  }, [unitId, moduleId, topic?.id, questionIndex, studentId, pushMessage, playCoach])
+  }, [unitId, moduleId, scenarioRef, personaVariant, topic?.id, questionIndex, studentId, pushMessage, playCoach]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // When mounted inside the Desk call flow, the incoming-call ceremony already happened —
   // begin immediately so answering feels like a live call (no second "start" screen).
@@ -258,7 +283,7 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
       const parsed = await parseData(data)
       if (err || !parsed || parsed.error) throw new Error(parsed?.message || err || 'turn failed')
       if (parsed.ok === false || parsed.no_advance) {
-        pushMessage({ role: 'ai', text: parsed.reply || 'ما سمعتك بوضوح — حاولي مرة ثانية من فضلك.', audioUrl: parsed.reply_audio_url })
+        pushMessage({ role: 'ai', text: parsed.reply || g('ما سمعتك بوضوح — حاول مرة ثانية من فضلك.', 'ما سمعتك بوضوح — حاولي مرة ثانية من فضلك.'), audioUrl: parsed.reply_audio_url })
         playCoach(parsed.reply_audio_url); setRecState('idle'); return
       }
       pushMessage({ role: 'student', text: parsed.transcript })
@@ -268,7 +293,7 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
       setRecState('idle')
       if (parsed.done) { setDone(true); setTimeout(() => endConversation(), 2400) }
     } catch (e) {
-      setError('تعذّر إرسال دورك — تحققي من الاتصال وحاولي مرة أخرى'); setRecState('idle')
+      setError(g('تعذّر إرسال دورك — تحقّق من الاتصال وحاول مرة أخرى', 'تعذّر إرسال دورك — تحققي من الاتصال وحاولي مرة أخرى')); setRecState('idle')
     }
   }, [studentId, conversationId, pushMessage, playCoach]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -277,13 +302,13 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
     const { data, error: err } = await invokeWithRetry('speaking-conversation-grade', { body: { conversation_id: conversationId } }, { timeoutMs: 90000, retries: 1 })
     const parsed = await parseData(data)
     if (err || !parsed?.ok) {
-      setError(parsed?.reason === 'need_more' ? 'تحتاجين لتبادل بضع جُمل قبل إنهاء المحادثة' : 'تعذّر حفظ تقييم المحادثة — اضغطي لإعادة المحاولة')
+      setError(parsed?.reason === 'need_more' ? g('تحتاج لتبادل بضع جُمل قبل إنهاء المحادثة', 'تحتاجين لتبادل بضع جُمل قبل إنهاء المحادثة') : g('تعذّر حفظ تقييم المحادثة — اضغط لإعادة المحاولة', 'تعذّر حفظ تقييم المحادثة — اضغطي لإعادة المحاولة'))
       setPhase('active'); return
     }
     setEvaluation(parsed.evaluation); setYourWords(parsed.your_words || []); setPhase('result')
     try { safeCelebrate('speaking_uploaded') } catch {}
     onComplete?.({ conversationId, evaluation: parsed.evaluation })
-  }, [conversationId, onComplete])
+  }, [conversationId, onComplete]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const restart = useCallback(() => {
     setPhase('intro'); setConversationId(null); setMessages([]); setStudentTurns(0)
@@ -293,51 +318,67 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
   const overall = evaluation?.overall_score
   const band = overall >= 8 ? { c: '#34d399', t: g('ممتاز', 'ممتازة') } : overall >= 6 ? { c: '#38bdf8', t: g('أداء حلو', 'أداؤكِ حلو') } : overall >= 4 ? { c: '#fbbf24', t: g('بداية طيبة', 'بدايةٌ طيبة') } : { c: '#a78bfa', t: g('خطوة أولى رائعة', 'خطوةٌ أولى رائعة') }
 
+  const canFinish = studentTurns >= MIN_END_TURNS
+
   return (
-    <div className="cvm-root" data-speaking={coachSpeaking}>
+    <div className="cvm-root" data-speaking={coachSpeaking} data-variant={variant}>
       <style dangerouslySetInnerHTML={{ __html: STYLE }} />
       <div className="cvm-aurora"><span className="cvm-blob cvm-b1" /><span className="cvm-blob cvm-b2" /><span className="cvm-blob cvm-b3" /></div>
       <div className="cvm-scrim" />
 
       <div className="cvm-content">
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-          <div className="flex items-center gap-3">
-            <CoachOrb size={40} speaking={coachSpeaking} animate={!reduce} />
-            <div>
-              <p className="text-sm font-bold text-white font-['Tajawal'] leading-none flex items-center gap-1.5">
+        {/* Coach bar — the stage's marquee. Hidden on the Studio's intro screen,
+            where the big invitation orb IS the introduction (two orbs 100px apart
+            read as a duplicated element, not as presence). */}
+        {!(isStage && phase === 'intro' && !autoStart) && (
+        <div className="flex items-center justify-between gap-3 px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="flex items-center gap-3 min-w-0">
+            <CoachOrb size={38} speaking={coachSpeaking} animate={!reduce} />
+            <div className="min-w-0">
+              <p className="text-[13px] font-bold text-white font-['Tajawal'] leading-none flex items-center gap-1.5">
                 المدرّبة <span className="text-[10px] font-semibold text-cyan-300/70 font-['Inter']">Layla</span>
               </p>
-              <p className="text-[10px] font-['Tajawal'] mt-1 transition-colors" style={{ color: coachSpeaking ? '#7dd3fc' : 'rgba(248,250,252,0.45)' }}>
-                {coachSpeaking ? g('تتحدّث الآن…', 'تتحدّث الآن…') : recState === 'recording' ? g('تستمع إليك…', 'تستمع إليكِ…') : g('محادثة إنجليزية · خاصة بك', 'محادثة إنجليزية · خاصة بكِ')}
+              <p className="text-[10px] font-['Tajawal'] mt-1 transition-colors truncate" style={{ color: coachSpeaking ? '#7dd3fc' : 'rgba(248,250,252,0.45)' }}>
+                {coachSpeaking ? 'تتحدّث الآن…'
+                  : recState === 'recording' ? g('تستمع إليك…', 'تستمع إليكِ…')
+                  : recState === 'processing' ? 'تفكّر…'
+                  : g('محادثة إنجليزية · خاصة بك', 'محادثة إنجليزية · خاصة بكِ')}
               </p>
             </div>
           </div>
-          {onSwitchToClassic && (
-            <button onClick={onSwitchToClassic} className="flex items-center gap-1 text-[11px] font-bold font-['Tajawal'] text-white/45 hover:text-white/75 transition-colors px-2.5 py-1.5 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-              🎙 تسجيل عادي <ChevronLeft size={13} />
-            </button>
-          )}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {headerExtra}
+            {onSwitchToClassic && (
+              <button onClick={onSwitchToClassic} className="flex items-center gap-1 text-[11px] font-bold font-['Tajawal'] text-white/45 hover:text-white/75 transition-colors px-2.5 py-1.5 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                🎙 تسجيل عادي <ChevronLeft size={13} />
+              </button>
+            )}
+          </div>
         </div>
+        )}
 
         <AnimatePresence mode="wait">
           {/* ── INTRO ── */}
           {phase === 'intro' && !autoStart && (
-            <motion.div key="intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 py-8 flex flex-col items-center text-center gap-5">
-              <CoachOrb size={92} speaking animate={!reduce} />
-              <div className="space-y-2.5 max-w-sm">
-                <h3 className="text-xl font-bold text-white font-['Tajawal']">{g('جاهز لمحادثة قصيرة؟', 'جاهزة لمحادثة قصيرة؟')}</h3>
-                <p className="text-sm font-['Tajawal'] leading-relaxed" style={{ color: 'rgba(248,250,252,0.6)' }}>
-                  دردشة بسيطة بالإنجليزي عن الموضوع. المدرّبة بتبدأ بصوتها، وانتِ تردّين بصوتك. {g('تقدر توقف', 'تقدرين توقفين')} في أي لحظة — وكلامك خاص، ما أحد يسمعه غيرك. 🤍
-                </p>
+            <motion.div key="intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 py-8 flex flex-col items-center text-center gap-4">
+              <div className="flex flex-col items-center gap-2.5">
+                <CoachOrb size={74} speaking animate={!reduce} />
+                <div>
+                  <p className="text-[15px] font-bold text-white font-['Tajawal'] leading-none">المدرّبة ليلى</p>
+                  <p className="text-[11px] font-['Inter'] mt-1.5" dir="ltr" style={{ color: 'rgba(125,211,252,0.75)' }}>English speaking coach</p>
+                </div>
               </div>
-              {topic?.title_en && (
+              <p className="text-[13px] font-['Tajawal'] leading-[1.9] max-w-[38ch]" style={{ color: 'rgba(248,250,252,0.6)' }}>
+                {g('تبدأ ليلى بصوتها وتسألك وترد بصوتك — مكالمة قصيرة بالإنجليزي. توقف في أي لحظة، وكلامك خاص.',
+                   'تبدأ ليلى بصوتها وتسألكِ وتردّين بصوتكِ — مكالمة قصيرة بالإنجليزي. توقفي في أي لحظة، وكلامكِ خاص.')}
+              </p>
+              {!isStage && topic?.title_en && (
                 <div className="px-3.5 py-1.5 rounded-full text-[11px] font-semibold font-['Inter']" dir="ltr" style={{ background: 'rgba(56,189,248,0.10)', border: '1px solid rgba(56,189,248,0.20)', color: '#7dd3fc' }}>
                   {topic.title_en}
                 </div>
               )}
-              <button onClick={startConversation} className="cvm-cta px-8 h-12 rounded-2xl text-sm font-bold font-['Tajawal'] text-white transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(135deg,#06b6d4,#6366f1)', boxShadow: '0 10px 30px -8px rgba(56,189,248,0.55), inset 0 1px 0 0 rgba(255,255,255,0.2)' }}>
-                {g('نبدأ بهدوء', 'نبدأ بهدوء')} →
+              <button onClick={startConversation} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-bold font-['Tajawal'] text-white transition-transform hover:-translate-y-0.5 mt-1" style={{ background: 'linear-gradient(135deg,#06b6d4,#6366f1)', boxShadow: '0 10px 30px -8px rgba(56,189,248,0.55), inset 0 1px 0 0 rgba(255,255,255,0.2)' }}>
+                <Mic size={16} /> {g('ابدأ المحادثة', 'ابدئي المحادثة')}
               </button>
               {onSwitchToClassic && (
                 <button onClick={onSwitchToClassic} className="text-xs text-white/40 hover:text-white/65 font-['Tajawal'] underline underline-offset-4">
@@ -351,21 +392,24 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
           {/* ── ACTIVE ── */}
           {phase === 'active' && (
             <motion.div key="active" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              {/* Turn-progress — shows the conversation ceiling + when the student can finish */}
+              {/* turn progress — the ceiling, and when finishing becomes possible */}
               <div className="px-4 pt-3">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[10px] font-bold font-['Tajawal']" style={{ color: 'rgba(248,250,252,0.5)' }}>تقدّم المحادثة</span>
-                  <span className="text-[10px] font-bold font-['Tajawal'] tabular-nums" style={{ color: studentTurns >= MIN_END_TURNS ? '#6ee7b7' : 'rgba(248,250,252,0.45)' }}>
-                    {studentTurns >= MIN_END_TURNS ? `يمكنك الإنهاء الآن · ${Math.min(studentTurns, MAX_TURNS)}/${MAX_TURNS}` : `${studentTurns}/${MAX_TURNS}`}
+                  <span className="text-[10px] font-bold font-['Tajawal']" style={{ color: 'rgba(248,250,252,0.45)' }}>
+                    {canFinish ? g('تقدر تنهي المحادثة الآن', 'تقدرين تنهين المحادثة الآن') : 'تقدّم المحادثة'}
+                  </span>
+                  <span className="text-[10px] font-bold font-['Tajawal'] tabular-nums" style={{ color: canFinish ? '#6ee7b7' : 'rgba(248,250,252,0.45)' }}>
+                    {Math.min(studentTurns, MAX_TURNS)}/{MAX_TURNS}
                   </span>
                 </div>
                 <div dir="ltr" className="relative h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
                   <motion.div className="h-full rounded-full" animate={{ width: `${Math.min(100, (studentTurns / MAX_TURNS) * 100)}%` }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ background: studentTurns >= MIN_END_TURNS ? 'linear-gradient(90deg,#22d3ee,#34d399)' : 'linear-gradient(90deg,#22d3ee,#a78bfa)' }} />
+                    style={{ background: canFinish ? 'linear-gradient(90deg,#22d3ee,#34d399)' : 'linear-gradient(90deg,#22d3ee,#a78bfa)' }} />
                   <div className="absolute top-0 bottom-0" title="يمكنك الإنهاء من هنا" style={{ left: `${(MIN_END_TURNS / MAX_TURNS) * 100}%`, width: 2, background: 'rgba(255,255,255,0.4)' }} />
                 </div>
               </div>
-              <div ref={scrollRef} className="px-4 pt-3 pb-5 space-y-3.5 overflow-y-auto" style={{ maxHeight: 360, minHeight: 180 }}>
+
+              <div ref={scrollRef} className="cvm-stream px-4 pt-3 pb-5 space-y-3.5">
                 {messages.map((m, i) => (
                   <Bubble key={m.id} message={m} onReplay={() => playCoach(m.audioUrl)} speaking={coachSpeaking && m.role === 'ai' && i === messages.length - 1} reduce={reduce} />
                 ))}
@@ -379,7 +423,7 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
                 )}
               </div>
 
-              {topic?.useful_phrases?.length > 0 && (
+              {!isStage && topic?.useful_phrases?.length > 0 && (
                 <div className="px-4 pb-1">
                   <button onClick={() => setHintsOpen((v) => !v)} className="flex items-center gap-1.5 text-[11px] font-bold font-['Tajawal'] text-amber-300/85 hover:text-amber-300">
                     <Lightbulb size={13} /> {g('محتاج مساعدة؟ عبارات مفيدة', 'محتاجة مساعدة؟ عبارات مفيدة')}
@@ -398,7 +442,7 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
                 </div>
               )}
 
-              {error && <p className="px-4 text-xs text-amber-400 font-['Tajawal'] flex items-center gap-1.5"><AlertCircle size={13} /> {error}</p>}
+              {error && <p className="px-4 pb-1 text-xs text-amber-400 font-['Tajawal'] flex items-center gap-1.5"><AlertCircle size={13} /> {error}</p>}
 
               {/* mic dock */}
               <div className="px-4 py-5 flex flex-col items-center gap-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
@@ -408,21 +452,21 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
                   </div>
                 )}
                 {recState === 'recording' ? (
-                  <button onClick={stopRecording} className="relative w-[72px] h-[72px] rounded-full flex items-center justify-center" style={{ background: 'rgba(251,113,133,0.14)', border: '2px solid rgba(251,113,133,0.4)', color: '#fda4af', boxShadow: '0 0 36px -6px rgba(251,113,133,0.4)' }}>
+                  <button onClick={stopRecording} aria-label="إيقاف التسجيل" className="relative w-[72px] h-[72px] rounded-full flex items-center justify-center" style={{ background: 'rgba(251,113,133,0.14)', border: '2px solid rgba(251,113,133,0.4)', color: '#fda4af', boxShadow: '0 0 36px -6px rgba(251,113,133,0.4)' }}>
                     <span className="cvm-mic-pulse" data-on="true" /><span className="cvm-mic-pulse d2" data-on="true" />
                     <Square size={22} fill="currentColor" />
                   </button>
                 ) : (
-                  <button onClick={startRecording} disabled={recState === 'processing'} className="relative w-[72px] h-[72px] rounded-full flex items-center justify-center transition-transform hover:-translate-y-0.5 disabled:opacity-40" style={{ background: 'rgba(34,211,238,0.13)', border: '1px solid rgba(34,211,238,0.32)', color: '#67e8f9', boxShadow: '0 8px 30px -8px rgba(56,189,248,0.4), inset 0 1px 0 0 rgba(255,255,255,0.1)' }}>
+                  <button onClick={startRecording} disabled={recState === 'processing'} aria-label={g('اضغط وتكلّم', 'اضغطي وتكلّمي')} className="relative w-[72px] h-[72px] rounded-full flex items-center justify-center transition-transform hover:-translate-y-0.5 disabled:opacity-40" style={{ background: 'rgba(34,211,238,0.13)', border: '1px solid rgba(34,211,238,0.32)', color: '#67e8f9', boxShadow: '0 8px 30px -8px rgba(56,189,248,0.4), inset 0 1px 0 0 rgba(255,255,255,0.1)' }}>
                     <Mic size={28} />
                   </button>
                 )}
                 <p className="text-[11px] font-['Tajawal'] tabular-nums" style={{ color: 'rgba(248,250,252,0.5)' }}>
                   {recState === 'recording' ? `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')} — ${g('اضغط للإيقاف', 'اضغطي للإيقاف')}` : recState === 'processing' ? '…' : g('اضغط وتكلّم', 'اضغطي وتكلّمي')}
                 </p>
-                {studentTurns >= MIN_END_TURNS && !done && recState === 'idle' && (
+                {canFinish && !done && recState === 'idle' && (
                   <button onClick={endConversation} className="flex items-center gap-1.5 px-5 h-10 rounded-xl text-xs font-bold font-['Tajawal'] transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(135deg,rgba(52,211,153,0.18),rgba(251,191,36,0.14))', border: '1px solid rgba(52,211,153,0.3)', color: '#6ee7b7' }}>
-                    <Send size={13} /> {g('إنهاء المحادثة وعرض التقييم', 'إنهاء المحادثة وعرض التقييم')}
+                    <Send size={13} /> {g('أنهِ المحادثة واعرض التقييم', 'أنهي المحادثة واعرضي التقييم')}
                   </button>
                 )}
                 <p className="text-[10px] font-['Tajawal'] flex items-center gap-1" style={{ color: 'rgba(248,250,252,0.32)' }}>🔒 {g('كلامك خاص ما يطّلع عليه أحد', 'كلامكِ خاص ما يطّلع عليه أحد')}</p>
@@ -474,11 +518,9 @@ export default function ConversationMode({ topic, studentId, unitId, moduleId = 
               {evaluation?.feedback_ar && (
                 <p className="text-xs font-['Tajawal'] leading-relaxed text-center" style={{ color: 'rgba(248,250,252,0.7)' }}>{evaluation.feedback_ar}</p>
               )}
-              <p className="text-[11px] font-['Tajawal'] text-center" style={{ color: 'rgba(248,250,252,0.4)' }}>التقييم المفصّل في الأسفل ⬇</p>
-
               <div className="flex items-center justify-center">
                 <button onClick={restart} className="flex items-center gap-1.5 px-5 h-10 rounded-xl text-xs font-bold font-['Tajawal'] transition-transform hover:-translate-y-0.5" style={{ background: 'rgba(56,189,248,0.12)', border: '1px solid rgba(56,189,248,0.22)', color: '#67e8f9' }}>
-                  <RotateCcw size={13} /> {g('محادثة جديدة', 'محادثة جديدة')}
+                  <RotateCcw size={13} /> محادثة جديدة
                 </button>
               </div>
             </motion.div>
@@ -505,27 +547,33 @@ function CoachOrb({ size = 40, speaking = false, animate = true }) {
 
 // ── Premium chat bubble ──
 function Bubble({ message, onReplay, speaking, reduce }) {
+  const g = useG()
   const isAi = message.role === 'ai'
   return (
     <motion.div initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }} className={`flex ${isAi ? 'justify-start' : 'justify-end'}`}>
-      <div className="max-w-[80%] px-3.5 py-2.5" style={isAi ? {
+      {/* The surface is RTL, so the coach (the "other" party) sits on the RIGHT and
+          the student on the LEFT — and each bubble's clipped tail corner must be on
+          ITS OWN side. These radii are physical, so they read right-to-left. */}
+      <div className="px-3.5 py-2.5" style={isAi ? {
+        maxWidth: 'min(80%, 46ch)',
         background: 'linear-gradient(135deg,rgba(34,211,238,0.12),rgba(167,139,250,0.07))',
         border: '1px solid rgba(56,189,248,0.20)', backdropFilter: 'blur(10px)',
-        borderRadius: '18px 18px 18px 6px',
+        borderRadius: '18px 18px 6px 18px',
         boxShadow: '0 1px 2px -1px rgba(0,0,0,0.20),0 8px 20px -8px rgba(0,0,0,0.28),0 16px 40px -16px rgba(56,189,248,0.22),inset 0 1px 0 0 rgba(255,255,255,0.08)',
       } : {
+        maxWidth: 'min(80%, 46ch)',
         background: 'linear-gradient(135deg,rgba(56,189,248,0.22),rgba(99,102,241,0.20))',
         border: '1px solid rgba(56,189,248,0.34)', backdropFilter: 'blur(8px)',
-        borderRadius: '18px 18px 6px 18px',
+        borderRadius: '18px 18px 18px 6px',
         boxShadow: '0 1px 2px -1px rgba(0,0,0,0.22),0 8px 20px -8px rgba(0,0,0,0.30),0 16px 40px -14px rgba(99,102,241,0.28),inset 0 1px 0 0 rgba(255,255,255,0.12)',
       }}>
-        <p dir="ltr" className={`text-sm font-['Inter'] leading-relaxed whitespace-pre-line ${isAi ? 'text-left' : 'text-right'}`} style={{ color: isAi ? 'rgba(248,250,252,0.92)' : '#fff' }}>{message.text}</p>
+        <p dir="ltr" className="text-sm font-['Inter'] leading-relaxed whitespace-pre-line text-left" style={{ color: isAi ? 'rgba(248,250,252,0.92)' : '#fff' }}>{message.text}</p>
         {isAi && message.audioUrl && (
           <button onClick={onReplay} className="mt-2 flex items-center gap-1.5 text-[10px] font-bold font-['Tajawal'] transition-colors" style={{ color: speaking ? '#7dd3fc' : 'rgba(125,211,252,0.7)' }}>
             {speaking ? (
               <span className="flex items-end gap-[2px] h-3">{[0, 1, 2].map((i) => <span key={i} className="cvm-sbar" data-on="true" style={{ height: 11, width: 2, animationDelay: `${i * 0.15}s` }} />)}</span>
             ) : <Volume2 size={12} />}
-            أعيدي السماع
+            {g('أعِد السماع', 'أعيدي السماع')}
           </button>
         )}
       </div>

@@ -1,24 +1,93 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// SPEAKING «المحادثة» — the Studio
+//
+// Redesigned 2026-08-16. The section used to be a STACK of disconnected cards
+// (topic card → tips accordion → phrases accordion → conversation panel →
+// evaluation → attempts → leaderboard → share), which meant the one thing the
+// student is here to do — talk — sat below the fold under two collapsibles they
+// had to remember to open, and the brief was printed twice (EN + AR).
+//
+// Now: ONE continuous stage.
+//   ① الإحاطة  — the brief, which COLLAPSES to a single line the moment the
+//                conversation starts, so the mic is always on screen.
+//   ② المحادثة — the live voiced conversation, the hero, full width.
+//   ③ الحصيلة  — score + detailed feedback, one segmented panel instead of
+//                eight stacked sub-sections.
+// Prep material (tips + phrases + the brief itself) moved INSIDE the stage as
+// one «مساعدة» sheet reachable mid-conversation, where it is actually needed.
+//
+// The classic record-once surface is HIDDEN from here on (owner decision,
+// 2026-08-16): speaking IS a conversation with the platform now. Nothing is
+// deleted — VoiceRecorder / PracticeMode / AICoachPanel and every existing
+// speaking_recordings row stay untouched, and old evaluations still render.
+// ═══════════════════════════════════════════════════════════════════════════
+
 import { useState, useMemo, useCallback, useEffect } from 'react'
-import { genderizeText } from '@/i18n/gender'
+import { genderizeText, useG, useGenderize } from '@/i18n/gender'
 import { useShallow } from 'zustand/react/shallow'
-import AICoachPanel from '../../../../components/coach/AICoachPanel'
-import PracticeMode from '../../../../components/coach/PracticeMode'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, ClipboardCheck, GraduationCap, Loader2, History } from 'lucide-react'
+import {
+  Mic, ChevronDown, Clock, Sparkles, Loader2, History, GraduationCap,
+  Languages, MessagesSquare, LifeBuoy, CheckCircle2, X, Wand2, Quote,
+} from 'lucide-react'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
-import VoiceRecorder from '../../../../components/VoiceRecorder'
 import ConversationMode from '../../../../components/curriculum/speaking/ConversationMode'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import './speakingStudio.css'
 
-// ─── Main Component ──────────────────────────────────
+// ── Arabic helpers ─────────────────────────────────────────────────────────
+// Number–noun agreement: 1 singular · 2 dual · 3-10 plural · 11+ singular.
+// Arabic counts the singular and the dual WITHOUT the numeral («دقيقتين», never
+// «2 دقيقتان»), takes the plural for 3–10 and the singular again from 11 up.
+const secPhrase = (n) => (n === 1 ? 'ثانية' : n === 2 ? 'ثانيتين' : n <= 10 ? `${n} ثوانٍ` : `${n} ثانية`)
+const minPhrase = (n) => (n === 1 ? 'دقيقة' : n === 2 ? 'دقيقتين' : n <= 10 ? `${n} دقائق` : `${n} دقيقة`)
+const formatDuration = (sec) => {
+  if (!sec && sec !== 0) return ''
+  if (sec < 60) return secPhrase(sec)
+  const m = Math.floor(sec / 60)
+  const s = sec % 60
+  return s > 0 ? `${minPhrase(m)} و${secPhrase(s)}` : minPhrase(m)
+}
+// One numeral system on the surface — mixing ٣ with 30 in the same line is the
+// kind of detail that makes a screen read as unfinished.
+const durationRange = (min, max) => {
+  if (!min || !max) return null
+  return `من ${formatDuration(min)} إلى ${formatDuration(max)}`
+}
+
+const TOPIC_TYPE_AR = {
+  personal: 'حديث شخصي',
+  descriptive: 'وصف',
+  narrative: 'سرد',
+  opinion: 'رأي',
+  discussion: 'نقاش',
+  debate: 'مناظرة',
+  academic: 'طرح أكاديمي',
+  roleplay: 'تمثيل موقف',
+}
+
+// The DB stores a real short title only for roleplay rows; for every other type
+// `title_ar` is a verbatim copy of the prompt. So: use the title when it is
+// genuinely a title, otherwise lead with the task's VERB.
+const ACTION_TITLE = {
+  descriptive: ['صِف بالتفصيل', 'صِفي بالتفصيل'],
+  opinion: ['قل رأيك بثقة', 'قولي رأيكِ بثقة'],
+  personal: ['تكلّم عن نفسك', 'تكلّمي عن نفسكِ'],
+  discussion: ['ناقِش وأقنِع', 'ناقشي وأقنعي'],
+  debate: ['ناقِش وأقنِع', 'ناقشي وأقنعي'],
+  academic: ['اطرح تحليلك', 'اطرحي تحليلكِ'],
+  narrative: ['احكِ القصة', 'احكي القصة'],
+}
+
+// ── Main ───────────────────────────────────────────────────────────────────
 export default function SpeakingTab({ unitId }) {
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
   const studentId = profile?.id
@@ -26,6 +95,7 @@ export default function SpeakingTab({ unitId }) {
   const groupId = studentData?.group_id
   const queryClient = useQueryClient()
   const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
+  const [activeTopic, setActiveTopic] = useState(0)
 
   const { data: topics, isLoading } = useQuery({
     queryKey: ['unit-speaking', unitId],
@@ -41,7 +111,8 @@ export default function SpeakingTab({ unitId }) {
     enabled: !!unitId,
   })
 
-  // Fetch existing recordings for this student + unit
+  // Existing recordings — a conversation writes a summary row here too, so this
+  // covers BOTH the new conversations and any historical record-once attempt.
   const { data: recordings } = useQuery({
     queryKey: ['speaking-recordings', unitId, studentId],
     queryFn: async () => {
@@ -57,7 +128,6 @@ export default function SpeakingTab({ unitId }) {
         return []
       }
 
-      // Regenerate signed URLs from audio_path if audio_url is missing or expired
       const withUrls = await Promise.all((data || []).map(async (rec) => {
         if (rec.audio_path && !rec.audio_url) {
           const { data: urlData } = await supabase.storage
@@ -73,25 +143,21 @@ export default function SpeakingTab({ unitId }) {
     enabled: !!unitId && !!studentId,
   })
 
-  // Group recordings: latest per question_index + all attempts
   const latestByQuestion = useMemo(() => {
     const map = {}
-    recordings?.forEach(rec => {
-      if (!map[rec.question_index]) map[rec.question_index] = rec
-    })
+    recordings?.forEach((rec) => { if (!map[rec.question_index]) map[rec.question_index] = rec })
     return map
   }, [recordings])
 
   const attemptsByQuestion = useMemo(() => {
     const map = {}
-    recordings?.forEach(rec => {
+    recordings?.forEach((rec) => {
       if (!map[rec.question_index]) map[rec.question_index] = []
       map[rec.question_index].push(rec)
     })
     return map
   }, [recordings])
 
-  // Save progress after upload
   const handleUploadComplete = useCallback(async () => {
     if (readOnly) return
     try { safeCelebrate('speaking_uploaded') } catch {}
@@ -144,30 +210,60 @@ export default function SpeakingTab({ unitId }) {
 
     queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive', studentId, unitId] })
     awardCurriculumXP(studentId, 'speaking', null, unitId)
-    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'speaking' } }))
-  }, [unitId, studentId, queryClient])
+    // keepOpen: the reward screen + AI feedback IS the payoff here — the unit
+    // page's 3s auto-return would yank the student off it before they read it.
+    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', {
+      detail: { activityKey: 'speaking', keepOpen: true },
+    }))
+  }, [unitId, studentId, queryClient, readOnly])
 
   if (isLoading) return <SpeakingSkeleton />
 
   if (!topics?.length) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 flex items-center justify-center">
-          <Mic size={28} className="text-cyan-400" />
+      <div className="spk">
+        <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
+        <div className="spk-body-col">
+          <div className="spk-stage flex flex-col items-center justify-center text-center gap-4 px-6 py-16">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center"
+              style={{ background: 'rgba(34,211,238,0.10)', border: '1px solid rgba(126,227,245,0.22)', boxShadow: '0 10px 30px -14px rgba(34,211,238,0.6)' }}>
+              <Mic size={26} style={{ color: '#7ee3f5' }} />
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[15px] font-bold font-['Tajawal']" style={{ color: '#f4f8ff' }}>ما فيه محادثة لهذه الوحدة بعد</p>
+              <p className="text-[12.5px] font-['Tajawal'] leading-[1.9] max-w-[32ch]" style={{ color: 'rgba(238,245,255,0.5)' }}>
+                نجهّز لك مهمة محادثة قريباً — كمّل بقية أقسام الوحدة وارجع لها.
+              </p>
+            </div>
+          </div>
         </div>
-        <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد مهمة محادثة لهذه الوحدة بعد</p>
       </div>
     )
   }
 
+  const idx = Math.min(activeTopic, topics.length - 1)
+  const topic = topics[idx]
+
   return (
-    <div className="space-y-6">
-      {topics.map((topic, idx) => (
-        <SpeakingTopic
+    <div className="spk">
+      <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
+
+      <div className="spk-body-col">
+        {/* Several tasks in one unit → switch between them instead of stacking
+            two full studios on top of each other. (Today every unit has one.) */}
+        {topics.length > 1 && (
+          <div className="spk-seg" style={{ margin: '0 0 14px' }}>
+            {topics.map((t, i) => (
+              <button key={t.id} onClick={() => setActiveTopic(i)} data-on={i === idx}>
+                المهمة {i + 1}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <SpeakingStudio
           key={topic.id}
           topic={topic}
-          number={idx + 1}
-          total={topics.length}
           questionIndex={idx}
           unitId={unitId}
           studentId={studentId}
@@ -175,31 +271,32 @@ export default function SpeakingTab({ unitId }) {
           groupId={groupId}
           existingRecording={latestByQuestion[idx] || null}
           allAttempts={attemptsByQuestion[idx] || []}
-          onUploadComplete={handleUploadComplete}
+          onComplete={handleUploadComplete}
         />
-      ))}
+      </div>
     </div>
   )
 }
 
-// ─── Speaking Topic ──────────────────────────────────
-function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, studentName, groupId, existingRecording, allAttempts = [], onUploadComplete }) {
-  // All hooks at top — before any conditional return
-  const [mode, setMode] = useState('practice') // 'practice' | 'final'
-  const [tipsOpen, setTipsOpen] = useState(false)
-  const [phrasesOpen, setPhrasesOpen] = useState(false)
+// ── The Studio ─────────────────────────────────────────────────────────────
+function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, groupId, existingRecording, allAttempts = [], onComplete }) {
+  const g = useG()
+  const gz = useGenderize()
+  const [phase, setPhase] = useState('intro')       // mirrors ConversationMode
+  const [briefOpen, setBriefOpen] = useState(true)
+  const [showEn, setShowEn] = useState(false)
+  const [helpOpen, setHelpOpen] = useState(false)
+  const [helpTab, setHelpTab] = useState('brief')
   const [liveEvaluation, setLiveEvaluation] = useState(null)
   const [realtimeStatus, setRealtimeStatus] = useState(existingRecording?.evaluation_status || null)
   const [attemptsOpen, setAttemptsOpen] = useState(false)
-  // Speaking surface: 'conversation' (new default) | 'classic' (record-once). Per-student,
-  // persisted in localStorage so the switch is remembered — a gradual opt-out, not forced.
-  const [surface, setSurface] = useState(() => {
-    try { return localStorage.getItem('fluentia:speakingMode:' + studentId) === 'classic' ? 'classic' : 'conversation' } catch { return 'conversation' }
-  })
-  const switchSurface = (s) => { setSurface(s); try { localStorage.setItem('fluentia:speakingMode:' + studentId, s) } catch {} }
   const { data: leaderboard } = useActivityLeaderboard('speaking', unitId, studentId, groupId)
 
-  // Realtime subscription — updates live when sweeper completes evaluation
+  // The brief steps aside the moment the conversation is live — the mic must
+  // never be below the fold. It stays one tap away in the strip + help sheet.
+  useEffect(() => { setBriefOpen(phase === 'intro') }, [phase])
+
+  // Realtime — a late sweeper evaluation lands without a reload.
   useEffect(() => {
     if (!existingRecording?.id) return
     if (existingRecording?.evaluation_status === 'completed') return
@@ -216,678 +313,571 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
         setRealtimeStatus(updated.evaluation_status)
         if (updated.evaluation_status === 'completed' && updated.ai_evaluation) {
           setLiveEvaluation(updated.ai_evaluation)
-          onUploadComplete?.()
-          toast({ type: 'success', title: '✨ وصل تقييم تسجيلك!' })
+          onComplete?.()
+          toast({ type: 'success', title: '✨ وصل تقييم محادثتك!' })
         }
-        if (updated.evaluation_status === 'failed_manual') {
-          setRealtimeStatus('failed_manual')
-        }
+        if (updated.evaluation_status === 'failed_manual') setRealtimeStatus('failed_manual')
       })
       .subscribe()
 
     return () => { supabase.removeChannel(channel) }
-  }, [existingRecording?.id, existingRecording?.evaluation_status, onUploadComplete])
-
-  const formatDuration = (seconds) => {
-    if (seconds < 60) return `${seconds} ثانية`
-    const m = Math.floor(seconds / 60)
-    const s = seconds % 60
-    return s > 0 ? `${m} دقيقة و ${s} ثانية` : `${m} ${m > 2 && m < 11 ? 'دقائق' : 'دقيقة'}`
-  }
-
-  const topicTypeAr = {
-    personal: 'شخصي',
-    descriptive: 'وصفي',
-    narrative: 'سردي',
-    opinion: 'رأي',
-    discussion: 'نقاش',
-  }
+  }, [existingRecording?.id, existingRecording?.evaluation_status, onComplete])
 
   const aiEval = liveEvaluation || existingRecording?.ai_evaluation
-  // The text coach sidebar only belongs to the classic surface (in conversation mode the chat IS the coach)
-  const showCoach = !existingRecording && !!studentId && !!topic.id && surface === 'classic'
+  const typeLabel = TOPIC_TYPE_AR[topic.topic_type] || topic.topic_type || 'محادثة'
+
+  // What the student reads first should be THE QUESTION, not a generic verb.
+  //  · roleplay rows carry a real short title  → title is the headline, prompt is the body
+  //  · short prompts (descriptive/personal)    → the prompt IS the headline, no body
+  //  · long prompts (debate/academic)          → action verb headline + prompt body
+  const promptAr = gz((topic.prompt_ar || '').trim())
+  const rawTitle = (topic.title_ar || '').trim()
+  const hasRealTitle = rawTitle && rawTitle !== (topic.prompt_ar || '').trim() && rawTitle.length <= 110
+  const action = ACTION_TITLE[topic.topic_type]
+  const promptIsHeadline = !hasRealTitle && promptAr.length > 0 && promptAr.length <= 165
+  const heading = hasRealTitle
+    ? gz(rawTitle)
+    : promptIsHeadline ? promptAr
+    : action ? g(action[0], action[1]) : typeLabel
+  const briefBody = promptIsHeadline ? '' : promptAr
+
+  const notes = Array.isArray(topic.preparation_notes) ? topic.preparation_notes : []
+  const phrases = Array.isArray(topic.useful_phrases) ? topic.useful_phrases : []
+  const durationText = durationRange(topic.min_duration_seconds, topic.max_duration_seconds)
+
+  const openHelp = useCallback((tab) => { setHelpTab(tab); setHelpOpen(true) }, [])
 
   return (
-    <div className={showCoach ? 'lg:grid lg:grid-cols-[1fr_380px] lg:gap-6 lg:items-start space-y-4 lg:space-y-0' : 'space-y-4'}>
-      {/* Main content column */}
-      <div className="space-y-4 min-w-0">
-
-      {total > 1 && (
-        <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-          الموضوع {number} من {total}
-        </p>
-      )}
-
-      {/* Topic prompt */}
-      <div
-        className="rounded-xl p-5 space-y-3"
-        style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-      >
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
-            <MessageCircle size={18} className="text-cyan-400" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">موضوع المحادثة</h3>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-400 font-['Tajawal']">
-                {topicTypeAr[topic.topic_type] || topic.topic_type}
-              </span>
-            </div>
-            {/* English prompt */}
-            <p className="text-sm text-[var(--text-secondary)] font-['Inter'] mt-2 leading-relaxed" dir="ltr">
-              {topic.prompt_en}
+    <>
+      <div className="spk-stage">
+        {/* Already done once — a quiet acknowledgement, not a wall of scores */}
+        {existingRecording && phase === 'intro' && (
+          <div className="spk-done">
+            <span className="spk-done-dot"><CheckCircle2 size={13} /></span>
+            <p className="text-[12px] font-bold font-['Tajawal']" style={{ color: 'rgba(238,245,255,0.78)' }}>
+              {g('أنجزت هذه المهمة', 'أنجزتِ هذه المهمة')}
+              {aiEval?.overall_score != null && (
+                <span className="mx-1.5 tabular-nums" style={{ color: '#6ee7b7' }}>· {aiEval.overall_score}/10</span>
+              )}
             </p>
-            {/* Arabic prompt */}
-            {topic.prompt_ar && (
-              <p className="text-sm text-[var(--text-muted)] font-['Tajawal'] mt-1.5 leading-relaxed">
-                {genderizeText(topic.prompt_ar)}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Duration guide */}
-        <div className="flex items-center gap-2">
-          <Clock size={13} className="text-[var(--text-muted)]" />
-          <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-            المدة المطلوبة: {formatDuration(topic.min_duration_seconds)} – {formatDuration(topic.max_duration_seconds)}
-          </span>
-        </div>
-
-        {/* Evaluation criteria */}
-        {topic.evaluation_criteria && (
-          <div className="flex flex-wrap gap-2 pt-1">
-            {Object.entries(topic.evaluation_criteria).map(([criterion, weight]) => (
-              <span
-                key={criterion}
-                className="px-2.5 py-1 rounded-lg text-[10px] font-semibold font-['Inter'] capitalize"
-                style={{ background: 'rgba(255,255,255,0.04)', color: 'var(--text-muted)' }}
-              >
-                {criterion} {weight}%
-              </span>
-            ))}
+            <span className="text-[11px] font-['Tajawal'] mr-auto" style={{ color: 'rgba(238,245,255,0.4)' }}>
+              {g('تقدر تعيدها', 'تقدرين تعيدينها')}
+            </span>
           </div>
         )}
-      </div>
 
-      {/* Preparation notes (collapsible) */}
-      {topic.preparation_notes?.length > 0 && (
-        <div
-          className="rounded-xl overflow-hidden"
-          style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-        >
-          <button
-            onClick={() => setTipsOpen(!tipsOpen)}
-            className="w-full flex items-center justify-between px-4 py-3 text-left"
-          >
-            <div className="flex items-center gap-2">
-              <Sparkles size={14} className="text-amber-400" />
-              <span className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">نصائح للتحضير</span>
-            </div>
-            <ChevronDown
-              size={14}
-              className={`text-[var(--text-muted)] transition-transform duration-200 ${tipsOpen ? 'rotate-180' : ''}`}
-            />
-          </button>
-          <AnimatePresence>
-            {tipsOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
-              >
-                <ul className="px-4 pb-3 space-y-2">
-                  {topic.preparation_notes.map((note, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-[var(--text-secondary)] font-['Tajawal']">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
-                      {note}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-
-      {/* Useful phrases (collapsible) */}
-      {topic.useful_phrases?.length > 0 && (
-        <div
-          className="rounded-xl overflow-hidden"
-          style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-        >
-          <button
-            onClick={() => setPhrasesOpen(!phrasesOpen)}
-            className="w-full flex items-center justify-between px-4 py-3 text-left"
-          >
-            <div className="flex items-center gap-2">
-              <Volume2 size={14} className="text-sky-400" />
-              <span className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">عبارات مفيدة</span>
-            </div>
-            <ChevronDown
-              size={14}
-              className={`text-[var(--text-muted)] transition-transform duration-200 ${phrasesOpen ? 'rotate-180' : ''}`}
-            />
-          </button>
-          <AnimatePresence>
-            {phrasesOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
-              >
-                <div className="px-4 pb-3 flex flex-wrap gap-2">
-                  {topic.useful_phrases.map((phrase, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold font-['Inter'] bg-sky-500/10 text-sky-400"
-                      dir="ltr"
-                    >
-                      {phrase}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-
-      {/* Conversation (default) vs classic recording surface */}
-      {surface === 'conversation' && studentId && (
-        <ConversationMode
-          topic={topic}
-          studentId={studentId}
-          unitId={unitId}
-          questionIndex={questionIndex}
-          onComplete={onUploadComplete}
-          onSwitchToClassic={() => switchSurface('classic')}
-        />
-      )}
-
-      {surface === 'classic' && (<>
-      {studentId && (
-        <button
-          onClick={() => switchSurface('conversation')}
-          className="flex items-center gap-1.5 text-[11px] font-bold font-['Tajawal'] text-cyan-400 hover:text-cyan-300 transition-colors"
-        >
-          <Sparkles size={12} /> جرّب المحادثة مع المدرّبة بدل التسجيل
-        </button>
-      )}
-
-      {/* Mode toggle — only when no final recording yet */}
-      {!existingRecording && studentId && (
-        <div className="flex gap-2 p-1 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)' }}>
-          <button
-            onClick={() => setMode('practice')}
-            className="flex-1 py-2 rounded-lg text-xs font-bold font-['Tajawal'] transition-colors"
-            style={{
-              background: mode === 'practice' ? 'rgba(168,85,247,0.18)' : 'transparent',
-              color: mode === 'practice' ? '#a855f7' : 'var(--text-muted)',
-              border: mode === 'practice' ? '1px solid rgba(168,85,247,0.3)' : '1px solid transparent',
-            }}
-          >
-            🎯 وضع التدريب
-          </button>
-          <button
-            onClick={() => setMode('final')}
-            className="flex-1 py-2 rounded-lg text-xs font-bold font-['Tajawal'] transition-colors"
-            style={{
-              background: mode === 'final' ? 'rgba(56,189,248,0.15)' : 'transparent',
-              color: mode === 'final' ? '#38bdf8' : 'var(--text-muted)',
-              border: mode === 'final' ? '1px solid rgba(56,189,248,0.25)' : '1px solid transparent',
-            }}
-          >
-            📤 التسليم النهائي
-          </button>
-        </div>
-      )}
-
-      {/* Practice Mode */}
-      {!existingRecording && mode === 'practice' && studentId && (
-        <div
-          className="rounded-xl p-4"
-          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
-        >
-          <PracticeMode
-            taskId={topic.id}
-            studentId={studentId}
-            taskTitle={topic.title_ar || topic.title_en}
-          />
-          <div className="flex justify-center mt-4">
-            <button
-              onClick={() => setMode('final')}
-              className="px-5 h-9 rounded-xl text-xs font-bold font-['Tajawal'] transition-colors"
-              style={{ background: 'rgba(56,189,248,0.12)', color: '#38bdf8', border: '1px solid rgba(56,189,248,0.25)' }}
+        {/* ① THE BRIEF */}
+        <AnimatePresence initial={false} mode="wait">
+          {briefOpen ? (
+            <motion.div
+              key="brief"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+              style={{ overflow: 'hidden' }}
             >
-              ✅ أنا جاهز للتسجيل النهائي
-            </button>
-          </div>
-        </div>
-      )}
+              <div className="spk-brief">
+                <span className="spk-kicker"><i />{typeLabel}<u /></span>
+                <h3 className="spk-title">{heading}</h3>
 
-      {/* Voice Recorder — final submission (always shown when recording exists, or when mode=final) */}
-      {(existingRecording || mode === 'final') && (
-        <div
-          className="rounded-xl p-4"
-          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
-        >
-          <VoiceRecorder
+                {briefBody && <p className="spk-brieftext">{briefBody}</p>}
+                {!promptAr && topic.prompt_en && (
+                  <p className="spk-en" dir="ltr">{topic.prompt_en}</p>
+                )}
+
+                <AnimatePresence initial={false}>
+                  {showEn && promptAr && topic.prompt_en && (
+                    <motion.p
+                      className="spk-en"
+                      dir="ltr"
+                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                      animate={{ opacity: 1, height: 'auto', marginTop: 10 }}
+                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                      transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      {topic.prompt_en}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+
+                {/* facts read as a quiet line; only the two real ACTIONS look
+                    like controls — four identical chips flattened that hierarchy
+                    and wrapped to three rows on a phone. */}
+                <p className="spk-facts">
+                  <Clock size={12} />
+                  {durationText ? `${durationText}، و3 تبادلات تكفي للإنهاء` : '3 تبادلات تكفي للإنهاء'}
+                </p>
+
+                <div className="spk-meta">
+                  {(notes.length > 0 || phrases.length > 0) && (
+                    <button type="button" className="spk-chip" data-accent="true" onClick={() => openHelp(notes.length ? 'tips' : 'phrases')}>
+                      <Sparkles size={12} />{g('محتاج تحضير؟', 'محتاجة تحضير؟')}
+                    </button>
+                  )}
+                  {promptAr && topic.prompt_en && (
+                    <button type="button" className="spk-chip" data-on={showEn} onClick={() => setShowEn((v) => !v)}>
+                      <Languages size={12} />النص بالإنجليزي
+                    </button>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.button
+              key="strip"
+              type="button"
+              className="spk-strip"
+              onClick={() => setBriefOpen(true)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.24 }}
+            >
+              <span className="spk-strip-label">{typeLabel}</span>
+              <span className="spk-strip-text">{heading}</span>
+              <ChevronDown size={14} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* ② THE CONVERSATION */}
+        {studentId && (
+          <ConversationMode
+            variant="stage"
+            topic={topic}
             studentId={studentId}
             unitId={unitId}
             questionIndex={questionIndex}
-            maxDuration={180}
-            existingRecording={existingRecording}
-            onUploadComplete={(url, id) => onUploadComplete?.()}
-            onEvaluationComplete={(evalData) => setLiveEvaluation(evalData)}
-            hideFeedbackInline
-          />
-        </div>
-      )}
-      </>)}
-
-      {/* Recording timestamp */}
-      {existingRecording?.created_at && (
-        <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] text-center">
-          تم التسجيل بتاريخ {new Date(existingRecording.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' })}
-        </p>
-      )}
-
-      {/* Detailed Evaluation — shown right AFTER recorder so students always see it */}
-      {aiEval && <AIEvaluationCard evaluation={aiEval} />}
-
-      {/* Status-aware pending/processing indicator — NO retry button shown to student */}
-      {existingRecording && !aiEval && (() => {
-        const status = realtimeStatus || existingRecording?.evaluation_status
-        if (status === 'failed_manual') {
-          return (
-            <div
-              className="rounded-xl p-4 flex items-center justify-center"
-              style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}
-            >
-              <p className="text-sm text-amber-400 font-['Tajawal']">تسجيلك مُرسل للمعلم لمراجعته شخصياً</p>
-            </div>
-          )
-        }
-        if (status === 'pending' || status === 'evaluating' || status === 'failed_retrying') {
-          return (
-            <div
-              className="rounded-xl p-4 flex items-center justify-center gap-3"
-              style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.12)' }}
-            >
-              <Loader2 size={18} className="text-sky-400 animate-spin flex-shrink-0" />
-              <span className="text-sm font-bold text-sky-400 font-['Tajawal']">جاري تقييم تسجيلك...</span>
-            </div>
-          )
-        }
-        return null
-      })()}
-
-      {/* Trainer Feedback (if available) */}
-      {existingRecording?.trainer_reviewed && (
-        <div
-          className="rounded-xl p-4 space-y-2"
-          style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)' }}
-        >
-          <div className="flex items-center gap-2">
-            <GraduationCap size={14} className="text-emerald-400" />
-            <span className="text-sm font-bold text-emerald-400 font-['Tajawal']">ملاحظات المعلم</span>
-            {existingRecording.trainer_grade && (
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400">{existingRecording.trainer_grade}</span>
-            )}
-          </div>
-          {existingRecording.trainer_feedback && (
-            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{existingRecording.trainer_feedback}</p>
-          )}
-        </div>
-      )}
-
-      {/* Attempt History */}
-      {allAttempts.length > 1 && (
-        <div
-          className="rounded-xl overflow-hidden"
-          style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-        >
-          <button
-            onClick={() => setAttemptsOpen(!attemptsOpen)}
-            className="w-full flex items-center justify-between px-4 py-3 text-left"
-          >
-            <div className="flex items-center gap-2">
-              <History size={14} className="text-violet-400" />
-              <span className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">
-                جميع المحاولات ({allAttempts.length})
-              </span>
-            </div>
-            <ChevronDown
-              size={14}
-              className={`text-[var(--text-muted)] transition-transform duration-200 ${attemptsOpen ? 'rotate-180' : ''}`}
-            />
-          </button>
-          <AnimatePresence>
-            {attemptsOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
+            onComplete={onComplete}
+            onPhaseChange={setPhase}
+            headerExtra={(notes.length > 0 || phrases.length > 0 || promptAr) ? (
+              <button
+                type="button"
+                onClick={() => openHelp(phase === 'intro' ? 'brief' : (notes.length ? 'tips' : 'phrases'))}
+                className="flex items-center gap-1.5 text-[11px] font-bold font-['Tajawal'] transition-colors px-3 rounded-xl"
+                style={{ minHeight: 40, background: 'rgba(255,255,255,0.045)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(238,245,255,0.62)' }}
               >
-                <div className="px-4 pb-3 space-y-2">
-                  {allAttempts.map((attempt) => {
-                    const score = attempt.ai_evaluation?.overall_score
-                    return (
-                      <div
-                        key={attempt.id}
-                        className="flex items-center justify-between py-2 px-3 rounded-lg text-xs"
-                        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-[var(--text-muted)] font-['Tajawal']">
-                            محاولة {attempt.attempt_number || '—'}
-                          </span>
-                          <span className="text-[var(--text-muted)] text-[10px]">
-                            {new Date(attempt.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {score != null && (
-                            <span className="font-bold tabular-nums" style={{ color: score >= 8 ? '#22c55e' : score >= 6 ? '#38bdf8' : '#f59e0b' }}>
-                              {score}/10
-                            </span>
-                          )}
-                          {attempt.is_best && (
-                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/15 text-emerald-400">
-                              الأفضل
-                            </span>
-                          )}
-                          {attempt.is_latest && (
-                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-sky-500/15 text-sky-400">
-                              الأحدث
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-
-      {/* Leaderboard */}
-      {aiEval && leaderboard && leaderboard.rankings?.length > 1 && (
-        <ActivityLeaderboard
-          rankings={leaderboard.rankings}
-          currentStudentId={studentId}
-          totalInGroup={leaderboard.totalInGroup}
-        />
-      )}
-
-      {/* Share achievement card */}
-      {aiEval && (
-        <ShareAchievementCard
-          type="speaking"
-          studentName={studentName}
-          studentText={existingRecording?.transcript || ''}
-          feedback={aiEval}
-          scores={{
-            ...(aiEval.grammar_score != null && { grammar: aiEval.grammar_score }),
-            ...(aiEval.vocabulary_score != null && { vocabulary: aiEval.vocabulary_score }),
-            ...(aiEval.fluency_score != null && { fluency: aiEval.fluency_score }),
-            ...((aiEval.task_completion_score ?? aiEval.confidence_score) != null && { pronunciation: aiEval.task_completion_score ?? aiEval.confidence_score }),
-          }}
-          leaderboard={leaderboard}
-          currentStudentId={studentId}
-        />
-      )}
-
-      </div>{/* end main content column */}
-
-      {/* AI Coach Panel — sticky right sidebar (classic surface only; conversation has its own coach) */}
-      {showCoach && (
-        <div className="lg:sticky lg:top-20">
-          <AICoachPanel
-            studentId={studentId}
-            taskId={topic.id}
-            taskType="speaking"
-            draftText=""
+                <LifeBuoy size={13} /> مساعدة
+              </button>
+            ) : null}
           />
-        </div>
+        )}
+      </div>
+
+      {/* ③ AFTER — outcome, one band */}
+      {(aiEval || existingRecording) && (
+        <>
+          <div className="spk-band-label"><b /><span>الحصيلة</span><i /></div>
+
+          {aiEval && <SpeakingEvaluation evaluation={aiEval} />}
+
+          {existingRecording && !aiEval && <PendingEvaluation status={realtimeStatus || existingRecording?.evaluation_status} />}
+
+          {existingRecording?.trainer_reviewed && (
+            <div className="spk-panel mt-3" style={{ borderColor: 'rgba(16,185,129,0.18)' }}>
+              <div className="p-4 space-y-2">
+                <div className="flex items-center gap-2">
+                  <GraduationCap size={14} className="text-emerald-400" />
+                  <span className="text-sm font-bold text-emerald-400 font-['Tajawal']">ملاحظات المعلم</span>
+                  {existingRecording.trainer_grade && (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400">{existingRecording.trainer_grade}</span>
+                  )}
+                </div>
+                {existingRecording.trainer_feedback && (
+                  <p className="text-xs font-['Tajawal'] leading-relaxed" style={{ color: 'rgba(238,245,255,0.72)' }}>{existingRecording.trainer_feedback}</p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {allAttempts.length > 1 && (
+            <div className="spk-panel mt-3">
+              <button className="spk-row" style={{ borderTop: 0 }} onClick={() => setAttemptsOpen((v) => !v)}>
+                <span className="flex items-center gap-2 text-[13px] font-bold" style={{ color: 'rgba(238,245,255,0.78)' }}>
+                  <History size={14} style={{ color: '#a5b4fc' }} /> كل المحاولات ({allAttempts.length})
+                </span>
+                <ChevronDown size={14} style={{ color: 'rgba(238,245,255,0.4)', transform: attemptsOpen ? 'rotate(180deg)' : 'none', transition: 'transform 200ms ease' }} />
+              </button>
+              <AnimatePresence>
+                {attemptsOpen && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }}>
+                    <div className="px-4 pb-4 pt-1 space-y-2">
+                      {allAttempts.map((attempt) => {
+                        const score = attempt.ai_evaluation?.overall_score
+                        return (
+                          <div key={attempt.id} className="flex items-center justify-between py-2 px-3 rounded-xl text-xs"
+                            style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                            <div className="flex items-center gap-2 font-['Tajawal']" style={{ color: 'rgba(238,245,255,0.5)' }}>
+                              <span>محاولة {attempt.attempt_number || '—'}</span>
+                              <span className="text-[10px]">{new Date(attempt.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {score != null && (
+                                <span className="font-bold tabular-nums" style={{ color: score >= 8 ? '#34d399' : score >= 6 ? '#7ee3f5' : '#f6cf6a' }}>{score}/10</span>
+                              )}
+                              {attempt.is_best && <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/15 text-emerald-400">الأفضل</span>}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+
+          {aiEval && leaderboard && leaderboard.rankings?.length > 1 && (
+            <div className="mt-3">
+              <ActivityLeaderboard rankings={leaderboard.rankings} currentStudentId={studentId} totalInGroup={leaderboard.totalInGroup} />
+            </div>
+          )}
+
+          {aiEval && (
+            <div className="mt-3">
+              <ShareAchievementCard
+                type="speaking"
+                studentName={studentName}
+                studentText={existingRecording?.transcript || ''}
+                feedback={aiEval}
+                scores={{
+                  ...(aiEval.grammar_score != null && { grammar: aiEval.grammar_score }),
+                  ...(aiEval.vocabulary_score != null && { vocabulary: aiEval.vocabulary_score }),
+                  ...(aiEval.fluency_score != null && { fluency: aiEval.fluency_score }),
+                  ...((aiEval.task_completion_score ?? aiEval.confidence_score) != null && { pronunciation: aiEval.task_completion_score ?? aiEval.confidence_score }),
+                }}
+                leaderboard={leaderboard}
+                currentStudentId={studentId}
+              />
+            </div>
+          )}
+        </>
       )}
-    </div>
+
+      {/* HELP — one sheet, reachable mid-conversation */}
+      <HelpSheet
+        open={helpOpen}
+        onClose={() => setHelpOpen(false)}
+        tab={helpTab}
+        setTab={setHelpTab}
+        heading={heading}
+        typeLabel={typeLabel}
+        promptAr={promptAr}
+        promptEn={topic.prompt_en}
+        notes={notes}
+        phrases={phrases}
+      />
+    </>
   )
 }
 
-// ─── AI Evaluation Card ──────────────────────────────
-function AIEvaluationCard({ evaluation }) {
-  const [showDetails, setShowDetails] = useState(true)
-  const CRITERIA_AR = {
-    grammar_score: 'القواعد',
-    vocabulary_score: 'المفردات',
-    fluency_score: 'الطلاقة',
-    task_completion_score: 'إتمام المهمة',
+// ── Help sheet ─────────────────────────────────────────────────────────────
+function HelpSheet({ open, onClose, tab, setTab, heading, typeLabel, promptAr, promptEn, notes, phrases }) {
+  const g = useG()
+  const gz = useGenderize()
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open, onClose])
+
+  // The DB mixes two shapes in `useful_phrases`: full sentences (roleplay rows)
+  // and bare collocations (everything else). Fifteen one-word rows is a scroll
+  // for nothing — short items become a chip cloud instead.
+  const avgLen = phrases.length ? phrases.reduce((a, p) => a + String(p).length, 0) / phrases.length : 0
+  const phrasesAreWords = phrases.length > 0 && avgLen <= 24
+
+  const tabs = [
+    { id: 'brief', label: 'الإحاطة', on: !!(promptAr || promptEn) },
+    { id: 'tips', label: 'نصائح', on: notes.length > 0 },
+    { id: 'phrases', label: phrasesAreWords ? 'كلمات' : 'عبارات', on: phrases.length > 0 },
+  ].filter((t) => t.on)
+
+  const active = tabs.some((t) => t.id === tab) ? tab : tabs[0]?.id
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div className="spk-sheet-back" onClick={onClose}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} />
+          <motion.div
+            className="spk-sheet"
+            dir="rtl"
+            role="dialog"
+            aria-modal="true"
+            aria-label="مساعدة المحادثة"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="spk-sheet-grab" />
+            <div className="flex items-center justify-between px-4 pt-3">
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold font-['Tajawal']" style={{ color: '#7ee3f5' }}>{typeLabel}</p>
+                <p className="text-[13px] font-bold font-['Tajawal'] truncate" style={{ color: '#f4f8ff' }}>{heading}</p>
+              </div>
+              <button onClick={onClose} aria-label="إغلاق" className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0"
+                style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(238,245,255,0.6)' }}>
+                <X size={15} />
+              </button>
+            </div>
+
+            {tabs.length > 1 && (
+              <div className="spk-seg">
+                {tabs.map((t) => (
+                  <button key={t.id} data-on={active === t.id} onClick={() => setTab(t.id)}>{t.label}</button>
+                ))}
+              </div>
+            )}
+
+            <div className="spk-sheet-body">
+              {active === 'brief' && (
+                <div className="space-y-3">
+                  {promptAr && <p className="text-[14px] font-['Tajawal'] leading-[1.95]" style={{ color: 'rgba(238,245,255,0.82)' }}>{promptAr}</p>}
+                  {promptEn && <p className="spk-en" dir="ltr" style={{ marginTop: 0 }}>{promptEn}</p>}
+                </div>
+              )}
+
+              {active === 'tips' && (
+                <div className="space-y-2.5">
+                  <p className="text-[11px] font-['Tajawal'] mb-1" style={{ color: 'rgba(238,245,255,0.42)' }}>
+                    {g('اقرأها بسرعة، ولا تحفظها — المحادثة أحلى وأنت طبيعي.', 'اقرئيها بسرعة، ولا تحفظيها — المحادثة أحلى وأنتِ طبيعية.')}
+                  </p>
+                  {notes.map((note, i) => (
+                    <div key={i} className="spk-tip"><b>{i + 1}</b><span>{gz(String(note))}</span></div>
+                  ))}
+                </div>
+              )}
+
+              {active === 'phrases' && (
+                <div className={phrasesAreWords ? '' : 'space-y-2'}>
+                  <p className="text-[11px] font-['Tajawal'] mb-2" style={{ color: 'rgba(238,245,255,0.42)' }}>
+                    {g('استخدم منها اللي يناسبك أثناء الكلام.', 'استخدمي منها اللي يناسبكِ أثناء الكلام.')}
+                  </p>
+                  {phrasesAreWords ? (
+                    <div className="flex flex-wrap gap-2" dir="ltr">
+                      {phrases.map((p, i) => (
+                        <span key={i} className="spk-phrase spk-phrase--chip">{String(p)}</span>
+                      ))}
+                    </div>
+                  ) : (
+                    phrases.map((p, i) => <span key={i} className="spk-phrase">{String(p)}</span>)
+                  )}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
+
+// ── Pending / failed evaluation ────────────────────────────────────────────
+function PendingEvaluation({ status }) {
+  if (status === 'failed_manual') {
+    return (
+      <div className="spk-panel" style={{ borderColor: 'rgba(245,158,11,0.2)' }}>
+        <p className="p-4 text-sm text-amber-400 font-['Tajawal'] text-center">محادثتك مُرسلة للمعلم لمراجعتها شخصياً</p>
+      </div>
+    )
   }
+  if (status === 'pending' || status === 'evaluating' || status === 'failed_retrying') {
+    return (
+      <div className="spk-panel">
+        <div className="p-4 flex items-center justify-center gap-3">
+          <Loader2 size={17} className="animate-spin flex-shrink-0" style={{ color: '#7ee3f5' }} />
+          <span className="text-sm font-bold font-['Tajawal']" style={{ color: '#7ee3f5' }}>جاري تقييم محادثتك…</span>
+        </div>
+      </div>
+    )
+  }
+  return null
+}
+
+// ── Evaluation — segmented instead of eight stacked sub-sections ───────────
+const CRITERIA_AR = {
+  grammar_score: 'القواعد',
+  vocabulary_score: 'المفردات',
+  fluency_score: 'الطلاقة',
+  task_completion_score: 'إتمام المهمة',
+}
+
+function SpeakingEvaluation({ evaluation }) {
+  const [tab, setTab] = useState('summary')
 
   const scores = Object.entries(CRITERIA_AR)
     .map(([key, label]) => ({ key, label, score: evaluation[key] }))
-    .filter(s => s.score != null)
+    .filter((s) => s.score != null)
 
   const overall = evaluation.overall_score
   const errors = evaluation.errors || []
-  const betterExpressions = evaluation.better_expressions || []
+  const better = evaluation.better_expressions || []
   const fluencyTips = evaluation.fluency_tips || []
   const modelAnswer = evaluation.model_answer || ''
-  const strengthsText = typeof evaluation.strengths === 'string' ? evaluation.strengths : ''
-  const improvementTip = evaluation.improvement_tip || ''
-  const correctedTranscript = evaluation.corrected_transcript || ''
+  const strengths = typeof evaluation.strengths === 'string' ? evaluation.strengths : ''
+  const improvement = evaluation.improvement_tip || ''
+  const corrected = evaluation.corrected_transcript || ''
+
+  const color = overall >= 8 ? '#34d399' : overall >= 6 ? '#7ee3f5' : '#f6cf6a'
+
+  const band = overall >= 8 ? 'ممتاز' : overall >= 6 ? 'جيد جداً' : overall >= 4 ? 'في الطريق' : 'بداية'
+
+  const tabs = [
+    { id: 'summary', label: 'الملخّص', on: !!(evaluation.feedback_ar || strengths || improvement || evaluation.score_justification) },
+    { id: 'fixes', label: 'التصحيحات', on: errors.length > 0 || !!corrected },
+    { id: 'better', label: 'تعبيرات', on: better.length > 0 || fluencyTips.length > 0 },
+    { id: 'model', label: 'نموذج', on: !!modelAnswer },
+  ].filter((t) => t.on)
+
+  const active = tabs.some((t) => t.id === tab) ? tab : tabs[0]?.id
 
   return (
-    <div
-      className="rounded-xl p-4 space-y-3"
-      style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.12)' }}
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <ClipboardCheck size={14} className="text-sky-400" />
-          <span className="text-sm font-bold text-sky-400 font-['Tajawal']">التقييم المفصّل</span>
-        </div>
+    <div className="spk-panel">
+      {/* score hero — the overall reads first, the four criteria are a compact
+          2×2 of short meters (a full-width bar for a 0-10 value is noise). */}
+      <div className="spk-score-hero">
         {overall != null && (
-          <span className="text-lg font-bold tabular-nums" style={{ color: overall >= 8 ? '#22c55e' : overall >= 6 ? '#38bdf8' : '#f59e0b' }}>
-            {overall}<span className="text-sm opacity-60">/10</span>
-          </span>
+          <>
+            <div className="spk-score-num" style={{ color }}>{overall}<small>/10</small></div>
+            <span className="spk-score-band" style={{ color, borderColor: `${color}44`, background: `${color}18` }}>{band}</span>
+          </>
         )}
+        <span className="text-[11px] font-['Tajawal'] mr-auto" style={{ color: 'rgba(238,245,255,0.38)' }}>تقييم ليلى</span>
       </div>
 
-      {/* Score bars */}
-      <div className="space-y-2">
-        {scores.map(s => (
-          <div key={s.key}>
-            <div className="flex items-center justify-between text-xs mb-0.5">
-              <span className="font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>{s.label}</span>
-              <span className="font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>{s.score}/10</span>
-            </div>
-            <div className="w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{
+      {scores.length > 0 && (
+        <div className="spk-meters">
+          {scores.map((s) => (
+            <div key={s.key}>
+              <div className="flex items-center justify-between text-[11px] font-['Tajawal'] mb-1.5">
+                <span style={{ color: 'rgba(238,245,255,0.62)' }}>{s.label}</span>
+                <span className="font-bold tabular-nums" style={{ color: 'rgba(238,245,255,0.88)' }}>{s.score}</span>
+              </div>
+              <div className="spk-bar">
+                <i style={{
                   width: `${(s.score / 10) * 100}%`,
-                  background: s.score >= 8 ? '#22c55e' : s.score >= 6 ? '#38bdf8' : '#f59e0b',
-                }}
-              />
+                  background: s.score >= 8 ? 'linear-gradient(90deg,#34d399,#6ee7b7)' : s.score >= 6 ? 'linear-gradient(90deg,#22d3ee,#7ee3f5)' : 'linear-gradient(90deg,#f59e0b,#f6cf6a)',
+                }} />
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Feedback summary */}
-      {evaluation.feedback_ar && (
-        <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed pt-1">
-          {evaluation.feedback_ar}
-        </p>
-      )}
-
-      {/* Why this score — so the student understands her grade */}
-      {evaluation.score_justification && (
-        <div className="rounded-lg px-3 py-2 flex items-start gap-2" style={{ background: 'rgba(168,85,247,0.06)', border: '1px solid rgba(168,85,247,0.14)' }}>
-          <span className="text-[11px] font-bold text-purple-300 font-['Tajawal'] flex-shrink-0">لماذا هذه الدرجة؟</span>
-          <span className="text-[11px] text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">{evaluation.score_justification}</span>
+          ))}
         </div>
       )}
 
-      {/* Toggle for detailed feedback */}
-      {(errors.length > 0 || betterExpressions.length > 0 || correctedTranscript || modelAnswer) && (
-        <button
-          onClick={() => setShowDetails(!showDetails)}
-          className="flex items-center gap-1.5 text-xs font-bold text-sky-400 hover:text-sky-300 font-['Tajawal'] transition-colors"
-        >
-          <ChevronDown size={14} className={`transition-transform duration-200 ${showDetails ? 'rotate-180' : ''}`} />
-          {showDetails ? 'إخفاء التفاصيل' : 'عرض التفاصيل'}
-        </button>
+      {tabs.length > 1 && (
+        <div className="spk-seg" style={{ margin: '2px 16px 0' }}>
+          {tabs.map((t) => (
+            <button key={t.id} data-on={active === t.id} onClick={() => setTab(t.id)}>{t.label}</button>
+          ))}
+        </div>
       )}
 
-      <AnimatePresence>
-        {showDetails && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden space-y-3"
-          >
-            {/* Strengths */}
-            {strengthsText && (
-              <div
-                className="rounded-lg p-3 space-y-1"
-                style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.12)' }}
-              >
-                <h4 className="text-[11px] font-bold text-emerald-400 font-['Tajawal']">نقاط القوة</h4>
-                <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
-                  {strengthsText}
-                </p>
+      <div className="px-4 py-4 space-y-3">
+        {active === 'summary' && (
+          <>
+            {evaluation.feedback_ar && (
+              <p className="text-[13px] font-['Tajawal'] leading-[1.9]" style={{ color: 'rgba(238,245,255,0.8)' }}>{evaluation.feedback_ar}</p>
+            )}
+            {strengths && (
+              <div className="rounded-xl p-3" style={{ background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.14)' }}>
+                <p className="text-[11px] font-bold font-['Tajawal'] mb-1" style={{ color: '#6ee7b7' }}>نقاط القوة</p>
+                <p className="text-[12px] font-['Tajawal'] leading-[1.85]" style={{ color: 'rgba(238,245,255,0.75)' }}>{genderizeText(strengths)}</p>
               </div>
             )}
-
-            {/* Corrected transcript */}
-            {correctedTranscript && (
-              <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-sky-400 font-['Tajawal']">النص المصحح</h4>
-                <p
-                  className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-[1.8] p-2.5 rounded-lg"
-                  dir="ltr"
-                  style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
-                >
-                  {correctedTranscript}
-                </p>
+            {evaluation.score_justification && (
+              <div className="rounded-xl p-3" style={{ background: 'rgba(165,180,252,0.07)', border: '1px solid rgba(165,180,252,0.15)' }}>
+                <p className="text-[11px] font-bold font-['Tajawal'] mb-1" style={{ color: '#c7d2fe' }}>ليش هذي الدرجة؟</p>
+                <p className="text-[12px] font-['Tajawal'] leading-[1.85]" style={{ color: 'rgba(238,245,255,0.75)' }}>{genderizeText(evaluation.score_justification)}</p>
               </div>
             )}
-
-            {/* Errors */}
-            {errors.length > 0 && (
-              <div className="space-y-1.5">
-                <h4 className="text-[11px] font-bold text-red-400 font-['Tajawal']">الأخطاء والتصحيحات</h4>
-                {errors.map((e, i) => (
-                  <div
-                    key={i}
-                    className="rounded-lg px-3 py-2 space-y-1"
-                    style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
-                  >
-                    <div className="flex flex-wrap items-center gap-2 text-xs" dir="ltr">
-                      <span className="line-through text-red-400/70 font-['Inter']">{e.spoken || e.original}</span>
-                      <span className="text-[var(--text-muted)]">→</span>
-                      <span className="text-emerald-400 font-['Inter']">{e.corrected || e.correction}</span>
-                    </div>
-                    {e.rule && (
-                      <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{e.rule}</p>
-                    )}
-                  </div>
-                ))}
+            {improvement && (
+              <div className="rounded-xl p-3" style={{ background: 'rgba(246,207,106,0.07)', border: '1px solid rgba(246,207,106,0.16)' }}>
+                <p className="text-[11px] font-bold font-['Tajawal'] mb-1" style={{ color: '#f6cf6a' }}>خطوتك القادمة</p>
+                <p className="text-[12px] font-['Tajawal'] leading-[1.85]" style={{ color: 'rgba(238,245,255,0.75)' }}>{genderizeText(improvement)}</p>
               </div>
             )}
-
-            {/* Better expressions */}
-            {betterExpressions.length > 0 && (
-              <div className="space-y-1.5">
-                <h4 className="text-[11px] font-bold text-purple-400 font-['Tajawal']">تعبيرات أفضل</h4>
-                {betterExpressions.map((be, i) => (
-                  <div
-                    key={i}
-                    className="rounded-lg px-3 py-2"
-                    style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
-                  >
-                    <div className="flex items-center gap-2 text-xs" dir="ltr">
-                      <span className="text-[var(--text-muted)] font-['Inter']">{be.basic}</span>
-                      <span className="text-[var(--text-muted)]">→</span>
-                      <span className="text-purple-400 font-bold font-['Inter']">{be.natural}</span>
-                    </div>
-                    {be.context && (
-                      <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal'] mt-1" dir="rtl">{be.context}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Fluency tips */}
-            {fluencyTips.length > 0 && (
-              <div className="space-y-1.5">
-                <h4 className="text-[11px] font-bold text-amber-400 font-['Tajawal']">نصائح للطلاقة</h4>
-                {fluencyTips.map((tip, i) => (
-                  <p key={i} className="text-xs text-[var(--text-secondary)] font-['Tajawal'] flex items-start gap-1.5" dir="rtl">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
-                    {tip}
-                  </p>
-                ))}
-              </div>
-            )}
-
-            {/* Model answer */}
-            {modelAnswer && (
-              <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-sky-400 font-['Tajawal']">إجابة نموذجية</h4>
-                <p
-                  className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed italic px-3 py-2 rounded-lg"
-                  dir="ltr"
-                  style={{ background: 'rgba(56,189,248,0.04)', borderRight: '2px solid rgba(56,189,248,0.3)' }}
-                >
-                  "{modelAnswer}"
-                </p>
-              </div>
-            )}
-
-            {/* Improvement tip */}
-            {improvementTip && (
-              <div
-                className="rounded-lg p-3 space-y-1"
-                style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.12)' }}
-              >
-                <h4 className="text-[11px] font-bold text-amber-400 font-['Tajawal']">خطوتك القادمة</h4>
-                <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
-                  {improvementTip}
-                </p>
-              </div>
-            )}
-          </motion.div>
+          </>
         )}
-      </AnimatePresence>
+
+        {active === 'fixes' && (
+          <>
+            {errors.map((e, i) => (
+              <div key={i} className="spk-fix">
+                <div className="spk-fix-line">
+                  <span className="was">{e.spoken || e.original}</span>
+                  <span style={{ color: 'rgba(238,245,255,0.35)' }}>→</span>
+                  <span className="now">{e.corrected || e.correction}</span>
+                </div>
+                {e.rule && <p className="text-[11px] font-['Tajawal'] mt-1.5" style={{ color: 'rgba(238,245,255,0.5)' }}>{genderizeText(e.rule)}</p>}
+              </div>
+            ))}
+            {corrected && (
+              <div>
+                <p className="text-[11px] font-bold font-['Tajawal'] mb-1.5" style={{ color: '#7ee3f5' }}>كلامك بعد التصحيح</p>
+                <p dir="ltr" className="spk-en" style={{ marginTop: 0 }}>{corrected}</p>
+              </div>
+            )}
+          </>
+        )}
+
+        {active === 'better' && (
+          <>
+            {better.map((b, i) => (
+              <div key={i} className="spk-fix">
+                <div className="spk-fix-line">
+                  <span style={{ color: 'rgba(238,245,255,0.5)' }}>{b.basic}</span>
+                  <span style={{ color: 'rgba(238,245,255,0.35)' }}>→</span>
+                  <span style={{ color: '#c7d2fe', fontWeight: 600 }}>{b.natural}</span>
+                </div>
+                {b.context && <p className="text-[11px] font-['Tajawal'] mt-1.5" style={{ color: 'rgba(238,245,255,0.5)' }}>{genderizeText(b.context)}</p>}
+              </div>
+            ))}
+            {fluencyTips.map((tip, i) => (
+              <p key={i} className="text-[12px] font-['Tajawal'] flex items-start gap-2 leading-[1.85]" style={{ color: 'rgba(238,245,255,0.72)' }}>
+                <Wand2 size={13} className="flex-shrink-0 mt-1" style={{ color: '#f6cf6a' }} />
+                {genderizeText(String(tip))}
+              </p>
+            ))}
+          </>
+        )}
+
+        {active === 'model' && modelAnswer && (
+          <div>
+            <p className="text-[11px] font-bold font-['Tajawal'] mb-1.5 flex items-center gap-1.5" style={{ color: '#7ee3f5' }}>
+              <Quote size={12} /> كيف يقولها متحدّث أصلي
+            </p>
+            <p dir="ltr" className="spk-en" style={{ marginTop: 0, fontStyle: 'italic' }}>{modelAnswer}</p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 
-// ─── Skeleton ────────────────────────────────────────
+// ── Skeleton ───────────────────────────────────────────────────────────────
 function SpeakingSkeleton() {
   return (
-    <div className="space-y-4">
-      <div className="h-32 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
-      <div className="h-20 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
-      <div className="flex flex-col items-center gap-3 py-6">
-        <div className="w-20 h-20 rounded-full bg-[var(--surface-raised)] animate-pulse" />
-        <div className="h-4 w-16 rounded bg-[var(--surface-raised)] animate-pulse" />
+    <div className="spk">
+      <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
+      <div className="spk-body-col">
+        <div className="spk-stage" style={{ padding: 20 }}>
+          <div className="space-y-3">
+            <div className="h-3 w-20 rounded bg-white/5 animate-pulse" />
+            <div className="h-5 w-56 rounded bg-white/5 animate-pulse" />
+            <div className="h-3 w-full rounded bg-white/5 animate-pulse" />
+            <div className="h-3 w-4/5 rounded bg-white/5 animate-pulse" />
+          </div>
+          <div className="flex flex-col items-center gap-3 py-10">
+            <div className="w-20 h-20 rounded-full bg-white/5 animate-pulse" />
+            <div className="h-3 w-24 rounded bg-white/5 animate-pulse" />
+          </div>
+        </div>
       </div>
     </div>
   )
