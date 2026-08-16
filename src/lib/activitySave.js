@@ -110,3 +110,53 @@ export function pickLatestAttempt(rows) {
 
   return { row: best, answers, duplicates }
 }
+
+import { captureError } from './errorTracker'
+
+/**
+ * Report a save failure so it is DIAGNOSABLE.
+ *
+ * Until now every save path ended in `console.error`, which production strips —
+ * so a student losing answers produced no signal for her AND no signal for us.
+ * That is why the same complaint survived three rounds of fixes. These land in
+ * `client_error_log`, which the daily academy digest already surfaces.
+ */
+export function reportSaveFailure({ section, phase, activityId, unitId, rowId, error, extra }) {
+  try {
+    const msg = error?.message || error?.error_description || String(error || 'unknown')
+    captureError({
+      kind: 'save_failed',
+      message: `[${section}] ${phase}: ${msg}`.slice(0, 500),
+      context: {
+        section, phase, activity_id: activityId, unit_id: unitId, row_id: rowId,
+        code: error?.code ?? null, details: error?.details ?? null, hint: error?.hint ?? null,
+        ...(extra || {}),
+      },
+    })
+  } catch { /* telemetry must never break a save */ }
+}
+
+/**
+ * UPDATE a progress row and PROVE it hit something.
+ *
+ * PostgREST answers 200 for an update that matches ZERO rows, so
+ * `.update(...).eq('id', rowId)` looks identical whether it wrote or wrote
+ * nothing. If the row referenced by rowId has since disappeared — deleted,
+ * attempt reset, is_latest flipped, RLS no longer matching — every autosave
+ * after that silently goes nowhere while the student keeps answering. On reload
+ * her answers are simply gone, with no error anywhere. That is the shape of
+ * "إجاباتي تختفي".
+ *
+ * Returns { ok, missing, error }. `missing: true` means the row is gone and the
+ * caller must INSERT a fresh one rather than keep writing into the void.
+ */
+export async function updateRowVerified(supabase, rowId, patch) {
+  const { data, error } = await supabase
+    .from('student_curriculum_progress')
+    .update(patch)
+    .eq('id', rowId)
+    .select('id')
+  if (error) return { ok: false, missing: false, error }
+  if (!data || data.length === 0) return { ok: false, missing: true, error: null }
+  return { ok: true, missing: false, error: null }
+}

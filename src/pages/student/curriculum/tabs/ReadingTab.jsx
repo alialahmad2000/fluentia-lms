@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { createSaveQueue, pickLatestAttempt } from '../../../../lib/activitySave'
+import { createSaveQueue, pickLatestAttempt, updateRowVerified, reportSaveFailure } from '../../../../lib/activitySave'
 import SubmitReminderBar from '../../../../components/curriculum/SubmitReminderBar'
 // PERSONALIZATION-REVERT 2026-05-19: hidden from default flow.
 // Canonical curriculum is the single default. To re-introduce as opt-in secondary
@@ -273,21 +273,44 @@ function ReadingContent({ reading, studentId, unitId }) {
     // so `currentRowId.current` is authoritative when it is read.
     return enqueueSave(async () => {
     if (currentRowId.current) {
-      // UPDATE the in-progress row we already own
-      const { error } = await supabase
-        .from('student_curriculum_progress')
-        .update({
-          status: 'in_progress',
-          score: null,
-          answers,
-          time_spent_seconds: timeRef.current,
-          completed_at: null,
+      // UPDATE the row we own — and PROVE it hit something. A 200 that matched
+      // zero rows means the row is gone, and every further autosave would write
+      // into the void while she keeps answering.
+      const patch = {
+        status: 'in_progress',
+        score: null,
+        answers,
+        time_spent_seconds: timeRef.current,
+        completed_at: null,
+      }
+      const res = await updateRowVerified(supabase, currentRowId.current, patch)
+      if (res.ok) return
+
+      if (res.missing) {
+        // The row vanished under us. Do NOT keep writing to it — drop the id and
+        // fall through to INSERT so her answers land in a fresh row instead of
+        // being lost. This is a recovery, not an error, but we record it because
+        // it should be rare and we want to know when it happens.
+        reportSaveFailure({
+          section: 'reading', phase: 'autosave_row_missing', activityId: reading.id,
+          unitId, rowId: currentRowId.current, error: { message: 'update matched 0 rows' },
+          extra: { answer_count: Object.keys(answers || {}).length },
         })
-        .eq('id', currentRowId.current)
-      // Throw so the caller leaves the debounce signature UNCOMMITTED and the
-      // next answer retries this batch instead of it silently vanishing.
-      if (error) { console.error('[ReadingTab] Autosave update failed:', error); throw error }
-    } else {
+        currentRowId.current = null
+        // fall through to the INSERT branch below
+      } else {
+        reportSaveFailure({
+          section: 'reading', phase: 'autosave_update', activityId: reading.id,
+          unitId, rowId: currentRowId.current, error: res.error,
+          extra: { answer_count: Object.keys(answers || {}).length },
+        })
+        // Throw so the caller leaves the debounce signature UNCOMMITTED and the
+        // next answer retries this batch instead of it silently vanishing.
+        throw res.error
+      }
+    }
+
+    {
       // INSERT a new in-progress row (first answer of a new/retry attempt)
       const hasExisting = allAttempts.length > 0
       const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
@@ -323,7 +346,10 @@ function ReadingContent({ reading, studentId, unitId }) {
         currentRowId.current = newRow.id
         setAttemptNumber(nextAttemptNum)
       } else if (error) {
-        console.error('[ReadingTab] Autosave insert failed:', error)
+        reportSaveFailure({
+          section: 'reading', phase: 'autosave_insert', activityId: reading.id, unitId,
+          error, extra: { answer_count: Object.keys(answers || {}).length },
+        })
         throw error
       }
     }
@@ -357,7 +383,7 @@ function ReadingContent({ reading, studentId, unitId }) {
         .eq('id', rowId)
 
       if (error) {
-        console.error('[ReadingTab] Submit failed for reading_id:', reading.id, error)
+        reportSaveFailure({ section: 'reading', phase: 'submit_update', activityId: reading.id, unitId, rowId, error })
         toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
         submittedRef.current = false // let autosave keep protecting her answers
         return false
@@ -396,7 +422,7 @@ function ReadingContent({ reading, studentId, unitId }) {
         .single()
 
       if (error || !newRow) {
-        console.error('[ReadingTab] Submit insert failed for reading_id:', reading.id, error)
+        reportSaveFailure({ section: 'reading', phase: 'submit_insert', activityId: reading.id, unitId, error })
         toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
         submittedRef.current = false
         return false

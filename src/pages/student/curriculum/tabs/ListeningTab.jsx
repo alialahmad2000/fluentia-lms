@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircle, XCircle, RotateCcw, History } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { createSaveQueue, pickLatestAttempt } from '../../../../lib/activitySave'
+import { createSaveQueue, pickLatestAttempt, updateRowVerified, reportSaveFailure } from '../../../../lib/activitySave'
 import SubmitReminderBar from '../../../../components/curriculum/SubmitReminderBar'
 import { useEffectiveStudentId } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -551,19 +551,33 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
     }
 
     if (currentRowId.current) {
-      // UPDATE existing row
-      const { error } = await supabase
-        .from('student_curriculum_progress')
-        .update({
-          status: isComplete ? 'completed' : 'in_progress',
-          ...(isComplete ? { score } : { score: null }),
-          answers: { questions: results },
-          time_spent_seconds: timeRef.current,
-          completed_at: isComplete ? new Date().toISOString() : null,
+      // UPDATE existing row — verified, because a 200 that matched zero rows
+      // means the row is gone and every further autosave writes into the void.
+      const _patch = {
+        status: isComplete ? 'completed' : 'in_progress',
+        ...(isComplete ? { score } : { score: null }),
+        answers: { questions: results },
+        time_spent_seconds: timeRef.current,
+        completed_at: isComplete ? new Date().toISOString() : null,
+      }
+      const _res = await updateRowVerified(supabase, currentRowId.current, _patch)
+      if (_res.missing) {
+        // Row gone — recover by inserting a fresh one instead of writing to nothing.
+        reportSaveFailure({
+          section: 'listening', phase: 'save_row_missing', activityId: listeningId, unitId,
+          rowId: currentRowId.current, error: { message: 'update matched 0 rows' },
+          extra: { is_complete: isComplete },
         })
-        .eq('id', currentRowId.current)
-
-      if (error) { onSaveError(error, 'Update failed'); return }
+        currentRowId.current = null
+        return saveProgress(currentAnswers, isComplete)
+      }
+      if (_res.error) {
+        reportSaveFailure({
+          section: 'listening', phase: 'save_update', activityId: listeningId, unitId,
+          rowId: currentRowId.current, error: _res.error, extra: { is_complete: isComplete },
+        })
+        onSaveError(_res.error, 'Update failed'); return
+      }
 
       if (isComplete) {
         // Recompute is_best across all rows for this student+listening
@@ -639,7 +653,10 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
         .select()
         .single()
 
-      if (error) { onSaveError(error, 'Insert failed'); return }
+      if (error) {
+        reportSaveFailure({ section: 'listening', phase: 'save_insert', activityId: listeningId, unitId, error, extra: { is_complete: isComplete } })
+        onSaveError(error, 'Insert failed'); return
+      }
 
       if (newRow) {
         currentRowId.current = newRow.id

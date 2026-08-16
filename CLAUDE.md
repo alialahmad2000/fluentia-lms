@@ -313,6 +313,40 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-16 (2) — «إجاباتي تختفي» pass 4: the save that returns 200 and writes NOTHING
+أنوار reported the same loss a fourth time. Top-to-bottom audit, and this time the mechanism is proven with
+a controlled before/after rather than inferred.
+
+- **What the audit eliminated first:** only ONE أنوار exists (no name collision); her session READS and WRITES
+  fine through RLS (minted her JWT and inserted/updated directly — 201/200); all 12 of her units are complete
+  (14 reading Q, grammar items, voiced listening, writing, speaking); the questions RENDER in units 8/9/10
+  from a clean browser (7 cards, 28 options, no crash). Every server-side cause was ruled out.
+- **The signal that cracked it:** `analytics_events` shows she was active **Aug 12 and Aug 15** (11 passage
+  opens, audio completes) while `student_curriculum_progress` has **nothing since Aug 10**. Against other
+  active students on the same build — يسرا 18 opens → 6 rows, ملاك 2 → 1 — she is the outlier: **56 opens → 0 rows.**
+- **ROOT CAUSE: `update(...).eq('id', rowId)` with no proof it hit anything.** PostgREST answers **200 for an
+  update that matches ZERO rows**, so a write to a row that no longer exists is indistinguishable from a
+  successful save. Once `currentRowId` points at a row that has vanished — deleted, attempt reset, is_latest
+  flipped, RLS no longer matching — **every autosave for the rest of the session writes into the void** while
+  she keeps answering. Nothing throws, nothing is logged (prod strips `console.*`), and on reload her answers
+  are simply gone. That is exactly «إجاباتي تختفي».
+- **Proven, same test both sides.** Answer 2 → delete her row mid-session → answer 3 more.
+  **Production:** 3 further PATCHes, all HTTP 200, **0 rows in the database, all 5 answers lost, no error anywhere.**
+  **Fixed:** the no-op is detected, the row is re-created, **all 5 answers survive.**
+- **NEW `updateRowVerified()`** in `lib/activitySave.js` — updates with `.select('id')` and reports
+  `{ok, missing, error}`. `missing` means the row is gone, and every caller now RECOVERS by inserting a fresh
+  row instead of continuing to write to nothing. Wired into **reading, listening, grammar and vocabulary**.
+- **NEW `reportSaveFailure()`** — every save failure now lands in `client_error_log` (kind `save_failed`, with
+  section/phase/activity/unit/row + PostgREST code) instead of a `console.error` production strips. This is
+  why the same complaint survived three rounds: a lost answer produced **no signal for her and none for us**.
+  `client_error_log` already feeds the daily academy digest, so the next occurrence is visible within a day.
+- **Honest scope:** I could not reproduce her exact trigger — from a clean browser her account works
+  perfectly, so what makes HER row vanish (stale bundle, a second tab, an interrupted retry) is still unknown.
+  The fix does not depend on knowing: the app is now resilient to the row disappearing however it happens, and
+  it now reports the event so the cause is identifiable next time.
+- Files: `src/lib/activitySave.js`, `ReadingTab.jsx`, `ListeningTab.jsx`, `ExerciseSection.jsx`,
+  `VocabularyExercises.jsx`. DB: none.
+
 ### 2026-08-16 (follow-up 2) — SPEAKING: the studio now belongs to the unit page it sits on
 - Owner: *"there is something wrong on the background… plus the colour of the box and so on all of those things need to fit each other."* Both were mine, and both had the same root cause.
 - **ROOT CAUSE — I had been designing against the WRONG page.** This working tree's `src/styles/design-tokens.css` is stale (another session swapped the dark palette for parchment): locally `--cinematic-bg` is `#E9DFCF`, while **production serves `#0a0a0f`**. So every screenshot in the first pass showed the studio floating on a BEIGE page. Two decisions were tuned to that fiction and both broke on the real near-black page:

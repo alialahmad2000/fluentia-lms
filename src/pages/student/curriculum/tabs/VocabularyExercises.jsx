@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, RotateCcw, Lightbulb, Shuffle, PenLine, ListChecks, Puzzle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { createSaveQueue } from '../../../../lib/activitySave'
+import { createSaveQueue, updateRowVerified, reportSaveFailure } from '../../../../lib/activitySave'
 import { useAuthProfile } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -113,11 +113,18 @@ export default function VocabularyExercises({ unitId, allWords }) {
 
     await enqueueSave(async () => {
       if (progressIdRef.current) {
-        await supabase
-          .from('student_curriculum_progress')
-          .update(row)
-          .eq('id', progressIdRef.current)
-      } else {
+        const res = await updateRowVerified(supabase, progressIdRef.current, row)
+        if (res.ok) return
+        reportSaveFailure({
+          section: 'vocabulary_exercise',
+          phase: res.missing ? 'save_row_missing' : 'save_update',
+          unitId, rowId: progressIdRef.current,
+          error: res.error || { message: 'update matched 0 rows' },
+        })
+        if (!res.missing) throw res.error
+        progressIdRef.current = null // row gone — fall through and re-insert
+      }
+      {
         const { data: inserted } = await supabase
           .from('student_curriculum_progress')
           .insert(row)

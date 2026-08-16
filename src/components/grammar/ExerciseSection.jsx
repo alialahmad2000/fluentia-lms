@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Target, RotateCcw } from 'lucide-react'
 import XPBadgeInline from '../xp/XPBadgeInline'
 import { supabase } from '../../lib/supabase'
-import { createSaveQueue, pickLatestAttempt } from '../../lib/activitySave'
+import { createSaveQueue, pickLatestAttempt, updateRowVerified, reportSaveFailure } from '../../lib/activitySave'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { awardCurriculumXP } from '../../utils/curriculumXP'
@@ -243,19 +243,33 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
 
     try {
       if (currentRowIdRef.current) {
-        const { error } = await supabase
-          .from('student_curriculum_progress')
-          .update({
-            status: isComplete ? 'completed' : 'in_progress',
-            // Keep score NULL on autosave so unanswered items aren't counted as wrong.
-            ...(isComplete ? { score } : { score: null }),
-            answers: { exercises: results },
-            time_spent_seconds: timeRef.current,
-            completed_at: isComplete ? new Date().toISOString() : null,
+        const _patch = {
+          status: isComplete ? 'completed' : 'in_progress',
+          // Keep score NULL on autosave so unanswered items aren't counted as wrong.
+          ...(isComplete ? { score } : { score: null }),
+          answers: { exercises: results },
+          time_spent_seconds: timeRef.current,
+          completed_at: isComplete ? new Date().toISOString() : null,
+        }
+        const _res = await updateRowVerified(supabase, currentRowIdRef.current, _patch)
+        if (_res.missing) {
+          // The row is gone — recover into a fresh one rather than writing to nothing.
+          reportSaveFailure({
+            section: 'grammar', phase: 'save_row_missing', activityId: grammarId, unitId,
+            rowId: currentRowIdRef.current, error: { message: 'update matched 0 rows' },
+            extra: { is_complete: isComplete },
           })
-          .eq('id', currentRowIdRef.current)
-
-        if (error) throw error
+          setRowId(null)
+          setIsSaving(false)
+          return saveProgress(currentAnswers, isComplete, _retryCount)
+        }
+        if (_res.error) {
+          reportSaveFailure({
+            section: 'grammar', phase: 'save_update', activityId: grammarId, unitId,
+            rowId: currentRowIdRef.current, error: _res.error, extra: { is_complete: isComplete },
+          })
+          throw _res.error
+        }
 
         if (isComplete) {
           // Recompute best
@@ -370,7 +384,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         }
       }
     } catch (err) {
-      console.error('[ExerciseSection] Save failed:', err)
+      reportSaveFailure({ section: 'grammar', phase: 'save_catch', activityId: grammarId, unitId, error: err, extra: { retry: _retryCount } })
       if (_retryCount < 1) {
         // Auto-retry once after 1.5s
         setTimeout(() => saveProgress(currentAnswers, isComplete, _retryCount + 1), 1500)
