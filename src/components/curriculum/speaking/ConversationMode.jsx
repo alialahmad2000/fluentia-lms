@@ -64,7 +64,7 @@ const STYLE = `
 .cvm-root[data-speaking="true"] .cvm-aurora{transform:scale(1.05)}
 .cvm-blob{position:absolute;border-radius:50%;filter:blur(58px);mix-blend-mode:screen;opacity:.5}
 .cvm-b1{width:46%;height:60%;left:-6%;top:-12%;background:radial-gradient(circle,rgba(56,189,248,.55),rgba(56,189,248,0) 70%);animation:cvmFloat1 34s ease-in-out infinite alternate}
-.cvm-b2{width:50%;height:64%;right:-10%;top:10%;background:radial-gradient(circle,rgba(167,139,250,.50),rgba(167,139,250,0) 70%);animation:cvmFloat2 42s ease-in-out infinite alternate}
+.cvm-b2{width:50%;height:64%;right:-10%;top:10%;background:radial-gradient(circle,rgba(245,200,66,.34),rgba(245,200,66,0) 70%);animation:cvmFloat2 42s ease-in-out infinite alternate}
 .cvm-b3{width:42%;height:50%;left:18%;bottom:-16%;background:radial-gradient(circle,rgba(251,191,36,.22),rgba(251,191,36,0) 70%);animation:cvmFloat3 52s ease-in-out infinite alternate}
 .cvm-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(8,14,28,.55),rgba(8,14,28,.20) 30%,rgba(8,14,28,.30) 70%,rgba(8,14,28,.66)),radial-gradient(120% 80% at 50% 0%,transparent,rgba(8,14,28,.4))}
 .cvm-content{position:relative;z-index:2}
@@ -76,19 +76,19 @@ const STYLE = `
 @keyframes cvmBar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
 @keyframes cvmSheen{0%{transform:translateX(-120%)}60%,100%{transform:translateX(220%)}}
 @keyframes cvmShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-.cvm-orb{position:relative;border-radius:50%;background:radial-gradient(circle at 32% 28%,#7dd3fc,#38bdf8 44%,#a78bfa 100%);box-shadow:0 0 0 1px rgba(255,255,255,.14) inset,0 0 0 1px rgba(255,255,255,.10),0 10px 28px -8px rgba(56,189,248,.5),0 0 44px -6px rgba(167,139,250,.45)}
+.cvm-orb{position:relative;border-radius:50%;background:radial-gradient(circle at 32% 28%,#9beeff,#00d4ff 46%,#0a7ea6 100%);box-shadow:0 0 0 1px rgba(255,255,255,.14) inset,0 0 0 1px rgba(255,255,255,.10),0 10px 28px -8px rgba(0,212,255,.45),0 0 44px -6px rgba(245,200,66,.22)}
 .cvm-orb[data-anim="true"]{animation:cvmBreathe 4.5s ease-in-out infinite}
 .cvm-orb-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(125,211,252,.5)}
 .cvm-orb[data-speaking="true"] .cvm-orb-ring{animation:cvmRing 1.6s ease-out infinite}
 .cvm-orb[data-speaking="true"] .cvm-orb-ring.d2{animation-delay:.5s}
-.cvm-sbar{width:3px;border-radius:2px;background:linear-gradient(to top,#22d3ee,#a78bfa);transform-origin:bottom}
+.cvm-sbar{width:3px;border-radius:2px;background:linear-gradient(to top,#00d4ff,#9beeff);transform-origin:bottom}
 .cvm-sbar[data-on="true"]{animation:cvmBar .9s ease-in-out infinite}
 .cvm-cta{position:relative;overflow:hidden}
 .cvm-cta::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:translateX(-120%);animation:cvmSheen 4.2s ease-in-out 1.2s infinite}
 .cvm-mic-pulse{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(251,113,133,.45)}
 .cvm-mic-pulse[data-on="true"]{animation:cvmRing 1.5s ease-out infinite}
 .cvm-mic-pulse.d2[data-on="true"]{animation-delay:.5s}
-.cvm-shim{background:linear-gradient(90deg,rgba(56,189,248,.06),rgba(167,139,250,.16),rgba(56,189,248,.06));background-size:200% 100%;animation:cvmShimmer 1.8s linear infinite}
+.cvm-shim{background:linear-gradient(90deg,rgba(0,212,255,.06),rgba(245,200,66,.16),rgba(0,212,255,.06));background-size:200% 100%;animation:cvmShimmer 1.8s linear infinite}
 .cvm-stream{overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:min(44vh,360px);min-height:190px;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 100%)}
 @media (min-width:768px){.cvm-stream{max-height:min(52vh,420px)}}
 @media (pointer: coarse){.cvm-blob{animation:none!important;mix-blend-mode:normal;opacity:.62}}
@@ -110,7 +110,7 @@ export default function ConversationMode({
   const isStage = variant === 'stage'
   const [phase, setPhase] = useState('intro')          // intro | active | grading | result
   const [conversationId, setConversationId] = useState(null)
-  const [messages, setMessages] = useState([])          // { id, role, text, audioUrl }
+  const [messages, setMessages] = useState([])          // { id, role, text, audioUrl }          // { id, role, text, audioUrl }
   const [recState, setRecState] = useState('idle')      // idle | recording | processing
   const [studentTurns, setStudentTurns] = useState(0)
   const [elapsed, setElapsed] = useState(0)
@@ -316,7 +316,7 @@ export default function ConversationMode({
   }, [])
 
   const overall = evaluation?.overall_score
-  const band = overall >= 8 ? { c: '#34d399', t: g('ممتاز', 'ممتازة') } : overall >= 6 ? { c: '#38bdf8', t: g('أداء حلو', 'أداؤكِ حلو') } : overall >= 4 ? { c: '#fbbf24', t: g('بداية طيبة', 'بدايةٌ طيبة') } : { c: '#a78bfa', t: g('خطوة أولى رائعة', 'خطوةٌ أولى رائعة') }
+  const band = overall >= 8 ? { c: '#34d399', t: g('ممتاز', 'ممتازة') } : overall >= 6 ? { c: '#00d4ff', t: g('أداء حلو', 'أداؤكِ حلو') } : overall >= 4 ? { c: '#f5c842', t: g('بداية طيبة', 'بدايةٌ طيبة') } : { c: '#f5c842', t: g('خطوة أولى رائعة', 'خطوةٌ أولى رائعة') }
 
   const canFinish = studentTurns >= MIN_END_TURNS
 
@@ -377,7 +377,7 @@ export default function ConversationMode({
                   {topic.title_en}
                 </div>
               )}
-              <button onClick={startConversation} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-bold font-['Tajawal'] text-white transition-transform hover:-translate-y-0.5 mt-1" style={{ background: 'linear-gradient(135deg,#06b6d4,#6366f1)', boxShadow: '0 10px 30px -8px rgba(56,189,248,0.55), inset 0 1px 0 0 rgba(255,255,255,0.2)' }}>
+              <button onClick={startConversation} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5 mt-1" style={{ background: 'linear-gradient(135deg,#f5c842,#00d4ff)', color: '#0b0f17', boxShadow: '0 10px 30px -8px rgba(245,200,66,0.5), inset 0 1px 0 0 rgba(255,255,255,0.35)' }}>
                 <Mic size={16} /> {g('ابدأ المحادثة', 'ابدئي المحادثة')}
               </button>
               {onSwitchToClassic && (
@@ -404,7 +404,7 @@ export default function ConversationMode({
                 </div>
                 <div dir="ltr" className="relative h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
                   <motion.div className="h-full rounded-full" animate={{ width: `${Math.min(100, (studentTurns / MAX_TURNS) * 100)}%` }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ background: canFinish ? 'linear-gradient(90deg,#22d3ee,#34d399)' : 'linear-gradient(90deg,#22d3ee,#a78bfa)' }} />
+                    style={{ background: canFinish ? 'linear-gradient(90deg,#22d3ee,#34d399)' : 'linear-gradient(90deg,#f5c842,#00d4ff)' }} />
                   <div className="absolute top-0 bottom-0" title="يمكنك الإنهاء من هنا" style={{ left: `${(MIN_END_TURNS / MAX_TURNS) * 100}%`, width: 2, background: 'rgba(255,255,255,0.4)' }} />
                 </div>
               </div>
@@ -556,16 +556,16 @@ function Bubble({ message, onReplay, speaking, reduce }) {
           ITS OWN side. These radii are physical, so they read right-to-left. */}
       <div className="px-3.5 py-2.5" style={isAi ? {
         maxWidth: 'min(80%, 46ch)',
-        background: 'linear-gradient(135deg,rgba(34,211,238,0.12),rgba(167,139,250,0.07))',
-        border: '1px solid rgba(56,189,248,0.20)', backdropFilter: 'blur(10px)',
+        background: 'linear-gradient(135deg,rgba(255,255,255,0.085),rgba(0,212,255,0.075))',
+        border: '1px solid rgba(255,255,255,0.13)', backdropFilter: 'blur(10px)',
         borderRadius: '18px 18px 6px 18px',
         boxShadow: '0 1px 2px -1px rgba(0,0,0,0.20),0 8px 20px -8px rgba(0,0,0,0.28),0 16px 40px -16px rgba(56,189,248,0.22),inset 0 1px 0 0 rgba(255,255,255,0.08)',
       } : {
         maxWidth: 'min(80%, 46ch)',
-        background: 'linear-gradient(135deg,rgba(56,189,248,0.22),rgba(99,102,241,0.20))',
+        background: 'linear-gradient(135deg,rgba(0,212,255,0.24),rgba(10,126,166,0.30))',
         border: '1px solid rgba(56,189,248,0.34)', backdropFilter: 'blur(8px)',
         borderRadius: '18px 18px 18px 6px',
-        boxShadow: '0 1px 2px -1px rgba(0,0,0,0.22),0 8px 20px -8px rgba(0,0,0,0.30),0 16px 40px -14px rgba(99,102,241,0.28),inset 0 1px 0 0 rgba(255,255,255,0.12)',
+        boxShadow: '0 1px 2px -1px rgba(0,0,0,0.22),0 8px 20px -8px rgba(0,0,0,0.30),0 16px 40px -14px rgba(0,212,255,0.24),inset 0 1px 0 0 rgba(255,255,255,0.12)',
       }}>
         <p dir="ltr" className="text-sm font-['Inter'] leading-relaxed whitespace-pre-line text-left" style={{ color: isAi ? 'rgba(248,250,252,0.92)' : '#fff' }}>{message.text}</p>
         {isAi && message.audioUrl && (
