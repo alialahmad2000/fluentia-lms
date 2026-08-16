@@ -17,9 +17,9 @@ function Chip({ active, onClick, children, accent = '#38bdf8' }) {
       style={{
         fontFamily: "'Tajawal',sans-serif",
         padding: '8px 13px',
-        background: active ? `color-mix(in srgb, ${accent} 18%, transparent)` : 'var(--surface-base, rgba(255,255,255,0.04))',
+        background: active ? `color-mix(in oklab, ${accent} 18%, transparent)` : 'var(--surface-base, rgba(255,255,255,0.04))',
         color: active ? accent : 'var(--text-secondary, #cbd5e1)',
-        border: `1px solid ${active ? `color-mix(in srgb, ${accent} 45%, transparent)` : 'var(--ds-border-subtle, rgba(255,255,255,0.10))'}`,
+        border: `1px solid ${active ? `color-mix(in oklab, ${accent} 45%, transparent)` : 'var(--ds-border-subtle, rgba(255,255,255,0.10))'}`,
         boxShadow: active ? `0 4px 14px -8px ${accent}` : 'none',
       }}
     >

@@ -102,9 +102,9 @@ export default function RetentionCard({
                   <span
                     className="px-3 py-1 text-xs font-semibold"
                     style={{
-                      background: `color-mix(in srgb, ${accent.tone} 18%, transparent)`,
+                      background: `color-mix(in oklab, ${accent.tone} 18%, transparent)`,
                       color: accent.tone,
-                      border: `1px solid color-mix(in srgb, ${accent.tone} 35%, transparent)`,
+                      border: `1px solid color-mix(in oklab, ${accent.tone} 35%, transparent)`,
                       borderRadius: 'var(--radius-full)',
                     }}
                   >
@@ -115,7 +115,7 @@ export default function RetentionCard({
                   <div
                     className="w-10 h-10 flex items-center justify-center"
                     style={{
-                      background: `color-mix(in srgb, ${accent.tone} 14%, transparent)`,
+                      background: `color-mix(in oklab, ${accent.tone} 14%, transparent)`,
                       color: accent.tone,
                       borderRadius: 'var(--radius-md)',
                     }}

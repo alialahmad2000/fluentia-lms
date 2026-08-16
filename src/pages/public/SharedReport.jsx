@@ -362,7 +362,7 @@ export default function SharedReport() {
                     <span
                       className="flex items-center justify-center min-w-[24px] h-6 rounded-full text-xs font-bold shrink-0"
                       style={{
-                        background: 'color-mix(in srgb, var(--accent-sky, #38bdf8) 15%, transparent)',
+                        background: 'color-mix(in oklab, var(--accent-sky, #38bdf8) 15%, transparent)',
                         color: 'var(--accent-sky, #38bdf8)',
                       }}
                     >

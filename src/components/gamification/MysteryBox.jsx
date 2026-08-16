@@ -120,7 +120,7 @@ export default function MysteryBox() {
           width: '100%',
           height: '100%',
           background: 'var(--ds-surface-1)',
-          border: '1px solid color-mix(in srgb, var(--ds-accent-gold, var(--ds-accent-primary)) 30%, transparent)',
+          border: '1px solid color-mix(in oklab, var(--ds-accent-gold, var(--ds-accent-primary)) 30%, transparent)',
           borderRadius: 'var(--radius-lg)',
           boxShadow: 'var(--ds-shadow-sm), inset 0 1px 0 rgba(255,255,255,0.05)',
         }}
@@ -169,8 +169,8 @@ export default function MysteryBox() {
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
             className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl"
             style={{
-              background: 'color-mix(in srgb, var(--ds-accent-gold, var(--ds-accent-primary)) 10%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--ds-accent-gold, var(--ds-accent-primary)) 20%, transparent)',
+              background: 'color-mix(in oklab, var(--ds-accent-gold, var(--ds-accent-primary)) 10%, transparent)',
+              border: '1px solid color-mix(in oklab, var(--ds-accent-gold, var(--ds-accent-primary)) 20%, transparent)',
             }}
           >
             {isOpening ? '✨' : '🎁'}

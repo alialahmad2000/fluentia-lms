@@ -78,7 +78,7 @@ async function buildAttemptReview(attempt) {
 function BandChip({ band }) {
   if (band == null) return null
   return (
-    <span style={{ flex: 'none', display: 'inline-flex', alignItems: 'baseline', gap: 5, padding: '5px 12px', borderRadius: 999, background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in srgb, var(--iel-accent) 35%, transparent)' }}>
+    <span style={{ flex: 'none', display: 'inline-flex', alignItems: 'baseline', gap: 5, padding: '5px 12px', borderRadius: 999, background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in oklab, var(--iel-accent) 35%, transparent)' }}>
       <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--iel-accent-ink)', fontFamily: TAJAWAL, letterSpacing: '.04em' }}>Band</span>
       <span style={{ fontSize: 20, fontWeight: 800, color: 'var(--iel-accent)', fontFamily: "'Playfair Display', serif", lineHeight: 1 }}>{Number(band).toFixed(1)}</span>
     </span>

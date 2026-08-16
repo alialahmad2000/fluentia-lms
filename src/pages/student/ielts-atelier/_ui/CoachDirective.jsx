@@ -50,13 +50,13 @@ export default function CoachDirective({ action, todayTasks = [], weakest, onGo 
         {/* coach presence orb */}
         <div style={{ position: 'relative', flex: 'none', width: 44, height: 44 }}>
           <span className="iel-coach-ring" style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--iel-accent)', animation: 'iel-coach-ping 2.6s cubic-bezier(0,0,.2,1) infinite' }} />
-          <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'linear-gradient(145deg, var(--iel-accent-ink), var(--iel-accent))', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.22), 0 4px 12px -6px color-mix(in srgb, var(--iel-accent) 45%, #000), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 22%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+          <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'linear-gradient(145deg, var(--iel-accent-ink), var(--iel-accent))', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.22), 0 4px 12px -6px color-mix(in oklab, var(--iel-accent) 45%, #000), 0 0 0 1px color-mix(in oklab, var(--iel-accent) 22%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
             <Icon.coach size={20} sw={2} />
           </span>
         </div>
         <div style={{ flex: '1 1 320px', minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, fontWeight: 800, color: 'var(--iel-accent)', letterSpacing: '.06em', marginBottom: 7 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--iel-accent)', boxShadow: '0 0 6px color-mix(in srgb, var(--iel-accent) 55%, transparent)' }} />
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--iel-accent)', boxShadow: '0 0 6px color-mix(in oklab, var(--iel-accent) 55%, transparent)' }} />
             خطوتك الآن
           </div>
           <h2 style={{ fontSize: 19, fontWeight: 800, color: 'var(--iel-ink)', margin: 0, lineHeight: 1.4 }}>{title}</h2>

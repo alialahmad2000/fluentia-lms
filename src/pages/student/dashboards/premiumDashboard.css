@@ -76,11 +76,11 @@
   width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
   background: conic-gradient(from 0deg,
     transparent 0deg,
-    color-mix(in srgb, var(--av-c1) 48%, transparent) 60deg,
+    color-mix(in oklab, var(--av-c1) 48%, transparent) 60deg,
     transparent 140deg,
-    color-mix(in srgb, var(--av-c3) 42%, transparent) 220deg,
+    color-mix(in oklab, var(--av-c3) 42%, transparent) 220deg,
     transparent 300deg,
-    color-mix(in srgb, var(--av-c1) 34%, transparent) 345deg,
+    color-mix(in oklab, var(--av-c1) 34%, transparent) 345deg,
     transparent 360deg);
   filter: blur(80px);
   mix-blend-mode: var(--av-blend);
@@ -154,7 +154,7 @@
   flex: 1 1 auto;
   background: linear-gradient(90deg,
     var(--ds-border-subtle),
-    color-mix(in srgb, var(--ds-border-subtle) 30%, transparent));
+    color-mix(in oklab, var(--ds-border-subtle) 30%, transparent));
 }
 
 /* ── Premium quick-access tile ─────────────────────────────────────── */
@@ -171,7 +171,7 @@
   inset: 0;
   border-radius: inherit;
   background: radial-gradient(120% 80% at 80% 0%,
-    color-mix(in srgb, var(--ds-accent-primary) 14%, transparent), transparent 60%);
+    color-mix(in oklab, var(--ds-accent-primary) 14%, transparent), transparent 60%);
   opacity: 0;
   transition: opacity var(--motion-base, 240ms) var(--ease-out, ease);
   pointer-events: none;

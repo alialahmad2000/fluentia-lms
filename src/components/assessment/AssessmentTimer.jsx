@@ -48,7 +48,7 @@ export default function AssessmentTimer({ startedAt, timeLimitSeconds, onExpire 
         fontFamily: 'var(--ds-font-mono, ui-monospace, monospace)',
         fontWeight: 600,
         fontSize: 'var(--ds-text-lg, 1.125rem)',
-        boxShadow: status === 'final' ? `0 0 0 4px color-mix(in srgb, ${styles.ring} 20%, transparent)` : 'none',
+        boxShadow: status === 'final' ? `0 0 0 4px color-mix(in oklab, ${styles.ring} 20%, transparent)` : 'none',
         marginBottom: 'var(--ds-space-4, 1rem)',
       }}
     >

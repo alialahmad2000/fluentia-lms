@@ -26,8 +26,8 @@ function SkillCard({ skill, result }) {
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
       style={{
         flex: 1, minWidth: 160, padding: '20px 18px', borderRadius: 18,
-        background: 'color-mix(in srgb, var(--sunset-base-mid) 38%, transparent)',
-        border: '1px solid color-mix(in srgb, var(--sunset-amber) 16%, transparent)',
+        background: 'color-mix(in oklab, var(--sunset-base-mid) 38%, transparent)',
+        border: '1px solid color-mix(in oklab, var(--sunset-amber) 16%, transparent)',
         backdropFilter: 'blur(8px)', display: 'flex', flexDirection: 'column', gap: 8, textAlign: 'center',
       }}
     >
@@ -83,7 +83,7 @@ export default function MockResults() {
 
       {incomplete && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          style={{ padding: '16px 18px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 12, alignItems: 'center' }}>
+          style={{ padding: '16px 18px', borderRadius: 14, background: 'color-mix(in oklab, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 12, alignItems: 'center' }}>
           <AlertTriangle size={18} color="var(--sunset-amber)" />
           <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>هذه المحاكاة لم تكتمل.</p>
         </motion.div>
@@ -91,7 +91,7 @@ export default function MockResults() {
 
       {anyQueued && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          style={{ padding: '16px 18px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 12 }}>
+          style={{ padding: '16px 18px', borderRadius: 14, background: 'color-mix(in oklab, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 12 }}>
           <AlertTriangle size={18} color="var(--sunset-amber)" style={{ flexShrink: 0, marginTop: 2 }} />
           <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7 }}>بعض التقييمات في طابور المراجعة. ستُحدَّث النتيجة عند اكتمالها.</p>
         </motion.div>
@@ -100,7 +100,7 @@ export default function MockResults() {
       {/* Overall band */}
       {overallBand != null && (
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-          style={{ padding: '40px 28px', borderRadius: 24, background: 'color-mix(in srgb, var(--sunset-base-mid) 48%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+          style={{ padding: '40px 28px', borderRadius: 24, background: 'color-mix(in oklab, var(--sunset-base-mid) 48%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
           <p style={{ margin: 0, fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
             {mode === 'single' ? SKILL_CONFIG[answers.single_skill]?.label : 'Overall Mock Band'}
           </p>
@@ -119,7 +119,7 @@ export default function MockResults() {
       {/* Writing feedback summary */}
       {answers.writing?.done && answers.writing?.feedback?.overall_feedback_ar && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-          style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)' }}>
+          style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in oklab, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)' }}>
           <p style={{ margin: '0 0 8px', fontSize: 12, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>الكتابة — ملاحظات عامة</p>
           <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8 }}>{answers.writing.feedback.overall_feedback_ar}</p>
         </motion.div>
@@ -128,7 +128,7 @@ export default function MockResults() {
       {/* Speaking feedback summary */}
       {answers.speaking?.done && answers.speaking?.feedback?.feedback_ar && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
-          style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)' }}>
+          style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in oklab, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)' }}>
           <p style={{ margin: '0 0 8px', fontSize: 12, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>المحادثة — ملاحظات عامة</p>
           <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8 }}>{answers.speaking.feedback.feedback_ar}</p>
         </motion.div>
@@ -141,11 +141,11 @@ export default function MockResults() {
       {/* Actions */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} style={{ display: 'flex', gap: 12 }}>
         <button onClick={() => navigate('/student/ielts-atelier/mock')}
-          style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 55%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--ds-border) 55%, transparent)', background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           محاكاة جديدة
         </button>
         <button onClick={() => navigate('/student/ielts-atelier/errors')}
-          style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-amber) 30%, transparent)', background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--sunset-amber) 30%, transparent)', background: 'color-mix(in oklab, var(--sunset-amber) 8%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           بنك الأخطاء
         </button>
       </motion.div>

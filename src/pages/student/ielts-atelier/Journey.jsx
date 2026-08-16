@@ -133,7 +133,7 @@ export default function Journey() {
         <SectionHeader title="هذا الأسبوع" />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
           {daysWithTasks.map((d) => (
-            <Card key={d.key} style={{ padding: '14px 16px', borderColor: d.idx === todayIdx ? 'color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border))' : undefined }}>
+            <Card key={d.key} style={{ padding: '14px 16px', borderColor: d.idx === todayIdx ? 'color-mix(in oklab, var(--iel-accent) 45%, var(--iel-border))' : undefined }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                 <span style={{ fontSize: 13, fontWeight: 800, color: d.idx === todayIdx ? 'var(--iel-accent-ink)' : 'var(--iel-ink)' }}>{d.ar}</span>
                 {d.idx === todayIdx && <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--iel-accent)' }}>اليوم</span>}

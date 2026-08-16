@@ -34,7 +34,7 @@ export default function SystemMessageCluster({ messages, tight = false }) {
           style={{
             fontFamily: 'Tajawal, sans-serif', fontSize: 12, color: 'var(--ds-text-tertiary)',
             padding: '5px 14px', borderRadius: 999,
-            background: 'color-mix(in srgb, var(--ds-bg-elevated) 55%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-bg-elevated) 55%, transparent)',
             backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             border: '1px solid var(--ds-border-subtle)', cursor: 'pointer',
           }}

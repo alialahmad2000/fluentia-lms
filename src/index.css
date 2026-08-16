@@ -2,6 +2,7 @@
 @import './styles/global.css';
 @import './styles/animations.css';
 @import './styles/components.css';
+@import './styles/modern-css.css';
 @import './design-system/themes.css';
 
 @tailwind base;

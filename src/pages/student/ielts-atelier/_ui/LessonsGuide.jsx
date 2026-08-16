@@ -16,7 +16,7 @@ function LessonCard({ lesson, onOpen }) {
       display: 'flex', alignItems: 'center', gap: 12, padding: '15px 16px', width: '100%', cursor: 'pointer',
       textAlign: 'start', background: 'var(--iel-surface)', fontFamily: SANS,
     }}>
-      <span style={{ width: 38, height: 38, borderRadius: 11, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `color-mix(in srgb, ${lesson.color} 15%, transparent)`, border: `1px solid color-mix(in srgb, ${lesson.color} 30%, transparent)`, color: lesson.color }}>
+      <span style={{ width: 38, height: 38, borderRadius: 11, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `color-mix(in oklab, ${lesson.color} 15%, transparent)`, border: `1px solid color-mix(in oklab, ${lesson.color} 30%, transparent)`, color: lesson.color }}>
         {I && <I size={18} />}
       </span>
       <div style={{ minWidth: 0, flex: 1 }}>

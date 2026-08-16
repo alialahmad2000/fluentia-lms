@@ -23,7 +23,7 @@ function SkillBar({ skill, total, mastered }) {
         <span style={{ fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>{SKILL_LABELS[skill]}</span>
         <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>{mastered}/{total}</span>
       </div>
-      <div style={{ height: 6, borderRadius: 99, background: 'color-mix(in srgb, var(--ds-border) 35%, transparent)', overflow: 'hidden' }}>
+      <div style={{ height: 6, borderRadius: 99, background: 'color-mix(in oklab, var(--ds-border) 35%, transparent)', overflow: 'hidden' }}>
         <motion.div
           initial={{ width: 0 }} animate={{ width: `${pct}%` }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -88,7 +88,7 @@ export default function Insights() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0 0' }}>
         <button onClick={() => navigate('/student/ielts-atelier/errors')}
-          style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in oklab, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           <ChevronLeft size={13} /> البنك
         </button>
         <h2 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>إحصائيات الأداء</h2>
@@ -96,7 +96,7 @@ export default function Insights() {
 
       {!hasData ? (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          style={{ padding: '48px 24px', textAlign: 'center', borderRadius: 20, background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)' }}>
+          style={{ padding: '48px 24px', textAlign: 'center', borderRadius: 20, background: 'color-mix(in oklab, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 35%, transparent)' }}>
           <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7 }}>
             {g('لا توجد بيانات بعد. أكمل جلسات ممارسة لتظهر إحصائياتك هنا.', 'لا توجد بيانات بعد. أكملي جلسات ممارسة لتظهر إحصائياتك هنا.')}
           </p>
@@ -106,7 +106,7 @@ export default function Insights() {
           {/* Suggested focus callout */}
           {suggestedFocus && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              style={{ padding: '16px 20px', borderRadius: 16, background: 'color-mix(in srgb, var(--sunset-orange) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-orange) 25%, transparent)' }}>
+              style={{ padding: '16px 20px', borderRadius: 16, background: 'color-mix(in oklab, var(--sunset-orange) 10%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-orange) 25%, transparent)' }}>
               <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>التركيز المقترح</p>
               <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>
                 {suggestedFocus.name} — {suggestedFocus.errors - suggestedFocus.mastered} درس لم يُتقن بعد
@@ -117,7 +117,7 @@ export default function Insights() {
           {/* Skill progress bars */}
           {chartData.length > 0 && (
             <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in srgb, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 14%, transparent)', display: 'flex', flexDirection: 'column', gap: 16 }}>
+              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in oklab, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 14%, transparent)', display: 'flex', flexDirection: 'column', gap: 16 }}>
               <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>التقدم حسب المهارة</p>
               {['reading','listening','writing','speaking'].filter(s => stats.bySkill?.[s]?.total > 0).map(s => (
                 <SkillBar key={s} skill={s} total={stats.bySkill[s].total} mastered={stats.bySkill[s].mastered} />
@@ -128,7 +128,7 @@ export default function Insights() {
           {/* Bar chart */}
           {chartData.length > 1 && (
             <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}
-              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)' }}>
+              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 35%, transparent)' }}>
               <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>الأخطاء حسب المهارة</p>
               <ResponsiveContainer width="100%" height={160}>
                 <BarChart data={chartData} layout="vertical" margin={{ right: 20 }}>
@@ -146,11 +146,11 @@ export default function Insights() {
           {/* Question type breakdown (R/L) */}
           {topQTypes.length > 0 && (
             <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)' }}>
+              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 35%, transparent)' }}>
               <p style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>أنواع الأسئلة الأصعب (قراءة + استماع)</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {topQTypes.map(([qt, cnt]) => (
-                  <div key={qt} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 10, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)' }}>
+                  <div key={qt} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 10, background: 'color-mix(in oklab, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 35%, transparent)' }}>
                     <span style={{ fontSize: 13, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif" }}>{qt}</span>
                     <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Mono', monospace" }}>{cnt}</span>
                   </div>
@@ -162,7 +162,7 @@ export default function Insights() {
           {/* W/S improvement tips summary */}
           {(tipsBySkill.writing.length > 0 || tipsBySkill.speaking.length > 0) && (
             <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}
-              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 35%, transparent)', display: 'flex', flexDirection: 'column', gap: 12 }}>
               <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>نصائح التحسين الأخيرة</p>
               {['writing','speaking'].filter(s => tipsBySkill[s].length > 0).map(s => (
                 <div key={s}>

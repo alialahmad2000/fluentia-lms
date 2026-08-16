@@ -69,7 +69,7 @@ export default function DMChatPage() {
           className="flex items-center gap-2.5 px-3"
           style={{
             height: 60, direction: 'rtl',
-            background: 'color-mix(in srgb, var(--ds-bg-elevated) 62%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-bg-elevated) 62%, transparent)',
             backdropFilter: 'blur(28px) saturate(150%)', WebkitBackdropFilter: 'blur(28px) saturate(150%)',
             borderBottom: '1px solid var(--ds-border-subtle)',
             boxShadow: '0 10px 30px -16px rgba(0,0,0,0.5)',

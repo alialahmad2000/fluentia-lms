@@ -27,8 +27,8 @@ function SegmentProgress({ skills, current }) {
           <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{
               padding: '4px 12px', borderRadius: 20, fontSize: 12, fontFamily: "'Tajawal', sans-serif", fontWeight: active ? 700 : 500,
-              background: done ? 'color-mix(in srgb, #4ade80 12%, transparent)' : active ? 'color-mix(in srgb, var(--sunset-orange) 16%, transparent)' : 'color-mix(in srgb, var(--ds-surface) 40%, transparent)',
-              border: `1px solid ${done ? 'rgba(74,222,128,0.3)' : active ? 'color-mix(in srgb, var(--sunset-orange) 35%, transparent)' : 'color-mix(in srgb, var(--ds-border) 40%, transparent)'}`,
+              background: done ? 'color-mix(in oklab, #4ade80 12%, transparent)' : active ? 'color-mix(in oklab, var(--sunset-orange) 16%, transparent)' : 'color-mix(in oklab, var(--ds-surface) 40%, transparent)',
+              border: `1px solid ${done ? 'rgba(74,222,128,0.3)' : active ? 'color-mix(in oklab, var(--sunset-orange) 35%, transparent)' : 'color-mix(in oklab, var(--ds-border) 40%, transparent)'}`,
               color: done ? '#4ade80' : active ? 'var(--ds-text)' : 'var(--ds-text-muted)',
             }}>
               {done ? '✓' : ''} {SEGMENT_LABELS[s]}

@@ -123,7 +123,7 @@ export default function HomeworkLanding() {
                 className="mt-2 text-sm p-3"
                 style={{
                   color: 'var(--ds-accent-danger)',
-                  background: 'color-mix(in srgb, var(--ds-accent-danger) 12%, transparent)',
+                  background: 'color-mix(in oklab, var(--ds-accent-danger) 12%, transparent)',
                   borderRadius: 'var(--radius-md)',
                 }}
               >
@@ -167,7 +167,7 @@ export default function HomeworkLanding() {
                         className="text-xs font-semibold px-2 py-1"
                         style={{
                           color: 'var(--ds-accent-success)',
-                          background: 'color-mix(in srgb, var(--ds-accent-success) 14%, transparent)',
+                          background: 'color-mix(in oklab, var(--ds-accent-success) 14%, transparent)',
                           borderRadius: 'var(--radius-sm)',
                         }}
                       >
@@ -179,7 +179,7 @@ export default function HomeworkLanding() {
                         className="text-xs font-semibold px-2 py-1"
                         style={{
                           color: 'var(--ds-accent-primary)',
-                          background: 'color-mix(in srgb, var(--ds-accent-primary) 14%, transparent)',
+                          background: 'color-mix(in oklab, var(--ds-accent-primary) 14%, transparent)',
                           borderRadius: 'var(--radius-sm)',
                         }}
                       >

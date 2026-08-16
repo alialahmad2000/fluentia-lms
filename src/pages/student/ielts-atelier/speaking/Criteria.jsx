@@ -162,7 +162,7 @@ export default function SpeakingCriteria() {
             })}
           </div>
           {weakest && (
-            <div style={{ marginTop: 13, padding: '10px 12px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-bad) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-bad) 22%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>
+            <div style={{ marginTop: 13, padding: '10px 12px', borderRadius: 10, background: 'color-mix(in oklab, var(--iel-bad) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-bad) 22%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>
               أضعف معيار لديكِ الآن: <b style={{ color: 'var(--iel-ink)' }}>{CRITERIA.find((c) => c.key === weakest)?.label}</b> — وهو الذي سيرفع باندك أسرع من غيره لو عالجتِه أوّلاً.
             </div>
           )}
@@ -173,7 +173,7 @@ export default function SpeakingCriteria() {
         const I = c.icon
         const isWeak = c.key === weakest
         return (
-          <Card key={c.key} style={{ padding: '17px 19px', ...(isWeak ? { borderColor: 'color-mix(in srgb, var(--iel-bad) 32%, var(--iel-border))' } : null) }}>
+          <Card key={c.key} style={{ padding: '17px 19px', ...(isWeak ? { borderColor: 'color-mix(in oklab, var(--iel-bad) 32%, var(--iel-border))' } : null) }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 9 }}>
               <span style={{ display: 'inline-flex', width: 30, height: 30, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', flex: 'none' }}><I size={15} /></span>
               <div style={{ minWidth: 0 }}>
@@ -188,7 +188,7 @@ export default function SpeakingCriteria() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
               {[5, 6, 7].map((b) => (
                 <div key={b} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ flex: 'none', minWidth: 46, textAlign: 'center', fontSize: 11, fontWeight: 800, padding: '3px 0', borderRadius: 7, background: b === 7 ? 'color-mix(in srgb, var(--iel-good) 14%, transparent)' : 'var(--iel-surface-2)', color: b === 7 ? 'var(--iel-good)' : 'var(--iel-ink-3)', border: `1px solid ${b === 7 ? 'color-mix(in srgb, var(--iel-good) 30%, transparent)' : 'var(--iel-border)'}` }}>
+                  <span style={{ flex: 'none', minWidth: 46, textAlign: 'center', fontSize: 11, fontWeight: 800, padding: '3px 0', borderRadius: 7, background: b === 7 ? 'color-mix(in oklab, var(--iel-good) 14%, transparent)' : 'var(--iel-surface-2)', color: b === 7 ? 'var(--iel-good)' : 'var(--iel-ink-3)', border: `1px solid ${b === 7 ? 'color-mix(in oklab, var(--iel-good) 30%, transparent)' : 'var(--iel-border)'}` }}>
                     Band {b}
                   </span>
                   <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>{c.bands[b]}</div>
@@ -196,7 +196,7 @@ export default function SpeakingCriteria() {
               ))}
             </div>
 
-            <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: 'var(--iel-gold-soft, rgba(234,179,8,.1))', border: '1px solid color-mix(in srgb, var(--iel-gold) 26%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>
+            <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: 'var(--iel-gold-soft, rgba(234,179,8,.1))', border: '1px solid color-mix(in oklab, var(--iel-gold) 26%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>
               <b style={{ color: 'var(--iel-gold-ink)' }}>ما يُسقط الدرجة: </b>{c.killer}
             </div>
           </Card>

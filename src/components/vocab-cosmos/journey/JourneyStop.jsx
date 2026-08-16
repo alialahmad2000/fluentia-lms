@@ -359,8 +359,8 @@ function RateBtn({ label, color, gold, disabled, onClick }) {
         color: gold ? '#1b1505' : color,
         background: gold
           ? 'linear-gradient(135deg, #fde68a, #e9b949)'
-          : `color-mix(in srgb, ${color} 16%, transparent)`,
-        border: gold ? 'none' : `1px solid color-mix(in srgb, ${color} 40%, transparent)`,
+          : `color-mix(in oklab, ${color} 16%, transparent)`,
+        border: gold ? 'none' : `1px solid color-mix(in oklab, ${color} 40%, transparent)`,
         opacity: disabled ? 0.6 : 1,
       }}
     >

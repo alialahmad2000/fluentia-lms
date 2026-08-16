@@ -149,7 +149,7 @@ export default function SpeakingPhrases() {
       )}
 
       {part !== 0 && (
-        <Card style={{ padding: '12px 15px', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8, borderColor: 'color-mix(in srgb, var(--iel-accent) 26%, var(--iel-border))' }}>
+        <Card style={{ padding: '12px 15px', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8, borderColor: 'color-mix(in oklab, var(--iel-accent) 26%, var(--iel-border))' }}>
           {PART_HINT[part]}
         </Card>
       )}
@@ -223,7 +223,7 @@ export default function SpeakingPhrases() {
                 )}
 
                 {tip && (
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start', padding: '9px 11px', borderRadius: 9, background: 'var(--iel-gold-soft, rgba(234,179,8,.1))', border: '1px solid color-mix(in srgb, var(--iel-gold) 24%, transparent)' }}>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start', padding: '9px 11px', borderRadius: 9, background: 'var(--iel-gold-soft, rgba(234,179,8,.1))', border: '1px solid color-mix(in oklab, var(--iel-gold) 24%, transparent)' }}>
                     <Lightbulb size={13} style={{ color: 'var(--iel-gold-ink)', flex: 'none', marginTop: 2 }} />
                     <div style={{ fontSize: 12, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>{tip}</div>
                   </div>

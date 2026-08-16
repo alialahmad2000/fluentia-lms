@@ -180,8 +180,8 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
     <div style={{ display: 'flex', gap: 8, width: '100%', justifyContent: 'center' }}>
       {PARTS.map((p, i) => (
         <span key={p} style={{ padding: '5px 14px', borderRadius: 999, fontSize: 12, fontFamily: SANS, fontWeight: i === partIdx ? 700 : 500,
-          background: i < partIdx ? 'color-mix(in srgb, var(--iel-good) 12%, transparent)' : i === partIdx ? 'var(--iel-accent-soft)' : 'transparent',
-          border: `1px solid ${i < partIdx ? 'color-mix(in srgb, var(--iel-good) 34%, transparent)' : i === partIdx ? 'color-mix(in srgb, var(--iel-accent) 35%, var(--iel-border))' : 'var(--iel-border)'}`,
+          background: i < partIdx ? 'color-mix(in oklab, var(--iel-good) 12%, transparent)' : i === partIdx ? 'var(--iel-accent-soft)' : 'transparent',
+          border: `1px solid ${i < partIdx ? 'color-mix(in oklab, var(--iel-good) 34%, transparent)' : i === partIdx ? 'color-mix(in oklab, var(--iel-accent) 35%, var(--iel-border))' : 'var(--iel-border)'}`,
           color: i < partIdx ? 'var(--iel-good)' : i === partIdx ? 'var(--iel-accent-ink)' : 'var(--iel-ink-3)' }}>{i < partIdx ? '✓ ' : ''}Part {p}</span>
       ))}
     </div>
@@ -210,7 +210,7 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
           </div>
 
           {recState === 'prep' && (
-            <div style={{ marginTop: 16, padding: '14px 18px', borderRadius: 12, background: 'color-mix(in srgb, var(--iel-warn) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-warn) 26%, transparent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ marginTop: 16, padding: '14px 18px', borderRadius: 12, background: 'color-mix(in oklab, var(--iel-warn) 10%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-warn) 26%, transparent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif" }}>وقت التحضير — دوّن أفكارك</span>
               <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--iel-warn)', fontFamily: "'IBM Plex Mono', monospace" }}>{fmt(prepLeft)}</span>
             </div>
@@ -229,7 +229,7 @@ export default function MockSpeaking({ attemptId, answers, content, startedAt, o
             <>
               <p style={{ margin: 0, fontSize: 28, fontWeight: 800, color: 'var(--iel-bad)', fontFamily: "'IBM Plex Mono', monospace" }}>{fmt(recElapsed)}</p>
               <motion.button onClick={stopRecording} animate={{ boxShadow: ['0 0 0 0px rgba(224,106,88,0.4)', '0 0 0 16px rgba(224,106,88,0)'] }} transition={{ duration: 1.2, repeat: Infinity }}
-                style={{ width: 76, height: 76, borderRadius: '50%', border: '2px solid var(--iel-bad)', background: 'color-mix(in srgb, var(--iel-bad) 15%, transparent)', color: 'var(--iel-bad)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                style={{ width: 76, height: 76, borderRadius: '50%', border: '2px solid var(--iel-bad)', background: 'color-mix(in oklab, var(--iel-bad) 15%, transparent)', color: 'var(--iel-bad)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                 <Square size={26} />
               </motion.button>
               <p style={{ margin: 0, fontSize: 12.5, color: 'var(--iel-ink-3)', fontFamily: "'Tajawal', sans-serif" }}>الحد الأقصى {fmt(meta.maxRecSec)} — اضغط للإيقاف</p>

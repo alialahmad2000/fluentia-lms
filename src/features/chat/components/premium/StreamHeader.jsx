@@ -5,10 +5,10 @@ import { useChatMutes, useToggleChatMute, muteActive } from '../../queries/useCh
 // المجلس — quiet centered wordmark header (matches the prototype). The presence
 // circle below owns identity + who's-here, so the header stays minimal.
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-elevated) 55%, transparent)',
+  background: 'color-mix(in oklab, var(--ds-bg-elevated) 55%, transparent)',
   backdropFilter: 'blur(28px) saturate(150%)',
   WebkitBackdropFilter: 'blur(28px) saturate(150%)',
-  borderBottom: '1px solid color-mix(in srgb, var(--ds-accent-gold) 10%, var(--ds-border-subtle))',
+  borderBottom: '1px solid color-mix(in oklab, var(--ds-accent-gold) 10%, var(--ds-border-subtle))',
 }
 
 function IconBtn({ onClick, label, children }) {

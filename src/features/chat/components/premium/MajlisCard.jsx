@@ -42,7 +42,7 @@ export default function MajlisCard({ groupId }) {
           <CardComposer draft={draft} setDraft={setDraft} kind={kind} setKind={setKind} onPost={() => draft.trim() && postMut.mutate()} onCancel={() => setPosting(false)} busy={postMut.isPending} />
         ) : (
           <button type="button" onClick={() => setPosting(true)} className="inline-flex items-center gap-1.5"
-            style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 11.5, color: 'var(--ds-accent-gold)', padding: '5px 14px', borderRadius: 999, border: '1px dashed color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)' }}>
+            style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 11.5, color: 'var(--ds-accent-gold)', padding: '5px 14px', borderRadius: 999, border: '1px dashed color-mix(in oklab, var(--ds-accent-gold) 30%, transparent)' }}>
             <Plus size={13} /> اطرح بطاقة المجلس
           </button>
         )}
@@ -54,7 +54,7 @@ export default function MajlisCard({ groupId }) {
   const isWord = card.kind === 'word'
   return (
     <div style={{ margin: '2px 14px 14px' }}>
-      <div style={{ borderRadius: 16, padding: '14px 16px', background: 'color-mix(in srgb, var(--ds-accent-gold) 8%, var(--ds-bg-elevated))', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)', borderInlineStart: '3px solid var(--ds-accent-gold)' }}>
+      <div style={{ borderRadius: 16, padding: '14px 16px', background: 'color-mix(in oklab, var(--ds-accent-gold) 8%, var(--ds-bg-elevated))', border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 22%, transparent)', borderInlineStart: '3px solid var(--ds-accent-gold)' }}>
         <div className="flex items-center gap-1.5 mb-2" style={{ color: 'var(--ds-accent-gold)', fontFamily: 'Tajawal, sans-serif', fontWeight: 700, fontSize: 11, letterSpacing: '0.04em' }}>
           <Sparkles size={13} /> بطاقة المجلس · {isWord ? 'كلمة اليوم' : 'سؤال اليوم'}
         </div>
@@ -103,11 +103,11 @@ export default function MajlisCard({ groupId }) {
 
 function CardComposer({ draft, setDraft, kind, setKind, onPost, onCancel, busy }) {
   return (
-    <div style={{ width: '100%', maxWidth: 440, background: 'var(--ds-bg-elevated)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)', borderRadius: 14, padding: 12 }}>
+    <div style={{ width: '100%', maxWidth: 440, background: 'var(--ds-bg-elevated)', border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 22%, transparent)', borderRadius: 14, padding: 12 }}>
       <div className="flex items-center gap-2 mb-2">
         {['question', 'word'].map((k) => (
           <button key={k} type="button" onClick={() => setKind(k)}
-            style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 11.5, padding: '4px 12px', borderRadius: 999, border: '1px solid ' + (kind === k ? 'var(--ds-accent-gold)' : 'var(--ds-border-subtle)'), color: kind === k ? 'var(--ds-accent-gold)' : 'var(--ds-text-muted)', background: kind === k ? 'color-mix(in srgb, var(--ds-accent-gold) 8%, transparent)' : 'transparent' }}>
+            style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 11.5, padding: '4px 12px', borderRadius: 999, border: '1px solid ' + (kind === k ? 'var(--ds-accent-gold)' : 'var(--ds-border-subtle)'), color: kind === k ? 'var(--ds-accent-gold)' : 'var(--ds-text-muted)', background: kind === k ? 'color-mix(in oklab, var(--ds-accent-gold) 8%, transparent)' : 'transparent' }}>
             {k === 'word' ? 'كلمة اليوم' : 'سؤال اليوم'}
           </button>
         ))}

@@ -77,8 +77,8 @@ export default function VocabChoiceGrid({ dueCount = 0 }) {
                     style={{
                       width: 40,
                       height: 40,
-                      background: `color-mix(in srgb, ${c.tint} 16%, transparent)`,
-                      border: `1px solid color-mix(in srgb, ${c.tint} 32%, transparent)`,
+                      background: `color-mix(in oklab, ${c.tint} 16%, transparent)`,
+                      border: `1px solid color-mix(in oklab, ${c.tint} 32%, transparent)`,
                     }}
                   >
                     <Icon size={19} style={{ color: c.tint }} />

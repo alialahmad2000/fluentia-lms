@@ -132,7 +132,7 @@ function MarkedText({ text, ranges, onRemove }) {
         key={`m${i}`}
         data-hl="1"
         onClick={(ev) => { ev.stopPropagation(); onRemove(Math.floor((s + e) / 2)) }}
-        style={{ background: 'color-mix(in srgb, var(--iel-gold) 30%, transparent)', color: 'var(--iel-ink)', borderRadius: 3, boxShadow: 'inset 0 0 0 1px color-mix(in srgb, var(--iel-gold) 30%, transparent)', padding: '0 1px', cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}
+        style={{ background: 'color-mix(in oklab, var(--iel-gold) 30%, transparent)', color: 'var(--iel-ink)', borderRadius: 3, boxShadow: 'inset 0 0 0 1px color-mix(in oklab, var(--iel-gold) 30%, transparent)', padding: '0 1px', cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}
       >
         {text.slice(s, e)}
       </mark>,
@@ -206,7 +206,7 @@ export function HighlightSurface({ sourceType, sourceId, children, style }) {
             display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 13px', borderRadius: 999,
             background: 'var(--iel-gold)', color: '#1a1405', border: 'none', cursor: 'pointer',
             fontSize: 13, fontWeight: 800, fontFamily: "'Tajawal', sans-serif",
-            boxShadow: '0 8px 22px -6px rgba(0,0,0,.7), 0 0 0 1px color-mix(in srgb, var(--iel-gold) 40%, transparent)',
+            boxShadow: '0 8px 22px -6px rgba(0,0,0,.7), 0 0 0 1px color-mix(in oklab, var(--iel-gold) 40%, transparent)',
           }}
         >
           <Highlighter size={15} /> ظلِّل

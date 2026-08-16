@@ -214,7 +214,7 @@ export default function HomeworkPlay() {
             <span
               className="px-2 py-0.5"
               style={{
-                background: 'color-mix(in srgb, var(--ds-accent-secondary) 16%, transparent)',
+                background: 'color-mix(in oklab, var(--ds-accent-secondary) 16%, transparent)',
                 color: 'var(--ds-accent-secondary)',
                 borderRadius: 'var(--radius-sm)',
               }}
@@ -249,11 +249,11 @@ export default function HomeworkPlay() {
                     className="w-full text-right p-4 transition"
                     style={{
                       background: answer === opt && submittedAnswer == null
-                        ? 'color-mix(in srgb, var(--ds-accent-primary) 18%, var(--ds-surface-1))'
+                        ? 'color-mix(in oklab, var(--ds-accent-primary) 18%, var(--ds-surface-1))'
                         : isThisCorrect
-                        ? 'color-mix(in srgb, var(--ds-accent-success) 18%, var(--ds-surface-1))'
+                        ? 'color-mix(in oklab, var(--ds-accent-success) 18%, var(--ds-surface-1))'
                         : isThisWrong
-                        ? 'color-mix(in srgb, var(--ds-accent-danger) 18%, var(--ds-surface-1))'
+                        ? 'color-mix(in oklab, var(--ds-accent-danger) 18%, var(--ds-surface-1))'
                         : 'var(--ds-surface-1)',
                       border: '1px solid ' + (answer === opt && submittedAnswer == null
                         ? 'var(--ds-accent-primary)'
@@ -304,8 +304,8 @@ export default function HomeworkPlay() {
                 className="mt-4 p-4"
                 style={{
                   background: isCorrect
-                    ? 'color-mix(in srgb, var(--ds-accent-success) 12%, transparent)'
-                    : 'color-mix(in srgb, var(--ds-accent-danger) 12%, transparent)',
+                    ? 'color-mix(in oklab, var(--ds-accent-success) 12%, transparent)'
+                    : 'color-mix(in oklab, var(--ds-accent-danger) 12%, transparent)',
                   border: '1px solid ' + (isCorrect ? 'var(--ds-accent-success)' : 'var(--ds-accent-danger)'),
                   borderRadius: 'var(--radius-md)',
                 }}

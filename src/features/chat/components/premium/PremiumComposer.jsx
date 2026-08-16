@@ -22,11 +22,11 @@ import { useAuthProfile } from '../../../../stores/authStore'
 import { popIn } from '../../lib/motion'
 
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-elevated) 72%, transparent)',
+  background: 'color-mix(in oklab, var(--ds-bg-elevated) 72%, transparent)',
   backdropFilter: 'blur(28px) saturate(150%)',
   WebkitBackdropFilter: 'blur(28px) saturate(150%)',
-  borderTop: '1px solid color-mix(in srgb, var(--ds-accent-gold) 10%, var(--ds-border-subtle))',
-  boxShadow: '0 -10px 30px -18px rgba(0,0,0,0.5), inset 0 1px 0 0 color-mix(in srgb, white 6%, transparent)',
+  borderTop: '1px solid color-mix(in oklab, var(--ds-accent-gold) 10%, var(--ds-border-subtle))',
+  boxShadow: '0 -10px 30px -18px rgba(0,0,0,0.5), inset 0 1px 0 0 color-mix(in oklab, white 6%, transparent)',
 }
 
 export default function PremiumComposer({
@@ -224,7 +224,7 @@ export default function PremiumComposer({
           >
             <SenderAvatar sender={{ full_name: typers[0].name, avatar_url: typers[0].avatar }} senderId={typers[0].userId} size={26} />
             <div className="flex items-center gap-1 px-3 py-2"
-              style={{ background: 'color-mix(in srgb, var(--ds-bg-elevated) 76%, transparent)', border: '1px solid var(--ds-border-subtle)', borderRadius: '14px 14px 14px 5px' }}>
+              style={{ background: 'color-mix(in oklab, var(--ds-bg-elevated) 76%, transparent)', border: '1px solid var(--ds-border-subtle)', borderRadius: '14px 14px 14px 5px' }}>
               {[0, 1, 2].map((i) => (
                 <span key={i} className="chat-typing-dot w-1.5 h-1.5 rounded-full"
                   style={{ background: senderColor(typers[0].userId).base, animationDelay: `${i * 0.15}s` }} />
@@ -275,7 +275,7 @@ export default function PremiumComposer({
       {isLoading && (
         <div className="flex items-center justify-center px-4 py-3" style={{ minHeight: 56 }}>
           <div className="w-6 h-6 rounded-full border-2 border-t-transparent animate-spin"
-            style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-primary) 40%, transparent)', borderTopColor: 'transparent' }} />
+            style={{ borderColor: 'color-mix(in oklab, var(--ds-accent-primary) 40%, transparent)', borderTopColor: 'transparent' }} />
         </div>
       )}
 
@@ -305,10 +305,10 @@ export default function PremiumComposer({
                 style={{
                   background: 'var(--ds-surface-1)',
                   border: focused
-                    ? '1.5px solid color-mix(in srgb, var(--ds-accent-gold) 45%, transparent)'
+                    ? '1.5px solid color-mix(in oklab, var(--ds-accent-gold) 45%, transparent)'
                     : '1.5px solid var(--ds-border-subtle)',
                   borderRadius: 22,
-                  boxShadow: focused ? '0 0 0 3px color-mix(in srgb, var(--ds-accent-gold) 14%, transparent)' : 'none',
+                  boxShadow: focused ? '0 0 0 3px color-mix(in oklab, var(--ds-accent-gold) 14%, transparent)' : 'none',
                   transition: 'border-color 0.15s, box-shadow 0.15s',
                 }}
               >
@@ -339,12 +339,12 @@ export default function PremiumComposer({
                   style={{
                     width: 42, height: 42,
                     background: canSend
-                      ? 'linear-gradient(135deg, var(--ds-accent-gold) 0%, color-mix(in srgb, var(--ds-accent-gold) 68%, #7a4f00) 100%)'
+                      ? 'linear-gradient(135deg, var(--ds-accent-gold) 0%, color-mix(in oklab, var(--ds-accent-gold) 68%, #7a4f00) 100%)'
                       : 'var(--ds-surface-1)',
                     color: canSend ? '#1a1205' : 'var(--ds-text-muted)',
                     opacity: canSend ? 1 : 0.45,
-                    border: canSend ? '1px solid color-mix(in srgb, var(--ds-accent-gold) 55%, white)' : '1px solid transparent',
-                    boxShadow: canSend ? '0 6px 16px -5px color-mix(in srgb, var(--ds-accent-gold) 55%, transparent)' : 'none',
+                    border: canSend ? '1px solid color-mix(in oklab, var(--ds-accent-gold) 55%, white)' : '1px solid transparent',
+                    boxShadow: canSend ? '0 6px 16px -5px color-mix(in oklab, var(--ds-accent-gold) 55%, transparent)' : 'none',
                   }}
                   aria-label={editing ? 'حفظ التعديل' : 'إرسال'}
                 >
@@ -390,8 +390,8 @@ function ActionIcon({ children, label, onClick, disabled, gold }) {
       className="rounded-full transition-all flex items-center justify-center"
       style={{ width: 40, height: 40, color: gold ? 'var(--ds-accent-gold)' : 'var(--ds-text-secondary)', border: '1px solid transparent' }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = gold ? 'color-mix(in srgb, var(--ds-accent-gold) 12%, transparent)' : 'var(--ds-surface-1)'
-        e.currentTarget.style.borderColor = gold ? 'color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)' : 'var(--ds-border-subtle)'
+        e.currentTarget.style.background = gold ? 'color-mix(in oklab, var(--ds-accent-gold) 12%, transparent)' : 'var(--ds-surface-1)'
+        e.currentTarget.style.borderColor = gold ? 'color-mix(in oklab, var(--ds-accent-gold) 30%, transparent)' : 'var(--ds-border-subtle)'
       }}
       onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent' }}
     >
@@ -434,9 +434,9 @@ function AnnouncementSheet({ open, onClose, groupId, channelId }) {
             className="fixed inset-x-0 bottom-0 rounded-t-3xl p-5"
             style={{
               zIndex: 71,
-              background: 'color-mix(in srgb, var(--ds-bg-elevated) 96%, transparent)',
+              background: 'color-mix(in oklab, var(--ds-bg-elevated) 96%, transparent)',
               backdropFilter: 'blur(24px)',
-              borderTop: '1px solid color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)',
+              borderTop: '1px solid color-mix(in oklab, var(--ds-accent-gold) 22%, transparent)',
               direction: 'rtl',
               paddingBottom: 'calc(20px + env(safe-area-inset-bottom, 0px))',
             }}

@@ -48,8 +48,8 @@ export default function GroupChatLanding() {
           className="flex items-center justify-center rounded-full"
           style={{
             width: 72, height: 72,
-            background: 'color-mix(in srgb, var(--ds-accent-gold) 12%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 28%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-accent-gold) 12%, transparent)',
+            border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 28%, transparent)',
           }}
         >
           {isErr ? <AlertCircle size={26} style={{ color: 'var(--ds-accent-danger)' }} /> : <MessageSquare size={26} style={{ color: 'var(--ds-accent-gold)' }} />}
@@ -71,7 +71,7 @@ export default function GroupChatLanding() {
   return (
     <div className="flex items-center justify-center" style={{ minHeight: '50vh' }}>
       <div className="w-8 h-8 border-2 rounded-full animate-spin"
-        style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-gold) 40%, transparent)', borderTopColor: 'transparent' }} />
+        style={{ borderColor: 'color-mix(in oklab, var(--ds-accent-gold) 40%, transparent)', borderTopColor: 'transparent' }} />
     </div>
   )
 }

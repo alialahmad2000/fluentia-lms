@@ -137,7 +137,7 @@ export default function MockWriting({ attemptId, answers, content, startedAt, on
     <div style={{ padding: isWide ? '20px 22px' : '16px 16px', height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       <textarea dir="ltr" value={currentDraft} onChange={(e) => setCurrentDraft(e.target.value)} onBlur={doSave} placeholder="Start writing your answer here…"
         style={{ flex: 1, width: '100%', minHeight: 0, padding: '16px 18px', borderRadius: 12, resize: 'none', boxSizing: 'border-box',
-          border: `1px solid ${currentDraft.length > 10 ? 'color-mix(in srgb, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`,
+          border: `1px solid ${currentDraft.length > 10 ? 'color-mix(in oklab, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`,
           background: 'var(--iel-surface)', color: 'var(--iel-ink)', fontSize: 15.5, fontFamily: SANS, lineHeight: 1.7, outline: 'none' }} />
     </div>
   )

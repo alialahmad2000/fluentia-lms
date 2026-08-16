@@ -18,8 +18,8 @@ function Chip({ children, color = '#94a3b8', solid = false }) {
     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-bold"
       style={{
         color: solid ? '#06121f' : color,
-        background: solid ? color : `color-mix(in srgb, ${color} 14%, transparent)`,
-        border: `1px solid color-mix(in srgb, ${color} 36%, transparent)`,
+        background: solid ? color : `color-mix(in oklab, ${color} 14%, transparent)`,
+        border: `1px solid color-mix(in oklab, ${color} 36%, transparent)`,
         fontFamily: "'Tajawal',sans-serif",
       }}>
       {children}

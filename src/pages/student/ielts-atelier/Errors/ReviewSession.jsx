@@ -57,7 +57,7 @@ function ReviewCard({ item, onAction, onNote, totalRemaining }) {
       </div>
 
       {/* Question */}
-      <div style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)', backdropFilter: 'blur(8px)' }}>
+      <div style={{ padding: '20px 22px', borderRadius: 18, background: 'color-mix(in oklab, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)', backdropFilter: 'blur(8px)' }}>
         <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text)', fontFamily: isRL ? "'IBM Plex Sans', sans-serif" : "'Tajawal', sans-serif", lineHeight: 1.8, direction: isRL ? 'ltr' : 'rtl', textAlign: isRL ? 'left' : 'right', whiteSpace: 'pre-line' }}>
           {item.question_text}
         </p>
@@ -66,14 +66,14 @@ function ReviewCard({ item, onAction, onNote, totalRemaining }) {
       {/* Answers (R/L) */}
       {isRL && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ padding: '12px 16px', borderRadius: 12, background: 'color-mix(in srgb, #f87171 7%, transparent)', border: '1px solid rgba(248,113,113,0.2)', display: 'flex', gap: 10, alignItems: 'center' }}>
+          <div style={{ padding: '12px 16px', borderRadius: 12, background: 'color-mix(in oklab, #f87171 7%, transparent)', border: '1px solid rgba(248,113,113,0.2)', display: 'flex', gap: 10, alignItems: 'center' }}>
             <XCircle size={16} color="#f87171" style={{ flexShrink: 0 }} />
             <div dir="ltr" style={{ textAlign: 'left' }}>
               <p style={{ margin: '0 0 2px', fontSize: 11, color: '#f87171', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>إجابتك</p>
               <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'IBM Plex Mono', monospace" }}>{item.student_answer || '—'}</p>
             </div>
           </div>
-          <div style={{ padding: '12px 16px', borderRadius: 12, background: 'color-mix(in srgb, #4ade80 7%, transparent)', border: '1px solid rgba(74,222,128,0.2)', display: 'flex', gap: 10, alignItems: 'center' }}>
+          <div style={{ padding: '12px 16px', borderRadius: 12, background: 'color-mix(in oklab, #4ade80 7%, transparent)', border: '1px solid rgba(74,222,128,0.2)', display: 'flex', gap: 10, alignItems: 'center' }}>
             <CheckCircle size={16} color="#4ade80" style={{ flexShrink: 0 }} />
             <div dir="ltr" style={{ textAlign: 'left' }}>
               <p style={{ margin: '0 0 2px', fontSize: 11, color: '#4ade80', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>الإجابة الصحيحة</p>
@@ -81,7 +81,7 @@ function ReviewCard({ item, onAction, onNote, totalRemaining }) {
             </div>
           </div>
           {item.explanation && (
-            <div style={{ padding: '12px 16px', borderRadius: 12, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)' }}>
+            <div style={{ padding: '12px 16px', borderRadius: 12, background: 'color-mix(in oklab, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)' }}>
               <p style={{ margin: '0 0 4px', fontSize: 11, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase' }}>الشرح</p>
               <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.7, textAlign: 'right' }}>{item.explanation}</p>
             </div>
@@ -103,7 +103,7 @@ function ReviewCard({ item, onAction, onNote, totalRemaining }) {
                 onBlur={handleSaveNote}
                 placeholder="ملاحظاتي على هذا الخطأ..."
                 dir="rtl"
-                style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 55%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", resize: 'vertical', minHeight: 80, outline: 'none', boxSizing: 'border-box' }}
+                style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid color-mix(in oklab, var(--ds-border) 50%, transparent)', background: 'color-mix(in oklab, var(--ds-surface) 55%, transparent)', color: 'var(--ds-text)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", resize: 'vertical', minHeight: 80, outline: 'none', boxSizing: 'border-box' }}
               />
               {saving && <p style={{ margin: '4px 0 0', fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>جاري الحفظ…</p>}
             </motion.div>
@@ -114,9 +114,9 @@ function ReviewCard({ item, onAction, onNote, totalRemaining }) {
       {/* SM-2 action buttons */}
       <div style={{ display: 'flex', gap: 10, paddingTop: 8 }}>
         {[
-          { key: 'hard',     label: 'صعب', sub: 'راجع غداً',        color: '#f87171', bg: 'color-mix(in srgb, #f87171 10%, transparent)', border: 'rgba(248,113,113,0.3)' },
-          { key: 'good',     label: 'فهمت', sub: 'راجع بعد أسبوع', color: 'var(--sunset-amber)', bg: 'color-mix(in srgb, var(--sunset-amber) 10%, transparent)', border: 'color-mix(in srgb, var(--sunset-amber) 30%, transparent)' },
-          { key: 'mastered', label: 'أتقنته', sub: 'لا مراجعة',    color: '#4ade80', bg: 'color-mix(in srgb, #4ade80 10%, transparent)', border: 'rgba(74,222,128,0.3)' },
+          { key: 'hard',     label: 'صعب', sub: 'راجع غداً',        color: '#f87171', bg: 'color-mix(in oklab, #f87171 10%, transparent)', border: 'rgba(248,113,113,0.3)' },
+          { key: 'good',     label: 'فهمت', sub: 'راجع بعد أسبوع', color: 'var(--sunset-amber)', bg: 'color-mix(in oklab, var(--sunset-amber) 10%, transparent)', border: 'color-mix(in oklab, var(--sunset-amber) 30%, transparent)' },
+          { key: 'mastered', label: 'أتقنته', sub: 'لا مراجعة',    color: '#4ade80', bg: 'color-mix(in oklab, #4ade80 10%, transparent)', border: 'rgba(74,222,128,0.3)' },
         ].map(btn => (
           <motion.button key={btn.key} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
             onClick={() => onAction(item, btn.key)}
@@ -196,7 +196,7 @@ export default function ReviewSession() {
           {doneCount > 0 ? 'كل مراجعة تقربك خطوة من هدفك.' : g('أكمل جلسة ممارسة وتعال مرة أخرى.', 'أكملي جلسة ممارسة وتعالي مرة أخرى.')}
         </p>
         <button onClick={() => navigate('/student/ielts-atelier/errors')}
-          style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 35%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          style={{ padding: '12px 28px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--sunset-orange) 35%, transparent)', background: 'color-mix(in oklab, var(--sunset-orange) 14%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           عودة لبنك الدروس
         </button>
       </motion.div>
@@ -206,9 +206,9 @@ export default function ReviewSession() {
   return (
     <div dir="rtl" style={{ maxWidth: 600, margin: '0 auto', paddingBottom: 80 }}>
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0 20px', borderBottom: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', marginBottom: 24 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0 20px', borderBottom: '1px solid color-mix(in oklab, var(--ds-border) 35%, transparent)', marginBottom: 24 }}>
         <button onClick={() => navigate('/student/ielts-atelier/errors')}
-          style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in srgb, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, border: '1px solid color-mix(in oklab, var(--ds-border) 50%, transparent)', background: 'transparent', color: 'var(--ds-text-muted)', fontSize: 13, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
           <ChevronLeft size={13} /> البنك
         </button>
         <h2 style={{ margin: 0, flex: 1, textAlign: 'center', fontSize: 15, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>

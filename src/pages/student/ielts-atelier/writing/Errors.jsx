@@ -114,7 +114,7 @@ export default function WritingErrors() {
         </Card>
       ) : (
         <>
-          <Card style={{ padding: '17px 19px', borderColor: 'color-mix(in srgb, var(--iel-bad) 30%, var(--iel-border))' }}>
+          <Card style={{ padding: '17px 19px', borderColor: 'color-mix(in oklab, var(--iel-bad) 30%, var(--iel-border))' }}>
             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.1em', color: 'var(--iel-ink-3)', marginBottom: 6 }}>الأولوية الآن</div>
             <div style={{ fontSize: 17, fontWeight: 800, color: 'var(--iel-ink)', marginBottom: 6 }}>{stats.weakest.c.label}</div>
             <div style={{ fontSize: 13, color: 'var(--iel-ink-2)', lineHeight: 1.85 }}>{stats.weakest.c.fix}</div>

@@ -17,7 +17,7 @@ import ExamCountdown from '@/design-system/components/masterclass/ExamCountdown'
 const ORANGE = 'var(--sunset-orange, #fbbf24)';
 const AMBER = 'var(--sunset-amber, #f97316)';
 const GREEN = '#4ade80';
-const CARD_BG = 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 62%, transparent)';
+const CARD_BG = 'color-mix(in oklab, var(--sunset-base-mid, #2b1810) 62%, transparent)';
 const CARD_SHADOW = '0 10px 30px -14px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.4)';
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -79,7 +79,7 @@ function ChecklistRow({ done, title, subtitle, isLast, delay, reduce }) {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 18 }}>
         <Icon size={22} strokeWidth={done ? 2 : 1.8} style={{ color: done ? GREEN : 'var(--ds-text-muted)', flexShrink: 0 }} />
         {!isLast && (
-          <div style={{ width: 2, flex: 1, minHeight: 20, marginTop: 6, borderRadius: 2, background: done ? `color-mix(in srgb, ${GREEN} 55%, transparent)` : `color-mix(in srgb, ${AMBER} 22%, transparent)` }} />
+          <div style={{ width: 2, flex: 1, minHeight: 20, marginTop: 6, borderRadius: 2, background: done ? `color-mix(in oklab, ${GREEN} 55%, transparent)` : `color-mix(in oklab, ${AMBER} 22%, transparent)` }} />
         )}
       </div>
       <motion.div
@@ -88,8 +88,8 @@ function ChecklistRow({ done, title, subtitle, isLast, delay, reduce }) {
         transition={{ delay, ease: EASE, duration: 0.4 }}
         style={{
           flex: 1, marginBottom: 12, padding: '16px 18px', borderRadius: 14,
-          background: done ? `color-mix(in srgb, ${GREEN} 8%, ${CARD_BG})` : CARD_BG,
-          border: `1px solid color-mix(in srgb, ${done ? GREEN : AMBER} ${done ? 26 : 16}%, transparent)`,
+          background: done ? `color-mix(in oklab, ${GREEN} 8%, ${CARD_BG})` : CARD_BG,
+          border: `1px solid color-mix(in oklab, ${done ? GREEN : AMBER} ${done ? 26 : 16}%, transparent)`,
           boxShadow: CARD_SHADOW, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
           display: 'flex', alignItems: 'center', gap: 12,
         }}
@@ -197,8 +197,8 @@ export default function Readiness() {
         {validExamDate ? (
           <div style={{
             borderRadius: 22,
-            background: 'linear-gradient(135deg, color-mix(in srgb, var(--sunset-base-mid, #2b1810) 72%, transparent), color-mix(in srgb, var(--sunset-base-deep, #1a0f08) 88%, transparent))',
-            border: `1px solid color-mix(in srgb, ${AMBER} 24%, transparent)`,
+            background: 'linear-gradient(135deg, color-mix(in oklab, var(--sunset-base-mid, #2b1810) 72%, transparent), color-mix(in oklab, var(--sunset-base-deep, #1a0f08) 88%, transparent))',
+            border: `1px solid color-mix(in oklab, ${AMBER} 24%, transparent)`,
             boxShadow: CARD_SHADOW, backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
           }}>
             <ExamCountdown examDate={validExamDate} studentName={firstName || 'IELTS'} examType="academic" />
@@ -206,7 +206,7 @@ export default function Readiness() {
         ) : (
           <div style={{
             display: 'flex', alignItems: 'center', gap: 16, padding: '22px 24px', borderRadius: 18,
-            background: CARD_BG, border: `1px solid color-mix(in srgb, ${AMBER} 18%, transparent)`,
+            background: CARD_BG, border: `1px solid color-mix(in oklab, ${AMBER} 18%, transparent)`,
             boxShadow: CARD_SHADOW, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', flexWrap: 'wrap',
           }}>
             <CalendarClock size={26} style={{ color: ORANGE, flexShrink: 0 }} />
@@ -244,8 +244,8 @@ export default function Readiness() {
             transition={{ delay: 0.5, ease: EASE }}
             style={{
               marginTop: 8, padding: '18px 22px', borderRadius: 16,
-              background: `linear-gradient(135deg, color-mix(in srgb, ${ORANGE} 14%, transparent), color-mix(in srgb, ${AMBER} 8%, transparent))`,
-              border: `1px solid color-mix(in srgb, ${ORANGE} 28%, transparent)`, boxShadow: CARD_SHADOW,
+              background: `linear-gradient(135deg, color-mix(in oklab, ${ORANGE} 14%, transparent), color-mix(in oklab, ${AMBER} 8%, transparent))`,
+              border: `1px solid color-mix(in oklab, ${ORANGE} 28%, transparent)`, boxShadow: CARD_SHADOW,
               display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
             }}
           >
@@ -281,7 +281,7 @@ export default function Readiness() {
                 transition={{ delay: 0.1 + i * 0.06, ease: EASE, duration: 0.4 }}
                 style={{
                   padding: '22px', borderRadius: 16, background: CARD_BG, boxShadow: CARD_SHADOW,
-                  border: `1px solid color-mix(in srgb, ${AMBER} 16%, transparent)`,
+                  border: `1px solid color-mix(in oklab, ${AMBER} 16%, transparent)`,
                   backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
                 }}
               >
@@ -303,13 +303,13 @@ export default function Readiness() {
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
             padding: '24px 32px', borderRadius: 16,
-            background: `linear-gradient(135deg, color-mix(in srgb, ${ORANGE} 18%, transparent), color-mix(in srgb, ${AMBER} 12%, transparent))`,
-            border: `1px solid color-mix(in srgb, ${ORANGE} 35%, transparent)`, boxShadow: CARD_SHADOW,
+            background: `linear-gradient(135deg, color-mix(in oklab, ${ORANGE} 18%, transparent), color-mix(in oklab, ${AMBER} 12%, transparent))`,
+            border: `1px solid color-mix(in oklab, ${ORANGE} 35%, transparent)`, boxShadow: CARD_SHADOW,
             textDecoration: 'none', color: 'var(--ds-text)', fontSize: 16, fontWeight: 800,
             transition: 'transform 0.2s ease-out, border-color 0.2s ease-out',
           }}
           onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = ORANGE; }}
-          onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = `color-mix(in srgb, ${ORANGE} 35%, transparent)`; }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = `color-mix(in oklab, ${ORANGE} 35%, transparent)`; }}
         >
           <Target size={20} style={{ color: ORANGE }} />
           {mockDone ? 'مراجعة رحلتك الكاملة' : 'بدء اختبار محاكاة كامل'}

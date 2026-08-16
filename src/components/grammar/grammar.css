@@ -573,7 +573,7 @@
   gap: 8px;
   padding: 10px 14px;
   border-radius: 10px;
-  background: color-mix(in srgb, var(--accent-sky) 8%, transparent);
+  background: color-mix(in oklab, var(--accent-sky) 8%, transparent);
   border-right: 3px solid var(--accent-sky);
   color: var(--text-primary);
   font-size: 14px;

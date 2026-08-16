@@ -63,8 +63,8 @@ export default function JourneyMapHeroCTA() {
         className="relative overflow-hidden"
         style={{
           background:
-            'linear-gradient(135deg, color-mix(in srgb, var(--ds-accent-primary) 10%, transparent), color-mix(in srgb, var(--ds-accent-secondary) 6%, transparent)), var(--ds-surface-1)',
-          border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 30%, transparent)',
+            'linear-gradient(135deg, color-mix(in oklab, var(--ds-accent-primary) 10%, transparent), color-mix(in oklab, var(--ds-accent-secondary) 6%, transparent)), var(--ds-surface-1)',
+          border: '1px solid color-mix(in oklab, var(--ds-accent-primary) 30%, transparent)',
           borderRadius: 'var(--radius-lg)',
           boxShadow: 'var(--ds-shadow-md)',
         }}
@@ -86,8 +86,8 @@ export default function JourneyMapHeroCTA() {
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
             className="w-14 h-14 flex items-center justify-center flex-shrink-0"
             style={{
-              background: 'color-mix(in srgb, var(--ds-accent-primary) 12%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 30%, transparent)',
+              background: 'color-mix(in oklab, var(--ds-accent-primary) 12%, transparent)',
+              border: '1px solid color-mix(in oklab, var(--ds-accent-primary) 30%, transparent)',
               borderRadius: 'var(--radius-lg)',
               boxShadow: 'var(--ds-shadow-glow)',
             }}

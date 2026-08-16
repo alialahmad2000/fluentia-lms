@@ -13,7 +13,7 @@ export default function RetentionDisabledState({ moduleLabel = 'هذه المي�
         <div
           className="w-16 h-16 flex items-center justify-center mx-auto mb-5"
           style={{
-            background: 'color-mix(in srgb, var(--ds-accent-gold) 14%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-accent-gold) 14%, transparent)',
             color: 'var(--ds-accent-gold)',
             borderRadius: 'var(--radius-md)',
           }}

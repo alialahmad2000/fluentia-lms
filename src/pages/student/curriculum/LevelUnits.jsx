@@ -6,6 +6,7 @@ import { StatusChip, getUnitStatus, LoadingSkeleton, EmptyState, useCinematicMot
 import { tracker } from '../../../services/activityTracker'
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 import { useG } from '../../../i18n/gender'
+import { navigateWithTransition } from '../../../utils/viewTransition'
 import './levelUnits.css'
 
 const toArabicDigits = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d])
@@ -48,9 +49,15 @@ export default function LevelUnits() {
         transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
       }
 
-  const openUnit = (unit) => {
+  const openUnit = (unit, ev) => {
     tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum })
-    navigate(`${basePath}/unit/${unit.id}`)
+    // Morph the clicked card's cover into the unit page hero. Falls back to a
+    // plain navigate when unsupported or under prefers-reduced-motion.
+    const card = ev?.currentTarget?.closest?.('[data-vt-root]') || ev?.currentTarget || null
+    const hero = card?.querySelector?.('img, [data-vt-hero]') || card
+    navigateWithTransition(hero, () => navigate(`${basePath}/unit/${unit.id}`), {
+      name: 'fl-unit-hero',
+    })
   }
 
   return (
@@ -129,7 +136,7 @@ export default function LevelUnits() {
 
                 {nextUnit && (
                   <motion.div {...m.fadeUp}>
-                    <button className="lvx-cta" onClick={() => openUnit(nextUnit)} tabIndex={0}>
+                    <button className="lvx-cta" onClick={(e) => openUnit(nextUnit, e)} tabIndex={0}>
                       {g('ابدأ من حيث توقفت', 'ابدئي من حيث توقفت')}
                       <span className="lvx-cta__arrow"><ArrowLeft size={17} /></span>
                     </button>
@@ -252,21 +259,22 @@ function FeaturedCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
   const g = useG()
   const hasCover = !!unit.cover_image_url
   const handleKey = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(unit) }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(unit, e) }
   }
 
   return (
     <motion.div
       {...reveal}
-      onClick={() => onOpen(unit)}
+      onClick={(e) => onOpen(unit, e)}
       onKeyDown={handleKey}
       tabIndex={0}
       role="button"
       aria-label={`الوحدة ${unit.unit_number}: ${unit.theme_ar}`}
+      data-vt-root
       className={`lvx-feat${hasCover ? '' : ' lvx-feat--single'}`}
     >
       {hasCover && (
-        <div className="lvx-feat__media">
+        <div className="lvx-feat__media" data-vt-hero>
           <CoverImage src={unit.cover_image_url} levelColor={levelColor} />
         </div>
       )}
@@ -312,20 +320,21 @@ function FeaturedCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
 /* ── Standard card ── */
 function StandardCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
   const handleKey = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(unit) }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(unit, e) }
   }
 
   return (
     <motion.div
       {...reveal}
-      onClick={() => onOpen(unit)}
+      onClick={(e) => onOpen(unit, e)}
       onKeyDown={handleKey}
       tabIndex={0}
       role="button"
       aria-label={`الوحدة ${unit.unit_number}: ${unit.theme_ar}`}
+      data-vt-root
       className="lvx-card"
     >
-      <div className="lvx-card__media">
+      <div className="lvx-card__media" data-vt-hero>
         <CoverImage src={unit.cover_image_url} levelColor={levelColor} />
         <div className="lvx-card__status">
           <StatusChip status={progress.status} size="sm" />

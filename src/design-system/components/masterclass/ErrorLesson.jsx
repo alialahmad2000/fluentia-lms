@@ -77,7 +77,7 @@ export default function ErrorLesson({
           fontFamily: "'Tajawal', sans-serif",
           color: meta.color,
           padding: '2px 10px',
-          background: `color-mix(in srgb, ${meta.color} 15%, transparent)`,
+          background: `color-mix(in oklab, ${meta.color} 15%, transparent)`,
           borderRadius: 'var(--radius-full)',
           border: `1px solid ${meta.color}`,
         }}>

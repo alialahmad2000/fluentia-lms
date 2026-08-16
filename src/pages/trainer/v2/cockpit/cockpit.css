@@ -6,7 +6,7 @@
 .tr-skel-line {
   height: 0.875rem;
   border-radius: 4px;
-  background: color-mix(in srgb, var(--tr-card-bg) 60%, var(--tr-text-muted) 40%);
+  background: color-mix(in oklab, var(--tr-card-bg) 60%, var(--tr-text-muted) 40%);
   opacity: 0.4;
 }
 .tr-skel-line--title { width: 55%; }
@@ -140,11 +140,11 @@
   font-weight: 600;
 }
 .tr-agenda__badge--grading {
-  background: color-mix(in srgb, var(--tr-primary) 15%, transparent);
+  background: color-mix(in oklab, var(--tr-primary) 15%, transparent);
   color: var(--tr-primary);
 }
 .tr-agenda__badge--interv {
-  background: color-mix(in srgb, var(--tr-danger, #ef4444) 15%, transparent);
+  background: color-mix(in oklab, var(--tr-danger, #ef4444) 15%, transparent);
   color: var(--tr-danger, #ef4444);
 }
 .tr-agenda__item {
@@ -310,7 +310,7 @@
   padding: 2px 4px;
   transition: background 0.15s;
 }
-.tr-pulse__row:hover { background: color-mix(in srgb, var(--tr-card-bg) 60%, var(--tr-primary) 10%); }
+.tr-pulse__row:hover { background: color-mix(in oklab, var(--tr-card-bg) 60%, var(--tr-primary) 10%); }
 .tr-pulse__row:focus-visible { outline: 2px solid var(--tr-primary); outline-offset: 1px; }
 .tr-pulse__name {
   font-size: 0.72rem;
@@ -324,9 +324,9 @@
   border-radius: 4px;
   background: var(--tr-border, rgba(255,255,255,0.07));
 }
-.tr-pulse__cell--low  { background: color-mix(in srgb, var(--tr-secondary) 30%, transparent); }
-.tr-pulse__cell--mid  { background: color-mix(in srgb, var(--tr-secondary) 55%, transparent); }
-.tr-pulse__cell--high { background: color-mix(in srgb, var(--tr-secondary) 80%, transparent); }
+.tr-pulse__cell--low  { background: color-mix(in oklab, var(--tr-secondary) 30%, transparent); }
+.tr-pulse__cell--mid  { background: color-mix(in oklab, var(--tr-secondary) 55%, transparent); }
+.tr-pulse__cell--high { background: color-mix(in oklab, var(--tr-secondary) 80%, transparent); }
 .tr-pulse__cell--peak { background: var(--tr-primary); }
 .tr-pulse__empty {
   font-size: 0.8rem;
@@ -528,7 +528,7 @@
   gap: 0.25rem;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--tr-primary) 15%, transparent);
+  background: color-mix(in oklab, var(--tr-primary) 15%, transparent);
   color: var(--tr-primary);
   font-size: 0.78rem;
   font-weight: 700;
@@ -537,24 +537,24 @@
   transition: background 0.15s;
 }
 .tr-nabih-card__cta:hover {
-  background: color-mix(in srgb, var(--tr-primary) 25%, transparent);
+  background: color-mix(in oklab, var(--tr-primary) 25%, transparent);
 }
 .tr-nabih-card__cta--urgent {
-  background: color-mix(in srgb, var(--tr-danger, #ef4444) 15%, transparent);
+  background: color-mix(in oklab, var(--tr-danger, #ef4444) 15%, transparent);
   color: var(--tr-danger, #ef4444);
   border-color: var(--tr-danger, #ef4444);
 }
 .tr-nabih-card__cta--urgent:hover {
-  background: color-mix(in srgb, var(--tr-danger, #ef4444) 25%, transparent);
+  background: color-mix(in oklab, var(--tr-danger, #ef4444) 25%, transparent);
 }
 .tr-nabih-card__cta--chat {
-  background: color-mix(in srgb, var(--tr-gold, #d97706) 12%, transparent);
+  background: color-mix(in oklab, var(--tr-gold, #d97706) 12%, transparent);
   color: var(--tr-gold, #d97706);
   border-color: var(--tr-gold, #d97706);
   margin-top: 0.25rem;
 }
 .tr-nabih-card__cta--chat:hover {
-  background: color-mix(in srgb, var(--tr-gold, #d97706) 22%, transparent);
+  background: color-mix(in oklab, var(--tr-gold, #d97706) 22%, transparent);
 }
 /* Row clickable in InterventionPreview */
 .tr-interv__row-inner {
@@ -612,7 +612,7 @@
   font-weight: 700;
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
-  background: color-mix(in srgb, var(--tr-warning, #f97316) 15%, transparent);
+  background: color-mix(in oklab, var(--tr-warning, #f97316) 15%, transparent);
 }
 .tr-xp-ticker__total {
   font-size: 0.78rem;
@@ -686,7 +686,7 @@
   gap: 0.5rem;
   padding: 0.3rem 0.5rem;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--tr-card-bg) 50%, transparent);
+  background: color-mix(in oklab, var(--tr-card-bg) 50%, transparent);
   border: 1.5px solid transparent;
   transition: border-color 0.15s;
 }

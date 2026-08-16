@@ -12,7 +12,7 @@ const LENSES = [
 ]
 
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-base) 55%, transparent)',
+  background: 'color-mix(in oklab, var(--ds-bg-base) 55%, transparent)',
   backdropFilter: 'blur(18px) saturate(140%)',
   WebkitBackdropFilter: 'blur(18px) saturate(140%)',
   borderBottom: '1px solid var(--ds-border-subtle)',

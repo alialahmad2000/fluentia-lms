@@ -119,10 +119,10 @@ export default function Trainer() {
         <div style={{ position: 'relative', flexShrink: 0 }}>
           <div style={{
             width: 60, height: 60, borderRadius: '50%',
-            background: 'radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--iel-accent) 55%, #fff), var(--iel-accent))',
+            background: 'radial-gradient(circle at 32% 28%, color-mix(in oklab, var(--iel-accent) 55%, #fff), var(--iel-accent))',
             color: '#06231d', display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 800, fontSize: 22, fontFamily: "'Tajawal', sans-serif",
-            boxShadow: '0 0 0 4px color-mix(in srgb, var(--iel-accent) 15%, transparent), 0 12px 28px -10px color-mix(in srgb, var(--iel-accent) 55%, #000), inset 0 1px 0 rgba(255,255,255,.25)',
+            boxShadow: '0 0 0 4px color-mix(in oklab, var(--iel-accent) 15%, transparent), 0 12px 28px -10px color-mix(in oklab, var(--iel-accent) 55%, #000), inset 0 1px 0 rgba(255,255,255,.25)',
           }}>{coachInitial}</div>
           <span style={{ position: 'absolute', insetInlineEnd: 2, bottom: 2, width: 12, height: 12, borderRadius: '50%', background: 'var(--iel-good, #34d399)', border: '2px solid var(--iel-surface)' }} />
         </div>

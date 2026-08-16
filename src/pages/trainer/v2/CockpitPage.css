@@ -69,7 +69,7 @@
   background: linear-gradient(
     90deg,
     var(--tr-card-bg) 25%,
-    color-mix(in srgb, var(--tr-card-bg) 80%, var(--tr-primary) 20%) 50%,
+    color-mix(in oklab, var(--tr-card-bg) 80%, var(--tr-primary) 20%) 50%,
     var(--tr-card-bg) 75%
   );
   background-size: 200% 100%;

@@ -59,9 +59,9 @@
   border-radius: 999px;
 }
 
-.tr-modal__severity--urgent    { background: color-mix(in srgb, var(--tr-danger, #ef4444) 15%, transparent); color: var(--tr-danger, #ef4444); }
-.tr-modal__severity--attention { background: color-mix(in srgb, var(--tr-primary) 15%, transparent); color: var(--tr-primary); }
-.tr-modal__severity--celebrate { background: color-mix(in srgb, var(--tr-success, #22c55e) 15%, transparent); color: var(--tr-success, #22c55e); }
+.tr-modal__severity--urgent    { background: color-mix(in oklab, var(--tr-danger, #ef4444) 15%, transparent); color: var(--tr-danger, #ef4444); }
+.tr-modal__severity--attention { background: color-mix(in oklab, var(--tr-primary) 15%, transparent); color: var(--tr-primary); }
+.tr-modal__severity--celebrate { background: color-mix(in oklab, var(--tr-success, #22c55e) 15%, transparent); color: var(--tr-success, #22c55e); }
 
 .tr-modal__close {
   display: flex;
@@ -237,7 +237,7 @@
   color: var(--tr-danger, #ef4444);
   padding: 0.75rem;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--tr-danger, #ef4444) 10%, transparent);
+  background: color-mix(in oklab, var(--tr-danger, #ef4444) 10%, transparent);
 }
 
 .tr-modal__draft-text {
@@ -277,7 +277,7 @@
 }
 
 .tr-modal__wa-btn {
-  background: color-mix(in srgb, var(--tr-success, #22c55e) 20%, transparent);
+  background: color-mix(in oklab, var(--tr-success, #22c55e) 20%, transparent);
   color: var(--tr-success, #22c55e);
   border: 1.5px solid var(--tr-success, #22c55e);
 }

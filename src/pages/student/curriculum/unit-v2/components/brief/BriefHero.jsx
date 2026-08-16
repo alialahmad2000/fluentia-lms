@@ -16,6 +16,7 @@ export default function BriefHero({ unit, level, prefersReducedMotion }) {
           style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}
         >
           <img
+            className="fl-vt-unit-hero"
             src={unit.cover_image_url}
             alt={unit.theme_ar}
             style={{

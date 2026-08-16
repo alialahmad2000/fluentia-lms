@@ -22,8 +22,8 @@ export default function SacredPageCard({ page, index, onClick }) {
         gap: 14,
         padding: '22px 22px 20px',
         borderRadius: 18,
-        background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 70%, transparent)',
-        border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 14%, transparent)',
+        background: 'color-mix(in oklab, var(--sunset-base-mid, #2b1810) 70%, transparent)',
+        border: '1px solid color-mix(in oklab, var(--sunset-amber, #f97316) 14%, transparent)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         textAlign: 'right',
@@ -63,7 +63,7 @@ export default function SacredPageCard({ page, index, onClick }) {
             width: 44,
             height: 44,
             borderRadius: 12,
-            background: `color-mix(in srgb, ${accent} 18%, transparent)`,
+            background: `color-mix(in oklab, ${accent} 18%, transparent)`,
             color: accent,
             display: 'flex',
             alignItems: 'center',
@@ -82,8 +82,8 @@ export default function SacredPageCard({ page, index, onClick }) {
             letterSpacing: 1.4,
             padding: '4px 10px',
             borderRadius: 999,
-            background: `color-mix(in srgb, ${accent} 12%, transparent)`,
-            border: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
+            background: `color-mix(in oklab, ${accent} 12%, transparent)`,
+            border: `1px solid color-mix(in oklab, ${accent} 30%, transparent)`,
           }}
         >
           {phase.label}

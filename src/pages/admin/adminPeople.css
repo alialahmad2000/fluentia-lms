@@ -75,10 +75,10 @@
 }
 .adp-seg__chip.is-active {
   color: var(--adp-seg-c, var(--adx-gold, #fbbf24));
-  border-color: color-mix(in srgb, var(--adp-seg-c, #fbbf24) 40%, transparent);
-  background: color-mix(in srgb, var(--adp-seg-c, #fbbf24) 12%, transparent);
+  border-color: color-mix(in oklab, var(--adp-seg-c, #fbbf24) 40%, transparent);
+  background: color-mix(in oklab, var(--adp-seg-c, #fbbf24) 12%, transparent);
 }
-.adp-seg__chip.is-active .n { background: color-mix(in srgb, var(--adp-seg-c, #fbbf24) 18%, transparent); }
+.adp-seg__chip.is-active .n { background: color-mix(in oklab, var(--adp-seg-c, #fbbf24) 18%, transparent); }
 
 /* ── Toolbar ────────────────────────────────────────────────────── */
 .adp-toolbar {

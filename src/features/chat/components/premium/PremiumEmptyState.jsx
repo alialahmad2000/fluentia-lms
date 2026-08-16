@@ -14,17 +14,17 @@ export default function PremiumEmptyState() {
         <div
           className="chat-breathe absolute inset-0 rounded-full"
           style={{
-            background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-gold) 26%, transparent), transparent 66%)',
+            background: 'radial-gradient(circle, color-mix(in oklab, var(--ds-accent-gold) 26%, transparent), transparent 66%)',
           }}
         />
         <div
           className="absolute rounded-full flex items-center justify-center"
           style={{
             inset: '26%',
-            background: 'color-mix(in srgb, var(--ds-bg-elevated) 70%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 28%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-bg-elevated) 70%, transparent)',
+            border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 28%, transparent)',
             backdropFilter: 'blur(10px)',
-            boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.12), 0 8px 24px -8px color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)',
+            boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.12), 0 8px 24px -8px color-mix(in oklab, var(--ds-accent-gold) 30%, transparent)',
           }}
         >
           <MessageSquare size={22} style={{ color: 'var(--ds-accent-gold)', opacity: 0.85 }} />

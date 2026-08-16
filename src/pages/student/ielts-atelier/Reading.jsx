@@ -57,7 +57,7 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
         <span style={{
           display: 'inline-flex', alignItems: 'center', gap: 6, padding: '2px 10px', borderRadius: 6,
           fontSize: 11.5, fontWeight: 800, fontFamily: "'IBM Plex Sans', sans-serif",
-          color: 'var(--iel-accent)', background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in srgb, var(--iel-accent) 26%, transparent)',
+          color: 'var(--iel-accent)', background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in oklab, var(--iel-accent) 26%, transparent)',
         }}>
           <Layers size={12} /> TEST {num}
         </span>
@@ -103,7 +103,7 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
                 fontFamily: "'Tajawal', sans-serif",
               }}
             >
-              <span style={{ width: 10, height: 10, borderRadius: '50%', flex: 'none', background: posColor(i), boxShadow: `0 0 9px color-mix(in srgb, ${posColor(i)} 60%, transparent)` }} />
+              <span style={{ width: 10, height: 10, borderRadius: '50%', flex: 'none', background: posColor(i), boxShadow: `0 0 9px color-mix(in oklab, ${posColor(i)} 60%, transparent)` }} />
               <span style={{ minWidth: 0, flex: 1 }}>
                 <span dir="ltr" style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'left' }}>
                   {topics[i]?.title || POS_LABEL[i]}
@@ -113,7 +113,7 @@ function TestCard({ test, meta, session, loading, g, onSelectFull, onSelectSingl
                 </span>
               </span>
               {pBand != null && (
-                <span title="أفضل نطاق حصلتِ عليه" style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, padding: '3px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--iel-accent) 13%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-accent) 32%, transparent)', color: '#4ade80', fontSize: 11.5, fontWeight: 800, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+                <span title="أفضل نطاق حصلتِ عليه" style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, padding: '3px 9px', borderRadius: 999, background: 'color-mix(in oklab, var(--iel-accent) 13%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-accent) 32%, transparent)', color: '#4ade80', fontSize: 11.5, fontWeight: 800, fontFamily: "'IBM Plex Sans', sans-serif" }}>
                   <CheckCircle size={11} /> {Number(pBand).toFixed(1)}
                 </span>
               )}
@@ -299,7 +299,7 @@ function ReviewRow({ r }) {
   // Warm, on-identity outcome colours — the theme's own green + terracotta,
   // carried on a low tint + a 3px inline-start rule so the paper stays visible.
   const c = r.isCorrect ? 'var(--iel-accent)' : 'var(--iel-bad)'
-  const tint = r.isCorrect ? 'color-mix(in srgb, var(--iel-accent) 6%, var(--iel-surface))' : 'color-mix(in srgb, var(--iel-bad) 7%, var(--iel-surface))'
+  const tint = r.isCorrect ? 'color-mix(in oklab, var(--iel-accent) 6%, var(--iel-surface))' : 'color-mix(in oklab, var(--iel-bad) 7%, var(--iel-surface))'
   return (
     <div style={{ padding: '12px 15px', borderRadius: 12, background: tint, border: '1px solid var(--iel-border)', borderInlineStart: `3px solid ${c}`, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
       <div style={{ flexShrink: 0, marginTop: 3 }}>{r.isCorrect ? <CheckCircle size={15} color={c} /> : <XCircle size={15} color={c} />}</div>
@@ -480,7 +480,7 @@ function AttemptRow({ session, onOpen }) {
   return (
     <button type="button" onClick={onOpen} className="iel-passrow" style={{ display: 'flex', alignItems: 'center', gap: 15, width: '100%', textAlign: 'start', padding: '14px 16px', borderRadius: 16, cursor: 'pointer', border: '1px solid var(--iel-border)', borderInlineStart: `3px solid ${tier}`, background: 'var(--iel-surface)', fontFamily: "'Tajawal', sans-serif", boxShadow: 'var(--iel-shadow-sm)' }}>
       {/* Band medallion — the anchor */}
-      <span style={{ flex: 'none', width: 62, height: 62, borderRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: `color-mix(in srgb, ${tier} 15%, var(--iel-surface-2))`, border: `1px solid color-mix(in srgb, ${tier} 34%, transparent)`, boxShadow: 'inset 0 1px 0 rgba(255,255,255,.06)' }}>
+      <span style={{ flex: 'none', width: 62, height: 62, borderRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: `color-mix(in oklab, ${tier} 15%, var(--iel-surface-2))`, border: `1px solid color-mix(in oklab, ${tier} 34%, transparent)`, boxShadow: 'inset 0 1px 0 rgba(255,255,255,.06)' }}>
         {band != null ? (
           <>
             <span className="iel-serif" style={{ fontSize: 23, fontWeight: 700, color: tier, lineHeight: 1 }}>{band.toFixed(1)}</span>
@@ -492,7 +492,7 @@ function AttemptRow({ session, onOpen }) {
       <span style={{ flex: 1, minWidth: 0 }}>
         <span style={{ display: 'block', fontSize: 15, fontWeight: 800, color: 'var(--iel-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'start', unicodeBidi: 'plaintext', lineHeight: 1.35 }}>{attemptLabel(session)}</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap', marginTop: 9 }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, fontSize: 11, fontWeight: 800, color: isFull ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', background: isFull ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', border: `1px solid ${isFull ? 'color-mix(in srgb, var(--iel-accent) 26%, transparent)' : 'var(--iel-border)'}` }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, fontSize: 11, fontWeight: 800, color: isFull ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', background: isFull ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', border: `1px solid ${isFull ? 'color-mix(in oklab, var(--iel-accent) 26%, transparent)' : 'var(--iel-border)'}` }}>
             {isFull ? <Layers size={11} /> : <FileText size={11} />}{isFull ? 'اختبار كامل' : 'نصّ واحد'}
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)', color: 'var(--iel-ink)', fontWeight: 700, fontSize: 11.5 }}>
@@ -521,7 +521,7 @@ function DurationPreflight({ preflight, g, onStart, onClose }) {
   const chosen = options.find((o) => o.key === sel)
   const titleText = mode === 'single' ? (singleTitle || 'تدريب على نصّ واحد') : `الاختبار الكامل — اختبار ${arDigit(String(test.test_number || '').padStart(2, '0'))}`
   const overlay = (
-    <div className="iel-root" dir="rtl" onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 10060, background: 'color-mix(in srgb, #1b1710 55%, transparent)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+    <div className="iel-root" dir="rtl" onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 10060, background: 'color-mix(in oklab, #1b1710 55%, transparent)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
       <motion.div onClick={(e) => e.stopPropagation()} initial={{ opacity: 0, scale: 0.94, y: 12 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ type: 'spring', stiffness: 320, damping: 26 }} style={{ width: 'min(460px, 100%)', background: 'var(--iel-surface)', border: '1px solid var(--iel-border-strong)', borderRadius: 22, boxShadow: 'var(--iel-shadow)', overflow: 'hidden', fontFamily: "'Tajawal', sans-serif" }}>
         <div style={{ padding: '20px 22px 16px', borderBottom: '1px solid var(--iel-border)' }}>
           <div style={{ fontSize: 11.5, fontWeight: 800, letterSpacing: '.14em', color: 'var(--iel-ink-3)', marginBottom: 6 }}>قبل أن تبدأ</div>
@@ -532,7 +532,7 @@ function DurationPreflight({ preflight, g, onStart, onClose }) {
           {options.map((o) => {
             const on = sel === o.key; const I = o.icon
             return (
-              <button key={o.key} type="button" onClick={() => setSel(o.key)} style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', textAlign: 'start', padding: '13px 14px', borderRadius: 13, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", border: `1.5px solid ${on ? 'var(--iel-accent)' : 'var(--iel-border-strong)'}`, background: on ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', boxShadow: on ? '0 8px 20px -14px color-mix(in srgb, var(--iel-accent) 60%, transparent)' : 'none' }}>
+              <button key={o.key} type="button" onClick={() => setSel(o.key)} style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', textAlign: 'start', padding: '13px 14px', borderRadius: 13, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", border: `1.5px solid ${on ? 'var(--iel-accent)' : 'var(--iel-border-strong)'}`, background: on ? 'var(--iel-accent-soft)' : 'var(--iel-surface-2)', boxShadow: on ? '0 8px 20px -14px color-mix(in oklab, var(--iel-accent) 60%, transparent)' : 'none' }}>
                 <span style={{ width: 38, height: 38, borderRadius: 11, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: on ? 'var(--iel-accent)' : 'var(--iel-surface)', color: on ? '#fff' : 'var(--iel-ink-3)', border: on ? '0' : '1px solid var(--iel-border)' }}><I size={18} /></span>
                 <span style={{ flex: 1, minWidth: 0 }}>
                   <span style={{ display: 'block', fontSize: 14.5, fontWeight: 800, color: 'var(--iel-ink)' }}>{o.label}</span>
@@ -851,7 +851,7 @@ export default function Reading() {
             )}
             {recentQ.data?.length > 0 && (
               <button type="button" onClick={() => setAct('history')} style={{ flex: '2 1 250px', display: 'flex', alignItems: 'center', gap: 11, padding: '15px 20px', cursor: 'pointer', background: 'transparent', fontFamily: "'Tajawal', sans-serif", border: 0, textAlign: 'start' }}>
-                <span style={{ width: 36, height: 36, borderRadius: 10, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: '1px solid color-mix(in srgb, var(--iel-accent) 24%, transparent)' }}><History size={17} /></span>
+                <span style={{ width: 36, height: 36, borderRadius: 10, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', border: '1px solid color-mix(in oklab, var(--iel-accent) 24%, transparent)' }}><History size={17} /></span>
                 <span style={{ textAlign: 'start' }}>
                   <span style={{ display: 'block', fontSize: 13.5, fontWeight: 800, color: 'var(--iel-ink)' }}>سجل المحاولات</span>
                   <span style={{ display: 'block', fontSize: 12, color: 'var(--iel-ink-2)', marginTop: 2 }}>{arDigit(recentQ.data.length)} محاولة · النص وإجاباتك</span>
@@ -865,11 +865,11 @@ export default function Reading() {
         {testsQ.isLoading ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 14 }}>
             {Array(6).fill(0).map((_, i) => (
-              <div key={i} style={{ height: 260, borderRadius: 18, background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 35%, transparent)', animation: 'pulse 1.5s ease-in-out infinite' }} />
+              <div key={i} style={{ height: 260, borderRadius: 18, background: 'color-mix(in oklab, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 35%, transparent)', animation: 'pulse 1.5s ease-in-out infinite' }} />
             ))}
           </div>
         ) : tests.length === 0 ? (
-          <div style={{ padding: '40px 24px', borderRadius: 20, background: 'color-mix(in srgb, var(--ds-surface) 40%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', textAlign: 'center' }}>
+          <div style={{ padding: '40px 24px', borderRadius: 20, background: 'color-mix(in oklab, var(--ds-surface) 40%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)', textAlign: 'center' }}>
             <BookOpen size={32} color="var(--ds-text-muted)" style={{ marginBottom: 12 }} />
             <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>لا توجد اختبارات متاحة حالياً</p>
           </div>
@@ -1044,7 +1044,7 @@ export default function Reading() {
         {/* Score */}
         <motion.div
           initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          style={{ padding: '40px 32px', borderRadius: 24, background: 'color-mix(in srgb, var(--sunset-base-mid, #1a1220) 48%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber, #f59e0b) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
+          style={{ padding: '40px 32px', borderRadius: 24, background: 'color-mix(in oklab, var(--sunset-base-mid, #1a1220) 48%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber, #f59e0b) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
         >
           {test?.single ? (
             <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", direction: 'ltr' }}>{test.single_title || 'نص واحد'}</p>
@@ -1061,7 +1061,7 @@ export default function Reading() {
         {perPassage.length > 1 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.4 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
             {perPassage.map((pp) => (
-              <div key={pp.pi} style={{ padding: '14px 12px', borderRadius: 14, background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 45%, transparent)', textAlign: 'center' }}>
+              <div key={pp.pi} style={{ padding: '14px 12px', borderRadius: 14, background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 45%, transparent)', textAlign: 'center' }}>
                 <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", marginBottom: 6 }}>نص {arDigit(pp.pi + 1)}</div>
                 <div className="iel-serif" style={{ fontSize: 20, fontWeight: 700, color: posColor(pp.pi) }}>{pp.correct}/{pp.total}</div>
               </div>
@@ -1071,17 +1071,17 @@ export default function Reading() {
 
         {/* Actions */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.4 }} style={{ display: 'flex', gap: 12 }}>
-          <button onClick={() => setAct('library')} style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 55%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          <button onClick={() => setAct('library')} style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--ds-border) 55%, transparent)', background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
             كل الاختبارات
           </button>
-          <button onClick={restartSession} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange, #fb7185) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange, #fb7185) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+          <button onClick={restartSession} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--sunset-orange, #fb7185) 38%, transparent)', background: 'color-mix(in oklab, var(--sunset-orange, #fb7185) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
             <RotateCcw size={13} /> {g('حاول مرة أخرى', 'حاولي مرة أخرى')}
           </button>
         </motion.div>
 
         {/* Review */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.4 }}>
-          <button onClick={() => setShowReview((r) => !r)} style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 45%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <button onClick={() => setShowReview((r) => !r)} style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--ds-border) 45%, transparent)', background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
             {showReview ? 'إخفاء مراجعة الاختبار' : 'مراجعة الاختبار كاملاً'}
           </button>
 

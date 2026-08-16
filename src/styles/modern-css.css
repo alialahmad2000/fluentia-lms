@@ -1,0 +1,432 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MODERN CSS CAPABILITIES — Fluentia
+   ───────────────────────────────────────────────────────────────────────────
+   19 platform capabilities, numbered to match the capability audit page
+   (~/Desktop/fluentia-css-capabilities.html).
+
+   ADOPTION RULES APPLIED THROUGHOUT:
+   • Anything not Baseline is wrapped in @supports — never load-bearing.
+   • Nothing that creates a containing block (container-type) is applied
+     globally; those are OPT-IN utilities only, because they capture
+     position:fixed descendants and would re-anchor modals inside cards.
+   • Every entrance animation is disabled under prefers-reduced-motion.
+   • Fill-mode:both animations always use a range that can complete, or the
+     element freezes invisible.
+
+   TO REVERT EVERYTHING: delete the @import of this file from src/index.css.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══ 04 · @property — typed custom properties (makes gradients animatable) ═══
+   Without registration a custom property is an untyped string and CANNOT be
+   interpolated — gradient animations snap. Registering gives it a type.
+   inherits:false on all of them: an inherited registered property forces style
+   recalc down the whole subtree on every animation frame. */
+
+@property --fl-grad-a { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --fl-grad-b { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --fl-angle  { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@property --fl-pos-x  { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
+@property --fl-pos-y  { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
+@property --fl-progress { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --fl-glow   { syntax: '<length>'; inherits: false; initial-value: 0px; }
+
+/* Animatable aurora surface. Opt in with .fl-aurora-live. */
+.fl-aurora-live {
+  --fl-pos-x: 18%;
+  --fl-pos-y: 14%;
+  --fl-angle: 0deg;
+  background-image:
+    radial-gradient(48% 42% at var(--fl-pos-x) var(--fl-pos-y),
+      color-mix(in oklab, var(--accent-cyan, #38bdf8) 26%, transparent), transparent 68%),
+    radial-gradient(44% 38% at calc(100% - var(--fl-pos-x)) calc(100% - var(--fl-pos-y)),
+      color-mix(in oklab, var(--accent-violet, #a78bfa) 22%, transparent), transparent 66%);
+  filter: hue-rotate(var(--fl-angle));
+  animation: fl-aurora-drift 28s cubic-bezier(.22,1,.36,1) infinite alternate;
+}
+@keyframes fl-aurora-drift {
+  0%   { --fl-pos-x: 18%; --fl-pos-y: 12%; --fl-angle: 0deg; }
+  50%  { --fl-pos-x: 68%; --fl-pos-y: 40%; --fl-angle: 18deg; }
+  100% { --fl-pos-x: 34%; --fl-pos-y: 76%; --fl-angle: -12deg; }
+}
+
+/* Animatable progress ring — conic sweep is now interpolable. */
+.fl-progress-ring {
+  --fl-progress: 0;
+  background: conic-gradient(
+    var(--accent-cyan, #38bdf8) calc(var(--fl-progress) * 1turn),
+    color-mix(in oklab, currentColor 12%, transparent) 0);
+  border-radius: 50%;
+  transition: --fl-progress .8s cubic-bezier(.22,1,.36,1);
+}
+
+/* Decorative animated gradients are expensive on cheap Androids — repo rule. */
+@media (pointer: coarse) {
+  .fl-aurora-live { animation: none; }
+}
+
+
+/* ═══ 11 · text-wrap: balance / pretty ═══
+   balance = headings only (browser gives up past ~6 lines and it costs layout
+   time proportional to the text). pretty = body copy, kills last-line orphans.
+   Especially visible in Arabic, which has long words and no hyphenation. */
+
+h1, h2, h3, h4, h5, h6,
+.fl-balance,
+[class*="title"], [class*="Title"],
+[class*="heading"], [class*="Heading"] {
+  text-wrap: balance;
+}
+
+p, .fl-pretty, [class*="description"], [class*="Description"] {
+  text-wrap: pretty;
+}
+
+
+/* ═══ 14 · scrollbar-gutter ═══
+   Reserves the scrollbar gutter permanently so opening a modal (which locks
+   scroll) no longer shifts the whole page sideways. Improves CLS.
+   NOTE: invisible on macOS overlay scrollbars — this is for Windows/Linux
+   students and anyone with "always show scrollbars" enabled. Put on html
+   only; setting it on body too would reserve two gutters. */
+
+html { scrollbar-gutter: stable; }
+
+
+/* ═══ 12 · @counter-style — Arabic-Indic numbering without JS ═══
+   Numeral rendering becomes a styling concern instead of a template string.
+   `system: numeric` requires exactly ten symbols starting at zero.
+   Markers use list-style-position:inside — a wide prefix would otherwise
+   overflow padding-inline-start and collide with the text. */
+
+@counter-style fl-arabic {
+  system: numeric;
+  symbols: '\0660' '\0661' '\0662' '\0663' '\0664' '\0665' '\0666' '\0667' '\0668' '\0669';
+  suffix: '. ';
+}
+@counter-style fl-lesson {
+  system: numeric;
+  symbols: '\0660' '\0661' '\0662' '\0663' '\0664' '\0665' '\0666' '\0667' '\0668' '\0669';
+  prefix: '\0627\0644\062F\0631\0633 ';   /* الدرس */
+  suffix: ' \2014 ';
+}
+@counter-style fl-question {
+  system: numeric;
+  symbols: '\0660' '\0661' '\0662' '\0663' '\0664' '\0665' '\0666' '\0667' '\0668' '\0669';
+  prefix: '\0633\0624\0627\0644 ';        /* سؤال */
+  suffix: ' \2014 ';
+}
+
+.fl-list-arabic  { list-style: fl-arabic;  list-style-position: inside; padding-inline-start: 0; }
+.fl-list-lesson  { list-style: fl-lesson;  list-style-position: inside; padding-inline-start: 0; }
+.fl-list-question{ list-style: fl-question;list-style-position: inside; padding-inline-start: 0; }
+.fl-list-arabic::marker, .fl-list-lesson::marker, .fl-list-question::marker { color: var(--accent-cyan, #38bdf8); }
+.fl-list-arabic > li::marker, .fl-list-lesson > li::marker, .fl-list-question > li::marker {
+  color: var(--accent-cyan, #38bdf8); font-weight: 700;
+}
+
+
+/* ═══ 03 · :has() — parent selector ═══
+   PRESENTATION ONLY. Never use :has() for state the app must also know about
+   (scoring, progress, saving) — CSS state and React state would silently
+   diverge. These rules are purely visual. */
+
+/* Scroll-lock when a native dialog/popover is open. Complements the existing
+   body.modal-open class rather than replacing it. */
+body:has(dialog[open]),
+body:has(:modal) {
+  overflow: hidden;
+}
+
+/* A card containing a correct/incorrect answer reacts as a whole. */
+.fl-answerable:has(.is-correct) {
+  border-color: var(--success, #4ade80);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--success, #4ade80) 30%, transparent),
+              0 14px 40px -18px color-mix(in oklab, var(--success, #4ade80) 55%, transparent);
+}
+.fl-answerable:has(.is-incorrect) {
+  border-color: var(--error, #ef4444);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--error, #ef4444) 26%, transparent);
+}
+
+/* A unit that contains a locked lesson dims its own title. */
+.fl-unit:has(.is-locked) .fl-unit__title { opacity: .55; }
+
+/* Any form field group with an invalid input tints its label. */
+.fl-field:has(:user-invalid) label { color: var(--error, #ef4444); }
+
+/* Hide an empty section entirely instead of rendering a bare heading. */
+.fl-section:not(:has(> *:not(h1,h2,h3,h4,h5,h6))) { display: none; }
+
+
+/* ═══ 07 · content-visibility — skip off-screen layout & paint ═══
+   Opt-in only. It applies contain: layout style paint, so descendants cannot
+   escape the box — never put it on a row that contains a tooltip, dropdown or
+   hint popover. Always pair with contain-intrinsic-size or the scrollbar jumps. */
+
+.fl-cv-row     { content-visibility: auto; contain-intrinsic-size: auto 56px; }
+.fl-cv-card    { content-visibility: auto; contain-intrinsic-size: auto 220px; }
+.fl-cv-section { content-visibility: auto; contain-intrinsic-size: auto 480px; }
+
+
+/* ═══ 05 · Container queries ═══
+   OPT-IN ONLY, deliberately. container-type makes the element a containing
+   block for position:fixed descendants — applying it broadly would re-anchor
+   every modal and sticky element rendered inside a card. Add .fl-cq to a
+   WRAPPER (an element cannot query itself). */
+
+.fl-cq { container-type: inline-size; max-width: 100%; }
+
+@container (min-width: 340px) {
+  .fl-cq-desc { display: block; }
+  .fl-cq-hide-sm { display: none; }
+}
+@container (min-width: 480px) {
+  .fl-cq-cta { display: block; }
+  .fl-cq-row { flex-direction: row; align-items: center; }
+  .fl-cq-thumb { width: 76px; height: 76px; }
+}
+@container (min-width: 680px) {
+  .fl-cq-grid-2 { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* ═══ 09 · subgrid — align rows across separate cards ═══
+   The card must be a DIRECT grid item; one wrapper div and this silently does
+   nothing. gap comes from the parent on subgridded axes. */
+
+@supports (grid-template-rows: subgrid) {
+  .fl-subgrid-cards { display: grid; grid-template-rows: auto auto 1fr auto; }
+  .fl-subgrid-cards > * { grid-row: span 4; display: grid; grid-template-rows: subgrid; }
+}
+
+
+/* ═══ 10 · clip-path — animatable shapes ═══
+   WARNING: clip-path clips box-shadow, outline AND focus rings. Never apply
+   .fl-veil / .fl-angle to a focusable element — use it on a decorative child. */
+
+.fl-veil-host { position: relative; }
+.fl-veil {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(4, 9, 18, .9);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path .7s cubic-bezier(.22,1,.36,1);
+}
+.fl-veil-host:hover .fl-veil,
+.fl-veil-host:focus-within .fl-veil,
+.fl-veil-host.is-revealed .fl-veil { clip-path: inset(0 0 0 100%); }
+
+.fl-angle-b { clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%); }
+.fl-angle-t { clip-path: polygon(0 18%, 100% 0, 100% 100%, 0 100%); }
+
+
+/* ═══ 02 · Scroll-driven animations ═══
+   Runs on the COMPOSITOR, not the main thread — it cannot be blocked by React
+   rendering and costs no scroll listener.
+   The range MUST be able to complete (entry 0% → entry 100%). A range like
+   `cover 34%` can never finish inside a short scroller, and with fill-mode
+   `both` the element then freezes at the `from` state — permanently invisible.
+   Everything is inside @supports: without it the opacity:0 keyframe would
+   delete the content in unsupported browsers. */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fl-reveal {
+      animation: fl-reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    .fl-reveal-up {
+      animation: fl-reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    /* Reading-progress bar driven purely by scroll position. */
+    .fl-scroll-progress {
+      transform-origin: 0 50%;
+      animation: fl-scale-x linear both;
+      animation-timeline: scroll(nearest);
+    }
+  }
+}
+@keyframes fl-reveal-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fl-reveal-up { from { opacity: 0; transform: translateY(26px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes fl-scale-x   { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+
+/* ═══ 06 · @starting-style + transition-behavior: allow-discrete ═══
+   Enter AND exit animation with no animation library and no unmount-delay hook.
+   CRITICAL: do NOT override inset/position on [popover] — the UA stylesheet
+   centres it with position:fixed; inset:0; margin:auto, and overriding part of
+   that throws the element into a corner. Popovers live in the top layer and
+   escape every ancestor; they cannot be confined inside a card.
+   `overlay` must be transitioned alongside `display`, both with
+   allow-discrete, or the exit animation is clipped. */
+
+@supports (transition-behavior: allow-discrete) {
+  [popover].fl-animated,
+  dialog.fl-animated {
+    transition:
+      opacity .32s cubic-bezier(.22,1,.36,1),
+      transform .32s cubic-bezier(.22,1,.36,1),
+      overlay .32s allow-discrete,
+      display .32s allow-discrete;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  [popover].fl-animated:not(:popover-open),
+  dialog.fl-animated:not([open]) {
+    opacity: 0;
+    transform: scale(.94) translateY(12px);
+  }
+  @starting-style {
+    [popover].fl-animated:popover-open,
+    dialog.fl-animated[open] {
+      opacity: 0;
+      transform: scale(.94) translateY(12px);
+    }
+  }
+
+  /* ::backdrop needs its own transition block — it does not inherit. */
+  [popover].fl-animated::backdrop,
+  dialog.fl-animated::backdrop {
+    background: rgba(2, 6, 14, .62);
+    backdrop-filter: blur(4px);
+    transition: opacity .32s cubic-bezier(.22,1,.36,1),
+                overlay .32s allow-discrete,
+                display .32s allow-discrete;
+    opacity: 1;
+  }
+  [popover].fl-animated:not(:popover-open)::backdrop,
+  dialog.fl-animated:not([open])::backdrop { opacity: 0; }
+  @starting-style {
+    [popover].fl-animated:popover-open::backdrop,
+    dialog.fl-animated[open]::backdrop { opacity: 0; }
+  }
+}
+
+
+/* ═══ 01 · View Transitions ═══
+   Shared-element morphing between routes. Names are applied by the
+   useViewTransitionName hook / fl-vt-* utility classes.
+   A name must be UNIQUE at capture time — two elements sharing one throws and
+   the transition is silently skipped. */
+
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .26s;
+  animation-timing-function: cubic-bezier(.22,1,.36,1);
+}
+
+/* Shared elements morph rather than cross-fade. */
+::view-transition-group(fl-unit-hero),
+::view-transition-group(fl-unit-title),
+::view-transition-group(fl-lesson-hero) {
+  animation-duration: .38s;
+  animation-timing-function: cubic-bezier(.22,1,.36,1);
+}
+
+.fl-vt-unit-hero   { view-transition-name: fl-unit-hero; }
+.fl-vt-unit-title  { view-transition-name: fl-unit-title; }
+.fl-vt-lesson-hero { view-transition-name: fl-lesson-hero; }
+
+/* View Transitions do NOT auto-respect reduced motion — must be opted out. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TIER 3 — progressive enhancement only. Chrome-led support.
+   Every block is @supports-gated; absence degrades to current behaviour.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══ 15 · corner-shape: squircle — the real Apple corner ═══
+   A squircle reads visually SMALLER than a circular arc at the same radius,
+   so radii are nudged up where this is applied. */
+@supports (corner-shape: squircle) {
+  .fl-squircle { corner-shape: squircle; }
+}
+
+/* ═══ 16 · sibling-index() — CSS-native stagger ═══
+   Delay is CAPPED: uncapped, item 40 of a list waits 3.6s while fill-mode
+   `both` holds it invisible, which reads as broken rather than staggered.
+   Counts EVERY sibling, so a stray wrapper shifts all delays after it. */
+@supports (animation-delay: calc(sibling-index() * 1ms)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fl-stagger > * {
+      animation: fl-stagger-in .5s cubic-bezier(.22,1,.36,1) both;
+      animation-delay: min(calc(sibling-index() * 70ms), 560ms);
+    }
+  }
+}
+@keyframes fl-stagger-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* ═══ 17 · Anchor positioning ═══
+   An ancestor with filter/backdrop-filter/transform creates a containing block
+   that TRAPS the anchored element — and Fluentia's glass cards use
+   backdrop-filter widely. Verify per surface before relying on this. */
+@supports (anchor-name: --a) {
+  .fl-anchor { anchor-name: --fl-anchor; }
+  .fl-anchored {
+    position: absolute;
+    position-anchor: --fl-anchor;
+    position-area: block-start;
+    position-try-fallbacks: flip-block, flip-inline;
+    margin-block-end: 8px;
+    width: max-content;
+    max-width: 220px;
+  }
+}
+
+/* ═══ 18 · ::scroll-marker — CSS-only carousel dots ═══
+   scroll-marker-group inserts a real box that takes layout height, so the row
+   is taller where supported. Never the only affordance — the row stays
+   visibly scrollable without it. */
+@supports selector(::scroll-marker) {
+  .fl-carousel { scroll-marker-group: after; }
+  .fl-carousel > *::scroll-marker {
+    content: '';
+    width: 7px; height: 7px; border-radius: 50%;
+    background: color-mix(in oklab, currentColor 28%, transparent);
+    margin: 4px;
+  }
+  .fl-carousel > *::scroll-marker:target-current {
+    background: var(--accent-cyan, #38bdf8);
+    box-shadow: 0 0 8px var(--accent-cyan, #38bdf8);
+  }
+  .fl-carousel::scroll-marker-group { display: flex; justify-content: center; padding-top: 10px; }
+}
+
+/* ═══ 19 · interpolate-size — animate height to auto ═══
+   SCOPED, never on :root. It is inherited, so on :root it would make every
+   height/width transition to auto across the entire app suddenly animate. */
+@supports (interpolate-size: allow-keywords) {
+  .fl-accordion { interpolate-size: allow-keywords; }
+  .fl-accordion::details-content {
+    height: 0;
+    overflow: hidden;
+    content-visibility: hidden;
+    transition: height .4s cubic-bezier(.22,1,.36,1),
+                content-visibility .4s allow-discrete;
+  }
+  .fl-accordion[open]::details-content { height: auto; content-visibility: visible; }
+}
+
+
+/* ═══ GLOBAL REDUCED-MOTION BACKSTOP ═══
+   index.css already neutralises durations; this additionally stops the
+   compositor-driven and staggered entrances from leaving anything hidden. */
+@media (prefers-reduced-motion: reduce) {
+  .fl-reveal, .fl-reveal-up, .fl-stagger > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .fl-aurora-live { animation: none !important; }
+}

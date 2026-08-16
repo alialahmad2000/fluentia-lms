@@ -159,7 +159,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                           height: 6,
                           borderRadius: 1.5,
                           transform: 'rotate(45deg)',
-                          background: 'linear-gradient(135deg, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 55%, transparent))',
+                          background: 'linear-gradient(135deg, var(--ds-accent-primary), color-mix(in oklab, var(--ds-accent-primary) 55%, transparent))',
                           boxShadow: '0 0 8px var(--ds-accent-primary-glow)',
                         }}
                       />

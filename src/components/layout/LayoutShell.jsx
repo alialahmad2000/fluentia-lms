@@ -212,8 +212,8 @@ export default function LayoutShell() {
           <style>{`
             /* 44px hit area without inflating the 34px visual */
             .pd-rail-toggle::before { content: ''; position: absolute; inset: -5px; border-radius: 999px; }
-            .pd-rail-toggle:hover { border-color: var(--ds-accent-primary) !important; color: var(--ds-accent-primary) !important; box-shadow: var(--ds-shadow-lg), 0 0 0 3px color-mix(in srgb, var(--ds-accent-primary) 18%, transparent) !important; }
-            .pd-rail-toggle:focus-visible { outline: none; border-color: var(--ds-accent-primary) !important; box-shadow: var(--ds-shadow-lg), 0 0 0 3px color-mix(in srgb, var(--ds-accent-primary) 38%, transparent) !important; }
+            .pd-rail-toggle:hover { border-color: var(--ds-accent-primary) !important; color: var(--ds-accent-primary) !important; box-shadow: var(--ds-shadow-lg), 0 0 0 3px color-mix(in oklab, var(--ds-accent-primary) 18%, transparent) !important; }
+            .pd-rail-toggle:focus-visible { outline: none; border-color: var(--ds-accent-primary) !important; box-shadow: var(--ds-shadow-lg), 0 0 0 3px color-mix(in oklab, var(--ds-accent-primary) 38%, transparent) !important; }
             .pd-rail-toggle:active { transform: translate(50%, -50%) scale(0.94) !important; }
             @media (prefers-reduced-motion: reduce) {
               .pd-rail-toggle, .pd-rail-toggle svg { transition: none !important; }

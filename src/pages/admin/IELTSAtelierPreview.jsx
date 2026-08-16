@@ -18,8 +18,8 @@ function InlinePreviewBanner({ pageTitle, onBack }) {
         padding: '12px 20px',
         marginBottom: 20,
         borderRadius: 14,
-        background: 'linear-gradient(90deg, color-mix(in srgb, var(--sunset-amber, #f97316) 18%, transparent), color-mix(in srgb, var(--sunset-orange, #fbbf24) 12%, transparent))',
-        border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 35%, transparent)',
+        background: 'linear-gradient(90deg, color-mix(in oklab, var(--sunset-amber, #f97316) 18%, transparent), color-mix(in oklab, var(--sunset-orange, #fbbf24) 12%, transparent))',
+        border: '1px solid color-mix(in oklab, var(--sunset-amber, #f97316) 35%, transparent)',
       }}
     >
       <Eye size={18} style={{ color: 'var(--sunset-orange, #fbbf24)' }} />
@@ -39,8 +39,8 @@ function InlinePreviewBanner({ pageTitle, onBack }) {
           gap: 6,
           padding: '8px 14px',
           borderRadius: 10,
-          background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 70%, transparent)',
-          border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 25%, transparent)',
+          background: 'color-mix(in oklab, var(--sunset-base-mid, #2b1810) 70%, transparent)',
+          border: '1px solid color-mix(in oklab, var(--sunset-amber, #f97316) 25%, transparent)',
           color: 'var(--ds-text)',
           fontSize: 12,
           fontWeight: 700,
@@ -67,8 +67,8 @@ function HeroLanding() {
         borderRadius: 24,
         marginBottom: 32,
         background:
-          'radial-gradient(ellipse 80% 100% at 50% 0%, color-mix(in srgb, var(--sunset-amber, #f97316) 18%, transparent) 0%, transparent 55%), color-mix(in srgb, var(--sunset-base-mid, #2b1810) 60%, transparent)',
-        border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)',
+          'radial-gradient(ellipse 80% 100% at 50% 0%, color-mix(in oklab, var(--sunset-amber, #f97316) 18%, transparent) 0%, transparent 55%), color-mix(in oklab, var(--sunset-base-mid, #2b1810) 60%, transparent)',
+        border: '1px solid color-mix(in oklab, var(--sunset-amber, #f97316) 20%, transparent)',
         overflow: 'hidden',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
@@ -83,7 +83,7 @@ function HeroLanding() {
           width: 260,
           height: 260,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, color-mix(in srgb, var(--sunset-orange, #fbbf24) 14%, transparent), transparent 70%)',
+          background: 'radial-gradient(circle, color-mix(in oklab, var(--sunset-orange, #fbbf24) 14%, transparent), transparent 70%)',
         }}
       />
       <div
@@ -95,7 +95,7 @@ function HeroLanding() {
           width: 220,
           height: 220,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, color-mix(in srgb, var(--sunset-amber, #f97316) 12%, transparent), transparent 70%)',
+          background: 'radial-gradient(circle, color-mix(in oklab, var(--sunset-amber, #f97316) 12%, transparent), transparent 70%)',
         }}
       />
 
@@ -107,8 +107,8 @@ function HeroLanding() {
             gap: 8,
             padding: '6px 14px',
             borderRadius: 999,
-            background: 'color-mix(in srgb, var(--sunset-orange, #fbbf24) 12%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--sunset-orange, #fbbf24) 30%, transparent)',
+            background: 'color-mix(in oklab, var(--sunset-orange, #fbbf24) 12%, transparent)',
+            border: '1px solid color-mix(in oklab, var(--sunset-orange, #fbbf24) 30%, transparent)',
             marginBottom: 18,
           }}
         >
@@ -151,12 +151,12 @@ function HeroLanding() {
             <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--ds-text)' }}>١١</div>
             <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', letterSpacing: 1 }}>صفحة مقدّسة</div>
           </div>
-          <div style={{ width: 1, background: 'color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)' }} />
+          <div style={{ width: 1, background: 'color-mix(in oklab, var(--sunset-amber, #f97316) 20%, transparent)' }} />
           <div>
             <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--ds-text)' }}>٧</div>
             <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', letterSpacing: 1 }}>مراحل تطوّر</div>
           </div>
-          <div style={{ width: 1, background: 'color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)' }} />
+          <div style={{ width: 1, background: 'color-mix(in oklab, var(--sunset-amber, #f97316) 20%, transparent)' }} />
           <div>
             <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--ds-text)' }}>١٢</div>
             <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', letterSpacing: 1 }}>أسبوع رحلة</div>
@@ -213,8 +213,8 @@ export default function IELTSAtelierPreview() {
               style={{
                 borderRadius: 20,
                 overflow: 'hidden',
-                border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)',
-                background: 'color-mix(in srgb, var(--sunset-base-deep, #1a0f08) 40%, transparent)',
+                border: '1px solid color-mix(in oklab, var(--sunset-amber, #f97316) 20%, transparent)',
+                background: 'color-mix(in oklab, var(--sunset-base-deep, #1a0f08) 40%, transparent)',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
               }}
@@ -280,8 +280,8 @@ export default function IELTSAtelierPreview() {
             style={{
               padding: '8px 12px',
               borderRadius: 20,
-              background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 55%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 18%, transparent)',
+              background: 'color-mix(in oklab, var(--sunset-base-mid, #2b1810) 55%, transparent)',
+              border: '1px solid color-mix(in oklab, var(--sunset-amber, #f97316) 18%, transparent)',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
               marginBottom: 32,
@@ -325,8 +325,8 @@ export default function IELTSAtelierPreview() {
               marginTop: 36,
               padding: '16px 20px',
               borderRadius: 14,
-              background: 'color-mix(in srgb, var(--sunset-orange, #fbbf24) 6%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--sunset-orange, #fbbf24) 18%, transparent)',
+              background: 'color-mix(in oklab, var(--sunset-orange, #fbbf24) 6%, transparent)',
+              border: '1px solid color-mix(in oklab, var(--sunset-orange, #fbbf24) 18%, transparent)',
               fontSize: 12,
               color: 'var(--ds-text-muted)',
               lineHeight: 1.7,

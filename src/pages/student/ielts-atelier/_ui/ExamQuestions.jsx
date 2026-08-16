@@ -101,7 +101,7 @@ export function ExamQuestion({ q, value, onChange, paragraphLetters = [], showIn
 
   const wrap = {
     display: 'flex', flexDirection: 'column', gap: (instr && showInstruction) ? 8 : 0, padding: '15px 17px', borderRadius: 12, scrollMarginTop: 90, direction: 'ltr',
-    border: `1px solid ${value ? 'color-mix(in srgb, var(--iel-accent) 38%, var(--iel-border))' : 'var(--iel-border)'}`,
+    border: `1px solid ${value ? 'color-mix(in oklab, var(--iel-accent) 38%, var(--iel-border))' : 'var(--iel-border)'}`,
     background: 'var(--iel-surface)', boxShadow: 'var(--iel-shadow-sm)',
   }
   const body = (extra) => (

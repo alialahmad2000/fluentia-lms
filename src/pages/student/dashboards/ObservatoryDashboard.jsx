@@ -447,9 +447,9 @@ export default function ObservatoryDashboard() {
         /* the action satellite reads as a precious chip */
         .obs-sat--action {
           background: linear-gradient(135deg,
-            color-mix(in srgb, var(--ds-accent-primary) 16%, var(--ds-surface-2)),
+            color-mix(in oklab, var(--ds-accent-primary) 16%, var(--ds-surface-2)),
             var(--ds-surface-2));
-          border-color: color-mix(in srgb, var(--ds-accent-primary) 30%, var(--ds-border-subtle));
+          border-color: color-mix(in oklab, var(--ds-accent-primary) 30%, var(--ds-border-subtle));
         }
         .obs-sat--action .obs-sat__value--cta { color: var(--ds-accent-primary); }
         .obs-sat--action:hover {
@@ -521,7 +521,7 @@ export default function ObservatoryDashboard() {
             position: absolute; top: 50%; left: 50%;
             width: 120px; height: 1px; transform-origin: 0 50%;
             background: linear-gradient(90deg,
-              color-mix(in srgb, var(--ds-accent-primary) 45%, transparent),
+              color-mix(in oklab, var(--ds-accent-primary) 45%, transparent),
               transparent);
             opacity: 0.5;
           }

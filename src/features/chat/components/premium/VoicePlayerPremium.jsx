@@ -107,10 +107,10 @@ export default function VoicePlayerPremium({ message }) {
         className="flex items-center gap-3 px-3 py-2.5 rounded-2xl"
         style={{
           background: playing
-            ? 'color-mix(in srgb, var(--ds-accent-primary) 8%, transparent)'
+            ? 'color-mix(in oklab, var(--ds-accent-primary) 8%, transparent)'
             : 'var(--ds-surface-1)',
           border: playing
-            ? '1px solid color-mix(in srgb, var(--ds-accent-primary) 20%, transparent)'
+            ? '1px solid color-mix(in oklab, var(--ds-accent-primary) 20%, transparent)'
             : '1px solid var(--ds-border-subtle)',
           transition: 'all 0.2s',
         }}
@@ -122,7 +122,7 @@ export default function VoicePlayerPremium({ message }) {
           style={{
             background: playing ? 'var(--ds-accent-primary)' : 'var(--ds-surface-2)',
             color: playing ? 'var(--ds-bg-base)' : 'var(--ds-accent-primary)',
-            boxShadow: playing ? '0 4px 16px color-mix(in srgb, var(--ds-accent-primary) 35%, transparent)' : 'none',
+            boxShadow: playing ? '0 4px 16px color-mix(in oklab, var(--ds-accent-primary) 35%, transparent)' : 'none',
           }}
         >
           {loading
@@ -152,11 +152,11 @@ export default function VoicePlayerPremium({ message }) {
                   height: barH,
                   borderRadius: 2,
                   background: played
-                    ? `linear-gradient(to top, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 60%, transparent))`
-                    : 'color-mix(in srgb, var(--ds-accent-gold) 22%, var(--ds-text-muted))',
+                    ? `linear-gradient(to top, var(--ds-accent-primary), color-mix(in oklab, var(--ds-accent-primary) 60%, transparent))`
+                    : 'color-mix(in oklab, var(--ds-accent-gold) 22%, var(--ds-text-muted))',
                   opacity: played ? 1 : 0.46,
                   boxShadow: isPlayhead
-                    ? `0 0 6px 2px color-mix(in srgb, var(--ds-accent-gold) 60%, transparent)`
+                    ? `0 0 6px 2px color-mix(in oklab, var(--ds-accent-gold) 60%, transparent)`
                     : 'none',
                   transition: 'height 0.08s ease, opacity 0.12s',
                 }}

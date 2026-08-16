@@ -56,8 +56,8 @@ export default function StreakAtRiskBanner() {
         transition={{ duration: 0.25 }}
         className="relative flex items-center gap-3 p-4 mb-5"
         style={{
-          background: 'color-mix(in srgb, var(--ds-amber) 12%, var(--ds-bg-elevated))',
-          border: '1px solid color-mix(in srgb, var(--ds-amber) 35%, transparent)',
+          background: 'color-mix(in oklab, var(--ds-amber) 12%, var(--ds-bg-elevated))',
+          border: '1px solid color-mix(in oklab, var(--ds-amber) 35%, transparent)',
           borderRadius: 'var(--radius-md)',
         }}
         dir="rtl"
@@ -65,7 +65,7 @@ export default function StreakAtRiskBanner() {
         <div
           className="w-10 h-10 flex items-center justify-center shrink-0"
           style={{
-            background: 'color-mix(in srgb, var(--ds-amber) 22%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-amber) 22%, transparent)',
             color: 'var(--ds-amber)',
             borderRadius: 'var(--radius-md)',
           }}
