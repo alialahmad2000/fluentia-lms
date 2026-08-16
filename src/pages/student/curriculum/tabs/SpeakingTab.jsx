@@ -29,8 +29,9 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Mic, ChevronDown, Clock, Sparkles, Loader2, History, GraduationCap,
-  Languages, MessagesSquare, LifeBuoy, CheckCircle2, X, Wand2, Quote,
+  Languages, MessagesSquare, LifeBuoy, CheckCircle2, X, Wand2, Quote, Volume2,
 } from 'lucide-react'
+import AudioPlayer from '../../../../components/AudioPlayer'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
@@ -128,14 +129,17 @@ export default function SpeakingTab({ unitId }) {
         return []
       }
 
+      // Always mint a FRESH signed URL from audio_path. The stored `audio_url`
+      // is itself a signed URL (all 97 live rows are) with a 1-year token, so
+      // "only sign when audio_url is missing" quietly becomes "playback breaks
+      // a year after the recording" — the April 2026 rows expire April 2027.
+      // audio_path is the durable reference; the URL is disposable.
       const withUrls = await Promise.all((data || []).map(async (rec) => {
-        if (rec.audio_path && !rec.audio_url) {
-          const { data: urlData } = await supabase.storage
-            .from('voice-notes')
-            .createSignedUrl(rec.audio_path, 60 * 60)
-          return { ...rec, audio_url: urlData?.signedUrl || null }
-        }
-        return rec
+        if (!rec.audio_path) return rec
+        const { data: urlData } = await supabase.storage
+          .from('voice-notes')
+          .createSignedUrl(rec.audio_path, 60 * 60 * 6)
+        return { ...rec, audio_url: urlData?.signedUrl || rec.audio_url || null }
       }))
 
       return withUrls
@@ -470,6 +474,11 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
         <>
           <div className="spk-band-label"><b /><span>الحصيلة</span><i /></div>
 
+          {/* The student's OWN submission — audio + what they actually said.
+              Record-once is retired, but 77 of the 97 live recordings came from
+              it: hiding the recorder must never hide their work. */}
+          {existingRecording && <PreviousSubmission recording={existingRecording} />}
+
           {aiEval && <SpeakingEvaluation evaluation={aiEval} />}
 
           {existingRecording && !aiEval && <PendingEvaluation status={realtimeStatus || existingRecording?.evaluation_status} />}
@@ -506,18 +515,24 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
                       {allAttempts.map((attempt) => {
                         const score = attempt.ai_evaluation?.overall_score
                         return (
-                          <div key={attempt.id} className="flex items-center justify-between py-2 px-3 rounded-xl text-xs"
+                          <div key={attempt.id} className="py-2 px-3 rounded-xl text-xs space-y-2"
                             style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                            <div className="flex items-center gap-2 font-['Tajawal']" style={{ color: 'rgba(238,245,255,0.5)' }}>
-                              <span>محاولة {attempt.attempt_number || '—'}</span>
-                              <span className="text-[10px]">{new Date(attempt.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2 font-['Tajawal']" style={{ color: 'rgba(238,245,255,0.5)' }}>
+                                <span>محاولة {attempt.attempt_number || '—'}</span>
+                                <span className="text-[10px]">{new Date(attempt.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                {score != null && (
+                                  <span className="font-bold tabular-nums" style={{ color: score >= 8 ? '#34d399' : score >= 6 ? '#7ee3f5' : '#f6cf6a' }}>{score}/10</span>
+                                )}
+                                {attempt.is_best && <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/15 text-emerald-400">الأفضل</span>}
+                              </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                              {score != null && (
-                                <span className="font-bold tabular-nums" style={{ color: score >= 8 ? '#34d399' : score >= 6 ? '#7ee3f5' : '#f6cf6a' }}>{score}/10</span>
-                              )}
-                              {attempt.is_best && <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/15 text-emerald-400">الأفضل</span>}
-                            </div>
+                            {/* every past attempt stays playable, not just the latest */}
+                            {attempt.audio_url && (
+                              <AudioPlayer src={attempt.audio_url} duration={attempt.audio_duration_seconds || 0} compact />
+                            )}
                           </div>
                         )
                       })}
@@ -539,7 +554,7 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
               <ShareAchievementCard
                 type="speaking"
                 studentName={studentName}
-                studentText={existingRecording?.transcript || ''}
+                studentText={aiEval?.transcript || ''}
                 feedback={aiEval}
                 scores={{
                   ...(aiEval.grammar_score != null && { grammar: aiEval.grammar_score }),
@@ -675,6 +690,55 @@ function HelpSheet({ open, onClose, tab, setTab, heading, typeLabel, promptAr, p
         </>
       )}
     </AnimatePresence>
+  )
+}
+
+// ── The student's own previous submission (audio + transcript) ─────────────
+function PreviousSubmission({ recording }) {
+  const g = useG()
+  const [textOpen, setTextOpen] = useState(false)
+  const transcript = recording?.ai_evaluation?.transcript || ''
+  const isConversation = !!recording?.conversation_id
+  const when = recording?.created_at
+    ? new Date(recording.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null
+
+  if (!recording?.audio_url && !transcript) return null
+
+  return (
+    <div className="spk-panel mb-3">
+      <div className="px-4 pt-3.5 pb-1 flex items-center gap-2 flex-wrap">
+        <Volume2 size={14} style={{ color: '#7ee3f5' }} />
+        <span className="text-[13px] font-bold font-['Tajawal']" style={{ color: 'rgba(238,245,255,0.85)' }}>
+          {isConversation ? g('كلامك في هذه المحادثة', 'كلامكِ في هذه المحادثة') : g('تسجيلك السابق', 'تسجيلكِ السابق')}
+        </span>
+        {when && <span className="text-[11px] font-['Tajawal']" style={{ color: 'rgba(238,245,255,0.36)' }}>{when}</span>}
+      </div>
+
+      {recording.audio_url && (
+        <div className="px-4 pb-3 pt-2">
+          <AudioPlayer src={recording.audio_url} duration={recording.audio_duration_seconds || 0} />
+        </div>
+      )}
+
+      {transcript && (
+        <>
+          <button className="spk-row" onClick={() => setTextOpen((v) => !v)}>
+            <span className="text-[12.5px] font-bold" style={{ color: 'rgba(238,245,255,0.7)' }}>
+              {g('اقرأ اللي قلته', 'اقرئي اللي قلتيه')}
+            </span>
+            <ChevronDown size={14} style={{ color: 'rgba(238,245,255,0.4)', transform: textOpen ? 'rotate(180deg)' : 'none', transition: 'transform 200ms ease' }} />
+          </button>
+          <AnimatePresence>
+            {textOpen && (
+              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }}>
+                <p dir="ltr" className="spk-en mx-4 mb-4" style={{ marginTop: 0 }}>{transcript}</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      )}
+    </div>
   )
 }
 
