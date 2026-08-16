@@ -55,10 +55,13 @@
 .cr-sheet{
   /* Paper palette — pinned, so the app theme can never bleed into the page.
      The stock is DARK: a cream slab on the platform's obsidian read as a bright
-     hole punched in a dark app, so the notebook is now warm ink-black paper with
-     cream ink. Everything below is derived from these tokens, so the whole sheet
-     (and every LessonSection block, via --pw-*) follows from this block alone. */
-  --cr-paper:#17130d; --cr-card:#1f1a12; --cr-card-2:#262019;
+     hole punched in a dark app. It sits a little LIGHTER than the platform surface
+     (#201b13 over #05070d = 1.19:1) so the sheet reads as a real sheet lying on the
+     desk rather than a hole cut in it; --cr-card/-2 and the --cr-stack-* page edges
+     move with it, so the ladder stays intact. Everything below is derived from these
+     tokens, so the whole sheet (and every LessonSection block, via --pw-*) follows
+     from this block alone. */
+  --cr-paper:#201b13; --cr-card:#292218; --cr-card-2:#31291e;
   --cr-ink:#f3ece0; --cr-ink-soft:#c8bdaa; --cr-muted:#8d8371;
   --cr-line:rgba(243,236,224,.15); --cr-line-soft:rgba(243,236,224,.07);
   --cr-rule:rgba(170,196,232,.15);          /* the printed ruling */
@@ -74,7 +77,7 @@
   --cr-field:rgba(243,236,224,.05);         /* input / option fills */
   --cr-highlight:rgba(224,160,94,.20);      /* the marker stripe under a title */
   /* the stacked pages under the top sheet — darker, not lighter, on dark stock */
-  --cr-stack-1:#141009; --cr-stack-2:#110d07; --cr-stack-3:#0d0a05;
+  --cr-stack-1:#1a160c; --cr-stack-2:#161209; --cr-stack-3:#120e07;
   --cr-serif:'Iowan Old Style',Georgia,'Times New Roman',serif;
   --cr-shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 24px -18px rgba(0,0,0,.75);
   --cr-shadow-lg:0 2px 4px rgba(0,0,0,.4), 0 22px 44px -26px rgba(0,0,0,.8);
