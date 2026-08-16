@@ -104,14 +104,20 @@ export default function ClassRecaps() {
   const backToSections = () => { setOpenSection(null); setAnswers({}); setSubmitted(false); setResult(null) }
 
   /**
-   * Two surfaces on purpose: .cr-root is the DESK (the platform's dark surface, so
-   * the page belongs to the app) and .cr-sheet is a sheet of PAPER lying on it —
-   * ruled lines, red margin, corrections in pen. All ink tokens are redeclared on
+   * Two surfaces on purpose: the DESK and, lying on it, a sheet of PAPER — ruled
+   * lines, red margin, corrections in pen. All ink tokens are redeclared on
    * .cr-sheet, so the paper stays paper whatever theme the app is in.
+   *
+   * There is deliberately NO desk element. This route is nested inside LayoutShell,
+   * which already paints the platform's surface (--ds-bg-base) across the viewport —
+   * so the desk is the app's own background, and the page is pixel-identical to every
+   * other page. It used to paint an opaque fixed .cr-world over that, which is exactly
+   * why the notebook looked like a different app. Do NOT reintroduce one, and do not
+   * mount an <AuroraBackground/> here either: App.jsx already renders one globally,
+   * and a second copy would double the orbs and the vignette.
    */
   const Shell = ({ children, narrow }) => (
     <div className="cr-root" dir="rtl">
-      <div className="cr-world" aria-hidden><i /><i /><i /></div>
       <div className={`cr-wrap${narrow ? ' cr-wrap--narrow' : ''}`}>
         <span className="cr-tab"><NotebookText size={14} /> دفتر الحصص</span>
         <div className="cr-sheet">{children}</div>

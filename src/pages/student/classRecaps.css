@@ -2,9 +2,8 @@
    «ملخّص الحصص» — «الدفتر» / the Notebook  (direction ب, chosen 2026-07-29)
 
    TWO surfaces, deliberately:
-     · the DESK is the platform's own dark surface, so the page sits inside the
-       app instead of next to it (--ds-bg-base — the token LayoutShell paints —
-       lit by that theme's own aurora, with --accent-studio as the track's lamp);
+     · the DESK is the platform's own surface, painted by LayoutShell — this page
+       simply does not cover it, so it sits inside the app instead of next to it;
      · the SHEET is a sheet of paper resting on that desk — ruled lines, a red
        margin down the reading edge, corrections in pen.
 
@@ -15,63 +14,40 @@
    ══════════════════════════════════════════════════════════════════════════ */
 
 /* ── the desk ─────────────────────────────────────────────────────────────── */
+/* THERE IS NO DESK ELEMENT, AND THERE MUST NOT BE ONE.
+   LayoutShell paints an opaque --ds-bg-base (#05070d in night) across the whole
+   viewport, and this route is nested inside it — so the platform's background is
+   already behind this page. Every other page in the app shows exactly that colour.
+   (App.jsx does render <AuroraBackground/> globally, but at z-index:-1 BEHIND the
+   opaque shell, so it is not what anyone actually sees on a shell route.)
+
+   What used to live here was an opaque `position:fixed` .cr-world that painted the
+   legacy --surface-void (#030711) plus its own washes OVER the shell — which is
+   exactly why the notebook looked like a different app. Removing it is the whole
+   fix: the page now inherits the platform's surface by construction, so it cannot
+   drift again. Do not add a backdrop here, and do not mount a second
+   AuroraBackground either — it would stack on the global one and double the orbs. */
 .cr-root{
-  /* The desk IS the app's own surface. --ds-bg-base is the token LayoutShell
-     paints, so the notebook lies on the platform's night instead of on a darker,
-     browner page of its own; --surface-void stays as the legacy fallback. */
-  --cr-desk:var(--ds-bg-base,var(--surface-void,#05070d));
   --cr-copper:var(--accent-studio,#cf7d43);
   --cr-copper-bright:var(--accent-studio-strong,#eaa864);
   position:relative; z-index:1; min-height:100dvh;
   font-family:'Tajawal','SF Arabic',sans-serif;
 }
-/* The wash over that base is the night theme's own aurora — deep navy (--ds-aurora-3)
-   lifting the top, violet (--ds-aurora-2) answering at the far corner — with the studio
-   copper kept to a tight halo behind the notebook tab. It used to be a 30% copper blob
-   on the side OPPOSITE the tab, which read as brown fog over black rather than as light
-   coming off the tab. Positions here are physical: a radial-gradient's `at x%` ignores
-   dir, so 88% is the right edge, which is where the tab sits in RTL. */
-.cr-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-  background-color:var(--cr-desk);
-  background-image:
-    radial-gradient(ellipse 118% 82% at 22% 2%,  rgba(31,58,95,.58),   transparent 64%),
-    radial-gradient(ellipse 80% 58% at 4% 92%,   rgba(31,58,95,.26),   transparent 62%),
-    radial-gradient(ellipse 34% 26% at 88% -4%,  rgba(207,125,67,.24), transparent 62%),
-    radial-gradient(ellipse 86% 58% at 98% 94%,  rgba(90,74,140,.20),  transparent 58%)}
-/* Aurora Cinematic is a colder, bluer night — same structure, that theme's accents. */
-[data-theme="aurora-cinematic"] .cr-world{
-  background-image:
-    radial-gradient(ellipse 118% 82% at 22% 2%,  rgba(56,189,248,.11),  transparent 64%),
-    radial-gradient(ellipse 80% 58% at 4% 92%,   rgba(56,189,248,.07),  transparent 62%),
-    radial-gradient(ellipse 34% 26% at 88% -4%,  rgba(207,125,67,.24),  transparent 62%),
-    radial-gradient(ellipse 86% 58% at 98% 94%,  rgba(167,139,250,.14), transparent 58%)}
-/* Light theme: the desk must still be a DESK. --surface-void is warm pearl (#efe8dc)
-   there, which put a cream sheet on cream ground — the paper stopped reading as paper
-   at all. Drop the surface to a slate the sheet can visibly lie on. */
-.light .cr-world,[data-theme="minimal"] .cr-world{
-  background-color:#dfe1e8;
-  background-image:
-    radial-gradient(ellipse 118% 82% at 22% 2%,  rgba(148,163,184,.38), transparent 64%),
-    radial-gradient(ellipse 34% 26% at 88% -4%,  rgba(207,125,67,.14),  transparent 62%),
-    radial-gradient(ellipse 86% 58% at 98% 94%,  rgba(124,58,237,.07),  transparent 58%)}
+/* In the dark themes NOTHING is painted here — no element, no pseudo-element — so
+   the page is pixel-identical to any other page in the app. (Measured: 0/255 delta
+   on every channel at every background point against a plain platform page.) An
+   earlier attempt kept a faint copper glow for the studio track; it measured as
+   exactly 0 difference over #05070d, so it was doing nothing but risking drift.
 
-.cr-world i{position:absolute;display:block;border-radius:50%;filter:blur(90px)}
-.cr-world i:nth-child(1){width:34vw;height:34vw;top:-12vw;inset-inline-start:-4vw;opacity:.55;
-  background:radial-gradient(circle,rgba(207,125,67,.13),transparent 68%);animation:crD1 38s ease-in-out infinite}
-.cr-world i:nth-child(2){width:54vw;height:54vw;bottom:-18vw;inset-inline-end:-12vw;opacity:.8;
-  background:radial-gradient(circle,rgba(56,189,248,.10),transparent 68%);animation:crD2 48s ease-in-out infinite}
-.cr-world i:nth-child(3){width:44vw;height:44vw;top:36%;inset-inline-end:20%;opacity:.75;
-  background:radial-gradient(circle,rgba(233,185,73,.055),transparent 70%);animation:crD3 56s ease-in-out infinite}
-.light .cr-world i,[data-theme="minimal"] .cr-world i{opacity:.5}
-/* the desk falls away at the corners, so the lit thing standing on it is the paper */
-.cr-world::after{content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 92% 80% at 50% 24%,transparent 52%,rgba(0,0,0,.42) 100%)}
-.light .cr-world::after,[data-theme="minimal"] .cr-world::after{
-  background:radial-gradient(ellipse 92% 80% at 50% 24%,transparent 52%,rgba(71,85,105,.20) 100%)}
-@keyframes crD1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4vw,3vw,0)}}
-@keyframes crD2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(4vw,-3vw,0)}}
-@keyframes crD3{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,3vw,0)}}
-@media (prefers-reduced-motion:reduce){.cr-world i{animation:none}}
+   Light theme is the one case that needs more than the platform surface: --ds-bg-base
+   is #f8f9fb there, and cream paper on near-white stops reading as paper at all. So
+   only in that theme does a scrim appear — a soft slate desk for the sheet to lie on,
+   with the studio copper warming the corner the notebook tab sits in. */
+.light .cr-root::before,[data-theme="minimal"] .cr-root::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 26% 20% at 88% -3%,rgba(207,125,67,.10),transparent 60%),
+    radial-gradient(ellipse 96% 84% at 50% 28%,rgba(100,116,139,.10),rgba(100,116,139,.26) 100%)}
 
 .cr-wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:26px 0 80px}
 .cr-wrap--narrow{max-width:760px}
@@ -310,7 +286,8 @@
   .cr-opts--inline{grid-template-columns:1fr 1fr}
 }
 @media print{
-  .cr-world,.cr-back,.cr-bar,.cr-tab{display:none!important}
+  .velvet-atmo,.cr-back,.cr-bar,.cr-tab{display:none!important}
+  .cr-root::before{display:none!important}
   .cr-root{background:#fff;min-height:auto}
   .cr-sheet{box-shadow:none;padding:0;background:#fff}
   .cr-sheet::before,.cr-sheet::after{display:none}
