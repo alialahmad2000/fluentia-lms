@@ -31,7 +31,7 @@ function Stepper({ current, doneSet }) {
           <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{
               display: 'flex', alignItems: 'center', gap: 8, padding: '7px 13px', borderRadius: 999,
-              border: `1px solid ${done ? 'color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border))' : active ? 'color-mix(in srgb, var(--iel-accent) 35%, var(--iel-border))' : 'var(--iel-border)'}`,
+              border: `1px solid ${done ? 'color-mix(in oklab, var(--iel-accent) 45%, var(--iel-border))' : active ? 'color-mix(in oklab, var(--iel-accent) 35%, var(--iel-border))' : 'var(--iel-border)'}`,
               background: active ? 'var(--iel-accent-soft)' : 'transparent', color,
             }}>
               <span style={{ display: 'flex' }}>{done ? <Icon.readiness size={15} /> : <span style={{ width: 18, textAlign: 'center', fontSize: 12, fontWeight: 800 }}>{i + 1}</span>}</span>

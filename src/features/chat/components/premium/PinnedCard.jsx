@@ -32,13 +32,13 @@ export default function PinnedCard({ message, onScrollTo }) {
       className="group flex items-start gap-2 py-2.5 rounded-xl shrink-0 transition-all text-right relative overflow-hidden"
       style={{
         // Glass background
-        background: 'color-mix(in srgb, var(--ds-bg-elevated) 88%, transparent)',
+        background: 'color-mix(in oklab, var(--ds-bg-elevated) 88%, transparent)',
         backdropFilter: 'blur(16px) saturate(140%)',
         WebkitBackdropFilter: 'blur(16px) saturate(140%)',
-        border: '1px solid color-mix(in srgb, var(--ds-border-subtle) 60%, transparent)',
+        border: '1px solid color-mix(in oklab, var(--ds-border-subtle) 60%, transparent)',
         // 3px gold left border via box-shadow on inline-start
-        borderInlineStart: '3px solid color-mix(in srgb, var(--ds-accent-gold) 50%, transparent)',
-        boxShadow: '0 1px 4px 0 rgba(0,0,0,0.15), inset 0 1px 0 0 color-mix(in srgb, white 4%, transparent)',
+        borderInlineStart: '3px solid color-mix(in oklab, var(--ds-accent-gold) 50%, transparent)',
+        boxShadow: '0 1px 4px 0 rgba(0,0,0,0.15), inset 0 1px 0 0 color-mix(in oklab, white 4%, transparent)',
         minWidth: 200,
         maxWidth: 260,
         direction: 'rtl',
@@ -46,12 +46,12 @@ export default function PinnedCard({ message, onScrollTo }) {
         paddingLeft: 10,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderInlineStartColor = 'color-mix(in srgb, var(--ds-accent-gold) 80%, transparent)'
-        e.currentTarget.style.boxShadow = '0 2px 8px 0 rgba(0,0,0,0.2), inset 0 1px 0 0 color-mix(in srgb, white 6%, transparent), 0 0 12px -4px color-mix(in srgb, var(--ds-accent-gold) 25%, transparent)'
+        e.currentTarget.style.borderInlineStartColor = 'color-mix(in oklab, var(--ds-accent-gold) 80%, transparent)'
+        e.currentTarget.style.boxShadow = '0 2px 8px 0 rgba(0,0,0,0.2), inset 0 1px 0 0 color-mix(in oklab, white 6%, transparent), 0 0 12px -4px color-mix(in oklab, var(--ds-accent-gold) 25%, transparent)'
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderInlineStartColor = 'color-mix(in srgb, var(--ds-accent-gold) 50%, transparent)'
-        e.currentTarget.style.boxShadow = '0 1px 4px 0 rgba(0,0,0,0.15), inset 0 1px 0 0 color-mix(in srgb, white 4%, transparent)'
+        e.currentTarget.style.borderInlineStartColor = 'color-mix(in oklab, var(--ds-accent-gold) 50%, transparent)'
+        e.currentTarget.style.boxShadow = '0 1px 4px 0 rgba(0,0,0,0.15), inset 0 1px 0 0 color-mix(in oklab, white 4%, transparent)'
       }}
     >
       <Pin size={12} className="shrink-0 mt-1" style={{ color: 'var(--ds-accent-gold)' }} />

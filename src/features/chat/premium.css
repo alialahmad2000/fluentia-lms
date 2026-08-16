@@ -112,8 +112,8 @@
 
 /* Online presence dot */
 @keyframes chat-pulse {
-  0%, 100% { opacity: 1;  box-shadow: 0 0 0 0 color-mix(in srgb, var(--ds-accent-success) 50%, transparent); }
-  50%      { opacity: .55; box-shadow: 0 0 0 5px color-mix(in srgb, var(--ds-accent-success) 0%, transparent); }
+  0%, 100% { opacity: 1;  box-shadow: 0 0 0 0 color-mix(in oklab, var(--ds-accent-success) 50%, transparent); }
+  50%      { opacity: .55; box-shadow: 0 0 0 5px color-mix(in oklab, var(--ds-accent-success) 0%, transparent); }
 }
 .chat-online-dot { animation: chat-pulse 2.4s ease-in-out infinite; }
 

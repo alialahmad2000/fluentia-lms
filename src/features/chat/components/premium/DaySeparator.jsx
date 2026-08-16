@@ -31,7 +31,7 @@ export default function DaySeparator({ date }) {
       style={{ direction: 'rtl' }}
     >
       {/* short brass-tinted hairline rail (capped so the label anchors the centre) */}
-      <div className="flex-1 h-px" style={{ maxWidth: 84, background: 'linear-gradient(to left, color-mix(in srgb, var(--ds-accent-gold) 14%, transparent) 0%, transparent 100%)' }} />
+      <div className="flex-1 h-px" style={{ maxWidth: 84, background: 'linear-gradient(to left, color-mix(in oklab, var(--ds-accent-gold) 14%, transparent) 0%, transparent 100%)' }} />
 
       {/* المجلس — plain label on the rails (prototype style, no pill) */}
       <span
@@ -41,7 +41,7 @@ export default function DaySeparator({ date }) {
           fontWeight: 500,
           letterSpacing: '0.14em',
           fontFamily: 'Tajawal, sans-serif',
-          color: 'color-mix(in srgb, var(--ds-accent-gold) 46%, transparent)',
+          color: 'color-mix(in oklab, var(--ds-accent-gold) 46%, transparent)',
           fontFeatureSettings: '"tnum"',
         }}
       >
@@ -49,7 +49,7 @@ export default function DaySeparator({ date }) {
       </span>
 
       {/* short brass-tinted hairline rail */}
-      <div className="flex-1 h-px" style={{ maxWidth: 84, background: 'linear-gradient(to right, color-mix(in srgb, var(--ds-accent-gold) 14%, transparent) 0%, transparent 100%)' }} />
+      <div className="flex-1 h-px" style={{ maxWidth: 84, background: 'linear-gradient(to right, color-mix(in oklab, var(--ds-accent-gold) 14%, transparent) 0%, transparent 100%)' }} />
     </motion.div>
   )
 }

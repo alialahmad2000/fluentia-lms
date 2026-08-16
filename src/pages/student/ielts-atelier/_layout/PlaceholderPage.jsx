@@ -25,7 +25,7 @@ export default function PlaceholderPage({
             height: 72,
             borderRadius: 20,
             background:
-              'linear-gradient(135deg, color-mix(in srgb, var(--ds-sky) 22%, transparent), color-mix(in srgb, var(--ds-amber) 14%, transparent))',
+              'linear-gradient(135deg, color-mix(in oklab, var(--ds-sky) 22%, transparent), color-mix(in oklab, var(--ds-amber) 14%, transparent))',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',

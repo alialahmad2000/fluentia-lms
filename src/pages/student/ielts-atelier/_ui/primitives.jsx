@@ -30,7 +30,7 @@ export function Card({ children, style, focus, ...p }) {
   return (
     <div style={{
       background: 'var(--iel-surface)', borderRadius: 16,
-      border: `1px solid ${focus ? 'color-mix(in srgb, var(--iel-gold) 55%, var(--iel-border))' : 'var(--iel-border)'}`,
+      border: `1px solid ${focus ? 'color-mix(in oklab, var(--iel-gold) 55%, var(--iel-border))' : 'var(--iel-border)'}`,
       backdropFilter: 'blur(16px) saturate(1.15)', WebkitBackdropFilter: 'blur(16px) saturate(1.15)',
       boxShadow: 'var(--iel-shadow)', ...style,
     }} {...p}>{children}</div>
@@ -114,7 +114,7 @@ export function BandGauge({ current, target, min = 4, max = 9, size = 208, label
     <div style={{ position: 'relative', width: size, height: size, margin: '0 auto' }}>
       {/* soft glow bed */}
       <div aria-hidden style={{ position: 'absolute', inset: '14%', borderRadius: '50%',
-        background: 'radial-gradient(circle, color-mix(in srgb, var(--iel-accent) 13%, transparent), transparent 70%)', filter: 'blur(16px)' }} />
+        background: 'radial-gradient(circle, color-mix(in oklab, var(--iel-accent) 13%, transparent), transparent 70%)', filter: 'blur(16px)' }} />
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ position: 'relative' }}>
         <defs>
           <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
@@ -125,17 +125,17 @@ export function BandGauge({ current, target, min = 4, max = 9, size = 208, label
         <g transform={`rotate(135 ${size / 2} ${size / 2})`}>
           {/* Track — an accent-tinted ring so the gauge reads as a confident band,
               not a sparse gray line when the current score is low. */}
-          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="color-mix(in srgb, var(--iel-accent) 22%, transparent)" strokeWidth={11}
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="color-mix(in oklab, var(--iel-accent) 22%, transparent)" strokeWidth={11}
             strokeLinecap="round" strokeDasharray={`${trackLen} ${c}`} />
           {has && (
             <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={`url(#${gid})`} strokeWidth={11}
               strokeLinecap="round" strokeDasharray={`${progLen} ${c}`}
-              style={{ transition: 'stroke-dasharray .9s cubic-bezier(.22,1,.36,1)', filter: 'drop-shadow(0 0 6px color-mix(in srgb, var(--iel-accent) 55%, transparent))' }} />
+              style={{ transition: 'stroke-dasharray .9s cubic-bezier(.22,1,.36,1)', filter: 'drop-shadow(0 0 6px color-mix(in oklab, var(--iel-accent) 55%, transparent))' }} />
           )}
         </g>
         {tAngle != null && (
           <circle cx={tx} cy={ty} r={5} fill="var(--iel-gold)" stroke="var(--iel-ground)" strokeWidth={2.5}
-            style={{ filter: 'drop-shadow(0 0 5px color-mix(in srgb, var(--iel-gold) 60%, transparent))' }} />
+            style={{ filter: 'drop-shadow(0 0 5px color-mix(in oklab, var(--iel-gold) 60%, transparent))' }} />
         )}
       </svg>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
@@ -217,7 +217,7 @@ export function NavItem({ icon: I, label, badge, active, onClick }) {
       border: 0, cursor: 'pointer', textAlign: 'start', fontFamily: "'Tajawal', sans-serif", fontSize: 14, fontWeight: active ? 700 : 600,
       color: active ? 'var(--iel-nav-active)' : 'var(--iel-ink-2)',
       background: active ? 'var(--iel-nav-active-bg)' : 'transparent',
-      boxShadow: active ? 'inset 0 0 0 1px color-mix(in srgb, var(--iel-accent) 18%, transparent)' : 'none',
+      boxShadow: active ? 'inset 0 0 0 1px color-mix(in oklab, var(--iel-accent) 18%, transparent)' : 'none',
       transition: 'background .15s, color .15s',
     }}
       onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = 'var(--iel-surface-2)'; e.currentTarget.style.color = 'var(--iel-ink)' } }}
@@ -239,8 +239,8 @@ export function PrimaryButton({ children, onClick, disabled, style }) {
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '12px 22px', borderRadius: 12,
       border: 0, cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", fontSize: 15, fontWeight: 700,
       color: disabled ? 'var(--iel-ink-3)' : '#04231a', position: 'relative', overflow: 'hidden',
-      background: disabled ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))',
-      boxShadow: disabled ? 'none' : '0 6px 16px -9px color-mix(in srgb, var(--iel-accent) 48%, #000), 0 1px 3px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.28)',
+      background: disabled ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in oklab, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in oklab, var(--iel-accent) 78%, #063a31))',
+      boxShadow: disabled ? 'none' : '0 6px 16px -9px color-mix(in oklab, var(--iel-accent) 48%, #000), 0 1px 3px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.28)',
       opacity: disabled ? 0.7 : 1, ...style,
     }}>{children}</button>
   )

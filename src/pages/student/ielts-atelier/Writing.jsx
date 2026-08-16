@@ -175,8 +175,8 @@ function ModeButton({ mode, active, onClick }) {
         flex: 1,
         padding: '10px 12px',
         borderRadius: 12,
-        border: `1px solid ${active ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 55%, transparent)'}`,
-        background: active ? 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)' : 'color-mix(in srgb, var(--ds-surface) 45%, transparent)',
+        border: `1px solid ${active ? 'var(--sunset-orange)' : 'color-mix(in oklab, var(--ds-border) 55%, transparent)'}`,
+        background: active ? 'color-mix(in oklab, var(--sunset-orange) 14%, transparent)' : 'color-mix(in oklab, var(--ds-surface) 45%, transparent)',
         color: active ? 'var(--ds-text)' : 'var(--ds-text-muted)',
         fontSize: 13,
         fontWeight: active ? 700 : 500,
@@ -225,8 +225,8 @@ function StatCard({ label, value, accent }) {
   return (
     <div style={{
       flex: 1, padding: '14px 18px', borderRadius: 14,
-      background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)',
-      border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)',
+      background: 'color-mix(in oklab, var(--sunset-base-mid) 40%, transparent)',
+      border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)',
       backdropFilter: 'blur(6px)', display: 'flex', flexDirection: 'column', gap: 4,
     }}>
       <span style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>{label}</span>
@@ -248,7 +248,7 @@ function WordCounter({ wordCount, target }) {
           {wordCount} / {target}+
         </span>
       </div>
-      <div style={{ height: 3, borderRadius: 99, background: 'color-mix(in srgb, var(--ds-border) 35%, transparent)', overflow: 'hidden' }}>
+      <div style={{ height: 3, borderRadius: 99, background: 'color-mix(in oklab, var(--ds-border) 35%, transparent)', overflow: 'hidden' }}>
         <motion.div
           animate={{ width: `${pct}%` }}
           transition={{ duration: 0.3 }}
@@ -294,8 +294,8 @@ function CriterionRow({ label, score, feedbackAr }) {
   return (
     <div style={{
       padding: '14px 16px', borderRadius: 14,
-      background: 'color-mix(in srgb, var(--sunset-base-mid) 35%, transparent)',
-      border: '1px solid color-mix(in srgb, var(--sunset-amber) 14%, transparent)',
+      background: 'color-mix(in oklab, var(--sunset-base-mid) 35%, transparent)',
+      border: '1px solid color-mix(in oklab, var(--sunset-amber) 14%, transparent)',
       display: 'flex', flexDirection: 'column', gap: 8,
     }}>
       <button
@@ -386,10 +386,10 @@ function LessonReader({ lesson, onClose, onNext }) {
           <Card key={i} style={{ padding: '18px 20px' }}>
             {s.heading && <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--iel-accent)', marginBottom: 12 }}>{s.heading}</div>}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.7, padding: '11px 14px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-bad) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-bad) 26%, transparent)' }}>
+              <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.7, padding: '11px 14px', borderRadius: 10, background: 'color-mix(in oklab, var(--iel-bad) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-bad) 26%, transparent)' }}>
                 <span style={{ display: 'block', direction: 'rtl', fontFamily: "'Tajawal', sans-serif", fontSize: 11, fontWeight: 800, color: 'var(--iel-bad)', marginBottom: 5 }}>ضعيف · Band 5</span>{s.bad_en}
               </div>
-              <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink)', lineHeight: 1.7, padding: '11px 14px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-good) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-good) 26%, transparent)' }}>
+              <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink)', lineHeight: 1.7, padding: '11px 14px', borderRadius: 10, background: 'color-mix(in oklab, var(--iel-good) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-good) 26%, transparent)' }}>
                 <span style={{ display: 'block', direction: 'rtl', fontFamily: "'Tajawal', sans-serif", fontSize: 11, fontWeight: 800, color: 'var(--iel-good)', marginBottom: 5 }}>قوي · Band 7+</span>{s.good_en}
               </div>
             </div>
@@ -397,7 +397,7 @@ function LessonReader({ lesson, onClose, onNext }) {
           </Card>
         )
         if (s.kind === 'tip') return (
-          <div key={i} style={{ padding: '13px 16px', borderRadius: 12, background: 'color-mix(in srgb, var(--iel-gold, #e6ba68) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-gold, #e6ba68) 28%, transparent)', display: 'flex', gap: 9, alignItems: 'flex-start' }}>
+          <div key={i} style={{ padding: '13px 16px', borderRadius: 12, background: 'color-mix(in oklab, var(--iel-gold, #e6ba68) 12%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-gold, #e6ba68) 28%, transparent)', display: 'flex', gap: 9, alignItems: 'flex-start' }}>
             <span style={{ flex: 'none', color: 'var(--iel-gold-ink, var(--iel-gold, #e6ba68))', marginTop: 1 }}>✦</span>
             <p style={{ margin: 0, fontSize: 13.5, color: 'var(--iel-ink)', lineHeight: 1.8, fontWeight: 600 }}>{s.body_ar}</p>
           </div>
@@ -413,7 +413,7 @@ function LessonReader({ lesson, onClose, onNext }) {
                   const isPicked = picked === oi
                   const reveal = picked != null
                   const correct = oi === s.correct
-                  const bg = reveal ? (correct ? 'color-mix(in srgb, var(--iel-good) 12%, transparent)' : (isPicked ? 'color-mix(in srgb, var(--iel-bad) 10%, transparent)' : 'transparent')) : (isPicked ? 'var(--iel-accent-soft)' : 'transparent')
+                  const bg = reveal ? (correct ? 'color-mix(in oklab, var(--iel-good) 12%, transparent)' : (isPicked ? 'color-mix(in oklab, var(--iel-bad) 10%, transparent)' : 'transparent')) : (isPicked ? 'var(--iel-accent-soft)' : 'transparent')
                   const bd = reveal ? (correct ? 'var(--iel-good)' : (isPicked ? 'var(--iel-bad)' : 'var(--iel-border)')) : 'var(--iel-border)'
                   return (
                     <button key={oi} onClick={() => picked == null && setChecked((c) => ({ ...c, [i]: oi }))} disabled={picked != null}
@@ -430,7 +430,7 @@ function LessonReader({ lesson, onClose, onNext }) {
         return null
       })}
 
-      <button onClick={onNext} className="iel-primary" style={{ marginTop: 6, padding: '13px', borderRadius: 12, border: 0, color: '#fff', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", background: 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+      <button onClick={onNext} className="iel-primary" style={{ marginTop: 6, padding: '13px', borderRadius: 12, border: 0, color: '#fff', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", background: 'linear-gradient(140deg, color-mix(in oklab, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in oklab, var(--iel-accent) 78%, #063a31))', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
         أنهيت الدرس — التالي <ChevronLeft size={17} />
       </button>
     </div>
@@ -465,7 +465,7 @@ function DrillRunner({ drill, onClose }) {
       {drill.given_en && (
         <div>
           <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--iel-bad)', marginBottom: 6 }}>الفقرة الضعيفة — حسّنيها</div>
-          <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.7, padding: '12px 15px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-bad) 7%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-bad) 24%, transparent)' }}>{drill.given_en}</div>
+          <div style={{ direction: 'ltr', textAlign: 'left', fontFamily: EN, fontSize: 14, color: 'var(--iel-ink-2)', lineHeight: 1.7, padding: '12px 15px', borderRadius: 10, background: 'color-mix(in oklab, var(--iel-bad) 7%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-bad) 24%, transparent)' }}>{drill.given_en}</div>
         </div>
       )}
 
@@ -476,12 +476,12 @@ function DrillRunner({ drill, onClose }) {
           <span style={{ fontSize: 12, fontWeight: 800, fontFamily: "'IBM Plex Mono', monospace", color: inRange ? 'var(--iel-good)' : 'var(--iel-ink-3)' }}>{wc} / {drill.minWords}+ كلمة</span>
         </div>
         <textarea dir="ltr" value={text} onChange={(e) => setText(e.target.value)} placeholder="Start writing here…"
-          style={{ width: '100%', minHeight: 150, padding: '14px 16px', borderRadius: 12, resize: 'vertical', boxSizing: 'border-box', border: `1px solid ${text.length > 8 ? 'color-mix(in srgb, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`, background: 'var(--iel-surface)', color: 'var(--iel-ink)', fontSize: 15, fontFamily: EN, lineHeight: 1.7, outline: 'none' }} />
+          style={{ width: '100%', minHeight: 150, padding: '14px 16px', borderRadius: 12, resize: 'vertical', boxSizing: 'border-box', border: `1px solid ${text.length > 8 ? 'color-mix(in oklab, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`, background: 'var(--iel-surface)', color: 'var(--iel-ink)', fontSize: 15, fontFamily: EN, lineHeight: 1.7, outline: 'none' }} />
       </div>
 
       {!revealed ? (
         <button onClick={() => setRevealed(true)} disabled={wc < 3} className={wc < 3 ? undefined : 'iel-primary'}
-          style={{ padding: '13px', borderRadius: 12, border: 0, color: wc < 3 ? 'var(--iel-ink-3)' : '#fff', fontSize: 15, fontWeight: 800, cursor: wc < 3 ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", background: wc < 3 ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in srgb, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in srgb, var(--iel-accent) 78%, #063a31))' }}>
+          style={{ padding: '13px', borderRadius: 12, border: 0, color: wc < 3 ? 'var(--iel-ink-3)' : '#fff', fontSize: 15, fontWeight: 800, cursor: wc < 3 ? 'not-allowed' : 'pointer', fontFamily: "'Tajawal', sans-serif", background: wc < 3 ? 'var(--iel-surface-2)' : 'linear-gradient(140deg, color-mix(in oklab, var(--iel-accent) 82%, var(--iel-accent-ink)), color-mix(in oklab, var(--iel-accent) 78%, #063a31))' }}>
           قارني بالنموذج
         </button>
       ) : (
@@ -499,7 +499,7 @@ function DrillRunner({ drill, onClose }) {
                   const on = !!ticks[ci]
                   return (
                     <button key={ci} onClick={() => setTicks((t) => ({ ...t, [ci]: !t[ci] }))}
-                      style={{ display: 'flex', gap: 10, alignItems: 'flex-start', textAlign: 'start', padding: '9px 11px', borderRadius: 10, border: `1px solid ${on ? 'color-mix(in srgb, var(--iel-good) 40%, var(--iel-border))' : 'var(--iel-border)'}`, background: on ? 'color-mix(in srgb, var(--iel-good) 8%, transparent)' : 'transparent', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>
+                      style={{ display: 'flex', gap: 10, alignItems: 'flex-start', textAlign: 'start', padding: '9px 11px', borderRadius: 10, border: `1px solid ${on ? 'color-mix(in oklab, var(--iel-good) 40%, var(--iel-border))' : 'var(--iel-border)'}`, background: on ? 'color-mix(in oklab, var(--iel-good) 8%, transparent)' : 'transparent', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif" }}>
                       <span style={{ flex: 'none', width: 20, height: 20, borderRadius: 6, marginTop: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `2px solid ${on ? 'var(--iel-good)' : 'var(--iel-ink-3)'}`, background: on ? 'var(--iel-good)' : 'transparent', color: '#fff' }}>{on && <Check size={13} strokeWidth={3} />}</span>
                       <span style={{ fontSize: 13.5, color: 'var(--iel-ink)', lineHeight: 1.6 }}>{item}</span>
                     </button>
@@ -610,7 +610,7 @@ function CompareWithModel({ task, myText }) {
             <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: '.09em', color: 'var(--iel-ink-3)', marginBottom: 8 }}>نصّك</div>
             <div dir="ltr" style={{ fontSize: 13, lineHeight: 2, color: 'var(--iel-ink-2)', whiteSpace: 'pre-wrap', textAlign: 'start', fontFamily: WSANS }}>{myText || '—'}</div>
           </div>
-          <div style={{ padding: '14px 16px', borderInlineStart: '1px solid var(--iel-border)', background: 'color-mix(in srgb, var(--iel-accent) 4%, transparent)' }}>
+          <div style={{ padding: '14px 16px', borderInlineStart: '1px solid var(--iel-border)', background: 'color-mix(in oklab, var(--iel-accent) 4%, transparent)' }}>
             <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: '.09em', color: 'var(--iel-accent-ink)', marginBottom: 8 }}>نموذج Band 7</div>
             <div dir="ltr" style={{ fontSize: 13, lineHeight: 2, color: 'var(--iel-ink)', whiteSpace: 'pre-wrap', textAlign: 'start', fontFamily: WSANS }}>{model}</div>
           </div>
@@ -1011,7 +1011,7 @@ export default function Writing() {
           </div>
           {tasksQ.isLoading ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
-              {[1, 2].map(i => <div key={i} style={{ height: 150, borderRadius: 16, background: 'color-mix(in srgb, var(--iel-surface-2) 60%, transparent)', border: '1px solid var(--iel-border)' }} />)}
+              {[1, 2].map(i => <div key={i} style={{ height: 150, borderRadius: 16, background: 'color-mix(in oklab, var(--iel-surface-2) 60%, transparent)', border: '1px solid var(--iel-border)' }} />)}
             </div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
@@ -1019,7 +1019,7 @@ export default function Writing() {
                 <div key={t.id} style={{ position: 'relative' }}>
                   <TaskCard task={t} onSelect={handleSelectTask} />
                   {doneBy[t.id] && (
-                    <span style={{ position: 'absolute', top: 12, insetInlineStart: 14, display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 800, color: 'var(--iel-good)', background: 'color-mix(in srgb, var(--iel-good) 14%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-good) 32%, transparent)', padding: '2px 8px', borderRadius: 7 }}>
+                    <span style={{ position: 'absolute', top: 12, insetInlineStart: 14, display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 800, color: 'var(--iel-good)', background: 'color-mix(in oklab, var(--iel-good) 14%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-good) 32%, transparent)', padding: '2px 8px', borderRadius: 7 }}>
                       <Check size={11} strokeWidth={3} /> {Number(doneBy[t.id].band_score).toFixed(1)}
                     </span>
                   )}
@@ -1093,7 +1093,7 @@ export default function Writing() {
     const EditorPane = (
       <div style={{ padding: isWide ? '20px 22px' : '16px 16px', height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
         <textarea ref={textareaRef} dir="ltr" value={activeDraft} onChange={e => activeDraftChange(e.target.value)} onBlur={() => triggerAutoSave()} placeholder="Start writing your answer here…"
-          style={{ flex: 1, width: '100%', minHeight: 0, padding: '16px 18px', borderRadius: 12, resize: 'none', boxSizing: 'border-box', border: `1px solid ${activeDraft.length > 10 ? 'color-mix(in srgb, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`, background: 'var(--iel-surface)', color: 'var(--iel-ink)', fontSize: 15.5, fontFamily: WSANS, lineHeight: 1.7, outline: 'none' }} />
+          style={{ flex: 1, width: '100%', minHeight: 0, padding: '16px 18px', borderRadius: 12, resize: 'none', boxSizing: 'border-box', border: `1px solid ${activeDraft.length > 10 ? 'color-mix(in oklab, var(--iel-accent) 30%, var(--iel-border))' : 'var(--iel-border)'}`, background: 'var(--iel-surface)', color: 'var(--iel-ink)', fontSize: 15.5, fontFamily: WSANS, lineHeight: 1.7, outline: 'none' }} />
       </div>
     )
 
@@ -1129,7 +1129,7 @@ export default function Writing() {
           {/* Score card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            style={{ padding: '36px 28px', borderRadius: 24, background: 'color-mix(in srgb, var(--sunset-base-mid) 48%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
+            style={{ padding: '36px 28px', borderRadius: 24, background: 'color-mix(in oklab, var(--sunset-base-mid) 48%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
           >
             <p style={{ margin: 0, fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
               {isTask1 ? 'Task 1 Result' : 'Task 2 Result'}
@@ -1155,7 +1155,7 @@ export default function Writing() {
           {/* Overall feedback */}
           {fb.overall_feedback_ar && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
-              style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)' }}>
+              style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in oklab, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)' }}>
               <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8, textAlign: 'right' }}>
                 {fb.overall_feedback_ar}
               </p>
@@ -1165,7 +1165,7 @@ export default function Writing() {
           {/* Tips */}
           {Array.isArray(fb.improvement_tips_ar) && fb.improvement_tips_ar.length > 0 && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }}
-              style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)' }}>
+              style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in oklab, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)' }}>
               <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 700, color: 'var(--sunset-amber)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 نصائح للتحسين
               </p>
@@ -1189,7 +1189,7 @@ export default function Writing() {
         {/* Queued state */}
         {evalQueued && !gradeResult && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            style={{ padding: '24px 20px', borderRadius: 20, background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+            style={{ padding: '24px 20px', borderRadius: 20, background: 'color-mix(in oklab, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 14, alignItems: 'flex-start' }}>
             <AlertTriangle size={20} color="var(--sunset-amber)" style={{ flexShrink: 0, marginTop: 2 }} />
             <div>
               <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>
@@ -1223,13 +1223,13 @@ export default function Writing() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} style={{ display: 'flex', gap: 12 }}>
           <button
             onClick={() => { setAct('hub'); setSelectedTask(null) }}
-            style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 55%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
+            style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--ds-border) 55%, transparent)', background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
           >
             الكتابة
           </button>
           <button
             onClick={() => handleSelectTask(mode === 'full' ? selectedTask : selectedTask)}
-            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
+            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--sunset-orange) 38%, transparent)', background: 'color-mix(in oklab, var(--sunset-orange) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}
           >
             <RotateCcw size={13} />
             محاولة أخرى

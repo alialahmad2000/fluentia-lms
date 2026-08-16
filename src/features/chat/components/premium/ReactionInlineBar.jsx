@@ -30,11 +30,11 @@ export default function ReactionInlineBar({ visible, onReact, onDismiss, isOwn =
             zIndex: 30,
             bottom: '100%',
             [isOwn ? 'left' : 'right']: 0,
-            background: 'color-mix(in srgb, var(--ds-bg-elevated) 94%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-bg-elevated) 94%, transparent)',
             backdropFilter: 'blur(24px) saturate(140%)',
             WebkitBackdropFilter: 'blur(24px) saturate(140%)',
             border: '1px solid var(--ds-border-subtle)',
-            boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4), inset 0 1px 0 0 color-mix(in srgb, white 6%, transparent)',
+            boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4), inset 0 1px 0 0 color-mix(in oklab, white 6%, transparent)',
             marginBottom: 4,
           }}
         >

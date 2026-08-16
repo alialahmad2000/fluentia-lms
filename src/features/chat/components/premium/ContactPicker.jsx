@@ -83,7 +83,7 @@ export default function ContactPicker({ open, onClose, onPicked }) {
               insetInlineStart: '50%', transform: 'translateX(50%)',
               top: 'calc(var(--sat,0px) + 56px)', bottom: 'calc(env(safe-area-inset-bottom,0px) + 16px)',
               width: 'min(440px, calc(100vw - 24px))',
-              background: 'color-mix(in srgb, var(--ds-bg-elevated) 96%, transparent)',
+              background: 'color-mix(in oklab, var(--ds-bg-elevated) 96%, transparent)',
               backdropFilter: 'blur(28px) saturate(150%)', WebkitBackdropFilter: 'blur(28px) saturate(150%)',
               border: '1px solid var(--ds-border-subtle)', boxShadow: '0 32px 80px -20px rgba(0,0,0,0.7)',
             }}

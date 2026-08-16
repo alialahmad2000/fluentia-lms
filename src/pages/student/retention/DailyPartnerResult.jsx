@@ -54,7 +54,7 @@ export default function DailyPartnerResult() {
             transition={{ type: 'spring', duration: 0.5 }}
             className="w-20 h-20 flex items-center justify-center mx-auto mb-4"
             style={{
-              background: 'color-mix(in srgb, var(--ds-accent-gold) 18%, transparent)',
+              background: 'color-mix(in oklab, var(--ds-accent-gold) 18%, transparent)',
               color: 'var(--ds-accent-gold)',
               borderRadius: 'var(--radius-full)',
             }}
@@ -88,7 +88,7 @@ export default function DailyPartnerResult() {
           <div
             className="text-base leading-relaxed text-right p-4 mb-6"
             style={{
-              background: 'color-mix(in srgb, var(--ds-accent-primary) 8%, transparent)',
+              background: 'color-mix(in oklab, var(--ds-accent-primary) 8%, transparent)',
               border: '1px solid var(--ds-border-subtle)',
               borderRadius: 'var(--radius-md)',
               color: 'var(--ds-text-secondary)',

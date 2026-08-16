@@ -250,7 +250,7 @@ export default function UnifiedMessageStream({
             <div style={{ height: isFetchingNextPage ? 36 : 12 }} className="flex items-center justify-center">
               {isFetchingNextPage && (
                 <div className="w-5 h-5 border-2 rounded-full animate-spin"
-                  style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-primary) 35%, transparent)', borderTopColor: 'transparent' }} />
+                  style={{ borderColor: 'color-mix(in oklab, var(--ds-accent-primary) 35%, transparent)', borderTopColor: 'transparent' }} />
               )}
             </div>
           ),

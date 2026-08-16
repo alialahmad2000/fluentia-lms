@@ -11,12 +11,12 @@ import RetentionDisabledState from '../../../design-system/retention/RetentionDi
 function MetricBox({ icon, label, value, color = 'var(--ds-accent-primary)' }) {
   return (
     <div className="flex items-center gap-3 p-3" style={{
-      background: `color-mix(in srgb, ${color} 8%, transparent)`,
+      background: `color-mix(in oklab, ${color} 8%, transparent)`,
       borderRadius: 'var(--radius-md)',
       border: '1px solid var(--ds-border-subtle)',
     }}>
       <div className="w-9 h-9 flex items-center justify-center" style={{
-        background: `color-mix(in srgb, ${color} 18%, transparent)`,
+        background: `color-mix(in oklab, ${color} 18%, transparent)`,
         color, borderRadius: 'var(--radius-sm)',
       }}>{icon}</div>
       <div>
@@ -65,7 +65,7 @@ export default function ReportDetail() {
           <div
             className="text-base leading-loose whitespace-pre-line p-5"
             style={{
-              background: 'color-mix(in srgb, var(--ds-accent-primary) 6%, transparent)',
+              background: 'color-mix(in oklab, var(--ds-accent-primary) 6%, transparent)',
               border: '1px solid var(--ds-border-subtle)',
               borderRadius: 'var(--radius-md)',
               color: 'var(--ds-text-secondary)',

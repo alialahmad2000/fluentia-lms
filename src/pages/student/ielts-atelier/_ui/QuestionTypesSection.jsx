@@ -57,7 +57,7 @@ export function StrategyDrawer({ skill, onClose }) {
                 <ul style={{ direction: 'ltr', textAlign: 'left', margin: '0 0 12px', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {ex.options.map((o, i) => {
                     const correct = String(ex.answer || '').includes(o)
-                    return <li key={i} style={{ fontSize: 13, padding: '7px 11px', borderRadius: 8, background: correct ? 'var(--iel-accent-soft)' : 'transparent', border: `1px solid ${correct ? 'color-mix(in srgb, var(--iel-accent) 40%, var(--iel-border))' : 'var(--iel-border)'}`, color: correct ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', fontWeight: correct ? 700 : 500 }}>{o}{correct ? ' ✓' : ''}</li>
+                    return <li key={i} style={{ fontSize: 13, padding: '7px 11px', borderRadius: 8, background: correct ? 'var(--iel-accent-soft)' : 'transparent', border: `1px solid ${correct ? 'color-mix(in oklab, var(--iel-accent) 40%, var(--iel-border))' : 'var(--iel-border)'}`, color: correct ? 'var(--iel-accent-ink)' : 'var(--iel-ink-2)', fontWeight: correct ? 700 : 500 }}>{o}{correct ? ' ✓' : ''}</li>
                   })}
                 </ul>
               )}
@@ -90,7 +90,7 @@ export default function QuestionTypesSection({ hideHeader = false }) {
             textAlign: 'start', cursor: 'pointer', fontFamily: "'Tajawal', sans-serif", padding: '15px 17px',
             display: 'flex', alignItems: 'center', gap: 12,
           }}>
-            <span style={{ width: 36, height: 36, borderRadius: 10, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in srgb, var(--iel-accent) 28%, transparent)', color: 'var(--iel-accent)' }}>
+            <span style={{ width: 36, height: 36, borderRadius: 10, flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--iel-accent-soft)', border: '1px solid color-mix(in oklab, var(--iel-accent) 28%, transparent)', color: 'var(--iel-accent)' }}>
               <FileQuestion size={17} />
             </span>
             <div style={{ minWidth: 0, flex: 1 }}>

@@ -82,7 +82,7 @@ export function ExamShell({ sectionLabel, partLabel, secsLeft, note, onSubmit, s
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
           {secsLeft != null && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 10, background: critical ? 'color-mix(in srgb, var(--iel-bad) 16%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 14%, transparent)' : 'var(--iel-surface)', border: `1px solid ${critical ? 'color-mix(in srgb, var(--iel-bad) 40%, transparent)' : urgent ? 'color-mix(in srgb, var(--iel-warn) 34%, transparent)' : 'var(--iel-border)'}` }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 10, background: critical ? 'color-mix(in oklab, var(--iel-bad) 16%, transparent)' : urgent ? 'color-mix(in oklab, var(--iel-warn) 14%, transparent)' : 'var(--iel-surface)', border: `1px solid ${critical ? 'color-mix(in oklab, var(--iel-bad) 40%, transparent)' : urgent ? 'color-mix(in oklab, var(--iel-warn) 34%, transparent)' : 'var(--iel-border)'}` }}>
               <span className="iel-exam-tlabel" style={{ fontSize: 11, fontWeight: 700, color: 'var(--iel-ink-3)', whiteSpace: 'nowrap' }}>الوقت المتبقّي</span>
               <span style={{ fontSize: 18, fontWeight: 800, fontVariantNumeric: 'tabular-nums', fontFamily: "'IBM Plex Mono', monospace", color: critical ? 'var(--iel-bad)' : urgent ? 'var(--iel-warn)' : 'var(--iel-ink)' }}>{fmt(secsLeft)}</span>
             </div>

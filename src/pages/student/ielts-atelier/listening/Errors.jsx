@@ -122,7 +122,7 @@ export default function ListeningErrors() {
         <>
           {/* Only claim a pattern when enough errors share it to mean something. */}
           {grouped.top && grouped.topN >= 3 && (
-            <Card style={{ padding: '17px 19px', borderColor: 'color-mix(in srgb, var(--iel-gold) 30%, var(--iel-border))' }}>
+            <Card style={{ padding: '17px 19px', borderColor: 'color-mix(in oklab, var(--iel-gold) 30%, var(--iel-border))' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 7 }}>
                 <span style={{ display: 'inline-flex', width: 28, height: 28, borderRadius: 9, alignItems: 'center', justifyContent: 'center', background: 'var(--iel-gold-soft, rgba(234,179,8,.14))', color: 'var(--iel-gold-ink)', flex: 'none' }}>
                   <grouped.top.icon size={15} />

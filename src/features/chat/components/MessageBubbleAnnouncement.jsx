@@ -4,7 +4,7 @@ export default function MessageBubbleAnnouncement({ body }) {
   return (
     <div
       className="flex gap-2 items-start rounded-xl p-3 my-1"
-      style={{ background: 'color-mix(in srgb, #fbbf24 10%, transparent)', border: '1px solid color-mix(in srgb, #fbbf24 20%, transparent)' }}
+      style={{ background: 'color-mix(in oklab, #fbbf24 10%, transparent)', border: '1px solid color-mix(in oklab, #fbbf24 20%, transparent)' }}
     >
       <Megaphone size={18} className="text-amber-400 shrink-0 mt-0.5" />
       <p

@@ -101,7 +101,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 /* Primary button — hover lift + a slow diagonal sheen sweep */
 .iel-primary{ transition:transform .18s ease, box-shadow .18s ease, filter .18s ease; }
 .iel-primary:hover{ transform:translateY(-2px);
-  box-shadow:0 10px 24px -12px color-mix(in srgb, var(--iel-accent) 52%, #000), 0 2px 6px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.20) !important; }
+  box-shadow:0 10px 24px -12px color-mix(in oklab, var(--iel-accent) 52%, #000), 0 2px 6px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.20) !important; }
 .iel-primary:active{ transform:translateY(0); }
 .iel-primary::after{ content:''; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.35) 48%, transparent 62%);
@@ -123,7 +123,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 /* leading accent bar (RTL start = right edge) */
 .iel-gcard::before{
   content:''; position:absolute; inset-inline-start:0; top:0; bottom:0; width:3px;
-  background:linear-gradient(180deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 35%, transparent));
+  background:linear-gradient(180deg, var(--iel-accent), color-mix(in oklab, var(--iel-accent) 35%, transparent));
   opacity:.5; transition:opacity .2s ease;
 }
 /* soft interior top-light so the surface isn't a flat fill */
@@ -134,9 +134,9 @@ html .iel-exam-clinical.iel-exam-clinical,
 }
 .iel-gcard:hover{
   transform:translateY(-3px);
-  border-color:color-mix(in srgb, var(--iel-accent) 42%, var(--iel-border));
-  box-shadow:var(--iel-shadow), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 20%, transparent),
-    0 20px 44px -20px color-mix(in srgb, var(--iel-accent) 45%, #000);
+  border-color:color-mix(in oklab, var(--iel-accent) 42%, var(--iel-border));
+  box-shadow:var(--iel-shadow), 0 0 0 1px color-mix(in oklab, var(--iel-accent) 20%, transparent),
+    0 20px 44px -20px color-mix(in oklab, var(--iel-accent) 45%, #000);
 }
 .iel-gcard:hover::before{ opacity:1; }
 .iel-gcard:active{ transform:translateY(-1px); }
@@ -146,13 +146,13 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-coach{
   position:relative; overflow:hidden; border-radius:18px; padding:26px 28px;
   background:var(--iel-surface);
-  border:1px solid color-mix(in srgb, var(--iel-accent) 18%, var(--iel-border));
+  border:1px solid color-mix(in oklab, var(--iel-accent) 18%, var(--iel-border));
   backdrop-filter:blur(18px) saturate(1.2); -webkit-backdrop-filter:blur(18px) saturate(1.2);
-  box-shadow:var(--iel-shadow), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 7%, transparent);
+  box-shadow:var(--iel-shadow), 0 0 0 1px color-mix(in oklab, var(--iel-accent) 7%, transparent);
 }
 .iel-coach::before{ content:''; position:absolute; inset-inline-start:0; top:0; bottom:0; width:4px;
   background:linear-gradient(180deg, var(--iel-accent-ink), var(--iel-accent), var(--iel-gold));
-  box-shadow:0 0 14px color-mix(in srgb, var(--iel-accent) 60%, transparent); }
+  box-shadow:0 0 14px color-mix(in oklab, var(--iel-accent) 60%, transparent); }
 .iel-coach-glow{ position:absolute; inset:-40% -20% auto auto; width:60%; height:150%; pointer-events:none;
   background:radial-gradient(50% 50% at 80% 18%, rgba(255,255,255,.035), transparent 70%); }
 
@@ -170,11 +170,11 @@ html .iel-exam-clinical.iel-exam-clinical,
    segment past the first/last station. */
 .iel-station:not(:last-child)::after{ content:''; position:absolute; top:17px; height:2px;
   inset-inline-start:50%; width:100%; background:var(--iel-border); z-index:0; }
-.iel-station.done .dot{ background:color-mix(in srgb, var(--iel-accent) 20%, var(--iel-surface-2)); border-color:color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border)); color:var(--iel-accent-ink); }
-.iel-station.done:not(:last-child)::after{ background:linear-gradient(90deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 45%, var(--iel-border))); }
+.iel-station.done .dot{ background:color-mix(in oklab, var(--iel-accent) 20%, var(--iel-surface-2)); border-color:color-mix(in oklab, var(--iel-accent) 45%, var(--iel-border)); color:var(--iel-accent-ink); }
+.iel-station.done:not(:last-child)::after{ background:linear-gradient(90deg, var(--iel-accent), color-mix(in oklab, var(--iel-accent) 45%, var(--iel-border))); }
 .iel-station.done .lbl{ color:var(--iel-ink-2); }
 .iel-station.active .dot{ background:linear-gradient(140deg, var(--iel-accent), var(--iel-gold)); border-color:transparent; color:#fff;
-  box-shadow:0 0 0 4px color-mix(in srgb, var(--iel-accent) 18%, transparent), 0 8px 20px -8px color-mix(in srgb, var(--iel-accent) 80%, #000); transform:scale(1.12); }
+  box-shadow:0 0 0 4px color-mix(in oklab, var(--iel-accent) 18%, transparent), 0 8px 20px -8px color-mix(in oklab, var(--iel-accent) 80%, #000); transform:scale(1.12); }
 .iel-station.active .lbl{ color:var(--iel-ink); font-weight:800; }
 .iel-station.active .sub{ color:var(--iel-accent); opacity:1; }
 
@@ -189,7 +189,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 }
 .iel-hero::before{ /* top sheen */
   content:''; position:absolute; inset:0 0 auto 0; height:1px;
-  background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--iel-accent) 55%, transparent), transparent);
+  background:linear-gradient(90deg, transparent, color-mix(in oklab, var(--iel-accent) 55%, transparent), transparent);
 }
 .iel-hero-glow{ position:absolute; inset:-40% 40% auto -20%; height:120%; pointer-events:none;
   background:radial-gradient(60% 60% at 24% 28%, rgba(255,255,255,.03), transparent 70%); }
@@ -225,7 +225,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-labhead h1{ font-family:var(--iel-display); font-size:clamp(32px,4vw,42px); font-weight:700; color:var(--iel-ink); margin:0; letter-spacing:-.015em; line-height:1.08 }
 .iel-labhead p{ font-size:14.5px; color:var(--iel-ink-2); margin:10px 0 0; line-height:1.8; max-width:56ch }
 .iel-labhead .rule{ height:1px; margin-top:18px; background:linear-gradient(90deg,
-  color-mix(in srgb, var(--iel-accent) 55%, transparent), var(--iel-border) 40%, transparent); }
+  color-mix(in oklab, var(--iel-accent) 55%, transparent), var(--iel-border) 40%, transparent); }
 
 @media (prefers-reduced-motion: reduce){ .iel-gcard{ transition:none } .iel-gcard:hover{ transform:none } }
 
@@ -286,7 +286,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-brand{display:flex;align-items:center;gap:11px;padding:4px 8px 15px;margin-bottom:5px;border-bottom:1px solid var(--iel-border)}
 .iel-brand .mark{width:36px;height:36px;border-radius:11px;
   background:linear-gradient(152deg, #12c48c 0%, var(--iel-accent) 46%, #06705a 100%);
-  box-shadow:0 5px 14px -6px color-mix(in srgb, var(--iel-accent) 50%, transparent), inset 0 1px 0 rgba(255,255,255,.30), inset 0 -1px 0 rgba(0,0,0,.22), 0 0 0 1px color-mix(in srgb, var(--iel-accent) 30%, transparent);
+  box-shadow:0 5px 14px -6px color-mix(in oklab, var(--iel-accent) 50%, transparent), inset 0 1px 0 rgba(255,255,255,.30), inset 0 -1px 0 rgba(0,0,0,.22), 0 0 0 1px color-mix(in oklab, var(--iel-accent) 30%, transparent);
   color:#02231b;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex:none}
 .iel-brand .wm{font-weight:800;font-size:18px;color:var(--iel-ink);line-height:1.1;letter-spacing:-.01em}
 .iel-brand .wm small{display:block;font-size:12px;font-weight:700;color:var(--iel-ink-3);letter-spacing:.18em;margin-top:1px}
@@ -322,8 +322,8 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-passrow{ transition:background .16s ease, border-color .16s ease, transform .12s ease, box-shadow .16s ease; }
 .iel-passrow:hover{
   background:var(--iel-accent-soft) !important;
-  border-color:color-mix(in srgb, var(--iel-accent) 45%, transparent) !important;
-  box-shadow:0 6px 16px -12px color-mix(in srgb, var(--iel-accent) 80%, #000);
+  border-color:color-mix(in oklab, var(--iel-accent) 45%, transparent) !important;
+  box-shadow:0 6px 16px -12px color-mix(in oklab, var(--iel-accent) 80%, #000);
 }
 .iel-passrow:hover .arrow{ transform:translateX(-4px); opacity:1; color:var(--iel-accent-ink); }
 .iel-passrow .arrow{ transition:transform .16s ease, opacity .16s ease, color .16s ease; opacity:.55; }
@@ -340,8 +340,8 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-subitem:hover{ color:var(--iel-ink); background:var(--iel-surface-2); }
 .iel-subitem:hover .dot{ background:var(--iel-accent); }
 .iel-subitem .cnt{ margin-inline-start:auto; font-size:12px; font-weight:700; color:var(--iel-ink-3); }
-.iel-subitem.on{ color:var(--iel-accent-ink); background:color-mix(in srgb, var(--iel-accent) 9%, transparent); font-weight:700; }
-.iel-subitem.on .dot{ background:var(--iel-accent); transform:scale(1.3); box-shadow:0 0 6px color-mix(in srgb, var(--iel-accent) 55%, transparent); }
+.iel-subitem.on{ color:var(--iel-accent-ink); background:color-mix(in oklab, var(--iel-accent) 9%, transparent); font-weight:700; }
+.iel-subitem.on .dot{ background:var(--iel-accent); transform:scale(1.3); box-shadow:0 0 6px color-mix(in oklab, var(--iel-accent) 55%, transparent); }
 .iel-subitem.on .cnt{ color:var(--iel-accent-ink); }
 
 /* Group heading inside a sub-nav. The three names are themselves a sequence
@@ -382,12 +382,12 @@ html .iel-exam-clinical.iel-exam-clinical,
    everything lives. */
 .iel-skillblock .iel-subnav::before{
   width:2px;
-  background:linear-gradient(180deg, color-mix(in srgb, var(--iel-accent) 72%, transparent), color-mix(in srgb, var(--iel-accent) 12%, transparent) 94%); }
+  background:linear-gradient(180deg, color-mix(in oklab, var(--iel-accent) 72%, transparent), color-mix(in oklab, var(--iel-accent) 12%, transparent) 94%); }
 .iel-skillblock[data-current] .iel-subnav::before{
   width:2.5px;
-  background:linear-gradient(180deg, var(--iel-accent), color-mix(in srgb, var(--iel-accent) 22%, transparent) 94%);
-  box-shadow:0 0 7px color-mix(in srgb, var(--iel-accent) 45%, transparent); }
-.iel-skillblock[data-current] .iel-subgroup{ color:color-mix(in srgb, var(--iel-accent) 58%, var(--iel-ink-3)); }
+  background:linear-gradient(180deg, var(--iel-accent), color-mix(in oklab, var(--iel-accent) 22%, transparent) 94%);
+  box-shadow:0 0 7px color-mix(in oklab, var(--iel-accent) 45%, transparent); }
+.iel-skillblock[data-current] .iel-subgroup{ color:color-mix(in oklab, var(--iel-accent) 58%, var(--iel-ink-3)); }
 
 /* The skill's icon carries its hue at all times. This is the cue that actually
    does the work: a 2px rail is easy to miss, but a coloured glyph beside the
@@ -398,12 +398,12 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-skillblock > button:hover > span:not([aria-hidden]){ color:var(--iel-accent-ink); }
 
 /* Dots inherit the hue too, so a sub-item's colour alone identifies its skill. */
-.iel-skillblock .iel-subitem .dot{ background:color-mix(in srgb, var(--iel-accent) 45%, var(--iel-ink-3)); }
+.iel-skillblock .iel-subitem .dot{ background:color-mix(in oklab, var(--iel-accent) 45%, var(--iel-ink-3)); }
 .iel-skillblock .iel-subitem:hover .dot{ background:var(--iel-accent); }
 
 /* Intensity bars follow their skill's hue on the active row, so the ramp reads
    as part of that skill rather than as a fifth, unrelated colour. */
-.iel-subitem.on .iel-bars i{ background:color-mix(in srgb, var(--iel-accent) 72%, transparent); }
+.iel-subitem.on .iel-bars i{ background:color-mix(in oklab, var(--iel-accent) 72%, transparent); }
 
 /* Intensity meter — ascending bars marking how much pressure a drill puts the
    student under. Used ONLY where a real ramp exists (reading: untimed drill →
@@ -437,10 +437,10 @@ html .iel-exam-clinical.iel-exam-clinical,
    rung — gold sets it apart from the green practice track. */
 .iel-subitem.loop{ color:var(--iel-gold-ink); }
 .iel-subitem.loop .dot{ background:var(--iel-gold); }
-.iel-subitem.loop:hover{ background:color-mix(in srgb, var(--iel-gold) 8%, transparent); color:var(--iel-gold-ink); }
+.iel-subitem.loop:hover{ background:color-mix(in oklab, var(--iel-gold) 8%, transparent); color:var(--iel-gold-ink); }
 .iel-subitem.loop:hover .dot{ background:var(--iel-gold); }
-.iel-subitem.loop.on{ color:var(--iel-gold-ink); background:color-mix(in srgb, var(--iel-gold) 11%, transparent); }
-.iel-subitem.loop.on .dot{ background:var(--iel-gold); box-shadow:0 0 6px color-mix(in srgb, var(--iel-gold) 55%, transparent); }
+.iel-subitem.loop.on{ color:var(--iel-gold-ink); background:color-mix(in oklab, var(--iel-gold) 11%, transparent); }
+.iel-subitem.loop.on .dot{ background:var(--iel-gold); box-shadow:0 0 6px color-mix(in oklab, var(--iel-gold) 55%, transparent); }
 .iel-subitem.loop .cnt{ color:var(--iel-gold-ink); }
 
 /* ── Premium strategy drawer (reading lessons + question types) ──────────────── */
@@ -448,24 +448,24 @@ html .iel-exam-clinical.iel-exam-clinical,
   box-shadow:-44px 0 90px -44px rgba(0,0,0,.72); }
 .iel-drawer2-head{ position:relative; padding:24px 26px 20px; overflow:hidden; border-bottom:1px solid var(--iel-border); }
 .iel-drawer2-head::after{ content:''; position:absolute; top:0; inset-inline:0; height:3px;
-  background:linear-gradient(90deg, var(--dc), color-mix(in srgb, var(--dc) 10%, transparent) 72%); }
+  background:linear-gradient(90deg, var(--dc), color-mix(in oklab, var(--dc) 10%, transparent) 72%); }
 .iel-drawer2-head .glow{ position:absolute; top:-70px; inset-inline-start:-30px; width:60%; height:190px; pointer-events:none;
-  background:radial-gradient(60% 100% at 35% 0, color-mix(in srgb, var(--dc) 42%, transparent), transparent 72%); filter:blur(26px); opacity:.5; }
+  background:radial-gradient(60% 100% at 35% 0, color-mix(in oklab, var(--dc) 42%, transparent), transparent 72%); filter:blur(26px); opacity:.5; }
 .iel-drawer2-head .closebtn{ position:absolute; top:18px; inset-inline-end:20px; z-index:2; width:40px; height:40px; border-radius:11px;
   border:1px solid var(--iel-border); background:var(--iel-surface); color:var(--iel-ink-2); cursor:pointer;
   display:flex; align-items:center; justify-content:center; transition:background .14s, color .14s; }
 .iel-drawer2-head .closebtn:hover{ background:var(--iel-surface-2); color:var(--iel-ink); }
 .iel-drawer2-head .medallion{ width:48px; height:48px; border-radius:14px; flex:none; display:flex; align-items:center; justify-content:center;
-  color:var(--dc); background:color-mix(in srgb, var(--dc) 16%, transparent); border:1px solid color-mix(in srgb, var(--dc) 34%, transparent);
-  box-shadow:0 0 0 4px color-mix(in srgb, var(--dc) 8%, transparent), 0 10px 26px -12px color-mix(in srgb, var(--dc) 70%, #000); }
+  color:var(--dc); background:color-mix(in oklab, var(--dc) 16%, transparent); border:1px solid color-mix(in oklab, var(--dc) 34%, transparent);
+  box-shadow:0 0 0 4px color-mix(in oklab, var(--dc) 8%, transparent), 0 10px 26px -12px color-mix(in oklab, var(--dc) 70%, #000); }
 .iel-steps .iel-step{ position:relative; display:flex; gap:13px; padding-bottom:15px; }
 .iel-steps .iel-step:last-child{ padding-bottom:0; }
 .iel-steps .iel-step::before{ content:''; position:absolute; inset-inline-start:12px; top:27px; bottom:0; width:2px;
-  background:color-mix(in srgb, var(--dc) 22%, transparent); }
+  background:color-mix(in oklab, var(--dc) 22%, transparent); }
 .iel-steps .iel-step:last-child::before{ display:none; }
 .iel-steps .iel-step .n{ flex:none; width:26px; height:26px; border-radius:9px; display:flex; align-items:center; justify-content:center;
-  font-weight:800; font-size:13px; color:var(--dc); background:color-mix(in srgb, var(--dc) 15%, transparent);
-  border:1px solid color-mix(in srgb, var(--dc) 32%, transparent); position:relative; z-index:1; }
+  font-weight:800; font-size:13px; color:var(--dc); background:color-mix(in oklab, var(--dc) 15%, transparent);
+  border:1px solid color-mix(in oklab, var(--dc) 32%, transparent); position:relative; z-index:1; }
 .iel-steps .iel-step .t{ font-size:14px; line-height:1.75; color:var(--iel-ink); padding-top:3px; }
 .iel-drawer2-ex{ padding:15px 16px; border-radius:14px; background:var(--iel-surface-2); border:1px solid var(--iel-border); }
 .iel-drawer2-ex .lbl{ font-size:12px; font-weight:800; color:var(--iel-ink-2); margin-bottom:10px; }
@@ -518,18 +518,18 @@ html .iel-exam-clinical.iel-exam-clinical,
 }
 .iel-blab{ display:flex; align-items:center; gap:9px; margin-bottom:11px; font-size:13px; font-weight:800; color:var(--iel-ink); }
 .iel-blab .d{ width:26px; height:26px; border-radius:9px; flex:none; display:grid; place-items:center;
-  background:var(--iel-accent-soft); border:1px solid color-mix(in srgb, var(--iel-accent) 30%, transparent); color:var(--iel-accent-ink); }
+  background:var(--iel-accent-soft); border:1px solid color-mix(in oklab, var(--iel-accent) 30%, transparent); color:var(--iel-accent-ink); }
 .iel-btext{ margin:0; font-size:14px; line-height:1.9; color:var(--iel-ink-2); }
 
 /* header identity card */
 .iel-bcard--head{
   display:flex; align-items:center; gap:15px; padding-block:20px; padding-inline-end:52px;
-  background:linear-gradient(135deg, color-mix(in srgb, var(--dc) 20%, var(--iel-surface)), var(--iel-surface) 78%);
-  border-color:color-mix(in srgb, var(--dc) 30%, var(--iel-border));
+  background:linear-gradient(135deg, color-mix(in oklab, var(--dc) 20%, var(--iel-surface)), var(--iel-surface) 78%);
+  border-color:color-mix(in oklab, var(--dc) 30%, var(--iel-border));
 }
 .iel-bcard--head .med{ width:52px; height:52px; border-radius:15px; flex:none; display:flex; align-items:center; justify-content:center;
-  color:var(--dc); background:color-mix(in srgb, var(--dc) 16%, transparent); border:1px solid color-mix(in srgb, var(--dc) 34%, transparent);
-  box-shadow:0 0 0 4px color-mix(in srgb, var(--dc) 8%, transparent), 0 10px 24px -12px color-mix(in srgb, var(--dc) 70%, #000); }
+  color:var(--dc); background:color-mix(in oklab, var(--dc) 16%, transparent); border:1px solid color-mix(in oklab, var(--dc) 34%, transparent);
+  box-shadow:0 0 0 4px color-mix(in oklab, var(--dc) 8%, transparent), 0 10px 24px -12px color-mix(in oklab, var(--dc) 70%, #000); }
 .iel-bcard--head .ht{ min-width:0; }
 .iel-bcard--head .kick{ font-size:12px; font-weight:800; letter-spacing:.04em; color:var(--dc); margin-bottom:6px; }
 .iel-bcard--head h2{ margin:0; font-family:var(--iel-display); font-size:24px; font-weight:700; color:var(--iel-ink); line-height:1.2; letter-spacing:-.01em; }
@@ -540,8 +540,8 @@ html .iel-exam-clinical.iel-exam-clinical,
 .iel-bsteps li{ display:flex; gap:11px; }
 .iel-bsteps li .n{ flex:none; width:24px; height:24px; border-radius:8px; display:grid; place-items:center;
   font-size:12px; font-weight:800; color:var(--dc, var(--iel-accent-ink));
-  background:color-mix(in srgb, var(--dc, var(--iel-accent)) 15%, transparent);
-  border:1px solid color-mix(in srgb, var(--dc, var(--iel-accent)) 32%, transparent); }
+  background:color-mix(in oklab, var(--dc, var(--iel-accent)) 15%, transparent);
+  border:1px solid color-mix(in oklab, var(--dc, var(--iel-accent)) 32%, transparent); }
 .iel-bsteps li .t{ font-size:13.5px; line-height:1.75; color:var(--iel-ink-2); padding-top:2px; }
 
 /* example body */
@@ -549,11 +549,11 @@ html .iel-exam-clinical.iel-exam-clinical,
 
 /* callout tones */
 .iel-bcard--callout{
-  background:linear-gradient(135deg, color-mix(in srgb, var(--dc) 12%, var(--iel-surface)), var(--iel-surface));
-  border-color:color-mix(in srgb, var(--dc) 30%, var(--iel-border)); }
+  background:linear-gradient(135deg, color-mix(in oklab, var(--dc) 12%, var(--iel-surface)), var(--iel-surface));
+  border-color:color-mix(in oklab, var(--dc) 30%, var(--iel-border)); }
 .iel-bcard--callout .iel-blab{ color:var(--dc); }
-.iel-bcard--callout .iel-blab .d{ background:color-mix(in srgb, var(--dc) 15%, transparent);
-  border-color:color-mix(in srgb, var(--dc) 34%, transparent); color:var(--dc); }
+.iel-bcard--callout .iel-blab .d{ background:color-mix(in oklab, var(--dc) 15%, transparent);
+  border-color:color-mix(in oklab, var(--dc) 34%, transparent); color:var(--dc); }
 .iel-bcard--callout .iel-btext{ color:var(--iel-ink); }
 .iel-bcard.tone-gold{ --dc:var(--iel-gold); }
 .iel-bcard.tone-gold .iel-blab{ color:var(--iel-gold-ink); }
@@ -589,7 +589,7 @@ html .iel-exam-clinical.iel-exam-clinical,
 /* ── Hero refinement — the band gauge is the single luminous showpiece ─────── */
 .iel-hero{ padding:34px 38px; gap:42px; border-radius:24px }
 .iel-hero-glow{ inset:-34% 34% auto -20%; height:150%;
-  background:radial-gradient(52% 52% at 26% 30%, color-mix(in srgb, var(--iel-accent) 15%, transparent), transparent 70%) }
+  background:radial-gradient(52% 52% at 26% 30%, color-mix(in oklab, var(--iel-accent) 15%, transparent), transparent 70%) }
 .iel-hero-count{ min-width:156px; border-radius:20px; padding:20px 16px }
 .iel-hero-count .big{ font-family:var(--iel-display); font-size:42px; font-weight:600; color:var(--iel-ink); line-height:1 }
 .iel-hero-count .div{ height:1px; background:var(--iel-border); margin:15px 0 }

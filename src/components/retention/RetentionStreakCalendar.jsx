@@ -11,9 +11,9 @@ import { useG } from '../../i18n/gender.js'
 const WEEKDAY_LABELS_AR = ['أحد', 'إثن', 'ثلا', 'أرب', 'خمي', 'جمع', 'سبت']
 
 function colorForActivity(count) {
-  if (count === 0) return 'color-mix(in srgb, var(--ds-text-tertiary) 14%, transparent)'
-  if (count <= 1) return 'color-mix(in srgb, var(--ds-accent-success) 32%, transparent)'
-  if (count <= 3) return 'color-mix(in srgb, var(--ds-accent-success) 56%, transparent)'
+  if (count === 0) return 'color-mix(in oklab, var(--ds-text-tertiary) 14%, transparent)'
+  if (count <= 1) return 'color-mix(in oklab, var(--ds-accent-success) 32%, transparent)'
+  if (count <= 3) return 'color-mix(in oklab, var(--ds-accent-success) 56%, transparent)'
   return 'var(--ds-accent-success)'
 }
 

@@ -39,7 +39,7 @@ export default function MessageActionSheet({
   ].filter(Boolean)
 
   const panel = {
-    background: 'color-mix(in srgb, var(--ds-bg-elevated) 96%, transparent)',
+    background: 'color-mix(in oklab, var(--ds-bg-elevated) 96%, transparent)',
     backdropFilter: 'blur(24px) saturate(150%)',
     WebkitBackdropFilter: 'blur(24px) saturate(150%)',
     border: '1px solid var(--ds-border-subtle)',

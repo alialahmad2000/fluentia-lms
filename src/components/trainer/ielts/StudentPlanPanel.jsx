@@ -17,8 +17,8 @@ function TagList({ items, color }) {
       {items.map((item, i) => (
         <span key={i} style={{
           fontSize: 11, padding: '2px 8px', borderRadius: 20,
-          background: `color-mix(in srgb, ${color} 15%, transparent)`,
-          color, border: `1px solid color-mix(in srgb, ${color} 30%, transparent)`,
+          background: `color-mix(in oklab, ${color} 15%, transparent)`,
+          color, border: `1px solid color-mix(in oklab, ${color} 30%, transparent)`,
           fontFamily: "'Tajawal', sans-serif",
         }}>
           {typeof item === 'string' ? item : JSON.stringify(item)}

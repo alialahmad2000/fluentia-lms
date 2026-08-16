@@ -105,7 +105,7 @@ export default function BriefView() {
                     key={i}
                     className="px-3 py-1 text-sm"
                     style={{
-                      background: 'color-mix(in srgb, var(--ds-accent-primary) 14%, transparent)',
+                      background: 'color-mix(in oklab, var(--ds-accent-primary) 14%, transparent)',
                       color: 'var(--ds-accent-primary)',
                       borderRadius: 'var(--radius-full)',
                       direction: 'ltr',
@@ -142,9 +142,9 @@ export default function BriefView() {
                     className="w-full text-right p-4 transition"
                     style={{
                       background: isCorrectOpt
-                        ? 'color-mix(in srgb, var(--ds-accent-success) 18%, var(--ds-surface-1))'
+                        ? 'color-mix(in oklab, var(--ds-accent-success) 18%, var(--ds-surface-1))'
                         : isPicked
-                        ? 'color-mix(in srgb, var(--ds-accent-primary) 18%, var(--ds-surface-1))'
+                        ? 'color-mix(in oklab, var(--ds-accent-primary) 18%, var(--ds-surface-1))'
                         : 'var(--ds-surface-1)',
                       border: '1px solid ' + (isCorrectOpt
                         ? 'var(--ds-accent-success)'
@@ -177,8 +177,8 @@ export default function BriefView() {
                 className="mt-4 p-3 flex items-center gap-2 text-sm font-semibold"
                 style={{
                   background: wasCorrect
-                    ? 'color-mix(in srgb, var(--ds-accent-success) 12%, transparent)'
-                    : 'color-mix(in srgb, var(--ds-amber) 12%, transparent)',
+                    ? 'color-mix(in oklab, var(--ds-accent-success) 12%, transparent)'
+                    : 'color-mix(in oklab, var(--ds-amber) 12%, transparent)',
                   color: wasCorrect ? 'var(--ds-accent-success)' : 'var(--ds-amber)',
                   borderRadius: 'var(--radius-md)',
                 }}

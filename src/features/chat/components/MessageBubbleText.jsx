@@ -39,7 +39,7 @@ function wrapWords(str, keyBase, onWord) {
         <span key={`${keyBase}-w${i++}`} role="button"
           onPointerDown={(e) => e.stopPropagation()}
           onClick={(e) => { e.stopPropagation(); onWord(w, e.currentTarget) }}
-          style={{ cursor: 'pointer', borderBottom: '1px dotted color-mix(in srgb, var(--ds-accent-gold) 28%, transparent)' }}>
+          style={{ cursor: 'pointer', borderBottom: '1px dotted color-mix(in oklab, var(--ds-accent-gold) 28%, transparent)' }}>
           {w}
         </span>
       )
@@ -96,15 +96,15 @@ function WordLens({ word, rect, onClose }) {
     <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 90 }}>
       <div onClick={(e) => e.stopPropagation()} dir="rtl"
         style={{ position: 'fixed', top, left, width: 230, maxWidth: 'calc(100vw - 24px)',
-          background: 'color-mix(in srgb, var(--ds-bg-elevated) 97%, transparent)',
+          background: 'color-mix(in oklab, var(--ds-bg-elevated) 97%, transparent)',
           backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)',
-          border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 22%, var(--ds-border-subtle))',
+          border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 22%, var(--ds-border-subtle))',
           borderRadius: 14, padding: '12px 14px', boxShadow: '0 22px 54px -18px rgba(0,0,0,0.75)' }}>
         <div className="flex items-center justify-between gap-2 mb-1.5">
           <span dir="ltr" style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: 16, color: 'var(--ds-text-primary)' }}>{word}</span>
           <button type="button" onClick={() => pronounceWord(word)} aria-label="استماع للنطق"
             className="rounded-full flex items-center justify-center shrink-0"
-            style={{ width: 30, height: 30, color: 'var(--ds-accent-gold)', background: 'color-mix(in srgb, var(--ds-accent-gold) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)' }}>
+            style={{ width: 30, height: 30, color: 'var(--ds-accent-gold)', background: 'color-mix(in oklab, var(--ds-accent-gold) 10%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 22%, transparent)' }}>
             <Volume2 size={15} />
           </button>
         </div>
@@ -158,7 +158,7 @@ export default function MessageBubbleText({ body, mentions = [], myId }) {
             const c = senderColor(shown)
             return (
               <span key={i} className="inline-flex items-center px-1.5 py-0.5 rounded-md font-medium text-[13px]"
-                style={{ color: c.soft, background: `color-mix(in srgb, ${c.base} 16%, transparent)`, boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${c.base} 30%, transparent)` }}>
+                style={{ color: c.soft, background: `color-mix(in oklab, ${c.base} 16%, transparent)`, boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${c.base} 30%, transparent)` }}>
                 @{shown}
               </span>
             )

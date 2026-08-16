@@ -97,7 +97,7 @@ export default function DailyPartnerLanding() {
                     {today.data.target_vocab.slice(0, 6).map((w) => (
                       <span key={w} className="px-2 py-0.5 text-xs"
                         style={{
-                          background: 'color-mix(in srgb, var(--ds-accent-primary) 14%, transparent)',
+                          background: 'color-mix(in oklab, var(--ds-accent-primary) 14%, transparent)',
                           color: 'var(--ds-accent-primary)',
                           borderRadius: 'var(--radius-full)',
                           direction: 'ltr', display: 'inline-block',
@@ -141,7 +141,7 @@ export default function DailyPartnerLanding() {
                       <span className="text-xs font-semibold px-2 py-1"
                         style={{
                           color: 'var(--ds-accent-success)',
-                          background: 'color-mix(in srgb, var(--ds-accent-success) 14%, transparent)',
+                          background: 'color-mix(in oklab, var(--ds-accent-success) 14%, transparent)',
                           borderRadius: 'var(--radius-sm)',
                         }}>{Math.round(h.vocab_hit_pct ?? 0)}٪</span>
                     ) : (

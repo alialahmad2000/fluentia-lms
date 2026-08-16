@@ -35,7 +35,7 @@ function reviewOptions(r) {
 
 export function ReviewRow({ r }) {
   const c = r.isCorrect ? 'var(--iel-accent)' : 'var(--iel-bad)'
-  const tint = r.isCorrect ? 'color-mix(in srgb, var(--iel-accent) 6%, var(--iel-surface))' : 'color-mix(in srgb, var(--iel-bad) 7%, var(--iel-surface))'
+  const tint = r.isCorrect ? 'color-mix(in oklab, var(--iel-accent) 6%, var(--iel-surface))' : 'color-mix(in oklab, var(--iel-bad) 7%, var(--iel-surface))'
   const opts = reviewOptions(r)
   const expected = norm(r.expected)
   const given = norm(r.given)
@@ -55,7 +55,7 @@ export function ReviewRow({ r }) {
               const oc = isCorrect ? 'var(--iel-accent)' : (isPicked ? 'var(--iel-bad)' : 'var(--iel-border)')
               const showBadge = o.key !== o.label // TF-NG/YN keys ARE the word → no separate letter badge
               return (
-                <div key={o.key} dir="ltr" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 8, border: `1px solid ${oc}`, background: isCorrect ? 'color-mix(in srgb, var(--iel-accent) 10%, transparent)' : (isPicked ? 'color-mix(in srgb, var(--iel-bad) 8%, transparent)' : 'transparent') }}>
+                <div key={o.key} dir="ltr" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 8, border: `1px solid ${oc}`, background: isCorrect ? 'color-mix(in oklab, var(--iel-accent) 10%, transparent)' : (isPicked ? 'color-mix(in oklab, var(--iel-bad) 8%, transparent)' : 'transparent') }}>
                   {showBadge && <span style={{ width: 20, height: 20, borderRadius: 6, flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 800, fontFamily: SANS, color: (isCorrect || isPicked) ? '#fff' : 'var(--iel-ink-3)', background: isCorrect ? 'var(--iel-accent)' : (isPicked ? 'var(--iel-bad)' : 'var(--iel-surface-2)') }}>{o.key}</span>}
                   <span style={{ flex: 1, fontSize: 12.5, color: 'var(--iel-ink)', textAlign: 'left', fontFamily: SANS, lineHeight: 1.5, fontWeight: showBadge ? 400 : 700 }}>{o.label}</span>
                   {isCorrect && <CheckCircle size={13} color="var(--iel-accent)" style={{ flex: 'none' }} />}
@@ -75,7 +75,7 @@ export function ReviewRow({ r }) {
           </p>
         )}
         {r.explanation && (
-          <p style={{ margin: '7px 0 0', padding: '7px 11px', borderRadius: 9, background: 'var(--iel-gold-soft)', border: '1px solid color-mix(in srgb, var(--iel-gold) 28%, transparent)', borderInlineStart: '3px solid var(--iel-gold)', fontSize: 11.5, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.65 }}>
+          <p style={{ margin: '7px 0 0', padding: '7px 11px', borderRadius: 9, background: 'var(--iel-gold-soft)', border: '1px solid color-mix(in oklab, var(--iel-gold) 28%, transparent)', borderInlineStart: '3px solid var(--iel-gold)', fontSize: 11.5, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.65 }}>
             <b style={{ color: 'var(--iel-gold-ink, var(--iel-gold))' }}>الشرح: </b>{r.explanation}
           </p>
         )}

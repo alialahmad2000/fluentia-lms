@@ -145,8 +145,8 @@ export default function ImageLightbox({ images = [], index = 0, senderName, send
             width: 40,
             height: 40,
             color: 'var(--ds-text-primary)',
-            background: 'color-mix(in srgb, var(--ds-bg-elevated) 70%, transparent)',
-            border: '1px solid color-mix(in srgb, white 14%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-bg-elevated) 70%, transparent)',
+            border: '1px solid color-mix(in oklab, white 14%, transparent)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
             boxShadow: '0 6px 18px -6px rgba(0,0,0,0.5)',
@@ -220,7 +220,7 @@ export default function ImageLightbox({ images = [], index = 0, senderName, send
                     height: 7,
                     background: i === current
                       ? 'var(--ds-text-primary)'
-                      : 'color-mix(in srgb, var(--ds-text-primary) 35%, transparent)',
+                      : 'color-mix(in oklab, var(--ds-text-primary) 35%, transparent)',
                   }}
                 />
               ))}
@@ -264,8 +264,8 @@ export default function ImageLightbox({ images = [], index = 0, senderName, send
                 width: 38,
                 height: 38,
                 color: 'var(--ds-accent-primary)',
-                background: 'color-mix(in srgb, var(--ds-accent-primary) 14%, transparent)',
-                border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 32%, transparent)',
+                background: 'color-mix(in oklab, var(--ds-accent-primary) 14%, transparent)',
+                border: '1px solid color-mix(in oklab, var(--ds-accent-primary) 32%, transparent)',
                 backdropFilter: 'blur(8px)',
                 WebkitBackdropFilter: 'blur(8px)',
               }}

@@ -64,9 +64,9 @@ const PATH_CSS = `
   width: 3px;
   border-radius: var(--radius-full);
   background: linear-gradient(180deg,
-    color-mix(in srgb, var(--ds-accent-primary) 80%, transparent) 0%,
-    color-mix(in srgb, var(--ds-accent-gold) 55%, transparent) 38%,
-    color-mix(in srgb, var(--ds-accent-secondary) 30%, transparent) 72%,
+    color-mix(in oklab, var(--ds-accent-primary) 80%, transparent) 0%,
+    color-mix(in oklab, var(--ds-accent-gold) 55%, transparent) 38%,
+    color-mix(in oklab, var(--ds-accent-secondary) 30%, transparent) 72%,
     transparent 100%);
   box-shadow: 0 0 16px var(--ds-accent-primary-glow);
   pointer-events: none;
@@ -77,7 +77,7 @@ const PATH_CSS = `
   inset: -2px -3px;
   border-radius: var(--radius-full);
   background: linear-gradient(180deg,
-    color-mix(in srgb, var(--ds-accent-primary) 30%, transparent), transparent 70%);
+    color-mix(in oklab, var(--ds-accent-primary) 30%, transparent), transparent 70%);
   filter: blur(6px);
 }
 
@@ -118,23 +118,23 @@ const PATH_CSS = `
   transition: transform 240ms var(--ease-out, ease), box-shadow 240ms var(--ease-out, ease);
 }
 .jp-marker--done {
-  border-color: color-mix(in srgb, var(--ds-accent-gold) 60%, transparent);
+  border-color: color-mix(in oklab, var(--ds-accent-gold) 60%, transparent);
   background: linear-gradient(150deg,
-    color-mix(in srgb, var(--ds-accent-gold) 28%, var(--ds-surface-2)),
+    color-mix(in oklab, var(--ds-accent-gold) 28%, var(--ds-surface-2)),
     var(--ds-surface-2));
   color: var(--ds-accent-gold);
 }
 .jp-marker--current {
   width: 44px;
   height: 44px;
-  border-color: color-mix(in srgb, var(--ds-accent-primary) 70%, transparent);
+  border-color: color-mix(in oklab, var(--ds-accent-primary) 70%, transparent);
   background: linear-gradient(150deg,
-    color-mix(in srgb, var(--ds-accent-primary) 40%, var(--ds-surface-3)),
+    color-mix(in oklab, var(--ds-accent-primary) 40%, var(--ds-surface-3)),
     var(--ds-surface-3));
   color: var(--ds-text-inverse);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.25),
-    0 0 0 4px color-mix(in srgb, var(--ds-accent-primary) 16%, transparent),
+    0 0 0 4px color-mix(in oklab, var(--ds-accent-primary) 16%, transparent),
     0 0 26px var(--ds-accent-primary-glow);
   animation: jp-pulse 2.8s ease-in-out infinite;
 }
@@ -143,11 +143,11 @@ const PATH_CSS = `
 @keyframes jp-pulse {
   0%, 100% { box-shadow:
       inset 0 1px 0 rgba(255,255,255,0.25),
-      0 0 0 4px color-mix(in srgb, var(--ds-accent-primary) 14%, transparent),
+      0 0 0 4px color-mix(in oklab, var(--ds-accent-primary) 14%, transparent),
       0 0 22px var(--ds-accent-primary-glow); }
   50% { box-shadow:
       inset 0 1px 0 rgba(255,255,255,0.25),
-      0 0 0 7px color-mix(in srgb, var(--ds-accent-primary) 10%, transparent),
+      0 0 0 7px color-mix(in oklab, var(--ds-accent-primary) 10%, transparent),
       0 0 34px var(--ds-accent-primary-glow); }
 }
 
@@ -195,7 +195,7 @@ const PATH_CSS = `
 }
 .jp-eyebrow__tag--done {
   color: var(--ds-accent-gold);
-  border-color: color-mix(in srgb, var(--ds-accent-gold) 45%, transparent);
+  border-color: color-mix(in oklab, var(--ds-accent-gold) 45%, transparent);
 }
 
 /* Chips (discover row + ribbon stats) */
@@ -379,7 +379,7 @@ export default function JourneyDashboard() {
               className="jp-chip"
               style={{
                 color: 'var(--ds-accent-gold)',
-                borderColor: 'color-mix(in srgb, var(--ds-accent-gold) 40%, transparent)',
+                borderColor: 'color-mix(in oklab, var(--ds-accent-gold) 40%, transparent)',
               }}
             >
               <span aria-hidden="true">🏅</span>

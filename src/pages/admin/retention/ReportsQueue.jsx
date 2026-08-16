@@ -91,7 +91,7 @@ export default function RetentionReportsQueue() {
                     <div
                       className="text-base leading-loose whitespace-pre-line p-4"
                       style={{
-                        background: 'color-mix(in srgb, var(--ds-accent-primary) 6%, transparent)',
+                        background: 'color-mix(in oklab, var(--ds-accent-primary) 6%, transparent)',
                         border: '1px solid var(--ds-border-subtle)',
                         borderRadius: 'var(--radius-md)',
                         color: 'var(--ds-text-secondary)',

@@ -18,7 +18,7 @@ function GroupGlyph({ level }) {
   const grad = 'linear-gradient(135deg,#D8BC86,#B0905A)' // المجلس: brass group avatar, no per-level hues
   return (
     <div className="relative shrink-0" style={{ width: 44, height: 44 }}>
-      <div className="absolute rounded-full" style={{ inset: -2, background: 'conic-gradient(from 140deg, var(--ds-accent-gold), color-mix(in srgb,var(--ds-accent-gold) 18%,transparent) 50%, var(--ds-accent-gold))', opacity: 0.85 }} />
+      <div className="absolute rounded-full" style={{ inset: -2, background: 'conic-gradient(from 140deg, var(--ds-accent-gold), color-mix(in oklab,var(--ds-accent-gold) 18%,transparent) 50%, var(--ds-accent-gold))', opacity: 0.85 }} />
       <div className="absolute rounded-full flex items-center justify-center" style={{ inset: 0, background: grad, boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.2)' }}>
         <Users size={20} style={{ color: 'rgba(255,255,255,0.95)' }} />
       </div>
@@ -103,7 +103,7 @@ export default function ChatHome() {
 
       {/* Header */}
       <div className="chat-row">
-        <div className="flex items-center gap-2 px-4" style={{ height: 60, direction: 'rtl', background: 'color-mix(in srgb, var(--ds-bg-elevated) 62%, transparent)', backdropFilter: 'blur(28px) saturate(150%)', WebkitBackdropFilter: 'blur(28px) saturate(150%)', borderBottom: '1px solid var(--ds-border-subtle)' }}>
+        <div className="flex items-center gap-2 px-4" style={{ height: 60, direction: 'rtl', background: 'color-mix(in oklab, var(--ds-bg-elevated) 62%, transparent)', backdropFilter: 'blur(28px) saturate(150%)', WebkitBackdropFilter: 'blur(28px) saturate(150%)', borderBottom: '1px solid var(--ds-border-subtle)' }}>
           <button onClick={() => navigate(profile?.role === 'trainer' ? '/trainer' : profile?.role === 'admin' ? '/admin' : '/student')} aria-label="الخروج من المحادثة"
             className="rounded-full flex items-center justify-center shrink-0 transition-colors hover:bg-[var(--ds-surface-1)]"
             style={{ width: 38, height: 38, color: 'var(--ds-text-secondary)' }}>
@@ -112,7 +112,7 @@ export default function ChatHome() {
           <h1 className="flex-1 font-bold" style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 20, color: 'var(--ds-text-primary)' }}>المحادثات</h1>
           <button onClick={() => setPickerOpen(true)} aria-label="رسالة جديدة"
             className="rounded-full flex items-center justify-center transition-all"
-            style={{ width: 42, height: 42, color: 'var(--ds-text-inverse)', background: 'linear-gradient(135deg, var(--ds-accent-gold) 0%, color-mix(in srgb, var(--ds-accent-gold) 68%, #7a4f00) 100%)', boxShadow: '0 6px 16px -5px color-mix(in srgb, var(--ds-accent-gold) 55%, transparent)' }}>
+            style={{ width: 42, height: 42, color: 'var(--ds-text-inverse)', background: 'linear-gradient(135deg, var(--ds-accent-gold) 0%, color-mix(in oklab, var(--ds-accent-gold) 68%, #7a4f00) 100%)', boxShadow: '0 6px 16px -5px color-mix(in oklab, var(--ds-accent-gold) 55%, transparent)' }}>
             <PenSquare size={19} />
           </button>
         </div>
@@ -134,8 +134,8 @@ export default function ChatHome() {
           {threads.length === 0 ? (
             <button onClick={() => setPickerOpen(true)} className="w-full flex flex-col items-center text-center px-6" style={{ direction: 'rtl', paddingTop: 56, paddingBottom: 48, gap: 12 }}>
               <span style={{ position: 'relative', display: 'grid', placeItems: 'center', marginBottom: 12 }}>
-                <span aria-hidden style={{ position: 'absolute', width: 152, height: 152, borderRadius: '50%', background: 'radial-gradient(circle, color-mix(in srgb, var(--ds-accent-gold) 18%, transparent) 0%, color-mix(in srgb, var(--ds-accent-gold) 6%, transparent) 52%, color-mix(in srgb, var(--ds-accent-gold) 1.5%, transparent) 76%, transparent 100%)', filter: 'blur(20px)', pointerEvents: 'none' }} />
-                <span style={{ position: 'relative', width: 64, height: 64, borderRadius: '50%', display: 'grid', placeItems: 'center', color: 'var(--ds-accent-gold)', background: 'radial-gradient(130% 130% at 50% 0%, color-mix(in srgb, var(--ds-accent-gold) 22%, transparent), transparent 72%)', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 30%, transparent)', boxShadow: '0 0 30px -8px color-mix(in srgb, var(--ds-accent-gold) 45%, transparent), inset 0 1px 0 color-mix(in srgb, var(--ds-accent-gold) 24%, transparent)' }}>
+                <span aria-hidden style={{ position: 'absolute', width: 152, height: 152, borderRadius: '50%', background: 'radial-gradient(circle, color-mix(in oklab, var(--ds-accent-gold) 18%, transparent) 0%, color-mix(in oklab, var(--ds-accent-gold) 6%, transparent) 52%, color-mix(in oklab, var(--ds-accent-gold) 1.5%, transparent) 76%, transparent 100%)', filter: 'blur(20px)', pointerEvents: 'none' }} />
+                <span style={{ position: 'relative', width: 64, height: 64, borderRadius: '50%', display: 'grid', placeItems: 'center', color: 'var(--ds-accent-gold)', background: 'radial-gradient(130% 130% at 50% 0%, color-mix(in oklab, var(--ds-accent-gold) 22%, transparent), transparent 72%)', border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 30%, transparent)', boxShadow: '0 0 30px -8px color-mix(in oklab, var(--ds-accent-gold) 45%, transparent), inset 0 1px 0 color-mix(in oklab, var(--ds-accent-gold) 24%, transparent)' }}>
                   <PenSquare size={24} />
                 </span>
               </span>

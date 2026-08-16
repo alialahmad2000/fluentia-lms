@@ -31,16 +31,16 @@ export default function ReactionSummary({ reactions, myId, messageId, onReact })
               className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs transition-colors"
               style={{
                 background: isOwn
-                  ? 'color-mix(in srgb, var(--ds-accent-gold) 12%, transparent)'
-                  : 'color-mix(in srgb, var(--ds-bg-elevated) 85%, transparent)',
+                  ? 'color-mix(in oklab, var(--ds-accent-gold) 12%, transparent)'
+                  : 'color-mix(in oklab, var(--ds-bg-elevated) 85%, transparent)',
                 border: isOwn
-                  ? '1px solid color-mix(in srgb, var(--ds-accent-gold) 40%, transparent)'
-                  : '1px solid color-mix(in srgb, var(--ds-border-subtle) 70%, transparent)',
+                  ? '1px solid color-mix(in oklab, var(--ds-accent-gold) 40%, transparent)'
+                  : '1px solid color-mix(in oklab, var(--ds-border-subtle) 70%, transparent)',
                 color: isOwn ? 'var(--ds-accent-gold)' : 'var(--ds-text-secondary)',
                 backdropFilter: 'blur(8px)',
                 minHeight: 26,
                 boxShadow: isOwn
-                  ? '0 0 8px -2px color-mix(in srgb, var(--ds-accent-gold) 20%, transparent)'
+                  ? '0 0 8px -2px color-mix(in oklab, var(--ds-accent-gold) 20%, transparent)'
                   : 'none',
               }}
             >

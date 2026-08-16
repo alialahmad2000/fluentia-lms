@@ -41,15 +41,15 @@ function getBubbleRadius(position, isOwn) {
 const SHADOW_OWN = [
   '0 1px 2px -1px rgba(0,0,0,0.20)',
   '0 6px 16px -6px rgba(0,0,0,0.30)',
-  '0 14px 34px -12px color-mix(in srgb, var(--ds-accent-primary) 32%, transparent)',
-  'inset 0 1px 0 0 color-mix(in srgb, white 11%, transparent)',
+  '0 14px 34px -12px color-mix(in oklab, var(--ds-accent-primary) 32%, transparent)',
+  'inset 0 1px 0 0 color-mix(in oklab, white 11%, transparent)',
 ].join(',')
 
 const SHADOW_OTHER = [
   '0 1px 2px -1px rgba(0,0,0,0.30)',
   '0 8px 20px -8px rgba(0,0,0,0.38)',
   '0 18px 40px -16px rgba(0,0,0,0.34)',
-  'inset 0 1px 0 0 color-mix(in srgb, white 9%, transparent)',
+  'inset 0 1px 0 0 color-mix(in oklab, white 9%, transparent)',
 ].join(',')
 
 // المجلس — "the teacher's ear": tap ✦ on your own English message and د. علي gently
@@ -95,7 +95,7 @@ function TeacherEar({ text }) {
   return (
     <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
       className="mt-2 rounded-xl px-3 py-2.5"
-      style={{ maxWidth: 320, background: 'color-mix(in srgb, var(--ds-accent-gold) 7%, var(--ds-bg-elevated))', border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 20%, transparent)', borderInlineStart: '2.5px solid var(--ds-accent-gold)' }}>
+      style={{ maxWidth: 320, background: 'color-mix(in oklab, var(--ds-accent-gold) 7%, var(--ds-bg-elevated))', border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 20%, transparent)', borderInlineStart: '2.5px solid var(--ds-accent-gold)' }}>
       <div className="flex items-center gap-1.5 mb-1.5" style={{ fontFamily: 'Tajawal, sans-serif', fontSize: 10.5, color: 'var(--ds-accent-gold)', fontWeight: 600, letterSpacing: '0.02em' }}>
         <Sparkles size={12} /> همسة من المجلس · د. علي
       </div>
@@ -171,20 +171,20 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
   const bubbleStyle = isOwn
     ? {
         background: `linear-gradient(135deg,
-          color-mix(in srgb, var(--ds-accent-primary) 17%, var(--ds-bg-elevated)) 0%,
-          color-mix(in srgb, var(--ds-accent-primary) 9%, var(--ds-bg-elevated)) 100%)`,
-        border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 26%, transparent)',
+          color-mix(in oklab, var(--ds-accent-primary) 17%, var(--ds-bg-elevated)) 0%,
+          color-mix(in oklab, var(--ds-accent-primary) 9%, var(--ds-bg-elevated)) 100%)`,
+        border: '1px solid color-mix(in oklab, var(--ds-accent-primary) 26%, transparent)',
         backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', boxShadow: SHADOW_OWN,
       }
     : {
         // top edge catches the brass lamp, then falls quickly to a lit-neutral surface
         background: `linear-gradient(180deg,
-          color-mix(in srgb, var(--ds-accent-gold) 10%, var(--ds-bg-elevated)) 0%,
-          color-mix(in srgb, var(--ds-text-primary) 6%, var(--ds-bg-elevated)) 16%,
+          color-mix(in oklab, var(--ds-accent-gold) 10%, var(--ds-bg-elevated)) 0%,
+          color-mix(in oklab, var(--ds-text-primary) 6%, var(--ds-bg-elevated)) 16%,
           var(--ds-bg-elevated) 100%)`,
         backdropFilter: 'blur(22px) saturate(140%)', WebkitBackdropFilter: 'blur(22px) saturate(140%)',
-        border: '1px solid color-mix(in srgb, var(--ds-text-primary) 9%, transparent)',
-        borderTopColor: 'color-mix(in srgb, var(--ds-accent-gold) 22%, transparent)',
+        border: '1px solid color-mix(in oklab, var(--ds-text-primary) 9%, transparent)',
+        borderTopColor: 'color-mix(in oklab, var(--ds-accent-gold) 22%, transparent)',
         boxShadow: SHADOW_OTHER,
       }
 
@@ -201,14 +201,14 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           insetInlineStart: 12, top: '50%', y: '-50%', zIndex: 4, width: 34, height: 34,
           opacity: replyOpacity, scale: replyScale,
           color: sc ? sc.base : 'var(--ds-accent-primary)',
-          background: `color-mix(in srgb, ${sc ? sc.base : 'var(--ds-accent-primary)'} 16%, transparent)`,
+          background: `color-mix(in oklab, ${sc ? sc.base : 'var(--ds-accent-primary)'} 16%, transparent)`,
         }}>
         <CornerUpLeft size={18} />
       </motion.div>
 
       <motion.div className="inline-block relative align-top" {...bind}
         style={{ float: isOwn ? 'left' : 'right', maxWidth: '78%', x: swipeX, touchAction: 'pan-y' }}>
-        <div ref={bubbleRef} className="chat-bubble px-3.5 py-2.5" style={{ ...bubbleStyle, ...(isTeacherSender && !isOwn ? { borderInlineStartColor: 'color-mix(in srgb, var(--ds-accent-gold) 34%, transparent)', borderInlineStartWidth: 2 } : {}), borderRadius, lineHeight: 1.75 }}>
+        <div ref={bubbleRef} className="chat-bubble px-3.5 py-2.5" style={{ ...bubbleStyle, ...(isTeacherSender && !isOwn ? { borderInlineStartColor: 'color-mix(in oklab, var(--ds-accent-gold) 34%, transparent)', borderInlineStartWidth: 2 } : {}), borderRadius, lineHeight: 1.75 }}>
           {!isGrouped && !isOwn && (
             <div className="flex items-baseline gap-2 mb-1">
               <span className="text-[13px] truncate"
@@ -224,7 +224,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
             <button type="button" onPointerDown={stop}
               onClick={(e) => { e.stopPropagation(); const tid = message.reply_message.id || message.reply_to; if (tid) window.dispatchEvent(new CustomEvent('fluentia:jump-to-message', { detail: { id: tid } })) }}
               className="mb-2 px-2.5 py-1.5 rounded-xl text-xs w-full flex items-start gap-1.5 transition-[filter] hover:brightness-110"
-              style={{ borderInlineStart: `2.5px solid ${replyColor}`, background: `color-mix(in srgb, ${replyColor} 10%, transparent)`, fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-secondary)', textAlign: 'start' }}>
+              style={{ borderInlineStart: `2.5px solid ${replyColor}`, background: `color-mix(in oklab, ${replyColor} 10%, transparent)`, fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-secondary)', textAlign: 'start' }}>
               <CornerUpLeft size={12} style={{ color: replyColor, marginTop: 2, flexShrink: 0 }} />
               <span>
                 <span className="font-semibold" style={{ color: replyColor }}>
@@ -247,7 +247,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
 
           {isOwn && (
             <div className="flex items-center gap-1 justify-start mt-0.5">
-              <span className="text-[12px] tabular-nums" style={{ color: 'color-mix(in srgb, var(--ds-accent-primary) 60%, var(--ds-text-tertiary))', fontVariantNumeric: 'tabular-nums' }}>
+              <span className="text-[12px] tabular-nums" style={{ color: 'color-mix(in oklab, var(--ds-accent-primary) 60%, var(--ds-text-tertiary))', fontVariantNumeric: 'tabular-nums' }}>
                 {time}{message.is_edited && ' · معدّل'}
               </span>
               {message._status === 'failed' ? (
@@ -277,7 +277,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
           <button onPointerDown={stop} onClick={(e) => { e.stopPropagation(); setSheet({ open: true, anchor: { x: e.clientX, y: e.clientY } }) }}
             aria-label="إجراءات الرسالة"
             className="absolute flex items-center justify-center rounded-full"
-            style={{ top: -10, insetInlineEnd: 0, width: 26, height: 26, background: 'color-mix(in srgb, var(--ds-bg-elevated) 92%, transparent)', border: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-tertiary)', boxShadow: '0 4px 12px -4px rgba(0,0,0,0.4)', zIndex: 11 }}>
+            style={{ top: -10, insetInlineEnd: 0, width: 26, height: 26, background: 'color-mix(in oklab, var(--ds-bg-elevated) 92%, transparent)', border: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-tertiary)', boxShadow: '0 4px 12px -4px rgba(0,0,0,0.4)', zIndex: 11 }}>
             <MoreHorizontal size={14} />
           </button>
         )}
@@ -285,7 +285,7 @@ export default function MessageBubble({ message, isGrouped, position = 'single',
         {/* Desktop hover toolbar */}
         <div onPointerDown={stop}
           className="absolute flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150 rounded-2xl px-1 py-0.5"
-          style={{ top: -14, ...innerSide, background: 'color-mix(in srgb, var(--ds-bg-elevated) 92%, transparent)', border: '1px solid var(--ds-border-subtle)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', boxShadow: '0 6px 20px -6px rgba(0,0,0,0.45)', zIndex: 12 }}>
+          style={{ top: -14, ...innerSide, background: 'color-mix(in oklab, var(--ds-bg-elevated) 92%, transparent)', border: '1px solid var(--ds-border-subtle)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', boxShadow: '0 6px 20px -6px rgba(0,0,0,0.45)', zIndex: 12 }}>
           <div className="relative">
             <button onMouseEnter={() => setShowReactionBar(true)} onClick={() => setShowReactionBar((p) => !p)}
               className="rounded-xl transition-colors hover:bg-[var(--ds-surface-1)] flex items-center justify-center"

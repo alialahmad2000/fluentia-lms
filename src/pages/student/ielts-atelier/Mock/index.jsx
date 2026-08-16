@@ -34,13 +34,13 @@ function ModeCard({ icon, title, subtitle, timeLabel, onClick, disabled }) {
       disabled={disabled}
       style={{
         flex: 1, minWidth: 240, padding: '28px 24px', borderRadius: 20, textAlign: 'right', cursor: disabled ? 'not-allowed' : 'pointer',
-        border: '1px solid color-mix(in srgb, var(--sunset-amber) 22%, transparent)',
-        background: 'color-mix(in srgb, var(--sunset-base-mid) 42%, transparent)',
+        border: '1px solid color-mix(in oklab, var(--sunset-amber) 22%, transparent)',
+        background: 'color-mix(in oklab, var(--sunset-base-mid) 42%, transparent)',
         backdropFilter: 'blur(8px)', display: 'flex', flexDirection: 'column', gap: 12, opacity: disabled ? 0.5 : 1,
         transition: 'border-color 0.2s',
       }}
-      onMouseEnter={e => { if (!disabled) e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-orange) 40%, transparent)' }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--sunset-amber) 22%, transparent)' }}
+      onMouseEnter={e => { if (!disabled) e.currentTarget.style.borderColor = 'color-mix(in oklab, var(--sunset-orange) 40%, transparent)' }}
+      onMouseLeave={e => { e.currentTarget.style.borderColor = 'color-mix(in oklab, var(--sunset-amber) 22%, transparent)' }}
     >
       <span style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--iel-accent-soft)', color: 'var(--iel-accent-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{icon}</span>
       <h3 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>{title}</h3>
@@ -96,11 +96,11 @@ export default function MockHub() {
 
       {best != null && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{ display: 'flex', gap: 12 }}>
-          <div style={{ flex: 1, padding: '14px 18px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)' }}>
+          <div style={{ flex: 1, padding: '14px 18px', borderRadius: 14, background: 'color-mix(in oklab, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)' }}>
             <p style={{ margin: '0 0 4px', fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>أفضل محاكاة</p>
             <p style={{ margin: 0, fontSize: 22, fontWeight: 900, color: 'var(--sunset-orange)', fontFamily: "'Playfair Display', serif" }}>{best.toFixed(1)}</p>
           </div>
-          <div style={{ flex: 1, padding: '14px 18px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)' }}>
+          <div style={{ flex: 1, padding: '14px 18px', borderRadius: 14, background: 'color-mix(in oklab, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)' }}>
             <p style={{ margin: '0 0 4px', fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>محاكاة مكتملة</p>
             <p style={{ margin: 0, fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', fontFamily: "'Playfair Display', serif" }}>{attempts.length}</p>
           </div>
@@ -141,7 +141,7 @@ export default function MockHub() {
             <motion.div
               initial={{ scale: 0.95, y: 12 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95 }}
               onClick={e => e.stopPropagation()}
-              style={{ background: 'var(--ds-bg-elevated, #0b0f18)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)', borderRadius: 20, padding: '28px 24px', maxWidth: 400, width: '100%' }}
+              style={{ background: 'var(--ds-bg-elevated, #0b0f18)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 20%, transparent)', borderRadius: 20, padding: '28px 24px', maxWidth: 400, width: '100%' }}
               dir="rtl"
             >
               <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>{g('اختر المهارة', 'اختاري المهارة')}</h3>
@@ -154,7 +154,7 @@ export default function MockHub() {
                 ].map(s => (
                   <button key={s.key}
                     onClick={() => { setShowSkillModal(false); startMock('single', s.key) }}
-                    style={{ padding: '14px 18px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)', background: 'color-mix(in srgb, var(--sunset-base-mid) 38%, transparent)', color: 'var(--ds-text)', fontSize: 15, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    style={{ padding: '14px 18px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)', background: 'color-mix(in oklab, var(--sunset-base-mid) 38%, transparent)', color: 'var(--ds-text)', fontSize: 15, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span>{s.label}</span>
                     <span style={{ fontSize: 12, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif" }}>{s.time}</span>
                   </button>
@@ -186,7 +186,7 @@ export default function MockHub() {
               return (
                 <button key={a.id}
                   onClick={() => navigate(`/student/ielts-atelier/mock/${a.id}/results`)}
-                  style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                  style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)', background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                   <div style={{ textAlign: 'right' }}>
                     <p style={{ margin: '0 0 2px', fontSize: 13, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>
                       {ans.mode === 'single' ? SKILL_LABELS[ans.single_skill] : 'محاكاة كاملة'}

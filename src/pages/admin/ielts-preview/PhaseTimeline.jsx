@@ -67,10 +67,10 @@ export default function PhaseTimeline({ activePhaseId, onPhaseClick }) {
                   justifyContent: 'center',
                   background: isActive
                     ? phase.color
-                    : `color-mix(in srgb, ${phase.color} 16%, var(--ds-surface))`,
+                    : `color-mix(in oklab, ${phase.color} 16%, var(--ds-surface))`,
                   border: `2px solid ${phase.color}`,
                   boxShadow: isActive
-                    ? `0 0 0 6px color-mix(in srgb, ${phase.color} 22%, transparent), 0 8px 28px -8px ${phase.color}80`
+                    ? `0 0 0 6px color-mix(in oklab, ${phase.color} 22%, transparent), 0 8px 28px -8px ${phase.color}80`
                     : 'none',
                   color: isActive ? '#0b1120' : phase.color,
                   fontWeight: 900,

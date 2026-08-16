@@ -15,13 +15,13 @@ export default function ScrollToBottomPill({ count, onClick }) {
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 8,
-            background: 'color-mix(in srgb, var(--ds-accent-primary) 92%, transparent)',
+            background: 'color-mix(in oklab, var(--ds-accent-primary) 92%, transparent)',
             color: 'var(--ds-text-inverse)',
             fontFamily: 'Tajawal, sans-serif',
             backdropFilter: 'blur(14px)',
             WebkitBackdropFilter: 'blur(14px)',
-            border: '1px solid color-mix(in srgb, white 22%, transparent)',
-            boxShadow: '0 10px 30px -8px color-mix(in srgb, var(--ds-accent-primary) 55%, transparent)',
+            border: '1px solid color-mix(in oklab, white 22%, transparent)',
+            boxShadow: '0 10px 30px -8px color-mix(in oklab, var(--ds-accent-primary) 55%, transparent)',
           }}
         >
           <ChevronDown size={16} />

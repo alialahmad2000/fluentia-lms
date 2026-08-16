@@ -59,7 +59,7 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
         <div className="flex items-center gap-3">
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: 'color-mix(in srgb, var(--ds-accent-success) 16%, transparent)' }}
+            style={{ background: 'color-mix(in oklab, var(--ds-accent-success) 16%, transparent)' }}
           >
             <CheckCircle2 size={20} className="text-emerald-400" />
           </div>
@@ -95,7 +95,7 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
           <div className="flex items-center gap-3">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: 'color-mix(in srgb, var(--ds-accent-secondary) 16%, transparent)' }}
+              style={{ background: 'color-mix(in oklab, var(--ds-accent-secondary) 16%, transparent)' }}
             >
               <Trophy size={20} className="text-violet-400" />
             </div>
@@ -139,7 +139,7 @@ export default function LevelExitTestCard({ studentId, academicLevel }) {
         <div className="flex items-center gap-3">
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: 'color-mix(in srgb, var(--ds-accent-warning) 16%, transparent)' }}
+            style={{ background: 'color-mix(in oklab, var(--ds-accent-warning) 16%, transparent)' }}
           >
             <Lock size={20} className="text-amber-400" />
           </div>

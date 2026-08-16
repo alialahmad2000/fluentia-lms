@@ -258,7 +258,7 @@ function Sidebar({ nav, collapsed }) {
                       height: 6,
                       borderRadius: 1.5,
                       transform: 'rotate(45deg)',
-                      background: 'linear-gradient(135deg, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 55%, transparent))',
+                      background: 'linear-gradient(135deg, var(--ds-accent-primary), color-mix(in oklab, var(--ds-accent-primary) 55%, transparent))',
                       boxShadow: '0 0 8px var(--ds-accent-primary-glow)',
                     }}
                   />
@@ -320,7 +320,7 @@ function Sidebar({ nav, collapsed }) {
                         background: active
                           // `to left` anchors the strongest gold at the leading (icon/indicator)
                           // edge in this RTL rail; 90deg put it on the trailing edge
-                          ? 'linear-gradient(to left, color-mix(in srgb, var(--ds-accent-primary) 16%, transparent), color-mix(in srgb, var(--ds-accent-primary) 4%, transparent))'
+                          ? 'linear-gradient(to left, color-mix(in oklab, var(--ds-accent-primary) 16%, transparent), color-mix(in oklab, var(--ds-accent-primary) 4%, transparent))'
                           : 'transparent',
                         color: active ? 'var(--ds-accent-primary)' : 'var(--ds-text-secondary)',
                       }}
@@ -346,7 +346,7 @@ function Sidebar({ nav, collapsed }) {
                           height: dense ? 30 : 36,
                           borderRadius: dense ? 9 : 11,
                           background: active
-                            ? 'linear-gradient(135deg, color-mix(in srgb, var(--ds-accent-primary) 30%, transparent), color-mix(in srgb, var(--ds-accent-primary) 10%, transparent))'
+                            ? 'linear-gradient(135deg, color-mix(in oklab, var(--ds-accent-primary) 30%, transparent), color-mix(in oklab, var(--ds-accent-primary) 10%, transparent))'
                             : 'transparent',
                           border: active ? '1px solid var(--ds-border-subtle)' : '1px solid transparent',
                           boxShadow: active ? 'inset 0 1px 0 rgba(255,255,255,0.12)' : 'none',
@@ -379,9 +379,9 @@ function Sidebar({ nav, collapsed }) {
                             style={dense
                               // admin rail is a single-accent gold system — no stray indigo
                               ? {
-                                  background: 'color-mix(in srgb, var(--ds-accent-primary) 14%, transparent)',
+                                  background: 'color-mix(in oklab, var(--ds-accent-primary) 14%, transparent)',
                                   color: 'var(--ds-accent-primary)',
-                                  border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 35%, transparent)',
+                                  border: '1px solid color-mix(in oklab, var(--ds-accent-primary) 35%, transparent)',
                                 }
                               : {
                                   background: 'rgba(129,140,248,0.16)',

@@ -7,11 +7,11 @@ import PinnedCard from './PinnedCard'
 import { slideIn } from '../../lib/motion'
 
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-elevated) 82%, transparent)',
+  background: 'color-mix(in oklab, var(--ds-bg-elevated) 82%, transparent)',
   backdropFilter: 'blur(20px) saturate(140%)',
   WebkitBackdropFilter: 'blur(20px) saturate(140%)',
-  borderBottom: '1px solid color-mix(in srgb, var(--ds-accent-gold) 18%, transparent)',
-  boxShadow: 'inset 0 1px 0 0 color-mix(in srgb, white 4%, transparent)',
+  borderBottom: '1px solid color-mix(in oklab, var(--ds-accent-gold) 18%, transparent)',
+  boxShadow: 'inset 0 1px 0 0 color-mix(in oklab, white 4%, transparent)',
 }
 
 export default function PinnedStrip({ groupId, onScrollToMessage }) {
@@ -75,8 +75,8 @@ export default function PinnedStrip({ groupId, onScrollToMessage }) {
                 style={{
                   fontFamily: 'Tajawal, sans-serif',
                   color: 'var(--ds-accent-gold)',
-                  background: 'color-mix(in srgb, var(--ds-accent-gold) 8%, transparent)',
-                  border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 20%, transparent)',
+                  background: 'color-mix(in oklab, var(--ds-accent-gold) 8%, transparent)',
+                  border: '1px solid color-mix(in oklab, var(--ds-accent-gold) 20%, transparent)',
                   minWidth: 48,
                   whiteSpace: 'nowrap',
                 }}

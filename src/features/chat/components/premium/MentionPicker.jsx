@@ -228,7 +228,7 @@ export default function MentionPicker({ groupId, filter, onSelect, onDismiss }) 
         overscrollBehavior: 'contain',
         WebkitOverflowScrolling: 'touch',
         background:
-          'color-mix(in srgb, var(--ds-bg-elevated) 94%, transparent)',
+          'color-mix(in oklab, var(--ds-bg-elevated) 94%, transparent)',
         backdropFilter: 'blur(20px) saturate(1.4)',
         WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
         border: '1px solid var(--ds-border-subtle)',
@@ -275,7 +275,7 @@ export default function MentionPicker({ groupId, filter, onSelect, onDismiss }) 
                 touchAction: 'manipulation',
                 transition: 'background 120ms ease',
                 background: isActive
-                  ? `color-mix(in srgb, ${color.base} 12%, transparent)`
+                  ? `color-mix(in oklab, ${color.base} 12%, transparent)`
                   : 'transparent',
                 borderInlineEnd: isActive
                   ? `2.5px solid ${color.base}`

@@ -177,7 +177,7 @@ function BoothCard({ row, onSelect }) {
 
 function StatCard({ label, value, accent }) {
   return (
-    <div style={{ flex: 1, padding: '14px 18px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)', backdropFilter: 'blur(6px)', display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <div style={{ flex: 1, padding: '14px 18px', borderRadius: 14, background: 'color-mix(in oklab, var(--sunset-base-mid) 40%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)', backdropFilter: 'blur(6px)', display: 'flex', flexDirection: 'column', gap: 4 }}>
       <span style={{ fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>{label}</span>
       <span style={{ fontSize: 22, fontWeight: 900, color: accent || 'var(--ds-text)', fontFamily: "'Playfair Display', Georgia, serif", lineHeight: 1 }}>{value}</span>
     </div>
@@ -194,8 +194,8 @@ function QuestionNav({ questions, currentIdx, recordings }) {
           <div key={i} style={{
             width: 30, height: 30, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 12, fontWeight: 700, fontFamily: "'IBM Plex Sans', sans-serif",
-            background: done ? `color-mix(in srgb, ${SUCCESS} 12%, transparent)` : active ? 'color-mix(in srgb, var(--sunset-orange) 16%, transparent)' : 'color-mix(in srgb, var(--ds-surface) 50%, transparent)',
-            border: `1.5px solid ${done ? SUCCESS : active ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 50%, transparent)'}`,
+            background: done ? `color-mix(in oklab, ${SUCCESS} 12%, transparent)` : active ? 'color-mix(in oklab, var(--sunset-orange) 16%, transparent)' : 'color-mix(in oklab, var(--ds-surface) 50%, transparent)',
+            border: `1.5px solid ${done ? SUCCESS : active ? 'var(--sunset-orange)' : 'color-mix(in oklab, var(--ds-border) 50%, transparent)'}`,
             color: done ? SUCCESS : active ? 'var(--sunset-orange)' : 'var(--ds-text-muted)',
           }}>
             {done ? '✓' : i + 1}
@@ -216,8 +216,8 @@ function MicButton({ state, onStart, onStop }) {
       transition={isRecording ? { duration: 1.2, repeat: Infinity } : {}}
       style={{
         width: 80, height: 80, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-        border: `2px solid ${isRecording ? DANGER : 'color-mix(in srgb, var(--sunset-orange) 50%, transparent)'}`,
-        background: isRecording ? `color-mix(in srgb, ${DANGER} 18%, transparent)` : 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)',
+        border: `2px solid ${isRecording ? DANGER : 'color-mix(in oklab, var(--sunset-orange) 50%, transparent)'}`,
+        background: isRecording ? `color-mix(in oklab, ${DANGER} 18%, transparent)` : 'color-mix(in oklab, var(--sunset-orange) 14%, transparent)',
         color: isRecording ? DANGER : 'var(--ds-text)', cursor: 'pointer',
       }}
     >
@@ -245,8 +245,8 @@ function ProcessingScreen({ stage, attempt }) {
         {stages.map(s => (
           <div key={s.key} style={{
             padding: '10px 16px', borderRadius: 10,
-            background: stage === s.key ? 'color-mix(in srgb, var(--sunset-orange) 12%, transparent)' : 'color-mix(in srgb, var(--ds-surface) 40%, transparent)',
-            border: `1px solid ${stage === s.key ? 'color-mix(in srgb, var(--sunset-orange) 30%, transparent)' : 'color-mix(in srgb, var(--ds-border) 30%, transparent)'}`,
+            background: stage === s.key ? 'color-mix(in oklab, var(--sunset-orange) 12%, transparent)' : 'color-mix(in oklab, var(--ds-surface) 40%, transparent)',
+            border: `1px solid ${stage === s.key ? 'color-mix(in oklab, var(--sunset-orange) 30%, transparent)' : 'color-mix(in oklab, var(--ds-border) 30%, transparent)'}`,
           }}>
             <span style={{ fontSize: 13, fontFamily: "'Tajawal', sans-serif", color: stage === s.key ? 'var(--ds-text)' : 'var(--ds-text-muted)' }}>
               {s.label}
@@ -267,7 +267,7 @@ function CriterionCard({ label, score }) {
   const [open, setOpen] = useState(false)
   const color = score >= 7 ? SUCCESS : score >= 5.5 ? 'var(--sunset-amber)' : DANGER
   return (
-    <div style={{ padding: '14px 16px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 14%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <div style={{ padding: '14px 16px', borderRadius: 14, background: 'color-mix(in oklab, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 14%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <span style={{ fontSize: 13, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 600 }}>{label}</span>
       <span style={{ fontSize: 20, fontWeight: 900, color, fontFamily: "'Playfair Display', Georgia, serif" }}>
         {score?.toFixed(1) ?? '—'}
@@ -631,8 +631,8 @@ function SpeakingBooth({ initialPart = 1 }) {
                 <button key={p} onClick={() => setSelectedPart(p)}
                   style={{
                     flex: 1, padding: '10px 8px', borderRadius: 12,
-                    border: `1px solid ${active ? 'var(--sunset-orange)' : 'color-mix(in srgb, var(--ds-border) 55%, transparent)'}`,
-                    background: active ? 'color-mix(in srgb, var(--sunset-orange) 14%, transparent)' : 'color-mix(in srgb, var(--ds-surface) 45%, transparent)',
+                    border: `1px solid ${active ? 'var(--sunset-orange)' : 'color-mix(in oklab, var(--ds-border) 55%, transparent)'}`,
+                    background: active ? 'color-mix(in oklab, var(--sunset-orange) 14%, transparent)' : 'color-mix(in oklab, var(--ds-surface) 45%, transparent)',
                     color: active ? 'var(--ds-text)' : 'var(--ds-text-muted)',
                     fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer', transition: 'all 0.15s',
                     display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
@@ -649,10 +649,10 @@ function SpeakingBooth({ initialPart = 1 }) {
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
           {questionsQ.isLoading ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
-              {[1, 2, 3].map(i => <div key={i} style={{ height: 130, borderRadius: 18, background: 'color-mix(in srgb, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 30%, transparent)' }} />)}
+              {[1, 2, 3].map(i => <div key={i} style={{ height: 130, borderRadius: 18, background: 'color-mix(in oklab, var(--ds-surface) 35%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 30%, transparent)' }} />)}
             </div>
           ) : rows.length === 0 ? (
-            <div style={{ padding: '40px 24px', borderRadius: 20, background: 'color-mix(in srgb, var(--ds-surface) 40%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', textAlign: 'center' }}>
+            <div style={{ padding: '40px 24px', borderRadius: 20, background: 'color-mix(in oklab, var(--ds-surface) 40%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)', textAlign: 'center' }}>
               <Mic size={32} color="var(--ds-text-muted)" style={{ marginBottom: 12 }} />
               <p style={{ margin: 0, fontSize: 15, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif" }}>لا توجد أسئلة منشورة لهذا الجزء</p>
             </div>
@@ -760,7 +760,7 @@ function SpeakingBooth({ initialPart = 1 }) {
             {/* Recording panel */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: 24, borderRadius: 14, background: 'var(--iel-surface-2)', border: '1px solid var(--iel-border)' }}>
               {micError && (
-                <div style={{ padding: '10px 14px', borderRadius: 10, background: 'color-mix(in srgb, var(--iel-bad) 10%, transparent)', border: '1px solid color-mix(in srgb, var(--iel-bad) 26%, transparent)', width: '100%' }}>
+                <div style={{ padding: '10px 14px', borderRadius: 10, background: 'color-mix(in oklab, var(--iel-bad) 10%, transparent)', border: '1px solid color-mix(in oklab, var(--iel-bad) 26%, transparent)', width: '100%' }}>
                   <p style={{ margin: 0, fontSize: 13, color: 'var(--iel-ink)', fontFamily: "'Tajawal', sans-serif", textAlign: 'right' }}>{micError}</p>
                 </div>
               )}
@@ -820,7 +820,7 @@ function SpeakingBooth({ initialPart = 1 }) {
                 </div>
               )}
               {arabicTip && (
-                <p style={{ margin: 0, padding: '9px 11px', borderRadius: 9, background: 'var(--iel-gold-soft, rgba(234,179,8,.1))', border: '1px solid color-mix(in srgb, var(--iel-gold) 24%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8, textAlign: 'right' }}>💡 {arabicTip}</p>
+                <p style={{ margin: 0, padding: '9px 11px', borderRadius: 9, background: 'var(--iel-gold-soft, rgba(234,179,8,.1))', border: '1px solid color-mix(in oklab, var(--iel-gold) 24%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8, textAlign: 'right' }}>💡 {arabicTip}</p>
               )}
             </div>
           )}
@@ -838,7 +838,7 @@ function SpeakingBooth({ initialPart = 1 }) {
         {/* Queued state */}
         {evalQueued && !d && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            style={{ padding: '24px 20px', borderRadius: 20, background: 'color-mix(in srgb, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+            style={{ padding: '24px 20px', borderRadius: 20, background: 'color-mix(in oklab, var(--sunset-amber) 8%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 20%, transparent)', display: 'flex', gap: 14, alignItems: 'flex-start' }}>
             <AlertTriangle size={20} color="var(--sunset-amber)" style={{ flexShrink: 0, marginTop: 2 }} />
             <div>
               <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 700, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif" }}>في طابور المراجعة</p>
@@ -851,7 +851,7 @@ function SpeakingBooth({ initialPart = 1 }) {
           <>
             {/* Score card */}
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              style={{ padding: '36px 28px', borderRadius: 24, background: 'color-mix(in srgb, var(--sunset-base-mid) 48%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+              style={{ padding: '36px 28px', borderRadius: 24, background: 'color-mix(in oklab, var(--sunset-base-mid) 48%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 22%, transparent)', backdropFilter: 'blur(10px)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
               <p style={{ margin: 0, fontSize: 11, color: 'var(--ds-text-muted)', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>Speaking Result · {PART_META[selectedRow?.part]?.label}</p>
               <BandDisplay band={d.overall_band} size="xl" animate />
             </motion.div>
@@ -866,7 +866,7 @@ function SpeakingBooth({ initialPart = 1 }) {
             {/* Overall feedback */}
             {d.feedback_ar && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
-                style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)' }}>
+                style={{ padding: '16px 18px', borderRadius: 16, background: 'color-mix(in oklab, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)' }}>
                 <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.8, textAlign: 'right' }}>{d.feedback_ar}</p>
               </motion.div>
             )}
@@ -875,13 +875,13 @@ function SpeakingBooth({ initialPart = 1 }) {
             {(d.strengths?.length > 0 || d.weaknesses?.length > 0) && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 {d.strengths?.length > 0 && (
-                  <div style={{ flex: 1, minWidth: 200, padding: '14px 16px', borderRadius: 14, background: `color-mix(in srgb, ${SUCCESS} 6%, transparent)`, border: `1px solid color-mix(in srgb, ${SUCCESS} 18%, transparent)` }}>
+                  <div style={{ flex: 1, minWidth: 200, padding: '14px 16px', borderRadius: 14, background: `color-mix(in oklab, ${SUCCESS} 6%, transparent)`, border: `1px solid color-mix(in oklab, ${SUCCESS} 18%, transparent)` }}>
                     <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 700, color: SUCCESS, fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>نقاط القوة</p>
                     {d.strengths.map((s, i) => <p key={i} style={{ margin: i === 0 ? 0 : '5px 0 0', fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.6, textAlign: 'right' }}>• {s}</p>)}
                   </div>
                 )}
                 {d.weaknesses?.length > 0 && (
-                  <div style={{ flex: 1, minWidth: 200, padding: '14px 16px', borderRadius: 14, background: 'color-mix(in srgb, var(--sunset-amber) 6%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 18%, transparent)' }}>
+                  <div style={{ flex: 1, minWidth: 200, padding: '14px 16px', borderRadius: 14, background: 'color-mix(in oklab, var(--sunset-amber) 6%, transparent)', border: '1px solid color-mix(in oklab, var(--sunset-amber) 18%, transparent)' }}>
                     <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 700, color: 'var(--sunset-amber)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.05em' }}>للتحسين</p>
                     {d.weaknesses.map((w, i) => <p key={i} style={{ margin: i === 0 ? 0 : '5px 0 0', fontSize: 13, color: 'var(--ds-text-muted)', fontFamily: "'Tajawal', sans-serif", lineHeight: 1.6, textAlign: 'right' }}>• {w}</p>)}
                   </div>
@@ -896,7 +896,7 @@ function SpeakingBooth({ initialPart = 1 }) {
                   مراجعة الإجابات
                 </p>
                 {questions.map((q, i) => (
-                  <div key={i} style={{ padding: '14px 16px', borderRadius: 14, background: 'color-mix(in srgb, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in srgb, var(--ds-border) 40%, transparent)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <div key={i} style={{ padding: '14px 16px', borderRadius: 14, background: 'color-mix(in oklab, var(--ds-surface) 50%, transparent)', border: '1px solid color-mix(in oklab, var(--ds-border) 40%, transparent)', display: 'flex', flexDirection: 'column', gap: 10 }}>
                     <p style={{ margin: 0, fontSize: 13, color: 'var(--ds-text)', fontFamily: "'IBM Plex Sans', sans-serif", direction: 'ltr', textAlign: 'left', lineHeight: 1.6 }}>
                       <strong>Q{i + 1}:</strong> {qText(q)}
                     </p>
@@ -916,11 +916,11 @@ function SpeakingBooth({ initialPart = 1 }) {
         {/* Actions */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }} style={{ display: 'flex', gap: 12 }}>
           <button onClick={() => { setAct('booth'); setSelectedRow(null) }}
-            style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--ds-border) 55%, transparent)', background: 'color-mix(in srgb, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+            style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--ds-border) 55%, transparent)', background: 'color-mix(in oklab, var(--ds-surface) 45%, transparent)', color: 'var(--ds-text-muted)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
             الكابينة
           </button>
           <button onClick={() => handleSelectRow(selectedRow)}
-            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in srgb, var(--sunset-orange) 38%, transparent)', background: 'color-mix(in srgb, var(--sunset-orange) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
+            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 12, border: '1px solid color-mix(in oklab, var(--sunset-orange) 38%, transparent)', background: 'color-mix(in oklab, var(--sunset-orange) 13%, transparent)', color: 'var(--ds-text)', fontSize: 14, fontWeight: 700, fontFamily: "'Tajawal', sans-serif", cursor: 'pointer' }}>
             <RotateCcw size={13} /> محاولة أخرى
           </button>
         </motion.div>

@@ -123,7 +123,7 @@ export default function SpeakingErrors() {
           </div>
         </Card>
       ) : (
-        <Card style={{ padding: '13px 15px', display: 'flex', gap: 9, alignItems: 'flex-start', borderColor: 'color-mix(in srgb, var(--iel-accent) 24%, var(--iel-border))' }}>
+        <Card style={{ padding: '13px 15px', display: 'flex', gap: 9, alignItems: 'flex-start', borderColor: 'color-mix(in oklab, var(--iel-accent) 24%, var(--iel-border))' }}>
           <Info size={14} style={{ color: 'var(--iel-accent-ink)', flex: 'none', marginTop: 2 }} />
           <div style={{ fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.85 }}>
             {g('لم تُسجّل جلسة محادثة بعد، فلا سجلّ أخطاء خاصاً بك حتى الآن. ما تحته أخطاء عامّة — وحين تُسجّل أول جلسة ستظهر نتائجك هنا فوقها.',
@@ -175,7 +175,7 @@ export default function SpeakingErrors() {
                       </span>
                     </div>
                   ) : (
-                    <div key={i} style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--iel-gold-soft, rgba(234,179,8,.09))', border: '1px solid color-mix(in srgb, var(--iel-gold) 22%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>
+                    <div key={i} style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--iel-gold-soft, rgba(234,179,8,.09))', border: '1px solid color-mix(in oklab, var(--iel-gold) 22%, transparent)', fontSize: 12.5, color: 'var(--iel-ink-2)', lineHeight: 1.8 }}>
                       {it.text}
                     </div>
                   ),
