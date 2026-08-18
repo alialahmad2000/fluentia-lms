@@ -31,6 +31,39 @@ const shuffle = (arr) => {
   return a
 }
 
+// Module scope on purpose. Declared inside PhraseBank() this was a brand-new
+// component type on every render, so React tore down and rebuilt every card —
+// restarting each entry animation and losing any transient DOM state. Same class of
+// bug that broke the class-recap answer inputs; keep section components out here.
+function Section({ title, icon, list, hint, progress, onOpen }) {
+  return (
+    <>
+      <div className="pb-shead">{icon}<h2>{title}</h2><span className="rule" /></div>
+      <p className="pb-shint">{hint}</p>
+      <div className="pb-grid">
+        {list.map((gr, i) => {
+          const gKnown = gr.items.filter((p) => progress[p.id]?.status === 'known').length
+          return (
+            <motion.button
+              key={gr.key} className="pb-gcard" onClick={() => onOpen(gr.key)}
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(i, 6) * 0.05, duration: 0.4 }}
+            >
+              <h3>{gr.label_ar}</h3>
+              {gr.label_en && <div className="en" dir="ltr">{gr.label_en}</div>}
+              <div className="pb-gcard__bar"><span style={{ width: `${(gKnown / gr.items.length) * 100}%` }} /></div>
+              <div className="pb-gcard__meta">
+                <span>{toAr(gr.items.length)} عبارات</span>
+                <span className="k">{toAr(gKnown)} أتقنتها</span>
+              </div>
+            </motion.button>
+          )
+        })}
+      </div>
+    </>
+  )
+}
+
 export default function PhraseBank() {
   const { profile } = useAuthStore(useShallow((s) => ({ profile: s.profile })))
   const g = useG()
@@ -252,33 +285,6 @@ export default function PhraseBank() {
   // ── home ──────────────────────────────────────────────────────────────────
   const work = groups.filter((x) => x.register === 'work')
   const life = groups.filter((x) => x.register === 'life')
-  const Section = ({ title, icon, list, hint }) => (
-    <>
-      <div className="pb-shead">{icon}<h2>{title}</h2><span className="rule" /></div>
-      <p className="pb-shint">{hint}</p>
-      <div className="pb-grid">
-        {list.map((gr, i) => {
-          const gKnown = gr.items.filter((p) => data.progress[p.id]?.status === 'known').length
-          return (
-            <motion.button
-              key={gr.key} className="pb-gcard" onClick={() => setOpenGroup(gr.key)}
-              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: Math.min(i, 6) * 0.05, duration: 0.4 }}
-            >
-              <h3>{gr.label_ar}</h3>
-              {gr.label_en && <div className="en" dir="ltr">{gr.label_en}</div>}
-              <div className="pb-gcard__bar"><span style={{ width: `${(gKnown / gr.items.length) * 100}%` }} /></div>
-              <div className="pb-gcard__meta">
-                <span>{toAr(gr.items.length)} عبارات</span>
-                <span className="k">{toAr(gKnown)} أتقنتها</span>
-              </div>
-            </motion.button>
-          )
-        })}
-      </div>
-    </>
-  )
-
   return (
     <div className="pb-root" dir="rtl">
       <div className="pb-world" aria-hidden><i /><i /><i /></div>
@@ -303,10 +309,12 @@ export default function PhraseBank() {
 
         <Section
           title="عبارات مجالك" icon={<Briefcase size={16} />} list={work}
+          progress={data.progress} onOpen={setOpenGroup}
           hint="عبارات تستعملها في الاجتماعات والمتابعة والعرض — من صميم دراستك في إدارة الأعمال."
         />
         <Section
           title="عبارات الحياة اليومية" icon={<Coffee size={16} />} list={life}
+          progress={data.progress} onOpen={setOpenGroup}
           hint="عبارات تحتاجها مع الناس كل يوم: التحية، الطلب بأدب، وحين تحتاج وقتًا للتفكير."
         />
 

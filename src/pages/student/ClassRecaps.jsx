@@ -17,9 +17,49 @@ const toAr = (n) => String(n ?? 0).replace(/\d/g, (d) => AR[+d])
 
 const acceptedOf = (q) => (q.accepted_answers?.length ? q.accepted_answers : [q.correct_answer])
 
+/**
+ * Grade one item. For a WRITTEN item the prompt is a sentence with a blank
+ * («We ___ align on the budget first»), and a student very often writes the whole
+ * sentence back rather than the two words the key holds. That is a correct answer,
+ * so pass the prompt as `fullSentence` and let validateAnswer's whole-word rule
+ * accept it — the same option FillBlankQuestion already passes. Multiple-choice
+ * items are exact by construction and must NOT get that tolerance.
+ */
+const isRight = (q, val) => validateAnswer(val, acceptedOf(q), q.options ? undefined : { fullSentence: q.question })
+
 // Drafts survive a refresh — a 30-question section is long enough that losing
 // answers mid-way would be the difference between finishing and abandoning.
 const draftKey = (sid, rid, key) => `fluentia_recap_${sid || 'anon'}_${rid}_${key}`
+
+/**
+ * Two surfaces on purpose: the DESK and, lying on it, a sheet of PAPER — ruled
+ * lines, red margin, corrections in pen. All ink tokens are redeclared on
+ * .cr-sheet, so the paper stays paper whatever theme the app is in.
+ *
+ * There is deliberately NO desk element. This route is nested inside LayoutShell,
+ * which already paints the platform's surface (--ds-bg-base) across the viewport —
+ * so the desk is the app's own background, and the page is pixel-identical to every
+ * other page. It used to paint an opaque fixed .cr-world over that, which is exactly
+ * why the notebook looked like a different app. Do NOT reintroduce one, and do not
+ * mount an <AuroraBackground/> here either: App.jsx already renders one globally,
+ * and a second copy would double the orbs and the vignette.
+ *
+ * ⚠️ KEEP THIS AT MODULE SCOPE. It used to be declared inside ClassRecaps(), which
+ * made it a BRAND-NEW component type on every render — so React threw away the whole
+ * sheet and rebuilt it after every keystroke. The <input> was destroyed mid-typing:
+ * focus jumped to <body>, the page scrolled to the top, and every character after the
+ * first was dropped. That left the free-text answers permanently blank, so «allAnswered»
+ * was never true and «تسليم الإجابات» sat disabled — the "submit does nothing" bug.
+ * Declaring a component inside another component remounts its entire subtree; don't.
+ */
+const Shell = ({ children, narrow }) => (
+  <div className="cr-root" dir="rtl">
+    <div className={`cr-wrap${narrow ? ' cr-wrap--narrow' : ''}`}>
+      <span className="cr-tab"><NotebookText size={14} /> دفتر الحصص</span>
+      <div className="cr-sheet">{children}</div>
+    </div>
+  </div>
+)
 
 /**
  * «ملخّص الحصص» — one entry per live class, split into sections. Each section
@@ -35,6 +75,13 @@ export default function ClassRecaps() {
   const [answers, setAnswers] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const [result, setResult] = useState(null)
+  const [submitError, setSubmitError] = useState(null)
+  // Staff «view-as» is a READ-ONLY preview: auth.uid() is still the admin, so the
+  // RLS check (student_id = auth.uid()) rejects the write. Grade locally and say so,
+  // rather than firing a doomed write — and never stamp a staff test answer onto the
+  // student's own record.
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const isPreview = !!impersonation
 
   const { data, isLoading } = useQuery({
     queryKey: ['class-recaps', profile?.id],
@@ -79,51 +126,46 @@ export default function ClassRecaps() {
     mutationFn: async () => {
       const qs = section.questions || []
       let correct = 0
-      for (const q of qs) if (validateAnswer(answers[q.id], acceptedOf(q))) correct++
+      for (const q of qs) if (isRight(q, answers[q.id])) correct++
       const score = Math.round((correct / (qs.length || 1)) * 100)
-      const { error } = await supabase.from('class_recap_progress').upsert({
+
+      // Staff preview: mark the sheet so it can be checked, but write nothing —
+      // a staff answer must never land in the student's record.
+      if (isPreview) return { score, correct, total: qs.length, previewOnly: true }
+
+      // Persist and CONFIRM it landed. A silently rejected write (RLS / offline /
+      // no row matched) must never look like success — otherwise onSuccess clears
+      // the draft and her answers are gone. `.select()` makes the upsert return the
+      // stored row, so an empty result is a failed save, not a save.
+      const { data: saved, error } = await supabase.from('class_recap_progress').upsert({
         student_id: profile.id, recap_id: recap.id, section_key: section.key,
         score, correct_count: correct, total_count: qs.length,
         answers, completed_at: new Date().toISOString(), updated_at: new Date().toISOString(),
-      }, { onConflict: 'student_id,recap_id,section_key' })
+      }, { onConflict: 'student_id,recap_id,section_key' }).select('student_id,recap_id,section_key')
       if (error) throw error
+      if (!saved || saved.length === 0) throw new Error('save_not_persisted')
       return { score, correct, total: qs.length }
     },
     onSuccess: (r) => {
-      setResult(r); setSubmitted(true)
+      setSubmitError(null); setResult(r); setSubmitted(true)
+      if (r.previewOnly) return   // nothing was written, so leave the draft alone
       try { localStorage.removeItem(draftKey(profile?.id, recap.id, section.key)) } catch {}
       qc.invalidateQueries({ queryKey: ['class-recaps', profile?.id] })
     },
+    // A failed submit used to do NOTHING AT ALL — no error, no state change — so the
+    // button simply looked broken. Say what happened and keep her answers on screen.
+    onError: (err) => {
+      console.error('[class-recaps] submit failed:', err?.message || err)
+      setSubmitError('تعذّر حفظ إجاباتكِ — تأكّدي من اتصالكِ بالإنترنت وحاولي مرة أخرى. إجاباتكِ ما زالت أمامكِ ولن تضيع.')
+    },
   })
 
-  const openSectionFresh = (key) => { setOpenSection(key); setAnswers({}); setSubmitted(false); setResult(null) }
+  const openSectionFresh = (key) => { setOpenSection(key); setAnswers({}); setSubmitted(false); setResult(null); setSubmitError(null) }
   const reviewSection = (key, saved) => {
     setOpenSection(key); setAnswers(saved.answers || {}); setSubmitted(true)
     setResult({ score: Math.round(Number(saved.score) || 0), correct: saved.correct_count || 0, total: saved.total_count || 0 })
   }
-  const backToSections = () => { setOpenSection(null); setAnswers({}); setSubmitted(false); setResult(null) }
-
-  /**
-   * Two surfaces on purpose: the DESK and, lying on it, a sheet of PAPER — ruled
-   * lines, red margin, corrections in pen. All ink tokens are redeclared on
-   * .cr-sheet, so the paper stays paper whatever theme the app is in.
-   *
-   * There is deliberately NO desk element. This route is nested inside LayoutShell,
-   * which already paints the platform's surface (--ds-bg-base) across the viewport —
-   * so the desk is the app's own background, and the page is pixel-identical to every
-   * other page. It used to paint an opaque fixed .cr-world over that, which is exactly
-   * why the notebook looked like a different app. Do NOT reintroduce one, and do not
-   * mount an <AuroraBackground/> here either: App.jsx already renders one globally,
-   * and a second copy would double the orbs and the vignette.
-   */
-  const Shell = ({ children, narrow }) => (
-    <div className="cr-root" dir="rtl">
-      <div className={`cr-wrap${narrow ? ' cr-wrap--narrow' : ''}`}>
-        <span className="cr-tab"><NotebookText size={14} /> دفتر الحصص</span>
-        <div className="cr-sheet">{children}</div>
-      </div>
-    </div>
-  )
+  const backToSections = () => { setOpenSection(null); setAnswers({}); setSubmitted(false); setResult(null); setSubmitError(null) }
 
   if (isLoading) {
     return <Shell><div className="cr-skel" /><div className="cr-skel sm" /><div className="cr-skel sm" /></Shell>
@@ -163,6 +205,7 @@ export default function ClassRecaps() {
           <motion.div className={`cr-result ${tone}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <div className="cr-result__score" dir="ltr">{toAr(result.score)}٪</div>
             <div className="cr-result__sub">{toAr(result.correct)} من {toAr(result.total)} صحيحة</div>
+            {result.previewOnly && <p className="cr-result__preview">معاينة فقط — لم تُحفظ هذه النتيجة.</p>}
             <p className="cr-result__msg">
               {result.score >= 90 ? 'إتقان واضح — أحسنتِ. 👏'
                 : result.score >= 70 ? 'أداء قوي. راجعي الحمراء وستكتمل الصورة.'
@@ -180,7 +223,7 @@ export default function ClassRecaps() {
         {qs.map((q, i) => {
           const val = answers[q.id]
           const accepted = acceptedOf(q)
-          const isCorrect = submitted && validateAnswer(val, accepted)
+          const isCorrect = submitted && isRight(q, val)
           const isWrong = submitted && !isCorrect
           return (
             <div key={q.id} className={`cr-q${isCorrect ? ' ok' : isWrong ? ' no' : ''}`}>
@@ -219,6 +262,16 @@ export default function ClassRecaps() {
             </div>
           )
         })}
+
+        {/* A failed save is announced, not swallowed — her answers stay on screen. */}
+        {submitError && !submitted && (
+          <div className="cr-savefail" role="alert" dir="rtl">{submitError}</div>
+        )}
+        {isPreview && !submitted && (
+          <div className="cr-preview-note" dir="rtl">
+            وضع المعاينة (تتصفّح كطالب): سيُصحَّح التمرين ولن تُحفظ الإجابات في سجلّ الطالب.
+          </div>
+        )}
 
         <div className="cr-bar">
           {!submitted ? (

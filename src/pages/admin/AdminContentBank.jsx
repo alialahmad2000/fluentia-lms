@@ -667,23 +667,28 @@ function ListeningCard({ item, expanded, onToggle, selected, onSelect, onDelete 
 // ═══════════════════════════════════════════════════════════════
 // Verbs Table
 // ═══════════════════════════════════════════════════════════════
+// Module scope on purpose. Declared inside VerbsTable this was a new component type
+// every render, so React rebuilt each header cell on any state change. Same class of
+// bug as the one that broke the class-recap answers — keep it out here.
+function SortHeader({ col, children, activeCol, onSort }) {
+  return (
+    <th
+      className="px-3 py-2 text-xs font-semibold cursor-pointer select-none"
+      style={{ color: 'var(--text-tertiary)', borderBottom: '1px solid var(--border-subtle)' }}
+      onClick={() => onSort(col)}
+    >
+      <span className="flex items-center gap-1">
+        {children}
+        {activeCol === col && <ArrowUpDown size={12} style={{ color: 'var(--accent-rose)' }} />}
+      </span>
+    </th>
+  )
+}
+
 function VerbsTable({ items, selectedIds, toggleSelect, onDelete, verbSort, setVerbSort }) {
   const toggleSort = (col) => {
     setVerbSort(prev => ({ col, asc: prev.col === col ? !prev.asc : true }))
   }
-
-  const SortHeader = ({ col, children }) => (
-    <th
-      className="px-3 py-2 text-xs font-semibold cursor-pointer select-none"
-      style={{ color: 'var(--text-tertiary)', borderBottom: '1px solid var(--border-subtle)' }}
-      onClick={() => toggleSort(col)}
-    >
-      <span className="flex items-center gap-1">
-        {children}
-        {verbSort.col === col && <ArrowUpDown size={12} style={{ color: 'var(--accent-rose)' }} />}
-      </span>
-    </th>
-  )
 
   return (
     <div className="rounded-xl overflow-hidden" style={{ border: '1px solid var(--border-subtle)' }}>
@@ -692,11 +697,11 @@ function VerbsTable({ items, selectedIds, toggleSelect, onDelete, verbSort, setV
           <thead style={{ background: 'var(--surface-raised)' }}>
             <tr>
               <th className="px-3 py-2 w-8" style={{ borderBottom: '1px solid var(--border-subtle)' }}></th>
-              <SortHeader col="base">Base</SortHeader>
-              <SortHeader col="past">Past</SortHeader>
-              <SortHeader col="past_participle">Past Participle</SortHeader>
+              <SortHeader col="base" activeCol={verbSort.col} onSort={toggleSort}>Base</SortHeader>
+              <SortHeader col="past" activeCol={verbSort.col} onSort={toggleSort}>Past</SortHeader>
+              <SortHeader col="past_participle" activeCol={verbSort.col} onSort={toggleSort}>Past Participle</SortHeader>
               <th className="px-3 py-2 text-xs font-semibold" style={{ color: 'var(--text-tertiary)', borderBottom: '1px solid var(--border-subtle)' }}>المعنى</th>
-              <SortHeader col="level">المستوى</SortHeader>
+              <SortHeader col="level" activeCol={verbSort.col} onSort={toggleSort}>المستوى</SortHeader>
               <th className="px-3 py-2 text-xs font-semibold" style={{ color: 'var(--text-tertiary)', borderBottom: '1px solid var(--border-subtle)' }}>الفئة</th>
               <th className="px-3 py-2 w-10" style={{ borderBottom: '1px solid var(--border-subtle)' }}></th>
             </tr>

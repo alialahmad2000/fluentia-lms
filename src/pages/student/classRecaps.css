@@ -314,3 +314,23 @@
   .cr-sheet::before,.cr-sheet::after{display:none}
   .cr-q,.cr-scard,.cr-card{break-inside:avoid}
 }
+
+/* ── Save-failure + staff-preview notices ─────────────────────────────────────
+   A submit that cannot be persisted must SAY so. The mutation used to fail with
+   no handler at all, so a rejected write looked exactly like a dead button.
+   Tokens here are the sheet's own rose and copper ramps, so both notices stay
+   on-paper in either theme. */
+.cr-savefail{
+  margin:14px 0 0;padding:12px 15px;border-radius:9px;
+  background:var(--cr-rose-soft);border:1px solid var(--cr-rose-line);
+  color:var(--cr-rose);font-size:.9rem;line-height:1.85;font-weight:600;
+}
+.cr-preview-note{
+  margin:14px 0 0;padding:11px 15px;border-radius:9px;
+  background:var(--cr-copper-soft);border:1px dashed var(--cr-copper-line);
+  color:var(--cr-ink-soft);font-size:.86rem;line-height:1.8;
+}
+.cr-result__preview{
+  margin:8px 0 0;font-size:.84rem;font-weight:700;
+  color:var(--cr-copper-deep);letter-spacing:-.01em;
+}

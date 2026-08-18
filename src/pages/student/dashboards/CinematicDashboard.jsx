@@ -455,7 +455,11 @@ export default function CinematicDashboard({ data, isLoading, error, profile }) 
     }
   }
 
-  const Item = (props) => <motion.div variants={motionConfig.item} {...props} />
+  // Stable identity: declared inside the component, this was a NEW component type
+  // on every render, so React remounted its whole subtree each time (lost focus,
+  // reset scroll, restarted entry animations). See ClassRecaps.jsx for the bug this
+  // class caused in production.
+  const Item = useMemo(() => (props) => <motion.div variants={motionConfig.item} {...props} />, [motionConfig])
 
   return (
     <div style={shell.outer}>

@@ -257,6 +257,9 @@ export default function AICoachPanel({ studentId, taskId, taskType, draftText })
   const capReached = messagesRemaining <= 0
 
   // ── Panel content ─────────────────────────────────
+  // Rendered as {PanelContent()} — NOT <PanelContent />. As an element it was a
+  // brand-new component type each render, remounting the panel (and its textarea)
+  // on every keystroke. It holds no hooks, so calling it inlines the JSX safely.
   const PanelContent = () => (
     <div className="flex flex-col h-full" style={{ maxHeight: 'calc(100vh - 120px)' }}>
       {/* Header */}
@@ -399,7 +402,7 @@ export default function AICoachPanel({ studentId, taskId, taskType, draftText })
             <span className="text-xs font-bold font-['Tajawal']" style={{ color: '#a855f7' }}>مدرّبك الشخصي</span>
           </button>
         ) : (
-          <PanelContent />
+          PanelContent()
         )}
       </div>
 
@@ -427,7 +430,7 @@ export default function AICoachPanel({ studentId, taskId, taskType, draftText })
               className="fixed inset-0 z-50 flex flex-col"
               style={{ background: 'var(--bg-primary)' }}
             >
-              <PanelContent />
+              {PanelContent()}
             </motion.div>
           )}
         </AnimatePresence>
