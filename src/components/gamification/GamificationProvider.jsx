@@ -47,7 +47,9 @@ const ACHIEVEMENT_CHECKS = [
         .from('submissions')
         .select('*', { count: 'exact', head: true })
         .eq('student_id', studentId)
-        .not('voice_url', 'is', null)
+        // submissions has no `voice_url` — the column is `content_voice_url`.
+        // The typo made this achievement check 400 on every dashboard load.
+        .not('content_voice_url', 'is', null)
         .is('deleted_at', null)
       return count >= 10
     },

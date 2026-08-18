@@ -4,7 +4,9 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { createSaveQueue, pickLatestAttempt, updateRowVerified, reportSaveFailure } from '../../../../lib/activitySave'
+import { pickLatestAttempt } from '../../../../lib/activitySave'
+import { useActivitySave } from '../../../../hooks/useActivitySave'
+import SaveStatus from '../../../../components/ui/SaveStatus'
 import SubmitReminderBar from '../../../../components/curriculum/SubmitReminderBar'
 // PERSONALIZATION-REVERT 2026-05-19: hidden from default flow.
 // Canonical curriculum is the single default. To re-introduce as opt-in secondary
@@ -172,7 +174,12 @@ export default function ReadingTab({ unitId }) {
 // overwriting a previous completed row's score/status during a retry.
 function ReadingContent({ reading, studentId, unitId }) {
   const g = useG()
-  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
+  // One hook owns persistence for this passage — row, attempt, queue, outbox,
+  // readOnly guard and save state. See hooks/useActivitySave.js.
+  const {
+    state: saveState, lastSavedAt, readOnly,
+    saveNow, submit: submitAttempt, startNewAttempt, adoptAttempt,
+  } = useActivitySave({ studentId, unitId, sectionType: 'reading', activityId: reading?.id })
   const [savedProgress, setSavedProgress] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -180,15 +187,10 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [allAttempts, setAllAttempts] = useState([])
   const [bestScore, setBestScore] = useState(null)
   const [retrying, setRetrying] = useState(false)
-  const currentRowId = useRef(null)
   const submittedRef = useRef(false)
   const retryKeyRef = useRef(0)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
-  // Every write for this passage goes through one queue. Without it a second
-  // autosave could start while the first INSERT was still in flight (both see
-  // currentRowId === null) and INSERT a second row — see lib/activitySave.js.
-  const enqueueSave = useRef(createSaveQueue()).current
 
   // Time tracker — starts on mount, stops on unmount
   useEffect(() => {
@@ -224,239 +226,51 @@ function ReadingContent({ reading, studentId, unitId }) {
           setSavedProgress(latest)
           setIsCompleted(true)
           if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
-          // Don't set currentRowId — next retry will INSERT a new row
+          adoptAttempt(latest)  // a retry allocates a fresh attempt server-side
         } else {
           // in_progress — restore this row for continued autosave, showing the
           // merged answers so nothing stranded in a duplicate is lost.
           setSavedProgress({ ...latest, answers: mergedAnswers })
-          currentRowId.current = latest.id
+          adoptAttempt(latest)
           if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
         }
 
-        // Heal legacy duplicates: fold the salvaged answers into the row we keep
-        // and demote the losers so they can never be restored over her work.
-        if (duplicates?.length && !readOnly) {
-          enqueueSave(async () => {
-            if (latest.status !== 'completed') {
-              await supabase.from('student_curriculum_progress')
-                .update({ answers: mergedAnswers }).eq('id', latest.id)
-            }
-            await supabase.from('student_curriculum_progress')
-              .update({ is_latest: false }).in('id', duplicates.map(d => d.id))
-          }).catch(e => console.error('[ReadingTab] duplicate heal failed:', e))
-        }
       }
       setProgressLoading(false)
     }
     load()
     return () => { isMounted = false }
-  }, [studentId, reading?.id, readOnly, enqueueSave])
+  }, [studentId, reading?.id, readOnly, adoptAttempt])
 
   // Retry handler — clears local state; a new DB row is created on first answer
   const handleRetry = () => {
-    currentRowId.current = null
+    startNewAttempt()
     submittedRef.current = false
     setRetrying(true)
     retryKeyRef.current += 1
   }
 
-  // Autosave partial progress — NEVER writes status='completed' or score.
-  // Uses INSERT + UPDATE by ID so it never overwrites a previous completed row.
+  // Autosave. The server refuses to shrink a payload or reopen a submitted
+  // attempt, so a stale flush landing late can no longer erase newer answers.
   const handleComprehensionAutosave = useCallback(async (answers) => {
-    if (readOnly) return
-    if (!studentId || !reading?.id) return
-    // Hard stop: once this attempt is submitted, no late autosave (e.g. an
-    // unmount flush) may downgrade the completed row back to in_progress.
-    if (submittedRef.current) return
+    await saveNow(answers, { timeSpent: timeRef.current })
+  }, [saveNow])
 
-    // Serialised: the branch below is only ever entered by one write at a time,
-    // so `currentRowId.current` is authoritative when it is read.
-    return enqueueSave(async () => {
-    if (currentRowId.current) {
-      // UPDATE the row we own — and PROVE it hit something. A 200 that matched
-      // zero rows means the row is gone, and every further autosave would write
-      // into the void while she keeps answering.
-      const patch = {
-        status: 'in_progress',
-        score: null,
-        answers,
-        time_spent_seconds: timeRef.current,
-        completed_at: null,
-      }
-      const res = await updateRowVerified(supabase, currentRowId.current, patch)
-      if (res.ok) return
-
-      if (res.missing) {
-        // The row vanished under us. Do NOT keep writing to it — drop the id and
-        // fall through to INSERT so her answers land in a fresh row instead of
-        // being lost. This is a recovery, not an error, but we record it because
-        // it should be rare and we want to know when it happens.
-        reportSaveFailure({
-          section: 'reading', phase: 'autosave_row_missing', activityId: reading.id,
-          unitId, rowId: currentRowId.current, error: { message: 'update matched 0 rows' },
-          extra: { answer_count: Object.keys(answers || {}).length },
-        })
-        currentRowId.current = null
-        // fall through to the INSERT branch below
-      } else {
-        reportSaveFailure({
-          section: 'reading', phase: 'autosave_update', activityId: reading.id,
-          unitId, rowId: currentRowId.current, error: res.error,
-          extra: { answer_count: Object.keys(answers || {}).length },
-        })
-        // Throw so the caller leaves the debounce signature UNCOMMITTED and the
-        // next answer retries this batch instead of it silently vanishing.
-        throw res.error
-      }
-    }
-
-    {
-      // INSERT a new in-progress row (first answer of a new/retry attempt)
-      const hasExisting = allAttempts.length > 0
-      const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
-
-      if (hasExisting) {
-        await supabase
-          .from('student_curriculum_progress')
-          .update({ is_latest: false })
-          .eq('student_id', studentId)
-          .eq('reading_id', reading.id)
-      }
-
-      const { data: newRow, error } = await supabase
-        .from('student_curriculum_progress')
-        .insert({
-          student_id: studentId,
-          unit_id: unitId,
-          reading_id: reading.id,
-          section_type: 'reading',
-          status: 'in_progress',
-          score: null,
-          answers,
-          time_spent_seconds: timeRef.current,
-          completed_at: null,
-          attempt_number: nextAttemptNum,
-          is_latest: true,
-          is_best: false,
-        })
-        .select()
-        .single()
-
-      if (!error && newRow) {
-        currentRowId.current = newRow.id
-        setAttemptNumber(nextAttemptNum)
-      } else if (error) {
-        reportSaveFailure({
-          section: 'reading', phase: 'autosave_insert', activityId: reading.id, unitId,
-          error, extra: { answer_count: Object.keys(answers || {}).length },
-        })
-        throw error
-      }
-    }
-    })
-  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber, readOnly, enqueueSave])
-
-  // Explicit submit — ONLY path that marks status='completed' and awards XP.
+  // Explicit submit — the ONLY path that completes the attempt and awards XP.
+  //
+  // Replaces ~120 lines that chose between UPDATE and INSERT, flipped is_latest,
+  // recomputed is_best in an order-dependent two-step, and re-read the table to
+  // find out what had happened. The RPC does all of it in one transaction and
+  // returns the stored row, so success here means the work is genuinely on the
+  // server — not that an HTTP 200 came back.
   const handleComprehensionComplete = useCallback(async (answers, score) => {
-    if (readOnly) return
-    if (!studentId || !reading?.id) return
-    submittedRef.current = true
+    const res = await submitAttempt(answers, { score, timeSpent: timeRef.current })
 
-    // Queued behind any in-flight autosave, so `currentRowId.current` is settled
-    // before we decide UPDATE-vs-INSERT. Submitting straight after the final
-    // answer used to race that INSERT and write a second, competing row.
-    return enqueueSave(async () => {
-    const completedRow = {
-      status: 'completed',
-      score,
-      answers,
-      time_spent_seconds: timeRef.current,
-      completed_at: new Date().toISOString(),
-    }
-
-    let rowId = currentRowId.current
-
-    if (rowId) {
-      const { error } = await supabase
-        .from('student_curriculum_progress')
-        .update(completedRow)
-        .eq('id', rowId)
-
-      if (error) {
-        reportSaveFailure({ section: 'reading', phase: 'submit_update', activityId: reading.id, unitId, rowId, error })
-        toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
-        submittedRef.current = false // let autosave keep protecting her answers
-        return false
-      }
-    } else {
-      // No in-progress row to update. This happens when the student answers
-      // every question faster than the 400ms autosave lands, or when an
-      // autosave INSERT failed earlier. Previously this path returned silently:
-      // the UI flipped to "submitted" and showed a score while NOTHING was
-      // written, so the section stayed unfinished forever. Insert the completed
-      // attempt directly instead of dropping the submission.
-      const hasExisting = allAttempts.length > 0
-      const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
-
-      if (hasExisting) {
-        await supabase
-          .from('student_curriculum_progress')
-          .update({ is_latest: false })
-          .eq('student_id', studentId)
-          .eq('reading_id', reading.id)
-      }
-
-      const { data: newRow, error } = await supabase
-        .from('student_curriculum_progress')
-        .insert({
-          student_id: studentId,
-          unit_id: unitId,
-          reading_id: reading.id,
-          section_type: 'reading',
-          ...completedRow,
-          attempt_number: nextAttemptNum,
-          is_latest: true,
-          is_best: false,
-        })
-        .select()
-        .single()
-
-      if (error || !newRow) {
-        reportSaveFailure({ section: 'reading', phase: 'submit_insert', activityId: reading.id, unitId, error })
-        toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
-        submittedRef.current = false
-        return false
-      }
-
-      rowId = newRow.id
-      currentRowId.current = newRow.id
-      setAttemptNumber(nextAttemptNum)
-    }
-
-    // Recompute is_best.
-    // Order matters: mark the winner FIRST, then clear the losers. The reverse
-    // order (clear-all then set-winner) leaves EVERY row is_best=false if the
-    // second write fails — and compute_unit_progress only counts is_best rows,
-    // so the completion would vanish from the student's progress.
-    const { data: allRows } = await supabase
-      .from('student_curriculum_progress')
-      .select('id, score, attempt_number')
-      .eq('student_id', studentId)
-      .eq('reading_id', reading.id)
-      .eq('status', 'completed')
-      .order('score', { ascending: false })
-      .order('attempt_number', { ascending: false })
-
-    if (allRows?.length > 0) {
-      await supabase.from('student_curriculum_progress')
-        .update({ is_best: true })
-        .eq('id', allRows[0].id)
-      await supabase.from('student_curriculum_progress')
-        .update({ is_best: false })
-        .eq('student_id', studentId)
-        .eq('reading_id', reading.id)
-        .neq('id', allRows[0].id)
-      setBestScore(allRows[0].score)
+    if (!res?.ok) {
+      // Do NOT flip the UI to submitted. Showing a score for an attempt that
+      // never landed is the failure this whole pass exists to end.
+      if (!res?.queued) toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
+      return false
     }
 
     const { data: refreshed } = await supabase
@@ -467,16 +281,17 @@ function ReadingContent({ reading, studentId, unitId }) {
       .order('attempt_number', { ascending: false })
 
     if (refreshed) setAllAttempts(refreshed)
-    const updatedLatest = refreshed?.find(r => r.id === rowId) || null
-    setSavedProgress(updatedLatest)
+    setSavedProgress(res.row)
+    setAttemptNumber(res.row.attempt_number)
+    const best = refreshed?.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, refreshed[0])
+    if (best?.score != null) setBestScore(best.score)
     setRetrying(false)
     setIsCompleted(true)
     toast({ type: 'success', title: 'تم حفظ تقدمك' })
     awardCurriculumXP(studentId, 'reading', score, unitId)
     window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'reading', score } }))
     return true
-    })
-  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber, readOnly, enqueueSave])
+  }, [studentId, reading?.id, unitId, saveNow, submitAttempt])
 
   const { data: vocabulary } = useQuery({
     queryKey: ['reading-vocab', reading.id],
@@ -1273,6 +1088,7 @@ function ReadingContent({ reading, studentId, unitId }) {
       )}
 
       {/* Comprehension Questions */}
+      {questions?.length > 0 && <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />}
       {questions?.length > 0 && (
         <ComprehensionSection
           key={retryKeyRef.current}

@@ -2,12 +2,13 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Target, RotateCcw } from 'lucide-react'
 import XPBadgeInline from '../xp/XPBadgeInline'
 import { supabase } from '../../lib/supabase'
-import { createSaveQueue, pickLatestAttempt, updateRowVerified, reportSaveFailure } from '../../lib/activitySave'
+import { pickLatestAttempt } from '../../lib/activitySave'
+import { useActivitySave } from '../../hooks/useActivitySave'
+import SaveStatus from '../ui/SaveStatus'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { awardCurriculumXP } from '../../utils/curriculumXP'
 import { useG } from '@/i18n/gender'
-import { useCurriculumPreview } from '../../contexts/CurriculumPreviewContext'
 import ExerciseCard from './ExerciseCard'
 import ExerciseSummary from './ExerciseSummary'
 import AttemptsHistory from './AttemptsHistory'
@@ -27,10 +28,13 @@ function getCompletionMessage(score, g) {
 
 export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet }) {
   const g = useG()
-  // Declared HERE, in the same component as the `if (readOnly) return` guard in
-  // saveProgress — a parent-scoped copy would throw ReferenceError inside the
-  // fire-and-forget save and silently kill persistence.
-  const { readOnly } = useCurriculumPreview() // teacher preview / impersonation: never persist progress
+  // One hook owns persistence for this section: the row, the attempt number,
+  // the queue, the outbox, the readOnly guard and the save state. What used to
+  // be five refs and a 160-line saveProgress is now `saveNow` / `submitAttempt`.
+  const {
+    state: saveState, lastSavedAt, readOnly,
+    saveNow, submit: submitAttempt, startNewAttempt, adoptAttempt,
+  } = useActivitySave({ studentId, unitId, sectionType: 'grammar', activityId: grammarId })
   const sectionRef = useRef(null)
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
@@ -38,14 +42,6 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   const [attemptNumber, setAttemptNumber] = useState(1)
   const [allAttempts, setAllAttempts] = useState([])
   const [retrying, setRetrying] = useState(false)
-  const [currentRowId, setCurrentRowId] = useState(null)
-  // Ref mirror of currentRowId. State is async + batched, so two autosaves in the
-  // same tick both read `null` and each INSERT their own row — the exact race
-  // that stranded students' answers in duplicate rows. The ref is the source of
-  // truth inside saveProgress; the state is kept only for render/deps.
-  const currentRowIdRef = useRef(null)
-  const setRowId = useCallback((id) => { currentRowIdRef.current = id; setCurrentRowId(id) }, [])
-  const enqueueSave = useRef(createSaveQueue()).current
   const [retryKey, setRetryKey] = useState(0)
   const [bestScore, setBestScore] = useState(null)
   const [showSummary, setShowSummary] = useState(false)
@@ -106,6 +102,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           setIsCompleted(true)
           setShowSummary(true)
           hasSaved.current = true
+          adoptAttempt(latest)
           if (latest.answers?.exercises) {
             const restored = {}
             latest.answers.exercises.forEach(r => {
@@ -122,7 +119,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
               savedSigRef.current = JSON.stringify(restored)
             }
           }
-          // No currentRowId — a retry INSERTs a fresh row via saveProgress.
+          // A retry allocates a fresh attempt server-side (handleRetry).
         } else {
           // IMPORTANT: This hydrates in-progress answers so students don't lose work
           // when navigating between tabs. Do NOT revert this to a "fresh state" reset —
@@ -153,14 +150,14 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
               savedSigRef.current = JSON.stringify(restored)
             }
           }
-          if (latest.id) setRowId(latest.id)
+          adoptAttempt(latest)
         }
       }
       setProgressLoading(false)
     }
     load()
     return () => { isMounted = false }
-  }, [studentId, grammarId])
+  }, [studentId, grammarId, adoptAttempt])
 
   // Regression guard: answers at mount=0 (hydration happens async via the load effect above)
   // If answers appear synchronously before the load effect, that's a real regression.
@@ -187,7 +184,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
 
   // Retry handler — resets local state only; DB write happens on first answer via auto-save
   const handleRetry = () => {
-    setRowId(null)
+    startNewAttempt()
     setRetrying(true)
     setIsCompleted(false)
     setShowSummary(false)
@@ -217,187 +214,63 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     })
   }, [exercises])
 
-  // Save progress — with error handling, retry, and saving indicator.
+  // Persist this attempt. ONE call — the contract lives in the database.
   //
-  // Save vs Submit separation (2026-04-16 bug fix):
-  //   - Autosave path (isComplete=false) NEVER writes score, completed_at, or
-  //     status='completed'. It ONLY persists the student's current answers as
-  //     status='in_progress' so they can resume later. Unanswered questions
-  //     stay unanswered — they are not auto-graded as wrong.
-  //   - Submit path (isComplete=true) is only reachable from handleFinish
-  //     (the "إنهاء وحفظ المحاولة" CTA). It computes score, sets status
-  //     ='completed', awards XP, and updates best/is_latest flags.
-  const saveProgress = useCallback(async (currentAnswers, isComplete, _retryCount = 0) => {
-    if (readOnly) return
-    if (!studentId || !grammarId) return
-    // Serialised per activity — see lib/activitySave.js.
-    return enqueueSave(async () => {
+  // What used to be here: an if(rowId) UPDATE else INSERT branch, an is_latest
+  // flip, a two-step is_best recompute whose ORDER mattered (get it wrong and a
+  // real completion becomes invisible to compute_unit_progress), a hand-rolled
+  // retry timer, and a row-vanished recovery path. Every one of those was a fix
+  // for a real incident, and every one had to be written seven times, once per
+  // section. `save_activity_attempt` now does all of it atomically.
+  const saveProgress = useCallback(async (currentAnswers, isComplete) => {
     const results = buildResults(currentAnswers)
-    // Score only meaningful on submit; on autosave we write null.
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
-    const score = isComplete
-      ? (total > 0 ? Math.round((correct / total) * 100) : 0)
-      : null
+    const score = isComplete ? (total > 0 ? Math.round((correct / total) * 100) : 0) : null
+    const payload = { exercises: results }
 
-    if (isComplete) setIsSaving(true)
-
-    try {
-      if (currentRowIdRef.current) {
-        const _patch = {
-          status: isComplete ? 'completed' : 'in_progress',
-          // Keep score NULL on autosave so unanswered items aren't counted as wrong.
-          ...(isComplete ? { score } : { score: null }),
-          answers: { exercises: results },
-          time_spent_seconds: timeRef.current,
-          completed_at: isComplete ? new Date().toISOString() : null,
-        }
-        const _res = await updateRowVerified(supabase, currentRowIdRef.current, _patch)
-        if (_res.missing) {
-          // The row is gone — recover into a fresh one rather than writing to nothing.
-          reportSaveFailure({
-            section: 'grammar', phase: 'save_row_missing', activityId: grammarId, unitId,
-            rowId: currentRowIdRef.current, error: { message: 'update matched 0 rows' },
-            extra: { is_complete: isComplete },
-          })
-          setRowId(null)
-          setIsSaving(false)
-          return saveProgress(currentAnswers, isComplete, _retryCount)
-        }
-        if (_res.error) {
-          reportSaveFailure({
-            section: 'grammar', phase: 'save_update', activityId: grammarId, unitId,
-            rowId: currentRowIdRef.current, error: _res.error, extra: { is_complete: isComplete },
-          })
-          throw _res.error
-        }
-
-        if (isComplete) {
-          // Recompute best
-          const { data: rows } = await supabase
-            .from('student_curriculum_progress')
-            .select('id, score, attempt_number')
-            .eq('student_id', studentId)
-            .eq('grammar_id', grammarId)
-            .eq('status', 'completed')
-            .order('score', { ascending: false })
-            .order('attempt_number', { ascending: false })
-
-          // Winner first, then clear the losers — clearing first leaves every
-          // row is_best=false if the second write fails, and
-          // compute_unit_progress only counts is_best rows.
-          if (rows?.length > 0) {
-            await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', rows[0].id)
-            await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId).neq('id', rows[0].id)
-            setBestScore(rows[0].score)
-          }
-
-          setRetrying(false)
-          setIsCompleted(true)
-          setShowSummary(true)
-          toast({ type: 'success', title: getCompletionMessage(score, g) })
-          try { safeCelebrate('grammar_complete') } catch {}
-          awardCurriculumXP(studentId, 'grammar', score, unitId)
-
-          // Reload attempts
-          const { data: allRows } = await supabase
-            .from('student_curriculum_progress')
-            .select('*')
-            .eq('student_id', studentId)
-            .eq('grammar_id', grammarId)
-            .order('attempt_number', { ascending: false })
-          if (allRows) setAllAttempts(allRows)
-          onAttemptUpdate?.(score, attemptNumber, rows?.[0]?.score ?? score)
-        }
-      } else {
-        // No currentRowId — either first-ever attempt or fresh start after completed
-        const hasExisting = allAttempts.length > 0
-        const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
-
-        // If previous rows exist, flip their is_latest
-        if (hasExisting) {
-          await supabase
-            .from('student_curriculum_progress')
-            .update({ is_latest: false })
-            .eq('student_id', studentId)
-            .eq('grammar_id', grammarId)
-        }
-
-        const { data: newRow, error } = await supabase
-          .from('student_curriculum_progress')
-          .insert({
-            student_id: studentId,
-            unit_id: unitId,
-            grammar_id: grammarId,
-            section_type: 'grammar',
-            status: isComplete ? 'completed' : 'in_progress',
-            // Null on autosave — only computed on submit (see top of saveProgress).
-            score: isComplete ? score : null,
-            answers: { exercises: results },
-            time_spent_seconds: timeRef.current,
-            completed_at: isComplete ? new Date().toISOString() : null,
-            attempt_number: nextAttemptNum,
-            is_latest: true,
-            is_best: isComplete && !hasExisting,
-          })
-          .select()
-          .single()
-
-        if (error) throw error
-
-        if (newRow) {
-          setRowId(newRow.id)
-          setAttemptNumber(nextAttemptNum)
-          if (isComplete) {
-            // Recompute best
-            const { data: bestRows } = await supabase
-              .from('student_curriculum_progress')
-              .select('id, score')
-              .eq('student_id', studentId)
-              .eq('grammar_id', grammarId)
-              .eq('status', 'completed')
-              .order('score', { ascending: false })
-
-            if (bestRows?.length > 0) {
-              await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', bestRows[0].id)
-              await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId).neq('id', bestRows[0].id)
-              setBestScore(bestRows[0].score)
-            } else {
-              setBestScore(score)
-            }
-
-            setIsCompleted(true)
-            setShowSummary(true)
-            toast({ type: 'success', title: getCompletionMessage(score, g) })
-            try { safeCelebrate('grammar_complete') } catch {}
-            awardCurriculumXP(studentId, 'grammar', score, unitId)
-
-            // Reload all attempts
-            const { data: allRows } = await supabase
-              .from('student_curriculum_progress')
-              .select('*')
-              .eq('student_id', studentId)
-              .eq('grammar_id', grammarId)
-              .order('attempt_number', { ascending: false })
-            if (allRows) setAllAttempts(allRows)
-            onAttemptUpdate?.(score, nextAttemptNum, bestRows?.[0]?.score ?? score)
-          }
-        }
-      }
-    } catch (err) {
-      reportSaveFailure({ section: 'grammar', phase: 'save_catch', activityId: grammarId, unitId, error: err, extra: { retry: _retryCount } })
-      if (_retryCount < 1) {
-        // Auto-retry once after 1.5s
-        setTimeout(() => saveProgress(currentAnswers, isComplete, _retryCount + 1), 1500)
-        return
-      }
-      // Show error only after retry fails
-      toast({ type: 'error', title: g('تعذّر حفظ تقدمك — حاول مرة أخرى', 'تعذّر حفظ تقدمك — حاولي مرة أخرى') })
-      if (isComplete) hasSaved.current = false // allow re-attempt
-    } finally {
-      setIsSaving(false)
+    if (!isComplete) {
+      // Autosave. The server refuses to shrink a payload or reopen a submitted
+      // attempt, so a late or stale flush can no longer destroy newer work.
+      await saveNow(payload, { timeSpent: timeRef.current })
+      return
     }
-    })
-  }, [readOnly, studentId, unitId, grammarId, total, buildResults, onAttemptUpdate, allAttempts, attemptNumber, g, enqueueSave, setRowId])
+
+    setIsSaving(true)
+    const res = await submitAttempt(payload, { score, timeSpent: timeRef.current })
+    setIsSaving(false)
+
+    if (!res?.ok) {
+      // Hand the attempt BACK. Showing a score for work that was never written
+      // is the exact failure this whole pass exists to end — the student walks
+      // away believing she finished. SaveStatus is already showing her why.
+      hasSaved.current = false
+      if (!res?.queued) {
+        toast({ type: 'error', title: g('تعذّر حفظ تقدمك — حاول مرة أخرى', 'تعذّر حفظ تقدمك — حاولي مرة أخرى') })
+      }
+      return
+    }
+
+    const saved = res.row
+    setRetrying(false)
+    setIsCompleted(true)
+    setShowSummary(true)
+    setAttemptNumber(saved.attempt_number)
+    toast({ type: 'success', title: getCompletionMessage(score, g) })
+    try { safeCelebrate('grammar_complete') } catch {}
+    awardCurriculumXP(studentId, 'grammar', score, unitId)
+
+    const { data: allRows } = await supabase
+      .from('student_curriculum_progress')
+      .select('*')
+      .eq('student_id', studentId)
+      .eq('grammar_id', grammarId)
+      .order('attempt_number', { ascending: false })
+
+    const best = allRows?.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, allRows[0])
+    if (allRows) setAllAttempts(allRows)
+    if (best?.score != null) setBestScore(best.score)
+    onAttemptUpdate?.(score, saved.attempt_number, best?.score ?? score)
+  }, [studentId, unitId, grammarId, total, buildResults, onAttemptUpdate, g, saveNow, submitAttempt])
 
   // Auto-save after each answer — NEVER auto-completes.
   // Students must click "إنهاء وحفظ المحاولة" (handleFinish) to submit.
@@ -449,15 +322,16 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     }
   }, [saveProgress])
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
     if (allAnswered && !hasSaved.current) {
       hasSaved.current = true
       // Drop any debounced in_progress write so it cannot land after this one.
       pendingRef.current = null
       savedSigRef.current = answersSig
-      saveProgress(answers, true)
+      // AWAITED. Fire-and-forget here is how a student ends up looking at a
+      // score for an attempt that never reached the server.
+      await saveProgress(answers, true)
     }
-    // Scroll to summary
     sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -535,13 +409,14 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         ))}
       </div>
 
-      {/* Saving indicator */}
-      {isSaving && (
-        <div className="flex items-center justify-center gap-2 py-3">
-          <div className="w-4 h-4 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: 'var(--accent-sky)', borderTopColor: 'transparent' }} />
-          <span className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--accent-sky)' }}>جاري حفظ تقدمك...</span>
-        </div>
-      )}
+      {/* Save state — visible, honest, and never says "saved" unless the
+          server returned the stored row. */}
+      <SaveStatus
+        floating
+        state={saveState}
+        lastSavedAt={lastSavedAt}
+        onRetry={() => saveProgress(answers, false)}
+      />
 
       {/* Inline submit button — only path to completion since autosave no longer
           auto-submits. Shown whenever the student has answered at least one item

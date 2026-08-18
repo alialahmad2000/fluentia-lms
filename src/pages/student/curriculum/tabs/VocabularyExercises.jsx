@@ -2,13 +2,13 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, RotateCcw, Lightbulb, Shuffle, PenLine, ListChecks, Puzzle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { createSaveQueue, updateRowVerified, reportSaveFailure } from '../../../../lib/activitySave'
+import { useActivitySave } from '../../../../hooks/useActivitySave'
+import SaveStatus from '../../../../components/ui/SaveStatus'
 import { useAuthProfile } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { validateAnswer } from '../../../../utils/answerValidator'
 import { recordExercise } from '../../../../services/vocab'
-import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 
 // Map each drill to a unified vocab_cards exercise key.
 // match/choose test the meaning; fill_blank/scramble test sentence/spelling.
@@ -42,16 +42,14 @@ const EXERCISES = [
 // ═════════════════════════════════════════════════════
 export default function VocabularyExercises({ unitId, allWords }) {
   const profile = useAuthProfile()
-  // Declared HERE, in the same component as the guard inside saveResult.
-  const { readOnly } = useCurriculumPreview() // teacher preview / impersonation: never persist progress
   const [activeExercise, setActiveExercise] = useState(null)
   const [completedExercises, setCompletedExercises] = useState({})
   const [savedProgress, setSavedProgress] = useState(null)
-  const progressIdRef = useRef(null)
 
-  // Serialise writes: without this a second drill finishing while the first
-  // INSERT is still in flight sees progressIdRef===null and INSERTs a rival row.
-  const enqueueSave = useRef(createSaveQueue()).current
+  // Persistence — row, queue, outbox, readOnly guard and save state in one hook.
+  const {
+    state: saveState, lastSavedAt, saveNow, submit: submitAttempt, adoptAttempt,
+  } = useActivitySave({ studentId: profile?.id, unitId, sectionType: 'vocabulary_exercise' })
   // Load saved exercise progress
   useEffect(() => {
     if (!profile?.id || !unitId) return
@@ -71,7 +69,7 @@ export default function VocabularyExercises({ unitId, allWords }) {
       if (!mounted) return
       const data = rows?.[0]
       if (data) {
-        progressIdRef.current = data.id
+        adoptAttempt(data)
         setSavedProgress(data)
         if (data.answers?.exercises) {
           const map = {}
@@ -84,13 +82,10 @@ export default function VocabularyExercises({ unitId, allWords }) {
     }
     load()
     return () => { mounted = false }
-  }, [profile?.id, unitId])
+  }, [profile?.id, unitId, adoptAttempt])
 
-  // Save exercise result
+  // Save exercise result. One call — see hooks/useActivitySave.js.
   const saveResult = useCallback(async (exerciseKey, result) => {
-    if (readOnly) return
-    if (!profile?.id || !unitId) return
-
     const updated = {
       ...completedExercises,
       [exerciseKey]: { ...result, completed: true },
@@ -100,39 +95,14 @@ export default function VocabularyExercises({ unitId, allWords }) {
     const totalScore = Object.values(updated).reduce((s, e) => s + (e.score || 0), 0)
     const totalMax = Object.values(updated).reduce((s, e) => s + (e.maxScore || 0), 0)
     const allDone = Object.keys(updated).length >= 4
+    const score = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0
 
-    const row = {
-      student_id: profile.id,
-      unit_id: unitId,
-      section_type: 'vocabulary_exercise',
-      status: allDone ? 'completed' : 'in_progress',
-      score: totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0,
-      answers: { exercises: updated },
-      completed_at: allDone ? new Date().toISOString() : null,
-    }
-
-    await enqueueSave(async () => {
-      if (progressIdRef.current) {
-        const res = await updateRowVerified(supabase, progressIdRef.current, row)
-        if (res.ok) return
-        reportSaveFailure({
-          section: 'vocabulary_exercise',
-          phase: res.missing ? 'save_row_missing' : 'save_update',
-          unitId, rowId: progressIdRef.current,
-          error: res.error || { message: 'update matched 0 rows' },
-        })
-        if (!res.missing) throw res.error
-        progressIdRef.current = null // row gone — fall through and re-insert
-      }
-      {
-        const { data: inserted } = await supabase
-          .from('student_curriculum_progress')
-          .insert(row)
-          .select('id')
-          .single()
-        if (inserted) progressIdRef.current = inserted.id
-      }
-    }).catch(e => console.error('[VocabularyExercises] save failed:', e))
+    // These drills carry a real running total across the four exercises, so this
+    // is the one section that scores a row before it is finished.
+    const res = allDone
+      ? await submitAttempt({ exercises: updated }, { score })
+      : await saveNow({ exercises: updated }, { score, writeScore: true })
+    if (res?.ok) setSavedProgress(res.row)
 
     // Best-effort mirror into the unified vocab_cards store so completing these
     // unit drills feeds the sidebar vocabulary journey (/student/vocab-journey).
@@ -156,10 +126,10 @@ export default function VocabularyExercises({ unitId, allWords }) {
 
     // Award XP on first full completion
     if (allDone && !savedProgress?.completed_at) {
-      const xp = await awardCurriculumXP(profile.id, 'vocabulary_exercise', row.score, unitId)
+      const xp = await awardCurriculumXP(profile.id, 'vocabulary_exercise', score, unitId)
       if (xp > 0) toast({ type: 'success', title: `+${xp} XP — أحسنت!` })
     }
-  }, [readOnly, profile?.id, unitId, completedExercises, savedProgress])
+  }, [profile?.id, unitId, completedExercises, savedProgress, saveNow, submitAttempt])
 
   if (!allWords?.length || allWords.length < 4) return null
 
@@ -175,6 +145,7 @@ export default function VocabularyExercises({ unitId, allWords }) {
         <p className="text-xs font-medium font-['Tajawal']" style={{ color: completedCount >= 4 ? '#22c55e' : '#38bdf8' }}>
           {completedCount}/4 تمارين مكتملة
         </p>
+        <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
       </div>
 
       {/* Exercise cards */}

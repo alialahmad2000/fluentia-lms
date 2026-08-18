@@ -3,7 +3,9 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircle, XCircle, RotateCcw, History } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
-import { createSaveQueue, pickLatestAttempt, updateRowVerified, reportSaveFailure } from '../../../../lib/activitySave'
+import { pickLatestAttempt } from '../../../../lib/activitySave'
+import { useActivitySave } from '../../../../hooks/useActivitySave'
+import SaveStatus from '../../../../components/ui/SaveStatus'
 import SubmitReminderBar from '../../../../components/curriculum/SubmitReminderBar'
 import { useEffectiveStudentId } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -393,10 +395,15 @@ function AudioPlayer({ url, duration: initialDuration }) {
 // the phantom-submit-on-reload bug. Each retry creates a new DB row instead of
 // overwriting the previous one via upsert.
 function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUrl }) {
-  // readOnly must be read HERE (this component owns saveProgress). It was declared
-  // only in the parent ListeningTab, so `if (readOnly) return` in saveProgress threw
-  // ReferenceError → all listening saves silently failed for every student since 2026-06-06.
-  const { readOnly } = useCurriculumPreview()
+  // readOnly now arrives from the save hook, which reads it INSIDE itself. The
+  // 2026-06-06 outage happened because this guard referenced a variable declared
+  // only in the parent: `if (readOnly) return` threw ReferenceError inside a
+  // fire-and-forget callback, so listening silently stopped saving for every
+  // student for three days. That shape is no longer expressible.
+  const {
+    state: saveState, lastSavedAt, readOnly,
+    saveNow, submit: submitAttempt, startNewAttempt, adoptAttempt,
+  } = useActivitySave({ studentId, unitId, sectionType: 'listening', activityId: listeningId })
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -406,8 +413,6 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
   const [retrying, setRetrying] = useState(false)
   const [bestScore, setBestScore] = useState(null)
   const [confirmOpen, setConfirmOpen] = useState(false)
-  const currentRowId = useRef(null)
-  const enqueueSave = useRef(createSaveQueue()).current
   const hasSaved = useRef(false)
   const inlineSubmitRef = useRef(null)
   const timeRef = useRef(0)
@@ -474,7 +479,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
           // in_progress: restore ONLY questions that were actually answered (non-null).
           // Phantom fix: old code restored null-selected answers and counted them as
           // "answered", making the submit button active with 0% score ready to fire.
-          currentRowId.current = latest.id
+          adoptAttempt(latest)
           if (latest.answers?.questions) {
             const restored = {}
             latest.answers.questions.forEach(q => {
@@ -494,11 +499,11 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
     }
     load()
     return () => { isMounted = false }
-  }, [studentId, listeningId])
+  }, [studentId, listeningId, adoptAttempt])
 
   // Retry handler — clears local state; DB write happens on first new answer
   const handleRetry = () => {
-    currentRowId.current = null
+    startNewAttempt()
     setRetrying(true)
     setIsCompleted(false)
     setAnswers({})
@@ -526,185 +531,52 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
       .filter(Boolean)
   }, [exercises])
 
-  // Save progress — INSERT-per-attempt model (no upsert, no unique-constraint overwrite).
-  //   Autosave (isComplete=false): INSERT or UPDATE, status='in_progress', score=null.
-  //   Submit  (isComplete=true):  UPDATE, status='completed', score computed, XP awarded.
+  // Persist this attempt. One call — see hooks/useActivitySave.js.
+  //
+  // Replaces ~175 lines of UPDATE-or-INSERT, is_latest flipping, an
+  // order-dependent two-step is_best recompute, and a row-vanished recovery
+  // path. All of that is now one atomic server-side transaction.
   const saveProgress = useCallback(async (currentAnswers, isComplete) => {
-    if (readOnly) return
-    if (!studentId || !listeningId) return
-    // Serialised per activity: an in-flight INSERT can no longer be raced by the
-    // next autosave into writing a second row. See lib/activitySave.js.
-    return enqueueSave(async () => {
     const results = buildResults(currentAnswers)
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
     const score = isComplete ? (total > 0 ? Math.round((correct / total) * 100) : 0) : null
+    const payload = { questions: results }
 
-    if (isComplete) setSubmitting(true)
-
-    const onSaveError = (err, label) => {
-      console.error(`[ListeningTab] ${label}:`, err)
-      if (isComplete) {
-        setSubmitting(false)
-        hasSaved.current = false
-        toast({ type: 'error', title: 'تعذّر حفظ إجاباتك — يرجى المحاولة مجدداً' })
-      }
+    if (!isComplete) {
+      await saveNow(payload, { timeSpent: timeRef.current })
+      return
     }
 
-    if (currentRowId.current) {
-      // UPDATE existing row — verified, because a 200 that matched zero rows
-      // means the row is gone and every further autosave writes into the void.
-      const _patch = {
-        status: isComplete ? 'completed' : 'in_progress',
-        ...(isComplete ? { score } : { score: null }),
-        answers: { questions: results },
-        time_spent_seconds: timeRef.current,
-        completed_at: isComplete ? new Date().toISOString() : null,
-      }
-      const _res = await updateRowVerified(supabase, currentRowId.current, _patch)
-      if (_res.missing) {
-        // Row gone — recover by inserting a fresh one instead of writing to nothing.
-        reportSaveFailure({
-          section: 'listening', phase: 'save_row_missing', activityId: listeningId, unitId,
-          rowId: currentRowId.current, error: { message: 'update matched 0 rows' },
-          extra: { is_complete: isComplete },
-        })
-        currentRowId.current = null
-        return saveProgress(currentAnswers, isComplete)
-      }
-      if (_res.error) {
-        reportSaveFailure({
-          section: 'listening', phase: 'save_update', activityId: listeningId, unitId,
-          rowId: currentRowId.current, error: _res.error, extra: { is_complete: isComplete },
-        })
-        onSaveError(_res.error, 'Update failed'); return
-      }
+    setSubmitting(true)
+    const res = await submitAttempt(payload, { score, timeSpent: timeRef.current })
+    setSubmitting(false)
 
-      if (isComplete) {
-        // Recompute is_best across all rows for this student+listening
-        const { data: allRows } = await supabase
-          .from('student_curriculum_progress')
-          .select('id, score, attempt_number')
-          .eq('student_id', studentId)
-          .eq('listening_id', listeningId)
-          .eq('status', 'completed')
-          .order('score', { ascending: false })
-          .order('attempt_number', { ascending: false })
-
-        // Winner first, then clear the losers — see the note in ReadingTab:
-        // clearing first leaves every row is_best=false if the second write
-        // fails, and compute_unit_progress only counts is_best rows.
-        if (allRows?.length > 0) {
-          await supabase.from('student_curriculum_progress')
-            .update({ is_best: true })
-            .eq('id', allRows[0].id)
-          await supabase.from('student_curriculum_progress')
-            .update({ is_best: false })
-            .eq('student_id', studentId)
-            .eq('listening_id', listeningId)
-            .neq('id', allRows[0].id)
-          setBestScore(allRows[0].score)
-        }
-
-        hasSaved.current = true
-        setSubmitting(false)
-        setRetrying(false)
-        setIsCompleted(true)
-        toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
-        awardCurriculumXP(studentId, 'listening', score, unitId)
-        window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'listening', score } }))
-
-        const { data: refreshed } = await supabase
-          .from('student_curriculum_progress')
-          .select('*')
-          .eq('student_id', studentId)
-          .eq('listening_id', listeningId)
-          .order('attempt_number', { ascending: false })
-        if (refreshed) setAllAttempts(refreshed)
-      }
-    } else {
-      // INSERT new row (first autosave of this attempt or after retry)
-      const hasExisting = allAttempts.length > 0
-      const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
-
-      if (hasExisting) {
-        await supabase
-          .from('student_curriculum_progress')
-          .update({ is_latest: false })
-          .eq('student_id', studentId)
-          .eq('listening_id', listeningId)
-      }
-
-      const { data: newRow, error } = await supabase
-        .from('student_curriculum_progress')
-        .insert({
-          student_id: studentId,
-          unit_id: unitId,
-          listening_id: listeningId,
-          section_type: 'listening',
-          status: isComplete ? 'completed' : 'in_progress',
-          score: isComplete ? score : null,
-          answers: { questions: results },
-          time_spent_seconds: timeRef.current,
-          completed_at: isComplete ? new Date().toISOString() : null,
-          attempt_number: nextAttemptNum,
-          is_latest: true,
-          is_best: isComplete && !hasExisting,
-        })
-        .select()
-        .single()
-
-      if (error) {
-        reportSaveFailure({ section: 'listening', phase: 'save_insert', activityId: listeningId, unitId, error, extra: { is_complete: isComplete } })
-        onSaveError(error, 'Insert failed'); return
-      }
-
-      if (newRow) {
-        currentRowId.current = newRow.id
-        setAttemptNumber(nextAttemptNum)
-
-        if (isComplete) {
-          const { data: bestRows } = await supabase
-            .from('student_curriculum_progress')
-            .select('id, score')
-            .eq('student_id', studentId)
-            .eq('listening_id', listeningId)
-            .eq('status', 'completed')
-            .order('score', { ascending: false })
-
-          if (bestRows?.length > 0) {
-            await supabase.from('student_curriculum_progress')
-              .update({ is_best: true })
-              .eq('id', bestRows[0].id)
-            await supabase.from('student_curriculum_progress')
-              .update({ is_best: false })
-              .eq('student_id', studentId)
-              .eq('listening_id', listeningId)
-              .neq('id', bestRows[0].id)
-            setBestScore(bestRows[0].score)
-          } else {
-            setBestScore(score)
-          }
-
-          hasSaved.current = true
-          setSubmitting(false)
-          setRetrying(false)
-          setIsCompleted(true)
-          toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
-          awardCurriculumXP(studentId, 'listening', score, unitId)
-          window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'listening', score } }))
-
-          const { data: refreshed } = await supabase
-            .from('student_curriculum_progress')
-            .select('*')
-            .eq('student_id', studentId)
-            .eq('listening_id', listeningId)
-            .order('attempt_number', { ascending: false })
-          if (refreshed) setAllAttempts(refreshed)
-        }
-      }
+    if (!res?.ok) {
+      hasSaved.current = false
+      if (!res?.queued) toast({ type: 'error', title: 'تعذّر حفظ إجاباتك — يرجى المحاولة مجدداً' })
+      return
     }
-    })
-  }, [studentId, unitId, listeningId, total, buildResults, allAttempts, attemptNumber, setSubmitting, readOnly, enqueueSave])
+
+    hasSaved.current = true
+    setRetrying(false)
+    setIsCompleted(true)
+    setAttemptNumber(res.row.attempt_number)
+    toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+    awardCurriculumXP(studentId, 'listening', score, unitId)
+    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'listening', score } }))
+
+    const { data: refreshed } = await supabase
+      .from('student_curriculum_progress')
+      .select('*')
+      .eq('student_id', studentId)
+      .eq('listening_id', listeningId)
+      .order('attempt_number', { ascending: false })
+    if (refreshed) {
+      setAllAttempts(refreshed)
+      const best = refreshed.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, refreshed[0])
+      if (best?.score != null) setBestScore(best.score)
+    }
+  }, [studentId, unitId, listeningId, total, buildResults, saveNow, submitAttempt])
 
   // Autosave on each new answered question — always in_progress, NEVER completes.
   useEffect(() => {
@@ -843,6 +715,8 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId, audioUr
         anchorRef={inlineSubmitRef}
         accent="#a855f7"
       />
+
+      <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} onRetry={() => saveProgress(answers, false)} />
 
       {/* Submit button — only shown when not completed (or when retrying) */}
       {(!isCompleted || retrying) && answered > 0 && (

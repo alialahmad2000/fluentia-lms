@@ -65,7 +65,7 @@ export default function StudentDashboard() {
         .select('id, total_tasks, completed_tasks, completion_percentage, status')
         .eq('student_id', profile?.id)
         .gte('week_start', sunday.toISOString())
-        .order('created_at', { ascending: false })
+        .order('generated_at', { ascending: false })
         .limit(1)
         .maybeSingle()
       return data

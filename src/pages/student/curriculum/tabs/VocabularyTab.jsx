@@ -26,6 +26,8 @@ import VocabSettingsGear from '../../../../components/curriculum/settings/VocabS
 import VocabOnboardingTour from '../../../../components/curriculum/onboarding/VocabOnboardingTour'
 import WordArtPlate from '../../../../components/curriculum/vocab/WordArtPlate'
 import { vocabPhotoUrl } from '../../../../lib/vocabImages'
+import { useActivitySave } from '../../../../hooks/useActivitySave'
+import SaveStatus from '../../../../components/ui/SaveStatus'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -84,6 +86,9 @@ const cardVariant = {
 // ─── Main Component ─────────────────────────────────
 export default function VocabularyTab({ unitId }) {
   const { profile, studentData } = useAuthStore(useShallow((s) => ({ profile: s.profile, studentData: s.studentData })))
+  const {
+    state: saveState, lastSavedAt, saveNow, submit: submitAttempt, adoptAttempt,
+  } = useActivitySave({ studentId: profile?.id, unitId, sectionType: 'vocabulary' })
   const queryClient = useQueryClient()
   const [viewMode, setViewMode] = useState('cards')
   const [filter, setFilter] = useState('all')
@@ -110,7 +115,6 @@ export default function VocabularyTab({ unitId }) {
   })
   const timerRef = useRef(null)
   const saveTimer = useRef(null)
-  const progressIdRef = useRef(null)
   const libraryRef = useRef(null) // Hero "scroll to library" target (Prompt 05)
   const exerciseCloseCallbackRef = useRef(null) // ChunkMiniSession queue hook (Prompt 06)
   const [activeChunk, setActiveChunk] = useState(null) // Journey Lane modal (Prompt 06)
@@ -385,7 +389,7 @@ export default function VocabularyTab({ unitId }) {
         .maybeSingle()
       if (!isMounted) return
       if (row) {
-        progressIdRef.current = row.id
+        adoptAttempt(row)
         if (row.answers?.reviewedWords) setReviewedWords(new Set(row.answers.reviewedWords))
         setIsCompleted(row.status === 'completed')
         if (row.time_spent_seconds) timeRef.current = row.time_spent_seconds
@@ -395,41 +399,27 @@ export default function VocabularyTab({ unitId }) {
     }
     load()
     return () => { isMounted = false }
-  }, [profile?.id, unitId])
+  }, [profile?.id, unitId, adoptAttempt])
 
-  // Save progress
+  // Save progress. One call — see hooks/useActivitySave.js.
   const saveProgress = useCallback(async (reviewed, total) => {
-    if (!profile?.id || !unitId) return
     const reviewedAll = reviewed.size >= total && total > 0
-    const row = {
-      student_id: profile.id, unit_id: unitId, section_type: 'vocabulary',
-      status: reviewedAll ? 'completed' : 'in_progress',
-      score: total > 0 ? Math.round((reviewed.size / total) * 100) : 0,
-      answers: { reviewedWords: [...reviewed], totalWords: total },
-      time_spent_seconds: timeRef.current,
-      completed_at: reviewedAll ? new Date().toISOString() : null,
+    const score = total > 0 ? Math.round((reviewed.size / total) * 100) : 0
+    const payload = { reviewedWords: [...reviewed], totalWords: total }
+
+    // Reviewing words has a meaningful running score before it is finished.
+    const res = reviewedAll
+      ? await submitAttempt(payload, { score, timeSpent: timeRef.current })
+      : await saveNow(payload, { score, writeScore: true, timeSpent: timeRef.current })
+
+    if (res?.ok && reviewedAll && !hasSavedComplete.current) {
+      hasSavedComplete.current = true
+      setIsCompleted(true)
+      toast({ type: 'success', title: 'تم حفظ تقدمك' })
+      awardCurriculumXP(profile.id, 'vocabulary', score, unitId)
+      window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'vocabulary' } }))
     }
-    if (progressIdRef.current) {
-      const { error } = await supabase.from('student_curriculum_progress').update(row).eq('id', progressIdRef.current)
-      if (!error && reviewedAll && !hasSavedComplete.current) {
-        hasSavedComplete.current = true; setIsCompleted(true)
-        toast({ type: 'success', title: 'تم حفظ تقدمك' })
-        awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
-        window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'vocabulary' } }))
-      }
-    } else {
-      const { data: inserted, error } = await supabase.from('student_curriculum_progress').insert(row).select('id').single()
-      if (!error && inserted) {
-        progressIdRef.current = inserted.id
-        if (reviewedAll && !hasSavedComplete.current) {
-          hasSavedComplete.current = true; setIsCompleted(true)
-          toast({ type: 'success', title: 'تم حفظ تقدمك' })
-          awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
-          window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'vocabulary' } }))
-        }
-      }
-    }
-  }, [profile?.id, unitId])
+  }, [profile?.id, unitId, saveNow, submitAttempt])
 
   const markReviewed = useCallback((wordId) => {
     setReviewedWords(prev => {
@@ -539,6 +529,7 @@ export default function VocabularyTab({ unitId }) {
 
   return (
     <div className="space-y-6">
+      <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
       {/* Premium sticky Hero (Prompt 05) — strictly additive */}
       <div data-tour="hero">
         <HeroSection

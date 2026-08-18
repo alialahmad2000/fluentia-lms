@@ -13,6 +13,8 @@ import { queryClient } from './lib/queryClient'
 import { AccessibilityProvider } from './contexts/AccessibilityContext'
 import { captureRefFromUrl } from './utils/affiliateTracking'
 import { captureError } from './lib/errorTracker'
+import { installSaveRecovery } from './lib/activitySave'
+import { supabase } from './lib/supabase'
 
 const persister = createSyncStoragePersister({
   storage: typeof window !== 'undefined' ? window.localStorage : undefined,
@@ -237,6 +239,11 @@ window.addEventListener('error', (event) => {
     url: event.filename,
   })
 })
+
+// Replay any student work that was queued while offline or when a tab was
+// killed mid-save. Installed before render so a phone that died on the last
+// question hands the answers over the moment the app opens again.
+installSaveRecovery(supabase)
 
 const rootElement = document.getElementById('root')
 if (!rootElement) {

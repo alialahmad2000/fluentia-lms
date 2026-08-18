@@ -160,3 +160,134 @@ export async function updateRowVerified(supabase, rowId, patch) {
   if (!data || data.length === 0) return { ok: false, missing: true, error: null }
   return { ok: true, missing: false, error: null }
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// THE SINGLE WRITE PATH (2026-08-18)
+//
+// Everything above this line exists to make SEVEN hand-rolled save paths
+// survivable: a queue to stop them racing, a picker to salvage the duplicate
+// rows they left, a verifier to catch the updates that wrote nothing. Each was
+// a correct fix to a real bug, and each had to be applied seven times.
+//
+// `saveAttempt` replaces all of it with one call to `save_activity_attempt`,
+// which holds the contract in the database instead: idempotent, never shrinks a
+// payload, never reopens a submitted attempt, recomputes is_best/is_latest in
+// the same transaction, and RETURNS the persisted row so the caller verifies
+// against reality rather than trusting HTTP 200.
+// ═══════════════════════════════════════════════════════════════════════════
+
+import { outboxKey, putEntry, removeEntry, drainOutbox, installOutboxDrain } from './saveOutbox'
+
+/** Is this failure a transport problem (worth replaying) or a real rejection? */
+function isTransportError(error) {
+  if (!error) return false
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return true
+  const msg = String(error.message || error).toLowerCase()
+  return msg.includes('failed to fetch') || msg.includes('networkerror') ||
+         msg.includes('load failed') || msg.includes('timeout') ||
+         msg.includes('network request failed')
+}
+
+function toRpcArgs({
+  studentId, unitId, sectionType, activityId = null, answers = {},
+  submit = false, score = null, timeSpent = null,
+  attemptNumber = null, newAttempt = false, writeScore = false, extra = null,
+}) {
+  return {
+    p_student_id: studentId,
+    p_unit_id: unitId,
+    p_section_type: sectionType,
+    p_activity_id: activityId,
+    p_answers: answers ?? {},
+    p_submit: !!submit,
+    p_score: score,
+    p_time_spent: timeSpent,
+    p_attempt_number: attemptNumber,
+    p_new_attempt: !!newAttempt,
+    p_write_score: !!writeScore,
+    p_extra: extra ?? {},
+  }
+}
+
+/**
+ * Persist a student's work. Returns { ok, row, queued, error }.
+ *
+ *   ok:true            — the server confirmed it and `row` is what is stored
+ *   queued:true        — the network failed; the work is in the durable outbox
+ *                        and will replay. It is NOT lost, but it is NOT saved.
+ *   ok:false,!queued   — the server rejected it. Reported to client_error_log.
+ */
+export async function saveAttempt(supabase, params) {
+  const key = outboxKey(params)
+  const args = toRpcArgs(params)
+
+  // Durable FIRST, network second. If the tab dies during the request the work
+  // is already on disk; a replay is harmless because the write is idempotent.
+  await putEntry(key, args)
+
+  try {
+    const { data, error } = await supabase.rpc('save_activity_attempt', args)
+    if (error) {
+      if (isTransportError(error)) return { ok: false, queued: true, row: null, error }
+      await removeEntry(key)
+      reportSaveFailure({
+        section: params.sectionType, phase: params.submit ? 'submit' : 'autosave',
+        activityId: params.activityId, unitId: params.unitId, error,
+        extra: { answer_count: countAnswers(params.answers) },
+      })
+      return { ok: false, queued: false, row: null, error }
+    }
+
+    // PostgREST returns a composite as an object (or a 1-element array).
+    const row = Array.isArray(data) ? data[0] : data
+    if (!row?.id) {
+      await removeEntry(key)
+      const err = { message: 'save_activity_attempt returned no row' }
+      reportSaveFailure({
+        section: params.sectionType, phase: 'no_row',
+        activityId: params.activityId, unitId: params.unitId, error: err,
+      })
+      return { ok: false, queued: false, row: null, error: err }
+    }
+
+    await removeEntry(key)
+    return { ok: true, queued: false, row, error: null }
+  } catch (err) {
+    if (isTransportError(err)) return { ok: false, queued: true, row: null, error: err }
+    await removeEntry(key)
+    reportSaveFailure({
+      section: params.sectionType, phase: 'save_throw',
+      activityId: params.activityId, unitId: params.unitId, error: err,
+    })
+    return { ok: false, queued: false, row: null, error: err }
+  }
+}
+
+/** Replay queued work. Safe to call often — it self-serialises. */
+export function drainSaves(supabase) {
+  return drainOutbox(async (args) => {
+    const { data, error } = await supabase.rpc('save_activity_attempt', args)
+    if (error) {
+      // A rejection (RLS, bad payload) is permanent — dropping it beats
+      // replaying it forever. A transport error keeps its place in the queue.
+      if (isTransportError(error)) return false
+      reportSaveFailure({
+        section: args.p_section_type, phase: 'outbox_replay',
+        activityId: args.p_activity_id, unitId: args.p_unit_id, error,
+      })
+      return true
+    }
+    const row = Array.isArray(data) ? data[0] : data
+    return !!row?.id
+  })
+}
+
+/** Install the automatic replay triggers (online / tab-visible). Call once. */
+export function installSaveRecovery(supabase) {
+  return installOutboxDrain(async (args) => {
+    const { data, error } = await supabase.rpc('save_activity_attempt', args)
+    if (error) return !isTransportError(error)
+    const row = Array.isArray(data) ? data[0] : data
+    return !!row?.id
+  })
+}

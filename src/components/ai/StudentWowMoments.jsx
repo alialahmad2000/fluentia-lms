@@ -46,7 +46,7 @@ export default function StudentWowMoments() {
         .select('status')
         .eq('student_id', profile?.id)
         .eq('status', 'completed')
-        .order('created_at', { ascending: false })
+        .order('generated_at', { ascending: false })
         .limit(1)
         .maybeSingle()
 

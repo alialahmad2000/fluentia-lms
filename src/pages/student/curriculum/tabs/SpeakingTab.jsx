@@ -40,7 +40,7 @@ import { useAuthStore } from '../../../../stores/authStore'
 import ConversationMode from '../../../../components/curriculum/speaking/ConversationMode'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
-import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
+import { useActivitySave } from '../../../../hooks/useActivitySave'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import './speakingStudio.css'
 
@@ -95,7 +95,9 @@ export default function SpeakingTab({ unitId }) {
   const studentName = profile?.full_name || profile?.display_name
   const groupId = studentData?.group_id
   const queryClient = useQueryClient()
-  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
+  const { readOnly, submit: submitAttempt } = useActivitySave({
+    studentId, unitId, sectionType: 'speaking',
+  })
   const [activeTopic, setActiveTopic] = useState(0)
 
   const { data: topics, isLoading } = useQuery({
@@ -185,46 +187,11 @@ export default function SpeakingTab({ unitId }) {
 
     if (!studentId || !unitId) return
 
-    const progressRow = {
-      student_id: studentId,
-      unit_id: unitId,
-      section_type: 'speaking',
-      status: 'completed',
-      completed_at: new Date().toISOString(),
-    }
-
-    const { data: existing, error: fetchErr } = await supabase
-      .from('student_curriculum_progress')
-      .select('id')
-      .eq('student_id', studentId)
-      .eq('unit_id', unitId)
-      .eq('section_type', 'speaking')
-      .limit(1)
-      .maybeSingle()
-
-    if (fetchErr && fetchErr.code !== 'PGRST116') {
-      console.error('[SpeakingTab] fetch progress error:', fetchErr)
-    }
-
-    let writeErr
-    if (existing) {
-      const { error } = await supabase
-        .from('student_curriculum_progress')
-        .update(progressRow)
-        .eq('id', existing.id)
-        .select()
-      writeErr = error
-    } else {
-      const { error } = await supabase
-        .from('student_curriculum_progress')
-        .insert(progressRow)
-        .select()
-      writeErr = error
-    }
-
-    if (writeErr) {
-      console.error('[SpeakingTab] progress write failed:', writeErr)
-      toast({ type: 'error', title: 'تعذّر حفظ التقدم — يرجى إبلاغ المشرف' })
+    // SELECT-then-UPDATE-or-INSERT is a race: two uploads finishing together
+    // both read "no row" and both insert. One idempotent call instead.
+    const res = await submitAttempt({}, {})
+    if (!res?.ok) {
+      if (!res?.queued) toast({ type: 'error', title: 'تعذّر حفظ التقدم — يرجى إبلاغ المشرف' })
       return
     }
 

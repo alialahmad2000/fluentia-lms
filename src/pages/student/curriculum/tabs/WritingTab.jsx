@@ -10,7 +10,8 @@ import { useG, genderizeText } from '@/i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
-import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
+import { useActivitySave } from '../../../../hooks/useActivitySave'
+import SaveStatus from '../../../../components/ui/SaveStatus'
 import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
@@ -76,7 +77,9 @@ export default function WritingTab({ unitId }) {
 
 // ─── Writing Task ────────────────────────────────────
 function WritingTask({ task, number, total, studentId, unitId, studentName, groupId, studentLevel }) {
-  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
+  const {
+    state: saveState, saveNow, adoptAttempt,
+  } = useActivitySave({ studentId, unitId, sectionType: 'writing', activityId: task.id })
   const g = useG()
   const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
@@ -152,6 +155,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         if (data.ai_feedback) setAiFeedback(data.ai_feedback)
         if (data.evaluation_status) setEvalStatus(data.evaluation_status)
         if (data.id) setProgressRowId(data.id)
+        adoptAttempt(data)
       } else {
         // Fall back to localStorage
         setText(loadDraft(task.id))
@@ -162,44 +166,39 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     return () => { isMounted = false }
   }, [studentId, task.id])
 
-  // Save to DB
+  // Save to DB. One call — see hooks/useActivitySave.js.
+  //
+  // The specific hazard here is the inverse of the MCQ sections: not a lost
+  // answer but an ERASED essay. A stale autosave carrying an empty or shorter
+  // draft used to overwrite a finished one. `save_activity_attempt` refuses to
+  // shrink a payload, so an empty draft can no longer replace real writing.
   const saveToDb = useCallback(async (currentText, isSubmit = false) => {
-    if (readOnly || !studentId || !task.id) return
     const wc = countWords(currentText)
     const meetsMin = wc >= task.word_count_min
     const now = new Date().toISOString()
+    const isComplete = isSubmit && meetsMin
+    const newAttemptNumber = isComplete && submitted ? attemptNumber + 1 : attemptNumber
 
-    const newAttemptNumber = isSubmit && meetsMin && submitted ? attemptNumber + 1 : attemptNumber
+    const res = await saveNow(
+      { draft: currentText, wordCount: wc, lastSavedAt: now },
+      {
+        submit: isComplete,
+        attemptNumber: newAttemptNumber,
+        timeSpent: timeRef.current,
+        extra: isComplete
+          ? { evaluation_status: 'pending', evaluation_attempts: 0, evaluation_last_error: null }
+          : null,
+      }
+    )
 
-    const { data: upsertData, error } = await supabase
-      .from('student_curriculum_progress')
-      .upsert({
-        student_id: studentId,
-        unit_id: unitId,
-        writing_id: task.id,
-        section_type: 'writing',
-        status: isSubmit && meetsMin ? 'completed' : 'in_progress',
-        score: null,
-        answers: { draft: currentText, wordCount: wc, lastSavedAt: now },
-        time_spent_seconds: timeRef.current,
-        completed_at: isSubmit && meetsMin ? now : null,
-        attempt_number: newAttemptNumber,
-        ...(isSubmit && meetsMin ? {
-          evaluation_status: 'pending',
-          evaluation_attempts: 0,
-          evaluation_last_error: null,
-        } : {}),
-      }, { onConflict: 'student_id,writing_id' })
-      .select('id')
-      .single()
-
-    if (!error) {
+    if (res?.ok) {
       setLastSavedAt(new Date(now))
-      if (isSubmit && meetsMin) setAttemptNumber(newAttemptNumber)
-      if (upsertData?.id) setProgressRowId(upsertData.id)
+      if (isComplete) setAttemptNumber(res.row.attempt_number)
+      if (res.row?.id) setProgressRowId(res.row.id)
+      return null
     }
-    return error
-  }, [studentId, unitId, task.id, task.word_count_min, attemptNumber, submitted])
+    return res?.error || { message: 'save failed' }
+  }, [task.id, task.word_count_min, attemptNumber, submitted, saveNow])
 
   // Auto-save to localStorage on change (debounced 500ms)
   useEffect(() => {
@@ -494,11 +493,17 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       {/* Target vocabulary + grammar hints */}
       <WritingHints task={task} text={text} />
 
-      {/* Last saved timestamp */}
-      {lastSavedAt && !submitted && (
-        <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal']">
-          آخر حفظ: <RelativeTime date={lastSavedAt} />
-        </p>
+      {/* Save state — "آخر حفظ" alone said when we last TRIED; this says
+          whether the server actually has it. */}
+      {!submitted && (saveState !== 'idle' || lastSavedAt) && (
+        <div className="flex flex-wrap items-center gap-2">
+          {saveState !== 'idle' && <SaveStatus state={saveState} lastSavedAt={lastSavedAt} />}
+          {lastSavedAt && saveState === 'idle' && (
+            <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal']">
+              آخر حفظ: <RelativeTime date={lastSavedAt} />
+            </p>
+          )}
+        </div>
       )}
 
       {/* Text area */}

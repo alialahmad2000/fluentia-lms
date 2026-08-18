@@ -6,6 +6,7 @@ import { useAuthProfile } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../../components/ui/FluentiaToast'
 import { useQueryClient } from '@tanstack/react-query'
+import { saveAttempt } from '../../lib/activitySave'
 
 const PASS_THRESHOLD = 0.7 // 70% to pass
 const MAX_ATTEMPTS = 3
@@ -37,30 +38,11 @@ export default function PronunciationActivity({ pronunciationData, unitId, onCom
   // Mark in_progress when starting
   const handleStart = async () => {
     if (profile?.id) {
-      // Check if record already exists
-      const { data: existing } = await supabase
-        .from('student_curriculum_progress')
-        .select('id')
-        .eq('student_id', profile.id)
-        .eq('unit_id', unitId)
-        .eq('section_type', 'pronunciation')
-        .maybeSingle()
-
-      if (existing) {
-        await supabase
-          .from('student_curriculum_progress')
-          .update({ status: 'in_progress' })
-          .eq('id', existing.id)
-      } else {
-        await supabase
-          .from('student_curriculum_progress')
-          .insert({
-            student_id: profile.id,
-            unit_id: unitId,
-            section_type: 'pronunciation',
-            status: 'in_progress',
-          })
-      }
+      // One idempotent call instead of SELECT-then-UPDATE-or-INSERT, which
+      // races itself when two starts land together.
+      await saveAttempt(supabase, {
+        studentId: profile.id, unitId, sectionType: 'pronunciation', answers: {},
+      })
     }
     setPhase('flashcards')
   }
@@ -103,43 +85,14 @@ export default function PronunciationActivity({ pronunciationData, unitId, onCom
   const markComplete = async (scorePercent, passed) => {
     setSaving(true)
     try {
-      // Mark completed in student_curriculum_progress
-      const { data: existing } = await supabase
-        .from('student_curriculum_progress')
-        .select('id')
-        .eq('student_id', profile.id)
-        .eq('unit_id', unitId)
-        .eq('section_type', 'pronunciation')
-        .maybeSingle()
-
-      let data, error
-      if (existing) {
-        const result = await supabase
-          .from('student_curriculum_progress')
-          .update({
-            status: 'completed',
-            completed_at: new Date().toISOString(),
-            score: scorePercent,
-          })
-          .eq('id', existing.id)
-          .select()
-        data = result.data
-        error = result.error
-      } else {
-        const result = await supabase
-          .from('student_curriculum_progress')
-          .insert({
-            student_id: profile.id,
-            unit_id: unitId,
-            section_type: 'pronunciation',
-            status: 'completed',
-            completed_at: new Date().toISOString(),
-            score: scorePercent,
-          })
-          .select()
-        data = result.data
-        error = result.error
-      }
+      // Mark completed. One idempotent call — the old SELECT-then-
+      // UPDATE-or-INSERT raced itself whenever two finishes landed together.
+      const saved = await saveAttempt(supabase, {
+        studentId: profile.id, unitId, sectionType: 'pronunciation',
+        answers: {}, submit: true, score: scorePercent,
+      })
+      const error = saved.error
+      const data = saved.row ? [saved.row] : null
 
       if (error || !data?.length) {
         toast({ type: 'error', title: 'فشل حفظ التقدم' })
