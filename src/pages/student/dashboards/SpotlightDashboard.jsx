@@ -930,7 +930,7 @@ export default function SpotlightDashboard() {
               </span>
             </div>
 
-            <div className="sd-track">
+            <div className="sd-track fl-carousel">
               {units.map((u, i) => (
                 <JourneyNode key={u.id} unit={u} index={i} reduced={reduced} />
               ))}

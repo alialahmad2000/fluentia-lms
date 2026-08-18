@@ -648,12 +648,22 @@
   top: 0;
   bottom: 0;
   border-radius: 2px;
-  background: linear-gradient(90deg, #d99e2b, #f5c842);
+  /* @property-registered stops: the amber -> green change on completion now
+     INTERPOLATES. Without registration a gradient is an untyped string and the
+     colour swap snaps. State-driven only, so it costs one transition, not a
+     per-frame repaint. */
+  --fl-grad-a: #d99e2b;
+  --fl-grad-b: #f5c842;
+  background: linear-gradient(90deg in oklab, var(--fl-grad-a), var(--fl-grad-b));
   box-shadow: 0 0 10px rgba(245, 200, 66, 0.5);
-  transition: width 400ms ease;
+  transition: width 400ms ease,
+              --fl-grad-a 500ms cubic-bezier(.22,1,.36,1),
+              --fl-grad-b 500ms cubic-bezier(.22,1,.36,1),
+              box-shadow 500ms ease;
 }
 .lvx-bar__fill--done {
-  background: linear-gradient(90deg, #2f9e64, #4ade80);
+  --fl-grad-a: #2f9e64;
+  --fl-grad-b: #4ade80;
   box-shadow: 0 0 10px rgba(74, 222, 128, 0.45);
 }
 
@@ -702,4 +712,19 @@ html.a11y-reduce-motion .lvx-world__bloom,
 html.a11y-reduce-motion .lvx-world__motes,
 html.a11y-reduce-motion .lvx-cta::after {
   animation: none !important;
+}
+
+/* ── Container queries: the unit card now sizes to ITS OWN box, not the
+   viewport. Matters when the sidebar is open, on tablets in split view, and
+   anywhere this card is reused at a different width. The .fl-cq wrapper is the
+   query container (an element cannot query itself). ────────────────────── */
+@container (max-width: 300px) {
+  .lvx-card__body { padding: 16px 16px 14px; }
+  .lvx-card__title { font-size: 1rem; }
+  .lvx-card__en { display: none; }
+  .lvx-card__num { display: none; }
+}
+@container (min-width: 460px) {
+  .lvx-card__body { padding: 28px 28px 26px; }
+  .lvx-card__media { aspect-ratio: 21 / 9; }
 }

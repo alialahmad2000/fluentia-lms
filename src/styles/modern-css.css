@@ -131,31 +131,40 @@ html { scrollbar-gutter: stable; }
    (scoring, progress, saving) — CSS state and React state would silently
    diverge. These rules are purely visual. */
 
-/* Scroll-lock when a native dialog/popover is open. Complements the existing
-   body.modal-open class rather than replacing it. */
-body:has(dialog[open]),
-body:has(:modal) {
-  overflow: hidden;
+/* These target class hooks that ALREADY EXIST in the codebase — verified before
+   writing. An earlier version keyed off native <dialog>/[popover], of which the
+   app has exactly zero, so the rules could never fire. */
+
+/* Answered question reacts as a whole. .tt-q / .is-correct / .is-wrong are the
+   real markup used by the env-track, tech-track and biz-track quizzes. */
+.tt-q:has(.is-correct) .tt-q-text {
+  color: var(--success, #4ade80);
+}
+.tt-q:has(.is-wrong) .tt-q-text {
+  color: var(--error, #ef4444);
+}
+/* Dim the options that were not the answer, once the question is locked. */
+.tt-q:has(.is-correct) .tt-opt:not(.is-correct):not(.is-wrong) {
+  opacity: .5;
 }
 
-/* A card containing a correct/incorrect answer reacts as a whole. */
-.fl-answerable:has(.is-correct) {
-  border-color: var(--success, #4ade80);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--success, #4ade80) 30%, transparent),
-              0 14px 40px -18px color-mix(in oklab, var(--success, #4ade80) 55%, transparent);
+/* Native form validation — no JS, no state, works on any <input> in a wrapper. */
+.fl-field:has(:user-invalid) label,
+label:has(+ input:user-invalid) { color: var(--error, #ef4444); }
+.fl-field:has(:user-invalid) input { border-color: var(--error, #ef4444); }
+
+/* Scroll-lock: the app locks via useBodyLock() adding body.modal-open. This is
+   the CSS-only complement for any surface that forgets to call the hook. */
+body.modal-open { overflow: hidden; }
+
+/* A label containing a checked control highlights itself — used by option
+   pickers that currently recompute a className in JS. */
+.fl-choice:has(input:checked) {
+  border-color: var(--accent-cyan, #38bdf8);
+  background: color-mix(in oklab, var(--accent-cyan, #38bdf8) 12%, transparent);
 }
-.fl-answerable:has(.is-incorrect) {
-  border-color: var(--error, #ef4444);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--error, #ef4444) 26%, transparent);
-}
 
-/* A unit that contains a locked lesson dims its own title. */
-.fl-unit:has(.is-locked) .fl-unit__title { opacity: .55; }
-
-/* Any form field group with an invalid input tints its label. */
-.fl-field:has(:user-invalid) label { color: var(--error, #ef4444); }
-
-/* Hide an empty section entirely instead of rendering a bare heading. */
+/* Hide a section wrapper that ended up with nothing but its heading. */
 .fl-section:not(:has(> *:not(h1,h2,h3,h4,h5,h6))) { display: none; }
 
 
@@ -176,6 +185,12 @@ body:has(:modal) {
    WRAPPER (an element cannot query itself). */
 
 .fl-cq { container-type: inline-size; max-width: 100%; }
+
+/* Wrapping a grid cell in a query container moves the grid item one level up,
+   so the card stops stretching to the row height. display:grid on the wrapper
+   restores equal-height cards (a grid item stretches by default). */
+.fl-cq-fill { display: grid; }
+.fl-cq-fill > * { min-width: 0; }
 
 @container (min-width: 340px) {
   .fl-cq-desc { display: block; }
@@ -263,6 +278,30 @@ body:has(:modal) {
    escape every ancestor; they cannot be confined inside a card.
    `overlay` must be transitioned alongside `display`, both with
    allow-discrete, or the exit animation is clipped. */
+
+/* .fl-enter — entrance animation for ANY element React mounts, with no Framer
+   wrapper and no keyframes. @starting-style supplies the "before it existed"
+   style, so the element transitions from it on first paint.
+   This is the form that actually applies here: the app animates modals with
+   AnimatePresence (264 files) and mounts zero [popover]/dialog elements, so the
+   popover block below is future-proofing, not current coverage.
+   NOTE: exit still needs Framer — once React unmounts a node, CSS has nothing
+   left to transition. .fl-enter replaces the ENTRANCE half only. */
+@supports at-rule(@starting-style) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fl-enter {
+      transition: opacity .34s cubic-bezier(.22,1,.36,1),
+                  transform .34s cubic-bezier(.22,1,.36,1);
+      opacity: 1;
+      transform: none;
+    }
+    @starting-style {
+      .fl-enter { opacity: 0; transform: translateY(10px) scale(.985); }
+    }
+    .fl-enter-scale { transition: opacity .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.22,1,.36,1); opacity: 1; transform: scale(1); }
+    @starting-style { .fl-enter-scale { opacity: 0; transform: scale(.92); } }
+  }
+}
 
 @supports (transition-behavior: allow-discrete) {
   [popover].fl-animated,

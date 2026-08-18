@@ -217,7 +217,7 @@ export default function DailyPartnerPlay() {
 
         {/* Student transcript so far */}
         {transcript.length > 0 && (
-          <details className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
+          <details className="text-sm fl-accordion" style={{ color: 'var(--ds-text-tertiary)' }}>
             <summary className="cursor-pointer">{g('عرض ما قلته', 'عرض ما قلتيه')} ({transcript.length})</summary>
             <ul className="mt-2 space-y-1">
               {transcript.map((t, i) => (

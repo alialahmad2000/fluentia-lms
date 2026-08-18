@@ -40,7 +40,13 @@ export default function LevelUnits() {
     || level.cover_image_url
     || null
 
-  const reveal = m.reduced
+  // Prefer CSS scroll-driven reveals: they run on the compositor and cannot be
+  // blocked by React rendering. Fall back to Framer's IntersectionObserver where
+  // animation-timeline isn't supported, so older Safari loses nothing.
+  const cssScrollDriven = typeof CSS !== 'undefined'
+    && CSS.supports?.('animation-timeline: view()')
+  const revealClass = !m.reduced && cssScrollDriven ? 'fl-reveal-up' : ''
+  const reveal = (m.reduced || cssScrollDriven)
     ? {}
     : {
         initial: { opacity: 0, y: 18 },
@@ -161,7 +167,7 @@ export default function LevelUnits() {
           const allDone = doneCount === chapter.units.length
           return (
             <section key={chapter.index} style={{ marginBottom: 76 }}>
-              <motion.div className="lvx-chapter" {...reveal}>
+              <motion.div className={`lvx-chapter ${revealClass}`} {...reveal}>
                 <div className="lvx-chapter__medal">{toArabicDigits(chapter.index + 1)}</div>
                 <div className="lvx-chapter__names">
                   <span className="lvx-chapter__name">{chapter.name}</span>
@@ -181,21 +187,24 @@ export default function LevelUnits() {
                   levelColor={levelColor}
                   onOpen={openUnit}
                   reveal={reveal}
+                  revealClass={revealClass}
                 />
               )}
 
               {chapter.units.length > 1 && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
                   {chapter.units.slice(1).map((unit) => (
-                    <StandardCard
-                      key={unit.id}
-                      unit={unit}
-                      progress={getUnitStatus(progressMap, unit.id)}
-                      isNext={nextUnit?.id === unit.id}
-                      levelColor={levelColor}
-                      onOpen={openUnit}
-                      reveal={reveal}
-                    />
+                    <div className="fl-cq fl-cq-fill" key={unit.id}>
+                      <StandardCard
+                        unit={unit}
+                        progress={getUnitStatus(progressMap, unit.id)}
+                        isNext={nextUnit?.id === unit.id}
+                        levelColor={levelColor}
+                        onOpen={openUnit}
+                        reveal={reveal}
+                        revealClass={revealClass}
+                      />
+                    </div>
                   ))}
                 </div>
               )}
@@ -249,13 +258,13 @@ function HeroRing({ percent = 0, reduced, compact = false }) {
 function CoverImage({ src, levelColor }) {
   const [failed, setFailed] = useState(false)
   if (!src || failed) {
-    return <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg, ${levelColor}, ${levelColor}66)` }} />
+    return <div className="fl-squircle" style={{ width: '100%', height: '100%', background: `linear-gradient(135deg, ${levelColor}, ${levelColor}66)` }} />
   }
-  return <img src={src} alt="" loading="lazy" onError={() => setFailed(true)} />
+  return <img className="fl-squircle" src={src} alt="" loading="lazy" onError={() => setFailed(true)} />
 }
 
 /* ── Featured card — first unit of each chapter ── */
-function FeaturedCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
+function FeaturedCard({ unit, progress, isNext, levelColor, onOpen, reveal, revealClass = '' }) {
   const g = useG()
   const hasCover = !!unit.cover_image_url
   const handleKey = (e) => {
@@ -271,7 +280,7 @@ function FeaturedCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
       role="button"
       aria-label={`الوحدة ${unit.unit_number}: ${unit.theme_ar}`}
       data-vt-root
-      className={`lvx-feat${hasCover ? '' : ' lvx-feat--single'}`}
+      className={`lvx-feat${hasCover ? '' : ' lvx-feat--single'} ${revealClass}`}
     >
       {hasCover && (
         <div className="lvx-feat__media" data-vt-hero>
@@ -318,7 +327,7 @@ function FeaturedCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
 }
 
 /* ── Standard card ── */
-function StandardCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
+function StandardCard({ unit, progress, isNext, levelColor, onOpen, reveal, revealClass = '' }) {
   const handleKey = (e) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(unit, e) }
   }
@@ -332,7 +341,7 @@ function StandardCard({ unit, progress, isNext, levelColor, onOpen, reveal }) {
       role="button"
       aria-label={`الوحدة ${unit.unit_number}: ${unit.theme_ar}`}
       data-vt-root
-      className="lvx-card"
+      className={`lvx-card ${revealClass}`}
     >
       <div className="lvx-card__media" data-vt-hero>
         <CoverImage src={unit.cover_image_url} levelColor={levelColor} />

@@ -652,7 +652,7 @@ function ReadingGroup({ questions }) {
     <div className="space-y-4">
       {Object.values(groups).map((g, i) => (
         <div key={i} className="space-y-2">
-          <details className="rounded-md" style={{ background: 'rgba(255,255,255,0.02)' }}>
+          <details className="rounded-md fl-accordion" style={{ background: 'rgba(255,255,255,0.02)' }}>
             <summary
               className="cursor-pointer px-3 py-2 text-xs font-semibold list-none"
               style={{ color: 'var(--ds-text-secondary)' }}
