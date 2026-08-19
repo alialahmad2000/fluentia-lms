@@ -284,7 +284,15 @@ export default function STEPExam() {
           </h1>
           <p className="hall-lede">
             {weakest.length
-              ? `هذي جولة قصيرة على ${rows.length} أبواب — مو تقدير لدرجتك. ${weakest.length === 1 ? 'باب واحد' : `${weakest.length} أبواب`} يحتاج شغل، والباقي أساسه ماشي.`
+              // Arabic verb agreement: 1 → «باب واحد يحتاج», 2 → dual «بابان
+              // يحتاجان», 3-10 → broken plural takes the FEMININE singular
+              // «أبواب تحتاج», 11+ → «بابًا يحتاج».
+              ? `هذي جولة قصيرة على ${rows.length} أبواب — مو تقدير لدرجتك. ${
+                weakest.length === 1 ? 'باب واحد يحتاج'
+                  : weakest.length === 2 ? 'بابان يحتاجان'
+                    : weakest.length <= 10 ? `${weakest.length} أبواب تحتاج`
+                      : `${weakest.length} بابًا يحتاج`
+              } شغل، والباقي أساسه ماشي.`
               : 'ما فيه باب واضح الضعف. النموذج الكامل هو اللي يعطيك تقديراً حقيقياً لدرجتك.'}
           </p>
         </header>
