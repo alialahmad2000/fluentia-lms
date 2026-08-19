@@ -16,8 +16,8 @@ import './_ui/hall.css'
 function verdict(ov, g) {
   if (ov.score == null) {
     return {
-      head: <>{g('ابدأ بنموذج كامل', 'ابدئي بنموذج كامل')}<br />ونعرف <em>{g('من وين تبدأ', 'من وين تبدين')}</em>.</>,
-      body: 'مئة سؤال بنفس ترتيب الاختبار الحقيقي. بعدها نعرف بالضبط أي قسم يسحب درجتك، ونرتّب لك الطريق.',
+      head: <>عشر دقائق<br />ونعرف <em>{g('من وين تبدأ', 'من وين تبدين')}</em>.</>,
+      body: 'جولة قصيرة — اثنان وعشرون سؤالاً على أبواب المنهج الثمانية، ونطلع بأي باب يحتاج شغل وأي باب أساسه ماشي. النموذج الكامل يبقى موجوداً لما تجين تقيسين درجتك فعلاً.',
     }
   }
   if (ov.target == null) {
@@ -188,9 +188,25 @@ export default function STEPHome() {
           <p className="hall-lede">{v.body}</p>
 
           <div style={{ display: 'flex', gap: 12, marginBlockStart: 28, flexWrap: 'wrap' }}>
-            <Link to="/student/step/exam" className="hall-btn hall-tap" style={{ textDecoration: 'none' }}>
-              <Play size={17} /> {g('ادخل القاعة — نموذج كامل', 'ادخلي القاعة — نموذج كامل')}
-            </Link>
+            {/* A student with no attempt yet is offered the SHORT round first.
+                A full paper answers "what would I score"; on day one the useful
+                question is "where do I start", and that costs ten minutes. */}
+            {ov.score == null ? (
+              <>
+                <Link to="/student/step/exam?mode=probe" className="hall-btn hall-tap"
+                  style={{ textDecoration: 'none' }}>
+                  <Play size={17} /> {g('ابدأ الجولة — ١٠ دقائق', 'ابدئي الجولة — ١٠ دقائق')}
+                </Link>
+                <Link to="/student/step/exam" className="hall-btn2 hall-tap"
+                  style={{ textDecoration: 'none' }}>
+                  نموذج كامل بدلاً منها
+                </Link>
+              </>
+            ) : (
+              <Link to="/student/step/exam" className="hall-btn hall-tap" style={{ textDecoration: 'none' }}>
+                <Play size={17} /> {g('ادخل القاعة — نموذج كامل', 'ادخلي القاعة — نموذج كامل')}
+              </Link>
+            )}
             {ov.openErrors > 0 && (
               <Link to="/student/step/errors" className="hall-btn2 hall-tap" style={{ textDecoration: 'none' }}>
                 <AlertTriangle size={15} /> {g('راجع أخطاءك', 'راجعي أخطاءك')} ({ov.openErrors})

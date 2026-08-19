@@ -98,6 +98,7 @@ export default function STEPExam() {
   const [params] = useSearchParams()
   const drillPoint = params.get('point')
   const wantReview = params.get('mode') === 'review'
+  const wantProbe = params.get('mode') === 'probe'
 
   const [phase, setPhase] = useState('intro')
   const [paper, setPaper] = useState(null)
@@ -136,6 +137,8 @@ export default function STEPExam() {
         setError('ما جهّزنا أسئلة على هذه القاعدة بعد.')
       } else if (data?.error === 'bank_empty') {
         setError('ما عندك أخطاء مفتوحة للمراجعة الآن.')
+      } else if (data?.error === 'no_topics' || data?.error === 'no_items') {
+        setError('المنهج ما زال قيد الإعداد، فما نقدر نرتّب لك جولة الآن.')
       } else {
         setError(`${failMsg} ${g('حاول', 'حاولي')} مرة أخرى.`)
       }
@@ -157,8 +160,11 @@ export default function STEPExam() {
     } else if (wantReview) {
       autoStarted.current = true
       launch({ action: 'review', count: 10 }, 'تعذّر بدء المراجعة.')
+    } else if (wantProbe) {
+      autoStarted.current = true
+      launch({ action: 'probe' }, 'تعذّر بدء الجولة.')
     }
-  }, [drillPoint, wantReview, launch])
+  }, [drillPoint, wantReview, wantProbe, launch])
 
   const submit = useCallback(async () => {
     if (!paper) return
@@ -178,12 +184,14 @@ export default function STEPExam() {
 
   // ── intro ──────────────────────────────────────────────────────────
   if (phase === 'intro') {
-    if ((drillPoint || wantReview) && !error) {
+    if ((drillPoint || wantReview || wantProbe) && !error) {
       return (
         <div className="hall-panel" style={{ padding: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
           <Loader2 size={18} className="hall-spin" style={{ color: 'var(--hall-gold)' }} />
           <p style={{ margin: 0, fontSize: 14.5, fontWeight: 700 }}>
-            {drillPoint ? 'نجهّز لك تدريباً على هذه القاعدة…' : 'نجمع أخطاءك للمراجعة…'}
+            {drillPoint ? 'نجهّز لك تدريباً على هذه القاعدة…'
+              : wantProbe ? 'نرتّب لك جولة قصيرة على كل الأبواب…'
+                : 'نجمع أخطاءك للمراجعة…'}
           </p>
         </div>
       )
@@ -236,6 +244,87 @@ export default function STEPExam() {
             {busy ? 'نجهّز الاختبار…' : g('ابدأ الاختبار', 'ابدئي الاختبار')}
           </button>
         </div>
+      </div>
+    )
+  }
+
+  // ── result: «جولة سريعة» ───────────────────────────────────────────
+  // A placement round has no meaningful overall score — 22 questions cannot
+  // estimate a 100-question exam. What it CAN say is which topics to open
+  // first, so that is the only thing this screen says.
+  if (phase === 'done' && result && paper?.is_probe) {
+    const titleOf = {}
+    for (const t of paper.probe_plan ?? []) {
+      for (const id of t.item_ids ?? []) {
+        const q = (paper.questions ?? []).find((x) => x.id === id)
+        if (q) titleOf[q.grammar_point] = t.title_ar
+      }
+    }
+    const rolled = {}
+    for (const bp of result.by_point ?? []) {
+      const title = titleOf[bp.point]
+      if (!title) continue
+      rolled[title] = rolled[title] || { n: 0, ok: 0 }
+      rolled[title].n += bp.n
+      rolled[title].ok += bp.ok
+    }
+    const rows = Object.entries(rolled)
+      .map(([title, v]) => ({ title, ...v, pct: v.n ? v.ok / v.n : 0 }))
+      .sort((a, b) => a.pct - b.pct)
+    const weakest = rows.filter((r) => r.pct < 0.5)
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 30, maxWidth: 760 }}>
+        <header>
+          <span className="hall-kick">انتهت الجولة</span>
+          <h1 className="hall-h1" style={{ marginBlock: '14px 12px' }}>
+            {weakest.length
+              ? <>ابدئي من <em>{rows[0].title}</em>.</>
+              : <>أساسك قوي في كل الأبواب.</>}
+          </h1>
+          <p className="hall-lede">
+            {weakest.length
+              ? `هذي جولة قصيرة على ${rows.length} أبواب — مو تقدير لدرجتك. ${weakest.length === 1 ? 'باب واحد' : `${weakest.length} أبواب`} يحتاج شغل، والباقي أساسه ماشي.`
+              : 'ما فيه باب واضح الضعف. النموذج الكامل هو اللي يعطيك تقديراً حقيقياً لدرجتك.'}
+          </p>
+        </header>
+
+        <div className="hall-ledger">
+          {rows.map((r) => {
+            const pct = Math.round(r.pct * 100)
+            const tone = r.pct >= 0.75 ? ' good' : r.pct < 0.5 ? ' weak' : ''
+            return (
+              <div key={r.title} className="hall-lr" style={{ cursor: 'default' }}>
+                <span className="who">
+                  <b>{r.title}</b>
+                  <span>{r.ok} من {r.n} صحيحة</span>
+                </span>
+                <span className="track" style={{ width: 120, flex: 'none' }}>
+                  <span className={`hall-bar${tone}`} style={{ display: 'block' }}>
+                    <i style={{ width: `${pct}%` }} />
+                  </span>
+                </span>
+                <span className="num" dir="ltr" style={{
+                  color: r.pct >= 0.75 ? 'var(--hall-jade)'
+                    : r.pct < 0.5 ? 'var(--hall-rose)' : 'var(--hall-ink-2)',
+                }}>{pct}٪</span>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <Link to="/student/step/learn" className="hall-btn hall-tap" style={{ textDecoration: 'none' }}>
+            {g('افتح المنهج', 'افتحي المنهج')}
+          </Link>
+          <Link to="/student/step/exam" className="hall-btn2 hall-tap" style={{ textDecoration: 'none' }}>
+            نموذج كامل لاحقاً
+          </Link>
+        </div>
+        <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.9, color: 'var(--hall-ink-3)', maxWidth: '58ch' }}>
+          الجولة تغطّي قسم التراكيب وحده — وهو القسم اللي فيه المنهج. تقدير درجتك
+          في ستيب يحتاج نموذجاً كاملاً بأقسامه الثلاثة.
+        </p>
       </div>
     )
   }

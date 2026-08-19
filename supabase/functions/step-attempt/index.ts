@@ -202,6 +202,95 @@ Deno.serve(async (req) => {
     // never meet the specific items they got wrong — with 105 items behind one
     // point, the odds of re-drawing a given miss are tiny. Without this action a
     // mistake can be recorded forever and never re-tested.
+    // ── «جولة سريعة» — the short placement round ────────────────────────
+    // Weighted by CURRICULUM, not by difficulty: step_items has no difficulty
+    // column and the bank holds ~245 recorded answers in total, so there is
+    // nothing to calibrate an adaptive test on. Pretending otherwise would be
+    // fake psychometrics. Topics with more lessons behind them get one more
+    // question, because that is what actually decides where she starts.
+    if (action === 'probe') {
+      const { data: bp } = await admin.from('step_blueprint')
+        .select('id,version').eq('is_active', true).maybeSingle()
+
+      const { data: topics } = await admin.from('step_topics')
+        .select('key,title_ar,sort_order').eq('is_published', true).order('sort_order')
+      if (!topics?.length) return json({ error: 'no_topics' }, 409)
+
+      const { data: points } = await admin.from('step_grammar_points')
+        .select('key,title_ar,topic_key').eq('is_published', true)
+        .not('topic_key', 'is', null).neq('is_fallback', true)
+
+      const byTopic = new Map<string, string[]>()
+      for (const p of points ?? []) {
+        if (!p.topic_key) continue
+        const arr = byTopic.get(p.topic_key) ?? []
+        arr.push(p.key)
+        byTopic.set(p.topic_key, arr)
+      }
+
+      const picked: any[] = []
+      const plan: any[] = []
+      for (const t of topics) {
+        const keys = byTopic.get(t.key) ?? []
+        if (!keys.length) continue
+        const want = keys.length >= 3 ? 3 : 2
+
+        const { data: pool } = await admin.from('step_items')
+          .select('id,section,stem,choices,grammar_point,passage_id,recording_id')
+          .in('grammar_point', keys).eq('is_published', true).limit(400)
+        if (!pool?.length) continue
+
+        // Spread across the topic's own lessons before repeating one, so a
+        // 7-lesson topic is not probed three times on the same rule.
+        const byPoint = new Map<string, any[]>()
+        for (const it of shuffled(pool)) {
+          const arr = byPoint.get(it.grammar_point) ?? []
+          arr.push(it)
+          byPoint.set(it.grammar_point, arr)
+        }
+        const lanes = shuffled([...byPoint.values()])
+        const take: any[] = []
+        for (let round = 0; take.length < want && round < 8; round++) {
+          for (const lane of lanes) {
+            if (take.length >= want) break
+            const it = lane[round]
+            if (it) take.push(it)
+          }
+        }
+        picked.push(...take)
+        plan.push({ topic: t.key, title_ar: t.title_ar, asked: take.length,
+                    item_ids: take.map((i) => i.id) })
+      }
+      if (!picked.length) return json({ error: 'no_items' }, 409)
+
+      const content: Record<string, string[]> = {}
+      for (const p of picked) (content[p.section] ??= []).push(p.id)
+
+      const { data: attempt, error: aErr } = await admin.from('step_attempts')
+        .insert({
+          student_id: studentId,
+          blueprint_id: bp?.id ?? null,
+          status: 'in_progress',
+          kind: 'probe',
+          answers: { blueprint_version: bp?.version ?? null, content, probe_plan: plan },
+        }).select('id,started_at').single()
+      if (aErr) return json({ error: aErr.message }, 500)
+
+      return json({
+        attempt_id: attempt.id,
+        started_at: attempt.started_at,
+        is_probe: true,
+        probe_plan: plan,
+        questions: picked.map((p) => ({
+          id: p.id, section: p.section, stem: p.stem, choices: p.choices,
+          grammar_point: p.grammar_point, passage_id: p.passage_id, recording_id: p.recording_id,
+        })),
+        passages: [],
+        recordings: [],
+        audio_available: false,
+      })
+    }
+
     if (action === 'review') {
       const want = Math.min(Math.max(Number(body.count ?? 10), 5), 30)
 
@@ -446,6 +535,11 @@ Deno.serve(async (req) => {
         total_questions: grandTotal,
         sections: perSection,
         section_details: details,
+        // Already computed above for step_accumulate_progress; surfacing it lets
+        // «جولة سريعة» report per-TOPIC instead of a meaningless overall score.
+        by_point: [...agg.values()].filter((a) => a.point).map((a) => ({
+          point: a.point, n: a.n, ok: a.ok,
+        })),
       })
     }
 
