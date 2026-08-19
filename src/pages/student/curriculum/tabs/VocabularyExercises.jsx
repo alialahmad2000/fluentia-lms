@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle, XCircle, RotateCcw, Lightbulb, Shuffle, PenLine, ListChecks, Puzzle } from 'lucide-react'
+import { CheckCircle, XCircle, RotateCcw, Lightbulb, Shuffle, PenLine, ListChecks, Puzzle, ChevronLeft } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useActivitySave } from '../../../../hooks/useActivitySave'
 import SaveStatus from '../../../../components/ui/SaveStatus'
 import { useAuthProfile } from '../../../../stores/authStore'
+import { useG } from '../../../../i18n/gender'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { validateAnswer } from '../../../../utils/answerValidator'
@@ -30,11 +31,17 @@ function shuffle(arr) {
 }
 
 // ─── EXERCISE TYPES ───────────────────────────────
+// Ordered as a real ladder, not a menu: recognise the meaning → recall it →
+// use the word inside a sentence → spell it. Four unlabelled grey twins gave the
+// student four equal choices and no reason to pick any of them; a numbered path
+// with one recommended step removes that hesitation. `trains` says what each
+// drill is actually for, and `hue` gives it its own identity so the four stop
+// reading as the same card repeated.
 const EXERCISES = [
-  { key: 'match', label: 'اربط الكلمة بمعناها', icon: Puzzle },
-  { key: 'fill_blank', label: 'أكمل الفراغ', icon: PenLine },
-  { key: 'choose', label: 'اختر المعنى الصحيح', icon: ListChecks },
-  { key: 'scramble', label: 'رتّب الحروف', icon: Shuffle },
+  { key: 'match', label: 'اربط الكلمة بمعناها', icon: Puzzle, trains: 'تتعرّفين على المعنى', trainsM: 'تتعرّف على المعنى', hue: 258 },
+  { key: 'choose', label: 'اختر المعنى الصحيح', icon: ListChecks, trains: 'تسترجعين المعنى', trainsM: 'تسترجع المعنى', hue: 198 },
+  { key: 'fill_blank', label: 'أكمل الفراغ', icon: PenLine, trains: 'تستخدمينها داخل جملة', trainsM: 'تستخدمها داخل جملة', hue: 40 },
+  { key: 'scramble', label: 'رتّب الحروف', icon: Shuffle, trains: 'تكتبينها بحروفها', trainsM: 'تكتبها بحروفها', hue: 344 },
 ]
 
 // ═════════════════════════════════════════════════════
@@ -42,6 +49,7 @@ const EXERCISES = [
 // ═════════════════════════════════════════════════════
 export default function VocabularyExercises({ unitId, allWords }) {
   const profile = useAuthProfile()
+  const g = useG()
   const [activeExercise, setActiveExercise] = useState(null)
   const [completedExercises, setCompletedExercises] = useState({})
   const [savedProgress, setSavedProgress] = useState(null)
@@ -135,20 +143,11 @@ export default function VocabularyExercises({ unitId, allWords }) {
 
   const completedCount = Object.keys(completedExercises).length
 
-  return (
-    <div className="space-y-4 mt-8">
-      {/* Section header */}
-      <div className="text-center space-y-1 py-4">
-        <div className="w-full h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
-        <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal'] pt-4">تمارين المفردات</h3>
-        <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">أكمل التمارين لتثبيت الكلمات</p>
-        <p className="text-xs font-medium font-['Tajawal']" style={{ color: completedCount >= 4 ? '#22c55e' : '#38bdf8' }}>
-          {completedCount}/4 تمارين مكتملة
-        </p>
-        <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
-      </div>
+  // The next drill the student has not finished — the one the section leads with.
+  const nextKey = EXERCISES.find((e) => !completedExercises[e.key])?.key ?? null
 
-      {/* Exercise cards */}
+  return (
+    <div className="space-y-4 mt-10">
       {activeExercise ? (
         <ExerciseRunner
           exerciseKey={activeExercise}
@@ -159,48 +158,129 @@ export default function VocabularyExercises({ unitId, allWords }) {
           }}
           onBack={() => setActiveExercise(null)}
         />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {EXERCISES.map(ex => {
-            const done = !!completedExercises[ex.key]
-            const result = completedExercises[ex.key]
-            return (
-              <motion.button
-                key={ex.key}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setActiveExercise(ex.key)}
-                className="flex items-center gap-3 p-4 rounded-xl text-right transition-all"
-                style={{
-                  background: done ? 'rgba(34,197,94,0.06)' : 'rgba(255,255,255,0.03)',
-                  border: `1px solid ${done ? 'rgba(34,197,94,0.2)' : 'rgba(255,255,255,0.06)'}`,
-                }}
-              >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${done ? 'bg-emerald-500/15' : 'bg-sky-500/10'}`}>
-                  {done ? <CheckCircle size={18} className="text-emerald-400" /> : <ex.icon size={18} className="text-sky-400" />}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>{ex.label}</p>
-                  {done && result && (
-                    <p className="text-xs font-['Tajawal']" style={{ color: '#22c55e' }}>
-                      {result.score}/{result.maxScore}
-                    </p>
-                  )}
-                </div>
-              </motion.button>
-            )
-          })}
-        </div>
-      )}
+      ) : null}
+      {/* A lit panel, not a flat slab on a dark page — and a real section header
+          rather than a centred caption under a divider, which read as a footer
+          the student had already scrolled past. */}
+      {!activeExercise && (
+      <div
+        dir="rtl"
+        className="relative rounded-2xl overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, rgba(129,140,248,0.07) 0%, rgba(56,189,248,0.04) 55%, rgba(255,255,255,0.02) 100%)',
+          border: '1px solid rgba(255,255,255,0.07)',
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(circle at 92% 0%, rgba(129,140,248,0.16) 0%, transparent 60%)' }}
+        />
 
-      {/* Regenerate button */}
-      {!activeExercise && completedCount > 0 && (
-        <button
-          onClick={() => { setCompletedExercises({}); setActiveExercise(null) }}
-          className="flex items-center gap-2 mx-auto px-4 py-2 rounded-xl text-xs font-bold font-['Tajawal'] text-sky-400 bg-sky-500/10 border border-sky-500/20 hover:bg-sky-500/15 transition-colors"
-        >
-          <RotateCcw size={13} />
-          أعد التمارين
-        </button>
+        <div className="relative p-4 md:p-5 space-y-4">
+          {/* header */}
+          <div className="flex items-end justify-between gap-3">
+            <div className="min-w-0">
+              <h3 className="text-base font-bold text-white font-['Tajawal']">تمارين المفردات</h3>
+              <p className="text-xs text-white/45 font-['Tajawal'] mt-0.5">
+                {g('أربعة تمارين قصيرة تثبّت كلمات الوحدة', 'أربعة تمارين قصيرة تثبّت كلمات الوحدة')}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <span className="text-[11px] font-bold font-['Tajawal'] tabular-nums" style={{ color: completedCount >= 4 ? '#4ade80' : 'rgba(255,255,255,0.5)' }}>
+                {completedCount}/4
+              </span>
+              <div className="flex items-center gap-1">
+                {EXERCISES.map((ex) => (
+                  <i
+                    key={ex.key}
+                    className="w-5 h-1 rounded-full"
+                    style={{ background: completedExercises[ex.key] ? '#22c55e' : 'rgba(255,255,255,0.12)' }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* the ladder */}
+          <div className="space-y-2">
+            {EXERCISES.map((ex, i) => {
+              const done = !!completedExercises[ex.key]
+              const result = completedExercises[ex.key]
+              const isNext = ex.key === nextKey
+              return (
+                <motion.button
+                  key={ex.key}
+                  whileTap={{ scale: 0.99 }}
+                  whileHover={{ x: -2 }}
+                  onClick={() => setActiveExercise(ex.key)}
+                  className="w-full flex items-center gap-3 p-3 rounded-xl text-right transition-colors"
+                  style={{
+                    background: isNext
+                      ? `hsla(${ex.hue} 70% 55% / 0.10)`
+                      : done ? 'rgba(34,197,94,0.05)' : 'rgba(255,255,255,0.025)',
+                    border: `1px solid ${isNext ? `hsla(${ex.hue} 75% 65% / 0.35)` : done ? 'rgba(34,197,94,0.18)' : 'rgba(255,255,255,0.06)'}`,
+                    boxShadow: isNext ? `0 8px 22px hsla(${ex.hue} 70% 40% / 0.20)` : 'none',
+                  }}
+                >
+                  {/* step number — the four drills are a path, so they are numbered */}
+                  <span
+                    className="w-7 h-7 rounded-lg hidden sm:flex items-center justify-center flex-shrink-0 text-[11px] font-bold tabular-nums font-['Tajawal']"
+                    style={{
+                      background: done ? 'rgba(34,197,94,0.15)' : `hsla(${ex.hue} 70% 60% / 0.14)`,
+                      color: done ? '#4ade80' : `hsl(${ex.hue} 80% 78%)`,
+                    }}
+                  >
+                    {done ? <CheckCircle size={14} /> : i + 1}
+                  </span>
+
+                  <span
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: `hsla(${ex.hue} 70% 55% / 0.12)` }}
+                  >
+                    <ex.icon size={17} style={{ color: `hsl(${ex.hue} 80% 74%)` }} />
+                  </span>
+
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-sm font-bold text-white font-['Tajawal'] leading-tight">{ex.label}</span>
+                    <span className="block text-[11px] text-white/40 font-['Tajawal'] line-clamp-1 mt-0.5">
+                      {g(ex.trainsM, ex.trains)}
+                    </span>
+                  </span>
+
+                  {done ? (
+                    <span
+                      className="flex-shrink-0 px-2.5 h-8 inline-flex items-center rounded-lg text-[11px] font-bold tabular-nums font-['Tajawal']"
+                      style={{ background: 'rgba(34,197,94,0.12)', color: '#4ade80' }}
+                    >
+                      {result.score}/{result.maxScore}
+                    </span>
+                  ) : (
+                    <span
+                      className="flex-shrink-0 px-3 h-8 inline-flex items-center gap-1 rounded-lg text-[11px] font-bold font-['Tajawal']"
+                      style={
+                        isNext
+                          ? { background: `hsl(${ex.hue} 70% 62%)`, color: '#0b1020' }
+                          : { background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.55)' }
+                      }
+                    >
+                      {g('ابدأ', 'ابدئي')}
+                      <ChevronLeft size={13} />
+                    </span>
+                  )}
+                </motion.button>
+              )
+            })}
+          </div>
+
+          {completedCount > 0 && (
+            <p className="text-[11px] text-white/30 font-['Tajawal'] text-center">
+              {g('يمكنك إعادة أي تمرين بالضغط عليه', 'يمكنكِ إعادة أي تمرين بالضغط عليه')}
+            </p>
+          )}
+          <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
+        </div>
+      </div>
       )}
     </div>
   )
