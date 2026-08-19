@@ -24,6 +24,10 @@ export default function HomeworkPlay() {
   const [submittedAnswer, setSubmittedAnswer] = useState(null)
   const [isCorrect, setIsCorrect] = useState(null)
   const [startTime, setStartTime] = useState(Date.now())
+  // A daily-review answer that fails to save must SAY so. Both writes below used to
+  // be bare awaits, so a rejected insert advanced the counter and dropped the answer
+  // in silence — the student sees progress and the work is simply gone.
+  const [saveFailed, setSaveFailed] = useState(false)
 
   // Fetch set + exercises
   const setQuery = useQuery({
@@ -110,8 +114,8 @@ export default function HomeworkPlay() {
     setSubmittedAnswer(studentAnswer)
     setIsCorrect(pass)
 
-    // Persist attempt
-    await supabase.from('retention_homework_attempts').insert({
+    // Persist attempt — and confirm it landed.
+    const { error: attemptErr } = await supabase.from('retention_homework_attempts').insert({
       homework_set_id: setId,
       exercise_id: currentExercise.id,
       student_id: userId,
@@ -119,12 +123,19 @@ export default function HomeworkPlay() {
       is_correct: pass,
       time_seconds: Math.floor((Date.now() - startTime) / 1000),
     })
+    if (attemptErr) {
+      console.error('[homework] attempt not saved:', attemptErr.message)
+      setSaveFailed(true)
+      return
+    }
+    setSaveFailed(false)
 
-    // Update set counters
-    await supabase
+    // Counter is cosmetic — a failure here must not imply the answer was lost.
+    const { error: countErr } = await supabase
       .from('retention_homework_sets')
       .update({ completed_count: currentIndex + 1 })
       .eq('id', setId)
+    if (countErr) console.warn('[homework] counter not updated (non-fatal):', countErr.message)
   }
 
   const goNext = async () => {
@@ -291,6 +302,24 @@ export default function HomeworkPlay() {
                 resize: 'vertical',
               }}
             />
+          )}
+
+          {/* A rejected save is announced — her answer stays on screen and she can retry. */}
+          {saveFailed && (
+            <div
+              role="alert"
+              dir="rtl"
+              className="mt-4 p-4 text-sm leading-relaxed"
+              style={{
+                background: 'color-mix(in oklab, var(--ds-accent-danger) 12%, transparent)',
+                border: '1px solid color-mix(in oklab, var(--ds-accent-danger) 40%, transparent)',
+                borderRadius: 'var(--radius-md)',
+                color: 'var(--ds-accent-danger)',
+                fontWeight: 600,
+              }}
+            >
+              تعذّر حفظ إجابتكِ — تأكّدي من اتصالكِ بالإنترنت وحاولي مرة أخرى.
+            </div>
           )}
 
           {/* Feedback */}
