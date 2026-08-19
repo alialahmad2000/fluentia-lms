@@ -5,10 +5,11 @@ import { PenLine, MessageCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore, useEffectiveStudentId } from '../../../../stores/authStore'
 import { usePageReset } from '../../../../hooks/usePageReset'
-import { useG } from '@/i18n/gender'
+import { useG, useGenderize } from '@/i18n/gender'
 import GrammarPageShell from '../../../../components/grammar/GrammarPageShell'
 import GrammarHeader from '../../../../components/grammar/GrammarHeader'
 import LessonCard from '../../../../components/grammar/LessonCard'
+import DeepPanel from '../../../../components/grammar/DeepPanel'
 import DialectExplanationCard from '../../../../components/dialect/DialectExplanationCard'
 import CommonMistakesCard from '../../../../components/grammar/CommonMistakesCard'
 import ExceptionsCard from '../../../../components/grammar/ExceptionsCard'
@@ -72,6 +73,7 @@ export default function GrammarTab({ unitId }) {
 // ─── Grammar Topic — thin composer ──────────────────
 function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
   const g = useG()
+  const gz = useGenderize()
   const [bestScore, setBestScore] = useState(null)
   const [attemptNumber, setAttemptNumber] = useState(1)
   const exerciseMounted = useRef(false)
@@ -99,6 +101,18 @@ function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
 
   const sections = topic.explanation_content?.sections || []
 
+  // «تلميح» — reading and listening both carry evidence hints across 1,656
+  // questions; grammar carries none. Rather than author 2,356 new hints, point
+  // her at the rule she already has: the paradigm's golden rule from the depth
+  // layer, falling back to the lesson's formula. Zero new content, zero API.
+  const rawHint =
+    (topic.deep_content?.sections || []).find((s) => s.type === 'explanation' && s.content_ar)?.content_ar ||
+    sections.find((s) => s.type === 'formula')?.content ||
+    null
+  // The paradigm notes are authored in the feminine second person, like the
+  // rest of the curriculum copy — flip them for a male reader.
+  const hintAr = rawHint ? gz(rawHint) : null
+
   // Split sections: common_mistakes go to their own card
   const lessonSections = sections.filter(s => s.type !== 'common_mistakes')
   const mistakesSection = sections.find(s => s.type === 'common_mistakes')
@@ -123,6 +137,10 @@ function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
       {/* Lesson content */}
       <LessonCard sections={lessonSections} />
 
+      {/* Tier 2 — the depth layer, collapsed. Sits directly under the
+          explanation so "I need more" is one tap from where the doubt starts. */}
+      <DeepPanel content={topic.deep_content} />
+
       {/* Exceptions — between lesson and common mistakes */}
       <ExceptionsCard exceptions={topic.exceptions} />
 
@@ -140,6 +158,7 @@ function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
             grammarTopic={topic.topic_name_en}
             studentLevel={studentLevel}
             ruleSnippet={ruleSnippet}
+            hintAr={hintAr}
             onAttemptUpdate={(score, attempt, best) => {
               if (best != null) setBestScore(best)
               if (attempt != null) setAttemptNumber(attempt)

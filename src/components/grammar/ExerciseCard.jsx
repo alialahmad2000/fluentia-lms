@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { Sparkles } from 'lucide-react'
+import { Sparkles, Lightbulb } from 'lucide-react'
 import { useG } from '@/i18n/gender'
 import ExplainModal from './ExplainModal'
+import RichText from './RichText'
+import { trackEvent } from '../../lib/trackEvent'
 import VerdictPanel from '../curriculum/questions/VerdictPanel'
 import '../curriculum/questions/questionCards.css'
 import MCQQuestion from './exercise-types/MCQQuestion'
@@ -9,6 +11,16 @@ import FillBlankQuestion from './exercise-types/FillBlankQuestion'
 import ErrorCorrectionQuestion from './exercise-types/ErrorCorrectionQuestion'
 import ReorderQuestion from './exercise-types/ReorderQuestion'
 import TransformQuestion from './exercise-types/TransformQuestion'
+
+// Tier 5 is flagged, not just numbered — a student should know when a question
+// is genuinely a challenge rather than assume she is failing an easy one.
+const DIFFICULTY = {
+  1: { label: 'سهل', color: 'var(--success)', bg: 'var(--success-bg)' },
+  2: { label: 'سهل', color: 'var(--success)', bg: 'var(--success-bg)' },
+  3: { label: 'متوسط', color: 'var(--accent-sky)', bg: 'var(--info-bg)' },
+  4: { label: 'صعب', color: 'var(--warning)', bg: 'var(--warning-bg)' },
+  5: { label: 'تحدٍّ', color: 'var(--accent-rose)', bg: 'var(--danger-bg)' },
+}
 
 const TYPE_LABELS = {
   fill_blank: 'أكمل الفراغ',
@@ -30,9 +42,10 @@ function getFallbackInstructions(g) {
   }
 }
 
-export default function ExerciseCard({ exercise, index, total, answer, onAnswer, grammarTopic, studentLevel, ruleSnippet }) {
+export default function ExerciseCard({ exercise, index, total, answer, onAnswer, grammarTopic, studentLevel, ruleSnippet, hintAr }) {
   const g = useG()
   const [explainOpen, setExplainOpen] = useState(false)
+  const [hintOpen, setHintOpen] = useState(false)
   const item = exercise.items?.[0]
   if (!item) return null
 
@@ -60,12 +73,25 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer,
             {num} / {String(total).padStart(2, '0')}
           </span>
         </div>
-        <span
-          className="text-[10px] font-bold px-2.5 py-1 rounded-md font-['Tajawal']"
-          style={{ background: 'var(--info-bg)', color: 'var(--accent-sky)', border: '1px solid var(--info-border)' }}
-        >
-          {typeLabel}
-        </span>
+        <div className="flex items-center gap-1.5">
+          {DIFFICULTY[Number(item.difficulty)] && (
+            <span
+              className="text-[10px] font-bold px-2 py-1 rounded-md font-['Tajawal']"
+              style={{
+                background: DIFFICULTY[Number(item.difficulty)].bg,
+                color: DIFFICULTY[Number(item.difficulty)].color,
+              }}
+            >
+              {Number(item.difficulty) === 5 ? '🔥 ' : ''}{DIFFICULTY[Number(item.difficulty)].label}
+            </span>
+          )}
+          <span
+            className="text-[10px] font-bold px-2.5 py-1 rounded-md font-['Tajawal']"
+            style={{ background: 'var(--info-bg)', color: 'var(--accent-sky)', border: '1px solid var(--info-border)' }}
+          >
+            {typeLabel}
+          </span>
+        </div>
       </div>
 
       {/* Instruction */}
@@ -78,6 +104,37 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer,
       <p className="text-[17px] font-medium font-['Inter'] leading-relaxed" dir="ltr" style={{ color: 'var(--text-primary)' }}>
         {item.question}
       </p>
+
+      {/* «تلميح» — points at the rule without giving the answer away, and only
+          before she has answered. After that the explanation takes over. */}
+      {hintAr && !answer && (
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              const next = !hintOpen
+              setHintOpen(next)
+              // Same event reading and listening fire, so hint usage is
+              // comparable across sections instead of grammar being invisible.
+              if (next) trackEvent('question_hint_opened', { kind: 'grammar', content_id: exercise.grammar_id, question: exercise.id })
+            }}
+            className="grammar-explain-btn"
+            aria-expanded={hintOpen}
+          >
+            <Lightbulb size={14} />
+            {hintOpen ? 'إخفاء التلميح' : 'تلميح'}
+          </button>
+          {hintOpen && (
+            <div className="grammar-explanation-bar mt-2" dir="rtl">
+              <RichText
+                text={hintAr}
+                dir={/[؀-ۿ]/.test(hintAr) ? 'rtl' : 'ltr'}
+                className="text-xs font-['Tajawal'] leading-relaxed"
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Question type renderer */}
       {exercise.exercise_type === 'choose' && (

@@ -26,7 +26,7 @@ function getCompletionMessage(score, g) {
   return msgs[Math.floor(Math.random() * msgs.length)]
 }
 
-export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet }) {
+export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet, hintAr }) {
   const g = useG()
   // One hook owns persistence for this section: the row, the attempt number,
   // the queue, the outbox, the readOnly guard and the save state. What used to
@@ -404,6 +404,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
               grammarTopic={grammarTopic}
               studentLevel={studentLevel}
               ruleSnippet={ruleSnippet}
+              hintAr={hintAr}
             />
           </div>
         ))}
