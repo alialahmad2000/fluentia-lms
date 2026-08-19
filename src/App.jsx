@@ -15,6 +15,7 @@ import BizTrackGuard from './components/biz-track/BizTrackGuard'
 import EnvTrackGuard from './components/env-track/EnvTrackGuard'
 import PhraseBankGuard from './components/phrase-bank/PhraseBankGuard'
 import DialoguesGuard from './components/dialogues/DialoguesGuard'
+import FieldNotesGuard from './components/field-notes/FieldNotesGuard'
 import ClassRecapsGuard from './components/class-recaps/ClassRecapsGuard'
 import TeacherLayout from './layouts/TeacherLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
@@ -79,6 +80,7 @@ const BizLessonPage = lazyRetry(() => import('./pages/student/biz-track/BizLesso
 const EnvTrackHome = lazyRetry(() => import('./pages/student/env-track/EnvTrackHome'))
 const PhraseBank = lazyRetry(() => import('./pages/student/PhraseBank'))
 const Dialogues = lazyRetry(() => import('./pages/student/Dialogues'))
+const FieldNotes = lazyRetry(() => import('./pages/student/FieldNotes'))
 const DialogueScene = lazyRetry(() => import('./pages/student/DialogueScene'))
 const ClassRecaps = lazyRetry(() => import('./pages/student/ClassRecaps'))
 const EnvLessonPage = lazyRetry(() => import('./pages/student/env-track/EnvLessonPage'))
@@ -308,6 +310,7 @@ const AdminAudioTelemetry = lazyRetry(() => import('./pages/admin/AdminAudioTele
 const AdminCurriculumQuality = lazyRetry(() => import('./pages/admin/AdminCurriculumQuality'))
 const AdminAttention = lazyRetry(() => import('./pages/admin/AdminAttention'))
 const AdminIntake = lazyRetry(() => import('./pages/admin/AdminIntake'))
+const AdminFieldNotes = lazyRetry(() => import('./pages/admin/AdminFieldNotes'))
 const StudentGrowth = lazyRetry(() => import('./pages/student/StudentGrowth'))
 const StudentIntake = lazyRetry(() => import('./pages/student/StudentIntake'))
 const StudentPhrasebook = lazyRetry(() => import('./pages/student/StudentPhrasebook'))
@@ -900,6 +903,11 @@ export default function App() {
                   <Route path="/student/dialogues" element={<Page><Dialogues /></Page>} />
                   <Route path="/student/dialogues/:scenarioKey" element={<Page><DialogueScene /></Page>} />
                 </Route>
+                {/* «دفتر الميدان» — per-student field notes (uses_field_notes): real corrections
+                    from the student's actual working life. Staff can preview. */}
+                <Route element={<FieldNotesGuard />}>
+                  <Route path="/student/field-notes" element={<Page><FieldNotes /></Page>} />
+                </Route>
                 {/* «ملخّص الحصص» — per-student recap of a live class (uses_class_notes). Staff can preview. */}
                 <Route element={<ClassRecapsGuard />}>
                   <Route path="/student/class-recaps" element={<Page><ClassRecaps /></Page>} />
@@ -1233,6 +1241,7 @@ export default function App() {
               <Route path="/admin/reports" element={<Page><AdminReportsHub /></Page>} />
               <Route path="/admin/attention" element={<Page><AdminAttention /></Page>} />
               <Route path="/admin/intake" element={<Page><AdminIntake /></Page>} />
+              <Route path="/admin/field-notes" element={<Page><AdminFieldNotes /></Page>} />
               <Route path="/admin/reports/student/:studentId" element={<Page><AdminReportStudentDetail /></Page>} />
               {/* legacy reports page — archived, reachable, never deleted (hide-don't-delete rule) */}
               <Route path="/admin/reports-legacy" element={<Page><AdminReports /></Page>} />

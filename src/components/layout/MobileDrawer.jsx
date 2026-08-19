@@ -140,6 +140,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                   if (item.requiresPhraseBank) return studentData?.uses_phrase_bank === true
                   if (item.requiresDialogues) return studentData?.uses_dialogues === true
                   if (item.requiresClassNotes) return studentData?.uses_class_notes === true
+                  if (item.requiresFieldNotes) return studentData?.uses_field_notes === true
                   if (!item.requiresPackage) return true
                   if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
             if (item.requiresStepTrack) return hasSTEPAccess(studentData)

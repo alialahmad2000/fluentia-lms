@@ -52,6 +52,7 @@ import LevelExitTestCard from '../../../components/gamification/LevelExitTestCar
 import MysteryBox from '../../../components/gamification/MysteryBox'
 import LiveLevelActivityFeed from '../../../components/student/dashboard/LiveLevelActivityFeed'
 import RetentionDashboardSection from '../../../components/retention/RetentionDashboardSection'
+import FieldNotesHomeCard from '../../../components/field-notes/FieldNotesHomeCard'
 
 /* ══════════════════════════════════════════════════════════════════════ *
  * Fluentia LMS — STUDENT HOME  ·  "الأطلس الحيّ / The Living Atlas"
@@ -937,6 +938,10 @@ export default function SpotlightDashboard() {
             </div>
           </motion.div>
         ) : null}
+
+        {/* «دفتر الميدان» — renders nothing unless she is entitled AND has notes,
+            so this is never an empty tile. */}
+        <FieldNotesHomeCard />
 
         {/* ════════ 3 · DISCOVER — frosted destinations floating in the world ════════ */}
         <motion.div {...rise} transition={reduced ? undefined : { duration: 0.55, ease: APPLE_EASE, delay: 0.05 }}>

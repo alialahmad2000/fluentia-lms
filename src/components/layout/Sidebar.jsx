@@ -228,6 +228,7 @@ function Sidebar({ nav, collapsed }) {
             if (item.requiresPhraseBank) return studentData?.uses_phrase_bank === true
             if (item.requiresDialogues) return studentData?.uses_dialogues === true
             if (item.requiresClassNotes) return studentData?.uses_class_notes === true
+            if (item.requiresFieldNotes) return studentData?.uses_field_notes === true
             if (item.requiresIELTSStudents) return hasIELTSStudents
             if (item.requiresMockExamAccess) return canSeeMockExam
             if (!item.requiresPackage) return true
