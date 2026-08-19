@@ -162,7 +162,7 @@ export default function LoginPage() {
             </div>
 
             {/* Email or Username */}
-            <div>
+            <div className="fl-field">
               <label htmlFor={loginMode === 'email' ? 'email' : 'username'} className="input-label">
                 {loginMode === 'email' ? t('auth.login.email') : t('auth.login.username')}
               </label>
@@ -194,7 +194,7 @@ export default function LoginPage() {
             </div>
 
             {/* Password */}
-            <div>
+            <div className="fl-field">
               <label htmlFor="password" className="input-label">
                 {t('auth.login.password')}
               </label>

@@ -37,7 +37,7 @@ function Room({ title, count, children }) {
         <span className="lib-room-rule" />
         <span className="lib-room-count">{count}</span>
       </div>
-      <div className="lib-shelf">{children}</div>
+      <div className="lib-shelf fl-stagger">{children}</div>
     </section>
   )
 }

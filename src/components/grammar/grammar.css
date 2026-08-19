@@ -636,3 +636,15 @@
     transform: translateX(-50%);
   }
 }
+
+/* Arabic-Indic numerals for RTL ordered lists. RichText.jsx carried a comment
+   that Arabic-numbered lines were deliberately NOT turned into <ol> "because it
+   would renumber them with Latin digits" — @counter-style is exactly the fix for
+   that, so an <ol> in RTL now renders ١ ٢ ٣ natively. Scoped to RTL: English
+   grammar examples keep Latin digits.
+   :dir() resolves the element's OWN resolved direction. An ancestor selector
+   like [dir="rtl"] .grammar-rt-ol is wrong here: the whole app lives inside
+   <html dir="rtl">, so an English (dir="ltr") list would still match it and get
+   Arabic-Indic numerals. Verified: the ancestor form leaked, this one does not.
+   Unsupported browsers simply drop the rule and keep Latin digits. */
+.grammar-rt-ol:dir(rtl) { list-style: fl-arabic; }

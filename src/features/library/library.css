@@ -1016,3 +1016,17 @@ body.lib-immersive .mobile-bottom-nav {
   .lib-gb-overlay, .lib-gb-panel, .lib-gb-stamp, .lib-gb-stamp::after, .lib-gb-seal[data-on] { animation: none !important; }
   .lib-gb-card, .lib-gb-seal, .lib-gb-submit { transition: none !important; }
 }
+
+/* subgrid: covers and meta blocks share row tracks across the shelf, so titles
+   line up no matter how tall a cover or how long a title. .lib-card has exactly
+   two direct children (cover, meta), matching the two declared rows — a
+   mismatch here would silently misalign instead of erroring. */
+@supports (grid-template-rows: subgrid) {
+  .lib-shelf { grid-template-rows: auto auto; }
+  .lib-shelf > .lib-card {
+    grid-row: span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+  }
+  .lib-shelf > .lib-card .lib-card-meta { margin-top: 0; padding-top: 10px; }
+}

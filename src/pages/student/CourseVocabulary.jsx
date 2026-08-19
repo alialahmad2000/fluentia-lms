@@ -59,6 +59,7 @@ function WordRow({ card, accent, studentId, playing, onPlay, isLast }) {
   const m = MASTERY[card.mastery_level] || MASTERY.new
   return (
     <div
+      className="fl-cv-row"
       style={{
         display: 'flex', alignItems: 'flex-start', gap: 14,
         padding: '14px 4px',
