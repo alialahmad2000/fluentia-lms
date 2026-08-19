@@ -25,7 +25,7 @@
 import { useMemo } from 'react'
 
 // Hue per part of speech — colour becomes a grammatical signal.
-const POS_HUE = {
+export const POS_HUE = {
   noun: 258,          // indigo → violet
   verb: 172,          // deep teal
   adjective: 42,      // amber
@@ -37,11 +37,16 @@ const POS_HUE = {
   phrase: 194,        // cyan
   idiom: 194,
 }
-const DEFAULT_HUE = 214
+export const DEFAULT_HUE = 214
 
 // Fine film grain so the surface has tooth instead of reading as a flat wash.
 const GRAIN =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E\")"
+
+/** The hue a part of speech carries, shared by the plates and the list rows. */
+export function posHue(partOfSpeech) {
+  return POS_HUE[String(partOfSpeech || '').toLowerCase()] ?? DEFAULT_HUE
+}
 
 function hashOf(str = '') {
   let h = 5381

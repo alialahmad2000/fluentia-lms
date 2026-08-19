@@ -22,9 +22,10 @@ import WordDetailSheet from '../../../../components/curriculum/word-detail/WordD
 import { getHardWords } from '../../../../services/hardWords'
 import VocabSettingsGear from '../../../../components/curriculum/settings/VocabSettingsGear'
 import VocabOnboardingTour from '../../../../components/curriculum/onboarding/VocabOnboardingTour'
-import WordArtPlate from '../../../../components/curriculum/vocab/WordArtPlate'
+import WordArtPlate, { posHue } from '../../../../components/curriculum/vocab/WordArtPlate'
 import VocabStudyBand from '../../../../components/curriculum/vocab/VocabStudyBand'
 import { useG } from '../../../../i18n/gender'
+import { buildSession, advanceSession, sessionHasNext } from '../../../../lib/vocabSession'
 import { vocabPhotoUrl } from '../../../../lib/vocabImages'
 import { useActivitySave } from '../../../../hooks/useActivitySave'
 import SaveStatus from '../../../../components/ui/SaveStatus'
@@ -132,6 +133,12 @@ export default function VocabularyTab({ unitId }) {
   const libraryRef = useRef(null) // Hero "scroll to library" target (Prompt 05)
   const exerciseCloseCallbackRef = useRef(null) // ChunkMiniSession queue hook (Prompt 06)
   const [activeChunk, setActiveChunk] = useState(null) // Journey Lane modal (Prompt 06)
+  // A bounded study session. The band's CTA promises «جلسة · N كلمات», so the
+  // queue has to actually END after N — before this it opened the first
+  // unmastered word and chained through every remaining word in the unit, which
+  // made the button's own copy untrue and gave the session no finish line.
+  const SESSION_SIZE = 10
+  const [session, setSession] = useState(null) // { ids, i, startMastered, finished }
   const [chunkRefetchKey, setChunkRefetchKey] = useState(0) // bump to force ChunkLane refetch
   const [detailSheetWord, setDetailSheetWord] = useState(null) // Word Detail Sheet (Prompt 07)
 
@@ -491,12 +498,25 @@ export default function VocabularyTab({ unitId }) {
   // «ابدأ جلسة» — open the first word still owed and let the exercise modal's
   // own next-word chain carry the student through the rest. No new machinery.
   const handleStartSession = useCallback(() => {
-    const next = allWords.find((w) => getWordMasteryLevel(w.id) !== 'mastered')
-    if (next) setExerciseWord(next)
-  }, [allWords, getWordMasteryLevel])
+    const next = buildSession(allWords, (w) => getWordMasteryLevel(w.id) === 'mastered', SESSION_SIZE, masteredCount)
+    if (!next) return
+    setSession(next)
+    setExerciseWord(allWords.find((w) => w.id === next.ids[0]) || null)
+  }, [allWords, getWordMasteryLevel, masteredCount])
+
+  // Leaving the modal early ends the session rather than leaving a stale queue
+  // that would resume days later from the middle.
+  const handleEndSession = useCallback(() => setSession(null), [])
 
   const handleNextWord = useCallback(() => {
     if (!exerciseWord) return
+    // Inside a session the queue is the authority: advance through it and stop.
+    if (session && !session.finished) {
+      const { session: nextSession, word } = advanceSession(session, allWords)
+      setSession(nextSession)
+      setExerciseWord(word)
+      return
+    }
     const idx = allWords.findIndex(w => w.id === exerciseWord.id)
     if (idx === -1) { setExerciseWord(null); return }
     // 1) next still-unmastered AFTER the current position
@@ -512,7 +532,7 @@ export default function VocabularyTab({ unitId }) {
       next = allWords[idx + 1] || null
     }
     setExerciseWord(next || null)
-  }, [exerciseWord, allWords, getWordMasteryLevel])
+  }, [exerciseWord, allWords, getWordMasteryLevel, session])
 
   if (isLoading || progressLoading) return <VocabSkeleton />
 
@@ -564,6 +584,9 @@ export default function VocabularyTab({ unitId }) {
           learningCount={allWords.filter((w) => getWordMasteryLevel(w.id) === 'learning').length}
           getWordById={(id) => allWords.find((w) => w.id === id)}
           fallbackNextWord={allWords.find((w) => getWordMasteryLevel(w.id) !== 'mastered')}
+          sessionSize={SESSION_SIZE}
+          session={session}
+          onEndSession={handleEndSession}
           onStartSession={handleStartSession}
           onOpenWord={handleHeroOpenWord}
         />
@@ -781,6 +804,9 @@ export default function VocabularyTab({ unitId }) {
         onClose={() => {
           setExerciseWord(null)
           setQuickPractice(false)
+          // Closing mid-session still ends it with a summary of what was covered,
+          // rather than dropping the queue silently.
+          setSession((prev) => (prev && !prev.finished ? { ...prev, finished: true } : prev))
           // Journey Lane queue hook — advance to next word in chunk
           const cb = exerciseCloseCallbackRef.current
           if (cb) {
@@ -790,7 +816,16 @@ export default function VocabularyTab({ unitId }) {
         }}
         onMasteryUpdate={handleMasteryUpdate}
         onNextWord={handleNextWord}
-        hasNextWord={!!exerciseWord && allWords.some(w => w.id !== exerciseWord.id && getWordMasteryLevel(w.id) !== 'mastered')}
+        endMessage={
+          session && !session.finished && !sessionHasNext(session)
+            ? g('خلصت جلسة اليوم 👏', 'خلّصتِ جلسة اليوم 👏')
+            : undefined
+        }
+        hasNextWord={
+          session && !session.finished
+            ? sessionHasNext(session)
+            : !!exerciseWord && allWords.some((w) => w.id !== exerciseWord.id && getWordMasteryLevel(w.id) !== 'mastered')
+        }
       />
 
       {/* Chunk Mini-Session modal (Prompt 06) */}
@@ -1096,53 +1131,57 @@ function WordListView({ vocabulary, getMastery, reviewedWords, onView, onPractic
 function WordListItem({ word, mastery, reviewed, onView, onPractice, playAudio }) {
   const isMastered = mastery?.mastery_level === 'mastered'
   const isLearning = mastery?.mastery_level === 'learning'
-  const passedCount = [mastery?.meaning_exercise_passed, mastery?.sentence_exercise_passed, mastery?.listening_exercise_passed].filter(Boolean).length
+  const hue = posHue(word.part_of_speech)
 
+  // The list is the DENSE view — its job is to let a student scan eighty words
+  // quickly. The old row carried three exercise dots and a «تمرّن» pill on every
+  // single line, which is the same eighty-times repetition that made the grid
+  // read as wallpaper. State is now one dot, and the row itself is the action.
   return (
-    <div className="flex items-center justify-between px-3 py-3 gap-3 hover:bg-white/[0.01] transition-colors cursor-pointer" onClick={() => { onView?.(); onPractice?.() }}>
-      {/* Right side: word info */}
-      <div className="flex items-center gap-3 min-w-0 flex-1">
-        {/* Mastery indicator */}
-        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.1)' }} />
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2" dir="ltr">
-            <span className="text-sm font-semibold text-white font-['Inter']">{word.word}</span>
-            {word.pronunciation_ipa && (
-              <span className="text-[10px] text-white/35 font-['Inter'] tracking-tight">{word.pronunciation_ipa}</span>
-            )}
-            <span className="text-[10px] text-white/25 font-['Inter']">{word.part_of_speech}</span>
-          </div>
-          <p className="text-[11px] text-white/55 font-['Tajawal'] line-clamp-1">{word.definition_ar}</p>
+    <div
+      className="flex items-center gap-3 px-3 py-2.5 hover:bg-white/[0.02] transition-colors cursor-pointer"
+      onClick={() => { onView?.(); onPractice?.() }}
+    >
+      {/* part-of-speech colour, the same hue the word's plate uses */}
+      <span className="w-[3px] h-8 rounded-full flex-shrink-0" style={{ background: `hsl(${hue} 70% 62% / 0.75)` }} />
+
+      {/* Two aligned columns on a wide screen — the word and its meaning both
+          get their own column instead of huddling at the start edge with a
+          1,000px hole beside them. Stacks back to two lines on a phone. */}
+      <div className="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-baseline sm:gap-5">
+        {/* dir="ltr" on the WRAPPER left-aligned the whole block inside an RTL
+            row, so the word drifted to the far end away from its own meaning.
+            The row stays RTL; only the Latin run is isolated, with <bdi>. */}
+        <div className="flex items-baseline gap-2 sm:w-52 sm:flex-shrink-0">
+          <bdi dir="ltr" className="text-[15px] font-bold text-white/90" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            {word.word}
+          </bdi>
+          {word.pronunciation_ipa && (
+            <bdi dir="ltr" className="text-[10px] text-white/30 font-['Inter'] tracking-tight">{word.pronunciation_ipa}</bdi>
+          )}
         </div>
+        <p className="text-[11px] text-white/50 font-['Tajawal'] line-clamp-1 mt-0.5 sm:mt-0 sm:flex-1">
+          <span className="text-white/30">{POS_AR[word.part_of_speech] || word.part_of_speech} · </span>
+          {word.definition_ar}
+        </p>
       </div>
 
-      {/* Left side: dots + actions */}
-      <div className="flex items-center gap-2 flex-shrink-0">
-        {/* Exercise dots */}
-        <div className="flex items-center gap-0.5">
-          {[0, 1, 2].map(i => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: i < passedCount ? '#22c55e' : 'rgba(255,255,255,0.08)' }} />
-          ))}
-        </div>
-        {word.audio_url && (
-          <button
-            onClick={(e) => { e.stopPropagation(); playAudio(word.audio_url, e) }}
-            className="w-7 h-7 rounded-full bg-white/[0.04] text-white/30 flex items-center justify-center hover:bg-white/[0.08] hover:text-white/50 transition-colors"
-          >
-            <Volume2 size={12} />
-          </button>
-        )}
+      {word.audio_url && (
         <button
-          onClick={(e) => { e.stopPropagation(); onPractice?.() }}
-          className={`px-2.5 py-1 rounded-full text-[10px] font-bold font-['Tajawal'] transition-colors ${
-            isMastered
-              ? 'bg-emerald-500/10 text-emerald-400/70'
-              : 'bg-sky-500/10 text-sky-400/70 hover:bg-sky-500/15'
-          }`}
+          onClick={(e) => { e.stopPropagation(); playAudio(word.audio_url, e) }}
+          aria-label="استمع للكلمة"
+          className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors hover:bg-white/[0.07]"
+          style={{ background: 'rgba(255,255,255,0.04)' }}
         >
-          {isMastered ? 'أتقنتها' : 'تمرّن'}
+          <Volume2 size={14} className="text-white/45" />
         </button>
-      </div>
+      )}
+
+      <span
+        className="w-2 h-2 rounded-full flex-shrink-0"
+        title={isMastered ? 'أتقنتها' : isLearning ? 'تتعلمينها' : 'لم تبدأ'}
+        style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.12)' }}
+      />
     </div>
   )
 }

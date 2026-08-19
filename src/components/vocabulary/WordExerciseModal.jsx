@@ -25,7 +25,7 @@ const EXERCISES = [
   { key: 'listening', label: 'استمع واختر', icon: Headphones, color: 'amber' },
 ]
 
-export default function WordExerciseModal({ word, unitWords, mastery, studentId, isOpen, onClose, onMasteryUpdate, onNextWord, hasNextWord }) {
+export default function WordExerciseModal({ word, unitWords, mastery, studentId, isOpen, onClose, onMasteryUpdate, onNextWord, hasNextWord, endMessage }) {
   const [activeExercise, setActiveExercise] = useState(null)
   const [detailOpen, setDetailOpen] = useState(false)
   const [detailInitialTab, setDetailInitialTab] = useState('meaning')
@@ -323,7 +323,14 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
                         <ChevronLeft size={18} className="shrink-0" />
                       </button>
                     ) : (
-                      <p className="text-sm font-bold text-amber-300 font-['Tajawal']">أتقنت كل كلمات الوحدة! 🎉</p>
+                      /* «no next word» has two very different causes: the unit is
+                         finished, or a bounded study session just ended with words
+                         still left. Claiming the first when it is the second tells
+                         the student something untrue, so the host supplies the
+                         right line via endMessage. */
+                      <p className="text-sm font-bold text-amber-300 font-['Tajawal']">
+                        {endMessage || 'أتقنت كل كلمات الوحدة! 🎉'}
+                      </p>
                     )}
                   </div>
                 )}

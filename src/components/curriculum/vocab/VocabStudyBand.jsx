@@ -33,6 +33,8 @@ export default function VocabStudyBand({
   masteredCount,
   learningCount,
   sessionSize = 10,
+  session,
+  onEndSession,
   getWordById,
   fallbackNextWord,
   onStartSession,
@@ -56,13 +58,22 @@ export default function VocabStudyBand({
   // (it returns 'start_exploration' once the daily new-card allowance is used).
   // The band must still show WHICH word is next, so fall back to the first word
   // the student has not mastered — the same one «ابدأ جلسة» will open.
+  // The plate must show the word the CTA will actually open, so the word the
+  // session picks wins over the hook's own suggestion — otherwise the band
+  // promises «التالية: dolphin» and the button opens «creature».
   const rawNext = action?.target === 'next_word' ? action.payload : null
-  const nextFull = (rawNext?.vocabularyId ? getWordById?.(rawNext.vocabularyId) : null) || fallbackNextWord
+  const nextFull = fallbackNextWord || (rawNext?.vocabularyId ? getWordById?.(rawNext.vocabularyId) : null)
   const nextWord = nextFull ? { vocabularyId: nextFull.id, word: nextFull.word, part_of_speech: nextFull.part_of_speech } : null
   const remaining = Math.max(total - mastered, 0)
   const batch = Math.min(sessionSize, remaining)
 
   const pct = (n) => (total > 0 ? (n / total) * 100 : 0)
+
+  // A session has to end somewhere. Rather than adding another panel, the band
+  // itself reports the session it just ran — same slot, no layout shift.
+  const justFinished = session?.finished
+  const covered = justFinished ? Math.min(session.i + 1, session.ids.length) : 0
+  const gained = justFinished ? Math.max(mastered - (session.startMastered ?? mastered), 0) : 0
 
   const headline = done
     ? g('أتقنت كل كلمات الوحدة', 'أتقنتِ كل كلمات الوحدة')
@@ -86,6 +97,47 @@ export default function VocabStudyBand({
         style={{ background: 'radial-gradient(circle at 88% 8%, rgba(56,189,248,0.16) 0%, transparent 58%)' }}
       />
 
+      {justFinished ? (
+        <div className="relative p-5 flex flex-col md:flex-row md:items-center gap-4" dir="rtl">
+          <span
+            className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+            style={{ background: 'rgba(34,197,94,0.14)', color: '#4ade80' }}
+          >
+            <PartyPopper size={22} />
+          </span>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-white font-['Tajawal']">{g('خلصت الجلسة', 'خلّصتِ الجلسة')}</h3>
+            <p className="text-[13px] text-white/55 font-['Tajawal'] mt-0.5">
+              {g('راجعت', 'راجعتِ')} <span className="text-white font-bold tabular-nums">{covered}</span>{' '}
+              {covered === 1 ? 'كلمة' : covered === 2 ? 'كلمتين' : covered <= 10 ? 'كلمات' : 'كلمة'}
+              {gained > 0 && (
+                <> · {g('أتقنت', 'أتقنتِ')} <span className="text-emerald-300 font-bold tabular-nums">{gained}</span> {g('جديدة', 'جديدة')}</>
+              )}
+            </p>
+          </div>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {remaining > 0 && (
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.98 }}
+                onClick={() => { onEndSession?.(); onStartSession?.() }}
+                className="inline-flex items-center gap-2 h-11 px-4 rounded-xl text-sm font-bold font-['Tajawal']"
+                style={{ background: 'linear-gradient(135deg,#38bdf8 0%,#6366f1 100%)', color: '#04121f' }}
+              >
+                <Sparkles size={16} /> {g('جلسة أخرى', 'جلسة أخرى')}
+              </motion.button>
+            )}
+            <button
+              type="button"
+              onClick={onEndSession}
+              className="h-11 px-4 rounded-xl text-[13px] font-bold font-['Tajawal'] transition-colors hover:bg-white/[0.06]"
+              style={{ background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.75)', border: '1px solid rgba(255,255,255,0.08)' }}
+            >
+              {g('تمام', 'تمام')}
+            </button>
+          </div>
+        </div>
+      ) : (
       <div className="relative flex flex-col-reverse md:flex-row md:items-stretch gap-4 p-4 md:p-5">
         {/* ── the words ── */}
         <div className="flex-1 min-w-0 flex flex-col justify-center gap-4">
@@ -196,6 +248,7 @@ export default function VocabStudyBand({
           </button>
         )}
       </div>
+      )}
     </div>
   )
 }
