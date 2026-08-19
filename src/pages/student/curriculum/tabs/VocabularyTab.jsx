@@ -49,12 +49,22 @@ const TIER_BADGE = {
 function highlightWord(sentence, word) {
   const w = String(word || '').trim()
   if (!w || !sentence) return [sentence]
-  const escaped = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const re = new RegExp(`\\b(${escaped}(?:s|es|ed|d|ing|ies)?)\\b`, 'i')
-  const m = String(sentence).match(re)
+  const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  // English inflects by more than adding a suffix, and a headword that fails to
+  // match just renders plain — so the reader loses the one cue that shows the
+  // word doing its job. Cover the regular spelling changes too:
+  //   define → defining (silent e drops), family → families (y → ies),
+  //   plan → planning (final consonant doubles).
+  const alts = [`${esc(w)}(?:s|es|ed|d|ing)?`]
+  if (/e$/i.test(w)) alts.push(`${esc(w.slice(0, -1))}(?:ing|ed)`)
+  if (/[^aeiou]y$/i.test(w)) alts.push(`${esc(w.slice(0, -1))}(?:ies|ied)`)
+  if (/[^aeiou][aeiou][bdglmnprt]$/i.test(w)) alts.push(`${esc(w)}${w.slice(-1)}(?:ing|ed)`)
+  // Longest alternative first: otherwise `plan` matches inside `planning` and
+  // only half the word is emphasised.
+  alts.sort((a, b) => b.length - a.length)
+  const m = String(sentence).match(new RegExp(`\\b(${alts.join('|')})\\b`, 'i'))
   if (!m) return [sentence]
-  const at = m.index
-  return [sentence.slice(0, at), m[0], sentence.slice(at + m[0].length)]
+  return [sentence.slice(0, m.index), m[0], sentence.slice(m.index + m[0].length)]
 }
 
 const FILTERS = [
