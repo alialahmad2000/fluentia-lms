@@ -38,10 +38,10 @@ import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import ConversationMode from '../../../../components/curriculum/speaking/ConversationMode'
+import ConversationPlayback, { useSpeakingConversations } from '../../../../components/curriculum/speaking/ConversationPlayback'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
-import { useActivitySave } from '../../../../hooks/useActivitySave'
-import SaveStatus from '../../../../components/ui/SaveStatus'
+import { useCurriculumPreview } from '../../../../contexts/CurriculumPreviewContext'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import './speakingStudio.css'
 
@@ -96,9 +96,7 @@ export default function SpeakingTab({ unitId }) {
   const studentName = profile?.full_name || profile?.display_name
   const groupId = studentData?.group_id
   const queryClient = useQueryClient()
-  const {
-    readOnly, submit: submitAttempt, state: saveState, lastSavedAt,
-  } = useActivitySave({ studentId, unitId, sectionType: 'speaking' })
+  const { readOnly } = useCurriculumPreview() // teacher preview: never persist progress
   const [activeTopic, setActiveTopic] = useState(0)
 
   const { data: topics, isLoading } = useQuery({
@@ -188,11 +186,46 @@ export default function SpeakingTab({ unitId }) {
 
     if (!studentId || !unitId) return
 
-    // SELECT-then-UPDATE-or-INSERT is a race: two uploads finishing together
-    // both read "no row" and both insert. One idempotent call instead.
-    const res = await submitAttempt({}, {})
-    if (!res?.ok) {
-      if (!res?.queued) toast({ type: 'error', title: 'تعذّر حفظ التقدم — يرجى إبلاغ المشرف' })
+    const progressRow = {
+      student_id: studentId,
+      unit_id: unitId,
+      section_type: 'speaking',
+      status: 'completed',
+      completed_at: new Date().toISOString(),
+    }
+
+    const { data: existing, error: fetchErr } = await supabase
+      .from('student_curriculum_progress')
+      .select('id')
+      .eq('student_id', studentId)
+      .eq('unit_id', unitId)
+      .eq('section_type', 'speaking')
+      .limit(1)
+      .maybeSingle()
+
+    if (fetchErr && fetchErr.code !== 'PGRST116') {
+      console.error('[SpeakingTab] fetch progress error:', fetchErr)
+    }
+
+    let writeErr
+    if (existing) {
+      const { error } = await supabase
+        .from('student_curriculum_progress')
+        .update(progressRow)
+        .eq('id', existing.id)
+        .select()
+      writeErr = error
+    } else {
+      const { error } = await supabase
+        .from('student_curriculum_progress')
+        .insert(progressRow)
+        .select()
+      writeErr = error
+    }
+
+    if (writeErr) {
+      console.error('[SpeakingTab] progress write failed:', writeErr)
+      toast({ type: 'error', title: 'تعذّر حفظ التقدم — يرجى إبلاغ المشرف' })
       return
     }
 
@@ -235,10 +268,6 @@ export default function SpeakingTab({ unitId }) {
   return (
     <div className="spk">
       <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
-
-      {/* Here the recording IS the work, so whether it reached the server is
-          exactly what she needs to see. */}
-      <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
 
       <div className="spk-body-col">
         {/* Several tasks in one unit → switch between them instead of stacking
@@ -284,6 +313,8 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
   const [realtimeStatus, setRealtimeStatus] = useState(existingRecording?.evaluation_status || null)
   const [attemptsOpen, setAttemptsOpen] = useState(false)
   const { data: leaderboard } = useActivityLeaderboard('speaking', unitId, studentId, groupId)
+  // her conversations exist independently of the summary recording row
+  const { data: convos } = useSpeakingConversations(studentId, unitId, questionIndex)
 
   // The brief steps aside the moment the conversation is live — the mic must
   // never be below the fold. It stays one tap away in the strip + help sheet.
@@ -470,14 +501,20 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
       </div>
 
       {/* ③ AFTER — outcome, one band */}
-      {(aiEval || existingRecording) && (
+      {(aiEval || existingRecording || convos?.length > 0) && (
         <>
           <div className="spk-band-label"><b /><span>الحصيلة</span><i /></div>
 
+          {/* The WHOLE exchange with Layla — both voices, replayable in order,
+              for this conversation and every earlier one on this task. */}
+          <ConversationPlayback studentId={studentId} unitId={unitId} questionIndex={questionIndex} />
+
           {/* The student's OWN submission — audio + what they actually said.
               Record-once is retired, but 77 of the 97 live recordings came from
-              it: hiding the recorder must never hide their work. */}
-          {existingRecording && <PreviousSubmission recording={existingRecording} />}
+              it: hiding the recorder must never hide their work. Conversation
+              rows already get the full replay above, so this is only shown for
+              the historical record-once attempts. */}
+          {existingRecording && !existingRecording.conversation_id && <PreviousSubmission recording={existingRecording} />}
 
           {aiEval && <SpeakingEvaluation evaluation={aiEval} />}
 
@@ -929,7 +966,6 @@ function SpeakingSkeleton() {
   return (
     <div className="spk">
       <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
-
       <div className="spk-body-col">
         <div className="spk-stage" style={{ padding: 20 }}>
           <div className="space-y-3">
