@@ -313,6 +313,23 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-19 — STEP «جولة سريعة»: ten minutes to place her, not three hours
+Owner: *"don't you think having her take the full exam first is boring and not efficient? maybe an alternative would be the best thing."* He is right — the only way into the section was a 100-question paper.
+
+**The two things were conflated.** A full paper answers *"what would I score on STEP?"*; on day one the useful question is *"where do I start?"* — and that costs ten minutes. Charging three hours for it also spends the full paper, the one realistic rehearsal, before she has learned anything.
+
+- **NOT adaptive, deliberately.** `step_items` has **no difficulty column** and the whole bank holds **~245 recorded answers** — there is nothing to calibrate on, so an "adaptive test" here would be fake psychometrics. It is weighted by **curriculum** instead: 3 questions from each topic with 3+ lessons behind it, 2 from the thin ones = **22 questions**, spread across a topic's own lessons before any lesson repeats. Measured live: **22 questions covering 21 of the 30 lessons**, 0 duplicate stems, 0 key leakage.
+- **The result shows NO score, on purpose.** 22 questions cannot estimate a 100-question exam and printing a number would invite her to believe it. It ranks the 8 topics weakest-first, names the one to open, and states plainly that a real score estimate still needs a full paper — the round covers only the structure section, which is the section the curriculum actually teaches.
+- **New `probe` action** on `step-attempt` (deployed **v8**) with its own `kind='probe'`, so it never lands in the score history beside a real paper — same reason `drill` and `review` are separated.
+- **`submit` now returns `by_point`.** That aggregate was already being computed for `step_accumulate_progress` and simply never surfaced, so per-topic reporting needed no new query.
+- **Home leads with the 10-minute round only for a student with no attempt yet.** The full paper stays one tap away («نموذج كامل بدلاً منها»); returning students still get it as the primary action.
+
+**Migration gotcha worth carrying forward:** `step_attempts.kind` was guarded by **TWO** check constraints under different names — `step_attempts_kind_chk` (the original) and `step_attempts_kind_check`. Dropping one left the other silently rejecting `'probe'` while the migration reported success. Caught only by reading the constraint definitions back — see [[feedback-verify-writes-by-reading-back]].
+
+**Verified by walking the whole round on production** as a real student: 22 questions answered through the real UI, submit → «انتهت الجولة», 8 topic rows ranked weakest-first, no score ring, correct CTAs, 0 page errors. One Arabic bug caught on that live screen and fixed: «٦ أبواب **يحتاج** شغل» — a broken plural takes the feminine singular verb, so «تحتاج»; all four count branches now agree.
+
+- Files: `supabase/functions/step-attempt/index.ts`, `src/pages/student/step/{STEPExam,STEPHome}.jsx`, migration `20260819120000_probe_kind.sql`. Shipped `52887df1` → `684acdaa`.
+
 ### 2026-08-19 (final) — VOCAB: the session actually ends, and the list view joins the system
 - Two items were left open at the end of the redesign, and I flagged them rather than let them be found. Both are closed here, and the first turned out to be a defect **I had introduced**.
 - **The CTA was lying.** The study band promises «ابدئي جلسة · ١٠ كلمات», but `handleStartSession` merely opened the first unmastered word and `handleNextWord` then chained through **every** remaining word in the unit — 84 of them — with no bound and no finish line. The button's own copy was untrue.
