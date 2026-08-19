@@ -1,0 +1,35 @@
+/* Entry point to «دفتر الميدان» from the student home. Sits inside the Living Atlas
+   world, so it is frosted glass over the world rather than a solid slab — and every
+   colour is a token, so it re-tints per student with the html[data-track] remap. */
+.fnc-card{
+  display:flex;align-items:center;gap:16px;width:100%;text-align:start;
+  padding:18px 20px;border-radius:18px;text-decoration:none;
+  color:var(--text-primary);
+  background:color-mix(in srgb, var(--surface-raised) 55%, transparent);
+  border:1px solid color-mix(in srgb, var(--accent-sky) 22%, var(--border-default));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 10px 34px color-mix(in srgb, var(--surface-void) 45%, transparent);
+  transition:transform .2s cubic-bezier(.22,.61,.36,1), border-color .2s, box-shadow .2s;
+}
+.fnc-card:hover{transform:translateY(-2px);
+  border-color:color-mix(in srgb, var(--accent-sky) 45%, transparent);
+  box-shadow:0 16px 44px color-mix(in srgb, var(--accent-sky) 16%, transparent)}
+
+.fnc-card__ico{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+  color:var(--accent-sky-strong);
+  background:color-mix(in srgb, var(--accent-sky) 14%, transparent);
+  border:1px solid color-mix(in srgb, var(--accent-sky) 26%, transparent)}
+
+.fnc-card__t{flex:1;min-width:0}
+.fnc-card__t strong{display:block;font-size:1rem;font-weight:800;line-height:1.5;color:var(--text-primary)}
+.fnc-card__t span{display:block;font-size:.82rem;line-height:1.7;color:var(--text-secondary)}
+
+.fnc-card__n{flex:none;min-width:44px;text-align:center}
+.fnc-card__n b{display:block;font-size:1.5rem;font-weight:800;line-height:1.1;color:var(--accent-sky-strong)}
+.fnc-card__n i{font-style:normal;font-size:.68rem;font-weight:700;color:var(--text-tertiary)}
+.fnc-card__n[data-kind='mastered'] b{color:var(--success)}
+
+@media (max-width:520px){
+  .fnc-card{padding:15px;gap:12px}
+  .fnc-card__ico{width:40px;height:40px;border-radius:12px}
+}

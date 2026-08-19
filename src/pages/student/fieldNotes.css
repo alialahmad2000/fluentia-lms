@@ -1,0 +1,218 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   «دفتر الميدان» — Field Notes.
+   A field notebook, not a worksheet: ruled paper, a bound spine, and a living
+   room behind it. Every colour comes from a design token, so the one accent
+   (--accent-sky) is automatically re-tinted per student by the scoped
+   html[data-track="…"] remaps in design-tokens.css — copper for Malak's studio,
+   cyan for control, brass for maktaba — with ZERO per-student CSS here.
+   No hardcoded hex anywhere in this file; that is what makes the engine reusable.
+   ══════════════════════════════════════════════════════════════════════════ */
+.fnx-root{
+  --fnx-accent:        var(--accent-sky);
+  --fnx-accent-strong: var(--accent-sky-strong);
+  --fnx-glow:          var(--accent-sky-glow);
+
+  --fnx-ink:      var(--text-primary);
+  --fnx-ink-soft: var(--text-secondary);
+  --fnx-muted:    var(--text-tertiary);
+
+  --fnx-card:  color-mix(in srgb, var(--surface-raised) 82%, transparent);
+  --fnx-card-2:color-mix(in srgb, var(--surface-raised) 60%, transparent);
+  --fnx-line:  var(--border-default);
+  --fnx-line-soft: var(--border-subtle);
+
+  --fnx-serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+
+  position:relative; z-index:1; min-height:100dvh; color:var(--fnx-ink);
+}
+
+/* The app sets a GLOBAL `h1..h6 { color: var(--text-primary) }`. This page paints
+   its own surface, so pin every heading to this surface's own ink — any heading
+   added below inherits the fix automatically. Same class of bug as ClassRecaps. */
+.fnx-root h1,.fnx-root h2,.fnx-root h3,.fnx-root h4,.fnx-root h5,.fnx-root h6{color:var(--fnx-ink)}
+
+/* ── the living room — never a flat background ── */
+.fnx-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:
+    radial-gradient(130% 100% at 50% 0%,
+      color-mix(in srgb, var(--surface-raised) 70%, var(--surface-void)) 0%,
+      var(--surface-base) 52%,
+      var(--surface-void) 100%)}
+.fnx-world i{position:absolute;display:block;border-radius:50%;filter:blur(78px);opacity:.78}
+.fnx-world i:nth-child(1){width:56vw;height:56vw;top:-16vw;inset-inline-end:-12vw;
+  background:radial-gradient(circle, color-mix(in srgb, var(--fnx-accent) 34%, transparent), transparent 68%);
+  animation:fnxDrift1 38s ease-in-out infinite}
+.fnx-world i:nth-child(2){width:48vw;height:48vw;bottom:-16vw;inset-inline-start:-10vw;
+  background:radial-gradient(circle, color-mix(in srgb, var(--success) 22%, transparent), transparent 68%);
+  animation:fnxDrift2 48s ease-in-out infinite}
+.fnx-world i:nth-child(3){width:42vw;height:42vw;top:36%;inset-inline-start:30%;
+  background:radial-gradient(circle, color-mix(in srgb, var(--accent-violet) 24%, transparent), transparent 70%);
+  animation:fnxDrift3 56s ease-in-out infinite}
+/* a warm pool right behind the masthead so the page opens with light, not a slab */
+.fnx-world i:nth-child(4){width:70vw;height:34vw;top:-10vw;inset-inline-start:8vw;filter:blur(96px);opacity:.5;
+  background:radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--fnx-accent) 26%, transparent), transparent 72%);
+  animation:fnxDrift1 46s ease-in-out infinite}
+@keyframes fnxDrift1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4vw,3vw,0)}}
+@keyframes fnxDrift2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(5vw,-3vw,0)}}
+@keyframes fnxDrift3{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,4vw,0)}}
+/* Long-running transforms on decorative layers flicker on some Android GPUs —
+   hold them still on touch devices (same mitigation as the home world). */
+@media (pointer:coarse){.fnx-world i{animation:none}}
+@media (prefers-reduced-motion:reduce){.fnx-world i{animation:none}}
+
+.fnx-wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:8px 0 72px}
+
+/* ── hero ── */
+.fnx-hero{margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--fnx-line-soft)}
+.fnx-hero__k{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:800;
+  letter-spacing:.06em;color:var(--fnx-accent);
+  background:color-mix(in srgb, var(--fnx-accent) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--fnx-accent) 26%, transparent);
+  border-radius:999px;padding:5px 12px}
+.fnx-hero h1{font-family:var(--fnx-serif);font-size:clamp(1.9rem,4.6vw,2.8rem);font-weight:700;
+  margin:14px 0 8px;letter-spacing:-.01em;line-height:1.25}
+.fnx-hero p{margin:0;max-width:600px;font-size:.98rem;line-height:1.9;color:var(--fnx-ink-soft)}
+
+.fnx-hero__stat{display:flex;align-items:center;gap:18px;margin-top:22px;flex-wrap:wrap}
+.fnx-ring{position:relative;width:76px;height:76px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:conic-gradient(var(--fnx-accent) calc(var(--p)*1%), color-mix(in srgb, var(--fnx-ink) 10%, transparent) 0)}
+.fnx-ring::after{content:'';position:absolute;inset:7px;border-radius:50%;background:var(--surface-base)}
+.fnx-ring span{position:relative;z-index:1;font-weight:800;font-size:.9rem;color:var(--fnx-accent)}
+.fnx-hero__nums{display:flex;gap:22px}
+.fnx-hero__num b{display:block;font-size:1.3rem;font-weight:800;color:var(--fnx-ink);line-height:1.2}
+.fnx-hero__num span{font-size:.78rem;color:var(--fnx-muted)}
+
+/* ── tabs ── */
+.fnx-tabs{display:flex;gap:6px;margin:0 0 22px;padding:5px;border-radius:999px;
+  background:var(--fnx-card-2);border:1px solid var(--fnx-line-soft);width:fit-content;max-width:100%;
+  overflow-x:auto;scrollbar-width:none}
+.fnx-tabs::-webkit-scrollbar{display:none}
+.fnx-tab{border:0;background:transparent;color:var(--fnx-ink-soft);cursor:pointer;white-space:nowrap;
+  border-radius:999px;padding:8px 16px;font-size:.85rem;font-weight:700;transition:.18s;
+  font-family:'Tajawal','SF Arabic',sans-serif}
+.fnx-tab:hover{color:var(--fnx-ink)}
+.fnx-tab[aria-selected='true']{background:color-mix(in srgb, var(--fnx-accent) 16%, transparent);
+  color:var(--fnx-accent-strong);box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--fnx-accent) 30%, transparent)}
+.fnx-tab b{margin-inline-start:6px;font-weight:800;opacity:.85}
+
+/* ── note card ── */
+.fnx-list{display:flex;flex-direction:column;gap:12px}
+.fnx-note{position:relative;border:1px solid var(--fnx-line);border-radius:16px;overflow:hidden;
+  background:var(--fnx-card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transition:border-color .2s, transform .2s}
+.fnx-note:hover{border-color:color-mix(in srgb, var(--fnx-accent) 30%, var(--fnx-line))}
+/* the bound spine of the notebook — the one place the accent runs full height */
+.fnx-note::before{content:'';position:absolute;inset-block:0;inset-inline-start:0;width:3px;
+  background:linear-gradient(180deg, var(--fnx-accent), color-mix(in srgb, var(--fnx-accent) 25%, transparent))}
+
+.fnx-note__head{display:flex;align-items:center;gap:12px;width:100%;padding:16px 18px;
+  background:transparent;border:0;cursor:pointer;text-align:start;color:inherit;
+  font-family:'Tajawal','SF Arabic',sans-serif}
+.fnx-note__t{flex:1;min-width:0}
+.fnx-note__t h3{margin:0 0 4px;font-size:1rem;font-weight:800;line-height:1.5}
+.fnx-note__prev{display:block;margin:2px 0 5px;font-family:var(--fnx-serif);font-size:.9rem;
+  line-height:1.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fnx-note__prev s{color:var(--danger);opacity:.75;text-decoration-thickness:1px;margin-inline-end:9px}
+.fnx-note__prev b{color:var(--success);font-weight:600}
+.fnx-note__ctx{display:block;font-size:.72rem;color:var(--fnx-muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fnx-note__chev{flex:none;color:var(--fnx-muted);transition:transform .22s}
+.fnx-note[data-open='true'] .fnx-note__chev{transform:rotate(180deg)}
+
+.fnx-pill{flex:none;font-size:.68rem;font-weight:800;border-radius:999px;padding:4px 10px;
+  border:1px solid transparent;white-space:nowrap}
+.fnx-pill[data-s='new']{color:var(--fnx-accent-strong);
+  background:color-mix(in srgb, var(--fnx-accent) 12%, transparent);
+  border-color:color-mix(in srgb, var(--fnx-accent) 26%, transparent)}
+.fnx-pill[data-s='practicing']{color:var(--warning);background:var(--warning-bg);border-color:var(--warning-border)}
+.fnx-pill[data-s='mastered']{color:var(--success);background:var(--success-bg);border-color:var(--success-border)}
+
+/* ── expanded body: ruled paper ── */
+.fnx-note__body{padding:4px 18px 20px;
+  background:repeating-linear-gradient(180deg,
+    transparent 0 31px,
+    var(--fnx-line-soft) 31px 32px)}
+.fnx-row{margin:0 0 14px}
+.fnx-row__k{display:block;font-size:.72rem;font-weight:800;letter-spacing:.02em;margin-bottom:5px;color:var(--fnx-muted)}
+.fnx-row__v{margin:0;font-size:1rem;line-height:1.75;font-weight:600}
+.fnx-en{direction:ltr;text-align:start;font-family:var(--fnx-serif);font-size:1.05rem}
+
+.fnx-row--wrong .fnx-row__k{color:var(--danger)}
+.fnx-row--wrong .fnx-row__v{color:var(--danger);text-decoration:line-through;
+  text-decoration-thickness:1px;text-decoration-color:color-mix(in srgb, var(--danger) 55%, transparent)}
+.fnx-row--right .fnx-row__k{color:var(--success)}
+.fnx-row--right .fnx-row__v{color:var(--success)}
+.fnx-row--natural .fnx-row__k{color:var(--fnx-accent)}
+.fnx-row--natural .fnx-row__v{color:var(--fnx-accent-strong)}
+
+.fnx-rule{margin:18px 0 0;padding:14px 16px;border-radius:12px;
+  background:var(--fnx-card-2);border:1px solid var(--fnx-line-soft)}
+.fnx-rule h4{margin:0 0 6px;font-size:.92rem;font-weight:800;color:var(--fnx-ink)}
+.fnx-rule p{margin:0;font-size:.9rem;line-height:1.95;color:var(--fnx-ink-soft)}
+.fnx-why{margin:10px 0 0;font-size:.8rem;line-height:1.8;color:var(--fnx-muted)}
+
+.fnx-cta{margin-top:16px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  border-radius:999px;padding:10px 20px;font-size:.88rem;font-weight:800;
+  font-family:'Tajawal','SF Arabic',sans-serif;
+  color:var(--text-on-accent);background:var(--fnx-accent);border:1px solid transparent;
+  transition:.18s;box-shadow:0 6px 20px var(--fnx-glow)}
+.fnx-cta:hover{background:var(--fnx-accent-strong);transform:translateY(-1px)}
+.fnx-cta__n{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 5px;
+  border-radius:999px;font-size:.76rem;font-weight:800;
+  background:color-mix(in srgb, var(--surface-void) 34%, transparent);color:inherit}
+.fnx-cta--ghost{background:transparent;color:var(--fnx-ink-soft);border-color:var(--fnx-line);box-shadow:none}
+.fnx-cta--ghost:hover{background:var(--fnx-card-2);color:var(--fnx-ink);transform:none}
+
+/* ── exercise runner (inline, never a fixed overlay: fixed layers lose to the
+      mobile nav's stacking context on this platform) ── */
+.fnx-run{border:1px solid var(--fnx-line);border-radius:18px;padding:22px;background:var(--fnx-card);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.fnx-run__top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.fnx-run__step{font-size:.75rem;font-weight:800;color:var(--fnx-muted)}
+.fnx-run__bar{height:3px;border-radius:999px;background:color-mix(in srgb, var(--fnx-ink) 10%, transparent);overflow:hidden;margin:12px 0 22px}
+.fnx-run__bar i{display:block;height:100%;background:var(--fnx-accent);transition:width .35s ease}
+.fnx-run h3{margin:0 0 4px;font-size:.85rem;font-weight:800;color:var(--fnx-muted)}
+.fnx-run__prompt{margin:0 0 18px;font-size:1.12rem;line-height:1.8;font-weight:700}
+
+.fnx-input{width:100%;border-radius:12px;padding:13px 15px;font-size:1rem;
+  background:var(--surface-interactive);border:1px solid var(--fnx-line);color:var(--fnx-ink);
+  direction:ltr;text-align:start;font-family:var(--fnx-serif);transition:.16s}
+.fnx-input:focus{outline:none;border-color:var(--fnx-accent);box-shadow:0 0 0 3px var(--fnx-glow)}
+.fnx-input:disabled{opacity:.75}
+
+.fnx-opts{display:flex;flex-direction:column;gap:8px}
+.fnx-opt{border:1px solid var(--fnx-line);background:var(--fnx-card-2);color:var(--fnx-ink);
+  border-radius:12px;padding:13px 15px;cursor:pointer;direction:ltr;text-align:start;
+  font-family:var(--fnx-serif);font-size:.98rem;line-height:1.6;transition:.16s}
+.fnx-opt:hover:not(:disabled){border-color:var(--fnx-accent);background:color-mix(in srgb, var(--fnx-accent) 8%, transparent)}
+.fnx-opt[data-state='right']{border-color:var(--success-border);background:var(--success-bg);color:var(--success)}
+.fnx-opt[data-state='wrong']{border-color:var(--danger-border);background:var(--danger-bg);color:var(--danger)}
+.fnx-opt:disabled{cursor:default}
+
+.fnx-verdict{margin-top:16px;padding:13px 15px;border-radius:12px;font-size:.88rem;line-height:1.8;font-weight:600}
+.fnx-verdict[data-v='right']{color:var(--success);background:var(--success-bg);border:1px solid var(--success-border)}
+.fnx-verdict[data-v='wrong']{color:var(--warning);background:var(--warning-bg);border:1px solid var(--warning-border)}
+.fnx-verdict[data-v='reveal']{color:var(--fnx-ink-soft);background:var(--fnx-card-2);border:1px solid var(--fnx-line)}
+.fnx-verdict b{display:block;margin-top:6px;color:var(--fnx-ink);direction:ltr;text-align:start;font-family:var(--fnx-serif);font-weight:700}
+.fnx-verdict em{display:block;margin-top:8px;font-style:normal;font-size:.8rem;color:var(--fnx-muted)}
+.fnx-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+/* ── done ── */
+.fnx-done{text-align:center;padding:26px 8px}
+.fnx-done h3{font-family:var(--fnx-serif);font-size:1.5rem;margin:14px 0 8px}
+.fnx-done p{margin:0 auto;max-width:420px;font-size:.92rem;line-height:1.9;color:var(--fnx-ink-soft)}
+.fnx-done__ico{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;margin:0 auto;
+  color:var(--success);background:var(--success-bg);border:1px solid var(--success-border)}
+
+/* ── empty ── */
+.fnx-empty{text-align:center;padding:56px 20px;border:1px dashed var(--fnx-line);border-radius:18px;
+  background:var(--fnx-card-2)}
+.fnx-empty p{margin:12px auto 0;max-width:380px;font-size:.92rem;line-height:1.9;color:var(--fnx-ink-soft)}
+.fnx-empty svg{color:var(--fnx-muted)}
+
+@media (max-width:640px){
+  .fnx-wrap{padding-bottom:96px}
+  .fnx-note__head{padding:14px}
+  .fnx-note__body{padding:4px 14px 18px}
+  .fnx-run{padding:18px 15px}
+}
