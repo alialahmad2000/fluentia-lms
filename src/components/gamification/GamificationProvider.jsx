@@ -16,107 +16,12 @@ function getLevel(xp) {
 }
 
 // Achievement definitions with auto-detection conditions
-const ACHIEVEMENT_CHECKS = [
-  {
-    code: 'fire_starter',
-    check: async (studentId) => {
-      const { count } = await supabase
-        .from('submissions')
-        .select('*', { count: 'exact', head: true })
-        .eq('student_id', studentId)
-        .is('deleted_at', null)
-      return count >= 1
-    },
-  },
-  {
-    code: 'bookworm',
-    check: async (studentId) => {
-      const { count } = await supabase
-        .from('submissions')
-        .select('*, assignments!inner(type)', { count: 'exact', head: true })
-        .eq('student_id', studentId)
-        .eq('assignments.type', 'reading')
-        .is('deleted_at', null)
-      return count >= 10
-    },
-  },
-  {
-    code: 'voice_hero',
-    check: async (studentId) => {
-      const { count } = await supabase
-        .from('submissions')
-        .select('*', { count: 'exact', head: true })
-        .eq('student_id', studentId)
-        // submissions has no `voice_url` — the column is `content_voice_url`.
-        // The typo made this achievement check 400 on every dashboard load.
-        .not('content_voice_url', 'is', null)
-        .is('deleted_at', null)
-      return count >= 10
-    },
-  },
-  {
-    code: 'streak_master',
-    check: async (studentId) => {
-      const { data } = await supabase
-        .from('students')
-        .select('longest_streak')
-        .eq('id', studentId)
-        .single()
-      return (data?.longest_streak || 0) >= 30
-    },
-  },
-  {
-    code: 'helper',
-    check: async (studentId) => {
-      const { count } = await supabase
-        .from('peer_recognitions')
-        .select('*', { count: 'exact', head: true })
-        .eq('to_student', studentId)
-      return count >= 5
-    },
-  },
-  {
-    code: 'note_taker',
-    check: async (studentId) => {
-      const { count } = await supabase
-        .from('class_notes')
-        .select('*', { count: 'exact', head: true })
-        .eq('author_id', studentId)
-        .eq('is_trainer_summary', false)
-      return count >= 5
-    },
-  },
-  {
-    code: 'weekly_champion',
-    check: async (studentId) => {
-      const { data } = await supabase
-        .from('weekly_task_sets')
-        .select('status, week_start')
-        .eq('student_id', studentId)
-        .eq('status', 'completed')
-        .order('week_start', { ascending: false })
-        .limit(4)
-      if (!data || data.length < 4) return false
-      // Check they are 4 consecutive weeks
-      for (let i = 0; i < 3; i++) {
-        const diff = new Date(data[i].week_start) - new Date(data[i + 1].week_start)
-        if (Math.abs(diff - 7 * 24 * 60 * 60 * 1000) > 24 * 60 * 60 * 1000) return false
-      }
-      return true
-    },
-  },
-  {
-    code: 'task_master',
-    check: async (studentId) => {
-      const { count } = await supabase
-        .from('weekly_tasks')
-        .select('id', { count: 'exact', head: true })
-        .eq('student_id', studentId)
-        .eq('status', 'graded')
-      return (count || 0) >= 50
-    },
-  },
-]
+// The old client-side ACHIEVEMENT_CHECKS array lived here. It is deleted, not commented
+// out: every criterion queried submissions / assignments / peer_recognitions /
+// class_notes / weekly_task_sets, all deprecated, so it could never qualify anyone —
+// and evaluating criteria client-side next to a student-writable insert is a
+// self-award button. The criteria now live in claim_earned_achievements() where the
+// database re-verifies them. Add new achievements THERE, not here.
 
 export default function GamificationProvider() {
   const g = useG()
@@ -180,100 +85,37 @@ export default function GamificationProvider() {
     }
   }, [isStudent, studentId, currentStreak])
 
-  // Check for new achievements periodically
+  // Check for new achievements periodically.
+  //
+  // This used to evaluate the criteria HERE and then insert into student_achievements
+  // directly. Two things were wrong with that and together they killed achievements
+  // platform-wide from 2026-04-30 until 2026-08-19:
+  //   - the insert is rejected by RLS (the policy is is_admin() OR is_trainer()), and the
+  //     result was wrapped in `if (!error)`, so it failed with no XP, no notification, no
+  //     celebration and NOTHING in the console. A dead feature that looked alive.
+  //   - the criteria read submissions / assignments / peer_recognitions / class_notes /
+  //     weekly_task_sets, all of which are deprecated, so nothing could qualify anyway.
+  // Client-side criteria could never be trusted with the insert either — that is a
+  // self-award button. Both now live in claim_earned_achievements(), which re-verifies
+  // every criterion in the database and can only ever act on the caller.
   const checkAchievements = useCallback(async () => {
     if (!isStudent || !studentId) return
-
-    try {
-      // Get already earned achievements
-      const { data: earned } = await supabase
-        .from('student_achievements')
-        .select('achievements(code)')
-        .eq('student_id', studentId)
-
-      const earnedCodes = new Set((earned || []).map(e => e.achievements?.code).filter(Boolean))
-
-      // Get available achievements
-      const { data: available } = await supabase
-        .from('achievements')
-        .select('id, code, name_ar, description_ar, icon, xp_reward')
-        .eq('is_active', true)
-
-      if (!available?.length) return
-
-      // Check each unearned achievement
-      for (const achievement of available) {
-        if (earnedCodes.has(achievement.code)) continue
-
-        const checker = ACHIEVEMENT_CHECKS.find(c => c.code === achievement.code)
-        if (!checker) continue
-
-        try {
-          const qualifies = await checker.check(studentId)
-          if (qualifies) {
-            // Award achievement
-            const { error } = await supabase.from('student_achievements').insert({
-              student_id: studentId,
-              achievement_id: achievement.id,
-            })
-
-            if (!error) {
-              // Award XP
-              if (achievement.xp_reward > 0) {
-                const { error: xpErr } = await supabase.from('xp_transactions').insert({
-                  student_id: studentId,
-                  amount: achievement.xp_reward,
-                  reason: 'achievement',
-                  description: achievement.name_ar,
-                })
-                if (xpErr) console.warn('[Achievement] XP error:', xpErr.message)
-              }
-
-              // Send notification
-              const { error: notifErr } = await supabase.from('notifications').insert({
-                user_id: studentId,
-                type: 'achievement',
-                title: `إنجاز جديد: ${achievement.name_ar}`,
-                body: achievement.description_ar,
-                data: { achievement_id: achievement.id, icon: achievement.icon },
-              })
-              if (notifErr) console.warn('[Achievement] Notification error:', notifErr.message)
-
-              // Add to activity feed
-              const { data: student } = await supabase
-                .from('students')
-                .select('group_id')
-                .eq('id', studentId)
-                .single()
-
-              if (student?.group_id) {
-                const { error: feedErr } = await supabase.from('activity_feed').insert({
-                  group_id: student.group_id,
-                  student_id: studentId,
-                  type: 'achievement',
-                  title: `حقق إنجاز ${achievement.name_ar}`,
-                  description: achievement.description_ar,
-                  data: { icon: achievement.icon, xp: achievement.xp_reward },
-                })
-                if (feedErr) console.warn('[Achievement] Feed error:', feedErr.message)
-              }
-
-              // Show unlock animation + celebration
-              setUnlockedAchievement(achievement)
-              try { safeCelebrate('achievement_unlocked') } catch {}
-              if (achievement.xp_reward > 0) {
-                try { emitXP(achievement.xp_reward, achievement.name_ar) } catch {}
-              }
-              return // Only show one at a time
-            }
-          }
-        } catch (e) {
-          // Silently skip failed checks
-        }
-      }
-    } catch (e) {
-      // Silently handle errors
+    const { data, error } = await supabase.rpc('claim_earned_achievements')
+    if (error) {
+      // Loud on purpose. Silence here is exactly what hid this for four months.
+      console.error('[Achievement] claim failed:', error.message)
+      return
     }
+    if (!data?.length) return
+    const first = data[0]
+    const { data: full } = await supabase
+      .from('achievements')
+      .select('id, code, name_ar, description_ar, icon, xp_reward')
+      .eq('code', first.code)
+      .maybeSingle()
+    setUnlockedAchievement(full || { code: first.code, name_ar: first.name_ar, xp_reward: first.xp })
+    try { safeCelebrate('achievement_unlocked') } catch {}
+    if (first.xp > 0) { try { emitXP(first.xp, first.name_ar) } catch {} }
   }, [isStudent, studentId])
 
   // Run achievement check on mount only (not on every XP change — too many DB queries)
