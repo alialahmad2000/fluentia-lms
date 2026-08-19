@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { createSaveQueue, saveAttempt } from '../lib/activitySave'
+import { countAnswers, createSaveQueue, saveAttempt } from '../lib/activitySave'
 import { useCurriculumPreview } from '../contexts/CurriculumPreviewContext'
 import { trackEvent } from '../lib/trackEvent'
 
@@ -46,6 +46,7 @@ export function useActivitySave({
   // progress row used to have two indistinguishable causes: the app lost the
   // work, or she never opened the section. Now the server knows which.
   const openedRef = useRef(false)
+  const loggedAnswersRef = useRef(0)
   useEffect(() => {
     if (readOnly || openedRef.current) return
     if (!studentId || !(activityId || unitId)) return
@@ -58,6 +59,17 @@ export function useActivitySave({
   const commit = useCallback(async (answers, opts = {}) => {
     if (readOnly) return { ok: false, readOnly: true, row: null }
     if (!studentId || !unitId || !sectionType) return { ok: false, row: null }
+
+    // Record that she ANSWERED, before the write is attempted — that is the
+    // whole point. If the save then fails, the intent survives independently of
+    // whether a row ever landed. Only on an increase, so re-saves stay quiet.
+    const nAnswered = countAnswers(answers)
+    if (!opts.submit && nAnswered > loggedAnswersRef.current) {
+      loggedAnswersRef.current = nAnswered
+      trackEvent('answer_given', {
+        section: sectionType, activity_id: activityId, unit_id: unitId, answered: nAnswered,
+      })
+    }
 
     setState('saving')
     const res = await queue(() => saveAttempt(supabase, {
@@ -124,6 +136,7 @@ export function useActivitySave({
     newAttemptRef.current = true
     submittedRef.current = false
     attemptRef.current = null
+    loggedAnswersRef.current = 0
     setRow(null)
     setState('idle')
   }, [])
@@ -133,6 +146,7 @@ export function useActivitySave({
     if (!existing) return
     attemptRef.current = existing.attempt_number ?? null
     submittedRef.current = existing.status === 'completed'
+    loggedAnswersRef.current = countAnswers(existing.answers)
     setRow(existing)
   }, [])
 

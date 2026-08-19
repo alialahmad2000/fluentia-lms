@@ -47,13 +47,24 @@ export function createSaveQueue() {
 /** How many questions an `answers` payload actually holds (both shapes). */
 export function countAnswers(answers) {
   if (!answers || typeof answers !== 'object') return 0
-  // listening stores { questions: [ { studentAnswer } ] }
+  const answered = (v) => v != null && v !== 'null' && v !== ''
+  // listening: { questions: [ { studentAnswer } ] }
   if (Array.isArray(answers.questions)) {
-    return answers.questions.filter(
-      (q) => q && q.studentAnswer != null && q.studentAnswer !== 'null' && q.studentAnswer !== ''
-    ).length
+    return answers.questions.filter((q) => q && answered(q.studentAnswer)).length
   }
-  // reading / grammar store a flat { [questionId]: answer } map
+  // grammar: { exercises: [ { studentAnswer } ] }
+  if (Array.isArray(answers.exercises)) {
+    return answers.exercises.filter((e) => e && answered(e.studentAnswer)).length
+  }
+  // vocabulary_exercise: { exercises: { drillKey: {...} } }
+  if (answers.exercises && typeof answers.exercises === 'object') {
+    return Object.keys(answers.exercises).length
+  }
+  // vocabulary: { reviewedWords: [...] }
+  if (Array.isArray(answers.reviewedWords)) return answers.reviewedWords.length
+  // writing: a single draft
+  if ('draft' in answers) return answers.draft ? 1 : 0
+  // reading: a flat { [questionId]: answer } map
   return Object.keys(answers).length
 }
 

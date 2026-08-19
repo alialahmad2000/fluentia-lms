@@ -41,6 +41,7 @@ import ConversationMode from '../../../../components/curriculum/speaking/Convers
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { useActivitySave } from '../../../../hooks/useActivitySave'
+import SaveStatus from '../../../../components/ui/SaveStatus'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import './speakingStudio.css'
 
@@ -95,9 +96,9 @@ export default function SpeakingTab({ unitId }) {
   const studentName = profile?.full_name || profile?.display_name
   const groupId = studentData?.group_id
   const queryClient = useQueryClient()
-  const { readOnly, submit: submitAttempt } = useActivitySave({
-    studentId, unitId, sectionType: 'speaking',
-  })
+  const {
+    readOnly, submit: submitAttempt, state: saveState, lastSavedAt,
+  } = useActivitySave({ studentId, unitId, sectionType: 'speaking' })
   const [activeTopic, setActiveTopic] = useState(0)
 
   const { data: topics, isLoading } = useQuery({
@@ -234,6 +235,10 @@ export default function SpeakingTab({ unitId }) {
   return (
     <div className="spk">
       <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
+
+      {/* Here the recording IS the work, so whether it reached the server is
+          exactly what she needs to see. */}
+      <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
 
       <div className="spk-body-col">
         {/* Several tasks in one unit → switch between them instead of stacking
@@ -924,6 +929,7 @@ function SpeakingSkeleton() {
   return (
     <div className="spk">
       <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
+
       <div className="spk-body-col">
         <div className="spk-stage" style={{ padding: 20 }}>
           <div className="space-y-3">
