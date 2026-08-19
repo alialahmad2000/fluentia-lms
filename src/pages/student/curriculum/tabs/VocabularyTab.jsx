@@ -17,14 +17,14 @@ import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
 import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
 import { useSRSCounts, useSRSDue } from '../../../../hooks/useSrs'
 import ReviewOverlay from '../../../../components/student/vocabulary/ReviewOverlay'
-import HeroSection from '../../../../components/curriculum/hero/HeroSection'
-import ChunkLane from '../../../../components/curriculum/journey/ChunkLane'
 import ChunkMiniSession from '../../../../components/curriculum/journey/ChunkMiniSession'
 import WordDetailSheet from '../../../../components/curriculum/word-detail/WordDetailSheet'
 import { getHardWords } from '../../../../services/hardWords'
 import VocabSettingsGear from '../../../../components/curriculum/settings/VocabSettingsGear'
 import VocabOnboardingTour from '../../../../components/curriculum/onboarding/VocabOnboardingTour'
 import WordArtPlate from '../../../../components/curriculum/vocab/WordArtPlate'
+import VocabStudyBand from '../../../../components/curriculum/vocab/VocabStudyBand'
+import { useG } from '../../../../i18n/gender'
 import { vocabPhotoUrl } from '../../../../lib/vocabImages'
 import { useActivitySave } from '../../../../hooks/useActivitySave'
 import SaveStatus from '../../../../components/ui/SaveStatus'
@@ -78,7 +78,10 @@ const FILTERS = [
 
 const STALLED_THRESHOLD_DAYS = 14
 
-const PAGE_SIZE = 40
+// 40 tiles per group meant a fresh unit opened as ~10 screens of identical
+// plates — the library visually outweighed the session that is meant to be the
+// point of the page. One tidy screen of words, then «عرض المزيد» on demand.
+const PAGE_SIZE = 12
 
 const makeContainer = (count) => ({
   hidden: { opacity: 0 },
@@ -100,6 +103,7 @@ export default function VocabularyTab({ unitId }) {
     state: saveState, lastSavedAt, saveNow, submit: submitAttempt, adoptAttempt,
   } = useActivitySave({ studentId: profile?.id, unitId, sectionType: 'vocabulary' })
   const queryClient = useQueryClient()
+  const g = useG()
   const [viewMode, setViewMode] = useState('cards')
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -484,6 +488,13 @@ export default function VocabularyTab({ unitId }) {
   // setExerciseWord so the modal stays mounted and swaps its word). Prefers the
   // next still-unmastered word AFTER the current position; else any other
   // unmastered word; else the literal next word in order; else closes.
+  // «ابدأ جلسة» — open the first word still owed and let the exercise modal's
+  // own next-word chain carry the student through the rest. No new machinery.
+  const handleStartSession = useCallback(() => {
+    const next = allWords.find((w) => getWordMasteryLevel(w.id) !== 'mastered')
+    if (next) setExerciseWord(next)
+  }, [allWords, getWordMasteryLevel])
+
   const handleNextWord = useCallback(() => {
     if (!exerciseWord) return
     const idx = allWords.findIndex(w => w.id === exerciseWord.id)
@@ -540,13 +551,21 @@ export default function VocabularyTab({ unitId }) {
   return (
     <div className="space-y-6">
       <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
-      {/* Premium sticky Hero (Prompt 05) — strictly additive */}
+      {/* ① ONE STUDY BAND — replaces the sticky hero ring, the «رحلة المفردات»
+          chunk lane and the standalone SRS strip. Those three panels cost 1.2
+          screens on a laptop and 1.55 on a phone before a single word appeared,
+          and disagreed with each other about how many words the unit holds. */}
       <div data-tour="hero">
-        <HeroSection
+        <VocabStudyBand
           unitId={unitId}
           studentId={profile?.id}
+          totalWords={totalWords}
+          masteredCount={masteredCount}
+          learningCount={allWords.filter((w) => getWordMasteryLevel(w.id) === 'learning').length}
+          getWordById={(id) => allWords.find((w) => w.id === id)}
+          fallbackNextWord={allWords.find((w) => getWordMasteryLevel(w.id) !== 'mastered')}
+          onStartSession={handleStartSession}
           onOpenWord={handleHeroOpenWord}
-          onScrollToLibrary={handleHeroScrollToLibrary}
         />
       </div>
 
@@ -573,16 +592,6 @@ export default function VocabularyTab({ unitId }) {
           )}
         </div>
       )}
-
-      {/* Journey Lane (Prompt 06) — chunks between Hero and existing library */}
-      <div data-tour="journey">
-        <ChunkLane
-          key={`chunk-lane-${unitId}-${chunkRefetchKey}`}
-          unitId={unitId}
-          profileId={profile?.id}
-          onOpenChunk={(chunk) => setActiveChunk(chunk)}
-        />
-      </div>
 
       {/* Legacy "① HERO HEADER" block removed in Prompt 07 — its data now
           lives in <HeroSection> above. */}
@@ -682,33 +691,6 @@ export default function VocabularyTab({ unitId }) {
         </div>
       </div>
 
-      {/* SRS Due section (scoped to this unit) */}
-      {profile?.role === 'student' && unitDueWords.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl px-4 py-3 flex items-center justify-between"
-          style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.15)' }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-sm">🧠</span>
-            <div>
-              <p className="text-xs font-bold text-sky-400 font-['Tajawal']">
-                للمراجعة ({unitDueWords.length})
-              </p>
-              <p className="text-[10px] text-white/30 font-['Tajawal']">كلمات من هذه الوحدة حان وقت مراجعتها</p>
-            </div>
-          </div>
-          <button
-            onClick={() => navigate('/student/srs')}
-            className="px-3.5 py-1.5 rounded-lg text-[11px] font-bold text-sky-300 font-['Tajawal'] transition-all hover:bg-sky-500/15"
-            style={{ background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)' }}
-          >
-            ابدأ المراجعة ◀
-          </button>
-        </motion.div>
-      )}
-
       {/* Filter empty state */}
       {allWords.length > 0 && data.every(({ vocabulary }) => vocabulary.filter(filterWord).length === 0) && (
         <div className="text-center py-12">
@@ -716,120 +698,75 @@ export default function VocabularyTab({ unitId }) {
         </div>
       )}
 
-      {/* ③ SECTIONS BY READING → TIER */}
-      {data.map(({ reading, vocabulary }) => {
-        const filtered = vocabulary.filter(filterWord)
-        if (filtered.length === 0) return null
-        const sectionMastered = filtered.filter(w => getWordMasteryLevel(w.id) === 'mastered').length
+      {/* ③ THE LIBRARY — grouped by what the student still owes, not by which
+          passage a word came from. «Which reading was this in» is not a decision
+          she makes; «which of these have I not started» is the only one she does.
+          Reading A / Reading B / الأساسية / الإضافية were four dividers over one
+          list of the same 32 words. */}
+      {(() => {
+        const all = data.flatMap(({ vocabulary }) => vocabulary).filter(filterWord)
+        if (all.length === 0) return null
+        const lvl = (w) => getWordMasteryLevel(w.id)
+        const groups = [
+          { key: 'learning', label: g('تتعلمها', 'تتعلمينها'), color: '#fbbf24', words: all.filter((w) => lvl(w) === 'learning') },
+          { key: 'fresh', label: g('لم تبدأها بعد', 'لم تبدئيها بعد'), color: 'rgba(255,255,255,0.3)', words: all.filter((w) => lvl(w) !== 'learning' && lvl(w) !== 'mastered') },
+          { key: 'mastered', label: g('أتقنتها', 'أتقنتِها'), color: '#4ade80', words: all.filter((w) => lvl(w) === 'mastered'), foldable: true },
+        ].filter((gr) => gr.words.length > 0)
 
-        // Group by tier
-        const hasTiers = filtered.some(w => w.tier)
-        const tierGroups = hasTiers ? [
-          { key: 'core', label: 'الأساسية', color: '#38bdf8', bg: 'rgba(56,189,248,0.08)', words: filtered.filter(w => !w.tier || w.tier === 'core') },
-          { key: 'extended', label: 'الإضافية', color: '#94a3b8', bg: 'rgba(148,163,184,0.08)', words: filtered.filter(w => w.tier === 'extended') },
-          { key: 'mastery', label: 'المتقدمة', color: '#d4af37', bg: 'rgba(212,175,55,0.08)', words: filtered.filter(w => w.tier === 'mastery'), hint: 'للمراجعة لاحقاً' },
-        ].filter(g => g.words.length > 0) : [{ key: 'all', words: filtered }]
+        return groups.map((gr) => {
+          // Mastered words are done work — they fold away by default so the
+          // list keeps showing what is still owed.
+          const folded = gr.foldable ? collapsedTiers[gr.key] !== false : false
+          return (
+            <div key={gr.key} className="space-y-3">
+              <button
+                type="button"
+                onClick={() => gr.foldable && setCollapsedTiers((prev) => ({ ...prev, [gr.key]: prev[gr.key] === false }))}
+                className={`w-full flex items-center gap-2.5 pt-1 ${gr.foldable ? '' : 'cursor-default'}`}
+                dir="rtl"
+              >
+                <i className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: gr.color }} />
+                <span className="text-[13px] font-bold text-white/75 font-['Tajawal']">{gr.label}</span>
+                <span className="text-[11px] text-white/30 font-['Tajawal'] tabular-nums">{gr.words.length}</span>
+                <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.05)' }} />
+                {gr.foldable && (
+                  <ChevronDown size={14} className="text-white/25 transition-transform" style={{ transform: folded ? 'rotate(-90deg)' : 'none' }} />
+                )}
+              </button>
 
-        return (
-          <div key={reading.id} className="space-y-3">
-            {/* Section header */}
-            {data.length > 1 && (
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <BookOpen size={13} className="text-white/20" />
-                  <span className="text-xs font-bold text-white/50 font-['Tajawal']">
-                    مفردات القراءة {reading.reading_label}
-                  </span>
-                  <span className="text-[10px] text-white/25 font-['Tajawal']">
-                    {filtered.length} كلمات {sectionMastered > 0 && `· أتقنت ${sectionMastered}`}
-                  </span>
-                </div>
-                <div className="flex-1 h-px bg-white/[0.04]" />
-              </div>
-            )}
-
-            {tierGroups.map(tg => {
-              const isCollapsed = tg.key !== 'all' && tg.key !== 'core' && collapsedTiers[tg.key]
-              const toggleCollapse = () => setCollapsedTiers(prev => ({ ...prev, [tg.key]: !prev[tg.key] }))
-
-              return (
-                <div key={tg.key} className="space-y-3">
-                  {/* Tier header (only if tiers exist) */}
-                  {tg.key !== 'all' && (
-                    <button
-                      onClick={toggleCollapse}
-                      className="w-full flex items-center gap-2 py-2 px-1 group"
-                    >
-                      <span
-                        className="px-2.5 py-0.5 rounded-full text-[11px] font-bold font-['Tajawal']"
-                        style={{ background: tg.bg, color: tg.color, border: `1px solid ${tg.color}22` }}
-                      >
-                        {tg.label}
-                      </span>
-                      <span className="text-[10px] text-white/25 font-['Tajawal']">
-                        {tg.words.length} كلمة
-                        {tg.hint && <span className="mr-1 text-white/15">· {tg.hint}</span>}
-                      </span>
-                      <div className="flex-1 h-px bg-white/[0.03]" />
-                      <ChevronDown
-                        size={14}
-                        className="text-white/20 transition-transform"
-                        style={{ transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
-                      />
-                    </button>
-                  )}
-
-                  {/* Words grid/list */}
-                  <AnimatePresence initial={false}>
-                    {!isCollapsed && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        style={{ overflow: 'hidden' }}
-                      >
-                        <PaginatedTier
-                          words={tg.words}
-                          viewMode={viewMode}
-                          getMastery={getMastery}
-                          reviewedWords={reviewedWords}
-                          markReviewed={markReviewed}
-                          setExerciseWord={setExerciseWord}
-                          onTapWord={(w) =>
-                            tapBehavior === 'practice'
-                              ? setExerciseWord(w)
-                              : setDetailSheetWord(w)
-                          }
-                          savedWordSet={savedWordSet}
-                          saveWordMutation={saveWordMutation}
-                          profile={profile}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )
-            })}
-          </div>
-        )
-      })}
-
-      {/* ④ COMPLETION / PROGRESS BANNER */}
-      {masteredCount >= totalWords && totalWords > 0 ? (
-        <CompletionBanner />
-      ) : masteredCount > 0 && (
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-white/60 font-['Tajawal']">
-              أتقنت {masteredCount} من {totalWords} كلمة — واصل!
-            </p>
-            <div className="h-1 rounded-full bg-white/[0.04] mt-1.5 overflow-hidden flex">
-              <div className="h-full rounded-full transition-all duration-700" style={{ width: `${masteryPercent}%`, background: 'linear-gradient(90deg, #38bdf8, #818cf8)' }} />
+              <AnimatePresence initial={false}>
+                {!folded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <PaginatedTier
+                      words={gr.words}
+                      viewMode={viewMode}
+                      getMastery={getMastery}
+                      reviewedWords={reviewedWords}
+                      markReviewed={markReviewed}
+                      setExerciseWord={setExerciseWord}
+                      onTapWord={(w) => (tapBehavior === 'practice' ? setExerciseWord(w) : setDetailSheetWord(w))}
+                      savedWordSet={savedWordSet}
+                      saveWordMutation={saveWordMutation}
+                      profile={profile}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-          </div>
-        </div>
-      )}
+          )
+        })
+      })()}
+
+      {/* ④ COMPLETION — only the 100% celebration survives. The mid-progress
+          strip repeated «أتقنتِ N من M كلمة», which the study band states at the
+          top of the very same screen. */}
+      {masteredCount >= totalWords && totalWords > 0 && <CompletionBanner />}
 
       {/* Vocabulary Exercises */}
       <VocabularyExercises unitId={unitId} allWords={allWords} />
@@ -1035,6 +972,8 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
       style={{
         background: isMastered ? 'rgba(34,197,94,0.03)' : 'rgba(255,255,255,0.025)',
         border: `1px solid ${isMastered ? 'rgba(34,197,94,0.2)' : isLearning ? 'rgba(245,158,11,0.15)' : 'rgba(255,255,255,0.06)'}`,
+        // A 2px edge carries the word's state, so the tile needs no meter.
+        borderTop: `2px solid ${isMastered ? 'rgba(34,197,94,0.55)' : isLearning ? 'rgba(245,158,11,0.5)' : 'rgba(255,255,255,0.06)'}`,
         transition: 'all 0.2s ease-out',
       }}
       onClick={() => { onView?.(); onPractice?.(word) }}
@@ -1088,7 +1027,7 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
       )}
 
       {/* Content */}
-      <div className="p-3 space-y-2">
+      <div className="px-3 py-2.5 space-y-1.5">
         {/* Photo cards still name the word here; specimen cards already show it
             large on the plate, so the meaning becomes the primary body line. */}
         {hasPhoto && (
@@ -1111,84 +1050,15 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
           {word.definition_ar}
         </p>
 
-        {TIER_BADGE[word.tier] && (
-          <span className="inline-block px-1.5 py-px rounded text-[9px] font-bold font-['Tajawal']" style={{
-            background: TIER_BADGE[word.tier].bg,
-            color: TIER_BADGE[word.tier].color,
-          }}>
-            {TIER_BADGE[word.tier].label}
-          </span>
-        )}
+        {/* The tier badge is gone from the tile: it repeated on most of the 84
+            cards in gold and grey, and it now competes with the state grouping
+            the list is already sorted by. It lives in the word's detail sheet. */}
 
-        {/* The example is the only English sentence on the card. One clipped line
-            («…is brand…») taught nothing; two lines usually hold the whole
-            sentence, and the word is emphasised where it does its work. */}
-        {word.example_sentence && (
-          <p className="text-[11px] text-white/45 font-['Inter'] leading-relaxed line-clamp-2 italic" dir="ltr">
-            {(() => {
-              const [before, hit, after] = highlightWord(word.example_sentence, word.word)
-              return hit
-                ? <>“{before}<span className="text-white/80 font-semibold not-italic">{hit}</span>{after}”</>
-                : <>“{before}”</>
-            })()}
-          </p>
-        )}
-
-        {/* Progress + actions. On a 390px phone the grid is two columns, so this
-            row has ~150px to work with — it WRAPS rather than pushing the CTA
-            out past the card edge, and the meter is the half that gives way. */}
-        <div className="flex items-center justify-between gap-x-2 gap-y-2 pt-0.5 flex-wrap">
-          {/* Three exercises, three segments. Bars read as a meter; three equal
-              dots read as decoration. */}
-          <div className="flex items-center gap-1.5 min-w-0" title={`${passedCount} من ٣ تمارين`}>
-            <div className="flex items-center gap-1">
-              {[
-                { passed: mastery?.meaning_exercise_passed, label: 'اختر المعنى' },
-                { passed: mastery?.sentence_exercise_passed, label: 'أكمل الجملة' },
-                { passed: mastery?.listening_exercise_passed, label: 'استمع واختر' },
-              ].map((ex, i) => (
-                <div
-                  key={i}
-                  className="h-1 w-4 rounded-full"
-                  title={ex.label}
-                  style={{ background: ex.passed ? '#22c55e' : 'rgba(255,255,255,0.09)', transition: 'background 0.3s' }}
-                />
-              ))}
-            </div>
-            {passedCount > 0 && passedCount < 3 && (
-              <span className="text-[9px] text-white/30 font-['Tajawal'] tabular-nums">{passedCount}/3</span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-1 flex-shrink-0">
-            {isStudent && (
-              <button
-                onClick={(e) => { e.stopPropagation(); onSaveWord?.() }}
-                title={isSaved ? 'محفوظة في كلماتي' : 'احفظ الكلمة'}
-                aria-label={isSaved ? 'محفوظة في كلماتي' : 'احفظ الكلمة'}
-                className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors hover:bg-white/[0.06]"
-              >
-                <Bookmark
-                  size={14}
-                  className={isSaved ? 'text-sky-400' : 'text-white/30'}
-                  fill={isSaved ? 'currentColor' : 'none'}
-                />
-              </button>
-            )}
-            {/* «تمرّن» was a caption pretending to be a button. The card is still
-                tappable as a whole; this just makes the action visible. */}
-            <span
-              className="inline-flex items-center gap-1 px-3 h-10 rounded-full text-[11px] font-bold font-['Tajawal'] flex-shrink-0"
-              style={{
-                background: isMastered ? 'rgba(34,197,94,0.1)' : isLearning ? 'rgba(245,158,11,0.1)' : 'rgba(56,189,248,0.12)',
-                color: isMastered ? 'rgba(74,222,128,0.9)' : isLearning ? 'rgba(251,191,36,0.9)' : 'rgba(125,211,252,0.95)',
-              }}
-            >
-              {isMastered ? <CheckCircle size={12} /> : <Dumbbell size={12} />}
-              {isMastered ? 'أتقنتها' : isLearning ? 'أكمل' : 'تمرّن'}
-            </span>
-          </div>
-        </div>
+        {/* The example sentence, the exercise meter, «احفظ» and «تمرّن» all moved
+            into the word's detail sheet, which opens on tap. On a tile repeated
+            84 times they were 84 audio buttons, 84 bookmarks and 84 pills — the
+            eye had nowhere to rest and the grid read as wallpaper. A tile should
+            carry only what you scan: the word, and what it means. */}
       </div>
     </motion.div>
   )
