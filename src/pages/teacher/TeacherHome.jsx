@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Users, Activity, Flame, ChevronLeft, BookOpen, TrendingUp, Clock } from 'lucide-react'
+import { Users, Activity, Flame, ChevronLeft, BookOpen, TrendingUp, Clock, ShieldAlert } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
-import { useTeacherRoster, useRosterActivity, studentName, fmtMinutes } from '@/hooks/teacher/useTeacherRoster'
+import { useTeacherRoster, useRosterActivity, useTeacherActivation, studentName, fmtMinutes } from '@/hooks/teacher/useTeacherRoster'
 
 function greeting() {
   const h = Number(new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Riyadh', hour: 'numeric', hour12: false }).format(new Date()))
@@ -115,6 +115,8 @@ export default function TeacherHome() {
   const profile = useAuthStore((s) => s.profile)
   const { students, studentIds, isLoading } = useTeacherRoster()
   const { data: activity } = useRosterActivity(studentIds, 7)
+  // Only asked when the roster comes back empty — see useTeacherActivation.
+  const { data: isActivated } = useTeacherActivation(!isLoading && students.length === 0)
 
   const name = profile?.display_name || profile?.full_name || ''
   const activeToday = activity ? Object.values(activity).filter((a) => a.today).length : 0
@@ -143,7 +145,15 @@ export default function TeacherHome() {
 
       {isLoading && <div className="grid gap-3 md:grid-cols-2">{Array.from({ length: 2 }).map((_, i) => <div key={i} className="tea-skel h-52" />)}</div>}
 
-      {!isLoading && students.length === 0 && (
+      {!isLoading && students.length === 0 && isActivated === false && (
+        <div className="tea-empty">
+          <ShieldAlert size={32} className="tea-empty__icon" />
+          <div className="font-bold text-slate-200">لم يُفعّل حسابك بعد</div>
+          <div className="text-[12.5px] mt-1">حسابك موجود لكنه غير مُفعّل، ولذلك لا تظهر لك أي بيانات. تواصل مع الإدارة لتفعيله.</div>
+        </div>
+      )}
+
+      {!isLoading && students.length === 0 && isActivated !== false && (
         <div className="tea-empty">
           <Users size={32} className="tea-empty__icon" />
           <div className="font-bold text-slate-200">لم يُسنَد إليك أي طالب بعد</div>

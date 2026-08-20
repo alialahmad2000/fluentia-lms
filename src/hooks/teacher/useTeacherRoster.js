@@ -92,6 +92,29 @@ export function useTeacherRoster() {
   }
 }
 
+/**
+ * Whether this account is actually switched on.
+ *
+ * is_active_trainer() is fail-closed: a profile with role='trainer' but no
+ * trainers row (or is_active=false) resolves to no students at all. Without this
+ * check an un-provisioned teacher would be told "no students assigned yet",
+ * which sends them chasing the wrong problem. Only queried when the roster is
+ * empty, so it costs nothing in the normal case.
+ */
+export function useTeacherActivation(enabled = false) {
+  const profile = useAuthStore((s) => s.profile)
+  return useQuery({
+    queryKey: ['teacher-activation', profile?.id],
+    enabled: !!profile?.id && enabled,
+    staleTime: 300_000,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('is_active_trainer')
+      if (error) throw error
+      return data === true
+    },
+  })
+}
+
 /** Per-student daily-activity rollup over the last `days`, keyed by student_id. */
 export function useRosterActivity(studentIds = [], days = 7) {
   const key = [...studentIds].sort().join(',')
