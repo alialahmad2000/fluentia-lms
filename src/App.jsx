@@ -282,6 +282,8 @@ const TeacherWorkReview = lazyRetry(() => import('./pages/teacher/work/WorkRevie
 const TeacherSettings = lazyRetry(() => import('./pages/teacher/TeacherSettings'))
 const TeacherCurriculumPreview = lazyRetry(() => import('./pages/teacher/curriculum/TeacherCurriculumPreview'))
 const TeacherClassHub = lazyRetry(() => import('./pages/teacher/class/ClassHub'))
+const TeacherStudentContent = lazyRetry(() => import('./pages/teacher/students/StudentContent'))
+const TeacherStudentPerformance = lazyRetry(() => import('./pages/teacher/students/StudentPerformance'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const EvaluationHealthPage = lazyRetry(() => import('./pages/admin/EvaluationHealthPage'))
@@ -1163,9 +1165,13 @@ export default function App() {
               <Route path="/trainer/students" element={<Page><TeacherStudentsList /></Page>} />
               <Route path="/trainer/students/:studentId" element={<Page><TeacherStudentProfile /></Page>} />
               <Route path="/trainer/students/:studentId/answers" element={<Page><TeacherStudentAnswers /></Page>} />
+              <Route path="/trainer/students/:studentId/content" element={<Page><TeacherStudentContent /></Page>} />
+              <Route path="/trainer/students/:studentId/performance" element={<Page><TeacherStudentPerformance /></Page>} />
               <Route path="/trainer/students/:studentId/report" element={<Page><StudentActivityReport /></Page>} />
-              <Route path="/trainer/work" element={<Page><TeacherWorkReview /></Page>} />
-              <Route path="/trainer/class" element={<Page><TeacherClassHub /></Page>} />
+              {/* Grading queue — the teacher account is read-only, so this is a dead end for now. */}
+              <Route path="/trainer/work" element={<Navigate to="/trainer" replace />} />
+              {/* Group class hub — hidden for the private-teacher account (kept, not deleted). */}
+              <Route path="/trainer/class" element={<Navigate to="/trainer" replace />} />
               <Route path="/trainer/schedule" element={<Page><TeacherSchedule /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TeacherCurriculumPreview><CurriculumBrowser /></TeacherCurriculumPreview></Page>} />
               <Route path="/trainer/curriculum/level/:levelNumber" element={<Page><TeacherCurriculumPreview><LevelUnits /></TeacherCurriculumPreview></Page>} />

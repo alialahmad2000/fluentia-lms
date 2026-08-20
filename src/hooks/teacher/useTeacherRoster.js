@@ -2,6 +2,23 @@ import { useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 
+/**
+ * The teacher roster is INDIVIDUAL-FIRST.
+ *
+ * It used to resolve students only through `groups.trainer_id`, which meant a
+ * teacher who takes one-to-one classes — no group row — saw an empty home, an
+ * empty roster and an empty class page. The real link for private students is
+ * `students.assigned_trainer_id`, so that is the spine here; groups are folded
+ * in as a secondary case for whoever also teaches a cohort.
+ */
+
+const STUDENT_COLS = [
+  'id', 'academic_level', 'group_id', 'status', 'xp_total', 'current_streak',
+  'gamification_level', 'last_active_at', 'paused_at', 'assigned_trainer_id',
+  'uses_custom_curriculum', 'uses_standard_curriculum', 'track',
+  'profiles(display_name, full_name, avatar_url)',
+].join(', ')
+
 /** Display name for a student row that embeds profiles(...) */
 export function studentName(row) {
   const p = row?.profiles || row
@@ -15,7 +32,7 @@ export function riyadhDate(d = new Date()) {
   }).format(d)
 }
 
-/** The teacher's own active groups (via groups.trainer_id). */
+/** The teacher's own active groups — empty for a purely one-to-one teacher. */
 export function useTeacherGroups() {
   const profile = useAuthStore((s) => s.profile)
   return useQuery({
@@ -35,7 +52,7 @@ export function useTeacherGroups() {
   })
 }
 
-/** All active students across the teacher's groups, with name embedded. */
+/** Every student this teacher owns: personally assigned, plus any group members. */
 export function useTeacherRoster() {
   const profile = useAuthStore((s) => s.profile)
   const groupsQ = useTeacherGroups()
@@ -44,23 +61,32 @@ export function useTeacherRoster() {
 
   const studentsQ = useQuery({
     queryKey: ['teacher-roster', profile?.id, groupIds.join(',')],
-    enabled: !!profile?.id && groupIds.length > 0,
+    // Enabled with no groups — that is the normal case for a private teacher.
+    enabled: !!profile?.id,
     staleTime: 60_000,
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('students')
-        .select('id, academic_level, group_id, status, xp_total, current_streak, gamification_level, last_active_at, paused_at, profiles(display_name, full_name, avatar_url)')
-        .in('group_id', groupIds)
-        .is('deleted_at', null)
+      let q = supabase.from('students').select(STUDENT_COLS).is('deleted_at', null)
+      q = groupIds.length
+        ? q.or(`assigned_trainer_id.eq.${profile.id},group_id.in.(${groupIds.join(',')})`)
+        : q.eq('assigned_trainer_id', profile.id)
+      const { data, error } = await q
       if (error) throw error
-      return data || []
+      // Personally-assigned students lead the list; then most recently active.
+      return (data || []).sort((a, b) => {
+        const mine = (b.assigned_trainer_id === profile.id) - (a.assigned_trainer_id === profile.id)
+        if (mine) return mine
+        return new Date(b.last_active_at || 0) - new Date(a.last_active_at || 0)
+      })
     },
   })
 
+  const students = studentsQ.data || []
   return {
     groups,
-    students: studentsQ.data || [],
-    studentIds: (studentsQ.data || []).map((s) => s.id),
+    students,
+    studentIds: students.map((s) => s.id),
+    /** True when this teacher has no cohorts at all — drives the one-to-one layout. */
+    isPrivateOnly: groupIds.length === 0,
     isLoading: groupsQ.isLoading || studentsQ.isLoading,
     error: groupsQ.error || studentsQ.error,
   }
