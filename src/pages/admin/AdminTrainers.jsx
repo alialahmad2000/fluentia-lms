@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Briefcase, Edit3, Loader2, X, Phone } from 'lucide-react'
+import { Briefcase, Edit3, Loader2, X, Phone, EyeOff } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
@@ -17,6 +17,20 @@ function groupCountAr(n) {
   if (n <= 10) return `${n} مجموعات`
   return `${n} مجموعة`
 }
+/* 1 حساب معطّل · 2 حسابان · 3-10 حسابات معطّلة · 11+ حساباً معطّلاً */
+function disabledCountAr(n) {
+  if (n === 1) return 'حساب معطّل واحد'
+  if (n === 2) return 'حسابان معطّلان'
+  if (n <= 10) return `${n} حسابات معطّلة`
+  return `${n} حساباً معطّلاً`
+}
+/* 1 مدرب مخفي · 2 مخفيان · 3-10 مخفيين · 11+ مخفياً */
+function hiddenCountAr(n) {
+  if (n === 1) return 'مدرب مخفي'
+  if (n === 2) return 'مدربان مخفيان'
+  if (n <= 10) return `${n} مخفيين`
+  return `${n} مخفياً`
+}
 function studentCountAr(n) {
   if (n === 0) return 'بدون طلاب'
   if (n === 1) return 'طالب واحد'
@@ -28,13 +42,14 @@ function studentCountAr(n) {
 export default function AdminTrainers({ embedded = false }) {
   const queryClient = useQueryClient()
   const [editTrainer, setEditTrainer] = useState(null)
+  const [showHidden, setShowHidden] = useState(false)
 
   // Trainers + their groups + student load in THREE parallel queries
   // (was N+1: one groups query per trainer, and no load numbers at all)
   const { data: trainers, isLoading } = useQuery({
     queryKey: ['admin-trainers'],
     queryFn: async () => {
-      const [{ data: staff }, { data: groupRows }, { data: memberRows }] = await Promise.all([
+      const [{ data: staff }, { data: groupRows }, { data: memberRows }, { data: trainerRows }] = await Promise.all([
         supabase
           .from('profiles')
           .select('id, full_name, display_name, email, phone, role, avatar_url, is_test_account')
@@ -50,6 +65,11 @@ export default function AdminTrainers({ embedded = false }) {
           .eq('status', 'active')
           .is('deleted_at', null)
           .not('group_id', 'is', null),
+        // Activation lives in `trainers`, not `profiles`. Without this the page
+        // listed teachers that had been hidden and blocked.
+        supabase
+          .from('trainers')
+          .select('id, is_active'),
       ])
       const groupSize = (memberRows || []).reduce((acc, r) => { acc[r.group_id] = (acc[r.group_id] || 0) + 1; return acc }, {})
       const byTrainer = (groupRows || []).reduce((acc, g) => {
@@ -57,9 +77,13 @@ export default function AdminTrainers({ embedded = false }) {
         ;(acc[g.trainer_id] = acc[g.trainer_id] || []).push(g)
         return acc
       }, {})
+      const activeById = (trainerRows || []).reduce((acc, r) => { acc[r.id] = r.is_active === true; return acc }, {})
       return (staff || []).map(t => {
         const groups = byTrainer[t.id] || []
-        return { ...t, groups, studentCount: groups.reduce((n, g) => n + (groupSize[g.id] || 0), 0) }
+        // Fail-closed, matching is_active_trainer(): a trainer with no `trainers`
+        // row is not active. Admins are never gated by it.
+        const isHidden = t.role !== 'admin' && activeById[t.id] !== true
+        return { ...t, groups, isHidden, studentCount: groups.reduce((n, g) => n + (groupSize[g.id] || 0), 0) }
       })
     },
   })
@@ -105,7 +129,9 @@ export default function AdminTrainers({ embedded = false }) {
 
   // teaching coaches first (real ones, then test accounts dimmed); admins get
   // their own section — nothing hidden, just ordered
-  const coaches = (trainers || []).filter(t => t.role !== 'admin').sort((a, b) => (a.is_test_account ? 1 : 0) - (b.is_test_account ? 1 : 0))
+  const allCoaches = (trainers || []).filter(t => t.role !== 'admin').sort((a, b) => (a.is_test_account ? 1 : 0) - (b.is_test_account ? 1 : 0))
+  const coaches = allCoaches.filter(t => !t.isHidden)
+  const hiddenCoaches = allCoaches.filter(t => t.isHidden)
   const admins = (trainers || []).filter(t => t.role === 'admin')
 
   const renderCard = (t, i) => (
@@ -128,6 +154,7 @@ export default function AdminTrainers({ embedded = false }) {
               <p className="text-[14.5px] font-bold font-['Tajawal']" style={{ color: 'var(--ds-text-primary)' }}>{t.full_name || t.display_name}</p>
               {t.role === 'admin' && <span className="adp-code gold">مدير</span>}
               {t.is_test_account && <span className="adp-code">تجريبي</span>}
+              {t.isHidden && <span className="adp-code">معطّل</span>}
             </div>
             <p className="text-xs mt-0.5" style={{ color: 'var(--ds-text-tertiary)' }} dir="ltr">{t.email}</p>
           </div>
@@ -166,18 +193,53 @@ export default function AdminTrainers({ embedded = false }) {
       {/* title row */}
       <div>
         <h1 className="text-[22px] font-bold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>المدربون</h1>
-        <p className="text-xs mt-1" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>{trainers?.length || 0} في الفريق التعليمي</p>
+        <p className="text-xs mt-1" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+          {coaches.length + admins.length} في الفريق التعليمي
+          {hiddenCoaches.length > 0 && ` · ${hiddenCountAr(hiddenCoaches.length)}`}
+        </p>
       </div>
 
       {isLoading ? (
         <ListSkeleton />
-      ) : trainers?.length === 0 ? (
+      ) : (coaches.length + admins.length + hiddenCoaches.length) === 0 ? (
         <EmptyState icon={Briefcase} title="لا يوجد مدربون" description="لم يتم إضافة أي مدرب بعد" />
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {coaches.map(renderCard)}
           </div>
+          {coaches.length === 0 && hiddenCoaches.length > 0 && (
+            <p className="text-xs" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+              لا يوجد مدرب نشِط حالياً.
+            </p>
+          )}
+
+          {hiddenCoaches.length > 0 && (
+            <>
+              <div className="adx-eyebrow" style={{ marginTop: 28 }}>
+                <span className="adx-eyebrow__spark" />
+                <span className="adx-eyebrow__label">المخفيون</span>
+                <span className="adx-eyebrow__rule" />
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowHidden((v) => !v)}
+                className="text-xs inline-flex items-center gap-1.5"
+                style={{ color: 'var(--ds-text-tertiary, #64748b)' }}
+              >
+                <EyeOff size={12} />
+                {showHidden
+                  ? 'إخفاء الحسابات المعطّلة'
+                  : `عرض ${disabledCountAr(hiddenCoaches.length)}`}
+              </button>
+              {showHidden && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" style={{ opacity: 0.55 }}>
+                  {hiddenCoaches.map(renderCard)}
+                </div>
+              )}
+            </>
+          )}
+
           {admins.length > 0 && (
             <>
               <div className="adx-eyebrow" style={{ marginTop: 28 }}>
