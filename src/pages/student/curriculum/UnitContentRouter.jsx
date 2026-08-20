@@ -230,12 +230,19 @@ function UnitContentV3Wrapper() {
     }
   }, [unit, unitId])
 
-  // Level guard — redirect if student can't access this level
+  // Level guard — redirect if student can't access this level.
+  //
+  // A unit the student OWNS is never gated: a bespoke course carries the level_id
+  // it was cloned from (سعيد/عبدالله run clones of ملاك's B1 course at A2/A1), so
+  // level_number describes the CONTENT's origin, not an entitlement. Kept in sync
+  // with the same guard in UnitContent.jsx — both surfaces must agree.
+  const ownsUnit = !!profile?.id && unit?.owner_student_id === profile.id
   useEffect(() => {
+    if (ownsUnit) return
     if (unit?.level?.level_number != null && unit.level.level_number > currentLevel) {
       navigate(basePath, { replace: true })
     }
-  }, [unit, currentLevel, navigate, basePath])
+  }, [unit, currentLevel, ownsUnit, navigate, basePath])
 
   // Activity nav helpers
   const handleActivitySelect = useCallback((key) => {

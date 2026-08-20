@@ -241,13 +241,22 @@ export default function UnitContent() {
   // student off their own unit. That window is wide under admin impersonation
   // (profile/studentData are fetched after boot), which is why "view as student"
   // kept landing on the level page instead of the unit.
+  //
+  // A unit the student OWNS (`owner_student_id === me`) is never gated. A bespoke
+  // course is authored under whatever level_id it was cloned from — سعيد's and
+  // عبدالله's marketing units were cloned from ملاك's B1 course while they sit at
+  // A2/A1 — so `level_number` there records where the CONTENT came from, not an
+  // entitlement. Comparing it to academic_level bounced both students off every
+  // one of their own units (they had zero progress rows to show for it). Ownership
+  // IS the entitlement; the level check stays for the shared curriculum.
   const levelKnown = canSeeAllLevels || studentData?.academic_level != null
+  const ownsUnit = !!profile?.id && unit?.owner_student_id === profile.id
   useEffect(() => {
-    if (!levelKnown) return
+    if (!levelKnown || ownsUnit) return
     if (unit?.level?.level_number != null && unit.level.level_number > currentLevel) {
       navigate(basePath, { replace: true })
     }
-  }, [unit, currentLevel, levelKnown, basePath, navigate])
+  }, [unit, currentLevel, levelKnown, ownsUnit, basePath, navigate])
 
   // Navigate to activity — uses URL search param
   const handleActivitySelect = useCallback((key) => {
