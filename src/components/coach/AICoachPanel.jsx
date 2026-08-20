@@ -68,6 +68,11 @@ export default function AICoachPanel({
   // `fill` makes the desktop rail run the full height of the viewport instead of
   // hugging its content — a short panel next to a tall page left a dead column.
   fill = false,
+  // `inline` drops the in-layout rail entirely. The coach becomes a panel that
+  // opens INSIDE the task, directly under its header: zero reserved space when
+  // closed, and it never covers the brief or the paper the way a floating panel
+  // does. The host controls open/closed via mobileOpen/onMobileOpenChange.
+  inline = false,
   // The writing tab opens the coach from a button inside the task, so the
   // floating bubble (which collided with the a11y and student FABs in the same
   // bottom-left corner) can be turned off and the drawer driven from outside.
@@ -266,6 +271,13 @@ export default function AICoachPanel({
     }
   }, [input, sending, messagesRemaining, taskId, taskType, draftText, studentId, scrollToBottom])
 
+  useEffect(() => {
+    if (!inline || !mobileOpen) return
+    const onKey = (e) => { if (e.key === 'Escape') setMobileOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [inline, mobileOpen, setMobileOpen])
+
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -290,7 +302,7 @@ export default function AICoachPanel({
   // brand-new component type each render, remounting the panel (and its textarea)
   // on every keystroke. It holds no hooks, so calling it inlines the JSX safely.
   const PanelContent = () => (
-    <div className="flex flex-col h-full" style={{ maxHeight: fill ? '100%' : 'calc(100vh - 120px)' }}>
+    <div className="flex flex-col h-full" style={{ maxHeight: fill || inline ? '100%' : 'calc(100vh - 120px)' }}>
       {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3 flex-shrink-0"
@@ -315,11 +327,15 @@ export default function AICoachPanel({
           </span>
           <button
             onClick={() => { setCollapsed(v => !v); setMobileOpen(false) }}
-            className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5 transition-colors lg:flex hidden"
+            className={`w-7 h-7 rounded-lg items-center justify-center hover:bg-white/5 transition-colors ${inline ? 'hidden' : 'lg:flex hidden'}`}
           >
             <ChevronDown size={13} style={{ color: 'var(--text-secondary)', transform: collapsed ? 'rotate(-90deg)' : 'none' }} />
           </button>
-          <button onClick={() => setMobileOpen(false)} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5 transition-colors lg:hidden">
+          <button
+            onClick={() => setMobileOpen(false)}
+            aria-label="إغلاق"
+            className={`w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5 transition-colors ${inline ? '' : 'lg:hidden'}`}
+          >
             <X size={13} style={{ color: 'var(--text-secondary)' }} />
           </button>
         </div>
@@ -428,6 +444,34 @@ export default function AICoachPanel({
       </div>
     </div>
   )
+
+  if (inline) {
+    return (
+      <AnimatePresence initial={false}>
+        {mobileOpen && (
+          <motion.div
+            key="coach-inline"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+            style={{ borderBottom: '1px solid rgba(255,255,255,0.045)' }}
+          >
+            <div
+              className="h-[340px] sm:h-[360px]"
+              style={{
+                background: 'linear-gradient(180deg, rgba(168,85,247,0.07) 0%, rgba(168,85,247,0.02) 30%, transparent 100%)',
+                borderTop: '1px solid rgba(168,85,247,0.18)',
+              }}
+            >
+              {PanelContent()}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    )
+  }
 
   return (
     <>

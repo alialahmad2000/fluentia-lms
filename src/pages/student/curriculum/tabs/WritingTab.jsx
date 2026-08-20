@@ -455,8 +455,9 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         }}
       />
 
-      <div className={`space-y-4 lg:space-y-0 ${submitted ? '' : 'lg:grid lg:grid-cols-[minmax(0,1fr)_352px] lg:gap-5 lg:items-start'}`}>
-        {/* ── Main column ─────────────────────────────── */}
+      <div>
+        {/* The task and the paper get the whole column — the coach is a floating
+            companion now, not a lane. */}
         <div className="space-y-4 min-w-0">
 
           <BriefCard
@@ -472,6 +473,9 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
           ) : !submitted ? (
             <WritingSheet
               task={task}
+              studentId={studentId}
+              coachOpen={coachOpen}
+              setCoachOpen={setCoachOpen}
               text={text}
               setText={setText}
               wordCount={wordCount}
@@ -488,7 +492,6 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
               onSubmit={handleSubmit}
               submitting={submitting}
               submitShake={submitShake}
-              onAskCoach={() => setCoachOpen(true)}
               reduce={reduce}
             />
           ) : (
@@ -562,19 +565,6 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
           )}
         </div>
 
-        {/* ── Coach rail ──────────────────────────────── */}
-        {!submitted && studentId && task.id && (
-          <AICoachPanel
-            studentId={studentId}
-            taskId={task.id}
-            taskType="writing"
-            draftText={text}
-            fill
-            hideMobileFab
-            mobileOpen={coachOpen}
-            onMobileOpenChange={setCoachOpen}
-          />
-        )}
       </div>
     </section>
   )
@@ -645,7 +635,7 @@ function BriefCard({ task, number, total, taskTypeLabel, reduce }) {
         >
           <p
             className="font-en text-[15.5px] sm:text-[17px] leading-[1.75] text-left"
-            style={{ color: 'rgba(240,244,248,0.93)', maxWidth: '62ch', letterSpacing: '-0.003em' }}
+            style={{ color: 'rgba(240,244,248,0.93)', maxWidth: '74ch', letterSpacing: '-0.003em' }}
           >
             {task.prompt_en}
           </p>
@@ -804,7 +794,7 @@ function Expand({ children }) {
 function WritingSheet({
   task, text, setText, wordCount, progressPct, meetsMin, inRange, underMin, overMax,
   wordsNeeded, saveState, lastSavedAt, saved, onSave, onSubmit, submitting, submitShake,
-  onAskCoach, reduce,
+  studentId, coachOpen, setCoachOpen, reduce,
 }) {
   const g = useG()
   const [hintsOpen, setHintsOpen] = useState(false)
@@ -926,15 +916,35 @@ function WritingSheet({
             )}
         </div>
         <button
-          onClick={onAskCoach}
+          onClick={() => setCoachOpen((v) => !v)}
+          aria-expanded={coachOpen}
           aria-label="افتح مدرّبك الشخصي"
-          className="lg:hidden inline-flex items-center gap-1.5 h-9 px-3 rounded-xl text-[12px] font-bold font-['Tajawal'] shrink-0 transition-colors"
-          style={{ background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.25)', color: '#c084fc' }}
+          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-xl text-[12px] font-bold font-['Tajawal'] shrink-0 transition-colors hover:brightness-125"
+          style={{
+            background: coachOpen ? 'rgba(168,85,247,0.22)' : 'rgba(168,85,247,0.12)',
+            border: `1px solid rgba(168,85,247,${coachOpen ? 0.45 : 0.25})`,
+            color: '#c084fc',
+          }}
         >
           <Sparkles size={13} />
-          مدرّبك
+          <span>مدرّبك</span>
+          <ChevronDown size={12} style={{ transform: coachOpen ? 'rotate(180deg)' : 'none', transition: 'transform .22s' }} />
         </button>
       </div>
+
+      {/* ── Coach: opens inside the sheet, right where she is working ── */}
+      {studentId && task.id && (
+        <AICoachPanel
+          studentId={studentId}
+          taskId={task.id}
+          taskType="writing"
+          draftText={text}
+          inline
+          hideMobileFab
+          mobileOpen={coachOpen}
+          onMobileOpenChange={setCoachOpen}
+        />
+      )}
 
       {/* ── Word dock: the target vocabulary, always in sight ── */}
       {vocabItems.length > 0 && (
@@ -1274,12 +1284,9 @@ function RelativeTime({ date }) {
 // ─── Skeleton ────────────────────────────────────────
 function WritingSkeleton() {
   return (
-    <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_352px] lg:gap-5 lg:items-start space-y-4 lg:space-y-0">
-      <div className="space-y-4">
-        <div className="h-56 rounded-3xl animate-pulse" style={{ background: INK.panel, border: `1px solid ${INK.hairSoft}` }} />
-        <div className="h-[420px] rounded-3xl animate-pulse" style={{ background: INK.panel, border: `1px solid ${INK.hairSoft}` }} />
-      </div>
-      <div className="hidden lg:block h-[520px] rounded-3xl animate-pulse" style={{ background: INK.panel, border: `1px solid ${INK.hairSoft}` }} />
+    <div className="space-y-4">
+      <div className="h-56 rounded-3xl animate-pulse" style={{ background: INK.panel, border: `1px solid ${INK.hairSoft}` }} />
+      <div className="h-[420px] rounded-3xl animate-pulse" style={{ background: INK.panel, border: `1px solid ${INK.hairSoft}` }} />
     </div>
   )
 }
