@@ -351,7 +351,7 @@ export default function EverydayConversation({ scenario, studentId, onClose, onC
                       <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                         <div className="flex flex-wrap gap-1.5 pt-2">
                           {scenario.useful_phrases.map((p, i) => (
-                            <span key={i} dir="ltr" className="px-2.5 py-1 rounded-lg text-[11px] font-semibold font-['Inter']" style={{ background: 'rgba(251,191,36,0.09)', border: '1px solid rgba(251,191,36,0.18)', color: '#fcd34d' }}>{p}</span>
+                            <span key={i} dir="ltr" className="px-2.5 py-1 rounded-lg text-[11px] font-semibold font-en" style={{ background: 'rgba(251,191,36,0.09)', border: '1px solid rgba(251,191,36,0.18)', color: '#fcd34d' }}>{p}</span>
                           ))}
                         </div>
                       </motion.div>
@@ -414,7 +414,7 @@ export default function EverydayConversation({ scenario, studentId, onClose, onC
               {bestLine && (
                 <div className="rounded-xl px-4 py-3" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderInlineStart: '2.5px solid rgba(56,189,248,0.5)' }}>
                   <p className="text-[11px] font-bold font-['Tajawal'] mb-1.5 flex items-center gap-1.5" style={{ color: '#7dd3fc' }}><Sparkles size={12} /> {g('أفضل جملة قلتها', 'أفضل جملة قلتيها')}</p>
-                  <p dir="ltr" className="text-sm font-['Inter'] leading-relaxed text-left" style={{ color: 'rgba(248,250,252,0.9)' }}>“{bestLine}”</p>
+                  <p dir="ltr" className="text-sm font-en leading-relaxed text-left" style={{ color: 'rgba(248,250,252,0.9)' }}>“{bestLine}”</p>
                 </div>
               )}
 
@@ -428,8 +428,8 @@ export default function EverydayConversation({ scenario, studentId, onClose, onC
               {recap.upgrade?.you_said && recap.upgrade?.nicer && (
                 <div className="rounded-xl px-4 py-3" style={{ background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.2)' }}>
                   <p className="text-[11px] font-bold font-['Tajawal'] mb-2 flex items-center gap-1.5" style={{ color: '#7dd3fc' }}><ArrowUpRight size={13} /> {g('ترقية بسيطة', 'ترقية بسيطة')}</p>
-                  <p dir="ltr" className="text-[13px] font-['Inter'] text-left line-through" style={{ color: 'rgba(248,250,252,0.5)' }}>{recap.upgrade.you_said}</p>
-                  <p dir="ltr" className="text-sm font-['Inter'] text-left font-semibold mt-1" style={{ color: '#a7f3d0' }}>{recap.upgrade.nicer}</p>
+                  <p dir="ltr" className="text-[13px] font-en text-left line-through" style={{ color: 'rgba(248,250,252,0.5)' }}>{recap.upgrade.you_said}</p>
+                  <p dir="ltr" className="text-sm font-en text-left font-semibold mt-1" style={{ color: '#a7f3d0' }}>{recap.upgrade.nicer}</p>
                 </div>
               )}
 
@@ -481,7 +481,7 @@ function Bubble({ message, onReplay, speaking, reduce }) {
         border: '1px solid rgba(56,189,248,0.34)', backdropFilter: 'blur(8px)', borderRadius: '18px 18px 6px 18px',
         boxShadow: '0 1px 2px -1px rgba(0,0,0,0.22),0 8px 20px -8px rgba(0,0,0,0.30),inset 0 1px 0 0 rgba(255,255,255,0.12)',
       }}>
-        <p dir="ltr" className={`text-sm font-['Inter'] leading-relaxed whitespace-pre-line ${isAi ? 'text-left' : 'text-right'}`} style={{ color: isAi ? 'rgba(248,250,252,0.92)' : '#fff' }}>{message.text}</p>
+        <p dir="ltr" className={`text-sm font-en leading-relaxed whitespace-pre-line ${isAi ? 'text-left' : 'text-right'}`} style={{ color: isAi ? 'rgba(248,250,252,0.92)' : '#fff' }}>{message.text}</p>
         {isAi && message.audioUrl && (
           <button onClick={onReplay} className="mt-2 flex items-center gap-1.5 text-[10px] font-bold font-['Tajawal'] transition-colors" style={{ color: speaking ? '#7dd3fc' : 'rgba(125,211,252,0.7)' }}>
             {speaking ? (

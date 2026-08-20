@@ -168,7 +168,7 @@ function ReferenceContent({ focusType, items, practiceSentences }) {
           </h4>
           {practiceSentences.map((s, i) => (
             <div key={i} className="fl-card-static p-3">
-              <p className="text-sm font-['Inter'] font-medium" style={{ color: 'var(--text-primary)' }}>
+              <p className="text-sm font-en font-medium" style={{ color: 'var(--text-primary)' }}>
                 {s.sentence_en}
               </p>
               <p className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
@@ -210,13 +210,13 @@ function MinimalPairsView({ items, expandedItem, onToggle }) {
           <div className="flex items-center justify-between mb-2">
             <EnglishText as="div" className="flex items-center gap-4">
               <div className="text-center">
-                <EnglishText as="p" className="text-base font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>{pair.word1}</EnglishText>
-                <EnglishText as="p" className="text-[10px] font-['Inter'] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa1}</EnglishText>
+                <EnglishText as="p" className="text-base font-bold font-en" style={{ color: 'var(--accent-sky)' }}>{pair.word1}</EnglishText>
+                <EnglishText as="p" className="text-[10px] font-en mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa1}</EnglishText>
               </div>
               <span className="text-xs font-bold" style={{ color: 'var(--text-tertiary)' }}>vs</span>
               <div className="text-center">
-                <EnglishText as="p" className="text-base font-bold font-['Inter']" style={{ color: 'var(--accent-violet)' }}>{pair.word2}</EnglishText>
-                <EnglishText as="p" className="text-[10px] font-['Inter'] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa2}</EnglishText>
+                <EnglishText as="p" className="text-base font-bold font-en" style={{ color: 'var(--accent-violet)' }}>{pair.word2}</EnglishText>
+                <EnglishText as="p" className="text-[10px] font-en mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa2}</EnglishText>
               </div>
             </EnglishText>
             <AudioPlaceholder />
@@ -251,7 +251,7 @@ function WordStressView({ items, expandedItem, onToggle }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div>
-                <EnglishText as="div" className="flex items-center gap-0.5 text-base font-bold font-['Inter']">
+                <EnglishText as="div" className="flex items-center gap-0.5 text-base font-bold font-en">
                   {(item.syllables || []).map((syl, j) => (
                     <span
                       key={j}
@@ -263,7 +263,7 @@ function WordStressView({ items, expandedItem, onToggle }) {
                     </span>
                   ))}
                 </EnglishText>
-                <EnglishText as="p" className="text-[10px] font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</EnglishText>
+                <EnglishText as="p" className="text-[10px] font-en mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</EnglishText>
               </div>
               <AudioPlaceholder />
             </div>
@@ -298,16 +298,16 @@ function ConnectedSpeechView({ items, expandedItem, onToggle }) {
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <EnglishText as="div" className="flex items-center gap-3 mb-1">
-                <EnglishText as="p" className="text-sm font-['Inter']" style={{ color: 'var(--text-tertiary)', textDecoration: 'line-through', textDecorationColor: 'rgba(255,255,255,0.15)' }}>
+                <EnglishText as="p" className="text-sm font-en" style={{ color: 'var(--text-tertiary)', textDecoration: 'line-through', textDecorationColor: 'rgba(255,255,255,0.15)' }}>
                   {item.written}
                 </EnglishText>
                 <span style={{ color: 'var(--text-tertiary)' }}>→</span>
-                <EnglishText as="p" className="text-sm font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>
+                <EnglishText as="p" className="text-sm font-bold font-en" style={{ color: 'var(--accent-sky)' }}>
                   {item.spoken}
                 </EnglishText>
               </EnglishText>
               {item.ipa_spoken && (
-                <EnglishText as="p" className="text-[10px] font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</EnglishText>
+                <EnglishText as="p" className="text-[10px] font-en" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</EnglishText>
               )}
             </div>
             <AudioPlaceholder />
@@ -342,7 +342,7 @@ function IntonationView({ items, expandedItem, onToggle }) {
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-1">
-                <EnglishText as="p" className="text-sm font-bold font-['Inter']" style={{ color: 'var(--text-primary)' }}>
+                <EnglishText as="p" className="text-sm font-bold font-en" style={{ color: 'var(--text-primary)' }}>
                   {item.sentence}
                 </EnglishText>
                 <span className="text-xl">{item.tone_curve}</span>

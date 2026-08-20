@@ -382,7 +382,7 @@ export default function SpeedTypeGame({
               <motion.p
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-sm text-amber-400 font-['Inter']"
+                className="text-sm text-amber-400 font-en"
               >
                 💡 {hintText}
               </motion.p>
@@ -392,7 +392,7 @@ export default function SpeedTypeGame({
             <div className="relative w-full max-w-[320px]">
               {/* Colored overlay */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                <span className="text-2xl font-bold font-['Inter'] tracking-wide">
+                <span className="text-2xl font-bold font-en tracking-wide">
                   {renderColoredInput()}
                 </span>
               </div>
@@ -409,7 +409,7 @@ export default function SpeedTypeGame({
                 autoCapitalize="off"
                 spellCheck={false}
                 dir="ltr"
-                className={`w-full h-16 text-2xl text-center font-bold font-['Inter'] tracking-wide rounded-xl border-2 outline-none transition-all duration-200 bg-[var(--surface-base)] ${
+                className={`w-full h-16 text-2xl text-center font-bold font-en tracking-wide rounded-xl border-2 outline-none transition-all duration-200 bg-[var(--surface-base)] ${
                   feedback === 'correct'
                     ? 'border-emerald-500 bg-emerald-500/10 text-transparent caret-transparent'
                     : feedback === 'wrong'
@@ -442,7 +442,7 @@ export default function SpeedTypeGame({
               <motion.p
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-lg font-bold text-amber-400 font-['Inter']"
+                className="text-lg font-bold text-amber-400 font-en"
               >
                 {currentItem.answer}
               </motion.p>

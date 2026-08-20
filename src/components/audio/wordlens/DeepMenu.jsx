@@ -73,7 +73,7 @@ export function DeepMenu({ data, contextSentence, onBack }) {
           <div className="flex items-start gap-2">
             <Quote size={14} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--ds-text-muted, var(--text-muted))' }} />
             <p
-              className="text-sm italic leading-relaxed font-['Inter']"
+              className="text-sm italic leading-relaxed font-en"
               dir="ltr"
               style={{ color: 'var(--ds-text-secondary, var(--text-secondary))', unicodeBidi: 'isolate' }}
             >
@@ -104,7 +104,7 @@ export function DeepMenu({ data, contextSentence, onBack }) {
                   }}
                 >
                   <span
-                    className="text-sm font-semibold font-['Inter']"
+                    className="text-sm font-semibold font-en"
                     dir="ltr"
                     style={{ color: 'var(--ds-text-primary, var(--text-primary))' }}
                   >
@@ -112,7 +112,7 @@ export function DeepMenu({ data, contextSentence, onBack }) {
                   </span>
                   {pos && (
                     <span
-                      className="block text-[10px] mt-0.5 font-['Inter']"
+                      className="block text-[10px] mt-0.5 font-en"
                       dir="ltr"
                       style={{ color: 'var(--ds-text-muted, var(--text-muted))' }}
                     >
@@ -189,7 +189,7 @@ export function DeepMenu({ data, contextSentence, onBack }) {
                   {aiResult.examples.map((ex, i) => (
                     <li
                       key={i}
-                      className="text-sm font-['Inter'] leading-relaxed"
+                      className="text-sm font-en leading-relaxed"
                       dir="ltr"
                       style={{ color: 'var(--ds-text-secondary, var(--text-secondary))', unicodeBidi: 'isolate' }}
                     >
@@ -206,7 +206,7 @@ export function DeepMenu({ data, contextSentence, onBack }) {
                   )}
                   {aiResult?.explanation && (
                     <p
-                      className="text-xs font-['Inter'] italic leading-relaxed"
+                      className="text-xs font-en italic leading-relaxed"
                       dir="ltr"
                       style={{ color: 'var(--ds-text-secondary, var(--text-secondary))', unicodeBidi: 'isolate' }}
                     >

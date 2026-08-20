@@ -153,7 +153,7 @@ export default function InteractiveSpeakingTab({ unitId, students = [], highligh
                 </span>
               )}
             </div>
-            <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">{topic.prompt_en}</p>
+            <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-en leading-relaxed" dir="ltr">{topic.prompt_en}</p>
             {topic.prompt_ar && <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{topic.prompt_ar}</p>}
           </div>
 
@@ -166,7 +166,7 @@ export default function InteractiveSpeakingTab({ unitId, students = [], highligh
                   : Object.entries(topic.evaluation_criteria).map(([k, v]) => ({ name: k, weight: v }))
                 ).map((c, i) => (
                   <div key={i} className="flex items-center justify-between px-3 py-2 rounded-lg" style={{ background: 'var(--surface-base)' }}>
-                    <span className="text-xs text-[var(--text-primary)] font-['Inter'] capitalize" dir="ltr">{c.name || c.criterion}</span>
+                    <span className="text-xs text-[var(--text-primary)] font-en capitalize" dir="ltr">{c.name || c.criterion}</span>
                     {c.weight && <span className="text-[10px] text-[var(--text-muted)] font-['Tajawal']">{c.weight}%</span>}
                   </div>
                 ))}
@@ -431,7 +431,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, 
                       {aiEval.corrected_transcript && (
                         <div className="rounded-lg p-2.5" style={{ background: 'var(--surface-base)' }}>
                           <p className="text-[10px] font-bold text-emerald-400 font-['Tajawal'] mb-1">النص المصحح</p>
-                          <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{aiEval.corrected_transcript}</p>
+                          <p className="text-xs text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">{aiEval.corrected_transcript}</p>
                         </div>
                       )}
 
@@ -441,7 +441,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, 
                           <p className="text-[10px] font-bold text-red-400 font-['Tajawal']">الأخطاء والتصحيحات</p>
                           {aiEval.errors.map((err, i) => (
                             <div key={i} className="rounded-lg p-2.5 space-y-1" style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.08)' }}>
-                              <div className="flex items-start gap-2 text-xs font-['Inter']" dir="ltr">
+                              <div className="flex items-start gap-2 text-xs font-en" dir="ltr">
                                 <span className="line-through text-red-400/70">{err.spoken || err.original}</span>
                                 <span className="text-emerald-400">{err.corrected || err.correction}</span>
                               </div>
@@ -459,7 +459,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, 
                           <p className="text-[10px] font-bold text-violet-400 font-['Tajawal']">تعبيرات أفضل</p>
                           {aiEval.better_expressions.map((expr, i) => (
                             <div key={i} className="rounded-lg p-2.5" style={{ background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.08)' }}>
-                              <div className="flex items-center gap-2 text-xs font-['Inter']" dir="ltr">
+                              <div className="flex items-center gap-2 text-xs font-en" dir="ltr">
                                 <span className="text-[var(--text-muted)]">{expr.basic}</span>
                                 <span className="text-violet-400">→</span>
                                 <span className="text-violet-300 font-medium">{expr.natural}</span>
@@ -487,7 +487,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, 
                       {aiEval.model_answer && (
                         <div className="rounded-lg p-2.5" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.1)' }}>
                           <p className="text-[10px] font-bold text-sky-400 font-['Tajawal'] mb-1">الإجابة النموذجية</p>
-                          <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{aiEval.model_answer}</p>
+                          <p className="text-xs text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">{aiEval.model_answer}</p>
                         </div>
                       )}
 
@@ -526,7 +526,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, 
                 exit={{ height: 0, opacity: 0 }}
                 className="overflow-hidden"
               >
-                <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed mt-2 p-2 rounded-lg" dir="ltr" style={{ background: 'var(--surface-base)' }}>
+                <p className="text-xs text-[var(--text-secondary)] font-en leading-relaxed mt-2 p-2 rounded-lg" dir="ltr" style={{ background: 'var(--surface-base)' }}>
                   {aiEval.transcript}
                 </p>
               </motion.div>

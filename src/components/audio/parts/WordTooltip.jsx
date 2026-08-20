@@ -123,7 +123,7 @@ export function WordTooltip({
             <div className="min-w-0">
               <span dir="ltr" style={{ unicodeBidi: 'isolate' }} className="text-lg font-bold text-white">{word}</span>
               {ipa && (
-                <span dir="ltr" style={{ unicodeBidi: 'isolate' }} className="text-xs text-slate-400 ml-2 font-['Inter']">/{ipa}/</span>
+                <span dir="ltr" style={{ unicodeBidi: 'isolate' }} className="text-xs text-slate-400 ml-2 font-en">/{ipa}/</span>
               )}
             </div>
           </div>
@@ -135,7 +135,7 @@ export function WordTooltip({
 
           {/* Example */}
           {example_sentence && (
-            <p dir="ltr" className="text-xs text-slate-400 italic mb-3 leading-relaxed font-['Inter']" style={{ unicodeBidi: 'isolate' }}>
+            <p dir="ltr" className="text-xs text-slate-400 italic mb-3 leading-relaxed font-en" style={{ unicodeBidi: 'isolate' }}>
               {example_sentence}
             </p>
           )}

@@ -128,10 +128,10 @@ export default function InteractiveVocabularyTab({ unitId, students = [] }) {
             )}
             <div className="flex-1 min-w-0" dir="ltr">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-sm text-[var(--text-primary)] font-['Inter']">{v.word}</span>
-                <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{v.part_of_speech}</span>
+                <span className="font-semibold text-sm text-[var(--text-primary)] font-en">{v.word}</span>
+                <span className="text-[10px] text-[var(--text-muted)] font-en">{v.part_of_speech}</span>
               </div>
-              <p className="text-xs text-[var(--text-secondary)] font-['Inter'] mt-0.5">{v.definition_en}</p>
+              <p className="text-xs text-[var(--text-secondary)] font-en mt-0.5">{v.definition_en}</p>
             </div>
             <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] flex-shrink-0">{v.definition_ar}</span>
           </div>

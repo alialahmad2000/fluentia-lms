@@ -124,7 +124,7 @@ export function StickyAudioBar({ audioRef, showABRepeat = false, onTimeUpdate })
               aria-label="Seek"
               style={{ accentColor: '#a855f7' }}
             />
-            <div className="flex justify-between text-[10px] font-['Inter'] mt-0.5" style={{ color: 'var(--text-muted)' }}>
+            <div className="flex justify-between text-[10px] font-en mt-0.5" style={{ color: 'var(--text-muted)' }}>
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
             </div>
@@ -195,7 +195,7 @@ export function StickyAudioBar({ audioRef, showABRepeat = false, onTimeUpdate })
                       <button
                         key={s}
                         onClick={() => changeSpeed(s)}
-                        className="px-1.5 py-0.5 rounded text-[11px] font-['Inter'] font-bold transition-colors"
+                        className="px-1.5 py-0.5 rounded text-[11px] font-en font-bold transition-colors"
                         style={{
                           background: speed === s ? '#a855f7' : 'transparent',
                           color: speed === s ? 'white' : 'var(--text-muted)',
@@ -211,7 +211,7 @@ export function StickyAudioBar({ audioRef, showABRepeat = false, onTimeUpdate })
                     <div className="flex items-center gap-1 border-l border-[var(--border-subtle)] pl-2 ml-1">
                       <button
                         onClick={setA}
-                        className="px-2 py-0.5 rounded text-xs font-bold font-['Inter'] transition-colors"
+                        className="px-2 py-0.5 rounded text-xs font-bold font-en transition-colors"
                         style={{
                           background: abPoints.a != null ? '#f5c842' : 'rgba(255,255,255,0.06)',
                           color: abPoints.a != null ? '#000' : 'var(--text-muted)',
@@ -219,7 +219,7 @@ export function StickyAudioBar({ audioRef, showABRepeat = false, onTimeUpdate })
                       >A</button>
                       <button
                         onClick={setB}
-                        className="px-2 py-0.5 rounded text-xs font-bold font-['Inter'] transition-colors"
+                        className="px-2 py-0.5 rounded text-xs font-bold font-en transition-colors"
                         style={{
                           background: abPoints.b != null ? '#f5c842' : 'rgba(255,255,255,0.06)',
                           color: abPoints.b != null ? '#000' : 'var(--text-muted)',

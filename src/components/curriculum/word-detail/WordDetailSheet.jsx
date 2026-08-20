@@ -262,7 +262,7 @@ export default function WordDetailSheet({
                     <h2
                       id="word-detail-title"
                       dir="ltr"
-                      className="font-['Inter'] font-bold"
+                      className="font-en font-bold"
                       style={{
                         fontSize: 26,
                         lineHeight: 1.1,

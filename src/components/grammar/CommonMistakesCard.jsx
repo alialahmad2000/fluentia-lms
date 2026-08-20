@@ -27,13 +27,13 @@ export default function CommonMistakesCard({ items }) {
                   distinction never rests on colour alone. */}
               <div className="flex items-start gap-2" dir="ltr">
                 <span className="text-sm flex-shrink-0 leading-relaxed" style={{ color: 'var(--accent-rose)' }} aria-hidden="true">✗</span>
-                <span className="text-[15px] font-['Inter'] grammar-example-wrong" style={{ color: 'var(--accent-rose)' }}>
+                <span className="text-[15px] font-en grammar-example-wrong" style={{ color: 'var(--accent-rose)' }}>
                   {m.wrong}
                 </span>
               </div>
               <div className="flex items-start gap-2" dir="ltr">
                 <span className="text-sm flex-shrink-0 leading-relaxed" style={{ color: 'var(--success)' }} aria-hidden="true">✓</span>
-                <span className="text-[15px] font-semibold font-['Inter']" style={{ color: 'var(--success)' }}>
+                <span className="text-[15px] font-semibold font-en" style={{ color: 'var(--success)' }}>
                   {m.correct}
                 </span>
               </div>

@@ -155,7 +155,7 @@ export function EvidenceExcerpt({ hint, audioUrl, accent = 'sky', kind = 'readin
         )}
       </div>
 
-      <p className="text-sm font-['Inter'] leading-[1.9] text-[var(--text-secondary)]" dir="ltr">
+      <p className="text-sm font-en leading-[1.9] text-[var(--text-secondary)]" dir="ltr">
         {parts.before}
         {parts.match && (
           <mark

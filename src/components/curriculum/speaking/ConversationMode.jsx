@@ -430,7 +430,7 @@ export default function ConversationMode({
             <CoachOrb size={38} speaking={coachSpeaking} animate={!reduce} />
             <div className="min-w-0">
               <p className="text-[13px] font-bold text-white font-['Tajawal'] leading-none flex items-center gap-1.5">
-                المدرّبة <span className="text-[10px] font-semibold text-cyan-300/70 font-['Inter']">Layla</span>
+                المدرّبة <span className="text-[10px] font-semibold text-cyan-300/70 font-en">Layla</span>
               </p>
               <p className="text-[10px] font-['Tajawal'] mt-1 transition-colors truncate" style={{ color: coachSpeaking ? '#7dd3fc' : 'rgba(248,250,252,0.45)' }}>
                 {coachSpeaking ? 'تتحدّث الآن…'
@@ -459,7 +459,7 @@ export default function ConversationMode({
                 <CoachOrb size={92} speaking animate={!reduce} />
                 <div>
                   <p className="text-[15px] font-bold text-white font-['Tajawal'] leading-none">المدرّبة ليلى</p>
-                  <p className="text-[11px] mt-1.5" dir="ltr" style={{ fontFamily: 'Inter, system-ui, sans-serif', letterSpacing: '.055em', textTransform: 'uppercase', color: 'rgba(125,211,252,0.78)' }}>English speaking coach</p>
+                  <p className="text-[11px] mt-1.5" dir="ltr" style={{ fontFamily: "'Inter Tight', Inter, system-ui, sans-serif", letterSpacing: '.055em', textTransform: 'uppercase', color: 'rgba(125,211,252,0.78)' }}>English speaking coach</p>
                 </div>
               </div>
               <p className="text-[13px] font-['Tajawal'] leading-[1.9] max-w-[38ch]" style={{ color: 'rgba(248,250,252,0.6)' }}>
@@ -467,7 +467,7 @@ export default function ConversationMode({
                    'تبدأ ليلى بصوتها وتسألكِ وتردّين بصوتكِ — مكالمة قصيرة بالإنجليزي. توقفي في أي لحظة، وكلامكِ خاص.')}
               </p>
               {!isStage && topic?.title_en && (
-                <div className="px-3.5 py-1.5 rounded-full text-[11px] font-semibold font-['Inter']" dir="ltr" style={{ background: 'rgba(56,189,248,0.10)', border: '1px solid rgba(56,189,248,0.20)', color: '#7dd3fc' }}>
+                <div className="px-3.5 py-1.5 rounded-full text-[11px] font-semibold font-en" dir="ltr" style={{ background: 'rgba(56,189,248,0.10)', border: '1px solid rgba(56,189,248,0.20)', color: '#7dd3fc' }}>
                   {topic.title_en}
                 </div>
               )}
@@ -559,7 +559,7 @@ export default function ConversationMode({
                       <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                         <div className="flex flex-wrap gap-1.5 pt-2">
                           {topic.useful_phrases.map((p, i) => (
-                            <span key={i} dir="ltr" className="px-2.5 py-1 rounded-lg text-[11px] font-semibold font-['Inter']" style={{ background: 'rgba(251,191,36,0.09)', border: '1px solid rgba(251,191,36,0.18)', color: '#fcd34d' }}>{p}</span>
+                            <span key={i} dir="ltr" className="px-2.5 py-1 rounded-lg text-[11px] font-semibold font-en" style={{ background: 'rgba(251,191,36,0.09)', border: '1px solid rgba(251,191,36,0.18)', color: '#fcd34d' }}>{p}</span>
                           ))}
                         </div>
                       </motion.div>
@@ -634,7 +634,7 @@ export default function ConversationMode({
                   {yourWords.map((w, i) => (
                     <motion.div key={i} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 + i * 0.08 }}
                       className="rounded-xl px-4 py-3" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderInlineStart: '2.5px solid rgba(56,189,248,0.5)' }}>
-                      <p dir="ltr" className="text-sm font-['Inter'] leading-relaxed text-left" style={{ color: 'rgba(248,250,252,0.85)' }}>“{w}”</p>
+                      <p dir="ltr" className="text-sm font-en leading-relaxed text-left" style={{ color: 'rgba(248,250,252,0.85)' }}>“{w}”</p>
                     </motion.div>
                   ))}
                   <p className="text-[11px] font-['Tajawal'] text-center pt-0.5" style={{ color: 'rgba(248,250,252,0.45)' }}>{g('هذا أنت تتكلم إنجليزي 🤍', 'هذي أنتِ تتكلمين إنجليزي 🤍')}</p>
@@ -693,7 +693,7 @@ function Bubble({ message, onReplay, speaking, reduce }) {
         borderRadius: '18px 18px 18px 6px',
         boxShadow: '0 1px 2px -1px rgba(0,0,0,0.22),0 8px 20px -8px rgba(0,0,0,0.30),0 16px 40px -14px rgba(0,212,255,0.24),inset 0 1px 0 0 rgba(255,255,255,0.12)',
       }}>
-        <p dir="ltr" className="text-sm font-['Inter'] leading-relaxed whitespace-pre-line text-left" style={{ color: isAi ? 'rgba(248,250,252,0.92)' : '#fff' }}>{message.text}</p>
+        <p dir="ltr" className="text-sm font-en leading-relaxed whitespace-pre-line text-left" style={{ color: isAi ? 'rgba(248,250,252,0.92)' : '#fff' }}>{message.text}</p>
         {isAi && message.audioUrl && (
           <button onClick={onReplay} className="mt-2 flex items-center gap-1.5 text-[10px] font-bold font-['Tajawal'] transition-colors" style={{ color: speaking ? '#7dd3fc' : 'rgba(125,211,252,0.7)' }}>
             {speaking ? (

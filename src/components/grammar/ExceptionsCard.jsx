@@ -59,24 +59,24 @@ function ExceptionBlock({ exception, defaultOpen }) {
               <table className="w-full text-xs">
                 <thead>
                   <tr style={{ background: 'var(--glass-card)' }}>
-                    <th className="px-3 py-2 text-start font-['Inter'] font-bold" style={{ color: 'var(--text-tertiary)' }}>Base</th>
-                    <th className="px-3 py-2 text-start font-['Inter'] font-bold" style={{ color: 'var(--success)' }}>Correct</th>
+                    <th className="px-3 py-2 text-start font-en font-bold" style={{ color: 'var(--text-tertiary)' }}>Base</th>
+                    <th className="px-3 py-2 text-start font-en font-bold" style={{ color: 'var(--success)' }}>Correct</th>
                     {exception.examples.some(e => (e.wrong || e.common_mistake)) && (
-                      <th className="px-3 py-2 text-start font-['Inter'] font-bold" style={{ color: 'var(--danger)' }}>Common mistake</th>
+                      <th className="px-3 py-2 text-start font-en font-bold" style={{ color: 'var(--danger)' }}>Common mistake</th>
                     )}
                   </tr>
                 </thead>
                 <tbody>
                   {exception.examples.map((ex, j) => (
                     <tr key={j} style={{ borderTop: '1px solid var(--border-subtle)' }}>
-                      <td className="px-3 py-2 font-['Inter'] font-medium" dir="ltr" style={{ color: 'var(--text-primary)' }}>
+                      <td className="px-3 py-2 font-en font-medium" dir="ltr" style={{ color: 'var(--text-primary)' }}>
                         {ex.base}
                       </td>
-                      <td className="px-3 py-2 font-['Inter'] font-semibold" dir="ltr" style={{ color: 'var(--success)' }}>
+                      <td className="px-3 py-2 font-en font-semibold" dir="ltr" style={{ color: 'var(--success)' }}>
                         {ex.correct || ex.past}
                       </td>
                       {exception.examples.some(e => (e.wrong || e.common_mistake)) && (
-                        <td className="px-3 py-2 font-['Inter'] line-through" dir="ltr" style={{ color: 'var(--danger)', opacity: 0.7 }}>
+                        <td className="px-3 py-2 font-en line-through" dir="ltr" style={{ color: 'var(--danger)', opacity: 0.7 }}>
                           {(ex.wrong || ex.common_mistake) || '—'}
                         </td>
                       )}

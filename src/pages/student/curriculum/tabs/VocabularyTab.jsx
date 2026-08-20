@@ -1068,9 +1068,9 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
         {hasPhoto && (
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-baseline gap-2 min-w-0" dir="ltr">
-              <p className="text-sm font-bold text-white font-['Inter'] leading-tight truncate">{word.word}</p>
+              <p className="text-sm font-bold text-white font-en leading-tight truncate">{word.word}</p>
               {word.pronunciation_ipa && (
-                <p className="text-[10px] text-white/35 font-['Inter'] leading-tight tracking-tight">{word.pronunciation_ipa}</p>
+                <p className="text-[10px] text-white/35 font-en leading-tight tracking-tight">{word.pronunciation_ipa}</p>
               )}
             </div>
             {word.audio_url && <AudioButton playing={playing} onPlay={playAudio} />}
@@ -1157,7 +1157,7 @@ function WordListItem({ word, mastery, reviewed, onView, onPractice, playAudio }
             {word.word}
           </bdi>
           {word.pronunciation_ipa && (
-            <bdi dir="ltr" className="text-[10px] text-white/30 font-['Inter'] tracking-tight">{word.pronunciation_ipa}</bdi>
+            <bdi dir="ltr" className="text-[10px] text-white/30 font-en tracking-tight">{word.pronunciation_ipa}</bdi>
           )}
         </div>
         <p className="text-[11px] text-white/50 font-['Tajawal'] line-clamp-1 mt-0.5 sm:mt-0 sm:flex-1">
@@ -1266,16 +1266,16 @@ function FlashcardPractice({ words, onBack, onComplete }) {
           >
             {!flipped ? (
               <>
-                <p className="text-2xl font-bold text-white font-['Inter']">{word.word}</p>
-                <p className="text-xs text-white/30 font-['Inter']">{word.part_of_speech}</p>
+                <p className="text-2xl font-bold text-white font-en">{word.word}</p>
+                <p className="text-xs text-white/30 font-en">{word.part_of_speech}</p>
                 <p className="text-xs text-white/20 font-['Tajawal']">اضغط لقلب البطاقة</p>
               </>
             ) : (
               <>
                 {word.image_url && <img src={word.image_url} alt={word.word} className="w-16 h-16 rounded-lg object-cover" />}
                 <p className="text-lg font-bold text-amber-400 font-['Tajawal']">{word.definition_ar}</p>
-                <p className="text-sm text-white/50 font-['Inter']">{word.definition_en}</p>
-                {word.example_sentence && <p className="text-xs text-white/25 font-['Inter'] italic" dir="ltr">"{word.example_sentence}"</p>}
+                <p className="text-sm text-white/50 font-en">{word.definition_en}</p>
+                {word.example_sentence && <p className="text-xs text-white/25 font-en italic" dir="ltr">"{word.example_sentence}"</p>}
               </>
             )}
           </motion.div>

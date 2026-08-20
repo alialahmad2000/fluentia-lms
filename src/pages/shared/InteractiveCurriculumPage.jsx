@@ -166,7 +166,7 @@ export default function InteractiveCurriculumPage() {
           <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">
             {t('trainer.curriculum.breadcrumb_unit')} {unit?.unit_number}: {unit?.theme_ar}
           </h1>
-          <p className="text-sm text-[var(--text-muted)] font-['Inter']">{unit?.theme_en}</p>
+          <p className="text-sm text-[var(--text-muted)] font-en">{unit?.theme_en}</p>
         </div>
 
         {/* Student count badge */}

@@ -55,7 +55,7 @@ export default function VerbCard({ verb }) {
       <div className="grid grid-cols-3 gap-4 mb-4">
         {forms.map(f => (
           <div key={f.form} className="text-center">
-            <p className="text-xl font-bold text-[var(--text-primary)] font-['Inter']">
+            <p className="text-xl font-bold text-[var(--text-primary)] font-en">
               {f.value}
             </p>
             <p className="text-xs text-[var(--text-muted)] mt-1">{f.labelAr}</p>
@@ -82,7 +82,7 @@ export default function VerbCard({ verb }) {
 
       {/* Example sentence */}
       {verb.example_sentence && (
-        <p className="text-sm text-[var(--text-muted)] italic font-['Inter']">
+        <p className="text-sm text-[var(--text-muted)] italic font-en">
           "{verb.example_sentence}"
         </p>
       )}

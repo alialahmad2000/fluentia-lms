@@ -44,7 +44,7 @@ export default function ReviewSessionStats({ stats, onClose }) {
 function StatBox({ label, value, unit, color }) {
   return (
     <div className="rounded-xl p-3" style={{ background: `${color}08`, border: `1px solid ${color}20` }}>
-      <p className="text-2xl font-black font-['Inter']" style={{ color }}>{value}</p>
+      <p className="text-2xl font-black font-en" style={{ color }}>{value}</p>
       <p className="text-[11px] text-white/40 font-['Tajawal'] mt-0.5">{label}</p>
       <p className="text-[10px] font-['Tajawal']" style={{ color: `${color}80` }}>{unit}</p>
     </div>

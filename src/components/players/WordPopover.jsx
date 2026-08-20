@@ -41,7 +41,7 @@ export function WordPopover({
       >
         <div className="p-4 space-y-3">
           <div className="flex items-center justify-between gap-3" dir="ltr">
-            <span className="text-lg font-semibold text-[var(--text-primary)] font-['Inter']">{word}</span>
+            <span className="text-lg font-semibold text-[var(--text-primary)] font-en">{word}</span>
             <button
               onClick={onPlayAudio}
               aria-label="استمع للنطق"

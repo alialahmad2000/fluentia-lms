@@ -278,7 +278,7 @@ export default function MatchGame({
                     animate={{ opacity: 0.25, scale: 0.95 }}
                     className="h-[52px] rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center"
                   >
-                    <span className="text-sm text-emerald-400/50 line-through font-['Inter']">{p.question}</span>
+                    <span className="text-sm text-emerald-400/50 line-through font-en">{p.question}</span>
                   </motion.div>
                 )
               }
@@ -292,7 +292,7 @@ export default function MatchGame({
                   variants={shakeVariants}
                   {...(isWrong ? { animate: 'shake' } : {})}
                   onClick={() => handleQuestionTap(p.id)}
-                  className={`h-[52px] rounded-xl border text-sm font-medium font-['Inter'] transition-all duration-200 ${
+                  className={`h-[52px] rounded-xl border text-sm font-medium font-en transition-all duration-200 ${
                     isCorrect
                       ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400 scale-95'
                       : isWrong

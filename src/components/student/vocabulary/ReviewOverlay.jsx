@@ -145,7 +145,7 @@ export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) 
           <ChevronLeft size={16} />
           إنهاء
         </button>
-        <span className="text-white/30 text-xs font-['Inter'] font-bold">
+        <span className="text-white/30 text-xs font-en font-bold">
           {currentIndex + 1} / {words.length}
         </span>
         <button onClick={onClose} className="w-8 h-8 rounded-full flex items-center justify-center text-white/30 hover:text-white/50 bg-white/5">
@@ -179,7 +179,7 @@ export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) 
           >
             {/* Word */}
             <div className="text-center space-y-4 mb-8">
-              <h1 className="text-3xl sm:text-4xl font-black text-white font-['Inter']" dir="ltr">
+              <h1 className="text-3xl sm:text-4xl font-black text-white font-en" dir="ltr">
                 {wordText}
               </h1>
 
@@ -228,7 +228,7 @@ export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) 
               >
                 <p className="text-xl font-bold text-amber-400 font-['Tajawal']">{meaningAr}</p>
                 {exampleEn && (
-                  <p className="text-xs text-white/30 font-['Inter'] italic leading-relaxed" dir="ltr">
+                  <p className="text-xs text-white/30 font-en italic leading-relaxed" dir="ltr">
                     "{exampleEn}"
                   </p>
                 )}

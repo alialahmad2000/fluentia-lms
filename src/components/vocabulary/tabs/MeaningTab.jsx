@@ -73,7 +73,7 @@ export default function MeaningTab({ word }) {
         <Section label="English Definition">
           <p
             dir="ltr"
-            className="text-sm sm:text-base text-slate-200 leading-relaxed font-['Inter']"
+            className="text-sm sm:text-base text-slate-200 leading-relaxed font-en"
           >
             {word.definition_en}
           </p>
@@ -85,7 +85,7 @@ export default function MeaningTab({ word }) {
           <div className="space-y-2">
             <p
               dir="ltr"
-              className="text-sm sm:text-base italic text-slate-100 leading-relaxed font-['Inter']"
+              className="text-sm sm:text-base italic text-slate-100 leading-relaxed font-en"
             >
               {highlightWord(word.example_sentence, word.word)}
             </p>

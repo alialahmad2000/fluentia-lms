@@ -334,7 +334,7 @@ function UnitDetailCard({ unit, vocabCount }) {
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5 pt-2 max-h-[400px] overflow-y-auto">
                         {(vocabList || []).map((w, i) => (
                           <div key={i} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[11px]" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                            <span className="font-bold font-['Inter'] shrink-0" style={{ color: 'var(--accent-sky)' }}>{w.word}</span>
+                            <span className="font-bold font-en shrink-0" style={{ color: 'var(--accent-sky)' }}>{w.word}</span>
                             <span className="truncate" style={{ color: 'var(--text-tertiary)' }}>{w.definition_ar}</span>
                             {w.part_of_speech && (
                               <span className="text-[9px] px-1.5 py-0.5 rounded shrink-0" style={{ background: 'var(--surface-raised)', color: 'var(--text-tertiary)' }}>

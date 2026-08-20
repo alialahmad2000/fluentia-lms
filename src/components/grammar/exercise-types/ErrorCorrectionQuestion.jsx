@@ -17,7 +17,7 @@ export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
     onAnswer({ selected: input.trim(), correct })
   }
 
-  let inputCls = 'grammar-input w-full font-[\'Inter\']'
+  let inputCls = 'grammar-input w-full font-en'
   if (answer?.correct) inputCls += ' grammar-input--correct'
   else if (answer && !answer.correct) inputCls += ' grammar-input--wrong'
 
@@ -52,7 +52,7 @@ export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
       {answer && !answer.correct && (
         <div className="grammar-explanation-bar text-xs" dir="rtl">
           <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الإجابة الصحيحة: </span>
-          <span className="font-semibold font-['Inter']" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
+          <span className="font-semibold font-en" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
         </div>
       )}
     </form>

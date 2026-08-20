@@ -43,7 +43,7 @@ export function QuickRead({
         </span>
         {data.part_of_speech && (
           <span
-            className="text-xs italic font-['Inter']"
+            className="text-xs italic font-en"
             style={{ color: 'var(--ds-text-muted, var(--text-muted))' }}
           >
             {data.part_of_speech}

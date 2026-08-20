@@ -283,7 +283,7 @@ export default function VerbAnkiPractice({ verbs, onComplete, onBack }) {
                   border: '1px solid var(--border-subtle)',
                 }}
               >
-                <span className="text-[32px] sm:text-[38px] font-bold text-[var(--text-primary)] font-['Inter']">
+                <span className="text-[32px] sm:text-[38px] font-bold text-[var(--text-primary)] font-en">
                   {currentVerb.verb_base}
                 </span>
 
@@ -324,7 +324,7 @@ export default function VerbAnkiPractice({ verbs, onComplete, onBack }) {
                 <div className="grid grid-cols-3 gap-4 w-full">
                   {forms.map(f => (
                     <div key={f.form} className="text-center">
-                      <p className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] font-['Inter']">
+                      <p className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] font-en">
                         {f.value}
                       </p>
                       <p className="text-xs text-[var(--text-muted)] mt-1 font-['Tajawal']">{f.labelAr}</p>
@@ -364,7 +364,7 @@ export default function VerbAnkiPractice({ verbs, onComplete, onBack }) {
                     {currentVerb.meaning_ar}
                   </p>
                   {currentVerb.example_sentence && (
-                    <p className="text-sm italic text-[var(--text-muted)] font-['Inter']">
+                    <p className="text-sm italic text-[var(--text-muted)] font-en">
                       "{currentVerb.example_sentence}"
                     </p>
                   )}

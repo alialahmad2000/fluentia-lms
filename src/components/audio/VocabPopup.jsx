@@ -123,12 +123,12 @@ function VocabContent({ vocab, word, loading, onClose }) {
             {vocab?.word || word}
           </h2>
           {vocab?.pronunciation_ipa && (
-            <p className="text-sm text-slate-400 mt-0.5 font-['Inter']" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
+            <p className="text-sm text-slate-400 mt-0.5 font-en" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
               /{vocab.pronunciation_ipa}/
             </p>
           )}
           {vocab?.part_of_speech && (
-            <span className="inline-block text-[11px] px-2 py-0.5 rounded-full mt-1 bg-slate-700/50 text-slate-400 font-['Inter']" dir="ltr">
+            <span className="inline-block text-[11px] px-2 py-0.5 rounded-full mt-1 bg-slate-700/50 text-slate-400 font-en" dir="ltr">
               {vocab.part_of_speech}
             </span>
           )}
@@ -191,7 +191,7 @@ function VocabContent({ vocab, word, loading, onClose }) {
           {vocab.example_sentence && (
             <div>
               <p className="text-xs text-slate-500 mb-1 font-['Tajawal']">مثال</p>
-              <p className="text-sm text-slate-300 leading-relaxed font-['Inter'] italic" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
+              <p className="text-sm text-slate-300 leading-relaxed font-en italic" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
                 {vocab.example_sentence}
               </p>
             </div>

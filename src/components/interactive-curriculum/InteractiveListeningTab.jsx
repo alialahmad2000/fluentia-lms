@@ -143,7 +143,7 @@ function ListeningContent({ listening, unitId, students }) {
 
       {/* Title */}
       <div className="space-y-1">
-        <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{listening.title_en}</h2>
+        <h2 className="text-lg font-bold text-[var(--text-primary)] font-en" dir="ltr">{listening.title_en}</h2>
         {listening.title_ar && <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{listening.title_ar}</p>}
       </div>
 
@@ -211,7 +211,7 @@ function TranscriptBox({ transcript }) {
         {expanded && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
             <div className="px-5 pb-4" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-              <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed pt-3 whitespace-pre-wrap" dir="ltr">{transcript}</p>
+              <p className="text-sm text-[var(--text-secondary)] font-en leading-relaxed pt-3 whitespace-pre-wrap" dir="ltr">{transcript}</p>
             </div>
           </motion.div>
         )}
@@ -241,7 +241,7 @@ function InteractiveListeningQuestions({ questions, getStudentAnswers }) {
                 <div className="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-400 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{idx + 1}</div>
                 <div className="flex-1 space-y-2">
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>{typeBadge}</span>
-                  <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">{questionText}</p>
+                  <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-en leading-relaxed" dir="ltr">{questionText}</p>
                 </div>
                 <StudentAnswersOverlay
                   questionId={`listening-${idx}`}
@@ -257,7 +257,7 @@ function InteractiveListeningQuestions({ questions, getStudentAnswers }) {
                   {choices.map((choice, i) => {
                     const isCorrect = i === correctIdx
                     return (
-                      <div key={i} dir="ltr" className={`px-4 py-3 rounded-xl text-sm font-['Inter'] border ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'}`}>
+                      <div key={i} dir="ltr" className={`px-4 py-3 rounded-xl text-sm font-en border ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'}`}>
                         <div className="flex items-center gap-3">
                           <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0" style={{ background: isCorrect ? 'rgba(16,185,129,0.2)' : 'var(--surface-raised)', color: isCorrect ? '#34d399' : 'var(--text-muted)' }}>
                             {String.fromCharCode(65 + i)}
@@ -272,7 +272,7 @@ function InteractiveListeningQuestions({ questions, getStudentAnswers }) {
 
               {(q.explanation_en || q.explanation) && (
                 <div className="p-3.5 rounded-xl space-y-1" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)' }}>
-                  <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{q.explanation_en || q.explanation}</p>
+                  <p className="text-xs text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">{q.explanation_en || q.explanation}</p>
                 </div>
               )}
             </div>

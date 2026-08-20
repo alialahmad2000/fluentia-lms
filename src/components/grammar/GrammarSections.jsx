@@ -29,7 +29,7 @@ function RuleBlock({ section }) {
         <RichText
           text={section.content_en}
           dir="ltr"
-          className="text-[15px] leading-[1.85] font-['Inter']"
+          className="text-[15px] leading-[1.85] font-en"
           style={{ color: 'var(--text-primary)' }}
         />
       )}
@@ -115,7 +115,7 @@ function ExamplesBlock({ section }) {
         <div key={i} className="grammar-example-row">
           <span className="text-sm mt-0.5 flex-shrink-0" style={{ color: 'var(--accent-sky)' }}>✓</span>
           <div className="flex-1 min-w-0">
-            <p className="text-[15px] font-['Inter']" dir="ltr" style={{ color: 'var(--text-primary)' }}>
+            <p className="text-[15px] font-en" dir="ltr" style={{ color: 'var(--text-primary)' }}>
               {highlightWord(ex.sentence, ex.highlight)}
             </p>
             {/* --text-tertiary measures 2.54:1 on the parchment theme — under AA */}

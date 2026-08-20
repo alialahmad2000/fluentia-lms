@@ -90,7 +90,7 @@ function FeedbackCard({ attempt, expanded, onToggle }) {
               {attempt.transcript && (
                 <div>
                   <p className="text-[10px] font-bold font-['Tajawal'] mb-1" style={{ color: 'var(--text-muted)' }}>ما قلته:</p>
-                  <p className="text-xs font-['Inter'] leading-relaxed" dir="ltr" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="text-xs font-en leading-relaxed" dir="ltr" style={{ color: 'var(--text-secondary)' }}>
                     "{attempt.transcript}"
                   </p>
                 </div>

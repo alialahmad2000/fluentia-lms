@@ -86,7 +86,7 @@ function RelGroup({ icon, label, items, emptyMsg, onOpenRelated }) {
                 onClick={() => {
                   if (known && onOpenRelated) onOpenRelated(item.vocabulary_id)
                 }}
-                className="inline-flex items-center gap-1.5 font-['Inter']"
+                className="inline-flex items-center gap-1.5 font-en"
                 style={{
                   background: known
                     ? 'var(--surface-raised, rgba(255,255,255,0.06))'

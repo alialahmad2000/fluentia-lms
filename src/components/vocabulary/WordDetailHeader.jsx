@@ -67,7 +67,7 @@ export default function WordDetailHeader({ word, onClose }) {
       <div className="flex flex-col items-center gap-1.5 sm:gap-2 pt-7 sm:pt-2">
         <h2
           dir="ltr"
-          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 font-['Inter'] text-center leading-tight"
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 font-en text-center leading-tight"
         >
           {word.word}
         </h2>

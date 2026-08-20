@@ -347,7 +347,7 @@ function AudioPlayer({ url, duration: initialDuration }) {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="flex justify-between text-[10px] text-[var(--text-muted)] font-['Inter']">
+        <div className="flex justify-between text-[10px] text-[var(--text-muted)] font-en">
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
@@ -381,7 +381,7 @@ function AudioPlayer({ url, duration: initialDuration }) {
       <div className="flex justify-center">
         <button
           onClick={changeSpeed}
-          className="px-3 h-7 rounded-lg text-[11px] font-bold bg-[var(--surface-base)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:text-purple-400 transition-colors font-['Inter']"
+          className="px-3 h-7 rounded-lg text-[11px] font-bold bg-[var(--surface-base)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:text-purple-400 transition-colors font-en"
         >
           {speed}x
         </button>

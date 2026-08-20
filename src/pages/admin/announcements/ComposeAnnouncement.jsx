@@ -291,7 +291,7 @@ export default function ComposeAnnouncement() {
               onChange={e => setActionUrl(e.target.value)}
               placeholder="/dashboard"
               dir="ltr"
-              className="w-full px-3 py-2 rounded-xl text-xs font-['Inter']"
+              className="w-full px-3 py-2 rounded-xl text-xs font-en"
               style={{ background: 'var(--surface-raised)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }}
             />
           </div>

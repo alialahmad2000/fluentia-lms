@@ -59,7 +59,7 @@ export function ListeningFocusMode({
       {/* Segment progress dots */}
       {totalSegments > 1 && (
         <div className="flex items-center gap-2.5">
-          <span className="text-xs text-slate-400 tabular-nums font-['Inter']">
+          <span className="text-xs text-slate-400 tabular-nums font-en">
             {currentSegmentIndex + 1} / {totalSegments}
           </span>
           <div className="flex gap-1">

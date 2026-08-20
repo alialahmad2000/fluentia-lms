@@ -344,7 +344,7 @@ function MatchExercise({ words, onComplete, onBack }) {
               <button
                 key={w.id}
                 onClick={() => !submitted && setActiveWord(w.id)}
-                className="w-full px-3 py-3 rounded-xl text-sm font-semibold font-['Inter'] transition-all min-h-[48px]"
+                className="w-full px-3 py-3 rounded-xl text-sm font-semibold font-en transition-all min-h-[48px]"
                 dir="ltr"
                 style={{
                   background: isCorrect ? 'rgba(34,197,94,0.15)' : isWrong ? 'rgba(239,68,68,0.15)' : isActive ? 'rgba(56,189,248,0.15)' : isMatched ? 'rgba(56,189,248,0.08)' : 'var(--surface-raised)',
@@ -436,7 +436,7 @@ function FillBlankExercise({ words, onComplete, onBack }) {
               }}
             >
               <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{i + 1}. {w.definition_ar}</p>
-              <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{sentence}</p>
+              <p className="text-sm text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">{sentence}</p>
               <input
                 type="text"
                 dir="ltr"
@@ -446,7 +446,7 @@ function FillBlankExercise({ words, onComplete, onBack }) {
                 disabled={submitted}
                 placeholder="____ (one word)"
                 style={{ fontSize: '16px' }}
-                className="w-full px-3 py-2 rounded-lg text-base font-['Inter'] bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-sky-500/50 outline-none transition-colors"
+                className="w-full px-3 py-2 rounded-lg text-base font-en bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-sky-500/50 outline-none transition-colors"
               />
               {!submitted && i === 0 && (
                 <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
@@ -454,7 +454,7 @@ function FillBlankExercise({ words, onComplete, onBack }) {
                 </p>
               )}
               {submitted && isWrong && (
-                <p className="text-xs text-emerald-400 font-['Inter']" dir="ltr">
+                <p className="text-xs text-emerald-400 font-en" dir="ltr">
                   Correct answer: <strong>{w.word}</strong>
                 </p>
               )}
@@ -545,9 +545,9 @@ function ChooseExercise({ words, allWords, onComplete, onBack }) {
 
       {/* Word */}
       <div className="text-center py-4">
-        <p className="text-2xl font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{current.word}</p>
+        <p className="text-2xl font-bold text-[var(--text-primary)] font-en" dir="ltr">{current.word}</p>
         {current.part_of_speech && (
-          <p className="text-xs text-[var(--text-muted)] font-['Inter'] mt-1" dir="ltr">{current.part_of_speech}</p>
+          <p className="text-xs text-[var(--text-muted)] font-en mt-1" dir="ltr">{current.part_of_speech}</p>
         )}
       </div>
 
@@ -701,7 +701,7 @@ function ScrambleExercise({ words, onComplete, onBack }) {
         }}
       >
         {built ? (
-          <span className="text-xl font-bold font-['Inter'] tracking-wider" style={{ color: 'var(--text-primary)' }}>{built}</span>
+          <span className="text-xl font-bold font-en tracking-wider" style={{ color: 'var(--text-primary)' }}>{built}</span>
         ) : (
           <span className="text-sm text-[var(--text-muted)] font-['Tajawal']">اضغط على الحروف لتكوين الكلمة</span>
         )}
@@ -709,7 +709,7 @@ function ScrambleExercise({ words, onComplete, onBack }) {
 
       {/* Correct answer on wrong */}
       {isWrong && (
-        <p className="text-center text-sm text-emerald-400 font-['Inter']" dir="ltr">
+        <p className="text-center text-sm text-emerald-400 font-en" dir="ltr">
           {current.word}
         </p>
       )}
@@ -722,7 +722,7 @@ function ScrambleExercise({ words, onComplete, onBack }) {
             whileTap={{ scale: 0.9 }}
             onClick={() => handleLetterClick(i)}
             disabled={l.used || submitted}
-            className="w-10 h-10 rounded-lg text-base font-bold font-['Inter'] flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-lg text-base font-bold font-en flex items-center justify-center transition-all"
             style={{
               background: l.used ? 'rgba(255,255,255,0.02)' : 'var(--surface-raised)',
               border: `1px solid ${l.used ? 'rgba(255,255,255,0.04)' : 'var(--border-subtle)'}`,

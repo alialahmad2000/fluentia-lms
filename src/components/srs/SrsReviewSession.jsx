@@ -261,7 +261,7 @@ export default function SrsReviewSession({ isOpen, cards, autoplayAudio = true, 
               )}
 
               {/* English word + IPA + audio */}
-              <p className="text-4xl font-bold font-['Inter']" style={{ color: 'var(--text-primary)' }}>
+              <p className="text-4xl font-bold font-en" style={{ color: 'var(--text-primary)' }}>
                 {vocab?.word}
               </p>
               {vocab?.pronunciation_ipa && (
@@ -301,13 +301,13 @@ export default function SrsReviewSession({ isOpen, cards, autoplayAudio = true, 
                       {vocab?.definition_ar}
                     </p>
                     {vocab?.definition_en && (
-                      <p className="text-sm mt-2 font-['Inter']" style={{ color: 'var(--text-secondary)' }}>
+                      <p className="text-sm mt-2 font-en" style={{ color: 'var(--text-secondary)' }}>
                         {vocab.definition_en}
                       </p>
                     )}
                     {vocab?.example_sentence && (
                       <p
-                        className="text-[13px] italic mt-4 px-3 py-2.5 rounded-lg font-['Inter']"
+                        className="text-[13px] italic mt-4 px-3 py-2.5 rounded-lg font-en"
                         style={{ background: 'var(--surface-raised, rgba(255,255,255,0.04))', color: 'var(--text-secondary)' }}
                       >
                         "{vocab.example_sentence}"

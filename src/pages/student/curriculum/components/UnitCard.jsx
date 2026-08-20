@@ -64,7 +64,7 @@ export default function UnitCard({ unit, levelColor, status = 'not_started', pro
               </span>
             )}
             {status !== 'not_started' && (
-              <span className="text-xs font-bold font-['Inter'] tabular-nums mr-auto" style={{ color: status === 'completed' ? '#4ade80' : levelColor }}>
+              <span className="text-xs font-bold font-en tabular-nums mr-auto" style={{ color: status === 'completed' ? '#4ade80' : levelColor }}>
                 {progressPercent}%
               </span>
             )}

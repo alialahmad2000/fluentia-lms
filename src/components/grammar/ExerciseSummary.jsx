@@ -45,7 +45,7 @@ export default function ExerciseSummary({ correctCount, total, score, bestScore,
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-3xl font-black font-['Inter']" style={{ color: 'var(--text-primary)' }}>{pct}%</span>
+            <span className="text-3xl font-black font-en" style={{ color: 'var(--text-primary)' }}>{pct}%</span>
           </div>
         </div>
 

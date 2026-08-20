@@ -65,7 +65,7 @@ export function InteractivePassage({
     const tokens = para.split(/(\s+)/)
 
     return (
-      <p key={paraIdx} className="leading-loose text-[var(--text-primary)] mb-5 font-['Inter']" dir="ltr">
+      <p key={paraIdx} className="leading-loose text-[var(--text-primary)] mb-5 font-en" dir="ltr">
         {tokens.map((tok, i) => {
           if (/^\s+$/.test(tok)) return <span key={i}>{tok}</span>
 

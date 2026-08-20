@@ -269,7 +269,7 @@ function LevelsOverview({ levels, allStudents, allProgress, loading, onLevelClic
                   </div>
                   <div>
                     <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">{level.name_ar}</h3>
-                    <p className="text-xs text-[var(--text-muted)] font-['Inter']">{level.name_en}</p>
+                    <p className="text-xs text-[var(--text-muted)] font-en">{level.name_en}</p>
                   </div>
                 </div>
                 <ArrowRight size={18} className="text-[var(--text-muted)]" />
@@ -397,7 +397,7 @@ function LevelUnits({ level, allStudents, allProgress, filterGroup, onFilterGrou
                     <div>
                       <span className="text-xs font-bold text-sky-400 font-['Tajawal']">الوحدة {unit.unit_number}</span>
                       <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal'] mt-0.5">{unit.theme_ar}</h3>
-                      <p className="text-xs text-[var(--text-muted)] font-['Inter'] mt-0.5" dir="ltr">{unit.theme_en}</p>
+                      <p className="text-xs text-[var(--text-muted)] font-en mt-0.5" dir="ltr">{unit.theme_en}</p>
                     </div>
                     <ArrowRight size={16} className="text-[var(--text-muted)] flex-shrink-0" />
                   </div>
@@ -470,7 +470,7 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
         <div>
           <span className="text-xs font-bold text-sky-400 font-['Tajawal']">الوحدة {unit.unit_number} — {level.name_ar}</span>
           <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Tajawal']">{unit.theme_ar}</h2>
-          <p className="text-xs text-[var(--text-muted)] font-['Inter']" dir="ltr">{unit.theme_en}</p>
+          <p className="text-xs text-[var(--text-muted)] font-en" dir="ltr">{unit.theme_en}</p>
         </div>
         <div className="flex items-center gap-2">
           <GroupFilter groups={groups} selected={filterGroup} onChange={onFilterGroupChange} />
@@ -774,7 +774,7 @@ function StudentGamesView({ studentId, studentName }) {
             {spellingProgress.map(sp => {
               const ms = MASTERY_STYLES[sp.mastery] || MASTERY_STYLES.new
               return (
-                <span key={sp.id} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold ${ms.bg} ${ms.text} font-['Inter']`}
+                <span key={sp.id} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold ${ms.bg} ${ms.text} font-en`}
                   title={`${sp.times_correct}/${sp.times_tested} — ${sp.accuracy_rate}%`}
                 >
                   {sp.spelling_words?.word || '—'}
@@ -1009,7 +1009,7 @@ function AnswersList({ answers }) {
       {entries.map(([qId, ans], i) => (
         <div key={qId} className="flex items-center gap-3 px-3 py-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.02)' }}>
           <span className="w-6 h-6 rounded-md bg-sky-500/15 text-sky-400 flex items-center justify-center text-[11px] font-bold flex-shrink-0">{i + 1}</span>
-          <span className="text-sm text-[var(--text-secondary)] font-['Inter'] flex-1" dir="ltr">{ans.selected}</span>
+          <span className="text-sm text-[var(--text-secondary)] font-en flex-1" dir="ltr">{ans.selected}</span>
           {ans.correct ? <CheckCircle size={16} className="text-emerald-400" /> : <XCircle size={16} className="text-red-400" />}
         </div>
       ))}
@@ -1027,8 +1027,8 @@ function GrammarAnswersList({ answers }) {
           <span className="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
           <div className="flex-1 min-w-0">
             <span className="text-[10px] font-bold text-[var(--text-muted)] font-['Tajawal']">{ex.type}</span>
-            <p className="text-sm text-[var(--text-secondary)] font-['Inter']" dir="ltr">{ex.studentAnswer || '—'}</p>
-            {!ex.isCorrect && ex.correctAnswer && <p className="text-xs text-emerald-400 font-['Inter'] mt-0.5" dir="ltr">← {ex.correctAnswer}</p>}
+            <p className="text-sm text-[var(--text-secondary)] font-en" dir="ltr">{ex.studentAnswer || '—'}</p>
+            {!ex.isCorrect && ex.correctAnswer && <p className="text-xs text-emerald-400 font-en mt-0.5" dir="ltr">← {ex.correctAnswer}</p>}
           </div>
           {ex.isCorrect ? <CheckCircle size={16} className="text-emerald-400 mt-0.5" /> : <XCircle size={16} className="text-red-400 mt-0.5" />}
         </div>
@@ -1046,8 +1046,8 @@ function ListeningAnswersList({ answers }) {
         <div key={i} className="flex items-start gap-3 px-3 py-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.02)' }}>
           <span className="w-6 h-6 rounded-md bg-purple-500/15 text-purple-400 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
           <div className="flex-1 min-w-0">
-            {q.question && <p className="text-xs text-[var(--text-muted)] font-['Inter'] truncate" dir="ltr">{q.question}</p>}
-            <p className="text-sm text-[var(--text-secondary)] font-['Inter']" dir="ltr">
+            {q.question && <p className="text-xs text-[var(--text-muted)] font-en truncate" dir="ltr">{q.question}</p>}
+            <p className="text-sm text-[var(--text-secondary)] font-en" dir="ltr">
               {typeof q.studentAnswer === 'number' ? String.fromCharCode(65 + q.studentAnswer) : (q.studentAnswer || '—')}
             </p>
           </div>
@@ -1066,7 +1066,7 @@ function WritingDetail({ answers, aiFeedback }) {
         <span>{answers.wordCount || 0} كلمة</span>
         {answers.lastSavedAt && <span>آخر حفظ: {new Date(answers.lastSavedAt).toLocaleString('ar-SA')}</span>}
       </div>
-      <div className="rounded-xl p-4 text-sm font-['Inter'] text-[var(--text-secondary)] leading-[1.8] whitespace-pre-wrap" dir="ltr" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
+      <div className="rounded-xl p-4 text-sm font-en text-[var(--text-secondary)] leading-[1.8] whitespace-pre-wrap" dir="ltr" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
         {answers.draft}
       </div>
       {aiFeedback && (
@@ -1074,7 +1074,7 @@ function WritingDetail({ answers, aiFeedback }) {
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-violet-400 font-['Tajawal']">التصحيح التلقائي</span>
             {aiFeedback.fluency_score != null && (
-              <span className="text-sm font-bold text-violet-400 font-['Inter']">{aiFeedback.fluency_score}/10</span>
+              <span className="text-sm font-bold text-violet-400 font-en">{aiFeedback.fluency_score}/10</span>
             )}
           </div>
           {aiFeedback.overall_feedback && (
@@ -1084,8 +1084,8 @@ function WritingDetail({ answers, aiFeedback }) {
             <div className="space-y-1">
               {aiFeedback.grammar_errors.map((e, i) => (
                 <div key={i} className="flex flex-wrap items-center gap-2 text-[11px]">
-                  <span className="line-through text-red-400 font-['Inter']" dir="ltr">{e.error || e.original}</span>
-                  <span className="text-emerald-400 font-['Inter']" dir="ltr">{e.correction}</span>
+                  <span className="line-through text-red-400 font-en" dir="ltr">{e.error || e.original}</span>
+                  <span className="text-emerald-400 font-en" dir="ltr">{e.correction}</span>
                 </div>
               ))}
             </div>

@@ -17,7 +17,7 @@ export function ReadingPassagePlayer({ passage, audio, unitId }) {
           <h2 className="text-2xl font-bold text-[var(--text-primary)] font-['Tajawal']">{passage.title_ar}</h2>
         )}
         {passage.title_en && (
-          <p className="text-sm text-[var(--text-secondary)] mt-1 font-['Inter']" dir="ltr">{passage.title_en}</p>
+          <p className="text-sm text-[var(--text-secondary)] mt-1 font-en" dir="ltr">{passage.title_en}</p>
         )}
         {unitId && (
           <p className="text-xs text-[var(--text-muted)] mt-2 font-['Tajawal']" dir="rtl">

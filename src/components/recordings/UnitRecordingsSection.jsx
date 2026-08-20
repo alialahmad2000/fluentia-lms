@@ -130,7 +130,7 @@ function RecordingCard({ recording, studentId, index, onPlay }) {
 
         {/* Duration badge */}
         {recording.duration_seconds && (
-          <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/70 text-white/90 text-[11px] font-['Inter'] tabular-nums">
+          <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/70 text-white/90 text-[11px] font-en tabular-nums">
             {formatDuration(recording.duration_seconds)}
           </span>
         )}

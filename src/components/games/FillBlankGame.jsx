@@ -309,7 +309,7 @@ export default function FillBlankGame({
             )}
 
             {/* Sentence with blank */}
-            <p className="text-lg sm:text-xl text-[var(--text-primary)] font-['Inter'] text-center leading-relaxed" dir="ltr">
+            <p className="text-lg sm:text-xl text-[var(--text-primary)] font-en text-center leading-relaxed" dir="ltr">
               {renderSentence(currentItem.sentence)}
             </p>
 
@@ -340,7 +340,7 @@ export default function FillBlankGame({
                     onClick={() => handleOptionClick(option)}
                     disabled={!!feedback}
                     whileTap={!feedback ? { scale: 0.97 } : undefined}
-                    className={`h-14 rounded-xl border text-base font-medium font-['Inter'] transition-all duration-200 ${
+                    className={`h-14 rounded-xl border text-base font-medium font-en transition-all duration-200 ${
                       showAsCorrect
                         ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
                         : showAsWrong

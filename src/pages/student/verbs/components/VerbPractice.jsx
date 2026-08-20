@@ -203,7 +203,7 @@ export default function VerbPractice({ verbs, difficulty = 'easy' }) {
             {q.verb.meaning_ar}
           </p>
           {q.verb.example_sentence && (
-            <p className="text-center text-sm text-[var(--text-muted)] italic mb-6 font-['Inter']">
+            <p className="text-center text-sm text-[var(--text-muted)] italic mb-6 font-en">
               "{q.verb.example_sentence}"
             </p>
           )}
@@ -229,7 +229,7 @@ export default function VerbPractice({ verbs, difficulty = 'easy' }) {
                       }}
                       disabled={!!feedback}
                       placeholder="?"
-                      className={`w-full max-w-[120px] mx-auto h-12 text-center rounded-lg border text-lg font-['Inter'] transition-colors outline-none
+                      className={`w-full max-w-[120px] mx-auto h-12 text-center rounded-lg border text-lg font-en transition-colors outline-none
                         ${feedback
                           ? feedback.correct
                             ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
@@ -239,7 +239,7 @@ export default function VerbPractice({ verbs, difficulty = 'easy' }) {
                       dir="ltr"
                     />
                   ) : (
-                    <p className="text-xl font-bold text-[var(--text-primary)] font-['Inter'] h-12 flex items-center justify-center">
+                    <p className="text-xl font-bold text-[var(--text-primary)] font-en h-12 flex items-center justify-center">
                       {value}
                     </p>
                   )}

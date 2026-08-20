@@ -676,14 +676,14 @@ export default function PremiumVideoPlayer({
 
       {/* Top-right badge: A-B loop indicator */}
       {loopActive && (
-        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold font-['Inter'] pointer-events-none" style={{ zIndex: 14 }}>
+        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold font-en pointer-events-none" style={{ zIndex: 14 }}>
           A-B
         </div>
       )}
 
       {/* Top-left badge: speed indicator */}
       {speed !== 1 && playing && (
-        <div className="absolute top-3 left-3 px-2 py-1 rounded-lg bg-black/60 text-amber-400 text-xs font-bold font-['Inter'] pointer-events-none" style={{ zIndex: 14 }}>
+        <div className="absolute top-3 left-3 px-2 py-1 rounded-lg bg-black/60 text-amber-400 text-xs font-bold font-en pointer-events-none" style={{ zIndex: 14 }}>
           {speed}x
         </div>
       )}
@@ -721,7 +721,7 @@ export default function PremiumVideoPlayer({
           <p className="text-white text-lg font-['Tajawal']">تعذر تشغيل التسجيل</p>
           <p className="text-white/60 text-sm font-['Tajawal']">تأكد من اتصالك بالإنترنت ثم أعد المحاولة</p>
           {playbackError.code && (
-            <p className="text-white/30 text-xs font-['Inter']">Error code: {playbackError.code}</p>
+            <p className="text-white/30 text-xs font-en">Error code: {playbackError.code}</p>
           )}
           <div className="flex items-center gap-3 flex-wrap justify-center">
             <button
@@ -875,7 +875,7 @@ export default function PremiumVideoPlayer({
 
           {/* Hover time tooltip */}
           {hoverTime && !hoveredChapter && (
-            <div className="absolute -top-8 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-white text-xs font-['Inter'] pointer-events-none whitespace-nowrap" style={{ left: hoverPos }}>
+            <div className="absolute -top-8 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-white text-xs font-en pointer-events-none whitespace-nowrap" style={{ left: hoverPos }}>
               {hoverTime}
             </div>
           )}
@@ -895,7 +895,7 @@ export default function PremiumVideoPlayer({
             <SkipForward size={18} />
           </button>
 
-          <span className="text-white/80 text-xs font-['Inter'] tabular-nums mx-1 select-none" dir="ltr">
+          <span className="text-white/80 text-xs font-en tabular-nums mx-1 select-none" dir="ltr">
             {formatTime(currentTime)} / {formatTime(duration)}
           </span>
 
@@ -904,7 +904,7 @@ export default function PremiumVideoPlayer({
           {/* A-B Loop buttons */}
           <button
             onClick={() => setLoopPoint('A')}
-            className={`px-1.5 py-1 rounded-lg text-xs font-bold font-['Inter'] transition ${
+            className={`px-1.5 py-1 rounded-lg text-xs font-bold font-en transition ${
               loopA !== null ? 'text-amber-400 bg-amber-400/15' : 'text-white/50 hover:text-amber-400 hover:bg-white/10'
             }`}
             aria-label="تعيين نقطة البداية للتكرار"
@@ -914,7 +914,7 @@ export default function PremiumVideoPlayer({
           </button>
           <button
             onClick={() => setLoopPoint('B')}
-            className={`px-1.5 py-1 rounded-lg text-xs font-bold font-['Inter'] transition ${
+            className={`px-1.5 py-1 rounded-lg text-xs font-bold font-en transition ${
               loopB !== null ? 'text-amber-400 bg-amber-400/15' : 'text-white/50 hover:text-amber-400 hover:bg-white/10'
             }`}
             aria-label="تعيين نقطة النهاية للتكرار"
@@ -935,7 +935,7 @@ export default function PremiumVideoPlayer({
           <div className="relative">
             <button
               onClick={() => setShowSpeedMenu(!showSpeedMenu)}
-              className={`px-2 py-1 rounded-lg hover:bg-white/10 transition text-xs font-bold font-['Inter'] ${speed !== 1 ? 'text-amber-400' : 'text-white/80'}`}
+              className={`px-2 py-1 rounded-lg hover:bg-white/10 transition text-xs font-bold font-en ${speed !== 1 ? 'text-amber-400' : 'text-white/80'}`}
               aria-label="سرعة التشغيل"
             >
               {speed}x
@@ -950,7 +950,7 @@ export default function PremiumVideoPlayer({
                   style={{ zIndex: 30 }}
                 >
                   {SPEEDS.map((s) => (
-                    <button key={s} onClick={() => { setSpeed(s); setShowSpeedMenu(false) }} className={`block w-full px-4 py-1.5 text-xs font-['Inter'] text-center hover:bg-white/10 transition whitespace-nowrap ${speed === s ? 'text-amber-400 font-bold' : 'text-white/70'}`}>
+                    <button key={s} onClick={() => { setSpeed(s); setShowSpeedMenu(false) }} className={`block w-full px-4 py-1.5 text-xs font-en text-center hover:bg-white/10 transition whitespace-nowrap ${speed === s ? 'text-amber-400 font-bold' : 'text-white/70'}`}>
                       {s}x
                     </button>
                   ))}

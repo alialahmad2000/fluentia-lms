@@ -92,7 +92,7 @@ export default class SectionErrorBoundary extends Component {
 
         {/* Error message — visible in production too */}
         <pre
-          className="text-[11px] text-red-300/90 font-['Inter'] rounded-lg p-3 overflow-auto max-h-48 whitespace-pre-wrap"
+          className="text-[11px] text-red-300/90 font-en rounded-lg p-3 overflow-auto max-h-48 whitespace-pre-wrap"
           style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.12)' }}
           dir="ltr"
         >

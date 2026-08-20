@@ -52,7 +52,11 @@
 }
 
 /* Display + mono helpers usable inline */
-.desk-root .font-\[\'Inter\'\], .desk-serif { font-family: 'Fraunces', Georgia, serif; }
+/* Generic English body text inside the Desk takes the Desk's own serif. The
+   font-['Inter'] class it used to target is gone app-wide (that arbitrary value
+   never resolved — Inter is not loaded, only Inter Tight), so the rule follows
+   the class that replaced it. */
+.desk-root .font-en, .desk-root .font-\[\'Inter\'\], .desk-serif { font-family: 'Fraunces', Georgia, serif; }
 .desk-mono { font-family: 'Space Mono', ui-monospace, monospace; }
 
 /* ── Atmosphere: a warm midnight spread with fine grain (luminous, never dead-black) ── */

@@ -1021,7 +1021,7 @@ function ReadingContent({ reading, studentId, unitId }) {
               </div>
               {vocabQuiz.map((q, qi) => (
                 <div key={qi} className="space-y-2">
-                  <p className="text-sm text-white font-['Inter']" dir="ltr">{qi + 1}. {q.question}</p>
+                  <p className="text-sm text-white font-en" dir="ltr">{qi + 1}. {q.question}</p>
                   <div className="grid grid-cols-1 gap-1.5">
                     {q.options?.map((opt, oi) => {
                       const answered = quizAnswers[qi] !== undefined
@@ -1033,7 +1033,7 @@ function ReadingContent({ reading, studentId, unitId }) {
                           onClick={() => !answered && setQuizAnswers(prev => ({ ...prev, [qi]: oi }))}
                           disabled={answered}
                           dir="ltr"
-                          className={`text-start px-3 py-2 rounded-xl text-sm font-['Inter'] border transition-all ${
+                          className={`text-start px-3 py-2 rounded-xl text-sm font-en border transition-all ${
                             answered && isCorrect
                               ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
                               : answered && isSelected && !isCorrect
@@ -1134,7 +1134,7 @@ function BeforeReadSection({ content }) {
         <Lightbulb size={16} className="text-amber-400" />
         <h3 className="text-sm font-bold text-amber-400 font-['Tajawal']">قبل القراءة</h3>
       </div>
-      <div className="text-sm text-slate-300 font-['Inter'] leading-relaxed" dir="ltr">
+      <div className="text-sm text-slate-300 font-en leading-relaxed" dir="ltr">
         {typeof content === 'string' ? content : JSON.stringify(content)}
       </div>
     </div>
@@ -1221,10 +1221,10 @@ function VocabTooltipPortal({ vocab, targetRef, onMouseEnter, onMouseLeave }) {
         <img src={vocab.image_url} alt={vocab.word} className="w-full h-20 rounded-lg object-cover -mt-1" loading="lazy" />
       )}
       <div className="flex items-center justify-between">
-        <span className="font-bold text-white font-['Inter']">{vocab.word}</span>
-        <span className="text-[10px] text-slate-400 font-['Inter']">{vocab.part_of_speech}</span>
+        <span className="font-bold text-white font-en">{vocab.word}</span>
+        <span className="text-[10px] text-slate-400 font-en">{vocab.part_of_speech}</span>
       </div>
-      <p className="text-slate-300 font-['Inter'] text-xs leading-relaxed">{vocab.definition_en}</p>
+      <p className="text-slate-300 font-en text-xs leading-relaxed">{vocab.definition_en}</p>
       <p className="text-slate-400 font-['Tajawal'] text-xs" dir="rtl">{vocab.definition_ar}</p>
       {vocab.audio_url && <VocabAudioBtn url={vocab.audio_url} />}
       {/* Arrow */}
@@ -1437,7 +1437,7 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
                 backdropFilter: 'blur(12px)',
               }}
             >
-              <span className="text-sky-300 font-['Inter'] font-semibold">{hoverMeaning.word}</span>
+              <span className="text-sky-300 font-en font-semibold">{hoverMeaning.word}</span>
               {hoverMeaning.part_of_speech && (
                 <span className="text-slate-500 text-[10px] ml-1.5">{hoverMeaning.part_of_speech}</span>
               )}
@@ -1478,7 +1478,7 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-lg leading-[1.9] text-slate-200 font-['Inter']">
+              <p className="text-lg leading-[1.9] text-slate-200 font-en">
                 {renderParagraph(para, idx)}
               </p>
               {/* Inline note editor */}
@@ -1633,10 +1633,10 @@ function VocabularyBox({ vocabulary }) {
                   >
                     <div className="flex-1 min-w-0" dir="ltr">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm text-white font-['Inter']">{v.word}</span>
-                        <span className="text-[10px] text-slate-500 font-['Inter']">{v.part_of_speech}</span>
+                        <span className="font-semibold text-sm text-white font-en">{v.word}</span>
+                        <span className="text-[10px] text-slate-500 font-en">{v.part_of_speech}</span>
                       </div>
-                      <p className="text-xs text-slate-300 font-['Inter'] mt-0.5">{v.definition_en}</p>
+                      <p className="text-xs text-slate-300 font-en mt-0.5">{v.definition_en}</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <span className="text-xs text-slate-400 font-['Tajawal']">{v.definition_ar}</span>
@@ -2017,12 +2017,12 @@ function ReadingSkillBox({ reading }) {
       <div className="flex items-center gap-2">
         <Lightbulb size={16} className="text-amber-400" />
         <h3 className="text-sm font-bold text-white font-['Tajawal']">
-          مهارة القراءة: <span className="font-['Inter']">{reading.reading_skill_name_en}</span>
+          مهارة القراءة: <span className="font-en">{reading.reading_skill_name_en}</span>
           {reading.reading_skill_name_ar && ` — ${reading.reading_skill_name_ar}`}
         </h3>
       </div>
       {reading.reading_skill_explanation && (
-        <p className="text-sm text-slate-300 font-['Inter'] leading-relaxed" dir="ltr">
+        <p className="text-sm text-slate-300 font-en leading-relaxed" dir="ltr">
           {reading.reading_skill_explanation}
         </p>
       )}
@@ -2044,7 +2044,7 @@ function CriticalThinkingBox({ reading }) {
         <MessageSquare size={16} className="text-purple-400" />
         <h3 className="text-sm font-bold text-purple-400 font-['Tajawal']">تفكير ناقد</h3>
       </div>
-      <p className="text-sm text-slate-200 font-['Inter'] leading-relaxed" dir="ltr">
+      <p className="text-sm text-slate-200 font-en leading-relaxed" dir="ltr">
         {reading.critical_thinking_prompt_en}
       </p>
       {reading.critical_thinking_prompt_ar && (

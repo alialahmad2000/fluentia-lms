@@ -367,20 +367,20 @@ function ProgressTab({ hub }) {
       {/* Stats header */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <div className="fl-card-static p-4 text-center">
-          <p className="text-2xl font-bold text-[var(--text-primary)] font-['Inter']">{totalStudents}</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)] font-en">{totalStudents}</p>
           <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] mt-1">
             {t('admin.speakingHub.progress.totalAssigned', 'إجمالي المعيّنين')}
           </p>
         </div>
         <div className="fl-card-static p-4 text-center">
-          <p className="text-2xl font-bold text-emerald-400 font-['Inter']">{watchedCount}</p>
+          <p className="text-2xl font-bold text-emerald-400 font-en">{watchedCount}</p>
           <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] mt-1">
             {t('admin.speakingHub.progress.watched', 'أنهوا المشاهدة')}
             {totalStudents > 0 && ` (${Math.round((watchedCount / totalStudents) * 100)}%)`}
           </p>
         </div>
         <div className="fl-card-static p-4 text-center col-span-2 sm:col-span-1">
-          <p className="text-2xl font-bold text-sky-400 font-['Inter']">{goodNotesCount}</p>
+          <p className="text-2xl font-bold text-sky-400 font-en">{goodNotesCount}</p>
           <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] mt-1">
             {t('admin.speakingHub.progress.goodNotes', 'كتبوا ملاحظات +20 كلمة')}
             {totalStudents > 0 && ` (${Math.round((goodNotesCount / totalStudents) * 100)}%)`}
@@ -642,7 +642,7 @@ export default function AdminSpeakingHubDetail() {
         <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal'] leading-snug">
           {hub.title || hub.title_en || t('admin.speakingHub.list.untitled', 'بدون عنوان')}
         </h1>
-        <p className="text-xs text-[var(--text-muted)] font-['Inter'] mt-0.5">{id}</p>
+        <p className="text-xs text-[var(--text-muted)] font-en mt-0.5">{id}</p>
       </motion.div>
 
       {/* Notification card */}

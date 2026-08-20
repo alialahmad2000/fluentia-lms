@@ -109,7 +109,7 @@ export default function UnitStarCard({ star, rankings, currentStudentId }) {
                   }}
                 />
               </div>
-              <div className="text-[10px] text-amber-400/70 font-['Inter'] tabular-nums mt-0.5">
+              <div className="text-[10px] text-amber-400/70 font-en tabular-nums mt-0.5">
                 {data.score}/{data.max}
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function UnitStarCard({ star, rankings, currentStudentId }) {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl" style={{ background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.12)' }}>
           <span className="text-sm">🏆</span>
           <span className="text-sm font-bold text-amber-300 font-['Tajawal']">النتيجة:</span>
-          <span className="text-base font-bold text-amber-300 font-['Inter'] tabular-nums">{star.totalScore}</span>
+          <span className="text-base font-bold text-amber-300 font-en tabular-nums">{star.totalScore}</span>
           <span className="text-xs text-white/40 font-['Tajawal']">نقطة</span>
         </div>
       </div>
@@ -137,7 +137,7 @@ export default function UnitStarCard({ star, rankings, currentStudentId }) {
               style={{ background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.1)', color: 'rgba(251,191,36,0.7)' }}
             >
               {BONUS_ICONS[b.type] || '🎯'} {b.label}
-              <span className="text-amber-400/50 font-['Inter'] text-[10px]">+{b.points}</span>
+              <span className="text-amber-400/50 font-en text-[10px]">+{b.points}</span>
             </span>
           ))}
         </div>

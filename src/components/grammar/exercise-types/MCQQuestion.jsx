@@ -81,8 +81,8 @@ export default function MCQQuestion({ item, answer, onAnswer }) {
               className={cls}
               dir="ltr"
             >
-              <span className="text-xs font-bold mr-1 font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>({label})</span>
-              <span className="font-['Inter'] font-medium" style={{ color: 'var(--text-primary)' }}>{opt}</span>
+              <span className="text-xs font-bold mr-1 font-en" style={{ color: 'var(--text-tertiary)' }}>({label})</span>
+              <span className="font-en font-medium" style={{ color: 'var(--text-primary)' }}>{opt}</span>
               {showCorrect && <CheckCircle size={16} className="mr-auto flex-shrink-0" style={{ color: 'var(--success)' }} />}
               {showWrong && <XCircle size={16} className="mr-auto flex-shrink-0" style={{ color: 'var(--danger)' }} />}
             </button>

@@ -164,7 +164,7 @@ function WritingTaskContent({ task, unitId, students, highlightStudent }) {
             </span>
           )}
         </div>
-        <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">{task.prompt_en}</p>
+        <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-en leading-relaxed" dir="ltr">{task.prompt_en}</p>
         {task.prompt_ar && <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{task.prompt_ar}</p>}
       </div>
 
@@ -246,7 +246,7 @@ function WritingTaskContent({ task, unitId, students, highlightStudent }) {
                       <div className="px-4 pb-4 space-y-3" style={{ borderTop: '1px solid var(--border-subtle)' }}>
                         {/* Draft text */}
                         <div className="pt-3">
-                          <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed whitespace-pre-wrap" dir="ltr">
+                          <p className="text-sm text-[var(--text-secondary)] font-en leading-relaxed whitespace-pre-wrap" dir="ltr">
                             {draft}
                           </p>
                         </div>

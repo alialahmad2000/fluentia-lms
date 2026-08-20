@@ -428,7 +428,7 @@ export default function VoiceRecorder({
             </div>
 
             {/* Timer */}
-            <p className="text-lg font-bold tabular-nums font-['Inter']" style={{ color: elapsed >= 150 ? '#ef4444' : 'var(--text-primary)' }}>
+            <p className="text-lg font-bold tabular-nums font-en" style={{ color: elapsed >= 150 ? '#ef4444' : 'var(--text-primary)' }}>
               {formatTime(elapsed)}
             </p>
 

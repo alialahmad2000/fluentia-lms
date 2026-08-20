@@ -321,7 +321,7 @@ export default function UnitContent() {
                 </span>
                 <div className="flex items-center gap-1.5">
                   {overallProgress === 100 && <Check size={12} className="text-emerald-400" />}
-                  <span className="font-bold font-['Inter'] tabular-nums"
+                  <span className="font-bold font-en tabular-nums"
                     style={{ color: overallProgress === 100 ? '#4ade80' : V1.textDim, fontSize: V1.type.bodyXs }}>
                     {overallProgress}%
                   </span>

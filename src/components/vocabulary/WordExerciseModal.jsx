@@ -227,7 +227,7 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
           {/* Header — fixed at top, never scrolls */}
           <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-white/10" style={{ background: '#0a1628', paddingTop: 'calc(16px + var(--sat))' }}>
             <div className="min-w-0 flex-1">
-              <h3 className="text-lg font-bold text-white font-['Inter']" dir="ltr">{word.word}</h3>
+              <h3 className="text-lg font-bold text-white font-en" dir="ltr">{word.word}</h3>
               <p className="text-xs text-white/50 font-['Tajawal']">{word.definition_ar}</p>
             </div>
             <div className="flex items-center gap-3">
@@ -452,8 +452,8 @@ function MeaningExercise({ word, distractors, stepIndex, onComplete, onWrong, on
       </div>
 
       <div className="text-center py-4">
-        <p className="text-2xl font-bold text-white font-['Inter']" dir="ltr">{word.word}</p>
-        {word.part_of_speech && <p className="text-xs text-white/40 mt-1 font-['Inter']" dir="ltr">{word.part_of_speech}</p>}
+        <p className="text-2xl font-bold text-white font-en" dir="ltr">{word.word}</p>
+        {word.part_of_speech && <p className="text-xs text-white/40 mt-1 font-en" dir="ltr">{word.part_of_speech}</p>}
       </div>
 
       <div className="space-y-2">
@@ -557,7 +557,7 @@ function SentenceExercise({ word, distractors, stepIndex, onComplete, onWrong, o
 
       <div className="rounded-xl p-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
         <p className="text-xs text-white/40 font-['Tajawal'] mb-2">{word.definition_ar}</p>
-        <p className="text-sm text-white/80 font-['Inter'] leading-relaxed" dir="ltr">{sentence}</p>
+        <p className="text-sm text-white/80 font-en leading-relaxed" dir="ltr">{sentence}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
@@ -572,7 +572,7 @@ function SentenceExercise({ word, distractors, stepIndex, onComplete, onWrong, o
               animate={shakeId === opt.id ? { x: [0, -8, 8, -6, 6, 0] } : { x: 0 }}
               transition={{ duration: 0.4 }}
               onClick={() => (revealed && opt.correct ? onComplete(false) : handleSelect(opt))}
-              className="px-4 py-3 rounded-xl text-sm font-bold font-['Inter'] transition-all min-h-[48px]"
+              className="px-4 py-3 rounded-xl text-sm font-bold font-en transition-all min-h-[48px]"
               dir="ltr"
               style={{
                 background: showCorrect ? 'rgba(34,197,94,0.15)' : showWrong ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.03)',
@@ -588,7 +588,7 @@ function SentenceExercise({ word, distractors, stepIndex, onComplete, onWrong, o
 
       {showWrongCaption(answered, selected, options) && (
         <p className="text-center text-xs text-white/50 font-['Tajawal']">
-          الإجابة: <span className="text-emerald-400 font-bold font-['Inter']" dir="ltr">{correctText}</span>
+          الإجابة: <span className="text-emerald-400 font-bold font-en" dir="ltr">{correctText}</span>
         </p>
       )}
       {revealed && (
@@ -710,7 +710,7 @@ function ListeningExercise({ word, distractors, stepIndex, onComplete, onWrong, 
               animate={shakeId === opt.id ? { x: [0, -8, 8, -6, 6, 0] } : { x: 0 }}
               transition={{ duration: 0.4 }}
               onClick={() => (revealed && opt.correct ? onComplete(false) : handleSelect(opt))}
-              className="px-4 py-3.5 rounded-xl text-sm font-bold font-['Inter'] transition-all min-h-[48px]"
+              className="px-4 py-3.5 rounded-xl text-sm font-bold font-en transition-all min-h-[48px]"
               dir="ltr"
               style={{
                 background: showCorrect ? 'rgba(34,197,94,0.15)' : showWrong ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.03)',
@@ -726,7 +726,7 @@ function ListeningExercise({ word, distractors, stepIndex, onComplete, onWrong, 
 
       {showWrongCaption(answered, selected, options) && (
         <p className="text-center text-xs text-white/50 font-['Tajawal']">
-          الإجابة: <span className="text-emerald-400 font-bold font-['Inter']" dir="ltr">{correctText}</span>
+          الإجابة: <span className="text-emerald-400 font-bold font-en" dir="ltr">{correctText}</span>
         </p>
       )}
       {revealed && (

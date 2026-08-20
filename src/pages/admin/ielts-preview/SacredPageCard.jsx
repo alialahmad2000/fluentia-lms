@@ -109,7 +109,7 @@ export default function SacredPageCard({ page, index, onClick }) {
             color: accent,
             letterSpacing: 0.5,
             marginBottom: 8,
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: "'Inter Tight', Inter, system-ui, sans-serif",
           }}
         >
           {page.english}

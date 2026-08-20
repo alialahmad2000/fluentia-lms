@@ -142,7 +142,7 @@ function FamilyChip({ item, isOpen, onTap, onOpenRelated }) {
     <button
       type="button"
       onClick={onTap}
-      className="font-['Inter']"
+      className="font-en"
       style={{
         background: isBase
           ? 'rgba(251,191,36,0.10)'
@@ -266,7 +266,7 @@ function MorphologyCard({ item }) {
                   <span
                     key={i}
                     dir="ltr"
-                    className="font-['Inter']"
+                    className="font-en"
                     style={{
                       background: 'var(--surface-raised, rgba(255,255,255,0.05))',
                       color: 'var(--text-secondary)',

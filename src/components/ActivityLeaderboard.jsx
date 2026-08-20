@@ -98,7 +98,7 @@ export default function ActivityLeaderboard({ rankings, currentStudentId, totalI
                 {badge ? (
                   <span className="text-base">{badge}</span>
                 ) : (
-                  <span className="text-xs font-bold text-white/30 font-['Inter'] tabular-nums">{r.rank}</span>
+                  <span className="text-xs font-bold text-white/30 font-en tabular-nums">{r.rank}</span>
                 )}
               </div>
 
@@ -126,7 +126,7 @@ export default function ActivityLeaderboard({ rankings, currentStudentId, totalI
                 <div className="w-14 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
                   <div className="h-full rounded-full" style={{ width: barWidth, background: sc, transition: 'width 0.5s' }} />
                 </div>
-                <span className="text-xs font-bold tabular-nums font-['Inter'] w-10 text-left" style={{ color: sc }}>
+                <span className="text-xs font-bold tabular-nums font-en w-10 text-left" style={{ color: sc }}>
                   {r.avgScore}/10
                 </span>
               </div>

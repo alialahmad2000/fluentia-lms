@@ -112,7 +112,7 @@ export default function StudentAnswersOverlay({
                           <span className="text-xs font-['Tajawal']" style={{ color: '#64748b' }}>لم تجب بعد</span>
                         ) : (
                           <span
-                            className="text-xs font-['Inter'] truncate block"
+                            className="text-xs font-en truncate block"
                             dir="ltr"
                             style={{ color: student.isCorrect ? '#22c55e' : correctAnswer ? '#ef4444' : 'var(--text-secondary)' }}
                           >

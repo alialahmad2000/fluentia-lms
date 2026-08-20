@@ -242,7 +242,7 @@ function RecordingForm({ part, unitId, existing, onCancel }) {
             onChange={e => setUrl(e.target.value)}
             placeholder="https://drive.google.com/..."
             dir="ltr"
-            className="w-full h-11 pr-9 pl-3 rounded-xl text-sm font-['Inter'] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-sky-500/40 transition-colors"
+            className="w-full h-11 pr-9 pl-3 rounded-xl text-sm font-en text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-sky-500/40 transition-colors"
             style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
           />
         </div>
@@ -261,7 +261,7 @@ function RecordingForm({ part, unitId, existing, onCancel }) {
           type="date"
           value={date}
           onChange={e => setDate(e.target.value)}
-          className="w-full h-11 px-3 rounded-xl text-sm font-['Inter'] text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-sky-500/40 transition-colors"
+          className="w-full h-11 px-3 rounded-xl text-sm font-en text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-sky-500/40 transition-colors"
           style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
         />
       </div>

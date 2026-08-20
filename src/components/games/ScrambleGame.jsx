@@ -454,7 +454,7 @@ export default function ScrambleGame({
                   onClick={() => handleSlotClick(idx)}
                   variants={feedback === 'wrong' ? shakeVariants : undefined}
                   animate={feedback === 'wrong' ? 'shake' : undefined}
-                  className={`w-11 h-11 sm:w-12 sm:h-12 rounded-lg border-2 text-lg font-bold font-['Inter'] flex items-center justify-center transition-colors ${
+                  className={`w-11 h-11 sm:w-12 sm:h-12 rounded-lg border-2 text-lg font-bold font-en flex items-center justify-center transition-colors ${
                     feedback === 'correct' && letter
                       ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
                       : feedback === 'wrong' && letter
@@ -488,7 +488,7 @@ export default function ScrambleGame({
                   key={letter.id}
                   onClick={() => handleTileClick(letter.id)}
                   disabled={!!feedback}
-                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg border text-lg font-bold font-['Inter'] flex items-center justify-center bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 hover:bg-sky-500/10 active:scale-95 transition-all cursor-pointer"
+                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg border text-lg font-bold font-en flex items-center justify-center bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 hover:bg-sky-500/10 active:scale-95 transition-all cursor-pointer"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}

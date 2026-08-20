@@ -50,7 +50,7 @@ function LanguageQuickSwitch() {
           </button>
           <button
             onClick={() => pick('en')}
-            className={`w-full text-start px-3 py-2 rounded-lg text-sm transition hover:bg-white/5 font-['Inter'] ${profile?.ui_language === 'en' ? 'text-sky-400 font-bold' : 'text-[var(--text-primary)]'}`}
+            className={`w-full text-start px-3 py-2 rounded-lg text-sm transition hover:bg-white/5 font-en ${profile?.ui_language === 'en' ? 'text-sky-400 font-bold' : 'text-[var(--text-primary)]'}`}
           >
             English
           </button>

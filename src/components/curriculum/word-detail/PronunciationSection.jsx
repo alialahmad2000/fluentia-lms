@@ -70,7 +70,7 @@ export default function PronunciationSection({ alert }) {
       >
         {alert.ipa && (
           <div
-            className="font-['Inter'] text-center"
+            className="font-en text-center"
             dir="ltr"
             style={{
               color: 'var(--text-tertiary, rgba(255,255,255,0.55))',
@@ -168,7 +168,7 @@ export default function PronunciationSection({ alert }) {
                 <span
                   key={`${w}-${i}`}
                   dir="ltr"
-                  className="font-['Inter']"
+                  className="font-en"
                   style={{
                     background: 'var(--surface-raised, rgba(255,255,255,0.06))',
                     color: 'var(--text-primary)',
@@ -187,7 +187,7 @@ export default function PronunciationSection({ alert }) {
 
         {alert.rule_category && (
           <div
-            className="font-['Inter']"
+            className="font-en"
             dir="ltr"
             style={{
               color: 'var(--text-tertiary)',

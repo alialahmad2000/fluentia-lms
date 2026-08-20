@@ -69,7 +69,7 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer,
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="text-xs font-bold font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>
+          <span className="text-xs font-bold font-en" style={{ color: 'var(--text-tertiary)' }}>
             {num} / {String(total).padStart(2, '0')}
           </span>
         </div>
@@ -101,7 +101,7 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer,
       </div>
 
       {/* Question text */}
-      <p className="text-[17px] font-medium font-['Inter'] leading-relaxed" dir="ltr" style={{ color: 'var(--text-primary)' }}>
+      <p className="text-[17px] font-medium font-en leading-relaxed" dir="ltr" style={{ color: 'var(--text-primary)' }}>
         {item.question}
       </p>
 

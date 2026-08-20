@@ -8,7 +8,7 @@ export default function GrammarHeader({ topic, attemptNumber, bestScore }) {
         <span>القواعد</span>
       </div>
 
-      <h1 className="text-2xl sm:text-3xl font-bold font-['Inter'] tracking-tight" dir="ltr" style={{ color: 'var(--text-primary)' }}>
+      <h1 className="text-2xl sm:text-3xl font-bold font-en tracking-tight" dir="ltr" style={{ color: 'var(--text-primary)' }}>
         {topic.topic_name_en}
       </h1>
 

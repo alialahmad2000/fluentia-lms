@@ -201,7 +201,7 @@ export default function StudentSpeakingHubDetail() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {vocabFocus.map((v, i) => (
               <div key={i} className="rounded-xl p-3 space-y-1" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <p className="text-sm font-bold text-sky-400 font-['Inter']" dir="ltr">{v.word}</p>
+                <p className="text-sm font-bold text-sky-400 font-en" dir="ltr">{v.word}</p>
                 <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{v.meaning_ar}</p>
               </div>
             ))}

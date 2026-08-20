@@ -326,7 +326,7 @@ export default function TextSelectionTooltip({
           {isQuick && (
             <div className="p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-bold text-sky-300 font-['Inter']">{tooltip.text}</span>
+                <span className="text-sm font-bold text-sky-300 font-en">{tooltip.text}</span>
                 <button onClick={handleSpeak} className="w-7 h-7 rounded-full flex items-center justify-center bg-white/5 text-white/40 hover:text-white/60 hover:bg-white/10 transition-colors">
                   <Volume2 size={13} />
                 </button>
@@ -352,7 +352,7 @@ export default function TextSelectionTooltip({
             <>
               {/* Header */}
               <div className="px-4 pt-3 pb-2 border-b border-white/5 flex items-center justify-between">
-                <p className="text-sm text-sky-400 font-bold font-['Inter'] truncate" dir="ltr">
+                <p className="text-sm text-sky-400 font-bold font-en truncate" dir="ltr">
                   {tooltip.text}
                 </p>
                 <div className="flex items-center gap-1">
@@ -435,7 +435,7 @@ export default function TextSelectionTooltip({
                             <div className="space-y-1">
                               {aiResult.examples.map((ex, i) => (
                                 <div key={i} className="flex items-start gap-2">
-                                  <p className="text-xs text-slate-400 font-['Inter'] leading-relaxed flex-1" dir="ltr">
+                                  <p className="text-xs text-slate-400 font-en leading-relaxed flex-1" dir="ltr">
                                     {i + 1}. {ex}
                                   </p>
                                   <button
@@ -452,8 +452,8 @@ export default function TextSelectionTooltip({
                             <div className="space-y-1">
                               {aiResult.word_forms.map((f, i) => (
                                 <div key={i} className="flex items-center gap-2 text-xs">
-                                  <span className="text-white/70 font-['Inter'] font-semibold min-w-[60px]">{f.word}</span>
-                                  <span className="text-white/30 font-['Inter'] text-[10px]">{f.pos}</span>
+                                  <span className="text-white/70 font-en font-semibold min-w-[60px]">{f.word}</span>
+                                  <span className="text-white/30 font-en text-[10px]">{f.pos}</span>
                                   <span className="text-amber-300/70 font-['Tajawal'] flex-1 text-right" dir="rtl">{f.meaning_ar}</span>
                                 </div>
                               ))}

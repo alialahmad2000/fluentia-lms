@@ -91,19 +91,19 @@ export default function ExplainModal({ open, onClose, payload }) {
           <div className="space-y-2 text-sm">
             <div className="rounded-lg p-3" style={{ background: 'var(--glass-card)', border: '1px solid var(--border-subtle)' }}>
               <p className="text-xs font-bold font-['Tajawal'] mb-1.5" style={{ color: 'var(--text-tertiary)' }}>السؤال</p>
-              <p className="font-['Inter'] font-medium" dir="ltr" style={{ color: 'var(--text-primary)' }}>{payload.questionText}</p>
+              <p className="font-en font-medium" dir="ltr" style={{ color: 'var(--text-primary)' }}>{payload.questionText}</p>
             </div>
 
             <div className="flex gap-3 text-xs">
               <div className="flex-1 rounded-lg p-2.5" style={{ background: 'var(--danger-bg)', border: '1px solid var(--danger-border)' }}>
                 <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>إجابتك: </span>
-                <span className="font-['Inter'] font-semibold" dir="ltr" style={{ color: payload.isCorrect ? 'var(--success)' : 'var(--danger)' }}>
+                <span className="font-en font-semibold" dir="ltr" style={{ color: payload.isCorrect ? 'var(--success)' : 'var(--danger)' }}>
                   {payload.studentAnswer || '—'}
                 </span>
               </div>
               <div className="flex-1 rounded-lg p-2.5" style={{ background: 'var(--success-bg)', border: '1px solid var(--success-border)' }}>
                 <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الصحيح: </span>
-                <span className="font-['Inter'] font-semibold" dir="ltr" style={{ color: 'var(--success)' }}>{payload.correctAnswer}</span>
+                <span className="font-en font-semibold" dir="ltr" style={{ color: 'var(--success)' }}>{payload.correctAnswer}</span>
               </div>
             </div>
           </div>

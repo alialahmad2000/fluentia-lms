@@ -199,7 +199,7 @@ export default function MissionCard({ activity, index, onSelect }) {
               style={{
                 margin: '4px 0 0',
                 fontSize: '14px',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: "'Inter Tight', Inter, system-ui, sans-serif",
                 color: V1.textDim,
               }}
             >

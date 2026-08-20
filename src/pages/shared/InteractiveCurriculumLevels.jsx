@@ -204,7 +204,7 @@ function InteractiveLevelCard({ level, color, totalUnits, disabled, onClick }) {
         <h3 className="text-base sm:text-lg font-bold text-[var(--text-primary)] mb-1 font-['Tajawal']">
           {level.name_ar}
         </h3>
-        <p className="text-sm text-[var(--text-muted)] mb-2 font-['Inter']" dir="ltr">
+        <p className="text-sm text-[var(--text-muted)] mb-2 font-en" dir="ltr">
           {level.name_en}
         </p>
 

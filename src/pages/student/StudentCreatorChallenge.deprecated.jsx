@@ -357,7 +357,7 @@ export default function StudentCreatorChallenge() {
               onChange={e => setVideoUrl(e.target.value)}
               placeholder="https://www.tiktok.com/@username/video/..."
               dir="ltr"
-              className="w-full px-3 py-2.5 rounded-xl text-sm font-['Inter']"
+              className="w-full px-3 py-2.5 rounded-xl text-sm font-en"
               style={{ background: 'var(--surface-raised)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }}
             />
           </div>

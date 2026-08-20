@@ -93,7 +93,7 @@ export default function EverydayEnglish() {
                   <span className="text-3xl">{todayScenario.emoji}</span>
                   <h2 className="text-xl font-extrabold text-white font-['Tajawal'] truncate">{todayScenario.title_ar}</h2>
                 </div>
-                <p dir="ltr" className="text-xs font-['Inter'] text-left mb-2" style={{ color: 'rgba(248,250,252,0.5)' }}>{todayScenario.title_en}</p>
+                <p dir="ltr" className="text-xs font-en text-left mb-2" style={{ color: 'rgba(248,250,252,0.5)' }}>{todayScenario.title_en}</p>
                 {todayScenario.student_role && (
                   <p className="text-[13px] font-['Tajawal'] leading-relaxed" style={{ color: 'rgba(248,250,252,0.72)' }}>🎯 {todayScenario.student_role}</p>
                 )}
@@ -142,7 +142,7 @@ export default function EverydayEnglish() {
                   <div className="min-w-0">
                     <span className="text-3xl block mb-2">{s.emoji}</span>
                     <h3 className="text-[15px] font-bold text-white font-['Tajawal'] leading-snug">{s.title_ar}</h3>
-                    <p dir="ltr" className="text-[11px] font-['Inter'] text-left mt-1" style={{ color: 'rgba(248,250,252,0.45)' }}>{s.title_en}</p>
+                    <p dir="ltr" className="text-[11px] font-en text-left mt-1" style={{ color: 'rgba(248,250,252,0.45)' }}>{s.title_en}</p>
                   </div>
                   <div className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all opacity-70 group-hover:opacity-100 group-hover:scale-105" style={{ background: 'rgba(56,189,248,0.14)', border: '1px solid rgba(56,189,248,0.26)' }}>
                     <Play size={15} className="text-cyan-300" fill="currentColor" />

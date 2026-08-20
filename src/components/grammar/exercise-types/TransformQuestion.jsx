@@ -20,7 +20,7 @@ export default function TransformQuestion({ item, answer, onAnswer, exerciseType
     onAnswer({ selected: input.trim(), correct })
   }
 
-  let inputCls = 'grammar-input w-full font-[\'Inter\'] resize-none leading-relaxed'
+  let inputCls = 'grammar-input w-full font-en resize-none leading-relaxed'
   if (answer?.correct) inputCls += ' grammar-input--correct'
   else if (answer && !answer.correct) inputCls += ' grammar-input--wrong'
 
@@ -52,7 +52,7 @@ export default function TransformQuestion({ item, answer, onAnswer, exerciseType
       {answer && !answer.correct && (
         <div className="grammar-explanation-bar text-xs" dir="rtl">
           <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الإجابة الصحيحة: </span>
-          <span className="font-semibold font-['Inter']" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
+          <span className="font-semibold font-en" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
         </div>
       )}
     </form>

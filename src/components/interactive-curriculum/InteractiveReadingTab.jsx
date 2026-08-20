@@ -195,7 +195,7 @@ function InteractiveReadingContent({ reading, unitId, students }) {
 
       {/* Passage Title */}
       <div className="space-y-1">
-        <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{reading.title_en}</h2>
+        <h2 className="text-lg font-bold text-[var(--text-primary)] font-en" dir="ltr">{reading.title_en}</h2>
         {reading.title_ar && (
           <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{reading.title_ar}</p>
         )}
@@ -291,7 +291,7 @@ function InteractiveMCQ({ question, index, studentAnswers, isOverlayOpen, onTogg
               {typeBadge}
             </span>
           </div>
-          <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
+          <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-en leading-relaxed" dir="ltr">
             {question.question_en}
           </p>
           {question.question_ar && (
@@ -317,7 +317,7 @@ function InteractiveMCQ({ question, index, studentAnswers, isOverlayOpen, onTogg
             <div
               key={i}
               dir="ltr"
-              className={`text-start px-4 py-3 rounded-xl text-sm font-['Inter'] border ${
+              className={`text-start px-4 py-3 rounded-xl text-sm font-en border ${
                 isCorrect
                   ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
                   : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'
@@ -348,7 +348,7 @@ function InteractiveMCQ({ question, index, studentAnswers, isOverlayOpen, onTogg
           style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)' }}
         >
           {question.explanation_en && (
-            <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{question.explanation_en}</p>
+            <p className="text-xs text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">{question.explanation_en}</p>
           )}
           {question.explanation_ar && (
             <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{question.explanation_ar}</p>
@@ -368,7 +368,7 @@ function BeforeReadSection({ content }) {
         <Lightbulb size={16} className="text-amber-400" />
         <h3 className="text-sm font-bold text-amber-400 font-['Tajawal']">قبل القراءة</h3>
       </div>
-      <div className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">
+      <div className="text-sm text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">
         {typeof content === 'string' ? content : JSON.stringify(content)}
       </div>
     </div>
@@ -384,7 +384,7 @@ function PassageDisplay({ paragraphs, vocabMap, wordCount }) {
             <div className="flex-shrink-0 mt-1.5">
               <div className="w-6 h-6 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center text-[11px] font-bold">{idx + 1}</div>
             </div>
-            <p className="text-[16px] sm:text-[17px] leading-[1.85] text-[var(--text-primary)] font-['Inter']">
+            <p className="text-[16px] sm:text-[17px] leading-[1.85] text-[var(--text-primary)] font-en">
               {renderParagraphText(para, vocabMap)}
             </p>
           </div>
@@ -465,10 +465,10 @@ function VocabularyBox({ vocabulary }) {
                   <div key={v.id} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg" style={{ background: 'var(--surface-base)' }}>
                     <div className="flex-1 min-w-0" dir="ltr">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm text-[var(--text-primary)] font-['Inter']">{v.word}</span>
-                        <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{v.part_of_speech}</span>
+                        <span className="font-semibold text-sm text-[var(--text-primary)] font-en">{v.word}</span>
+                        <span className="text-[10px] text-[var(--text-muted)] font-en">{v.part_of_speech}</span>
                       </div>
-                      <p className="text-xs text-[var(--text-secondary)] font-['Inter'] mt-0.5">{v.definition_en}</p>
+                      <p className="text-xs text-[var(--text-secondary)] font-en mt-0.5">{v.definition_en}</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">{v.definition_ar}</span>
@@ -495,12 +495,12 @@ function ReadingSkillBox({ reading }) {
       <div className="flex items-center gap-2">
         <Lightbulb size={16} className="text-amber-400" />
         <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">
-          مهارة القراءة: <span className="font-['Inter']">{reading.reading_skill_name_en}</span>
+          مهارة القراءة: <span className="font-en">{reading.reading_skill_name_en}</span>
           {reading.reading_skill_name_ar && ` — ${reading.reading_skill_name_ar}`}
         </h3>
       </div>
       {reading.reading_skill_explanation && (
-        <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{reading.reading_skill_explanation}</p>
+        <p className="text-sm text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">{reading.reading_skill_explanation}</p>
       )}
     </div>
   )
@@ -513,7 +513,7 @@ function CriticalThinkingBox({ reading }) {
         <MessageSquare size={16} className="text-purple-400" />
         <h3 className="text-sm font-bold text-purple-400 font-['Tajawal']">تفكير ناقد</h3>
       </div>
-      <p className="text-sm text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">{reading.critical_thinking_prompt_en}</p>
+      <p className="text-sm text-[var(--text-primary)] font-en leading-relaxed" dir="ltr">{reading.critical_thinking_prompt_en}</p>
       {reading.critical_thinking_prompt_ar && (
         <p className="text-sm text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{reading.critical_thinking_prompt_ar}</p>
       )}

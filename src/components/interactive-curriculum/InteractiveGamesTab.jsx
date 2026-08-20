@@ -135,12 +135,12 @@ export default function InteractiveGamesTab({ unitId, students = [] }) {
                   {student.totalGames > 0 ? (
                     <>
                       <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">{student.totalGames} لعبة</span>
-                      <span className="text-xs font-bold font-['Inter']" style={{ color: student.avgAccuracy >= 70 ? '#22c55e' : student.avgAccuracy >= 40 ? '#f59e0b' : '#ef4444' }}>
+                      <span className="text-xs font-bold font-en" style={{ color: student.avgAccuracy >= 70 ? '#22c55e' : student.avgAccuracy >= 40 ? '#f59e0b' : '#ef4444' }}>
                         {student.avgAccuracy}%
                       </span>
                       <div className="flex items-center gap-0.5">
                         <Trophy size={11} className="text-amber-400" />
-                        <span className="text-[10px] text-amber-400 font-['Inter']">{student.bestScore}%</span>
+                        <span className="text-[10px] text-amber-400 font-en">{student.bestScore}%</span>
                       </div>
                     </>
                   ) : (
@@ -169,10 +169,10 @@ export default function InteractiveGamesTab({ unitId, students = [] }) {
                   {student?.full_name?.charAt(0) || '?'}
                 </div>
                 <span className="text-xs text-[var(--text-primary)] font-['Tajawal'] truncate flex-1">{student?.full_name || 'طالب'}</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-md bg-[var(--surface-base)] text-[var(--text-muted)] font-['Inter']">
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-[var(--surface-base)] text-[var(--text-muted)] font-en">
                   {GAME_TYPE_LABELS[game.game_type] || game.game_type}
                 </span>
-                <span className="text-xs font-bold font-['Inter']" style={{ color: (game.accuracy_percent || 0) >= 70 ? '#22c55e' : '#f59e0b' }}>
+                <span className="text-xs font-bold font-en" style={{ color: (game.accuracy_percent || 0) >= 70 ? '#22c55e' : '#f59e0b' }}>
                   {game.accuracy_percent || 0}%
                 </span>
                 <span className="text-[10px] text-[var(--text-muted)] font-['Tajawal']">
@@ -191,7 +191,7 @@ function StatCard({ icon: Icon, label, value, color }) {
   return (
     <div className="rounded-xl p-4" style={{ background: `${color}08`, border: `1px solid ${color}20` }}>
       <Icon size={18} style={{ color }} />
-      <p className="text-lg font-bold text-[var(--text-primary)] mt-2 font-['Inter']">{value}</p>
+      <p className="text-lg font-bold text-[var(--text-primary)] mt-2 font-en">{value}</p>
       <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{label}</p>
     </div>
   )

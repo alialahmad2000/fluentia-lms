@@ -139,7 +139,7 @@ function GrammarTopicContent({ topic, unitId, students }) {
 
       {/* Topic title */}
       <div className="space-y-1">
-        <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{topic.topic_name_en}</h2>
+        <h2 className="text-lg font-bold text-[var(--text-primary)] font-en" dir="ltr">{topic.topic_name_en}</h2>
         {topic.topic_name_ar && <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{topic.topic_name_ar}</p>}
       </div>
 
@@ -177,7 +177,7 @@ function GrammarExplanation({ content }) {
             <div className="px-5 pb-4 space-y-5" style={{ borderTop: '1px solid var(--border-subtle)' }}>
               <div className="pt-4 space-y-5">
                 {typeof content === 'string' ? (
-                  <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{content}</p>
+                  <p className="text-sm text-[var(--text-secondary)] font-en leading-relaxed" dir="ltr">{content}</p>
                 ) : (
                   sections.map((section, idx) => (
                     <ExplanationSectionRenderer key={idx} section={section} />
@@ -202,7 +202,7 @@ function ExplanationSectionRenderer({ section }) {
             <RichText
               text={section.content_en}
               dir="ltr"
-              className="text-sm sm:text-[15px] leading-[1.8] text-[var(--text-primary)] font-['Inter']"
+              className="text-sm sm:text-[15px] leading-[1.8] text-[var(--text-primary)] font-en"
             />
           )}
           {section.content_ar && (
@@ -224,7 +224,7 @@ function ExplanationSectionRenderer({ section }) {
           <RichText
             text={section.content}
             dir="ltr"
-            className="text-sm font-bold text-sky-400 font-['Inter'] tracking-wide"
+            className="text-sm font-bold text-sky-400 font-en tracking-wide"
           />
         </div>
       )
@@ -266,7 +266,7 @@ function ExplanationSectionRenderer({ section }) {
           <div className="space-y-2">
             {section.items?.map((ex, i) => (
               <div key={i} className="rounded-lg px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1" style={{ background: 'var(--surface-base)' }}>
-                <p className="text-sm text-[var(--text-primary)] font-['Inter']" dir="ltr">
+                <p className="text-sm text-[var(--text-primary)] font-en" dir="ltr">
                   {ex.highlight ? highlightText(ex.sentence, ex.highlight) : ex.sentence}
                 </p>
                 {ex.translation_ar && (
@@ -285,9 +285,9 @@ function ExplanationSectionRenderer({ section }) {
             {section.items?.map((m, i) => (
               <div key={i} className="rounded-lg px-4 py-3 space-y-1.5" style={{ background: 'var(--surface-base)' }}>
                 <div className="flex items-center gap-3" dir="ltr">
-                  <span className="text-sm text-red-400 line-through font-['Inter']">{m.wrong}</span>
+                  <span className="text-sm text-red-400 line-through font-en">{m.wrong}</span>
                   <span className="text-[var(--text-muted)]">→</span>
-                  <span className="text-sm text-emerald-400 font-semibold font-['Inter']">{m.correct}</span>
+                  <span className="text-sm text-emerald-400 font-semibold font-en">{m.correct}</span>
                 </div>
                 {m.explanation_ar && (
                   <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{m.explanation_ar}</p>
@@ -342,7 +342,7 @@ function InteractiveExercisesSection({ exercises, getStudentAnswers }) {
                   {EXERCISE_TYPE_LABELS[ex.exercise_type] || ex.exercise_type}
                 </span>
                 {ex.instructions_en && (
-                  <p className="text-xs text-[var(--text-muted)] font-['Inter']" dir="ltr">{ex.instructions_en}</p>
+                  <p className="text-xs text-[var(--text-muted)] font-en" dir="ltr">{ex.instructions_en}</p>
                 )}
                 {ex.instructions_ar && (
                   <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{ex.instructions_ar}</p>
@@ -351,7 +351,7 @@ function InteractiveExercisesSection({ exercises, getStudentAnswers }) {
                 {items.map((item, itemIdx) => (
                   <div key={itemIdx} className="space-y-2">
                     {item.question && (
-                      <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
+                      <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-en leading-relaxed" dir="ltr">
                         {items.length > 1 && <span className="text-[var(--text-muted)] mr-1">{itemIdx + 1}.</span>}
                         {item.question}
                       </p>
@@ -363,7 +363,7 @@ function InteractiveExercisesSection({ exercises, getStudentAnswers }) {
                         {item.options.map((opt, i) => {
                           const isCorrect = opt.toLowerCase?.().trim() === item.correct_answer?.toLowerCase?.().trim()
                           return (
-                            <div key={i} dir="ltr" className={`px-4 py-3 rounded-xl text-sm font-['Inter'] border ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'}`}>
+                            <div key={i} dir="ltr" className={`px-4 py-3 rounded-xl text-sm font-en border ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'}`}>
                               <div className="flex items-center gap-3">
                                 <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0" style={{ background: isCorrect ? 'rgba(16,185,129,0.2)' : 'var(--surface-raised)', color: isCorrect ? '#34d399' : 'var(--text-muted)' }}>
                                   {String.fromCharCode(65 + i)}
@@ -381,7 +381,7 @@ function InteractiveExercisesSection({ exercises, getStudentAnswers }) {
                     {ex.exercise_type !== 'choose' && item.correct_answer && (
                       <div className="px-3 py-2 rounded-lg text-xs" style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)' }}>
                         <span className="text-emerald-400 font-['Tajawal']">الإجابة الصحيحة: </span>
-                        <span className="text-emerald-400 font-['Inter']" dir="ltr">{item.correct_answer}</span>
+                        <span className="text-emerald-400 font-en" dir="ltr">{item.correct_answer}</span>
                       </div>
                     )}
 

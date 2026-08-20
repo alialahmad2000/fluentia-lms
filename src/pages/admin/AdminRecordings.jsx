@@ -472,7 +472,7 @@ function CurriculumSection() {
                       <button
                         key={p}
                         onClick={() => setForm(f => ({ ...f, part: p }))}
-                        className={`flex-1 h-10 rounded-xl text-sm font-bold font-['Inter'] transition-all ${
+                        className={`flex-1 h-10 rounded-xl text-sm font-bold font-en transition-all ${
                           form.part === p
                             ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
                             : 'bg-[rgba(255,255,255,0.03)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
@@ -576,7 +576,7 @@ function CurriculumSection() {
                   <span className="text-[var(--text-primary)] font-['Tajawal'] truncate flex-1">
                     الوحدة {rec.unit?.unit_number} Part {rec.part?.toUpperCase()} — {rec.group?.code}
                   </span>
-                  <span className="text-red-400/70 font-['Inter'] shrink-0">{error}</span>
+                  <span className="text-red-400/70 font-en shrink-0">{error}</span>
                 </div>
               ))}
             </div>
@@ -808,7 +808,7 @@ function RecordingHealthDashboard() {
               <cfg.icon size={14} className={`text-${cfg.color}-400`} />
               <span className={`text-xs font-bold font-['Tajawal'] text-${cfg.color}-400`}>{cfg.label}</span>
             </div>
-            <p className="text-2xl font-bold text-[var(--text-primary)] font-['Inter']">{grouped[key]?.length || 0}</p>
+            <p className="text-2xl font-bold text-[var(--text-primary)] font-en">{grouped[key]?.length || 0}</p>
           </div>
         ))}
       </div>
@@ -856,7 +856,7 @@ function RecordingHealthDashboard() {
                       {getRecLabel(h)}
                     </span>
                     {h.error_detail && (
-                      <span className="text-[var(--text-muted)] font-['Inter'] text-[10px] max-w-[200px] truncate shrink-0">
+                      <span className="text-[var(--text-muted)] font-en text-[10px] max-w-[200px] truncate shrink-0">
                         {h.error_detail}
                       </span>
                     )}
@@ -944,9 +944,9 @@ function FallbackEventsSection() {
           return (
             <div key={i} className="flex items-center gap-3 text-xs p-2 rounded-lg bg-amber-500/5 border border-amber-500/10">
               <span className="text-[var(--text-primary)] font-['Tajawal'] truncate flex-1">{label}</span>
-              <span className="text-amber-400 font-['Inter'] shrink-0">T2: {stat.tier2}</span>
-              {stat.tier3 > 0 && <span className="text-red-400 font-['Inter'] shrink-0">T3: {stat.tier3}</span>}
-              <span className="text-[var(--text-muted)] font-['Inter'] text-[10px] shrink-0">
+              <span className="text-amber-400 font-en shrink-0">T2: {stat.tier2}</span>
+              {stat.tier3 > 0 && <span className="text-red-400 font-en shrink-0">T3: {stat.tier3}</span>}
+              <span className="text-[var(--text-muted)] font-en text-[10px] shrink-0">
                 {new Date(stat.events[0]?.occurred_at).toLocaleDateString('ar-SA')}
               </span>
             </div>

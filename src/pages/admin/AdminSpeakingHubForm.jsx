@@ -115,7 +115,7 @@ function VocabFocusField({ values, onChange }) {
       {values.map((row, i) => (
         <div key={i} className="flex gap-2 items-center">
           <input
-            className="input-field text-sm flex-1 font-['Inter']"
+            className="input-field text-sm flex-1 font-en"
             value={row.word}
             onChange={e => update(i, 'word', e.target.value)}
             placeholder={t('admin.speakingHub.form.word', 'الكلمة')}
@@ -286,7 +286,7 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
               {t('admin.speakingHub.form.titleEn', 'العنوان (إنجليزي)')}
             </label>
             <input
-              className="input-field text-sm w-full font-['Inter']"
+              className="input-field text-sm w-full font-en"
               value={form.title_en}
               onChange={e => set('title_en', e.target.value)}
               placeholder="Speaking Hub — Unit 5"
@@ -313,7 +313,7 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
               {t('admin.speakingHub.form.descriptionEn', 'الوصف (إنجليزي)')}
             </label>
             <textarea
-              className="input-field text-sm w-full font-['Inter']"
+              className="input-field text-sm w-full font-en"
               rows={3}
               value={form.description_en}
               onChange={e => set('description_en', e.target.value)}
@@ -354,7 +354,7 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
           </label>
           <div className="flex gap-2 items-stretch">
             <input
-              className={`input-field text-sm flex-1 font-['Inter'] ${errors.video_url ? 'border-red-500/50' : ''}`}
+              className={`input-field text-sm flex-1 font-en ${errors.video_url ? 'border-red-500/50' : ''}`}
               value={form.video_url}
               onChange={e => set('video_url', e.target.value)}
               placeholder="https://www.youtube.com/watch?v=..."
@@ -406,7 +406,7 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
               {t('admin.speakingHub.form.videoChannel', 'القناة')}
             </label>
             <input
-              className="input-field text-sm w-full font-['Inter']"
+              className="input-field text-sm w-full font-en"
               value={form.video_channel}
               onChange={e => set('video_channel', e.target.value)}
               dir="ltr"
@@ -461,7 +461,7 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
             {t('admin.speakingHub.form.sessionLink', 'رابط الجلسة (Zoom / Meet)')}
           </label>
           <input
-            className="input-field text-sm w-full font-['Inter']"
+            className="input-field text-sm w-full font-en"
             value={form.hub_session_link}
             onChange={e => set('hub_session_link', e.target.value)}
             placeholder="https://zoom.us/j/..."

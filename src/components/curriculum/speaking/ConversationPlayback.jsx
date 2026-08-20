@@ -152,7 +152,7 @@ export default function ConversationPlayback({ studentId, unitId, questionIndex 
           </span>
         )}
         {totalSecs > 0 && (
-          <span className="text-[11px] tabular-nums mr-auto" style={{ color: 'rgba(238,245,255,0.36)', fontFamily: 'Inter, sans-serif' }}>
+          <span className="text-[11px] tabular-nums mr-auto" style={{ color: 'rgba(238,245,255,0.36)', fontFamily: "'Inter Tight', Inter, system-ui, sans-serif" }}>
             {fmtClock(totalSecs)}
           </span>
         )}
@@ -247,7 +247,7 @@ export default function ConversationPlayback({ studentId, unitId, questionIndex 
                   {isAi ? 'ليلى' : g('أنت', 'أنتِ')}
                 </p>
                 <p dir="ltr" className="text-[13.5px] leading-relaxed text-left whitespace-pre-line"
-                   style={{ fontFamily: 'Inter, sans-serif', color: isAi ? 'rgba(248,250,252,0.9)' : '#fff' }}>
+                   style={{ fontFamily: "'Inter Tight', Inter, system-ui, sans-serif", color: isAi ? 'rgba(248,250,252,0.9)' : '#fff' }}>
                   {t.content}
                 </p>
 
@@ -261,7 +261,7 @@ export default function ConversationPlayback({ studentId, unitId, questionIndex 
                     {isNow ? <Pause size={12} /> : <Play size={12} />}
                     {isNow ? g('يشتغل الآن', 'يشتغل الآن') : g('استمع', 'استمعي')}
                     {t.audio_duration_seconds ? (
-                      <span className="tabular-nums" style={{ fontFamily: 'Inter, sans-serif', opacity: 0.7 }}>
+                      <span className="tabular-nums" style={{ fontFamily: "'Inter Tight', Inter, system-ui, sans-serif", opacity: 0.7 }}>
                         {fmtClock(t.audio_duration_seconds)}
                       </span>
                     ) : null}

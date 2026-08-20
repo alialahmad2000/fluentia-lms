@@ -248,7 +248,7 @@ function IntroPhase({ titleAr, titleEn, descriptionAr, ruleSummary, focusType, i
         </div>
         <div>
           <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{titleAr}</h2>
-          <EnglishText as="p" className="text-xs font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{titleEn}</EnglishText>
+          <EnglishText as="p" className="text-xs font-en" style={{ color: 'var(--text-tertiary)' }}>{titleEn}</EnglishText>
         </div>
       </div>
 
@@ -360,14 +360,14 @@ function MinimalPairCard({ item }) {
     <div className="fl-card-static p-6 space-y-4">
       <EnglishText as="div" className="flex items-center justify-center gap-8">
         <div className="text-center">
-          <EnglishText as="p" className="text-2xl font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>{item.word1}</EnglishText>
-          <EnglishText as="p" className="text-xs font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa1}</EnglishText>
+          <EnglishText as="p" className="text-2xl font-bold font-en" style={{ color: 'var(--accent-sky)' }}>{item.word1}</EnglishText>
+          <EnglishText as="p" className="text-xs font-en mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa1}</EnglishText>
           {item.meaning1_ar && <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{item.meaning1_ar}</p>}
         </div>
         <span className="text-lg font-bold" style={{ color: 'var(--text-tertiary)' }}>vs</span>
         <div className="text-center">
-          <EnglishText as="p" className="text-2xl font-bold font-['Inter']" style={{ color: 'var(--accent-violet)' }}>{item.word2}</EnglishText>
-          <EnglishText as="p" className="text-xs font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa2}</EnglishText>
+          <EnglishText as="p" className="text-2xl font-bold font-en" style={{ color: 'var(--accent-violet)' }}>{item.word2}</EnglishText>
+          <EnglishText as="p" className="text-xs font-en mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa2}</EnglishText>
           {item.meaning2_ar && <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{item.meaning2_ar}</p>}
         </div>
       </EnglishText>
@@ -383,7 +383,7 @@ function MinimalPairCard({ item }) {
 function WordStressCard({ item }) {
   return (
     <div className="fl-card-static p-6 space-y-4">
-      <EnglishText as="div" className="flex items-center justify-center gap-1 text-2xl font-bold font-['Inter']">
+      <EnglishText as="div" className="flex items-center justify-center gap-1 text-2xl font-bold font-en">
         {(item.syllables || []).map((syl, j) => (
           <span key={j}>
             <span
@@ -400,7 +400,7 @@ function WordStressCard({ item }) {
           </span>
         ))}
       </EnglishText>
-      <EnglishText as="p" className="text-center text-sm font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</EnglishText>
+      <EnglishText as="p" className="text-center text-sm font-en" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</EnglishText>
       {item.hint_ar && (
         <div className="px-4 py-2 rounded-xl text-center" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.1)' }}>
           <p className="text-xs" style={{ color: 'var(--accent-gold)' }}>{item.hint_ar}</p>
@@ -416,20 +416,20 @@ function ConnectedSpeechCard({ item }) {
       <EnglishText as="div" className="flex items-center justify-center gap-4">
         <div className="text-center">
           <p className="text-xs mb-1" style={{ color: 'var(--text-tertiary)', direction: 'rtl' }}>الشكل المكتوب</p>
-          <EnglishText as="p" className="text-sm font-['Inter'] line-through decoration-white/15" style={{ color: 'var(--text-secondary)' }}>
+          <EnglishText as="p" className="text-sm font-en line-through decoration-white/15" style={{ color: 'var(--text-secondary)' }}>
             {item.written}
           </EnglishText>
         </div>
         <span className="text-lg" style={{ color: 'var(--text-tertiary)' }}>→</span>
         <div className="text-center">
           <p className="text-xs mb-1" style={{ color: 'var(--text-tertiary)', direction: 'rtl' }}>الشكل المنطوق</p>
-          <EnglishText as="p" className="text-lg font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>
+          <EnglishText as="p" className="text-lg font-bold font-en" style={{ color: 'var(--accent-sky)' }}>
             {item.spoken}
           </EnglishText>
         </div>
       </EnglishText>
       {item.ipa_spoken && (
-        <EnglishText as="p" className="text-center text-xs font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</EnglishText>
+        <EnglishText as="p" className="text-center text-xs font-en" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</EnglishText>
       )}
       {item.explanation_ar && (
         <div className="px-4 py-2 rounded-xl text-center" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.1)' }}>
@@ -444,7 +444,7 @@ function IntonationCard({ item }) {
   return (
     <div className="fl-card-static p-6 space-y-4">
       <div className="text-center">
-        <EnglishText as="p" className="text-lg font-bold font-['Inter'] mb-2" style={{ color: 'var(--text-primary)' }}>
+        <EnglishText as="p" className="text-lg font-bold font-en mb-2" style={{ color: 'var(--text-primary)' }}>
           {item.sentence}
         </EnglishText>
         <span className="text-3xl">{item.tone_curve}</span>
@@ -618,7 +618,7 @@ function CompletePhase({ score, showConfetti, onBack }) {
           أنجزت تمرين النطق لهذه الوحدة
         </p>
         {score && (
-          <p className="text-2xl font-bold font-['Inter'] mt-3" style={{ color: 'var(--accent-sky)' }}>
+          <p className="text-2xl font-bold font-en mt-3" style={{ color: 'var(--accent-sky)' }}>
             {score.percent}%
           </p>
         )}

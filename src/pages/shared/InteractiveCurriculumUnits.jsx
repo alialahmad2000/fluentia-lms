@@ -103,7 +103,7 @@ export default function InteractiveCurriculumUnits() {
                   {level.cefr}
                 </span>
               )}
-              <span className="text-sm text-[var(--text-muted)] font-['Inter']" dir="ltr">{level.name_en}</span>
+              <span className="text-sm text-[var(--text-muted)] font-en" dir="ltr">{level.name_en}</span>
             </div>
           </div>
         </div>
@@ -180,7 +180,7 @@ function InteractiveUnitCard({ unit, levelColor, onClick }) {
             {unit.theme_ar}
           </h3>
           {unit.theme_en && (
-            <p className="text-sm text-[var(--text-muted)] truncate font-['Inter']" dir="ltr">
+            <p className="text-sm text-[var(--text-muted)] truncate font-en" dir="ltr">
               {unit.theme_en}
             </p>
           )}

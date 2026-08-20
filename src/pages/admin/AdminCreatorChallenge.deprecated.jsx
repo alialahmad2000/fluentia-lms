@@ -296,7 +296,7 @@ export default function AdminCreatorChallenge() {
                 <div>
                   <label className="text-xs font-medium block mb-1" style={{ color: 'var(--text-secondary)' }}>الهاشتاق</label>
                   <input value={form.hashtag} onChange={e => updateField('hashtag', e.target.value)} dir="ltr"
-                    className="w-full px-3 py-2 rounded-xl text-xs font-['Inter']" style={{ background: 'var(--surface-raised)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }} />
+                    className="w-full px-3 py-2 rounded-xl text-xs font-en" style={{ background: 'var(--surface-raised)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }} />
                 </div>
                 <div>
                   <label className="text-xs font-medium block mb-1" style={{ color: 'var(--text-secondary)' }}>الحالة</label>

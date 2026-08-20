@@ -125,7 +125,7 @@ export default function SavedWordsPanel({ unitId, onClose }) {
               onChange={(e) => setNewWord(e.target.value)}
               placeholder="الكلمة بالإنجليزي..."
               dir="ltr"
-              className="flex-1 rounded-lg px-3 py-2 text-sm font-['Inter'] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-sky-500/30"
+              className="flex-1 rounded-lg px-3 py-2 text-sm font-en placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-sky-500/30"
               style={{ background: 'var(--surface-overlay)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }}
               onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
             />
@@ -181,7 +181,7 @@ export default function SavedWordsPanel({ unitId, onClose }) {
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold font-['Inter'] text-white" dir="ltr">{w.word}</span>
+                    <span className="text-sm font-bold font-en text-white" dir="ltr">{w.word}</span>
                     {w.meaning && (
                       <span className="text-xs font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>— {w.meaning}</span>
                     )}
@@ -205,7 +205,7 @@ export default function SavedWordsPanel({ unitId, onClose }) {
                 </div>
               </div>
               {expandedId === w.id && w.context_sentence && (
-                <p className="text-[11px] font-['Inter'] mt-2 pt-2 italic leading-relaxed" dir="ltr" style={{ color: 'var(--text-muted)', borderTop: '1px solid var(--border-subtle)' }}>
+                <p className="text-[11px] font-en mt-2 pt-2 italic leading-relaxed" dir="ltr" style={{ color: 'var(--text-muted)', borderTop: '1px solid var(--border-subtle)' }}>
                   "{w.context_sentence}"
                 </p>
               )}

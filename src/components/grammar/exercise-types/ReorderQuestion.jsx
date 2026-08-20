@@ -87,7 +87,7 @@ export default function ReorderQuestion({ item, answer, onAnswer }) {
       {answer && !answer.correct && (
         <div className="grammar-explanation-bar text-xs" dir="rtl">
           <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الإجابة الصحيحة: </span>
-          <span className="font-semibold font-['Inter']" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
+          <span className="font-semibold font-en" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
         </div>
       )}
     </div>

@@ -316,7 +316,7 @@ export default function DailyReview() {
                     className="w-24 h-24 rounded-xl object-cover mb-4 opacity-80"
                   />
                 )}
-                <p className="text-3xl font-bold mb-3 font-['Inter']" style={{ color: 'var(--text-primary)' }}>
+                <p className="text-3xl font-bold mb-3 font-en" style={{ color: 'var(--text-primary)' }}>
                   {vocab?.word}
                 </p>
                 {vocab?.part_of_speech && (
@@ -355,7 +355,7 @@ export default function DailyReview() {
                 </p>
                 {vocab?.example_sentence && (
                   <div className="px-4 py-3 rounded-xl max-w-sm" style={{ background: 'var(--surface-raised)' }}>
-                    <p className="text-[13px] italic font-['Inter']" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-[13px] italic font-en" style={{ color: 'var(--text-secondary)' }}>
                       "{vocab.example_sentence}"
                     </p>
                   </div>

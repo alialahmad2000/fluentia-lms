@@ -553,7 +553,7 @@ export default function SmartAudioPlayer({
                   onSeek={skipDisabled ? undefined : engine.seek}
                 />
               </div>
-              <span className="text-sm tabular-nums text-slate-300 font-medium whitespace-nowrap min-w-[88px] text-right font-['Inter']">
+              <span className="text-sm tabular-nums text-slate-300 font-medium whitespace-nowrap min-w-[88px] text-right font-en">
                 {fmt(engine.currentTime)} / {fmt(engine.duration)}
               </span>
             </div>

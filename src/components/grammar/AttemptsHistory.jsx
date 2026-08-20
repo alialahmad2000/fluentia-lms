@@ -95,11 +95,11 @@ export default function AttemptsHistory({ allAttempts, exercises }) {
                         </span>
                         <div className="flex-1">
                           <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>{TYPE_LABELS[ex.type] || ex.type} — </span>
-                          <span className="font-['Inter']" dir="ltr" style={{ color: 'var(--text-secondary)' }}>
+                          <span className="font-en" dir="ltr" style={{ color: 'var(--text-secondary)' }}>
                             {typeof ex.studentAnswer === 'string' ? ex.studentAnswer : JSON.stringify(ex.studentAnswer)}
                           </span>
                           {!ex.isCorrect && ex.correctAnswer && (
-                            <span className="font-['Inter'] mr-2" dir="ltr" style={{ color: 'var(--success)', opacity: 0.7 }}> → {ex.correctAnswer}</span>
+                            <span className="font-en mr-2" dir="ltr" style={{ color: 'var(--success)', opacity: 0.7 }}> → {ex.correctAnswer}</span>
                           )}
                         </div>
                       </div>
