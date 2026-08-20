@@ -368,6 +368,12 @@ export default function ConversationMode({
         body: { action: 'turn', conversation_id: conversationId, audio_path: path, audio_duration_seconds: Math.round(seconds), client_turn_uuid: crypto.randomUUID() },
       }, { timeoutMs: 60000, retries: 1 })
       const parsed = await parseData(data)
+      // She resumed a conversation the rescue sweeper had already graded in the meantime.
+      // Her work is safe — say exactly that instead of "check your connection".
+      if (parsed?.done && parsed?.error) {
+        setError(g('هذي المحادثة تم تقييمها وحُفظت — حدّث الصفحة وبتلقى الحصيلة تحت.', 'هذي المحادثة تم تقييمها وحُفظت — حدّثي الصفحة وبتلقين الحصيلة تحت.'))
+        setRecState('idle'); return
+      }
       if (err || !parsed || parsed.error) throw new Error(parsed?.message || err || 'turn failed')
       if (parsed.ok === false || parsed.no_advance) {
         pushMessage({ role: 'ai', text: parsed.reply || g('ما سمعتك بوضوح — حاول مرة ثانية من فضلك.', 'ما سمعتك بوضوح — حاولي مرة ثانية من فضلك.'), audioUrl: parsed.reply_audio_url })
