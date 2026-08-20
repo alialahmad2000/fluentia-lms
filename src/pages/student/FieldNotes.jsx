@@ -51,6 +51,44 @@ export function isNoteDue(n) {
 
 const byOrder = (a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0)
 
+// Gregorian month names written out, not Intl: ar-SA resolves to the Hijri
+// calendar by default, and this platform is Gregorian everywhere.
+const MONTHS_AR = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+  'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+function arDate(iso) {
+  if (!iso) return null
+  const [y, m, d] = String(iso).slice(0, 10).split('-').map(Number)
+  if (!y || !m || !d) return null
+  return `${toAr(d)} ${MONTHS_AR[m - 1]} ${toAr(y)}`
+}
+
+/** Arabic counted-noun agreement: 1 ملاحظة · 2 ملاحظتان · 3–10 ملاحظات · 11+ ملاحظة */
+function countNotes(n) {
+  if (n === 1) return 'ملاحظة واحدة'
+  if (n === 2) return 'ملاحظتان'
+  if (n <= 10) return `${toAr(n)} ملاحظات`
+  return `${toAr(n)} ملاحظة`
+}
+
+/** One field session = one real conversation. Group by it instead of repeating
+ *  the same context line under all ten cards. */
+function groupByContext(notes) {
+  const map = new Map()
+  for (const n of notes) {
+    const key = `${n.context_label || ''}|${n.occurred_on || ''}`
+    if (!map.has(key)) {
+      map.set(key, {
+        key,
+        label: n.context_label || 'ملاحظات من شغلك',
+        date: arDate(n.occurred_on),
+        items: [],
+      })
+    }
+    map.get(key).items.push(n)
+  }
+  return [...map.values()]
+}
+
 // ── module scope on purpose ────────────────────────────────────────────────
 // Declared inside FieldNotes() these would be a brand-new component type on every
 // render, so React would unmount and remount the runner on each keystroke — eating
@@ -77,7 +115,6 @@ export function NoteCard({ note, open, onToggle, onPractice, g }) {
               <b>{note.corrected_text}</b>
             </span>
           )}
-          {note.context_label && <span className="fnx-note__ctx">{note.context_label}</span>}
         </div>
         <span className="fnx-pill" data-s={note.status}>{STATUS_AR[note.status] || ''}</span>
         <ChevronDown size={17} className="fnx-note__chev" aria-hidden="true" />
@@ -368,33 +405,32 @@ export default function FieldNotes() {
               <h1>دفتر الميدان</h1>
               <p>ملاحظاتك من محادثاتك الحقيقية — كل ملاحظة غلط أو تحسين صار فعلاً في شغلك، مع القاعدة وتمرين عليها.</p>
 
-              {all.length > 0 && (
-                <div className="fnx-hero__stat">
-                  {mastered.length > 0 && (
-                    <div className="fnx-ring" style={{ '--p': pct }}><span>{toAr(pct)}٪</span></div>
-                  )}
-                  <div className="fnx-hero__nums">
-                    <div className="fnx-hero__num"><b>{toAr(due.length)}</b><span>للمراجعة</span></div>
-                    <div className="fnx-hero__num"><b>{toAr(mastered.length)}</b><span>أتقنتها</span></div>
-                    <div className="fnx-hero__num"><b>{toAr(all.length)}</b><span>كل الملاحظات</span></div>
-                  </div>
-                </div>
-              )}
             </header>
 
-            <div className="fnx-tabs" role="tablist">
-              {[
-                ['due', 'للمراجعة', due.length],
-                ['all', 'الكل', all.length],
-                ['mastered', 'أتقنتها', mastered.length],
-              ].map(([k, label, n]) => (
-                <button
-                  key={k} className="fnx-tab" role="tab"
-                  aria-selected={tab === k} onClick={() => setTab(k)}
-                >
-                  {label}<b>{toAr(n)}</b>
-                </button>
-              ))}
+            {/* One control, not two. The hero used to carry a three-number strip
+                that repeated these exact counts a row above the tabs. */}
+            <div className="fnx-controls">
+              <div className="fnx-tabs" role="tablist">
+                {[
+                  ['due', 'للمراجعة', due.length],
+                  ['all', 'الكل', all.length],
+                  ['mastered', 'أتقنتها', mastered.length],
+                ].map(([k, label, n]) => (
+                  <button
+                    key={k} className="fnx-tab" role="tab"
+                    aria-selected={tab === k} onClick={() => setTab(k)}
+                  >
+                    {label}<b>{toAr(n)}</b>
+                  </button>
+                ))}
+              </div>
+
+              {mastered.length > 0 && (
+                <div className="fnx-meter">
+                  <div className="fnx-ring" style={{ '--p': pct }}><span>{toAr(pct)}٪</span></div>
+                  <span>أتقنتِ {toAr(mastered.length)} من {toAr(all.length)}</span>
+                </div>
+              )}
             </div>
 
             {isLoading ? null : shown.length === 0 ? (
@@ -406,16 +442,29 @@ export default function FieldNotes() {
                     : <><Inbox size={30} aria-hidden="true" /><p>دفترك فاضي الحين. أول ما يرصد مدربك ملاحظة من شغلك، بتلقينها هنا.</p></>}
               </div>
             ) : (
-              <div className="fnx-list">
-                {shown.map((n) => (
-                  <NoteCard
-                    key={n.id} note={n} g={g}
-                    open={openId === n.id}
-                    onToggle={() => setOpenId(openId === n.id ? null : n.id)}
-                    onPractice={onPractice}
-                  />
-                ))}
-              </div>
+              groupByContext(shown).map((grp) => (
+                <section className="fnx-group" key={grp.key}>
+                  <header className="fnx-group__h">
+                    <span className="fnx-group__dot" aria-hidden="true" />
+                    <div className="fnx-group__t">
+                      <h2>{grp.label}</h2>
+                      {grp.date && <span>{grp.date}</span>}
+                    </div>
+                    <span className="fnx-group__rule" aria-hidden="true" />
+                    <span className="fnx-group__n">{countNotes(grp.items.length)}</span>
+                  </header>
+                  <div className="fnx-list">
+                    {grp.items.map((n) => (
+                      <NoteCard
+                        key={n.id} note={n} g={g}
+                        open={openId === n.id}
+                        onToggle={() => setOpenId(openId === n.id ? null : n.id)}
+                        onPractice={onPractice}
+                      />
+                    ))}
+                  </div>
+                </section>
+              ))
             )}
           </>
         )}

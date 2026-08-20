@@ -31,27 +31,52 @@
    added below inherits the fix automatically. Same class of bug as ClassRecaps. */
 .fnx-root h1,.fnx-root h2,.fnx-root h3,.fnx-root h4,.fnx-root h5,.fnx-root h6{color:var(--fnx-ink)}
 
-/* ── the living room — never a flat background ── */
+/* ── the living room ────────────────────────────────────────────────────────
+   Four stacked layers, all token-derived: a warm hearth behind the masthead
+   (top-inline-end, which is the TITLE side in RTL), cool depth opposite it, a
+   deep ground gradient, and paper grain over everything. The blooms drift; the
+   grain and vignette do not. Earlier this page was one radial over near-black
+   and read as a slab. */
 .fnx-world{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   background:
-    radial-gradient(130% 100% at 50% 0%,
-      color-mix(in srgb, var(--surface-raised) 70%, var(--surface-void)) 0%,
-      var(--surface-base) 52%,
+    radial-gradient(78% 58% at 82% -8%,
+      color-mix(in srgb, var(--fnx-accent) 34%, transparent) 0%, transparent 64%),
+    radial-gradient(70% 55% at 4% 16%,
+      color-mix(in srgb, var(--accent-violet) 22%, transparent) 0%, transparent 68%),
+    radial-gradient(90% 55% at 50% 108%,
+      color-mix(in srgb, var(--success) 16%, transparent) 0%, transparent 66%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--surface-raised) 62%, var(--surface-void)) 0%,
+      var(--surface-base) 44%,
       var(--surface-void) 100%)}
-.fnx-world i{position:absolute;display:block;border-radius:50%;filter:blur(78px);opacity:.78}
-.fnx-world i:nth-child(1){width:56vw;height:56vw;top:-16vw;inset-inline-end:-12vw;
-  background:radial-gradient(circle, color-mix(in srgb, var(--fnx-accent) 34%, transparent), transparent 68%);
+
+/* drifting light */
+.fnx-world i{position:absolute;display:block;border-radius:50%;filter:blur(80px);opacity:.72;
+  will-change:transform}
+.fnx-world i:nth-child(1){width:52vw;height:52vw;top:-14vw;inset-inline-end:-8vw;
+  background:radial-gradient(circle, color-mix(in srgb, var(--fnx-accent) 40%, transparent), transparent 66%);
   animation:fnxDrift1 38s ease-in-out infinite}
-.fnx-world i:nth-child(2){width:48vw;height:48vw;bottom:-16vw;inset-inline-start:-10vw;
-  background:radial-gradient(circle, color-mix(in srgb, var(--success) 22%, transparent), transparent 68%);
+.fnx-world i:nth-child(2){width:46vw;height:46vw;bottom:-14vw;inset-inline-start:-8vw;
+  background:radial-gradient(circle, color-mix(in srgb, var(--success) 26%, transparent), transparent 68%);
   animation:fnxDrift2 48s ease-in-out infinite}
-.fnx-world i:nth-child(3){width:42vw;height:42vw;top:36%;inset-inline-start:30%;
-  background:radial-gradient(circle, color-mix(in srgb, var(--accent-violet) 24%, transparent), transparent 70%);
+.fnx-world i:nth-child(3){width:40vw;height:40vw;top:34%;inset-inline-start:26%;
+  background:radial-gradient(circle, color-mix(in srgb, var(--accent-violet) 26%, transparent), transparent 70%);
   animation:fnxDrift3 56s ease-in-out infinite}
-/* a warm pool right behind the masthead so the page opens with light, not a slab */
-.fnx-world i:nth-child(4){width:70vw;height:34vw;top:-10vw;inset-inline-start:8vw;filter:blur(96px);opacity:.5;
-  background:radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--fnx-accent) 26%, transparent), transparent 72%);
+.fnx-world i:nth-child(4){width:64vw;height:30vw;top:-6vw;inset-inline-start:6vw;
+  filter:blur(100px);opacity:.4;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--fnx-accent) 24%, transparent), transparent 72%);
   animation:fnxDrift1 46s ease-in-out infinite}
+
+/* paper grain — what stops the gradients reading as plastic. Inline SVG noise,
+   no external asset. */
+.fnx-world::after{content:'';position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>")}
+
+/* vignette — pulls the eye back to the column of text */
+.fnx-world::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(120% 85% at 50% 40%, transparent 42%,
+    color-mix(in srgb, var(--surface-void) 72%, transparent) 100%)}
+
 @keyframes fnxDrift1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4vw,3vw,0)}}
 @keyframes fnxDrift2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(5vw,-3vw,0)}}
 @keyframes fnxDrift3{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,4vw,0)}}
@@ -73,17 +98,17 @@
   margin:14px 0 8px;letter-spacing:-.01em;line-height:1.25}
 .fnx-hero p{margin:0;max-width:600px;font-size:.98rem;line-height:1.9;color:var(--fnx-ink-soft)}
 
-.fnx-hero__stat{display:flex;align-items:center;gap:18px;margin-top:22px;flex-wrap:wrap}
-.fnx-ring{position:relative;width:76px;height:76px;border-radius:50%;flex:none;display:grid;place-items:center;
-  background:conic-gradient(var(--fnx-accent) calc(var(--p)*1%), color-mix(in srgb, var(--fnx-ink) 10%, transparent) 0)}
-.fnx-ring::after{content:'';position:absolute;inset:7px;border-radius:50%;background:var(--surface-base)}
-.fnx-ring span{position:relative;z-index:1;font-weight:800;font-size:.9rem;color:var(--fnx-accent)}
-.fnx-hero__nums{display:flex;gap:22px}
-.fnx-hero__num b{display:block;font-size:1.3rem;font-weight:800;color:var(--fnx-ink);line-height:1.2}
-.fnx-hero__num span{font-size:.78rem;color:var(--fnx-muted)}
+/* ── one control row: filters + (once earned) the mastery meter ── */
+.fnx-controls{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin:0 0 22px;flex-wrap:wrap}
+.fnx-meter{display:flex;align-items:center;gap:10px;font-size:.8rem;font-weight:700;color:var(--fnx-ink-soft)}
+.fnx-ring{position:relative;width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:conic-gradient(var(--fnx-accent) calc(var(--p)*1%), color-mix(in srgb, var(--fnx-ink) 12%, transparent) 0)}
+.fnx-ring::after{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--surface-base)}
+.fnx-ring span{position:relative;z-index:1;font-weight:800;font-size:.62rem;color:var(--fnx-accent)}
 
 /* ── tabs ── */
-.fnx-tabs{display:flex;gap:6px;margin:0 0 22px;padding:5px;border-radius:999px;
+.fnx-tabs{display:flex;gap:6px;margin:0;padding:5px;border-radius:999px;
   background:var(--fnx-card-2);border:1px solid var(--fnx-line-soft);width:fit-content;max-width:100%;
   overflow-x:auto;scrollbar-width:none}
 .fnx-tabs::-webkit-scrollbar{display:none}
@@ -94,6 +119,22 @@
 .fnx-tab[aria-selected='true']{background:color-mix(in srgb, var(--fnx-accent) 16%, transparent);
   color:var(--fnx-accent-strong);box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--fnx-accent) 30%, transparent)}
 .fnx-tab b{margin-inline-start:6px;font-weight:800;opacity:.85}
+
+/* ── field session: one real conversation, one heading ── */
+.fnx-group{margin-bottom:30px}
+.fnx-group__h{display:flex;align-items:center;gap:11px;margin:0 2px 12px}
+.fnx-group__dot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--fnx-accent);
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--fnx-accent) 16%, transparent)}
+.fnx-group__t{min-width:0}
+/* the count used to float ~700px away from the title it belongs to; the rule
+   ties them into one heading */
+.fnx-group__rule{flex:1;min-width:24px;height:1px;
+  background:linear-gradient(to left, transparent, var(--fnx-line))}
+.fnx-group__t h2{margin:0;font-size:.92rem;font-weight:800;line-height:1.5;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fnx-group__t span{display:block;font-size:.72rem;color:var(--fnx-muted);margin-top:1px}
+.fnx-group__n{flex:none;font-size:.7rem;font-weight:700;color:var(--fnx-ink-soft);
+  background:var(--fnx-card-2);border:1px solid var(--fnx-line-soft);border-radius:999px;padding:4px 11px}
 
 /* ── note card ── */
 .fnx-list{display:flex;flex-direction:column;gap:12px}
