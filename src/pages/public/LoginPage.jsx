@@ -10,6 +10,7 @@ import { parseSupabaseError, logError } from '../../utils/errors'
 import { ACADEMY } from '../../lib/constants'
 import { supabase } from '../../lib/supabase'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
+import { reportFailedLogin } from '../../lib/blockedLoginAlert'
 
 export default function LoginPage() {
   const { t } = useTranslation()
@@ -54,8 +55,9 @@ export default function LoginPage() {
     }
 
     setLoading(true)
+    // Declared outside the try so the catch block knows which account was attempted.
+    let loginEmail = email.trim()
     try {
-      let loginEmail = email.trim()
 
       if (loginMode === 'username') {
         const { data: profileData, error: profileError } = await supabase
@@ -78,6 +80,8 @@ export default function LoginPage() {
       const msg = parseSupabaseError(err)
       setError(msg)
       logError('auth', 'login', err.message, { email: loginMode === 'email' ? email.trim() : username.trim() })
+      // Silently tells the backend, which alerts the owner if this account is blocked.
+      reportFailedLogin(loginEmail)
     } finally {
       setLoading(false)
     }
