@@ -14,7 +14,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Mic, Square, Volume2, Sparkles, Send, RotateCcw, Trophy, ChevronLeft, AlertCircle, Star, Lightbulb } from 'lucide-react'
+import { Mic, Square, Volume2, Sparkles, Send, RotateCcw, Trophy, ChevronLeft, AlertCircle, Star, Lightbulb, Play } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { invokeWithRetry } from '../../../lib/invokeWithRetry'
 import { useG } from '../../../i18n/gender'
@@ -54,6 +54,9 @@ const silentWavUrl = () => {
 }
 
 const IDLE_BARS = Array.from({ length: 28 }, () => 0.12)
+
+// Arabic counts its way, not English's: 1 = singular, 2 = dual, 3–10 = plural.
+const turnsAr = (n) => (n === 1 ? 'ردّ واحد' : n === 2 ? 'ردّين' : `${n} ردود`)
 
 // Scoped premium styles (explicit rgba — no color-mix, for iOS < 16.4 safety)
 const STYLE = `
@@ -139,6 +142,11 @@ export default function ConversationMode({
   // Inline phrase hints belong to the standalone panel (the Desk call). In the
   // Studio the same phrases live in the stage's «مساعدة» sheet instead.
   const [hintsOpen, setHintsOpen] = useState(false)
+  // An unfinished conversation is not a lost conversation. The engine opened a BRAND-NEW
+  // conversation on every visit, so a student who left mid-chat — phone locked, tab closed,
+  // class started — came back to an empty stage while her real turns sat orphaned in the
+  // database. The stage now offers to pick that conversation back up.
+  const [resumable, setResumable] = useState(null)
 
   const recorderRef = useRef(null)
   const streamRef = useRef(null)
@@ -213,6 +221,69 @@ export default function ConversationMode({
     pushMessage({ role: 'ai', text: parsed.reply, audioUrl: parsed.reply_audio_url })
     playCoach(parsed.reply_audio_url)
   }, [unitId, moduleId, scenarioRef, personaVariant, topic?.id, questionIndex, studentId, pushMessage, playCoach]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Scenario conversations live on a module; curriculum ones on a unit + question index.
+  const scopeModuleId = moduleId || (scenarioRef?.kind === 'module' ? scenarioRef.id : null)
+
+  // Look for a live conversation on THIS task from the last day. The Desk call is
+  // deliberately excluded: answering a call means a new call, not a rerun of an old one.
+  useEffect(() => {
+    if (autoStart || !studentId || phase !== 'intro') return
+    let cancelled = false
+    ;(async () => {
+      let q = supabase
+        .from('speaking_conversations')
+        .select('id, turn_count, updated_at')
+        .eq('student_id', studentId)
+        .eq('status', 'in_progress')
+        .is('deleted_at', null)
+        .gt('turn_count', 0)
+        .gte('updated_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+        .order('updated_at', { ascending: false })
+        .limit(1)
+      q = scopeModuleId
+        ? q.eq('module_id', scopeModuleId)
+        : q.eq('unit_id', unitId).eq('question_index', questionIndex)
+      const { data } = await q
+      if (!cancelled) setResumable(data?.[0] || null)
+    })()
+    return () => { cancelled = true }
+  }, [autoStart, studentId, unitId, questionIndex, scopeModuleId, phase])
+
+  const resumeConversation = useCallback(async (convo) => {
+    if (!convo?.id) return
+    setError('')
+    try {
+      silentRef.current = silentWavUrl()
+      audioRef.current.src = silentRef.current
+      audioRef.current.play().then(() => { audioRef.current.pause(); audioRef.current.currentTime = 0 }).catch(() => {})
+    } catch {}
+    setPhase('active')
+    setRecState('processing')
+    const { data: turns, error: tErr } = await supabase
+      .from('speaking_conversation_turns')
+      .select('turn_index, role, content, audio_path')
+      .eq('conversation_id', convo.id)
+      .order('turn_index')
+    setRecState('idle')
+    if (tErr || !turns?.length) {
+      setError(g('تعذّر فتح محادثتك السابقة — ابدأ محادثة جديدة.', 'تعذّر فتح محادثتكِ السابقة — ابدئي محادثة جديدة.'))
+      setPhase('intro'); setResumable(null); return
+    }
+    setConversationId(convo.id)
+    // Layla's turns keep a public TTS url in audio_path; the student's keep a PRIVATE
+    // storage path — her own bubbles carry no replay button, so it is never needed here.
+    setMessages(turns.map((t, i) => ({
+      id: `resumed-${t.turn_index}-${i}`,
+      role: t.role === 'student' ? 'student' : 'ai',
+      text: t.content || '',
+      audioUrl: t.role === 'ai' && /^https?:/.test(t.audio_path || '') ? t.audio_path : null,
+    })))
+    setStudentTurns(convo.turn_count || turns.filter((t) => t.role === 'student').length)
+    // Replay Layla's last line so she lands back exactly where they left off.
+    const lastAi = [...turns].reverse().find((t) => t.role === 'ai' && /^https?:/.test(t.audio_path || ''))
+    if (lastAi) playCoach(lastAi.audio_path)
+  }, [g, playCoach])
 
   // When mounted inside the Desk call flow, the incoming-call ceremony already happened —
   // begin immediately so answering feels like a live call (no second "start" screen).
@@ -329,6 +400,7 @@ export default function ConversationMode({
   const restart = useCallback(() => {
     setPhase('intro'); setConversationId(null); setMessages([]); setStudentTurns(0)
     setDone(false); setEvaluation(null); setYourWords([]); setError(''); setRecState('idle')
+    setResumable(null)   // she just finished one — never offer to "resume" it
   }, [])
 
   const overall = evaluation?.overall_score
@@ -393,9 +465,23 @@ export default function ConversationMode({
                   {topic.title_en}
                 </div>
               )}
-              <button onClick={startConversation} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5 mt-1" style={{ background: 'linear-gradient(100deg,#f7cf55 0%,#ffe9b0 26%,#9fe9ff 56%,#25c9f2 100%)', color: '#0b0f17', boxShadow: '0 12px 34px -10px rgba(245,200,66,0.45), 0 6px 20px -10px rgba(0,212,255,0.5), inset 0 1px 0 0 rgba(255,255,255,0.5)' }}>
-                <Mic size={16} /> {g('ابدأ المحادثة', 'ابدئي المحادثة')}
-              </button>
+              {resumable ? (
+                <div className="flex flex-col items-center gap-2.5 mt-1">
+                  <button onClick={() => resumeConversation(resumable)} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(100deg,#f7cf55 0%,#ffe9b0 26%,#9fe9ff 56%,#25c9f2 100%)', color: '#0b0f17', boxShadow: '0 12px 34px -10px rgba(245,200,66,0.45), 0 6px 20px -10px rgba(0,212,255,0.5), inset 0 1px 0 0 rgba(255,255,255,0.5)' }}>
+                    <Play size={16} fill="currentColor" /> {g('أكمل محادثتك', 'أكملي محادثتكِ')}
+                  </button>
+                  <p className="text-[11px] font-['Tajawal']" style={{ color: 'rgba(248,250,252,0.5)' }}>
+                    {g('عندك محادثة ما خلّصتها', 'عندكِ محادثة ما خلّصتِها')} · {turnsAr(resumable.turn_count || 0)}
+                  </p>
+                  <button onClick={() => { setResumable(null); startConversation() }} className="text-xs text-white/40 hover:text-white/70 font-['Tajawal'] underline underline-offset-4">
+                    {g('أو ابدأ محادثة جديدة', 'أو ابدئي محادثة جديدة')}
+                  </button>
+                </div>
+              ) : (
+                <button onClick={startConversation} className="cvm-cta flex items-center gap-2 px-7 h-12 rounded-2xl text-sm font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5 mt-1" style={{ background: 'linear-gradient(100deg,#f7cf55 0%,#ffe9b0 26%,#9fe9ff 56%,#25c9f2 100%)', color: '#0b0f17', boxShadow: '0 12px 34px -10px rgba(245,200,66,0.45), 0 6px 20px -10px rgba(0,212,255,0.5), inset 0 1px 0 0 rgba(255,255,255,0.5)' }}>
+                  <Mic size={16} /> {g('ابدأ المحادثة', 'ابدئي المحادثة')}
+                </button>
+              )}
               {onSwitchToClassic && (
                 <button onClick={onSwitchToClassic} className="text-xs text-white/40 hover:text-white/65 font-['Tajawal'] underline underline-offset-4">
                   {g('أو سجّل مرة وحدة زي قبل', 'أو سجّلي مرة وحدة زي قبل')}
@@ -436,6 +522,24 @@ export default function ConversationMode({
                       {[0, 1, 2].map((i) => <span key={i} className="cvm-sbar" data-on="true" style={{ height: 14, animationDelay: `${i * 0.16}s` }} />)}
                     </div>
                   </div>
+                )}
+
+                {/* The moment her work becomes gradeable, SAY SO — once. The feedback is the
+                    whole payoff of the section, and a silent button under the mic was never
+                    going to carry that. After this turn the promoted dock button takes over. */}
+                {canFinish && !done && recState === 'idle' && studentTurns === MIN_END_TURNS && (
+                  <motion.div initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="rounded-2xl px-4 py-3.5 flex flex-col items-center gap-2.5 text-center"
+                    style={{ background: 'linear-gradient(135deg,rgba(52,211,153,0.11),rgba(251,191,36,0.07))', border: '1px solid rgba(52,211,153,0.22)' }}>
+                    <p className="text-[12px] font-['Tajawal'] leading-[1.9] max-w-[40ch]" style={{ color: 'rgba(238,245,255,0.8)' }}>
+                      {g('كلامك يكفي للتقييم — تقدر تنهي الحين وتشوف تقييمك الكامل، أو تكمّل مع ليلى وكل ردّ إضافي يخلّي التقييم أدق.',
+                         'كلامكِ يكفي للتقييم — تقدرين تنهين الحين وتشوفين تقييمكِ الكامل، أو تكمّلين مع ليلى وكل ردّ إضافي يخلّي التقييم أدق.')}
+                    </p>
+                    <button onClick={endConversation} className="flex items-center gap-1.5 px-5 h-10 rounded-xl text-xs font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5"
+                      style={{ background: 'linear-gradient(135deg,#34d399,#22d3ee)', color: '#04121a', boxShadow: '0 10px 26px -12px rgba(52,211,153,0.75)' }}>
+                      <Trophy size={13} /> {g('أنهِ واعرض التقييم', 'أنهي واعرضي التقييم')}
+                    </button>
+                  </motion.div>
                 )}
               </div>
 
@@ -481,8 +585,8 @@ export default function ConversationMode({
                   {recState === 'recording' ? `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')} — ${g('اضغط للإيقاف', 'اضغطي للإيقاف')}` : recState === 'processing' ? '…' : g('اضغط وتكلّم', 'اضغطي وتكلّمي')}
                 </p>
                 {canFinish && !done && recState === 'idle' && (
-                  <button onClick={endConversation} className="flex items-center gap-1.5 px-5 h-10 rounded-xl text-xs font-bold font-['Tajawal'] transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(135deg,rgba(52,211,153,0.18),rgba(251,191,36,0.14))', border: '1px solid rgba(52,211,153,0.3)', color: '#6ee7b7' }}>
-                    <Send size={13} /> {g('أنهِ المحادثة واعرض التقييم', 'أنهي المحادثة واعرضي التقييم')}
+                  <button onClick={endConversation} className="flex items-center gap-1.5 px-5 h-11 rounded-xl text-[13px] font-extrabold font-['Tajawal'] transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(135deg,#34d399,#22d3ee)', color: '#04121a', boxShadow: '0 12px 30px -12px rgba(52,211,153,0.8), inset 0 1px 0 0 rgba(255,255,255,0.35)' }}>
+                    <Send size={14} /> {g('أنهِ المحادثة واعرض التقييم', 'أنهي المحادثة واعرضي التقييم')}
                   </button>
                 )}
                 <p className="text-[10px] font-['Tajawal'] flex items-center gap-1" style={{ color: 'rgba(248,250,252,0.32)' }}>🔒 {g('كلامك خاص ما يطّلع عليه أحد', 'كلامكِ خاص ما يطّلع عليه أحد')}</p>

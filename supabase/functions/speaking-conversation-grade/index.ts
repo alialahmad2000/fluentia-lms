@@ -4,9 +4,12 @@
 //      unit-progress trigger see the work and the student-facing AIEvaluationCard renders it,
 //   2) upserts the student_curriculum_progress 'speaking' completion row EXACTLY like
 //      evaluate-speaking does (status/score only — block_phantom_submission skips 'speaking'),
-//   3) marks the conversation completed.
+//   3) marks the conversation completed, and awards the speaking XP.
 // Idempotent: an atomic in_progress→completed claim means a second call returns the existing
 // result without re-grading or duplicating rows.
+//
+// Two kinds of caller: the student finishing her conversation (user JWT), and the rescue
+// sweeper grading a conversation she walked away from (service-role key — see isServiceCall).
 //
 // Deploy: node scripts/_deploy-fn.cjs speaking-conversation-grade   (verify_jwt:false)
 // Env: CLAUDE_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
@@ -52,15 +55,23 @@ serve(async (req) => {
   if (!conversation_id) return json({ error: 'conversation_id required' }, 400)
 
   const token = (req.headers.get('Authorization') || '').replace('Bearer ', '')
-  const { data: { user }, error: authErr } = await sb.auth.getUser(token)
-  if (authErr || !user) return json({ error: 'Unauthorized' }, 401)
-  const callerId = user.id
-  const { data: caller } = await sb.from('profiles').select('role').eq('id', callerId).maybeSingle()
-  const isStaff = caller?.role === 'admin' || caller?.role === 'trainer'
+  // The rescue sweeper grades conversations the student walked away from, so it calls
+  // with the service-role key itself. Gate that POSITIVELY on an exact key match —
+  // never on "there is no user", because anon requests are userless too.
+  const isServiceCall = !!token && !!SERVICE_KEY && token === SERVICE_KEY
+  let callerId: string | null = null
+  let isStaff = false
+  if (!isServiceCall) {
+    const { data: { user }, error: authErr } = await sb.auth.getUser(token)
+    if (authErr || !user) return json({ error: 'Unauthorized' }, 401)
+    callerId = user.id
+    const { data: caller } = await sb.from('profiles').select('role').eq('id', callerId).maybeSingle()
+    isStaff = caller?.role === 'admin' || caller?.role === 'trainer'
+  }
 
   const { data: convo } = await sb.from('speaking_conversations').select('*').eq('id', conversation_id).maybeSingle()
   if (!convo) return json({ error: 'conversation not found' }, 404)
-  if (convo.student_id !== callerId && !isStaff) return json({ error: 'Forbidden' }, 403)
+  if (!isServiceCall && convo.student_id !== callerId && !isStaff) return json({ error: 'Forbidden' }, 403)
   // Effective student = conversation owner (the impersonated student when staff is viewing as them).
   const studentId = convo.student_id
 
@@ -285,15 +296,34 @@ Include 2-4 "errors" and 2-3 "better_expressions" whenever there is material. Be
     // ── Curriculum progress (mirror evaluate-speaking exactly — phantom guard skips 'speaking') ──
     const scoreOutOf100 = aiEvaluation.overall_score * 10
     const { data: existing } = await sb.from('student_curriculum_progress')
-      .select('id').eq('student_id', studentId).eq('unit_id', convo.unit_id).eq('section_type', 'speaking').maybeSingle()
+      .select('id, score, status, completed_at').eq('student_id', studentId).eq('unit_id', convo.unit_id).eq('section_type', 'speaking').maybeSingle()
     if (existing) {
-      await sb.from('student_curriculum_progress').update({ status: 'completed', score: scoreOutOf100, completed_at: new Date().toISOString() }).eq('id', existing.id)
+      // BEST SCORE WINS. A later attempt — and above all a conversation the sweeper
+      // rescued weeks after the fact — must never pull a student's recorded score
+      // DOWN. (award_curriculum_xp has always worked this way; this row did not.)
+      // The completion timestamp likewise stays at the first completion.
+      const bestScore = Math.max(Number(existing.score) || 0, scoreOutOf100)
+      await sb.from('student_curriculum_progress').update({
+        status: 'completed',
+        score: bestScore,
+        completed_at: existing.completed_at || new Date().toISOString(),
+      }).eq('id', existing.id)
     } else {
       await sb.from('student_curriculum_progress').insert({
         student_id: studentId, unit_id: convo.unit_id, section_type: 'speaking',
         status: 'completed', score: scoreOutOf100, completed_at: new Date().toISOString(),
       })
     }
+
+    // XP here too, not only in the client. The student who closed the tab (and every
+    // sweeper-rescued conversation) earns exactly what she would have earned live —
+    // award_curriculum_xp is idempotent per (student, unit, section), so the client's
+    // own call right after a live grade simply returns 0.
+    const { error: xpErr } = await sb.rpc('award_curriculum_xp', {
+      p_student_id: studentId, p_section_type: 'speaking',
+      p_score: Math.round(scoreOutOf100), p_unit_id: convo.unit_id, p_description: null,
+    })
+    if (xpErr) console.error('award_curriculum_xp failed:', xpErr.message)
   }
 
   // Usage log

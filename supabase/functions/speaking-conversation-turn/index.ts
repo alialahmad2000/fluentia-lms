@@ -28,6 +28,7 @@ const TTS_BUCKET = 'curriculum-audio'
 
 const MAX_STUDENT_TURNS = 8   // hard cap — after this the AI wraps up (done=true)
 const WRAP_HINT_AFTER    = 5  // begin steering toward a graceful close from here
+const CAN_FINISH_AFTER   = 3  // from here the student may end + be graded — she must be TOLD so
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -109,7 +110,7 @@ async function transcribe(sb: any, audioPath: string): Promise<string> {
 // Individual-track professional roleplay: the AI plays a CHARACTER from the module's
 // scenario (a client, a CEO, an agency rep…) instead of "Layla the coach". Same warmth,
 // same recast rules, same level-awareness — different persona.
-function buildRoleplaySystemPrompt(rp: any, levelDesc: string, wrap: boolean): string {
+function buildRoleplaySystemPrompt(rp: any, levelDesc: string, wrap: boolean, mayClose = false): string {
   const phrases = Array.isArray(rp?.useful_phrases) && rp.useful_phrases.length
     ? rp.useful_phrases.join('; ') : ''
   return `${rp?.ai_role || 'You are a friendly professional in a workplace roleplay with an adult Arabic-speaking English learner at Fluentia Academy in Saudi Arabia.'}
@@ -128,10 +129,11 @@ HOW TO TALK:
 - NEVER correct their grammar explicitly. If they make a meaning-blocking mistake, gently model the correct form INSIDE your in-character reply (a natural recast).
 - If they answer in Arabic or get stuck, kindly receive the meaning, give them the simple English way to say it as part of your reply, then continue the scenario.
 - Follow the scenario's arc: if your character is meant to push back, negotiate, or eventually approve, do it naturally across the turns.
-${wrap ? '- IMPORTANT: begin wrapping the scenario up now IN CHARACTER — move to a natural conclusion (an agreement, a decision, a thank-you), acknowledge their effort, and close warmly.' : ''}`
+${wrap ? '- IMPORTANT: begin wrapping the scenario up now IN CHARACTER — move to a natural conclusion (an agreement, a decision, a thank-you), acknowledge their effort, and close warmly.' : ''}
+${mayClose ? '- They have now spoken enough to be scored. Carry on naturally, but if they sound finished, hesitant or out of ideas, tell them warmly — still in character — that they can stop here whenever they like and see their feedback by tapping the finish button under the microphone.' : ''}`
 }
 
-function buildSystemPrompt(topic: any, levelDesc: string, wrap: boolean): string {
+function buildSystemPrompt(topic: any, levelDesc: string, wrap: boolean, mayClose = false): string {
   const phrases = Array.isArray(topic?.useful_phrases) && topic.useful_phrases.length
     ? topic.useful_phrases.join('; ') : ''
   return `You are "Layla", a warm, patient English conversation partner for an adult Arabic-speaking learner at Fluentia Academy in Saudi Arabia. You are having a friendly SPOKEN conversation to help them practice speaking English about ONE topic.
@@ -146,7 +148,8 @@ HOW TO TALK:
 - Match their level (above). Be warm, encouraging and human — no lists, no meta talk, never say you are an AI or a model.
 - NEVER correct their grammar explicitly during the chat. If they make a meaning-blocking mistake, gently model the correct form INSIDE your reply (a natural recast): if they say "I go market yesterday", you reply "Oh, you went to the market yesterday — what did you buy?".
 - If they answer in Arabic or get stuck, kindly receive the meaning, give them the simple English way to say it, then continue with your question. Never shame a mistake.
-${wrap ? '- IMPORTANT: this conversation has gone on nicely — start to warmly wrap it up now. Acknowledge their effort, say something kind, and gently bring it to a close.' : ''}`
+${wrap ? '- IMPORTANT: this conversation has gone on nicely — start to warmly wrap it up now. Acknowledge their effort, say something kind, and gently bring it to a close.' : ''}
+${mayClose ? '- They have now spoken enough to be scored. Keep the chat going naturally, but if they sound finished, hesitant or out of ideas, tell them warmly that they can stop here whenever they like and see their feedback by tapping the finish button under the microphone.' : ''}`
 }
 
 // ROLEPLAY replies are spoken by TTS — strip stage directions the model sneaks in
@@ -372,10 +375,14 @@ serve(async (req) => {
       }
       const levelDesc = LEVEL_DESCRIPTORS[level] || LEVEL_DESCRIPTORS[1]
       const wrap = newStudentTurnCount >= MAX_STUDENT_TURNS || newStudentTurnCount >= WRAP_HINT_AFTER
+      // From the turn she becomes gradeable until the wrap-up takes over, Layla is the one
+      // who tells her the feedback is one tap away — a silent button below the fold was
+      // never going to carry that (4 abandoned conversations in one evening proved it).
+      const mayClose = !wrap && newStudentTurnCount >= CAN_FINISH_AFTER
       const done = newStudentTurnCount >= MAX_STUDENT_TURNS
       const system = convo.module_id
-        ? buildRoleplaySystemPrompt(rp, levelDesc, wrap)
-        : buildSystemPrompt(topic, levelDesc, wrap)
+        ? buildRoleplaySystemPrompt(rp, levelDesc, wrap, mayClose)
+        : buildSystemPrompt(topic, levelDesc, wrap, mayClose)
 
       const history = [
         ...(turns || []).filter((t: any) => t.content).map((t: any) => ({ role: t.role === 'ai' ? 'assistant' : 'user', content: t.content })),
