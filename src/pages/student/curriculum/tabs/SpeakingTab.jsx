@@ -13,6 +13,15 @@
 //   ② المحادثة — the live voiced conversation, the hero, full width.
 //   ③ الحصيلة  — score + detailed feedback, one segmented panel instead of
 //                eight stacked sub-sections.
+//
+// 2026-08-21 — THE PAGE NOW INVERTS ON COMPLETION. Before this, a finished task
+// still led with the cover, the brief and an armed «ابدئي المحادثة» stage, and
+// buried the payoff three screens down behind the full replay. Once the work is
+// graded the page has a different job — show her what she achieved and hand her
+// the next step — so: brief collapses to its strip, the stage unmounts until she
+// asks to redo, and الحصيلة rises to the top as a verdict she can read without
+// scrolling. Her own sentences (the point of the whole section) are permanent
+// here now, not just inside the transient reward screen.
 // Prep material (tips + phrases + the brief itself) moved INSIDE the stage as
 // one «مساعدة» sheet reachable mid-conversation, where it is actually needed.
 //
@@ -22,19 +31,22 @@
 // speaking_recordings row stay untouched, and old evaluations still render.
 // ═══════════════════════════════════════════════════════════════════════════
 
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { genderizeText, useG, useGenderize } from '@/i18n/gender'
+import { useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Mic, ChevronDown, Clock, Sparkles, Loader2, History, GraduationCap,
   Languages, MessagesSquare, LifeBuoy, CheckCircle2, X, Wand2, Quote, Volume2,
+  Play, Pause, TrendingUp, ArrowLeft, Headphones,
 } from 'lucide-react'
 import AudioPlayer from '../../../../components/AudioPlayer'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
+import { useUnitProgress } from '../../../../hooks/useUnitProgress'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import ConversationMode from '../../../../components/curriculum/speaking/ConversationMode'
@@ -51,6 +63,9 @@ import './speakingStudio.css'
 // «2 دقيقتان»), takes the plural for 3–10 and the singular again from 11 up.
 const secPhrase = (n) => (n === 1 ? 'ثانية' : n === 2 ? 'ثانيتين' : n <= 10 ? `${n} ثوانٍ` : `${n} ثانية`)
 const minPhrase = (n) => (n === 1 ? 'دقيقة' : n === 2 ? 'دقيقتين' : n <= 10 ? `${n} دقائق` : `${n} دقيقة`)
+// «ردّ» counts like everything else in Arabic: 1 singular · 2 dual · 3-10 plural.
+const turnsPhrase = (n) => (n === 1 ? 'ردّ واحد' : n === 2 ? 'ردّين' : n <= 10 ? `${n} ردود` : `${n} ردّ`)
+const fmtClock = (sec) => `${Math.floor(sec / 60)}:${String(Math.round(sec % 60)).padStart(2, '0')}`
 const formatDuration = (sec) => {
   if (!sec && sec !== 0) return ''
   if (sec < 60) return secPhrase(sec)
@@ -315,10 +330,20 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
   const { data: leaderboard } = useActivityLeaderboard('speaking', unitId, studentId, groupId)
   // her conversations exist independently of the summary recording row
   const { data: convos } = useSpeakingConversations(studentId, unitId, questionIndex)
+  // Same query key the unit header uses → served from cache, no extra request.
+  const { data: unitProg } = useUnitProgress(studentId, unitId)
+  const [redoing, setRedoing] = useState(false)
+
+  const aiEval = liveEvaluation || existingRecording?.ai_evaluation
+  // "Done" means GRADED — a recording with no evaluation yet is still pending,
+  // and must keep the ordinary layout so she isn't shown an empty verdict.
+  const isDone = !!aiEval
+  const showStage = !isDone || redoing
 
   // The brief steps aside the moment the conversation is live — the mic must
   // never be below the fold. It stays one tap away in the strip + help sheet.
-  useEffect(() => { setBriefOpen(phase === 'intro') }, [phase])
+  // Once the task is graded it starts collapsed: she has already read it.
+  useEffect(() => { setBriefOpen(phase === 'intro' && !isDone) }, [phase, isDone])
 
   // Realtime — a late sweeper evaluation lands without a reload.
   useEffect(() => {
@@ -347,7 +372,6 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
     return () => { supabase.removeChannel(channel) }
   }, [existingRecording?.id, existingRecording?.evaluation_status, onComplete])
 
-  const aiEval = liveEvaluation || existingRecording?.ai_evaluation
   const typeLabel = TOPIC_TYPE_AR[topic.topic_type] || topic.topic_type || 'محادثة'
 
   // What the student reads first should be THE QUESTION, not a generic verb.
@@ -374,15 +398,13 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
   return (
     <>
       <div className="spk-stage">
-        {/* Already done once — a quiet acknowledgement, not a wall of scores */}
-        {existingRecording && phase === 'intro' && (
+        {/* A pending (ungraded) attempt still gets the quiet acknowledgement —
+            the verdict block below needs a real evaluation to say anything. */}
+        {existingRecording && !isDone && phase === 'intro' && (
           <div className="spk-done">
             <span className="spk-done-dot"><CheckCircle2 size={13} /></span>
             <p className="text-[12px] font-bold font-['Tajawal']" style={{ color: 'rgba(238,245,255,0.78)' }}>
               {g('أنجزت هذه المهمة', 'أنجزتِ هذه المهمة')}
-              {aiEval?.overall_score != null && (
-                <span className="mx-1.5 tabular-nums" style={{ color: '#6ee7b7' }}>· {aiEval.overall_score}/10</span>
-              )}
             </p>
             <span className="text-[11px] font-['Tajawal'] mr-auto" style={{ color: 'rgba(238,245,255,0.4)' }}>
               {g('تقدر تعيدها', 'تقدرين تعيدينها')}
@@ -476,14 +498,18 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
           )}
         </AnimatePresence>
 
-        {/* ② THE CONVERSATION */}
-        {studentId && (
+        {/* ② THE CONVERSATION — unmounted once graded, so a finished page does
+            not lead with an armed «ابدئي المحادثة». It comes back the moment she
+            chooses to redo, and starts immediately: pressing «محادثة جديدة» IS
+            the decision, a second start screen would just be a tax. */}
+        {studentId && showStage && (
           <ConversationMode
             variant="stage"
             topic={topic}
             studentId={studentId}
             unitId={unitId}
             questionIndex={questionIndex}
+            autoStart={redoing}
             onComplete={onComplete}
             onPhaseChange={setPhase}
             headerExtra={(notes.length > 0 || phrases.length > 0 || promptAr) ? (
@@ -500,14 +526,28 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
         )}
       </div>
 
-      {/* ③ AFTER — outcome, one band */}
+      {/* ③ AFTER — outcome, one band.
+          Order is deliberate and inverted from the old page: the verdict, then
+          HER OWN WORDS, then the coaching detail, and only then the replay —
+          which is a reference, not a reward, and no longer costs her a screen
+          of scrolling before she sees a single number. */}
       {(aiEval || existingRecording || convos?.length > 0) && (
         <>
           <div className="spk-band-label"><b /><span>الحصيلة</span><i /></div>
 
-          {/* The WHOLE exchange with Layla — both voices, replayable in order,
-              for this conversation and every earlier one on this task. */}
-          <ConversationPlayback studentId={studentId} unitId={unitId} questionIndex={questionIndex} />
+          {isDone && (
+            <VerdictBlock
+              evaluation={aiEval}
+              recording={existingRecording}
+              convo={convos?.[0] || null}
+              unitProg={unitProg}
+              attempts={allAttempts}
+            />
+          )}
+
+          {isDone && existingRecording?.conversation_id && (
+            <MyWords conversationId={existingRecording.conversation_id} />
+          )}
 
           {/* The student's OWN submission — audio + what they actually said.
               Record-once is retired, but 77 of the 97 live recordings came from
@@ -516,7 +556,25 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
               the historical record-once attempts. */}
           {existingRecording && !existingRecording.conversation_id && <PreviousSubmission recording={existingRecording} />}
 
-          {aiEval && <SpeakingEvaluation evaluation={aiEval} />}
+          {aiEval && (
+            <SpeakingEvaluation
+              evaluation={aiEval}
+              showScore={!isDone}
+              initialTab={isDone && (aiEval.errors?.length > 0 || aiEval.corrected_transcript) ? 'fixes' : 'summary'}
+            />
+          )}
+
+          {/* The full exchange with Layla — a reference she can open, not a wall
+              she must scroll past. Open by default only when there is no verdict
+              to lead with (a pending or ungraded attempt). */}
+          <details className="spk-replay" open={!isDone}>
+            <summary>
+              <span className="spk-replay-ico"><Headphones size={14} /></span>
+              <span className="spk-replay-t">{g('استمع للمحادثة كاملة', 'استمعي للمحادثة كاملة')}</span>
+              <ChevronDown size={14} className="spk-replay-chev" />
+            </summary>
+            <ConversationPlayback studentId={studentId} unitId={unitId} questionIndex={questionIndex} />
+          </details>
 
           {existingRecording && !aiEval && <PendingEvaluation status={realtimeStatus || existingRecording?.evaluation_status} />}
 
@@ -603,6 +661,15 @@ function SpeakingStudio({ topic, questionIndex, unitId, studentId, studentName, 
                 currentStudentId={studentId}
               />
             </div>
+          )}
+
+          {isDone && !redoing && (
+            <NextStep
+              score={aiEval?.overall_score}
+              unitProg={unitProg}
+              unitId={unitId}
+              onRedo={() => { setRedoing(true); setBriefOpen(false) }}
+            />
           )}
         </>
       )}
@@ -809,8 +876,8 @@ const CRITERIA_AR = {
   task_completion_score: 'إتمام المهمة',
 }
 
-function SpeakingEvaluation({ evaluation }) {
-  const [tab, setTab] = useState('summary')
+function SpeakingEvaluation({ evaluation, showScore = true, initialTab = 'summary' }) {
+  const [tab, setTab] = useState(initialTab)
 
   const scores = Object.entries(CRITERIA_AR)
     .map(([key, label]) => ({ key, label, score: evaluation[key] }))
@@ -841,18 +908,23 @@ function SpeakingEvaluation({ evaluation }) {
   return (
     <div className="spk-panel">
       {/* score hero — the overall reads first, the four criteria are a compact
-          2×2 of short meters (a full-width bar for a 0-10 value is noise). */}
-      <div className="spk-score-hero">
-        {overall != null && (
-          <>
-            <div className="spk-score-num" style={{ color }}>{overall}<small>/10</small></div>
-            <span className="spk-score-band" style={{ color, borderColor: `${color}44`, background: `${color}18` }}>{band}</span>
-          </>
-        )}
-        <span className="text-[11px] font-['Tajawal'] mr-auto" style={{ color: 'rgba(238,245,255,0.38)' }}>تقييم ليلى</span>
-      </div>
+          2×2 of short meters (a full-width bar for a 0-10 value is noise).
+          Suppressed when the verdict block above already carries the score and
+          the same four criteria: printing them twice, 200px apart, made the
+          page look like it was reporting two different results. */}
+      {showScore && (
+        <div className="spk-score-hero">
+          {overall != null && (
+            <>
+              <div className="spk-score-num" style={{ color }}>{overall}<small>/10</small></div>
+              <span className="spk-score-band" style={{ color, borderColor: `${color}44`, background: `${color}18` }}>{band}</span>
+            </>
+          )}
+          <span className="text-[11px] font-['Tajawal'] mr-auto" style={{ color: 'rgba(238,245,255,0.38)' }}>تقييم ليلى</span>
+        </div>
+      )}
 
-      {scores.length > 0 && (
+      {showScore && scores.length > 0 && (
         <div className="spk-meters">
           {scores.map((s) => (
             <div key={s.key}>
@@ -957,6 +1029,263 @@ function SpeakingEvaluation({ evaluation }) {
           </div>
         )}
       </div>
+    </div>
+  )
+}
+
+// ── VERDICT — what the page leads with once the work is graded ─────────────
+// A number alone means nothing to a student: 6.2/10 reads like "barely passed"
+// unless she is told what her own level is expected to score. Every LEVEL
+// DESCRIPTOR the grader uses defines 5 as "meeting expectations", so that is the
+// benchmark drawn on the track.
+const EXPECTED = 5
+
+function VerdictBlock({ evaluation, recording, convo, unitProg, attempts = [] }) {
+  const g = useG()
+  const gz = useGenderize()
+  const score = Number(evaluation?.overall_score)
+  if (!Number.isFinite(score)) return null
+
+  const pct = Math.max(0, Math.min(100, score * 10))
+  const band = score >= EXPECTED + 2
+    ? { c: '#34d399', t: g('أداء ممتاز لمستواك', 'أداءٌ ممتاز لمستواكِ') }
+    : score >= EXPECTED
+      ? { c: '#6ee7b7', t: g('أداء فوق المتوقّع لمستواك', 'أداءٌ فوق المتوقّع لمستواكِ') }
+      : score >= EXPECTED - 1.5
+        ? { c: '#f5c842', t: g('قريب من المتوقّع لمستواك', 'قريبةٌ من المتوقّع لمستواكِ') }
+        : { c: '#f5c842', t: g('خطوة أولى صحيحة', 'خطوةٌ أولى صحيحة') }
+
+  const subs = [
+    { k: 'grammar_score', l: 'القواعد', c: '#a78bfa' },
+    { k: 'vocabulary_score', l: 'المفردات', c: '#f5c842' },
+    { k: 'fluency_score', l: 'الطلاقة', c: '#22d3ee' },
+    { k: 'task_completion_score', l: 'إنجاز المهمة', c: '#34d399' },
+  ].filter((x) => Number.isFinite(Number(evaluation?.[x.k])))
+
+  const seconds = convo?.total_speaking_seconds || recording?.audio_duration_seconds || 0
+  const turns = convo?.turn_count || 0
+  const done = unitProg?.completedCount
+  const total = unitProg?.activeCount
+
+  // The verdict sentence is the grader's own Arabic, trimmed to its first beat —
+  // the full paragraph lives in الملخّص below and must not be printed twice.
+  const lead = (evaluation.feedback_ar || evaluation.strengths || '').split('.')[0]
+
+  // Scored attempts, oldest → newest. Two or more means there is a STORY.
+  const line = attempts
+    .map((a) => Number(a?.ai_evaluation?.overall_score))
+    .filter(Number.isFinite)
+    .reverse()
+  const best = line.length ? Math.max(...line) : score
+  const improved = line.length > 1 && line[line.length - 1] > line[0]
+
+  return (
+    <motion.div
+      className="spk-verdict"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      style={{ '--vc': band.c }}
+    >
+      <div className="spk-verdict-top">
+        <div className="spk-dial" aria-hidden>
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="52" className="spk-dial-track" />
+            <motion.circle
+              cx="60" cy="60" r="52" className="spk-dial-fill"
+              strokeDasharray="326.7"
+              initial={{ strokeDashoffset: 326.7 }}
+              animate={{ strokeDashoffset: 326.7 * (1 - pct / 100) }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            />
+          </svg>
+          <div className="spk-dial-n">
+            <b>{score}</b><i>/ 10</i>
+          </div>
+        </div>
+
+        <div className="spk-verdict-main">
+          <span className="spk-verdict-kick"><CheckCircle2 size={13} />{g('أنهيت محادثتك بالإنجليزي', 'أنهيتِ محادثتكِ بالإنجليزي')}</span>
+          <h3 className="spk-verdict-h">{band.t}</h3>
+          {lead && <p className="spk-verdict-lead">{gz(lead)}.</p>}
+
+          <div className="spk-verdict-pills">
+            {seconds > 0 && <span className="spk-vpill">{g('تكلّمت', 'تكلّمتِ')} {formatDuration(seconds)} {g('بالإنجليزي', 'بالإنجليزي')}</span>}
+            {turns > 0 && <span className="spk-vpill">{turnsPhrase(turns)}</span>}
+            {Number.isFinite(done) && Number.isFinite(total) && (
+              <span className="spk-vpill" data-tone="gold">المحادثة ✓ — {done} من {total} في الوحدة</span>
+            )}
+          </div>
+
+          <div className="spk-bench">
+            <div className="spk-bench-head">
+              <span>{g('المتوقّع لمستواك', 'المتوقّع لمستواكِ')}: {EXPECTED}.0</span>
+              <span>{g('أنت', 'أنتِ')}: {score}</span>
+            </div>
+            <div className="spk-track">
+              <motion.span className="spk-track-fill" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} />
+              <span className="spk-track-mark" style={{ insetInlineStart: `${EXPECTED * 10}%` }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {subs.length > 0 && (
+        <div className="spk-subs">
+          {subs.map((x) => {
+            const v = Number(evaluation[x.k])
+            return (
+              <div className="spk-sub" key={x.k}>
+                <span className="spk-sub-l">{x.l}</span>
+                <span className="spk-sub-v">{v.toFixed(1)}</span>
+                <span className="spk-sub-m"><i style={{ width: `${v * 10}%`, background: x.c }} /></span>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {line.length > 1 && (
+        <div className="spk-arc" data-improved={improved}>
+          <TrendingUp size={13} />
+          <span className="spk-arc-t">
+            {improved
+              ? g(`تحسّنت من ${line[0]} إلى ${line[line.length - 1]}`, `تحسّنتِ من ${line[0]} إلى ${line[line.length - 1]}`)
+              : g('محاولاتك على هذه المهمة', 'محاولاتكِ على هذه المهمة')}
+          </span>
+          <span className="spk-arc-dots">
+            {line.map((v, i) => (
+              <span key={i} className="spk-arc-dot" data-best={v === best} style={{ height: `${18 + v * 2.4}px` }} title={`${v}/10`}>
+                <b>{v}</b>
+              </span>
+            ))}
+          </span>
+          <span className="spk-arc-best">{g('أفضل درجة تُحتسب', 'أفضل درجة تُحتسب')}: {best}</span>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+// ── HER OWN WORDS — the point of the whole section ─────────────────────────
+// This lived only inside ConversationMode's result screen, so it vanished on
+// reload and what SURVIVED was the list of her mistakes. For an adult who is
+// nervous about speaking, that is exactly backwards: the sentences she actually
+// produced in English are the evidence she can do it, and they are permanent now.
+function MyWords({ conversationId }) {
+  const g = useG()
+  const [playing, setPlaying] = useState(null)
+  const audioRef = useRef(null)
+
+  const { data: turns } = useQuery({
+    queryKey: ['my-words', conversationId],
+    enabled: !!conversationId,
+    staleTime: 10 * 60 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('speaking_conversation_turns')
+        .select('turn_index, content, audio_path, audio_duration_seconds')
+        .eq('conversation_id', conversationId)
+        .eq('role', 'student')
+        .order('turn_index')
+      if (error) { console.error('[MyWords]', error.message); return [] }
+      // Student audio lives in the PRIVATE voice-notes bucket — sign per view.
+      return Promise.all((data || []).filter((t) => t.content?.trim()).map(async (t) => {
+        if (!t.audio_path) return t
+        const { data: u } = await supabase.storage.from('voice-notes').createSignedUrl(t.audio_path, 60 * 60 * 6)
+        return { ...t, url: u?.signedUrl || null }
+      }))
+    },
+  })
+
+  useEffect(() => () => { try { audioRef.current?.pause() } catch { /* detached */ } }, [])
+
+  const play = useCallback((t) => {
+    if (!t.url) return
+    // Attach to the DOM — a detached Audio() element is killed mid-play on iPad.
+    let a = audioRef.current
+    if (!a) {
+      a = document.createElement('audio')
+      a.style.display = 'none'
+      document.body.appendChild(a)
+      audioRef.current = a
+    }
+    if (playing === t.turn_index) { try { a.pause() } catch { /* noop */ } ; setPlaying(null); return }
+    a.src = t.url
+    a.onended = () => setPlaying(null)
+    a.play().then(() => setPlaying(t.turn_index)).catch(() => setPlaying(null))
+  }, [playing])
+
+  if (!turns?.length) return null
+
+  return (
+    <div className="spk-words">
+      <p className="spk-words-h"><Quote size={13} />{g('كلامك اليوم بالإنجليزي', 'كلامكِ اليوم بالإنجليزي')}</p>
+      {turns.map((t, i) => (
+        <motion.div
+          key={t.turn_index}
+          className="spk-word"
+          initial={{ opacity: 0, x: 8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.06 * i, duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {t.url && (
+            <button type="button" className="spk-word-play" onClick={() => play(t)} aria-label={g('استمع لصوتك', 'استمعي لصوتكِ')}>
+              {playing === t.turn_index ? <Pause size={13} /> : <Play size={13} />}
+            </button>
+          )}
+          <div className="spk-word-body">
+            <p dir="ltr">{t.content.trim()}</p>
+            {t.audio_duration_seconds > 0 && <span className="spk-word-t" dir="ltr">{fmtClock(t.audio_duration_seconds)}</span>}
+          </div>
+        </motion.div>
+      ))}
+      <p className="spk-words-foot">{g('هذا أنت تتكلم إنجليزي 🤍', 'هذي أنتِ تتكلمين إنجليزي 🤍')}</p>
+    </div>
+  )
+}
+
+// ── THE HAND-OFF — finishing is a doorway, not a dead end ──────────────────
+const SECTION_AR = {
+  reading: 'القراءة', grammar: 'القواعد', vocabulary: 'المفردات',
+  listening: 'الاستماع', writing: 'الكتابة', speaking: 'المحادثة',
+}
+const SECTION_ORDER = ['reading', 'grammar', 'vocabulary', 'listening', 'writing']
+
+function NextStep({ score, unitProg, unitId, onRedo }) {
+  const g = useG()
+  const navigate = useNavigate()
+  const { basePath } = useCurriculumPreview()
+  const status = unitProg?.tabStatus || {}
+  const next = SECTION_ORDER.find((k) => status[k] && status[k] !== 'completed')
+    || SECTION_ORDER.find((k) => !status[k])
+
+  return (
+    <div className="spk-next">
+      <div className="spk-next-card" data-hi="true">
+        <span className="spk-next-k">{g('أقوى خطوة الآن', 'أقوى خطوة الآن')}</span>
+        <h4>{score != null ? g(`أعد المحادثة وتجاوز ${score}`, `أعيدي المحادثة وتجاوزي ${score}`) : g('أعد المحادثة', 'أعيدي المحادثة')}</h4>
+        <p>{g('نفس الموقف، ومعك الآن التصحيحات والصياغة الاحترافية. أفضل درجة هي التي تُحتسب.',
+             'نفس الموقف، ومعكِ الآن التصحيحات والصياغة الاحترافية. أفضل درجة هي التي تُحتسب.')}</p>
+        <button type="button" className="spk-next-go" data-hi="true" onClick={onRedo}>
+          <Mic size={14} /> {g('محادثة جديدة', 'محادثة جديدة')}
+        </button>
+      </div>
+
+      {next && (
+        <div className="spk-next-card">
+          <span className="spk-next-k">{g('باقي في الوحدة', 'باقي في الوحدة')}</span>
+          <h4>{SECTION_AR[next]}</h4>
+          <p>{g('كمّل الوحدة وأنت في جوّها.', 'كمّلي الوحدة وأنتِ في جوّها.')}</p>
+          <button
+            type="button"
+            className="spk-next-go"
+            onClick={() => navigate(`${basePath || '/student/curriculum'}/unit/${unitId}?activity=${next}`)}
+          >
+            {g('افتح', 'افتحي')} {SECTION_AR[next]} <ArrowLeft size={14} />
+          </button>
+        </div>
+      )}
     </div>
   )
 }

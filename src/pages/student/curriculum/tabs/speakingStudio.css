@@ -539,3 +539,134 @@ button.spk-chip[data-accent='true']:hover { color: #fff3cf; background: rgba(245
   .spk-bloom span { animation: none !important; }
   .spk-strip, .spk-row, .spk-seg button, button.spk-chip { transition: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE COMPLETED STATE (2026-08-21)
+   Once the task is graded the page inverts: the brief collapses to its strip,
+   the stage unmounts, and these three blocks carry it — verdict, her own words,
+   and the hand-off. Everything here is additive; nothing above was restyled.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── ① VERDICT ─────────────────────────────────────────────────────────── */
+.spk-verdict{
+  position:relative; border-radius:24px; padding:22px 20px 18px; margin-bottom:12px;
+  border:1px solid color-mix(in srgb, var(--vc, #34d399) 24%, transparent);
+  background:
+    radial-gradient(120% 130% at 88% -20%, color-mix(in srgb, var(--vc,#34d399) 18%, transparent), transparent 58%),
+    radial-gradient(100% 120% at 8% 0%, rgba(245,200,66,.13), transparent 54%),
+    linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+  box-shadow:0 26px 64px -42px color-mix(in srgb, var(--vc,#34d399) 60%, transparent);
+}
+@supports not (color: color-mix(in srgb, red 50%, blue)){
+  .spk-verdict{ border-color:rgba(52,211,153,.24); box-shadow:0 26px 64px -42px rgba(52,211,153,.55) }
+}
+.spk-verdict-top{ display:flex; align-items:flex-start; gap:20px; flex-wrap:wrap }
+
+.spk-dial{ position:relative; width:124px; height:124px; flex:0 0 auto; display:grid; place-items:center }
+.spk-dial svg{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg) }
+.spk-dial-track{ fill:none; stroke:rgba(255,255,255,.09); stroke-width:9 }
+.spk-dial-fill{ fill:none; stroke:var(--vc,#34d399); stroke-width:9; stroke-linecap:round }
+.spk-dial-n{ text-align:center; line-height:1 }
+.spk-dial-n b{ display:block; font-family:'Inter',system-ui,sans-serif; font-size:36px; font-weight:800; letter-spacing:-.03em; color:#f4f8ff }
+.spk-dial-n i{ display:block; font-style:normal; font-family:'Inter',system-ui,sans-serif; font-size:11.5px; margin-top:4px; color:rgba(238,245,255,.42) }
+
+.spk-verdict-main{ flex:1; min-width:min(100%, 250px) }
+.spk-verdict-kick{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800;
+  letter-spacing:.05em; color:var(--vc,#6ee7b7); font-family:'Tajawal',sans-serif }
+.spk-verdict-h{ margin:8px 0 6px; font-size:clamp(19px, 4.6vw, 23px); font-weight:900; letter-spacing:-.015em;
+  color:#f4f8ff; font-family:'Tajawal',sans-serif; line-height:1.35 }
+.spk-verdict-lead{ margin:0; font-size:12.5px; line-height:1.95; color:rgba(238,245,255,.68); max-width:52ch;
+  font-family:'Tajawal',sans-serif }
+.spk-verdict-pills{ display:flex; flex-wrap:wrap; gap:7px; margin-top:13px }
+.spk-vpill{ display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; padding:6px 11px;
+  border-radius:99px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+  color:rgba(238,245,255,.62); font-family:'Tajawal',sans-serif }
+.spk-vpill[data-tone="gold"]{ background:rgba(245,200,66,.11); border-color:rgba(245,200,66,.26); color:#fcd34d }
+
+.spk-bench{ margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,.07) }
+.spk-bench-head{ display:flex; justify-content:space-between; font-size:11px; color:rgba(238,245,255,.42);
+  margin-bottom:8px; font-family:'Tajawal',sans-serif }
+.spk-track{ position:relative; height:8px; border-radius:99px; background:rgba(255,255,255,.07) }
+.spk-track-fill{ position:absolute; inset-block:0; inset-inline-start:0; border-radius:99px;
+  background:linear-gradient(90deg,#22d3ee,var(--vc,#34d399)) }
+.spk-track-mark{ position:absolute; top:-5px; width:2px; height:18px; border-radius:2px; background:rgba(255,255,255,.55) }
+
+.spk-subs{ display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-top:18px }
+.spk-sub{ background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.07); border-radius:15px; padding:11px 12px }
+.spk-sub-l{ display:block; font-size:11px; font-weight:700; color:rgba(238,245,255,.42); font-family:'Tajawal',sans-serif }
+.spk-sub-v{ display:block; font-family:'Inter',system-ui,sans-serif; font-size:18px; font-weight:800; color:#f4f8ff; margin:5px 0 7px }
+.spk-sub-m{ display:block; height:5px; border-radius:99px; background:rgba(255,255,255,.08); overflow:hidden }
+.spk-sub-m i{ display:block; height:100%; border-radius:99px }
+
+.spk-arc{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:16px; padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.07); color:rgba(238,245,255,.55) }
+.spk-arc[data-improved="true"]{ color:#6ee7b7 }
+.spk-arc-t{ font-size:12px; font-weight:800; font-family:'Tajawal',sans-serif }
+.spk-arc-dots{ display:flex; align-items:flex-end; gap:6px; margin-inline-start:auto }
+.spk-arc-dot{ width:26px; border-radius:7px; background:rgba(255,255,255,.08); position:relative;
+  display:flex; align-items:flex-start; justify-content:center }
+.spk-arc-dot[data-best="true"]{ background:linear-gradient(180deg,rgba(52,211,153,.5),rgba(34,211,238,.22)) }
+.spk-arc-dot b{ font-family:'Inter',system-ui,sans-serif; font-size:10px; font-weight:800; color:#f4f8ff; margin-top:3px }
+.spk-arc-best{ font-size:11px; font-family:'Tajawal',sans-serif; color:rgba(238,245,255,.42) }
+
+/* ── ② HER OWN WORDS ───────────────────────────────────────────────────── */
+.spk-words{ margin-bottom:12px }
+.spk-words-h{ display:flex; align-items:center; gap:7px; margin:0 0 10px; font-size:12px; font-weight:800;
+  color:#7ee3f5; font-family:'Tajawal',sans-serif }
+.spk-word{ display:flex; align-items:flex-start; gap:11px; padding:13px 15px; border-radius:17px; margin-bottom:8px;
+  background:linear-gradient(135deg, rgba(0,212,255,.09), rgba(255,255,255,.02));
+  border:1px solid rgba(56,189,248,.18); border-inline-start:3px solid rgba(56,189,248,.55) }
+.spk-word-play{ width:32px; height:32px; border-radius:50%; flex:0 0 auto; display:grid; place-items:center;
+  background:rgba(56,189,248,.15); border:1px solid rgba(56,189,248,.32); color:#7ee3f5; cursor:pointer;
+  transition:transform .18s cubic-bezier(.16,1,.3,1) }
+.spk-word-play:hover{ transform:translateY(-1px) }
+.spk-word-body{ flex:1; min-width:0 }
+.spk-word-body p{ margin:0; font-family:'Inter',system-ui,sans-serif; font-size:13.5px; line-height:1.75;
+  text-align:left; color:rgba(248,250,252,.9) }
+.spk-word-t{ display:block; margin-top:6px; font-family:'Inter',system-ui,sans-serif; font-size:10.5px;
+  color:rgba(238,245,255,.38); text-align:left }
+.spk-words-foot{ text-align:center; margin:12px 0 0; font-size:12px; font-weight:700;
+  color:rgba(238,245,255,.55); font-family:'Tajawal',sans-serif }
+
+/* ── the replay, demoted to a reference ────────────────────────────────── */
+.spk-replay{ margin-top:12px; border-radius:18px; border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.028); overflow:hidden }
+.spk-replay>summary{ display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer;
+  list-style:none; font-family:'Tajawal',sans-serif }
+.spk-replay>summary::-webkit-details-marker{ display:none }
+.spk-replay-ico{ width:30px; height:30px; border-radius:9px; display:grid; place-items:center; flex:0 0 auto;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:#a5b4fc }
+.spk-replay-t{ font-size:13px; font-weight:700; color:rgba(238,245,255,.78) }
+.spk-replay-chev{ margin-inline-start:auto; color:rgba(238,245,255,.4); transition:transform .24s ease }
+.spk-replay[open] .spk-replay-chev{ transform:rotate(180deg) }
+
+/* ── ③ THE HAND-OFF ────────────────────────────────────────────────────── */
+.spk-next{ display:grid; grid-template-columns:1.15fr 1fr; gap:11px; margin-top:14px }
+.spk-next-card{ padding:18px; border-radius:19px; border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.03); display:flex; flex-direction:column; gap:8px }
+.spk-next-card[data-hi="true"]{ background:linear-gradient(135deg, rgba(52,211,153,.11), rgba(34,211,238,.06));
+  border-color:rgba(52,211,153,.24) }
+.spk-next-k{ font-size:10.5px; font-weight:800; letter-spacing:.06em; color:rgba(238,245,255,.42);
+  font-family:'Tajawal',sans-serif }
+.spk-next-card h4{ margin:0; font-size:15.5px; font-weight:800; color:#f4f8ff; font-family:'Tajawal',sans-serif }
+.spk-next-card p{ margin:0; font-size:12px; line-height:1.9; color:rgba(238,245,255,.6); font-family:'Tajawal',sans-serif }
+.spk-next-go{ margin-top:4px; align-self:flex-start; display:inline-flex; align-items:center; gap:7px;
+  min-height:42px; padding:0 18px; border-radius:13px; cursor:pointer; font-family:'Tajawal',sans-serif;
+  font-size:13px; font-weight:800; color:#f4f8ff; background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.09); transition:transform .18s cubic-bezier(.16,1,.3,1) }
+.spk-next-go:hover{ transform:translateY(-1px) }
+.spk-next-go[data-hi="true"]{ color:#04121a; border:0; background:linear-gradient(135deg,#34d399,#22d3ee);
+  box-shadow:0 12px 30px -14px rgba(52,211,153,.85) }
+
+@media (max-width:640px){
+  .spk-verdict{ padding:18px 15px 16px }
+  .spk-verdict-top{ gap:14px }
+  .spk-dial{ width:104px; height:104px }
+  .spk-dial-n b{ font-size:30px }
+  .spk-subs{ grid-template-columns:repeat(2,1fr) }
+  .spk-next{ grid-template-columns:1fr }
+  .spk-arc-dots{ margin-inline-start:0 }
+}
+@media (prefers-reduced-motion: reduce){
+  .spk-word-play, .spk-next-go{ transition:none }
+}
