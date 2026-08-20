@@ -22,7 +22,7 @@ function ScoreBar({ label, score, max = 10 }) {
     <div className="space-y-1">
       <div className="flex items-center justify-between">
         <span className="text-xs font-bold text-[var(--text-muted)] font-['Tajawal']">{label}</span>
-        <span className="text-xs font-bold text-sky-400 font-['Inter']">{score}/{max}</span>
+        <span className="text-xs font-bold text-sky-400 font-en">{score}/{max}</span>
       </div>
       <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
         <motion.div
@@ -58,14 +58,18 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="rounded-2xl p-5 space-y-5"
-      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
+      className="rounded-3xl p-5 sm:p-6 space-y-5"
+      style={{
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.012) 22%, rgba(255,255,255,0.008) 100%), #0b1626',
+        border: '1px solid rgba(255,255,255,0.07)',
+        boxShadow: '0 30px 70px -40px rgba(0,0,0,0.95)',
+      }}
     >
       {/* Header + overall score */}
       <div className="flex items-center justify-between">
         <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">التصحيح</h3>
         {overallScore != null && (
-          <span className="text-2xl font-bold text-sky-400 font-['Inter']">{overallScore}<span className="text-sm text-sky-400/60">/10</span></span>
+          <span className="text-2xl font-bold text-sky-400 font-en">{overallScore}<span className="text-sm text-sky-400/60">/10</span></span>
         )}
       </div>
 
@@ -86,7 +90,7 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
         </p>
       )}
       {showEnglish && overallCommentEn && (
-        <p className="text-sm text-[var(--text-muted)] font-['Inter'] leading-relaxed" dir="ltr">
+        <p className="text-sm text-[var(--text-muted)] font-en leading-relaxed" dir="ltr">
           {overallCommentEn}
         </p>
       )}
@@ -112,11 +116,11 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
                     <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold border ${colorCls}`}>
                       {ERROR_TYPE_AR[type] || type}
                     </span>
-                    <span className="line-through text-red-400/70 text-xs font-['Inter']" dir="ltr">
+                    <span className="line-through text-red-400/70 text-xs font-en" dir="ltr">
                       {e.original || e.error}
                     </span>
                     <span className="text-[var(--text-muted)] text-xs">→</span>
-                    <span className="text-emerald-400 text-xs font-['Inter']" dir="ltr">
+                    <span className="text-emerald-400 text-xs font-en" dir="ltr">
                       {e.correction}
                     </span>
                   </div>
@@ -126,7 +130,7 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
                     </p>
                   )}
                   {showEnglish && e.explanation_en && (
-                    <p className="text-[11px] text-[var(--text-muted)] font-['Inter']" dir="ltr">
+                    <p className="text-[11px] text-[var(--text-muted)] font-en" dir="ltr">
                       {e.explanation_en}
                     </p>
                   )}
@@ -175,12 +179,12 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
                 style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
               >
                 <div className="flex items-center gap-2 text-xs" dir="ltr">
-                  <span className="text-[var(--text-muted)] font-['Inter']">{vu.basic}</span>
+                  <span className="text-[var(--text-muted)] font-en">{vu.basic}</span>
                   <span className="text-[var(--text-muted)]">→</span>
-                  <span className="text-purple-400 font-bold font-['Inter']">{vu.advanced}</span>
+                  <span className="text-purple-400 font-bold font-en">{vu.advanced}</span>
                 </div>
                 {vu.example && (
-                  <p className="text-[11px] text-[var(--text-muted)] font-['Inter'] mt-1 italic" dir="ltr">
+                  <p className="text-[11px] text-[var(--text-muted)] font-en mt-1 italic" dir="ltr">
                     {vu.example}
                   </p>
                 )}
@@ -198,7 +202,7 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
             {modelSentences.map((s, i) => (
               <p
                 key={i}
-                className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed italic px-3 py-2 rounded-lg"
+                className="text-xs text-[var(--text-secondary)] font-en leading-relaxed italic px-3 py-2 rounded-lg"
                 dir="ltr"
                 style={{ background: 'rgba(56,189,248,0.04)', borderRight: '2px solid rgba(56,189,248,0.3)' }}
               >
@@ -254,7 +258,7 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
                 className="overflow-hidden"
               >
                 <p
-                  className="mt-2 text-sm text-[var(--text-secondary)] font-['Inter'] leading-[1.8] p-3 rounded-lg"
+                  className="mt-2 text-sm text-[var(--text-secondary)] font-en leading-[1.8] p-3 rounded-lg"
                   dir="ltr"
                   style={{ background: 'rgba(255,255,255,0.02)' }}
                 >

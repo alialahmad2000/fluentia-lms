@@ -13,6 +13,10 @@
   --surface-raised:      #0a1628;
   --surface-overlay:     #0f1d32;
   --surface-interactive: #132340;
+  /* Alias used by ~40 components that were never given a definition; without it
+     every `bg-[var(--surface-elevated)]` resolved to an invalid value and the
+     element rendered with NO background at all (the writing textarea was one). */
+  --surface-elevated:    #0f1d32;
 
   /* === Glass Effects === */
   --glass-card:          rgba(255, 255, 255, 0.025);
@@ -34,6 +38,11 @@
   --text-primary:        #f0f4f8;
   --text-secondary:      #8892b0;
   --text-tertiary:       #5a6785;
+  /* Same story: `--text-muted` is referenced ~930 times across the app and was
+     never defined, so "muted" text silently INHERITED its parent colour and the
+     whole secondary/muted hierarchy collapsed. Mapped to secondary (not the
+     dimmer tertiary) so nothing loses contrast. */
+  --text-muted:          #8892b0;
   --text-inverse:        #030711;
   --text-link:           #38bdf8;
   --text-on-accent:      #030711;
@@ -292,6 +301,7 @@
   --surface-raised:      #ffffff;   /* cards, sidebars */
   --surface-overlay:     #fffdf8;   /* modals, dropdowns — whisper of warmth */
   --surface-interactive: #f5efe0;   /* hover fills, sunken areas */
+  --surface-elevated:    #fffdf8;
 
   /* === Glass / Cards — solid whites with the faintest warm tint === */
   --glass-card:          #ffffff;
@@ -313,6 +323,7 @@
   --text-primary:        #1c150c;   /* warm near-black */
   --text-secondary:      #3d342a;   /* warm dark brown */
   --text-tertiary:       #7d6f5e;   /* warm muted */
+  --text-muted:          #3d342a;
   --text-inverse:        #ffffff;
   --text-link:           #0e7490;
   --text-on-accent:      #ffffff;
@@ -505,6 +516,7 @@
   --surface-raised:      #1a1538;
   --surface-overlay:     #221c48;
   --surface-interactive: #2a2258;
+  --surface-elevated:    #221c48;
 
   --glass-card:          rgba(167, 139, 250, 0.04);
   --glass-card-hover:    rgba(167, 139, 250, 0.08);
@@ -523,6 +535,7 @@
   --text-primary:        #f1f0ff;
   --text-secondary:      #a5a0c8;
   --text-tertiary:       #6b6490;
+  --text-muted:          #a5a0c8;
   --text-inverse:        #0c0a1d;
   --text-link:           #a78bfa;
   --text-on-accent:      #0c0a1d;
