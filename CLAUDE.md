@@ -313,6 +313,23 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-21 (2) — TYPOGRAPHY: every English string in the app was rendering in Times + the writing task gets its width back
+Two follow-ups to the writing rebuild, both shipped and prod-verified.
+
+**1. `font-['Inter']` never resolved — 289 call sites, app-wide.**
+`index.html` loads Inter **Tight**; plain *Inter* is loaded by nothing, so the Tailwind arbitrary value failed and the text fell through to the browser default — **a serif, in an RTL document**. Every place English appears was affected: reading passages, the student's own draft, grammar answer inputs, listening transcripts, vocabulary cards, AI feedback, admin tables. All swept to the `font-en` token.
+- **Three of them were invisible to the obvious grep**, because the class is built inside a JS string with escaped quotes — `font-[\'Inter\']` — and those three are the **grammar answer inputs**, i.e. the box a student types English into. Five more were inline `fontFamily: 'Inter, sans-serif'`, which silently landed on the generic sans rather than the intended face. If you sweep a Tailwind arbitrary value, grep the escaped form and the inline-style form too.
+- **Deliberately NOT touched: Hanken Grotesk (349) and Fraunces (12).** They fail the same "is it in index.html?" test but are genuinely loaded, by an `@import` inside `src/pages/desk/desk.css`, and are used only on the Pro Desk. That file also carried a rule remapping `font-['Inter']` to Fraunces to give the Desk its serif voice; the rule now follows the class that replaced it.
+- **Verified in a browser**, not by grep: on reading / listening / grammar / vocabulary / speaking every `.font-en` node resolves to Inter Tight, **0 resolve to a serif, 0 of the old class survive in the DOM**. Inter Tight is really rendering — it measures 347px for a test string where serif measures 333 and the generic sans 360. ⚠️ `document.fonts.check('24px "Inter Tight"')` returns **false** even so; that is normal for a unicode-range-split Google font and is NOT evidence of a missing face. Measure glyph widths instead.
+
+**2. The writing task now gets the whole column; the coach opens inside it.**
+Owner: *"those 2 things should be beside each other… the writing task along with the text box need the width more, and personal AI trainer could be used in a different way — be creative here so the student can use it without it taking a fixed place."*
+- The coach was a **352px lane that existed whether or not she was using it**, so the paper was 590px inside a 1176px column. The lane is gone: brief and sheet span the full width and the paper measures **862px (+46%)**.
+- The coach became an **inline panel that opens INSIDE the sheet**, directly under its header, from a «مدرّبك» toggle there. It reserves nothing when closed, and unlike a floating overlay it covers **neither the brief nor the paper** — both stay readable while she reads the answer. (A floating side panel was built first and rejected on sight: it clipped the English task text.) Same behaviour on phone and laptop, so the separate mobile drawer **and** the floating bubble are both gone — that bubble also shared the bottom-left corner with the accessibility and student FABs.
+- **Measured: paper 862px with the panel closed and 862px with it open** — the layout does not move. Escape closes it. The read-only English brief keeps a 74ch measure; the paper deliberately does not, because a wider box is fewer lines to scroll while writing.
+
+- Files: 92 swept for the font token + `src/pages/desk/desk.css`, `src/pages/student/curriculum/tabs/WritingTab.jsx`, `src/components/coach/AICoachPanel.jsx`. DB: none. Edge functions: none. Shipped `58b2e334` + `068a619d`, prod-verified (the live `WritingTab-L96y_DiZ.js` chunk has no `352px` lane, carries `inline:!0`, carries `font-en`, and none of the old class).
+
 ### 2026-08-21 — WRITING SECTION: one brief + one sheet, and three defects the redesign exposed
 Owner, on the writing tab: *"the writing section should have been way way way better — way more organized and designed."* He was right, and the cause was structural, not paint.
 
