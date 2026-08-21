@@ -43,6 +43,13 @@ import SidebarMetricsObserver from './lib/ui/SidebarMetricsObserver'
 const CoordinatorWorkspace = lazyRetry(() => import('./pages/coordinator/CoordinatorWorkspace'))
 const CoordinatorWeek = lazyRetry(() => import('./pages/coordinator/CoordinatorWeek'))
 const SchedulesList = lazyRetry(() => import('./pages/coordinator/SchedulesList'))
+// Coordinator console (V1) — the workspace for the student_interventions queue.
+// Separate from the class-scheduling workspace above: English + LTR, different job.
+const CoordinatorLayout = lazyRetry(() => import('./pages/coordinator/CoordinatorLayout'))
+const CoordinatorQueue = lazyRetry(() => import('./pages/coordinator/CoordinatorQueue'))
+const CoordinatorStudent = lazyRetry(() => import('./pages/coordinator/CoordinatorStudent'))
+const CoordinatorDailyLog = lazyRetry(() => import('./pages/coordinator/CoordinatorDailyLog'))
+const CoordinatorEscalations = lazyRetry(() => import('./pages/admin/CoordinatorEscalations'))
 const TeacherSchedule = lazyRetry(() => import('./pages/teacher/schedule/TeacherSchedule'))
 const TeamWorkspace = lazyRetry(() => import('./pages/team/TeamWorkspace'))
 const TeamPipeline  = lazyRetry(() => import('./pages/team/TeamPipeline'))
@@ -1233,6 +1240,16 @@ export default function App() {
                 <Route index element={<Page><CoordinatorWeek /></Page>} />
                 <Route path="schedules" element={<Page><SchedulesList /></Page>} />
               </Route>
+
+              {/* Coordinator console — the student_interventions queue.
+                  Mounted as siblings, NOT as children of /coordinator: that path
+                  already belongs to the Arabic class-scheduling workspace above and
+                  is not ours to take. */}
+              <Route element={<Page><CoordinatorLayout /></Page>}>
+                <Route path="/coordinator/queue" element={<Page><CoordinatorQueue /></Page>} />
+                <Route path="/coordinator/student/:id" element={<Page><CoordinatorStudent /></Page>} />
+                <Route path="/coordinator/log" element={<Page><CoordinatorDailyLog /></Page>} />
+              </Route>
             </Route>
           </Route>
 
@@ -1248,6 +1265,7 @@ export default function App() {
               <Route path="/admin/attention" element={<Page><AdminAttention /></Page>} />
               <Route path="/admin/intake" element={<Page><AdminIntake /></Page>} />
               <Route path="/admin/field-notes" element={<Page><AdminFieldNotes /></Page>} />
+              <Route path="/admin/coordinator-escalations" element={<Page><CoordinatorEscalations /></Page>} />
               <Route path="/admin/reports/student/:studentId" element={<Page><AdminReportStudentDetail /></Page>} />
               {/* legacy reports page — archived, reachable, never deleted (hide-don't-delete rule) */}
               <Route path="/admin/reports-legacy" element={<Page><AdminReports /></Page>} />

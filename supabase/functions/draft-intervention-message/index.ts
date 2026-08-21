@@ -79,16 +79,19 @@ Deno.serve(async (req) => {
     )
 
     // The academy owner is role=admin, not a trainer, so ownership alone would
-    // lock them out of every row they can see in the academy-wide queue.
+    // lock them out of every row they can see in the academy-wide queue. The
+    // coordinator (added 2026-08-21) works the SAME academy-wide queue from the
+    // coordinator console and owns none of the rows either — without this branch
+    // every draft request from the console 404s.
     const { data: caller } = await serviceSupabase
       .from('profiles').select('role').eq('id', user.id).single()
-    const isAdmin = caller?.role === 'admin'
+    const isStaff = caller?.role === 'admin' || caller?.role === 'coordinator'
 
     let q = serviceSupabase
       .from('student_interventions')
       .select('suggested_message_ar, reason_ar, signal_data, suggested_action_ar, student_id, trainer_id')
       .eq('id', intervention_id)
-    if (!isAdmin) q = q.eq('trainer_id', user.id)
+    if (!isStaff) q = q.eq('trainer_id', user.id)
     const { data: cached } = await q.single()
 
     if (!cached) return jsonRes({ ok: false, error: 'intervention not found' }, 404)

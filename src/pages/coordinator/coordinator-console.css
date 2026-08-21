@@ -1,0 +1,408 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   COORDINATOR CONSOLE — an LTR English island inside an RTL Arabic app.
+
+   The document root keeps dir="rtl" forever; nothing here touches it. Every
+   rule is scoped under .coordinator-console, so the console can flip direction
+   without a single student surface noticing.
+
+   Font note: the app never loads 'Inter' — index.html loads 'Inter Tight'.
+   Asking for plain Inter silently falls through to the generic stack, so the
+   console uses --font-english (Inter Tight → Inter → system-ui), the same
+   variable the rest of the app's English text uses.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.coordinator-console {
+  direction: ltr;
+  text-align: left;
+  font-family: var(--font-english, 'Inter Tight', 'Inter', system-ui, sans-serif);
+  letter-spacing: 0.005em;
+  color: var(--ds-text-primary);
+
+  /* Ink that sits on --ds-accent-primary. Local rather than a new global token:
+     the console is the only surface using a filled accent button, and
+     themes.css is shared with every student screen. */
+  --cc-on-accent: #04121f;
+}
+
+/* ── Eyebrow ───────────────────────────────────────────────────────────────
+   Uppercase + 0.1em tracking is already a legibility tax; it was being paid at
+   10–11px on --ds-text-tertiary over a moving background. 12px on secondary. */
+.coordinator-console .cc-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ds-text-secondary);
+}
+
+/* ── Controls ──────────────────────────────────────────────────────────────
+   Every interactive target clears 44px. The blocker chips are the one REQUIRED
+   control on the screen and were 25px tall. */
+.coordinator-console .cc-btn,
+.coordinator-console-drawer .cc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+  border-radius: 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: transform 140ms ease, opacity 140ms ease, filter 140ms ease;
+}
+.coordinator-console .cc-btn:not(:disabled):active { transform: scale(0.985); }
+
+.coordinator-console .cc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 34px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+.coordinator-console .cc-chip--input {
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+  font-size: 0.8125rem;
+  border-radius: 14px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.coordinator-console .cc-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  background: var(--ds-surface-3);
+  color: var(--ds-text-secondary);
+  transition: background 140ms ease, color 140ms ease;
+}
+.coordinator-console .cc-icon-btn:hover {
+  background: var(--ds-surface-2);
+  color: var(--ds-text-primary);
+}
+
+.coordinator-console .cc-input {
+  width: 100%;
+  border-radius: 14px;
+  padding: 0.75rem 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  resize: vertical;
+  background: var(--ds-surface-2);
+  color: var(--ds-text-primary);
+  border: 1px solid var(--ds-border-subtle);
+}
+.coordinator-console .cc-input:focus-visible {
+  outline: 2px solid var(--ds-accent-primary);
+  outline-offset: 1px;
+}
+
+/* ── Callouts + tickets ────────────────────────────────────────────────────*/
+.coordinator-console .cc-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 14px;
+}
+.coordinator-console .cc-callout--good {
+  background: color-mix(in srgb, var(--ds-accent-success) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ds-accent-success) 35%, transparent);
+}
+.coordinator-console .cc-callout--empty {
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  background: var(--ds-surface-2);
+  border: 1px dashed var(--ds-border-strong);
+}
+.coordinator-console .cc-ticket {
+  padding: 0.75rem;
+  border-radius: 14px;
+  background: var(--ds-surface-2);
+  border: 1px solid var(--ds-border-subtle);
+}
+
+/* Every descendant inherits LTR unless it explicitly opts out (.ar-block). */
+.coordinator-console :where(h1, h2, h3, h4, p, span, div, button, label, input, textarea, select, table) {
+  text-align: inherit;
+}
+
+.coordinator-console input,
+.coordinator-console textarea,
+.coordinator-console select {
+  direction: ltr;
+  text-align: left;
+  font-family: inherit;
+}
+
+/* ── The Arabic message block ───────────────────────────────────────────────
+   The most-used element on the screen: the pre-written message he is about to
+   send but cannot read. It has to be unmistakably Arabic — right-aligned, real
+   Arabic type, generous line height — while sitting inside an LTR page.
+   `unicode-bidi: isolate` stops the surrounding English chrome from reordering
+   its punctuation. It is a <div>, never an input: there is no editable control
+   bound to suggested_message_ar anywhere in this console.               */
+.coordinator-console .ar-block {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+  font-family: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 1.0625rem;
+  line-height: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--ds-text-primary);
+  background: var(--ds-surface-2);
+  border: 1px solid var(--ds-border-strong);
+  border-radius: var(--radius-lg, 16px);
+  padding: 1.125rem 1.25rem;
+  position: relative;
+  user-select: text;
+}
+
+/* A hairline of accent down the reading edge — the block reads as a quote of
+   something already written, not as a field waiting for input. */
+.coordinator-console .ar-block::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.75rem;
+  inset-inline-start: 0;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--ds-accent-primary), transparent);
+  opacity: 0.7;
+}
+
+.coordinator-console .ar-inline {
+  direction: rtl;
+  unicode-bidi: isolate;
+  font-family: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* ── Numerals ──────────────────────────────────────────────────────────────
+   The silence count is the number he scans the queue by, so it gets the
+   display face and tabular figures (columns of cards line up). */
+.coordinator-console .cc-bignum {
+  font-family: 'Space Grotesk', 'Inter Tight', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 0.95;
+  /* -0.03em clipped the leading glyph of three-digit values ("100" lost its 1)
+     once line-height dropped below 1. Tight enough to read as a display
+     numeral, loose enough that nothing is shaved off. */
+  letter-spacing: -0.015em;
+  padding-inline: 1px;
+}
+
+.coordinator-console .cc-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Queue card ────────────────────────────────────────────────────────────
+   Lift on hover, press on click — the whole card is the hit target. */
+.coordinator-console .cc-card {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  /* A resting shadow, not only a hover one: without it nine cards read as nine
+     painted rectangles rather than nine objects on a surface. */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28), 0 8px 24px -14px rgba(0, 0, 0, 0.55);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 180ms ease, box-shadow 180ms ease;
+}
+.coordinator-console .cc-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ds-border-strong);
+  box-shadow: var(--ds-shadow-lg, 0 2px 4px rgba(0,0,0,.3), 0 18px 40px -18px rgba(0,0,0,.7));
+}
+.coordinator-console .cc-card:active { transform: translateY(0); }
+.coordinator-console .cc-card:focus-visible {
+  outline: 2px solid var(--ds-accent-primary);
+  outline-offset: 3px;
+}
+
+/* ── Pills ─────────────────────────────────────────────────────────────────*/
+.coordinator-console .cc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+/* ── 30-day activity strip — one square per day, pure CSS grid ─────────────*/
+.coordinator-console .cc-strip {
+  display: grid;
+  grid-template-columns: repeat(30, minmax(0, 1fr));
+  gap: 3px;
+}
+.coordinator-console .cc-strip-cell { cursor: pointer; padding: 0; }
+.coordinator-console .cc-strip-cell {
+  aspect-ratio: 1;
+  min-height: 10px;
+  border-radius: 3px;
+  /* An all-empty month is the most important thing this strip ever shows, so
+     the empty state has to be visible rather than dissolve into the panel. */
+  background: color-mix(in srgb, var(--ds-text-tertiary) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ds-text-tertiary) 22%, transparent);
+}
+.coordinator-console .cc-strip-cell[data-on='1'] {
+  background: color-mix(in srgb, var(--ds-accent-success) 45%, transparent);
+  border-color: color-mix(in srgb, var(--ds-accent-success) 65%, transparent);
+}
+.coordinator-console .cc-strip-cell[data-on='2'] {
+  background: color-mix(in srgb, var(--ds-accent-success) 80%, transparent);
+  border-color: var(--ds-accent-success);
+}
+
+/* ── Performance bars (student page) ───────────────────────────────────────*/
+.coordinator-console .cc-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 88px;
+}
+.coordinator-console .cc-bar {
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 25%, transparent));
+  min-height: 2px;
+  transition: height 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* A month of zeros is the signal, not the absence of one — empty bars stay
+   visible so the chart reads as "nothing happened" rather than "no data". */
+.coordinator-console .cc-bar[data-empty='1'] {
+  background: color-mix(in srgb, var(--ds-text-tertiary) 14%, transparent);
+  min-height: 4px;
+}
+
+/* ── Detail drawer ─────────────────────────────────────────────────────────
+   Side sheet on desktop, full sheet on mobile. Sits above the mobile nav —
+   the app's content shell is a low-z stacking context, so the drawer is
+   portalled to <body> and given an explicit z-index rather than trusting a
+   large number inside the shell. */
+.coordinator-console-drawer {
+  direction: ltr;
+  text-align: left;
+  font-family: var(--font-english, 'Inter Tight', 'Inter', system-ui, sans-serif);
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  justify-content: flex-end;
+}
+.coordinator-console-drawer__scrim {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--ds-bg-base) 72%, transparent);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+/* Flex column, not one long scroller with a sticky footer: a `position: sticky;
+   bottom: 0` bar whose height was cancelled by a negative margin painted itself
+   straight over the ticket list. The body scrolls, the action bar does not, and
+   neither can overlap the other. */
+.coordinator-console-drawer__panel {
+  position: relative;
+  width: min(560px, 100%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-bg-elevated, var(--ds-surface-1));
+  border-inline-start: 1px solid var(--ds-border-strong);
+  box-shadow: var(--ds-shadow-lg, -24px 0 60px rgba(0, 0, 0, 0.45));
+}
+
+.coordinator-console-drawer__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .coordinator-console-drawer__panel {
+    width: 100%;
+    border-inline-start: none;
+  }
+}
+
+/* ── Action bar — pinned to the foot of the drawer, never over the content ──*/
+.coordinator-console-drawer__actions {
+  flex: 0 0 auto;
+  max-height: 48%;
+  overflow-y: auto;
+  padding: 1rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  background: var(--ds-surface-1);
+  border-top: 1px solid var(--ds-border-strong);
+  box-shadow: 0 -1px 0 var(--ds-border-subtle), var(--ds-shadow-md);
+}
+@media (max-width: 640px) {
+  .coordinator-console-drawer__actions {
+    /* clears the fixed mobile bar so the buttons stay tappable */
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ── Skeletons (never spinners) ────────────────────────────────────────────*/
+.coordinator-console .cc-skel {
+  border-radius: var(--radius-lg, 16px);
+  background: linear-gradient(
+    90deg,
+    var(--ds-surface-2) 25%,
+    var(--ds-surface-3) 37%,
+    var(--ds-surface-2) 63%
+  );
+  background-size: 400% 100%;
+  animation: cc-shimmer 1.4s ease infinite;
+}
+@keyframes cc-shimmer {
+  0%   { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coordinator-console .cc-skel { animation: none; }
+  .coordinator-console .cc-card { transition: none; }
+  .coordinator-console .cc-card:hover { transform: none; }
+}
+
+/* ── Streak counter (daily log) ────────────────────────────────────────────*/
+.coordinator-console .cc-streak {
+  font-family: 'Space Grotesk', 'Inter Tight', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 14vw, 6rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, var(--ds-accent-gold), var(--ds-accent-primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Reduced motion: the drawer and card entrances are gated in JS via
+   useReducedMotion(); this covers the CSS-only transitions. */
+@media (prefers-reduced-motion: reduce) {
+  .coordinator-console .cc-btn,
+  .coordinator-console .cc-chip,
+  .coordinator-console .cc-icon-btn { transition: none; }
+}
