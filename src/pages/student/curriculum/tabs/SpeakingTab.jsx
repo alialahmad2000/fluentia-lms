@@ -1294,10 +1294,11 @@ function NextStep({ score, unitProg, unitId, onRedo }) {
 
 // ── THE WORLD — the section's own ground, painted from the unit's cover ────
 // The studio was written against the assumption that "the unit page already
-// paints a cover-derived world behind everything". It does not — the page
-// ground is a flat #050d1a — so the whole section sat on colourless near-black
-// and the reader had nothing but grey behind the text. This is that missing
-// layer: the unit's own art, blurred past all detail and pushed up in
+// paints a cover-derived world behind everything". It does — but in an activity
+// view CinematicBg runs with lift=false, i.e. brightness(0.35) under a vignette
+// and grain, and this section's own near-opaque neutral panel finished off what
+// little colour was left. So the reader got grey behind the text. This is the
+// properly-lit version of the same art, blurred past all detail and pushed up in
 // saturation, so the section takes its COLOUR from the lesson it belongs to.
 // Absolute, never fixed (one layer, no second full-viewport paint), static
 // (no rAF, no blend modes on coarse pointers) — see the Android-flicker rule.

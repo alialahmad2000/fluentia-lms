@@ -3,12 +3,17 @@
    ONE continuous stage instead of a stack of cards: the brief, the live
    conversation and the outcome all live on a single lit surface.
 
-   CORRECTED 2026-08-21: the unit page does NOT paint a cover-derived world —
-   its ground is a flat #050d1a — so relying on it left the whole section on
-   colourless near-black, with body text floating on grey. The section now
-   paints its OWN ground from the unit's cover art (.spk-world), with the
-   accent bloom above it. Still absolute, never fixed: one extra layer inside
-   the section, not a second full-viewport paint (perf + Android-flicker rule).
+   CORRECTED 2026-08-21: the unit page DOES paint a cover-derived world
+   (CinematicBg) — but in an activity view it renders with lift=false, which is
+   `blur(40px) brightness(0.35) saturate(1.3)` under a vignette and film grain.
+   Crushed to a third of its brightness, then covered by this stage's own
+   near-opaque NEUTRAL base, nothing of that colour survived: the section read
+   as grey-black and body text floated on mud. The section now paints its own
+   properly-lit ground from the same cover art (.spk-world), with the accent
+   bloom above it. Still absolute, never fixed, and section-scoped — not a
+   second full-viewport paint (perf + Android-flicker rule).
+   The systemic alternative, if this is ever wanted for EVERY tab at once, is
+   raising CinematicBg's non-lift brightness in _premiumPrimitives.jsx.
 
    Contract:
    · explicit rgba everywhere — no color-mix (iOS Safari < 16.4)
