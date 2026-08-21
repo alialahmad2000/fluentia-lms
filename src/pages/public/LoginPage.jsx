@@ -12,6 +12,12 @@ import { supabase } from '../../lib/supabase'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
 import { reportFailedLogin } from '../../lib/blockedLoginAlert'
 
+/* Roles the app root (RoleHome in App.jsx) knows how to route. Keep in sync —
+   a role in neither place cannot log in. */
+const ROLES_ROUTED_AT_ROOT = new Set([
+  'student', 'trainer', 'admin', 'affiliate', 'agent', 'coordinator', 'coach',
+])
+
 export default function LoginPage() {
   const { t } = useTranslation()
   const { user, profile, studentData, loading: authLoading } = useAuthStore(useShallow((s) => ({ user: s.user, profile: s.profile, studentData: s.studentData, loading: s.loading })))
@@ -34,6 +40,17 @@ export default function LoginPage() {
       case 'admin':   return <Navigate to="/admin" replace />
       case 'agent':   return <Navigate to="/team" replace />
       case 'coordinator': return <Navigate to="/coordinator" replace />
+      case 'coach':   return <Navigate to="/coach" replace />
+      // A role with no case here silently strands the user on /login: they
+      // authenticate, nothing happens, and there is no error to explain it.
+      // `coach` hit exactly that on the day it was added, and `affiliate`
+      // had been sitting on it. Anything the app root knows how to route now
+      // falls through to it. Genuinely unknown roles are NOT redirected —
+      // the root sends those back here, and the pair would ping-pong.
+      default:
+        return ROLES_ROUTED_AT_ROOT.has(profile.role)
+          ? <Navigate to="/" replace />
+          : null
     }
   }
 

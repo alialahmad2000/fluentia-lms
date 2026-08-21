@@ -43,13 +43,15 @@ import SidebarMetricsObserver from './lib/ui/SidebarMetricsObserver'
 const CoordinatorWorkspace = lazyRetry(() => import('./pages/coordinator/CoordinatorWorkspace'))
 const CoordinatorWeek = lazyRetry(() => import('./pages/coordinator/CoordinatorWeek'))
 const SchedulesList = lazyRetry(() => import('./pages/coordinator/SchedulesList'))
-// Coordinator console (V1) — the workspace for the student_interventions queue.
-// Separate from the class-scheduling workspace above: English + LTR, different job.
-const CoordinatorLayout = lazyRetry(() => import('./pages/coordinator/CoordinatorLayout'))
-const CoordinatorQueue = lazyRetry(() => import('./pages/coordinator/CoordinatorQueue'))
-const CoordinatorStudent = lazyRetry(() => import('./pages/coordinator/CoordinatorStudent'))
-const CoordinatorDailyLog = lazyRetry(() => import('./pages/coordinator/CoordinatorDailyLog'))
-const CoordinatorEscalations = lazyRetry(() => import('./pages/admin/CoordinatorEscalations'))
+// Learning Coach console — English + LTR, a different job from the Arabic
+// class-scheduling workspace above and a different role (`coach`, not
+// `coordinator`).
+const CoachLayout = lazyRetry(() => import('./pages/coach/CoachLayout'))
+const CoachRadar = lazyRetry(() => import('./pages/coach/CoachRadar'))
+const CoachStudent = lazyRetry(() => import('./pages/coach/CoachStudent'))
+const CoachDailyLog = lazyRetry(() => import('./pages/coach/CoachDailyLog'))
+const CoachEscalations = lazyRetry(() => import('./pages/admin/CoachEscalations'))
+const CoachActivity = lazyRetry(() => import('./pages/admin/CoachActivity'))
 const TeacherSchedule = lazyRetry(() => import('./pages/teacher/schedule/TeacherSchedule'))
 const TeamWorkspace = lazyRetry(() => import('./pages/team/TeamWorkspace'))
 const TeamPipeline  = lazyRetry(() => import('./pages/team/TeamPipeline'))
@@ -692,6 +694,8 @@ function RoleRedirect() {
       return <Navigate to="/team" replace />
     case 'coordinator':
       return <Navigate to="/coordinator" replace />
+    case 'coach':
+      return <Navigate to="/coach" replace />
     default:
       return <Navigate to="/login" replace />
   }
@@ -1241,14 +1245,23 @@ export default function App() {
                 <Route path="schedules" element={<Page><SchedulesList /></Page>} />
               </Route>
 
-              {/* Coordinator console — the student_interventions queue.
-                  Mounted as siblings, NOT as children of /coordinator: that path
-                  already belongs to the Arabic class-scheduling workspace above and
-                  is not ours to take. */}
-              <Route element={<Page><CoordinatorLayout /></Page>}>
-                <Route path="/coordinator/queue" element={<Page><CoordinatorQueue /></Page>} />
-                <Route path="/coordinator/student/:id" element={<Page><CoordinatorStudent /></Page>} />
-                <Route path="/coordinator/log" element={<Page><CoordinatorDailyLog /></Page>} />
+
+              {/* The console that used to live here moved to /coach when it got
+                  its own role. The old URLs still resolve — anyone with them
+                  bookmarked lands on the successor rather than a blank page. */}
+              <Route path="/coordinator/queue" element={<Navigate to="/coach" replace />} />
+              <Route path="/coordinator/student/:id" element={<Navigate to="/coach" replace />} />
+              <Route path="/coordinator/log" element={<Navigate to="/coach/log" replace />} />
+            </Route>
+          </Route>
+
+          {/* Learning Coach console (coach + admin) */}
+          <Route element={<ProtectedRoute allowedRoles={['coach', 'admin']} />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
+              <Route element={<Page><CoachLayout /></Page>}>
+                <Route path="/coach" element={<Page><CoachRadar /></Page>} />
+                <Route path="/coach/student/:id" element={<Page><CoachStudent /></Page>} />
+                <Route path="/coach/log" element={<Page><CoachDailyLog /></Page>} />
               </Route>
             </Route>
           </Route>
@@ -1265,7 +1278,10 @@ export default function App() {
               <Route path="/admin/attention" element={<Page><AdminAttention /></Page>} />
               <Route path="/admin/intake" element={<Page><AdminIntake /></Page>} />
               <Route path="/admin/field-notes" element={<Page><AdminFieldNotes /></Page>} />
-              <Route path="/admin/coordinator-escalations" element={<Page><CoordinatorEscalations /></Page>} />
+              <Route path="/admin/coach-escalations" element={<Page><CoachEscalations /></Page>} />
+              <Route path="/admin/coach-activity" element={<Page><CoachActivity /></Page>} />
+              {/* renamed 2026-08-22 — the old admin URL keeps working */}
+              <Route path="/admin/coordinator-escalations" element={<Navigate to="/admin/coach-escalations" replace />} />
               <Route path="/admin/reports/student/:studentId" element={<Page><AdminReportStudentDetail /></Page>} />
               {/* legacy reports page — archived, reachable, never deleted (hide-don't-delete rule) */}
               <Route path="/admin/reports-legacy" element={<Page><AdminReports /></Page>} />

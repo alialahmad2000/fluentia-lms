@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink, Outlet, Navigate } from 'react-router-dom'
-import { Inbox, ClipboardCheck } from 'lucide-react'
+import { Radar, ClipboardCheck } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { nowBothZones, viewerTz } from './utils/tz'
-import './coordinator-console.css'
+import './lc-console.css'
 
 /**
- * The console shell — an LTR English island inside the RTL Arabic app.
+ * The Learning Coach console shell — an LTR English island inside the RTL
+ * Arabic app.
  *
  * It never touches document.documentElement.dir: the whole flip is a scoped
- * `dir="ltr"` on this wrapper plus the rules in coordinator-console.css. The
+ * `dir="ltr"` on this wrapper plus the rules in lc-console.css. The
  * rest of the platform stays Arabic and right-to-left while this subtree reads
  * left-to-right.
  *
@@ -19,11 +20,11 @@ import './coordinator-console.css'
  */
 
 const TABS = [
-  { to: '/coordinator/queue', label: 'Queue', icon: Inbox, end: true },
-  { to: '/coordinator/log', label: 'Daily Log', icon: ClipboardCheck },
+  { to: '/coach', label: 'Radar', icon: Radar, end: true },
+  { to: '/coach/log', label: 'Daily Log', icon: ClipboardCheck },
 ]
 
-export default function CoordinatorLayout() {
+export default function CoachLayout() {
   // R2 — every hook runs before the role gate below. No early return above this line.
   const profile = useAuthStore((s) => s.profile)
   const loading = useAuthStore((s) => s.loading)
@@ -39,12 +40,12 @@ export default function CoordinatorLayout() {
 
   // ── gate (last) ────────────────────────────────────────────────────────
   if (loading) return null
-  if (profile && profile.role !== 'coordinator' && profile.role !== 'admin') {
+  if (profile && profile.role !== 'coach' && profile.role !== 'admin') {
     return <Navigate to="/" replace />
   }
 
   return (
-    <div dir="ltr" className="coordinator-console w-full">
+    <div dir="ltr" className="lc-console w-full">
       <header className="mb-6">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -58,10 +59,10 @@ export default function CoordinatorLayout() {
               className="text-2xl sm:text-3xl font-extrabold leading-tight"
               style={{ color: 'var(--ds-text-primary)' }}
             >
-              Coordinator Console
+              Learning Coach
             </h1>
             <p className="text-sm mt-1" style={{ color: 'var(--ds-text-tertiary)' }}>
-              Every student the platform flagged today — reach them, or find out what is blocking them.
+              Every active student, worst first — reach the quiet ones, and find out what is actually blocking them.
             </p>
           </div>
           <p

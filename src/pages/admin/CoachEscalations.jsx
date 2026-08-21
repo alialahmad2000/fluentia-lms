@@ -1,16 +1,16 @@
-// «تصعيدات المنسّق» — the admin side of the coordinator console.
+// «تصعيدات مرشد التعلّم» — the admin side of the Learning Coach console.
 //
-// The coordinator reads no Arabic. When the pre-written message doesn't fit the
+// The coach reads no Arabic. When the pre-written message doesn't fit the
 // situation, his ONLY route is to hand the student to Ali — that hand-off lands
 // here. Everything he wrote is in English (he wrote it); everything around it is
 // Arabic, because this is Ali's screen.
 import { useMemo, useState, useCallback } from 'react'
 import { Navigate, Link } from 'react-router-dom'
-import { ArrowUpRight, Check, X, Inbox, MessageSquare } from 'lucide-react'
+import { ArrowUpRight, Check, X, Inbox } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import GlassPanel from '../../design-system/components/GlassPanel'
 import { toast } from '../../components/ui/FluentiaToast'
-import { useEscalationInbox, useResolveEscalation } from '../coordinator/consoleQueries'
+import { useEscalationInbox, useResolveEscalation } from '../coach/lcQueries'
 
 const TABS = [
   ['open', 'مفتوحة'],
@@ -28,7 +28,7 @@ function fmt(ts) {
   })
 }
 
-export default function CoordinatorEscalations() {
+export default function CoachEscalations() {
   // R2 — all hooks first, gate last.
   const profile = useAuthStore((s) => s.profile)
   const profileId = useAuthStore((s) => s.profile?.id)
@@ -61,7 +61,7 @@ export default function CoordinatorEscalations() {
             className="text-2xl font-bold"
             style={{ color: 'var(--ds-text-primary)', fontFamily: 'Tajawal, sans-serif' }}
           >
-            تصعيدات المنسّق
+            تصعيدات مرشد التعلّم
           </h1>
           {openCount > 0 && (
             <span
@@ -76,7 +76,7 @@ export default function CoordinatorEscalations() {
           )}
         </div>
         <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
-          حالات رفعها المنسّق لأنّ الرسالة الجاهزة لم تناسب الموقف — لا يستطيع تعديل النص العربي،
+          حالات رفعها مرشد التعلّم لأنّ الرسائل الجاهزة لم تناسب الموقف — لا يستطيع تعديل النص العربي،
           فهذه طريقه الوحيدة لتسليم الطالب إليك.
         </p>
       </header>
@@ -120,7 +120,7 @@ export default function CoordinatorEscalations() {
               لا شيء هنا
             </p>
             <p className="text-sm mt-1" style={{ color: 'var(--ds-text-tertiary)' }}>
-              لم يُصعّد المنسّق أي حالة بعد.
+              لم يُصعّد مرشد التعلّم أي حالة بعد.
             </p>
           </div>
         </GlassPanel>
@@ -138,7 +138,7 @@ export default function CoordinatorEscalations() {
                     {e.student?.display_name || e.student?.full_name || 'طالب غير معروف'}
                   </Link>
                   <p className="text-xs mt-0.5" style={{ color: 'var(--ds-text-tertiary)' }}>
-                    من {e.coordinator?.full_name || 'المنسّق'} · {fmt(e.created_at)}
+                    من {e.coach?.full_name || 'مرشد التعلّم'} · {fmt(e.created_at)}
                   </p>
                 </div>
                 <span
@@ -165,7 +165,7 @@ export default function CoordinatorEscalations() {
                 {e.reason}
               </p>
 
-              {/* نصّ المنسّق كما كتبه — إنجليزي، معزول عن الاتجاه العربي */}
+              {/* نصّ المرشد كما كتبه — إنجليزي، معزول عن الاتجاه العربي */}
               <div
                 dir="ltr"
                 className="rounded-xl p-3.5 text-sm whitespace-pre-wrap"
@@ -183,41 +183,6 @@ export default function CoordinatorEscalations() {
               </div>
 
               {/* التنبيه الأصلي */}
-              {e.intervention && (
-                <div
-                  className="mt-3 pt-3 flex flex-wrap items-center gap-2 text-xs"
-                  style={{ borderTop: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-tertiary)' }}
-                >
-                  <MessageSquare size={12} />
-                  <span style={{ fontFamily: 'Tajawal, sans-serif' }}>{e.intervention.reason_ar}</span>
-                  <span>·</span>
-                  <span>{fmt(e.intervention.created_at)}</span>
-                </div>
-              )}
-
-              {e.intervention?.suggested_message_ar && (
-                <details className="mt-2">
-                  <summary
-                    className="text-xs cursor-pointer"
-                    style={{ color: 'var(--ds-text-tertiary)', fontFamily: 'Tajawal, sans-serif' }}
-                  >
-                    الرسالة التي كانت جاهزة
-                  </summary>
-                  <p
-                    className="mt-2 rounded-xl p-3 text-sm"
-                    style={{
-                      background: 'var(--ds-surface-2)',
-                      border: '1px solid var(--ds-border-subtle)',
-                      color: 'var(--ds-text-secondary)',
-                      fontFamily: 'Tajawal, sans-serif',
-                      lineHeight: 2,
-                      whiteSpace: 'pre-wrap',
-                    }}
-                  >
-                    {e.intervention.suggested_message_ar}
-                  </p>
-                </details>
-              )}
 
               {e.status === 'open' && (
                 <div className="flex items-center gap-2 mt-4">

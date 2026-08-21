@@ -9,7 +9,7 @@ import {
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
   MessageCircle, MessageSquare, Volume2, Dumbbell, FileCheck, Activity, PencilLine,
   Bug, Sparkles, Handshake, Layers, Eye, Star, Cpu, Leaf, BellRing, MessageSquareQuote, NotebookText, MessagesSquare, ClipboardPen,
-  Inbox, ArrowUpRight,} from 'lucide-react'
+  Inbox, ArrowUpRight, Radar,} from 'lucide-react'
 
 
 export const STUDENT_NAV = {
@@ -242,7 +242,8 @@ export const ADMIN_NAV = {
         // HR hub (was reachable only by direct URL — Ali couldn't find it, 2026-06-11)
         { id: 'team',        label: 'الموظفون',     icon: Briefcase,     to: '/admin/team' },
         { id: 'coordination', label: 'تنسيق الحصص', icon: CalendarClock, to: '/coordinator' },
-        { id: 'coordinator-escalations', label: 'تصعيدات المنسّق', icon: ArrowUpRight, to: '/admin/coordinator-escalations' },
+        { id: 'coach-escalations', label: 'تصعيدات مرشد التعلّم', icon: ArrowUpRight, to: '/admin/coach-escalations' },
+        { id: 'coach-activity',    label: 'نشاط مرشد التعلّم',   icon: Radar,       to: '/admin/coach-activity' },
       ],
     },
     {
@@ -300,36 +301,41 @@ export const ADMIN_NAV = {
   ],
 }
 
-/* Two different jobs share the `coordinator` role: the Arabic class-scheduling
-   workspace (هاجر) and the English student-success console added 2026-08-21.
-   Both sections are listed; the console goes first because it is the one with a
-   queue that has to be emptied every day. Its labels stay in English — the
-   person working it does not read Arabic, and a translated label is a link he
-   cannot identify. */
-const CONSOLE_ITEMS = [
-  { id: 'cc-queue', label: 'Queue',     icon: Inbox,          to: '/coordinator/queue' },
-  { id: 'cc-log',   label: 'Daily Log', icon: ClipboardCheck, to: '/coordinator/log' },
-]
-
+/* The `coordinator` role is the Arabic class-scheduling workspace, and only
+   that. The student-success console briefly shared this nav; on 2026-08-22 it
+   moved to its own `coach` role — see COACH_NAV below. */
 const SCHEDULING_ITEMS = [
   { id: 'week',      label: 'جدول الحصص',      icon: CalendarClock, to: '/coordinator' },
   { id: 'schedules', label: 'المواعيد الثابتة', icon: ClipboardList, to: '/coordinator/schedules' },
 ]
 
 export const COORDINATOR_NAV = {
-  sections: [
-    { id: 'console',      label: 'Student Success', items: CONSOLE_ITEMS },
-    { id: 'coordination', label: 'التنسيق',          items: SCHEDULING_ITEMS },
-  ],
-  drawerSections: [
-    { id: 'console',      label: 'Student Success', items: CONSOLE_ITEMS },
-    { id: 'coordination', label: 'التنسيق',          items: SCHEDULING_ITEMS },
-  ],
+  sections: [{ id: 'coordination', label: 'التنسيق', items: SCHEDULING_ITEMS }],
+  drawerSections: [{ id: 'coordination', label: 'التنسيق', items: SCHEDULING_ITEMS }],
   mobileBar: [
-    { id: 'cc-queue',  label: 'Queue',   icon: Inbox,         to: '/coordinator/queue' },
-    { id: 'cc-log',    label: 'Log',     icon: ClipboardCheck, to: '/coordinator/log' },
     { id: 'week',      label: 'الجدول',   icon: CalendarClock, to: '/coordinator' },
+    { id: 'schedules', label: 'المواعيد', icon: ClipboardList, to: '/coordinator/schedules' },
     { id: 'more',      label: 'المزيد',   icon: 'more',        to: null },
+  ],
+}
+
+/* The Learning Coach. Labels stay in ENGLISH inside an otherwise Arabic
+   sidebar on purpose: the person working this console reads no Arabic, and a
+   translated label is a link he cannot identify. */
+const COACH_ITEMS = [
+  { id: 'lc-radar', label: 'Radar',     icon: Radar,          to: '/coach' },
+  { id: 'lc-log',   label: 'Daily Log', icon: ClipboardCheck, to: '/coach/log' },
+]
+
+export const COACH_NAV = {
+  sections: [{ id: 'coach', label: 'Student Success', items: COACH_ITEMS }],
+  drawerSections: [{ id: 'coach', label: 'Student Success', items: COACH_ITEMS }],
+  mobileBar: [
+    { id: 'lc-radar', label: 'Radar', icon: Radar,          to: '/coach' },
+    { id: 'lc-log',   label: 'Log',   icon: ClipboardCheck, to: '/coach/log' },
+    // 'More', not «المزيد» — three lines under a comment saying this console
+    // stays English because the person working it cannot read Arabic.
+    { id: 'more',     label: 'More',  icon: 'more',         to: null },
   ],
 }
 
@@ -337,6 +343,7 @@ export function getNavForRole(role) {
   if (role === 'trainer') return TRAINER_NAV
   if (role === 'admin') return ADMIN_NAV
   if (role === 'coordinator') return COORDINATOR_NAV
+  if (role === 'coach') return COACH_NAV
   return STUDENT_NAV
 }
 

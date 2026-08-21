@@ -6,12 +6,12 @@ import {
 import { useAuthStore } from '@/stores/authStore'
 import GlassPanel from '@/design-system/components/GlassPanel'
 import { toast } from '@/components/ui/FluentiaToast'
-import { useCoordinatorStudent, useEscalate } from './consoleQueries'
+import { useCoachStudent, useEscalate } from './lcQueries'
 import {
-  BLOCKERS, CHANNEL_LABELS, reasonLabel, sectionLabel, severityColor,
-} from './utils/reasonLabels'
-import { daysAgoLabel, dualShort, viewerTz } from './utils/tz'
-import './coordinator-console.css'
+  ACTION_LABELS, BLOCKERS, blockerLabel, isArabic, riskColor, sectionLabel,
+} from './utils/labels'
+import { dateIn, dayKeyIn, daysAgoLabel, dualShort, lastNDayKeys, viewerTz, ACADEMY_TZ } from './utils/tz'
+import './lc-console.css'
 
 /* Module scope — see the note in CoordinatorQueue.jsx about components
    declared inside components. */
@@ -34,7 +34,12 @@ function Field({ label, value }) {
   return (
     <div>
       <p className="text-xs uppercase tracking-wider" style={{ color: 'var(--ds-text-tertiary)' }}>{label}</p>
-      <p className="text-sm font-semibold ar-inline" style={{ color: 'var(--ds-text-primary)' }}>{value ?? '—'}</p>
+      <p
+        className={`text-sm font-semibold ${isArabic(value) ? 'ar-inline' : ''}`}
+        style={{ color: 'var(--ds-text-primary)' }}
+      >
+        {value ?? '—'}
+      </p>
     </div>
   )
 }
@@ -46,15 +51,11 @@ function Field({ label, value }) {
  */
 function BarChart({ days, metricKey, label, format }) {
   const series = useMemo(() => {
-    const byDate = new Map((days || []).map((d) => [String(d.date), d]))
-    const out = []
-    const today = new Date()
-    for (let i = 29; i >= 0; i--) {
-      const d = new Date(today.getTime() - i * 86400000)
-      const key = d.toISOString().slice(0, 10)
-      out.push({ key, value: byDate.get(key)?.[metricKey] || 0 })
-    }
-    return out
+    // Buckets in the ACADEMY's zone. toISOString() buckets in UTC, which puts
+    // every Riyadh evening in the previous day's bar — so this chart and the
+    // drawer's strip for the same student could disagree by a day.
+    const byDate = new Map((days || []).map((d) => [dayKeyIn(`${d.date}T12:00:00Z`), d]))
+    return lastNDayKeys(30).map((key) => ({ key, value: byDate.get(key)?.[metricKey] || 0 }))
   }, [days, metricKey])
 
   const max = Math.max(1, ...series.map((s) => s.value))
@@ -112,12 +113,12 @@ function StudentSkeleton() {
   )
 }
 
-export default function CoordinatorStudent() {
+export default function CoachStudent() {
   const { id } = useParams()
   const profile = useAuthStore((s) => s.profile)
   const profileId = useAuthStore((s) => s.profile?.id)
   const tz = useMemo(() => viewerTz(profile), [profile])
-  const { data, isLoading, error } = useCoordinatorStudent(id)
+  const { data, isLoading, error } = useCoachStudent(id)
   const escalate = useEscalate()
 
   const [open, setOpen] = useState(false)
@@ -131,9 +132,8 @@ export default function CoordinatorStudent() {
     }
     try {
       await escalate.mutateAsync({
-        coordinatorId: profileId,
+        coachId: profileId,
         studentId: id,
-        interventionId: null,
         reason: reason.trim().slice(0, 120),
         bodyEn: reason.trim(),
         blocker,
@@ -147,7 +147,7 @@ export default function CoordinatorStudent() {
   }, [blocker, reason, profileId, id, escalate])
 
   const s = data?.student
-  const history = data?.interventions || []
+  const touchpoints = data?.touchpoints || []
   const helpRequests = data?.help_requests || []
   const bugReports = data?.bug_reports || []
   const escalations = data?.escalations || []
@@ -158,7 +158,7 @@ export default function CoordinatorStudent() {
   return (
     <div>
       <Link
-        to="/coordinator/queue"
+        to="/coach"
         className="inline-flex items-center gap-1.5 text-xs font-semibold mb-4"
         style={{ color: 'var(--ds-text-tertiary)' }}
       >
@@ -274,7 +274,7 @@ export default function CoordinatorStudent() {
               label="Days silent"
               value={s.silence_days ?? '—'}
               tone={s.silence_days >= 7 ? 'danger' : undefined}
-              sub="Newest of four live signals"
+              sub="Newest of five live signals"
             />
             <Stat label="Active days" value={`${activeDays}/30`} sub="Days with any study time" />
             <Stat label="Total XP" value={s.xp_total ?? 0} />
@@ -358,11 +358,11 @@ export default function CoordinatorStudent() {
             <div className="flex items-center gap-2 mb-3">
               <TrendingUp size={14} style={{ color: 'var(--ds-text-tertiary)' }} />
               <p className="cc-eyebrow">
-                Every signal ever raised <span className="cc-num">({history.length})</span>
+                Every touchpoint <span className="cc-num">({touchpoints.length})</span>
               </p>
             </div>
-            {history.length === 0 ? (
-              <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>Nothing yet.</p>
+            {touchpoints.length === 0 ? (
+              <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>Nobody has reached out to this student yet.</p>
             ) : (
               <div className="overflow-auto" style={{ maxHeight: 420 }}>
                 {/* Capped: سارة alone carries 66 rows, and an uncapped table
@@ -371,28 +371,29 @@ export default function CoordinatorStudent() {
                   <thead>
                     <tr style={{ color: 'var(--ds-text-tertiary)' }}>
                       <th className="text-left font-semibold pb-2 pr-3">Date</th>
-                      <th className="text-left font-semibold pb-2 pr-3">Signal</th>
-                      <th className="text-left font-semibold pb-2 pr-3">Status</th>
-                      <th className="text-left font-semibold pb-2 pr-3">Outcome</th>
-                      <th className="text-left font-semibold pb-2">Blocker</th>
+                      <th className="text-left font-semibold pb-2 pr-3">Action</th>
+                      <th className="text-left font-semibold pb-2 pr-3">Situation</th>
+                      <th className="text-left font-semibold pb-2 pr-3">Blocker</th>
+                      <th className="text-left font-semibold pb-2">Note</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {history.map((h) => (
+                    {touchpoints.map((h) => (
                       <tr key={h.id} style={{ borderTop: '1px solid var(--ds-border-subtle)' }}>
                         <td className="cc-num py-2 pr-3" style={{ color: 'var(--ds-text-tertiary)' }}>
-                          {String(h.created_at).slice(0, 10)}
+                          {dateIn(h.created_at, ACADEMY_TZ)}
                         </td>
-                        <td className="py-2 pr-3 font-semibold" style={{ color: severityColor(h.severity) }}>
-                          {reasonLabel(h.reason_code)}
+                        <td className="py-2 pr-3 font-semibold" style={{ color: 'var(--ds-text-primary)' }}>
+                          {ACTION_LABELS[h.action] || h.action}
                         </td>
-                        <td className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>{h.status}</td>
                         <td className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>
-                          {h.action_channel ? CHANNEL_LABELS[h.action_channel] || h.action_channel : '—'}
-                          {h.acted_by_name && <span className="ar-inline"> · {h.acted_by_name}</span>}
+                          {h.situation_en || '—'}
+                        </td>
+                        <td className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>
+                          {blockerLabel(h.blocker_type)}
                         </td>
                         <td className="py-2" style={{ color: 'var(--ds-text-secondary)' }}>
-                          {h.blocker_type ? h.blocker_type.replace('_', ' ') : '—'}
+                          {h.note_en || '—'}
                         </td>
                       </tr>
                     ))}
@@ -401,7 +402,7 @@ export default function CoordinatorStudent() {
               </div>
             )}
             <p className="flex items-center gap-1.5 text-xs mt-3" style={{ color: 'var(--ds-text-tertiary)' }}>
-              <Zap size={11} /> 2,740 of these expired unworked before this console existed.
+              <Zap size={11} /> Every row here is a person somebody actually spoke to.
             </p>
           </GlassPanel>
         </>

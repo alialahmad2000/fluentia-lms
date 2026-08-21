@@ -20,9 +20,14 @@
 
 export const ACADEMY_TZ = 'Asia/Riyadh'
 
-/** The viewer's own zone: profiles.timezone, else the browser's. */
-export function viewerTz(profile) {
-  const fromProfile = profile?.timezone
+/**
+ * The viewer's own zone: lc_coaches.timezone when the console has loaded it,
+ * else profiles.timezone, else whatever the browser resolves. The browser is
+ * usually right and is wrong in exactly the cases that matter — a VPN, or a
+ * coach travelling — which is why the stored value wins.
+ */
+export function viewerTz(profile, coachTz) {
+  const fromProfile = coachTz || profile?.timezone
   if (fromProfile && typeof fromProfile === 'string') return fromProfile
   try {
     return new Intl.DateTimeFormat().resolvedOptions().timeZone || ACADEMY_TZ

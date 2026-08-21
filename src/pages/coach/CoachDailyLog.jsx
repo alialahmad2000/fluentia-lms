@@ -3,12 +3,12 @@ import { CheckCircle2, Flame, Inbox, ArrowUpRight, Send } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import GlassPanel from '@/design-system/components/GlassPanel'
 import { toast } from '@/components/ui/FluentiaToast'
-import { useCoordinatorToday, useSaveDailyLog } from './consoleQueries'
-import './coordinator-console.css'
+import { useCoachToday, useSaveDailyLog } from './lcQueries'
+import './lc-console.css'
 
 const MIN_SUMMARY = 40
 
-/* Module scope — see the note in CoordinatorQueue.jsx. */
+/* Module scope — see the note in CoachRadar.jsx. */
 
 function Metric({ label, value, icon: Icon, tone, caption }) {
   const color =
@@ -47,9 +47,9 @@ function computeStreak(logs, todayIso) {
   return streak
 }
 
-export default function CoordinatorDailyLog() {
+export default function CoachDailyLog() {
   const profileId = useAuthStore((s) => s.profile?.id)
-  const { data, isLoading } = useCoordinatorToday()
+  const { data, isLoading } = useCoachToday()
   const save = useSaveDailyLog()
   const [summary, setSummary] = useState('')
 
@@ -75,16 +75,11 @@ export default function CoordinatorDailyLog() {
     }
     try {
       await save.mutateAsync({
-        coordinatorId: profileId,
+        coachId: profileId,
         logDate: todayIso,
-        // Recorded once, on the first save of the day — re-saving later must
-        // not overwrite it with a number he has already worked down. STUDENTS,
-        // not raw pending rows. The engine re-raises the same signal
-        // nightly, so `queue_size` is ~11x the number of people and can never
-        // reach zero — benchmarking his day against it would be a permanent,
-        // meaningless deficit in the record.
-        queueSize: todayLog?.queue_size_at_start ?? data?.students_in_queue ?? 0,
-        actioned: data?.actioned_today ?? 0,
+        // Students, not raw rows: the number he can actually work to zero.
+        studentsReviewed: data?.students_touched_today ?? 0,
+        messagesSent: data?.messages_sent_today ?? 0,
         escalations: data?.escalations_today ?? 0,
         summary: summary.trim(),
       })
@@ -97,68 +92,54 @@ export default function CoordinatorDailyLog() {
   return (
     <div>
       {/* the streak — the instrument this role is held to */}
-      <GlassPanel elevation={2} padding="xl" className="mb-5">
+      <GlassPanel elevation={2} padding={streak === 0 ? 'md' : 'xl'} style={{ marginBottom: 'var(--space-7, 3rem)' }}>
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Flame size={16} style={{ color: 'var(--ds-accent-gold)' }} />
               <p className="cc-eyebrow" style={{ letterSpacing: '0.14em' }}>Consecutive days logged</p>
             </div>
-            <p className="cc-streak">{isLoading ? '—' : streak}</p>
+            <p className="cc-streak" style={streak === 0 ? { fontSize: '2.75rem' } : undefined}>{isLoading ? '—' : streak}</p>
           </div>
           <p className="text-sm max-w-xs" style={{ color: 'var(--ds-text-tertiary)' }}>
             {streak === 0
               ? 'No streak yet. Write today’s log and it starts.'
               : streak < 5
-                ? 'Early. The streak is the record that this queue is being worked every day.'
-                : 'Every one of these days is a day nobody’s alert quietly expired.'}
+                ? 'Early. The streak is the record that this roster is being worked every day.'
+                : 'Every one of these days is a day nobody went quiet without anyone noticing.'}
           </p>
         </div>
       </GlassPanel>
 
       {/* auto-computed — he does not type these */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3" style={{ marginBottom: 'var(--space-7, 3rem)' }}>
         <Metric
-          label="Students waiting"
-          value={isLoading ? '—' : data?.students_in_queue ?? 0}
+          label="Active students"
+          value={isLoading ? '—' : data?.active_students ?? 0}
           icon={Inbox}
-          caption={isLoading ? null : `${data?.queue_size ?? 0} nightly re-raises behind them`}
+          caption="The whole roster the radar covers"
         />
         <Metric
-          label="Expiring soon"
-          value={isLoading ? '—' : data?.expiring_within_2_days ?? 0}
-          icon={Flame}
-          tone={(data?.expiring_within_2_days ?? 0) > 0 ? 'danger' : undefined}
-          caption="Within 2 days"
-        />
-        <Metric
-          label="Actioned today"
-          value={isLoading ? '—' : data?.actioned_today ?? 0}
+          label="Students reviewed"
+          value={isLoading ? '—' : data?.students_touched_today ?? 0}
           icon={CheckCircle2}
-          tone={(data?.actioned_today ?? 0) > 0 ? 'success' : undefined}
+          tone={(data?.students_touched_today ?? 0) > 0 ? 'success' : undefined}
+          caption="Touched today — message, observation or no-action"
         />
-        <Metric label="Escalations today" value={isLoading ? '—' : data?.escalations_today ?? 0} icon={ArrowUpRight} />
+        <Metric
+          label="Messages sent"
+          value={isLoading ? '—' : data?.messages_sent_today ?? 0}
+          icon={Send}
+        />
+        <Metric
+          label="Escalations"
+          value={isLoading ? '—' : data?.escalations_today ?? 0}
+          icon={ArrowUpRight}
+        />
       </div>
 
-      {(data?.expiring_within_2_days ?? 0) > 0 && (
-        <GlassPanel
-          elevation={1}
-          padding="md"
-          className="mb-5"
-          style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-danger) 45%, transparent)' }}
-        >
-          <p className="text-sm" style={{ color: 'var(--ds-text-secondary)' }}>
-            <strong className="cc-num" style={{ color: 'var(--ds-accent-danger)' }}>
-              {data.expiring_within_2_days}
-            </strong>{' '}
-            signal{data.expiring_within_2_days === 1 ? '' : 's'} will expire within two days. After
-            seven days they close themselves, unworked — that is how 2,740 of them were lost.
-          </p>
-        </GlassPanel>
-      )}
-
       {/* the log */}
-      <GlassPanel elevation={2} padding="lg" className="mb-5">
+      <GlassPanel elevation={2} padding="lg" style={{ marginBottom: 'var(--space-7, 3rem)' }}>
         <h2 className="text-lg font-bold mb-1" style={{ color: 'var(--ds-text-primary)' }}>
           What happened today?
         </h2>
@@ -170,7 +151,7 @@ export default function CoordinatorDailyLog() {
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
           rows={6}
-          placeholder="Reached 6 of the 9 flagged students. Two replied within the hour…"
+          placeholder="Reached 6 of the 9 students on the radar. Two replied within the hour…"
           className="w-full rounded-xl px-3.5 py-3 text-sm"
           style={{
             background: 'var(--ds-surface-2)', color: 'var(--ds-text-primary)',
@@ -216,7 +197,7 @@ export default function CoordinatorDailyLog() {
                     {String(l.log_date)}
                   </span>
                   <span className="cc-pill" style={{ background: 'var(--ds-surface-3)', color: 'var(--ds-text-tertiary)' }}>
-                    {l.interventions_actioned ?? 0} actioned
+                    {l.messages_sent ?? 0} messages
                   </span>
                   {(l.escalations ?? 0) > 0 && (
                     <span
