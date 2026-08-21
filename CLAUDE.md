@@ -313,6 +313,16 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-21 (4) — WRITING: the brief is typeset now, not printed as one grey block
+Owner: *"can we make the text look better and easier to read by doing certain things such as bold for things better to be in bold."*
+
+- **The briefs already have a shape; the rendering was hiding it.** Measured across all 154 rows (ordinary + custom tracks): a lead sentence naming the deliverable, then the moves the student has to make, then usually the language constraint — average **2.3 steps** per brief. As one paragraph she had to read the whole thing to find the four things she was actually being asked for.
+- **Same words, given structure.** The deliverable reads as the headline; each move gets its own line with a rule; and the two things students most often miss are the only colour in the paragraph — **how long it must be** («120-180 words») and **which grammar is being tested** («present tense», «first conditional», or whatever the row's own `grammar_to_use` names). The verb that names each move is bolded, nothing else is.
+- **NEW `src/lib/writingBrief.js` — it segments and marks, it never edits.** The emphasis rules are deliberately conservative: a move verb counts only where it heads a sentence or a clause, so «the channel you **use**» is not mistaken for an instruction. Grammar terms are matched longest-first so "simple present tense" wins over "present tense".
+- **Losslessness is the safety property, so it is asserted rather than assumed.** `tests/unit/writingBrief.test.mjs` re-joins every token of every brief in the database and compares it to the original: **154/154, 0 lossy, 0 empty lead, 154 pick up emphasis.** If that test ever fails the formatter is wrong, not the content. The sentence splitter is checked against the cases a naive one breaks on — `(BCIs)`, `3.5 hours`, `e.g.`.
+- Verified on production: the live chunk carries the formatter, the A1 brief renders 2 steps with `Write / Describe / Use / present tense` emphasised, 0 console errors.
+- Files: `src/lib/writingBrief.js` (NEW), `tests/unit/writingBrief.test.mjs` (NEW), `src/pages/student/curriculum/tabs/WritingTab.jsx`. DB: none. Shipped `c00edcf3`.
+
 ### 2026-08-21 (3) — WRITING: the task was unreadable over the cover art, and a screen away from the box
 Owner, looking at a long brief (ملاك's unit 4, a 120-180 word email task): *"the question is very far away from the text box… plus the question background makes it confusing to read."* Both were real.
 
