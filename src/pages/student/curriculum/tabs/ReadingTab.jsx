@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useMemo, useEffect, useLayoutEffect } fr
 import { createPortal } from 'react-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings } from 'lucide-react'
+import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings, GraduationCap } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { pickLatestAttempt } from '../../../../lib/activitySave'
 import { useActivitySave } from '../../../../hooks/useActivitySave'
@@ -33,6 +33,8 @@ import ArticleBody from '../../../../components/curriculum/reading/ArticleBody'
 import WordPopup from '../../../../components/curriculum/reading/WordPopup'
 import ReadingTools from '../../../../components/curriculum/reading/ReadingTools'
 import StudySheet from '../../../../components/curriculum/reading/StudySheet'
+import SectionJumper from '../../../../components/curriculum/SectionJumper'
+import SectionBand from '../../../../components/curriculum/SectionBand'
 import { useArticleVocabIndex } from '../../../../hooks/useArticleVocabIndex'
 import { trackEvent } from '../../../../lib/trackEvent'
 import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
@@ -52,6 +54,16 @@ const READING_MODES = [
 // A1/A2 second-language reading speed. The 200wpm native default would tell a
 // beginner she has one minute left when she has four.
 const READING_WPM = 90
+
+// What the jump rail offers. SectionJumper drops any entry whose block did
+// not render, so a reading with no vocabulary simply shows one chip fewer.
+const SECTION_NAV = [
+  { id: 'sec-text', label: 'المقال', icon: FileText },
+  { id: 'sec-vocab', label: 'المفردات', icon: BookOpen },
+  { id: 'sec-study', label: 'ورقة المذاكرة', icon: GraduationCap },
+  { id: 'sec-questions', label: 'الأسئلة', icon: CheckCircle },
+  { id: 'sec-thinking', label: 'تفكير ناقد', icon: MessageSquare },
+]
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -658,8 +670,10 @@ function ReadingContent({ reading, studentId, unitId }) {
   return (
     // The bottom clearance is nav height + iOS safe-area, not a magic 100px.
     <div className="space-y-6" style={{ paddingBottom: 'var(--mobile-bottom-clearance, 100px)' }}>
-      {/* Reading Progress Bar */}
-      <div className="sticky z-20 -mx-4 px-4" style={{ top: 'var(--header-height, 64px)' }}>
+      {/* Sticky section chrome: the progress hairline and the jump rail are
+          ONE cluster. A student who wants the questions used to scroll past
+          everything else every single time. */}
+      <div className="sticky z-rise -mx-4 px-4 pb-2" style={{ top: 'var(--header-height, 64px)' }}>
         <div className="h-1 rounded-full overflow-hidden bg-slate-800/50">
           <motion.div
             className="h-full rounded-full"
@@ -672,6 +686,7 @@ function ReadingContent({ reading, studentId, unitId }) {
             transition={{ duration: 0.3 }}
           />
         </div>
+        <SectionJumper className="mt-2" sections={SECTION_NAV} />
       </div>
 
       {/* Completed badge + retry */}
@@ -695,7 +710,8 @@ function ReadingContent({ reading, studentId, unitId }) {
 
       {/* ─── Premium Passage Card ─── */}
       <div
-        className="relative rounded-2xl overflow-hidden transition-colors duration-300"
+        id="sec-text"
+        className="relative scroll-mt-[132px] rounded-2xl overflow-hidden transition-colors duration-300"
         // Was `bg-slate-900/50 border-slate-800/60` — a cold slate card on a warm
         // dark page with no depth. Tokenised, with a layered shadow and a faint
         // interior bloom so the column reads as a lit page in a dark room.
@@ -1078,38 +1094,44 @@ function ReadingContent({ reading, studentId, unitId }) {
         </div>
       )}
 
-      {/* Vocabulary Box */}
-      {vocabulary?.length > 0 && (
-        <VocabularyBox vocabulary={vocabulary} />
+      {/* The words and the skill this passage practises. */}
+      {(vocabulary?.length > 0 || reading.reading_skill_name_en) && (
+        <SectionBand id="sec-vocab">
+          {vocabulary?.length > 0 && <VocabularyBox vocabulary={vocabulary} />}
+          {reading.reading_skill_name_en && <ReadingSkillBox reading={reading} />}
+        </SectionBand>
       )}
 
-      {/* Reading Skill */}
-      {reading.reading_skill_name_en && (
-        <ReadingSkillBox reading={reading} />
+      {/* «ورقة المذاكرة» — the study layer distilled from this passage. Sits
+          between the article and the questions so the questions now test
+          something that was actually taught. Renders nothing without content.
+          The 'feature' seam marks it as a paper, not another info card. */}
+      {reading.study_sheet && (
+        <SectionBand id="sec-study" tone="feature">
+          <StudySheet sheet={reading.study_sheet} />
+        </SectionBand>
       )}
 
-      {/* «ورقة المذاكرة» — the study layer distilled from this passage.
-          Sits between the article and the questions so the questions now test
-          something that was actually taught. Renders nothing without content. */}
-      {reading.study_sheet && <StudySheet sheet={reading.study_sheet} />}
-
-      {/* Comprehension Questions */}
-      {questions?.length > 0 && <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />}
+      {/* The graded check. */}
       {questions?.length > 0 && (
-        <ComprehensionSection
-          key={retryKeyRef.current}
-          questions={questions}
-          savedAnswers={retrying ? null : savedProgress?.answers}
-          isAlreadyCompleted={!retrying && savedProgress?.status === 'completed'}
-          progressLoading={progressLoading}
-          onAutosave={handleComprehensionAutosave}
-          onComplete={handleComprehensionComplete}
-        />
+        <SectionBand id="sec-questions">
+          <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
+          <ComprehensionSection
+            key={retryKeyRef.current}
+            questions={questions}
+            savedAnswers={retrying ? null : savedProgress?.answers}
+            isAlreadyCompleted={!retrying && savedProgress?.status === 'completed'}
+            progressLoading={progressLoading}
+            onAutosave={handleComprehensionAutosave}
+            onComplete={handleComprehensionComplete}
+          />
+        </SectionBand>
       )}
 
-      {/* Critical Thinking */}
       {reading.critical_thinking_prompt_en && (
-        <CriticalThinkingBox reading={reading} />
+        <SectionBand id="sec-thinking">
+          <CriticalThinkingBox reading={reading} />
+        </SectionBand>
       )}
 
       {/* Unified WordLens — single surface for word tap + long-press */}
