@@ -60,8 +60,11 @@ function latinRatio(text) {
 // puts it in RTL context where it mirrors, and the reader sees ")Reported…)".
 const PAIRS = { ')': '(', ']': '[', '}': '{', '"': '"', "'": "'", '”': '“', '»': '«', '’': '‘' }
 
-/** Wrap multi-word Latin runs so RTL bidi reordering can't scramble them. */
-function isolateLatin(text, key) {
+/** Wrap multi-word Latin runs so RTL bidi reordering can't scramble them.
+ *  Exported because any Arabic teaching prose that quotes English needs it —
+ *  «ورقة المذاكرة» renders its explanations as plain paragraphs, not RichText
+ *  blocks, so it takes the isolate helper without the block/CSS machinery. */
+export function isolateLatin(text, key) {
   if (!ARABIC_RE.test(text)) return text
   const out = []
   let last = 0

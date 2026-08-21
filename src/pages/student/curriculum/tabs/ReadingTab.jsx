@@ -32,6 +32,7 @@ import ArticleMasthead from '../../../../components/curriculum/reading/ArticleMa
 import ArticleBody from '../../../../components/curriculum/reading/ArticleBody'
 import WordPopup from '../../../../components/curriculum/reading/WordPopup'
 import ReadingTools from '../../../../components/curriculum/reading/ReadingTools'
+import StudySheet from '../../../../components/curriculum/reading/StudySheet'
 import { useArticleVocabIndex } from '../../../../hooks/useArticleVocabIndex'
 import { trackEvent } from '../../../../lib/trackEvent'
 import QuestionHint from '../../../../components/curriculum/questions/QuestionHint'
@@ -1086,6 +1087,11 @@ function ReadingContent({ reading, studentId, unitId }) {
       {reading.reading_skill_name_en && (
         <ReadingSkillBox reading={reading} />
       )}
+
+      {/* «ورقة المذاكرة» — the study layer distilled from this passage.
+          Sits between the article and the questions so the questions now test
+          something that was actually taught. Renders nothing without content. */}
+      {reading.study_sheet && <StudySheet sheet={reading.study_sheet} />}
 
       {/* Comprehension Questions */}
       {questions?.length > 0 && <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />}
