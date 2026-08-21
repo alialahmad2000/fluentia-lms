@@ -178,6 +178,15 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
   const [evalStatus, setEvalStatus] = useState(null) // pending|evaluating|completed|failed|escalated
   const [progressRowId, setProgressRowId] = useState(null)
   const [coachOpen, setCoachOpen] = useState(false)
+  // Open the first time she meets the task; folded once she has started writing,
+  // because by then the brief is only pushing the paper down the page. Her own
+  // choice wins over both, and it is remembered per task.
+  const [briefOpen, setBriefOpen] = useState(true)
+  const briefInit = useRef(false)
+  const setBriefOpenPersist = useCallback((v) => {
+    setBriefOpen(v)
+    try { localStorage.setItem(briefKey(task.id), v ? '1' : '0') } catch {}
+  }, [task.id])
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const dbSaveTimer = useRef(null)
@@ -235,6 +244,14 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     load()
     return () => { isMounted = false }
   }, [studentId, task.id])
+
+  useEffect(() => {
+    if (progressLoading || briefInit.current) return
+    briefInit.current = true
+    let saved = null
+    try { saved = localStorage.getItem(briefKey(task.id)) } catch {}
+    setBriefOpen(saved !== null ? saved === '1' : countWords(text) === 0)
+  }, [progressLoading, task.id, text])
 
   // Save to DB. One call — see hooks/useActivitySave.js.
   //
@@ -465,6 +482,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
             number={number}
             total={total}
             taskTypeLabel={taskTypeLabel}
+            open={briefOpen}
+            setOpenPersist={setBriefOpenPersist}
             reduce={reduce}
           />
 
@@ -476,6 +495,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
               studentId={studentId}
               coachOpen={coachOpen}
               setCoachOpen={setCoachOpen}
+              briefFolded={!briefOpen}
+              onOpenBrief={() => setBriefOpenPersist(true)}
               text={text}
               setText={setText}
               wordCount={wordCount}
@@ -573,8 +594,11 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
 /* ══════════════════════════════════════════════════════
    1 — THE BRIEF
    ══════════════════════════════════════════════════════ */
-function BriefCard({ task, number, total, taskTypeLabel, reduce }) {
+const briefKey = (taskId) => `fluentia:writingBrief:${taskId}`
+
+function BriefCard({ task, number, total, taskTypeLabel, open, setOpenPersist, reduce }) {
   const [openCell, setOpenCell] = useState(null) // 'grammar' | 'rubric' | null
+  const [arOpen, setArOpen] = useState(false)
   const grammar = task.grammar_to_use && typeof task.grammar_to_use === 'object' ? task.grammar_to_use : null
   const rubric = task.rubric && typeof task.rubric === 'object' ? task.rubric : null
   const rubricEntries = rubric ? Object.entries(rubric) : []
@@ -588,7 +612,13 @@ function BriefCard({ task, number, total, taskTypeLabel, reduce }) {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden rounded-3xl"
       style={{
-        background: `linear-gradient(180deg, rgba(232,176,122,0.05) 0%, rgba(255,255,255,0.022) 34%, rgba(255,255,255,0.018) 100%)`,
+        // The living background must glow AROUND the card, never through the
+        // sentence a student is trying to read. The warm gradient sits on top of
+        // a near-opaque ground; the blur is a bonus where it is supported and the
+        // ground alone is enough where it is not.
+        background: `linear-gradient(180deg, rgba(232,176,122,0.055) 0%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0.012) 100%), rgba(8,13,23,0.92)`,
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
         border: `1px solid ${INK.hair}`,
         boxShadow: '0 24px 60px -32px rgba(0,0,0,0.9)',
       }}
@@ -600,7 +630,7 @@ function BriefCard({ task, number, total, taskTypeLabel, reduce }) {
         style={{ background: `linear-gradient(90deg, transparent, ${INK.accentLine} 32%, ${INK.accentLine} 68%, transparent)` }}
       />
 
-      <div className="p-5 sm:p-7">
+      <div className={open ? 'p-5 sm:p-7' : 'px-5 sm:px-7 pt-4 pb-4'}>
         {/* Kicker */}
         <div className="flex items-center gap-2.5 flex-wrap">
           <span
@@ -615,44 +645,75 @@ function BriefCard({ task, number, total, taskTypeLabel, reduce }) {
               المهمة {number} من {total}
             </span>
           )}
-          <span className="text-[11px] font-['Tajawal'] tracking-wide mr-auto" style={{ color: INK.faint }}>
-            التعليمات
-          </span>
+          <button
+            onClick={() => setOpenPersist(!open)}
+            aria-expanded={open}
+            className="mr-auto inline-flex items-center gap-1.5 text-[11px] font-['Tajawal'] tracking-wide transition-colors hover:brightness-125"
+            style={{ color: INK.faint }}
+          >
+            {open ? 'إخفاء التعليمات' : 'التعليمات كاملة'}
+            <ChevronDown size={12} style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .22s' }} />
+          </button>
         </div>
 
         <h3
-          className="mt-2.5 text-[22px] sm:text-[26px] font-bold font-['Tajawal'] leading-tight"
+          className={`mt-2.5 font-bold font-['Tajawal'] leading-tight transition-all ${open ? 'text-[19px] sm:text-[24px]' : 'text-[16px] sm:text-[18px]'}`}
           style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}
         >
           مهمة الكتابة
         </h3>
 
-        {/* English brief — framed so the direction switch reads as intentional */}
-        <div
-          dir="ltr"
-          className="mt-4 ps-4 sm:ps-5"
-          style={{ borderInlineStart: `2px solid ${INK.accentLine}` }}
-        >
-          <p
-            className="font-en text-[15.5px] sm:text-[17px] leading-[1.75] text-left"
-            style={{ color: 'rgba(240,244,248,0.93)', maxWidth: '74ch', letterSpacing: '-0.003em' }}
-          >
-            {task.prompt_en}
-          </p>
-        </div>
+        {/* Folded, the task is not printed here — it rides on top of the paper
+            instead, so it is never repeated and never far from the box. */}
+        <AnimatePresence initial={false}>
+          {open && (
+            <Expand key="en">
+              <div
+                dir="ltr"
+                className="mt-3.5 ps-4 sm:ps-5"
+                style={{ borderInlineStart: `2px solid ${INK.accentLine}` }}
+              >
+                <p
+                  className="font-en text-[15.5px] sm:text-[17px] leading-[1.75] text-left"
+                  style={{ color: 'rgba(240,244,248,0.95)', maxWidth: '74ch', letterSpacing: '-0.003em' }}
+                >
+                  {task.prompt_en}
+                </p>
+              </div>
+            </Expand>
+          )}
+        </AnimatePresence>
 
-        {/* Arabic reading of the same brief */}
-        {task.prompt_ar && (
-          <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${INK.hairSoft}` }}>
-            <p className="text-[11px] font-['Tajawal'] mb-1.5" style={{ color: INK.faint }}>بالعربية</p>
-            <p
-              className="text-[14px] font-['Tajawal'] leading-[1.95]"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              {genderizeText(task.prompt_ar)}
-            </p>
-          </div>
-        )}
+        {/* The Arabic is the same brief again — offered, not stacked on top of it. */}
+        <AnimatePresence initial={false}>
+          {open && task.prompt_ar && (
+            <Expand key="ar">
+              <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${INK.hairSoft}` }}>
+                <button
+                  onClick={() => setArOpen((v) => !v)}
+                  aria-expanded={arOpen}
+                  className="inline-flex items-center gap-1.5 text-[11.5px] font-['Tajawal'] transition-colors hover:brightness-125"
+                  style={{ color: arOpen ? 'var(--text-secondary)' : INK.faint }}
+                >
+                  بالعربية
+                  <ChevronDown size={12} style={{ transform: arOpen ? 'rotate(180deg)' : 'none', transition: 'transform .22s' }} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {arOpen && (
+                    <Expand key="ar-body">
+                      <p
+                        className="text-[14px] font-['Tajawal'] leading-[1.95] pt-2"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
+                        {genderizeText(task.prompt_ar)}
+                      </p>
+                    </Expand>
+                  )}
+                </AnimatePresence>
+              </div>
+            </Expand>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Meta strip — word target · grammar · rubric, one row, hairline-divided */}
@@ -794,7 +855,7 @@ function Expand({ children }) {
 function WritingSheet({
   task, text, setText, wordCount, progressPct, meetsMin, inRange, underMin, overMax,
   wordsNeeded, saveState, lastSavedAt, saved, onSave, onSubmit, submitting, submitShake,
-  studentId, coachOpen, setCoachOpen, reduce,
+  studentId, coachOpen, setCoachOpen, briefFolded, onOpenBrief, reduce,
 }) {
   const g = useG()
   const [hintsOpen, setHintsOpen] = useState(false)
@@ -1067,6 +1128,34 @@ function WritingSheet({
               </Expand>
             )}
           </AnimatePresence>
+        </div>
+      )}
+
+      {/* When the brief is folded it lives here instead — directly on top of the
+          paper, so the task is never a scroll away from the box. */}
+      {briefFolded && (
+        <div
+          className="px-4 sm:px-5 py-3 flex items-start gap-3"
+          style={{ borderBottom: `1px solid ${INK.hairSoft}`, background: 'rgba(232,176,122,0.045)' }}
+        >
+          <ScrollText size={13} style={{ color: INK.accent, flexShrink: 0, marginTop: 3 }} />
+          <p
+            dir="ltr"
+            className="font-en text-[13.5px] leading-[1.65] text-left flex-1 min-w-0"
+            style={{
+              color: 'rgba(240,244,248,0.72)',
+              display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+            }}
+          >
+            {task.prompt_en}
+          </p>
+          <button
+            onClick={onOpenBrief}
+            className="text-[11px] font-['Tajawal'] shrink-0 transition-colors hover:brightness-125"
+            style={{ color: INK.accent }}
+          >
+            التعليمات
+          </button>
         </div>
       )}
 
