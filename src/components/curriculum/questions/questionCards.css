@@ -29,10 +29,15 @@
   position: relative;
   overflow: hidden;
   border-radius: 18px;
+  /* The ground was a hardcoded COLD navy while the app's token layer is warm on
+     the default theme, so every question card sat a few degrees cooler than the
+     page around it. Only the ground and the edge follow the theme now — the
+     gradient sheen, the accent rail and each section's accent (violet for
+     listening, sky for reading) are deliberately untouched. */
   background:
     linear-gradient(172deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.012) 36%, rgba(0, 0, 0, 0.14) 100%),
-    rgba(9, 15, 30, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+    var(--ds-bg-elevated, #0b0f18);
+  border: 1px solid var(--ds-border-subtle, rgba(255, 255, 255, 0.09));
   box-shadow: 0 20px 44px -24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   padding: 20px 22px 20px;
 }

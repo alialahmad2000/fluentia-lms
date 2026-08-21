@@ -1031,10 +1031,17 @@ function ReadingContent({ reading, studentId, unitId }) {
             transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className="rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60 p-5 sm:p-6 space-y-4">
+            <div
+              className="rounded-2xl overflow-hidden p-5 sm:p-6 space-y-4"
+              style={{
+                background: 'var(--ds-bg-elevated, #0d111b)',
+                border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.07))',
+              }}
+            >
               <div className="flex items-center gap-2" dir="rtl">
-                <Zap size={16} className="text-violet-400" />
-                <h3 className="text-sm font-bold text-violet-400 font-['Tajawal']">اختبار مفرداتك المحفوظة</h3>
+                {/* was violet — which is the LISTENING accent, cross-wired into reading */}
+                <Zap size={16} style={{ color: 'var(--ds-accent-primary, #e9b949)' }} />
+                <h3 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--ds-accent-primary, #e9b949)' }}>اختبار مفرداتك المحفوظة</h3>
               </div>
               {vocabQuiz.map((q, qi) => (
                 <div key={qi} className="space-y-2">
@@ -1614,6 +1621,32 @@ function AudioButton({ url, label }) {
 }
 
 // ─── Vocabulary Box ──────────────────────────────────
+// Shared surface tokens for the reading tab's info cards.
+//
+// These three cards used to be raw Tailwind: a COLD slate ground
+// (bg-slate-900/50 + border-slate-800/60) under a page whose token layer is
+// WARM on the student's default theme (`night` — ground #0b0f18, cream ink
+// #faf5e6, one gold accent #e9b949). Cold slate lit by a warm page composites
+// to the muddy brown the owner reported. On top of that the three stacked cards
+// carried three unrelated accents — emerald, amber, and a purple→sky gradient —
+// so a single scroll showed four different colour systems.
+//
+// Now: ONE ground, ONE set of type colours, and one small semantic icon each,
+// all from tokens, so the cards follow the student's theme instead of fighting
+// it and read as one document with the passage and «ورقة المذاكرة».
+const RT = {
+  ink: 'var(--ds-text-primary, #faf5e6)',
+  body: 'var(--ds-text-secondary, #c9c3b0)',
+  muted: 'var(--ds-text-tertiary, #8b8578)',
+  ground: 'var(--ds-bg-elevated, #0d111b)',
+  raise: 'var(--ds-surface-1, rgba(255,255,255,0.028))',
+  edge: 'var(--ds-border-subtle, rgba(255,255,255,0.07))',
+  gold: 'var(--ds-accent-primary, #e9b949)',
+  wash: 'var(--ds-accent-wash, rgba(233,185,73,.08))',
+  good: 'var(--ds-accent-success, #84cc7a)',
+  quiet: 'var(--ds-accent-secondary, #8c95b8)',
+}
+
 function VocabularyBox({ vocabulary }) {
   const [expanded, setExpanded] = useState(false)
   const audioRef = useRef(null)
@@ -1626,20 +1659,24 @@ function VocabularyBox({ vocabulary }) {
   }
 
   return (
-    <div className="rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60">
+    <div
+      className="rounded-2xl overflow-hidden"
+      style={{ background: RT.ground, border: `1px solid ${RT.edge}` }}
+    >
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-6 py-4 transition-colors hover:bg-slate-800/20"
+        className="w-full flex items-center justify-between px-6 py-4 transition-colors hover:bg-white/[0.03]"
       >
         <div className="flex items-center gap-2.5">
-          <BookOpen size={16} className="text-emerald-400" />
-          <span className="text-sm font-bold text-white font-['Tajawal']">
+          <BookOpen size={16} style={{ color: RT.good }} />
+          <span className="text-sm font-bold font-['Tajawal']" style={{ color: RT.ink }}>
             مفردات القراءة ({vocabulary.length})
           </span>
         </div>
         <ChevronDown
           size={16}
-          className={`text-slate-400 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+          style={{ color: RT.muted }}
+          className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
         />
       </button>
 
@@ -1652,26 +1689,28 @@ function VocabularyBox({ vocabulary }) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-5 space-y-2 border-t border-slate-800/50">
+            <div className="px-6 pb-5 space-y-2" style={{ borderTop: `1px solid ${RT.edge}` }}>
               <div className="pt-4 space-y-2">
                 {vocabulary.map(v => (
                   <div
                     key={v.id}
-                    className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-slate-800/40 border border-slate-700/30"
+                    className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl"
+                    style={{ background: RT.raise, border: `1px solid ${RT.edge}` }}
                   >
                     <div className="flex-1 min-w-0" dir="ltr">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm text-white font-en">{v.word}</span>
-                        <span className="text-[10px] text-slate-500 font-en">{v.part_of_speech}</span>
+                        <span className="font-semibold text-sm font-en" style={{ color: RT.ink }}>{v.word}</span>
+                        <span className="text-[10px] font-en" style={{ color: RT.muted }}>{v.part_of_speech}</span>
                       </div>
-                      <p className="text-xs text-slate-300 font-en mt-0.5">{v.definition_en}</p>
+                      <p className="text-xs font-en mt-0.5" style={{ color: RT.body }}>{v.definition_en}</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className="text-xs text-slate-400 font-['Tajawal']">{v.definition_ar}</span>
+                      <span className="text-xs font-['Tajawal']" style={{ color: RT.muted }}>{v.definition_ar}</span>
                       {v.audio_url && (
                         <button
                           onClick={(e) => playAudio(v.audio_url, e)}
-                          className="w-7 h-7 rounded-full bg-sky-500/10 text-sky-400 flex items-center justify-center hover:bg-sky-500/20 transition-colors flex-shrink-0"
+                          style={{ background: RT.wash, color: RT.gold }}
+                          className="w-7 h-7 rounded-full flex items-center justify-center transition-opacity hover:opacity-75 flex-shrink-0"
                         >
                           <Volume2 size={13} />
                         </button>
@@ -2041,16 +2080,19 @@ function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer 
 // ─── Reading Skill Box ───────────────────────────────
 function ReadingSkillBox({ reading }) {
   return (
-    <div className="rounded-2xl p-5 sm:p-6 space-y-3 bg-slate-900/50 border border-slate-800/60">
+    <div
+      className="rounded-2xl p-5 sm:p-6 space-y-3"
+      style={{ background: RT.ground, border: `1px solid ${RT.edge}` }}
+    >
       <div className="flex items-center gap-2">
-        <Lightbulb size={16} className="text-amber-400" />
-        <h3 className="text-sm font-bold text-white font-['Tajawal']">
+        <Lightbulb size={16} style={{ color: RT.gold }} />
+        <h3 className="text-sm font-bold font-['Tajawal']" style={{ color: RT.ink }}>
           مهارة القراءة: <span className="font-en">{reading.reading_skill_name_en}</span>
           {reading.reading_skill_name_ar && ` — ${reading.reading_skill_name_ar}`}
         </h3>
       </div>
       {reading.reading_skill_explanation && (
-        <p className="text-sm text-slate-300 font-en leading-relaxed" dir="ltr">
+        <p className="text-sm font-en leading-relaxed" dir="ltr" style={{ color: RT.body }}>
           {reading.reading_skill_explanation}
         </p>
       )}
@@ -2063,20 +2105,17 @@ function CriticalThinkingBox({ reading }) {
   return (
     <div
       className="rounded-2xl p-5 sm:p-6 space-y-3"
-      style={{
-        background: 'linear-gradient(135deg, rgba(168,85,247,0.06), rgba(56,189,248,0.06))',
-        border: '1px solid rgba(168,85,247,0.15)',
-      }}
+      style={{ background: RT.ground, border: `1px solid ${RT.edge}` }}
     >
       <div className="flex items-center gap-2">
-        <MessageSquare size={16} className="text-purple-400" />
-        <h3 className="text-sm font-bold text-purple-400 font-['Tajawal']">تفكير ناقد</h3>
+        <MessageSquare size={16} style={{ color: RT.quiet }} />
+        <h3 className="text-sm font-bold font-['Tajawal']" style={{ color: RT.ink }}>تفكير ناقد</h3>
       </div>
-      <p className="text-sm text-slate-200 font-en leading-relaxed" dir="ltr">
+      <p className="text-sm font-en leading-relaxed" dir="ltr" style={{ color: RT.ink }}>
         {reading.critical_thinking_prompt_en}
       </p>
       {reading.critical_thinking_prompt_ar && (
-        <p className="text-sm text-slate-400 font-['Tajawal']" dir="rtl">
+        <p className="text-sm font-['Tajawal']" dir="rtl" style={{ color: RT.body }}>
           {genderizeText(reading.critical_thinking_prompt_ar)}
         </p>
       )}
@@ -2162,25 +2201,32 @@ function CompletedBanner({ attemptNumber, allAttempts, bestScore, score, onRetry
 
 // ─── Skeleton ────────────────────────────────────────
 function ReadingSkeleton() {
+  // The skeleton is the FIRST thing a student sees on every reading, so it has
+  // to be made of the same material as the page that replaces it. It used to be
+  // cold slate (bg-slate-900/50 + slate-800 shimmers) flashing in front of a
+  // warm page — a cheap-feeling mismatch on every single load.
+  const ground = 'var(--ds-bg-elevated, #0d111b)'
+  const edge = 'var(--ds-border-subtle, rgba(255,255,255,0.07))'
+  const bar = 'var(--ds-surface-2, rgba(255,215,140,0.055))'
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
       <div className="flex gap-2">
-        <div className="h-10 w-24 rounded-xl bg-slate-800 animate-pulse" />
-        <div className="h-10 w-24 rounded-xl bg-slate-800 animate-pulse" />
+        <div className="h-10 w-24 rounded-xl animate-pulse" style={{ background: bar }} />
+        <div className="h-10 w-24 rounded-xl animate-pulse" style={{ background: bar }} />
       </div>
-      <div className="rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60">
-        <div className="aspect-[16/9] bg-slate-800 animate-pulse" />
+      <div className="rounded-2xl overflow-hidden" style={{ background: ground, border: `1px solid ${edge}` }}>
+        <div className="aspect-[16/9] animate-pulse" style={{ background: bar }} />
         <div className="p-8 space-y-6">
           <div className="space-y-3">
-            <div className="h-8 w-3/4 rounded-lg bg-slate-800 animate-pulse" />
-            <div className="h-5 w-1/2 rounded-lg bg-slate-800 animate-pulse" />
+            <div className="h-8 w-3/4 rounded-lg animate-pulse" style={{ background: bar }} />
+            <div className="h-5 w-1/2 rounded-lg animate-pulse" style={{ background: bar }} />
           </div>
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="flex gap-4">
-              <div className="w-7 h-7 rounded-full bg-slate-800 animate-pulse flex-shrink-0" />
+              <div className="w-7 h-7 rounded-full animate-pulse flex-shrink-0" style={{ background: bar }} />
               <div className="flex-1 space-y-2">
-                <div className="h-5 rounded bg-slate-800 animate-pulse" />
-                <div className="h-5 w-5/6 rounded bg-slate-800 animate-pulse" />
+                <div className="h-5 rounded animate-pulse" style={{ background: bar }} />
+                <div className="h-5 w-5/6 rounded animate-pulse" style={{ background: bar }} />
               </div>
             </div>
           ))}
@@ -2188,7 +2234,7 @@ function ReadingSkeleton() {
       </div>
       <div className="space-y-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-36 rounded-2xl bg-slate-800 animate-pulse" />
+          <div key={i} className="h-36 rounded-2xl animate-pulse" style={{ background: ground, border: `1px solid ${edge}` }} />
         ))}
       </div>
     </div>
