@@ -1,0 +1,105 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   «الصفحة» — THE READING PLANE
+   ───────────────────────────────────────────────────────────────────────
+   WHY THIS EXISTS
+
+   `CinematicBg` is a position:fixed layer that paints the unit's cover art
+   behind the ENTIRE page and never goes away. That is exactly right for a
+   hero. It is wrong behind sixteen grammar questions, and it was doing four
+   separate things to the reading surface at once:
+
+     1. two 1px "cinematic lines" pinned at 20% and 75% of the VIEWPORT —
+        fixed, so they sawed across whichever card you were reading;
+     2. `curr-breathe`, a warm bloom pulsing on a 15s loop behind the text;
+     3. `curr-kenburns`, the cover scaling 1.1 → 1.16 behind the text —
+        motion behind prose is the one thing the eye refuses to ignore;
+     4. `--glass-card` is rgba(255,255,255,.025) with backdrop-blur, so the
+        cards are 2.5% white and simply do not stop any of it.
+
+   Dr. Ali chose «الصفحة»: the practice region sits on ONE calm sheet — the
+   same paper-on-desk logic already approved for «الدفتر» in ملخّص الحصص.
+
+   HOW IT WORKS, AND THE TRAP IT AVOIDS
+
+   The plane lives at z-index 10, above the fixed world at z-index 0, and is
+   ~97% opaque. That alone stops all four problems above — no change to
+   CinematicBg is needed, so the hero, the level pages and V3 are untouched.
+
+   The trap: a sheet that spans the viewport turns the page into flat black,
+   which is a hard fail here (every student surface keeps a living
+   background). So the plane is deliberately BOUNDED — it takes its width
+   from the existing `max-w-4xl` container and overhangs it only slightly,
+   letting the unit's world keep breathing down both margins. It uses
+   internal padding rather than negative insets, so it can never overflow
+   its container on a narrow laptop beside the sidebar.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.unit-page {
+  /* dark is the default surface (`:root, .dark, [data-theme=deep-space]`) */
+  --up-top: rgba(15, 17, 25, 0.82);
+  --up-body: rgba(10, 12, 18, 0.975);
+  --up-edge: rgba(255, 255, 255, 0.06);
+  --up-lit: rgba(255, 255, 255, 0.075);
+  --up-drop: rgba(0, 0, 0, 0.88);
+  --up-accent: var(--cinematic-accent-gold, rgba(207, 125, 67, 0.5));
+
+  position: relative;
+  padding: 1.75rem 2.25rem 3rem;
+  margin-inline: -0.5rem;
+  border-radius: 26px 26px 20px 20px;
+  border: 1px solid var(--up-edge);
+  background: linear-gradient(180deg, var(--up-top) 0, var(--up-body) 190px, var(--up-body) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--up-lit),                 /* the page's lit top edge   */
+    0 44px 120px -34px var(--up-drop);           /* it lifts off the world    */
+}
+
+/* A hairline of the unit's own accent along the page's top edge, so the sheet
+   reads as belonging to THIS unit rather than as a generic grey panel. */
+.unit-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 1px;
+  inset-inline: 34px;
+  background: linear-gradient(90deg, transparent, var(--up-accent), transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Light theme — the same page, in paper. */
+.light .unit-page,
+[data-theme='frost-white'] .unit-page {
+  --up-top: rgba(255, 253, 248, 0.9);
+  --up-body: rgba(253, 250, 243, 0.985);
+  --up-edge: rgba(120, 72, 20, 0.12);
+  --up-lit: rgba(255, 255, 255, 0.9);
+  --up-drop: rgba(90, 60, 25, 0.22);
+}
+
+/* Phones: the page runs nearly edge to edge — at this width there is no room
+   for margins, and the world stays visible above it at the hero and below it
+   past the end of the sheet. */
+@media (max-width: 760px) {
+  .unit-page {
+    padding: 1.25rem 1.1rem 2.25rem;
+    margin-inline: -0.5rem;
+    border-radius: 20px 20px 16px 16px;
+  }
+  .unit-page::before { inset-inline: 20px; }
+}
+
+/* The cards stop being floating glass and become divisions OF the page.
+   Scoped to .unit-page so every other surface that uses these classes is
+   byte-identical. */
+.unit-page .grammar-glass {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.017);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+.light .unit-page .grammar-glass,
+[data-theme='frost-white'] .unit-page .grammar-glass {
+  background: rgba(120, 72, 20, 0.025);
+  border-color: rgba(120, 72, 20, 0.1);
+}

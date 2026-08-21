@@ -34,6 +34,7 @@ const SpeakingTab = lazyRetry(() => import('./tabs/SpeakingTab'))
 const RecordingTab = lazyRetry(() => import('../../../components/curriculum/RecordingTab'))
 const AssessmentTab = lazyRetry(() => import('./tabs/AssessmentTab'))
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
+import './unitReadingPlane.css'
 import {
   TrophyButton,
   TrophyModal,
@@ -601,6 +602,7 @@ export default function UnitContent() {
           return (
             <div
               key={id}
+              className="unit-page"
               ref={activeActivity === id ? activityContainerRef : null}
               style={{ display: activeActivity === id ? 'block' : 'none' }}
             >
