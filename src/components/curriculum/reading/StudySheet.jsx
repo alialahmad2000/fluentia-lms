@@ -68,8 +68,31 @@ const norm = (s) =>
  * lessons use; it wraps those runs in <bdi> without dragging in RichText's
  * block layout or its CSS.
  */
+const AR_LETTERS = '\\u0600-\\u06FF\\u0750-\\u077F\\uFB50-\\uFDFF\\uFE70-\\uFEFF'
+// A single Latin word closing an Arabic sentence — "… كلمة واحدة: named." — is the
+// one case isolateLatin deliberately skips (a lone word reorders fine on its own).
+// But the sentence's final «.» is bidi-neutral, so RTL paints it on the WRONG side
+// (".named"). Isolating that word together with its punctuation fixes it, and lets
+// the Arabic prose end on an English term whenever that is the clearest way to say
+// it. Group 1 runs to the last Arabic letter, group 2 is the non-Latin gap (": "),
+// group 3 is the lone word — a multi-word tail cannot match, and is already handled
+// by isolateLatin.
+const LONE_TAIL = new RegExp(
+  `^([\\s\\S]*[${AR_LETTERS}])([^A-Za-z]*)([A-Za-z][A-Za-z'\u2019-]*[)"'\\]]?[.!?]?)\\s*$`
+)
+function renderAr(text, key) {
+  const s = genderizeText(text) || ''
+  const m = s.match(LONE_TAIL)
+  if (!m) return isolateLatin(s, key)
+  return [
+    isolateLatin(m[1], key),
+    m[2],
+    <bdi key={`${key}-tail`} dir="ltr">{m[3]}</bdi>,
+  ]
+}
+
 function Ar({ text, className }) {
-  const body = useMemo(() => isolateLatin(genderizeText(text) || '', 'ar'), [text])
+  const body = useMemo(() => renderAr(text, 'ar'), [text])
   if (!text) return null
   return (
     <p dir="rtl" className={className}>
@@ -416,7 +439,7 @@ export default function StudySheet({ sheet }) {
                 <li key={i} dir="rtl" className="flex items-start gap-2.5">
                   <span className="mt-[0.65em] h-1 w-1 flex-none rounded-full bg-amber-400/70" />
                   <span className="font-['Tajawal'] text-[14px] leading-[1.95] text-slate-300">
-                    {isolateLatin(line, `d${i}`)}
+                    {renderAr(line, `d${i}`)}
                   </span>
                 </li>
               ))}
