@@ -105,12 +105,22 @@ export default function SectionJumper({ sections = [], className = '' }) {
   // One destination is not a navigator.
   if (present.length < 2) return null
 
+  // Chrome colours come from the --ds-* token layer. The first version used a
+  // cold navy rail and a SKY-BLUE active chip — a second accent hue dropped into
+  // a section whose whole palette is one warm gold, which is why it read as
+  // belonging to a different app.
+  const gold = 'var(--ds-accent-primary, #e9b949)'
+  const goldWash = 'var(--ds-accent-wash, rgba(233,185,73,.08))'
+
   return (
     <nav ref={navRef} dir="rtl" aria-label="أقسام هذه الصفحة" className={className}>
       <div
         ref={railRef}
-        className="flex items-center gap-1.5 overflow-x-auto rounded-2xl border border-slate-800/70 px-2 py-2 shadow-lg shadow-slate-950/40 backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        style={{ background: 'rgba(8,15,28,0.86)' }}
+        className="flex items-center gap-1.5 overflow-x-auto rounded-2xl border px-2 py-2 shadow-lg shadow-black/40 backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{
+          background: 'var(--ds-bg-overlay, rgba(11,15,24,0.86))',
+          borderColor: 'var(--ds-border-subtle, rgba(255,255,255,0.07))',
+        }}
       >
         {present.map((s) => {
           const isActive = active === s.id
@@ -121,13 +131,16 @@ export default function SectionJumper({ sections = [], className = '' }) {
               ref={isActive ? activeChipRef : null}
               onClick={() => jump(s.id)}
               aria-current={isActive ? 'true' : undefined}
-              className={`flex min-h-[38px] flex-none items-center gap-1.5 rounded-xl px-3.5 py-1.5 font-['Tajawal'] text-[12.5px] font-medium transition-colors duration-200 [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:px-4 ${
+              style={
                 isActive
-                  ? 'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30'
-                  : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
+                  ? { background: goldWash, color: gold, boxShadow: 'inset 0 0 0 1px rgba(233,185,73,0.30)' }
+                  : { color: 'var(--ds-text-tertiary, #8b8578)' }
+              }
+              className={`flex min-h-[38px] flex-none items-center gap-1.5 rounded-xl px-3.5 py-1.5 font-['Tajawal'] text-[12.5px] font-medium transition-colors duration-200 [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:px-4 ${
+                isActive ? '' : 'hover:bg-white/[0.06] hover:text-[var(--ds-text-primary,#faf5e6)]'
               }`}
             >
-              {Icon && <Icon size={13} className={isActive ? 'text-sky-400' : 'text-slate-500'} />}
+              {Icon && <Icon size={13} style={{ color: isActive ? gold : 'currentColor', opacity: isActive ? 1 : 0.75 }} />}
               {s.label}
             </button>
           )

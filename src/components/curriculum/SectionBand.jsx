@@ -31,6 +31,13 @@ const SectionBand = forwardRef(function SectionBand(
   ref
 ) {
   const feature = tone === 'feature'
+  // Colours come from the --ds-* token layer, like every other surface in the
+  // reading tab. The first version drew the default seam in cold slate
+  // (rgba(148,163,184,…)) and the feature seam in a second gold (amber #fbbf24)
+  // beside the theme's own #e9b949 — two golds and a cold neutral on the same
+  // screen is what made this chrome read as muddy rather than lit.
+  const seamRule = 'var(--ds-accent-rule, rgba(233,185,73,.42))'
+  const seamNeutral = 'rgba(255,255,255,0.09)'
   return (
     <section
       id={id}
@@ -48,8 +55,7 @@ const SectionBand = forwardRef(function SectionBand(
             feature
               ? undefined
               : {
-                  background:
-                    'linear-gradient(to left, transparent, rgba(148,163,184,0.14) 20%, rgba(148,163,184,0.14) 80%, transparent)',
+                  background: `linear-gradient(to left, transparent, ${seamNeutral} 20%, ${seamNeutral} 80%, transparent)`,
                 }
           }
         >
@@ -57,12 +63,15 @@ const SectionBand = forwardRef(function SectionBand(
             <>
               <span
                 className="h-px flex-1"
-                style={{ background: 'linear-gradient(to left, transparent, rgba(251,191,36,0.30))' }}
+                style={{ background: `linear-gradient(to left, transparent, ${seamRule})` }}
               />
-              <span className="h-1 w-1 rounded-full" style={{ background: 'rgba(251,191,36,0.55)' }} />
+              <span
+                className="h-1 w-1 rounded-full"
+                style={{ background: 'var(--ds-accent-primary, #e9b949)' }}
+              />
               <span
                 className="h-px flex-1"
-                style={{ background: 'linear-gradient(to right, transparent, rgba(251,191,36,0.30))' }}
+                style={{ background: `linear-gradient(to right, transparent, ${seamRule})` }}
               />
             </>
           )}
@@ -70,9 +79,25 @@ const SectionBand = forwardRef(function SectionBand(
       )}
       {label && (
         <div className="mb-3 flex items-baseline gap-3">
-          <h3 className="font-['Tajawal'] text-[13px] font-bold tracking-wide text-slate-300">{label}</h3>
-          <span aria-hidden className="h-px flex-1 bg-slate-800/70" />
-          {hint && <span className="font-['Tajawal'] text-[11.5px] text-slate-500">{hint}</span>}
+          <h3
+            className="font-['Tajawal'] text-[13px] font-bold tracking-wide"
+            style={{ color: 'var(--ds-text-primary, #faf5e6)' }}
+          >
+            {label}
+          </h3>
+          <span
+            aria-hidden
+            className="h-px flex-1"
+            style={{ background: 'var(--ds-border-subtle, rgba(255,255,255,0.07))' }}
+          />
+          {hint && (
+            <span
+              className="font-['Tajawal'] text-[11.5px]"
+              style={{ color: 'var(--ds-text-tertiary, #8b8578)' }}
+            >
+              {hint}
+            </span>
+          )}
         </div>
       )}
       <div className="space-y-4">{children}</div>
