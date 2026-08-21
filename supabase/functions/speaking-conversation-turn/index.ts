@@ -1,4 +1,13 @@
 // Fluentia LMS — Speaking Conversation: turn orchestrator
+// LATENCY, 2026-08-21: the turn was fully serial — Whisper → Claude → TTS → respond —
+// so the student stared at a near-empty stage for a measured p50 6.6s / p90 8.9s per
+// turn (and 7-9s before Layla's opening line even appeared). That is what reads as
+// "the trainer is lagging and not responding": one student opened FOUR conversations
+// in five minutes because the first tap looked like it did nothing. The reply text now
+// returns the moment Claude answers, and the voice is synthesised in the background
+// (EdgeRuntime.waitUntil) and attached to the same turn row, which the client polls
+// for. She sees Layla answer in ~3s and hears her a beat later.
+//
 // One edge fn for: (action='start') open the conversation with a warm AI greeting + first
 // question (voiced), and (action='turn') process one student spoken turn:
 //   download student audio (voice-notes) → Whisper STT → Claude reply (level/topic-aware,
@@ -62,6 +71,25 @@ const LEVEL_DESCRIPTORS: Record<number, string> = {
 // ── OpenAI TTS, content-addressed cache in the public curriculum-audio bucket ──
 // New hash seed (voice+model) so every line is fresh OpenAI audio — no mixing with the few
 // legacy ElevenLabs "Rachel" files, so a conversation keeps ONE consistent voice.
+// Synthesise AFTER responding, then attach the url to the turn row the client is
+// already showing. Never let a TTS failure cost the student the reply itself.
+function synthesizeInBackground(sb: any, text: string, conversationId: string, turnIndex: number) {
+  const job = (async () => {
+    try {
+      const url = await synthesize(sb, text)
+      if (!url) return
+      await sb.from('speaking_conversation_turns')
+        .update({ audio_path: url })
+        .eq('conversation_id', conversationId).eq('turn_index', turnIndex)
+    } catch (e) {
+      console.error('[tts-bg] failed:', (e as any)?.message)
+    }
+  })()
+  // @ts-ignore — EdgeRuntime is provided by the Supabase runtime
+  if (typeof EdgeRuntime !== 'undefined' && EdgeRuntime?.waitUntil) EdgeRuntime.waitUntil(job)
+  return job
+}
+
 async function synthesize(sb: any, text: string): Promise<string | null> {
   const clean = (text || '').trim()
   if (!clean || !OPENAI_API_KEY) return null
@@ -291,11 +319,14 @@ serve(async (req) => {
       } catch (_e) {
         replyText = `Hi! Let's have a little chat in English about ${topic?.title_en || 'today\'s topic'}. Don't worry — just speak slowly. To start, can you tell me a little about it?`
       }
-      const audioUrl = await synthesize(sb, replyText)
+      // Write the greeting FIRST and answer the client, then voice it in the
+      // background: a 7-9s blank stage before Layla says hello is why students
+      // tap «ابدئي المحادثة» again and again and orphan conversations.
       await sb.from('speaking_conversation_turns').insert({
         conversation_id: convo.id, student_id: studentId, turn_index: 0, role: 'ai',
-        content: replyText, audio_path: audioUrl,
+        content: replyText, audio_path: null,
       })
+      synthesizeInBackground(sb, replyText, convo.id, 0)
       return json({
         conversation_id: convo.id,
         topic: topic ? {
@@ -303,7 +334,8 @@ serve(async (req) => {
           prompt_ar: topic.prompt_ar, useful_phrases: topic.useful_phrases || [],
           min_duration_seconds: topic.min_duration_seconds, max_duration_seconds: topic.max_duration_seconds,
         } : null,
-        reply: replyText, reply_audio_url: audioUrl, turn_index: 0, done: false, turn_count: 0,
+        reply: replyText, reply_audio_url: null, audio_pending: true,
+        turn_index: 0, done: false, turn_count: 0,
       })
     }
 
@@ -324,11 +356,23 @@ serve(async (req) => {
           .eq('conversation_id', conversation_id).eq('client_turn_uuid', client_turn_uuid).maybeSingle()
         if (existing) {
           const { data: aiTurn } = await sb.from('speaking_conversation_turns')
-            .select('content, audio_path').eq('conversation_id', conversation_id)
+            .select('content, audio_path, turn_index').eq('conversation_id', conversation_id)
             .eq('role', 'ai').gt('turn_index', existing.turn_index).order('turn_index').limit(1).maybeSingle()
+          // The student turn is durable BEFORE any AI work, so a retry that lands
+          // while the first call is still thinking finds no AI turn yet. Returning
+          // reply:'' there made the client paint an EMPTY bubble and fall silent —
+          // the conversation looked dead while the real answer was still coming.
+          if (!aiTurn) {
+            return json({
+              transcript: existing.content || '', pending: true, idempotent: true,
+              turn_count: convo.turn_count || 0,
+            })
+          }
           return json({
-            transcript: existing.content || '', reply: aiTurn?.content || '',
-            reply_audio_url: aiTurn?.audio_path || null,
+            transcript: existing.content || '', reply: aiTurn.content || '',
+            reply_audio_url: aiTurn.audio_path || null,
+            audio_pending: !aiTurn.audio_path,
+            ai_turn_index: aiTurn.turn_index,
             done: (convo.turn_count || 0) >= MAX_STUDENT_TURNS, turn_count: convo.turn_count || 0, idempotent: true,
           })
         }
@@ -343,6 +387,7 @@ serve(async (req) => {
       // Empty / silent → gentle nudge, do not advance, no DB write
       if (!transcript || transcript.replace(/[^a-zA-Z؀-ۿ]/g, '').length < 2) {
         const nudge = "I didn't quite catch that — could you say it again, a little louder?"
+        // cached after the first time (same text → same hash), so this is fast
         const nudgeAudio = await synthesize(sb, nudge)
         return json({ transcript: '', reply: nudge, reply_audio_url: nudgeAudio, done: false, no_advance: true, turn_count: convo.turn_count || 0 })
       }
@@ -399,13 +444,17 @@ serve(async (req) => {
         replyText = "That's great — tell me a little more about that?"
       }
 
-      const audioUrl = await synthesize(sb, replyText)
+      const aiTurnIndex = nextIdx + 1
       await sb.from('speaking_conversation_turns').insert({
-        conversation_id, student_id: studentId, turn_index: nextIdx + 1, role: 'ai',
-        content: replyText, audio_path: audioUrl,
+        conversation_id, student_id: studentId, turn_index: aiTurnIndex, role: 'ai',
+        content: replyText, audio_path: null,
       })
+      synthesizeInBackground(sb, replyText, conversation_id, aiTurnIndex)
 
-      return json({ transcript, reply: replyText, reply_audio_url: audioUrl, done, turn_count: newStudentTurnCount, turn_index: nextIdx })
+      return json({
+        transcript, reply: replyText, reply_audio_url: null, audio_pending: true,
+        ai_turn_index: aiTurnIndex, done, turn_count: newStudentTurnCount, turn_index: nextIdx,
+      })
     }
 
     return json({ error: 'unknown action' }, 400)

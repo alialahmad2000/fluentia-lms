@@ -21,6 +21,11 @@ import { useG } from '../../../i18n/gender'
 import { safeCelebrate } from '../../../lib/celebrations'
 
 const MIN_END_TURNS = 3   // student may end after this many turns
+// Anything shorter than this is a slipped tap, not a turn. 8 of 208 live student
+// turns were ≤1s; 7 of those came back from Whisper as a hallucination ("you",
+// "thank you") and earned a "Sorry, I didn't quite catch that" — which reads to
+// the student as the coach malfunctioning.
+const MIN_TURN_SECONDS = 1.2
 const MAX_TURNS = 8       // ceiling — the coach wraps up here (bounds API cost)
 
 // ── Safari-safe mime (mirrors VoiceRecorder.jsx) ──
@@ -139,6 +144,7 @@ export default function ConversationMode({
   const [error, setError] = useState('')
   const [bars, setBars] = useState(IDLE_BARS)
   const [coachSpeaking, setCoachSpeaking] = useState(false)
+  const [waitedLong, setWaitedLong] = useState(false)
   // Inline phrase hints belong to the standalone panel (the Desk call). In the
   // Studio the same phrases live in the stage's «مساعدة» sheet instead.
   const [hintsOpen, setHintsOpen] = useState(false)
@@ -149,6 +155,7 @@ export default function ConversationMode({
   const [resumable, setResumable] = useState(null)
 
   const recorderRef = useRef(null)
+  const startedAtRef = useRef(null)
   const streamRef = useRef(null)
   const timerRef = useRef(null)
   const audioRef = useRef(null)
@@ -183,6 +190,14 @@ export default function ConversationMode({
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
   }, [messages, recState])
 
+  // Say something true after a few seconds. A motionless stage during a slow turn
+  // is indistinguishable from a broken one.
+  useEffect(() => {
+    if (recState !== 'processing') { setWaitedLong(false); return }
+    const t = setTimeout(() => setWaitedLong(true), 6000)
+    return () => clearTimeout(t)
+  }, [recState])
+
   const playCoach = useCallback((url) => {
     if (!url || !audioRef.current) return
     try { audioRef.current.pause() } catch {}
@@ -191,6 +206,42 @@ export default function ConversationMode({
   }, [])
 
   const pushMessage = useCallback((m) => setMessages((prev) => [...prev, { id: `${Date.now()}-${Math.random()}`, ...m }]), [])
+
+  // The edge fn now answers as soon as Claude does and voices the line in the
+  // background, so the student READS Layla in ~3s instead of waiting ~7s to hear
+  // her. This attaches the voice to the bubble already on screen when it lands.
+  const pollingRef = useRef(null)
+  const attachVoiceWhenReady = useCallback(async (convoId, turnIndex, messageId, { autoplay = true } = {}) => {
+    if (!convoId || turnIndex == null) return
+    const token = Symbol('poll')
+    pollingRef.current = token
+    for (let i = 0; i < 16; i++) {                     // ~24s ceiling, then give up quietly
+      await new Promise((r) => setTimeout(r, i < 4 ? 900 : 1800))
+      if (pollingRef.current !== token) return         // a newer turn superseded this one
+      const { data } = await supabase
+        .from('speaking_conversation_turns')
+        .select('audio_path')
+        .eq('conversation_id', convoId).eq('turn_index', turnIndex)
+        .maybeSingle()
+      const url = data?.audio_path
+      if (url && /^https?:/.test(url)) {
+        setMessages((prev) => prev.map((m) => (m.id === messageId ? { ...m, audioUrl: url } : m)))
+        if (autoplay) playCoach(url)
+        return
+      }
+    }
+  }, [playCoach])
+
+  // Push an AI line and wire up its voice — never an empty bubble.
+  const pushCoachLine = useCallback((text, audioUrl, convoId, turnIndex) => {
+    const safe = (text || '').trim()
+    if (!safe) return null
+    const id = `${Date.now()}-${Math.random()}`
+    setMessages((prev) => [...prev, { id, role: 'ai', text: safe, audioUrl: audioUrl || null }])
+    if (audioUrl) playCoach(audioUrl)
+    else if (convoId && turnIndex != null) attachVoiceWhenReady(convoId, turnIndex, id)
+    return id
+  }, [playCoach, attachVoiceWhenReady])
 
   const startConversation = useCallback(async () => {
     setError('')
@@ -218,8 +269,7 @@ export default function ConversationMode({
       setPhase('intro'); return
     }
     setConversationId(parsed.conversation_id)
-    pushMessage({ role: 'ai', text: parsed.reply, audioUrl: parsed.reply_audio_url })
-    playCoach(parsed.reply_audio_url)
+    pushCoachLine(parsed.reply, parsed.reply_audio_url, parsed.conversation_id, parsed.turn_index ?? 0)
   }, [unitId, moduleId, scenarioRef, personaVariant, topic?.id, questionIndex, studentId, pushMessage, playCoach]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Scenario conversations live on a module; curriculum ones on a unit + question index.
@@ -312,6 +362,7 @@ export default function ConversationMode({
   }, [])
 
   const startRecording = useCallback(async () => {
+    if (recorderRef.current) return   // a second tap must never race the first
     setError('')
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, sampleRate: 16000 } })
@@ -332,6 +383,7 @@ export default function ConversationMode({
       setRecState('recording')
       setElapsed(0)
       const t0 = Date.now()
+      startedAtRef.current = t0
       timerRef.current = setInterval(() => {
         const s = Math.floor((Date.now() - t0) / 1000)
         setElapsed(s)
@@ -349,12 +401,25 @@ export default function ConversationMode({
     audioCtxRef.current?.close().catch(() => {}); audioCtxRef.current = null; analyserRef.current = null
     const recorder = recorderRef.current
     if (!recorder) return
-    const seconds = elapsed
+    // Wall-clock, not the 500ms-tick `elapsed`: the auto-stop timer captured the
+    // FIRST stopRecording (elapsed = 0), so every full-length auto-stopped turn was
+    // being filed as 1 second of speaking time.
+    const seconds = startedAtRef.current ? (Date.now() - startedAtRef.current) / 1000 : elapsed
     recorder.stopRecording(async () => {
       const blob = recorder.getBlob()
       streamRef.current?.getTracks().forEach((t) => t.stop())
+      recorderRef.current = null
+      startedAtRef.current = null
+      // A slipped or double tap — she never actually spoke. Sending it costs a
+      // Whisper call and comes back as a hallucinated word, so the coach answers
+      // "I didn't quite catch that" and the whole thing looks broken.
+      if (seconds < MIN_TURN_SECONDS) {
+        setRecState('idle')
+        setError(g('امسك الزر وتكلّم شوي أطول — ما وصلني صوت.', 'امسكي الزر وتكلّمي شوي أطول — ما وصلني صوت.'))
+        return
+      }
       setRecState('processing')
-      await submitTurn(blob, seconds || 1)
+      await submitTurn(blob, Math.max(1, Math.round(seconds)))
     })
   }, [elapsed]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -376,12 +441,22 @@ export default function ConversationMode({
       }
       if (err || !parsed || parsed.error) throw new Error(parsed?.message || err || 'turn failed')
       if (parsed.ok === false || parsed.no_advance) {
-        pushMessage({ role: 'ai', text: parsed.reply || g('ما سمعتك بوضوح — حاول مرة ثانية من فضلك.', 'ما سمعتك بوضوح — حاولي مرة ثانية من فضلك.'), audioUrl: parsed.reply_audio_url })
-        playCoach(parsed.reply_audio_url); setRecState('idle'); return
+        pushCoachLine(parsed.reply || g('ما سمعتك بوضوح — حاول مرة ثانية من فضلك.', 'ما سمعتك بوضوح — حاولي مرة ثانية من فضلك.'), parsed.reply_audio_url)
+        setRecState('idle'); return
+      }
+      // A retry landed while the first call was still thinking: her turn is safely
+      // recorded and the answer is on its way. Wait for it instead of painting an
+      // empty bubble and going quiet — that silence is what reads as "broken".
+      if (parsed.pending) {
+        if (parsed.transcript) pushMessage({ role: 'student', text: parsed.transcript })
+        const waited = await waitForCoachTurn(conversationId)
+        setStudentTurns(parsed.turn_count || ((s) => s + 1))
+        setRecState('idle')
+        if (!waited) setError(g('الرد تأخر — حدّث الصفحة إن ما وصل.', 'الرد تأخر — حدّثي الصفحة إن ما وصل.'))
+        return
       }
       pushMessage({ role: 'student', text: parsed.transcript })
-      pushMessage({ role: 'ai', text: parsed.reply, audioUrl: parsed.reply_audio_url })
-      playCoach(parsed.reply_audio_url)
+      pushCoachLine(parsed.reply, parsed.reply_audio_url, conversationId, parsed.ai_turn_index)
       setStudentTurns(parsed.turn_count || ((s) => s + 1))
       setRecState('idle')
       if (parsed.done) { setDone(true); setTimeout(() => endConversation(), 2400) }
@@ -389,6 +464,25 @@ export default function ConversationMode({
       setError(g('تعذّر إرسال دورك — تحقّق من الاتصال وحاول مرة أخرى', 'تعذّر إرسال دورك — تحققي من الاتصال وحاولي مرة أخرى')); setRecState('idle')
     }
   }, [studentId, conversationId, pushMessage, playCoach]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Poll for the coach turn itself (text + voice) — used when a retry told us the
+  // first request is still working. Returns true once the line is on screen.
+  const waitForCoachTurn = useCallback(async (convoId) => {
+    if (!convoId) return false
+    for (let i = 0; i < 14; i++) {
+      await new Promise((r) => setTimeout(r, i < 4 ? 1000 : 2000))
+      const { data } = await supabase
+        .from('speaking_conversation_turns')
+        .select('turn_index, content, audio_path')
+        .eq('conversation_id', convoId).eq('role', 'ai')
+        .order('turn_index', { ascending: false }).limit(1).maybeSingle()
+      if (data?.content?.trim()) {
+        pushCoachLine(data.content, /^https?:/.test(data.audio_path || '') ? data.audio_path : null, convoId, data.turn_index)
+        return true
+      }
+    }
+    return false
+  }, [pushCoachLine])
 
   const endConversation = useCallback(async () => {
     setPhase('grading')
@@ -527,6 +621,9 @@ export default function ConversationMode({
                     <div className="flex gap-1 items-end h-4">
                       {[0, 1, 2].map((i) => <span key={i} className="cvm-sbar" data-on="true" style={{ height: 14, animationDelay: `${i * 0.16}s` }} />)}
                     </div>
+                    <span className="text-[11px] font-['Tajawal']" style={{ color: 'rgba(248,250,252,0.5)' }}>
+                      {waitedLong ? 'لحظة — الشبكة بطيئة شوي' : 'ليلى تفكّر…'}
+                    </span>
                   </div>
                 )}
 
