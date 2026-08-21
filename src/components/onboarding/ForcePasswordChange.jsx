@@ -5,6 +5,42 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { tracker } from '../../services/activityTracker'
 
+/**
+ * Bilingual, because this is the FIRST screen a new staff account ever sees and
+ * it cannot be dismissed. The coordinator console (2026-08-21) hired an
+ * English-speaking, non-Arabic-reading coordinator whose onboarding therefore
+ * opened on an entirely Arabic modal — title, labels, placeholders and the
+ * submit button. He could not complete his own first login.
+ *
+ * Keyed on profiles.ui_language, which is loaded by the time this renders
+ * (must_change_password comes off the same row). Every Arabic account is
+ * byte-identical to before.
+ */
+const COPY = {
+  ar: {
+    title: 'تغيير كلمة المرور',
+    subtitle: 'يجب تغيير كلمة المرور المؤقتة قبل المتابعة',
+    newLabel: 'كلمة المرور الجديدة',
+    newPlaceholder: '8 أحرف على الأقل',
+    confirmLabel: 'تأكيد كلمة المرور',
+    confirmPlaceholder: 'أعد كتابة كلمة المرور',
+    mismatch: 'كلمتا المرور غير متطابقتين',
+    submit: 'تأكيد وتسجيل الدخول',
+    genericError: 'حدث خطأ أثناء تغيير كلمة المرور',
+  },
+  en: {
+    title: 'Change your password',
+    subtitle: 'Set your own password before you continue.',
+    newLabel: 'New password',
+    newPlaceholder: 'At least 8 characters',
+    confirmLabel: 'Confirm password',
+    confirmPlaceholder: 'Type it again',
+    mismatch: 'The two passwords do not match',
+    submit: 'Confirm and sign in',
+    genericError: 'Something went wrong changing your password',
+  },
+}
+
 export default function ForcePasswordChange() {
   const profile = useAuthStore((s) => s.profile)
   const user = useAuthStore((s) => s.user)
@@ -22,6 +58,8 @@ export default function ForcePasswordChange() {
   // impersonated user's password.
   if (!profile?.must_change_password || done || impersonation) return null
 
+  const lang = profile?.ui_language === 'en' ? 'en' : 'ar'
+  const t = COPY[lang]
   const isValid = password.length >= 8 && password === confirmPassword
 
   async function handleSubmit(e) {
@@ -58,7 +96,7 @@ export default function ForcePasswordChange() {
       if (user) await fetchProfile(user)
     } catch (err) {
       console.error('Password change error:', err)
-      setError(err.message || 'حدث خطأ أثناء تغيير كلمة المرور')
+      setError(err.message || COPY[profile?.ui_language === 'en' ? 'en' : 'ar'].genericError)
     } finally {
       setSaving(false)
     }
@@ -74,24 +112,26 @@ export default function ForcePasswordChange() {
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         className="w-full max-w-md fl-card-static p-8"
+        dir={lang === 'en' ? 'ltr' : 'rtl'}
+        style={{ textAlign: lang === 'en' ? 'left' : 'right' }}
       >
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-sky-500/10 flex items-center justify-center mx-auto mb-4">
             <Lock size={28} className="text-sky-400" />
           </div>
-          <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>تغيير كلمة المرور</h2>
-          <p className="text-sm text-muted mt-2">يجب تغيير كلمة المرور المؤقتة قبل المتابعة</p>
+          <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{t.title}</h2>
+          <p className="text-sm text-muted mt-2">{t.subtitle}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="input-label">كلمة المرور الجديدة</label>
+            <label className="input-label">{t.newLabel}</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="8 أحرف على الأقل"
+                placeholder={t.newPlaceholder}
                 className="input-field pl-10"
                 dir="ltr"
                 required
@@ -108,18 +148,18 @@ export default function ForcePasswordChange() {
           </div>
 
           <div>
-            <label className="input-label">تأكيد كلمة المرور</label>
+            <label className="input-label">{t.confirmLabel}</label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="أعد كتابة كلمة المرور"
+              placeholder={t.confirmPlaceholder}
               className="input-field"
               dir="ltr"
               required
             />
             {confirmPassword && password !== confirmPassword && (
-              <p className="text-red-400 text-xs mt-1">كلمتا المرور غير متطابقتين</p>
+              <p className="text-red-400 text-xs mt-1">{t.mismatch}</p>
             )}
           </div>
 
@@ -135,7 +175,7 @@ export default function ForcePasswordChange() {
             className="btn-primary w-full py-3 text-base flex items-center justify-center gap-2"
           >
             {saving ? <Loader2 size={18} className="animate-spin" /> : <CheckCircle2 size={18} />}
-            تأكيد وتسجيل الدخول
+            {t.submit}
           </button>
         </form>
       </motion.div>
