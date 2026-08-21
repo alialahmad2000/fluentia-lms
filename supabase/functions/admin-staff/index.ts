@@ -31,7 +31,7 @@ serve(async (req) => {
 
   if (action === "create") {
     const { name, email, password, role } = body;
-    if (!name || !email || !password || !["admin", "trainer", "agent", "coordinator"].includes(role)) {
+    if (!name || !email || !password || !["admin", "trainer", "agent", "coordinator", "coach"].includes(role)) {
       return json({ error: "invalid input" }, 400);
     }
     const { data: created, error: cErr } = await sb.auth.admin.createUser({
@@ -40,10 +40,14 @@ serve(async (req) => {
     if (cErr || !created?.user) return json({ error: cErr?.message || "create failed" }, 400);
     const uid = created.user.id;
     await sb.from("profiles").upsert(
-      { id: uid, email, full_name: name, role, ui_language: "ar", must_change_password: true },
+      // The learning coach's whole console is English and he reads no Arabic —
+      // handing him an Arabic UI is the first thing he would have to ask for.
+      { id: uid, email, full_name: name, role, ui_language: role === "coach" ? "en" : "ar", must_change_password: true },
       { onConflict: "id" },
     );
     if (role === "trainer") await sb.from("trainers").upsert({ id: uid }, { onConflict: "id" });
+    // lc_coaches carries the timezone the console renders its second clock from.
+    if (role === "coach") await sb.from("lc_coaches").upsert({ id: uid }, { onConflict: "id" });
     return json({ ok: true, uid });
   }
 

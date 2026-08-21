@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
-import { UserPlus, Shield, GraduationCap, Headset, CalendarClock, X, Copy, Check, Power, KeyRound, BarChart3, Trash2 } from 'lucide-react'
+import { UserPlus, Shield, GraduationCap, Headset, CalendarClock, X, Copy, Check, Power, KeyRound, BarChart3, Trash2, Radar } from 'lucide-react'
 import { toast } from '../../components/ui/FluentiaToast'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
@@ -15,6 +15,7 @@ const ROLES = [
   { key: 'trainer',     label: 'مدرب',          group: 'المدربون',       icon: GraduationCap },
   { key: 'agent',       label: 'خدمة عملاء',    group: 'خدمة العملاء',   icon: Headset },
   { key: 'coordinator', label: 'منسقة الحصص',   group: 'تنسيق الحصص',    icon: CalendarClock },
+  { key: 'coach',       label: 'مرشد التعلّم',  group: 'متابعة الطلاب',  icon: Radar },
 ]
 const roleMeta = (k) => ROLES.find((r) => r.key === k) || ROLES[2]
 const genPassword = () => 'Fluentia' + Math.floor(1000 + Math.random() * 9000) + '!'
@@ -130,6 +131,7 @@ function StaffRow({ s, selfId, onChanged }) {
       <div className="flex items-center gap-1.5 shrink-0">
         {s.id !== selfId && <ImpersonateButton userId={s.id} role={s.role} name={s.name} />}
         {s.role === 'agent' && <Link to="/admin/cs-performance" className="p-1.5 rounded" style={{ color: 'var(--ds-text-tertiary)' }} title="أداء خدمة العملاء"><BarChart3 size={15} /></Link>}
+        {s.role === 'coach' && <Link to="/admin/coach-activity" className="p-1.5 rounded" style={{ color: 'var(--ds-text-tertiary)' }} title="نشاط مرشد التعلّم"><BarChart3 size={15} /></Link>}
         <select disabled={busy} value={s.role} onChange={changeRole} className="text-xs rounded-lg px-2 py-1.5" style={{ background: 'var(--ds-surface-2)', border: '1px solid var(--ds-border-subtle)', color: 'var(--ds-text-secondary)' }}>
           {ROLES.map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
         </select>
