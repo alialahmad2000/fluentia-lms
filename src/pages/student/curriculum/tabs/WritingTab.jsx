@@ -21,7 +21,7 @@ import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
-import { segmentBrief } from '../../../../lib/writingBrief'
+import { analyzeBrief } from '../../../../lib/writingBrief'
 
 /* ══════════════════════════════════════════════════════════════════════
    The Writing Studio.
@@ -802,54 +802,113 @@ function BriefCard({ task, number, total, taskTypeLabel, open, setOpenPersist, r
   )
 }
 
-/* The same words, typeset: the deliverable reads as the headline, each required
-   move gets its own line, and the two things a student most often misses — how
-   long it must be and which grammar is being tested — are the only colour in the
-   paragraph. Nothing is edited, hidden or reordered; see src/lib/writingBrief.js. */
+/* A brief is a task specification, so it is typeset as one: the situation, the
+   ask, the numbered moves, and the language rule — each doing its own job. The
+   words are untouched; see src/lib/writingBrief.js, which is proven lossless
+   against every brief in the database. */
 function Run({ run }) {
   if (run.kind === 'spec') {
-    return <strong style={{ fontWeight: 650, color: INK.accentStrong }}>{run.s}</strong>
+    return (
+      <span
+        className="font-en"
+        style={{
+          fontWeight: 650,
+          color: INK.accentStrong,
+          background: 'rgba(232,176,122,0.10)',
+          border: `1px solid rgba(232,176,122,0.20)`,
+          borderRadius: 6,
+          padding: '1px 5px',
+          margin: '0 1px',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {run.s}
+      </span>
+    )
   }
   if (run.kind === 'move') {
     return <strong style={{ fontWeight: 650, color: 'rgba(255,255,255,0.99)' }}>{run.s}</strong>
   }
+  if (run.kind === 'aside') {
+    // Supporting detail. It must stay readable, so it is quieted, not shrunk.
+    return <span style={{ color: 'rgba(240,244,248,0.5)' }}>{run.s}</span>
+  }
   return <>{run.s}</>
 }
 
+const Runs = ({ runs }) => runs.map((r, i) => <Run key={i} run={r} />)
+
 function BriefProse({ promptEn, grammarTopic }) {
-  const { lead, steps } = useMemo(
-    () => segmentBrief(promptEn, { grammarTopic }),
+  const { scenario, ask, moves, constraint } = useMemo(
+    () => analyzeBrief(promptEn, { grammarTopic }),
     [promptEn, grammarTopic]
   )
-  if (!lead.length) return null
+  if (!ask.length) return null
 
   return (
-    <div className="text-left" style={{ maxWidth: '78ch' }}>
+    <div className="text-left" style={{ maxWidth: '80ch' }}>
+      {scenario && (
+        <p
+          className="font-en text-[14px] sm:text-[14.5px] leading-[1.7] mb-2.5"
+          style={{ color: 'rgba(240,244,248,0.58)' }}
+        >
+          <Runs runs={scenario} />
+        </p>
+      )}
+
       <p
-        className="font-en text-[16px] sm:text-[17.5px] leading-[1.7]"
-        style={{ color: 'rgba(240,244,248,0.97)', fontWeight: 500, letterSpacing: '-0.003em' }}
+        className="font-en text-[16.5px] sm:text-[18px] leading-[1.65]"
+        style={{ color: 'rgba(240,244,248,0.98)', fontWeight: 500, letterSpacing: '-0.004em' }}
       >
-        {lead.map((r, i) => <Run key={i} run={r} />)}
+        <Runs runs={ask} />
       </p>
 
-      {steps.length > 0 && (
-        <ul className="mt-3 space-y-2">
-          {steps.map((runs, i) => (
-            <li key={i} className="flex items-start gap-2.5">
+      {moves.length > 0 && (
+        <ol className="mt-4 space-y-2.5">
+          {moves.map((m, i) => (
+            <li key={i} className="flex items-start gap-3">
               <span
                 aria-hidden
-                className="mt-[9px] h-px w-2.5 shrink-0 rounded-full"
-                style={{ background: INK.accentLine }}
-              />
-              <span
-                className="font-en text-[14.5px] sm:text-[15.5px] leading-[1.72]"
-                style={{ color: 'rgba(240,244,248,0.82)' }}
+                className="font-en shrink-0 inline-flex items-center justify-center tabular-nums"
+                style={{
+                  width: 21, height: 21, marginTop: 2, borderRadius: 999,
+                  fontSize: 11, fontWeight: 700, lineHeight: 1,
+                  color: INK.accentStrong,
+                  background: 'rgba(232,176,122,0.10)',
+                  border: `1px solid rgba(232,176,122,0.24)`,
+                }}
               >
-                {runs.map((r, j) => <Run key={j} run={r} />)}
+                {i + 1}
+              </span>
+              <span
+                className="font-en text-[14.5px] sm:text-[15.5px] leading-[1.7] first-letter:uppercase"
+                style={{ color: 'rgba(240,244,248,0.88)' }}
+              >
+                <Runs runs={m.runs} />
               </span>
             </li>
           ))}
-        </ul>
+        </ol>
+      )}
+
+      {constraint && (
+        <div
+          className="mt-4 pt-3.5 flex items-start gap-3"
+          style={{ borderTop: `1px solid ${INK.hairSoft}` }}
+        >
+          <BookOpen size={14} style={{ color: INK.accent, flexShrink: 0, marginTop: 3 }} />
+          <div className="min-w-0">
+            <p className="text-[10.5px] font-['Tajawal'] mb-0.5" dir="rtl" style={{ color: INK.faint }}>
+              اللغة المطلوبة
+            </p>
+            <p
+              className="font-en text-[14.5px] sm:text-[15px] leading-[1.7]"
+              style={{ color: 'rgba(240,244,248,0.88)' }}
+            >
+              <Runs runs={constraint} />
+            </p>
+          </div>
+        </div>
       )}
     </div>
   )
@@ -962,14 +1021,11 @@ function WritingSheet({
     return () => { clearTimeout(t); window.removeEventListener('resize', onResize) }
   }, [text])
 
-  const compact = useMemo(
-    () => segmentBrief(task.prompt_en, { grammarTopic: task.grammar_to_use?.topic_name_en }),
-    [task.prompt_en, task.grammar_to_use]
-  )
-  const compactRuns = useMemo(
-    () => [compact.lead, ...compact.steps].flat(),
-    [compact]
-  )
+  const compactRuns = useMemo(() => {
+    const a = analyzeBrief(task.prompt_en, { grammarTopic: task.grammar_to_use?.topic_name_en })
+    // The ask is what she needs at a glance; the moves follow if there is room.
+    return [...a.ask, ...a.moves.flatMap((m) => m.runs)]
+  }, [task.prompt_en, task.grammar_to_use])
 
   const tone = overMax ? 'warn' : meetsMin ? 'ok' : underMin ? 'warn' : 'idle'
   const toneColor = tone === 'ok' ? INK.ok : tone === 'warn' ? INK.warn : INK.accent
