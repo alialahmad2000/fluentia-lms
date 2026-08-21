@@ -313,16 +313,20 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
-### 2026-08-21 (4) — WRITING: the brief is typeset now, not printed as one grey block
-Owner: *"can we make the text look better and easier to read by doing certain things such as bold for things better to be in bold."*
+### 2026-08-21 (4) — WRITING: the brief is typeset as a task spec, not printed as one grey block
+Owner, twice: *"bold the things better to be in bold"*, then *"the text could be much better styled — use the best thing that fits such a thing."* The second ask was the real one: bolding verbs helped, but a single sentence can carry four instructions.
 
-- **The briefs already have a shape; the rendering was hiding it.** Measured across all 154 rows (ordinary + custom tracks): a lead sentence naming the deliverable, then the moves the student has to make, then usually the language constraint — average **2.3 steps** per brief. As one paragraph she had to read the whole thing to find the four things she was actually being asked for.
-- **Same words, given structure.** The deliverable reads as the headline; each move gets its own line with a rule; and the two things students most often miss are the only colour in the paragraph — **how long it must be** («120-180 words») and **which grammar is being tested** («present tense», «first conditional», or whatever the row's own `grammar_to_use` names). The verb that names each move is bolded, nothing else is.
-- **NEW `src/lib/writingBrief.js` — it segments and marks, it never edits.** The emphasis rules are deliberately conservative: a move verb counts only where it heads a sentence or a clause, so «the channel you **use**» is not mistaken for an instruction. Grammar terms are matched longest-first so "simple present tense" wins over "present tense".
-- **Losslessness is the safety property, so it is asserted rather than assumed.** `tests/unit/writingBrief.test.mjs` re-joins every token of every brief in the database and compares it to the original: **154/154, 0 lossy, 0 empty lead, 154 pick up emphasis.** If that test ever fails the formatter is wrong, not the content. The sentence splitter is checked against the cases a naive one breaks on — `(BCIs)`, `3.5 hours`, `e.g.`.
-- Verified on production: the live chunk carries the formatter, the A1 brief renders 2 steps with `Write / Describe / Use / present tense` emphasised, 0 console errors.
-- Files: `src/lib/writingBrief.js` (NEW), `tests/unit/writingBrief.test.mjs` (NEW), `src/pages/student/curriculum/tabs/WritingTab.jsx`. DB: none. Shipped `c00edcf3`.
+> "Open with a brief thank-you, state the main goal for the quarter, explain the plan clearly (…), and close with when you will send the full timeline."
 
+That rendered as **one bullet, three lines deep**. It is four things she has to do.
+
+- **The briefs already have a shape.** Measured across all 154 rows (ordinary + custom tracks): an optional scenario, the ask, the moves, and usually a language rule — **24 carry a scenario, 40 carry a language rule, 2.4 moves on average, 6 at most.** The rendering was hiding all of it.
+- **NEW `src/lib/writingBrief.js` — `analyzeBrief()`** reads that shape and **splits a comma series of instructions into its separate steps**, without splitting inside brackets («(which channel gets the budget, when you launch…)» is one parenthetical, not three steps).
+- **Rendered as what it is:** the situation sits quiet above the ask; the ask is the headline; each move is a **numbered row**; and the language rule gets its own strip under an «اللغة المطلوبة» label, because it is a rule, not a step. Word counts and the grammar under test are **inline chips** rather than bold words — they are specifications and now read like it. Parentheticals are quieted to 0.5 so the instruction reads first and the detail second, without shrinking type anyone has to read.
+- **Two details that stop a machine-made list looking machine-made:** the sentence-final full stop joins the seam, so one step in a series no longer ends with a period while its siblings do not; and a step lifted from mid-sentence is capitalised with **`::first-letter`** — a display transform, so the DOM text and any copy-paste stay exactly as authored.
+- **It never edits, reorders, hides or invents text**, and that is asserted rather than assumed: `tests/unit/writingBrief.test.mjs` re-joins every token of **every brief in the database** and compares byte-for-byte — **154/154, 0 lossy, 0 without an ask**. The series above is asserted to split into exactly 4 and to rejoin exactly. The sentence splitter is checked against the cases a naive one breaks on: `(BCIs)`, `3.5 hours`, `e.g.`.
+- Verified on production as a student: 3 numbered moves with the parenthetical quieted on one brief, 2 moves plus the «اللغة المطلوبة» strip with `simple present tense` as a chip on another. 0 console errors.
+- Files: `src/lib/writingBrief.js` (NEW), `tests/unit/writingBrief.test.mjs` (NEW), `src/pages/student/curriculum/tabs/WritingTab.jsx`. DB: none. Shipped `c00edcf3` → `46248c5f`.
 ### 2026-08-21 (3) — WRITING: the task was unreadable over the cover art, and a screen away from the box
 Owner, looking at a long brief (ملاك's unit 4, a 120-180 word email task): *"the question is very far away from the text box… plus the question background makes it confusing to read."* Both were real.
 
