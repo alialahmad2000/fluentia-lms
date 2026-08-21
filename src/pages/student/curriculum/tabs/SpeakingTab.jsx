@@ -258,6 +258,7 @@ export default function SpeakingTab({ unitId }) {
   if (!topics?.length) {
     return (
       <div className="spk">
+        <SpkWorld coverUrl={unitCover} />
         <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
         <div className="spk-body-col">
           <div className="spk-stage flex flex-col items-center justify-center text-center gap-4 px-6 py-16">
@@ -282,6 +283,7 @@ export default function SpeakingTab({ unitId }) {
 
   return (
     <div className="spk">
+      <SpkWorld coverUrl={unitCover} />
       <div className="spk-bloom" aria-hidden><span /><span /><span /></div>
 
       <div className="spk-body-col">
@@ -1286,6 +1288,25 @@ function NextStep({ score, unitProg, unitId, onRedo }) {
           </button>
         </div>
       )}
+    </div>
+  )
+}
+
+// ── THE WORLD — the section's own ground, painted from the unit's cover ────
+// The studio was written against the assumption that "the unit page already
+// paints a cover-derived world behind everything". It does not — the page
+// ground is a flat #050d1a — so the whole section sat on colourless near-black
+// and the reader had nothing but grey behind the text. This is that missing
+// layer: the unit's own art, blurred past all detail and pushed up in
+// saturation, so the section takes its COLOUR from the lesson it belongs to.
+// Absolute, never fixed (one layer, no second full-viewport paint), static
+// (no rAF, no blend modes on coarse pointers) — see the Android-flicker rule.
+function SpkWorld({ coverUrl }) {
+  if (!coverUrl) return null
+  return (
+    <div className="spk-world" aria-hidden>
+      <img src={coverUrl} alt="" loading="lazy" decoding="async" />
+      <span className="spk-world__veil" />
     </div>
   )
 }
