@@ -87,9 +87,19 @@ function dayKey(date, tz) {
 }
 
 /**
+ * Two zones can be different names for the same wall clock — Africa/Nairobi and
+ * Asia/Riyadh are both UTC+3, and the header duly printed
+ * "Riyadh 10:25 pm · yours 10:25 pm". Comparing zone STRINGS was not enough;
+ * compare the rendered time, which is the thing the reader is looking at.
+ */
+function sameClock(date, tz) {
+  return !tz || tz === ACADEMY_TZ || timeIn(date, tz) === timeIn(date, ACADEMY_TZ)
+}
+
+/**
  * "Today 8:14 PM Riyadh · 6:14 PM your time"
- * Same-zone coordinators get the single clock — repeating an identical time
- * twice reads as a bug.
+ * A coordinator on the same wall clock gets one clock — repeating an identical
+ * time twice reads as a bug.
  */
 export function dualTime(value, viewerZone) {
   const d = toDate(value)
@@ -103,7 +113,7 @@ export function dualTime(value, viewerZone) {
   const prefix = sameDay ? 'Today' : isYesterday ? 'Yesterday' : dateIn(d, ACADEMY_TZ)
   const riyadh = `${prefix} ${timeIn(d, ACADEMY_TZ)} Riyadh`
 
-  if (!viewerZone || viewerZone === ACADEMY_TZ) return riyadh
+  if (sameClock(d, viewerZone)) return riyadh
   return `${riyadh} · ${timeIn(d, viewerZone)} your time`
 }
 
@@ -112,7 +122,7 @@ export function dualShort(value, viewerZone) {
   const d = toDate(value)
   if (!d || Number.isNaN(d.getTime())) return ''
   const riyadh = `${dateIn(d, ACADEMY_TZ)}, ${timeIn(d, ACADEMY_TZ)} Riyadh`
-  if (!viewerZone || viewerZone === ACADEMY_TZ) return riyadh
+  if (sameClock(d, viewerZone)) return riyadh
   return `${riyadh} · ${timeIn(d, viewerZone)} yours`
 }
 
@@ -128,6 +138,6 @@ export function daysAgoLabel(days) {
 export function nowBothZones(viewerZone) {
   const now = new Date()
   const riyadh = `Riyadh ${timeIn(now, ACADEMY_TZ)}`
-  if (!viewerZone || viewerZone === ACADEMY_TZ) return riyadh
+  if (sameClock(now, viewerZone)) return riyadh
   return `${riyadh} · yours ${timeIn(now, viewerZone)}`
 }
