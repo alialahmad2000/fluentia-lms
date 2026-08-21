@@ -313,6 +313,19 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-21 (3) — WRITING: the task was unreadable over the cover art, and a screen away from the box
+Owner, looking at a long brief (ملاك's unit 4, a 120-180 word email task): *"the question is very far away from the text box… plus the question background makes it confusing to read."* Both were real.
+
+- **READABLE.** The brief card was a **2% white wash**, so the unit's ken-burns cover art bled straight through the sentence a student is trying to read — on a warm cover the English came out mottled orange. The card now sits on a **near-opaque ground** (`rgba(8,13,23,0.92)`) with the warm gradient layered on top, plus a blur where it is supported and the ground alone where it is not. Body copy 0.93 → 0.95. The living-background rule means the world glows AROUND a card, never through its text — that is the line this had crossed.
+- **CLOSE.** On a long brief the paper sat half a screen below the question, because the card printed the English **and** its full Arabic translation, always. Three changes:
+  · the Arabic became a «بالعربية» disclosure — it is the same brief again, offered rather than stacked on top;
+  · the whole brief folds, remembered per task in `localStorage`, open by default the first time she meets it and **folded once she has a draft** (by then it is only pushing the paper down);
+  · folded, the task does not shrink inside the card — it **MOVES**, onto its own warm band **directly above the paper**. So it is never printed twice and never more than a line from the box.
+- **Measured on the longest A1 brief:** question→paper **492px → 381px**, page height 1499 → 1377, and the visible copy of the task is now adjacent to the textarea instead of four blocks above it.
+- ⚠️ A first attempt clamped the folded brief to two lines *in place* and also put the line above the paper — which printed the task twice and read as a bug. Folded means the text relocates, not duplicates.
+- Verified at 1440 and 390 in open / folded / mid-draft, then on production (the live `WritingTab-DE7_bEiC.js` chunk carries the new strings and the opaque ground; 0 console errors). The default correctly came up **folded** on prod because a draft existed — the intended behaviour, observed rather than assumed. Mock account restored (writing rows 0, XP 79).
+- Files: `src/pages/student/curriculum/tabs/WritingTab.jsx`. DB: none. Shipped `cfa3fa62`.
+
 ### 2026-08-21 (2) — TYPOGRAPHY: every English string in the app was rendering in Times + the writing task gets its width back
 Two follow-ups to the writing rebuild, both shipped and prod-verified.
 
