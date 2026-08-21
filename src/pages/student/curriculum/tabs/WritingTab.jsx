@@ -21,6 +21,7 @@ import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
+import { segmentBrief } from '../../../../lib/writingBrief'
 
 /* ══════════════════════════════════════════════════════════════════════
    The Writing Studio.
@@ -673,12 +674,10 @@ function BriefCard({ task, number, total, taskTypeLabel, open, setOpenPersist, r
                 className="mt-3.5 ps-4 sm:ps-5"
                 style={{ borderInlineStart: `2px solid ${INK.accentLine}` }}
               >
-                <p
-                  className="font-en text-[15.5px] sm:text-[17px] leading-[1.75] text-left"
-                  style={{ color: 'rgba(240,244,248,0.95)', maxWidth: '74ch', letterSpacing: '-0.003em' }}
-                >
-                  {task.prompt_en}
-                </p>
+                <BriefProse
+                  promptEn={task.prompt_en}
+                  grammarTopic={task.grammar_to_use?.topic_name_en}
+                />
               </div>
             </Expand>
           )}
@@ -688,7 +687,7 @@ function BriefCard({ task, number, total, taskTypeLabel, open, setOpenPersist, r
         <AnimatePresence initial={false}>
           {open && task.prompt_ar && (
             <Expand key="ar">
-              <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${INK.hairSoft}` }}>
+              <div className="mt-3 pt-3" style={{ borderTop: `1px solid ${INK.hairSoft}` }}>
                 <button
                   onClick={() => setArOpen((v) => !v)}
                   aria-expanded={arOpen}
@@ -803,6 +802,59 @@ function BriefCard({ task, number, total, taskTypeLabel, open, setOpenPersist, r
   )
 }
 
+/* The same words, typeset: the deliverable reads as the headline, each required
+   move gets its own line, and the two things a student most often misses — how
+   long it must be and which grammar is being tested — are the only colour in the
+   paragraph. Nothing is edited, hidden or reordered; see src/lib/writingBrief.js. */
+function Run({ run }) {
+  if (run.kind === 'spec') {
+    return <strong style={{ fontWeight: 650, color: INK.accentStrong }}>{run.s}</strong>
+  }
+  if (run.kind === 'move') {
+    return <strong style={{ fontWeight: 650, color: 'rgba(255,255,255,0.99)' }}>{run.s}</strong>
+  }
+  return <>{run.s}</>
+}
+
+function BriefProse({ promptEn, grammarTopic }) {
+  const { lead, steps } = useMemo(
+    () => segmentBrief(promptEn, { grammarTopic }),
+    [promptEn, grammarTopic]
+  )
+  if (!lead.length) return null
+
+  return (
+    <div className="text-left" style={{ maxWidth: '78ch' }}>
+      <p
+        className="font-en text-[16px] sm:text-[17.5px] leading-[1.7]"
+        style={{ color: 'rgba(240,244,248,0.97)', fontWeight: 500, letterSpacing: '-0.003em' }}
+      >
+        {lead.map((r, i) => <Run key={i} run={r} />)}
+      </p>
+
+      {steps.length > 0 && (
+        <ul className="mt-3 space-y-2">
+          {steps.map((runs, i) => (
+            <li key={i} className="flex items-start gap-2.5">
+              <span
+                aria-hidden
+                className="mt-[9px] h-px w-2.5 shrink-0 rounded-full"
+                style={{ background: INK.accentLine }}
+              />
+              <span
+                className="font-en text-[14.5px] sm:text-[15.5px] leading-[1.72]"
+                style={{ color: 'rgba(240,244,248,0.82)' }}
+              >
+                {runs.map((r, j) => <Run key={j} run={r} />)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 function MetaCell({ icon: Icon, label, value, en, onClick, open, className = '' }) {
   const Tag = onClick ? 'button' : 'div'
   return (
@@ -909,6 +961,15 @@ function WritingSheet({
     window.addEventListener('resize', onResize)
     return () => { clearTimeout(t); window.removeEventListener('resize', onResize) }
   }, [text])
+
+  const compact = useMemo(
+    () => segmentBrief(task.prompt_en, { grammarTopic: task.grammar_to_use?.topic_name_en }),
+    [task.prompt_en, task.grammar_to_use]
+  )
+  const compactRuns = useMemo(
+    () => [compact.lead, ...compact.steps].flat(),
+    [compact]
+  )
 
   const tone = overMax ? 'warn' : meetsMin ? 'ok' : underMin ? 'warn' : 'idle'
   const toneColor = tone === 'ok' ? INK.ok : tone === 'warn' ? INK.warn : INK.accent
@@ -1147,7 +1208,7 @@ function WritingSheet({
               display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
             }}
           >
-            {task.prompt_en}
+            {compactRuns.map((r, i) => <Run key={i} run={r} />)}
           </p>
           <button
             onClick={onOpenBrief}
