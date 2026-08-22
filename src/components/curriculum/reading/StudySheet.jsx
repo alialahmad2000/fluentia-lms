@@ -332,7 +332,7 @@ function McqCheck({ item, answered, onAnswer }) {
               disabled={!!picked}
               onClick={() => onAnswer({ value: opt, ok: isAnswer })}
               style={style}
-              className={`rounded-lg border px-3.5 py-2 font-en text-[14px] transition-colors ${
+              className={`rounded-lg border px-3.5 py-2 font-en text-[14px] transition-colors [@media(pointer:coarse)]:min-h-[44px] ${
                 picked ? '' : 'hover:border-[rgba(233,185,73,0.45)]'
               } ${picked && isPicked && !isAnswer ? 'line-through' : ''}`}
             >
@@ -385,7 +385,7 @@ function OrderCheck({ item, answered, onAnswer }) {
                 key={`${t}-${i}`}
                 onClick={() => setBuilt((b) => [...b, t])}
                 style={{ background: T.raise, borderColor: T.edge, color: T.body }}
-                className="rounded-lg border px-3 py-1.5 font-en text-[13.5px] transition-colors hover:border-[rgba(233,185,73,0.45)]"
+                className="rounded-lg border px-3 py-1.5 font-en text-[13.5px] transition-colors hover:border-[rgba(233,185,73,0.45)] [@media(pointer:coarse)]:min-h-[44px]"
               >
                 {t}
               </button>
@@ -396,7 +396,7 @@ function OrderCheck({ item, answered, onAnswer }) {
               disabled={!built.length}
               onClick={submit}
               style={{ background: T.gold, color: 'var(--ds-text-inverse, #14100a)' }}
-              className="rounded-lg px-3.5 py-1.5 font-['Tajawal'] text-[12.5px] font-bold transition-opacity hover:opacity-85 disabled:opacity-40"
+              className="rounded-lg px-3.5 py-1.5 font-['Tajawal'] text-[12.5px] font-bold transition-opacity hover:opacity-85 disabled:opacity-40 [@media(pointer:coarse)]:min-h-[44px]"
             >
               تحقّقي
             </button>
@@ -404,7 +404,7 @@ function OrderCheck({ item, answered, onAnswer }) {
               <button
                 onClick={() => setBuilt([])}
                 style={{ color: T.muted }}
-                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-['Tajawal'] text-[12.5px] transition-opacity hover:opacity-70"
+                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-['Tajawal'] text-[12.5px] transition-opacity hover:opacity-70 [@media(pointer:coarse)]:min-h-[44px]"
               >
                 <RotateCcw size={12} /> من جديد
               </button>
@@ -450,7 +450,7 @@ function ProduceCheck({ item }) {
         <button
           onClick={() => setShown(true)}
           style={{ background: T.raise, color: T.body, border: `1px solid ${T.edge}` }}
-          className="flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 font-['Tajawal'] text-[12.5px] font-bold transition-colors hover:bg-white/[0.05]"
+          className="flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 font-['Tajawal'] text-[12.5px] font-bold transition-colors hover:bg-white/[0.05] [@media(pointer:coarse)]:min-h-[44px]"
         >
           <Eye size={12} /> أرِني نموذجاً
         </button>

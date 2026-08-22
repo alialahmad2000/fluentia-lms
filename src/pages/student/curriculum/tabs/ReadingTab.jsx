@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useMemo, useEffect, useLayoutEffect } fr
 import { createPortal } from 'react-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings, GraduationCap } from 'lucide-react'
+import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings, GraduationCap, Target } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { pickLatestAttempt } from '../../../../lib/activitySave'
 import { useActivitySave } from '../../../../hooks/useActivitySave'
@@ -33,6 +33,7 @@ import ArticleBody from '../../../../components/curriculum/reading/ArticleBody'
 import WordPopup from '../../../../components/curriculum/reading/WordPopup'
 import ReadingTools from '../../../../components/curriculum/reading/ReadingTools'
 import StudySheet from '../../../../components/curriculum/reading/StudySheet'
+import { ReadingContract, ReadingOutcome, PassageFoldedBar } from '../../../../components/curriculum/reading/ReadingSession'
 import SectionJumper from '../../../../components/curriculum/SectionJumper'
 import SectionBand from '../../../../components/curriculum/SectionBand'
 import { useArticleVocabIndex } from '../../../../hooks/useArticleVocabIndex'
@@ -58,11 +59,13 @@ const READING_WPM = 90
 // What the jump rail offers. SectionJumper drops any entry whose block did
 // not render, so a reading with no vocabulary simply shows one chip fewer.
 const SECTION_NAV = [
+  { id: 'sec-contract', label: 'قبل القراءة', icon: Target },
   { id: 'sec-text', label: 'المقال', icon: FileText },
   { id: 'sec-vocab', label: 'المفردات', icon: BookOpen },
   { id: 'sec-study', label: 'ورقة المذاكرة', icon: GraduationCap },
   { id: 'sec-questions', label: 'الأسئلة', icon: CheckCircle },
   { id: 'sec-thinking', label: 'تفكير ناقد', icon: MessageSquare },
+  { id: 'sec-take', label: 'الحصيلة', icon: GraduationCap },
 ]
 
 const QUESTION_TYPE_LABELS = {
@@ -193,6 +196,11 @@ function ReadingContent({ reading, studentId, unitId }) {
     state: saveState, lastSavedAt, readOnly,
     saveNow, submit: submitAttempt, startNewAttempt, adoptAttempt,
   } = useActivitySave({ studentId, unitId, sectionType: 'reading', activityId: reading?.id })
+  // The «session» shape is opt-in PER READING (curriculum_readings.experience_version)
+  // so it can be switched off from the database with no deploy, and every other
+  // reading on the platform renders exactly as it did before.
+  const sessionMode = reading?.experience_version === 'session'
+  const [passageFolded, setPassageFolded] = useState(false)
   const [savedProgress, setSavedProgress] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -708,8 +716,22 @@ function ReadingContent({ reading, studentId, unitId }) {
         </div>
       )}
 
+      {sessionMode && (
+        <div id="sec-contract" className="scroll-mt-[132px]">
+          <ReadingContract reading={reading} vocabCount={vocabulary?.length || 0} />
+        </div>
+      )}
+
+      {sessionMode && passageFolded && (
+        <PassageFoldedBar
+          title={reading.title_ar || reading.title_en}
+          onUnfold={() => setPassageFolded(false)}
+        />
+      )}
+
       {/* ─── Premium Passage Card ─── */}
       <div
+        hidden={sessionMode && passageFolded}
         id="sec-text"
         className="relative scroll-mt-[132px] rounded-2xl overflow-hidden transition-colors duration-300"
         // Was `bg-slate-900/50 border-slate-800/60` — a cold slate card on a warm
@@ -1122,6 +1144,20 @@ function ReadingContent({ reading, studentId, unitId }) {
       {/* The graded check. */}
       {questions?.length > 0 && (
         <SectionBand id="sec-questions">
+          {sessionMode && !passageFolded && (
+            <button
+              onClick={() => setPassageFolded(true)}
+              style={{
+                background: 'var(--ds-accent-wash, rgba(233,185,73,.08))',
+                color: 'var(--ds-accent-primary, #e9b949)',
+                border: '1px solid rgba(233,185,73,0.26)',
+              }}
+              className="mb-1 flex min-h-[40px] w-full items-center justify-center gap-2 rounded-xl px-4 py-2 font-['Tajawal'] text-[13px] font-bold transition-opacity hover:opacity-80 [@media(pointer:coarse)]:min-h-[44px]"
+            >
+              <EyeOff size={14} />
+              {g('اطوِ النص وأجب من مذاكرتك', 'اطوي النص وأجيبي من مذاكرتكِ')}
+            </button>
+          )}
           <SaveStatus floating state={saveState} lastSavedAt={lastSavedAt} />
           <ComprehensionSection
             key={retryKeyRef.current}
@@ -1132,6 +1168,12 @@ function ReadingContent({ reading, studentId, unitId }) {
             onAutosave={handleComprehensionAutosave}
             onComplete={handleComprehensionComplete}
           />
+        </SectionBand>
+      )}
+
+      {sessionMode && (
+        <SectionBand id="sec-take" tone="feature">
+          <ReadingOutcome reading={reading} vocabCount={vocabulary?.length || 0} />
         </SectionBand>
       )}
 
