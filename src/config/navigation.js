@@ -284,6 +284,7 @@ export const ADMIN_NAV = {
       label: 'الجودة والنظام',
       items: [
         { id: 'bug-reports', label: 'بلاغات المشاكل', icon: Bug,           to: '/admin/bug-reports' },
+        { id: 'ai-conversations', label: 'محادثات المدرّب الذكي', icon: MessageSquare, to: '/admin/ai-conversations' },
         { id: 'curriculum-quality', label: 'جودة المنهج', icon: ShieldAlert,   to: '/admin/curriculum-quality' },
         { id: 'library-feedback', label: 'آراء المكتبة', icon: Star,        to: '/admin/library-feedback' },
         { id: 'audio-telemetry', label: 'فشل الصوت',    icon: Volume2,       to: '/admin/audio-telemetry' },
