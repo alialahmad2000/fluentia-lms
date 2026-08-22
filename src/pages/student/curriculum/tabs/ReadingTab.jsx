@@ -1144,7 +1144,7 @@ function ReadingContent({ reading, studentId, unitId }) {
           The 'feature' seam marks it as a paper, not another info card. */}
       {reading.study_sheet && (
         <SectionBand id="sec-study" tone="feature">
-          <StudySheet sheet={reading.study_sheet} />
+          <StudySheet sheet={reading.study_sheet} readingId={reading.id} studentId={studentId} />
         </SectionBand>
       )}
 

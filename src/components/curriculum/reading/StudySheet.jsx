@@ -25,10 +25,11 @@ import { useState, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   GraduationCap, ChevronDown, Quote, AlertTriangle, PenLine,
-  Sparkles, CheckCircle2, XCircle, RotateCcw, Eye, ArrowLeft,
+  Sparkles, CheckCircle2, XCircle, RotateCcw, Eye, ArrowLeft, MessageCircle,
 } from 'lucide-react'
 import { useG, genderizeText } from '@/i18n/gender'
 import { isolateLatin } from '../../grammar/RichText'
+import AICoachPanel from '../../coach/AICoachPanel'
 
 // ── helpers ────────────────────────────────────────────────────────────────
 
@@ -177,8 +178,20 @@ function FromText({ text, highlights }) {
 
 // ── one taught pattern ─────────────────────────────────────────────────────
 
-function PatternCard({ item, index, defaultOpen }) {
+// One taught pattern.
+//
+// ENGLISH FIRST. The first version led with a dense Arabic paragraph that had
+// English words buried inside it — the owner's note was that it is hard to read
+// and that the English should lead with Arabic underneath as support. So the
+// order is now: the rule in English → the line it came from → the examples →
+// and only then the Arabic explanation, set smaller and clearly secondary.
+// The examples were also buried at the bottom under two Arabic blocks; they are
+// the part a learner actually copies from, so they moved up and got room.
+function PatternCard({ item, index, defaultOpen, readingId, studentId }) {
+  const g = useG()
   const [open, setOpen] = useState(defaultOpen)
+  const [askOpen, setAskOpen] = useState(false)
+  const examples = item.examples_en || []
 
   return (
     <div
@@ -196,18 +209,17 @@ function PatternCard({ item, index, defaultOpen }) {
           {index + 1}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate font-['Tajawal'] text-[15px] font-bold" style={{ color: T.ink }}>
-            {item.title_ar}
-          </span>
           {item.title_en && (
-            <span
-              dir="ltr"
-              className="block truncate text-right font-en text-[11.5px]"
-              style={{ color: T.muted }}
-            >
+            <span dir="ltr" className="block truncate text-right font-en text-[15px] font-semibold" style={{ color: T.ink }}>
               {item.title_en}
             </span>
           )}
+          <span
+            className={`block truncate font-['Tajawal'] ${item.title_en ? 'text-[12px]' : 'text-[15px] font-bold'}`}
+            style={{ color: item.title_en ? T.muted : T.ink }}
+          >
+            {item.title_ar}
+          </span>
         </span>
         <ChevronDown
           size={16}
@@ -225,17 +237,49 @@ function PatternCard({ item, index, defaultOpen }) {
             transition={{ duration: 0.22 }}
             className="overflow-hidden"
           >
-            <div
-              className="space-y-3.5 px-4 pb-5 pt-4 sm:px-5"
-              style={{ borderTop: `1px solid ${T.edge}` }}
-            >
+            <div className="space-y-4 px-4 pb-5 pt-4 sm:px-5" style={{ borderTop: `1px solid ${T.edge}` }}>
               {item.from_text && <FromText text={item.from_text} highlights={item.highlights} />}
 
-              <Ar
-                text={item.explain_ar}
-                className="font-['Tajawal'] text-[14.5px] leading-[2]"
-                style={{ color: T.body }}
-              />
+              {/* The examples are what a learner copies from, so they lead. */}
+              {examples.length > 0 && (
+                <div>
+                  <div className="mb-2 flex items-baseline gap-2">
+                    <span className="font-['Tajawal'] text-[11.5px] font-bold" style={{ color: T.gold }}>
+                      أمثلة
+                    </span>
+                    <span className="font-en text-[10.5px]" style={{ color: T.muted }}>
+                      {examples.length}
+                    </span>
+                  </div>
+                  <ul className="space-y-2">
+                    {examples.map((ex, i) => (
+                      <li
+                        key={i}
+                        dir="ltr"
+                        className="flex items-start gap-2.5 rounded-xl px-3.5 py-2.5 text-left"
+                        style={{ background: T.warm, border: `1px solid ${T.edge}` }}
+                      >
+                        <span className="mt-[0.55em] h-1 w-1 flex-none rounded-full" style={{ background: T.gold }} />
+                        <span className="font-en text-[15.5px] leading-[1.75]" style={{ color: T.ink }}>{ex}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Arabic explanation — support, not headline. Smaller, set apart. */}
+              {item.explain_ar && (
+                <div className="rounded-xl px-4 py-3.5" style={{ background: T.well, border: `1px solid ${T.edge}` }}>
+                  <div className="mb-1.5 font-['Tajawal'] text-[11px] font-bold" style={{ color: T.muted }}>
+                    الشرح بالعربية
+                  </div>
+                  <Ar
+                    text={item.explain_ar}
+                    className="font-['Tajawal'] text-[13.5px] leading-[2.05]"
+                    style={{ color: T.body }}
+                  />
+                </div>
+              )}
 
               {item.watch_out_ar && (
                 <div
@@ -245,24 +289,9 @@ function PatternCard({ item, index, defaultOpen }) {
                   <AlertTriangle size={14} className="mt-0.5 flex-none" style={{ color: T.bad }} />
                   <Ar
                     text={item.watch_out_ar}
-                    className="font-['Tajawal'] text-[13.5px] leading-[1.95]"
+                    className="font-['Tajawal'] text-[13px] leading-[2]"
                     style={{ color: T.ink }}
                   />
-                </div>
-              )}
-
-              {item.examples_en?.length > 0 && (
-                <div className="space-y-1.5 pr-3.5" style={{ borderRight: `1px solid ${T.edge}` }}>
-                  {item.examples_en.map((ex, i) => (
-                    <p
-                      key={i}
-                      dir="ltr"
-                      className="text-left font-en text-[14.5px] leading-[1.8]"
-                      style={{ color: T.body }}
-                    >
-                      {ex}
-                    </p>
-                  ))}
                 </div>
               )}
 
@@ -271,8 +300,38 @@ function PatternCard({ item, index, defaultOpen }) {
                   <PenLine size={14} className="mt-0.5 flex-none" style={{ color: T.gold }} />
                   <Ar
                     text={item.try_ar}
-                    className="font-['Tajawal'] text-[13.5px] leading-[1.95]"
+                    className="font-['Tajawal'] text-[13px] leading-[2]"
                     style={{ color: T.body }}
+                  />
+                </div>
+              )}
+
+              {/* Ask about THIS pattern. The sheet can only ever give a fixed
+                  number of examples; a student who is still stuck needs a
+                  different explanation and more of them, which is what the
+                  tutor is for. Every exchange is stored against this pattern. */}
+              {readingId && studentId && (
+                <div className="overflow-hidden rounded-xl" style={{ border: `1px solid ${GOLD_EDGE}` }}>
+                  <button
+                    onClick={() => setAskOpen((v) => !v)}
+                    style={{ background: T.wash, color: T.gold }}
+                    className="flex min-h-[42px] w-full items-center justify-center gap-2 px-4 py-2.5 font-['Tajawal'] text-[13px] font-bold transition-opacity hover:opacity-80 [@media(pointer:coarse)]:min-h-[44px]"
+                  >
+                    <MessageCircle size={14} />
+                    {askOpen
+                      ? g('إغلاق', 'إغلاق')
+                      : g('لم يتّضح؟ اسأل المدرّب عن هذا التركيب', 'لم يتّضح؟ اسألي المدرّب عن هذا التركيب')}
+                  </button>
+                  <AICoachPanel
+                    studentId={studentId}
+                    taskId={readingId}
+                    taskType="reading_pattern"
+                    patternId={item.id}
+                    tone="gold"
+                    inline
+                    hideMobileFab
+                    mobileOpen={askOpen}
+                    onMobileOpenChange={setAskOpen}
                   />
                 </div>
               )}
@@ -479,7 +538,7 @@ function ProduceCheck({ item }) {
 
 // ── the sheet ──────────────────────────────────────────────────────────────
 
-export default function StudySheet({ sheet }) {
+export default function StudySheet({ sheet, readingId = null, studentId = null }) {
   const g = useG()
   const [answers, setAnswers] = useState({})
 
@@ -583,7 +642,14 @@ export default function StudySheet({ sheet }) {
               </div>
               <div className="space-y-2.5">
                 {teach.map((item, i) => (
-                  <PatternCard key={item.id || i} item={item} index={i} defaultOpen={i === 0} />
+                  <PatternCard
+                  key={item.id || i}
+                  item={item}
+                  index={i}
+                  defaultOpen={i === 0}
+                  readingId={readingId}
+                  studentId={studentId}
+                />
                 ))}
               </div>
             </div>

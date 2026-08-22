@@ -26,6 +26,16 @@ const QUICK_PROMPTS = {
     { key: 'grammar',    emoji: '✅', label: 'تصحيح',  template: 'صحح القواعد في فقرتي وفسر الأخطاء' },
     { key: 'expand',     emoji: '🔍', label: 'توسيع',  template: 'كيف أوسّع فقرتي وأضيف تفاصيل أكثر؟' },
   ],
+  // A pattern tutor is asked different things than a task coach: not "help me
+  // start", but "say it again another way", "give me more examples", "test me".
+  reading_pattern: [
+    { key: 'more',    emoji: '📝', label: 'أمثلة أكثر', template: 'أعطني أمثلة أخرى على هذا التركيب من واقع العمل' },
+    { key: 'simpler', emoji: '🔁', label: 'اشرح أبسط',  template: 'اشرح لي هذا التركيب بطريقة أبسط وبمثال جديد' },
+    { key: 'diff',    emoji: '⚖️', label: 'ما الفرق؟',  template: 'ما الفرق بين هذا التركيب وما يشبهه؟ ومتى أستعمل كل واحد؟' },
+    { key: 'why',     emoji: '❓', label: 'ليش هنا؟',   template: 'ليش استعمل الكاتب هذا التركيب في هذه الجملة بالذات؟' },
+    { key: 'mine',    emoji: '✍️', label: 'صحّح جملتي', template: 'بكتب جملة على هذا التركيب وأبيك تصححها وتشرح الخطأ' },
+    { key: 'test',    emoji: '🎯', label: 'اختبرني',    template: 'اختبرني في هذا التركيب بسؤال واحد وصحح إجابتي' },
+  ],
   speaking: [
     { key: 'ideas',      emoji: '💡', label: 'أفكار',   template: 'أحتاج أفكار للتحدث — وش الأفكار اللي ممكن أذكرها؟' },
     { key: 'structure',  emoji: '📋', label: 'ترتيب',  template: 'ساعدني أرتب كلامي — من وين أبدأ؟' },
@@ -65,6 +75,15 @@ function MessageBubble({ role, content, isStreaming }) {
 // ── Main Component ─────────────────────────────────────
 export default function AICoachPanel({
   studentId, taskId, taskType, draftText,
+  // Which pattern inside «ورقة المذاكرة» this conversation is about. Only used
+  // when taskType is 'reading_pattern' — the edge function keys one conversation
+  // per pattern, so a student asking about three patterns keeps three separate
+  // threads instead of one muddled one.
+  patternId = null,
+  // The coach's inline shell is violet, which is correct inside speaking and
+  // writing. The reading section runs on one gold accent, and dropping a violet
+  // panel into it is exactly the clash the owner has already rejected once.
+  tone = 'violet',
   // `fill` makes the desktop rail run the full height of the viewport instead of
   // hugging its content — a short panel next to a tall page left a dead column.
   fill = false,
@@ -194,6 +213,7 @@ export default function AICoachPanel({
           task_type: taskType,
           message: text,
           draft_text: draftText || '',
+          ...(patternId ? { pattern_id: patternId } : {}),
         }),
       })
 
@@ -295,6 +315,15 @@ export default function AICoachPanel({
     : g('أنا جاهز أساعدك — وش تحتاج؟', 'أنا جاهز أساعدك — وش تحتاجين؟'))
 
   const prompts = QUICK_PROMPTS[taskType] || QUICK_PROMPTS.writing
+  // The default capabilities list describes a writing coach ("أفكار وخطة قبل ما
+  // تبدأ"), which would be a lie inside a study sheet.
+  const capabilities = taskType === 'reading_pattern'
+    ? [
+        ['أشرح لك التركيب بطريقة ثانية', 'أشرح لكِ التركيب بطريقة ثانية'],
+        ['أعطيك أمثلة جديدة غير اللي في الورقة', 'أعطيكِ أمثلة جديدة غير اللي في الورقة'],
+        ['أختبرك بسؤال وأصحح جملتك', 'أختبركِ بسؤال وأصحح جملتكِ'],
+      ]
+    : COACH_CAPABILITIES
   const capReached = messagesRemaining <= 0
 
   // ── Panel content ─────────────────────────────────
@@ -359,10 +388,13 @@ export default function AICoachPanel({
               </p>
             </div>
             <ul className="space-y-2">
-              {COACH_CAPABILITIES.map(([m, f]) => (
+              {capabilities.map(([m, f]) => (
                 <li key={m} className="flex items-start gap-2 text-[12px] font-['Tajawal'] leading-relaxed"
                     style={{ color: 'var(--text-secondary)' }}>
-                  <span className="mt-[7px] w-1 h-1 rounded-full flex-shrink-0" style={{ background: '#a855f7' }} />
+                  <span
+                    className="mt-[7px] w-1 h-1 rounded-full flex-shrink-0"
+                    style={{ background: tone === 'gold' ? 'var(--ds-accent-primary, #e9b949)' : '#a855f7' }}
+                  />
                   {g(m, f)}
                 </li>
               ))}
@@ -460,10 +492,19 @@ export default function AICoachPanel({
           >
             <div
               className="h-[340px] sm:h-[360px]"
-              style={{
-                background: 'linear-gradient(180deg, rgba(168,85,247,0.07) 0%, rgba(168,85,247,0.02) 30%, transparent 100%)',
-                borderTop: '1px solid rgba(168,85,247,0.18)',
-              }}
+              style={
+                tone === 'gold'
+                  ? {
+                      background:
+                        'linear-gradient(180deg, var(--ds-accent-wash, rgba(233,185,73,.08)) 0%, transparent 60%)',
+                      borderTop: '1px solid rgba(233,185,73,0.22)',
+                    }
+                  : {
+                      background:
+                        'linear-gradient(180deg, rgba(168,85,247,0.07) 0%, rgba(168,85,247,0.02) 30%, transparent 100%)',
+                      borderTop: '1px solid rgba(168,85,247,0.18)',
+                    }
+              }
             >
               {PanelContent()}
             </div>

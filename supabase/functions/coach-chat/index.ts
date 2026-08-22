@@ -49,6 +49,28 @@ ABSOLUTE RULES — DO NOT VIOLATE:
 7. Your knowledge is bounded to this conversation and the context provided below. Never claim to remember things from outside.
 8. If asked about something completely unrelated to English learning or this specific task, briefly redirect.`
 
+// A pattern tutor is a different job from a task coach. The coach must never
+// write the student's answer; here, explaining fully IS the point — the study
+// sheet's check is a private self-check that is graded in the browser and saved
+// nowhere, so there is no answer to protect. What this prompt protects instead
+// is the ENGLISH-FIRST order the owner asked for, and the example count: the
+// sheet gives two, and a student who is still asking needs more than two.
+const TUTOR_SYSTEM_PROMPT = `You are an English teacher explaining ONE specific language pattern to a Saudi Arabic-speaking student at Fluentia Academy. The pattern comes from a reading passage she has just studied, and she is looking at it right now in her study sheet.
+
+WHAT YOU ARE FOR
+Make this pattern click. Explain it a different way than the sheet did, give MORE examples than the sheet did, answer the question she actually asked, and check she understood.
+
+ABSOLUTE RULES — DO NOT VIOLATE:
+1. Stay on THIS pattern. If she asks about a different point, answer in one line and bring her back to this one.
+2. ENGLISH FIRST, ALWAYS. Lead with the English: the rule in one short English line, then real English example sentences. Arabic comes AFTER, as a short explanation underneath — never the other way round, and never a wall of Arabic with English words buried inside it. She is here to read English.
+3. Give at least TWO NEW example sentences every time you explain something. Never reuse the examples already in her sheet — they are listed in the context below and she has read them.
+4. Examples must be concrete and from working life (an email, a meeting, a client, a report, a deadline) — never abstract grammar-book sentences.
+5. Keep it tight: the English rule line, the examples, then one or two Arabic sentences. Never more than that unless she asks for more.
+6. When she says she understood, do NOT just agree. Ask her ONE short question that only someone who understood could answer. If she gets it wrong, correct her gently and give another example.
+7. When she writes English, correct it and show the corrected sentence in full.
+8. Warm and direct, never sycophantic. Do not overuse «ممتاز».
+9. Your knowledge is bounded to this pattern and the context below. Never claim to remember anything else.`
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS })
 
@@ -64,30 +86,37 @@ Deno.serve(async (req) => {
   if (authErr || !user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { ...CORS, 'Content-Type': 'application/json' } })
 
   // ── Parse body ────────────────────────────────────
-  let body: { task_id?: string; task_type?: string; message?: string; draft_text?: string }
+  let body: { task_id?: string; task_type?: string; message?: string; draft_text?: string; pattern_id?: string }
   try { body = await req.json() } catch { return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } }) }
 
-  const { task_id, task_type, message, draft_text = '' } = body
+  const { task_id, task_type, message, draft_text = '', pattern_id = null } = body
   if (!task_id || !task_type || !message?.trim()) return new Response(JSON.stringify({ error: 'task_id, task_type, message required' }), { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } })
-  if (!['writing', 'speaking'].includes(task_type)) return new Response(JSON.stringify({ error: 'task_type must be writing or speaking' }), { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } })
+  if (!['writing', 'speaking', 'reading_pattern'].includes(task_type)) return new Response(JSON.stringify({ error: 'task_type must be writing, speaking or reading_pattern' }), { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } })
+  const isPattern = task_type === 'reading_pattern'
+  if (isPattern && !pattern_id) return new Response(JSON.stringify({ error: 'pattern_id required for reading_pattern' }), { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } })
 
   const studentId = user.id
 
   if (!CLAUDE_API_KEY) return new Response(JSON.stringify({ error: 'المدرّب غير متاح حالياً' }), { status: 503, headers: { ...CORS, 'Content-Type': 'application/json' } })
 
   // ── Load or create conversation ───────────────────
-  let { data: conv } = await supa
+  // One conversation per PATTERN for reading, one per task for writing/speaking.
+  // The unique key is (student, task, type, coalesce(pattern_id,'')), so the
+  // null branch has to be an IS NULL — an .eq(null) would match nothing and
+  // silently start a new conversation on every message.
+  let convQuery = supa
     .from('coach_conversations')
     .select('*')
     .eq('student_id', studentId)
     .eq('task_id', task_id)
     .eq('task_type', task_type)
-    .maybeSingle()
+  convQuery = isPattern ? convQuery.eq('pattern_id', pattern_id) : convQuery.is('pattern_id', null)
+  let { data: conv } = await convQuery.maybeSingle()
 
   if (!conv) {
     const { data: created } = await supa
       .from('coach_conversations')
-      .insert({ student_id: studentId, task_id, task_type })
+      .insert({ student_id: studentId, task_id, task_type, pattern_id })
       .select()
       .single()
     conv = created
@@ -113,10 +142,15 @@ Deno.serve(async (req) => {
     { data: recentScores },
     { data: studentRow },
   ] = await Promise.all([
-    supa.from(taskTable)
-      .select('title_en, title_ar, prompt_en, prompt_ar, curriculum_units!unit_id(theme_ar, theme_en, curriculum_levels!level_id(level_number))')
-      .eq('id', task_id)
-      .maybeSingle(),
+    isPattern
+      ? supa.from('curriculum_readings')
+          .select('title_en, title_ar, study_sheet, curriculum_units!unit_id(theme_ar, theme_en, curriculum_levels!level_id(level_number))')
+          .eq('id', task_id)
+          .maybeSingle()
+      : supa.from(taskTable)
+          .select('title_en, title_ar, prompt_en, prompt_ar, curriculum_units!unit_id(theme_ar, theme_en, curriculum_levels!level_id(level_number))')
+          .eq('id', task_id)
+          .maybeSingle(),
     supa.from('ai_student_profiles')
       .select('strengths, weaknesses, skills, summary_ar')
       .eq('student_id', studentId)
@@ -128,7 +162,15 @@ Deno.serve(async (req) => {
       .eq('conversation_id', conv.id)
       .order('created_at', { ascending: true })
       .limit(10),
-    task_type === 'writing'
+    isPattern
+      ? supa.from('student_curriculum_progress')
+          .select('score')
+          .eq('student_id', studentId)
+          .eq('section_type', 'reading')
+          .eq('status', 'completed')
+          .order('completed_at', { ascending: false })
+          .limit(5)
+      : task_type === 'writing'
       ? supa.from('student_curriculum_progress')
           .select('ai_feedback')
           .eq('student_id', studentId)
@@ -156,7 +198,17 @@ Deno.serve(async (req) => {
     : (recentScores || []).map((r: any) => r.ai_evaluation?.overall_score)
   ).filter(Boolean) as number[]
 
-  const taskTypeAr = task_type === 'writing' ? 'الكتابة' : 'التحدث'
+  // The pattern she is actually pointing at. If the sheet changed under her
+  // (content is re-authored from time to time) there is nothing to tutor, so
+  // say so rather than inventing a lesson.
+  const pattern = isPattern
+    ? ((taskRow as any)?.study_sheet?.teach || []).find((t: any) => t?.id === pattern_id) || null
+    : null
+  if (isPattern && !pattern) {
+    return new Response(JSON.stringify({ error: 'pattern_not_found' }), { status: 404, headers: { ...CORS, 'Content-Type': 'application/json' } })
+  }
+
+  const taskTypeAr = task_type === 'writing' ? 'الكتابة' : isPattern ? 'القراءة' : 'التحدث'
   const taskTitle = taskRow?.title_ar || taskRow?.title_en || taskRow?.curriculum_units?.theme_ar || taskTypeAr
   const taskPrompt = taskRow?.prompt_ar || taskRow?.prompt_en || ''
 
@@ -165,7 +217,21 @@ Deno.serve(async (req) => {
     ? `آخر ${taskTypeAr}: ${lastScore}/10 · ركّز: ${profileCtx?.weaknesses?.[0] || 'استمر في التحسن'}`
     : `ابدأ بثقة — المدرّب معك`
 
-  const studentContext = `STUDENT CONTEXT (${task_type} only — ignore other skills):
+  const patternContext = isPattern ? `STUDENT CONTEXT:
+- المستوى: ${cefr}
+- آخر نتائج القراءة: ${scores.length ? scores.map((x) => `${x}%`).join(', ') : 'لا توجد بعد'}
+
+THE PATTERN SHE IS STUDYING RIGHT NOW
+- From the passage: "${taskRow?.title_en || taskRow?.title_ar || ''}"
+- Pattern name: ${pattern.title_en || ''} — ${pattern.title_ar || ''}
+- The line it was taken from: ${pattern.from_text || '(none)'}
+- What the sheet already explained to her, in Arabic: ${(pattern.explain_ar || '').slice(0, 700)}
+- The trap the sheet already warned her about: ${(pattern.watch_out_ar || '—').slice(0, 400)}
+- Examples the sheet ALREADY gave her (never reuse these): ${(pattern.examples_en || []).join(' | ') || '(none)'}
+
+SHE HAS ALREADY READ ALL OF THE ABOVE. Do not repeat it back to her. Explain it a different way, give NEW examples, and answer the question she actually asked.` : null
+
+  const studentContext = patternContext ?? `STUDENT CONTEXT (${task_type} only — ignore other skills):
 - المستوى: ${cefr}
 - آخر ${scores.length} نتائج ${taskTypeAr}: ${scores.length ? scores.map(s=>`${s}/10`).join(', ') : 'لا توجد بعد'}
 - نقاط القوة في ${taskTypeAr}: ${profileCtx?.strengths?.join('، ') || 'غير متوفر بعد'}
@@ -177,7 +243,9 @@ THIS TASK:
 
   // Build messages array (history + new message)
   const history = (historyRows || []).map((m: any) => ({ role: m.role, content: m.content }))
-  const userContent = `الطالب${task_type === 'writing' ? 'ة' : ''} يسأل: "${message.trim()}"
+  const userContent = isPattern
+    ? `The student asks about this pattern: "${message.trim()}"`
+    : `الطالب${task_type === 'writing' ? 'ة' : ''} يسأل: "${message.trim()}"
 
 ${task_type === 'writing' ? `نص الطالبة الحالي في التاسك:\n"""\n${draft_text?.trim() || '(لم تبدأ الكتابة بعد)'}\n"""` : `(موضوع التحدث — لا توجد مسودة نصية)`}`
 
@@ -208,7 +276,7 @@ ${task_type === 'writing' ? `نص الطالبة الحالي في التاسك:
           temperature: 0.4,
           stream: true,
           system: [
-            { type: 'text', text: COACH_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } },
+            { type: 'text', text: isPattern ? TUTOR_SYSTEM_PROMPT : COACH_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } },
             { type: 'text', text: studentContext, cache_control: { type: 'ephemeral' } },
           ],
           messages: [
