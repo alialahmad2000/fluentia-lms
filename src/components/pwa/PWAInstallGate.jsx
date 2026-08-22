@@ -1,8 +1,88 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Download, X, Copy, Check, Share, Plus, Smartphone, Monitor } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { usePWAInstall } from '../../hooks/usePWAInstall'
+import { useAuthStore } from '../../stores/authStore'
+
+/**
+ * Bilingual, because for a phone-only staff member this gate IS the product:
+ * it is what puts the app on the home screen and turns push notifications on.
+ * It was entirely Arabic, so the learning coach — hired precisely because he
+ * works from his phone, and unable to read a word of Arabic — met an
+ * instruction screen he could not follow before he ever saw the console.
+ *
+ * Keyed on profiles.ui_language, like the forced password change. Every Arabic
+ * account renders byte-identically to before.
+ */
+const COPY = {
+  ar: {
+    title: 'ثبّت تطبيق Fluentia',
+    subtitle: 'عشان توصلك الإشعارات وتفتح التطبيق بسرعة',
+    later: 'تذكيرني لاحقاً',
+    nativeBlurb: 'احصل على أفضل تجربة تعلم — ثبّت التطبيق على جهازك بنقرة واحدة',
+    installNow: 'ثبّت الآن',
+    menuOpen: 'افتح قائمة المتصفح',
+    menuChoose: 'اختر',
+    menuInstallApp: '"تثبيت التطبيق"',
+    iphoneTitle: 'ثبّت Fluentia على آيفونك في 3 خطوات:',
+    ipadTitle: 'ثبّت Fluentia على آيبادك في 3 خطوات:',
+    tapShare: 'اضغط زر المشاركة',
+    inThe: 'في',
+    bottomOfScreen: 'أسفل الشاشة',
+    topOfScreen: 'أعلى الشاشة',
+    besideAddressBar: '(بجانب شريط العنوان)',
+    scrollAndChoose: 'مرر للأسفل واختر',
+    choose: 'اختر',
+    addToHome: '"إضافة إلى الشاشة الرئيسية"',
+    tap: 'اضغط',
+    add: '"إضافة"',
+    atTop: 'في الأعلى',
+    afterInstall: 'بعد التثبيت، افتح التطبيق من شاشتك الرئيسية وفعّل الإشعارات.',
+    safariOnly: 'متصفحك الحالي لا يدعم تثبيت التطبيقات على iPhone/iPad (قيد من Apple). استخدم Safari.',
+    copyLink: 'انسخ هذا الرابط:',
+    openSafari: 'افتح',
+    pasteAndInstall: 'الصق الرابط وثبّت التطبيق من هناك',
+    unsupported1: 'لتثبيت التطبيق، استخدم متصفح',
+    unsupportedOr: 'أو',
+    macTitle: 'ثبّت Fluentia على Mac:',
+    macMenu: 'من شريط القوائم:',
+    macTap: 'اضغط',
+  },
+  en: {
+    title: 'Install the Fluentia app',
+    subtitle: 'So notifications reach you and the app opens instantly',
+    later: 'Remind me later',
+    nativeBlurb: 'Install it on your device in one tap — notifications and offline access.',
+    installNow: 'Install now',
+    menuOpen: 'Open the browser menu',
+    menuChoose: 'Choose',
+    menuInstallApp: '"Install app"',
+    iphoneTitle: 'Add Fluentia to your iPhone in 3 steps:',
+    ipadTitle: 'Add Fluentia to your iPad in 3 steps:',
+    tapShare: 'Tap the Share button',
+    inThe: 'at the',
+    bottomOfScreen: 'bottom of the screen',
+    topOfScreen: 'top of the screen',
+    besideAddressBar: '(next to the address bar)',
+    scrollAndChoose: 'Scroll down and choose',
+    choose: 'Choose',
+    addToHome: '"Add to Home Screen"',
+    tap: 'Tap',
+    add: '"Add"',
+    atTop: 'at the top',
+    afterInstall: 'Once installed, open it from your home screen and allow notifications.',
+    safariOnly: 'This browser cannot install apps on iPhone or iPad — an Apple restriction. Use Safari.',
+    copyLink: 'Copy this link:',
+    openSafari: 'Open',
+    pasteAndInstall: 'Paste the link and install from there',
+    unsupported1: 'To install the app, use',
+    unsupportedOr: 'or',
+    macTitle: 'Add Fluentia to your Mac:',
+    macMenu: 'From the menu bar:',
+    macTap: 'Click',
+  },
+}
 
 const EXCLUDED_ROUTES = ['/login', '/signup', '/reset-password', '/install']
 
@@ -30,11 +110,11 @@ function StepText({ children }) {
 }
 
 // ─── Case 1: Native prompt (Android Chrome, Desktop Chrome/Edge) ──────
-function NativePromptContent({ hasNativePrompt, onInstall }) {
+function NativePromptContent({ hasNativePrompt, onInstall, c }) {
   return (
     <div className="space-y-4 text-center">
       <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-        احصل على أفضل تجربة تعلم — ثبّت التطبيق على جهازك بنقرة واحدة
+        {c.nativeBlurb}
       </p>
       {hasNativePrompt ? (
         <button
@@ -43,20 +123,20 @@ function NativePromptContent({ hasNativePrompt, onInstall }) {
           style={{ background: 'linear-gradient(135deg, var(--accent-sky), var(--accent-violet))', color: '#fff' }}
         >
           <Download size={18} />
-          ثبّت الآن
+          {c.installNow}
         </button>
       ) : (
         <div className="space-y-3">
           <div className="flex items-start gap-3">
             <StepNumber n={1} />
             <StepText>
-              افتح قائمة المتصفح <span className="inline-block mx-1 align-middle">⋮</span>
+              {c.menuOpen} <span className="inline-block mx-1 align-middle">⋮</span>
             </StepText>
           </div>
           <div className="flex items-start gap-3">
             <StepNumber n={2} />
             <StepText>
-              اختر <span className="font-bold" style={{ color: 'var(--text-primary)' }}>"تثبيت التطبيق"</span>
+              {c.menuChoose} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{c.menuInstallApp}</span>
             </StepText>
           </div>
         </div>
@@ -66,75 +146,75 @@ function NativePromptContent({ hasNativePrompt, onInstall }) {
 }
 
 // ─── Case 2: iPhone Safari (Share at bottom) ──────────────────────────
-function IOSShareBottomContent() {
+function IOSShareBottomContent({ c }) {
   return (
     <div className="space-y-4">
       <p className="text-sm font-medium text-center" style={{ color: 'var(--text-secondary)' }}>
-        ثبّت Fluentia على آيفونك في 3 خطوات:
+        {c.iphoneTitle}
       </p>
       <div className="space-y-3">
         <div className="flex items-start gap-3">
           <StepNumber n={1} />
           <StepText>
-            اضغط زر المشاركة <ShareIcon className="inline text-sky-400 mx-1 align-middle" /> في <span className="font-bold" style={{ color: 'var(--text-primary)' }}>أسفل الشاشة</span>
+            {c.tapShare} <ShareIcon className="inline text-sky-400 mx-1 align-middle" /> {c.inThe} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{c.bottomOfScreen}</span>
           </StepText>
         </div>
         <div className="flex items-start gap-3">
           <StepNumber n={2} />
           <StepText>
-            مرر للأسفل واختر <span className="font-bold" style={{ color: 'var(--text-primary)' }}>"إضافة إلى الشاشة الرئيسية"</span> <Plus size={14} className="inline text-sky-400 mx-1 align-middle" />
+            {c.scrollAndChoose} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{c.addToHome}</span> <Plus size={14} className="inline text-sky-400 mx-1 align-middle" />
           </StepText>
         </div>
         <div className="flex items-start gap-3">
           <StepNumber n={3} />
           <StepText>
-            اضغط <span className="font-bold" style={{ color: 'var(--text-primary)' }}>"إضافة"</span> في الأعلى
+            {c.tap} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{c.add}</span> {c.atTop}
           </StepText>
         </div>
       </div>
       <p className="text-xs text-center mt-2" style={{ color: 'var(--text-tertiary)' }}>
-        بعد التثبيت، افتح التطبيق من شاشتك الرئيسية وفعّل الإشعارات.
+        {c.afterInstall}
       </p>
     </div>
   )
 }
 
 // ─── Case 3: iPad Safari (Share at top) ───────────────────────────────
-function IPadShareTopContent() {
+function IPadShareTopContent({ c }) {
   return (
     <div className="space-y-4">
       <p className="text-sm font-medium text-center" style={{ color: 'var(--text-secondary)' }}>
-        ثبّت Fluentia على آيبادك في 3 خطوات:
+        {c.ipadTitle}
       </p>
       <div className="space-y-3">
         <div className="flex items-start gap-3">
           <StepNumber n={1} />
           <StepText>
-            اضغط زر المشاركة <ShareIcon className="inline text-sky-400 mx-1 align-middle" /> في <span className="font-bold" style={{ color: 'var(--text-primary)' }}>أعلى الشاشة</span> (بجانب شريط العنوان)
+            {c.tapShare} <ShareIcon className="inline text-sky-400 mx-1 align-middle" /> {c.inThe} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{c.topOfScreen}</span> {c.besideAddressBar}
           </StepText>
         </div>
         <div className="flex items-start gap-3">
           <StepNumber n={2} />
           <StepText>
-            اختر <span className="font-bold" style={{ color: 'var(--text-primary)' }}>"إضافة إلى الشاشة الرئيسية"</span> <Plus size={14} className="inline text-sky-400 mx-1 align-middle" />
+            {c.choose} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{c.addToHome}</span> <Plus size={14} className="inline text-sky-400 mx-1 align-middle" />
           </StepText>
         </div>
         <div className="flex items-start gap-3">
           <StepNumber n={3} />
           <StepText>
-            اضغط <span className="font-bold" style={{ color: 'var(--text-primary)' }}>"إضافة"</span>
+            {c.tap} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{c.add}</span>
           </StepText>
         </div>
       </div>
       <p className="text-xs text-center mt-2" style={{ color: 'var(--text-tertiary)' }}>
-        بعد التثبيت، افتح التطبيق من شاشتك الرئيسية وفعّل الإشعارات.
+        {c.afterInstall}
       </p>
     </div>
   )
 }
 
 // ─── Case 4: iOS Chrome/Firefox/Edge (switch to Safari) ───────────────
-function SwitchToSafariContent() {
+function SwitchToSafariContent({ c }) {
   const [copied, setCopied] = useState(false)
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText('app.fluentia.academy').then(() => {
@@ -147,14 +227,14 @@ function SwitchToSafariContent() {
     <div className="space-y-4">
       <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.15)' }}>
         <span className="text-sm" style={{ color: 'var(--accent-gold, #f59e0b)' }}>
-          متصفحك الحالي لا يدعم تثبيت التطبيقات على iPhone/iPad (قيد من Apple). استخدم Safari.
+          {c.safariOnly}
         </span>
       </div>
       <div className="space-y-3">
         <div className="flex items-start gap-3">
           <StepNumber n={1} />
           <div className="flex-1">
-            <StepText>انسخ هذا الرابط:</StepText>
+            <StepText>{c.copyLink}</StepText>
             <div className="flex items-center gap-2 mt-1.5 px-3 py-2 rounded-lg" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
               <span className="text-xs flex-1 font-mono" style={{ color: 'var(--text-primary)' }}>app.fluentia.academy</span>
               <button
@@ -169,11 +249,11 @@ function SwitchToSafariContent() {
         </div>
         <div className="flex items-start gap-3">
           <StepNumber n={2} />
-          <StepText>افتح <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Safari</span></StepText>
+          <StepText>{c.openSafari} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Safari</span></StepText>
         </div>
         <div className="flex items-start gap-3">
           <StepNumber n={3} />
-          <StepText>الصق الرابط وثبّت التطبيق من هناك</StepText>
+          <StepText>{c.pasteAndInstall}</StepText>
         </div>
       </div>
     </div>
@@ -181,34 +261,34 @@ function SwitchToSafariContent() {
 }
 
 // ─── Case 5: Unsupported browser (Firefox desktop, etc.) ──────────────
-function UnsupportedBrowserContent() {
+function UnsupportedBrowserContent({ c }) {
   return (
     <div className="text-center space-y-2">
       <Monitor size={24} className="mx-auto" style={{ color: 'var(--text-tertiary)' }} />
       <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-        لتثبيت التطبيق، استخدم متصفح <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Chrome</span> أو <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Edge</span>.
+        {c.unsupported1} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Chrome</span> {c.unsupportedOr} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Edge</span>.
       </p>
     </div>
   )
 }
 
 // ─── Case 6: macOS Safari ─────────────────────────────────────────────
-function MacOSDockContent() {
+function MacOSDockContent({ c }) {
   return (
     <div className="space-y-3">
       <p className="text-sm font-medium text-center" style={{ color: 'var(--text-secondary)' }}>
-        ثبّت Fluentia على Mac:
+        {c.macTitle}
       </p>
       <div className="flex items-start gap-3">
         <StepNumber n={1} />
         <StepText>
-          من شريط القوائم: <span className="font-bold" style={{ color: 'var(--text-primary)' }}>File</span> → <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Add to Dock</span>
+          {c.macMenu} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>File</span> → <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Add to Dock</span>
         </StepText>
       </div>
       <div className="flex items-start gap-3">
         <StepNumber n={2} />
         <StepText>
-          اضغط <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Add</span>
+          {c.macTap} <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Add</span>
         </StepText>
       </div>
     </div>
@@ -221,6 +301,20 @@ function MacOSDockContent() {
 export default function PWAInstallGate() {
   const { device, shouldShow, hasNativePrompt, triggerNativeInstall, dismiss } = usePWAInstall()
   const location = useLocation()
+  const uiLanguage = useAuthStore((s) => s.profile?.ui_language)
+  const c = COPY[uiLanguage === 'en' ? 'en' : 'ar']
+
+  // The fixed mobile bottom nav sits in a stacking context this gate cannot
+  // out-rank from inside the content shell — it swallowed taps on "Remind me
+  // later", so on a phone the gate could not be dismissed at all and the app
+  // was unreachable. index.css already hides the nav for `body.modal-open`;
+  // the gate simply never set it.
+  const gateVisible = shouldShow && !EXCLUDED_ROUTES.some(r => location.pathname.startsWith(r))
+  useEffect(() => {
+    if (!gateVisible) return undefined
+    document.body.classList.add('modal-open')
+    return () => document.body.classList.remove('modal-open')
+  }, [gateVisible])
 
   // Don't render on excluded routes
   if (EXCLUDED_ROUTES.some(r => location.pathname.startsWith(r))) return null
@@ -238,17 +332,17 @@ export default function PWAInstallGate() {
   const content = (() => {
     switch (device.installMethod) {
       case 'native_prompt':
-        return <NativePromptContent hasNativePrompt={hasNativePrompt} onInstall={handleNativeInstall} />
+        return <NativePromptContent hasNativePrompt={hasNativePrompt} onInstall={handleNativeInstall} c={c} />
       case 'ios_share_bottom':
-        return <IOSShareBottomContent />
+        return <IOSShareBottomContent c={c} />
       case 'ios_share_top':
-        return <IPadShareTopContent />
+        return <IPadShareTopContent c={c} />
       case 'switch_to_safari':
-        return <SwitchToSafariContent />
+        return <SwitchToSafariContent c={c} />
       case 'macos_dock':
-        return <MacOSDockContent />
+        return <MacOSDockContent c={c} />
       default:
-        return <UnsupportedBrowserContent />
+        return <UnsupportedBrowserContent c={c} />
     }
   })()
 
@@ -260,7 +354,7 @@ export default function PWAInstallGate() {
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-[9998] flex items-end sm:items-center justify-center"
         style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
-        dir="rtl"
+        dir={uiLanguage === 'en' ? 'ltr' : 'rtl'}
       >
         <motion.div
           initial={isMobile ? { y: '100%' } : { opacity: 0, scale: 0.95 }}
@@ -296,10 +390,10 @@ export default function PWAInstallGate() {
               <Smartphone size={24} className="text-sky-400" />
             </div>
             <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
-              ثبّت تطبيق Fluentia
+              {c.title}
             </h2>
             <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
-              عشان توصلك الإشعارات وتفتح التطبيق بسرعة
+              {c.subtitle}
             </p>
           </div>
 
@@ -312,7 +406,7 @@ export default function PWAInstallGate() {
             className="w-full mt-5 py-3 rounded-xl text-sm font-medium transition-all"
             style={{ color: 'var(--text-tertiary)', border: '1px solid var(--border-subtle)' }}
           >
-            تذكيرني لاحقاً
+            {c.later}
           </button>
         </motion.div>
       </motion.div>

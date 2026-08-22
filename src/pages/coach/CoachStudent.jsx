@@ -1,7 +1,7 @@
 import { useMemo, useState, useCallback } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
-  ArrowLeft, ArrowUpRight, Bot, Bug, LifeBuoy, MessageSquare, Sparkles, TrendingUp,
+  ArrowLeft, ArrowUpRight, Bot, Bug, ChevronDown, LifeBuoy, MessageSquare, TrendingUp,
 } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import GlassPanel from '@/design-system/components/GlassPanel'
@@ -289,6 +289,43 @@ function Conversation({ conversation, tz, studentName }) {
   )
 }
 
+/**
+ * The reference sections. On a laptop they are just further down the page; on
+ * the phone this console actually runs on they turned the dossier into 22,000
+ * pixels of scrolling. Closed by default on a phone, open on a wider screen,
+ * and never more than one tap away either way.
+ */
+function Collapsible({ title, count, children }) {
+  const [open, setOpen] = useState(
+    () => !(typeof window !== 'undefined' && window.innerWidth < 640)
+  )
+  return (
+    <GlassPanel elevation={2} padding="md">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex items-center gap-2 w-full text-start"
+        style={{ minHeight: 44 }}
+      >
+        <ChevronDown
+          size={15}
+          style={{
+            color: 'var(--ds-text-tertiary)',
+            transform: open ? 'none' : 'rotate(-90deg)',
+            transition: 'transform 160ms ease',
+          }}
+        />
+        <span className="cc-eyebrow">
+          {title}
+          {count != null && <span className="cc-num"> ({count})</span>}
+        </span>
+      </button>
+      {open && <div className="mt-3">{children}</div>}
+    </GlassPanel>
+  )
+}
+
 function StudentSkeleton() {
   return (
     <div className="space-y-4">
@@ -548,10 +585,10 @@ export default function CoachStudent() {
 
           {/* ── recent work ──────────────────────────────────────────── */}
           {recent.length > 0 && (
-            <GlassPanel elevation={2} padding="md" style={SECTION}>
-              <p className="cc-eyebrow mb-3">Last 12 sections completed</p>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm" style={{ minWidth: 480 }}>
+            <div style={SECTION}>
+            <Collapsible title="Last 12 sections completed">
+              <div className="overflow-x-auto lc-cards-wrap">
+                <table className="w-full text-sm lc-cards" style={{ minWidth: 480 }}>
                   <thead>
                     <tr style={{ color: 'var(--ds-text-tertiary)' }}>
                       <th className="text-left font-semibold pb-2 pr-3">Date</th>
@@ -563,17 +600,17 @@ export default function CoachStudent() {
                   <tbody>
                     {recent.map((r, i) => (
                       <tr key={i} style={{ borderTop: '1px solid var(--cc-rule)' }}>
-                        <td className="cc-num py-2 pr-3" style={{ color: 'var(--ds-text-tertiary)' }}>
+                        <td data-label="Date" className="cc-num py-2 pr-3" style={{ color: 'var(--ds-text-tertiary)' }}>
                           {dateIn(r.completed_at, ACADEMY_TZ)}
                         </td>
-                        <td className="py-2 pr-3 font-semibold" style={{ color: 'var(--ds-text-primary)' }}>
+                        <td data-label="Section" className="py-2 pr-3 font-semibold" style={{ color: 'var(--ds-text-primary)' }}>
                           {sectionLabel(r.section_type)}
                         </td>
-                        <td className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>
+                        <td data-label="Unit" className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>
                           {r.unit_number != null ? `Unit ${r.unit_number}` : '—'}
                           {r.unit_title && <span className={isArabic(r.unit_title) ? 'ar-inline' : ''}> · {r.unit_title}</span>}
                         </td>
-                        <td className="py-2 cc-num font-bold" style={{ color: scoreColor(r.score) }}>
+                        <td data-label="Score" className="py-2 cc-num font-bold" style={{ color: scoreColor(r.score) }}>
                           {r.score ?? '—'}
                         </td>
                       </tr>
@@ -581,13 +618,14 @@ export default function CoachStudent() {
                   </tbody>
                 </table>
               </div>
-            </GlassPanel>
+            </Collapsible>
+            </div>
           )}
 
           {/* ── units ────────────────────────────────────────────────── */}
           {units.length > 0 && (
-            <GlassPanel elevation={2} padding="md" style={SECTION}>
-              <p className="cc-eyebrow mb-3">Unit progress</p>
+            <div style={SECTION}>
+            <Collapsible title="Unit progress" count={units.length}>
               <div className="space-y-2">
                 {units.map((u) => (
                   <div key={u.unit_number} className="flex items-center gap-3">
@@ -603,7 +641,8 @@ export default function CoachStudent() {
                   </div>
                 ))}
               </div>
-            </GlassPanel>
+            </Collapsible>
+            </div>
           )}
 
           {/* ── tickets ──────────────────────────────────────────────── */}
@@ -658,20 +697,14 @@ export default function CoachStudent() {
           )}
 
           {/* ── touchpoints ──────────────────────────────────────────── */}
-          <GlassPanel elevation={2} padding="md">
-            <div className="flex items-center gap-2 mb-3">
-              <Sparkles size={14} style={{ color: 'var(--ds-text-tertiary)' }} />
-              <p className="cc-eyebrow">
-                Every touchpoint <span className="cc-num">({touchpoints.length})</span>
-              </p>
-            </div>
+          <Collapsible title="Every touchpoint" count={touchpoints.length}>
             {touchpoints.length === 0 ? (
               <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
                 Nobody has reached out to this student yet.
               </p>
             ) : (
-              <div className="overflow-auto" style={{ maxHeight: 420 }}>
-                <table className="w-full text-sm" style={{ minWidth: 520 }}>
+              <div className="overflow-auto lc-cards-wrap" style={{ maxHeight: 420 }}>
+                <table className="w-full text-sm lc-cards" style={{ minWidth: 520 }}>
                   <thead>
                     <tr style={{ color: 'var(--ds-text-tertiary)' }}>
                       <th className="text-left font-semibold pb-2 pr-3">Date</th>
@@ -684,22 +717,22 @@ export default function CoachStudent() {
                   <tbody>
                     {touchpoints.map((h) => (
                       <tr key={h.id} style={{ borderTop: '1px solid var(--cc-rule)' }}>
-                        <td className="cc-num py-2 pr-3" style={{ color: 'var(--ds-text-tertiary)' }}>
+                        <td data-label="Date" className="cc-num py-2 pr-3" style={{ color: 'var(--ds-text-tertiary)' }}>
                           {dateIn(h.created_at, ACADEMY_TZ)}
                         </td>
-                        <td className="py-2 pr-3 font-semibold" style={{ color: 'var(--ds-text-primary)' }}>
+                        <td data-label="Action" className="py-2 pr-3 font-semibold" style={{ color: 'var(--ds-text-primary)' }}>
                           {ACTION_LABELS[h.action] || h.action}
                         </td>
-                        <td className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>{h.situation_en || '—'}</td>
-                        <td className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>{blockerLabel(h.blocker_type)}</td>
-                        <td className="py-2" style={{ color: 'var(--ds-text-secondary)' }}>{h.note_en || '—'}</td>
+                        <td data-label="Situation" className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>{h.situation_en || '—'}</td>
+                        <td data-label="Blocker" className="py-2 pr-3" style={{ color: 'var(--ds-text-secondary)' }}>{blockerLabel(h.blocker_type)}</td>
+                        <td data-label="Note" className="py-2" style={{ color: 'var(--ds-text-secondary)' }}>{h.note_en || '—'}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             )}
-          </GlassPanel>
+          </Collapsible>
         </>
       )}
     </div>

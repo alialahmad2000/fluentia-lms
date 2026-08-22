@@ -51,6 +51,67 @@ function Pill({ children, tone = 'neutral', title }) {
   )
 }
 
+/**
+ * The phone hero. Five stat tiles in a two-column grid leave the fifth an
+ * orphan, and it collided with the fixed bottom nav — so on the device this
+ * console is actually used on, the header was both broken and uninformative.
+ * One segmented bar answers "what does today look like?" in a glance and each
+ * segment is still a filter.
+ */
+function BandStrip({ counts, total, contactedToday, active, onPick }) {
+  const segs = RISK_ORDER.map((band) => ({ band, n: counts[band] || 0 })).filter((x) => x.n > 0)
+  const sum = segs.reduce((a, x) => a + x.n, 0) || 1
+  const toReach = (counts.critical || 0) + (counts.at_risk || 0) + (counts.watch || 0)
+
+  return (
+    <GlassPanel elevation={2} padding="md" className="lc-bandstrip">
+      <div className="flex items-baseline justify-between gap-3 mb-3">
+        <p className="text-sm font-semibold" style={{ color: 'var(--ds-text-primary)' }}>
+          <span className="cc-bignum" style={{ fontSize: '1.75rem' }}>{toReach}</span>{' '}
+          to reach
+        </p>
+        <p className="text-sm" style={{ color: 'var(--ds-text-tertiary)' }}>
+          <span className="cc-num">{contactedToday}</span> contacted today · {total} active
+        </p>
+      </div>
+
+      <div className="lc-bandstrip__bar">
+        {segs.map(({ band, n }) => (
+          <button
+            key={band}
+            type="button"
+            aria-pressed={active === band}
+            aria-label={`${riskLabel(band)}: ${n}`}
+            title={`${riskLabel(band)} — ${n}`}
+            onClick={() => onPick(active === band ? null : band)}
+            style={{
+              flex: `${n} 0 0`,
+              background: riskColor(band),
+              opacity: !active || active === band ? 1 : 0.3,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2.5">
+        {RISK_ORDER.map((band) => (
+          <button
+            key={band}
+            type="button"
+            onClick={() => onPick(active === band ? null : band)}
+            className="flex items-center gap-1.5 text-sm"
+            aria-pressed={active === band}
+            style={{ color: active === band ? riskColor(band) : 'var(--ds-text-tertiary)', minHeight: 32 }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: 999, background: riskColor(band) }} />
+            {riskLabel(band)} <span className="cc-num font-bold">{counts[band] || 0}</span>
+          </button>
+        ))}
+      </div>
+    </GlassPanel>
+  )
+}
+
 function BandTile({ band, count, active, onClick }) {
   return (
     <GlassPanel
@@ -309,8 +370,10 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
   // "required" is an alarm colour; it should appear when something is actually
   // wrong, not the instant the drawer opens.
   const [attempted, setAttempted] = useState(false)
+  const [noteOpen, setNoteOpen] = useState(false)
   const bodyRef = useRef(null)
   const panelRef = useRef(null)
+  const previewRef = useRef(null)
 
   const { data: preview, isFetching: previewLoading } = usePreview(row?.student_id, templateCode)
 
@@ -343,8 +406,17 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
     setEscalating(false)
     setEscReason('')
     setAttempted(false)
+    setNoteOpen(false)
     if (bodyRef.current) bodyRef.current.scrollTop = 0
   }, [row?.student_id])
+
+  // On a phone the fold is small and the header, the silence count and the
+  // risk note all sit above the message. Rather than fight for those pixels,
+  // bring the thing he came here to read to him the moment it renders.
+  useEffect(() => {
+    if (!preview || !previewRef.current) return
+    previewRef.current.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [preview])
 
   const onSend = useCallback(async () => {
     setAttempted(true)
@@ -361,6 +433,7 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
 
   const onNoAction = useCallback(async () => {
     if (!blocker) return toast({ type: 'error', title: 'Pick a blocker type first' })
+    if (!note.trim()) setNoteOpen(true)
     if (!note.trim()) return toast({ type: 'error', title: 'Say why no action is needed' })
     try {
       await logTouchpoint.mutateAsync({
@@ -375,6 +448,7 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
 
   const onObserve = useCallback(async () => {
     if (!blocker) return toast({ type: 'error', title: 'Pick a blocker type first' })
+    if (!note.trim()) setNoteOpen(true)
     if (!note.trim()) return toast({ type: 'error', title: 'An observation needs a note' })
     try {
       await logTouchpoint.mutateAsync({
@@ -442,10 +516,15 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
     document.addEventListener('keydown', onTab)
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    // `modal-open` is the app's own convention for "a full-screen surface is
+    // up": index.css hides the fixed mobile bottom nav for it. Without it the
+    // nav sat on top of Send / Escalate on a phone and ate the taps.
+    document.body.classList.add('modal-open')
     return () => {
       document.removeEventListener('keydown', onKey)
       document.removeEventListener('keydown', onTab)
       document.body.style.overflow = prev
+      document.body.classList.remove('modal-open')
       if (opener && typeof opener.focus === 'function') opener.focus()
     }
   }, [onClose, onSend])
@@ -621,21 +700,24 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
             </div>
           )}
 
-          {chosen && <p className="lc-guidance mb-2">{chosen.guidance_en}</p>}
-
+          {/* The Arabic comes before the guidance once he has chosen: he read
+              the guidance in the list to get here, and on a phone whatever is
+              second is below the fold. The message is the thing. */}
           {templateCode && (
             previewLoading ? (
               <div className="cc-skel mb-3" style={{ height: 96 }} />
             ) : preview ? (
               <>
-                <div className="ar-block mb-1" lang="ar" dir="rtl">{preview}</div>
-                <p className="text-xs mb-3" style={{ color: 'var(--ds-text-tertiary)' }}>
-                  Pre-approved Arabic, written for {row.gender === 'female' ? 'a female' : row.gender === 'male' ? 'a male' : 'an unspecified-gender'} student
-                  and sent exactly as shown. It cannot be edited — if nothing fits, escalate instead.
+                <div className="ar-block mb-2" lang="ar" dir="rtl" ref={previewRef}>{preview}</div>
+                <p className="text-xs mb-2" style={{ color: 'var(--ds-text-tertiary)' }}>
+                  Pre-approved Arabic for {row.gender === 'female' ? 'a female' : row.gender === 'male' ? 'a male' : 'an unspecified-gender'} student,
+                  sent exactly as shown and not editable. If nothing fits, escalate.
                 </p>
               </>
             ) : null
           )}
+
+          {chosen && <p className="lc-guidance mb-2">{chosen.guidance_en}</p>}
           </Section>
 
           {/* ── 2. is it a platform problem? ─────────────────────────── */}
@@ -772,13 +854,28 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
             ))}
           </div>
 
-          <textarea
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="Note (English, optional — required for an observation or no-action)"
-            rows={2}
-            className="cc-input mb-3"
-          />
+          {/* Collapsed by default. It is optional for a send, and on a phone an
+              always-open textarea pushed the Arabic he is about to send off
+              the screen. It opens itself for the two actions that require it. */}
+          {noteOpen || note ? (
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Note (English) — required for an observation or no-action"
+              rows={2}
+              className="cc-input mb-3"
+              autoFocus={noteOpen}
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setNoteOpen(true)}
+              className="cc-chip cc-chip--input mb-3"
+              style={{ background: 'var(--ds-surface-3)', color: 'var(--ds-text-secondary)', borderColor: 'var(--ds-border-subtle)' }}
+            >
+              + Add a note
+            </button>
+          )}
 
           {quietHours && templateCode && (
             <p className="flex items-center gap-1.5 text-sm mb-2" style={{ color: 'var(--ds-accent-warning)' }}>
@@ -928,8 +1025,19 @@ export default function CoachRadar() {
 
   return (
     <div>
+      {/* Phones get the strip, wider screens get the tiles. */}
+      <div className="lc-only-mobile" style={{ marginBottom: 'var(--space-7, 3rem)' }}>
+        <BandStrip
+          counts={counts}
+          total={all.length}
+          contactedToday={contactedToday}
+          active={bandFilter}
+          onPick={setBandFilter}
+        />
+      </div>
+
       {/* band counters — also the primary filter */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3" style={{ marginBottom: 'var(--space-7, 3rem)' }}>
+      <div className="lc-only-desktop grid grid-cols-2 lg:grid-cols-5 gap-3" style={{ marginBottom: 'var(--space-7, 3rem)' }}>
         {RISK_ORDER.map((band) => (
           <BandTile
             key={band}

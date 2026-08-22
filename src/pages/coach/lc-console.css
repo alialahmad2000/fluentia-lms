@@ -397,8 +397,10 @@
 }
 @media (max-width: 640px) {
   .lc-drawer__actions {
-    /* clears the fixed mobile bar so the buttons stay tappable */
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+    /* `body.modal-open` hides the fixed mobile bar while the drawer is up, so
+       this only needs to clear the home indicator — the old 5.5rem was a dead
+       band of nothing under the buttons on a phone. */
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -611,3 +613,85 @@
   background: color-mix(in srgb, var(--ds-accent-primary) 10%, transparent);
   border-color: color-mix(in srgb, var(--ds-accent-primary) 30%, transparent);
 }
+
+/* ── Phone / wider-screen swaps ────────────────────────────────────────────
+   This console is used almost entirely on a phone, so the mobile branch is
+   the real design rather than a fallback. */
+.lc-console .lc-only-mobile { display: none; }
+@media (max-width: 640px) {
+  .lc-console .lc-only-mobile { display: block; }
+  .lc-console .lc-only-desktop { display: none; }
+}
+
+.lc-console .lc-bandstrip__bar {
+  display: flex;
+  gap: 2px;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lc-console .lc-bandstrip__bar button {
+  min-width: 6px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 160ms ease;
+}
+
+/* ── Tables become cards on a phone ────────────────────────────────────────
+   A 480px-wide table inside a horizontal scroller is a desktop pattern that
+   survives on mobile rather than working there: the coach has to swipe a
+   region sideways inside a page that scrolls vertically. Below 640px each row
+   becomes a small card and every cell carries its own label. */
+@media (max-width: 640px) {
+  .lc-console .lc-cards,
+  .lc-console .lc-cards thead,
+  .lc-console .lc-cards tbody,
+  .lc-console .lc-cards tr,
+  .lc-console .lc-cards td {
+    display: block;
+    width: 100%;
+    /* !important: the table carries an inline min-width for the desktop
+       layout, and an inline style beats a stylesheet rule. */
+    min-width: 0 !important;
+  }
+  .lc-console .lc-cards thead { display: none; }
+  .lc-console .lc-cards tr {
+    border: 1px solid var(--cc-rule) !important;
+    border-radius: 14px;
+    padding: 0.75rem 0.875rem;
+    margin-bottom: 0.625rem;
+    background: var(--ds-surface-2);
+  }
+  .lc-console .lc-cards td {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.2rem 0 !important;
+    text-align: right;
+  }
+  .lc-console .lc-cards td::before {
+    content: attr(data-label);
+    flex: 0 0 auto;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ds-text-tertiary);
+  }
+  /* the scroll wrapper has nothing left to scroll */
+  .lc-console .lc-cards-wrap { overflow: visible !important; max-height: none !important; }
+}
+
+/* Keyboard hints on a device with no keyboard are just noise. The coach works
+   from a phone; the shortcuts stay for anyone on a laptop. */
+@media (max-width: 640px) {
+  .lc-console kbd { display: none; }
+  .lc-console .cc-chip--input { padding: 0.5rem 0.75rem; }
+  .lc-console .lc-drawer__actions { padding-top: 0.75rem; }
+}
+
+/* The floating accessibility and bug-report buttons sat on top of the install
+   gate's own text. `modal-open` already means "a full-screen surface is up". */
+body.modal-open .a11y-floating-button,
+body.modal-open [data-role='bug-report-button'] { display: none !important; }
