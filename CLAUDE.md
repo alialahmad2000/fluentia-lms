@@ -313,6 +313,12 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-22 (later 2) — READING: the passage card was the last jump target still on a hardcoded offset
+- Follow-up to the banner-offset fix, caught by re-reading the deployed bundle rather than trusting the patch: the rail, the bands and the contract were corrected, but the **passage card itself** (`id="sec-text"`, the «المقال» chip's target) still carried `scroll-mt-[132px]`. Jumping to the article therefore still landed a banner's height too high while impersonating.
+- Now on the same `calc(var(--impersonation-banner-height, 0px) + var(--header-height, 64px) + 68px)` as every other target. `scroll-mt-[132px]` no longer appears anywhere in `src/`.
+- **Also found, not fixed (dead code):** `src/components/curriculum/hero/HeroSection.jsx` sticks at `top: var(--app-header-height, 64px)` — and `--app-header-height` is **defined nowhere in the repo**, so it always resolves to the 64px fallback and has the same banner blindness. It is only referenced from *comments* in `VocabularyTab`, never mounted, so nobody sees it. Worth deleting or repointing to `--header-height` when that hero is next touched.
+- Files: `src/pages/student/curriculum/tabs/ReadingTab.jsx`. DB: none.
+
 ### 2026-08-22 (later) — READING: the sticky jump rail clears the impersonation banner too
 - Owner, viewing a student's account: the sticky bar at the top of the reading section was **clipped and sliding under the header**, and he asked whether this hits students or only staff impersonating.
 - **It is impersonation-only, and students were never affected.** `--impersonation-banner-height` is `0px` for a real student, so every offset below resolves to exactly what shipped before. Confirmed in `LayoutShell`, which sets that variable to `44px` only while impersonating.

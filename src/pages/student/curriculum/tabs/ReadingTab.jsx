@@ -737,11 +737,14 @@ function ReadingContent({ reading, studentId, unitId }) {
       <div
         hidden={sessionMode && passageFolded}
         id="sec-text"
-        className="relative scroll-mt-[132px] rounded-2xl overflow-hidden transition-colors duration-300"
+        className="relative rounded-2xl overflow-hidden transition-colors duration-300"
         // Was `bg-slate-900/50 border-slate-800/60` — a cold slate card on a warm
         // dark page with no depth. Tokenised, with a layered shadow and a faint
         // interior bloom so the column reads as a lit page in a dark room.
         style={{
+          // Same offset as every other jump target: the banner (0px for a real
+          // student) + the header + the sticky rail. Was a hardcoded 132px.
+          scrollMarginTop: 'calc(var(--impersonation-banner-height, 0px) + var(--header-height, 64px) + 68px)',
           background: 'var(--ds-bg-elevated, #0d111b)',
           border: '1px solid var(--ds-border-subtle, rgba(255,255,255,0.07))',
           boxShadow:
