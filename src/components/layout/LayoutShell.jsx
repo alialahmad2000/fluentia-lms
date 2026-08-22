@@ -21,6 +21,7 @@ import XPFloater from '../ui/XPFloater'
 // behavior-identical (both rendered null for students before).
 const FloatingToolbar = lazyRetry(() => import('../trainer/FloatingToolbar'))
 const TimerBadge = lazyRetry(() => import('../trainer/TimerBadge'))
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/stores/authStore'
 import { getNavForUser } from '@/config/navigation'
 import useClassMode from '@/stores/classModeStore'
@@ -34,6 +35,7 @@ import { useAdminBroadcastListener } from '@/hooks/useAdminBroadcastListener'
 import VocabGainTicker from '../curriculum/VocabGainTicker'
 
 export default function LayoutShell() {
+  const { t } = useTranslation()
   // Layer 7 (auto-recovery): every authed client listens for an admin
   // force-refresh broadcast (exam-guarded inside the hook).
   useAdminBroadcastListener()
@@ -160,7 +162,7 @@ export default function LayoutShell() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"
       >
-        انتقل إلى المحتوى الرئيسي
+        {t('a11y.skip_to_content')}
       </a>
 
       {/* Sidebar (desktop only) */}
