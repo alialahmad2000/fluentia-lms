@@ -160,6 +160,24 @@ function RadarRow({ row, onOpen, index, reduced }) {
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5">
+            {/* A student who wrote back and got no answer outranks everything
+                else on this screen — the radar sorts them to the top too. */}
+            {row.unanswered > 0 && (
+              <Pill tone="accent" title="They replied and nobody has answered yet">
+                <MessageSquare size={11} /> {row.unanswered} replied
+              </Pill>
+            )}
+
+            {/* What to actually talk about, instead of "how is it going". */}
+            {row.weakest_section && (
+              <Pill
+                tone={row.weakest_score < 60 ? 'danger' : 'neutral'}
+                title="Their weakest graded skill, averaged over every attempt"
+              >
+                {sectionLabel(row.weakest_section)} {row.weakest_score}
+              </Pill>
+            )}
+
             {/* The platform-problem signal. Loud on purpose: it is the one thing
                 the coach can find that nobody else in the company is looking for. */}
             {row.open_issues > 0 && (
@@ -502,6 +520,33 @@ function DetailDrawer({ row, onClose, onAdvance, position, total }) {
           <p className="text-xs mt-1.5" style={{ color: 'var(--ds-text-tertiary)' }}>
             <span style={{ color: riskColor(row.risk_band) }}>{riskLabel(row.risk_band)}</span> — {riskBlurb(row.risk_band)}
           </p>
+
+          {row.unanswered > 0 && (
+            <div className="cc-callout mt-4" style={{
+              background: 'color-mix(in srgb, var(--ds-accent-primary) 12%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 35%, transparent)',
+            }}>
+              <MessageSquare size={14} className="shrink-0 mt-0.5" style={{ color: 'var(--ds-accent-primary)' }} />
+              <p className="text-xs" style={{ color: 'var(--ds-text-secondary)' }}>
+                They replied {row.unanswered === 1 ? 'once' : `${row.unanswered} times`} and nobody has answered.{' '}
+                <Link to={`/coach/student/${row.student_id}`} className="underline" style={{ color: 'var(--ds-accent-primary)' }}>
+                  Read the conversation
+                </Link>{' '}— and if no approved message fits, escalate so someone who reads Arabic replies.
+              </p>
+            </div>
+          )}
+
+          {row.weakest_section && (
+            <p className="text-xs mt-2" style={{ color: 'var(--ds-text-tertiary)' }}>
+              Weakest skill:{' '}
+              <strong style={{ color: row.weakest_score < 60 ? 'var(--ds-accent-danger)' : 'var(--ds-text-secondary)' }}>
+                {sectionLabel(row.weakest_section)} {row.weakest_score}
+              </strong>{' '}
+              — <Link to={`/coach/student/${row.student_id}`} className="underline" style={{ color: 'var(--ds-text-tertiary)' }}>
+                see the full record
+              </Link>
+            </p>
+          )}
 
           {recentlyTouched && (
             <div className="cc-callout cc-callout--good mt-4">

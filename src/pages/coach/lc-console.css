@@ -580,3 +580,34 @@
   border: 1px solid color-mix(in srgb, var(--ds-accent-primary) 40%, transparent);
   background: color-mix(in srgb, var(--ds-accent-primary) 10%, transparent);
 }
+
+/* ── Conversation thread ───────────────────────────────────────────────────
+   The student's own words, in Arabic, exactly as they sent them. The bubbles
+   sit on opposite sides in an LTR page: theirs left, his right — the ordinary
+   chat convention, which survives the Arabic text inside because each bubble
+   isolates its own direction. */
+.lc-console .lc-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 26rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-inline-end: 0.25rem;
+}
+
+.lc-console .lc-msg {
+  max-width: 82%;
+  padding: 0.75rem 0.875rem;
+  border-radius: 14px;
+  border: 1px solid var(--cc-rule);
+}
+.lc-console .lc-msg--them {
+  align-self: flex-start;
+  background: var(--ds-surface-2);
+}
+.lc-console .lc-msg--us {
+  align-self: flex-end;
+  background: color-mix(in srgb, var(--ds-accent-primary) 10%, transparent);
+  border-color: color-mix(in srgb, var(--ds-accent-primary) 30%, transparent);
+}
