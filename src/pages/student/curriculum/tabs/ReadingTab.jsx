@@ -681,7 +681,11 @@ function ReadingContent({ reading, studentId, unitId }) {
       {/* Sticky section chrome: the progress hairline and the jump rail are
           ONE cluster. A student who wants the questions used to scroll past
           everything else every single time. */}
-      <div className="sticky z-rise -mx-4 px-4 pb-2" style={{ top: 'var(--header-height, 64px)' }}>
+      {/* Sticks below EVERYTHING above the content. --header-height is the
+          header's own height and knows nothing about what sits on top of it, so
+          offsetting by it alone put this rail underneath the header whenever the
+          impersonation banner was showing. 0px for a real student. */}
+      <div className="sticky z-rise -mx-4 px-4 pb-2" style={{ top: 'calc(var(--impersonation-banner-height, 0px) + var(--header-height, 64px))' }}>
         <div className="h-1 rounded-full overflow-hidden bg-slate-800/50">
           <motion.div
             className="h-full rounded-full"
@@ -717,7 +721,7 @@ function ReadingContent({ reading, studentId, unitId }) {
       )}
 
       {sessionMode && (
-        <div id="sec-contract" className="scroll-mt-[132px]">
+        <div id="sec-contract" style={{ scrollMarginTop: 'calc(var(--impersonation-banner-height, 0px) + var(--header-height, 64px) + 68px)' }}>
           <ReadingContract reading={reading} vocabCount={vocabulary?.length || 0} />
         </div>
       )}

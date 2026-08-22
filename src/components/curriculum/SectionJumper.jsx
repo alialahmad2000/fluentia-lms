@@ -37,10 +37,18 @@ export default function SectionJumper({ sections = [], className = '' }) {
   const railRef = useRef(null)
   const activeChipRef = useRef(null)
 
+  // Everything stacked above the content, measured rather than assumed.
+  // --header-height is the header's OWN height and knows nothing about what
+  // sits above it, so under staff impersonation (a 44px fixed banner that the
+  // header itself offsets against) every jump landed a banner's height too
+  // high. For a real student --impersonation-banner-height is 0px, so this is
+  // identical to what shipped before.
   const chrome = () => {
-    const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'), 10) || 64
+    const cs = getComputedStyle(document.documentElement)
+    const banner = parseInt(cs.getPropertyValue('--impersonation-banner-height'), 10) || 0
+    const headerH = parseInt(cs.getPropertyValue('--header-height'), 10) || 64
     const railH = navRef.current?.getBoundingClientRect().height ?? 52
-    return headerH + railH
+    return banner + headerH + railH
   }
 
   const ids = useMemo(() => sections.map((s) => s.id).join('|'), [sections])

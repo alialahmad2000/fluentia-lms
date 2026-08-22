@@ -43,9 +43,13 @@ const SectionBand = forwardRef(function SectionBand(
       id={id}
       ref={ref}
       dir="rtl"
-      // Clears the fixed header + the sticky jump rail so a jump never lands
-      // with the band's own heading hidden underneath them.
-      className={`scroll-mt-[132px] ${feature ? 'pt-2' : ''} ${className}`}
+      // Clears everything stacked above the content — the impersonation banner
+      // when staff are viewing as a student, the header, and the sticky jump
+      // rail — so a jump never lands with the band's own heading hidden
+      // underneath them. This was a hardcoded 132px, which was a banner's
+      // height wrong for anyone impersonating.
+      style={{ scrollMarginTop: 'calc(var(--impersonation-banner-height, 0px) + var(--header-height, 64px) + 68px)' }}
+      className={`${feature ? 'pt-2' : ''} ${className}`}
     >
       {seam && (
         <div

@@ -313,6 +313,14 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
+### 2026-08-22 (later) — READING: the sticky jump rail clears the impersonation banner too
+- Owner, viewing a student's account: the sticky bar at the top of the reading section was **clipped and sliding under the header**, and he asked whether this hits students or only staff impersonating.
+- **It is impersonation-only, and students were never affected.** `--impersonation-banner-height` is `0px` for a real student, so every offset below resolves to exactly what shipped before. Confirmed in `LayoutShell`, which sets that variable to `44px` only while impersonating.
+- **Root cause, and it was mine.** `--header-height` is the header element's **own height** (`SidebarMetricsObserver` reads `getBoundingClientRect().height`) and knows nothing about what sits above it. The header itself already handles this correctly — it sticks at `top: var(--impersonation-banner-height)` — and the chat shell composes `sat + banner + header`. The jump rail I shipped offset by `var(--header-height)` **alone**, so with the 44px banner showing it stuck 44px too high, i.e. underneath the header. A repo-wide sweep found exactly **two** consumers of `var(--header-height` for a sticky offset: the chat shell (already correct) and this one.
+- Three offsets corrected, all in code from this week: the reading tab's sticky container, `SectionBand`'s scroll anchor (a hardcoded `scroll-mt-[132px]`, also a banner's height wrong), and `SectionJumper`'s measured `chrome()`, which drives where every jump lands.
+- Verified by computing the resolved values in a browser with the banner variable at both `0px` and `44px`: sticky top **64 → 108**, scroll margin **132 → 176**, and the rail's measured jump chrome **~120 → ~164**. Student path byte-identical.
+- Files: `src/pages/student/curriculum/tabs/ReadingTab.jsx`, `src/components/curriculum/SectionJumper.jsx`, `src/components/curriculum/SectionBand.jsx`. DB: none.
+
 ### 2026-08-22 — READING: the «session» shape, opt-in on ONE reading, judged inside a real account
 - The owner asked to see the rebuilt reading flow **inside ملاك's account, unit 1** rather than in a prototype file — and to **keep the old state in the database** so it can be restored if the old one turns out better.
 - **Why the reading section needed this at all (production numbers, not opinion).** Across 325 completed readings by 33 students: **71% score a perfect 100** (231/325), **28% finish the whole section in under two minutes** (92/325), median time **236s**, and only 7.7% fall below 60. The check is decorative — its distractors are implausible (*"What comes to transport the boxes?" → A truck / A plane / A boat / A bicycle*), so most questions are answerable from the title without reading a word.
