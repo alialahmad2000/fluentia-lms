@@ -28,17 +28,58 @@ const TABS = [
 const STATUS_LABELS = { active: 'نشط', paused: 'متوقف', graduated: 'متخرج', withdrawn: 'منسحب' }
 const STATUS_COLORS = { active: '#4ade80', paused: '#fbbf24', graduated: '#7dd3fc', withdrawn: '#f87171' }
 
+/* ── Riyadh calendar days, not 24h blocks ──────────────────────────────────
+   `Math.floor(elapsed / 86_400_000)` answered "how many 24h blocks", so a
+   session at 23:00 last night read as «اليوم» until 23:00 tonight. Ali reads
+   this column as calendar days, so we compare Riyadh dates. */
+const RIYADH = 'Asia/Riyadh'
+const riyadhISO = (d) =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: RIYADH, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d)
+
+function riyadhDayDiff(ts) {
+  if (!ts) return null
+  const then = Date.parse(`${riyadhISO(new Date(ts))}T00:00:00Z`)
+  const today = Date.parse(`${riyadhISO(new Date())}T00:00:00Z`)
+  return Math.round((today - then) / 86_400_000)
+}
+
+/* exact stamp for the cell's title= — so a disputed row can always be checked */
+function exactStamp(ts) {
+  if (!ts) return 'لا يوجد سجل'
+  return new Date(ts).toLocaleString('ar', {
+    timeZone: RIYADH, year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit',
+  })
+}
+
 /* relative "last seen" — western digits, matching the dashboard convention;
    Arabic plurals: يومين (dual), 3-10 أيام, 11+ يومًا */
 function lastSeen(ts) {
-  if (!ts) return { text: '—', tone: 'muted' }
-  const days = Math.floor((Date.now() - new Date(ts).getTime()) / 86_400_000)
-  if (days <= 0) return { text: 'اليوم', tone: 'good' }
-  if (days === 1) return { text: 'أمس', tone: 'ok' }
-  if (days === 2) return { text: 'منذ يومين', tone: 'ok' }
-  if (days <= 10) return { text: `منذ ${days} أيام`, tone: days > 7 ? 'cold' : 'ok' }
-  return { text: `منذ ${days} يومًا`, tone: 'cold' }
+  const days = riyadhDayDiff(ts)
+  if (days == null) return { text: '—', tone: 'muted', days: null }
+  if (days <= 0) return { text: 'اليوم', tone: 'good', days }
+  if (days === 1) return { text: 'أمس', tone: 'ok', days }
+  if (days === 2) return { text: 'منذ يومين', tone: 'ok', days }
+  if (days <= 10) return { text: `منذ ${days} أيام`, tone: days > 7 ? 'cold' : 'ok', days }
+  return { text: `منذ ${days} يومًا`, tone: 'cold', days }
 }
+
+/* the shorter "did she actually study" line under the presence line */
+function studiedLabel(ts) {
+  const days = riyadhDayDiff(ts)
+  if (days == null) return 'لم تبدأ بعد'
+  if (days <= 0) return 'درست اليوم'
+  if (days === 1) return 'درست أمس'
+  if (days === 2) return 'درست قبل يومين'
+  if (days <= 10) return `درست قبل ${days} أيام`
+  return `درست قبل ${days} يومًا`
+}
+
+/* PACKAGES (lib/constants) only knows asas/talaqa/tamayuz/ielts — the DB enum
+   also has `private` and `recordings`, so those two rendered as raw English on
+   an Arabic page with no price. Labelled here rather than in PACKAGES itself:
+   student-facing code does `PACKAGES[pkg] || PACKAGES.asas`, so adding keys
+   there would silently change those students' chatbot/writing limits. */
+const PACKAGE_LABELS_AR = { private: 'اشتراك فردي', recordings: 'التسجيلات' }
 // cold = churn-risk → rose, NOT amber (amber reads as the gold accent and
 // breaks the one-gold-datum-per-row contract)
 const SEEN_TONES = { good: '#4ade80', ok: 'var(--ds-text-secondary, #cbd5e1)', cold: 'rgba(248,113,113,0.85)', muted: 'var(--ds-text-tertiary, #64748b)' }
@@ -57,7 +98,9 @@ export default function AdminStudents() {
         // exclude test accounts so the tab count matches the roster's default view
         supabase.from('students').select('id, profiles!inner(is_test_account)', { count: 'exact', head: true }).is('deleted_at', null).eq('status', 'active').eq('profiles.is_test_account', false),
         supabase.from('groups').select('id', { count: 'exact', head: true }).eq('is_active', true),
-        supabase.from('profiles').select('id', { count: 'exact', head: true }).in('role', ['trainer', 'admin']),
+        // «المدربون» counts real trainers only — it used to include the admin
+        // (and the seeded test trainer), so the chip read 5 for 3 actual coaches.
+        supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'trainer').eq('is_test_account', false),
       ])
       return { students: st.count || 0, groups: gr.count || 0, trainers: tr.count || 0 }
     },
@@ -154,6 +197,23 @@ function StudentsContent() {
     },
   })
 
+  /* Truthful presence — students.last_active_at was derived from
+     get_student_streak(), which returned the START of the current streak run
+     and only ever saw `unit_tab_completed` rows. A student mid-unit left no
+     trace, so the roster showed «منذ ٢١ يومًا» for someone studying that
+     morning. admin_roster_activity() reads every surface (sessions, analytics,
+     XP, completions, sign-in) and separates "was here" from "did the work". */
+  const { data: activity } = useQuery({
+    queryKey: ['admin-roster-activity'],
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('admin_roster_activity')
+      if (error) throw error
+      return Object.fromEntries((data || []).map(r => [r.student_id, r]))
+    },
+    staleTime: 60_000,
+    refetchOnWindowFocus: true,
+  })
+
   const base = (students || []).filter(s => !hideTest || !s.profiles?.is_test_account)
   const statusCounts = base.reduce((acc, s) => { acc[s.status] = (acc[s.status] || 0) + 1; return acc }, {})
   const filtered = base.filter(s => {
@@ -221,7 +281,9 @@ function StudentsContent() {
       { key: (s) => STATUS_LABELS[s.status] || s.status, label: 'الحالة' },
       { key: 'xp_total', label: 'XP' },
       { key: 'current_streak', label: 'السلسلة' },
-      { key: (s) => s.last_active_at ? new Date(s.last_active_at).toISOString().slice(0, 10) : '', label: 'آخر دخول' },
+      { key: (s) => { const t = activity?.[s.id]?.last_seen_at; return t ? riyadhISO(new Date(t)) : '' }, label: 'آخر ظهور' },
+      { key: (s) => { const t = activity?.[s.id]?.last_studied_at; return t ? riyadhISO(new Date(t)) : '' }, label: 'آخر دراسة' },
+      { key: (s) => activity?.[s.id]?.active_days_30d ?? '', label: 'أيام نشطة (٣٠ يوم)' },
     ]
     exportToCSV(filtered, 'students', columns)
   }
@@ -306,14 +368,19 @@ function StudentsContent() {
                   <th>المستوى</th>
                   <th>الباقة</th>
                   <th>XP</th>
-                  <th>آخر دخول</th>
+                  <th>آخر ظهور</th>
                   {!filterStatus && <th>الحالة</th>}
                   <th>إجراءات</th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map(s => {
-                  const seen = lastSeen(s.last_active_at)
+                  const act = activity?.[s.id]
+                  const seen = lastSeen(act?.last_seen_at || s.last_active_at)
+                  const studiedAt = act?.last_studied_at
+                  const studyDays = riyadhDayDiff(studiedAt)
+                  // only worth a second line when "here" and "worked" diverge
+                  const showStudied = act && studyDays !== seen.days
                   const price = s.custom_price || PACKAGES[s.package]?.price
                   return (
                     <tr key={s.id}>
@@ -351,7 +418,7 @@ function StudentsContent() {
                       </td>
                       <td>
                         <div className="text-[12.5px] font-semibold" style={{ color: 'var(--ds-text-secondary)' }}>
-                          {PACKAGES[s.package]?.name_ar || s.package}
+                          {PACKAGES[s.package]?.name_ar || PACKAGE_LABELS_AR[s.package] || s.package}
                         </div>
                         {price && (
                           <div className="text-xs font-semibold tabular-nums" style={{ color: 'var(--ds-text-tertiary)' }}>
@@ -368,8 +435,13 @@ function StudentsContent() {
                           <div className="text-xs" style={{ color: 'var(--ds-text-tertiary)' }}>🔥 {s.current_streak} يوم</div>
                         )}
                       </td>
-                      <td>
+                      <td title={`آخر ظهور: ${exactStamp(act?.last_seen_at || s.last_active_at)}\nآخر دراسة: ${exactStamp(studiedAt)}`}>
                         <span className="text-xs font-semibold" style={{ color: SEEN_TONES[seen.tone] }}>{seen.text}</span>
+                        {showStudied && (
+                          <div className="text-[11px]" style={{ color: 'var(--ds-text-tertiary)' }}>
+                            {studiedLabel(studiedAt)}
+                          </div>
+                        )}
                       </td>
                       {!filterStatus && (
                         <td>
@@ -424,7 +496,8 @@ function StudentsContent() {
             <EmptyState icon={Users} title="لا يوجد طلاب" description="لم يتم العثور على طلاب مطابقين لمعايير البحث" />
           )}
           {filtered.map(s => {
-            const seen = lastSeen(s.last_active_at)
+            const act = activity?.[s.id]
+            const seen = lastSeen(act?.last_seen_at || s.last_active_at)
             return (
               <div key={s.id} className="adp-mcard">
                 <div className="adp-who">
@@ -450,7 +523,7 @@ function StudentsContent() {
                   ) : null}
                   <span className="adp-code">{ACADEMIC_LEVELS[s.academic_level]?.cefr || s.academic_level}</span>
                   <span className="adp-code" style={{ color: 'var(--adx-gold, #fbbf24)' }}>{(s.xp_total || 0).toLocaleString('en-US')} XP</span>
-                  <span className="adp-code" style={{ color: SEEN_TONES[seen.tone] }}>{seen.text}</span>
+                  <span className="adp-code" style={{ color: SEEN_TONES[seen.tone] }} title={`آخر ظهور: ${exactStamp(act?.last_seen_at || s.last_active_at)}`}>{seen.text}</span>
                 </div>
                 <div className="adp-mcard__actions">
                   <ImpersonateButton userId={s.id} role="student" name={getStudentName(s)} />

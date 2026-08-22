@@ -44,6 +44,15 @@ export const useAuthStore = create((set, get) => ({
       )
       const session = sessionResult?.data?.session
       if (session?.user) {
+        // Presence tracking must start on EVERY boot, not only on a fresh
+        // password login. `tracker.init` was wired to the SIGNED_IN event
+        // alone, but a returning user resumes from a stored session
+        // (INITIAL_SESSION / TOKEN_REFRESHED) and never fired it — so
+        // profiles.last_active_at froze at the last time they typed their
+        // password. One student read as «آخر دخول: ٢١ يومًا» while studying
+        // daily. init() is idempotent, and session.user.id is always the real
+        // signed-in user (never the impersonated student).
+        tracker.init(session.user.id)
         try {
           await withTimeout(get().fetchProfile(session.user), 8000, 'fetchProfile')
         } catch (err) {

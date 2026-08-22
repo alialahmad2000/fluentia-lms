@@ -154,6 +154,7 @@ export default function AdminTrainers({ embedded = false }) {
               <p className="text-[14.5px] font-bold font-['Tajawal']" style={{ color: 'var(--ds-text-primary)' }}>{t.full_name || t.display_name}</p>
               {t.role === 'admin' && <span className="adp-code gold">مدير</span>}
               {t.is_test_account && <span className="adp-code">تجريبي</span>}
+              {t.is_test_account && <span className="adp-code">تجريبي</span>}
               {t.isHidden && <span className="adp-code">معطّل</span>}
             </div>
             <p className="text-xs mt-0.5" style={{ color: 'var(--ds-text-tertiary)' }} dir="ltr">{t.email}</p>

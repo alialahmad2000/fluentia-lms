@@ -95,7 +95,10 @@ class ActivityTracker {
     if (this.heartbeatInterval) clearInterval(this.heartbeatInterval)
 
     this.heartbeatInterval = setInterval(() => {
-      if (!this.sessionDbId || !this.userId) return
+      // NOT gated on sessionDbId: if the user_sessions INSERT failed (RLS,
+      // offline, a dropped request) the presence stamp used to be lost too,
+      // freezing profiles.last_active_at for that student indefinitely.
+      if (!this.userId) return
       if (document.hidden) return
 
       // Only heartbeat if user was active in last 5 minutes
@@ -108,14 +111,16 @@ class ActivityTracker {
       const now = new Date().toISOString()
       try {
         // Update the session record for analytics...
-        supabase.from('user_sessions')
-          .update({
-            last_seen_at: now,
-            pages_visited: this.pagesVisited,
-            is_active: true,
-          })
-          .eq('id', this.sessionDbId)
-          .then(() => {}).catch(() => {})
+        if (this.sessionDbId) {
+          supabase.from('user_sessions')
+            .update({
+              last_seen_at: now,
+              pages_visited: this.pagesVisited,
+              is_active: true,
+            })
+            .eq('id', this.sessionDbId)
+            .then(() => {}).catch(() => {})
+        }
 
         // ...AND update profiles.last_active_at so the trainer dashboard
         // "last active" / "status" widget reflects real activity. This was
@@ -136,7 +141,11 @@ class ActivityTracker {
 
   // End session
   async _endSession() {
-    if (!this.sessionDbId) return
+    if (!this.sessionDbId) {
+      clearInterval(this.heartbeatInterval)
+      this.heartbeatInterval = null
+      return
+    }
 
     const { error } = await supabase.from('user_sessions')
       .update({
